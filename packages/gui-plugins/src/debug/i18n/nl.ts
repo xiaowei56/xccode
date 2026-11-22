@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Geheugendiagnose: log het app-geheugen elke 30 seconden naar de desktoplogboeken. Blijft aan na herstarten tot je het uitzet; de balk blijft open zolang het draait.",
-  "memory.tipEnv": "Geheugendiagnose staat aan voor deze start: OPENCODE_DESKTOP_MEMORY_LOG is ingesteld.",
+  "memory.tipEnv": "Geheugendiagnose staat aan voor deze start: XCCODE_DESKTOP_MEMORY_LOG is ingesteld.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

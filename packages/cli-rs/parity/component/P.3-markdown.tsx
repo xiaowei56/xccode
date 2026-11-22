@@ -1,12 +1,12 @@
 /** @jsxImportSource @opentui/solid */
-// P-COMP for P.3: `TextPart`'s <markdown> (routes/session/message-parts.tsx) with the `opencode.merman` plugin's
+// P-COMP for P.3: `TextPart`'s <markdown> (routes/session/message-parts.tsx) with the `xccode.merman` plugin's
 // code-block renderer, as the TUI registers it, over a message with a flowchart and a sequence diagram fence.
-// crates/mermaid/tests/all/markdown.rs compares opencode_ui::markdown with the Mermaid plugin's renderer against it.
+// crates/mermaid/tests/all/markdown.rs compares xccode_ui::markdown with the Mermaid plugin's renderer against it.
 import { createMarkdownCodeBlockRenderer } from "@opentui/core"
 import { useRenderer } from "@opentui/solid"
 import { useTheme, useThemes } from "../../../tui/src/context/theme"
 import { createMermaidCodeBlockRenderer } from "../../../merman/src/markdown"
-import { resolveOpenCodeDiagramPalette } from "../../../merman/src/palette"
+import { resolveXccodeDiagramPalette } from "../../../merman/src/palette"
 import { renderComponent } from "../lib/component"
 
 const corpus: Record<string, string> = await Bun.file(new URL("../fixtures/P.3/message.json", import.meta.url)).json()
@@ -17,7 +17,7 @@ function TextPart(props: { text: string }) {
   const renderer = useRenderer()
   const renderBlock = createMarkdownCodeBlockRenderer({
     mermaid: createMermaidCodeBlockRenderer(renderer, () => ({
-      colors: resolveOpenCodeDiagramPalette(theme as Parameters<typeof resolveOpenCodeDiagramPalette>[0], "dark"),
+      colors: resolveXccodeDiagramPalette(theme as Parameters<typeof resolveXccodeDiagramPalette>[0], "dark"),
     })),
   })
   return (

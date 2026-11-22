@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { SessionMessageAssistantTool, SessionMessageInfo } from "@opencode/client/promise"
+import type { SessionMessageAssistantTool, SessionMessageInfo } from "@xccode/client/promise"
 import { timelinePresets, type TimelineDetail } from "../timeline/detail"
 import { toolEvent } from "./events"
 import { placeContent, placeNotice } from "../timeline/place"

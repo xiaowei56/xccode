@@ -1,12 +1,12 @@
 import { createEffect, createMemo, createSignal, Match, on, onCleanup, Show, Switch, untrack } from "solid-js"
 import { Portal } from "solid-js/web"
 import { useLocation } from "@solidjs/router"
-import { uuid } from "@opencode/util/uuid"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Icon } from "@opencode/ui/icon"
-import { Keybind } from "@opencode/ui/keybind"
-import { Tooltip } from "@opencode/ui/tooltip"
+import { uuid } from "@xccode/util/uuid"
+import { useDialog } from "@xccode/ui/context/dialog"
+import { IconButton } from "@xccode/ui/icon-button"
+import { Icon } from "@xccode/ui/icon"
+import { Keybind } from "@xccode/ui/keybind"
+import { Tooltip } from "@xccode/ui/tooltip"
 
 import { useLayout } from "@/shell/state/layout"
 import { usePlatform } from "@/runtime/platform/platform"
@@ -37,7 +37,7 @@ import { MobileDrawer, MobileDrawerContent, MobileDrawerLabel, MobileDrawerTrigg
 import { sessionTabTitle } from "./tab-title"
 import { SessionTabAvatarView } from "@/shell/layout/session-tab-avatar"
 import { useSessionTabAvatarState } from "@/shell/layout/project-avatar-state"
-import { ActivityRing } from "@opencode/ui/activity-ring"
+import { ActivityRing } from "@xccode/ui/activity-ring"
 import { RecentlyClosedTabsMenu } from "./recently-closed-tabs-menu"
 import { useSettingsCommand, useSettingsDialog } from "@/settings/command"
 import { TitlebarItems, useTitlebarItems } from "@/runtime/plugin/titlebar-items"
@@ -894,7 +894,7 @@ export function Titlebar(props: { verticalTabs?: { mount?: HTMLElement } }) {
                                       class="flex h-7 shrink-0 items-center gap-2 rounded-[6px] px-2 text-[13px] leading-4 text-v2-text-text-faint hover:bg-v2-background-bg-layer-02 focus-visible:-outline-offset-2"
                                       onClick={() => {
                                         closeMobileTabs()
-                                        platform.openExternal("https://opencode.ai/desktop-feedback")
+                                        platform.openExternal("https://xccode.ai/desktop-feedback")
                                       }}
                                     >
                                       <Icon name="help" />

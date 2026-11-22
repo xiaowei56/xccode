@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Izbriši worktree",
   "mcp.manage": "Upravljaj MCP serverima",
   timedOut: "Server je predugo odgovarao",
-  "setup.mcp": "Dodaj server uz OpenCode",
+  "setup.mcp": "Dodaj server uz Xccode",
   "setup.mcp.prompt":
-    "Pomozi mi da dodam MCP server u svoju globalnu OpenCode konfiguraciju. Pitaj me koji servis želim povezati, zatim ga podesi i provjeri da li se povezuje.",
-  "setup.plugins": "Dodaj dodatak uz OpenCode",
+    "Pomozi mi da dodam MCP server u svoju globalnu Xccode konfiguraciju. Pitaj me koji servis želim povezati, zatim ga podesi i provjeri da li se povezuje.",
+  "setup.plugins": "Dodaj dodatak uz Xccode",
   "setup.plugins.prompt":
-    "Pomozi mi da dodam dodatak u svoju globalnu OpenCode konfiguraciju. Pitaj me šta želim da radi, predloži dodatak, zatim ga dodaj.",
-  "setup.skills": "Nova vještina uz OpenCode",
+    "Pomozi mi da dodam dodatak u svoju globalnu Xccode konfiguraciju. Pitaj me šta želim da radi, predloži dodatak, zatim ga dodaj.",
+  "setup.skills": "Nova vještina uz Xccode",
   "setup.skills.prompt":
-    "Pomozi mi da napišem novu OpenCode vještinu u svojoj globalnoj konfiguraciji. Pitaj me šta bi te trebala naučiti, zatim napiši njen SKILL.md.",
+    "Pomozi mi da napišem novu Xccode vještinu u svojoj globalnoj konfiguraciji. Pitaj me šta bi te trebala naučiti, zatim napiši njen SKILL.md.",
   changesFailed: "Učitavanje promjena nije uspjelo",
   changesOffline: "Nije moguće pristupiti ovom serveru",
   "mcp.signIn": "Prijavi se",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Detalji za {{name}}",
   "mcp.signIn.open": "Prijavi se na {{name}}",
   "mcp.signIn.description":
-    "Otvorit će se preglednik kako biste se prijavili na {{name}}. Ako ne može pristupiti računaru na kojem radi OpenCode, zalijepite ispod URL na koji je preusmjeren.",
+    "Otvorit će se preglednik kako biste se prijavili na {{name}}. Ako ne može pristupiti računaru na kojem radi Xccode, zalijepite ispod URL na koji je preusmjeren.",
   "mcp.signIn.waiting": "Čekanje na autorizaciju…",
   "mcp.signIn.failed": "Autorizacija nije uspjela: {{error}}",
   "mcp.signIn.expired": "Autorizacija je istekla",

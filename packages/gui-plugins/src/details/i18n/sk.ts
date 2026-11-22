@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Odstrániť pracovný strom",
   "mcp.manage": "Spravovať MCP servery",
   timedOut: "Server neodpovedal včas",
-  "setup.mcp": "Pridať server pomocou OpenCode",
+  "setup.mcp": "Pridať server pomocou Xccode",
   "setup.mcp.prompt":
-    "Pomôž mi pridať MCP server do mojej globálnej konfigurácie OpenCode. Opýtaj sa ma, ktorú službu chcem pripojiť, potom ju nastav a over, že sa pripojí.",
-  "setup.plugins": "Pridať plugin pomocou OpenCode",
+    "Pomôž mi pridať MCP server do mojej globálnej konfigurácie Xccode. Opýtaj sa ma, ktorú službu chcem pripojiť, potom ju nastav a over, že sa pripojí.",
+  "setup.plugins": "Pridať plugin pomocou Xccode",
   "setup.plugins.prompt":
-    "Pomôž mi pridať plugin do mojej globálnej konfigurácie OpenCode. Opýtaj sa ma, čo má robiť, navrhni plugin a potom ho pridaj.",
-  "setup.skills": "Nová zručnosť pomocou OpenCode",
+    "Pomôž mi pridať plugin do mojej globálnej konfigurácie Xccode. Opýtaj sa ma, čo má robiť, navrhni plugin a potom ho pridaj.",
+  "setup.skills": "Nová zručnosť pomocou Xccode",
   "setup.skills.prompt":
-    "Pomôž mi napísať novú zručnosť OpenCode v mojej globálnej konfigurácii. Opýtaj sa ma, čo ťa má naučiť, a potom napíš jej SKILL.md.",
+    "Pomôž mi napísať novú zručnosť Xccode v mojej globálnej konfigurácii. Opýtaj sa ma, čo ťa má naučiť, a potom napíš jej SKILL.md.",
   changesFailed: "Zmeny sa nepodarilo načítať",
   changesOffline: "Server nie je dostupný",
   "mcp.signIn": "Prihlásiť sa",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Podrobnosti pre {{name}}",
   "mcp.signIn.open": "Prihlásiť sa do {{name}}",
   "mcp.signIn.description":
-    "Otvorí sa prehliadač, aby ste sa mohli prihlásiť do {{name}}. Ak sa nedostane k počítaču, na ktorom beží OpenCode, vložte nižšie URL, na ktorú bol presmerovaný.",
+    "Otvorí sa prehliadač, aby ste sa mohli prihlásiť do {{name}}. Ak sa nedostane k počítaču, na ktorom beží Xccode, vložte nižšie URL, na ktorú bol presmerovaný.",
   "mcp.signIn.waiting": "Čaká sa na autorizáciu…",
   "mcp.signIn.failed": "Autorizácia zlyhala: {{error}}",
   "mcp.signIn.expired": "Platnosť autorizácie vypršala",

@@ -4,13 +4,13 @@ export default {
   "action.checking": "Έλεγχος…",
   "action.downloading": "Λήψη…",
   "action.installRestart": "Εγκατάσταση και επανεκκίνηση",
-  "action.download": "Λήψη του OpenCode",
+  "action.download": "Λήψη του Xccode",
   "action.installing": "Εγκατάσταση…",
   "toast.latest.title": "Είστε ενημερωμένοι",
-  "toast.latest.description": "Εκτελείτε την πιο πρόσφατη έκδοση του OpenCode.",
+  "toast.latest.description": "Εκτελείτε την πιο πρόσφατη έκδοση του Xccode.",
   "migration.title": "Μετάβαση από Beta σε Σταθερή",
   "migration.description":
-    "Προς το παρόν, το OpenCode Beta μεταφέρεται στο OpenCode Stable. Κάντε λήψη της έκδοσης {{version}} και, στη συνέχεια, εγκαταστήστε το OpenCode από το είδωλο δίσκου για να συνεχίσετε να λαμβάνετε ενημερώσεις.",
+    "Προς το παρόν, το Xccode Beta μεταφέρεται στο Xccode Stable. Κάντε λήψη της έκδοσης {{version}} και, στη συνέχεια, εγκαταστήστε το Xccode από το είδωλο δίσκου για να συνεχίσετε να λαμβάνετε ενημερώσεις.",
   "section.title": "Ενημέρωση",
   "releaseNotes.title": "Σημειώσεις έκδοσης",
   "releaseNotes.description": "Εμφάνιση αναδυόμενων παραθύρων για τα νέα μετά από ενημερώσεις",
@@ -33,7 +33,7 @@ export default {
   "action.reloading": "Επαναφόρτωση…",
   "web.ready.title": "Η ενημέρωση είναι έτοιμη",
   "web.ready.message":
-    "Μια νέα έκδοση του OpenCode είναι έτοιμη. Επαναφορτώστε για να τη χρησιμοποιήσετε σε κάθε ανοιχτό παράθυρο.",
+    "Μια νέα έκδοση του Xccode είναι έτοιμη. Επαναφορτώστε για να τη χρησιμοποιήσετε σε κάθε ανοιχτό παράθυρο.",
   "web.reload": "Επαναφόρτωση",
   "web.reset.title": "Επαναφόρτωση από τον διακομιστή",
   "web.reset.description":

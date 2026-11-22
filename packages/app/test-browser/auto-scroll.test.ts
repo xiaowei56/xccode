@@ -1,5 +1,5 @@
 import { afterEach, expect, test } from "bun:test"
-import { createAutoScroll } from "@opencode/ui/hooks"
+import { createAutoScroll } from "@xccode/ui/hooks"
 import { createRoot } from "solid-js"
 
 const cleanups: (() => void)[] = []

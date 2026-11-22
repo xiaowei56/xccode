@@ -8,10 +8,10 @@ use std::time::{Duration, Instant};
 use bytes::Bytes;
 use futures_util::FutureExt;
 use futures_util::future::BoxFuture;
-use opencode_api::client::Client;
-use opencode_api::generated::V2Event;
-use opencode_api::transport::{Request, Response, Transport};
-use opencode_store::{Data, Options};
+use xccode_api::client::Client;
+use xccode_api::generated::V2Event;
+use xccode_api::transport::{Request, Response, Transport};
+use xccode_store::{Data, Options};
 use serde_json::Value;
 use tokio::sync::watch;
 
@@ -63,7 +63,7 @@ struct Fake {
 }
 
 impl Transport for Fake {
-    fn send(&self, request: Request) -> opencode_api::transport::BoxFuture<'_, Result<Response, String>> {
+    fn send(&self, request: Request) -> xccode_api::transport::BoxFuture<'_, Result<Response, String>> {
         let req = Req {
             method: request.method.to_owned(),
             path: request.url.path().to_owned(),
@@ -95,7 +95,7 @@ where
 }
 
 pub fn client(handler: Handler) -> Client {
-    Client::with_transport("http://opencode.local", Arc::new(Fake { handler })).unwrap()
+    Client::with_transport("http://xccode.local", Arc::new(Fake { handler })).unwrap()
 }
 
 pub fn data(handler: Handler, options: Options) -> Data {

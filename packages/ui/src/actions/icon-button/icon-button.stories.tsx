@@ -1,6 +1,6 @@
 import { createEffect, For } from "solid-js"
-import { Icon } from "@opencode/ui/icon"
-import { iconNames } from "@opencode/ui/icons/catalog"
+import { Icon } from "@xccode/ui/icon"
+import { iconNames } from "@xccode/ui/icons/catalog"
 import { IconButton, type IconButtonProps } from "./icon-button"
 
 type Args = Pick<IconButtonProps, "variant" | "size" | "disabled"> & {

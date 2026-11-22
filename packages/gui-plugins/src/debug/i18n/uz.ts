@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Xotira diagnostikasi: har 30 soniyada ilova xotirasini desktop jurnallariga yozadi. O‘chirilmaguncha qayta ishga tushirishlarda ham yoqilgan qoladi; u ishlayotganda panel ochiq turadi.",
-  "memory.tipEnv": "Xotira diagnostikasi bu ishga tushirish uchun yoqilgan: OPENCODE_DESKTOP_MEMORY_LOG o‘rnatilgan.",
+  "memory.tipEnv": "Xotira diagnostikasi bu ishga tushirish uchun yoqilgan: XCCODE_DESKTOP_MEMORY_LOG o‘rnatilgan.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Sozlagichlar",

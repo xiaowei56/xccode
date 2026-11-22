@@ -1,7 +1,7 @@
 //! Rename a session or generate its title.
 
-use opencode_api::generated::SessionUpdateInput;
-use opencode_ui::prompt::{PromptProps, prompt};
+use xccode_api::generated::SessionUpdateInput;
+use xccode_ui::prompt::{PromptProps, prompt};
 
 use crate::prelude::*;
 

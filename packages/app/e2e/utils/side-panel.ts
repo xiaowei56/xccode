@@ -1,5 +1,5 @@
 import type { Locator, Page } from "@playwright/test"
-import { base64Encode } from "@opencode/util/encode"
+import { base64Encode } from "@xccode/util/encode"
 
 /** Opens the side panel's "Open file" launcher tab from the new tab view the strip's + opens. */
 export async function openFileLauncher(panel: Locator) {
@@ -20,7 +20,7 @@ export async function openReviewLauncher(panel: Locator) {
 /** The session keys whose side strips the stored layout holds, in stored order, once the app has saved them. */
 export function storedStrips(page: Page) {
   return page.evaluate((): string[] => {
-    const layout: { sessionTabs?: Record<string, { all: string[] }> } = JSON.parse(localStorage.getItem("opencode.global.dat:layout") ?? "{}")
+    const layout: { sessionTabs?: Record<string, { all: string[] }> } = JSON.parse(localStorage.getItem("xccode.global.dat:layout") ?? "{}")
 
     return Object.keys(layout.sessionTabs ?? {})
   })
@@ -29,7 +29,7 @@ export function storedStrips(page: Page) {
 /** Storage that restores the Review tab, selected, in each session's side strip, as the app writes it. */
 export function reviewTabs(directory: string, ...sessions: string[]) {
   return {
-    "opencode.global.dat:layout": {
+    "xccode.global.dat:layout": {
       sessionTabs: Object.fromEntries(
         sessions.map((id) => [
           `local\u0000${base64Encode(directory)}/${id}`,

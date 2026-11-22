@@ -5,7 +5,7 @@
 // is active, and Ctrl+D cancels its job.
 import { assistant, defineApp, session, user } from "../../lib/app"
 
-const here = { directory: "/tmp/opencode/packages/tui" }
+const here = { directory: "/tmp/xccode/packages/tui" }
 
 const sessions = [
   session("ses_p", "Plan the release", { updated: 10 }),

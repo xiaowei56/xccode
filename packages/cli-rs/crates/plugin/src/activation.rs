@@ -15,7 +15,7 @@ use opentui::prelude::*;
 use crate::mailbox::Mailbox;
 use crate::node::Mount;
 use crate::{Host, abi, defer};
-use opencode_plugin_abi::mail::Message;
+use xccode_plugin_abi::mail::Message;
 
 /// A mounted claim or route that a wake or an invalidation renders again.
 pub(crate) trait Drawn {

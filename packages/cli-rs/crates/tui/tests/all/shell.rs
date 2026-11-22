@@ -2,14 +2,14 @@ use crate::support;
 
 use std::sync::Arc;
 
-use opencode_tui::{Deps, Route};
+use xccode_tui::{Deps, Route};
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 
 #[test]
 fn a_theme_change_keeps_a_pending_leader_and_the_focus() {
     let app = TestApp::new(80, 30);
-    let tui = opencode_tui::mount(&app, support::deps(Arc::new(support::empty())));
+    let tui = xccode_tui::mount(&app, support::deps(Arc::new(support::empty())));
     support::wait_for(&app, "█▀▀█");
 
     // The terminal reports a light background between the leader and its second key.
@@ -34,10 +34,10 @@ fn a_theme_change_keeps_a_pending_leader_and_the_focus() {
 fn the_system_theme_follows_the_terminal_palette_after_a_color_scheme_change() {
     use opentui::input::OscColor;
     let app = TestApp::with_options(80, 30, AppOptions { palette_size: 16, ..AppOptions::default() });
-    let theme = opencode_local::cli_config::Theme { name: Some("system".into()), mode: None };
-    let info = opencode_local::cli_config::Info { theme: Some(theme), ..Default::default() };
+    let theme = xccode_local::cli_config::Theme { name: Some("system".into()), mode: None };
+    let info = xccode_local::cli_config::Info { theme: Some(theme), ..Default::default() };
     let deps = Deps { config: support::config(info), route: Route::Home, ..support::deps(Arc::new(support::empty())) };
-    let tui = opencode_tui::mount(&app, deps);
+    let tui = xccode_tui::mount(&app, deps);
     support::wait_for(&app, "█▀▀█");
     let foreground = Color::rgb(0xe0, 0xd0, 0xc0);
     assert_ne!(tui.page().text.base, foreground);

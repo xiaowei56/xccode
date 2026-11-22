@@ -191,7 +191,7 @@
       {
         "id": "big-pickle",
         "modelID": "big-pickle",
-        "providerID": "opencode",
+        "providerID": "xccode",
         "name": "Big Pickle",
         "status": "active",
         "enabled": true,
@@ -227,7 +227,7 @@
       {
         "id": "grok-code",
         "modelID": "grok-code",
-        "providerID": "opencode",
+        "providerID": "xccode",
         "name": "Grok Code",
         "status": "active",
         "enabled": true,
@@ -275,9 +275,9 @@
         "package": "@ai-sdk/test"
       },
       {
-        "id": "opencode",
-        "name": "OpenCode",
-        "integrationID": "opencode",
+        "id": "xccode",
+        "name": "Xccode",
+        "integrationID": "xccode",
         "activation": "auto",
         "package": "@ai-sdk/test"
       }
@@ -330,13 +330,13 @@
     ],
     "/api/integration": [
       {
-        "id": "opencode",
-        "name": "OpenCode Console",
+        "id": "xccode",
+        "name": "Xccode Console",
         "methods": [
           {
             "id": "device",
             "type": "oauth",
-            "label": "Sign in with OpenCode"
+            "label": "Sign in with Xccode"
           }
         ],
         "connections": [
@@ -353,7 +353,7 @@
       "workspace": {
         "id": "wrk_1",
         "name": "Acme",
-        "usageURL": "https://opencode.ai/console/wrk_1/usage"
+        "usageURL": "https://xccode.ai/console/wrk_1/usage"
       },
       "budgets": [
         {

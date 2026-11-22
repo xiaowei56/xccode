@@ -77,14 +77,14 @@ pub fn title(text: Option<&str>, mono: bool) -> String {
     if mono {
         return crate::theme::mono_truncate(&value, TITLE_LIMIT, true);
     }
-    opencode_ui::select::truncate(&value, TITLE_LIMIT)
+    xccode_ui::select::truncate(&value, TITLE_LIMIT)
 }
 
 /// The `go.right` logo without its blank first row; `_` is a full cell, `^` a half block over the shadow, `~` a
 /// half block in the shadow.
 const MARK: [&str; 3] = ["█▀▀█", "█__█", "▀▀▀▀"];
 
-/// `exitSplash`: the banner written when mini closes: the logo, the session's title, and `Continue opencode mini
+/// `exitSplash`: the banner written when mini closes: the logo, the session's title, and `Continue xccode mini
 /// -s <id>`. A terminal too narrow for the row writes the command alone, wrapped.
 pub fn exit(app: &App, width: u32, title: &str, session_id: &str, theme: &SplashTheme, mono: bool) -> View {
     let width = width.max(1);
@@ -92,7 +92,7 @@ pub fn exit(app: &App, width: u32, title: &str, session_id: &str, theme: &Splash
     let top = 1;
     let body = mark[0].chars().count() as u32 + 2;
     let (session, label) = ("Session  ", "Continue ");
-    let command = format!("opencode mini -s {session_id}");
+    let command = format!("xccode mini -s {session_id}");
     let wide = body as usize + (label.to_owned() + &command).width() <= width as usize;
     let command_height = if wide { 1 } else { (command.width() as u32).div_ceil(width) };
     let height = top + if wide { (mark.len() as u32).max(2) } else { command_height };

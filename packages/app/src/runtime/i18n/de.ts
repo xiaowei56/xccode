@@ -28,9 +28,9 @@ export const dict = {
   "server.connect.failed":
     "Es konnte keine Verbindung hergestellt werden. Überprüfen Sie die Serveradresse und das Passwort und versuchen Sie es dann erneut.",
   "server.connect.scan": "Scannen Sie den QR-Code",
-  "server.connect.scan.description": "Richten Sie Ihre Kamera auf den von opencode pair angezeigten Code QR.",
+  "server.connect.scan.description": "Richten Sie Ihre Kamera auf den von xccode pair angezeigten Code QR.",
   "server.connect.scan.invalid":
-    "Dies ist kein OpenCode-Pairing-Code. Scannen Sie den von opencode pair angezeigten Code.",
+    "Dies ist kein Xccode-Pairing-Code. Scannen Sie den von xccode pair angezeigten Code.",
   "server.connect.camera": "Kamera koppeln",
   "server.connect.camera.starting": "Kamera wird geöffnet…",
   "server.connect.mixedContent":
@@ -67,21 +67,21 @@ export const dict = {
     "Wählen Sie den Suchanbieter aus, den Agenten zum Durchsuchen des Webs verwenden",
   "settings.projects.search.placeholder": "Projekte suchen",
   "project.settings.name.title": "Projektname",
-  "project.settings.name.description": "Der für dieses Projekt durchgehend angezeigte Name OpenCode",
+  "project.settings.name.description": "Der für dieses Projekt durchgehend angezeigte Name Xccode",
   "project.settings.icon.description": "Empfohlen: 128×128px. Klicken oder ziehen Sie, um ein Bild hochzuladen.",
   "project.settings.color.description":
     "Wird für das Projektsymbol verwendet, wenn kein benutzerdefiniertes Bild festgelegt ist",
   "project.settings.worktree.startup.description":
     "Wird einmal ausgeführt, nachdem ein neuer Arbeitsbereich erstellt wurde",
-  "project.settings.worktree.startup.hint.base": "Verwenden Sie $OPENCODE_WORKTREE_BASE für den Basisarbeitsbaum.",
-  "project.settings.worktree.startup.hint.new": "Verwenden Sie $OPENCODE_WORKTREE_PATH für den neuen Arbeitsbereich.",
+  "project.settings.worktree.startup.hint.base": "Verwenden Sie $XCCODE_WORKTREE_BASE für den Basisarbeitsbaum.",
+  "project.settings.worktree.startup.hint.new": "Verwenden Sie $XCCODE_WORKTREE_PATH für den neuen Arbeitsbereich.",
   "project.settings.extensions.empty.mcps.title": "Noch kein MCPs",
-  "project.settings.extensions.empty.mcps.description": "MCPs verfügbar für OpenCode wird hier angezeigt",
+  "project.settings.extensions.empty.mcps.description": "MCPs verfügbar für Xccode wird hier angezeigt",
   "project.settings.extensions.empty.plugins.title": "Noch keine Plugins",
-  "project.settings.extensions.empty.plugins.description": "Für OpenCode verfügbare Plugins werden hier angezeigt",
+  "project.settings.extensions.empty.plugins.description": "Für Xccode verfügbare Plugins werden hier angezeigt",
   "project.settings.extensions.empty.skills.title": "Noch keine Fähigkeiten",
   "project.settings.extensions.empty.skills.description":
-    "Hier werden die für OpenCode verfügbaren Fähigkeiten angezeigt",
+    "Hier werden die für Xccode verfügbaren Fähigkeiten angezeigt",
   "project.settings.extensions.lsp.configured": "Konfigurierte Sprachserver",
   "project.settings.extensions.lsp.status.enabled": "In der Konfiguration aktiviert",
   "project.settings.extensions.lsp.status.disabled": "In der Konfiguration deaktiviert",
@@ -102,7 +102,7 @@ export const dict = {
   "settings.timeline.collapsed.label": "{{activity}} ist zusammengebrochen",
   "session.new.workspace.search.empty": "Keine passenden Arbeitsbereiche",
   "settings.workspaces.description": "Überprüfen Sie Arbeitsbereiche und verwalten Sie die Festplattennutzung",
-  "settings.workspaces.empty.description": "In OpenCode erstellte Arbeitsbereiche werden hier angezeigt",
+  "settings.workspaces.empty.description": "In Xccode erstellte Arbeitsbereiche werden hier angezeigt",
   "settings.workspaces.sessions.filtered.one": "{{count}}-Sitzung",
   "settings.workspaces.sessions.filtered.other": "{{count}}-Sitzungen",
   "settings.workspaces.deleteAll.confirm.one":
@@ -155,9 +155,9 @@ export const dict = {
   "settings.about.otherContributor.other": "{{count}} weitere",
   "settings.about.firstPublished": "Erstmals veröffentlicht in Missouri, USA",
   "settings.about.firstIllustrated": "Erstmals illustriert in London, England",
-  "settings.about.website": "www.opencode.ai",
-  "settings.about.description": "OpenCode, der Open-Source-Coding-Agent",
-  "settings.about.trademark": "OpenCode ist eine eingetragene Marke von Anomaly Innovations, Inc.",
+  "settings.about.website": "www.xccode.ai",
+  "settings.about.description": "Xccode, der Open-Source-Coding-Agent",
+  "settings.about.trademark": "Xccode ist eine eingetragene Marke von Anomaly Innovations, Inc.",
   "settings.about.typeset": "Gesetzt in Inter und IBM Plex Mono",
   "settings.about.tagline": "KI kann ohne Sie keine großartige Software entwickeln",
   "settings.about.copyright": "© Anomaly Innovations, Inc.",
@@ -279,9 +279,9 @@ export const dict = {
   "dialog.provider.empty": "Keine Anbieter gefunden",
   "dialog.provider.group.popular": "Beliebt",
   "dialog.provider.tag.recommended": "Empfohlen",
-  "dialog.provider.opencode.note": "Kuratierte Modelle inklusive Claude, GPT, Gemini und mehr",
-  "dialog.provider.opencode.tagline": "Zuverlässige, optimierte Modelle",
-  "dialog.provider.opencodeGo.tagline": "Kostengünstiges Abo für alle",
+  "dialog.provider.xccode.note": "Kuratierte Modelle inklusive Claude, GPT, Gemini und mehr",
+  "dialog.provider.xccode.tagline": "Zuverlässige, optimierte Modelle",
+  "dialog.provider.xccodeGo.tagline": "Kostengünstiges Abo für alle",
   "dialog.provider.copilot.note": "KI-Modelle zur Programmierunterstützung über GitHub Copilot",
   "dialog.provider.openai.note": "GPT-Modelle für schnelle, leistungsfähige allgemeine KI-Aufgaben",
   "dialog.provider.google.note": "Gemini-Modelle für schnelle, strukturierte Antworten",
@@ -292,7 +292,7 @@ export const dict = {
   "dialog.model.empty": "Keine Modellergebnisse",
   "dialog.model.manage": "Modelle verwalten",
   "dialog.model.manage.description": "Anpassen, welche Modelle in der Modellauswahl erscheinen.",
-  "dialog.model.unpaid.freeModels.title": "Kostenlose Modelle von OpenCode",
+  "dialog.model.unpaid.freeModels.title": "Kostenlose Modelle von Xccode",
   "dialog.model.unpaid.addMore.title": "Weitere Modelle von beliebten Anbietern hinzufügen",
   "dialog.model.unpaid.viewMoreProviders": "Über 70 weitere Anbieter anzeigen",
   "dialog.provider.viewAll": "Mehr Anbieter anzeigen",
@@ -302,7 +302,7 @@ export const dict = {
   "provider.connect.status.waiting": "Warten auf Autorisierung",
   "provider.connect.status.failed": "Autorisierung fehlgeschlagen: {{error}}",
   "provider.connect.apiKey.description":
-    "Geben Sie Ihren API-Schlüssel für {{provider}} ein, um Ihr Konto zu verbinden und {{provider}}-Modelle in OpenCode zu nutzen.",
+    "Geben Sie Ihren API-Schlüssel für {{provider}} ein, um Ihr Konto zu verbinden und {{provider}}-Modelle in Xccode zu nutzen.",
   "provider.connect.apiKey.label": "API-Schlüssel für {{provider}}",
   "provider.connect.apiKey.placeholder": "API-Schlüssel",
   "provider.connect.apiKey.required": "API-Schlüssel ist erforderlich",
@@ -416,7 +416,7 @@ export const dict = {
   "error.page.action.checking": "Prüfen…",
   "error.page.action.checkUpdates": "Nach Updates suchen",
   "error.page.action.updateTo": "Auf {{version}} aktualisieren",
-  "error.page.report.prefix": "Bitte melden Sie diesen Fehler dem OpenCode-Team",
+  "error.page.report.prefix": "Bitte melden Sie diesen Fehler dem Xccode-Team",
   "error.page.report.discord": "auf Discord",
   "error.page.version": "Version: {{version}}",
   "error.dev.rootNotFound":
@@ -430,9 +430,9 @@ export const dict = {
   "error.chain.responseBody": "Antwortinhalt:\n{{body}}",
   "error.chain.didYouMean": "Meinten Sie: {{suggestions}}",
   "error.chain.modelNotFound": "Modell nicht gefunden: {{provider}}/{{model}}",
-  "error.chain.checkConfig": "Überprüfen Sie die Anbieter- und Modellnamen in Ihrer Konfiguration (opencode.json)",
+  "error.chain.checkConfig": "Überprüfen Sie die Anbieter- und Modellnamen in Ihrer Konfiguration (xccode.json)",
   "error.chain.mcpFailed":
-    'MCP-Server "{{name}}" fehlgeschlagen. Hinweis: OpenCode unterstützt noch keine MCP-Authentifizierung.',
+    'MCP-Server "{{name}}" fehlgeschlagen. Hinweis: Xccode unterstützt noch keine MCP-Authentifizierung.',
   "error.chain.providerAuthFailed": "Anbieter-Authentifizierung fehlgeschlagen ({{provider}}): {{message}}",
   "error.chain.providerInitFailed":
     'Anbieter "{{provider}}" konnte nicht initialisiert werden. Überprüfen Sie Anmeldeinformationen und Konfiguration.',
@@ -464,7 +464,7 @@ export const dict = {
   "home.sessions.group.yesterday": "Gestern",
   "home.sessions.group.older": "Älter",
   "home.providerTip":
-    "OpenCode mit über 75 Anbietern verbinden, um weitere Modelle wie Claude, GPT, Gemini und andere zu nutzen",
+    "Xccode mit über 75 Anbietern verbinden, um weitere Modelle wie Claude, GPT, Gemini und andere zu nutzen",
   "session.tab.session": "Sitzung",
   "session.tab.unknown": "Unbekannte Sitzung",
   "session.panel.reviewAndFiles": "Überprüfung und Dateien",
@@ -511,7 +511,7 @@ export const dict = {
   "settings.general.section.notifications": "Systembenachrichtigungen",
   "settings.general.section.sounds": "Soundeffekte",
   "settings.general.row.language.title": "Sprache",
-  "settings.general.row.language.description": "Die Anzeigesprache für OpenCode ändern",
+  "settings.general.row.language.description": "Die Anzeigesprache für Xccode ändern",
   "settings.general.row.shell.title": "Terminal-Shell",
   "settings.general.row.shell.description":
     "Wählen Sie die Shell für Ihr Terminal aus. Kompatible Shells werden auch für Tool-Aufrufe von Agenten verwendet.",
@@ -519,9 +519,9 @@ export const dict = {
   "settings.general.row.shell.terminalOnly": "nur Terminal",
   "settings.general.row.colorScheme.title": "Farbschema",
   "settings.general.row.colorScheme.description":
-    "Wählen Sie, ob OpenCode dem System-, hellen oder dunklen Thema folgt",
+    "Wählen Sie, ob Xccode dem System-, hellen oder dunklen Thema folgt",
   "settings.general.row.theme.title": "Thema",
-  "settings.general.row.theme.description": "Das Thema von OpenCode anpassen.",
+  "settings.general.row.theme.description": "Das Thema von Xccode anpassen.",
   "settings.general.row.font.title": "Code-Schriftart",
   "settings.general.row.font.description": "Die in Codeblöcken verwendete Schriftart anpassen",
   "settings.general.row.terminalFont.title": "Terminalschriftart",
@@ -701,7 +701,7 @@ export const dict = {
   "error.childStore.persistedCacheCreateFailed": "Dauerhafter Cache konnte nicht erstellt werden",
   "error.childStore.persistedProjectMetadataCreateFailed": "Dauerhafte Projektmetadaten konnten nicht erstellt werden",
   "error.childStore.storeCreateFailed": "Speicher konnte nicht erstellt werden",
-  "desktop.menu.app": "OpenCode",
+  "desktop.menu.app": "Xccode",
   "desktop.menu.file": "Datei",
   "desktop.menu.edit": "Bearbeiten",
   "desktop.menu.view": "Ansicht",
@@ -740,18 +740,18 @@ export const dict = {
   "desktop.menu.nextProject": "Nächstes Projekt",
   "desktop.menu.minimize": "Minimieren",
   "desktop.menu.maximize": "Maximieren",
-  "desktop.menu.documentation": "OpenCode-Dokumentation",
+  "desktop.menu.documentation": "Xccode-Dokumentation",
   "desktop.menu.supportForum": "Supportforum",
   "desktop.menu.shareFeedback": "Feedback senden",
   "desktop.menu.reportBug": "Fehler melden",
-  "desktop.menu.ariaLabel": "OpenCode-Menü",
+  "desktop.menu.ariaLabel": "Xccode-Menü",
   "desktop.recovery.action.relaunch": "Neu starten",
   "desktop.recovery.action.exportLogs": "Protokolle exportieren",
   "desktop.recovery.action.keepWaiting": "Weiter warten",
   "desktop.recovery.action.quit": "Beenden",
-  "desktop.recovery.loadFailed": "OpenCode konnte nicht geladen werden",
-  "desktop.recovery.terminated": "Das OpenCode-Fenster wurde unerwartet beendet",
-  "desktop.recovery.unresponsive": "OpenCode reagiert nicht",
+  "desktop.recovery.loadFailed": "Xccode konnte nicht geladen werden",
+  "desktop.recovery.terminated": "Das Xccode-Fenster wurde unerwartet beendet",
+  "desktop.recovery.unresponsive": "Xccode reagiert nicht",
   "desktop.recovery.unresponsive.detail": "Sie können die App neu starten, die Protokolle öffnen oder weiter warten.",
   "desktop.recovery.loadFailed.detail": "Fenster: {{window}}\nURL: {{url}}\nFehler: {{code}} {{description}}",
   "desktop.recovery.terminated.detail": "Fenster: {{window}}\nGrund: {{reason}}\nCode: {{code}}",
@@ -785,7 +785,7 @@ export const dict = {
   "settings.extensions.tab.mcps": "MCPs",
   "settings.extensions.tab.skills": "Fähigkeiten",
   "settings.extensions.availableAll": "Verfügbar für alle Projekte",
-  "settings.extensions.manageConfig": "Verwalten Sie in opencode.json",
+  "settings.extensions.manageConfig": "Verwalten Sie in xccode.json",
   "settings.extensions.addSkills": "So fügen Sie Fähigkeiten hinzu",
   "project.settings.extensions.description": "Für dieses Projekt verfügbare Erweiterungen anzeigen",
   "project.settings.extensions.tab.lsps": "LSPs",
@@ -824,13 +824,13 @@ export const dict = {
   "desktop.menu.installCli": "CLI installieren...",
   "desktop.cli.installed.title": "CLI installiert",
   "desktop.cli.installed.message":
-    "CLI wurde unter {{path}} installiert.\n\nStarten Sie Ihr Terminal neu, um den Befehl 'opencode2' zu verwenden.",
+    "CLI wurde unter {{path}} installiert.\n\nStarten Sie Ihr Terminal neu, um den Befehl 'xccode2' zu verwenden.",
   "desktop.cli.failed.title": "Installation fehlgeschlagen",
   "desktop.cli.failed.message": "CLI konnte nicht installiert werden: {{error}}",
   "command.project.copyID": "Projekt-ID kopieren",
   "command.session.copyID": "Sitzungs-ID kopieren",
   "server.row.incompatible":
-    "Auf diesem Server wird OpenCode {{version}} ausgeführt, das mit dieser App nicht kompatibel ist. Aktualisieren Sie ihn auf OpenCode V2, um fortzufahren.",
+    "Auf diesem Server wird Xccode {{version}} ausgeführt, das mit dieser App nicht kompatibel ist. Aktualisieren Sie ihn auf Xccode V2, um fortzufahren.",
   "toast.session.copyID.failed.title": "Sitzungs-ID konnte nicht kopiert werden",
   "toast.session.copyID.failed.description": "Beim Kopieren der Sitzungs-ID ist ein Fehler aufgetreten",
   "toast.project.copyID.failed.title": "Projekt-ID konnte nicht kopiert werden",
@@ -840,7 +840,7 @@ export const dict = {
   "error.page.action.reload": "Neu laden",
   "session.error.incompatible": "Diese Serverversion wird nicht unterstützt",
   "session.error.incompatible.description":
-    "Auf {{server}} wird OpenCode {{version}} ausgeführt, das mit dieser App nicht kompatibel ist. Aktualisieren Sie den Server auf OpenCode V2, um fortzufahren.",
+    "Auf {{server}} wird Xccode {{version}} ausgeführt, das mit dieser App nicht kompatibel ist. Aktualisieren Sie den Server auf Xccode V2, um fortzufahren.",
   "session.background.moveInline": "Drücken Sie {{keybind}}, um laufende Arbeit in den Hintergrund zu verschieben",
   "command.session.location.cycle": "Sitzungsort wechseln",
   "dialog.provider.anthropic.note": "Direkter Zugriff auf Claude-Modelle per API-Schlüssel",
@@ -859,22 +859,22 @@ export const dict = {
   "voice.captions.hide": "Untertitel ausblenden",
   "voice.connecting": "Verbindung wird hergestellt…",
   "voice.you": "Sie:",
-  "voice.assistant": "OpenCode:",
+  "voice.assistant": "Xccode:",
   "voice.failure.unavailable": "Für Sprachanrufe wird auf diesem Server ein OpenAI-API-Schlüssel benötigt.",
   "voice.failure.microphone": "Für Anrufe ist Mikrofonzugriff erforderlich.",
   "voice.failure.dropped": "Der Anruf wurde getrennt.",
   "voice.failure.connection": "Der Anruf konnte nicht verbunden werden.",
-  "desktop.microphoneUsage": "OpenCode verwendet Ihr Mikrofon für Sprachanrufe.",
+  "desktop.microphoneUsage": "Xccode verwendet Ihr Mikrofon für Sprachanrufe.",
   "desktop.documentsFolderUsage":
-    "OpenCode verwendet Dateien in Ihrem Dokumente-Ordner für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
+    "Xccode verwendet Dateien in Ihrem Dokumente-Ordner für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
   "desktop.desktopFolderUsage":
-    "OpenCode verwendet Dateien auf Ihrem Schreibtisch für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
+    "Xccode verwendet Dateien auf Ihrem Schreibtisch für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
   "desktop.downloadsFolderUsage":
-    "OpenCode verwendet Dateien in Ihrem Downloads-Ordner für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
+    "Xccode verwendet Dateien in Ihrem Downloads-Ordner für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
   "desktop.networkVolumesUsage":
-    "OpenCode verwendet Dateien auf Netzwerkvolumes für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
+    "Xccode verwendet Dateien auf Netzwerkvolumes für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
   "desktop.removableVolumesUsage":
-    "OpenCode verwendet Dateien auf Wechseldatenträgern für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
+    "Xccode verwendet Dateien auf Wechseldatenträgern für Projekte, die Sie öffnen, und Befehle, die Sie dort ausführen.",
   "desktop.contextMenu.spellcheck": "Rechtschreibprüfung",
   "desktop.contextMenu.spellcheckLanguages": "Sprachen der Rechtschreibprüfung",
   "session.location.unavailable": "Sitzungsort nicht verfügbar",
@@ -888,7 +888,7 @@ export const dict = {
   "session.location.moveFailed": "Sitzung konnte nicht verschoben werden",
   "server.thisComputer": "Dieser Computer",
   "command.provider.connect.description":
-    "Bei OpenCode Go, OpenCode Console oder einem anderen Modellanbieter anmelden",
+    "Bei Xccode Go, Xccode Console oder einem anderen Modellanbieter anmelden",
   "command.config.reload": "Konfiguration neu laden",
   "command.config.reload.description":
     "Agenten, Befehle, Skills, MCP-Server und Plugins aus Ihrer Konfiguration neu laden",
@@ -896,7 +896,7 @@ export const dict = {
   "command.config.reload.done": "Konfiguration neu geladen",
   "command.config.reload.failed": "Konfiguration konnte nicht neu geladen werden",
   "command.usage.view": "Nutzung anzeigen",
-  "command.usage.view.description": "Ihr OpenCode-Go-Kontingent und Ihre Console-Budgets anzeigen",
+  "command.usage.view.description": "Ihr Xccode-Go-Kontingent und Ihre Console-Budgets anzeigen",
   "command.session.branch.choose": "Basis-Branch wählen",
   "session.location.toggle": "Sitzungsort umschalten",
   "command.commands.search": "Befehle durchsuchen",
@@ -917,7 +917,7 @@ export const dict = {
   "palette.group.settings": "Einstellungen",
   "palette.session.location": "{{project}} · {{server}}",
   "dialog.provider.title": "Integrationen",
-  "dialog.provider.description": "Verbinden Sie Dienste, damit OpenCode sie nutzen kann.",
+  "dialog.provider.description": "Verbinden Sie Dienste, damit Xccode sie nutzen kann.",
   "dialog.provider.group.services": "Dienste",
   "dialog.provider.environmentOnly": "Nur Umgebung",
   "dialog.provider.signInRequired": "Anmeldung erforderlich →",
@@ -944,11 +944,11 @@ export const dict = {
   "provider.connect.breadcrumb.root": "Verbinden",
   "provider.connect.breadcrumb.label": "Verbindungsschritte",
   "provider.connect.methods.description": "Wählen Sie, wie {{provider}} verbunden werden soll.",
-  "provider.connect.opencode.name": "OpenCode",
-  "provider.connect.opencode.freeName": "OpenCode Free",
+  "provider.connect.xccode.name": "Xccode",
+  "provider.connect.xccode.freeName": "Xccode Free",
   "provider.connect.console.retry": "Erneut versuchen",
   "provider.connect.console.serviceKeyDescription":
-    "Mit einem API-Schlüssel eines Dienstkontos aus OpenCode Console verbinden.",
+    "Mit einem API-Schlüssel eines Dienstkontos aus Xccode Console verbinden.",
   "provider.connect.console.instructions":
     "Fahren Sie in Ihrem Browser fort. Prüfen Sie, ob der dort angezeigte Code mit dem untenstehenden übereinstimmt.",
   "provider.connect.console.deviceCode": "Gerätecode",
@@ -973,7 +973,7 @@ export const dict = {
   "provider.connect.models.description": "Wählen Sie ein Modell für den Einstieg. Sie können jederzeit wechseln.",
   "provider.connect.models.available": "Verfügbare Modelle",
   "provider.connect.chatgptWelcome.title": "ChatGPT verbunden",
-  "provider.connect.chatgptWelcome.description": "Berechtigte Anfragen in OpenCode können Ihr ChatGPT-Abo nutzen.",
+  "provider.connect.chatgptWelcome.description": "Berechtigte Anfragen in Xccode können Ihr ChatGPT-Abo nutzen.",
   "provider.connect.chatgptWelcome.usage": "Nutzung in den ChatGPT-Einstellungen verwalten",
   "provider.connect.chatgptWelcome.confirm": "Verstanden",
   "provider.connect.models.list": "Verfügbare Modelle von {{provider}}",
@@ -983,7 +983,7 @@ export const dict = {
   "provider.connect.chatgptUsageLimit.close": "Schließen",
   "provider.connect.console.refreshFailed":
     "Ihr Konto ist verbunden, aber Ihre Modelle konnten nicht geladen werden. Versuchen Sie es erneut.",
-  "provider.connect.console.connected": "OpenCode verbunden",
+  "provider.connect.console.connected": "Xccode verbunden",
   "provider.connect.console.noModels":
     "Ihr Konto ist verbunden, aber dieser Console-Arbeitsbereich hat keine verfügbaren Modelle. Prüfen Sie die Einrichtung in Console und aktualisieren Sie dann.",
   "provider.connect.console.modelsLoading": "Ihre Modelle werden noch geladen. Aktualisieren Sie, um erneut zu prüfen.",
@@ -991,7 +991,7 @@ export const dict = {
   "provider.connect.console.openingBrowser": "Browser wird geöffnet",
   "provider.connect.remote.label": "auf {{server}}",
   "provider.connect.remote.description":
-    "Ihre OpenCode-Anmeldedaten werden auf diesem Server gespeichert. Modelle sind über diesen Server verfügbar.",
+    "Ihre Xccode-Anmeldedaten werden auf diesem Server gespeichert. Modelle sind über diesen Server verfügbar.",
   "provider.connect.claudeAgent.description":
     "Ihr Claude-Abo oder eine andere Claude-Code-Anmeldung verwenden. Installieren Sie zuerst Claude Code und melden Sie sich an.",
   "provider.connect.claudeAgent.install": "Claude Code installieren",
@@ -1025,7 +1025,7 @@ export const dict = {
     "Ihr Browser konnte nicht geöffnet werden. Wählen Sie Browser öffnen, um es erneut zu versuchen.",
   "provider.connect.oauth.paste.toggle": "Anmeldung von einem anderen Gerät?",
   "provider.connect.oauth.paste.description":
-    "Wenn Ihr Browser den Rechner, auf dem OpenCode läuft, nicht erreicht, fügen Sie die URL ein, zu der er weitergeleitet wurde.",
+    "Wenn Ihr Browser den Rechner, auf dem Xccode läuft, nicht erreicht, fügen Sie die URL ein, zu der er weitergeleitet wurde.",
   "provider.connect.oauth.expired": "Autorisierung abgelaufen",
   "model.details.input.text": "Text",
   "model.details.input.image": "Bild",
@@ -1062,7 +1062,7 @@ export const dict = {
   "dialog.mcp.signIn": "Anmelden",
   "dialog.mcp.signIn.open": "Bei {{name}} anmelden",
   "dialog.mcp.signIn.description":
-    "Ihr Browser wird geöffnet, damit Sie sich bei {{name}} anmelden können. Wenn er den Rechner, auf dem OpenCode läuft, nicht erreicht, fügen Sie unten die URL ein, zu der er weitergeleitet wurde.",
+    "Ihr Browser wird geöffnet, damit Sie sich bei {{name}} anmelden können. Wenn er den Rechner, auf dem Xccode läuft, nicht erreicht, fügen Sie unten die URL ein, zu der er weitergeleitet wurde.",
   "dialog.mcp.signIn.syncFailed": "Angemeldet, aber {{name}} konnte nicht aktualisiert werden: {{error}}",
   "dialog.mcp.error.details":
     "MCP-Server: {{name}}\nStatus: fehlgeschlagen\nKonfiguration: mcp.servers.{{name}}\nFehler: {{error}}",
@@ -1090,11 +1090,11 @@ export const dict = {
   "server.connect.link": "Kopplungslink",
   "server.connect.link.placeholder": "http://192.168.1.2:4096/auth/connect/…",
   "server.connect.link.invalid":
-    "Fügen Sie den vollständigen Kopplungslink aus opencode pair oder aus Einstellungen → Kopplung auf dem Computer des Servers ein.",
+    "Fügen Sie den vollständigen Kopplungslink aus xccode pair oder aus Einstellungen → Kopplung auf dem Computer des Servers ein.",
   "server.connect.password.prompt": "Kein Kopplungslink?",
   "server.connect.password.use": "Passwort verwenden",
   "server.connect.password.hint":
-    "Führen Sie opencode service get password auf dem Computer des Servers aus, um es anzuzeigen.",
+    "Führen Sie xccode service get password auf dem Computer des Servers aus, um es anzuzeigen.",
   "server.connect.link.prompt": "Haben Sie einen Kopplungslink?",
   "server.connect.link.use": "Kopplungslink verwenden",
   "server.connect.pair.link":
@@ -1102,11 +1102,11 @@ export const dict = {
   "server.connect.scan.failed":
     "Dieser Browser konnte den QR-Code nicht lesen. Geben Sie Ihre Verbindungsdaten manuell ein.",
   "server.connect.link.expired":
-    "Dieser Kopplungslink ist abgelaufen oder wurde bereits verwendet. Führen Sie opencode pair aus, um einen neuen zu erhalten.",
+    "Dieser Kopplungslink ist abgelaufen oder wurde bereits verwendet. Führen Sie xccode pair aus, um einen neuen zu erhalten.",
   "server.connect.link.unreachable":
     "{{url}} ist nicht erreichbar. Prüfen Sie, ob dieses Gerät den Server erreichen kann, und versuchen Sie es erneut.",
   "server.connect.link.legacy":
-    "Dieser Kopplungscode stammt aus einer älteren OpenCode-Version. Aktualisieren Sie OpenCode auf dem Server und führen Sie dann erneut opencode pair aus.",
+    "Dieser Kopplungscode stammt aus einer älteren Xccode-Version. Aktualisieren Sie Xccode auf dem Server und führen Sie dann erneut xccode pair aus.",
   "server.connect.camera.native":
     "Diese Seite kann die Kamera über HTTP nicht verwenden. Fügen Sie oben den Kopplungslink ein.",
   "dialog.server.signedOut":
@@ -1129,7 +1129,7 @@ export const dict = {
   "home.sessions.load.timeout": "Der Server hat zu lange für eine Antwort gebraucht",
   "tips.browse.title": "Browser steuern",
   "tips.browse.description":
-    "Lassen Sie OpenCode in Ihrem Browser arbeiten – mit Ihren Tabs, Anmeldungen und Erweiterungen.",
+    "Lassen Sie Xccode in Ihrem Browser arbeiten – mit Ihren Tabs, Anmeldungen und Erweiterungen.",
   "tips.browse.install": "Installieren",
   "tips.hex.title": "Ihre Stimme nutzen",
   "tips.hex.description":
@@ -1321,10 +1321,10 @@ export const dict = {
   "settings.plugins.part.server": "Server",
   "settings.plugins.part.tui": "TUI",
   "settings.plugins.parts.note":
-    'Schalter deaktivieren nur die Desktop-Oberfläche eines Plugins. Fügen Sie "-<id>" zu plugins in Ihrer globalen opencode.json hinzu, um seinen Serverteil zu deaktivieren, oder "-" plus die ID seines TUI-Plugins zu plugins in cli.json, um seinen TUI-Teil zu deaktivieren.',
+    'Schalter deaktivieren nur die Desktop-Oberfläche eines Plugins. Fügen Sie "-<id>" zu plugins in Ihrer globalen xccode.json hinzu, um seinen Serverteil zu deaktivieren, oder "-" plus die ID seines TUI-Plugins zu plugins in cli.json, um seinen TUI-Teil zu deaktivieren.',
   "settings.about.copyVersionFailed": "Version konnte nicht kopiert werden",
   "settings.about.notices.title": "Hinweise zu Drittanbietern",
-  "settings.about.notices.description": "OpenCode enthält die folgende Open-Source-Software.",
+  "settings.about.notices.description": "Xccode enthält die folgende Open-Source-Software.",
   "settings.about.notices.license": "Lizenztext",
   "settings.about.notices.fonts.title": "Schriftarten in den Office-Vorschauen",
   "settings.about.notices.fonts.description":
@@ -1366,7 +1366,7 @@ export const dict = {
   "settings.extensions.sources.loadFailed": "Erweiterungsquellen konnten nicht geladen werden",
   "settings.extensions.console.temporary":
     "Schalter steuern MCP-Verbindungen vorübergehend für das aktuelle Projekt, nicht Ihre Console-Einstellungen. Änderungen an der Serverkonfiguration können sie wieder verbinden.",
-  "settings.extensions.console.replaced": "Ersetzt OpenCode Console",
+  "settings.extensions.console.replaced": "Ersetzt Xccode Console",
   "settings.extensions.console.connect": "{{name}} in Console verbinden",
   "settings.extensions.console.manage": "{{name}} in Console verwalten",
   "project.settings.autoAccept.description": "Berechtigungsanfragen dieses Projekts ohne Nachfrage genehmigen",
@@ -1447,8 +1447,8 @@ export const dict = {
   "lab.noControls": "Diese Story hat keine Steuerelemente",
   "lab.grid": "Raster",
   "usage.title": "Nutzung",
-  "usage.section.go": "OpenCode Go",
-  "usage.section.console": "OpenCode Console",
+  "usage.section.go": "Xccode Go",
+  "usage.section.console": "Xccode Console",
   "usage.workspace.fallback": "Ihrem Arbeitsbereich",
   "usage.time": "{{date}} um {{time}} ({{zone}})",
   "usage.go.rolling": "Fortlaufend",
@@ -1512,9 +1512,9 @@ export const dict = {
   "usage.footer.budgetsReset": "Budgets werden am {{time}} zurückgesetzt",
   "usage.footer.creditsOnly": "Ausgaben sind nur durch das Guthaben in {{workspace}} begrenzt",
   "usage.footer.details": "Details anzeigen",
-  "usage.signedOut.title": "Nicht bei OpenCode Console angemeldet",
+  "usage.signedOut.title": "Nicht bei Xccode Console angemeldet",
   "usage.signedOut.body":
-    "Verbinden Sie OpenCode Console, um die Budgets und die Go-Nutzung Ihres Arbeitsbereichs zu sehen.",
+    "Verbinden Sie Xccode Console, um die Budgets und die Go-Nutzung Ihres Arbeitsbereichs zu sehen.",
   "usage.error": "Nutzungslimits konnten nicht geladen werden.",
   "usage.retry": "Erneut versuchen",
 } satisfies Partial<Record<Keys, string>>

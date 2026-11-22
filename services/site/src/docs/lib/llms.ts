@@ -21,14 +21,14 @@ export function renderLlmsTxt(site: URL, set: DocsSet = latestDocs, navigation: 
   return [
     ...(set.id === "latest"
       ? [
-          "# OpenCode V2 Documentation",
+          "# Xccode V2 Documentation",
           "",
-          "> Official documentation for using, configuring, and building with OpenCode V2.",
+          "> Official documentation for using, configuring, and building with Xccode V2.",
         ]
       : [
-          "# OpenCode V1 Documentation",
+          "# Xccode V1 Documentation",
           "",
-          "> Documentation for OpenCode V1. The latest docs, for OpenCode V2, are at https://opencode.ai/docs/llms.txt.",
+          "> Documentation for Xccode V1. The latest docs, for Xccode V2, are at https://xccode.ai/docs/llms.txt.",
         ]),
     "",
     ...sections,

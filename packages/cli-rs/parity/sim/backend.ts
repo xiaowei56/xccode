@@ -1,7 +1,7 @@
 // The backend driver: answers the simulated provider's model calls (`llm.request`) over the server's drive backend
 // endpoint (packages/simulation/src/backend/simulated-provider.ts).
 import { Schema } from "effect"
-import { Backend, JsonRpc } from "@opencode/protocol/simulation"
+import { Backend, JsonRpc } from "@xccode/protocol/simulation"
 
 // The items stream in order. At `{ hold: name }` the reply waits, its step still running, until the scenario's
 // `{ release: name }` step; the items before it are sent first. `finish: false` sends no `llm.finish`, for a reply
@@ -65,7 +65,7 @@ export async function startBackend(url: string, answer: (invocation: Invocation)
     stream(invocation, answer(invocation)).catch((error: Error) => failures.push(error.message))
   }
   await call("simulation.handshake", {
-    client: { name: "opencode-parity", version: "1" },
+    client: { name: "xccode-parity", version: "1" },
     expectedRole: "backend",
     offeredVersions: [1],
     requiredCapabilities: ["llm.attach", "llm.chunk", "llm.finish"],

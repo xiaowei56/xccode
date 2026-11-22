@@ -33,7 +33,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Диагностика на паметта: записва паметта на приложението в десктоп логовете на всеки 30 секунди. Остава включена и след рестарт, докато не я изключите; лентата остава отворена, докато работи.",
-  "memory.tipEnv": "Диагностиката на паметта е включена за това стартиране: зададено е OPENCODE_DESKTOP_MEMORY_LOG.",
+  "memory.tipEnv": "Диагностиката на паметта е включена за това стартиране: зададено е XCCODE_DESKTOP_MEMORY_LOG.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

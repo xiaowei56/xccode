@@ -1,5 +1,5 @@
 import { createSignal, onMount, type ParentProps } from "solid-js"
-import { Icon } from "@opencode/ui/icon"
+import { Icon } from "@xccode/ui/icon"
 import { ContextMenu } from "./context-menu"
 
 const docs = `### Overview

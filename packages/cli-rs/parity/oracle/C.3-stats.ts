@@ -5,7 +5,7 @@
 // Both read process state: `activityCalendar` takes local dates (TZ), and the stats palette comes from
 // COLORFGBG when the module loads. So each time zone and each COLORFGBG runs in a child process. The
 // time zones have fixed offsets, which the Rust test can rebuild with `FixedOffset`.
-import type { SessionStatsInfo } from "@opencode/client"
+import type { SessionStatsInfo } from "@xccode/client"
 import { activityCalendar } from "../../../util/src/activity-calendar"
 
 type Child = { kind: "calendar"; tz: string } | { kind: "render"; colorfgbg?: string }

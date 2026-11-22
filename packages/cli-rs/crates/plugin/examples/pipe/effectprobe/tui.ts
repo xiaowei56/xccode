@@ -1,5 +1,5 @@
 // Imports a deliberately unavailable package to check the loader diagnostic.
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@xccode/plugin/tui"
 import { Option, Schema } from "effect"
 import { appendFileSync } from "node:fs"
 

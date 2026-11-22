@@ -1,22 +1,22 @@
 //! Slash-command, mention, file, and directory completion for the prompt.
 
 pub mod cd;
-pub use opencode_ui::prompt_input::parse;
+pub use xccode_ui::prompt_input::parse;
 pub mod parts;
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     AgentInfoMode, FileFindInput, FileListInput, FileSystemEntryType, LocationQueryInput, ReferenceSource,
 };
-use opencode_api::js::locale_compare;
-use opencode_local::jsonl::{self, Frecency};
-use opencode_local::serial::Serial;
-use opencode_local::storage::Storage;
-use opencode_store::location::{Catalog, Location};
-use opencode_ui::dialog::FocusId;
-use opencode_ui::fuzzy;
-use opencode_ui::path::Flavor;
-use opencode_ui::prompt_input;
-use opencode_ui::select::{move_wrap, truncate, truncate_middle};
+use xccode_api::js::locale_compare;
+use xccode_local::jsonl::{self, Frecency};
+use xccode_local::serial::Serial;
+use xccode_local::storage::Storage;
+use xccode_store::location::{Catalog, Location};
+use xccode_ui::dialog::FocusId;
+use xccode_ui::fuzzy;
+use xccode_ui::path::Flavor;
+use xccode_ui::prompt_input;
+use xccode_ui::select::{move_wrap, truncate, truncate_middle};
 use opentui::app::{AppProxy, ProxyError};
 use opentui::input::{MouseButton, MouseEventKind};
 use std::cell::OnceCell;
@@ -96,7 +96,7 @@ impl Shared {
         self.frecency
             .lock()
             .ok()
-            .and_then(|slot| slot.as_ref().map(|frecency| frecency.score(path, opencode_util::time::now_ms())))
+            .and_then(|slot| slot.as_ref().map(|frecency| frecency.score(path, xccode_util::time::now_ms())))
             .unwrap_or(0.0)
     }
 
@@ -108,7 +108,7 @@ impl Shared {
         let cwd = PathBuf::from(&tui.directory);
         self.writer().run(move || {
             load_frecency(&frecency, &state, &cwd);
-            match jsonl::save_frecency(&state, &cwd, &path, opencode_util::time::now_ms()) {
+            match jsonl::save_frecency(&state, &cwd, &path, xccode_util::time::now_ms()) {
                 Ok((path, visit)) => {
                     if let Some(frecency) = frecency.lock().ok().as_mut().and_then(|slot| slot.as_mut()) {
                         frecency.record(path, visit);
@@ -140,7 +140,7 @@ impl Shared {
         let directory = directory.to_owned();
         self.update_recents(tui, project, move |list| {
             list.retain(|item| item["directory"].as_str() != Some(&directory));
-            list.insert(0, json!({ "directory": directory, "usedAt": opencode_util::time::now_ms() }));
+            list.insert(0, json!({ "directory": directory, "usedAt": xccode_util::time::now_ms() }));
             list.truncate(10);
         });
     }
@@ -1053,7 +1053,7 @@ fn split_border() -> [char; 11] {
     [' ', ' ', ' ', ' ', ' ', '┃', ' ', ' ', ' ', ' ', ' ']
 }
 
-fn rail(app: &App, theme: &opencode_ui::theme::Theme, color: Option<Color>, row: &View) -> View {
+fn rail(app: &App, theme: &xccode_ui::theme::Theme, color: Option<Color>, row: &View) -> View {
     View::new(app)
         .row()
         .child(&Text::new(app, "┃").width(1).shrink(0.0).fg(color.unwrap_or(theme.border.base)))
@@ -1267,7 +1267,7 @@ fn file_item(
 fn directory_items(
     query: &str,
     search: &DirectorySearch,
-    output: opencode_api::generated::FileListOutput,
+    output: xccode_api::generated::FileListOutput,
     width: usize,
 ) -> Vec<Item> {
     let exact = parse::directory_exact(query, search).map(|value| (value, search.directory.clone()));
@@ -1318,7 +1318,7 @@ fn recent_items(tui: &Tui, prompt: &Inner, width: usize) -> Vec<Item> {
 }
 
 fn home() -> String {
-    opencode_local::paths::home()
+    xccode_local::paths::home()
 }
 
 #[cfg(test)]

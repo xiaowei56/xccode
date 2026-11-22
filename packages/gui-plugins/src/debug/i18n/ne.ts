@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "मेमोरी निदान: हरेक ३० सेकेन्डमा एपको मेमोरी डेस्कटप लगहरूमा लग गर्नुहोस्। बन्द नगरेसम्म पुनः सुरु गर्दा पनि सक्रिय रहन्छ; चलिरहँदा पट्टी खुला रहन्छ।",
-  "memory.tipEnv": "यस लन्चका लागि मेमोरी निदान सक्रिय छ: OPENCODE_DESKTOP_MEMORY_LOG सेट गरिएको छ।",
+  "memory.tipEnv": "यस लन्चका लागि मेमोरी निदान सक्रिय छ: XCCODE_DESKTOP_MEMORY_LOG सेट गरिएको छ।",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

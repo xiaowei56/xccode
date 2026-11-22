@@ -2,7 +2,7 @@
   Restart the background server
 
 [1mUSAGE[0m
-  [36mopencode service restart [flags][0m
+  [36mxccode service restart [flags][0m
 
 [1mGLOBAL FLAGS[0m
   [32m--help[0m, [32m-h[0m                                                          Show help information

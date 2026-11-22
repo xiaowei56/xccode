@@ -10,16 +10,16 @@ use std::rc::Rc;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use opencode_api::generated::{SessionMessageAssistantToolState, V2Event};
-use opencode_local::cli_config::{Grouping, Info, Session, Verbosity};
-use opencode_plugin::abi::claim::{Claim, Part};
-use opencode_plugin::abi::{self, v2};
-use opencode_plugin::claim::{Shown, ledger, mounted};
-use opencode_plugin::node::{self, Act};
-use opencode_tui::Deps;
-use opencode_tui::plugins::host::host;
-use opencode_ui::markdown::CodeBlockRenderers;
-use opencode_ui::theme::Theme;
+use xccode_api::generated::{SessionMessageAssistantToolState, V2Event};
+use xccode_local::cli_config::{Grouping, Info, Session, Verbosity};
+use xccode_plugin::abi::claim::{Claim, Part};
+use xccode_plugin::abi::{self, v2};
+use xccode_plugin::claim::{Shown, ledger, mounted};
+use xccode_plugin::node::{self, Act};
+use xccode_tui::Deps;
+use xccode_tui::plugins::host::host;
+use xccode_ui::markdown::CodeBlockRenderers;
+use xccode_ui::theme::Theme;
 use opentui::input::MouseEventKind;
 use opentui::prelude::*;
 use opentui::testing::{Capture, TestApp};
@@ -287,12 +287,12 @@ impl World {
     }
 
     /// Disable grouping so each tool call occupies its own transcript row.
-    fn with(builtins: Vec<opencode_plugin::Builtin>) -> Self {
+    fn with(builtins: Vec<xccode_plugin::Builtin>) -> Self {
         Self::configured(builtins, ungrouped(), false)
     }
 
     /// A TUI on the session with `builtins`, the transcript settings `session`, and image previews on or off.
-    fn configured(builtins: Vec<opencode_plugin::Builtin>, session: Session, images: bool) -> Self {
+    fn configured(builtins: Vec<xccode_plugin::Builtin>, session: Session, images: bool) -> Self {
         VIEWS.with_borrow_mut(Vec::clear);
         ARMED.set(None);
         DECLINE.with_borrow_mut(HashSet::clear);
@@ -325,7 +325,7 @@ impl World {
         // A draft in the composer: its placeholder is random, and the frames compare every cell.
         harness.app.type_text("draft");
         // A card fills its cells: a token the theme lacks would paint nothing, and the twin's clear color would show.
-        assert!(opencode_plugin::node::theme_color(&harness.tui.page(), "background.raised.base").is_some());
+        assert!(xccode_plugin::node::theme_color(&harness.tui.page(), "background.raised.base").is_some());
         let world = Self { harness, seq: Cell::new(0), toasts: RefCell::default() };
         world.settle();
         world
@@ -415,7 +415,7 @@ impl World {
             Command::Enable(on) => self.enable(on, expected),
             Command::Theme(dark) => {
                 let tui = &self.harness.tui;
-                tui.theme.borrow_mut().set(if dark { "opencode" } else { "tokyonight" });
+                tui.theme.borrow_mut().set(if dark { "xccode" } else { "tokyonight" });
                 tui.theme_changed();
                 // Markdown builds a claimed fence again in a new theme: a new mount, claimed afresh.
                 if dark != expected.dark {
@@ -491,15 +491,15 @@ impl World {
 }
 
 /// `node` mounted fresh, `width` by `height`, in `theme`: ABI 1.x nodes through `node::add`, the host's mount path
-/// for plugin claims of 1.x, and Markdown as `opencode_ui` draws it. No reconcile. Also the rows it takes.
+/// for plugin claims of 1.x, and Markdown as `xccode_ui` draws it. No reconcile. Also the rows it takes.
 fn fresh(node: &v2::Node, width: u16, height: u16, theme: &Theme) -> (Capture, u32) {
     let app = TestApp::new(width, height);
     let parent = View::new(&app).column().width(Length::percent(100.0));
     app.root().add(&parent);
     let act: Act = Rc::new(|_| {});
-    let syntax = opencode_ui::code::syntax_theme(theme);
+    let syntax = xccode_ui::code::syntax_theme(theme);
     let markdown = |text: &str| {
-        opencode_ui::markdown::view(&app, theme, &syntax, &CodeBlockRenderers::default(), true, false)
+        xccode_ui::markdown::view(&app, theme, &syntax, &CodeBlockRenderers::default(), true, false)
             .set_markdown(text)
             .as_any()
     };
@@ -1144,7 +1144,7 @@ impl World {
     /// Switches to the dark default theme or another one, as the theme dialog does.
     fn switch_theme(&self, dark: bool) {
         let tui = &self.harness.tui;
-        tui.theme.borrow_mut().set(if dark { "opencode" } else { "tokyonight" });
+        tui.theme.borrow_mut().set(if dark { "xccode" } else { "tokyonight" });
         tui.theme_changed();
         self.settle();
     }
@@ -1448,10 +1448,10 @@ fn the_ledger_counts_what_a_declined_part_keeps_and_what_went() {
     world.settle();
     assert!(!world.frame().text().contains("memo call_0"));
     assert_eq!(ledger().memo_entries, 30, "the declined part's value went: {:?}", ledger());
-    world.harness.tui.navigate(opencode_tui::Route::Home);
+    world.harness.tui.navigate(xccode_tui::Route::Home);
     world.settle();
     assert_eq!((ledger().mounts, ledger().memo_entries), (0, 0));
-    assert_eq!(opencode_plugin::claim::registered(), 0, "the registry keeps parts that went");
+    assert_eq!(xccode_plugin::claim::registered(), 0, "the registry keeps parts that went");
     DECLINE.with_borrow_mut(HashSet::clear);
 }
 
@@ -1591,7 +1591,7 @@ fn an_overrun_falls_back_in_process() {
     let screen = world.frame().text();
     let failed = world.toasts.borrow().iter().any(|toast| toast == "Plugin failed: claim.a");
     assert!(!screen.contains("probe call_1") && screen.contains("witness call_3"), "{screen}");
-    assert_eq!(status, opencode_plugin::Status::Active);
+    assert_eq!(status, xccode_plugin::Status::Active);
     assert_eq!(world.harness.tui.plugins.monitor().host_overruns(), 1);
     assert!(screen.contains("probe call_2") && !failed, "{screen}");
 }
@@ -1842,7 +1842,7 @@ fn a_refused_keep_is_asked_once_whole_and_a_decline_after_it_stays_within_bounds
     let drew = DREW.with_borrow(Vec::clone);
     assert_eq!(drew, ["tree full true", "keep full false", "decline full true"]);
     let status = world.harness.tui.plugins.entries().into_iter().find(|entry| entry.id == "claim.keeper");
-    assert_eq!(status.map(|entry| entry.status), Some(opencode_plugin::Status::Active));
+    assert_eq!(status.map(|entry| entry.status), Some(xccode_plugin::Status::Active));
     assert!(world.frame().text().contains("⋯ keeper"), "{}", world.frame().text());
 }
 
@@ -2024,7 +2024,7 @@ fn a_fence_nodes_code_is_on_its_background() {
         frame.cell(x as u32, y as u32).unwrap().bg
     };
     let (world, card) = fenced(Fenced::Card, text);
-    let raised = opencode_plugin::node::theme_color(&world.harness.tui.page(), "background.raised.base").unwrap();
+    let raised = xccode_plugin::node::theme_color(&world.harness.tui.page(), "background.raised.base").unwrap();
     let bg = bg_of(&card);
     assert_eq!((bg.r, bg.g, bg.b), (raised.r, raised.g, raised.b), "the code is not on the card's");
     let (world, declined) = fenced(Fenced::Declined, text);
@@ -2055,7 +2055,7 @@ fn a_fence_node_where_it_may_not_be_shows_the_host_row() {
     assert!(screen.contains("⋯ probe"), "no host row for the call:\n{screen}");
     assert!(mounted().iter().all(|shown| !shown.shows), "{:?}", mounted());
     let status = world.harness.tui.plugins.entries().into_iter().find(|entry| entry.id == "claim.fenced");
-    assert_eq!(status.map(|entry| entry.status), Some(opencode_plugin::Status::Active));
+    assert_eq!(status.map(|entry| entry.status), Some(xccode_plugin::Status::Active));
 }
 
 const SHARE: &str = "claim.share";
@@ -2113,10 +2113,10 @@ fn a_claimed_part_holds_its_plugins_share_beside_its_surface_and_the_total() {
         abi::Plugin { id: SHARE, setup: plugin_share }.into(),
         abi::Plugin { id: RIVAL, setup: plugin_rival }.into(),
     ]);
-    let surface = opencode_plugin::limits::held(SHARE);
+    let surface = xccode_plugin::limits::held(SHARE);
     assert_eq!(surface.content, 1_000, "the surface's own content");
     // The plugin may hold its surface's and two parts'; all plugins one more part.
-    let total = opencode_plugin::limits::total().content;
+    let total = xccode_plugin::limits::total().content;
     // Each read of the monitor's clock moves it on: the host's work for a part takes time.
     let tick = Rc::new(Cell::new(Duration::ZERO));
     let (base, now) = (Instant::now(), tick.clone());
@@ -2124,10 +2124,10 @@ fn a_claimed_part_holds_its_plugins_share_beside_its_surface_and_the_total() {
         now.set(now.get() + Duration::from_micros(10));
         base + now.get()
     });
-    let _limits = opencode_plugin::limits::set(opencode_plugin::limits::Limits {
+    let _limits = xccode_plugin::limits::set(xccode_plugin::limits::Limits {
         plugin_content: 3_000,
         all_content: total + 3_000,
-        ..opencode_plugin::limits::Limits::default()
+        ..xccode_plugin::limits::Limits::default()
     });
     for (id, name) in [("call_1", "share"), ("call_2", "share"), ("call_3", "share")] {
         world.emit("session.tool.input.started", json!({ "id": id, "name": name }));
@@ -2147,19 +2147,19 @@ fn a_claimed_part_holds_its_plugins_share_beside_its_surface_and_the_total() {
         "the third part past its plugin's share, the rival's second past the total:\n{screen}"
     );
     assert!(mounted().iter().all(|shown| shown.shows), "a part fell back: {:?}", mounted());
-    let (share, rival) = (opencode_plugin::limits::held(SHARE), opencode_plugin::limits::held(RIVAL));
+    let (share, rival) = (xccode_plugin::limits::held(SHARE), xccode_plugin::limits::held(RIVAL));
     assert_eq!((share.content, rival.content), (3_000, 1_000), "{share:?} {rival:?}");
     assert!(share.nodes > surface.nodes && rival.nodes > 0, "nodes {surface:?} {share:?} {rival:?}");
-    assert!(opencode_plugin::limits::total().content <= total + 3_000, "past the total");
+    assert!(xccode_plugin::limits::total().content <= total + 3_000, "past the total");
     assert_eq!(ledger().content, 3, "the content the parts hold: {:?}", ledger());
     // The rival has claims alone, and no image: its host time is its parts' adoptions.
     let host = world.harness.tui.plugins.monitor().host_time(RIVAL);
     assert!(host > Duration::ZERO, "no host time for the rival's parts");
-    world.harness.tui.navigate(opencode_tui::Route::Home);
+    world.harness.tui.navigate(xccode_tui::Route::Home);
     world.settle();
-    let left = (opencode_plugin::limits::held(SHARE), opencode_plugin::limits::held(RIVAL));
+    let left = (xccode_plugin::limits::held(SHARE), xccode_plugin::limits::held(RIVAL));
     assert_eq!(left.0.content, 1_000, "held once the session left: {left:?}");
-    assert_eq!(left.1, opencode_plugin::limits::Held::default(), "held once the session left");
+    assert_eq!(left.1, xccode_plugin::limits::Held::default(), "held once the session left");
 }
 
 /// Claims `pics` calls with a 16x16 picture of a color of its own each view, given as content, and releases the one
@@ -2193,7 +2193,7 @@ fn a_claimed_part_that_replaces_its_picture_holds_only_the_one_it_shows() {
         base + now.get()
     });
     let app = &world.harness.app;
-    let done = || app.wait_until(Duration::from_secs(10), || opencode_plugin::image::jobs(PICS) == 0);
+    let done = || app.wait_until(Duration::from_secs(10), || xccode_plugin::image::jobs(PICS) == 0);
     world.emit("session.tool.input.started", json!({ "id": "call_1", "name": "pics" }));
     world.settle();
     for delta in ["{", "\"q\"", ":", "1", "}"] {
@@ -2201,18 +2201,18 @@ fn a_claimed_part_that_replaces_its_picture_holds_only_the_one_it_shows() {
         world.settle();
         assert!(done(), "a decode never ended");
         world.settle();
-        let held = (opencode_plugin::surface::pictures(PICS), opencode_plugin::limits::held(PICS).images);
+        let held = (xccode_plugin::surface::pictures(PICS), xccode_plugin::limits::held(PICS).images);
         assert_eq!(held, (1, 16 * 16 * 4), "after {delta:?}");
     }
     assert!(PICTURES.get() >= 6, "the part was viewed {} times", PICTURES.get());
     assert!(world.frame().text().contains("pics call_1"), "{}", world.frame().text());
     let host = world.harness.tui.plugins.monitor().host_time(PICS);
     assert!(host > Duration::ZERO, "no host time for the part");
-    world.harness.tui.navigate(opencode_tui::Route::Home);
+    world.harness.tui.navigate(xccode_tui::Route::Home);
     world.settle();
     assert!(done());
-    let held = (opencode_plugin::surface::pictures(PICS), opencode_plugin::limits::held(PICS));
-    assert_eq!(held, (0, opencode_plugin::limits::Held::default()), "held once the part went");
+    let held = (xccode_plugin::surface::pictures(PICS), xccode_plugin::limits::held(PICS));
+    assert_eq!(held, (0, xccode_plugin::limits::Held::default()), "held once the part went");
 }
 
 thread_local! {

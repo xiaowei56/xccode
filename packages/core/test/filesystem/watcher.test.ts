@@ -3,22 +3,22 @@ import { describe, expect } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
 import { Deferred, Duration, Effect, Fiber, Layer, Logger, Option, Schedule, Stream } from "effect"
-import { Config } from "@opencode/core/config"
-import { ConfigLocationWatcherPlugin } from "@opencode/core/config/plugin/location-watcher"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { FSUtil } from "@opencode/util/fs-util"
-import { LocationWatcher } from "@opencode/core/filesystem/location-watcher"
-import { LocationWatcherPolicy } from "@opencode/core/filesystem/location-watcher-policy"
-import { Watcher } from "@opencode/core/filesystem/watcher"
-import { FileSystem } from "@opencode/schema/filesystem"
-import { Document, Event, Info, type Entry } from "@opencode/schema/config"
-import { Location } from "@opencode/core/location"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginSupervisor } from "@opencode/core/plugin/supervisor"
-import { AbsolutePath } from "@opencode/core/schema"
+import { Config } from "@xccode/core/config"
+import { ConfigLocationWatcherPlugin } from "@xccode/core/config/plugin/location-watcher"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Bus } from "@xccode/core/bus"
+import { FSUtil } from "@xccode/util/fs-util"
+import { LocationWatcher } from "@xccode/core/filesystem/location-watcher"
+import { LocationWatcherPolicy } from "@xccode/core/filesystem/location-watcher-policy"
+import { Watcher } from "@xccode/core/filesystem/watcher"
+import { FileSystem } from "@xccode/schema/filesystem"
+import { Document, Event, Info, type Entry } from "@xccode/schema/config"
+import { Location } from "@xccode/core/location"
+import { Plugin } from "@xccode/core/plugin"
+import { PluginSupervisor } from "@xccode/core/plugin/supervisor"
+import { AbsolutePath } from "@xccode/core/schema"
 import { initRepo } from "../fixture/git"
 import { location } from "../fixture/location"
 import { tmpdir } from "../fixture/tmpdir"
@@ -96,11 +96,11 @@ describe("Watcher lifecycle", () => {
         const watcher = yield* Watcher.Service
         const consumer = yield* watcher
           .subscribe(
-            { path: "/shared", type: "entries", names: ["opencode.json"] },
+            { path: "/shared", type: "entries", names: ["xccode.json"] },
             Effect.gen(function* () {
               counts.ready++
               const notify = yield* Deferred.await(publish)
-              notify({ path: "/shared/opencode.json", type: "create" })
+              notify({ path: "/shared/xccode.json", type: "create" })
             }),
           )
           .pipe(Effect.flatMap(Stream.runHead), Effect.forkScoped({ startImmediately: true }))
@@ -108,7 +108,7 @@ describe("Watcher lifecycle", () => {
         expect(counts.ready).toBe(0)
         yield* Deferred.succeed(acquired, undefined)
         expect(Option.getOrUndefined(yield* Fiber.join(consumer))).toEqual({
-          path: "/shared/opencode.json",
+          path: "/shared/xccode.json",
           type: "create",
         })
         expect(counts).toEqual({ ready: 1, closed: 1 })
@@ -153,7 +153,7 @@ describe("Watcher lifecycle", () => {
             native.subscribe({
               type: "entries",
               target: tmp.path,
-              names: ["opencode.json", ".opencode"],
+              names: ["xccode.json", ".xccode"],
               ignore: [],
               publish: (update) => events.push(update),
             }),
@@ -161,19 +161,19 @@ describe("Watcher lifecycle", () => {
           )
           yield* Effect.promise(async () => {
             await fs.mkdir(path.join(tmp.path, "nested"))
-            await fs.writeFile(path.join(tmp.path, "nested", "opencode.json"), "ignored")
-            await fs.writeFile(path.join(tmp.path, "opencode.jsonc"), "ignored")
-            await fs.writeFile(path.join(tmp.path, "opencode.json"), "first")
+            await fs.writeFile(path.join(tmp.path, "nested", "xccode.json"), "ignored")
+            await fs.writeFile(path.join(tmp.path, "xccode.jsonc"), "ignored")
+            await fs.writeFile(path.join(tmp.path, "xccode.json"), "first")
           })
           yield* Effect.sync(() => events.length).pipe(
             Effect.filterOrFail((count) => count > 0),
             Effect.retry(Schedule.spaced("10 millis")),
             Effect.timeout("1 second"),
           )
-          expect(events.every((update) => update.path === path.join(tmp.path, "opencode.json"))).toBe(true)
+          expect(events.every((update) => update.path === path.join(tmp.path, "xccode.json"))).toBe(true)
           yield* Effect.sleep("10 millis")
-          yield* Effect.promise(() => fs.mkdir(path.join(tmp.path, ".opencode")))
-          yield* Effect.sync(() => events.some((update) => update.path === path.join(tmp.path, ".opencode"))).pipe(
+          yield* Effect.promise(() => fs.mkdir(path.join(tmp.path, ".xccode")))
+          yield* Effect.sync(() => events.some((update) => update.path === path.join(tmp.path, ".xccode"))).pipe(
             Effect.filterOrFail(Boolean),
             Effect.retry(Schedule.spaced("10 millis")),
             Effect.timeout("1 second"),
@@ -222,8 +222,8 @@ describe("Watcher lifecycle", () => {
         watcher
           .subscribe({ path: "/shared", type: "entries", names })
           .pipe(Effect.flatMap(Stream.runDrain), Effect.forkScoped({ startImmediately: true }))
-      const first = yield* consume(["opencode.json", ".opencode", "opencode.json"])
-      const second = yield* consume([".opencode", "opencode.json"])
+      const first = yield* consume(["xccode.json", ".xccode", "xccode.json"])
+      const second = yield* consume([".xccode", "xccode.json"])
       yield* Effect.yieldNow
       expect(counts.subscribes).toBe(1)
 
@@ -593,7 +593,7 @@ describeNative("LocationWatcher", () => {
       Effect.gen(function* () {
         const fs = yield* FSUtil.Service
         const watcher = yield* Watcher.Service
-        const target = path.join(directory, "opencode.json")
+        const target = path.join(directory, "xccode.json")
         const sibling = path.join(directory, "other.json")
         const updates = yield* watcher.subscribe({ path: target, type: "file" })
         const update = yield* updates.pipe(

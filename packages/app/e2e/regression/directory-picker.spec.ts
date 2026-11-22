@@ -5,7 +5,7 @@ import { fileNode, openSettings } from "../utils/workspace"
 
 test.use({ viewport: { width: 1440, height: 900 } })
 
-const directory = "C:/OpenCode/Picker"
+const directory = "C:/Xccode/Picker"
 
 // Opens the folder picker from Settings > Projects once its root has listed.
 async function openPicker(page: Page, input: Pick<MockServerConfig, "fileList" | "findFiles">) {
@@ -29,7 +29,7 @@ test("Tab and Enter while suggestions load act on the typed folder, not the prev
 
   await input.fill("alp")
   await expect(picker.getByRole("option")).toHaveCount(1)
-  await expect(picker.getByRole("option")).toHaveAttribute("data-directory-path", "C:/OpenCode/Picker/alpha")
+  await expect(picker.getByRole("option")).toHaveAttribute("data-directory-path", "C:/Xccode/Picker/alpha")
 
   const search = await holdRoute(page, /\/api\/fs\/find\?(.*&)?query=beta(&|$)/)
   await input.fill("beta")
@@ -40,7 +40,7 @@ test("Tab and Enter while suggestions load act on the typed folder, not the prev
   await expect(input).toHaveValue("beta")
 
   await input.press("Enter")
-  await expect(input).toHaveValue("C:\\OpenCode\\Picker\\beta\\")
+  await expect(input).toHaveValue("C:\\Xccode\\Picker\\beta\\")
   await expect(picker.getByRole("treeitem", { name: "beta", exact: true })).toHaveAttribute("aria-selected", "true")
   search.release()
 })
@@ -115,7 +115,7 @@ test("Escape closes suggestions, then drops a typed path, before it closes the p
   const input = picker.getByRole("combobox")
 
   await picker.getByRole("treeitem", { name: "beta", exact: true }).click()
-  await expect(input).toHaveValue("C:\\OpenCode\\Picker\\beta\\")
+  await expect(input).toHaveValue("C:\\Xccode\\Picker\\beta\\")
 
   await input.fill("alp")
   await expect(picker.getByRole("option")).toHaveCount(1)
@@ -125,7 +125,7 @@ test("Escape closes suggestions, then drops a typed path, before it closes the p
 
   await input.press("Escape")
   await expect(picker).toBeVisible()
-  await expect(input).toHaveValue("C:\\OpenCode\\Picker\\beta\\")
+  await expect(input).toHaveValue("C:\\Xccode\\Picker\\beta\\")
   await expect(picker.getByRole("treeitem", { name: "beta", exact: true })).toHaveAttribute("aria-selected", "true")
 
   await input.press("Escape")

@@ -1,9 +1,9 @@
-import { Button } from "@opencode/ui/button"
-import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
-import { Loader } from "@opencode/ui/loader"
+import { Button } from "@xccode/ui/button"
+import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@xccode/ui/dialog"
+import { Loader } from "@xccode/ui/loader"
 import { createMemo, createSignal, Match, onCleanup, Show, Switch, untrack, type Accessor } from "solid-js"
-import { renderSVG } from "@opencode/util/qr"
-import { createKeyed, usePlugin, type DialogHandle, type Live, type IpcClient } from "@opencode/plugin/gui"
+import { renderSVG } from "@xccode/util/qr"
+import { createKeyed, usePlugin, type DialogHandle, type Live, type IpcClient } from "@xccode/plugin/gui"
 import type { Pairing } from "./contract"
 import { copyEffectFailed, createCopyState, transitionCopy, viewCopy, type CopyEffect } from "./copy-machine"
 import { createDispatch } from "./dispatch"
@@ -364,7 +364,7 @@ function DialogPairing(props: {
     return current.kind === "loading" ? current : undefined
   })
 
-  // The QR code carries the remote address as `opencode pair --remote` prints it, {"code","urls"} JSON, which the
+  // The QR code carries the remote address as `xccode pair --remote` prints it, {"code","urls"} JSON, which the
   // app's scanner reads. Keyed by its content, so the countdown and a refresh in flight never draw it again.
   const payload = createMemo(() => ready()?.qr)
 

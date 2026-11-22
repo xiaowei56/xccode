@@ -149,7 +149,7 @@ export function isRequestInflight(state: RequestQueueState, id: number) {
 /**
  * The event stream bypasses the queue. Writes go first. Session lists and the first transcript page unblock
  * navigation, so they go ahead of location reads. Older pages and filtered indexes keep background priority.
- * `prefix` is the server URL's path, such as `/opencode`, when the server sits under one.
+ * `prefix` is the server URL's path, such as `/xccode`, when the server sits under one.
  */
 export function classifyRequest(method: string, url: URL, prefix = ""): RequestClassification {
   // A server behind a path prefix serves its API under it; classify the path the server sees.

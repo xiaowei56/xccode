@@ -1,6 +1,6 @@
-import { Button } from "@opencode/ui/button"
+import { Button } from "@xccode/ui/button"
 import { createSignal, For, Show } from "solid-js"
-import { usePlugin } from "@opencode/plugin/gui"
+import { usePlugin } from "@xccode/plugin/gui"
 import { browserPaneFixture, type BrowserScenario } from "./panel.fixture"
 import barStyles from "./bar.css?inline"
 import commentStyles from "./comment.css?inline"

@@ -2,7 +2,7 @@
   Show background server status
 
 [1mUSAGE[0m
-  [36mopencode service status [flags][0m
+  [36mxccode service status [flags][0m
 
 [1mGLOBAL FLAGS[0m
   [32m--help[0m, [32m-h[0m                                                          Show help information

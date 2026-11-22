@@ -1,6 +1,6 @@
 //! Renders source to styled lines, including partial diagrams while streaming.
 
-use opencode_plugin_abi::Rgba;
+use xccode_plugin_abi::Rgba;
 
 use crate::core::canvas::{Canvas, TRIM_BOTH, TRIM_BOTTOM, TRIM_NONE, Trim};
 use crate::core::color::{blend, ramp, rgb};

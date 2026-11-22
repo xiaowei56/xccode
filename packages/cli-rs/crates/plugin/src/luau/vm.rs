@@ -352,7 +352,7 @@ impl Drop for Outer<'_> {
 
 /// What an author reads for Luau error `error` of plugin `id`: `<id>: <file>.luau:<line>: <message>`, then the
 /// traceback's frames in the plugin's own files. mlua's `runtime error:` prefix goes, and so do the frames of C
-/// functions, of mlua's `require` and of the host's `@opencode/plugin`, which say nothing about the plugin. An
+/// functions, of mlua's `require` and of the host's `@xccode/plugin`, which say nothing about the plugin. An
 /// allocation over the heap's `cap` says so, with the cap.
 fn report(id: &str, error: &str, cap: usize) -> String {
     const FRAMES: usize = 10;
@@ -575,14 +575,14 @@ fn print(lua: &Lua, id: &str) -> mlua::Result<Function> {
 /// The plugin's files as Luau's require-by-string sees them (mlua's [`Require`]), from the bytes read at load: the
 /// disk is never read again. `./x` is beside the requiring module and `@self/x` inside it, so in `init.luau`, which
 /// is the plugin's root module, `./x` is outside the plugin and `@self/x` is `x.luau`. Nothing above the root is
-/// reached, only a `.luaurc` inside the plugin is read, and `@opencode` is always the host's, whatever a `.luaurc`
-/// says: `@opencode/plugin` is registered (`Lua::register_module`), and anything else under it is not found.
+/// reached, only a `.luaurc` inside the plugin is read, and `@xccode` is always the host's, whatever a `.luaurc`
+/// says: `@xccode/plugin` is registered (`Lua::register_module`), and anything else under it is not found.
 struct Files {
     compiled: Rc<Compiled>,
     loading: Rc<RefCell<Vec<String>>>,
     /// The requiring module, by its path in the plugin: `""` is the root, the module of `init.luau`.
     requirer: String,
-    /// Where navigation is: a path in the plugin, or `None` for the host's `@opencode`, which holds no file.
+    /// Where navigation is: a path in the plugin, or `None` for the host's `@xccode`, which holds no file.
     at: Option<String>,
 }
 
@@ -613,7 +613,7 @@ impl Require for Files {
 
     fn to_alias_override(&mut self, alias: &str) -> Result<(), NavigateError> {
         self.at = match alias {
-            "opencode" => None,
+            "xccode" => None,
             // Luau 747's rule already: `@self` is the requiring module, which no `.luaurc` overrides.
             "self" => Some(self.requirer.clone()),
             _ => return Err(NavigateError::NotFound),

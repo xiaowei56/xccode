@@ -3,7 +3,7 @@
 // TUI with the same responses (keep `SERVERS` and the other data below in step with it) and compares the dialog
 // panel.
 import { onMount, type JSX } from "solid-js"
-import type { Context } from "@opencode/plugin/tui/context"
+import type { Context } from "@xccode/plugin/tui/context"
 // The plugin context registers every builtin, and the plugins dialog imports the context back, so the context
 // loads first, as in the app.
 import type { usePlugin } from "../../../tui/src/plugin/context"
@@ -32,7 +32,7 @@ import { createTuiResolvedConfig } from "../../../tui/test/fixture/tui-runtime"
 import { withNewDesigns } from "../lib/app"
 import { renderComponent } from "../lib/component"
 
-const directory = "/tmp/opencode/app"
+const directory = "/tmp/xccode/app"
 const location = { directory, project: { id: "proj_app", directory, canonical: directory } }
 
 const SERVERS = [
@@ -56,30 +56,30 @@ const PLUGINS = [
   },
   {
     id: "audit",
-    source: { type: "local", path: `${directory}/.opencode/plugins/audit.ts` },
+    source: { type: "local", path: `${directory}/.xccode/plugins/audit.ts` },
     features: { server: true },
     state: { status: "failed", error: "Cannot find module 'zod' from audit.ts", ref: "err_audit" },
   },
-  { id: "opencode.core", source: { type: "builtin" }, features: { server: true }, state: { status: "active" } },
+  { id: "xccode.core", source: { type: "builtin" }, features: { server: true }, state: { status: "active" } },
   { id: "theme.pack", source: { type: "package", target: "theme-pack" }, features: { tui: true }, state: { status: "active" } },
 ]
 
 // The Rust built-ins (crates/tui/src/plugins/host.rs) and the plugin crates/tui/tests/all/system.rs adds.
 const BUILTINS = [
-  "opencode.home.footer",
-  "opencode.prompt.footer",
-  "opencode.btw",
-  "opencode.sidebar.context",
-  "opencode.sidebar.limit",
-  "opencode.sidebar.mcp",
-  "opencode.sidebar.todo",
-  "opencode.sidebar.footer",
-  "opencode.notifications",
-  "opencode.plugins",
-  "opencode.stats",
-  "opencode.merman",
-  "opencode.latex",
-  "opencode.diffs",
+  "xccode.home.footer",
+  "xccode.prompt.footer",
+  "xccode.btw",
+  "xccode.sidebar.context",
+  "xccode.sidebar.limit",
+  "xccode.sidebar.mcp",
+  "xccode.sidebar.todo",
+  "xccode.sidebar.footer",
+  "xccode.notifications",
+  "xccode.plugins",
+  "xccode.stats",
+  "xccode.merman",
+  "xccode.latex",
+  "xccode.diffs",
 ]
 
 const INFO = {
@@ -237,7 +237,7 @@ await render("E.18b/update-failed", update({ type: "failed", message: "npm exite
 await render("E.18b/update-current", update(undefined), updated)
 await render(
   "E.18b/update-unavailable",
-  update(undefined, async () => "OpenCode was installed with Homebrew. Run `brew upgrade opencode` to update."),
+  update(undefined, async () => "Xccode was installed with Homebrew. Run `brew upgrade xccode` to update."),
   (f) => f.includes("Homebrew"),
 )
 await render(

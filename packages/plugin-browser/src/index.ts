@@ -1,10 +1,10 @@
-import { Plugin } from "@opencode/plugin/effect"
+import { Plugin } from "@xccode/plugin/effect"
 import { Effect } from "effect"
 import { BrowserConnection } from "./connection.js"
 import { BrowserTools } from "./tools.js"
 
 export default Plugin.define({
-  id: "opencode.browser",
+  id: "xccode.browser",
   effect: (ctx) =>
     Effect.gen(function* () {
       const connection = yield* BrowserConnection.make(ctx)

@@ -1,5 +1,5 @@
 //! Compares config edits and shared file contents with the TypeScript client in temporary directories. Set
-//! `OPENCODE_RS_REQUIRE_TS` to fail rather than skip when dependencies are missing.
+//! `XCCODE_RS_REQUIRE_TS` to fail rather than skip when dependencies are missing.
 
 use std::fs;
 use std::io::Write;
@@ -8,14 +8,14 @@ use std::process::{Child, Command};
 use std::thread;
 use std::time::Duration;
 
-use opencode_local::cli_config::{CliConfig, Decode, Info, Resolved};
-use opencode_local::jsonc::{self, Segment};
-use opencode_local::lock;
-use opencode_local::migrate::{self, V1};
-use opencode_local::model_pref::{Model, ModelPreferences};
-use opencode_local::paths::Paths;
-use opencode_local::storage::Storage;
-use opencode_local::{jsonl, lock::Options};
+use xccode_local::cli_config::{CliConfig, Decode, Info, Resolved};
+use xccode_local::jsonc::{self, Segment};
+use xccode_local::lock;
+use xccode_local::migrate::{self, V1};
+use xccode_local::model_pref::{Model, ModelPreferences};
+use xccode_local::paths::Paths;
+use xccode_local::storage::Storage;
+use xccode_local::{jsonl, lock::Options};
 use serde_json::{Map, Value, json};
 use support::available;
 
@@ -23,7 +23,7 @@ use crate::support;
 
 fn command(args: &[&str], home: Option<&Path>) -> Command {
     let mut command = support::bun("F.5-config.ts", args);
-    command.env_remove("OPENCODE_CLI_CONFIG_CONTENT").env_remove("OPENCODE_CONFIG_DIR");
+    command.env_remove("XCCODE_CLI_CONFIG_CONTENT").env_remove("XCCODE_CONFIG_DIR");
     if let Some(home) = home {
         for (name, value) in env(home) {
             command.env(name, value);
@@ -461,7 +461,7 @@ fn cli_config_files_match_typescript() {
     if !available() {
         return;
     }
-    let commented = "/* head */\n{\n  \"$schema\": \"https://opencode.ai/v2/cli.json\",\n  // theme\n  \"theme\": {\n    \"name\": \"x\" /* inline */\n  },\n  \"tabs\": { \"enabled\": false },\n  \"keybinds\": {},\n}\n// tail\n";
+    let commented = "/* head */\n{\n  \"$schema\": \"https://xccode.ai/v2/cli.json\",\n  // theme\n  \"theme\": {\n    \"name\": \"x\" /* inline */\n  },\n  \"tabs\": { \"enabled\": false },\n  \"keybinds\": {},\n}\n// tail\n";
     let legacy = "{\n  // copy\n  \"terminal\": { \"copy_on_select\": true, \"title\": false },\n  \"keybinds\": { \"session.new\": \"x\" },\n  \"keybinds\": {\n    \"session_new\": \"ctrl+n\", // new\n    \"session_list\": \"a\",\n    \"session.list\": \"b\",\n    \"app_exit\": \"q\",\n    \"app_exit\": \"ctrl+q\",\n    \"unknown_name\": \"z\",\n    \"command_list\": \"none\"\n  }\n}\n";
     let tui = "{\n  // v1\n  \"theme\": \"tokyonight\",\n  \"keybinds\": { \"session_new\": \"ctrl+n\" },\n  \"plugin\": [\"a\", [\"b\", { \"x\": 1 }]],\n  \"leader_timeout\": 900,\n  \"scroll_speed\": 0.5,\n  \"attention\": { \"enabled\": true },\n  \"diff_style\": \"stacked\",\n  \"cursor\": { \"style\": \"line\" },\n}\n";
     let kv = "{\"theme_mode_lock\":\"light\",\"sidebar\":\"hide\",\"animations_enabled\":false,\"paste_summary_enabled\":true}";
@@ -484,7 +484,7 @@ fn cli_config_files_match_typescript() {
         },
         Scenario {
             name: "comments",
-            files: vec![("config/opencode/cli.json", commented)],
+            files: vec![("config/xccode/cli.json", commented)],
             overlay: None,
             ops: json!([
                 {"get": true},
@@ -496,31 +496,31 @@ fn cli_config_files_match_typescript() {
         },
         Scenario {
             name: "legacy names",
-            files: vec![("config/opencode/cli.json", legacy)],
+            files: vec![("config/xccode/cli.json", legacy)],
             overlay: None,
             ops: json!([{"get": true}, {"update": [[["mouse"], true]]}]),
         },
         Scenario {
             name: "v1 migration",
-            files: vec![("config/opencode/tui.json", tui), ("state/opencode/kv.json", kv)],
+            files: vec![("config/xccode/tui.json", tui), ("state/xccode/kv.json", kv)],
             overlay: None,
             ops: json!([{"get": true}, {"update": [[["theme", "name"], "nord"]]}]),
         },
         Scenario {
             name: "broken",
-            files: vec![("config/opencode/cli.json", "{ \"theme\": ")],
+            files: vec![("config/xccode/cli.json", "{ \"theme\": ")],
             overlay: None,
             ops: json!([{"get": true}, {"update": [[["mouse"], false]]}]),
         },
         Scenario {
             name: "schema failure",
-            files: vec![("config/opencode/cli.json", "{\n  \"mouse\": 1\n}\n")],
+            files: vec![("config/xccode/cli.json", "{\n  \"mouse\": 1\n}\n")],
             overlay: None,
             ops: json!([{"get": true}, {"update": [[["theme", "name"], "x"]]}]),
         },
         Scenario {
             name: "overlay",
-            files: vec![("config/opencode/cli.json", "{\n  \"theme\": { \"name\": \"file\" }\n}\n")],
+            files: vec![("config/xccode/cli.json", "{\n  \"theme\": { \"name\": \"file\" }\n}\n")],
             overlay: Some("{\"theme\":{\"name\":\"over\"},\"session\":{\"tps\":false}}"),
             ops: json!([
                 {"get": true},
@@ -530,9 +530,9 @@ fn cli_config_files_match_typescript() {
         },
     ];
     for scenario in scenarios {
-        let ts_home = opencode_util::temp::tempdir().unwrap();
-        let rs_home = opencode_util::temp::tempdir().unwrap();
-        let mixed_home = opencode_util::temp::tempdir().unwrap();
+        let ts_home = xccode_util::temp::tempdir().unwrap();
+        let rs_home = xccode_util::temp::tempdir().unwrap();
+        let mixed_home = xccode_util::temp::tempdir().unwrap();
         for home in [&ts_home, &rs_home, &mixed_home] {
             seed(home.path(), &scenario.files);
         }
@@ -563,7 +563,7 @@ fn cli_config_files_match_typescript() {
 fn ts_op(home: &Path, overlay: Option<&str>, op: &Value) -> Value {
     let mut command = command(&["config"], Some(home));
     if let Some(overlay) = overlay {
-        command.env("OPENCODE_CLI_CONFIG_CONTENT", overlay);
+        command.env("XCCODE_CLI_CONFIG_CONTENT", overlay);
     }
     let mut child = command.spawn().unwrap();
     child.stdin.take().unwrap().write_all(json!([op]).to_string().as_bytes()).unwrap();
@@ -586,8 +586,8 @@ fn model_and_storage_files_match_typescript() {
         {},
     ]);
     let seed = "{\"x\":1,\"recent\":[{\"providerID\":\"z\",\"modelID\":\"y\",\"extra\":1},5],\"variant\":{\"\":\"a\"}}";
-    let ts = opencode_util::temp::tempdir().unwrap();
-    let mixed = opencode_util::temp::tempdir().unwrap();
+    let ts = xccode_util::temp::tempdir().unwrap();
+    let mixed = xccode_util::temp::tempdir().unwrap();
     for dir in [&ts, &mixed] {
         fs::write(dir.path().join("model.json"), seed).unwrap();
     }
@@ -630,8 +630,8 @@ fn model_and_storage_files_match_typescript() {
         json!({"sort": 1.5}),
     ];
     let storage_op = |set: &Value| json!({"key": "session-list", "initial": initial, "set": set});
-    let ts_state = opencode_util::temp::tempdir().unwrap();
-    let mixed_state = opencode_util::temp::tempdir().unwrap();
+    let ts_state = xccode_util::temp::tempdir().unwrap();
+    let mixed_state = xccode_util::temp::tempdir().unwrap();
     let all: Vec<Value> = sets.iter().map(storage_op).collect();
     oracle(&["storage", ts_state.path().to_str().unwrap(), "dev"], None, &Value::Array(all));
     let storage = Storage::new(mixed_state.path(), "dev").unwrap();
@@ -664,7 +664,7 @@ fn typescript_waits_for_the_rust_locks() {
     if !available() {
         return;
     }
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let paths = paths(home.path());
     let config = CliConfig::with_content(&paths, None);
     let storage = Storage::new(&paths.state, "dev").unwrap();
@@ -706,7 +706,7 @@ fn typescript_waits_for_the_rust_locks() {
 /// appears later.
 #[test]
 fn watch_reloads_a_config_file_created_in_a_missing_directory() {
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let paths = paths(home.path());
     assert!(!paths.config.exists());
     let (sender, changed) = std::sync::mpsc::channel();

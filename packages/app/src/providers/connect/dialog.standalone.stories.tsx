@@ -1,7 +1,7 @@
-import { Button } from "@opencode/ui/button"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { Button } from "@xccode/ui/button"
+import { useDialog } from "@xccode/ui/context/dialog"
 import { onMount } from "solid-js"
-import type { IntegrationInfo } from "@opencode/client/promise"
+import type { IntegrationInfo } from "@xccode/client/promise"
 import type { ServerConnection } from "@/runtime/server/registry"
 import { DialogStoryRuntime, STORY_DIRECTORY, STORY_LOCKED_SERVER } from "@/components-lab/dialog-story-runtime"
 import { DialogConnectProvider, useProviderConnectController } from "./dialog"
@@ -89,23 +89,23 @@ export const Picker = {
 }
 
 export const ChooseMethod = {
-  render: renderConnection("opencode"),
+  render: renderConnection("xccode"),
 }
 
-/** OpenCode Console through a remote server: pick "API key (service account)" to see the note on a form. */
-export const ConsoleRemote = { render: renderConnection("opencode", { servers: [REMOTE_SERVER] }) }
+/** Xccode Console through a remote server: pick "API key (service account)" to see the note on a form. */
+export const ConsoleRemote = { render: renderConnection("xccode", { servers: [REMOTE_SERVER] }) }
 
 // Console with only its browser sign-in, so the story starts on the device code.
 const consoleAccountOnly: IntegrationInfo[] = [
   {
-    id: "opencode",
-    name: "OpenCode Console",
-    methods: [{ type: "oauth", id: "console", label: "OpenCode Console account" }],
+    id: "xccode",
+    name: "Xccode Console",
+    methods: [{ type: "oauth", id: "console", label: "Xccode Console account" }],
     connections: [],
   },
 ]
 
-export const ConsoleSignIn = { render: renderConnection("opencode", { integrations: consoleAccountOnly }) }
+export const ConsoleSignIn = { render: renderConnection("xccode", { integrations: consoleAccountOnly }) }
 
 export const ApiKey = {
   render: renderConnection("openrouter"),
@@ -181,7 +181,7 @@ export const Failed = { render: renderConnection("acme-broken") }
 export const LockedRemoteServer = {
   render: () => (
     <DialogStoryRuntime servers={[STORY_LOCKED_SERVER]}>
-      <ProviderConnectionDialogStory provider="opencode" />
+      <ProviderConnectionDialogStory provider="xccode" />
     </DialogStoryRuntime>
   ),
 }

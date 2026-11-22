@@ -11,8 +11,8 @@ import type {
   FormFields,
   FormValue,
   LocationRef,
-} from "@opencode/client"
-import { openUrl } from "@opencode/util/open"
+} from "@xccode/client"
+import { openUrl } from "@xccode/util/open"
 import { createEffect, createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { useNewDesigns } from "../config"
@@ -47,8 +47,8 @@ import {
 } from "../util/form"
 
 const INTEGRATION_PRIORITY: Record<string, number> = {
-  opencode: 0,
-  "opencode-go": 1,
+  xccode: 0,
+  "xccode-go": 1,
   openai: 2,
   "github-copilot": 3,
   anthropic: 4,
@@ -66,10 +66,10 @@ const SUBMIT = Symbol("submit")
 // Device-flow codes such as "R283-GOUEO"; when present they are copied instead of the URL.
 const OAUTH_CODE = /[A-Z0-9]{4}-[A-Z0-9]{4,5}/
 
-// OpenCode Go connects through OpenCode, so it's only listed for people who already saved a Go key.
+// Xccode Go connects through Xccode, so it's only listed for people who already saved a Go key.
 export function integrationOptions(list: IntegrationInfo[]) {
   return list
-    .filter((integration) => integration.id !== "opencode-go" || credentialConnections(integration).length > 0)
+    .filter((integration) => integration.id !== "xccode-go" || credentialConnections(integration).length > 0)
     .toSorted(
       (a, b) =>
         (INTEGRATION_PRIORITY[a.id] ?? 99) - (INTEGRATION_PRIORITY[b.id] ?? 99) ||

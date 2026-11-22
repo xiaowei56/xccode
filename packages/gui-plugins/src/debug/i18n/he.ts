@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "אבחון זיכרון: רישום זיכרון האפליקציה ביומני שולחן העבודה כל 30 שניות. נשאר פעיל גם לאחר הפעלה מחדש עד לכיבוי; הסרגל נשאר פתוח כל עוד הוא פועל.",
-  "memory.tipEnv": "אבחון הזיכרון פעיל בהרצה הנוכחית של האפליקציה: OPENCODE_DESKTOP_MEMORY_LOG מוגדר.",
+  "memory.tipEnv": "אבחון הזיכרון פעיל בהרצה הנוכחית של האפליקציה: XCCODE_DESKTOP_MEMORY_LOG מוגדר.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

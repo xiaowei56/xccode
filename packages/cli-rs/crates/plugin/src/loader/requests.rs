@@ -8,7 +8,7 @@
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 
-use opencode_plugin_abi::{self as abi, HostRequest, Manifest, Request, v2};
+use xccode_plugin_abi::{self as abi, HostRequest, Manifest, Request, v2};
 
 use crate::activation::Activation;
 use crate::node::theme_color;

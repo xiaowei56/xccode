@@ -3,12 +3,12 @@ import {
   isForbiddenError,
   isInvalidRequestError,
   isMachineNotFoundError,
-  OpenCode,
+  Xccode,
   type MachineInfo,
   type MachineInvite,
-} from "@opencode/client/promise"
-import { Service } from "@opencode/client/effect/service"
-import { MACHINE_LINK_PATH, type MachineReach } from "@opencode/protocol/groups/machine"
+} from "@xccode/client/promise"
+import { Service } from "@xccode/client/effect/service"
+import { MACHINE_LINK_PATH, type MachineReach } from "@xccode/protocol/groups/machine"
 import { Effect, Option } from "effect"
 import { EOL } from "node:os"
 import { Server, Standalone } from "../../commands"
@@ -27,10 +27,10 @@ export const ensureMachineClient = Effect.fn("cli.machine.client")(function* () 
   const config = yield* ServiceConfig.read()
   if (Option.isNone(serverFlag) && config.disabled === true)
     return yield* Effect.fail(
-      new Error("Managing machines requires the background service; run `opencode service unset disabled` first."),
+      new Error("Managing machines requires the background service; run `xccode service unset disabled` first."),
     )
   const server = yield* ServerConnection.resolve()
-  return OpenCode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
+  return Xccode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
 })
 
 export function machineReach(urls: ReadonlyArray<string>): Array<MachineReach> {
@@ -103,7 +103,7 @@ export function formatMachineList(machines: ReadonlyArray<MachineInfo>) {
 
 export function formatMachineError(error: unknown, name?: string) {
   if (isForbiddenError(error)) {
-    return "Machines are experimental and disabled on this server. Turn them on with OPENCODE_FLAGS=machines or experimental.machines: true in your config."
+    return "Machines are experimental and disabled on this server. Turn them on with XCCODE_FLAGS=machines or experimental.machines: true in your config."
   }
   if (isInvalidRequestError(error) && error.kind === "invalid_name") {
     const label = name === undefined ? "That name" : JSON.stringify(name)

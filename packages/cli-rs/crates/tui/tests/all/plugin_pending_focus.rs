@@ -6,8 +6,8 @@ use std::cell::Cell;
 use std::sync::Arc;
 use std::time::Duration;
 
-use opencode_plugin::abi::{self, v2};
-use opencode_tui::{Deps, Route};
+use xccode_plugin::abi::{self, v2};
+use xccode_tui::{Deps, Route};
 
 const ID: &str = "test.focus";
 
@@ -69,14 +69,14 @@ fn open(carrier: Carrier) -> Harness {
         Carrier::Linked => abi::Plugin { id: ID, setup: probe }.into(),
         #[cfg(luau)]
         Carrier::Luau => {
-            let sources = opencode_plugin::luau::Sources::from_files([
+            let sources = xccode_plugin::luau::Sources::from_files([
                 ("plugin.toml", "id = \"test.focus\""),
                 ("init.luau", LUAU),
             ]);
-            opencode_plugin::luau::define(&sources, None).unwrap().0
+            xccode_plugin::luau::define(&sources, None).unwrap().0
         }
     };
-    opencode_tui::plugins::host::add(&h.tui, definition);
+    xccode_tui::plugins::host::add(&h.tui, definition);
     h.tui.navigate(Route::Plugin { id: ID.into(), name: "pf".into() });
     h.wait_for("focus page");
     turns(&h, 5);
@@ -84,7 +84,7 @@ fn open(carrier: Carrier) -> Harness {
 }
 
 fn focused(h: &Harness) -> Option<String> {
-    opencode_plugin::behave::mounts(h.app.app(), ID, "pf").pop().and_then(|mount| mount.focused)
+    xccode_plugin::behave::mounts(h.app.app(), ID, "pf").pop().and_then(|mount| mount.focused)
 }
 
 fn turns(h: &Harness, count: usize) {
@@ -125,7 +125,7 @@ fn page(wide: bool, show: bool) -> v2::Node {
 }
 
 #[cfg(luau)]
-const LUAU: &str = r#"local plugin = require("@opencode/plugin")
+const LUAU: &str = r#"local plugin = require("@xccode/plugin")
 local show = false
 local function text(text) return { type = "text", spans = { { text = text } } } end
 return plugin.define(function(setup)

@@ -4,10 +4,10 @@ use std::ffi::OsString;
 use std::io;
 use std::path::{Path, PathBuf};
 
-use opencode_util::path::Flavor;
+use xccode_util::path::Flavor;
 
 /// The application directory name under each XDG root.
-pub const APP: &str = "opencode";
+pub const APP: &str = "xccode";
 
 /// The global paths of the TypeScript `Global.Service`.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -29,7 +29,7 @@ impl Paths {
         Self::from_vars(|name| std::env::var_os(name))
     }
 
-    /// Empty XDG values are unset. `OPENCODE_CONFIG_DIR` replaces only config; locks and registration stay in state.
+    /// Empty XDG values are unset. `XCCODE_CONFIG_DIR` replaces only config; locks and registration stay in state.
     /// Roots are joined and normalized as `path.join` does, because the lock of a file is keyed by its path text.
     pub fn from_vars(var: impl Fn(&str) -> Option<OsString>) -> io::Result<Self> {
         let set = |name: &str| var(name).filter(|value| !value.is_empty()).map(PathBuf::from);
@@ -42,10 +42,10 @@ impl Paths {
         let data = root("XDG_DATA_HOME", &[".local", "share"]);
         let cache = root("XDG_CACHE_HOME", &[".cache"]);
         let state = root("XDG_STATE_HOME", &[".local", "state"]);
-        let config = set("OPENCODE_CONFIG_DIR").unwrap_or_else(|| root("XDG_CONFIG_HOME", &[".config"]));
+        let config = set("XCCODE_CONFIG_DIR").unwrap_or_else(|| root("XDG_CONFIG_HOME", &[".config"]));
         Ok(Self {
-            // `OPENCODE_TEST_HOME` overrides only the home directory.
-            home: var("OPENCODE_TEST_HOME").map(PathBuf::from).unwrap_or(home),
+            // `XCCODE_TEST_HOME` overrides only the home directory.
+            home: var("XCCODE_TEST_HOME").map(PathBuf::from).unwrap_or(home),
             bin: cache.join("bin"),
             log: data.join("log"),
             repos: data.join("repos"),
@@ -136,7 +136,7 @@ pub fn enter(root: &Path) -> io::Result<PathBuf> {
 pub fn current_dir() -> io::Result<PathBuf> {
     let dir = std::env::current_dir()?;
     let real = std::fs::canonicalize(&dir).ok().and_then(|real| {
-        real.to_str().map(|text| PathBuf::from(opencode_util::path::strip_verbatim(text).into_owned()))
+        real.to_str().map(|text| PathBuf::from(xccode_util::path::strip_verbatim(text).into_owned()))
     });
     match real.filter(|real| *real == dir || std::env::set_current_dir(real).is_ok()) {
         Some(real) => Ok(real),
@@ -157,14 +157,14 @@ mod tests {
     #[test]
     fn defaults_follow_home() {
         let p = paths(&[("HOME", "/h")]);
-        assert_eq!(p.data, PathBuf::from("/h/.local/share/opencode"));
-        assert_eq!(p.cache, PathBuf::from("/h/.cache/opencode"));
-        assert_eq!(p.config, PathBuf::from("/h/.config/opencode"));
-        assert_eq!(p.state, PathBuf::from("/h/.local/state/opencode"));
-        assert_eq!(p.bin, PathBuf::from("/h/.cache/opencode/bin"));
-        assert_eq!(p.log, PathBuf::from("/h/.local/share/opencode/log"));
-        assert_eq!(p.repos, PathBuf::from("/h/.local/share/opencode/repos"));
-        assert_eq!(p.locks(), PathBuf::from("/h/.local/state/opencode/locks"));
+        assert_eq!(p.data, PathBuf::from("/h/.local/share/xccode"));
+        assert_eq!(p.cache, PathBuf::from("/h/.cache/xccode"));
+        assert_eq!(p.config, PathBuf::from("/h/.config/xccode"));
+        assert_eq!(p.state, PathBuf::from("/h/.local/state/xccode"));
+        assert_eq!(p.bin, PathBuf::from("/h/.cache/xccode/bin"));
+        assert_eq!(p.log, PathBuf::from("/h/.local/share/xccode/log"));
+        assert_eq!(p.repos, PathBuf::from("/h/.local/share/xccode/repos"));
+        assert_eq!(p.locks(), PathBuf::from("/h/.local/state/xccode/locks"));
         assert_eq!(p.home, PathBuf::from("/h"));
     }
 
@@ -172,9 +172,9 @@ mod tests {
     fn xdg_roots_and_config_dir() {
         // Node reads `TMPDIR` on POSIX only and `TEMP` first on Windows.
         let (tmp, expected_tmp) = if cfg!(windows) {
-            (("TEMP", "C:\\Temp\\"), "C:\\Temp\\opencode")
+            (("TEMP", "C:\\Temp\\"), "C:\\Temp\\xccode")
         } else {
-            (("TMPDIR", "/var/tmp/"), "/var/tmp/opencode")
+            (("TMPDIR", "/var/tmp/"), "/var/tmp/xccode")
         };
         let p = paths(&[
             ("HOME", "/h"),
@@ -183,15 +183,15 @@ mod tests {
             ("XDG_CACHE_HOME", "/c"),
             ("XDG_CONFIG_HOME", "/x"),
             ("XDG_STATE_HOME", ""),
-            ("OPENCODE_CONFIG_DIR", "/custom"),
-            ("OPENCODE_TEST_HOME", "/t"),
+            ("XCCODE_CONFIG_DIR", "/custom"),
+            ("XCCODE_TEST_HOME", "/t"),
             tmp,
         ]);
-        assert_eq!(p.data, PathBuf::from("/d/opencode"));
-        assert_eq!(p.cache, PathBuf::from("/c/opencode"));
+        assert_eq!(p.data, PathBuf::from("/d/xccode"));
+        assert_eq!(p.cache, PathBuf::from("/c/xccode"));
         assert_eq!(p.config, PathBuf::from("/custom"));
         // An empty XDG value is unset.
-        assert_eq!(p.state, PathBuf::from("/h/.local/state/opencode"));
+        assert_eq!(p.state, PathBuf::from("/h/.local/state/xccode"));
         assert_eq!(p.home, PathBuf::from("/t"));
         assert_eq!(p.tmp, PathBuf::from(expected_tmp));
     }
@@ -223,13 +223,13 @@ mod tests {
 
     #[test]
     fn empty_config_dir_is_unset() {
-        let p = paths(&[("HOME", "/h"), ("XDG_CONFIG_HOME", "/x"), ("OPENCODE_CONFIG_DIR", "")]);
-        assert_eq!(p.config, PathBuf::from("/x/opencode"));
+        let p = paths(&[("HOME", "/h"), ("XDG_CONFIG_HOME", "/x"), ("XCCODE_CONFIG_DIR", "")]);
+        assert_eq!(p.config, PathBuf::from("/x/xccode"));
     }
 
     #[test]
     fn enter_resolves_symlinks_and_reports_failures() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let real = dir.path().join("real");
         std::fs::create_dir(&real).unwrap();
         #[cfg(unix)]
@@ -248,7 +248,7 @@ mod tests {
             let sibling = dir.path().join("Real2");
             std::fs::create_dir(&sibling).unwrap();
             let named =
-                opencode_util::path::strip_verbatim(real.canonicalize().unwrap().to_str().unwrap()).into_owned();
+                xccode_util::path::strip_verbatim(real.canonicalize().unwrap().to_str().unwrap()).into_owned();
             let before = std::env::current_dir().unwrap();
             let spellings = [named.clone(), named.to_uppercase(), named.to_lowercase(), format!(r"\\?\{named}")];
             let entered: Vec<PathBuf> = spellings.iter().map(|spelling| enter(Path::new(spelling)).unwrap()).collect();

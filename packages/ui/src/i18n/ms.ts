@@ -71,7 +71,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "Tambah kredit",
   "dialog.usageExceeded.freeTier.title": "Had percuma dicapai",
   "dialog.usageExceeded.freeTier.description":
-    "Langgan OpenCode Go pada harga $10/bulan untuk akses yang lebih stabil kepada model sumber terbuka terbaik.",
+    "Langgan Xccode Go pada harga $10/bulan untuk akses yang lebih stabil kepada model sumber terbuka terbaik.",
   "dialog.usageExceeded.freeTier.actionLabel": "Langgan",
   "ui.sessionTurn.status.delegating": "Medelegasi tugasan",
   "ui.sessionTurn.status.planning": "Merancang langkah seterusnya",
@@ -268,9 +268,9 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "Bajet model dicapai · model ini dijeda sehingga ditetapkan semula",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Guna model percuma",
   "ui.sessionTurn.budgetLimit.switchModel": "Tukar model",
-  "ui.sessionTurn.goLimit.title": "Anda telah mencapai had penggunaan OpenCode Go anda.",
+  "ui.sessionTurn.goLimit.title": "Anda telah mencapai had penggunaan Xccode Go anda.",
   "ui.sessionTurn.goLimit.lineReset":
-    "Anda telah mencapai had penggunaan OpenCode Go anda. Ia ditetapkan semula pada {{time}}.",
+    "Anda telah mencapai had penggunaan Xccode Go anda. Ia ditetapkan semula pada {{time}}.",
   "dialog.usageExceeded.freeTier.reset": "Mesej percuma anda ditetapkan semula pada {{time}}.",
   "ui.messagePart.compaction.queued": "Pemadatan sesi dalam baris gilir",
   "ui.messagePart.compaction.done": "Dipadatkan",

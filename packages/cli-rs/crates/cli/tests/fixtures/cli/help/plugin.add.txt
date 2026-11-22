@@ -2,7 +2,7 @@
   Install a plugin and add it to the global configuration
 
 [1mUSAGE[0m
-  [36mopencode plugin add [flags] <package>[0m
+  [36mxccode plugin add [flags] <package>[0m
 
 [1mARGUMENTS[0m
   [32mpackage[0m [2mstring[0m    npm registry or Git package specifier

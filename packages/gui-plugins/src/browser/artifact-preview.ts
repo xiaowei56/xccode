@@ -1,4 +1,4 @@
-import type { ServerEndpoint } from "@opencode/plugin/gui/main"
+import type { ServerEndpoint } from "@xccode/plugin/gui/main"
 import { artifactAddress, artifactResource, artifactViewPath } from "./artifact-link"
 import type { createPreviews } from "./profile/previews"
 

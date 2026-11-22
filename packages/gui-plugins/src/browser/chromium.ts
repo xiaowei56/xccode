@@ -6,11 +6,11 @@ import { documentRefs } from "./refs"
 import { describeField, Field, readableField } from "./field-value"
 import { agentRendering, needsWakeFrame } from "./agent-rendering"
 import { extensionResource } from "./profile/extension-api/resource"
-import { Browser } from "@opencode/plugin-browser/rpc"
+import { Browser } from "@xccode/plugin-browser/rpc"
 import electron, { type BrowserWindow, type WebContents } from "electron"
 import type { Protocol } from "devtools-protocol"
 import { Schema } from "effect"
-import type { Embeds } from "@opencode/plugin/gui/main"
+import type { Embeds } from "@xccode/plugin/gui/main"
 import { captureCoordinator, captureScale, cropPixels, FULL_PAGE_DEADLINE_MS, jpegFits, pngFits, undrawable, undrawableMessage } from "./capture"
 import { createCdp, abortError, waitFor } from "./cdp"
 import { navigationDeadline } from "./navigation-deadline"
@@ -1511,7 +1511,7 @@ export function createBrowserPage(
         if (!shouldPaint() || agentRefusal({ type: "snapshot" }, mainDocument())) return
         await withFrames(false, pageLifetime.signal, async stop => {
           const frame = (await cdp.send("Page.getFrameTree")).frameTree.frame.id
-          const world = await cdp.send("Page.createIsolatedWorld", { frameId: frame, worldName: "opencode-browser-paint" })
+          const world = await cdp.send("Page.createIsolatedWorld", { frameId: frame, worldName: "xccode-browser-paint" })
           abortError(stop)
           await cdp.send("Runtime.evaluate", { contextId: world.executionContextId, expression: "new Promise(done => requestAnimationFrame(() => requestAnimationFrame(() => done())))", awaitPromise: true })
         })

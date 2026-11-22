@@ -1,4 +1,4 @@
-// `OPENCODE_SHOW_TTFD=1` on a new session: the time to the first frame is the first row of the transcript.
+// `XCCODE_SHOW_TTFD=1` on a new session: the time to the first frame is the first row of the transcript.
 import { definePty } from "../../pty/run"
 import { config, server, statusMask } from "./fixture"
 
@@ -6,7 +6,7 @@ export default definePty({
   args: ["mini"],
   cols: 60,
   rows: 10,
-  env: { OPENCODE_SHOW_TTFD: "1" },
+  env: { XCCODE_SHOW_TTFD: "1" },
   server: server(),
   setup: (root) => config(root),
   steps: [

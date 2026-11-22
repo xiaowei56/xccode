@@ -3,7 +3,7 @@
 //! Pipe mode on Windows: no console, one output pipe, job-based kills.
 //!
 //! The Unix suite in `tests/pipe.rs` keeps its own cases; these only run on
-//! Windows. Commands are passed the way OpenCode passes them (`cmd.exe /c
+//! Windows. Commands are passed the way Xccode passes them (`cmd.exe /c
 //! <command>`), and longer checks use a PowerShell script file. Windows
 //! PowerShell needs `SystemRoot` in its environment to start, so test
 //! children get a PATH, SystemRoot and TEMP, never the daemon's own.
@@ -15,7 +15,7 @@ use std::os::windows::io::{AsRawHandle, FromRawHandle, OwnedHandle};
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
-use opencode_pty::service::{
+use xccode_pty::service::{
     CreatePipe, MAX_METADATA_BYTES, PipeMetadata, ProcessExit, ProcessInfo, ProcessMode,
     ProcessSignal, TerminalId, TerminalLifecycle, TerminalService,
 };
@@ -30,14 +30,14 @@ struct TempPath(PathBuf);
 impl TempPath {
     fn new(name: &str) -> Self {
         Self(env::temp_dir().join(format!(
-            "opencode-pty-pipe-{name}-{:032x}",
+            "xccode-pty-pipe-{name}-{:032x}",
             rand::random::<u128>()
         )))
     }
 
     fn script(name: &str, extension: &str) -> Self {
         Self(env::temp_dir().join(format!(
-            "opencode-pty-pipe-{name}-{:032x}.{extension}",
+            "xccode-pty-pipe-{name}-{:032x}.{extension}",
             rand::random::<u128>()
         )))
     }
@@ -95,7 +95,7 @@ fn pipe(
     }
 }
 
-/// A `cmd.exe /c <command>` request, the way OpenCode runs shell commands.
+/// A `cmd.exe /c <command>` request, the way Xccode runs shell commands.
 fn cmd(command: &str, output: &Path) -> CreatePipe {
     pipe(
         "cmd.exe",

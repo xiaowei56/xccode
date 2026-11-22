@@ -1,5 +1,5 @@
 import { createEffect, createSignal } from "solid-js"
-import { Field } from "@opencode/ui/field"
+import { Field } from "@xccode/ui/field"
 import { Textarea, type TextareaProps } from "./textarea"
 
 const docs = `### Overview

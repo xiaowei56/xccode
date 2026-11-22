@@ -1,7 +1,7 @@
 --!strict
 -- A counter in the sidebar that `/count` and a click raise and storage keeps,
 -- `/count-reset` asks before it clears it, a toast on a finished session, and a `shout` fence.
-local plugin = require("@opencode/plugin")
+local plugin = require("@xccode/plugin")
 local shout = require("@self/shout")
 
 local COUNT = "count"

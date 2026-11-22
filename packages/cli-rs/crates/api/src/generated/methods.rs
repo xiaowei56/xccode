@@ -5,7 +5,7 @@ use super::types::*;
 use crate::client::{Call, Client};
 use crate::error::Error;
 use crate::transport::SseResponse;
-use opencode_api_types::client;
+use xccode_api_types::client;
 
 macro_rules! endpoint {
     ($doc:literal, $name:ident, $builder:ident, $send:ident, $output:ty $(, $arg:ident: $input:ty)?) => {

@@ -7,7 +7,7 @@ use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Mutex, MutexGuard, OnceLock, PoisonError};
 use std::time::Duration;
 
-use opencode_util::win;
+use xccode_util::win;
 
 use super::piped::Piped;
 use super::{Output, Read};

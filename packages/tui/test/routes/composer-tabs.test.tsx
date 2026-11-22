@@ -2,7 +2,7 @@
 import { expect, test } from "bun:test"
 import { testRender } from "@opentui/solid"
 import { createSignal } from "solid-js"
-import type { Plugin } from "@opencode/plugin/tui"
+import type { Plugin } from "@xccode/plugin/tui"
 import { busyCounts, busyTab, createComposerTabs } from "../../src/routes/session/composer/tabs"
 
 async function setup(defaultTab?: string) {

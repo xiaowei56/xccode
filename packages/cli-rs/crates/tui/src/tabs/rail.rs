@@ -1,7 +1,7 @@
 //! Vertical session tab rail.
 
-use opencode_store::Location;
-use opencode_ui::theme::tint;
+use xccode_store::Location;
+use xccode_ui::theme::tint;
 use opentui::app::{AnimationTick, Tick};
 use opentui::input::{MouseButton, MouseEvent, MouseEventKind};
 use unicode_width::UnicodeWidthStr;
@@ -80,7 +80,7 @@ pub fn new(app: &App, tui: Weak<Tui>) -> Custom<Rail> {
             let rect = hover.element().rect();
             let y = i32::from(event.y) - rect.screen_y.floor() as i32;
             let clickable = hover.with(|rail| rail.row_at(y).is_some() || (rail.compact(rect.width as u32) && y == 1));
-            hover.mouse_pointer(opencode_ui::click_pointer(clickable));
+            hover.mouse_pointer(xccode_ui::click_pointer(clickable));
         }
     })
 }
@@ -192,7 +192,7 @@ impl Rail {
     fn hover_marquee(&self, app: &App, tui: &Tui, session: Option<&str>) {
         match session.and_then(|session| self.titles.borrow().get(session).cloned().map(|title| (session, title))) {
             Some((session, (title, width))) => {
-                let animations = opencode_ui::motion::enabled(tui.config().info.animations);
+                let animations = xccode_ui::motion::enabled(tui.config().info.animations);
                 self.marquee.enter(app, session, &title, width, animations);
             }
             None => {
@@ -219,8 +219,8 @@ impl Component for Rail {
         let width = painter.width();
         let height = painter.height() as i32;
         let compact = self.compact(width);
-        let animations = opencode_ui::motion::enabled(tui.config().info.animations);
-        let numbers = matches!(tui.config().tabs.indicators, opencode_local::cli_config::TabsIndicators::Numbers);
+        let animations = xccode_ui::motion::enabled(tui.config().info.animations);
+        let numbers = matches!(tui.config().tabs.indicators, xccode_local::cli_config::TabsIndicators::Numbers);
         let background = theme.background.raised.base;
         let selected_bg = theme.background.action.primary.selected;
         let hovered_bg = theme.background.raised.high;

@@ -12,7 +12,7 @@ import { readEnableState } from "../plugin/enable-state"
 
 export type Interface = ReturnType<typeof make>
 
-export class Service extends Context.Service<Service, Interface>()("opencode/desktop/DesktopStorage") {}
+export class Service extends Context.Service<Service, Interface>()("xccode/desktop/DesktopStorage") {}
 
 export const layer = Layer.effect(
   Service,
@@ -26,7 +26,7 @@ export const layer = Layer.effect(
     )
 
     if (storage.moved)
-      yield* Effect.logWarning("drafts.sqlite was the OpenCode CLI database; moved it aside", { to: storage.moved })
+      yield* Effect.logWarning("drafts.sqlite was the Xccode CLI database; moved it aside", { to: storage.moved })
 
     yield* importLegacyStores(storage.db, userData).pipe(
       Effect.tap((result) =>

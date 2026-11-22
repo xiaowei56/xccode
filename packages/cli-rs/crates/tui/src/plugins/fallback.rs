@@ -1,6 +1,6 @@
 //! Host fallback for `/plugins` when the plugin manager fails.
 
-use opencode_plugin::{Entry, Source, Status};
+use xccode_plugin::{Entry, Source, Status};
 
 use crate::dialogs::error_details;
 use crate::prelude::*;
@@ -46,12 +46,12 @@ fn show(tui: &Rc<Tui>, focus: Option<String>) {
                 .collect();
             let mut props = SelectProps::new("Plugins", options);
             props.focus_target = focus.clone();
-            let handle: Rc<RefCell<Option<opencode_ui::select::Select<String>>>> = Rc::default();
+            let handle: Rc<RefCell<Option<xccode_ui::select::Select<String>>>> = Rc::default();
             let picked = Rc::downgrade(&handle);
             let errors: Vec<String> =
                 entries.iter().filter(|entry| error(entry).is_some()).map(|e| e.key.clone()).collect();
             let shown = weak.clone();
-            let mut view_error = opencode_ui::select::SelectAction::new(
+            let mut view_error = xccode_ui::select::SelectAction::new(
                 "dialog.plugins.error",
                 "view error",
                 bind!(shown, |tui, option: &SelectOption<String>| {
@@ -71,7 +71,7 @@ fn show(tui: &Rc<Tui>, focus: Option<String>) {
                 let key = option.value.clone();
                 tui.app.defer(bind!(tui, |tui, _| pick(&tui, &key, by_input)));
             })));
-            let (view, select) = opencode_ui::select::select(cx, props);
+            let (view, select) = xccode_ui::select::select(cx, props);
             handle.replace(Some(select));
             // Kept while the list is open; its close lets the select go.
             cx.on_close(opentui::keymap::Disposer::new(move || drop(handle.take())));
@@ -86,7 +86,7 @@ fn show(tui: &Rc<Tui>, focus: Option<String>) {
 /// shows the error of the entry `key` names, with Back to its row.
 fn pick(tui: &Rc<Tui>, key: &str, by_input: bool) {
     let Some(entry) = tui.plugins.entries().into_iter().find(|entry| entry.key == key) else { return };
-    if entry.key == opencode_plugin::Entry::plugin_key(super::manager::ID) {
+    if entry.key == xccode_plugin::Entry::plugin_key(super::manager::ID) {
         if by_input && failed(&entry) && super::host::fallback_shown(tui) {
             tui.dialogs.clear();
             enable(tui, key);

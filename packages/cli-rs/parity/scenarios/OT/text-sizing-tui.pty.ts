@@ -8,7 +8,7 @@ export default definePty({
   cols: 100,
   rows: 30,
   ...home,
-  preface: "$ ls\r\nalpha  beta  gamma\r\n$ opencode\r\n",
+  preface: "$ ls\r\nalpha  beta  gamma\r\n$ xccode\r\n",
   terminal: "kitty",
   steps: [
     { until: { screen: "█▀▀█" }, settle: 500, timeout: 30_000, checkpoint: "home" },

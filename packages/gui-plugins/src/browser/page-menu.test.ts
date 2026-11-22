@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { Browser } from "@opencode/plugin-browser/rpc"
+import { Browser } from "@xccode/plugin-browser/rpc"
 import { Schema } from "effect"
 import { externalPage } from "./address"
 import { menuAddress, pageMenu } from "./page-menu"

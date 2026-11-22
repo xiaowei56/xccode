@@ -1,7 +1,7 @@
 export * as BrowserSkill from "./skill.js"
 
-import { AbsolutePath } from "@opencode/schema/schema"
-import { Skill } from "@opencode/schema/skill"
+import { AbsolutePath } from "@xccode/schema/schema"
+import { Skill } from "@xccode/schema/skill"
 import { Browser } from "./rpc.js"
 
 export const id = Skill.ID.make("browser")
@@ -16,7 +16,7 @@ export const info = Skill.Info.make({
   content: [
     "# In-app browser",
     "",
-    "The browser tools drive a Chromium browser inside the user's OpenCode desktop app. Its tabs show beside the conversation, so the user sees what you do and can use the same tabs. Call the tools from code mode as `tools.browser.*`; `search({ namespace: \"browser\" })` lists their exact signatures.",
+    "The browser tools drive a Chromium browser inside the user's Xccode desktop app. Its tabs show beside the conversation, so the user sees what you do and can use the same tabs. Call the tools from code mode as `tools.browser.*`; `search({ namespace: \"browser\" })` lists their exact signatures.",
     "",
     "## Basics",
     "",
@@ -25,7 +25,7 @@ export const info = Skill.Info.make({
     "- Key commands go to the page, never to the app's shortcuts or menu.",
     "- Pointer and keyboard input must target a verifiable web or preview document, not extension UI over the page or a focused extension frame.",
     "- Every page operation takes an explicit `tabID` from `tools.browser.tabs.open` or `tools.browser.tabs.list`. Focus only chooses what the user sees; it never picks a target for you.",
-    "- Pages load through the connected server's network. `localhost:3000` is the dev server on the machine that runs OpenCode, which may not be the user's computer.",
+    "- Pages load through the connected server's network. `localhost:3000` is the dev server on the machine that runs Xccode, which may not be the user's computer.",
     "- `snapshot` returns the accessibility tree (interactive:true for controls only). Use its refs with click, fill, select, check, hover, drag or evaluate. A find or scoped snapshot adds refs without invalidating earlier ones. Refs belong to one tab and expire when its document changes; removed elements are stale.",
     '- `evaluate({ tabID, script })` runs JavaScript in the page. The script can be an expression (`document.title`) or statements with `return` and `await` (`const r = await fetch("/api"); return r.status`).',
     '- `wait` takes one condition and reports whether it held: `wait({ tabID, text: "Saved", timeout: 5000 })`, `textGone`, `selector` (add `state: "hidden"` to wait for it to go away), `url`, or nothing for page load. A timeout returns `met: false`; it does not throw, so check `met`. Waits longer than 30 seconds are shortened to 30 seconds.',
@@ -41,7 +41,7 @@ export const info = Skill.Info.make({
     "- Put HTML assets in the document's folder or below it; parent folders, hidden paths and secret filenames are not available to the page.",
     "- `tabs.open` and `navigate` take a web address in `url` or a workspace file in `path`, never both. The `file:` or `workspace:` address that `tabs.list` shows for a file's tab names that file too. The page's isolated `oc-preview:` origin opens nothing. You can also click a relative link in the page.",
     "- A web page you open with `tabs.open({ url })` shows itself: the browser opens if it is closed and the new tab is selected. Pass `focus: false` only when the user asked for the tab to stay in the background. `tabs.focus({ tabID })` shows a tab you already have.",
-    "- `screenshot` works on a hidden tab, including `fullPage: true`. On macOS restore the OpenCode window if it is minimized or hidden. The result includes the image and a server-local file path.",
+    "- `screenshot` works on a hidden tab, including `fullPage: true`. On macOS restore the Xccode window if it is minimized or hidden. The result includes the image and a server-local file path.",
     "",
     "## Recipes",
     "",

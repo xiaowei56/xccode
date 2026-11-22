@@ -1,5 +1,5 @@
 [package]
-name = "opencode-util"
+name = "xccode-util"
 description = "Small shared modules on libc alone: errors with context, civil time and local offsets, shared libraries, digests, Win32 process calls."
 version.workspace = true
 edition.workspace = true

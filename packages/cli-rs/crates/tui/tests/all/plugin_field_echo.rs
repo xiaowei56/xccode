@@ -6,8 +6,8 @@ use std::cell::RefCell;
 use std::sync::Arc;
 use std::time::Duration;
 
-use opencode_plugin::abi::{self, v2};
-use opencode_tui::{Deps, Route};
+use xccode_plugin::abi::{self, v2};
+use xccode_tui::{Deps, Route};
 
 const ID: &str = "test.echo";
 
@@ -21,7 +21,7 @@ fn a_value_the_field_reported_leaves_what_the_user_typed_since() {
     VALUE.set((String::new(), None));
     EDITS.set(Vec::new());
     let h = support::mount(80, 24, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: ID, setup: probe }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: ID, setup: probe }.into());
     h.tui.navigate(Route::Plugin { id: ID.into(), name: "fe".into() });
     h.wait_for("echo page");
     _ = h.tui.keymap.dispatch("fe.focus", None);

@@ -2,15 +2,15 @@ import { Option, Schema } from "effect"
 import { createSignal, onCleanup, Show, untrack } from "solid-js"
 import { makeEventListener } from "@solid-primitives/event-listener"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
-import { createKeyed, type FileContent } from "@opencode/plugin/gui"
-import { FileSearchBar } from "@opencode/session-ui/file-search"
+import { createKeyed, type FileContent } from "@xccode/plugin/gui"
+import { FileSearchBar } from "@xccode/session-ui/file-search"
 
 const HIT = "file-preview-find"
 
 const ACTIVE = "file-preview-find-current"
 
 /** Marks messages between the bar and the script it adds to an HTML preview. */
-const CHANNEL = "opencode-file-find"
+const CHANNEL = "xccode-file-find"
 
 /** The open bar: what it searches, the query, and the active match out of `count`. */
 type PreviewFindState = {
@@ -316,8 +316,8 @@ function frameFind(channel: string) {
     const api = CSS.highlights
 
     if (data.op === "clear") {
-      api?.delete("opencode-file-find")
-      api?.delete("opencode-file-find-current")
+      api?.delete("xccode-file-find")
+      api?.delete("xccode-file-find-current")
 
       return
     }
@@ -345,17 +345,17 @@ function frameFind(channel: string) {
     const index = ranges.length === 0 ? 0 : Math.min(Math.max(data.index, 0), ranges.length - 1)
     const active = ranges[index]
     sheet.replaceSync(
-      `::highlight(opencode-file-find){background-color:${data.marks?.hit}}::highlight(opencode-file-find-current){background-color:${data.marks?.active}}`,
+      `::highlight(xccode-file-find){background-color:${data.marks?.hit}}::highlight(xccode-file-find-current){background-color:${data.marks?.active}}`,
     )
 
     if (!document.adoptedStyleSheets.includes(sheet))
       document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet]
 
     if (api) {
-      api.set("opencode-file-find", new Highlight(...ranges.filter((range) => range !== active)))
+      api.set("xccode-file-find", new Highlight(...ranges.filter((range) => range !== active)))
 
-      if (active) api.set("opencode-file-find-current", new Highlight(active))
-      else api.delete("opencode-file-find-current")
+      if (active) api.set("xccode-file-find-current", new Highlight(active))
+      else api.delete("xccode-file-find-current")
     }
 
     active?.startContainer.parentElement?.scrollIntoView({ block: "center", inline: "nearest" })

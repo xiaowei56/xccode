@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { SessionRef } from "@opencode/plugin/gui"
+import type { SessionRef } from "@xccode/plugin/gui"
 import { attachable } from "./prompt-gate"
 
 // SAFETY: `attachable` reads only these fields of a session and its server.

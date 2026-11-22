@@ -101,7 +101,7 @@ test("writes session references as the IDs they stand for", () => {
 test("keeps web links and drops local paths, scripts, and decorative icons", () => {
   const root = markdownRoot(
     [
-      '<p><a class="external-link" target="_blank" href="https://opencode.ai/docs">',
+      '<p><a class="external-link" target="_blank" href="https://xccode.ai/docs">',
       '<span class="markdown-link-favicon" aria-hidden="true"><img src="https://example.com/icon.png"></span>docs</a> ',
       '<a href="javascript:alert(1)">bad</a> <a href="mailto:help@example.com">mail</a> ',
       '<a data-local-link="src/app.ts" href="src/app.ts">app</a> ',
@@ -112,7 +112,7 @@ test("keeps web links and drops local paths, scripts, and decorative icons", () 
 
   expect(markdownClipboardHtml(root, rangeOver(root))).toBe(
     [
-      '<p><a href="https://opencode.ai/docs">docs</a> ',
+      '<p><a href="https://xccode.ai/docs">docs</a> ',
       '<a>bad</a> <a href="mailto:help@example.com">mail</a> ',
       "<a>app</a> ",
       '<img src="https://example.com/chart.png" alt="chart"> <img alt="local">',

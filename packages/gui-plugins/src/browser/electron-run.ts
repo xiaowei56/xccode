@@ -125,7 +125,7 @@ export async function runElectronFixture(input: {
  * time imports it, behind a lock directory next to the package. A lock left by a crashed run expires.
  */
 async function electronBinary() {
-  const lock = path.join(path.dirname(createRequire(import.meta.url).resolve("electron/package.json")), ".opencode-install.lock")
+  const lock = path.join(path.dirname(createRequire(import.meta.url).resolve("electron/package.json")), ".xccode-install.lock")
   const deadline = Date.now() + 180_000
 
   while (!(await mkdir(lock).then(() => true, () => false))) {

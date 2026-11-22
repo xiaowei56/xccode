@@ -1,9 +1,9 @@
 import type { PromptResponse, SessionUpdate } from "@agentclientprotocol/sdk"
-import type { OpenCodeEvent } from "@opencode/client/effect"
-import type { Session } from "@opencode/schema/session"
-import type { SessionError } from "@opencode/schema/session-error"
-import type { SessionMessage } from "@opencode/schema/session-message"
-import { TokenUsage } from "@opencode/schema/token-usage"
+import type { XccodeEvent } from "@xccode/client/effect"
+import type { Session } from "@xccode/schema/session"
+import type { SessionError } from "@xccode/schema/session-error"
+import type { SessionMessage } from "@xccode/schema/session-message"
+import { TokenUsage } from "@xccode/schema/token-usage"
 import { ACPChild } from "./child"
 import { ACPCompaction } from "./compaction"
 import { ACPError } from "./error"
@@ -16,7 +16,7 @@ import {
   type ToolInput,
 } from "./tool"
 
-const RetryMeta = "opencode/retry"
+const RetryMeta = "xccode/retry"
 
 export type TurnStart = { readonly type: "input" | "compaction"; readonly id: SessionMessage.ID }
 
@@ -62,9 +62,9 @@ export type TurnState = {
   readonly executionError?: { readonly type: string; readonly message: string }
 }
 
-type PermissionEvent = Extract<OpenCodeEvent, { type: "permission.asked" }>
-type FormEvent = Extract<OpenCodeEvent, { type: "form.created" }>
-type CreatedEvent = Extract<OpenCodeEvent, { type: "session.created" }>
+type PermissionEvent = Extract<XccodeEvent, { type: "permission.asked" }>
+type FormEvent = Extract<XccodeEvent, { type: "form.created" }>
+type CreatedEvent = Extract<XccodeEvent, { type: "session.created" }>
 
 export type Output =
   | { readonly _tag: "SessionUpdate"; readonly update: SessionUpdate; readonly diff?: DiffSource }
@@ -95,7 +95,7 @@ export const initial: TurnState = {
   asks: new Set(),
 }
 
-export function fold(state: TurnState, event: OpenCodeEvent, ctx: TurnContext): Folded {
+export function fold(state: TurnState, event: XccodeEvent, ctx: TurnContext): Folded {
   if (event.type === "session.created") return childCreated(state, event, ctx)
 
   const sessionID = sessionIDFromEvent(event)
@@ -156,7 +156,7 @@ export function failure(state: TurnState) {
   if (error?.type === "provider.auth") return new ACPError.AuthRequiredError()
   if (error && error.type !== "aborted" && error.type !== "provider.content-filter") {
     return new ACPError.ServiceFailureError({
-      safeMessage: error.message || "OpenCode prompt failed",
+      safeMessage: error.message || "Xccode prompt failed",
       service: "session",
       errorName: error.type,
     })
@@ -236,7 +236,7 @@ function childCreated(state: TurnState, event: CreatedEvent, ctx: TurnContext): 
   }
 }
 
-function rootEvent(state: TurnState, event: OpenCodeEvent, ctx: TurnContext): Folded {
+function rootEvent(state: TurnState, event: XccodeEvent, ctx: TurnContext): Folded {
   switch (event.type) {
     case "session.step.started":
       return sessionEvent({ ...state, stepError: undefined }, event, ctx, undefined)
@@ -261,7 +261,7 @@ function rootEvent(state: TurnState, event: OpenCodeEvent, ctx: TurnContext): Fo
   }
 }
 
-function childEvent(state: TurnState, event: OpenCodeEvent, ctx: TurnContext, child: Child): Folded {
+function childEvent(state: TurnState, event: XccodeEvent, ctx: TurnContext, child: Child): Folded {
   switch (event.type) {
     case "session.execution.started":
       return {
@@ -279,7 +279,7 @@ function childEvent(state: TurnState, event: OpenCodeEvent, ctx: TurnContext, ch
   }
 }
 
-function sessionEvent(state: TurnState, event: OpenCodeEvent, ctx: TurnContext, child: Child | undefined): Folded {
+function sessionEvent(state: TurnState, event: XccodeEvent, ctx: TurnContext, child: Child | undefined): Folded {
   const sessionID = child?.id ?? ctx.sessionID
   const send = (update: SessionUpdate) => route(ctx, child, update)
   switch (event.type) {
@@ -469,7 +469,7 @@ function childEnded(state: TurnState, ctx: TurnContext, child: ACPChild.Session,
 
 // A background shell's notice wakes the session once delivered, so the shell stays pending until then. Only a job's
 // notice wakes it: a user's shell command queues one without a job ID that waits for the next prompt.
-function shellNoticed(state: TurnState, event: Extract<OpenCodeEvent, { type: "session.inbox.enqueued" }>) {
+function shellNoticed(state: TurnState, event: Extract<XccodeEvent, { type: "session.inbox.enqueued" }>) {
   const metadata = event.data.item.type === "synthetic" ? event.data.item.payload.metadata : undefined
   if (typeof metadata?.shellID !== "string" || typeof metadata.jobID !== "string") return state
   return { ...state, shells: new Map(state.shells).set(metadata.shellID, event.data.inboxID) }
@@ -504,7 +504,7 @@ function without<K, V>(map: ReadonlyMap<K, V>, key: K) {
   return next
 }
 
-function sessionIDFromEvent(event: OpenCodeEvent) {
+function sessionIDFromEvent(event: XccodeEvent) {
   if ("sessionID" in event.data && typeof event.data.sessionID === "string") return event.data.sessionID
   if (event.type === "form.created") return event.data.form.sessionID
   return undefined

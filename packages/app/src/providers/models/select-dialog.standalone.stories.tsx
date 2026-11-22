@@ -1,5 +1,5 @@
-import { Button } from "@opencode/ui/button"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { Button } from "@xccode/ui/button"
+import { useDialog } from "@xccode/ui/context/dialog"
 import { onMount } from "solid-js"
 import { createStore } from "solid-js/store"
 import { DialogStoryRuntime } from "@/components-lab/dialog-story-runtime"
@@ -25,7 +25,7 @@ function makeModel(input: {
     api: {
       id: input.id,
       url: `https://api.${input.providerID}.example/v1`,
-      npm: `@opencode/ai/providers/${input.providerID}`,
+      npm: `@xccode/ai/providers/${input.providerID}`,
     },
     name: input.name,
     family: input.family,
@@ -61,8 +61,8 @@ const models: StoryModel[] = [
   makeModel({
     id: "kimi-k3",
     name: "Kimi K3",
-    providerID: "opencode-go",
-    providerName: "OpenCode Go",
+    providerID: "xccode-go",
+    providerName: "Xccode Go",
     family: "kimi",
     inputCost: 1,
     outputCost: 3,
@@ -71,8 +71,8 @@ const models: StoryModel[] = [
   makeModel({
     id: "big-pickle",
     name: "Big Pickle",
-    providerID: "opencode",
-    providerName: "OpenCode Zen",
+    providerID: "xccode",
+    providerName: "Xccode Zen",
     family: "pickle",
     inputCost: 0,
     outputCost: 0,
@@ -80,8 +80,8 @@ const models: StoryModel[] = [
   makeModel({
     id: "claude-opus-5-5",
     name: "Claude Opus 5.5",
-    providerID: "opencode",
-    providerName: "OpenCode Zen",
+    providerID: "xccode",
+    providerName: "Xccode Zen",
     family: "claude-opus",
     inputCost: 5,
     outputCost: 25,
@@ -105,7 +105,7 @@ function SelectorStory(props: { favorite?: boolean; provider?: string; empty?: b
   const dialog = useDialog()
 
   const [store, setStore] = createStore<{ current: string; favorite: string[]; variant?: string }>({
-    current: props.empty ? "" : "opencode:claude-opus-5-5",
+    current: props.empty ? "" : "xccode:claude-opus-5-5",
     favorite: props.favorite ? ["anthropic:claude-sonnet-5"] : [],
   })
 
@@ -181,7 +181,7 @@ export const Favorites = {
 export const ProviderOnly = {
   render: () => (
     <DialogStoryRuntime>
-      <SelectorStory provider="opencode" />
+      <SelectorStory provider="xccode" />
     </DialogStoryRuntime>
   ),
 }

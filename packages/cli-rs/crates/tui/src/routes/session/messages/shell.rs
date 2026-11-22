@@ -1,13 +1,13 @@
 //! Shell commands with their collapsible output and exit status.
 
-use opencode_api::client::Client;
-use opencode_api::generated::{
+use xccode_api::client::Client;
+use xccode_api::generated::{
     LocationQueryInput, SessionMessageShell, SessionMessageShellExit, SessionMessageShellStatus, ShellID,
     ShellOutputInput,
 };
-use opencode_store::Data;
-use opencode_ui::motion::Spinner;
-use opencode_util::text_boundary;
+use xccode_store::Data;
+use xccode_ui::motion::Spinner;
+use xccode_util::text_boundary;
 use opentui::input::strip_ansi_sequences;
 use unicode_width::UnicodeWidthChar;
 
@@ -185,7 +185,7 @@ impl Shell {
             this: this.clone(),
         });
         inner.root.on_hover(bind!(inner, |inner, _, hovered| {
-            inner.root.mouse_pointer(opencode_ui::click_pointer(inner.expandable.get()));
+            inner.root.mouse_pointer(xccode_ui::click_pointer(inner.expandable.get()));
             inner.hover.set(hovered);
             inner.paint_background();
         }));

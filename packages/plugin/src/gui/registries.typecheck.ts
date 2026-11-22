@@ -63,7 +63,7 @@ const seeds = { ...palette, interactive: "#88c0d0", diffAdd: "#a3be8c", diffDele
 
 // Typed like an imported theme file: JSON modules widen every color to `string`.
 const file = {
-  $schema: "https://opencode.ai/desktop-theme.json",
+  $schema: "https://xccode.ai/desktop-theme.json",
   name: "Nord",
   id: "nord",
   light: { palette, overrides: { "syntax-keyword": "var(--text-strong)" } },

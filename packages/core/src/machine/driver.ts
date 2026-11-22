@@ -1,4 +1,4 @@
-import { CrossSpawnSpawner } from "@opencode/util/cross-spawn-spawner"
+import { CrossSpawnSpawner } from "@xccode/util/cross-spawn-spawner"
 import { posix } from "node:path"
 import { Cause, Deferred, Effect, PlatformError, Queue, Redacted, Schema, Sink, Stream } from "effect"
 import { ChildProcess, ChildProcessSpawner } from "effect/process"

@@ -1,8 +1,8 @@
 //! Choose a local or remote comparison branch.
 
-use opencode_api::client::Client;
-use opencode_api::generated::{LocationQueryInput, VcsBranchListInput, VcsBranchListOutput};
-use opencode_plugin::abi::{Action, Dialog, Host, Select, SelectOption, Span};
+use xccode_api::client::Client;
+use xccode_api::generated::{LocationQueryInput, VcsBranchListInput, VcsBranchListOutput};
+use xccode_plugin::abi::{Action, Dialog, Host, Select, SelectOption, Span};
 
 use super::load::Asked;
 use super::viewer::{Base, Viewer};

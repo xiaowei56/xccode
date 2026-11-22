@@ -24,7 +24,7 @@ pub enum Outcome {
 pub struct Invocation {
     pub cli: Cli,
     /// `--standalone` and `--server` for the selected command: the root's own, or the global ones of the command
-    /// that declares them, wherever they were given (`opencode --server URL session list`).
+    /// that declares them, wherever they were given (`xccode --server URL session list`).
     pub server: ServerFlags,
 }
 
@@ -298,7 +298,7 @@ fn invalid_negation(token: &Token, flag: &Flag, value: &str) -> String {
 type FlagMap = HashMap<&'static str, Vec<String>>;
 
 /// `consumeGlobalFlags`: takes the global flags out of the line at every command level. A command's own flag of
-/// the same name wins, except at the root before its subcommand (`opencode --server URL session list`).
+/// the same name wins, except at the root before its subcommand (`xccode --server URL session list`).
 fn consume_globals(tokens: &[Token], globals: &[&'static Flag]) -> (FlagMap, Vec<Token>, Vec<String>) {
     let mut map = FlagMap::new();
     let mut errors = Vec::new();
@@ -749,8 +749,8 @@ fn parse_int(text: &str) -> Result<i64, &'static str> {
 // `search` and `hash` are then empty.
 fn server_url(value: &str) -> Result<String, &'static str> {
     let error = "Expected an HTTP(S) server URL without credentials, query parameters, or a fragment";
-    let url = opencode_api::js::parse_url(value).map_err(|parse| match parse {
-        opencode_api::js::UrlError::NonAsciiHost(_) => opencode_api::js::ASCII_HOST,
+    let url = xccode_api::js::parse_url(value).map_err(|parse| match parse {
+        xccode_api::js::UrlError::NonAsciiHost(_) => xccode_api::js::ASCII_HOST,
         _ => error,
     })?;
     let plain = matches!(url.scheme(), "http" | "https")

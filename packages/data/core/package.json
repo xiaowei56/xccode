@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/data-core",
+  "name": "@xccode/data-core",
   "version": "2.3.0",
   "private": true,
   "type": "module",

@@ -1,5 +1,5 @@
 // Writes crates/util/fixtures/time.tsv: what the TypeScript client's `Date` and `Intl` calls give under Bun, in five
-// time zones, for the known-answer tests of opencode-util's `time` module. Each zone runs in a child process with `TZ`
+// time zones, for the known-answer tests of xccode-util's `time` module. Each zone runs in a child process with `TZ`
 // set, as the client reads it. Rows are `kind input output...`, tab-separated. The `parse` rows come first, then a
 // `zone` line starts each zone's other rows:
 //

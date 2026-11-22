@@ -56,8 +56,8 @@ async function record(name: string, file: string) {
   await using zed = scenario.zed ? await zedDatabase(scenario.zed.sql) : undefined
   const env = {
     ...scenario.env,
-    ...(ide ? { OPENCODE_EDITOR_SSE_PORT: String(ide.port) } : {}),
-    ...(zed ? { ZED_TERM: "true", OPENCODE_ZED_DB: zed.db, HOME: zed.home } : {}),
+    ...(ide ? { XCCODE_EDITOR_SSE_PORT: String(ide.port) } : {}),
+    ...(zed ? { ZED_TERM: "true", XCCODE_ZED_DB: zed.db, HOME: zed.home } : {}),
   }
   const saved = Object.fromEntries(Object.keys(env).map((key) => [key, process.env[key]]))
   Object.assign(process.env, env)
@@ -211,7 +211,7 @@ function startIde() {
 // A Zed database for the scenario in a temporary directory, which is also HOME, so no IDE lock file of the
 // machine is read.
 async function zedDatabase(sql: string) {
-  const home = await mkdtemp(path.join(tmpdir(), "opencode-parity-zed-"))
+  const home = await mkdtemp(path.join(tmpdir(), "xccode-parity-zed-"))
   const db = path.join(home, "db.sqlite")
   const database = new Database(db)
   database.exec(sql)

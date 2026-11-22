@@ -2,7 +2,7 @@ export * as ConfigWatch from "./watch.js"
 
 import path from "path"
 import { Effect } from "effect"
-import { FSUtil } from "@opencode/util/fs-util"
+import { FSUtil } from "@xccode/util/fs-util"
 import type { Watcher } from "../filesystem/watcher.js"
 import { ConfigDiscovery } from "./discovery.js"
 

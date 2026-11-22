@@ -1,15 +1,15 @@
-import { Instance } from "@opencode/core/instance/service"
-import { Session } from "@opencode/core/session"
-import { SessionStats } from "@opencode/core/session/stats"
-import { SessionTitle } from "@opencode/core/session/title"
-import { SessionTransfer } from "@opencode/core/session/transfer"
-import { InstructionEntry } from "@opencode/core/session/instruction-entry"
-import { Form } from "@opencode/core/form"
+import { Instance } from "@xccode/core/instance/service"
+import { Session } from "@xccode/core/session"
+import { SessionStats } from "@xccode/core/session/stats"
+import { SessionTitle } from "@xccode/core/session/title"
+import { SessionTransfer } from "@xccode/core/session/transfer"
+import { InstructionEntry } from "@xccode/core/session/instruction-entry"
+import { Form } from "@xccode/core/form"
 import { DateTime, Effect, Stream } from "effect"
 import { HttpServerResponse } from "effect/http"
 import { HttpApiBuilder, HttpApiSchema } from "effect/http-api"
-import { SessionMediaMessageResponse } from "@opencode/protocol/groups/message"
-import { SessionMediaInboxResponse } from "@opencode/protocol/groups/session"
+import { SessionMediaMessageResponse } from "@xccode/protocol/groups/message"
+import { SessionMediaInboxResponse } from "@xccode/protocol/groups/session"
 import { Api } from "../api"
 import { wantsMediaRefs } from "../media-uri"
 import {
@@ -25,8 +25,8 @@ import {
   ServiceUnavailableError,
   SessionBusyError,
   SkillNotFoundError,
-} from "@opencode/protocol/errors"
-import { AbsolutePath } from "@opencode/core/schema"
+} from "@xccode/protocol/errors"
+import { AbsolutePath } from "@xccode/core/schema"
 import { locationErrors } from "../location"
 import { failedMessageDecode, failedSnapshot, missingMessage, missingSession } from "./session-error"
 

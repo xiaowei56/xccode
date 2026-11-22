@@ -1,11 +1,11 @@
 import { describe, expect, test } from "bun:test"
-import { App } from "@opencode/core/app"
-import { Config } from "@opencode/core/config"
-import { Flag } from "@opencode/core/flag"
-import { Document, Info } from "@opencode/schema/config"
-import { ConfigExperimental } from "@opencode/schema/config/experimental"
-import { ConfigFlag } from "@opencode/schema/config/flag"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { App } from "@xccode/core/app"
+import { Config } from "@xccode/core/config"
+import { Flag } from "@xccode/core/flag"
+import { Document, Info } from "@xccode/schema/config"
+import { ConfigExperimental } from "@xccode/schema/config/experimental"
+import { ConfigFlag } from "@xccode/schema/config/flag"
+import { makeLocationNode } from "@xccode/util/effect/app-node"
 import { Effect, Layer, Record } from "effect"
 import { testEffect } from "./lib/effect"
 
@@ -45,7 +45,7 @@ describe("Flag.resolve", () => {
   })
 
   test.each(["todo"] as const)(
-    "%s is opt-in only: on only when named in OPENCODE_FLAGS or experimental.%s",
+    "%s is opt-in only: on only when named in XCCODE_FLAGS or experimental.%s",
     (key) => {
       expect(Flag.resolve({ entries: [], channel: "dev", overrides: "all" })[key]).toEqual({
         enabled: false,
@@ -104,7 +104,7 @@ describe("Flag.resolve", () => {
     },
   )
 
-  test("config overrides the default and OPENCODE_FLAGS overrides config", () => {
+  test("config overrides the default and XCCODE_FLAGS overrides config", () => {
     const entries = [document({ full_codemode: true, video_generate: false })]
     const flags = Flag.resolve({ entries, channel: "dev", overrides: " media_blob , -full_codemode,unknown_flag" })
     expect(
@@ -133,7 +133,7 @@ describe("Flag.resolve", () => {
     expect([flags.full_codemode.enabled, flags.full_codemode.source]).toEqual([false, "default"])
   })
 
-  test("OPENCODE_FLAGS=all turns every flag on, and a -key in the same list still wins", () => {
+  test("XCCODE_FLAGS=all turns every flag on, and a -key in the same list still wins", () => {
     const entries = [document({ media_blob: false })]
     expect(Flag.resolve({ entries, channel: "latest", overrides: "all" })).toEqual(
       every({ enabled: true, source: "env" }),
@@ -147,7 +147,7 @@ describe("Flag.resolve", () => {
     )
   })
 
-  test("experimental.all_flags turns every flag on below OPENCODE_FLAGS and below a per-flag setting", () => {
+  test("experimental.all_flags turns every flag on below XCCODE_FLAGS and below a per-flag setting", () => {
     const entries = [document({ all_flags: true, media_blob: false })]
     expect(Flag.resolve({ entries, channel: "latest", overrides: "-artifacts" })).toEqual({
       ...every({ enabled: true, source: "config" }),
@@ -156,7 +156,7 @@ describe("Flag.resolve", () => {
     })
   })
 
-  test("experimental.all_flags: false is not a kill switch, and all_flags in OPENCODE_FLAGS does nothing", () => {
+  test("experimental.all_flags: false is not a kill switch, and all_flags in XCCODE_FLAGS does nothing", () => {
     expect(Flag.resolve({ entries: [document({ all_flags: false })], channel: "dev" })).toEqual(
       every({ enabled: true, source: "default" }),
     )
@@ -184,7 +184,7 @@ const it = testEffect(
 )
 
 describe("Flag.enabled", () => {
-  it.effect("reads the Config, channel and OPENCODE_FLAGS in scope and follows config updates", () =>
+  it.effect("reads the Config, channel and XCCODE_FLAGS in scope and follows config updates", () =>
     Effect.gen(function* () {
       const config = yield* Config.Test
       expect(yield* Flag.enabled("artifacts")).toBe(true)

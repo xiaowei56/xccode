@@ -1,5 +1,5 @@
 import { createEffect, createSignal, on, Show } from "solid-js"
-import { Button } from "@opencode/ui/button"
+import { Button } from "@xccode/ui/button"
 import { RedirectPasteForm, type RedirectPasteError } from "./redirect-paste"
 
 type Phase = "editing" | "required" | "rejected" | "submitting" | "accepted"

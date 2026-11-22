@@ -1,7 +1,7 @@
 import { createMemo, createSignal, For, onCleanup, Show, untrack } from "solid-js"
-import { Button } from "@opencode/ui/button"
-import { Loader } from "@opencode/ui/loader"
-import { createLatest, usePlugin } from "@opencode/plugin/gui"
+import { Button } from "@xccode/ui/button"
+import { Loader } from "@xccode/ui/loader"
+import { createLatest, usePlugin } from "@xccode/plugin/gui"
 import { createOfficeWorker, type WorkerClient } from "./office-worker"
 import {
   createWordPaintState,
@@ -31,7 +31,7 @@ import {
   type WordPageSize,
   type WordSpan,
 } from "./word-protocol"
-import type { FileViewerProps } from "@opencode/plugin/gui/file"
+import type { FileViewerProps } from "@xccode/plugin/gui/file"
 
 type Client = WorkerClient<WordMethods>
 

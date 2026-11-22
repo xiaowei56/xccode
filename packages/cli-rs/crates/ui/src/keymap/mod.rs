@@ -24,7 +24,7 @@ use std::time::Duration;
 use crate::bind;
 
 /// The runtime data name that holds the current input mode; layers require their mode in it.
-pub const MODE_KEY: &str = "opencode.mode";
+pub const MODE_KEY: &str = "xccode.mode";
 /// The mode a layer has when it names none, and the current mode when no pushed mode is active.
 pub const BASE_MODE: &str = "base";
 /// The layer mode that opts out of the mode stack.
@@ -329,7 +329,7 @@ struct ModeEntry {
     active: Condition,
 }
 
-/// The TUI's keymap: the engine with OpenCode's addons, config, layers, and modes.
+/// The TUI's keymap: the engine with Xccode's addons, config, layers, and modes.
 pub struct TuiKeymap<T> {
     keymap: Keymap<T>,
     keybinds: RefCell<Rc<Keybinds<T>>>,

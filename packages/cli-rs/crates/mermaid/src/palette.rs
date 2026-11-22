@@ -1,4 +1,4 @@
-use opencode_plugin_abi::{Read, Rgba, ThemeMode};
+use xccode_plugin_abi::{Read, Rgba, ThemeMode};
 
 use crate::core::color::{blend, with_alpha};
 
@@ -38,7 +38,7 @@ pub struct PaletteInput {
 }
 
 impl Palette {
-    /// `createOpenCodeDiagramPalette`.
+    /// `createXccodeDiagramPalette`.
     pub fn new(input: &PaletteInput) -> Self {
         let secondary = blend(input.text, input.subdued, 0.5);
         let muted = blend(input.text, input.subdued, 0.7);
@@ -66,7 +66,7 @@ impl Palette {
         }
     }
 
-    /// `resolveOpenCodeDiagramPalette`, with the mode from the plugin context (`context.themeMode`). The accent is
+    /// `resolveXccodeDiagramPalette`, with the mode from the plugin context (`context.themeMode`). The accent is
     /// the fourth categorical scale, else the first, else the muted and base text.
     pub fn read(read: &dyn Read) -> Self {
         let text = read.color("text.base").unwrap_or(Rgba::new(255, 255, 255, 255));

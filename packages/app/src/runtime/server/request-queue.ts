@@ -26,7 +26,7 @@ const setupRequestHeadersTimeoutMs = 10 * 60_000
 
 export function createRequestQueue(input: {
   fetch: typeof globalThis.fetch
-  /** The server URL's path, such as `/opencode`, when the server sits under a prefix. */
+  /** The server URL's path, such as `/xccode`, when the server sits under a prefix. */
   prefix?: () => string
   limit?: number
   slowLimit?: number

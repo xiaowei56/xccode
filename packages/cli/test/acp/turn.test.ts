@@ -19,7 +19,7 @@ import {
 } from "./wire-fixture"
 
 const grandchild = {
-  "opencode/child-session": { id: "ses_grandchild", parentID: "ses_child", depth: 2, title: "Deeper" },
+  "xccode/child-session": { id: "ses_grandchild", parentID: "ses_child", depth: 2, title: "Deeper" },
 }
 
 describe("acp turn events over the wire", () => {
@@ -126,7 +126,7 @@ describe("acp turn events over the wire", () => {
             toolCallId: "ses_background:perm_background",
             title: "Research: /workspace/notes.md",
             _meta: {
-              "opencode/child-session": { id: "ses_background", parentID: acp.sessionId, depth: 1, title: "Research" },
+              "xccode/child-session": { id: "ses_background", parentID: acp.sessionId, depth: 1, title: "Research" },
             },
           },
         },

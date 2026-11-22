@@ -2,7 +2,7 @@
   Set service configuration
 
 [1mUSAGE[0m
-  [36mopencode service set [flags] <key> <value> [<env-value>][0m
+  [36mxccode service set [flags] <key> <value> [<env-value>][0m
 
 [1mARGUMENTS[0m
   [32mkey[0m [2mstring[0m          Service setting or env

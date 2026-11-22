@@ -7,10 +7,10 @@ use std::path::{Path, PathBuf};
 use std::process::{Child, Command};
 use std::time::{Duration, SystemTime};
 
-use opencode_api::transport::Reqwest;
-use opencode_local::paths::Paths;
-use opencode_service::discover::{self, Owner, process_executable};
-use opencode_service::ts_command::TsCommand;
+use xccode_api::transport::Reqwest;
+use xccode_local::paths::Paths;
+use xccode_service::discover::{self, Owner, process_executable};
+use xccode_service::ts_command::TsCommand;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpListener;
 
@@ -65,15 +65,15 @@ fn sleep_binary() -> PathBuf {
 
 #[tokio::test(flavor = "multi_thread")]
 async fn prefers_the_service_of_the_typescript_binary_over_a_newer_one() {
-    let dir = opencode_util::temp::tempdir().unwrap();
+    let dir = xccode_util::temp::tempdir().unwrap();
     let state = dir.path().join("state");
     std::fs::create_dir_all(dir.path().join("install")).unwrap();
     let sleep = sleep_binary();
-    let ts = start(&sleep, &dir.path().join("install/opencode"));
-    let other = start(&sleep, &dir.path().join("install/opencode2"));
-    // The TS binary is reached through a symlink, as an installed `opencode` may be.
-    let link = dir.path().join("opencode");
-    std::os::unix::fs::symlink(dir.path().join("install/opencode"), &link).unwrap();
+    let ts = start(&sleep, &dir.path().join("install/xccode"));
+    let other = start(&sleep, &dir.path().join("install/xccode2"));
+    // The TS binary is reached through a symlink, as an installed `xccode` may be.
+    let link = dir.path().join("xccode");
+    std::os::unix::fs::symlink(dir.path().join("install/xccode"), &link).unwrap();
     assert_eq!(process_executable(ts.0.id()), Some(std::fs::canonicalize(&link).unwrap()));
 
     let paths = Paths::from_vars(|name| match name {

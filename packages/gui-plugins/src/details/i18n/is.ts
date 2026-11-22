@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Eyða vinnutré",
   "mcp.manage": "Stjórna MCP-netþjónum",
   timedOut: "Netþjónninn var of lengi að svara",
-  "setup.mcp": "Bæta við netþjóni með OpenCode",
+  "setup.mcp": "Bæta við netþjóni með Xccode",
   "setup.mcp.prompt":
-    "Hjálpaðu mér að bæta MCP-netþjóni við víðværu OpenCode-stillingarnar mínar. Spurðu mig hvaða þjónustu ég vil tengja, settu hana svo upp og athugaðu hvort hún tengist.",
-  "setup.plugins": "Bæta við viðbót með OpenCode",
+    "Hjálpaðu mér að bæta MCP-netþjóni við víðværu Xccode-stillingarnar mínar. Spurðu mig hvaða þjónustu ég vil tengja, settu hana svo upp og athugaðu hvort hún tengist.",
+  "setup.plugins": "Bæta við viðbót með Xccode",
   "setup.plugins.prompt":
-    "Hjálpaðu mér að bæta viðbót við víðværu OpenCode-stillingarnar mínar. Spurðu mig hvað hún á að gera, stingdu upp á viðbót og bættu henni svo við.",
-  "setup.skills": "Ný færni með OpenCode",
+    "Hjálpaðu mér að bæta viðbót við víðværu Xccode-stillingarnar mínar. Spurðu mig hvað hún á að gera, stingdu upp á viðbót og bættu henni svo við.",
+  "setup.skills": "Ný færni með Xccode",
   "setup.skills.prompt":
-    "Hjálpaðu mér að skrifa nýja OpenCode-færni í víðværu stillingunum mínum. Spurðu mig hvað hún á að kenna þér og skrifaðu svo SKILL.md fyrir hana.",
+    "Hjálpaðu mér að skrifa nýja Xccode-færni í víðværu stillingunum mínum. Spurðu mig hvað hún á að kenna þér og skrifaðu svo SKILL.md fyrir hana.",
   changesFailed: "Ekki tókst að hlaða breytingum",
   changesOffline: "Ekki næst samband við þennan netþjón",
   "mcp.signIn": "Skrá inn",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Upplýsingar um {{name}}",
   "mcp.signIn.open": "Skrá inn á {{name}}",
   "mcp.signIn.description":
-    "Vafrinn opnast svo þú getir skráð þig inn á {{name}}. Ef hann nær ekki sambandi við vélina sem keyrir OpenCode skaltu líma slóðina sem honum var vísað á hér fyrir neðan.",
+    "Vafrinn opnast svo þú getir skráð þig inn á {{name}}. Ef hann nær ekki sambandi við vélina sem keyrir Xccode skaltu líma slóðina sem honum var vísað á hér fyrir neðan.",
   "mcp.signIn.waiting": "Bíður eftir heimild…",
   "mcp.signIn.failed": "Heimild mistókst: {{error}}",
   "mcp.signIn.expired": "Heimild útrunnin",

@@ -1,5 +1,5 @@
-import type { SessionMessageAssistant } from "@opencode/client/promise"
-import { getFilename } from "@opencode/util/path"
+import type { SessionMessageAssistant } from "@xccode/client/promise"
+import { getFilename } from "@xccode/util/path"
 import { Option, Predicate, Schema } from "effect"
 import {
   currentToolFailed,

@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "メモリ診断: 30秒ごとにアプリのメモリ使用量をデスクトップのログに記録します。オフにするまで再起動後も有効のままで、実行中はバーが開いたままになります。",
-  "memory.tipEnv": "この起動ではメモリ診断が有効です: OPENCODE_DESKTOP_MEMORY_LOG が設定されています。",
+  "memory.tipEnv": "この起動ではメモリ診断が有効です: XCCODE_DESKTOP_MEMORY_LOG が設定されています。",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "ノブ",

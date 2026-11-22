@@ -79,7 +79,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "تم الوصول إلى الحد المجاني",
   "dialog.usageExceeded.freeTier.description":
-    "اشترك في OpenCode Go مقابل $10/شهر للحصول على وصول موثوق إلى أفضل النماذج مفتوحة المصدر.",
+    "اشترك في Xccode Go مقابل $10/شهر للحصول على وصول موثوق إلى أفضل النماذج مفتوحة المصدر.",
   "dialog.usageExceeded.freeTier.actionLabel": "اشترك",
 
   "ui.sessionTurn.status.delegating": "جارٍ تفويض العمل",
@@ -343,8 +343,8 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "تم بلوغ ميزانية النموذج · هذا النموذج متوقف مؤقتًا حتى إعادة التعيين",
   "ui.sessionTurn.budgetLimit.useFreeModel": "استخدام نموذج مجاني",
   "ui.sessionTurn.budgetLimit.switchModel": "تبديل النموذج",
-  "ui.sessionTurn.goLimit.title": "لقد بلغت حد استخدام OpenCode Go.",
-  "ui.sessionTurn.goLimit.lineReset": "لقد بلغت حد استخدام OpenCode Go. يُعاد تعيينه في {{time}}.",
+  "ui.sessionTurn.goLimit.title": "لقد بلغت حد استخدام Xccode Go.",
+  "ui.sessionTurn.goLimit.lineReset": "لقد بلغت حد استخدام Xccode Go. يُعاد تعيينه في {{time}}.",
   "dialog.usageExceeded.freeTier.reset": "يُعاد تعيين رسائلك المجانية في {{time}}.",
   "ui.messagePart.compaction.queued": "ضغط الجلسة في قائمة الانتظار",
   "ui.messagePart.compaction.done": "تم الضغط",

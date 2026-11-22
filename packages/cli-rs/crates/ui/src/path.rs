@@ -2,7 +2,7 @@
 
 use std::path::Path;
 
-pub use opencode_util::path::Flavor;
+pub use xccode_util::path::Flavor;
 
 /// `abbreviateHome`: `~` or `~/…` when `input` is inside `home`, else `input`.
 pub fn abbreviate_home(input: &str, home: &str) -> String {

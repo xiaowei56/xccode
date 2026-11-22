@@ -1,4 +1,4 @@
-// `opencode://` links opened with the desktop app. Both open on the app's own server, the one on this computer:
+// `xccode://` links opened with the desktop app. Both open on the app's own server, the one on this computer:
 // - `open-project?directory=<folder>` opens the folder as a project, in a new session.
 // - `new-session?directory=<folder>&prompt=<text>` does the same with the prompt typed in, not sent.
 // A link that arrives before that server can open projects (one that started the app) waits for it.
@@ -50,7 +50,7 @@ export function parseDeepLink(value: string): DeepLink | undefined {
   if (!URL.canParse(value)) return
   const url = new URL(value)
 
-  if (url.protocol !== "opencode:") return
+  if (url.protocol !== "xccode:") return
   const directory = url.searchParams.get("directory")
 
   if (!directory || /[\u0000-\u001f\u007f]/.test(directory)) return

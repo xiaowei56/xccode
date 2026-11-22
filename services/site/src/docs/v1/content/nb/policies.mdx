@@ -1,15 +1,15 @@
 ---
 title: Policyer
-description: Kontroller hvilke konfigurerte ressurser OpenCode kan bruke.
+description: Kontroller hvilke konfigurerte ressurser Xccode kan bruke.
 ---
 
-:::caution[Krever OpenCode 2]
-Policyer håndheves ikke i OpenCode 1. Eksemplene på denne siden krever OpenCode 2. I OpenCode 1 bruker du [`disabled_providers`](/docs/config#disabled-providers) eller [`enabled_providers`](/docs/config#enabled-providers) for å styre hvilke leverandører som er tilgjengelige. Se [dokumentasjonen for policyer i OpenCode 2](https://opencode.ai/docs/policies/) for gjeldende bruk.
+:::caution[Krever Xccode 2]
+Policyer håndheves ikke i Xccode 1. Eksemplene på denne siden krever Xccode 2. I Xccode 1 bruker du [`disabled_providers`](/docs/config#disabled-providers) eller [`enabled_providers`](/docs/config#enabled-providers) for å styre hvilke leverandører som er tilgjengelige. Se [dokumentasjonen for policyer i Xccode 2](https://xccode.ai/docs/policies/) for gjeldende bruk.
 :::
 
-Policyer bestemmer om OpenCode kan utføre en handling på en navngitt ressurs. Denne funksjonen i OpenCode 2 er eksperimentell og konfigureres med `experimental.policies`-listen i `opencode.json`.
+Policyer bestemmer om Xccode kan utføre en handling på en navngitt ressurs. Denne funksjonen i Xccode 2 er eksperimentell og konfigureres med `experimental.policies`-listen i `xccode.json`.
 
-Policyer er atskilt fra [tillatelser](/docs/permissions). Tillatelser styrer hva verktøy kan gjøre i løpet av en økt, mens policyer styrer om OpenCode kan bruke en ressurs, for eksempel en LLM-leverandør.
+Policyer er atskilt fra [tillatelser](/docs/permissions). Tillatelser styrer hva verktøy kan gjøre i løpet av en økt, mens policyer styrer om Xccode kan bruke en ressurs, for eksempel en LLM-leverandør.
 
 ---
 
@@ -23,9 +23,9 @@ Hver policysetning har tre felt:
 
 For eksempel kan du nekte bruk av leverandøren `openai`:
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://xccode.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ En leverandør som er nektet av en policy, er ikke tilgjengelig for modellvalg e
 
 ## Tilgjengelige policyer
 
-OpenCode støtter for øyeblikket én policyhandling:
+Xccode støtter for øyeblikket én policyhandling:
 
 | Handling       | Ressurs                              | Beskrivelse                                  |
 | -------------- | ------------------------------------ | -------------------------------------------- |
@@ -58,9 +58,9 @@ Flere policyhandlinger kan bli lagt til i fremtiden.
 
 Feltet `resource` støtter jokertegnsamsvar. Bruk `*` for å matche null eller flere tegn og `?` for å matche ett tegn.
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://xccode.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ Når flere setninger samsvarer, vinner den siste samsvarende setningen. Sett bre
 
 For eksempel kan du bare tillate Anthropic:
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://xccode.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ Policyer kan angis både i den globale konfigurasjonen og i prosjektkonfigurasjo
 
 ## Leverandørlister
 
-I OpenCode 2 bruker du policyer i stedet for de eldre innstillingene `disabled_providers` og `enabled_providers` når du styrer tilgang til leverandører. Fortsett å bruke disse leverandørlistene i OpenCode 1.
+I Xccode 2 bruker du policyer i stedet for de eldre innstillingene `disabled_providers` og `enabled_providers` når du styrer tilgang til leverandører. Fortsett å bruke disse leverandørlistene i Xccode 1.
 
 Slik erstatter du `disabled_providers`:
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ Slik erstatter du `disabled_providers`:
 
 For å erstatte `enabled_providers` nekter du først alle leverandører og tillater deretter de valgte leverandørene:
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
   "experimental": {
     "policies": [

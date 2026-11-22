@@ -17,7 +17,7 @@ export default defineApp({
       "app.toggle.file_context": "f7",
       "app.toggle.paste_summary": "f8",
       "terminal.title.toggle": "f9",
-      "opencode.settings": "f10",
+      "xccode.settings": "f10",
     },
   },
   steps: [

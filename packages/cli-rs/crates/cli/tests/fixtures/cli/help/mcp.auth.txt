@@ -2,7 +2,7 @@
   Authenticate with an OAuth-capable remote MCP server
 
 [1mUSAGE[0m
-  [36mopencode mcp auth [flags] [<name>][0m
+  [36mxccode mcp auth [flags] [<name>][0m
 
 [1mARGUMENTS[0m
   [32mname[0m [2mstring[0m    Name of the MCP server[2m (optional)[0m

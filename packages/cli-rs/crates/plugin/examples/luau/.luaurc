@@ -1,6 +1,6 @@
 {
     "languageMode": "strict",
     "aliases": {
-        "opencode": "../../src/luau/opencode"
+        "xccode": "../../src/luau/xccode"
     }
 }

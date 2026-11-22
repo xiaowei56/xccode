@@ -277,7 +277,7 @@ export function installLineCommentStyles() {
 
   if (typeof document === "undefined") return
 
-  const id = "opencode-line-comment-styles"
+  const id = "xccode-line-comment-styles"
 
   if (document.getElementById(id)) {
     installed = true

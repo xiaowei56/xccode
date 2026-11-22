@@ -16,8 +16,8 @@ import {
   useWindowTabActivity,
   type LayoutRoute,
   type Platform,
-} from "@opencode/app/desktop"
-import { useTheme } from "@opencode/ui/theme/context"
+} from "@xccode/app/desktop"
+import { useTheme } from "@xccode/ui/theme/context"
 import type { BaseRouterProps } from "@solidjs/router"
 import { createEffect, createMemo, createSignal, lazy, onCleanup, Show, Suspense, untrack } from "solid-js"
 import type { ElectronAPI } from "./api-types"
@@ -186,7 +186,7 @@ function createStartupDriver(input: {
     initialUrl: input.initialUrl,
     route: input.route,
     firstLaunch: input.firstLaunch,
-    preview: import.meta.env.OPENCODE_TEST_ONBOARDING,
+    preview: import.meta.env.XCCODE_TEST_ONBOARDING,
     reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   })
 

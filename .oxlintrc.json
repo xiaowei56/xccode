@@ -136,7 +136,7 @@
             ],
             "patterns": [
               {
-                "regex": "^@opencode/(app|desktop)(/|$)",
+                "regex": "^@xccode/(app|desktop)(/|$)",
                 "message": "GUI plugins never import the app or desktop packages. Use the SDK."
               },
               {
@@ -164,11 +164,11 @@
           {
             "patterns": [
               {
-                "regex": "^@opencode/(app|desktop)(/|$)",
+                "regex": "^@xccode/(app|desktop)(/|$)",
                 "message": "The GUI SDK never imports the app or desktop packages; the hosts implement it."
               },
               {
-                "regex": "^@opencode/gui-plugins(/|$)",
+                "regex": "^@xccode/gui-plugins(/|$)",
                 "message": "The GUI SDK never imports the built-in plugins; they import the SDK."
               },
               {
@@ -197,7 +197,7 @@
     ".continue/**",
     ".cursor/**",
     ".gemini/**",
-    ".opencode/**",
+    ".xccode/**",
     ".pi/**",
     ".roo/**",
     ".windsurf/**",

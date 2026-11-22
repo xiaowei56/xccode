@@ -1,10 +1,10 @@
 import { describe, expect } from "bun:test"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Config } from "@opencode/core/config"
-import { Document, Info } from "@opencode/schema/config"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { Config } from "@xccode/core/config"
+import { Document, Info } from "@xccode/schema/config"
 import { Effect, Layer, Stream } from "effect"
-import { SkillPlugin } from "@opencode/core/plugin/skill"
-import { Skill } from "@opencode/core/skill"
+import { SkillPlugin } from "@xccode/core/plugin/skill"
+import { Skill } from "@xccode/core/skill"
 import { testEffect } from "../lib/effect"
 import { host } from "./host"
 
@@ -37,10 +37,10 @@ describe("SkillPlugin.Plugin", () => {
 
       expect(skills).toContainEqual(
         expect.objectContaining({
-          id: "opencode",
-          name: "OpenCode",
-          path: "skill://opencode/SKILL.md",
-          description: expect.stringContaining("any question about OpenCode itself"),
+          id: "xccode",
+          name: "Xccode",
+          path: "skill://xccode/SKILL.md",
+          description: expect.stringContaining("any question about Xccode itself"),
         }),
       )
       expect(skills).toContainEqual(
@@ -48,10 +48,10 @@ describe("SkillPlugin.Plugin", () => {
           id: "report",
           name: "Report",
           path: "skill://report/SKILL.md",
-          description: expect.stringContaining("opencode issue"),
+          description: expect.stringContaining("xccode issue"),
         }),
       )
-      expect(report?.content).toContain("- opencode version: 1.2.3")
+      expect(report?.content).toContain("- xccode version: 1.2.3")
       expect(report?.content).toContain("- install/channel: beta")
     }),
   )

@@ -1,6 +1,6 @@
 # Architecture
 
-`opencode-native` is a client of the OpenCode server. It finds or starts the TypeScript `opencode` server and talks
+`xccode-native` is a client of the Xccode server. It finds or starts the TypeScript `xccode` server and talks
 to it over HTTP. It is held to the behavior of the TypeScript client (`packages/cli`, `packages/tui`): most modules
 port a TypeScript module and name it in their documentation, a deliberate difference is a file in
 `parity/deviations/`, and [`testing.md`](testing.md) describes how the two are compared. Paths are relative to
@@ -8,7 +8,7 @@ port a TypeScript module and name it in their documentation, a deliberate differ
 
 ## Crates
 
-Crate `opencode-<name>` is in `crates/<name>`. A crate depends only on crates above it in this list:
+Crate `xccode-<name>` is in `crates/<name>`. A crate depends only on crates above it in this list:
 
 - `util`: small shared helpers: temporary directories, `dlopen`, process jobs, time, hashing.
 - `api-types`: the generated API types and request builders, with no transport. The plugin SDK uses it too.
@@ -25,7 +25,7 @@ Crate `opencode-<name>` is in `crates/<name>`. A crate depends only on crates ab
 - `acp`: the ACP agent.
 - `drive`: the simulation UI endpoint, which drives a headless TUI.
 - `parity`: cell fixtures and comparison, for tests only.
-- `cli`: the `opencode-native` binary.
+- `cli`: the `xccode-native` binary.
 
 Third-party crates are declared once, in `[workspace.dependencies]`. The [README](../README.md#build) describes the
 OpenTUI pin and its native library.
@@ -39,14 +39,14 @@ Two tests hold the table to the TypeScript tree: `src/tests/tree.rs` against the
 dumps, and `src/tests/output.rs` byte for byte against the help and usage errors that `script/gen/cli-output.ts`
 records.
 
-`serve`, `uninstall` and `plugin` run the TypeScript `opencode` with the same arguments, streams and exit code
+`serve`, `uninstall` and `plugin` run the TypeScript `xccode` with the same arguments, streams and exit code
 (`crates/service/src/delegate.rs`).
 
 ## Talking to the server
 
 ### The API client
 
-`script/gen/api.ts` generates the client from the server's API definition (`ClientApi` in `@opencode/protocol`):
+`script/gen/api.ts` generates the client from the server's API definition (`ClientApi` in `@xccode/protocol`):
 the types (`crates/api-types/src/types.rs`), one request builder for each endpoint that returns a typed `Call<T>`
 (`crates/api-types/src/client.rs`), and one `async` method on `Client` that sends it
 (`crates/api/src/generated/methods.rs`). A method is named by its path in snake case (`session.message.get` is
@@ -75,12 +75,12 @@ on which the client serves MCP tools to the server.
 
 1. `--server <url>`.
 2. `--standalone`, or a service config with `disabled: true`: a private server for this client, with a random
-   password, run as `<opencode> serve --stdio --port 0`. Its standard input is the lease: it exits when the client
+   password, run as `<xccode> serve --stdio --port 0`. Its standard input is the lease: it exits when the client
    does.
 3. The first ready, compatible service among the registrations in the state directory (`discover.rs`, `probe.rs`).
-4. Otherwise `ensure` starts the background service, `<opencode> serve --service`, and waits for it.
+4. Otherwise `ensure` starts the background service, `<xccode> serve --service`, and waits for it.
 
-`<opencode>` is `OPENCODE_TS_BIN`, else the `opencode` beside the client, else `opencode` on `PATH`
+`<xccode>` is `XCCODE_TS_BIN`, else the `xccode` beside the client, else `xccode` on `PATH`
 (`ts_command.rs`). The rules of `ensure.rs`:
 
 - **It starts a service only when none runs,** and waits for one that is starting.
@@ -103,7 +103,7 @@ old service is never sent twice. `stop.rs` serves `service stop`, `restart` and 
 `crates/local` reads and writes the files the client shares with the TypeScript client, with the same paths, lock
 (`lock.rs`, compatible with the TypeScript `Flock`) and atomic writes, so the two run side by side:
 
-- paths (`paths.rs`, `channel.rs`): the XDG roots, `OPENCODE_CONFIG_DIR`, and the channel that picks the registration
+- paths (`paths.rs`, `channel.rs`): the XDG roots, `XCCODE_CONFIG_DIR`, and the channel that picks the registration
   and storage files;
 - `cli.json` (`cli_config.rs`, `jsonc.rs`, `migrate.rs`): decoding is strict, so a wrong type anywhere reads the
   document as `{}`, and unknown keys are dropped;
@@ -115,8 +115,8 @@ old service is never sent twice. `stop.rs` serves `service stop`, `restart` and 
 
 `jsonc.rs` ports the parts of `jsonc-parser` the TypeScript client uses, because an update of `cli.json` must keep
 the user's comments and formatting byte for byte as TypeScript writes them, and other JSONC libraries format edits
-differently. `watch.rs` watches a directory with a 50 ms debounce; `OPENCODE_FILEWATCHER_DISABLE` (or
-`OPENCODE_DISABLE_FILEWATCHER`) set to `1` or `true` turns every watch off. `serial.rs` runs blocking file jobs in
+differently. `watch.rs` watches a directory with a 50 ms debounce; `XCCODE_FILEWATCHER_DISABLE` (or
+`XCCODE_DISABLE_FILEWATCHER`) set to `1` or `true` turns every watch off. `serial.rs` runs blocking file jobs in
 order on a worker thread, so a write that waits on the lock stays off the UI thread.
 
 ## The store
@@ -247,21 +247,21 @@ Every built-in uses the contract external plugins use ([`plugins.md`](plugins.md
 the TUI does not rebuild when they change. Both are ports rather than libraries, because the tests compare their
 cells with the TypeScript client's:
 
-- **`opencode-latex`** (`opencode.latex`) ports `packages/latex`, with opentui-tex's layout. It draws `latex`, `math`
+- **`xccode-latex`** (`xccode.latex`) ports `packages/latex`, with opentui-tex's layout. It draws `latex`, `math`
   and `tex` fences, and Markdown math (`$…$`, `\(…\)`, `$$…$$`, `\[…\]`), as Unicode in terminal cells.
   [`P2-latex-inline.md`](../parity/deviations/P2-latex-inline.md) and
   [`P2-latex-opentui-tex.md`](../parity/deviations/P2-latex-opentui-tex.md) list where it differs.
-- **`opencode-mermaid`** (`opencode.merman`) ports `packages/merman` module for module. It draws `mermaid` fences:
+- **`xccode-mermaid`** (`xccode.merman`) ports `packages/merman` module for module. It draws `mermaid` fences:
   flowcharts, sequence, state, gantt, gitgraph and timeline diagrams. Its streaming fallback depends on the
   TypeScript parser's errors.
 
 ## `mini`, ACP and the simulation endpoint
 
-- **`opencode-mini`**: the app lives in a footer at the bottom of the main screen, and the transcript goes to the
+- **`xccode-mini`**: the app lives in a footer at the bottom of the main screen, and the transcript goes to the
   terminal's scrollback above it.
-- **`opencode-acp`** (`opencode-native acp`): the Agent Client Protocol over JSON-RPC on standard input and output,
+- **`xccode-acp`** (`xccode-native acp`): the Agent Client Protocol over JSON-RPC on standard input and output,
   against a standalone server.
-- **`opencode-drive`** (`OPENCODE_DRIVE`): a WebSocket server that drives a headless TUI with keys and mouse events
+- **`xccode-drive`** (`XCCODE_DRIVE`): a WebSocket server that drives a headless TUI with keys and mouse events
   and captures its screen, for [P-TUI](testing.md#p-tui-the-simulated-server).
 
 ## Generated files

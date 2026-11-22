@@ -21,7 +21,7 @@ export type HttpMiddleware = (
 ) => Effect.Effect<HttpClientResponse.HttpClientResponse, Error>
 
 export class RequestExecutorService extends Context.Service<RequestExecutorService, Interface>()(
-  "@opencode/AI/RequestExecutor",
+  "@xccode/AI/RequestExecutor",
 ) {}
 export const Service = RequestExecutorService
 
@@ -29,7 +29,7 @@ export const Service = RequestExecutorService
  * The client certificate for the HTTP request being executed. Transports set it from `http.tls`; the executor's HTTP
  * client presents it, since only the runtime's fetch can.
  */
-export const CurrentTls = Context.Reference<ClientTls | undefined>("@opencode/AI/RequestExecutor/CurrentTls", {
+export const CurrentTls = Context.Reference<ClientTls | undefined>("@xccode/AI/RequestExecutor/CurrentTls", {
   defaultValue: () => undefined,
 })
 
@@ -39,7 +39,7 @@ export const CurrentTls = Context.Reference<ClientTls | undefined>("@opencode/AI
  * response chunks) whenever a phase is left unset.
  */
 export const CurrentTimeout = Context.Reference<RequestTimeout | undefined>(
-  "@opencode/AI/RequestExecutor/CurrentTimeout",
+  "@xccode/AI/RequestExecutor/CurrentTimeout",
   { defaultValue: () => undefined },
 )
 export type Service = RequestExecutorService
@@ -50,7 +50,7 @@ export type Service = RequestExecutorService
  * asset's own `middleware`, which a route sets only for URLs on the provider's origin.
  */
 export const CurrentMiddleware = Context.Reference<HttpMiddleware | undefined>(
-  "@opencode/AI/RequestExecutor/CurrentMiddleware",
+  "@xccode/AI/RequestExecutor/CurrentMiddleware",
   { defaultValue: () => undefined },
 )
 

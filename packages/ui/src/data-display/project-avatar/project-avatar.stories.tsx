@@ -43,7 +43,7 @@ export default {
     fallback: "O",
     variant: "orange",
     src: "",
-    generated: "opencode",
+    generated: "xccode",
     label: "",
     unread: false,
   } satisfies ProjectAvatarProps,

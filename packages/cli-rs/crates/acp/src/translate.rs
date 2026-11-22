@@ -3,7 +3,7 @@
 use std::collections::{HashMap, HashSet};
 
 use indexmap::IndexMap;
-use opencode_util::json_object;
+use xccode_util::json_object;
 use serde_json::{Value, json};
 
 use crate::child;
@@ -11,7 +11,7 @@ use crate::compaction;
 use crate::error::Failure;
 use crate::tools::{DiffSource, completed_tool_update, error_tool_update, pending_tool_call, running_tool_update};
 
-const RETRY_META: &str = "opencode/retry";
+const RETRY_META: &str = "xccode/retry";
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum StartKind {
@@ -252,7 +252,7 @@ pub fn failure(state: &TurnState) -> Option<Failure> {
     Some(Failure::ServiceFailure {
         safe_message: text(error, "message")
             .filter(|message| !message.is_empty())
-            .unwrap_or("OpenCode prompt failed")
+            .unwrap_or("Xccode prompt failed")
             .to_owned(),
         service: Some("session".to_owned()),
         error_name: Some(error_type.to_owned()),
@@ -537,7 +537,7 @@ fn with_diff(output: Output, source: &DiffSource) -> Output {
 fn iso_time(at: Option<&Value>) -> Value {
     let millis = at.and_then(Value::as_f64).unwrap_or_default();
     #[allow(clippy::cast_possible_truncation)]
-    opencode_util::time::iso(millis as i64).map_or(Value::Null, Value::from)
+    xccode_util::time::iso(millis as i64).map_or(Value::Null, Value::from)
 }
 
 fn new_tool(session_id: &str, id: &str, name: Option<&str>) -> Tool {

@@ -7,7 +7,7 @@ export default defineApp({
   width: 120,
   height: 30,
   config: { experimental: { "new-designs": true }, plugins: ["./plugins/v2search"] },
-  env: { OPENCODE_PARITY_PLUGIN: "npm" },
+  env: { XCCODE_PARITY_PLUGIN: "npm" },
   steps: [
     // Typed at once, so the plugin loads while the list is open, and its command joins the open list. The Rust client
     // remounts the route as a plugin loads, which closed the list (js-followups); TS keeps it open.

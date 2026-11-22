@@ -1,5 +1,5 @@
 import { afterEach, expect, test } from "bun:test"
-import type { SessionMessageAssistantTool } from "@opencode/client/promise"
+import type { SessionMessageAssistantTool } from "@xccode/client/promise"
 import { Writable } from "node:stream"
 import {
   CliRenderEvents,

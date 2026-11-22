@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Xccode
+Exec=/opt/Xccode/ai.xccode %U
+Terminal=false
+Type=Application
+Icon=ai.xccode
+StartupWMClass=ai.xccode.desktop
+NoDisplay=true
+Comment=Open source AI coding agent
+Categories=Development;

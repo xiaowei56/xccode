@@ -1,4 +1,4 @@
-import { motionTuning } from "@opencode/ui/motion-tuning"
+import { motionTuning } from "@xccode/ui/motion-tuning"
 import { createStore } from "solid-js/store"
 
 export type SiteIconMode = "letters" | "site"

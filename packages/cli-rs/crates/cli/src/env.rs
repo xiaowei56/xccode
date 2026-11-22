@@ -31,9 +31,9 @@ pub fn no_proxy(upper: Option<&str>, lower: Option<&str>) -> String {
     entries.join(",")
 }
 
-/// `OPENCODE_CLIENT` defaults to `opencode-native`. An explicitly empty value is retained.
+/// `XCCODE_CLIENT` defaults to `xccode-native`. An explicitly empty value is retained.
 pub fn client() -> String {
-    std::env::var("OPENCODE_CLIENT").unwrap_or_else(|_| "opencode-native".to_owned())
+    std::env::var("XCCODE_CLIENT").unwrap_or_else(|_| "xccode-native".to_owned())
 }
 
 #[cfg(test)]

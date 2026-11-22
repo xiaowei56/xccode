@@ -6,9 +6,9 @@ use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
 use common::*;
-use opencode_api::client::Client;
-use opencode_api::generated::*;
-use opencode_store::target::{
+use xccode_api::client::Client;
+use xccode_api::generated::*;
+use xccode_store::target::{
     Prepared, TargetError, TargetInput, create_worktree_location, parse_model, resolve_session_target,
 };
 use serde_json::{Value, json};

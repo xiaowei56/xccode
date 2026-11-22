@@ -5,7 +5,7 @@
 // newest 65,536 and notes the earlier output. The view follows the end, where the last line shows the emoji whole.
 import { assistant, defineApp, location, session, user } from "../../lib/app"
 
-const directory = "/tmp/opencode/packages/tui"
+const directory = "/tmp/xccode/packages/tui"
 const first = `${"x".repeat(1023)}\n`.repeat(63) + `${"x".repeat(1017)}\ntail `
 const second = "😀 end"
 const size = Buffer.byteLength(first + second) + 2

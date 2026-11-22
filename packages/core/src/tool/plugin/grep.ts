@@ -1,7 +1,7 @@
 export * as GrepTool from "./grep.js"
 
-import type { Context } from "@opencode/plugin/effect/plugin"
-import { ToolFailure } from "@opencode/ai/effect"
+import type { Context } from "@xccode/plugin/effect/plugin"
+import { ToolFailure } from "@xccode/ai/effect"
 import { Effect, Schema } from "effect"
 import path from "path"
 import { FileSystem } from "../../filesystem.js"
@@ -62,7 +62,7 @@ export const toModelContent = (matches: EncodedOutput, truncated = false) => {
 
 /** Grep leaf that defaults its filesystem root to the active Location. */
 export const Plugin = {
-  id: "opencode.tool.grep",
+  id: "xccode.tool.grep",
   effect: Effect.fn("GrepTool.Plugin")(function* (ctx: Context) {
     const ripgrep = yield* Ripgrep.Service
     const location = yield* Location.Service

@@ -1,6 +1,6 @@
 export * as AutomationShell from "./shell.js"
 
-import type { Automation } from "@opencode/schema/automation"
+import type { Automation } from "@xccode/schema/automation"
 import { Effect } from "effect"
 import { Agent } from "../agent.js"
 import { Environment } from "../environment/index.js"

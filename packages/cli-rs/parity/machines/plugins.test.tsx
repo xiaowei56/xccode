@@ -58,12 +58,12 @@ const viewer = parse(machines.machines.viewer)
 let runs = 0
 
 // A fresh app with a copy of the plugin, which resolves packages/tui's dependencies (as `copyPlugin` does). In the
-// config, or with `inProject` in the `.opencode/plugins` of a project the app starts in; with `fail`, its setup throws,
+// config, or with `inProject` in the `.xccode/plugins` of a project the app starts in; with `fail`, its setup throws,
 // and so does the distractor's beside it.
 async function open(inProject = false, fail = false) {
   const root = await tmpdir()
   const repo = path.join(root.path, "repo")
-  const directory = inProject ? path.join(repo, ".opencode", "plugins", "life") : path.join(root.path, "parity.life")
+  const directory = inProject ? path.join(repo, ".xccode", "plugins", "life") : path.join(root.path, "parity.life")
   const entry = path.join(directory, "tui.tsx")
   // A copy that resolves packages/tui's dependencies; a junction on Windows, which needs no privilege (as
   // `plugin-source.test.ts` links).

@@ -136,7 +136,7 @@ const cases: Array<[string, string, unknown, string?]> = [
   ["webfetch", "webfetch", completed({ url: "https://example.com", format: "markdown" })],
   ["webfetch none", "webfetch", running({})],
   ["websearch exa", "websearch", completed({ query: "rust serde" }, { provider: "exa" })],
-  ["websearch opencode", "websearch", completed({ query: "x" }, { provider: "opencode" })],
+  ["websearch xccode", "websearch", completed({ query: "x" }, { provider: "xccode" })],
   ["websearch none", "websearch", running({})],
   ["skill metadata", "skill", completed({ id: "tigerstyle" }, { name: "effect" })],
   ["skill input", "skill", completed({ id: "tigerstyle" })],
@@ -212,7 +212,7 @@ const helpers = {
     ],
     "not an array",
   ].map((input) => ({ input, expected: executeCalls(input).map(executeCallSummary) })),
-  webSearchProviderLabel: ["exa", "opencode", "", null, 3, "ñandu"].map((provider) => ({
+  webSearchProviderLabel: ["exa", "xccode", "", null, 3, "ñandu"].map((provider) => ({
     provider,
     expected: webSearchProviderLabel(provider),
   })),

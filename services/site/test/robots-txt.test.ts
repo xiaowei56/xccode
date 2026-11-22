@@ -14,14 +14,14 @@ describe("robots.txt", () => {
       "Allow: /",
       "Disallow: /s/",
       "Disallow: /share/",
-      "Sitemap: https://opencode.ai/sitemap.xml",
+      "Sitemap: https://xccode.ai/sitemap.xml",
     ])
     const group = lines.slice(
       lines.findIndex((line) => line.startsWith("User-agent")),
       lines.findIndex((line) => line.startsWith("Disallow: /share/")) + 1,
     )
     expect(group.every((line) => line.trim())).toBe(true)
-    expect(lines.find((line) => line.startsWith("Sitemap"))).toBe("Sitemap: https://opencode.ai/sitemap.xml")
+    expect(lines.find((line) => line.startsWith("Sitemap"))).toBe("Sitemap: https://xccode.ai/sitemap.xml")
   })
 
   test("decorates only in comments, within 80 columns", () => {

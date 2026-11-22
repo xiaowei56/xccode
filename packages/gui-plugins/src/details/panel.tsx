@@ -1,4 +1,4 @@
-import type { MountedSession } from "@opencode/plugin/gui"
+import type { MountedSession } from "@xccode/plugin/gui"
 import { SessionServerPanel, type McpControllers } from "./server-panel"
 
 export type DetailsPanelProps = {

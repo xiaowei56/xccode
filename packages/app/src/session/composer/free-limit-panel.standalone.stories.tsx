@@ -25,7 +25,7 @@ function LimitStory(props: Args) {
 }
 
 export default {
-  title: "OpenCode/Session/Free limit",
+  title: "Xccode/Session/Free limit",
   id: "session-free-limit",
   args: { reset: "today", paid: false } satisfies Args,
   argTypes: { reset: { options: ["today", "tomorrow", "unknown"] } },

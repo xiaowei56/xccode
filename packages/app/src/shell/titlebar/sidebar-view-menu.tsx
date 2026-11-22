@@ -1,8 +1,8 @@
 import { For, Show, type JSX } from "solid-js"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Menu } from "@opencode/ui/menu"
-import { MenuScroll } from "@opencode/ui/menu-scroll"
+import { Icon } from "@xccode/ui/icon"
+import { IconButton } from "@xccode/ui/icon-button"
+import { Menu } from "@xccode/ui/menu"
+import { MenuScroll } from "@xccode/ui/menu-scroll"
 import { useLanguage } from "@/runtime/i18n/language"
 import {
   SIDEBAR_GROUPINGS,

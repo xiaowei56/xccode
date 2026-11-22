@@ -3,7 +3,7 @@ import en from "./en"
 type Keys = keyof typeof en
 
 export const dict = {
-  "desktop.menu.app": "OpenCode",
+  "desktop.menu.app": "Xccode",
   "desktop.menu.file": "ཡིག༌སྣོད",
   "desktop.menu.edit": "ཞུན༌དག",
   "desktop.menu.view": "བསམ༌འཆར",
@@ -43,23 +43,23 @@ export const dict = {
   "desktop.menu.nextProject": "ལས་གཞི་རྗེས་མ།",
   "desktop.menu.minimize": "ཉུང་ཉུང་བཟོ།",
   "desktop.menu.maximize": "ཆེར་བསྐྱེད་འབད།",
-  "desktop.menu.documentation": "OpenCode ཡིག་ཆ།",
+  "desktop.menu.documentation": "Xccode ཡིག་ཆ།",
   "desktop.menu.supportForum": "རྒྱབ་སྐྱོར་གླེང་སྟེགས།",
   "desktop.menu.shareFeedback": "བསམ་འཆར་བརྗེ་རེས།",
   "desktop.menu.reportBug": "རྐྱེན་ཅིག་སྙན་ཞུ་འབད།",
-  "desktop.menu.ariaLabel": "OpenCode དཀར་ཆག།",
+  "desktop.menu.ariaLabel": "Xccode དཀར་ཆག།",
   "desktop.cli.installed.title": "CLI གཞི་བཙུགས་འབད་ཡོདཔ།",
   "desktop.cli.installed.message":
-    "CLI འདི་ {{path}} ལུ་གཞི་བཙུགས་འབད་ཡི།\n\n'opencode2' བརྡ་བཀོད་ལག་ལེན་འཐབ་ནིའི་དོན་ལུ་ ཊར་མི་ནཱལ་ལོག་འགོ་བཙུགས།",
+    "CLI འདི་ {{path}} ལུ་གཞི་བཙུགས་འབད་ཡི།\n\n'xccode2' བརྡ་བཀོད་ལག་ལེན་འཐབ་ནིའི་དོན་ལུ་ ཊར་མི་ནཱལ་ལོག་འགོ་བཙུགས།",
   "desktop.cli.failed.title": "གཞི་བཙུགས་འཐུས་ཤོར་བྱུང་ཡོདཔ།",
   "desktop.cli.failed.message": "CLI གཞི་བཙུགས་འབད་མ་ཚུགས།: {{error}}",
   "desktop.recovery.action.relaunch": "བསྐྱར་འགོ་བཙུགས།",
   "desktop.recovery.action.exportLogs": "ཕྱིར་འདྲེན་དྲན་དེབ་ཚུ།",
   "desktop.recovery.action.keepWaiting": "བསྒུག་སྡོད།",
   "desktop.recovery.action.quit": "བཞག༌ནི",
-  "desktop.recovery.loadFailed": "OpenCode མངོན་གསལ་འབད་ནི་ལུ་འཐུས་ཤོར་བྱུང་ཡོདཔ།",
-  "desktop.recovery.terminated": "OpenCode སྒོ་སྒྲིག་འདི་ རེ་བ་མེད་པར་ མཇུག་བསྡུ་ཡོདཔ།",
-  "desktop.recovery.unresponsive": "OpenCodeགིས་ ལན་གསལ་འབད་མི་བཏུབ།",
+  "desktop.recovery.loadFailed": "Xccode མངོན་གསལ་འབད་ནི་ལུ་འཐུས་ཤོར་བྱུང་ཡོདཔ།",
+  "desktop.recovery.terminated": "Xccode སྒོ་སྒྲིག་འདི་ རེ་བ་མེད་པར་ མཇུག་བསྡུ་ཡོདཔ།",
+  "desktop.recovery.unresponsive": "Xccodeགིས་ ལན་གསལ་འབད་མི་བཏུབ།",
   "desktop.recovery.unresponsive.detail":
     "ཁྱོད་ཀྱིས་གློག་རིམ་འདི་ལོག་སྟེ་འགོ་བཙུགས་ཚུགས། དྲན་ཐོ་ཚུ་ཁ་ཕྱེ་ཚུགས། ཡང་ན་བསྒུག་སྡོད་ཚུགས།",
   "desktop.recovery.loadFailed.detail": "སྒོ་སྒྲིག་: {{window}}\nURL: {{url}}\nའཛོལ་བ་: {{code}} {{description}}",
@@ -139,9 +139,9 @@ export const dict = {
   "dialog.provider.empty": "བྱིན་མི་འཚོལ་མ་ཐོབ།",
   "dialog.provider.group.popular": "ཡོངས༌གྲགས",
   "dialog.provider.tag.recommended": "རྒྱབ་སྣོན་འབད་ཡི",
-  "dialog.provider.opencode.note": "Claude དང་ GPT དེ་ལས་ Gemini དང་དེ་ལས་ལྷག་སྟེ་ བཀོད་སྒྲིག་འབད་ཡོད་པའི་དཔེ་ཚད།",
-  "dialog.provider.opencode.tagline": "བློ་གཏད་ཅན་གྱི་ཡར་རྒྱས་ཅན་གྱི་དཔེ་ཚད་ཚུ།",
-  "dialog.provider.opencodeGo.tagline": "མི་ཚང་མའི་དོན་ལུ་ གོང་ཚད་དམའ་བའི་ མཁོ་མངགས་འབད་ནི།",
+  "dialog.provider.xccode.note": "Claude དང་ GPT དེ་ལས་ Gemini དང་དེ་ལས་ལྷག་སྟེ་ བཀོད་སྒྲིག་འབད་ཡོད་པའི་དཔེ་ཚད།",
+  "dialog.provider.xccode.tagline": "བློ་གཏད་ཅན་གྱི་ཡར་རྒྱས་ཅན་གྱི་དཔེ་ཚད་ཚུ།",
+  "dialog.provider.xccodeGo.tagline": "མི་ཚང་མའི་དོན་ལུ་ གོང་ཚད་དམའ་བའི་ མཁོ་མངགས་འབད་ནི།",
   "dialog.provider.copilot.note": "GitHub Copilot བརྒྱུད་དེ་ ཀོ་ཌིང་གྲོགས་རམ་གྱི་དོན་ལུ་ AI དཔེ་ཚད།",
   "dialog.provider.openai.note": "GPT མགྱོགས་དྲགས་དང་ལྕོགས་གྲུབ་ཅན་གྱི་སྤྱིར་བཏང་ཨེ་ཨའི་ལས་འགན་ཚུ་གི་དོན་ལུ་དཔེ་ཚད།",
   "dialog.provider.google.note": "Gemini མགྱོགས་དྲགས་དང་སྒྲིག་བཀོད་ཅན་གྱི་ལན་འདེབས་ཀྱི་དཔེ་ཚད།",
@@ -153,7 +153,7 @@ export const dict = {
   "dialog.model.empty": "དཔེ་ཚད་གྲུབ་འབྲས་མེད།",
   "dialog.model.manage": "དཔེ་ཚད་ཚུ་འཛིན་སྐྱོང་འཐབ།",
   "dialog.model.manage.description": "དཔེ་ཚད་སེལ་འཐུ་འབད་མི་ནང་ དཔེ་ཚད་ག་འདི་འབྱུངམ་ཨིན་ན་ སྲོལ་སྒྲིག་འབད།",
-  "dialog.model.unpaid.freeModels.title": "OpenCodeགིས་བྱིན་མི་རིན་མེད་དཔེ་ཚད་ཚུ།",
+  "dialog.model.unpaid.freeModels.title": "Xccodeགིས་བྱིན་མི་རིན་མེད་དཔེ་ཚད་ཚུ།",
   "dialog.model.unpaid.addMore.title": "ཡོངས་གྲགས་ཅན་གྱི་བྱིན་མི་ཚུ་ལས་ དཔེ་ཚད་མངམ་ཁ་སྐོང་བརྐྱབ།",
   "dialog.model.unpaid.viewMoreProviders": "70+ མཁོ་སྤྲོད་འབད་མི་ཚུ་བལྟ།",
   "dialog.provider.viewAll": "བྱིན་མི་མངམ་སྟོན།",
@@ -163,7 +163,7 @@ export const dict = {
   "provider.connect.status.waiting": "གནང་བ་ལུ་སྒུག་སྡོདཔ་ཨིན།",
   "provider.connect.status.failed": "དབང་སྤྲོད་འཐུས་ཤོར་བྱུང་ཡོདཔ།: {{error}}",
   "provider.connect.apiKey.description":
-    "ཁྱོད་རའི་རྩིས་ཐོ་མཐུད་ནིའི་དོན་ལུ་ ཁྱོད་རའི་ {{provider}} API ལྡེ་མིག་བཙུགས་ཞིནམ་ལས་ OpenCode ནང་ལུ་ {{provider}} དཔེ་ཚད་ཚུ་ལག་ལེན་འཐབ།",
+    "ཁྱོད་རའི་རྩིས་ཐོ་མཐུད་ནིའི་དོན་ལུ་ ཁྱོད་རའི་ {{provider}} API ལྡེ་མིག་བཙུགས་ཞིནམ་ལས་ Xccode ནང་ལུ་ {{provider}} དཔེ་ཚད་ཚུ་ལག་ལེན་འཐབ།",
   "provider.connect.apiKey.label": "{{provider}} APIལྡེ་མིག།",
   "provider.connect.apiKey.placeholder": "APIལྡེ་མིག།",
   "provider.connect.apiKey.required": "APIལྡེ་མིག་དགོས་མཁོ་ཡོད།",
@@ -277,7 +277,7 @@ export const dict = {
   "error.page.action.checkUpdates": "དུས་མཐུན་ཚུ་ཞིབ་དཔྱད་འབད།",
   "error.page.action.updateTo": "{{version}} ལུ་དུས་མཐུན་བཟོ།",
   "error.page.circular": "[སྒོར་ཐིག་] .",
-  "error.page.report.prefix": "འཛོལ་བ་འདི་OpenCodeསྡེ་ཚན་ལུ་སྙན་ཞུ་འབད་གནང་།",
+  "error.page.report.prefix": "འཛོལ་བ་འདི་Xccodeསྡེ་ཚན་ལུ་སྙན་ཞུ་འབད་གནང་།",
   "error.page.report.discord": "on Discordལུ།",
   "error.page.version": "ཐོན་རིམ: {{version}}",
   "error.dev.rootNotFound":
@@ -298,9 +298,9 @@ export const dict = {
   "error.chain.responseBody": "ལན་འདེབས་ཕུང་པོ།:\n{{body}}",
   "error.chain.didYouMean": "ཁྱོད་ཀྱིས་: {{suggestions}} ཟེར་སླབ་དགོཔ་ཨིན་ན?",
   "error.chain.modelNotFound": "དཔེ་ཚད་འཚོལ་མ་ཐོབ།: {{provider}}/{{model}}",
-  "error.chain.checkConfig": "ཁྱོད་ཀྱི་རིམ་སྒྲིག་ (opencode.json) བྱིན་མི་/དཔེ་ཚད་མིང་ཚུ་ཞིབ་དཔྱད་འབད།",
+  "error.chain.checkConfig": "ཁྱོད་ཀྱི་རིམ་སྒྲིག་ (xccode.json) བྱིན་མི་/དཔེ་ཚད་མིང་ཚུ་ཞིབ་དཔྱད་འབད།",
   "error.chain.mcpFailed":
-    'MCP སར་བར་ "{{name}}" འཐུས་ཤོར་བྱུང་ཡོདཔ། དྲན་འཛིན་ OpenCode གིས་ ད་ལྟོ་ཡང་ MCP བདེན་བཤད་ལུ་རྒྱབ་སྐྱོར་མི་འབད།',
+    'MCP སར་བར་ "{{name}}" འཐུས་ཤོར་བྱུང་ཡོདཔ། དྲན་འཛིན་ Xccode གིས་ ད་ལྟོ་ཡང་ MCP བདེན་བཤད་ལུ་རྒྱབ་སྐྱོར་མི་འབད།',
   "error.chain.providerAuthFailed": "བྱིན་མི་བདེན་བཤད་འཐུས་ཤོར་བྱུང་ཡོདཔ།({{provider}}): {{message}}",
   "error.chain.providerInitFailed":
     'བྱིན་མི་ "{{provider}}" འགོ་བཙུགས་ནི་ལུ་འཐུས་ཤོར་འབྱུང་ཡོདཔ། ངོ་རྟགས་དང་རིམ་སྒྲིག་ཞིབ་དཔྱད་འབད།',
@@ -403,16 +403,16 @@ export const dict = {
   "settings.general.section.notifications": "རིམ་ལུགས་བརྡ་བསྐུལ་ཚུ།",
   "settings.general.section.sounds": "སྒྲའི་ནུས་པ།",
   "settings.general.row.language.title": "སྐད༌ཡིག",
-  "settings.general.row.language.description": "OpenCodeགི་དོན་ལུ་ བཀྲམ་སྟོན་སྐད་ཡིག་བསྒྱུར་བཅོས་འབད།",
+  "settings.general.row.language.description": "Xccodeགི་དོན་ལུ་ བཀྲམ་སྟོན་སྐད་ཡིག་བསྒྱུར་བཅོས་འབད།",
   "settings.general.row.shell.title": "ཊར་མི་ནཱལ་ Shell",
   "settings.general.row.shell.description": "ཊར་མི་ནཱལ་དང་ལས་ཚབ་ལག་ཆས་ཚུ་གིས་ལག་ལེན་འཐབ་མི་ Shell",
   "settings.general.row.shell.autoDefault": "རང་བཞིན་ (སྔོན་སྒྲིག)",
   "settings.general.row.shell.terminalOnly": "ཊར་མི་ནཱལ་རྐྱངམ་ཅིག།",
   "settings.general.row.colorScheme.title": "ཚོས་གཞིའི་འཆར་གཞི།",
   "settings.general.row.colorScheme.description":
-    "OpenCode གིས་ རིམ་ལུགས་དང་ འོད་ ཡང་ན་ གནགཔོ་གི་བརྗོད་དོན་ལུ་ རྗེས་སུ་འཇུག་ནི་ཨིན་ན་ གདམ་ཁ་རྐྱབས།",
+    "Xccode གིས་ རིམ་ལུགས་དང་ འོད་ ཡང་ན་ གནགཔོ་གི་བརྗོད་དོན་ལུ་ རྗེས་སུ་འཇུག་ནི་ཨིན་ན་ གདམ་ཁ་རྐྱབས།",
   "settings.general.row.theme.title": "བརྗོད༌དོན",
-  "settings.general.row.theme.description": "OpenCodeའདི་བརྗོད་དོན་ག་དེ་སྦེ་ཡོདཔ་ཨིན་ན་སྲོལ་སྒྲིག་འབད།",
+  "settings.general.row.theme.description": "Xccodeའདི་བརྗོད་དོན་ག་དེ་སྦེ་ཡོདཔ་ཨིན་ན་སྲོལ་སྒྲིག་འབད།",
   "settings.general.row.font.title": "ཨང་རྟགས་ཡིག་གཟུགས།",
   "settings.general.row.font.description": "གསང་གྲངས་སྡེབ་ཚན་ཚུ་ནང་ལག་ལེན་འཐབ་མི་ཡིག་གཟུགས་སྲོལ་སྒྲིག་འབད།",
   "settings.general.row.terminalFont.title": "ཊར་མི་ནཱལ་ཡིག་གཟུགས།",
@@ -560,7 +560,7 @@ export const dict = {
   "command.project.copyID": "ལས་གཞིའི་ཨའི་ཌི་འདྲ་བཤུས་འབད།",
   "command.session.copyID": "ལཱ་ཡུན་གྱི་ཨའི་ཌི་འདྲ་བཤུས་འབད།",
   "server.row.incompatible":
-    "སར་བར་འདི་གིས་ གློག་རིམ་འདི་དང་མཐུན་འགྱུར་མེད་པའི་ OpenCode {{version}} གཡོག་བཀོལ་དོ། འཕྲོ་མཐུད་ཀྱི་དོན་ལུ་ OpenCode V2 ལུ་ཡར་སེང་འབད།",
+    "སར་བར་འདི་གིས་ གློག་རིམ་འདི་དང་མཐུན་འགྱུར་མེད་པའི་ Xccode {{version}} གཡོག་བཀོལ་དོ། འཕྲོ་མཐུད་ཀྱི་དོན་ལུ་ Xccode V2 ལུ་ཡར་སེང་འབད།",
   "toast.session.copyID.failed.title": "ལཱ་ཡུན་གྱི་ཨའི་ཌི་འདྲ་བཤུས་འབད་མ་ཚུགས།",
   "toast.session.copyID.failed.description": "ལཱ་ཡུན་གྱི་ཨའི་ཌི་འདྲ་བཤུས་འབདཝ་ད་ འཛོལ་བ་ཅིག་བྱུང་ནུག།",
   "toast.project.copyID.failed.title": "ལས་གཞིའི་ཨའི་ཌི་འདྲ་བཤུས་འབད་མ་ཚུགས།",
@@ -570,7 +570,7 @@ export const dict = {
   "error.page.action.reload": "ཡང་བསྐྱར་མངོན་གསལ།",
   "session.error.incompatible": "སར་བར་ཐོན་རིམ་འདི་ལུ་རྒྱབ་སྐྱོར་མེད།",
   "session.error.incompatible.description":
-    "{{server}} གིས་ གློག་རིམ་འདི་དང་མཐུན་འགྱུར་མེད་པའི་ OpenCode {{version}} གཡོག་བཀོལ་དོ། འཕྲོ་མཐུད་ཀྱི་དོན་ལུ་ སར་བར་འདི་ OpenCode V2 ལུ་ཡར་སེང་འབད།",
+    "{{server}} གིས་ གློག་རིམ་འདི་དང་མཐུན་འགྱུར་མེད་པའི་ Xccode {{version}} གཡོག་བཀོལ་དོ། འཕྲོ་མཐུད་ཀྱི་དོན་ལུ་ སར་བར་འདི་ Xccode V2 ལུ་ཡར་སེང་འབད།",
   "session.background.moveInline": "གཡོག་བཀོལ་དོ་ཡོད་པའི་ལཱ་འདི་རྒྱབ་ཁར་སྤོ་ནིའི་དོན་ལུ་ {{keybind}} ཨེབ།",
   "command.session.background": "རྒྱབ་ཁར་སྤོ།",
   "settings.tab.preferences": "དགའ་གདམ་ཚུ།",
@@ -589,7 +589,7 @@ export const dict = {
   "settings.extensions.tab.mcps": "MCPs",
   "settings.extensions.tab.skills": "རིག་རྩལ་ཚུ།",
   "settings.extensions.availableAll": "ལས་གཞི་ཆ་མཉམ་ལུ་འཐོབ་ཚུགས།",
-  "settings.extensions.manageConfig": "opencode.json ནང་འཛིན་སྐྱོང་འཐབ།",
+  "settings.extensions.manageConfig": "xccode.json ནང་འཛིན་སྐྱོང་འཐབ།",
   "settings.extensions.addSkills": "རིག་རྩལ་ཚུ་ག་དེ་སྦེ་ཁ་སྐོང་རྐྱབ་ནི་ཨིན་ན།",
   "project.settings.extensions.description": "ལས་གཞི་འདི་ལུ་འཐོབ་ཚུགས་པའི་རྒྱ་བསྐྱེད་ཚུ་བལྟ།",
   "project.settings.extensions.tab.lsps": "LSPs",
@@ -681,9 +681,9 @@ export const dict = {
   "settings.about.otherContributor.other": "{{count}} གཞན།",
   "settings.about.firstPublished": "འགོ་དང་པ་ ཡུ་ཨེས་ཨེ་གི་ མི་སོ་རི་ལུ་ དཔར་བསྐྲུན་འབད་ཡོདཔ།",
   "settings.about.firstIllustrated": "འགོ་དང་པ་ ཨིང་ལེནཌ་གི་ ལོན་ཌོན་ལུ་ པར་རིས་བཀོད་ཡོདཔ།",
-  "settings.about.website": "www.opencode.ai",
-  "settings.about.description": "OpenCode, ཁ་ཕྱེ་ཡོད་པའི་ཐོན་ཁུངས་གསང་ཡིག་ལས་ཚབ་པ།",
-  "settings.about.trademark": "OpenCode འདི་ Anomaly Innovations, Inc གི་ཐོ་བཀོད་ཚོང་རྟགས་ཅིག་ཨིན།",
+  "settings.about.website": "www.xccode.ai",
+  "settings.about.description": "Xccode, ཁ་ཕྱེ་ཡོད་པའི་ཐོན་ཁུངས་གསང་ཡིག་ལས་ཚབ་པ།",
+  "settings.about.trademark": "Xccode འདི་ Anomaly Innovations, Inc གི་ཐོ་བཀོད་ཚོང་རྟགས་ཅིག་ཨིན།",
   "settings.about.typeset": "ཨིན་ཊར་དང་ཨའི་བི་ཨེམ་པེལེགསི་མོ་ནོ་ནང་ཡིག་དཔར་གཞི་སྒྲིག།",
   "settings.about.tagline": "ཁྱོད་མེད་པར་ AI གིས་མཉེན་ཆས་ལེགས་ཤོམ་བཟོ་མི་ཐུབ།",
   "settings.about.copyright": "© Anomaly གསར་གཏོད།",
@@ -725,9 +725,9 @@ export const dict = {
   "server.connect.address.invalid": "ནུས་ཅན་ HTTP ཡང་ན་ HTTPS སར་བར་ཁ་བྱང་ཅིག་བཙུགས།",
   "server.connect.failed": "མཐུད་མ་ཚུགས། སར་བར་ཁ་བྱང་དང་ཆོག་ཡིག་ཞིབ་དཔྱད་འབད་ཞིནམ་ལས་ ལོག་སྟེ་འབད་རྩོལ་བསྐྱེད།",
   "server.connect.scan": "QR གསང་གྲངས་པར་བཤུས་",
-  "server.connect.scan.description": "ཁྱོད་རའི་པར་ཆས་འདི་ opencode pair གིས་སྟོན་མི་ QR གསང་ཡིག་ལུ་སྟོན་དགོ།",
+  "server.connect.scan.description": "ཁྱོད་རའི་པར་ཆས་འདི་ xccode pair གིས་སྟོན་མི་ QR གསང་ཡིག་ལུ་སྟོན་དགོ།",
   "server.connect.scan.invalid":
-    "འདི་ OpenCode ཆ་སྒྲིག་ཨང་རྟགས་ཅིག་མེན། opencode pair གིས་སྟོན་ཡོད་པའི་ཨང་རྟགས་འདི་པར་བཤུས་འབད།",
+    "འདི་ Xccode ཆ་སྒྲིག་ཨང་རྟགས་ཅིག་མེན། xccode pair གིས་སྟོན་ཡོད་པའི་ཨང་རྟགས་འདི་པར་བཤུས་འབད།",
   "server.connect.camera": "པར་ཆས་ཆ་སྒྲིག་འབད་དོ།",
   "server.connect.camera.starting": "པར་ཆས་ཁ་ཕྱེ་དོ...",
   "server.connect.mixedContent":
@@ -762,19 +762,19 @@ export const dict = {
     "ཝེབ་འཚོལ་ཞིབ་འབད་ནི་ལུ་ལག་ལེན་འཐབ་མི་ འཚོལ་ཞིབ་བྱིན་མི་ལས་ཚབ་ཚུ་སེལ་འཐུ་འབད།",
   "settings.projects.search.placeholder": "ལས་གཞི་འཚོལ་ཞིབ་",
   "project.settings.name.title": "ལས་འགུལ་གྱི་མིང་",
-  "project.settings.name.description": "ལས་འགུལ་འདི་གི་དོན་ལུ་ OpenCode ཡོངས་རྫོགས་ནང་སྟོན་ཡོད་པའི་མིང་།",
+  "project.settings.name.description": "ལས་འགུལ་འདི་གི་དོན་ལུ་ Xccode ཡོངས་རྫོགས་ནང་སྟོན་ཡོད་པའི་མིང་།",
   "project.settings.icon.description": "གྲོས་འཆར་: ༡༢༨×༡༢༨px. གཟུགས་བརྙན་ཅིག་སྐྱེལ་བཙུགས་འབད་ནི་ལུ་ཨེབ་གཏང་ཡང་ན་འདྲུད།",
   "project.settings.color.description":
     "སྲོལ་སྒྲིག་གཟུགས་བརྙན་གཞི་སྒྲིག་མ་འབད་བའི་སྐབས་ལས་འགུལ་ངོས་དཔར་གྱི་དོན་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།",
   "project.settings.worktree.startup.description": "ལཱ་གི་ཤིང་གསརཔ་གསར་བསྐྲུན་འབད་བའི་ཤུལ་ལས་ཚར་གཅིག་གཡོག་བཀོལཝ་ཨིན།",
-  "project.settings.worktree.startup.hint.base": "གཞི་རྟེན་ལཱ་ཤིང་གི་དོན་ལུ་ $OPENCODE_WORKTREE_BASE ལག་ལེན་འཐབ།",
-  "project.settings.worktree.startup.hint.new": "ལཱ་གི་ཤིང་གསརཔ་གི་དོན་ལུ་ $OPENCODE_WORKTREE_PATH ལག་ལེན་འཐབ།",
+  "project.settings.worktree.startup.hint.base": "གཞི་རྟེན་ལཱ་ཤིང་གི་དོན་ལུ་ $XCCODE_WORKTREE_BASE ལག་ལེན་འཐབ།",
+  "project.settings.worktree.startup.hint.new": "ལཱ་གི་ཤིང་གསརཔ་གི་དོན་ལུ་ $XCCODE_WORKTREE_PATH ལག་ལེན་འཐབ།",
   "project.settings.extensions.empty.mcps.title": "ད་ལྟོ་ MCPs མེད།",
-  "project.settings.extensions.empty.mcps.description": "MCPs ལུ་ཐོབ་ཚུགས་པའི་ OpenCode འདི་ན་འབྱུངམ་ཨིན།",
+  "project.settings.extensions.empty.mcps.description": "MCPs ལུ་ཐོབ་ཚུགས་པའི་ Xccode འདི་ན་འབྱུངམ་ཨིན།",
   "project.settings.extensions.empty.plugins.title": "ད་ལྟོ་པ་ལག་ཨིནསི་མེད།",
-  "project.settings.extensions.empty.plugins.description": "OpenCode ལུ་ཡོད་པའི་པ་ལག་ཨིན་ཚུ་ ནཱ་ལུ་འབྱུངམ་ཨིན།",
+  "project.settings.extensions.empty.plugins.description": "Xccode ལུ་ཡོད་པའི་པ་ལག་ཨིན་ཚུ་ ནཱ་ལུ་འབྱུངམ་ཨིན།",
   "project.settings.extensions.empty.skills.title": "ད་ལྟོ་རིག་རྩལ་མེད།",
-  "project.settings.extensions.empty.skills.description": "OpenCode ལུ་ཡོད་པའི་རིག་རྩལ་ཚུ་ ནཱ་ལུ་འབྱུང་འོང་།",
+  "project.settings.extensions.empty.skills.description": "Xccode ལུ་ཡོད་པའི་རིག་རྩལ་ཚུ་ ནཱ་ལུ་འབྱུང་འོང་།",
   "project.settings.extensions.lsp.configured": "རིམ་སྒྲིག་འབད་ཡོད་པའི་སྐད་ཡིག་སར་བར་ཚུ།",
   "project.settings.extensions.lsp.status.enabled": "རིམ་སྒྲིག་ནང་ལུ་ལྕོགས་ཅན་བཟོ་ཡོདཔ།",
   "project.settings.extensions.lsp.status.disabled": "རིམ་སྒྲིག་ནང་ལུ་ལྕོགས་མིན་བཟོ་ཡོདཔ།",
@@ -796,7 +796,7 @@ export const dict = {
   "settings.timeline.collapsed.label": "{{activity}} རྡིབ་སོང་",
   "session.new.workspace.search.empty": "མཐུན་སྒྲིག་ལཱ་ཤིང་མེད།",
   "settings.workspaces.description": "ལཱ་གི་ཤིང་ཚུ་བསྐྱར་ཞིབ་འབད་དེ་ ཌིཀསི་ལག་ལེན་འཛིན་སྐྱོང་འཐབ།",
-  "settings.workspaces.empty.description": "OpenCode ནང་གསར་བསྐྲུན་འབད་ཡོད་པའི་ལཱ་ཤིང་ཚུ་ ནཱ་ལུ་འབྱུངམ་ཨིན།",
+  "settings.workspaces.empty.description": "Xccode ནང་གསར་བསྐྲུན་འབད་ཡོད་པའི་ལཱ་ཤིང་ཚུ་ ནཱ་ལུ་འབྱུངམ་ཨིན།",
   "settings.workspaces.sessions.filtered.one": "{{count}} ལཱ་ཡུན་",
   "settings.workspaces.sessions.filtered.other": "{{count}} ལཱ་ཡུན་ཚུ་",
   "settings.workspaces.deleteAll.confirm.one":
@@ -849,22 +849,22 @@ export const dict = {
   "voice.captions.hide": "ཡིག་བཀོད་སྦ་བཞག",
   "voice.connecting": "མཐུད་དོ…",
   "voice.you": "ཁྱོད:",
-  "voice.assistant": "OpenCode:",
+  "voice.assistant": "Xccode:",
   "voice.failure.unavailable": "སྐད་འབོད་ཀྱི་དོན་ལུ་ སར་བར་འདི་གུ་ OpenAI API ལྡེ་མིག་དགོཔ་ཨིན།",
   "voice.failure.microphone": "འབོད་ནིའི་དོན་ལུ་ སྒྲ་དུང་འཛུལ་སྤྱོད་དགོཔ་ཨིན།",
   "voice.failure.dropped": "སྐད་འབོད་འདི་ མཐུད་ལམ་ཆད་སོང་།",
   "voice.failure.connection": "སྐད་འབོད་མཐུད་མ་ཚུགས།",
-  "desktop.microphoneUsage": "OpenCode གིས་ སྐད་འབོད་ཀྱི་དོན་ལུ་ ཁྱོད་ཀྱི་སྒྲ་དུང་ལག་ལེན་འཐབ་ཨིན།",
+  "desktop.microphoneUsage": "Xccode གིས་ སྐད་འབོད་ཀྱི་དོན་ལུ་ ཁྱོད་ཀྱི་སྒྲ་དུང་ལག་ལེན་འཐབ་ཨིན།",
   "desktop.documentsFolderUsage":
-    "OpenCode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ ཁྱོད་ཀྱི་ Documents སྣོད་འཛིན་ནང་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
+    "Xccode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ ཁྱོད་ཀྱི་ Documents སྣོད་འཛིན་ནང་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
   "desktop.desktopFolderUsage":
-    "OpenCode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ ཁྱོད་ཀྱི་ Desktop གུ་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
+    "Xccode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ ཁྱོད་ཀྱི་ Desktop གུ་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
   "desktop.downloadsFolderUsage":
-    "OpenCode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ ཁྱོད་ཀྱི་ Downloads སྣོད་འཛིན་ནང་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
+    "Xccode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ ཁྱོད་ཀྱི་ Downloads སྣོད་འཛིན་ནང་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
   "desktop.networkVolumesUsage":
-    "OpenCode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ ཡོངས་འབྲེལ་བམ་པོ་གུ་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
+    "Xccode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ ཡོངས་འབྲེལ་བམ་པོ་གུ་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
   "desktop.removableVolumesUsage":
-    "OpenCode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ བཏོན་བཏུབ་པའི་བམ་པོ་གུ་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
+    "Xccode གིས་ ཁྱོད་ཀྱིས་ཁ་ཕྱེ་མི་ལས་གཞི་དང་ དེ་ནང་གཡོག་བཀོལ་མི་བརྡ་བཀོད་ཚུ་གི་དོན་ལུ་ བཏོན་བཏུབ་པའི་བམ་པོ་གུ་གི་ཡིག་སྣོད་ཚུ་ལག་ལེན་འཐབ་ཨིན།",
   "desktop.contextMenu.spellcheck": "ཡིག་སྦྱོར་ཞིབ་དཔྱད།",
   "desktop.contextMenu.spellcheckLanguages": "ཡིག་སྦྱོར་ཞིབ་དཔྱད་སྐད་ཡིག་ཚུ།",
   "session.location.unavailable": "ལཱ་ཡུན་གྱི་ས་གནས་འཐོབ་མི་ཚུགས།",
@@ -878,7 +878,7 @@ export const dict = {
   "session.location.moveFailed": "ལཱ་ཡུན་སྤོ་བཤུད་འབད་མ་ཚུགས།",
   "server.thisComputer": "གློག་རིག་འདི།",
   "command.provider.connect.description":
-    "OpenCode Go, OpenCode Console ཡང་ན་ དཔེ་ཚད་བྱིན་མི་གཞན་ཅིག་ལུ་ ནང་བསྐྱོད་འབད།",
+    "Xccode Go, Xccode Console ཡང་ན་ དཔེ་ཚད་བྱིན་མི་གཞན་ཅིག་ལུ་ ནང་བསྐྱོད་འབད།",
   "command.config.reload": "རིམ་སྒྲིག་ཡང་བསྐྱར་མངོན་གསལ།",
   "command.config.reload.description":
     "ཁྱོད་ཀྱི་རིམ་སྒྲིག་ནང་ལས་ ལས་ཚབ་དང་ བརྡ་བཀོད་ རིག་རྩལ་ MCP སར་བར་ དེ་ལས་ པ་ལག་ཨིན་ཚུ་ ཡང་བསྐྱར་མངོན་གསལ་འབད།",
@@ -886,7 +886,7 @@ export const dict = {
   "command.config.reload.done": "རིམ་སྒྲིག་ཡང་བསྐྱར་མངོན་གསལ་འབད་ཡོདཔ།",
   "command.config.reload.failed": "རིམ་སྒྲིག་ཡང་བསྐྱར་མངོན་གསལ་འབད་མ་ཚུགས།",
   "command.usage.view": "ལག་ལེན་བལྟ།",
-  "command.usage.view.description": "ཁྱོད་ཀྱི་ OpenCode Go ཚད་གཞི་དང་ Console འཆར་དངུལ་ཚུ་བལྟ།",
+  "command.usage.view.description": "ཁྱོད་ཀྱི་ Xccode Go ཚད་གཞི་དང་ Console འཆར་དངུལ་ཚུ་བལྟ།",
   "command.session.branch.choose": "གཞི་རྟེན་ཡན་ལག་གདམ་ཁ་རྐྱབས།",
   "session.location.toggle": "ལཱ་ཡུན་གྱི་ས་གནས་སོར་སྟོན།",
   "command.commands.search": "བརྡ་བཀོད་ཚུ་འཚོལ།",
@@ -907,7 +907,7 @@ export const dict = {
   "palette.group.settings": "སྒྲིག་སྟངས་ཚུ།",
   "palette.session.location": "{{project}} · {{server}}",
   "dialog.provider.title": "མཉམ་བསྡེབ་ཚུ།",
-  "dialog.provider.description": "OpenCode གིས་ལག་ལེན་འཐབ་ཚུགསཔ་སྦེ་ ཞབས་ཏོག་ཚུ་མཐུད།",
+  "dialog.provider.description": "Xccode གིས་ལག་ལེན་འཐབ་ཚུགསཔ་སྦེ་ ཞབས་ཏོག་ཚུ་མཐུད།",
   "dialog.provider.group.services": "ཞབས་ཏོག་ཚུ།",
   "dialog.provider.environmentOnly": "མཐའ་འཁོར་རྐྱངམ་ཅིག",
   "dialog.provider.signInRequired": "ནང་བསྐྱོད་དགོ →",
@@ -934,11 +934,11 @@ export const dict = {
   "provider.connect.breadcrumb.root": "མཐུད།",
   "provider.connect.breadcrumb.label": "མཐུད་ནིའི་རིམ་པ་ཚུ།",
   "provider.connect.methods.description": "{{provider}} ག་དེ་སྦེ་མཐུད་ནི་ཨིན་ན་ གདམ་ཁ་རྐྱབས།",
-  "provider.connect.opencode.name": "OpenCode",
-  "provider.connect.opencode.freeName": "OpenCode Free",
+  "provider.connect.xccode.name": "Xccode",
+  "provider.connect.xccode.freeName": "Xccode Free",
   "provider.connect.console.retry": "ལོག་འབད་རྩོལ་བསྐྱེད།",
   "provider.connect.console.serviceKeyDescription":
-    "OpenCode Console ནང་ལས་ ཞབས་ཏོག་རྩིས་ཐོའི་ API ལྡེ་མིག་ལག་ལེན་འཐབ་སྟེ་མཐུད།",
+    "Xccode Console ནང་ལས་ ཞབས་ཏོག་རྩིས་ཐོའི་ API ལྡེ་མིག་ལག་ལེན་འཐབ་སྟེ་མཐུད།",
   "provider.connect.console.instructions":
     "ཁྱོད་ཀྱི་བརའུ་ཟར་ནང་འཕྲོ་མཐུད་འབད། དེ་ནང་སྟོན་མི་ཨང་རྟགས་འདི་ འོག་གི་ཨང་རྟགས་དང་མཐུནམ་ཨིན་ན་ ངེས་གཏན་བཟོ།",
   "provider.connect.console.deviceCode": "ཐབས་འཕྲུལ་ཨང་རྟགས།",
@@ -964,7 +964,7 @@ export const dict = {
   "provider.connect.models.available": "འཐོབ་ཚུགས་པའི་དཔེ་ཚད་ཚུ།",
   "provider.connect.chatgptWelcome.title": "ChatGPT མཐུད་ཡོདཔ།",
   "provider.connect.chatgptWelcome.description":
-    "OpenCode ནང་གི་ འོས་འབབ་ཅན་གྱི་ཞུ་བ་ཚུ་གིས་ ཁྱོད་ཀྱི་ ChatGPT འཆར་གཞི་ལག་ལེན་འཐབ་ཚུགས།",
+    "Xccode ནང་གི་ འོས་འབབ་ཅན་གྱི་ཞུ་བ་ཚུ་གིས་ ཁྱོད་ཀྱི་ ChatGPT འཆར་གཞི་ལག་ལེན་འཐབ་ཚུགས།",
   "provider.connect.chatgptWelcome.usage": "ChatGPT སྒྲིག་སྟངས་ནང་ ལག་ལེན་འཛིན་སྐྱོང་འཐབ།",
   "provider.connect.chatgptWelcome.confirm": "གོ་ཡི།",
   "provider.connect.models.list": "{{provider}} ལས་འཐོབ་ཚུགས་པའི་དཔེ་ཚད་ཚུ།",
@@ -974,7 +974,7 @@ export const dict = {
   "provider.connect.chatgptUsageLimit.close": "ཁ་བསྡམས།",
   "provider.connect.console.refreshFailed":
     "ཁྱོད་ཀྱི་རྩིས་ཐོ་མཐུད་ཡོདཔ་ཨིན་རུང་ ཁྱོད་ཀྱི་དཔེ་ཚད་ཚུ་མངོན་གསལ་འབད་མ་ཚུགས། ཡང་སེལ་འབད་ནིའི་དོན་ལུ་ ལོག་འབད་རྩོལ་བསྐྱེད།",
-  "provider.connect.console.connected": "OpenCode མཐུད་ཡོདཔ།",
+  "provider.connect.console.connected": "Xccode མཐུད་ཡོདཔ།",
   "provider.connect.console.noModels":
     "ཁྱོད་ཀྱི་རྩིས་ཐོ་མཐུད་ཡོདཔ་ཨིན་རུང་ Console ལཱ་གི་ས་སྒོ་འདི་ནང་ འཐོབ་ཚུགས་པའི་དཔེ་ཚད་མེད། Console ནང་ དེ་གི་སྒྲིག་བཀོད་ཞིབ་དཔྱད་འབད་ཞིནམ་ལས་ ཡང་སེལ་འབད།",
   "provider.connect.console.modelsLoading":
@@ -983,7 +983,7 @@ export const dict = {
   "provider.connect.console.openingBrowser": "བརའུ་ཟར་ཁ་ཕྱེ་དོ།",
   "provider.connect.remote.label": "{{server}} གུ།",
   "provider.connect.remote.description":
-    "ཁྱོད་ཀྱི་ OpenCode ངོ་རྟགས་ཚུ་ སར་བར་འདི་གུ་བཞག་འོང་། དཔེ་ཚད་ཚུ་ སར་བར་འདི་བརྒྱུད་དེ་འཐོབ་འོང་།",
+    "ཁྱོད་ཀྱི་ Xccode ངོ་རྟགས་ཚུ་ སར་བར་འདི་གུ་བཞག་འོང་། དཔེ་ཚད་ཚུ་ སར་བར་འདི་བརྒྱུད་དེ་འཐོབ་འོང་།",
   "provider.connect.claudeAgent.description":
     "ཁྱོད་ཀྱི་ Claude འཆར་གཞི་ ཡང་ན་ Claude Code ནང་བསྐྱོད་གཞན་ཅིག་ལག་ལེན་འཐབ། ཧེ་མ་ Claude Code གཞི་བཙུགས་འབད་ཞིནམ་ལས་ ནང་བསྐྱོད་འབད།",
   "provider.connect.claudeAgent.install": "Claude Code གཞི་བཙུགས།",
@@ -1017,7 +1017,7 @@ export const dict = {
     "ཁྱོད་ཀྱི་བརའུ་ཟར་ཁ་ཕྱེ་མ་ཚུགས། ལོག་འབད་རྩོལ་བསྐྱེད་ནིའི་དོན་ལུ་ བརའུ་ཟར་ཁ་ཕྱེ་ སེལ་འཐུ་འབད།",
   "provider.connect.oauth.paste.toggle": "ཐབས་འཕྲུལ་གཞན་ཅིག་ལས་ ནང་བསྐྱོད་འབད་དོ་ག?",
   "provider.connect.oauth.paste.description":
-    "ཁྱོད་ཀྱི་བརའུ་ཟར་གྱིས་ OpenCode གཡོག་བཀོལ་མི་འཕྲུལ་ཆས་ལུ་ལྷོད་མ་ཚུགས་པ་ཅིན་ དེ་ཁ་ཕྱོགས་སྒྱུར་ཡོད་པའི་ URL འདི་སྦྱར།",
+    "ཁྱོད་ཀྱི་བརའུ་ཟར་གྱིས་ Xccode གཡོག་བཀོལ་མི་འཕྲུལ་ཆས་ལུ་ལྷོད་མ་ཚུགས་པ་ཅིན་ དེ་ཁ་ཕྱོགས་སྒྱུར་ཡོད་པའི་ URL འདི་སྦྱར།",
   "provider.connect.oauth.expired": "དབང་སྤྲོད་ཀྱི་དུས་ཚོད་ཡོལ་ཡོདཔ།",
   "model.details.input.text": "ཡིག་ཚིག",
   "model.details.input.image": "པར།",
@@ -1054,7 +1054,7 @@ export const dict = {
   "dialog.mcp.signIn": "ནང་བསྐྱོད།",
   "dialog.mcp.signIn.open": "{{name}} ལུ་ནང་བསྐྱོད།",
   "dialog.mcp.signIn.description":
-    "{{name}} ལུ་ནང་བསྐྱོད་འབད་ཚུགསཔ་སྦེ་ ཁྱོད་ཀྱི་བརའུ་ཟར་ཁ་ཕྱེཝ་ཨིན། དེ་གིས་ OpenCode གཡོག་བཀོལ་མི་འཕྲུལ་ཆས་ལུ་ལྷོད་མ་ཚུགས་པ་ཅིན་ ཁ་ཕྱོགས་སྒྱུར་ཡོད་པའི་ URL འདི་ འོག་ལུ་སྦྱར།",
+    "{{name}} ལུ་ནང་བསྐྱོད་འབད་ཚུགསཔ་སྦེ་ ཁྱོད་ཀྱི་བརའུ་ཟར་ཁ་ཕྱེཝ་ཨིན། དེ་གིས་ Xccode གཡོག་བཀོལ་མི་འཕྲུལ་ཆས་ལུ་ལྷོད་མ་ཚུགས་པ་ཅིན་ ཁ་ཕྱོགས་སྒྱུར་ཡོད་པའི་ URL འདི་ འོག་ལུ་སྦྱར།",
   "dialog.mcp.signIn.syncFailed": "ནང་བསྐྱོད་འབད་ཡོདཔ་ཨིན་རུང་ {{name}} ཡང་སེལ་འབད་མ་ཚུགས: {{error}}",
   "dialog.mcp.error.details":
     "MCP སར་བར: {{name}}\nགནས་སྟངས: འཐུས་ཤོར\nརིམ་སྒྲིག: mcp.servers.{{name}}\nའཛོལ་བ: {{error}}",
@@ -1082,10 +1082,10 @@ export const dict = {
   "server.connect.link": "ཆ་སྒྲིག་འབྲེལ་མཐུད།",
   "server.connect.link.placeholder": "http://192.168.1.2:4096/auth/connect/…",
   "server.connect.link.invalid":
-    "opencode pair ལས་ ཡང་ན་ སར་བར་གྱི་གློག་རིག་གུ་ Settings → Pairing ལས་ ཆ་སྒྲིག་འབྲེལ་མཐུད་ཆ་ཚང་འདི་སྦྱར།",
+    "xccode pair ལས་ ཡང་ན་ སར་བར་གྱི་གློག་རིག་གུ་ Settings → Pairing ལས་ ཆ་སྒྲིག་འབྲེལ་མཐུད་ཆ་ཚང་འདི་སྦྱར།",
   "server.connect.password.prompt": "ཆ་སྒྲིག་འབྲེལ་མཐུད་མེད་ག?",
   "server.connect.password.use": "ཆོག་ཡིག་ལག་ལེན་འཐབ།",
-  "server.connect.password.hint": "དེ་བལྟ་ནིའི་དོན་ལུ་ སར་བར་གྱི་གློག་རིག་གུ་ opencode service get password གཡོག་བཀོལ།",
+  "server.connect.password.hint": "དེ་བལྟ་ནིའི་དོན་ལུ་ སར་བར་གྱི་གློག་རིག་གུ་ xccode service get password གཡོག་བཀོལ།",
   "server.connect.link.prompt": "ཆ་སྒྲིག་འབྲེལ་མཐུད་ཡོད་ག?",
   "server.connect.link.use": "ཆ་སྒྲིག་འབྲེལ་མཐུད་ལག་ལེན་འཐབ།",
   "server.connect.pair.link":
@@ -1093,11 +1093,11 @@ export const dict = {
   "server.connect.scan.failed":
     "བརའུ་ཟར་འདི་གིས་ QR ཨང་རྟགས་ལྷག་མ་ཚུགས། ཁྱོད་ཀྱི་མཐུད་ལམ་རྒྱས་བཤད་ཚུ་ ལག་ཐོག་ལས་བཙུགས།",
   "server.connect.link.expired":
-    "ཆ་སྒྲིག་འབྲེལ་མཐུད་འདི་ དུས་ཚོད་ཡོལ་ཡོདཔ་ ཡང་ན་ ཧེ་མ་ལས་ལག་ལེན་འཐབ་ཡོདཔ། གསརཔ་ཐོབ་ནིའི་དོན་ལུ་ opencode pair གཡོག་བཀོལ།",
+    "ཆ་སྒྲིག་འབྲེལ་མཐུད་འདི་ དུས་ཚོད་ཡོལ་ཡོདཔ་ ཡང་ན་ ཧེ་མ་ལས་ལག་ལེན་འཐབ་ཡོདཔ། གསརཔ་ཐོབ་ནིའི་དོན་ལུ་ xccode pair གཡོག་བཀོལ།",
   "server.connect.link.unreachable":
     "{{url}} ལུ་ལྷོད་མ་ཚུགས། ཐབས་འཕྲུལ་འདི་གིས་ སར་བར་ལུ་ལྷོད་ཚུགསཔ་ཨིན་ན་ ཞིབ་དཔྱད་འབད་ཞིནམ་ལས་ ལོག་འབད་རྩོལ་བསྐྱེད།",
   "server.connect.link.legacy":
-    "ཆ་སྒྲིག་ཨང་རྟགས་འདི་ OpenCode གི་ཐོན་རིམ་རྙིངམ་ལས་ཨིན། སར་བར་གུ་ OpenCode དུས་མཐུན་བཟོ་ཞིནམ་ལས་ opencode pair ལོག་གཡོག་བཀོལ།",
+    "ཆ་སྒྲིག་ཨང་རྟགས་འདི་ Xccode གི་ཐོན་རིམ་རྙིངམ་ལས་ཨིན། སར་བར་གུ་ Xccode དུས་མཐུན་བཟོ་ཞིནམ་ལས་ xccode pair ལོག་གཡོག་བཀོལ།",
   "server.connect.camera.native":
     "ཤོག་ལེབ་འདི་གིས་ HTTP གུ་ པར་ཆས་ལག་ལེན་འཐབ་མི་ཚུགས། གོང་གི་ཆ་སྒྲིག་འབྲེལ་མཐུད་འདི་སྦྱར།",
   "dialog.server.signedOut":
@@ -1119,7 +1119,7 @@ export const dict = {
   "home.sessions.load.timeout": "སར་བར་གྱིས་ལན་སྤྲོད་ནི་ལུ་ དུས་ཚོད་ཧ་ཅང་གིས་ཕུགས་སོང་།",
   "tips.browse.title": "ཁྱོད་ཀྱི་བརའུ་ཟར་ཚད་འཛིན་འབད།",
   "tips.browse.description":
-    "OpenCode གིས་ ཁྱོད་ཀྱི་མཆོང་ལྡེ་དང་ ནང་བསྐྱོད་ རྒྱ་བསྐྱེད་ཚུ་དང་གཅིག་ཁར་ ཁྱོད་ཀྱི་བརའུ་ཟར་ནང་ལཱ་འབད་བཅུག",
+    "Xccode གིས་ ཁྱོད་ཀྱི་མཆོང་ལྡེ་དང་ ནང་བསྐྱོད་ རྒྱ་བསྐྱེད་ཚུ་དང་གཅིག་ཁར་ ཁྱོད་ཀྱི་བརའུ་ཟར་ནང་ལཱ་འབད་བཅུག",
   "tips.browse.install": "གཞི་བཙུགས།",
   "tips.hex.title": "ཁྱོད་ཀྱི་སྐད་ལག་ལེན་འཐབ།",
   "tips.hex.description":
@@ -1310,10 +1310,10 @@ export const dict = {
   "settings.plugins.part.server": "སར་བར།",
   "settings.plugins.part.tui": "TUI",
   "settings.plugins.parts.note":
-    'སོར་ལྡེ་ཚུ་གིས་ པ་ལག་ཨིན་གྱི་ ཌེཀསི་ཊོཔ་ UI རྐྱངམ་ཅིག་ ཁ་བསྡམསཔ་ཨིན། དེ་གི་སར་བར་ཆ་ཤས་ཁ་བསྡམས་ནིའི་དོན་ལུ་ ཁྱོད་ཀྱི་ སྤྱི་ཁྱབ་ opencode.json ནང་གི་ plugins ལུ་ "-<id>" ཁ་སྐོང་རྐྱབས། ཡང་ན་ དེ་གི་ TUI ཆ་ཤས་ཁ་བསྡམས་ནིའི་དོན་ལུ་ cli.json ནང་གི་ plugins ལུ་ "-" དང་ དེ་གི་ TUI པ་ལག་ཨིན་ ID ཁ་སྐོང་རྐྱབས།',
+    'སོར་ལྡེ་ཚུ་གིས་ པ་ལག་ཨིན་གྱི་ ཌེཀསི་ཊོཔ་ UI རྐྱངམ་ཅིག་ ཁ་བསྡམསཔ་ཨིན། དེ་གི་སར་བར་ཆ་ཤས་ཁ་བསྡམས་ནིའི་དོན་ལུ་ ཁྱོད་ཀྱི་ སྤྱི་ཁྱབ་ xccode.json ནང་གི་ plugins ལུ་ "-<id>" ཁ་སྐོང་རྐྱབས། ཡང་ན་ དེ་གི་ TUI ཆ་ཤས་ཁ་བསྡམས་ནིའི་དོན་ལུ་ cli.json ནང་གི་ plugins ལུ་ "-" དང་ དེ་གི་ TUI པ་ལག་ཨིན་ ID ཁ་སྐོང་རྐྱབས།',
   "settings.about.copyVersionFailed": "ཐོན་རིམ་འདྲ་བཤུས་འབད་མ་ཚུགས།",
   "settings.about.notices.title": "ཕྱོགས་གསུམ་པའི་བརྡ་དོན་ཚུ།",
-  "settings.about.notices.description": "OpenCode ནང་ འོག་གི་ཐོན་ཁུངས་ཁ་ཕྱེ་ཡོད་པའི་མཉེན་ཆས་ཚུ་ཚུདཔ་ཨིན།",
+  "settings.about.notices.description": "Xccode ནང་ འོག་གི་ཐོན་ཁུངས་ཁ་ཕྱེ་ཡོད་པའི་མཉེན་ཆས་ཚུ་ཚུདཔ་ཨིན།",
   "settings.about.notices.license": "ཆོག་ཐམ་ཡིག་ཚིག",
   "settings.about.notices.fonts.title": "Office སྔོན་ལྟ་ནང་གི་ཡིག་གཟུགས་ཚུ།",
   "settings.about.notices.fonts.description":
@@ -1356,7 +1356,7 @@ export const dict = {
   "settings.extensions.sources.loadFailed": "རྒྱ་བསྐྱེད་ཀྱི་འབྱུང་ཁུངས་ཚུ་ མངོན་གསལ་འབད་མ་ཚུགས།",
   "settings.extensions.console.temporary":
     "སོར་ལྡེ་ཚུ་གིས་ ད་ལྟོའི་ལས་གཞིའི་དོན་ལུ་ MCP མཐུད་ལམ་ཚུ་ གནས་སྐབས་ཚད་འཛིན་འབདཝ་ཨིན་ ཁྱོད་ཀྱི་ Console དགའ་གདམ་ཚུ་མེན། སར་བར་རིམ་སྒྲིག་གི་བསྒྱུར་བཅོས་ཚུ་གིས་ དེ་ཚུ་ལོག་མཐུད་ཚུགས།",
-  "settings.extensions.console.replaced": "OpenCode Console གི་ཚབ་ལུ་བཙུགསཔ་ཨིན།",
+  "settings.extensions.console.replaced": "Xccode Console གི་ཚབ་ལུ་བཙུགསཔ་ཨིན།",
   "settings.extensions.console.connect": "Console ནང་ {{name}} མཐུད།",
   "settings.extensions.console.manage": "Console ནང་ {{name}} འཛིན་སྐྱོང་།",
   "project.settings.autoAccept.description": "ལས་གཞི་འདི་གི་གནང་བ་ཞུ་བ་ཚུ་ མ་དྲིས་པར་ཆ་འཇོག་འབད།",
@@ -1436,8 +1436,8 @@ export const dict = {
   "lab.noControls": "story འདི་ལུ་ ཚད་འཛིན་མེད།",
   "lab.grid": "དྲྭ་མིག",
   "usage.title": "ལག་ལེན།",
-  "usage.section.go": "OpenCode Go",
-  "usage.section.console": "OpenCode Console",
+  "usage.section.go": "Xccode Go",
+  "usage.section.console": "Xccode Console",
   "usage.workspace.fallback": "ཁྱོད་ཀྱི་ལཱ་གི་ས་སྒོ།",
   "usage.time": "{{date}} {{time}} ({{zone}})",
   "usage.go.rolling": "འཁོར་སྐྱོད།",
@@ -1500,8 +1500,8 @@ export const dict = {
   "usage.footer.budgetsReset": "འཆར་དངུལ་ཚུ་ {{time}} སླར་སྒྲིག་འབདཝ་ཨིན།",
   "usage.footer.creditsOnly": "འགྲོ་སོང་ཚུ་ {{workspace}} གི་ སྔོན་སྤྲོད་དངུལ་རྐྱངམ་ཅིག་གིས་ ཚད་འཛིན་འབདཝ་ཨིན།",
   "usage.footer.details": "ཁ་གསལ་བལྟ།",
-  "usage.signedOut.title": "OpenCode Console ལུ་ ནང་བསྐྱོད་མ་འབད་བས།",
-  "usage.signedOut.body": "ཁྱོད་ཀྱི་ལཱ་གི་ས་སྒོའི་འཆར་དངུལ་དང་ Go ལག་ལེན་ཚུ་ བལྟ་ནིའི་དོན་ལུ་ OpenCode Console མཐུད།",
+  "usage.signedOut.title": "Xccode Console ལུ་ ནང་བསྐྱོད་མ་འབད་བས།",
+  "usage.signedOut.body": "ཁྱོད་ཀྱི་ལཱ་གི་ས་སྒོའི་འཆར་དངུལ་དང་ Go ལག་ལེན་ཚུ་ བལྟ་ནིའི་དོན་ལུ་ Xccode Console མཐུད།",
   "usage.error": "ལག་ལེན་ཚད་ཚུ་ མངོན་གསལ་འབད་མ་ཚུགས།",
   "usage.retry": "ལོག་འབད་རྩོལ་བསྐྱེད།",
 } satisfies Partial<Record<Keys, string>>

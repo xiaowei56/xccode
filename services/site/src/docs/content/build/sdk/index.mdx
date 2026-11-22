@@ -1,10 +1,10 @@
 ---
 title: "SDK overview"
-description: "Host OpenCode inside your application with @opencode/sdk, which serves the API in memory with no HTTP listener."
+description: "Host Xccode inside your application with @xccode/sdk, which serves the API in memory with no HTTP listener."
 ---
 
-`@opencode/sdk` hosts OpenCode directly inside your application. Unlike the
-[network client](/build/client), it assembles the OpenCode server and routes API
+`@xccode/sdk` hosts Xccode directly inside your application. Unlike the
+[network client](/build/client), it assembles the Xccode server and routes API
 calls through its HTTP router in memory. It opens no HTTP listener and adds no
 network hop between the client and server.
 
@@ -13,33 +13,33 @@ For Cloudflare Durable Objects, see the [Cloudflare guide](/build/sdk/cloudflare
 Install the SDK:
 
 ```sh
-bun add @opencode/sdk
+bun add @xccode/sdk
 ```
 
 ## Create a host
 
-`OpenCode.create()` returns an explicitly owned host. Use `await using` to
+`Xccode.create()` returns an explicitly owned host. Use `await using` to
 release its router, Location services, fibers, and scoped plugin registrations:
 
 ```ts
-import { OpenCode } from "@opencode/sdk"
+import { Xccode } from "@xccode/sdk"
 
-await using opencode = await OpenCode.create()
-const session = await opencode.sessions.create({
+await using xccode = await Xccode.create()
+const session = await xccode.sessions.create({
   location: { directory: "/workspace" },
 })
 
-await opencode.sessions.prompt({
+await xccode.sessions.prompt({
   sessionID: session.id,
   text: "Review the current changes",
 })
 ```
 
-Call `await opencode.close()` explicitly when explicit resource management is
+Call `await xccode.close()` explicitly when explicit resource management is
 not available.
 
 The embedded host uses the same Promise values, declared errors, request
-options, and `AsyncIterable` streams as `@opencode/client`. It exposes the
+options, and `AsyncIterable` streams as `@xccode/client`. It exposes the
 full generated client and adds the convenience aliases `sessions` and `events`
 for the session and event groups.
 
@@ -51,9 +51,9 @@ failing if that strategy is unavailable.
 
 ```ts
 const projectID = session.projectID
-const worktree = await opencode.worktree.create({ projectID, name: "task" })
-await opencode.worktree.refresh({ projectID })
-await opencode.worktree.remove({ projectID, directory: worktree.directory, force: false })
+const worktree = await xccode.worktree.create({ projectID, name: "task" })
+await xccode.worktree.refresh({ projectID })
+await xccode.worktree.remove({ projectID, directory: worktree.directory, force: false })
 ```
 
 Refresh discovers worktrees across known checkout roots using all available strategies. Register a custom strategy
@@ -62,7 +62,7 @@ through a [plugin's worktree transform](/build/plugins/server#worktrees).
 ## Stream events
 
 ```ts
-for await (const event of opencode.events.subscribe()) {
+for await (const event of xccode.events.subscribe()) {
   console.log(event.type)
 }
 ```
@@ -72,13 +72,13 @@ iteration to cancel its response body.
 
 ## Customize
 
-Customize your OpenCode instance by registering plugins. Pass plugins to
-`OpenCode.create()` to customize agents, models, tools, and other behavior when
+Customize your Xccode instance by registering plugins. Pass plugins to
+`Xccode.create()` to customize agents, models, tools, and other behavior when
 the embedded host starts:
 
 ```ts
-import { Plugin } from "@opencode/plugin"
-import { OpenCode } from "@opencode/sdk"
+import { Plugin } from "@xccode/plugin"
+import { Xccode } from "@xccode/sdk"
 
 const plugin = Plugin.define({
   id: "customize-agent",
@@ -91,10 +91,10 @@ const plugin = Plugin.define({
   },
 })
 
-await using opencode = await OpenCode.create({ plugins: [plugin] })
+await using xccode = await Xccode.create({ plugins: [plugin] })
 ```
 
-Call `await opencode.plugin(plugin)` to register another plugin after startup.
+Call `await xccode.plugin(plugin)` to register another plugin after startup.
 
 See the [full plugins documentation](/build/plugins/server) for plugin hooks,
 transforms, tools, and the complete plugin context.

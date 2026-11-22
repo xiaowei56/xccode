@@ -1,4 +1,4 @@
-import type { OpenCodeEvent } from "@opencode/client/promise"
+import type { XccodeEvent } from "@xccode/client/promise"
 import { mergeHomeSessionIndex } from "@/home/sessions/index"
 
 // Events that keep a preview tab. This is deliberately separate from recency: opening or passively updating a
@@ -15,11 +15,11 @@ const activityTypes = [
   "session.revert.staged",
   "session.revert.cleared",
   "session.revert.committed",
-] as const satisfies OpenCodeEvent["type"][]
+] as const satisfies XccodeEvent["type"][]
 
 export function isSidebarSessionActivity(
-  event: OpenCodeEvent,
-): event is Extract<OpenCodeEvent, { type: (typeof activityTypes)[number] }> {
+  event: XccodeEvent,
+): event is Extract<XccodeEvent, { type: (typeof activityTypes)[number] }> {
   return activityTypes.some((type) => type === event.type)
 }
 

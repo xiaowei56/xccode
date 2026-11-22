@@ -25,7 +25,7 @@ export default defineApp({
               `- archived ${archived}`,
               `- unknown @session:${unknown}`,
               "",
-              `Run \`opencode --session ${known}\` or open \`${known}\`.`,
+              `Run \`xccode --session ${known}\` or open \`${known}\`.`,
             ].join("\n"),
           ),
           user("msg_1", "Which sessions touched the parser?"),

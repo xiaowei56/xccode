@@ -1,8 +1,8 @@
-import { Button } from "@opencode/ui/button"
-import { Icon } from "@opencode/ui/icon"
-import { Switch } from "@opencode/ui/switch"
-import { Tabs } from "@opencode/ui/tabs"
-import { isLocationNotFoundError } from "@opencode/client/promise"
+import { Button } from "@xccode/ui/button"
+import { Icon } from "@xccode/ui/icon"
+import { Switch } from "@xccode/ui/switch"
+import { Tabs } from "@xccode/ui/tabs"
+import { isLocationNotFoundError } from "@xccode/client/promise"
 import {
   type Component,
   For,
@@ -55,7 +55,7 @@ const ExtensionRow: Component<{
   /** An MCP server's status, shown as a dot in the icon's place, as on the server-wide page. */
   status?: string
   name: string
-  /** Where OpenCode Console manages it; the name links there. */
+  /** Where Xccode Console manages it; the name links there. */
   console?: string
   /** Console's server of the same name, which the user's config replaces. */
   replaces?: string
@@ -509,7 +509,7 @@ export const ProjectSettingsExtensions: Component<{
                 kind="skills"
                 empty={projectSkills().length === 0}
                 action={
-                  <ExternalLink class="settings-extension-link" href="https://opencode.ai/docs/skills">
+                  <ExternalLink class="settings-extension-link" href="https://xccode.ai/docs/skills">
                     {language.t("settings.extensions.addSkills")}
                   </ExternalLink>
                 }

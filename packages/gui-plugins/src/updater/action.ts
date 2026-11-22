@@ -1,4 +1,4 @@
-import type { UpdaterState } from "@opencode/plugin/gui/updater"
+import type { UpdaterState } from "@xccode/plugin/gui/updater"
 import type { WindowUpdaterState } from "./window-machine"
 
 /**

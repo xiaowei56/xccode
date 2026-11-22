@@ -15,7 +15,7 @@ import { useTabs } from "@/shell/tabs/tabs"
 import { requireServerKey } from "./session"
 import { PluginAttachment } from "@/runtime/plugin/root"
 
-export const File = lazy(() => import("@opencode/session-ui/file").then((module) => ({ default: module.File })))
+export const File = lazy(() => import("@xccode/session-ui/file").then((module) => ({ default: module.File })))
 
 const loadSessionRoute = () => Promise.all([import("@/session/route"), File.preload()]).then(([module]) => module)
 
@@ -30,7 +30,7 @@ const ConnectServerScreen = lazy(() =>
 // The dev server and Beta only. Both are fixed at build time, so other builds, prod included, drop the import and never
 // contain the lab, its stories or knobs. Beta loads it as its own chunk, only when /components opens.
 const ComponentsLab =
-  import.meta.env.DEV || import.meta.env.VITE_OPENCODE_CHANNEL === "beta"
+  import.meta.env.DEV || import.meta.env.VITE_XCCODE_CHANNEL === "beta"
     ? lazy(() => import("@/components-lab/lab"))
     : undefined
 

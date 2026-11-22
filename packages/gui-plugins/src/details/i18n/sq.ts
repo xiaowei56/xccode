@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Fshi pemën e punës",
   "mcp.manage": "Menaxho serverët MCP",
   timedOut: "Serveri vonoi shumë të përgjigjej",
-  "setup.mcp": "Shto një server me OpenCode",
+  "setup.mcp": "Shto një server me Xccode",
   "setup.mcp.prompt":
-    "Më ndihmo të shtoj një server MCP në konfigurimin tim global të OpenCode. Më pyet cilin shërbim dua të lidh, pastaj konfiguroje dhe kontrollo që lidhet.",
-  "setup.plugins": "Shto një shtojcë me OpenCode",
+    "Më ndihmo të shtoj një server MCP në konfigurimin tim global të Xccode. Më pyet cilin shërbim dua të lidh, pastaj konfiguroje dhe kontrollo që lidhet.",
+  "setup.plugins": "Shto një shtojcë me Xccode",
   "setup.plugins.prompt":
-    "Më ndihmo të shtoj një shtojcë në konfigurimin tim global të OpenCode. Më pyet çfarë dua të bëjë, sugjero një shtojcë, pastaj shtoje.",
-  "setup.skills": "Aftësi e re me OpenCode",
+    "Më ndihmo të shtoj një shtojcë në konfigurimin tim global të Xccode. Më pyet çfarë dua të bëjë, sugjero një shtojcë, pastaj shtoje.",
+  "setup.skills": "Aftësi e re me Xccode",
   "setup.skills.prompt":
-    "Më ndihmo të shkruaj një aftësi të re OpenCode në konfigurimin tim global. Më pyet çfarë duhet të të mësojë, pastaj shkruaj SKILL.md-në e saj.",
+    "Më ndihmo të shkruaj një aftësi të re Xccode në konfigurimin tim global. Më pyet çfarë duhet të të mësojë, pastaj shkruaj SKILL.md-në e saj.",
   changesFailed: "Ndryshimet nuk mund të ngarkoheshin",
   changesOffline: "Ky server nuk arrihet",
   "mcp.signIn": "Hyr",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Detajet për {{name}}",
   "mcp.signIn.open": "Hyr në {{name}}",
   "mcp.signIn.description":
-    "Shfletuesi do të hapet që të hyni në {{name}}. Nëse nuk arrin te makina ku ekzekutohet OpenCode, ngjitni më poshtë URL-në ku u ridrejtua.",
+    "Shfletuesi do të hapet që të hyni në {{name}}. Nëse nuk arrin te makina ku ekzekutohet Xccode, ngjitni më poshtë URL-në ku u ridrejtua.",
   "mcp.signIn.waiting": "Në pritje të autorizimit…",
   "mcp.signIn.failed": "Autorizimi dështoi: {{error}}",
   "mcp.signIn.expired": "Autorizimi skadoi",

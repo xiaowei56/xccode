@@ -1,12 +1,12 @@
 //! Resolves an explicit server, standalone process, or shared service. Only the client's own channel is eligible for
 //! version replacement.
 
-use opencode_api::error::Error as ApiError;
-use opencode_api::transport::Transport;
-use opencode_local::channel::Channels;
-use opencode_local::paths::Paths;
-use opencode_local::registration;
-use opencode_local::service_config::{self, ServiceConfig};
+use xccode_api::error::Error as ApiError;
+use xccode_api::transport::Transport;
+use xccode_local::channel::Channels;
+use xccode_local::paths::Paths;
+use xccode_local::registration;
+use xccode_local::service_config::{self, ServiceConfig};
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::Duration;
@@ -42,13 +42,13 @@ pub struct Options {
 /// The environment `resolve` reads.
 #[derive(Clone, Default, PartialEq, Eq)]
 pub struct Env {
-    /// Falls back to `OPENCODE_SERVER_PASSWORD` when `OPENCODE_PASSWORD` is unset.
+    /// Falls back to `XCCODE_SERVER_PASSWORD` when `XCCODE_PASSWORD` is unset.
     pub password: Option<String>,
-    /// `OPENCODE_CHANNEL`.
+    /// `XCCODE_CHANNEL`.
     pub channel: Option<String>,
-    /// `OPENCODE_PRINT_LOGS=1`, which `--print-logs` sets.
+    /// `XCCODE_PRINT_LOGS=1`, which `--print-logs` sets.
     pub print_logs: bool,
-    /// `OPENCODE_TS_BIN`, the TypeScript binary that serves.
+    /// `XCCODE_TS_BIN`, the TypeScript binary that serves.
     pub ts_bin: Option<String>,
 }
 
@@ -71,18 +71,18 @@ impl Env {
     pub fn from_vars(var: impl Fn(&str) -> Option<String>) -> Self {
         // Effect's `Config.Redacted` takes an empty value as set, so an empty password is sent.
         Self {
-            password: var("OPENCODE_PASSWORD").or_else(|| var("OPENCODE_SERVER_PASSWORD")),
-            channel: var("OPENCODE_CHANNEL").filter(|channel| !channel.is_empty()),
-            print_logs: var("OPENCODE_PRINT_LOGS").as_deref() == Some("1"),
+            password: var("XCCODE_PASSWORD").or_else(|| var("XCCODE_SERVER_PASSWORD")),
+            channel: var("XCCODE_CHANNEL").filter(|channel| !channel.is_empty()),
+            print_logs: var("XCCODE_PRINT_LOGS").as_deref() == Some("1"),
             ts_bin: var(TsCommand::VAR),
         }
     }
 
     fn ts(&self) -> TsCommand {
-        self.ts_with(|name| std::env::var_os(name), cfg!(windows), opencode_util::bundle::server())
+        self.ts_with(|name| std::env::var_os(name), cfg!(windows), xccode_util::bundle::server())
     }
 
-    /// `ts_bin` stands in for `OPENCODE_TS_BIN`; `PATH` and `PATHEXT` come from `var`; `bundled` is the binary
+    /// `ts_bin` stands in for `XCCODE_TS_BIN`; `PATH` and `PATHEXT` come from `var`; `bundled` is the binary
     /// beside this executable.
     fn ts_with(
         &self,
@@ -166,7 +166,7 @@ pub async fn resolve(
         return Ok(Connection { endpoint, version, source: Source::Server, warning });
     }
     let channels = Channels::from_vars(|name| match name {
-        "OPENCODE_CHANNEL" => env.channel.clone().map(Into::into),
+        "XCCODE_CHANNEL" => env.channel.clone().map(Into::into),
         _ => None,
     });
     let config = ServiceConfig::new(paths, &channels.channel)
@@ -228,7 +228,7 @@ pub async fn reconnect(transport: Arc<dyn Transport>, paths: &Paths, env: &Env) 
         Ok(found) => Ok(found),
         Err(missing) => {
             let channel = Channels::from_vars(|name| match name {
-                "OPENCODE_CHANNEL" => env.channel.clone().map(Into::into),
+                "XCCODE_CHANNEL" => env.channel.clone().map(Into::into),
                 _ => None,
             })
             .channel;
@@ -332,7 +332,7 @@ fn connect_error(endpoint: &Endpoint, error: &ApiError) -> Error {
     let url = &endpoint.url;
     if error.reason() == "UnauthorizedError" {
         return Error::new(match endpoint.auth {
-            None => format!("Server at {url} requires a password; set OPENCODE_PASSWORD"),
+            None => format!("Server at {url} requires a password; set XCCODE_PASSWORD"),
             Some(_) => format!("Server at {url} rejected the password"),
         });
     }
@@ -395,7 +395,7 @@ mod tests {
     const HEALTH: &str = r#"{"version":"2.0.0","pid":9,"urls":[],"paths":{"tmp":"/tmp"}}"#;
 
     async fn run(server: Server, env: Env, options: Options) -> (Result<Connection, Error>, Arc<Server>) {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let paths = paths(dir.path());
         let server = Arc::new(server);
         let result = resolve(server.clone(), &paths, &env, &options).await;
@@ -408,7 +408,7 @@ mod tests {
 
     #[tokio::test]
     async fn server_flag_connects_with_the_password_and_warns_on_a_mismatch() {
-        let env = Env::from_vars(|name| (name == "OPENCODE_SERVER_PASSWORD").then(|| "pw".to_owned()));
+        let env = Env::from_vars(|name| (name == "XCCODE_SERVER_PASSWORD").then(|| "pw".to_owned()));
         let replacing = Options { replace: true, ..options(Some(URL)) };
         let (result, server) = run(Server::default().reply(INFO, Reply::json(200, HEALTH)), env, replacing).await;
         let connection = result.unwrap();
@@ -422,7 +422,7 @@ mod tests {
         );
         assert_eq!(
             server.requests()[0].1.as_deref(),
-            Some(format!("Basic {}", opencode_api::client::Auth::password("pw").token()).as_str())
+            Some(format!("Basic {}", xccode_api::client::Auth::password("pw").token()).as_str())
         );
         assert!(!format!("{connection:?}").contains("pw"));
     }
@@ -432,8 +432,8 @@ mod tests {
         let unauthorized =
             || Server::default().reply(INFO, Reply::json(401, r#"{"_tag":"UnauthorizedError","message":"no"}"#));
         let (result, _) = run(unauthorized(), Env::default(), options(Some(URL))).await;
-        assert_eq!(message(result), "Server at http://127.0.0.1:4096 requires a password; set OPENCODE_PASSWORD");
-        let env = Env::from_vars(|name| (name == "OPENCODE_PASSWORD").then(|| "pw".to_owned()));
+        assert_eq!(message(result), "Server at http://127.0.0.1:4096 requires a password; set XCCODE_PASSWORD");
+        let env = Env::from_vars(|name| (name == "XCCODE_PASSWORD").then(|| "pw".to_owned()));
         let (result, _) = run(unauthorized(), env, options(Some(URL))).await;
         assert_eq!(message(result), "Server at http://127.0.0.1:4096 rejected the password");
         let (result, _) = run(Server::default(), Env::default(), options(Some(URL))).await;
@@ -464,7 +464,7 @@ mod tests {
 
     #[tokio::test]
     async fn a_registered_service_is_used_without_flags() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let paths = paths(dir.path());
         std::fs::write(
             paths.state.join("service-oc-x.json"),
@@ -485,36 +485,36 @@ mod tests {
         assert_eq!(mismatch(&endpoint, "2.0.0", &same), None);
     }
 
-    // Never the real `opencode`: the child would inherit this process's real state directories.
+    // Never the real `xccode`: the child would inherit this process's real state directories.
     fn missing_ts() -> Env {
-        Env { ts_bin: Some("/nonexistent/opencode-ts".to_owned()), ..Env::default() }
+        Env { ts_bin: Some("/nonexistent/xccode-ts".to_owned()), ..Env::default() }
     }
 
     #[tokio::test]
     async fn no_service_starts_the_typescript_one() {
         let (result, _) = run(Server::default(), missing_ts(), options(None)).await;
         let text = message(result);
-        assert!(text.starts_with("Failed to start server: /nonexistent/opencode-ts: "), "{text}");
-        assert!(text.contains("OPENCODE_TS_BIN"), "{text}");
+        assert!(text.starts_with("Failed to start server: /nonexistent/xccode-ts: "), "{text}");
+        assert!(text.contains("XCCODE_TS_BIN"), "{text}");
     }
 
-    // The Windows runner after `npm install -g`: its prefix holds the sh shim `opencode` and `opencode.cmd`, which
-    // runs the package's `.exe`. Without `OPENCODE_TS_BIN` the service and standalone server start that `.exe`, or
+    // The Windows runner after `npm install -g`: its prefix holds the sh shim `xccode` and `xccode.cmd`, which
+    // runs the package's `.exe`. Without `XCCODE_TS_BIN` the service and standalone server start that `.exe`, or
     // the `.cmd` when it names none.
     #[test]
     fn without_the_variable_windows_finds_the_npm_shim_on_path() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let prefix = dir.path();
         // The shim's `\` separators become the host's: what `cmd.exe` runs, not a `/` path.
-        let exe = prefix.join(["node_modules", "@opencode", "cli", "bin", "opencode.exe"].iter().collect::<PathBuf>());
+        let exe = prefix.join(["node_modules", "@xccode", "cli", "bin", "xccode.exe"].iter().collect::<PathBuf>());
         std::fs::create_dir_all(exe.parent().unwrap()).unwrap();
         std::fs::write(&exe, "MZ").unwrap();
         std::fs::write(
-            prefix.join("opencode"),
-            "#!/bin/sh\nexec \"$basedir/node_modules/@opencode/cli/bin/opencode.exe\" \"$@\"\n",
+            prefix.join("xccode"),
+            "#!/bin/sh\nexec \"$basedir/node_modules/@xccode/cli/bin/xccode.exe\" \"$@\"\n",
         )
         .unwrap();
-        std::fs::write(prefix.join("opencode.cmd"), "@ECHO off\r\nGOTO start\r\n:find_dp0\r\nSET dp0=%~dp0\r\nEXIT /b\r\n:start\r\nSETLOCAL\r\nCALL :find_dp0\r\n\"%dp0%\\node_modules\\@opencode\\cli\\bin\\opencode.exe\"   %*\r\n").unwrap();
+        std::fs::write(prefix.join("xccode.cmd"), "@ECHO off\r\nGOTO start\r\n:find_dp0\r\nSET dp0=%~dp0\r\nEXIT /b\r\n:start\r\nSETLOCAL\r\nCALL :find_dp0\r\n\"%dp0%\\node_modules\\@xccode\\cli\\bin\\xccode.exe\"   %*\r\n").unwrap();
         let path = format!("C:\\Windows\\system32;{}", prefix.display());
         let var = |name: &str| match name {
             "PATH" => Some(path.clone().into()),
@@ -524,13 +524,13 @@ mod tests {
         let ts = |env: &Env| env.ts_with(var, true, None).program;
         assert_eq!(ts(&Env::default()), exe.as_os_str());
         std::fs::remove_file(&exe).unwrap();
-        assert_eq!(ts(&Env::default()), prefix.join("opencode.cmd").as_os_str());
-        assert_eq!(ts(&missing_ts()), "/nonexistent/opencode-ts");
-        assert_eq!(Env::default().ts_with(var, false, None).program, "opencode");
+        assert_eq!(ts(&Env::default()), prefix.join("xccode.cmd").as_os_str());
+        assert_eq!(ts(&missing_ts()), "/nonexistent/xccode-ts");
+        assert_eq!(Env::default().ts_with(var, false, None).program, "xccode");
         // Expected (the bundled layout): the binary beside the client wins over the shim on `PATH`, not over the variable.
-        let bundled = || Some(PathBuf::from("C:\\oc\\opencode.exe"));
-        assert_eq!(Env::default().ts_with(var, true, bundled()).program, "C:\\oc\\opencode.exe");
-        assert_eq!(missing_ts().ts_with(var, true, bundled()).program, "/nonexistent/opencode-ts");
+        let bundled = || Some(PathBuf::from("C:\\oc\\xccode.exe"));
+        assert_eq!(Env::default().ts_with(var, true, bundled()).program, "C:\\oc\\xccode.exe");
+        assert_eq!(missing_ts().ts_with(var, true, bundled()).program, "/nonexistent/xccode-ts");
     }
 
     const OTHER: &str = "http://127.0.0.1:4097/api/info";
@@ -543,7 +543,7 @@ mod tests {
 
     // `other_channel` for the process `pid`; also whether the registration is still there afterwards.
     async fn registered(pid: u32, replies: Vec<Reply>) -> (Result<Connection, Error>, bool) {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let paths = paths(dir.path());
         let file = paths.state.join("service-oc-x.json");
         std::fs::write(&file, format!(r#"{{"url":"http://127.0.0.1:4097","pid":{pid},"password":"p"}}"#)).unwrap();
@@ -576,7 +576,7 @@ mod tests {
         assert_eq!(
             message(result),
             format!(
-                "Background service at http://127.0.0.1:4097 (pid {pid}) is not responding. Stop it with `opencode service stop`, or pass --server."
+                "Background service at http://127.0.0.1:4097 (pid {pid}) is not responding. Stop it with `xccode service stop`, or pass --server."
             )
         );
         assert!(kept);
@@ -595,7 +595,7 @@ mod tests {
         child.wait().unwrap();
         let (result, kept) = registered(child.id(), vec![Reply::Hang]).await;
         let text = message(result);
-        assert!(text.starts_with("Failed to start server: /nonexistent/opencode-ts: "), "{text}");
+        assert!(text.starts_with("Failed to start server: /nonexistent/xccode-ts: "), "{text}");
         assert!(!kept);
     }
 
@@ -603,7 +603,7 @@ mod tests {
     async fn standalone_runs_the_typescript_binary() {
         let standalone = Options { standalone: true, ..options(None) };
         let (result, _) = run(Server::default(), missing_ts(), standalone).await;
-        assert!(message(result).starts_with("Failed to start standalone server: /nonexistent/opencode-ts: "));
+        assert!(message(result).starts_with("Failed to start standalone server: /nonexistent/xccode-ts: "));
         let fallback = Options { standalone_fallback: true, ..options(None) };
         let (result, _) = run(Server::default(), missing_ts(), fallback).await;
         assert!(message(result).starts_with("Failed to start standalone server: "));

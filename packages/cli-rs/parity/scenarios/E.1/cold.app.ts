@@ -2,7 +2,7 @@
 // providers, and commands are empty. The home shows no agent or model line, and the model picker opens empty.
 import { defineApp, HOME_PLACEHOLDER } from "../../lib/app"
 
-const empty = { json: { location: { directory: "/tmp/opencode/packages/tui" }, data: [] } }
+const empty = { json: { location: { directory: "/tmp/xccode/packages/tui" }, data: [] } }
 // The home prompt's placeholder row: its example is random.
 const prompt = [HOME_PLACEHOLDER]
 

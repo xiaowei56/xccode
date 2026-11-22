@@ -11,7 +11,7 @@ pub struct Release {
 }
 
 pub fn embedded() -> Vec<Highlight> {
-    option_env!("OPENCODE_RELEASE_HIGHLIGHTS").and_then(|text| serde_json::from_str(text).ok()).unwrap_or_default()
+    option_env!("XCCODE_RELEASE_HIGHLIGHTS").and_then(|text| serde_json::from_str(text).ok()).unwrap_or_default()
 }
 
 pub fn install(tui: &Rc<Tui>, continue_: bool) {
@@ -22,7 +22,7 @@ pub fn install_with(tui: &Rc<Tui>, release: Release, continue_: bool) {
     if !release.items.is_empty() {
         let (weak, shown) = (tui.weak(), release.clone());
         let command = TuiCommand::new(
-            "opencode.highlights",
+            "xccode.highlights",
             bind!(weak, |tui, _, _| highlights::show(&tui, &shown.version, &shown.items)),
         )
         .bind(Bind::Off)
@@ -34,7 +34,7 @@ pub fn install_with(tui: &Rc<Tui>, release: Release, continue_: bool) {
     }
     let Some(mut watch) = tui.connection_watch() else { return };
     tui.app.spawn(
-        async move { watch.wait_for(|state| state.status == opencode_api::events::Status::Connected).await.is_ok() },
+        async move { watch.wait_for(|state| state.status == xccode_api::events::Status::Connected).await.is_ok() },
         bind!(tui, |tui, _, connected| if connected {
             startup(&tui, &release, continue_);
         }),
@@ -54,7 +54,7 @@ pub fn startup(tui: &Tui, release: &Release, continue_: bool) {
     if args.prompt.is_some() || continue_ || args.session.is_some() || args.new_session_id.is_some() {
         return;
     }
-    if ["OPENCODE_DRIVE", "OPENCODE_STORY", "OPENCODE_ROUTE"].iter().any(|name| std::env::var_os(name).is_some()) {
+    if ["XCCODE_DRIVE", "XCCODE_STORY", "XCCODE_ROUTE"].iter().any(|name| std::env::var_os(name).is_some()) {
         return;
     }
     let Some(storage) = tui.storage() else { return };
@@ -106,7 +106,7 @@ pub fn decide(input: &Input, seen: Option<&str>) -> Decision {
     if input.count > 0 { Decision::Show } else { Decision::Record }
 }
 
-pub fn claim(storage: &opencode_local::storage::Storage, input: &Input) -> Result<bool, String> {
+pub fn claim(storage: &xccode_local::storage::Storage, input: &Input) -> Result<bool, String> {
     let initial = json!({});
     let seen = |value: &Value| value.get("seen").and_then(Value::as_str).map(str::to_owned);
     let state = storage.load("highlights", &initial).map_err(|error| error.to_string())?;
@@ -152,11 +152,11 @@ mod tests {
     /// "only one of several concurrent TUIs claims the highlights".
     #[test]
     fn one_of_several_concurrent_tuis_claims_the_highlights() {
-        let state = opencode_util::temp::tempdir().unwrap();
+        let state = xccode_util::temp::tempdir().unwrap();
         let claims: Vec<bool> = std::thread::scope(|scope| {
             let handles: Vec<_> = (0..4)
                 .map(|_| {
-                    let storage = opencode_local::storage::Storage::new(state.path(), "latest").unwrap();
+                    let storage = xccode_local::storage::Storage::new(state.path(), "latest").unwrap();
                     scope.spawn(move || claim(&storage, &input("2.0.27", 5, true)).unwrap())
                 })
                 .collect();
@@ -166,7 +166,7 @@ mod tests {
         let file = state.path().join("latest/tui/highlights.json");
         let written: Value = serde_json::from_str(&std::fs::read_to_string(file).unwrap()).unwrap();
         assert_eq!(written, json!({ "seen": "2.0.27" }));
-        let storage = opencode_local::storage::Storage::new(state.path(), "latest").unwrap();
+        let storage = xccode_local::storage::Storage::new(state.path(), "latest").unwrap();
         assert!(!claim(&storage, &input("2.0.27", 5, true)).unwrap());
     }
 }

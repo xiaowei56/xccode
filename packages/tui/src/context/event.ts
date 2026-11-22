@@ -1,24 +1,24 @@
-import type { OpenCodeEvent } from "@opencode/client"
+import type { XccodeEvent } from "@xccode/client"
 import { useClient } from "./client"
 
 type EventMetadata = {
   directory: string | undefined
 }
-type OpenCodeEventMap = { [Type in OpenCodeEvent["type"]]: Extract<OpenCodeEvent, { type: Type }> }
+type XccodeEventMap = { [Type in XccodeEvent["type"]]: Extract<XccodeEvent, { type: Type }> }
 
 export function useEvent() {
   const client = useClient()
 
-  function subscribe(handler: (event: OpenCodeEvent, metadata: EventMetadata) => void) {
+  function subscribe(handler: (event: XccodeEvent, metadata: EventMetadata) => void) {
     return client.event.listen(({ details }) => {
       if (details.type === "server.connected") return
       handler(details, { directory: details.location?.directory })
     })
   }
 
-  function on<T extends OpenCodeEvent["type"]>(
+  function on<T extends XccodeEvent["type"]>(
     type: T,
-    handler: (event: OpenCodeEventMap[T], metadata: EventMetadata) => void,
+    handler: (event: XccodeEventMap[T], metadata: EventMetadata) => void,
   ) {
     return client.event.on(type, (event) => {
       handler(event, { directory: event.location?.directory })

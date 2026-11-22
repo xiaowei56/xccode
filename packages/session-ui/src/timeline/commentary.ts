@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant } from "@opencode/client/promise"
+import type { SessionMessageAssistant } from "@xccode/client/promise"
 
 type Content = SessionMessageAssistant["content"][number]
 

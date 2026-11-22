@@ -2,7 +2,7 @@
   List machines
 
 [1mUSAGE[0m
-  [36mopencode machine list [flags][0m
+  [36mxccode machine list [flags][0m
 
 [1mGLOBAL FLAGS[0m
   [32m--help[0m, [32m-h[0m                                                          Show help information

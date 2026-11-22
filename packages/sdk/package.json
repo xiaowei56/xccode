@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "version": "2.3.0",
-  "name": "@opencode/sdk",
+  "name": "@xccode/sdk",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/xiaowei56/xccode.git",
     "directory": "packages/sdk"
   },
   "publishConfig": {
@@ -30,18 +30,18 @@
     "verify:package": "bun run script/verify-package.ts"
   },
   "dependencies": {
-    "@opencode/client": "workspace:*",
-    "@opencode/core": "workspace:*",
-    "@opencode/plugin": "workspace:*",
-    "@opencode/schema": "workspace:*",
-    "@opencode/server": "workspace:*",
-    "@opencode/util": "workspace:*",
+    "@xccode/client": "workspace:*",
+    "@xccode/core": "workspace:*",
+    "@xccode/plugin": "workspace:*",
+    "@xccode/schema": "workspace:*",
+    "@xccode/server": "workspace:*",
+    "@xccode/util": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {
-    "@opencode/ai": "workspace:*",
-    "@opencode/httpapi-codegen": "workspace:*",
-    "@opencode/protocol": "workspace:*",
+    "@xccode/ai": "workspace:*",
+    "@xccode/httpapi-codegen": "workspace:*",
+    "@xccode/protocol": "workspace:*",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:"

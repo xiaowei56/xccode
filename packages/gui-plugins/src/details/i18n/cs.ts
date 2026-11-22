@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Odstranit pracovní strom",
   "mcp.manage": "Spravovat servery MCP",
   timedOut: "Server neodpověděl včas",
-  "setup.mcp": "Přidat server pomocí OpenCode",
+  "setup.mcp": "Přidat server pomocí Xccode",
   "setup.mcp.prompt":
-    "Pomoz mi přidat server MCP do mé globální konfigurace OpenCode. Zeptej se mě, kterou službu chci připojit, pak ji nastav a ověř, že se připojí.",
-  "setup.plugins": "Přidat plugin pomocí OpenCode",
+    "Pomoz mi přidat server MCP do mé globální konfigurace Xccode. Zeptej se mě, kterou službu chci připojit, pak ji nastav a ověř, že se připojí.",
+  "setup.plugins": "Přidat plugin pomocí Xccode",
   "setup.plugins.prompt":
-    "Pomoz mi přidat plugin do mé globální konfigurace OpenCode. Zeptej se mě, co má dělat, navrhni plugin a pak ho přidej.",
-  "setup.skills": "Nová dovednost pomocí OpenCode",
+    "Pomoz mi přidat plugin do mé globální konfigurace Xccode. Zeptej se mě, co má dělat, navrhni plugin a pak ho přidej.",
+  "setup.skills": "Nová dovednost pomocí Xccode",
   "setup.skills.prompt":
-    "Pomoz mi napsat novou dovednost OpenCode v mé globální konfiguraci. Zeptej se mě, co tě má naučit, a pak napiš její SKILL.md.",
+    "Pomoz mi napsat novou dovednost Xccode v mé globální konfiguraci. Zeptej se mě, co tě má naučit, a pak napiš její SKILL.md.",
   changesFailed: "Změny se nepodařilo načíst",
   changesOffline: "Tento server není dostupný",
   "mcp.signIn": "Přihlásit se",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Podrobnosti pro {{name}}",
   "mcp.signIn.open": "Přihlásit se k {{name}}",
   "mcp.signIn.description":
-    "Otevře se prohlížeč, ve kterém se přihlásíte k {{name}}. Pokud se nemůže spojit se strojem, na kterém běží OpenCode, vložte níže URL, na kterou byl přesměrován.",
+    "Otevře se prohlížeč, ve kterém se přihlásíte k {{name}}. Pokud se nemůže spojit se strojem, na kterém běží Xccode, vložte níže URL, na kterou byl přesměrován.",
   "mcp.signIn.waiting": "Čekání na autorizaci…",
   "mcp.signIn.failed": "Autorizace se nezdařila: {{error}}",
   "mcp.signIn.expired": "Platnost autorizace vypršela",

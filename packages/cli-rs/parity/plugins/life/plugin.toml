@@ -1,4 +1,4 @@
-# The life machine's plugin for opencode-native (`init.luau`), beside its TypeScript side (`tui.tsx`).
+# The life machine's plugin for xccode-native (`init.luau`), beside its TypeScript side (`tui.tsx`).
 id = "parity.life"
 name = "Life"
 version = "0.1.0"

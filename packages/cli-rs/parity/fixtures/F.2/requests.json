@@ -2,7 +2,7 @@
  "requests": [
   {"name":"config.get","method":"GET","url":"http://127.0.0.1:4096/prefix/api/config?location%5Bdirectory%5D=%2Ftmp%2Fa+b%26c%3Dd","headers":{"authorization":"Basic b3BlbmNvZGU6c2VjcmV0"}},
   {"name":"session.list","method":"GET","url":"http://127.0.0.1:4096/prefix/api/session?limit=5&order=desc&search=h%C3%A9llo+w%C3%B6rld%2B%3F&parentID=null&archived=false","headers":{"authorization":"Basic b3BlbmNvZGU6c2VjcmV0"}},
-  {"name":"session.get","method":"GET","url":"http://127.0.0.1:4096/prefix/api/session/ses_1%20%2F%3F%23%25","headers":{"authorization":"Basic b3BlbmNvZGU6c2VjcmV0","x-opencode-directory":"/override"}},
+  {"name":"session.get","method":"GET","url":"http://127.0.0.1:4096/prefix/api/session/ses_1%20%2F%3F%23%25","headers":{"authorization":"Basic b3BlbmNvZGU6c2VjcmV0","x-xccode-directory":"/override"}},
   {"name":"file.read","method":"GET","url":"http://127.0.0.1:4096/prefix/api/fs/read/dir/a%20b/c%23%3F.txt?location%5Bdirectory%5D=%2Fw","headers":{"authorization":"Basic b3BlbmNvZGU6c2VjcmV0"}},
   {"name":"session.prompt","method":"POST","url":"http://127.0.0.1:4096/prefix/api/session/ses_1/prompt","headers":{"authorization":"Basic b3BlbmNvZGU6c2VjcmV0","content-type":"application/json"},"body":"{\"text\":\"hi\",\"metadata\":{\"k\":1},\"resume\":null}"},
   {"name":"experimental.file.write","method":"POST","url":"http://127.0.0.1:4096/prefix/api/experimental/fs/write?path=a.txt","headers":{"authorization":"Basic b3BlbmNvZGU6c2VjcmV0","content-type":"application/octet-stream"},"bodyBase64":"AQL/"},

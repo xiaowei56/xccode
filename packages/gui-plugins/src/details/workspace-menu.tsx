@@ -1,11 +1,11 @@
-import { Button } from "@opencode/ui/button"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
-import { ErrorDetails } from "@opencode/ui/error-details"
-import { Icon } from "@opencode/ui/icon"
-import { Loader } from "@opencode/ui/loader"
-import { Menu } from "@opencode/ui/menu"
-import { MenuScroll } from "@opencode/ui/menu-scroll"
-import { getFilename } from "@opencode/util/path"
+import { Button } from "@xccode/ui/button"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@xccode/ui/dialog"
+import { ErrorDetails } from "@xccode/ui/error-details"
+import { Icon } from "@xccode/ui/icon"
+import { Loader } from "@xccode/ui/loader"
+import { Menu } from "@xccode/ui/menu"
+import { MenuScroll } from "@xccode/ui/menu-scroll"
+import { getFilename } from "@xccode/util/path"
 import {
   createMemo,
   createRoot,
@@ -24,7 +24,7 @@ import {
   type MountedSession,
   type Project,
   type ServerRef,
-} from "@opencode/plugin/gui"
+} from "@xccode/plugin/gui"
 import {
   createWorkspaceMoveState,
   transitionWorkspaceMove,

@@ -4,9 +4,9 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 
 use common::*;
-use opencode_api::events::Event;
-use opencode_api::generated::*;
-use opencode_store::{CreateSession, Data, LoadMore, Options, SessionStatus};
+use xccode_api::events::Event;
+use xccode_api::generated::*;
+use xccode_store::{CreateSession, Data, LoadMore, Options, SessionStatus};
 use serde_json::{Value, json};
 use tokio_util::sync::CancellationToken;
 
@@ -319,7 +319,7 @@ async fn changes_since_a_revision_hold_every_later_write_or_everything() {
     let base = data.read(|state| state.revision());
     let sessions = [id("ses_0"), id("ses_1"), id("ses_2")];
     let mut writes = Vec::new();
-    for at in 0..opencode_store::changes::LOG_LIMIT + 20 {
+    for at in 0..xccode_store::changes::LOG_LIMIT + 20 {
         let status = if (at / 3) % 2 == 0 { SessionStatus::Running } else { SessionStatus::Idle };
         data.set_status(&sessions[at % 3], status);
         writes.push((data.read(|state| state.revision()), at % 3));
@@ -329,7 +329,7 @@ async fn changes_since_a_revision_hold_every_later_write_or_everything() {
     for seen in base..=revision {
         let (now, changes) = data.changes_since(seen);
         assert_eq!(now, revision);
-        assert_eq!(changes.all, seen + (opencode_store::changes::LOG_LIMIT as u64) < revision, "since {seen}");
+        assert_eq!(changes.all, seen + (xccode_store::changes::LOG_LIMIT as u64) < revision, "since {seen}");
         let touched: Vec<usize> = writes.iter().filter(|(at, _)| *at > seen).map(|(_, session)| *session).collect();
         for (index, session) in sessions.iter().enumerate() {
             assert_eq!(changes.status(session), changes.all || touched.contains(&index), "since {seen}: {index}");
@@ -664,7 +664,7 @@ async fn preserves_activity(kind: &str) {
     requested.wait().await;
     let mut payload = json!({ "sessionID": SESSION, "reason": "user" });
     if kind == "session.execution.failed" {
-        payload["error"] = json!({ "type": "provider.no-route", "message": "Model unavailable: opencode/gpt-5.2" });
+        payload["error"] = json!({ "type": "provider.no-route", "message": "Model unavailable: xccode/gpt-5.2" });
     }
     let mut event = durable(kind, "evt_activity", 2, payload);
     event["durable"]["seq"] = 2.into();
@@ -675,7 +675,7 @@ async fn preserves_activity(kind: &str) {
         let last = data.read(|state| state.messages(&id(SESSION)).last().cloned());
         let expected: SessionMessageInfo = serde_json::from_value(json!({
             "id": "msg_activity", "type": "idle", "outcome": "failed",
-            "error": { "type": "provider.no-route", "message": "Model unavailable: opencode/gpt-5.2" },
+            "error": { "type": "provider.no-route", "message": "Model unavailable: xccode/gpt-5.2" },
             "time": { "created": 2 },
         }))
         .unwrap();
@@ -1072,12 +1072,12 @@ async fn deltas_are_kept_while_listened_and_bounded() {
     revisions.mark_unchanged();
     data.apply(&[renamed]);
     assert!(listening.take().is_empty());
-    let flood: Vec<V2Event> = (0..opencode_store::DELTAS + 2).map(delta).collect();
+    let flood: Vec<V2Event> = (0..xccode_store::DELTAS + 2).map(delta).collect();
     data.apply(&flood);
     let kept = ordinals(listening.take());
     assert_eq!(
         (kept.len(), kept[0], kept[kept.len() - 1]),
-        (opencode_store::DELTAS, 2, opencode_store::DELTAS as i64 + 1)
+        (xccode_store::DELTAS, 2, xccode_store::DELTAS as i64 + 1)
     );
     data.apply(&[delta(6)]);
     let second = data.listen_deltas();

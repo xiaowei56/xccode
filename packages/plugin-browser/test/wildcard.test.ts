@@ -33,8 +33,8 @@ test.each([
   { input: "browsers", pattern: "browser", matches: false },
   { input: "a browser", pattern: "browser", matches: false },
   // Case counts unless the caller says the server runs on Windows.
-  { input: ".OPENCODE/x", pattern: ".opencode/*", matches: false },
-  { input: ".OPENCODE/x", pattern: ".opencode/*", ignoreCase: true, matches: true },
+  { input: ".XCCODE/x", pattern: ".xccode/*", matches: false },
+  { input: ".XCCODE/x", pattern: ".xccode/*", ignoreCase: true, matches: true },
   { input: "Tabs.List", pattern: "tabs.list", matches: false },
   { input: "Tabs.List", pattern: "tabs.list", ignoreCase: true, matches: true },
 ])("$pattern on $input (ignoreCase: $ignoreCase) is $matches", (row) => {

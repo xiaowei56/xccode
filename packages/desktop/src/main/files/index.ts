@@ -12,7 +12,7 @@ import { pickerStarts } from "./picker-start"
 
 export type Interface = ReturnType<typeof make>
 
-export class Service extends Context.Service<Service, Interface>()("opencode/desktop/DesktopFiles") {}
+export class Service extends Context.Service<Service, Interface>()("xccode/desktop/DesktopFiles") {}
 
 export const layer = Layer.effect(
   Service,

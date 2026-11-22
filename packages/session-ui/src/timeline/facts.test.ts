@@ -1,4 +1,4 @@
-import type { JsonValue } from "@opencode/client/promise"
+import type { JsonValue } from "@xccode/client/promise"
 import { describe, expect, test } from "bun:test"
 import { storyTool } from "../storybook/current-session-scenarios"
 import { factsOf, sameFileFact, summarize, type FileFact } from "./facts"

@@ -1,11 +1,11 @@
 {
-  "name": "@opencode/ui",
+  "name": "@xccode/ui",
   "version": "2.3.0",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/xiaowei56/xccode.git",
     "directory": "packages/ui"
   },
   "publishConfig": {
@@ -133,7 +133,7 @@
   "dependencies": {
     "@kitlangton/solid-motion": "0.2.2",
     "@kobalte/core": "catalog:",
-    "@opencode/util": "workspace:*",
+    "@xccode/util": "workspace:*",
     "@pierre/diffs": "catalog:",
     "@pierre/highlights": "catalog:",
     "@solid-primitives/event-listener": "catalog:",

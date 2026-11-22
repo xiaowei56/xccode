@@ -1,4 +1,4 @@
-import { Button } from "@opencode/ui/button"
+import { Button } from "@xccode/ui/button"
 import { createEffect } from "solid-js"
 import { createStore } from "solid-js/store"
 import { AnimatedCountList, type CountItem } from "./tool-count-summary"
@@ -58,7 +58,7 @@ function ContextProgress(props: Counts) {
 }
 
 export default {
-  title: "OpenCode/Work/Context progress",
+  title: "Xccode/Work/Context progress",
   id: "components-animated-count-list",
   component: AnimatedCountList,
   argTypes: Object.fromEntries(

@@ -135,10 +135,10 @@ pub struct Loader {
     /// The JS host, which runs the targets that have no native build.
     #[cfg(feature = "ts")]
     scripts: Option<Rc<Scripts>>,
-    /// The global cache directory TS installs packages into (`~/.cache/opencode`), where a target named by npm
+    /// The global cache directory TS installs packages into (`~/.cache/xccode`), where a target named by npm
     /// package is found ([`npm::resolve`]), and nothing installed.
     npm: Option<PathBuf>,
-    /// The TUI parts of the active server plugins, and the `plugins` entries of the user's global opencode config,
+    /// The TUI parts of the active server plugins, and the `plugins` entries of the user's global xccode config,
     /// which vouch for the parts they name.
     server: RefCell<(Vec<ServerPart>, Vec<String>)>,
     /// Cache the resolved entry while the spec remains configured. Installing a newer generation must not move a
@@ -162,10 +162,10 @@ fn real(path: &Path) -> Option<PathBuf> {
     std::fs::canonicalize(path).ok().map(plain)
 }
 
-/// `path` without a verbatim prefix ([`opencode_util::path::strip_verbatim`]).
+/// `path` without a verbatim prefix ([`xccode_util::path::strip_verbatim`]).
 fn plain(path: PathBuf) -> PathBuf {
     match path.to_str() {
-        Some(text) => PathBuf::from(opencode_util::path::strip_verbatim(text).into_owned()),
+        Some(text) => PathBuf::from(xccode_util::path::strip_verbatim(text).into_owned()),
         None => path,
     }
 }
@@ -268,8 +268,8 @@ impl Loader {
     }
 
     /// Replaces the TUI parts of the server's plugins, after the server listed its plugins, and the `plugins` entries
-    /// of the user's own configuration as written, in order and removals included: the global opencode config's
-    /// (`opencode.json`, then `opencode.jsonc`, in the config directory), then `cli.json`'s;
+    /// of the user's own configuration as written, in order and removals included: the global xccode config's
+    /// (`xccode.json`, then `xccode.jsonc`, in the config directory), then `cli.json`'s;
     /// the next [`Loader::reconcile`] applies them. They load on the JS host only. Whether either changed.
     pub fn set_server(&self, parts: Vec<ServerPart>, user: Vec<String>) -> bool {
         let next = (parts, user);
@@ -279,12 +279,12 @@ impl Loader {
     }
 
     /// Replaces the `plugins` entries of the user's own configuration ([`Loader::set_server`]), after `cli.json` or the
-    /// global opencode config changed.
+    /// global xccode config changed.
     pub fn set_user(&self, user: Vec<String>) {
         self.server.borrow_mut().1 = user;
     }
 
-    /// The global config directory, which holds `cli.json` and the global opencode config.
+    /// The global config directory, which holds `cli.json` and the global xccode config.
     pub fn config_dir(&self) -> &Path {
         &self.config_dir
     }
@@ -340,7 +340,7 @@ impl Loader {
             if names {
                 named = true;
             }
-            if names || entry == "*" || entry.ends_with(".*") || entry.starts_with("opencode.") || select(entry) {
+            if names || entry == "*" || entry.ends_with(".*") || entry.starts_with("xccode.") || select(entry) {
                 enabled = true;
             }
         }
@@ -486,12 +486,12 @@ impl Loader {
     }
 
     /// The directories whose changes can change the targets: the `plugins` directories and `cwd`'s (or, while
-    /// one is missing, the nearest of its `.opencode` directory and the one above that exists), each local
+    /// one is missing, the nearest of its `.xccode` directory and the one above that exists), each local
     /// target's directory,
     /// and the directory of each configured library. Missing ones are left out.
     pub fn watch_dirs(&self) -> Vec<PathBuf> {
         let mut directories = plugin_directories(&self.config_dir, &self.cwd);
-        directories.push(self.cwd.join(".opencode/plugins"));
+        directories.push(self.cwd.join(".xccode/plugins"));
         let mut dirs: Vec<PathBuf> = directories
             .iter()
             .filter_map(|dir| dir.ancestors().take(3).find(|dir| dir.is_dir()).map(Path::to_path_buf))
@@ -1060,7 +1060,7 @@ fn identity(file: &Path) -> Option<(u64, u64)> {
     }
     #[cfg(windows)]
     {
-        opencode_util::win::file_index(file).ok().map(|index| (0, index))
+        xccode_util::win::file_index(file).ok().map(|index| (0, index))
     }
     #[cfg(not(any(unix, windows)))]
     {
@@ -1068,7 +1068,7 @@ fn identity(file: &Path) -> Option<(u64, u64)> {
     }
 }
 
-/// The `plugins` directories to search: the global config directory's, then each `.opencode` directory from the
+/// The `plugins` directories to search: the global config directory's, then each `.xccode` directory from the
 /// project root ([`project_root`]) down to `cwd`. Directories other than the global one and the project's that do not
 /// exist are left out.
 pub fn plugin_directories(config_dir: &Path, cwd: &Path) -> Vec<PathBuf> {
@@ -1079,13 +1079,13 @@ pub fn plugin_directories(config_dir: &Path, cwd: &Path) -> Vec<PathBuf> {
     };
     let root = project_root(cwd);
     let project = ancestors.iter().position(|dir| *dir == root).unwrap_or(ancestors.len().saturating_sub(1));
-    let project_config = ancestors.get(project).map(|dir| dir.join(".opencode"));
+    let project_config = ancestors.get(project).map(|dir| dir.join(".xccode"));
     let mut directories = vec![config_dir.to_path_buf()];
     directories.extend(
         ancestors
             .iter()
             .skip(project)
-            .map(|dir| dir.join(".opencode"))
+            .map(|dir| dir.join(".xccode"))
             .filter(|dir| Some(dir) == project_config.as_ref() || dir.is_dir()),
     );
     let mut unique: Vec<PathBuf> = Vec::new();
@@ -1125,7 +1125,7 @@ pub fn discover(directories: &[PathBuf]) -> Vec<PathBuf> {
 /// absolute too and takes `directory`'s drive.
 pub fn local_source(target: &str, directory: &Path) -> Option<PathBuf> {
     let path = if target.starts_with("file://") {
-        opencode_api_types::js::parse_url(target).ok()?.to_file_path().ok()?
+        xccode_api_types::js::parse_url(target).ok()?.to_file_path().ok()?
     } else if target.starts_with("./")
         || target.starts_with("../")
         || (cfg!(windows) && (target.starts_with(".\\") || target.starts_with("..\\")))

@@ -5,7 +5,7 @@ import { home } from "./channel.pty"
 export default definePty({
   ...home,
   env: {
-    OPENCODE_CLI_CONFIG_CONTENT: JSON.stringify({ experimental: { "new-designs": true } }),
-    OPENCODE_CHANNEL: "local",
+    XCCODE_CLI_CONFIG_CONTENT: JSON.stringify({ experimental: { "new-designs": true } }),
+    XCCODE_CHANNEL: "local",
   },
 })

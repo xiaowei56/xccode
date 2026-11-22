@@ -13,7 +13,7 @@ export default definePty({
   server: server(),
   setup: async (root) => {
     await Bun.write(
-      `${root}/home/.config/opencode/cli.json`,
+      `${root}/home/.config/xccode/cli.json`,
       JSON.stringify({ theme: { name: "system", mode: "system" }, mini: { splash: "hide" } }),
     )
   },

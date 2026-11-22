@@ -4,8 +4,8 @@ use std::time::Duration;
 
 use futures_util::future::try_join_all;
 use indexmap::IndexMap;
-use opencode_api::client::Client;
-use opencode_api::generated::*;
+use xccode_api::client::Client;
+use xccode_api::generated::*;
 
 use crate::connection::Follow;
 use crate::shells::{Shell, ShellRead};
@@ -112,7 +112,7 @@ pub struct LocationData {
     pub provider: Option<Vec<ProviderInfo>>,
     pub reference: Option<Vec<ReferenceInfo>>,
     pub websearch: Option<Vec<WebSearchProvider>>,
-    /// The Go allowance and Console budgets of the signed-in OpenCode Console workspace; the
+    /// The Go allowance and Console budgets of the signed-in Xccode Console workspace; the
     /// inner `None` means not signed in.
     pub usage_limits: Option<Option<UsageLimitsInfo>>,
     /// Running shells by ID. Exited and deleted shells are removed.
@@ -527,7 +527,7 @@ async fn load(
     client: &Client,
     catalog: Catalog,
     location: &Location,
-) -> Result<(Location, Loaded), opencode_api::error::Error> {
+) -> Result<(Location, Loaded), xccode_api::error::Error> {
     let query = location.query();
     Ok(match catalog {
         Catalog::Vcs => {

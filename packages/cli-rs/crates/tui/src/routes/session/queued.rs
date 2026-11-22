@@ -1,10 +1,10 @@
 //! Session inbox dock and actions on queued prompts.
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     SessionInboxCancelInput, SessionInboxDelivery, SessionInboxInfo, SessionInboxUpdateInput, SessionInboxUser,
     SessionMessageID,
 };
-use opencode_store::State;
+use xccode_store::State;
 
 use crate::prelude::*;
 use crate::prompt::editor::{Inner as PromptInner, Mode};

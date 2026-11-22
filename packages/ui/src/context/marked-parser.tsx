@@ -2,7 +2,7 @@ import { codeToHtml, isSupportedLanguage } from "@pierre/highlights"
 import katex from "katex"
 import { Renderer, type MarkedExtension, type Tokens } from "marked"
 import { createMarkdownBase } from "./marked-base"
-import { OpenCodeTheme } from "./highlight-theme"
+import { XccodeTheme } from "./highlight-theme"
 
 /** `render` places renderer output: `block` for a code block, `display` for a display formula inside a line. */
 export function createMarkdownParser(
@@ -34,7 +34,7 @@ function codeExtension(render: (html: string, block: boolean, display?: boolean)
         const language = (token.lang?.match(/^\S*/)?.[0] ?? "").toLowerCase().replace(/[^\w#+.-]/g, "") || "text"
 
         const html = decoder.decode(
-          codeToHtml(token.text, { lang: isSupportedLanguage(language) ? language : "text", theme: OpenCodeTheme }),
+          codeToHtml(token.text, { lang: isSupportedLanguage(language) ? language : "text", theme: XccodeTheme }),
         )
 
         return render(html.replace("<code>", `<code class="language-${language}">`), true) + "\n"

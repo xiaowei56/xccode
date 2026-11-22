@@ -2,8 +2,8 @@
 //! created from home.
 
 use indexmap::IndexMap;
-use opencode_api::generated::{SessionForkInput, SessionListInput, SessionListInputOrder};
-use opencode_local::model_pref::Model;
+use xccode_api::generated::{SessionForkInput, SessionListInput, SessionListInputOrder};
+use xccode_local::model_pref::Model;
 
 use crate::prelude::*;
 
@@ -118,10 +118,10 @@ impl Startup {
     }
 }
 
-/// Decode the initial route from `OPENCODE_ROUTE`, ignoring invalid values.
+/// Decode the initial route from `XCCODE_ROUTE`, ignoring invalid values.
 pub fn env_route(value: &str) -> Option<Route> {
     let value: serde_json::Value =
-        serde_json::from_str(value).inspect_err(|error| log::warn!("OPENCODE_ROUTE is not JSON: {error}")).ok()?;
+        serde_json::from_str(value).inspect_err(|error| log::warn!("XCCODE_ROUTE is not JSON: {error}")).ok()?;
     let text = |key: &str| value.get(key)?.as_str().map(str::to_owned);
     match value.get("type")?.as_str()? {
         "home" => Some(Route::Home),

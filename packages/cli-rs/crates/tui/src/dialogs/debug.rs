@@ -1,12 +1,12 @@
 //! Debug details and clipboard export for bug reports.
 
-use opencode_ui::dialog::{DIALOG_INSET, FooterAction, FooterProps, footer, layout_view};
-use opencode_util::time;
+use xccode_ui::dialog::{DIALOG_INSET, FooterAction, FooterProps, footer, layout_view};
+use xccode_util::time;
 
 use crate::prelude::*;
 
 /// Builds without an embedded version report `local`.
-pub const VERSION: &str = match option_env!("OPENCODE_VERSION") {
+pub const VERSION: &str = match option_env!("XCCODE_VERSION") {
     Some(version) => version,
     None => "local",
 };
@@ -15,7 +15,7 @@ type Hook = RefCell<Option<Weak<dyn Fn()>>>;
 
 /// The rows, in order.
 pub fn entries(tui: &Tui) -> Vec<(&'static str, String)> {
-    let channel = opencode_local::channel::Channels::from_env().channel;
+    let channel = xccode_local::channel::Channels::from_env().channel;
     let session = match tui.route() {
         Route::Session { id } => id.0,
         _ => "n/a".to_owned(),
@@ -148,7 +148,7 @@ pub fn describe_os() -> String {
 /// `os.release()`: `10.0.26100` on Windows, as libuv reads it.
 #[cfg(windows)]
 fn release() -> String {
-    opencode_util::win::os_release().unwrap_or_default()
+    xccode_util::win::os_release().unwrap_or_default()
 }
 
 #[cfg(not(windows))]

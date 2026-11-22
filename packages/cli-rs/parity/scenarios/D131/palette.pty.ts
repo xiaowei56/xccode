@@ -7,7 +7,7 @@ export default definePty({
   args: [],
   cols: 100,
   rows: 30,
-  env: { OPENCODE_CLI_CONFIG_CONTENT: JSON.stringify({ experimental: { "new-designs": true }, debug: { devtools: false } }) },
+  env: { XCCODE_CLI_CONFIG_CONTENT: JSON.stringify({ experimental: { "new-designs": true }, debug: { devtools: false } }) },
   server: { fallback: "tui" },
   steps: [
     { until: { screen: "█▀▀█" }, settle: 500, timeout: 30_000 },

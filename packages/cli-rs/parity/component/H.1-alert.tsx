@@ -1,5 +1,5 @@
 /** @jsxImportSource @opentui/solid */
-// P-COMP fixture for the TUI's DialogAlert (packages/tui/src/ui/dialog-alert.tsx), dark opencode theme.
+// P-COMP fixture for the TUI's DialogAlert (packages/tui/src/ui/dialog-alert.tsx), dark xccode theme.
 import { DialogAlert } from "../../../tui/src/ui/dialog-alert"
 import { renderComponent } from "../lib/component"
 

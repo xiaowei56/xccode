@@ -1,6 +1,6 @@
 // P-TUI comparison (docs/testing.md): captures become H.1 cell fixtures, masked with H.2's `applyMasks`, and compared
-// cell by cell as `opencode_parity::compare` does. Requests follow H.2's P-REQ rule.
-import type { Frontend } from "@opencode/protocol/simulation"
+// cell by cell as `xccode_parity::compare` does. Requests follow H.2's P-REQ rule.
+import type { Frontend } from "@xccode/protocol/simulation"
 import type { Deviation } from "../lib/app"
 import type { Fixture } from "../lib/cells"
 import { normalize } from "../cli/client"

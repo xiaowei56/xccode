@@ -19,7 +19,7 @@ export default definePty({
   // A still spinner, so the screen settles while the turn runs.
   setup: async (root) => {
     await Bun.write(
-      `${root}/home/.config/opencode/cli.json`,
+      `${root}/home/.config/xccode/cli.json`,
       JSON.stringify({ animations: false, mini: { splash: "hide" } }),
     )
   },

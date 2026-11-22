@@ -1,9 +1,9 @@
 //! Assistant footer, token usage, and throughput.
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     ModelRef, SessionMessageAssistant, SessionMessageAssistantContentItem, SessionMessageAssistantFinish,
 };
-use opencode_ui::locale::{duration, titlecase};
+use xccode_ui::locale::{duration, titlecase};
 
 use super::errors::StepError;
 use super::list::Context;
@@ -333,8 +333,8 @@ pub fn cache_reuse_drop(previous: Option<&CacheUsage>, current: &CacheUsage) -> 
     (drop > 0.0).then_some(drop)
 }
 
-fn tool_summary(tool: &opencode_api::generated::SessionMessageAssistantTool) -> String {
-    use opencode_api::generated::SessionMessageAssistantToolState as State;
+fn tool_summary(tool: &xccode_api::generated::SessionMessageAssistantTool) -> String {
+    use xccode_api::generated::SessionMessageAssistantToolState as State;
     let input = match &tool.state {
         State::Streaming(state) => return state.input.clone(),
         State::Running(state) => &state.input,
@@ -447,7 +447,7 @@ fn input_index(messages: &[SessionMessageInfo], end: usize, legacy: bool) -> Opt
 }
 
 fn created(message: &SessionMessageInfo) -> f64 {
-    opencode_store::MessageExt::created(message)
+    xccode_store::MessageExt::created(message)
 }
 
 pub fn locale(value: f64) -> String {

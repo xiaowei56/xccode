@@ -10,7 +10,7 @@ export default defineApp({
   routes: [
     {
       path: "/api/worktree",
-      json: [{ directory: "/tmp/opencode" }, { directory: "/tmp/opencode-spike", strategy: "git" }],
+      json: [{ directory: "/tmp/xccode" }, { directory: "/tmp/xccode-spike", strategy: "git" }],
     },
     { method: "POST", path: "/api/worktree/refresh", status: 204 },
   ],
@@ -21,7 +21,7 @@ export default defineApp({
     // Enter waits for the popup.
     { checkpoint: "slash", until: "Manage workspaces" },
     { keys: ["enter"] },
-    { checkpoint: "list", until: "opencode-spike" },
+    { checkpoint: "list", until: "xccode-spike" },
     { keys: ["down", "ctrl+d"] },
     { checkpoint: "marked", until: "again to confirm" },
     { keys: ["down", "ctrl+a"] },

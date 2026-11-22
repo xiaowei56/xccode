@@ -1,9 +1,9 @@
-import { LLMClient, RequestExecutor } from "@opencode/ai/route"
+import { LLMClient, RequestExecutor } from "@xccode/ai/route"
 import { Effect, Layer, Option } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientError } from "effect/http"
 import { Socket } from "effect/socket"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { httpClient } from "@opencode/util/effect/app-node-platform"
+import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { httpClient } from "@xccode/util/effect/app-node-platform"
 import { ClientTls } from "#client-tls"
 import { WebSocketConstructor } from "./websocket-constructor.js"
 

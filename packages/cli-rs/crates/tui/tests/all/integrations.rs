@@ -7,12 +7,12 @@ use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use opencode_api::generated::IntegrationID;
-use opencode_tui::{Args, Deps, Route};
+use xccode_api::generated::IntegrationID;
+use xccode_tui::{Args, Deps, Route};
 use serde_json::{Value, json};
 
-const DIRECTORY: &str = "/tmp/opencode/app";
-const QUERY: &str = "location%5Bdirectory%5D=%2Ftmp%2Fopencode%2Fapp";
+const DIRECTORY: &str = "/tmp/xccode/app";
+const QUERY: &str = "location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp";
 
 type Logged = (String, String, Value);
 
@@ -27,15 +27,15 @@ fn credential(id: &str, label: &str, status: Option<Value>) -> Value {
 fn integrations() -> Value {
     json!([
         {
-            "id": "opencode", "name": "OpenCode Console",
-            "methods": [{ "type": "oauth", "id": "device", "label": "Sign in with OpenCode" }],
+            "id": "xccode", "name": "Xccode Console",
+            "methods": [{ "type": "oauth", "id": "device", "label": "Sign in with Xccode" }],
             "connections": [credential("cred_work", "work", None), credential("cred_home", "home", None)],
         },
-        // Hidden: OpenCode Go is listed only once a Go key is saved.
+        // Hidden: Xccode Go is listed only once a Go key is saved.
         {
-            "id": "opencode-go", "name": "OpenCode Go",
+            "id": "xccode-go", "name": "Xccode Go",
             "methods": [{ "type": "key" }],
-            "connections": [{ "type": "env", "name": "OPENCODE_API_KEY" }],
+            "connections": [{ "type": "env", "name": "XCCODE_API_KEY" }],
         },
         {
             "id": "openai", "name": "OpenAI",
@@ -133,7 +133,7 @@ struct Kit {
     status: Arc<Mutex<Value>>,
     log: Log,
     opened: Rc<RefCell<Vec<String>>>,
-    _home: opencode_util::temp::TempDir,
+    _home: xccode_util::temp::TempDir,
 }
 
 deref_harness!(Kit);
@@ -144,13 +144,13 @@ impl Kit {
     }
 
     fn with(integrations: Value, mode: &'static str) -> Self {
-        let home = opencode_util::temp::tempdir().unwrap();
+        let home = xccode_util::temp::tempdir().unwrap();
         let status = Arc::new(Mutex::new(pending()));
         let fake = fake(integrations, status.clone(), mode);
         let log = fake.log();
         let deps = Deps {
             directory: DIRECTORY.into(),
-            config: support::config(support::decode(r#"{ "theme": { "name": "opencode", "mode": "dark" } }"#)),
+            config: support::config(support::decode(r#"{ "theme": { "name": "xccode", "mode": "dark" } }"#)),
             roots: support::roots(support::home_paths(home.path()), "test"),
             route: Route::Home,
             ..support::deps(Arc::new(fake))
@@ -479,7 +479,7 @@ fn removing_the_last_account_disconnects() {
     kit.down(1);
     kit.app.press("ctrl+d");
     kit.app.press("ctrl+d");
-    kit.wait_for("Disconnected OpenCode Console");
+    kit.wait_for("Disconnected Xccode Console");
     assert!(!kit.tui.dialogs.is_open());
     assert_eq!(kit.writes(), [write("DELETE", "/api/credential/cred_work", Value::Null)]);
 }
@@ -487,7 +487,7 @@ fn removing_the_last_account_disconnects() {
 #[test]
 fn an_mcp_sign_in_goes_straight_to_its_method() {
     let kit = Kit::new();
-    opencode_tui::dialogs::integration::show_auto_connect(&kit.tui, &IntegrationID("mcp_notion".into()), None);
+    xccode_tui::dialogs::integration::show_auto_connect(&kit.tui, &IntegrationID("mcp_notion".into()), None);
     kit.wait_for("Waiting for authorization");
     assert_eq!(
         kit.writes(),
@@ -511,7 +511,7 @@ fn a_command_connect_shows_its_output_and_completes() {
         "status": "pending", "message": "Visit example.test and enter 1234\n",
         "time": { "created": 1, "expires": 2 },
     });
-    opencode_tui::dialogs::integration::show_auto_connect(&kit.tui, &IntegrationID("mcp_cli".into()), None);
+    xccode_tui::dialogs::integration::show_auto_connect(&kit.tui, &IntegrationID("mcp_cli".into()), None);
     kit.wait_for("Visit example.test and enter 1234");
     kit.wait_for("Waiting for command to finish");
     *kit.status.lock().unwrap() = json!({
@@ -554,7 +554,7 @@ fn form_steps_open_a_link_take_an_own_answer_and_a_multiselect() {
         "connections": [],
     }));
     let kit = Kit::with(list, "auto");
-    opencode_tui::dialogs::integration::show_auto_connect(&kit.tui, &IntegrationID("mcp_aws".into()), None);
+    xccode_tui::dialogs::integration::show_auto_connect(&kit.tui, &IntegrationID("mcp_aws".into()), None);
     kit.wait_for("Open link");
     assert!(!kit.app.text().contains("I finished"));
     kit.app.press("return");

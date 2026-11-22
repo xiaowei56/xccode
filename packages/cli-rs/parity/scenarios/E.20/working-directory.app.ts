@@ -8,7 +8,7 @@ export default defineApp({
   steps: [
     {
       checkpoint: "home",
-      until: "/tmp/opencode/packages/tui:main",
+      until: "/tmp/xccode/packages/tui:main",
       masks: [HOME_PLACEHOLDER],
     },
     { click: [16, 20] },

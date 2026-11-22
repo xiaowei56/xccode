@@ -72,7 +72,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "ކްރެޑިޓްތައް އިތުރުކުރުން",
   "dialog.usageExceeded.freeTier.title": "ހިލޭ ލިމިޓަށް އާދެވިއްޖެއެވެ",
   "dialog.usageExceeded.freeTier.description":
-    "އެންމެ ރަނގަޅު އޮޕަން ސޯސް މޮޑެލްތަކަށް އިތުބާރުހުރި ގޮތެއްގައި އެކްސެސް ހޯދުމަށް މަހަކު 10 ޑޮލަރަށް OpenCode Go އަށް ސަބްސްކްރައިބް ކޮށްލައްވާ.",
+    "އެންމެ ރަނގަޅު އޮޕަން ސޯސް މޮޑެލްތަކަށް އިތުބާރުހުރި ގޮތެއްގައި އެކްސެސް ހޯދުމަށް މަހަކު 10 ޑޮލަރަށް Xccode Go އަށް ސަބްސްކްރައިބް ކޮށްލައްވާ.",
   "dialog.usageExceeded.freeTier.actionLabel": "ސަބްސްކްރައިބް ކޮށްލައްވާ",
   "ui.sessionTurn.status.delegating": "މަސައްކަތް ހަވާލުކުރުން",
   "ui.sessionTurn.status.planning": "ދެން އަޅަންޖެހޭ ފިޔަވަޅުތައް ރޭވުން",
@@ -274,9 +274,9 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "މޮޑެލް ބަޖެޓަށް އާދެވިއްޖެ · ރީސެޓްވާންދެން މި މޮޑެލް ޕޯޒްކޮށްފައި",
   "ui.sessionTurn.budgetLimit.useFreeModel": "ހިލޭ މޮޑެލެއް ބޭނުންކުރާ",
   "ui.sessionTurn.budgetLimit.switchModel": "މޮޑެލް ބަދަލުކުރާ",
-  "ui.sessionTurn.goLimit.title": "ތިބާގެ OpenCode Go ބޭނުންކުރުމުގެ ލިމިޓަށް އާދެވިއްޖެ.",
+  "ui.sessionTurn.goLimit.title": "ތިބާގެ Xccode Go ބޭނުންކުރުމުގެ ލިމިޓަށް އާދެވިއްޖެ.",
   "ui.sessionTurn.goLimit.lineReset":
-    "ތިބާގެ OpenCode Go ބޭނުންކުރުމުގެ ލިމިޓަށް އާދެވިއްޖެ. އެ ރީސެޓްވާނީ ⁨{{time}}⁩ ގައެވެ.",
+    "ތިބާގެ Xccode Go ބޭނުންކުރުމުގެ ލިމިޓަށް އާދެވިއްޖެ. އެ ރީސެޓްވާނީ ⁨{{time}}⁩ ގައެވެ.",
   "dialog.usageExceeded.freeTier.reset": "ތިބާގެ ހިލޭ މެސެޖްތައް ރީސެޓްވާނީ ⁨{{time}}⁩ ގައެވެ.",
   "ui.messagePart.compaction.queued": "ސެޝަން ކޮމްޕެކްޝަން ކިއޫ ކުރެވިއްޖެ",
   "ui.messagePart.compaction.done": "ކޮމްޕެކްޓް ކުރެވިއްޖެ",

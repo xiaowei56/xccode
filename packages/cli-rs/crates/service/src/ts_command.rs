@@ -1,4 +1,4 @@
-//! Resolves the server binary from `OPENCODE_TS_BIN`, the bundled `opencode` beside the client, or `PATH`, in that
+//! Resolves the server binary from `XCCODE_TS_BIN`, the bundled `xccode` beside the client, or `PATH`, in that
 //! order.
 
 use std::ffi::OsString;
@@ -13,18 +13,18 @@ pub struct TsCommand {
 
 impl TsCommand {
     /// The variable that names the TypeScript binary.
-    pub const VAR: &str = "OPENCODE_TS_BIN";
+    pub const VAR: &str = "XCCODE_TS_BIN";
 
     pub fn from_env() -> Self {
         Self::from_vars(|name| std::env::var_os(name))
     }
 
-    /// `OPENCODE_TS_BIN` (one executable path; an empty value counts as unset), else the `opencode`
-    /// installed beside this executable ([`opencode_util::bundle::server`]), else `opencode`, found on
-    /// `PATH` when it runs. On Windows `opencode` is looked up here, through `PATHEXT`, because
-    /// `Command` finds only `opencode.exe` and npm installs an `opencode.cmd` shim.
+    /// `XCCODE_TS_BIN` (one executable path; an empty value counts as unset), else the `xccode`
+    /// installed beside this executable ([`xccode_util::bundle::server`]), else `xccode`, found on
+    /// `PATH` when it runs. On Windows `xccode` is looked up here, through `PATHEXT`, because
+    /// `Command` finds only `xccode.exe` and npm installs an `xccode.cmd` shim.
     pub fn from_vars(var: impl Fn(&str) -> Option<OsString>) -> Self {
-        Self::resolve(var, cfg!(windows), opencode_util::bundle::server())
+        Self::resolve(var, cfg!(windows), xccode_util::bundle::server())
     }
 
     /// `from_vars` as it runs on Windows when `windows` is set, so tests on other systems reach the lookup,
@@ -41,7 +41,7 @@ impl TsCommand {
                 search(
                     &path,
                     var("PATHEXT").as_deref(),
-                    "opencode",
+                    "xccode",
                     |path| path.is_file(),
                     |path| std::fs::read_to_string(path).ok(),
                 )
@@ -49,19 +49,19 @@ impl TsCommand {
         } else {
             None
         };
-        Self::new(found.map_or_else(|| "opencode".into(), PathBuf::into_os_string))
+        Self::new(found.map_or_else(|| "xccode".into(), PathBuf::into_os_string))
     }
 
     pub fn new(program: impl Into<OsString>) -> Self {
         Self { program: program.into(), args: Vec::new() }
     }
 
-    /// `opencode serve --service`.
+    /// `xccode serve --service`.
     pub fn service(&self) -> Vec<OsString> {
         self.with(&["serve", "--service"])
     }
 
-    /// `opencode serve --stdio --port 0`.
+    /// `xccode serve --stdio --port 0`.
     pub fn standalone(&self) -> Vec<OsString> {
         self.with(&["serve", "--stdio", "--port", "0"])
     }
@@ -154,23 +154,23 @@ mod tests {
     #[test]
     fn the_variable_wins_and_empty_means_unset() {
         let from = |value: Option<&str>| {
-            TsCommand::from_vars(|name| (name == "OPENCODE_TS_BIN").then_some(value).flatten().map(OsString::from))
+            TsCommand::from_vars(|name| (name == "XCCODE_TS_BIN").then_some(value).flatten().map(OsString::from))
         };
-        assert_eq!(from(None).program, "opencode");
-        assert_eq!(from(Some("")).program, "opencode");
-        assert_eq!(from(Some("/x/opencode")).program, "/x/opencode");
+        assert_eq!(from(None).program, "xccode");
+        assert_eq!(from(Some("")).program, "xccode");
+        assert_eq!(from(Some("/x/xccode")).program, "/x/xccode");
         // Expected (the bundled layout): the bundled binary comes after the variable and before `PATH`.
         let path = |name: &str| (name == "PATH").then(|| OsString::from("/usr/bin"));
         for windows in [false, true] {
             let with = |var: &dyn Fn(&str) -> Option<OsString>| {
-                TsCommand::resolve(var, windows, Some(PathBuf::from("/lib/oc/opencode"))).program
+                TsCommand::resolve(var, windows, Some(PathBuf::from("/lib/oc/xccode"))).program
             };
-            assert_eq!(with(&path), "/lib/oc/opencode");
+            assert_eq!(with(&path), "/lib/oc/xccode");
             assert_eq!(
                 with(&|name| if name == TsCommand::VAR { Some("".into()) } else { path(name) }),
-                "/lib/oc/opencode"
+                "/lib/oc/xccode"
             );
-            assert_eq!(with(&|name| (name == TsCommand::VAR).then(|| "/x/opencode".into())), "/x/opencode");
+            assert_eq!(with(&|name| (name == TsCommand::VAR).then(|| "/x/xccode".into())), "/x/xccode");
         }
         let mut command = TsCommand::new("bun");
         command.args.push("cli.ts".into());
@@ -179,17 +179,17 @@ mod tests {
     }
 
     // What `cmd-shim` (npm 10) writes for a native and for a JavaScript `bin`.
-    const EXE_SHIM: &str = "@ECHO off\r\nGOTO start\r\n:find_dp0\r\nSET dp0=%~dp0\r\nEXIT /b\r\n:start\r\nSETLOCAL\r\nCALL :find_dp0\r\n\"%dp0%\\node_modules\\@opencode\\cli\\bin\\opencode.exe\"   %*\r\n";
+    const EXE_SHIM: &str = "@ECHO off\r\nGOTO start\r\n:find_dp0\r\nSET dp0=%~dp0\r\nEXIT /b\r\n:start\r\nSETLOCAL\r\nCALL :find_dp0\r\n\"%dp0%\\node_modules\\@xccode\\cli\\bin\\xccode.exe\"   %*\r\n";
     const NODE_SHIM: &str = "@ECHO off\r\nGOTO start\r\n:find_dp0\r\nSET dp0=%~dp0\r\nEXIT /b\r\n:start\r\nSETLOCAL\r\nCALL :find_dp0\r\n\r\nIF EXIST \"%dp0%\\node.exe\" (\r\n  SET \"_prog=%dp0%\\node.exe\"\r\n) ELSE (\r\n  SET \"_prog=node\"\r\n  SET PATHEXT=%PATHEXT:;.JS;=;%\r\n)\r\n\r\nendLocal & goto #_undefined_# 2>NUL || title %COMSPEC% & \"%_prog%\"  \"%dp0%\\node_modules\\x\\cli.js\" %*\r\n";
 
     #[test]
     fn a_shim_names_its_exe() {
-        assert_eq!(shim_target(EXE_SHIM), Some("\\node_modules\\@opencode\\cli\\bin\\opencode.exe"));
-        assert_eq!(shim_target("\"%~dp0\\bin\\Opencode.EXE\" %*"), Some("\\bin\\Opencode.EXE"));
+        assert_eq!(shim_target(EXE_SHIM), Some("\\node_modules\\@xccode\\cli\\bin\\xccode.exe"));
+        assert_eq!(shim_target("\"%~dp0\\bin\\Xccode.EXE\" %*"), Some("\\bin\\Xccode.EXE"));
         assert_eq!(shim_target(NODE_SHIM), None);
-        assert_eq!(shim_target("\"%dp0%\\bin\\opencode.js\" %*"), None);
+        assert_eq!(shim_target("\"%dp0%\\bin\\xccode.js\" %*"), None);
         assert_eq!(shim_target("\"%dp0%\\%x%.exe\" %*"), None);
-        assert_eq!(shim_target("\"C:\\opencode.exe\" %*"), None);
+        assert_eq!(shim_target("\"C:\\xccode.exe\" %*"), None);
         assert_eq!(shim_target("\"%dp0%.exe\" %*"), None);
         assert_eq!(shim_target(""), None);
     }
@@ -197,18 +197,18 @@ mod tests {
     #[test]
     fn the_search_follows_path_then_extensions_with_exe_first() {
         let npm = Path::new("npm");
-        let shim_exe = ["npm", "node_modules", "@opencode", "cli", "bin", "opencode.exe"].iter().collect::<PathBuf>();
+        let shim_exe = ["npm", "node_modules", "@xccode", "cli", "bin", "xccode.exe"].iter().collect::<PathBuf>();
         let find = |pathext: Option<&str>, files: &[PathBuf], shim: &str| {
             search(
                 std::ffi::OsStr::new("\"npm\";;winget"),
                 pathext.map(std::ffi::OsStr::new),
-                "opencode",
+                "xccode",
                 |path| files.iter().any(|file| file == path),
                 |path| (path.extension().is_some_and(|ext| ext == "cmd")).then(|| shim.to_owned()),
             )
         };
-        let winget = Path::new("winget").join("opencode.exe");
-        let cmd = npm.join("opencode.cmd");
+        let winget = Path::new("winget").join("xccode.exe");
+        let cmd = npm.join("xccode.cmd");
         let cases = [
             // A `.cmd` that names an existing `.exe` resolves to it.
             (None, vec![cmd.clone(), shim_exe.clone(), winget.clone()], EXE_SHIM, Some(shim_exe.clone())),
@@ -216,12 +216,12 @@ mod tests {
             (None, vec![cmd.clone(), winget.clone()], EXE_SHIM, Some(cmd.clone())),
             (None, vec![cmd.clone(), shim_exe.clone()], NODE_SHIM, Some(cmd.clone())),
             // An earlier directory wins over a later `.exe`; within one, `.exe` wins over PATHEXT's order.
-            (Some(".CMD;.EXE"), vec![cmd.clone(), npm.join("opencode.exe")], NODE_SHIM, Some(npm.join("opencode.exe"))),
+            (Some(".CMD;.EXE"), vec![cmd.clone(), npm.join("xccode.exe")], NODE_SHIM, Some(npm.join("xccode.exe"))),
             (None, vec![winget.clone()], "", Some(winget.clone())),
             // Only PATHEXT's extensions count, and the extensionless sh shim never does.
             (Some(".EXE"), vec![cmd.clone()], EXE_SHIM, None),
-            (None, vec![npm.join("opencode"), npm.join("opencode.ps1")], "", None),
-            (Some(".BAT"), vec![npm.join("opencode.bat")], "", Some(npm.join("opencode.bat"))),
+            (None, vec![npm.join("xccode"), npm.join("xccode.ps1")], "", None),
+            (Some(".BAT"), vec![npm.join("xccode.bat")], "", Some(npm.join("xccode.bat"))),
         ];
         for (pathext, files, shim, expected) in cases {
             assert_eq!(find(pathext, &files, shim), expected, "{pathext:?} {files:?}");
@@ -232,9 +232,9 @@ mod tests {
     #[cfg(windows)]
     #[test]
     fn a_found_cmd_shim_spawns_with_its_arguments() {
-        let dir = opencode_util::temp::tempdir().unwrap();
-        std::fs::write(dir.path().join("opencode"), "#!/bin/sh\n").unwrap();
-        std::fs::write(dir.path().join("opencode.cmd"), "@ECHO off\r\nECHO %*\r\n").unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
+        std::fs::write(dir.path().join("xccode"), "#!/bin/sh\n").unwrap();
+        std::fs::write(dir.path().join("xccode.cmd"), "@ECHO off\r\nECHO %*\r\n").unwrap();
         let ts = TsCommand::resolve(
             |name| match name {
                 "PATH" => Some(dir.path().into()),
@@ -244,7 +244,7 @@ mod tests {
             true,
             None,
         );
-        assert_eq!(ts.program, dir.path().join("opencode.cmd"));
+        assert_eq!(ts.program, dir.path().join("xccode.cmd"));
         let command = ts.with(&["serve", "--stdio", "a b"]);
         let output = std::process::Command::new(&command[0]).args(&command[1..]).output().unwrap();
         assert!(output.status.success(), "{output:?}");
@@ -253,9 +253,9 @@ mod tests {
 
     #[test]
     fn a_quoted_directory_keeps_its_semicolon() {
-        let shim = Path::new("tool;cache").join("opencode.cmd");
+        let shim = Path::new("tool;cache").join("xccode.cmd");
         let found =
-            search(std::ffi::OsStr::new("C:\\x;\"tool;cache\";D:\\y"), None, "opencode", |path| path == shim, |_| None);
+            search(std::ffi::OsStr::new("C:\\x;\"tool;cache\";D:\\y"), None, "xccode", |path| path == shim, |_| None);
         assert_eq!(found, Some(shim));
     }
 }

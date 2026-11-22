@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Minnesdiagnostik: loggar appens minne till skrivbordsloggarna var 30:e sekund. Förblir på mellan omstarter tills den stängs av; fältet förblir öppet medan den körs.",
-  "memory.tipEnv": "Minnesdiagnostik är på för den här starten: OPENCODE_DESKTOP_MEMORY_LOG är satt.",
+  "memory.tipEnv": "Minnesdiagnostik är på för den här starten: XCCODE_DESKTOP_MEMORY_LOG är satt.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

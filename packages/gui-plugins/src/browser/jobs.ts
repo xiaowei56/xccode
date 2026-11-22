@@ -1,5 +1,5 @@
 import { createSignal, getOwner, onCleanup, runWithOwner, untrack } from "solid-js"
-import { createKeyed, createLatest, usePlugin, type IpcClient } from "@opencode/plugin/gui"
+import { createKeyed, createLatest, usePlugin, type IpcClient } from "@xccode/plugin/gui"
 import type { Choice } from "./choices"
 import type definition from "./index"
 import { BrowserProfile, type ExtensionCompatibility, type ImportResult, type ProfileSource } from "./profile/ipc"

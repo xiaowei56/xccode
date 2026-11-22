@@ -2,15 +2,15 @@ use std::future::Future;
 use std::io::IsTerminal;
 use std::time::Duration;
 
-use opencode_api::client::Client;
-use opencode_api::error::Error as ApiError;
-use opencode_api::generated::types::{
+use xccode_api::client::Client;
+use xccode_api::error::Error as ApiError;
+use xccode_api::generated::types::{
     ExperimentalSessionStatsInput, ExperimentalSessionStatsInputTools, LocationGetInput, ProjectID, SessionStatsInfo,
     SessionStatsTools,
 };
-use opencode_ui::activity_calendar::{activity_calendar, time_zone};
-use opencode_util::time::{self, Date, Zone};
-use opencode_util::{bail, err, error};
+use xccode_ui::activity_calendar::{activity_calendar, time_zone};
+use xccode_util::time::{self, Date, Zone};
+use xccode_util::{bail, err, error};
 use serde_json::Value;
 
 use super::Context;
@@ -21,7 +21,7 @@ use crate::output::{Exit, print};
 pub fn run(context: &Context, args: &StatsArgs) -> error::Result<()> {
     // The handler catches every failure and prints its bare message with exit 1.
     let Err(error) = stats(context, args) else { return Ok(()) };
-    eprintln!("{}", opencode_ui::terminal_text(&message(&error)));
+    eprintln!("{}", xccode_ui::terminal_text(&message(&error)));
     Err(Exit(1).into())
 }
 
@@ -169,7 +169,7 @@ pub struct Palette {
 impl Palette {
     pub fn from_colorfgbg(value: Option<&str>) -> Self {
         let background =
-            value.and_then(|value| opencode_api::js::parse_number(value.rsplit(';').next().unwrap_or(value)));
+            value.and_then(|value| xccode_api::js::parse_number(value.rsplit(';').next().unwrap_or(value)));
         match background.filter(|background| background.is_finite()) {
             Some(background) if background >= 7.0 => Self {
                 primary: "38;2;59;125;216",
@@ -231,13 +231,13 @@ pub fn render_stats(stats: &SessionStatsInfo, options: &RenderOptions, palette: 
     let empty = stats.sessions == 0 && stats.prompts == 0 && stats.steps == 0;
     let heading = format!(
         "{} {}",
-        style("opencode stats", &primary),
+        style("xccode stats", &primary),
         style(&format!("· {} · {}", options.label, options.scope), "2")
     );
     let mut lines: Vec<String> = if details {
         vec![style(&format!("{} · {}", options.label, options.scope), "2")]
     } else if empty {
-        vec![heading, String::new(), style("no activity in this range", "2"), String::new(), style("opencode.ai", "2")]
+        vec![heading, String::new(), style("no activity in this range", "2"), String::new(), style("xccode.ai", "2")]
     } else {
         let mut lines = vec![heading, String::new()];
         lines.extend(render_activity(stats, options, palette, zone));
@@ -257,7 +257,7 @@ pub fn render_stats(stats: &SessionStatsInfo, options: &RenderOptions, palette: 
                 if stats.streak == 1 { "" } else { "s" }
             ),
             String::new(),
-            style("opencode.ai", "2"),
+            style("xccode.ai", "2"),
         ]);
         lines
     };
@@ -347,7 +347,7 @@ fn render_models(stats: &SessionStatsInfo, limit: usize, width: usize) -> Vec<St
     }
     let models = &stats.models[..limit.min(stats.models.len())];
     let more = stats.models.len() - models.len();
-    let name = |item: &opencode_api::generated::types::SessionStatsModelUsage| {
+    let name = |item: &xccode_api::generated::types::SessionStatsModelUsage| {
         let variant = item
             .model
             .variant
@@ -355,7 +355,7 @@ fn render_models(stats: &SessionStatsInfo, limit: usize, width: usize) -> Vec<St
             .filter(|variant| !variant.is_empty())
             .map(|variant| format!("#{variant}"))
             .unwrap_or_default();
-        opencode_ui::terminal_text(&format!("{}/{}{variant}", item.model.provider_id, item.model.id)).into_owned()
+        xccode_ui::terminal_text(&format!("{}/{}{variant}", item.model.provider_id, item.model.id)).into_owned()
     };
     let mut lines = vec![title];
     if width < 68 {
@@ -398,18 +398,18 @@ fn render_tools(stats: &SessionStatsInfo, limit: usize, width: usize) -> Vec<Str
     }
     let tools = &detail.usage[..limit.min(detail.usage.len())];
     let more = detail.usage.len() - tools.len();
-    let error = |tool: &opencode_api::generated::types::SessionStatsToolUsage| {
+    let error = |tool: &xccode_api::generated::types::SessionStatsToolUsage| {
         let terminal = tool.succeeded + tool.failed;
         if terminal == 0 {
             return "-".to_owned();
         }
         format_percent(tool.failed as f64 / terminal as f64 * 100.0)
     };
-    let p50 = |tool: &opencode_api::generated::types::SessionStatsToolUsage| {
+    let p50 = |tool: &xccode_api::generated::types::SessionStatsToolUsage| {
         tool.duration_p50.map_or_else(|| "-".to_owned(), format_duration)
     };
-    let name = |tool: &opencode_api::generated::types::SessionStatsToolUsage| {
-        opencode_ui::terminal_text(&tool.name).into_owned()
+    let name = |tool: &xccode_api::generated::types::SessionStatsToolUsage| {
+        xccode_ui::terminal_text(&tool.name).into_owned()
     };
     let mut lines = vec![title];
     if width < 68 {
@@ -440,7 +440,7 @@ fn render_tools(stats: &SessionStatsInfo, limit: usize, width: usize) -> Vec<Str
 }
 
 // `TokenUsage.total`.
-fn total(tokens: &opencode_api::generated::types::TokenUsageInfo) -> f64 {
+fn total(tokens: &xccode_api::generated::types::TokenUsageInfo) -> f64 {
     tokens.input + tokens.output + tokens.reasoning + tokens.cache.read + tokens.cache.write
 }
 

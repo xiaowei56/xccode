@@ -4,7 +4,7 @@ TypeScript: `audio.ts` creates one Core `Audio` engine on the first sound and st
 for every renderer the TUI runs on.
 
 Rust: `features/attention/sound.rs` creates one opentui-rust `audio::Audio` engine on the first sound. Only
-`opencode_tui::run` on the real terminal sets `Output::Device`, which opens the default playback device. Any other
+`xccode_tui::run` on the real terminal sets `Output::Device`, which opens the default playback device. Any other
 app (the drive endpoint's headless app, tests) mixes without a device: the sound is decoded and handed to the
 engine, the request reports `sound: true`, and nothing plays out loud. `Player::audio` reads that mix.
 

@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Minnediagnostikk: logg appens minnebruk til skrivebordsloggene hvert 30. sekund. Forblir på på tvers av omstarter til den slås av; linjen holdes åpen mens den kjører.",
-  "memory.tipEnv": "Minnediagnostikk er på for denne oppstarten: OPENCODE_DESKTOP_MEMORY_LOG er satt.",
+  "memory.tipEnv": "Minnediagnostikk er på for denne oppstarten: XCCODE_DESKTOP_MEMORY_LOG er satt.",
   "memory.env": "ENV",
   "motion.label": "JUSTERING",
   "motion.title": "Justering",

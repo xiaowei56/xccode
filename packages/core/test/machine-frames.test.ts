@@ -2,18 +2,18 @@ import { expect } from "bun:test"
 import { randomBytes } from "node:crypto"
 import { mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Environment } from "@opencode/core/environment/index"
-import { Frames } from "@opencode/core/machine/frames"
-import { Identity } from "@opencode/core/machine/identity"
-import { Machine } from "@opencode/core/machine/index"
-import { Join } from "@opencode/core/machine/join"
-import { Link } from "@opencode/core/machine/link"
-import { Machines } from "@opencode/core/machine/machines"
-import { Noise } from "@opencode/core/machine/noise"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Global } from "@opencode/util/global"
+import { Database } from "@xccode/core/database/database"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { Environment } from "@xccode/core/environment/index"
+import { Frames } from "@xccode/core/machine/frames"
+import { Identity } from "@xccode/core/machine/identity"
+import { Machine } from "@xccode/core/machine/index"
+import { Join } from "@xccode/core/machine/join"
+import { Link } from "@xccode/core/machine/link"
+import { Machines } from "@xccode/core/machine/machines"
+import { Noise } from "@xccode/core/machine/noise"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Global } from "@xccode/util/global"
 import { Cause, Deferred, Effect, Exit, Fiber, Logger, Option, Queue, Result, Schema, Scope, Stream } from "effect"
 import { ChildProcess, ChildProcessSpawner } from "effect/process"
 import { TestClock } from "effect/testing"
@@ -69,7 +69,7 @@ const layers = (directory: string) =>
         repos: directory,
       }),
     ),
-    Database.node.replace(Database.configured({ path: path.join(directory, "opencode.db") })),
+    Database.node.replace(Database.configured({ path: path.join(directory, "xccode.db") })),
   ])
 
 /** A home of its own in a fresh directory, holding `seed` as its key when given and a key of its own otherwise. */

@@ -4,9 +4,9 @@ use crate::support::{self, DIRECTORY, Harness, Seen};
 
 use std::sync::Arc;
 
-use opencode_api::generated::V2Event;
-use opencode_local::cli_config::{Info, Markdown, Session};
-use opencode_tui::Deps;
+use xccode_api::generated::V2Event;
+use xccode_local::cli_config::{Info, Markdown, Session};
+use xccode_tui::Deps;
 use opentui::prelude::Attributes;
 use serde_json::json;
 
@@ -138,18 +138,18 @@ fn ids_in_table_cells_stay_as_written() {
 #[test]
 fn code_spans_link_only_when_they_are_exactly_an_id() {
     let known = id("known");
-    let text = format!("Run `opencode --session {known}` or open `{known}`.\n\n`` {known} ``\n\n`{known}.`");
+    let text = format!("Run `xccode --session {known}` or open `{known}`.\n\n`` {known} ``\n\n`{known}.`");
     let (h, _) = open(180, 30, &text, Info::default());
     h.wait_for("@Fix the flaky");
     assert_eq!(linked(&h), ["@Fix the flaky reconnect test on Windows"; 2]);
-    assert!(h.app.text().contains(&format!("opencode --session {known}")));
+    assert!(h.app.text().contains(&format!("xccode --session {known}")));
 
     let source =
         Info { session: Some(Session { markdown: Some(Markdown::Source), ..Session::default() }), ..Info::default() };
     let (h, _) = open(180, 30, &text, source);
     h.wait("the link", || !linked(&h).is_empty());
     assert_eq!(linked(&h), [known.as_str(); 2]);
-    assert!(h.app.text().contains(&format!("`opencode --session {known}`")));
+    assert!(h.app.text().contains(&format!("`xccode --session {known}`")));
 }
 
 #[test]
@@ -177,24 +177,24 @@ fn only_the_btw_answer_links_sessions_among_plugin_markdown() {
     let (h, log) = open(100, 30, "Done.", Info::default());
     h.wait_for("Done.");
     let panel = |key: &str| {
-        opencode_plugin::abi::Dialog::Panel(
-            opencode_plugin::abi::Panel::new(
+        xccode_plugin::abi::Dialog::Panel(
+            xccode_plugin::abi::Panel::new(
                 key.to_owned(),
-                vec![opencode_plugin::abi::Span::new("Panel")],
-                opencode_plugin::abi::Node::Markdown { text: format!("See {known} here") },
+                vec![xccode_plugin::abi::Span::new("Panel")],
+                xccode_plugin::abi::Node::Markdown { text: format!("See {known} here") },
             )
-            .size(opencode_plugin::abi::PanelSize::Large)
+            .size(xccode_plugin::abi::PanelSize::Large)
             .bleed()
             .centered(),
         )
     };
-    opencode_tui::plugins::panel::show(&h.tui, "test.other", 0, panel("other"));
+    xccode_tui::plugins::panel::show(&h.tui, "test.other", 0, panel("other"));
     h.wait_for(&format!("See {known} here"));
     h.app.advance(std::time::Duration::from_millis(50));
     assert_eq!(linked(&h), Vec::<String>::new());
     assert_eq!(lookups(&log, &known), 0, "{:?}", support::lines(&log));
 
-    opencode_tui::plugins::panel::show(&h.tui, opencode_tui::plugins::btw::ID, 0, panel("answer"));
+    xccode_tui::plugins::panel::show(&h.tui, xccode_tui::plugins::btw::ID, 0, panel("answer"));
     h.wait_for("See @Fix the flaky reconnect test on Windows here");
     assert_eq!(linked(&h), ["@Fix the flaky reconnect test on Windows"]);
 }

@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Hukommelsesdiagnostik: log appens hukommelse til desktop-logfilerne hvert 30. sekund. Forbliver slået til på tværs af genstarter, indtil den slås fra; linjen forbliver åben, mens den kører.",
-  "memory.tipEnv": "Hukommelsesdiagnostik er slået til for denne opstart: OPENCODE_DESKTOP_MEMORY_LOG er sat.",
+  "memory.tipEnv": "Hukommelsesdiagnostik er slået til for denne opstart: XCCODE_DESKTOP_MEMORY_LOG er sat.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

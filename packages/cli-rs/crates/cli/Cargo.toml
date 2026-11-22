@@ -1,18 +1,18 @@
 [package]
-name = "opencode-cli"
-description = "The opencode-native binary."
+name = "xccode-cli"
+description = "The xccode-native binary."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 publish.workspace = true
 
 [[bin]]
-name = "opencode-native"
+name = "xccode-native"
 path = "src/main.rs"
 
 # Runs the prompt kit's parity scripts (parity/oracle/C.p-prompts.ts); not shipped.
 [[bin]]
-name = "opencode-prompt-demo"
+name = "xccode-prompt-demo"
 path = "src/prompt/demo.rs"
 test = false
 
@@ -33,18 +33,18 @@ unicode-width.workspace = true
 url.workspace = true
 # The terminal size and raw reads of the prompt kit.
 opentui.workspace = true
-opencode-acp.workspace = true
-opencode-api.workspace = true
-opencode-latex.workspace = true
-opencode-local.workspace = true
-opencode-mermaid.workspace = true
-opencode-mini.workspace = true
-opencode-plugin.workspace = true
-opencode-service.workspace = true
-opencode-store.workspace = true
-opencode-tui.workspace = true
-opencode-ui.workspace = true
-opencode-util.workspace = true
+xccode-acp.workspace = true
+xccode-api.workspace = true
+xccode-latex.workspace = true
+xccode-local.workspace = true
+xccode-mermaid.workspace = true
+xccode-mini.workspace = true
+xccode-plugin.workspace = true
+xccode-service.workspace = true
+xccode-store.workspace = true
+xccode-tui.workspace = true
+xccode-ui.workspace = true
+xccode-util.workspace = true
 
 [target.'cfg(unix)'.dependencies]
 rustix = { workspace = true, features = ["termios", "event", "pty"] }
@@ -52,11 +52,11 @@ libc.workspace = true
 
 [features]
 # TypeScript TUI plugins on the JS host: the pipe carrier, the JS host and its embedded `host.ts` and `compat.js`
-# (ts-feature). On by default; `OPENCODE_PLUGIN_JS=0` still turns the host off at run time.
+# (ts-feature). On by default; `XCCODE_PLUGIN_JS=0` still turns the host off at run time.
 default = ["ts", "luau"]
-ts = ["opencode-tui/ts", "opencode-plugin/ts"]
-# Luau plugins, in process. On by default; `OPENCODE_PLUGIN_LUAU=0` turns them off at run time.
-luau = ["opencode-tui/luau"]
+ts = ["xccode-tui/ts", "xccode-plugin/ts"]
+# Luau plugins, in process. On by default; `XCCODE_PLUGIN_LUAU=0` turns them off at run time.
+luau = ["xccode-tui/luau"]
 
 [dev-dependencies]
 serde_json.workspace = true

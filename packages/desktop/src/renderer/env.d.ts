@@ -2,7 +2,7 @@ import type { ElectronNative } from "../preload/types"
 
 declare global {
   interface ImportMetaEnv {
-    readonly OPENCODE_TEST_ONBOARDING: boolean
+    readonly XCCODE_TEST_ONBOARDING: boolean
   }
 
   interface Window {

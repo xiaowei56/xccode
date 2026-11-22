@@ -4,8 +4,8 @@ use crate::support::{self, DIRECTORY, Fake, Harness, Log, WAIT, deref_harness};
 
 use std::sync::Arc;
 
-use opencode_api::generated::{SessionID, V2Event};
-use opencode_tui::{Deps, Route};
+use xccode_api::generated::{SessionID, V2Event};
+use xccode_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 fn fake() -> Fake {
@@ -48,14 +48,14 @@ fn session(id: &str) -> Value {
 struct Setup {
     harness: Harness,
     seen: Log,
-    home: opencode_util::temp::TempDir,
+    home: xccode_util::temp::TempDir,
 }
 
 deref_harness!(Setup);
 
 impl Setup {
     fn new(route: Route, pinned: &[&str]) -> Self {
-        let home = opencode_util::temp::tempdir().unwrap();
+        let home = xccode_util::temp::tempdir().unwrap();
         let state = home.path().join("state");
         std::fs::create_dir_all(&state).unwrap();
         std::fs::write(state.join("session.json"), json!({ "pinned": pinned }).to_string()).unwrap();
@@ -155,9 +155,9 @@ fn picking_a_worktree_goes_home_there() {
 #[test]
 fn going_home_from_home_works_in_the_new_location() {
     let setup = Setup::new(Route::Home, &[]);
-    let location = || opencode_tui::features::location::current(&setup.tui).map(|location| location.directory);
+    let location = || xccode_tui::features::location::current(&setup.tui).map(|location| location.directory);
     assert_eq!(location().as_deref(), Some(DIRECTORY));
-    opencode_tui::features::location::navigate_home(&setup.tui, Some(opencode_store::Location::new("/project-spike")));
+    xccode_tui::features::location::navigate_home(&setup.tui, Some(xccode_store::Location::new("/project-spike")));
     assert_eq!(location().as_deref(), Some("/project-spike"));
     setup.tui.navigate(Route::Home);
     assert_eq!(location().as_deref(), Some("/project-spike"));

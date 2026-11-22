@@ -1,6 +1,6 @@
 [package]
-name = "opencode-drive"
-description = "The simulation UI endpoint, OPENCODE_DRIVE (H.4)."
+name = "xccode-drive"
+description = "The simulation UI endpoint, XCCODE_DRIVE (H.4)."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -11,8 +11,8 @@ workspace = true
 
 [dependencies]
 log.workspace = true
-opencode-api-types.workspace = true
-opencode-util.workspace = true
+xccode-api-types.workspace = true
+xccode-util.workspace = true
 opentui.workspace = true
 serde.workspace = true
 serde_json.workspace = true

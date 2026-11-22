@@ -4,9 +4,9 @@ use crate::support::{self, Fake, Harness, Log, WAIT, deref_harness, user};
 
 use std::sync::Arc;
 
-use opencode_api::generated::SessionMessageInfo;
-use opencode_local::cli_config::{Info, Session, Verbosity};
-use opencode_tui::{Deps, Route};
+use xccode_api::generated::SessionMessageInfo;
+use xccode_local::cli_config::{Info, Session, Verbosity};
+use xccode_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 const ID: &str = "ses_m";
@@ -72,7 +72,7 @@ fn open(height: u16, session: Value, messages: Vec<Value>, inbox: Vec<Value>, in
     let log = fake.log();
     let deps = Deps {
         config: support::config(Info { animations: Some(false), ..info }),
-        route: Route::Session { id: opencode_api::generated::SessionID(ID.into()) },
+        route: Route::Session { id: xccode_api::generated::SessionID(ID.into()) },
         ..support::deps(Arc::new(fake))
     };
     Screen { harness: support::mount(80, height, deps), log }
@@ -241,7 +241,7 @@ fn errors_notices_and_retries_follow_the_footer_rules() {
     // The free messages reset after the delay the server sent; a usage limit at the time the console's refusal names.
     let words = screen.split_whitespace().collect::<Vec<_>>().join(" ");
     assert!(words.contains("You've used today's free messages. They reset at"), "{screen}");
-    assert!(screen.contains("   Upgrade to OpenCode Go → /connect · Switch model → /models"), "{screen}");
+    assert!(screen.contains("   Upgrade to Xccode Go → /connect · Switch model → /models"), "{screen}");
     // A usage limit is a bordered notice with the model-list key.
     assert!(screen.contains("  ┃ Usage limit reached"), "{screen}");
     assert!(screen.contains("  ┃ Resets "), "{screen}");
@@ -441,15 +441,15 @@ fn tool_result_images_are_dropped_while_previews_are_off_and_restored_when_turne
     h.wait_for("Take screenshots");
     let stored = || {
         h.tui.data.read(|state| {
-            let message = serde_json::to_value(state.message(&opencode_api::generated::SessionID(ID.into()), "msg_2"));
+            let message = serde_json::to_value(state.message(&xccode_api::generated::SessionID(ID.into()), "msg_2"));
             message.unwrap()["content"][0]["state"]["content"][0]["uri"].as_str().unwrap_or_default().to_owned()
         })
     };
     assert_eq!(stored(), "data:image/png;base64,");
     assert!(!h.app.text().contains("more"), "{}", h.app.text());
 
-    opencode_tui::dialogs::settings::update(&h.tui, |draft| {
-        opencode_tui::dialogs::settings::set_path(draft, &["session", "image_preview"], json!(true))
+    xccode_tui::dialogs::settings::update(&h.tui, |draft| {
+        xccode_tui::dialogs::settings::set_path(draft, &["session", "image_preview"], json!(true))
     });
     let screen = h.wait_for("+1 more");
     assert_eq!(stored(), uri);

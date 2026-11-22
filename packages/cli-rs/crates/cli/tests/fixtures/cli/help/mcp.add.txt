@@ -2,7 +2,7 @@
   Add an MCP server to your configuration
 
 [1mUSAGE[0m
-  [36mopencode mcp add [flags] <name> [<command...>][0m
+  [36mxccode mcp add [flags] <name> [<command...>][0m
 
 [1mARGUMENTS[0m
   [32mname[0m [2mstring[0m          Name of the MCP server

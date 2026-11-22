@@ -1,12 +1,12 @@
 use std::path::{Path, PathBuf};
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     ConnectionInfo, CredentialRemoveInput, IntegrationGetInput, IntegrationInfo, IntegrationMethod, McpListInput,
     McpServer, McpServerStatus,
 };
-use opencode_local::jsonc::{self, Segment};
-use opencode_local::paths::Paths;
-use opencode_util::{bail, error};
+use xccode_local::jsonc::{self, Segment};
+use xccode_local::paths::Paths;
+use xccode_util::{bail, error};
 use serde_json::{Map, Value, json};
 
 use super::Context;
@@ -56,7 +56,7 @@ fn list(context: &Context) -> error::Result<()> {
             format!("{icon} {}  {description}", pad_end(&server.name, width))
         })
         .collect();
-    print(&opencode_ui::terminal_text(&(lines.join("\n") + "\n")))
+    print(&xccode_ui::terminal_text(&(lines.join("\n") + "\n")))
 }
 
 fn add(args: &McpAddArgs) -> error::Result<()> {
@@ -69,8 +69,8 @@ fn add(args: &McpAddArgs) -> error::Result<()> {
         bail!("Provide either --url <url> or a command after --");
     }
     if let Some(url) = url {
-        match opencode_api::js::parse_url(url) {
-            Err(error @ opencode_api::js::UrlError::NonAsciiHost(_)) => bail!("{error}"),
+        match xccode_api::js::parse_url(url) {
+            Err(error @ xccode_api::js::UrlError::NonAsciiHost(_)) => bail!("{error}"),
             Err(_) => bail!("Invalid URL: {url}"),
             Ok(_) => {}
         }
@@ -118,13 +118,13 @@ fn add(args: &McpAddArgs) -> error::Result<()> {
     print(&format!("MCP server \"{}\" added to {}\n", args.name, path.display()))
 }
 
-/// `resolveConfigPath`: the first config file that exists, else `opencode.json` in `directory`.
+/// `resolveConfigPath`: the first config file that exists, else `xccode.json` in `directory`.
 fn config_path(directory: &Path) -> PathBuf {
     let candidates = [
-        directory.join("opencode.json"),
-        directory.join("opencode.jsonc"),
-        directory.join(".opencode").join("opencode.json"),
-        directory.join(".opencode").join("opencode.jsonc"),
+        directory.join("xccode.json"),
+        directory.join("xccode.jsonc"),
+        directory.join(".xccode").join("xccode.json"),
+        directory.join(".xccode").join("xccode.jsonc"),
     ];
     candidates.iter().find(|candidate| candidate.is_file()).unwrap_or(&candidates[0]).clone()
 }
@@ -142,7 +142,7 @@ fn auth(context: &Context, args: &McpAuthArgs) -> error::Result<()> {
     if name.is_none() && choices.is_empty() {
         prompt::log::warn("No OAuth-capable MCP servers configured");
         prompt::log::info(&format!(
-            "Remote MCP servers support OAuth by default. Add one with `opencode mcp add` or in opencode.json:\n{EXAMPLE}"
+            "Remote MCP servers support OAuth by default. Add one with `xccode mcp add` or in xccode.json:\n{EXAMPLE}"
         ));
         prompt::outro("Done");
         return Ok(());

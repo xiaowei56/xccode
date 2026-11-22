@@ -1,13 +1,13 @@
 export * as PluginHooks from "./hooks.js"
 
-import type { AISDKHooks } from "@opencode/plugin/effect/aisdk"
-import type { SessionHooks } from "@opencode/plugin/effect/session"
-import type { ShellHooks } from "@opencode/plugin/effect/shell"
-import type { ToolFailures, ToolHooks } from "@opencode/plugin/effect/tool"
-import type { ModelHookOptions } from "@opencode/plugin/effect/registration"
-import type { PermissionHooks } from "@opencode/plugin/effect/permission"
+import type { AISDKHooks } from "@xccode/plugin/effect/aisdk"
+import type { SessionHooks } from "@xccode/plugin/effect/session"
+import type { ShellHooks } from "@xccode/plugin/effect/shell"
+import type { ToolFailures, ToolHooks } from "@xccode/plugin/effect/tool"
+import type { ModelHookOptions } from "@xccode/plugin/effect/registration"
+import type { PermissionHooks } from "@xccode/plugin/effect/permission"
 import { Context, Effect, Layer, Scope } from "effect"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { makeLocationNode } from "@xccode/util/effect/app-node"
 import { State } from "../state.js"
 
 export interface Domains {
@@ -58,7 +58,7 @@ export interface Interface {
   ) => Effect.Effect<Domains[Domain][Name], Failures[Domain][Name]>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/PluginHooks") {}
+export class Service extends Context.Service<Service, Interface>()("@xccode/PluginHooks") {}
 
 const layer = Layer.effect(
   Service,

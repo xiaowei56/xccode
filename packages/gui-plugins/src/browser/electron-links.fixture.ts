@@ -1,8 +1,8 @@
 import { createServer, type ServerResponse } from "node:http"
 import path from "node:path"
 import electron from "electron"
-import type { BuiltinMainStorage } from "@opencode/plugin/gui/builtin"
-import type { Embeds } from "@opencode/plugin/gui/main"
+import type { BuiltinMainStorage } from "@xccode/plugin/gui/builtin"
+import type { Embeds } from "@xccode/plugin/gui/main"
 import type { RefusalNotice } from "./ipc"
 import type { BindingEvent } from "./pane-machine"
 import type { TabActivity } from "./policy"
@@ -107,7 +107,7 @@ function served(path: string | undefined) {
 
 void electron.app.whenReady().then(async () => {
   const { Schema } = await import("effect")
-  const { Browser } = await import("@opencode/plugin-browser/rpc")
+  const { Browser } = await import("@xccode/plugin-browser/rpc")
   const { createBrowserPage } = await import("./chromium")
   const { createHandlePath } = await import("./disk")
   const { createPaneState, selectBinding, transitionPane } = await import("./pane-machine")

@@ -1,7 +1,7 @@
 export * as CodeModeDiffs from "./diffs.js"
 
 import { Context, Effect, Option, Schema } from "effect"
-import type { Result } from "@opencode/schema/tool"
+import type { Result } from "@xccode/schema/tool"
 import type { FileAccess } from "../file-access.js"
 import { fileDiff } from "../tool/plugin/file-diff.js"
 
@@ -24,7 +24,7 @@ export type File = {
 export type Collector = ReturnType<typeof make>
 
 /** The changes a Code Mode program made to files. Nothing here reads a file: each change brings its own diff. */
-export class Service extends Context.Service<Service, Collector>()("@opencode/CodeModeDiffs") {}
+export class Service extends Context.Service<Service, Collector>()("@xccode/CodeModeDiffs") {}
 
 // Each change is kept as it arrives, within the budget: past MAX_FILES it is dropped, and past the patch budget it
 // keeps only its counts.

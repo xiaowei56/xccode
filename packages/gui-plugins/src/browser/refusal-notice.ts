@@ -17,7 +17,7 @@ export function externalTarget(value: string, source: "conversation" | "page" = 
     return
   const scheme = /^([a-z][a-z\d+.-]*):/i.exec(value)?.[1].toLowerCase()
 
-  if (!scheme || denied.includes(scheme) || scheme.startsWith("opencode") || !URL.canParse(value)) return
+  if (!scheme || denied.includes(scheme) || scheme.startsWith("xccode") || !URL.canParse(value)) return
   const parsed = new URL(value)
 
   if (parsed.username || parsed.password) return

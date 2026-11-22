@@ -74,7 +74,7 @@ jobs:
             exit 0
           fi
           # packages/stories hosts the component tests, but no app package depends on it.
-          bun x turbo@2.10.2 ls --affected --filter=@opencode/app --filter=@opencode/stories --output=json > affected.json
+          bun x turbo@2.10.2 ls --affected --filter=@xccode/app --filter=@xccode/stories --output=json > affected.json
           bun -e 'const result = await Bun.file("affected.json").json(); console.log(`app=${result.packages.count > 0}`)' >> "$GITHUB_OUTPUT"
 
   unit:
@@ -115,8 +115,8 @@ jobs:
 
       - name: Configure git identity
         run: |
-          git config --global user.email "bot@opencode.ai"
-          git config --global user.name "opencode"
+          git config --global user.email "bot@xccode.ai"
+          git config --global user.name "xccode"
 
       - name: Run unit tests
         timeout-minutes: 20
@@ -128,7 +128,7 @@ jobs:
           fi
           GITHUB_ACTIONS=false bun turbo test --concurrency=3
         env:
-          OPENCODE_EXPERIMENTAL_DISABLE_FILEWATCHER: ${{ runner.os == 'Windows' && 'true' || 'false' }}
+          XCCODE_EXPERIMENTAL_DISABLE_FILEWATCHER: ${{ runner.os == 'Windows' && 'true' || 'false' }}
 
       - name: Verify packed codemode package
         if: runner.os == 'Linux'
@@ -140,10 +140,10 @@ jobs:
         timeout-minutes: 15
         run: |
           if [ "$AFFECTED" = "true" ]; then
-            bun turbo verify:package --affected --filter=@opencode/sdk
+            bun turbo verify:package --affected --filter=@xccode/sdk
             exit 0
           fi
-          bun turbo verify:package --filter=@opencode/sdk
+          bun turbo verify:package --filter=@xccode/sdk
 
       - name: Check generated client
         if: runner.os == 'Linux'
@@ -198,10 +198,10 @@ jobs:
         timeout-minutes: 10
         run: |
           if [ "$AFFECTED" = "true" ]; then
-            bun turbo build --affected --concurrency=3 --filter='@opencode/cli^...' --filter='@opencode/app^...'
+            bun turbo build --affected --concurrency=3 --filter='@xccode/cli^...' --filter='@xccode/app^...'
             exit 0
           fi
-          bun turbo build --concurrency=3 --filter='@opencode/cli^...' --filter='@opencode/app^...'
+          bun turbo build --concurrency=3 --filter='@xccode/cli^...' --filter='@xccode/app^...'
 
       - name: Setup Node build runtime
         if: ${{ !cancelled() }}

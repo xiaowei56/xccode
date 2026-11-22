@@ -3,8 +3,8 @@
 
 use std::sync::{Arc, Mutex};
 
-use opencode_api::client::Auth;
-use opencode_api::client_mcp::{self, Connection, Connector, Options, Tool, ToolResult, Tungstenite};
+use xccode_api::client::Auth;
+use xccode_api::client_mcp::{self, Connection, Connector, Options, Tool, ToolResult, Tungstenite};
 use serde_json::Map;
 use tokio::sync::oneshot;
 

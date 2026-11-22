@@ -10,13 +10,13 @@ pub mod parts;
 pub mod queue;
 pub mod status;
 
-use opencode_api::generated::{SessionInboxDelivery, SessionInboxItem, SessionInboxUser};
-use opencode_ui::dialog::{DialogKeymap, expire_leader, route_keys};
-use opencode_ui::keymap::{Keybinds, KeymapLayer, TuiCommand};
-use opencode_ui::prompt_input::editor::{Mention, normalize, realign_mentions};
-use opencode_ui::prompt_input::parse;
-use opencode_ui::prompt_input::paste::{Content, content};
-use opencode_ui::prompt_input::{self, attach, replace};
+use xccode_api::generated::{SessionInboxDelivery, SessionInboxItem, SessionInboxUser};
+use xccode_ui::dialog::{DialogKeymap, expire_leader, route_keys};
+use xccode_ui::keymap::{Keybinds, KeymapLayer, TuiCommand};
+use xccode_ui::prompt_input::editor::{Mention, normalize, realign_mentions};
+use xccode_ui::prompt_input::parse;
+use xccode_ui::prompt_input::paste::{Content, content};
+use xccode_ui::prompt_input::{self, attach, replace};
 use opentui::input::KeyEvent;
 use opentui::input::strip_ansi_sequences;
 use opentui::keymap::{Condition, Disposer};
@@ -527,7 +527,7 @@ impl Inner {
             && let Some(color) =
                 index.and_then(|index| agents[index].color.as_deref()).filter(|color| !color.is_empty())
         {
-            return opencode_ui::theme::from_hex(color);
+            return xccode_ui::theme::from_hex(color);
         }
         let index = index.unwrap_or(0);
         colors.get(index % colors.len().max(1)).copied().unwrap_or(theme.footer.border)
@@ -1225,7 +1225,7 @@ impl Inner {
             let result = command
                 .ok_or_else(|| "Set $VISUAL or $EDITOR to open an external editor".to_owned())
                 .and_then(|command| {
-                    opencode_ui::prompt_input::editor::edit(&command, &value, std::path::Path::new(&directory))
+                    xccode_ui::prompt_input::editor::edit(&command, &value, std::path::Path::new(&directory))
                 });
             match result {
                 Ok(None) => {}
@@ -1424,7 +1424,7 @@ fn keymap(app: &App, config: &Info, textarea: &Textarea) -> DialogKeymap {
     };
     DialogKeymap::new(
         keybinds,
-        opencode_ui::keymap::Options { leader_timeout, textarea_enabled: focused, textarea_run: run },
+        xccode_ui::keymap::Options { leader_timeout, textarea_enabled: focused, textarea_run: run },
     )
 }
 
@@ -1629,7 +1629,7 @@ mod tests {
             (r#"{ "leader": { "timeout": 250 } }"#, 250, false),
         ] {
             let app = opentui::testing::TestApp::new(40, 12);
-            let info = opencode_local::cli_config::decode_text(config).unwrap();
+            let info = xccode_local::cli_config::decode_text(config).unwrap();
             let prompt = Prompt::new(&app, &theme, false, &info);
             app.root().add(prompt.root());
             prompt.install();
@@ -1657,7 +1657,7 @@ mod tests {
     fn undo_brings_back_a_deleted_chip_with_its_part() {
         let theme = crate::theme::resolve(&crate::theme::ThemeInput::default());
         let app = opentui::testing::TestApp::new(40, 12);
-        let info = opencode_local::cli_config::decode_text("{}").unwrap();
+        let info = xccode_local::cli_config::decode_text("{}").unwrap();
         let prompt = Prompt::new(&app, &theme, false, &info);
         app.root().add(prompt.root());
         prompt.install();

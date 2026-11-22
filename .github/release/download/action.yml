@@ -22,5 +22,5 @@ runs:
     - shell: bash
       run: bash "${GITHUB_ACTION_PATH//\\//}/../verify-artifacts.sh" "$RUNNER_TEMP/in"
       env:
-        OPENCODE_DIGESTS: ${{ inputs.digests }}
-        OPENCODE_REQUIRE_DIGESTS: ${{ inputs.require-digests }}
+        XCCODE_DIGESTS: ${{ inputs.digests }}
+        XCCODE_REQUIRE_DIGESTS: ${{ inputs.require-digests }}

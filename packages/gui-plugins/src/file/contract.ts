@@ -1,4 +1,4 @@
-import { Contract, type MountedSession } from "@opencode/plugin/gui"
+import { Contract, type MountedSession } from "@xccode/plugin/gui"
 
 /**
  * Opens a workspace document as selectable source, without following its normal preview route. `unprompted`: nobody

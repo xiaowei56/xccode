@@ -7,7 +7,7 @@ const promised = new Set(promises)
 function warn(name: string) {
   if (warned.has(name)) return
   warned.add(name)
-  console.warn(`${name} from @opentui is not supported by opencode-native yet; it does nothing`)
+  console.warn(`${name} from @opentui is not supported by xccode-native yet; it does nothing`)
 }
 
 // Methods of an inert instance, and of a class that extends an inert class, do nothing and answer nothing.

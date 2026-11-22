@@ -6,7 +6,7 @@ import { storyDocument, storyTool } from "../storybook/current-session-scenarios
 import { type ContextGroupPart, CurrentContextToolGroup } from "./tool-renderer"
 
 export default {
-  title: "OpenCode/Work/Tool group",
+  title: "Xccode/Work/Tool group",
   id: "current-tool-group",
   component: CurrentContextToolGroup,
 }
@@ -82,7 +82,7 @@ export const MixedReasoning = {
         id: "reasoning_first",
         text: "The renderer groups adjacent tools. Check the relevant skills before changing it.",
       },
-      storyTool("reasoning_skill_first", "skill", "completed", { id: "opencode" }),
+      storyTool("reasoning_skill_first", "skill", "completed", { id: "xccode" }),
       storyTool("reasoning_skill_second", "skill", "completed", { id: "frontend-design" }),
       {
         type: "reasoning",
@@ -199,7 +199,7 @@ const stickyParts: ContextGroupPart[] = [
             `sticky_grep_${index}`,
             "grep",
             "completed",
-            { path: "C:/tmp/opencode/stack/packages/plugin-review-desktop/", pattern: 'turn"|lastTurn|session\\.diff' },
+            { path: "C:/tmp/xccode/stack/packages/plugin-review-desktop/", pattern: 'turn"|lastTurn|session\\.diff' },
             { metadata: { matches: 4 } },
           )
         : storyTool(

@@ -1,8 +1,8 @@
 //! Replays stored messages on `session/load`.
 
-use opencode_api::client::Client;
-use opencode_api::generated::{MessageListInput, MessageListInputOrder};
-use opencode_util::json_object;
+use xccode_api::client::Client;
+use xccode_api::generated::{MessageListInput, MessageListInputOrder};
+use xccode_util::json_object;
 use serde_json::{Value, json};
 
 use crate::capabilities::Capabilities;

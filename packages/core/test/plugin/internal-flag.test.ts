@@ -1,20 +1,20 @@
 import { describe, expect } from "bun:test"
 import { Duration, Effect, Layer, LayerMap, Stream } from "effect"
-import { App } from "@opencode/core/app"
-import { ConfigPluginSource } from "@opencode/core/config/plugin/source"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Flag } from "@opencode/core/flag"
-import { Instance } from "@opencode/core/instance"
-import { Location } from "@opencode/core/location"
-import { LocationServiceMap } from "@opencode/core/location-services"
-import { Plugin } from "@opencode/core/plugin"
-import { SdkPlugins } from "@opencode/core/plugin/sdk"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Tool } from "@opencode/core/tool"
-import { TodoTool } from "@opencode/core/tool/plugin/todo"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Global } from "@opencode/util/global"
-import { Npm } from "@opencode/util/npm"
+import { App } from "@xccode/core/app"
+import { ConfigPluginSource } from "@xccode/core/config/plugin/source"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { Flag } from "@xccode/core/flag"
+import { Instance } from "@xccode/core/instance"
+import { Location } from "@xccode/core/location"
+import { LocationServiceMap } from "@xccode/core/location-services"
+import { Plugin } from "@xccode/core/plugin"
+import { SdkPlugins } from "@xccode/core/plugin/sdk"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Tool } from "@xccode/core/tool"
+import { TodoTool } from "@xccode/core/tool/plugin/todo"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Global } from "@xccode/util/global"
+import { Npm } from "@xccode/util/npm"
 import { Bus } from "../../src/bus"
 import { Database } from "../../src/database/database"
 import { tempGlobalLayer } from "../fixture/global"
@@ -92,7 +92,7 @@ describe("PluginInternal flags", () => {
         Effect.provide(locations.get(Location.Ref.make({ directory: AbsolutePath.make(directory.path) }))),
       )
 
-      expect(registered).toContain("opencode_artifact_create")
+      expect(registered).toContain("xccode_artifact_create")
       expect(registered).toContain("shell")
       expect(registered).not.toContain(TodoTool.name)
       expect(direct).not.toContain("shell")

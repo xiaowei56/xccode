@@ -2,7 +2,7 @@
   Make a request to the running server
 
 [1mUSAGE[0m
-  [36mopencode api [flags] <operation | method path...>[0m
+  [36mxccode api [flags] <operation | method path...>[0m
 
 [1mARGUMENTS[0m
   [32moperation | method path...[0m [2mstring[0m OpenAPI operation ID, or an HTTP method followed by a path

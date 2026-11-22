@@ -1,5 +1,5 @@
 // The P-PTY fixture of P0b's plugin verbs that need a real terminal: one directory under the sandbox's global
-// `plugins` directory holds the TS plugin (`parity/plugins/title/tui.ts`) and its opencode-native twin, a Luau plugin
+// `plugins` directory holds the TS plugin (`parity/plugins/title/tui.ts`) and its xccode-native twin, a Luau plugin
 // (`plugin.toml` and `init.luau`). TS loads the first, Rust the second; each client ignores the other's files.
 import { copyFile, mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
@@ -8,13 +8,13 @@ import { parityRoot } from "../../cli/client"
 
 // Installs the plugin, and writes `cli.json` when `config` is given.
 export async function install(root: string, config?: object) {
-  const directory = path.join(root, "home/.config/opencode/plugins/title")
+  const directory = path.join(root, "home/.config/xccode/plugins/title")
   await mkdir(directory, { recursive: true })
   for (const file of ["tui.ts", "plugin.toml", "init.luau"]) {
     await copyFile(path.join(parityRoot, "plugins/title", file), path.join(directory, file))
   }
   const configured = { ...config, plugins: ["./plugins/title"] }
-  await writeFile(path.join(root, "home/.config/opencode/cli.json"), JSON.stringify(configured))
+  await writeFile(path.join(root, "home/.config/xccode/cli.json"), JSON.stringify(configured))
 }
 
 // The home screen, once the Rust plugin's commands are listed.

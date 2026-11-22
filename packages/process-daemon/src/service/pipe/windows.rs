@@ -649,7 +649,7 @@ struct OutputPipe {
 
 fn output_pipe() -> Result<OutputPipe> {
     let security = PrivateSecurity::new()?;
-    let name: Vec<u16> = format!(r"\\.\pipe\opencode-pty-{:032x}", rand::random::<u128>())
+    let name: Vec<u16> = format!(r"\\.\pipe\xccode-pty-{:032x}", rand::random::<u128>())
         .encode_utf16()
         .chain([0])
         .collect();
@@ -1033,7 +1033,7 @@ mod tests {
                 .collect(),
             group_id: "test".into(),
             output_path: std::env::temp_dir().join(format!(
-                "opencode-pty-pipe-test-{:032x}.out",
+                "xccode-pty-pipe-test-{:032x}.out",
                 rand::random::<u128>()
             )),
             metadata: PipeMetadata::new(),
@@ -1201,7 +1201,7 @@ mod tests {
         };
         let alias = alias.to_str().unwrap();
         let gate = TempGate(std::env::temp_dir().join(format!(
-            "opencode-pty-store-pwsh-gate-{:032x}",
+            "xccode-pty-store-pwsh-gate-{:032x}",
             rand::random::<u128>()
         )));
         std::fs::write(&gate.0, "").unwrap();
@@ -1218,7 +1218,7 @@ mod tests {
                     command,
                 ],
             );
-            // The full environment, as OpenCode passes it to the shell.
+            // The full environment, as Xccode passes it to the shell.
             request.env = std::env::vars().collect();
             let OutputPipe { server, client } = output_pipe().unwrap();
             Guarded {

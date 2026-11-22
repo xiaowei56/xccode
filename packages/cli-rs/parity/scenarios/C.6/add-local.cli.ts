@@ -1,6 +1,6 @@
 import { defineCli } from "../../cli/run"
 
-// `mcp add` with a command after `--` writes a local server into a new `opencode.json`.
+// `mcp add` with a command after `--` writes a local server into a new `xccode.json`.
 export default defineCli({
   args: [
     "mcp",
@@ -17,5 +17,5 @@ export default defineCli({
     "--root",
     ".",
   ],
-  collect: ["work/opencode.json"],
+  collect: ["work/xccode.json"],
 })

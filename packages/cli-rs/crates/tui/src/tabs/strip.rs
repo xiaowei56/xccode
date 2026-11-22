@@ -2,7 +2,7 @@
 
 use std::time::{Duration, Instant};
 
-use opencode_ui::theme::tint;
+use xccode_ui::theme::tint;
 use opentui::app::{AnimationTick, Tick};
 use opentui::input::{MouseButton, MouseEvent, MouseEventKind};
 use unicode_width::{UnicodeWidthChar, UnicodeWidthStr};
@@ -78,7 +78,7 @@ pub fn new(app: &App, tui: Weak<Tui>) -> Custom<Strip> {
         if event.kind == MouseEventKind::Moved {
             let x = i32::from(event.x) - hover.element().rect().screen_x.floor() as i32;
             let clickable = hover.with(|strip| strip.slot_at(x).is_some() || strip.on_plus(x));
-            hover.mouse_pointer(opencode_ui::click_pointer(clickable));
+            hover.mouse_pointer(xccode_ui::click_pointer(clickable));
         }
     })
 }
@@ -114,7 +114,7 @@ pub fn observe(strip: &Custom<Strip>, tui: &Tui) {
 /// clears before the next paint still fades out.
 pub(super) fn observe_markers(markers: &RefCell<HashMap<String, MarkerFade>>, tui: &Tui) {
     let theme = tui.page();
-    let animations = opencode_ui::motion::enabled(tui.config().info.animations);
+    let animations = xccode_ui::motion::enabled(tui.config().info.animations);
     let now = tui.app.now();
     let mut markers = markers.borrow_mut();
     for (session, marker) in markers.iter_mut().filter(|(session, _)| *session != NEW_TAB) {
@@ -140,7 +140,7 @@ pub(super) fn step(spins: &RefCell<HashMap<String, u64>>, ticks: u64) {
 }
 
 pub(super) fn spinner_fps() -> f64 {
-    1.0 / opencode_ui::motion::SPINNER_INTERVAL.as_secs_f64()
+    1.0 / xccode_ui::motion::SPINNER_INTERVAL.as_secs_f64()
 }
 
 pub(super) struct Palette {
@@ -248,7 +248,7 @@ pub(super) fn indicator(
     } else if status.attention == Some(Attention::Question) {
         "?".to_owned()
     } else if status.runs() {
-        let frames = opencode_ui::motion::SPINNER_FRAMES;
+        let frames = xccode_ui::motion::SPINNER_FRAMES;
         let frame = if animations { (step % frames.len() as u64) as usize } else { 0 };
         frames[frame].to_owned()
     } else if label == "+" {
@@ -317,7 +317,7 @@ impl Strip {
         let Some(tui) = self.tui.upgrade() else { return };
         match session.and_then(|session| self.titles.borrow().get(session).cloned().map(|title| (session, title))) {
             Some((session, (title, width))) => {
-                let animations = opencode_ui::motion::enabled(tui.config().info.animations);
+                let animations = xccode_ui::motion::enabled(tui.config().info.animations);
                 self.marquee.enter(app, session, &title, width, animations);
             }
             None => {
@@ -359,8 +359,8 @@ impl Component for Strip {
     fn paint(&self, painter: &mut Painter<'_>) {
         let Some(tui) = self.tui.upgrade() else { return };
         let theme = tui.page();
-        let animations = opencode_ui::motion::enabled(tui.config().info.animations);
-        let numbers = matches!(tui.config().tabs.indicators, opencode_local::cli_config::TabsIndicators::Numbers);
+        let animations = xccode_ui::motion::enabled(tui.config().info.animations);
+        let numbers = matches!(tui.config().tabs.indicators, xccode_local::cli_config::TabsIndicators::Numbers);
         let (items, new_tab) = self.items(&tui);
         let active = if new_tab { Some(NEW_TAB.to_owned()) } else { tui.tabs.current(&tui) };
         let show_plus = !new_tab;
@@ -716,7 +716,7 @@ mod tests {
         assert!(marker.moving(at(100)));
         // smoothstep(0.5) = 0.5: half way at 90 ms, so the marker is a blend of background and unread color.
         let half = marker.color(&Status::default(), BG, FLASH, at(90)).unwrap();
-        assert_eq!(half, opencode_ui::theme::tint(BG, UNREAD, 0.5 / 0.8));
+        assert_eq!(half, xccode_ui::theme::tint(BG, UNREAD, 0.5 / 0.8));
         let (glyph, _) = indicator(&Status::default(), "1", "", false, true, true, 0);
         assert_eq!(glyph, "•", "a fading marker keeps its glyph");
         assert!(!marker.moving(at(180)));

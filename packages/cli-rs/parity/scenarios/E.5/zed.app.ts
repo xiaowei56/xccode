@@ -16,7 +16,7 @@ create table editor_selections (editor_id integer, workspace_id integer, start i
 insert into workspaces values (1, '["/"]', '2026-11-04 10:00:00');
 insert into panes values (1, 1, 1);
 insert into items values (7, 1, 1, 'Editor', 1);
-insert into editors values (7, 1, '/tmp/opencode/packages/tui/src/index.ts', '${contents}');
+insert into editors values (7, 1, '/tmp/xccode/packages/tui/src/index.ts', '${contents}');
 insert into editor_selections values (7, 1, 18, 29);`,
   },
   routes: [

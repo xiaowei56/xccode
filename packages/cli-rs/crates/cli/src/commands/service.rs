@@ -3,17 +3,17 @@
 use std::path::PathBuf;
 use std::sync::Arc;
 
-use opencode_api::transport::{Reqwest, Transport};
-use opencode_local::channel::Channels;
-use opencode_local::paths::Paths;
-use opencode_local::registration;
-use opencode_local::service_config::{Edit, ServiceConfig};
-use opencode_service::connect::{self, Env};
-use opencode_service::delegate;
-use opencode_service::discover::{self, Found};
-use opencode_service::stop::{self, Poll, Pty};
-use opencode_service::ts_command::TsCommand;
-use opencode_util::error;
+use xccode_api::transport::{Reqwest, Transport};
+use xccode_local::channel::Channels;
+use xccode_local::paths::Paths;
+use xccode_local::registration;
+use xccode_local::service_config::{Edit, ServiceConfig};
+use xccode_service::connect::{self, Env};
+use xccode_service::delegate;
+use xccode_service::discover::{self, Found};
+use xccode_service::stop::{self, Poll, Pty};
+use xccode_service::ts_command::TsCommand;
+use xccode_util::error;
 
 use super::Context;
 use super::client::block_on;
@@ -65,7 +65,7 @@ impl Local {
 
     pub fn new(paths: Paths, env: Env) -> Self {
         let channel = Channels::from_vars(|name| match name {
-            "OPENCODE_CHANNEL" => env.channel.clone().map(Into::into),
+            "XCCODE_CHANNEL" => env.channel.clone().map(Into::into),
             _ => None,
         })
         .channel;

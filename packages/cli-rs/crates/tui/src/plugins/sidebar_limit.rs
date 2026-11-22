@@ -1,14 +1,14 @@
 //! Sidebar warning for the selected model's remaining workspace allowance.
 
-use opencode_plugin::abi::v2::{Node, Place, Surface};
-use opencode_plugin::abi::{self, Placement, Span};
-use opencode_plugin::slot;
+use xccode_plugin::abi::v2::{Node, Place, Surface};
+use xccode_plugin::abi::{self, Placement, Span};
+use xccode_plugin::slot;
 
 use super::{hidden, kept};
 use crate::dialogs::usage::{Level, format_dollars, level, model_usage};
 
 pub fn plugin() -> abi::Plugin {
-    abi::Plugin { id: "opencode.sidebar.limit", setup }
+    abi::Plugin { id: "xccode.sidebar.limit", setup }
 }
 
 const ROOT: &str = "limit";

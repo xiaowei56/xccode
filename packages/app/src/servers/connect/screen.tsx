@@ -1,7 +1,7 @@
 import { lazy, Show, Suspense, type Component, type ComponentProps } from "solid-js"
-import { Button } from "@opencode/ui/button"
-import { TextInput } from "@opencode/ui/text-input"
-import { Wordmark } from "@opencode/ui/wordmark"
+import { Button } from "@xccode/ui/button"
+import { TextInput } from "@xccode/ui/text-input"
+import { Wordmark } from "@xccode/ui/wordmark"
 import { useLanguage } from "@/runtime/i18n/language"
 import { createServerConnectController } from "./controller"
 import { ConnectMethodSwitch } from "./method"
@@ -29,7 +29,7 @@ export function ConnectServerForm(props: {
   return (
     <main data-component="connect-server" aria-labelledby="server-connect-title">
       <div class="server-connect-content">
-        <div class="server-connect-brand" role="img" aria-label="OpenCode">
+        <div class="server-connect-brand" role="img" aria-label="Xccode">
           <Wordmark />
         </div>
         <header>
@@ -154,7 +154,7 @@ export function ConnectServerForm(props: {
           <Show when={view().draft.method === "link"}>
             <footer>
               <p>{language.t("server.connect.pair.link")}</p>
-              <code dir="ltr">opencode pair</code>
+              <code dir="ltr">xccode pair</code>
             </footer>
           </Show>
         </Show>

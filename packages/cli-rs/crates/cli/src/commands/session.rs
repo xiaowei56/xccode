@@ -1,11 +1,11 @@
-use opencode_util::path::Flavor;
-use opencode_util::{bail, err, error, json_object, time::Zone};
+use xccode_util::path::Flavor;
+use xccode_util::{bail, err, error, json_object, time::Zone};
 use std::io::{IsTerminal, Write};
 use std::process::{Command, Stdio};
 
-use opencode_api::client::Client;
-use opencode_api::error::Error as ApiError;
-use opencode_api::generated::types::{
+use xccode_api::client::Client;
+use xccode_api::error::Error as ApiError;
+use xccode_api::generated::types::{
     AbsolutePath, ExperimentalSessionExportInput, LocationGetInput, LocationQueryInput, ProjectID, SessionListInput,
     SessionListInputOrder, SessionRemoveInput,
 };
@@ -36,7 +36,7 @@ fn caught(result: error::Result<()>) -> error::Result<()> {
     if error.is::<Exit>() {
         return Err(error);
     }
-    eprintln!("{}", opencode_ui::terminal_text(&message(&error)));
+    eprintln!("{}", xccode_ui::terminal_text(&message(&error)));
     Err(Exit(1).into())
 }
 
@@ -107,7 +107,7 @@ fn table(sessions: &[Value]) -> String {
         .iter()
         .map(|session| {
             let title = session["title"].as_str().unwrap_or("Untitled session").replace(['\r', '\n', '\t'], " ");
-            let title = opencode_ui::terminal_text(&title);
+            let title = xccode_ui::terminal_text(&title);
             format!("{}\t{title}\t{}", text(&session["id"]), locale_string(&session["time"]["updated"]))
         })
         .collect::<Vec<_>>()
@@ -244,10 +244,10 @@ async fn read(file: &str) -> error::Result<String> {
         });
     }
     // reqwest parses the URL too; other parse errors keep its wording.
-    if let Err(error @ opencode_api::js::UrlError::NonAsciiHost(_)) = opencode_api::js::parse_url(file) {
+    if let Err(error @ xccode_api::js::UrlError::NonAsciiHost(_)) = xccode_api::js::parse_url(file) {
         return Err(error.into());
     }
-    let response = opencode_api::transport::fetch(opencode_api::transport::http_client().get(file)).await?;
+    let response = xccode_api::transport::fetch(xccode_api::transport::http_client().get(file)).await?;
     if !response.status().is_success() {
         bail!("Failed to fetch session data: {}", response.status().canonical_reason().unwrap_or_default());
     }

@@ -7,24 +7,24 @@ import path from "path"
 import whichPkg from "which"
 import { Effect, Layer } from "effect"
 import { ChildProcessSpawner } from "effect/process"
-import { LanguageModel } from "@opencode/ai/effect"
-import { OpenAIChat } from "@opencode/ai/protocols/openai-chat"
-import { TestLLM } from "@opencode/ai/testing"
-import { Agent } from "@opencode/core/agent"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@opencode/core/effect/app-node-platform"
-import { Watcher } from "@opencode/core/filesystem/watcher"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
-import { Model } from "@opencode/core/model"
-import { Plugin } from "@opencode/core/plugin"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { SessionRunnerModel } from "@opencode/core/session/runner/model"
-import { gitExecutable } from "@opencode/core/util/git-executable"
-import { CrossSpawnSpawner } from "@opencode/util/cross-spawn-spawner"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Global } from "@opencode/util/global"
+import { LanguageModel } from "@xccode/ai/effect"
+import { OpenAIChat } from "@xccode/ai/protocols/openai-chat"
+import { TestLLM } from "@xccode/ai/testing"
+import { Agent } from "@xccode/core/agent"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@xccode/core/effect/app-node-platform"
+import { Watcher } from "@xccode/core/filesystem/watcher"
+import { LocationServiceMap } from "@xccode/core/location-service-map"
+import { Model } from "@xccode/core/model"
+import { Plugin } from "@xccode/core/plugin"
+import { Provider } from "@xccode/core/provider"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Session } from "@xccode/core/session"
+import { SessionRunnerModel } from "@xccode/core/session/runner/model"
+import { gitExecutable } from "@xccode/core/util/git-executable"
+import { CrossSpawnSpawner } from "@xccode/util/cross-spawn-spawner"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Global } from "@xccode/util/global"
 import { tempGlobalLayer } from "./fixture/global"
 import { initRepo } from "./fixture/git"
 import { offlineModels } from "./fixture/models"
@@ -51,7 +51,7 @@ const countingSpawner = CrossSpawnSpawner.node.replace(
 )
 
 const isAzure = (provider: Provider.Info) =>
-  provider.id === Provider.ID.azure || provider.package.startsWith("@opencode/ai/providers/azure/")
+  provider.id === Provider.ID.azure || provider.package.startsWith("@xccode/ai/providers/azure/")
 
 // `ctx.model.list()` reads `Model.available()`. Every editor list/get/update clones the models it touches.
 const countingModels = Model.node.replace(
@@ -162,7 +162,7 @@ describe("boot work", () => {
       const tmp = yield* tmpdirScoped()
       yield* Effect.promise(() => initRepo(tmp.path))
       yield* Effect.promise(() =>
-        Bun.write(path.join(tmp.path, "opencode.json"), JSON.stringify({ providers: { azure: {} } })),
+        Bun.write(path.join(tmp.path, "xccode.json"), JSON.stringify({ providers: { azure: {} } })),
       )
       const executable = gitExecutable()
       counters.gitSpawns = []

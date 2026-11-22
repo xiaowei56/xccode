@@ -1,5 +1,5 @@
-import type { Cleanup, Messages } from "@opencode/plugin/gui"
-import type { Entry } from "@opencode/plugin/gui/host"
+import type { Cleanup, Messages } from "@xccode/plugin/gui"
+import type { Entry } from "@xccode/plugin/gui/host"
 
 export type PluginStatus = "loading" | "active" | "failed" | "disabled"
 

@@ -1,10 +1,10 @@
-import { markdown } from "@opencode/ui/storybook/fixtures"
+import { markdown } from "@xccode/ui/storybook/fixtures"
 import { createEffect, createSignal, onCleanup } from "solid-js"
 import { MarkdownProvider } from "../context/markdown"
 import { Markdown } from "./markdown"
 
 export default {
-  title: "OpenCode/Conversation/Markdown response",
+  title: "Xccode/Conversation/Markdown response",
   id: "components-markdown",
   component: Markdown,
   parameters: {
@@ -39,7 +39,7 @@ const longCode = [
   "Reproduce it with:",
   "",
   "```sh",
-  'NODE_OPTIONS="--max-old-space-size=4096 --enable-source-maps" bun install --frozen-lockfile --filter "@opencode/session-ui" && bun run --cwd packages/session-ui typecheck:tsc',
+  'NODE_OPTIONS="--max-old-space-size=4096 --enable-source-maps" bun install --frozen-lockfile --filter "@xccode/session-ui" && bun run --cwd packages/session-ui typecheck:tsc',
   "```",
   "",
   "The failing line:",
@@ -177,7 +177,7 @@ export const StreamingInlineCode = {
 
 const externalLinkChunks = [
   "1. ",
-  "[#540](https://github.com/anomalyco/opencode/pull/540)",
+  "[#540](https://github.com/xiaowei56/xccode/pull/540)",
   ": Batch access-policy reads.\n2. ",
   "[Stack Overflow](https://stackoverflow.com/questions/123)",
   ": Favicon from a public site.\n3. ",

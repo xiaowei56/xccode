@@ -82,7 +82,7 @@ export default defineConfig({
       },
       // Development only: heavy media is in the files bucket (src/lib/media.ts), so play the dev copies.
       "/files": {
-        target: "https://dev.opencode.ai",
+        target: "https://dev.xccode.ai",
         changeOrigin: true,
       },
     },

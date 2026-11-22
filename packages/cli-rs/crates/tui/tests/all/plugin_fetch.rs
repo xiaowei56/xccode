@@ -6,10 +6,10 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use bytes::Bytes;
-use opencode_api::client::Auth;
-use opencode_api::transport::{BoxFuture, Request, Response, Transport};
-use opencode_plugin::abi;
-use opencode_tui::{Deps, Route};
+use xccode_api::client::Auth;
+use xccode_api::transport::{BoxFuture, Request, Response, Transport};
+use xccode_plugin::abi;
+use xccode_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 type Endpoint = Arc<Mutex<(String, String)>>;
@@ -141,7 +141,7 @@ fn a_moved_service_gets_the_fetch() {
 
 #[test]
 fn a_bare_btw_prompts_and_copying_keeps_the_answer_scrolled() {
-    let capture = opencode_tui::features::links::testing::capture();
+    let capture = xccode_tui::features::links::testing::capture();
     let server = Server::new(true);
     let h = mount(&server, &[]);
     h.tui.keymap.dispatch("session.aside", None);
@@ -193,7 +193,7 @@ fn a_slow_btw_reply_across_a_disable_delivers_nothing() {
     h.wait("the question to go out", || server.sent("/generate").len() == 1);
     h.wait_for("/btw");
     // The spinner's claim stays mounted until the route mounts again, and it holds the plugin's state.
-    h.tui.plugins.set_active(&opencode_tui::plugins::host::host(&h.tui), "opencode.btw", false);
+    h.tui.plugins.set_active(&xccode_tui::plugins::host::host(&h.tui), "xccode.btw", false);
     server.release();
     h.app.wait_until(Duration::from_millis(300), || false);
     assert!(!h.app.text().contains("answer to one"), "{}", h.app.text());
@@ -209,7 +209,7 @@ fn a_closed_btw_answer_is_freed() {
     for question in ["one", "two", "three", "four"] {
         h.tui.keymap.dispatch("session.aside", Some(question));
         h.wait_for(&format!("answer to {question}"));
-        opencode_tui::plugins::panel::testing::mark(&h.tui, &marker);
+        xccode_tui::plugins::panel::testing::mark(&h.tui, &marker);
         h.app.press("escape");
         h.wait_gone(&format!("answer to {question}"));
     }
@@ -246,10 +246,10 @@ fn a_late_btw_copy_does_not_reopen_a_closed_answer() {
 #[test]
 fn the_stats_route_fetches_as_it_mounts_however_it_opens() {
     let server = Server::new(true);
-    let stats = abi::Route::Plugin { id: "opencode.stats".into(), name: "stats".into() };
+    let stats = abi::Route::Plugin { id: "xccode.stats".into(), name: "stats".into() };
     let deps = Deps {
         config: support::config(support::still()),
-        route: Route::Plugin { id: "opencode.stats".into(), name: "stats".into() },
+        route: Route::Plugin { id: "xccode.stats".into(), name: "stats".into() },
         ..support::deps(Arc::new(server.clone()))
     };
     let h = support::mount(100, 40, deps);
@@ -262,7 +262,7 @@ fn the_stats_route_fetches_as_it_mounts_however_it_opens() {
 
     h.tui.navigate(support::session_route("ses_a"));
     h.wait_for("Fix the parser");
-    opencode_plugin::Host::navigate(&*h.tui, "other.plugin", &stats);
+    xccode_plugin::Host::navigate(&*h.tui, "other.plugin", &stats);
     h.wait_for("best streak");
     assert_eq!(server.sent("/session/stats").len(), 2, "a revisit asks afresh");
 }
@@ -299,7 +299,7 @@ fn an_error_status_reaches_the_plugin_with_its_status_and_body() {
     let server = Server::new(true);
     let h = mount(&server, &[]);
     let definition = abi::Plugin { id: "probe", setup: probe_setup }.into();
-    opencode_tui::plugins::host::add(&h.tui, definition);
+    xccode_tui::plugins::host::add(&h.tui, definition);
     for path in ["404/text", "404/json", "404/empty", "500/text", "500/json", "500/empty"] {
         let count = PROBED.with_borrow(Vec::len);
         h.tui.keymap.dispatch("probe.fetch", Some(&format!("/probe/{path}")));

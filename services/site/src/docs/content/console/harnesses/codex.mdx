@@ -8,7 +8,7 @@ open models. Console translates the request for models that don't accept Respons
 
 <Callout>
   The [Console CLI](/console/harnesses#console-cli) sets up Codex with one command, including the workspace's policies,
-  MCP servers, skills and instructions. Run `npx @opencode/console setup codex`. The steps below set it up by hand.
+  MCP servers, skills and instructions. Run `npx @xccode/console setup codex`. The steps below set it up by hand.
 </Callout>
 
 ## Configure
@@ -17,12 +17,12 @@ Add Console as a model provider in `~/.codex/config.toml` and make it the defaul
 
 ```toml title="~/.codex/config.toml"
 model = "gpt-6.1-sol"
-model_provider = "opencode"
+model_provider = "xccode"
 
-[model_providers.opencode]
-name = "OpenCode Console"
-base_url = "https://opencode.ai/inference/openai/v1"
-env_key = "OPENCODE_API_KEY"
+[model_providers.xccode]
+name = "Xccode Console"
+base_url = "https://xccode.ai/inference/openai/v1"
+env_key = "XCCODE_API_KEY"
 wire_api = "responses"
 ```
 
@@ -30,7 +30,7 @@ Codex appends `/responses` to the base URL and reads the key from `env_key`. Cre
 [personal API key](/console/harnesses#get-an-api-key), then export it.
 
 ```bash
-export OPENCODE_API_KEY="oc_sk_..."
+export XCCODE_API_KEY="oc_sk_..."
 codex
 ```
 
@@ -44,12 +44,12 @@ Use the Go base URL and a key from a workspace with a [Go](/console/go) subscrip
 
 ```toml title="~/.codex/config.toml"
 model = "kimi-k3"
-model_provider = "opencode-go"
+model_provider = "xccode-go"
 
-[model_providers.opencode-go]
-name = "OpenCode Go"
-base_url = "https://opencode.ai/inference/go/openai/v1"
-env_key = "OPENCODE_API_KEY"
+[model_providers.xccode-go]
+name = "Xccode Go"
+base_url = "https://xccode.ai/inference/go/openai/v1"
+env_key = "XCCODE_API_KEY"
 wire_api = "responses"
 ```
 
@@ -72,7 +72,7 @@ profile file that switches to Go.
 
 ```toml title="~/.codex/go.config.toml"
 model = "kimi-k3"
-model_provider = "opencode-go"
+model_provider = "xccode-go"
 ```
 
 ```bash
@@ -84,11 +84,11 @@ codex --profile go
 Add the [Console MCP](/console/harnesses#console-mcp) server and sign in from the browser.
 
 ```bash
-codex mcp add opencode-console --url https://opencode.ai/console/mcp
+codex mcp add xccode-console --url https://xccode.ai/console/mcp
 ```
 
 If the sign-in doesn't start automatically, run it yourself.
 
 ```bash
-codex mcp login opencode-console
+codex mcp login xccode-console
 ```

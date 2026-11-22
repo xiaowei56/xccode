@@ -76,7 +76,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "Batas gratis tercapai",
   "dialog.usageExceeded.freeTier.description":
-    "Berlangganan OpenCode Go seharga $10/bulan untuk akses andal ke model sumber terbuka terbaik.",
+    "Berlangganan Xccode Go seharga $10/bulan untuk akses andal ke model sumber terbuka terbaik.",
   "dialog.usageExceeded.freeTier.actionLabel": "Berlangganan",
 
   "ui.sessionTurn.status.delegating": "Mendelegasikan pekerjaan",
@@ -290,9 +290,9 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "Anggaran model tercapai · model ini dijeda hingga diatur ulang",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Gunakan model gratis",
   "ui.sessionTurn.budgetLimit.switchModel": "Ganti model",
-  "ui.sessionTurn.goLimit.title": "Anda telah mencapai batas penggunaan OpenCode Go.",
+  "ui.sessionTurn.goLimit.title": "Anda telah mencapai batas penggunaan Xccode Go.",
   "ui.sessionTurn.goLimit.lineReset":
-    "Anda telah mencapai batas penggunaan OpenCode Go. Batas diatur ulang pada {{time}}.",
+    "Anda telah mencapai batas penggunaan Xccode Go. Batas diatur ulang pada {{time}}.",
   "dialog.usageExceeded.freeTier.reset": "Pesan gratis Anda diatur ulang pada {{time}}.",
   "ui.messagePart.compaction.queued": "Pengompakan sesi dalam antrean",
   "ui.messagePart.compaction.done": "Dikompak",

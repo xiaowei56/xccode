@@ -3,18 +3,18 @@
 use std::future::Future;
 use std::sync::Arc;
 
-use opencode_api::client::Client;
-use opencode_api::generated::types::LocationQueryInput;
-use opencode_api::transport::{Reqwest, Transport};
-use opencode_local::paths::Paths;
-use opencode_service::connect::{self, Connection, Env, Options};
-use opencode_service::probe::Endpoint;
-use opencode_util::error;
+use xccode_api::client::Client;
+use xccode_api::generated::types::LocationQueryInput;
+use xccode_api::transport::{Reqwest, Transport};
+use xccode_local::paths::Paths;
+use xccode_service::connect::{self, Connection, Env, Options};
+use xccode_service::probe::Endpoint;
+use xccode_util::error;
 use serde_json::Value;
 
 use super::Context;
 
-pub use opencode_api::js::locale_compare;
+pub use xccode_api::js::locale_compare;
 
 /// Runs `future` to completion on a runtime of its own; handlers are synchronous.
 pub fn block_on<F: Future>(future: F) -> error::Result<F::Output> {
@@ -89,7 +89,7 @@ async fn connect_in(
     )
     .await?;
     let client = if follow {
-        opencode_service::follow::client(transport, &connection, paths, env)?
+        xccode_service::follow::client(transport, &connection, paths, env)?
     } else {
         connection.endpoint.client(transport)?
     };
@@ -106,7 +106,7 @@ pub fn here() -> error::Result<LocationQueryInput> {
 /// read stops the wait.
 pub async fn wait_for_plugins(client: &Client, location: Option<LocationQueryInput>) {
     let deadline = std::time::Instant::now() + std::time::Duration::from_secs(5);
-    let input = opencode_api::generated::types::PluginListInput { location };
+    let input = xccode_api::generated::types::PluginListInput { location };
     while let Ok(plugins) = client.plugin_list(&input).await {
         if !plugins.data.is_empty() || std::time::Instant::now() >= deadline {
             return;
@@ -142,8 +142,8 @@ process.exit(0)
     impl Transport for Restarting {
         fn send(
             &self,
-            request: opencode_api::transport::Request,
-        ) -> opencode_api::transport::BoxFuture<'_, Result<opencode_api::transport::Response, String>> {
+            request: xccode_api::transport::Request,
+        ) -> xccode_api::transport::BoxFuture<'_, Result<xccode_api::transport::Response, String>> {
             let mut sent = self.0.lock().unwrap();
             sent.push(request.url.to_string());
             let old = sent.iter().filter(|url| url.contains(":4096/")).count();
@@ -153,7 +153,7 @@ process.exit(0)
                     return Err("connection refused".to_owned());
                 }
                 let body = r#"{"version":"2.0.0","pid":9,"urls":[],"paths":{"tmp":"/tmp"}}"#;
-                Ok(opencode_api::transport::Response {
+                Ok(xccode_api::transport::Response {
                     status: 200,
                     headers: vec![("content-type".to_owned(), "application/json".to_owned())],
                     body: Box::pin(futures_util::stream::iter([Ok(body.as_bytes().to_vec().into())])),
@@ -165,7 +165,7 @@ process.exit(0)
     /// `mini` follows a background service that restarts on another port, as `service.reconnect` does.
     #[tokio::test]
     async fn a_following_client_finds_a_restarted_service() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let root = dir.path().to_owned();
         let paths = Paths::from_vars(|name| match name {
             "HOME" => Some(root.clone().into()),
@@ -179,7 +179,7 @@ process.exit(0)
             std::fs::write(paths.state.join("service-oc-x.json"), entry).unwrap();
         };
         register(4096);
-        let env = Env { ts_bin: Some("/nonexistent/opencode-ts".to_owned()), ..Env::default() };
+        let env = Env { ts_bin: Some("/nonexistent/xccode-ts".to_owned()), ..Env::default() };
         let context = Context { server: ServerFlags { standalone: false, server: None }, args: Vec::new() };
         let transport = Arc::new(Restarting::default());
         let server = connect_in(&context, &paths, &env, false, true, transport.clone()).await.unwrap();
@@ -196,18 +196,18 @@ process.exit(0)
     impl Transport for Cold {
         fn send(
             &self,
-            request: opencode_api::transport::Request,
-        ) -> opencode_api::transport::BoxFuture<'_, Result<opencode_api::transport::Response, String>> {
+            request: xccode_api::transport::Request,
+        ) -> xccode_api::transport::BoxFuture<'_, Result<xccode_api::transport::Response, String>> {
             assert_eq!(request.url.path(), "/api/plugin");
             let reads = self.0.fetch_add(1, std::sync::atomic::Ordering::SeqCst) + 1;
             let data = if reads < 3 {
                 "[]"
             } else {
-                r#"[{"id":"opencode.core","source":{"type":"builtin"},"features":{"server":true},"state":{"status":"active"}}]"#
+                r#"[{"id":"xccode.core","source":{"type":"builtin"},"features":{"server":true},"state":{"status":"active"}}]"#
             };
             let body = format!(r#"{{"location":{{"directory":"/w"}},"data":{data}}}"#);
             Box::pin(async move {
-                Ok(opencode_api::transport::Response {
+                Ok(xccode_api::transport::Response {
                     status: 200,
                     headers: vec![("content-type".to_owned(), "application/json".to_owned())],
                     body: Box::pin(futures_util::stream::iter([Ok(body.into_bytes().into())])),
@@ -232,18 +232,18 @@ process.exit(0)
     async fn a_standalone_server_lives_as_long_as_the_connection() {
         if std::process::Command::new("bun").arg("--version").output().is_err() {
             assert!(
-                std::env::var_os("OPENCODE_RS_REQUIRE_TS").is_none(),
-                "OPENCODE_RS_REQUIRE_TS is set, but skipped: bun is not on PATH"
+                std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(),
+                "XCCODE_RS_REQUIRE_TS is set, but skipped: bun is not on PATH"
             );
             eprintln!("skipped: bun is not on PATH");
             return;
         }
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let script = dir.path().join("standalone.ts");
         std::fs::write(&script, STANDALONE).unwrap();
-        // `OPENCODE_TS_BIN` names one executable.
-        let program = dir.path().join("opencode-ts");
-        opencode_service::ts_command::write_script(&program, &format!("#!/bin/sh\nexec bun {}\n", script.display()));
+        // `XCCODE_TS_BIN` names one executable.
+        let program = dir.path().join("xccode-ts");
+        xccode_service::ts_command::write_script(&program, &format!("#!/bin/sh\nexec bun {}\n", script.display()));
         let root = dir.path().to_owned();
         let paths = Paths::from_vars(|name| match name {
             "HOME" => Some(root.clone().into()),

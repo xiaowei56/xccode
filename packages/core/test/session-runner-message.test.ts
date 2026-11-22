@@ -1,15 +1,15 @@
 import { describe, expect, test } from "bun:test"
-import { Message, Media } from "@opencode/ai/effect"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { SessionMessage } from "@opencode/core/session/message"
-import { AgentAttachment, Base64, FileAttachment, SkillAttachment } from "@opencode/schema/prompt"
-import { Skill } from "@opencode/schema/skill"
-import { toLLMMessages } from "@opencode/core/session/runner/to-llm-message"
-import { Agent } from "@opencode/core/agent"
-import { Shell } from "@opencode/schema/shell"
-import { Location } from "@opencode/schema/location"
-import { AbsolutePath } from "@opencode/schema/schema"
+import { Message, Media } from "@xccode/ai/effect"
+import { Model } from "@xccode/core/model"
+import { Provider } from "@xccode/core/provider"
+import { SessionMessage } from "@xccode/core/session/message"
+import { AgentAttachment, Base64, FileAttachment, SkillAttachment } from "@xccode/schema/prompt"
+import { Skill } from "@xccode/schema/skill"
+import { toLLMMessages } from "@xccode/core/session/runner/to-llm-message"
+import { Agent } from "@xccode/core/agent"
+import { Shell } from "@xccode/schema/shell"
+import { Location } from "@xccode/schema/location"
+import { AbsolutePath } from "@xccode/schema/schema"
 import { DateTime } from "effect"
 import path from "path"
 import { pathToFileURL } from "url"
@@ -897,15 +897,15 @@ Earlier work
     ])
   })
 
-  test("replays flat state under an OpenCode hosted model's route key", () => {
-    const opencode = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.opencode })
+  test("replays flat state under an Xccode hosted model's route key", () => {
+    const xccode = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.xccode })
     const messages = toLLMMessages(
       [
         SessionMessage.Assistant.make({
-          id: id("assistant-opencode-reasoning"),
+          id: id("assistant-xccode-reasoning"),
           type: "assistant",
           agent: build,
-          model: opencode,
+          model: xccode,
           content: [
             SessionMessage.AssistantReasoning.make({
               type: "reasoning",
@@ -917,7 +917,7 @@ Earlier work
           time: { created, completed: created },
         }),
       ],
-      opencode,
+      xccode,
       "anthropic",
     )
 

@@ -2,7 +2,7 @@ use crate::support::{self, DIRECTORY, Fake, Harness};
 
 use std::sync::Arc;
 
-use opencode_tui::{Deps, Route};
+use xccode_tui::{Deps, Route};
 
 fn mount(width: u16, height: u16, route: Route) -> Harness {
     let fake = Fake::new(|seen| support::base(seen, DIRECTORY));

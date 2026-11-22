@@ -1,13 +1,13 @@
 import { createMemo, createSignal, onCleanup, Show, untrack } from "solid-js"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { showToast } from "@opencode/ui/toast"
-import { Tooltip } from "@opencode/ui/tooltip"
-import { usePlugin } from "@opencode/plugin/gui"
-import { motionGlobals, motionTuning } from "@opencode/ui/motion-tuning"
-import { duration } from "@opencode/util/duration"
-import { SessionTurn } from "@opencode/util/session-turn"
-import { builtinContext } from "@opencode/plugin/gui/builtin"
+import { Icon } from "@xccode/ui/icon"
+import { IconButton } from "@xccode/ui/icon-button"
+import { showToast } from "@xccode/ui/toast"
+import { Tooltip } from "@xccode/ui/tooltip"
+import { usePlugin } from "@xccode/plugin/gui"
+import { motionGlobals, motionTuning } from "@xccode/ui/motion-tuning"
+import { duration } from "@xccode/util/duration"
+import { SessionTurn } from "@xccode/util/session-turn"
+import { builtinContext } from "@xccode/plugin/gui/builtin"
 import {
   initialFocusToggleState,
   isFocusToggleActive,
@@ -348,7 +348,7 @@ export default function DebugBar(props: {
         <Show when={props.motion}>
           <div class="ms-auto flex items-center gap-[9px]">
             {/* The lab's route exists only on the dev server and in Beta. */}
-            {(import.meta.env.DEV || import.meta.env.VITE_OPENCODE_CHANNEL === "beta") && (
+            {(import.meta.env.DEV || import.meta.env.VITE_XCCODE_CHANNEL === "beta") && (
               <Tooltip appearance="compact" value={ctx.t("components.tip")} placement="top">
                 <a
                   href="/components"

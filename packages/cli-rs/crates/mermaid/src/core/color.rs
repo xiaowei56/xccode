@@ -1,6 +1,6 @@
 //! Blended channels round to the nearest byte, with ties rounded up.
 
-use opencode_plugin_abi::Rgba;
+use xccode_plugin_abi::Rgba;
 
 pub fn rgb(r: u8, g: u8, b: u8) -> Rgba {
     Rgba::new(r, g, b, 255)

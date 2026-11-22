@@ -3,12 +3,12 @@
 
 use std::sync::Arc;
 
-use opencode_api::generated::{McpServerStatus, SessionArchivedData, SessionDeleted, V2Event, V2EventServerConnected};
+use xccode_api::generated::{McpServerStatus, SessionArchivedData, SessionDeleted, V2Event, V2EventServerConnected};
 
 use crate::prelude::*;
 
 type Subscribers = Rc<RefCell<Vec<(u64, Rc<dyn Fn(&Tui, &V2Event)>)>>>;
-type DeltaSubscribers = Rc<RefCell<Vec<(u64, Rc<opencode_store::DeltaListening>, Rc<dyn Fn(&[V2Event])>)>>>;
+type DeltaSubscribers = Rc<RefCell<Vec<(u64, Rc<xccode_store::DeltaListening>, Rc<dyn Fn(&[V2Event])>)>>>;
 
 /// Last reported MCP status per server and subscribers to signals and deltas.
 #[derive(Default)]
@@ -33,7 +33,7 @@ macro_rules! handled {
     ($($tag:literal => $variant:ident($payload:ident)),* $(,)?) => {
         #[allow(dead_code, reason = "a handler may match a variant without reading its payload")]
         pub(crate) enum Handled<'a> {
-            $($variant(&'a opencode_api::generated::$payload),)*
+            $($variant(&'a xccode_api::generated::$payload),)*
         }
 
         impl<'a> Handled<'a> {
@@ -68,7 +68,7 @@ pub fn install(tui: &Tui) {
     std::mem::forget(tui.data.listen(HANDLED.iter().map(|(tag, _)| *tag)));
     tui.app.on_message(bind!(tui, |tui, _, Signal(event)| {
         // Flush the previous signal's plugin actions before the next signal can navigate.
-        opencode_plugin::flush();
+        xccode_plugin::flush();
         if let Some(event) = Handled::of(event) {
             handle(&tui, &event);
         }
@@ -255,7 +255,7 @@ fn handle(tui: &Tui, event: &Handled) {
     }
 }
 
-fn here(tui: &Tui, location: Option<&opencode_api::generated::LocationRef>) -> bool {
+fn here(tui: &Tui, location: Option<&xccode_api::generated::LocationRef>) -> bool {
     let current = crate::features::location::current(tui)
         .unwrap_or_else(|| tui.data.read(|state| state.default_location().clone()));
     location.is_some_and(|location| location.directory.0 == current.directory)

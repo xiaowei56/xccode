@@ -1,7 +1,7 @@
 // The Luau quick start's TypeScript twin: `/hello` shows a toast, and a muted line closes the home
 // footer. parity/scenarios/P.luau/hello.pty.ts installs this file beside the Luau plugin
 // (`crates/plugin/examples/luau/hello`) in one `plugins` directory: TS loads `tui.tsx`, Rust with
-// `OPENCODE_PLUGIN_LUAU=1` loads `plugin.toml` and `init.luau`.
+// `XCCODE_PLUGIN_LUAU=1` loads `plugin.toml` and `init.luau`.
 import type { Context } from "../../../../plugin/src/tui/plugin"
 
 export default {

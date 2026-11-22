@@ -9,32 +9,32 @@ import {
   SystemPart,
   TransportError,
   type LLMRequest,
-} from "@opencode/ai/effect"
-import { OpenAIChat, OpenAIResponses } from "@opencode/ai/protocols"
-import { Agent } from "@opencode/core/agent"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { llmClient } from "@opencode/core/effect/app-node-platform"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionRunnerModel } from "@opencode/core/session/runner/model"
-import { SessionTable } from "@opencode/core/session/sql"
-import { SessionStore } from "@opencode/core/session/store"
-import { SessionTitle } from "@opencode/core/session/title"
-import { PluginHooks } from "@opencode/core/plugin/hooks"
-import { PluginSupervisor } from "@opencode/core/plugin/supervisor"
-import { Location } from "@opencode/core/location"
-import { Session } from "@opencode/core/session"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { App } from "@opencode/core/app"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Money } from "@opencode/schema/money"
+} from "@xccode/ai/effect"
+import { OpenAIChat, OpenAIResponses } from "@xccode/ai/protocols"
+import { Agent } from "@xccode/core/agent"
+import { Database } from "@xccode/core/database/database"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { llmClient } from "@xccode/core/effect/app-node-platform"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Bus } from "@xccode/core/bus"
+import { SessionEvent } from "@xccode/core/session/event"
+import { SessionMessage } from "@xccode/core/session/message"
+import { SessionProjector } from "@xccode/core/session/projector"
+import { SessionRunnerModel } from "@xccode/core/session/runner/model"
+import { SessionTable } from "@xccode/core/session/sql"
+import { SessionStore } from "@xccode/core/session/store"
+import { SessionTitle } from "@xccode/core/session/title"
+import { PluginHooks } from "@xccode/core/plugin/hooks"
+import { PluginSupervisor } from "@xccode/core/plugin/supervisor"
+import { Location } from "@xccode/core/location"
+import { Session } from "@xccode/core/session"
+import { Project } from "@xccode/core/project"
+import { ProjectTable } from "@xccode/core/project/sql"
+import { App } from "@xccode/core/app"
+import { Model } from "@xccode/core/model"
+import { Provider } from "@xccode/core/provider"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Money } from "@xccode/schema/money"
 import { Deferred, Effect, Fiber, Layer, Schema, Stream } from "effect"
 import { testEffect } from "./lib/effect"
 
@@ -218,13 +218,13 @@ it.effect("generates a title from the sole user message and renames the session"
 
     expect(requests).toHaveLength(1)
     expect(requests[0]?.headers).toEqual({
-      "x-opencode-session-id": sessionID,
+      "x-xccode-session-id": sessionID,
       "x-session-affinity": sessionID,
       "X-Session-Id": sessionID,
       "User-Agent": App.useragent(App.make()),
-      "x-opencode-project": Project.ID.global,
-      "x-opencode-session": sessionID,
-      "x-opencode-client": "opencode",
+      "x-xccode-project": Project.ID.global,
+      "x-xccode-session": sessionID,
+      "x-xccode-client": "xccode",
     })
     expect(requests[0]?.promptCacheKey).toBe(sessionID)
     expect(requests[0]?.tools).toEqual([])

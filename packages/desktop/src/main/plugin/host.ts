@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from "electron"
-import { sameLoopbackServer } from "@opencode/app/loopback"
-import { builtins } from "@opencode/gui-plugins/main"
+import { sameLoopbackServer } from "@xccode/app/loopback"
+import { builtins } from "@xccode/gui-plugins/main"
 import {
   pluginIdAvailable,
   runsOn,
@@ -8,7 +8,7 @@ import {
   type BridgeMenubarItem,
   type Entry,
   type Scope,
-} from "@opencode/plugin/gui/host"
+} from "@xccode/plugin/gui/host"
 import {
   MenubarItem,
   type Plugin,
@@ -31,9 +31,9 @@ import {
   type ServerEndpoint,
   type ServerEndpoints,
   type Windows,
-} from "@opencode/plugin/gui/main"
-import type { BuiltinCatalog, BuiltinMainContext, Lifecycle } from "@opencode/plugin/gui/builtin"
-import type { OpenCodeClient, PluginGuiBundle } from "@opencode/client"
+} from "@xccode/plugin/gui/main"
+import type { BuiltinCatalog, BuiltinMainContext, Lifecycle } from "@xccode/plugin/gui/builtin"
+import type { XccodeClient, PluginGuiBundle } from "@xccode/client"
 import { Exit, Match, Predicate, Schema } from "effect"
 import type { PluginEndpoint, PluginInstalled } from "../../shared/ipc-rpc/plugins"
 import {
@@ -83,10 +83,10 @@ export type PluginHost = ReturnType<typeof createHost>
 type Loaded = {
   readonly setup: Plugin.MainSetup
   readonly i18n?: BuiltinCatalog
-  /** A plugin's options from `opencode.json`; built-ins have none. */
+  /** A plugin's options from `xccode.json`; built-ins have none. */
   readonly options?: PluginOptions
   /** The client of the server that runs a plugin, read each time; built-ins have none. */
-  readonly client?: () => OpenCodeClient | undefined
+  readonly client?: () => XccodeClient | undefined
 }
 
 /**
@@ -125,14 +125,14 @@ type Listing = {
   readonly skipped: ReadonlyMap<string, string>
 }
 
-const loadClient = () => import("@opencode/client")
+const loadClient = () => import("@xccode/client")
 
 /** The client of the app's own server, made once the client module loaded and again when the endpoint changes. */
 type SidecarClient = {
   module?: Awaited<ReturnType<typeof loadClient>>
-  active?: { readonly endpoint: HostEndpoint; readonly client: OpenCodeClient }
+  active?: { readonly endpoint: HostEndpoint; readonly client: XccodeClient }
   /** The client plugins read while the server is unreachable. */
-  unavailable?: OpenCodeClient
+  unavailable?: XccodeClient
 }
 
 /** What following the app's own server holds open: its credential subscription, stream, listing and timers. */
@@ -323,7 +323,7 @@ export function createHost(input: {
     if (!endpoint) return undefined
 
     const authorization = endpoint.password
-      ? `Basic ${Buffer.from(`opencode:${endpoint.password}`).toString("base64")}`
+      ? `Basic ${Buffer.from(`xccode:${endpoint.password}`).toString("base64")}`
       : SidecarCredentials.authorization(sidecar, endpoint.url)
 
     return {
@@ -337,7 +337,7 @@ export function createHost(input: {
   }
 
   const about = {
-    name: "opencode",
+    name: "xccode",
     version: VERSION,
     channel: CHANNEL,
     platform: "desktop",
@@ -393,7 +393,7 @@ export function createHost(input: {
   const unavailableClient = () => {
     if (!sidecar.module) throw new Error("The app's own server is unavailable")
 
-    return (sidecar.unavailable ??= sidecar.module.OpenCode.make({
+    return (sidecar.unavailable ??= sidecar.module.Xccode.make({
       baseUrl: "http://unavailable.invalid/",
       fetch: () => Promise.reject(new Error("The app's own server is unavailable")),
     }))
@@ -412,7 +412,7 @@ export function createHost(input: {
   const clientFor = (module: NonNullable<SidecarClient["module"]>, endpoint: HostEndpoint) => {
     if (sidecar.active && sameHostEndpoint(sidecar.active.endpoint, endpoint)) return sidecar.active.client
     const headers: Record<string, string> = endpoint.authorization ? { authorization: endpoint.authorization } : {}
-    const client = module.OpenCode.make({ baseUrl: endpoint.url, headers })
+    const client = module.Xccode.make({ baseUrl: endpoint.url, headers })
     sidecar.active = { endpoint, client }
 
     return client
@@ -536,7 +536,7 @@ export function createHost(input: {
     if (!controller.signal.aborted) dispatch({ type: "watch.ended", attempt, quitting: quitting() })
   }
 
-  const readEvents = async (client: OpenCodeClient, attempt: number, signal: AbortSignal) => {
+  const readEvents = async (client: XccodeClient, attempt: number, signal: AbortSignal) => {
     for await (const event of client.event.subscribe({ signal }))
       if (event.type === "plugin.updated" || event.type === "server.connected")
         dispatch({ type: "relist.requested", watchAttempt: attempt, quitting: quitting() })
@@ -597,7 +597,7 @@ export function createHost(input: {
   // main runs, or lists a new plugin with the failure until the next change; a plugin limited to other systems is left
   // out.
   const readPlugin = async (
-    client: OpenCodeClient,
+    client: XccodeClient,
     id: string,
     parts: {
       readonly unsupported: Set<string>

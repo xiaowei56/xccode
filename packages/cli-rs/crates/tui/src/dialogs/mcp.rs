@@ -1,10 +1,10 @@
 //! MCP server status and actions.
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     ExperimentalMcpConnectInput, ExperimentalMcpDisconnectInput, LocationQueryInput, McpServer, McpServerStatus,
 };
-use opencode_store::{Catalog, Location};
-use opencode_ui::select::{FooterHint, Group, Select, SelectAction};
+use xccode_store::{Catalog, Location};
+use xccode_ui::select::{FooterHint, Group, Select, SelectAction};
 use std::collections::HashSet;
 
 use super::error_details;

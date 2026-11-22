@@ -1,8 +1,8 @@
 //! Subagent tool status and navigation.
 
-use opencode_api::generated::ModelInfo;
-use opencode_store::SessionStatus;
-use opencode_ui::tool_info::titlecase;
+use xccode_api::generated::ModelInfo;
+use xccode_store::SessionStatus;
+use xccode_ui::tool_info::titlecase;
 
 use super::dispatch::{Inline, InlineTool, Props, Status};
 use crate::prelude::*;

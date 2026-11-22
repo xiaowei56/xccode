@@ -1,8 +1,8 @@
 use std::path::Path;
 use std::sync::Arc;
 
-use opencode_tui::plugins::host::{External, external_with};
-use opencode_tui::{Deps, Route};
+use xccode_tui::plugins::host::{External, external_with};
+use xccode_tui::{Deps, Route};
 
 use crate::plugin_pipe::{Pipe, config};
 use crate::support::{self, Fake};
@@ -44,7 +44,7 @@ fn a_spec_is_keyed_as_ts_keys_it() {
         ".foo",
         "_foo",
         "@s",
-        "opencode-some-plugin@0.1.3",
+        "xccode-some-plugin@0.1.3",
         "https://github.com/u/r",
         "https://github.com/u/r.git",
         "https://gitlab.com/u/r",
@@ -119,7 +119,7 @@ fn a_spec_is_keyed_as_ts_keys_it() {
         .unwrap();
     assert!(output.status.success(), "{output:?}");
     let ts: Vec<String> = serde_json::from_slice(&output.stdout).unwrap();
-    let rust: Vec<String> = specs.iter().map(|spec| opencode_plugin::loader::npm::cache_key(spec)).collect();
+    let rust: Vec<String> = specs.iter().map(|spec| xccode_plugin::loader::npm::cache_key(spec)).collect();
     let differ: Vec<String> = specs
         .iter()
         .zip(&ts)
@@ -135,7 +135,7 @@ fn a_spec_is_keyed_as_ts_keys_it() {
 fn a_client_with_nothing_to_run_starts_no_bun() {
     let Some(real) = config() else { return };
     let looks = std::rc::Rc::new(std::cell::Cell::new(0));
-    let find = opencode_plugin::pipe::Find(std::rc::Rc::new({
+    let find = xccode_plugin::pipe::Find(std::rc::Rc::new({
         let looks = looks.clone();
         move || {
             looks.set(looks.get() + 1);
@@ -143,7 +143,7 @@ fn a_client_with_nothing_to_run_starts_no_bun() {
         }
     }));
     let lazy =
-        opencode_plugin::pipe::Config { find: Some(find), ..opencode_plugin::pipe::Config::new(Default::default()) };
+        xccode_plugin::pipe::Config { find: Some(find), ..xccode_plugin::pipe::Config::new(Default::default()) };
     let server = serde_json::json!([{
         "id": "server-only", "source": { "type": "package", "target": "server-only@1.0.0" },
         "features": { "server": true }, "state": { "status": "active" },
@@ -154,27 +154,27 @@ fn a_client_with_nothing_to_run_starts_no_bun() {
         }
         _ => support::base(seen, "/tmp/app"),
     });
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let deps = Deps {
         route: Route::Home,
         roots: support::roots(support::home_paths(home.path()), "test"),
         ..support::deps(Arc::new(fake))
     };
-    let args = opencode_tui::Args { local: true, ..opencode_tui::Args::default() };
+    let args = xccode_tui::Args { local: true, ..xccode_tui::Args::default() };
     let harness = support::mount_on(opentui::testing::TestApp::new(120, 30), deps, args);
-    let root = opencode_util::temp::tempdir().unwrap();
+    let root = xccode_util::temp::tempdir().unwrap();
     let config_dir = root.path().join("config");
     let external = External { config_dir: config_dir.clone(), cwd: root.path().to_path_buf() };
     external_with(&harness.tui, external, Some(lazy));
     let pipe = Pipe { harness, root };
     pipe.settle();
-    opencode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
     pipe.settle();
     let scripts = pipe.scripts();
     assert_eq!((looks.get(), scripts.looked(), scripts.pid()), (0, false, None));
     let dir = config_dir.join("plugins").join("probe");
     crate::plugin_pipe::copy(&Path::new(crate::plugin_pipe::EXAMPLES).join("probe"), &dir);
-    opencode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
     pipe.active("example.probe");
     assert_eq!(looks.get(), 1);
     assert!(scripts.pid().is_some());

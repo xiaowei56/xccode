@@ -1,8 +1,8 @@
 //! Track the location of home or the open session. On reconnect, refresh it and upload the terminal environment only to
 //! a local server.
 
-use opencode_store::location::Catalog;
-use opencode_store::{Error, Location};
+use xccode_store::location::Catalog;
+use xccode_store::{Error, Location};
 
 use crate::prelude::*;
 
@@ -101,7 +101,7 @@ pub(crate) fn connected_again(tui: &Tui) {
 
 pub(crate) fn set(tui: &Tui, location: Location) {
     *tui.location.reference.borrow_mut() = Some(location.clone());
-    tui.local.sync(&opencode_store::Changes::default());
+    tui.local.sync(&xccode_store::Changes::default());
     crate::client_mcp::sync(tui);
     if connected(tui) {
         sync(tui, Some(location));
@@ -164,5 +164,5 @@ fn upload_environment(tui: &Tui, id: &SessionID) {
     *tui.location.uploaded.borrow_mut() = Some(id.clone());
     let client = tui.data.client().clone();
     let id = id.clone();
-    tui.request(async move { opencode_store::environment::upload(&client, &id, variables).await }, |_, ()| {});
+    tui.request(async move { xccode_store::environment::upload(&client, &id, variables).await }, |_, ()| {});
 }

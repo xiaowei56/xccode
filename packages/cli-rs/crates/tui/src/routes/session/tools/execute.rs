@@ -1,7 +1,7 @@
 //! Expandable nested calls and code-mode execution results.
 
-use opencode_api::generated::SessionMessageAssistantTool;
-use opencode_ui::tool_info::{ExecuteCall, ExecuteStatus, execute_call_summary, execute_calls};
+use xccode_api::generated::SessionMessageAssistantTool;
+use xccode_ui::tool_info::{ExecuteCall, ExecuteStatus, execute_call_summary, execute_calls};
 
 use super::dispatch::{BlockTool, ICON_WIDTH, Inline, InlineTool, Props, Status, content_width};
 use super::patch::{self, File};
@@ -15,7 +15,7 @@ pub struct Execute(Rc<Inner>);
 
 struct Inner {
     app: App,
-    theme: opencode_ui::theme::Live,
+    theme: xccode_ui::theme::Live,
     root: View,
     inline: InlineTool,
     calls: View,
@@ -194,7 +194,7 @@ struct Call(Rc<CallInner>);
 
 struct CallInner {
     app: App,
-    theme: opencode_ui::theme::Live,
+    theme: xccode_ui::theme::Live,
     root: View,
     icon: Text,
     text: Text,
@@ -205,7 +205,7 @@ struct CallInner {
 }
 
 impl Call {
-    fn new(app: &App, theme: &opencode_ui::theme::Live, call: ExecuteCall) -> Self {
+    fn new(app: &App, theme: &xccode_ui::theme::Live, call: ExecuteCall) -> Self {
         let icon = Text::new(app, "").width(ICON_WIDTH).shrink(0.0);
         let text = Text::new(app, "").grow(1.0).wrap(WrapMode::None).truncate(true);
         let details = View::new(app)
@@ -231,7 +231,7 @@ impl Call {
             hover: Cell::new(false),
         });
         inner.root.on_hover(bind!(inner, |inner, _, hovered| {
-            inner.root.mouse_pointer(opencode_ui::click_pointer(inner.expandable()));
+            inner.root.mouse_pointer(xccode_ui::click_pointer(inner.expandable()));
             inner.hover.set(hovered && inner.expandable());
             inner.paint();
         }));

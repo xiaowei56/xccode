@@ -10,7 +10,7 @@ import { isBuiltin } from "node:module"
 import { plugin as runtime } from "bun"
 import { context as compat, inside, modules, real, reported } from "./compat.js"
 
-const MAGIC = "opencode-js-host"
+const MAGIC = "xccode-js-host"
 const VERSION = 1
 const CONTROL = 0
 const TREE = 1
@@ -33,7 +33,7 @@ const OUTSIDE = "is outside the plugin's approved files"
 const RUNTIME = "opentui:runtime-module:"
 
 runtime({
-  name: "opencode-compat",
+  name: "xccode-compat",
   setup(build) {
     // Register the encoded and literal forms of OpenTUI runtime-module specifiers.
     for (const [name, exports] of Object.entries(modules)) {
@@ -81,7 +81,7 @@ function write(bytes: Buffer, fd = 0) {
 
 // Mark the current plugin on stdout so direct descriptor writes can be attributed. A null mark denotes unowned
 // output.
-const OWNER = "\0OPENCODE_JS_HOST_OWNER "
+const OWNER = "\0XCCODE_JS_HOST_OWNER "
 let owner: string | undefined
 function own(id: string | undefined) {
   if (id === owner) return
@@ -100,7 +100,7 @@ async function owning<T>(id: string | undefined, run: () => T | Promise<T>): Pro
   }
 }
 
-const TRACE = process.env.OPENCODE_JS_HOST_TRACE
+const TRACE = process.env.XCCODE_JS_HOST_TRACE
 function trace(line: string) {
   if (TRACE) require("node:fs").appendFileSync(TRACE, line.slice(0, 2000) + "\n")
 }
@@ -696,7 +696,7 @@ function context(plugin: Plugin) {
   const base = {
     id: plugin.id,
     options: plugin.options ?? {},
-    app: { version: process.env.OPENCODE_VERSION ?? "", channel: process.env.OPENCODE_CHANNEL ?? "" },
+    app: { version: process.env.XCCODE_VERSION ?? "", channel: process.env.XCCODE_CHANNEL ?? "" },
     get themeMode() {
       return themeMode
     },
@@ -719,7 +719,7 @@ function context(plugin: Plugin) {
     },
   }
   const v2 = compat(base, carrier as never) as Json
-  v2[Symbol.for("opencode.carrier")] = carrier
+  v2[Symbol.for("xccode.carrier")] = carrier
   return v2
 }
 
@@ -819,7 +819,7 @@ function notInstalled(error: unknown) {
   const name = found?.[1]
   if (!name || name.startsWith(".") || path.isAbsolute(name) || name.startsWith("file:")) return undefined
   const pkg = name.startsWith("@") ? name.split("/").slice(0, 2).join("/") : name.split("/")[0]
-  return `it imports the package '${pkg}', which is not installed with the plugin, and opencode-native installs nothing: install the plugin's dependencies in its directory`
+  return `it imports the package '${pkg}', which is not installed with the plugin, and xccode-native installs nothing: install the plugin's dependencies in its directory`
 }
 
 // An async setup may be waiting for a host effect. Flush the pending effects before waiting for setup to

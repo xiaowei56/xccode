@@ -5,6 +5,6 @@ export default definePty({
   args: ["--version"],
   cols: 40,
   rows: 4,
-  steps: [{ until: { screen: "opencode v" }, checkpoint: "version" }],
+  steps: [{ until: { screen: "xccode v" }, checkpoint: "version" }],
   exits: true,
 })

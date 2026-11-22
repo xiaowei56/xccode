@@ -417,7 +417,7 @@ test("client.rpc calls a plugin's own server RPC and hears its events", async ()
     },
   }
   const ctx = context(base, fake) as Json
-  const Rpc = (modules["@opencode/plugin/rpc"] as Json).Rpc
+  const Rpc = (modules["@xccode/plugin/rpc"] as Json).Rpc
   const Echo = Rpc.define({ id: "echo", methods: { say: { input: {}, output: {} } }, events: { said: { schema: {} } } })
   const echo = ctx.client.rpc(Echo)
   expect(await echo.say({ text: "hi" }, { location: { directory: "/d" } })).toEqual({ echoed: { text: "hi" } })
@@ -504,9 +504,9 @@ test("a Portal draws its children over the mount's room", () => {
   expect(fake.toasts()).toEqual([])
 })
 
-test("@opencode/plugin/effect serves Rpc", () => {
-  const effect = modules["@opencode/plugin/effect"] as Json
-  expect(effect.Rpc).toBe((modules["@opencode/plugin/rpc"] as Json).Rpc)
+test("@xccode/plugin/effect serves Rpc", () => {
+  const effect = modules["@xccode/plugin/effect"] as Json
+  expect(effect.Rpc).toBe((modules["@xccode/plugin/rpc"] as Json).Rpc)
   expect("Agent" in effect && effect.Agent === undefined).toBe(true)
 })
 
@@ -548,9 +548,9 @@ test("an element's focus is the host's and it emits as OpenTUI's renderables", a
   fake.push(`scroll:${surface}:list`, { offset: 4, viewport: 10, extent: 30 })
   expect([refs.list.scrollTop, refs.list.viewport.height, refs.list.scrollHeight]).toEqual([4, 10, 30])
   refs.list.scrollBy(2)
-  // `scrollChildIntoView` is the least scroll that shows the row (opencode-session-manager's selection).
+  // `scrollChildIntoView` is the least scroll that shows the row (xccode-session-manager's selection).
   refs.list.scrollChildIntoView("row-3")
-  // A move past the content is the edge, as OpenTUI clamps it, within the host's i32 (CT-42: opencode-omeglecode's
+  // A move past the content is the edge, as OpenTUI clamps it, within the host's i32 (CT-42: xccode-omeglecode's
   // `scrollTo(Number.MAX_SAFE_INTEGER)` ended the JS host).
   refs.list.scrollTo(Number.MAX_SAFE_INTEGER)
   refs.list.scrollTo(-Infinity)
@@ -818,7 +818,7 @@ test("a field removed from its mount, or never added, has no focus and says so o
   for (const [id, stray] of [["t.stray", true], ["t.gone", false]] as const)
     expect(await detached(id, stray)).toEqual({
       focus: [],
-      warnings: [`${id}: focus() of an <input> in no mount is not supported by opencode-native yet`],
+      warnings: [`${id}: focus() of an <input> in no mount is not supported by xccode-native yet`],
     })
 })
 
@@ -842,7 +842,7 @@ test("dialog.set sizes and centers a select, an alert and a confirm", async () =
   ctx.ui.dialog.set({ size: "large" })
   await turn()
   expect(fields(shown())).toEqual(["confirm", undefined, undefined])
-  expect(fake.warnings()).toEqual(["t.presented: dialog.set after its dialog showed is not supported by opencode-native yet"])
+  expect(fake.warnings()).toEqual(["t.presented: dialog.set after its dialog showed is not supported by xccode-native yet"])
 })
 
 test("a border draws as OpenTUI's box draws it", () => {
@@ -898,10 +898,10 @@ test("a box layout the contract has no value for is reported", () => {
   })
   view(fake, 0, "a").draw()
   expect(fake.warnings()).toEqual([
-    "t.layout: flexDirection row-reverse is not supported by opencode-native yet",
-    "t.layout: flexDirection column-reverse is not supported by opencode-native yet",
-    "t.layout: justifyContent space-evenly is not supported by opencode-native yet",
-    "t.layout: alignItems baseline is not supported by opencode-native yet",
+    "t.layout: flexDirection row-reverse is not supported by xccode-native yet",
+    "t.layout: flexDirection column-reverse is not supported by xccode-native yet",
+    "t.layout: justifyContent space-evenly is not supported by xccode-native yet",
+    "t.layout: alignItems baseline is not supported by xccode-native yet",
   ])
 })
 
@@ -926,8 +926,8 @@ test("a spinner draws and an inert async method resolves", async () => {
   ctx.ui.slot({ append: "home.footer", render: () => h("box", { children: h("spinner", { frames: ["a", "b"], interval: 120 }) }) })
   expect(view(fake, 0, "a").draw().children[0].children).toEqual([{ type: "spinner", label: "" }])
   expect(fake.warnings()).toEqual([
-    "t.spinner: <spinner> frames is not supported by opencode-native yet",
-    "t.spinner: <spinner> interval is not supported by opencode-native yet",
+    "t.spinner: <spinner> frames is not supported by xccode-native yet",
+    "t.spinner: <spinner> interval is not supported by xccode-native yet",
   ])
   const core = modules["@opentui/core"] as Json
   const client = core.getTreeSitterClient()
@@ -955,8 +955,8 @@ test("a built renderable added by a ref draws, and the renderer has a root", () 
   expect([undefined, renderer.root, refs.box].map(core.isRenderable)).toEqual([false, false, true])
   expect(renderer.currentFocusedEditor).toBeUndefined()
   expect(fake.warnings()).toEqual([
-    "t.built: renderer.root is not supported by opencode-native yet",
-    "t.built: renderer.currentFocusedEditor is not supported by opencode-native yet",
+    "t.built: renderer.root is not supported by xccode-native yet",
+    "t.built: renderer.currentFocusedEditor is not supported by xccode-native yet",
   ])
 })
 
@@ -1540,7 +1540,7 @@ test("a select's actions are its footer's", async () => {
   void ctx.ui.dialog.select({ title: "Many", options, actions: many })
   await turn()
   expect(fake.effects.at(-1).dialog.dialog.actions.length).toBe(4)
-  expect(fake.warnings()).toEqual(["t.actions: ui.dialog.select over 4 actions is not supported by opencode-native yet"])
+  expect(fake.warnings()).toEqual(["t.actions: ui.dialog.select over 4 actions is not supported by xccode-native yet"])
 })
 
 // Selects of plugin `t.stale` whose actions record what they hear, each searching by reversing its rows.
@@ -1692,7 +1692,7 @@ test("an unmapped hook is reported for the plugin that used it", () => {
   quiet.ui.slot({ append: "sidebar.content", render: () => h("text", { children: "y" }) })
   view(fake, 0, "a").draw()
   view(fake, 1, "b").draw()
-  expect(fake.warnings()).toEqual(["t.loud: usePaste is not supported by opencode-native yet"])
+  expect(fake.warnings()).toEqual(["t.loud: usePaste is not supported by xccode-native yet"])
 })
 
 test("a claim keeps its kind and path", () => {
@@ -1778,12 +1778,12 @@ test("the renderer's missing methods do nothing", async () => {
   expect(ctx.renderer.notAMember).toBeUndefined()
   await ctx.renderer.idle()
   expect(fake.warnings()).toEqual([
-    "t.renderer: renderer.prependInputHandler is not supported by opencode-native yet",
-    "t.renderer: renderer.setBackgroundColor is not supported by opencode-native yet",
-    "t.renderer: renderer.on is not supported by opencode-native yet",
-    "t.renderer: renderer.off is not supported by opencode-native yet",
-    "t.renderer: renderer.notAMember is not supported by opencode-native yet",
-    "t.renderer: renderer.idle is not supported by opencode-native yet",
+    "t.renderer: renderer.prependInputHandler is not supported by xccode-native yet",
+    "t.renderer: renderer.setBackgroundColor is not supported by xccode-native yet",
+    "t.renderer: renderer.on is not supported by xccode-native yet",
+    "t.renderer: renderer.off is not supported by xccode-native yet",
+    "t.renderer: renderer.notAMember is not supported by xccode-native yet",
+    "t.renderer: renderer.idle is not supported by xccode-native yet",
   ])
 })
 
@@ -1906,8 +1906,8 @@ test("a code block's renderer declines, throws, and what it cannot draw is repor
   await turn()
   expect(fake.toasts()).toEqual(["t.odd crashed in code block python: boom"])
   expect(fake.warnings()).toEqual([
-    "t.odd: a code block's renderable built outside @opentui/core's classes is not supported by opencode-native yet",
-    "t.odd: a code block's default render fg is not supported by opencode-native yet",
+    "t.odd: a code block's renderable built outside @opentui/core's classes is not supported by xccode-native yet",
+    "t.odd: a code block's default render fg is not supported by xccode-native yet",
   ])
 })
 
@@ -1933,7 +1933,7 @@ test("a prompt carries its value and description", async () => {
   void ctx.ui.dialog.prompt({ title: "Sized" })
   ctx.ui.dialog.set({ size: "large" })
   await turn()
-  expect(fake.warnings()).toEqual(["t.prompt: ui.dialog.set of a prompt is not supported by opencode-native yet"])
+  expect(fake.warnings()).toEqual(["t.prompt: ui.dialog.set of a prompt is not supported by xccode-native yet"])
 })
 
 test("a command's slash aliases go to the host", () => {

@@ -25,27 +25,27 @@ import { Effect, Option, Schema } from "effect"
 import { createTwoFilesPatch, diffLines } from "diff"
 import { Dynamic } from "solid-js/web"
 import { type SessionSummary, useData } from "../context"
-import { useFileComponent } from "@opencode/ui/context/file"
-import { type UiI18n, useI18n } from "@opencode/ui/context/i18n"
+import { useFileComponent } from "@xccode/ui/context/file"
+import { type UiI18n, useI18n } from "@xccode/ui/context/i18n"
 import { BasicTool, GenericTool } from "../components/basic-tool"
 import { createDisclosure } from "../components/disclosure"
-import { FileIcon } from "@opencode/ui/file-icon"
-import { Icon } from "@opencode/ui/icon"
+import { FileIcon } from "@xccode/ui/file-icon"
+import { Icon } from "@xccode/ui/icon"
 import { ToolErrorCard } from "../components/tool-error-card"
-import { DiffChanges } from "@opencode/ui/diff-changes"
+import { DiffChanges } from "@xccode/ui/diff-changes"
 import { Markdown } from "../components/markdown"
 import { createMarkdownImages } from "../components/markdown-image"
 import { createImagePreview } from "../components/image-preview"
 import { useMarkdown } from "../context/markdown"
-import { getDirectory, getFilename } from "@opencode/util/path"
-import { checksum } from "@opencode/util/encode"
-import { formatExecuteOutput } from "@opencode/util/execute-output"
-import { Tooltip } from "@opencode/ui/tooltip"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { Dialog, DialogBody, DialogHeader, DialogTitle } from "@opencode/ui/dialog"
-import { IconButton } from "@opencode/ui/icon-button"
-import { TextShimmer } from "@opencode/ui/text-shimmer"
-import { AnimatedNumber } from "@opencode/ui/animated-number"
+import { getDirectory, getFilename } from "@xccode/util/path"
+import { checksum } from "@xccode/util/encode"
+import { formatExecuteOutput } from "@xccode/util/execute-output"
+import { Tooltip } from "@xccode/ui/tooltip"
+import { useDialog } from "@xccode/ui/context/dialog"
+import { Dialog, DialogBody, DialogHeader, DialogTitle } from "@xccode/ui/dialog"
+import { IconButton } from "@xccode/ui/icon-button"
+import { TextShimmer } from "@xccode/ui/text-shimmer"
+import { AnimatedNumber } from "@xccode/ui/animated-number"
 import { changedFileDiff, patchFileGroups } from "../components/apply-patch-file"
 import { animate } from "@kitlangton/solid-motion"
 import { SessionProgressIndicatorV2 } from "../v2/components/session-progress-indicator-v2"
@@ -54,7 +54,7 @@ import type {
   SessionMessageAssistantReasoning,
   SessionMessageAssistantTool,
   SessionMessageShell,
-} from "@opencode/client/promise"
+} from "@xccode/client/promise"
 import {
   currentToolError,
   currentToolGroupedRead,
@@ -659,7 +659,7 @@ export function CurrentContextToolGroup(props: {
                       }),
                     )
 
-                    const marker = "__OPENCODE_LOADED_SKILL__"
+                    const marker = "__XCCODE_LOADED_SKILL__"
 
                     const loaded = createMemo(() =>
                       i18n.plural("ui.tool.loadedSkills", skills().length, { name: marker }),
@@ -1702,7 +1702,7 @@ ToolRegistry.register({
       }),
     )
 
-    const marker = "__OPENCODE_LOADED_PATH__"
+    const marker = "__XCCODE_LOADED_PATH__"
     const parts = createMemo(() => i18n.t("ui.tool.loadedFile", { path: marker }).split(marker))
 
     return (
@@ -2879,7 +2879,7 @@ ToolRegistry.register({
     const i18n = useI18n()
     const name = createMemo(() => skillToolName(toolInput(props.input), toolMetadata(props.metadata)))
     const running = createMemo(() => props.status === "streaming" || props.status === "running")
-    const marker = "__OPENCODE_LOADED_SKILL__"
+    const marker = "__XCCODE_LOADED_SKILL__"
     const parts = createMemo(() => i18n.t("ui.tool.loadedSkill", { name: marker }).split(marker))
 
     return (

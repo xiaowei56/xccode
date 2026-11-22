@@ -1,5 +1,5 @@
-import { Form } from "@opencode/schema/form"
-import { Location } from "@opencode/schema/location"
+import { Form } from "@xccode/schema/form"
+import { Location } from "@xccode/schema/location"
 import { Context, Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiMiddleware, OpenApi } from "effect/http-api"
 import { LocationQuery, locationQueryOpenApi } from "./location.js"

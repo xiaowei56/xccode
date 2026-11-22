@@ -8,7 +8,7 @@ export default definePty({
   args: [],
   cols: 120,
   rows: 30,
-  env: { OPENCODE_CLI_CONFIG_CONTENT: config },
+  env: { XCCODE_CLI_CONFIG_CONTENT: config },
   server: server(),
   steps: [
     { until: { screen: "Demo Model" }, settle: 500, timeout: 30_000 },
@@ -26,7 +26,7 @@ export default definePty({
       timeout: 10_000,
     },
   ],
-  // TS sets "OpenCode" again as the session opens; Rust sends only a change (title-renamed).
+  // TS sets "Xccode" again as the session opens; Rust sends only a change (title-renamed).
   osc: [],
   masks,
   exits: true,

@@ -2,10 +2,10 @@
 
 use std::rc::Rc;
 
-use opencode_plugin::abi::interact::Interact;
-use opencode_plugin::abi::v2::{self, ContentRef, DiffView, Edge, Fit, Geometry, LayoutReply, ListItem, Node, Source};
-use opencode_plugin::abi::{Click, Edges, Justify, Layout, Rgba, Span, Width, Wrap};
-use opencode_ui::theme::tint;
+use xccode_plugin::abi::interact::Interact;
+use xccode_plugin::abi::v2::{self, ContentRef, DiffView, Edge, Fit, Geometry, LayoutReply, ListItem, Node, Source};
+use xccode_plugin::abi::{Click, Edges, Justify, Layout, Rgba, Span, Width, Wrap};
+use xccode_ui::theme::tint;
 use opentui::style::Color;
 
 use super::tree;

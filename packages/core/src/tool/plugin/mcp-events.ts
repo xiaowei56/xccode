@@ -1,7 +1,7 @@
 export * as McpEventTools from "./mcp-events.js"
 
-import { ToolFailure } from "@opencode/ai/effect"
-import type { Context } from "@opencode/plugin/effect/plugin"
+import { ToolFailure } from "@xccode/ai/effect"
+import type { Context } from "@xccode/plugin/effect/plugin"
 import { Effect, Schema } from "effect"
 import { Mcp } from "../../mcp/index.js"
 import { Permission } from "../../permission.js"
@@ -22,7 +22,7 @@ const EventType = Schema.Struct({
 })
 
 export const Plugin = {
-  id: "opencode.tools.mcp-events",
+  id: "xccode.tools.mcp-events",
   effect: Effect.fn("McpEventTools.Plugin")(function* (ctx: Context) {
     const mcp = yield* Mcp.Service
     const permission = yield* Permission.Service
@@ -31,7 +31,7 @@ export const Plugin = {
       .transform((editor) => {
         editor.add({
           name: "list_mcp_events",
-          options: { namespace: "opencode", codemode: true },
+          options: { namespace: "xccode", codemode: true },
           description: "List the events an MCP server sends. Use one as an automation's event trigger.",
           input: Schema.Struct({
             server: Schema.String.annotate({ description: "MCP server name as configured" }),
@@ -40,7 +40,7 @@ export const Plugin = {
           execute: (input, context) =>
             Effect.gen(function* () {
               yield* permission.assert({
-                action: "opencode_list_mcp_events",
+                action: "xccode_list_mcp_events",
                 resources: [input.server],
                 save: [input.server],
                 metadata: {},

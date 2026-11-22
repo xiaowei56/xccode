@@ -17,7 +17,7 @@ import { SessionTimeline } from "./session-timeline"
 import { ToolDisplay } from "../tools/tool-renderer"
 
 export default {
-  title: "OpenCode/Work/File changes",
+  title: "Xccode/Work/File changes",
   id: "current-session-file-changes",
   component: SessionTimeline,
   parameters: {

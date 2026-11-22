@@ -11,7 +11,7 @@ export default definePty({
   args: [],
   cols: 100,
   rows: 30,
-  env: { OPENCODE_CLI_CONFIG_CONTENT: config },
+  env: { XCCODE_CLI_CONFIG_CONTENT: config },
   server: { fallback: "tui" },
   cursor: true,
   steps: [

@@ -5,11 +5,11 @@ export const config = {
   consoleMarketingEnabled: import.meta.env.VITE_CONSOLE_MARKETING_ENABLED === "true",
 
   // Base URL
-  baseUrl: "https://opencode.ai",
+  baseUrl: "https://xccode.ai",
 
   // GitHub
   github: {
-    repoUrl: "https://github.com/anomalyco/opencode",
+    repoUrl: "https://github.com/xiaowei56/xccode",
     starsFormatted: {
       compact: "220K",
       full: "220,000",
@@ -18,8 +18,8 @@ export const config = {
 
   // Social links
   social: {
-    twitter: "https://x.com/opencode",
-    discord: "https://discord.gg/opencode",
+    twitter: "https://x.com/xccode",
+    discord: "https://discord.gg/xccode",
   },
 
   // Static stats (used on landing page)

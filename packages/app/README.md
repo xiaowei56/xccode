@@ -31,7 +31,7 @@ Your app is ready to be deployed!
 
 ## E2E Testing
 
-Locally, Playwright starts the Vite dev server automatically via `webServer`, or reuses one already running at the configured address. The browser suite uses isolated API fixtures rather than a live opencode backend.
+Locally, Playwright starts the Vite dev server automatically via `webServer`, or reuses one already running at the configured address. The browser suite uses isolated API fixtures rather than a live xccode backend.
 
 ```bash
 bunx playwright install chromium
@@ -71,19 +71,19 @@ Environment options:
 
 ## Server mode
 
-`VITE_OPENCODE_SERVER_MODE` controls which server the web build provides at startup:
+`VITE_XCCODE_SERVER_MODE` controls which server the web build provides at startup:
 
 | Mode               | Initial server                                                                       |
 | ------------------ | ------------------------------------------------------------------------------------ |
 | `none`             | No initial server.                                                                   |
-| `origin` (default) | The current page's origin. CLI builds explicitly use this mode for `opencode serve`. |
+| `origin` (default) | The current page's origin. CLI builds explicitly use this mode for `xccode serve`. |
 
-In Vite development mode, `origin` uses `VITE_OPENCODE_SERVER_HOST` / `VITE_OPENCODE_SERVER_PORT`
+In Vite development mode, `origin` uses `VITE_XCCODE_SERVER_HOST` / `VITE_XCCODE_SERVER_PORT`
 (default: `http://localhost:4096`) instead of the frontend origin. Both modes restore user-added servers
 from storage. Desktop provides the local server it discovers or starts through native initialization.
 
 With no configured servers, or when the only server rejects the saved credentials, the app shows a full-screen
-connection form. Enter a server address and password, paste a link from `opencode pair`, or choose
+connection form. Enter a server address and password, paste a link from `xccode pair`, or choose
 **Scan QR code** to read its QR code. Pairing links are single-use; the app exchanges them for a session token
 and immediately attempts to connect. Failed connections leave the details available
 to edit and retry with **Connect**. Credentials are checked before saving the server. Camera access requires
@@ -92,11 +92,11 @@ HTTPS (or localhost) and browser permission. Saved offline servers continue to u
 When the service is exposed through an HTTPS reverse proxy, advertise its external address at runtime:
 
 ```bash
-opencode pair --url https://opencode.example.com
+xccode pair --url https://xccode.example.com
 ```
 
 This replaces the addresses in the printed links and QR code.
-The proxy URL must reach the OpenCode API, not just the frontend. For separate frontend and API processes,
+The proxy URL must reach the Xccode API, not just the frontend. For separate frontend and API processes,
 route `/api` to the service while preserving the `/api` prefix. No machine-specific app or CLI build is required.
 
 When an HTTPS page fails to connect to a non-loopback HTTP server, the connection forms show a specific

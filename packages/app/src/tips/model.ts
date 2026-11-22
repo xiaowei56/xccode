@@ -1,5 +1,5 @@
 import { createMediaQuery } from "@solid-primitives/media"
-import { showToast, toaster } from "@opencode/ui/toast"
+import { showToast, toaster } from "@xccode/ui/toast"
 import { Schema } from "effect"
 import { createEffect, createMemo, createSignal, onCleanup } from "solid-js"
 import { useLanguage } from "@/runtime/i18n/language"
@@ -68,7 +68,7 @@ export function createTipToasts() {
       action: {
         label: "tips.browse.install",
         run: () => platform.openExternal(
-            "https://chromewebstore.google.com/detail/mfnicocicmmlkpjnaffgihfjhdgjkdjg?utm_source=opencode-desktop&utm_campaign=tip-browse",
+            "https://chromewebstore.google.com/detail/mfnicocicmmlkpjnaffgihfjhdgjkdjg?utm_source=xccode-desktop&utm_campaign=tip-browse",
           ),
       },
     },
@@ -81,7 +81,7 @@ export function createTipToasts() {
         label: "tips.hex.install",
         // anoma.ly/hex 404s with a query string; the trailing slash is required.
         run: () =>
-          platform.openExternal("https://anoma.ly/hex/?utm_source=opencode-desktop&utm_campaign=tip-hex"),
+          platform.openExternal("https://anoma.ly/hex/?utm_source=xccode-desktop&utm_campaign=tip-hex"),
       },
     },
   ]

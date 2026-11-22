@@ -1,15 +1,15 @@
 //! Additional directory grants are recorded in session metadata.
 
-use opencode_api::client::Client;
-use opencode_api::generated::{PermissionEffect, PermissionRule, SessionInfo, SessionMetadata, SessionUpdateInput};
+use xccode_api::client::Client;
+use xccode_api::generated::{PermissionEffect, PermissionRule, SessionInfo, SessionMetadata, SessionUpdateInput};
 use serde_json::{Value, json};
 
 use crate::client::check;
 use crate::error::Failure;
 use crate::paths::{fs_resolve, is_absolute, resolve_lexical, windows_path};
-use opencode_util::path::Flavor;
+use xccode_util::path::Flavor;
 
-const KEY: &str = "opencode.acp.additionalDirectories";
+const KEY: &str = "xccode.acp.additionalDirectories";
 
 // Permission resources treat `*` and `?` as wildcards.
 pub fn parse(cwd: &str, directories: &[String]) -> Result<Vec<String>, Failure> {

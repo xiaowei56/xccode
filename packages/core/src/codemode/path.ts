@@ -1,6 +1,6 @@
 export * as CodeModePath from "./path.js"
 
-import { Extension } from "@opencode/codemode"
+import { Extension } from "@xccode/codemode"
 import { Effect, Option } from "effect"
 import path from "path"
 import { Location } from "../location.js"

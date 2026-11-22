@@ -1,5 +1,5 @@
 import { app } from "electron"
-import type { Endpoint } from "@opencode/client/service"
+import type { Endpoint } from "@xccode/client/service"
 import { Context, Effect, FileSystem, Layer, Option, Path, Schema } from "effect"
 import { SidecarChanged } from "../../shared/ipc-rpc/events"
 import { CHANNEL } from "../constants"
@@ -21,7 +21,7 @@ export interface Interface {
   readonly reconnect: Effect.Effect<SidecarCredentials.Data>
 }
 
-export class Service extends Context.Service<Service, Interface>()("opencode/desktop/BackgroundService") {}
+export class Service extends Context.Service<Service, Interface>()("xccode/desktop/BackgroundService") {}
 
 export const layer = Layer.effect(
   Service,
@@ -101,22 +101,22 @@ const prepare = Effect.fn("BackgroundService.prepare")(function* (mode: Backgrou
   yield* Effect.logInfo("starting v2 background service")
   const path = yield* Path.Path
   const desktopCli = yield* DesktopCli.Service
-  const reuse = !app.isPackaged && process.env.OPENCODE_DESKTOP_REUSE_SERVER === "1"
-  const isolated = !app.isPackaged && !reuse && process.env.OPENCODE_DESKTOP_ISOLATED_SERVER === "1"
+  const reuse = !app.isPackaged && process.env.XCCODE_DESKTOP_REUSE_SERVER === "1"
+  const isolated = !app.isPackaged && !reuse && process.env.XCCODE_DESKTOP_ISOLATED_SERVER === "1"
   const cli = yield* desktopCli.resolve
   const version = reuse ? undefined : serviceVersion({ channel: CHANNEL, isolated, mode, version: cli.version })
 
   if (isolated) process.env.XDG_STATE_HOME = app.getPath("userData")
-  const client = yield* Effect.promise(() => import("@opencode/client/service"))
+  const client = yield* Effect.promise(() => import("@xccode/client/service"))
 
-  const reuseFile = reuse ? process.env.OPENCODE_DESKTOP_REUSE_SERVICE_FILE || undefined : undefined
+  const reuseFile = reuse ? process.env.XCCODE_DESKTOP_REUSE_SERVICE_FILE || undefined : undefined
 
   const file = reuse
     ? reuseFile
-    : process.env.OPENCODE_DESKTOP_SERVER_CHANNEL === "local"
+    : process.env.XCCODE_DESKTOP_SERVER_CHANNEL === "local"
       ? path.join(
           process.env.XDG_STATE_HOME ?? path.join(app.getPath("home"), ".local", "state"),
-          "opencode",
+          "xccode",
           "service-local.json",
         )
       : undefined

@@ -9,7 +9,7 @@ export default definePty({
   rows: 30,
   env: { TZ: "UTC", COLORFGBG: "15;0" },
   server: { routes: [statsRoute(year2020)] },
-  steps: [{ until: { screen: "opencode.ai" }, settle: 300, checkpoint: "card", timeout: 30_000 }],
+  steps: [{ until: { screen: "xccode.ai" }, settle: 300, checkpoint: "card", timeout: 30_000 }],
   osc: [],
   exits: true,
   requests: true,

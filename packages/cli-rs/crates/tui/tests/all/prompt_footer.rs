@@ -5,12 +5,12 @@ use crate::support::{self, DIRECTORY, Harness};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use opencode_api::memory::{Memory, Route as MemoryRoute};
-use opencode_api::transport::{BoxFuture, Request, Response, Transport};
-use opencode_tui::Deps;
+use xccode_api::memory::{Memory, Route as MemoryRoute};
+use xccode_api::transport::{BoxFuture, Request, Response, Transport};
+use xccode_tui::Deps;
 use serde_json::{Value, json};
 
-const GET: &str = "/api/rpc/opencode.goal/get";
+const GET: &str = "/api/rpc/xccode.goal/get";
 
 /// The in-memory server, which holds each goal read until [`Gated::release`], and counts the reads asked for.
 #[derive(Clone)]
@@ -34,13 +34,13 @@ impl Gated {
         self.reads.load(Ordering::SeqCst)
     }
 
-    fn sent(&self, path: &str) -> Vec<opencode_api::memory::Logged> {
+    fn sent(&self, path: &str) -> Vec<xccode_api::memory::Logged> {
         self.memory.requests().into_iter().filter(|logged| logged.path == path).collect()
     }
 
     fn paused(&self) {
         self.memory.emit(&json!({
-            "id": "evt_goal", "created": 3, "type": "rpc.opencode.goal.changed",
+            "id": "evt_goal", "created": 3, "type": "rpc.xccode.goal.changed",
             "location": { "directory": DIRECTORY },
             "data": { "sessionID": "ses_a", "goal": goal("paused", Some("Paused by the user")) },
         }));

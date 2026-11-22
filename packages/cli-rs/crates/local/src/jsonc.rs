@@ -901,7 +901,7 @@ pub fn modify(text: &str, path: &[Segment], value: Option<&Value>) -> Result<Str
                     // TS counts back from the array's end in UTF-16 units.
                     let parent_end = parent_node.offset + parent_node.length;
                     let before_end =
-                        |units| parent_end - opencode_util::text_boundary::tail(&text[..parent_end], units).len();
+                        |units| parent_end - xccode_util::text_boundary::tail(&text[..parent_end], units).len();
                     // As in `edit.js`, a one-item array loses its item whatever the index.
                     let (offset, length) = if children.len() == 1 {
                         (parent_node.offset + 1, before_end(1).saturating_sub(parent_node.offset + 1))

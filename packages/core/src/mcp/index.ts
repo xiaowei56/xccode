@@ -1,9 +1,9 @@
 export * as Mcp from "./index.js"
 
-import { Mcp } from "@opencode/schema/mcp"
-import { McpEvent } from "@opencode/schema/mcp-event"
-import { ephemeral } from "@opencode/schema/event"
-import type { Session } from "@opencode/schema/session"
+import { Mcp } from "@xccode/schema/mcp"
+import { McpEvent } from "@xccode/schema/mcp-event"
+import { ephemeral } from "@xccode/schema/event"
+import type { Session } from "@xccode/schema/session"
 import type { Transport } from "@modelcontextprotocol/client"
 import { createHash } from "node:crypto"
 import { isDeepStrictEqual } from "node:util"
@@ -26,8 +26,8 @@ import {
   Types,
 } from "effect"
 import { FetchHttpClient } from "effect/http"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
-import { httpFetch } from "@opencode/util/effect/app-node-platform"
+import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { httpFetch } from "@xccode/util/effect/app-node-platform"
 import { Credential } from "../credential.js"
 import { Bus } from "../bus.js"
 import { Environment } from "../environment/index.js"
@@ -35,8 +35,8 @@ import { Form } from "../form.js"
 import { Integration } from "../integration.js"
 import { KeyedMutex } from "../effect/keyed-mutex.js"
 import { Location } from "../location.js"
-import { Hash } from "@opencode/util/hash"
-import { waitForAbort } from "@opencode/util/process"
+import { Hash } from "@xccode/util/hash"
+import { waitForAbort } from "@xccode/util/process"
 import { State } from "../state.js"
 import type { McpClient } from "./client.js"
 import { EventStreamRejectedError, EventStreamTerminatedError, reopen } from "./event-errors.js"
@@ -234,7 +234,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly subscriptions: () => Effect.Effect<ReadonlyArray<Subscription>>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/MCP") {}
+export class Service extends Context.Service<Service, Interface>()("@xccode/MCP") {}
 
 /**
  * Why `subscribe` cannot follow a server's events.

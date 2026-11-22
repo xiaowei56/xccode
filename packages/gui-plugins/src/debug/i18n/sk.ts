@@ -32,7 +32,7 @@ export default {
   "memory.tip":
     "Diagnostika pamäte: každých 30 sekúnd zapisuje pamäť aplikácie do desktopových záznamov. Zostáva zapnutá aj po reštarte, kým ju nevypnete; počas behu zostáva panel otvorený.",
   "memory.tipEnv":
-    "Diagnostika pamäte je pre toto spustenie zapnutá: je nastavená premenná OPENCODE_DESKTOP_MEMORY_LOG.",
+    "Diagnostika pamäte je pre toto spustenie zapnutá: je nastavená premenná XCCODE_DESKTOP_MEMORY_LOG.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

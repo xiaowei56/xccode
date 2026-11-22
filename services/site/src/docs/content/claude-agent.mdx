@@ -1,6 +1,6 @@
 ---
 title: "Claude Agent"
-description: "Use a Claude plan or Claude Code login in OpenCode through Claude Agent, which runs Claude Code on your machine."
+description: "Use a Claude plan or Claude Code login in Xccode through Claude Agent, which runs Claude Code on your machine."
 noindex: true
 ---
 
@@ -22,20 +22,20 @@ as `claude-agent/opus#high`.
 
 You can also connect from the CLI with `auth login claude-agent`.
 
-OpenCode finds `claude` on your `PATH`. To use another copy, set `OPENCODE_CLAUDE_PATH` on the server.
+Xccode finds `claude` on your `PATH`. To use another copy, set `XCCODE_CLAUDE_PATH` on the server.
 
 ```bash
-opencode service set env OPENCODE_CLAUDE_PATH /opt/claude/bin/claude
+xccode service set env XCCODE_CLAUDE_PATH /opt/claude/bin/claude
 ```
 
 ## How it works
 
-Claude Code calls the model, and OpenCode does everything else.
+Claude Code calls the model, and Xccode does everything else.
 
 - Claude gets Claude Code's system prompt, plus your agent's prompt, `AGENTS.md` files, skills, and MCP instructions.
-- Claude uses OpenCode's tools and permissions instead of Claude Code's built-in tools.
+- Claude uses Xccode's tools and permissions instead of Claude Code's built-in tools.
 - Your Claude Code settings, `CLAUDE.md` files, hooks, MCP servers, skills, and memory are not loaded.
-- OpenCode runs compaction and subagents.
+- Xccode runs compaction and subagents.
 - You can switch between Claude Agent and other models in the same session.
 
 ## Cost
@@ -56,9 +56,9 @@ Cost depends on how Claude Code is signed in.
 Connection settings on the `claude-agent` provider are passed to Claude Code. They override the same variables set in
 your shell.
 
-```jsonc title="opencode.jsonc"
+```jsonc title="xccode.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://xccode.ai/config.json",
   "providers": {
     "claude-agent": {
       "settings": {
@@ -101,9 +101,9 @@ $env:CLAUDE_CONFIG_DIR = "$HOME\.claude-2"; claude auth login
 
 Then add models that use that folder:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="xccode.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://xccode.ai/config.json",
   "providers": {
     "claude-agent": {
       "models": {
@@ -123,7 +123,7 @@ instead.
 
 ## Rotate between accounts
 
-If you have several interchangeable accounts, OpenCode can move to the next one when an account hits its usage limit.
+If you have several interchangeable accounts, Xccode can move to the next one when an account hits its usage limit.
 Sign in to each extra account in its own folder. Your existing login in `~/.claude` can stay as it is:
 
 ```bash
@@ -132,9 +132,9 @@ CLAUDE_CONFIG_DIR="$HOME/.claude-1" claude auth login
 
 Then list the folders:
 
-```jsonc title="opencode.jsonc"
+```jsonc title="xccode.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://xccode.ai/config.json",
   "providers": {
     "claude-agent": {
       "settings": { "configDir": ["~/.claude", "~/.claude-1"] },
@@ -148,9 +148,9 @@ applies to Claude subscription logins, not to `apiKey` or `authToken`.
 
 ## Limitations
 
-- Claude Code must be installed on the same machine as the OpenCode server. Claude Agent is not available in remote
+- Claude Code must be installed on the same machine as the Xccode server. Claude Agent is not available in remote
   workspaces.
-- Claude Code's system prompt replaces OpenCode's built-in prompt. Custom agent prompts still apply.
+- Claude Code's system prompt replaces Xccode's built-in prompt. Custom agent prompts still apply.
 - Temperature, top-p, top-k, seed, and stop sequences are not supported.
 - Plugin `http.request` and `http.response` hooks do not run, because Claude Code makes the API calls.
 - Claude Code features such as `/usage`, `/loop`, auto mode, and agent teams are not available.
@@ -159,6 +159,6 @@ applies to Claude subscription logins, not to `apiKey` or `authToken`.
 
 | Error or symptom | Check |
 | --- | --- |
-| `Claude Code is not installed` | Install Claude Code, or set `OPENCODE_CLAUDE_PATH` to its path. |
+| `Claude Code is not installed` | Install Claude Code, or set `XCCODE_CLAUDE_PATH` to its path. |
 | `Claude Code is not logged in` | Run `claude auth login`, then connect Claude Agent again. With `configDir`, run the command the error shows for that folder. |
 | `Claude Code ... is too old` | Run `claude update`. |

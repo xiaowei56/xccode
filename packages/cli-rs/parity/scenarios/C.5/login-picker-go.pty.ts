@@ -1,5 +1,5 @@
-// The integration picker once a Go key is saved: OpenCode Go joins the popular integrations (without one, as in
-// `login-picker`, it stays hidden because OpenCode Go connects through OpenCode), then Escape.
+// The integration picker once a Go key is saved: Xccode Go joins the popular integrations (without one, as in
+// `login-picker`, it stays hidden because Xccode Go connects through Xccode), then Escape.
 import { definePty } from "../../pty/run"
 import { integrationRoutes, integrations, sink } from "./fixture"
 import { escape, first, press } from "./keys"
@@ -13,7 +13,7 @@ export default definePty({
   env: sink,
   server: {
     routes: integrationRoutes(
-      integrations.map((item) => (item.id === "opencode-go" ? { ...item, connections: [go] } : item)),
+      integrations.map((item) => (item.id === "xccode-go" ? { ...item, connections: [go] } : item)),
     ),
   },
   steps: [first("Select integration", "picker"), press(escape, "cancelled", "Cancelled")],

@@ -1,15 +1,15 @@
 # Plugins
 
-A plugin adds commands, keys, parts of the screen, pages, dialogs and renderers to `opencode-native`. This guide
+A plugin adds commands, keys, parts of the screen, pages, dialogs and renderers to `xccode-native`. This guide
 covers the model, writing a plugin in Luau or TypeScript, waiting, limits, and how the client finds and runs
-plugins. [`plugin-abi.md`](plugin-abi.md) is the reference, and `cargo doc -p opencode-plugin-abi --open` documents
+plugins. [`plugin-abi.md`](plugin-abi.md) is the reference, and `cargo doc -p xccode-plugin-abi --open` documents
 every type. Paths are relative to `packages/cli-rs`.
 
 ## The model
 
 A plugin never holds a widget, the TUI or the store. It registers what it adds in a `setup` function, reads through
 a read handle, asks for effects through a host handle, and returns trees of nodes that the host draws. That interface
-is the *contract*: the crate `crates/plugin-abi` (`opencode-plugin-abi`, ABI 2.0), whose messages have one JSON
+is the *contract*: the crate `crates/plugin-abi` (`xccode-plugin-abi`, ABI 2.0), whose messages have one JSON
 Schema, `crates/plugin-abi/schema/v2.json`. A *carrier* runs a plugin against it:
 
 | Carrier | A plugin is | A call crosses as | Host code |
@@ -25,8 +25,8 @@ Schema, `crates/plugin-abi/schema/v2.json`. A *carrier* runs a plugin against it
 - **A TS plugin gets the context the TypeScript client gives it** from a compatibility layer, which turns its JSX
   into contract trees. [`F16-v2-compat-layer.md`](../parity/deviations/F16-v2-compat-layer.md) lists what does not
   map.
-- **The JS host and Luau are cargo features**, `ts` and `luau` (of `opencode-cli`, `opencode-tui` and
-  `opencode-plugin`), both on by default. `OPENCODE_PLUGIN_JS=0` and `OPENCODE_PLUGIN_LUAU=0` turn them off at run
+- **The JS host and Luau are cargo features**, `ts` and `luau` (of `xccode-cli`, `xccode-tui` and
+  `xccode-plugin`), both on by default. `XCCODE_PLUGIN_JS=0` and `XCCODE_PLUGIN_LUAU=0` turn them off at run
   time, and `--no-plugins` loads no external plugin at all for one run ([Failures](#failures)). A plugin of a missing
   carrier is listed as skipped.
 - **Native plugin libraries do not load.** A `plugin.so` (`plugin.dylib`, `plugin.dll`) or a configured library is
@@ -76,7 +76,7 @@ it. The built-ins are the same contract in Rust (`abi::Plugin { id, setup }`), l
 ```lua
 --!strict
 -- The quick start: a command in the palette and as `/hello`, and a line in the home footer that runs it.
-local plugin = require("@opencode/plugin")
+local plugin = require("@xccode/plugin")
 
 return plugin.define(function(setup)
     -- A command in the palette and as `/hello`.
@@ -102,9 +102,9 @@ contract = "2.0"
 description = "A command in the palette, and a line in the home footer that runs it"
 ```
 
-Copy the directory to `~/.config/opencode/plugins/hello/`. There is no build, and the files run on every platform.
-`crates/plugin/src/luau/opencode/plugin.luau` is a typed stub of `@opencode/plugin`; a `.luaurc` that aliases
-`opencode` to its directory (as `crates/plugin/examples/luau/.luaurc` does) lets `luau-analyze` and luau-lsp check a
+Copy the directory to `~/.config/xccode/plugins/hello/`. There is no build, and the files run on every platform.
+`crates/plugin/src/luau/xccode/plugin.luau` is a typed stub of `@xccode/plugin`; a `.luaurc` that aliases
+`xccode` to its directory (as `crates/plugin/examples/luau/.luaurc` does) lets `luau-analyze` and luau-lsp check a
 plugin, and `bun run check:luau-types` checks every Luau plugin in the repository.
 
 ### TypeScript
@@ -114,7 +114,7 @@ plugin, and `bun run check:luau-types` checks every Luau plugin in the repositor
 ```tsx
 /** @jsxImportSource @opentui/solid */
 // The quick start as a TypeScript TUI plugin, which the JS host runs.
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@xccode/plugin/tui"
 
 export default Plugin.define({
   id: "example.ts-hello",
@@ -145,8 +145,8 @@ export default Plugin.define({
 })
 ```
 
-Copy the file to `~/.config/opencode/plugins/hello/tui.tsx`, or publish it to npm and run
-`opencode-native plugin add <name>`. It needs Bun ([TypeScript plugins](#typescript-plugins)).
+Copy the file to `~/.config/xccode/plugins/hello/tui.tsx`, or publish it to npm and run
+`xccode-native plugin add <name>`. It needs Bun ([TypeScript plugins](#typescript-plugins)).
 
 ### Examples
 
@@ -287,7 +287,7 @@ On every carrier, a tree may make the host build at most 20,000 nodes and 3,000 
 of content a plugin (`crates/plugin/src/limits.rs`); the node past a limit shows a placeholder, and the rest draws. Storage is 128 keys a
 plugin and 256 KiB a value. At most 1,024 effects run in one frame for all plugins (`FRAME_EFFECTS`).
 
-The time limits are `Limits` in `crates/plugin/src/contain/mod.rs`, and `OPENCODE_PLUGIN_LIMITS` overrides them, as
+The time limits are `Limits` in `crates/plugin/src/contain/mod.rs`, and `XCCODE_PLUGIN_LIMITS` overrides them, as
 in `frame=2ms,overrun=250ms`. The Luau sandbox (`crates/plugin/src/luau`) has no file system and no `loadstring`, and
 `require` reaches only the plugin's own files.
 
@@ -297,8 +297,8 @@ in `frame=2ms,overrun=250ms`. The Luau sandbox (`crates/plugin/src/luau`) has no
 
 In the places the TypeScript client looks, in this order:
 
-1. Each subdirectory, or link to one, of the `plugins` directories: the global one (`~/.config/opencode/plugins`, or
-   `$OPENCODE_CONFIG_DIR/plugins`), then each `.opencode/plugins` from the project root (the nearest directory with
+1. Each subdirectory, or link to one, of the `plugins` directories: the global one (`~/.config/xccode/plugins`, or
+   `$XCCODE_CONFIG_DIR/plugins`), then each `.xccode/plugins` from the project root (the nearest directory with
    `.git` or `.hg`) down to the working directory.
 2. The TUI parts of the server's active plugins (`GET /api/plugin` with `features.tui`). One whose package or path
    does not resolve is left out.
@@ -314,23 +314,23 @@ Targets merge by local path; a later entry replaces an earlier one in its place.
 
 An npm spec (`name`, `name@1.2.3`, a range, a tag, `@scope/name`, a git spec) resolves to the package the TypeScript
 client installed in its cache. The client installs nothing: a spec missing from the cache is skipped with a hint to
-run `opencode-native plugin add <spec>`.
+run `xccode-native plugin add <spec>`.
 
 **Enabling and disabling.** A `plugins` entry `-<id>` disables plugins by ID; `*` and `prefix.*` select several, and a
 later entry without `-` enables them again. The entries after a plugin's own (all of them, for a discovered plugin)
-decide whether it starts enabled. `opencode.*` IDs are the built-ins. An external plugin with a built-in's ID replaces
+decide whether it starts enabled. `xccode.*` IDs are the built-ins. An external plugin with a built-in's ID replaces
 it in its place until it is unloaded. A toggle in `/plugins` lasts until the TUI exits and is not saved.
 
 ### TypeScript plugins
 
 The JS host is one Bun process for all TypeScript plugins, started when the first one needs it. Bun is the first of:
 
-1. `OPENCODE_BUN`, an absolute path;
-2. the `opencode` binary of a local server (a background service or standalone server, not `--server`), run as the
+1. `XCCODE_BUN`, an absolute path;
+2. the `xccode` binary of a local server (a background service or standalone server, not `--server`), run as the
    Bun it embeds (`BUN_BE_BUN=1`), when that Bun is 1.4.0 or newer. The client finds that binary from the server's
    process on Linux and Windows;
-3. the `opencode` installed beside the client, for a remote server too;
-4. where the server's binary is unknown, the first `opencode` on `PATH` that answers as Bun (by real path, so a
+3. the `xccode` installed beside the client, for a remote server too;
+4. where the server's binary is unknown, the first `xccode` on `PATH` that answers as Bun (by real path, so a
    version manager's shim is passed over);
 5. `bun` on `PATH`.
 
@@ -340,12 +340,12 @@ says why.
 Bun runs in a private directory with `--no-env-file`, `--no-install`, its own `bunfig.toml`, and an allowlisted
 environment, so nothing of the project loads as it starts and nothing is installed. A plugin that imports a package
 its directory does not hold fails to load. The log has each failure with the stack the plugin threw, and its
-`console` output as `js host: …` lines. `OPENCODE_JS_HOST_TRACE=<file>` appends every frame the JS host reads and
+`console` output as `js host: …` lines. `XCCODE_JS_HOST_TRACE=<file>` appends every frame the JS host reads and
 writes. [The JS host](plugin-abi.md#the-js-host) has the protocol.
 
 ### Approval of a project's plugins
 
-A plugin in a project's `.opencode/plugins` runs only once the user approves it, whatever its carrier; the TypeScript
+A plugin in a project's `.xccode/plugins` runs only once the user approves it, whatever its carrier; the TypeScript
 client loads it at once ([`F16-project-plugin-approval.md`](../parity/deviations/F16-project-plugin-approval.md)).
 The global directory and `cli.json` need no approval, because a project cannot write them.
 
@@ -365,7 +365,7 @@ The global directory and `cli.json` need no approval, because a project cannot w
 ### Reload
 
 The TUI watches the `plugins` directories, each plugin directory and the directory of each configured path, and
-loads a new build 100 ms after the last change (`OPENCODE_FILEWATCHER_DISABLE` turns this off). The new build starts
+loads a new build 100 ms after the last change (`XCCODE_FILEWATCHER_DISABLE` turns this off). The new build starts
 before the running one stops. If it fails to load or set up, the running version stays and `/plugins` says
 `… (previous version still active)`. A plugin keeps its place among the claims across a reload and a toggle.
 
@@ -378,11 +378,11 @@ draw empty or the host's fallback. Enabling it again in `/plugins` starts a fres
 `/plugins` lists TUI plugins under "TUI" and the server's under "Server", each active, inactive, skipped, failed,
 pending or declined; `ctrl+a` shows the built-ins. Enter enables or disables a plugin, or asks about a pending one. A
 failed plugin has an `x`, and Space ("view error") shows its error (Enter, on a target that did not load). A toast
-"Plugin failed: <id>" offers "Open plugins", and the home footer counts failed plugins. The log (`opencode.log` in the
-directory `opencode-native debug paths` prints) has every failure.
+"Plugin failed: <id>" offers "Open plugins", and the home footer counts failed plugins. The log (`xccode.log` in the
+directory `xccode-native debug paths` prints) has every failure.
 
 A crash of the process ends the client; only the Luau VM could cause one, and there is no crash guard. If a plugin
-keeps the client from starting, `opencode-native --no-plugins` starts the TUI with no external plugin for that
+keeps the client from starting, `xccode-native --no-plugins` starts the TUI with no external plugin for that
 run: no Luau, TypeScript or local plugin, and the built-ins as always. It is not in the TypeScript CLI
-([`D01-no-plugins.md`](../parity/deviations/D01-no-plugins.md)). `OPENCODE_PLUGIN_LUAU=0` and `OPENCODE_PLUGIN_JS=0`
+([`D01-no-plugins.md`](../parity/deviations/D01-no-plugins.md)). `XCCODE_PLUGIN_LUAU=0` and `XCCODE_PLUGIN_JS=0`
 turn off one carrier for as long as they are set.

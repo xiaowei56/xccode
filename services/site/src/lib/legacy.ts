@@ -24,7 +24,7 @@ export function legacyRedirect(request: Legacy): Response | undefined {
     const channel = download[1] === "stable" ? "latest" : download[1]
     return redirect(
       302,
-      `${updateApi}/${channel}/desktop/opencode/${desktopAssets[platform as keyof typeof desktopAssets]}`,
+      `${updateApi}/${channel}/desktop/xccode/${desktopAssets[platform as keyof typeof desktopAssets]}`,
     )
   }
 
@@ -37,9 +37,9 @@ export function legacyRedirect(request: Legacy): Response | undefined {
   // The legacy dashboard and its sign-in, now the Console. The V1 CLI's "create a key at /auth" and
   // V1's usage-limit link /workspace/<id>/go (about 50k requests a day).
   if (/^\/(auth|workspace)(\/|$)/.test(request.path))
-    return redirect(302, "https://opencode.ai/console/login", "no-store")
+    return redirect(302, "https://xccode.ai/console/login", "no-store")
 
-  // OpenCode Black was discontinued; its subscriptions moved to Go. Old links, about 100 a day.
+  // Xccode Black was discontinued; its subscriptions moved to Go. Old links, about 100 a day.
   if (/^\/black(\/|$)/.test(request.path)) return redirect(301, "/console/go")
 
   // The stats site's old name: it lives at /data (the Stats Worker). Old links, about 130 a day.
@@ -55,7 +55,7 @@ export function legacyRedirect(request: Legacy): Response | undefined {
   if (/^\/ide\/?$/.test(request.path) && read) return redirect(301, `/v1/docs/ide/${request.search}`)
 
   // The V2 docs' first address, before they moved to /docs in Nov 2026. Apps up to v2.2.5 (Help menu,
-  // settings links, the opencode skill), the READMEs and install script of those releases, search
+  // settings links, the xccode skill), the READMEs and install script of those releases, search
   // engines and outside links. Pages, Markdown twins and the docs' files (llms.txt, the sitemap,
   // openapi.json) keep their path under /docs. The install script and the V2 config schema
   // (/v2/install, /v2/cli.json) are not docs and stay at /v2.

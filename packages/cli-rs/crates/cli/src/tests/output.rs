@@ -10,7 +10,7 @@ use crate::parse::{self, Outcome};
 use crate::prompt::wrap::strip;
 use crate::{completions, tests::lines_diff};
 
-const PROGRAM: &str = "opencode";
+const PROGRAM: &str = "xccode";
 
 fn fixtures() -> &'static Path {
     Path::new(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/cli"))
@@ -28,7 +28,7 @@ fn every_command() -> Vec<Vec<&'static Spec>> {
     out
 }
 
-/// `help` without the lines of opencode-native's own flags (`Flag::own`), which the TypeScript CLI does not have
+/// `help` without the lines of xccode-native's own flags (`Flag::own`), which the TypeScript CLI does not have
 /// (`D01-no-plugins`). An own flag is no wider than the flags beside it, so the other lines keep their columns.
 fn typescript_view(help: &str) -> String {
     let own: Vec<String> = every_command()
@@ -44,7 +44,7 @@ fn help_matches_the_typescript_cli() {
     assert_eq!(paths.len(), 53);
     for path in paths {
         let name = parse::command_path(&path, PROGRAM).join(" ");
-        // The writer joins the names below the root with "." (`auth.export.txt`); the root is `opencode.txt`.
+        // The writer joins the names below the root with "." (`auth.export.txt`); the root is `xccode.txt`.
         let file = if path.len() == 1 {
             PROGRAM.to_string()
         } else {
@@ -65,10 +65,10 @@ fn help_flag_selects_the_command() {
         Outcome::Help(path) => parse::command_path(&path, PROGRAM).join(" "),
         _ => panic!("{line:?} is not help"),
     };
-    assert_eq!(help(&["session", "list", "--help"]), "opencode session list");
-    assert_eq!(help(&["-h", "update"]), "opencode upgrade");
-    assert_eq!(help(&["run", "--bogus", "-h", "false"]), "opencode run");
-    assert_eq!(help(&["--wizard", "--help"]), "opencode");
+    assert_eq!(help(&["session", "list", "--help"]), "xccode session list");
+    assert_eq!(help(&["-h", "update"]), "xccode upgrade");
+    assert_eq!(help(&["run", "--bogus", "-h", "false"]), "xccode run");
+    assert_eq!(help(&["--wizard", "--help"]), "xccode");
 }
 
 /// login-alias.test.ts: `login` stays out of the root's help and completions, and helps like `auth login`.
@@ -79,14 +79,14 @@ fn login_is_hidden_but_helps_like_auth_login() {
     assert!(root.contains("\n  auth "), "{root}");
     assert!(!root.contains("\n  login "), "{root}");
     let login = help(&["login"]);
-    assert!(login.contains("opencode login [flags] [<target>]"), "{login}");
+    assert!(login.contains("xccode login [flags] [<target>]"), "{login}");
     let sections = |help: &str| help[help.find("ARGUMENTS").unwrap()..].to_string();
     assert_eq!(sections(&login), sections(&help(&["auth", "login"])));
     for shell in [Shell::Bash, Shell::Zsh, Shell::Fish, Shell::Powershell] {
         let script = completions::generate(shell, PROGRAM);
         assert!(script.contains("acp") && !script.contains("alias for auth login"), "{shell:?}");
     }
-    assert!(!completions::generate(Shell::Bash, PROGRAM).contains("_opencode_login"));
+    assert!(!completions::generate(Shell::Bash, PROGRAM).contains("_xccode_login"));
 }
 
 #[test]

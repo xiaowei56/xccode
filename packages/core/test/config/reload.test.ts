@@ -2,40 +2,40 @@ import path from "path"
 import fs from "fs/promises"
 import { writeFileSync } from "node:fs"
 import { describe, expect } from "bun:test"
-import { Document, Event, Info } from "@opencode/schema/config"
-import { Agent } from "@opencode/core/agent"
-import { Command } from "@opencode/core/command"
-import { Config } from "@opencode/core/config"
-import { ConfigAgentPlugin } from "@opencode/core/config/plugin/agent"
-import { ConfigCommandPlugin } from "@opencode/core/config/plugin/command"
-import { ConfigPolicyPlugin } from "@opencode/core/config/plugin/policy"
-import { ConfigProviderPlugin } from "@opencode/core/config/plugin/provider"
-import { ConfigReferencePlugin } from "@opencode/core/config/plugin/reference"
-import { ConfigCompatibilityPlugin } from "@opencode/core/config/plugin/compatibility"
-import { ConfigSkillPlugin } from "@opencode/core/config/plugin/skill"
-import { ConfigWebSearchPlugin } from "@opencode/core/config/plugin/websearch"
-import { Bus } from "@opencode/core/bus"
-import { Integration } from "@opencode/core/integration"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Provider } from "@opencode/core/provider"
-import { Reference } from "@opencode/core/reference"
-import { Skill } from "@opencode/core/skill"
-import { State } from "@opencode/core/state"
-import { WebSearch } from "@opencode/core/websearch"
-import { ShellSelect } from "@opencode/core/shell/select"
-import { Job } from "@opencode/core/job"
-import { SubagentJob } from "@opencode/core/session/subagent-job"
-import { Global } from "@opencode/util/global"
-import { Location } from "@opencode/core/location"
-import { Credential } from "@opencode/core/credential"
-import { WellKnown } from "@opencode/core/wellknown"
-import { Watcher } from "@opencode/core/filesystem/watcher"
-import { AppProcess } from "@opencode/util/process"
+import { Document, Event, Info } from "@xccode/schema/config"
+import { Agent } from "@xccode/core/agent"
+import { Command } from "@xccode/core/command"
+import { Config } from "@xccode/core/config"
+import { ConfigAgentPlugin } from "@xccode/core/config/plugin/agent"
+import { ConfigCommandPlugin } from "@xccode/core/config/plugin/command"
+import { ConfigPolicyPlugin } from "@xccode/core/config/plugin/policy"
+import { ConfigProviderPlugin } from "@xccode/core/config/plugin/provider"
+import { ConfigReferencePlugin } from "@xccode/core/config/plugin/reference"
+import { ConfigCompatibilityPlugin } from "@xccode/core/config/plugin/compatibility"
+import { ConfigSkillPlugin } from "@xccode/core/config/plugin/skill"
+import { ConfigWebSearchPlugin } from "@xccode/core/config/plugin/websearch"
+import { Bus } from "@xccode/core/bus"
+import { Integration } from "@xccode/core/integration"
+import { Plugin } from "@xccode/core/plugin"
+import { PluginHost } from "@xccode/core/plugin/host"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { Provider } from "@xccode/core/provider"
+import { Reference } from "@xccode/core/reference"
+import { Skill } from "@xccode/core/skill"
+import { State } from "@xccode/core/state"
+import { WebSearch } from "@xccode/core/websearch"
+import { ShellSelect } from "@xccode/core/shell/select"
+import { Job } from "@xccode/core/job"
+import { SubagentJob } from "@xccode/core/session/subagent-job"
+import { Global } from "@xccode/util/global"
+import { Location } from "@xccode/core/location"
+import { Credential } from "@xccode/core/credential"
+import { WellKnown } from "@xccode/core/wellknown"
+import { Watcher } from "@xccode/core/filesystem/watcher"
+import { AppProcess } from "@xccode/util/process"
 import { Deferred, Effect, Layer, Schema } from "effect"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { AbsolutePath } from "@opencode/core/schema"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { AbsolutePath } from "@xccode/core/schema"
 import { waitUntil } from "../lib/eventually"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "../plugin/fixture"
@@ -50,7 +50,7 @@ const it = testEffect(
   ),
 )
 const decode = Schema.decodeUnknownSync(Info)
-const document = path.join(import.meta.dir, "opencode.json")
+const document = path.join(import.meta.dir, "xccode.json")
 
 describe("config plugin reloads", () => {
   for (const input of [
@@ -65,7 +65,7 @@ describe("config plugin reloads", () => {
           Effect.gen(function* () {
             const project = path.join(tmp.path, "project")
             const root = path.resolve(project, input.root)
-            const file = path.join(project, "opencode.json")
+            const file = path.join(project, "xccode.json")
             yield* Effect.promise(async () => {
               await fs.mkdir(path.join(project, "home"), { recursive: true })
               await fs.mkdir(path.join(project, "global"))
@@ -109,7 +109,7 @@ describe("config plugin reloads", () => {
             Effect.sync(() => {
               if (input.type === "entries" && input.target === tmp.path) {
                 // No event is emitted: only synchronous readiness can trigger the reload.
-                writeFileSync(path.join(tmp.path, "opencode.json"), JSON.stringify({ references: { docs: "./docs" } }))
+                writeFileSync(path.join(tmp.path, "xccode.json"), JSON.stringify({ references: { docs: "./docs" } }))
               }
               return { unsubscribe: () => Promise.resolve() }
             }),
@@ -130,7 +130,7 @@ describe("config plugin reloads", () => {
     Effect.acquireDisposable(Effect.promise(() => tmpdir())).pipe(
       Effect.flatMap((tmp) =>
         Effect.gen(function* () {
-          const root = path.join(tmp.path, ".opencode")
+          const root = path.join(tmp.path, ".xccode")
           const parent = yield* Deferred.make<(update: Watcher.Update) => void>()
           const starting = yield* Deferred.make<void>()
           const release = yield* Deferred.make<void>()
@@ -158,7 +158,7 @@ describe("config plugin reloads", () => {
             yield* Deferred.await(starting).pipe(Effect.timeout("2 seconds"))
             // No file event: the recursive native watch has not been acquired yet.
             yield* Effect.promise(() =>
-              fs.writeFile(path.join(root, "opencode.json"), JSON.stringify({ references: { docs: "./docs" } })),
+              fs.writeFile(path.join(root, "xccode.json"), JSON.stringify({ references: { docs: "./docs" } })),
             )
             yield* Deferred.succeed(release, undefined)
             yield* waitUntil(references.list().pipe(Effect.map((items) => items.some((item) => item.name === "docs"))))
@@ -170,10 +170,10 @@ describe("config plugin reloads", () => {
   )
 
   for (const input of [
-    { file: "opencode.json", empty: false },
-    { file: "../opencode.jsonc", empty: false },
-    { file: ".opencode/opencode.json", empty: false },
-    { file: "../.opencode/opencode.jsonc", empty: true },
+    { file: "xccode.json", empty: false },
+    { file: "../xccode.jsonc", empty: false },
+    { file: ".xccode/xccode.json", empty: false },
+    { file: "../.xccode/xccode.jsonc", empty: true },
   ]) {
     it.live(`loads references when ${input.file} is first created and keeps watching it`, () =>
       Effect.acquireDisposable(Effect.promise(() => tmpdir())).pipe(
@@ -218,7 +218,7 @@ describe("config plugin reloads", () => {
               )
 
               yield* Effect.promise(() =>
-                fs.rm(input.file.includes(".opencode/") ? path.dirname(target) : target, { recursive: true }),
+                fs.rm(input.file.includes(".xccode/") ? path.dirname(target) : target, { recursive: true }),
               )
               yield* waitUntil(references.list().pipe(Effect.map((items) => items.length === 0)))
               yield* Effect.promise(async () => {
@@ -260,11 +260,11 @@ describe("config plugin reloads", () => {
     }).pipe(
       Effect.provide(
         Config.testLayer([
-          referenceConfig("/config/first/opencode.json", {
+          referenceConfig("/config/first/xccode.json", {
             shared: "./shared",
             first: "./first",
           }),
-          referenceConfig("/config/second/opencode.json", {
+          referenceConfig("/config/second/xccode.json", {
             shared: "./shared",
             second: "./second",
           }),

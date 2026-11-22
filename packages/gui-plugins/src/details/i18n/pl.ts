@@ -36,15 +36,15 @@ export default {
   "move.recovery.remove": "Usuń drzewo robocze",
   "mcp.manage": "Zarządzaj serwerami MCP",
   timedOut: "Serwer zbyt długo nie odpowiadał",
-  "setup.mcp": "Dodaj serwer z OpenCode",
+  "setup.mcp": "Dodaj serwer z Xccode",
   "setup.mcp.prompt":
-    "Pomóż mi dodać serwer MCP do mojej globalnej konfiguracji OpenCode. Zapytaj, z którą usługą chcę się połączyć, a następnie skonfiguruj ją i sprawdź, czy się łączy.",
-  "setup.plugins": "Dodaj wtyczkę z OpenCode",
+    "Pomóż mi dodać serwer MCP do mojej globalnej konfiguracji Xccode. Zapytaj, z którą usługą chcę się połączyć, a następnie skonfiguruj ją i sprawdź, czy się łączy.",
+  "setup.plugins": "Dodaj wtyczkę z Xccode",
   "setup.plugins.prompt":
-    "Pomóż mi dodać wtyczkę do mojej globalnej konfiguracji OpenCode. Zapytaj, co ma robić, zaproponuj wtyczkę, a następnie ją dodaj.",
-  "setup.skills": "Nowa umiejętność z OpenCode",
+    "Pomóż mi dodać wtyczkę do mojej globalnej konfiguracji Xccode. Zapytaj, co ma robić, zaproponuj wtyczkę, a następnie ją dodaj.",
+  "setup.skills": "Nowa umiejętność z Xccode",
   "setup.skills.prompt":
-    "Pomóż mi napisać nową umiejętność OpenCode w mojej globalnej konfiguracji. Zapytaj, czego ma Cię nauczyć, a następnie napisz jej SKILL.md.",
+    "Pomóż mi napisać nową umiejętność Xccode w mojej globalnej konfiguracji. Zapytaj, czego ma Cię nauczyć, a następnie napisz jej SKILL.md.",
   changesFailed: "Nie udało się wczytać zmian",
   changesOffline: "Nie można połączyć się z tym serwerem",
   "mcp.signIn": "Zaloguj się",
@@ -56,7 +56,7 @@ export default {
   "mcp.error.actionLabel": "Szczegóły dla {{name}}",
   "mcp.signIn.open": "Zaloguj się do {{name}}",
   "mcp.signIn.description":
-    "Otworzy się przeglądarka, w której zalogujesz się do {{name}}. Jeśli nie może połączyć się z maszyną, na której działa OpenCode, wklej poniżej adres URL, na który została przekierowana.",
+    "Otworzy się przeglądarka, w której zalogujesz się do {{name}}. Jeśli nie może połączyć się z maszyną, na której działa Xccode, wklej poniżej adres URL, na który została przekierowana.",
   "mcp.signIn.waiting": "Oczekiwanie na autoryzację…",
   "mcp.signIn.failed": "Autoryzacja nie powiodła się: {{error}}",
   "mcp.signIn.expired": "Autoryzacja wygasła",

@@ -42,7 +42,7 @@ export type DocsV1 = {
 
 // Before first paint, inside the site root: the saved theme, as on the site (preload-settings.ts),
 // after taking over a choice saved by the docs before they shared the site's theme ("docs-theme").
-const themeMigration = `try{const o=localStorage.getItem("docs-theme");if(o){if(!localStorage.getItem("opencode-theme")&&(o==="light"||o==="dark"))localStorage.setItem("opencode-theme",o);localStorage.removeItem("docs-theme")}}catch{}`
+const themeMigration = `try{const o=localStorage.getItem("docs-theme");if(o){if(!localStorage.getItem("xccode-theme")&&(o==="light"||o==="dark"))localStorage.setItem("xccode-theme",o);localStorage.removeItem("docs-theme")}}catch{}`
 
 // Pages load as plain documents (no client router). The browser prerenders a docs link once the
 // pointer rests on it, and docs.css turns on cross-document view transitions, so a click shows the
@@ -80,9 +80,9 @@ export function DocsLayout(props: {
   const previous = at > 0 ? pages[at - 1] : undefined
   const next = at >= 0 ? pages[at + 1] : undefined
   const current = pages[at]
-  const description = props.description ?? `${props.title} documentation for OpenCode.`
-  const title = `${props.title} | OpenCode${props.set.id === "v1" ? " V1" : ""}`
-  const canonical = new URL(docsHref(props.currentSlug, props.set), "https://opencode.ai").href
+  const description = props.description ?? `${props.title} documentation for Xccode.`
+  const title = `${props.title} | Xccode${props.set.id === "v1" ? " V1" : ""}`
+  const canonical = new URL(docsHref(props.currentSlug, props.set), "https://xccode.ai").href
   const contents = props.headings
     .filter((heading) => heading.depth === 2 || heading.depth === 3)
     .map((heading) => ({ id: heading.slug, title: heading.text, level: heading.depth as 2 | 3 }))

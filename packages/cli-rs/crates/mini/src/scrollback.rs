@@ -1,7 +1,7 @@
 //! Finished entries are painted once; streaming entries commit only their settled rows. Text written to terminal
 //! scrollback cannot be rewritten.
 
-use opencode_api::generated::{SessionMessageAssistantTool, SessionMessageAssistantToolState};
+use xccode_api::generated::{SessionMessageAssistantTool, SessionMessageAssistantToolState};
 use opentui::prelude::*;
 use opentui::split::{Scrollback, ScrollbackSurface, SnapshotOptions, SplitFooter, SplitSnapshot};
 use opentui::syntax::SyntaxTheme;
@@ -619,7 +619,7 @@ impl Writer {
         let image = commit
             .image
             .as_deref()
-            .and_then(opencode_ui::prompt_input::attach::data_uri)
+            .and_then(xccode_ui::prompt_input::attach::data_uri)
             .and_then(|bytes| opentui::native::Image::decode(app.session().context(), &bytes).ok());
         let text = if image.is_some() { caption.clone() } else { format!("{caption}\nNo preview") };
         let (fg, attributes) = entry_look(commit, &self.theme);
@@ -832,7 +832,7 @@ fn entry_markdown(app: &App, theme: &RunTheme, commit: &Commit, body: &Body, str
         ..MarkdownTableOptions::default()
     };
     let syntax = if code { recolor(syntax, color) } else { syntax };
-    opencode_ui::grammars::register();
+    xccode_ui::grammars::register();
     Markdown::new(app)
         .colors(colors)
         .syntax_theme(syntax)

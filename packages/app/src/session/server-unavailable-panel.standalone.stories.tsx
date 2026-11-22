@@ -1,4 +1,4 @@
-import { Button } from "@opencode/ui/button"
+import { Button } from "@xccode/ui/button"
 import { createSignal, Show } from "solid-js"
 import { DialogStoryRuntime, STORY_LOCKED_SERVER, STORY_SERVER } from "@/components-lab/dialog-story-runtime"
 import { ServerProvider } from "@/runtime/server/current"
@@ -64,7 +64,7 @@ function PanelStory(props: Args) {
 }
 
 export default {
-  title: "OpenCode/Session/Server unavailable",
+  title: "Xccode/Session/Server unavailable",
   id: "session-server-unavailable",
   args: { reason: "unreachable", closable: true } satisfies Args,
   argTypes: { reason: { options: reasons } },

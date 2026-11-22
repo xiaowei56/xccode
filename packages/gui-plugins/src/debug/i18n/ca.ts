@@ -33,7 +33,7 @@ export default {
   "memory.tip":
     "Diagnòstic de memòria: registra la memòria de l'aplicació als registres d'escriptori cada 30 segons. Es manté actiu entre reinicis fins que el desactiveu; la barra es manté oberta mentre s'executa.",
   "memory.tipEnv":
-    "El diagnòstic de memòria està activat en aquesta execució: OPENCODE_DESKTOP_MEMORY_LOG està definida.",
+    "El diagnòstic de memòria està activat en aquesta execució: XCCODE_DESKTOP_MEMORY_LOG està definida.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

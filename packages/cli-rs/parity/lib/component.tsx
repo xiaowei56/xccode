@@ -2,7 +2,7 @@
 // P-COMP, TypeScript side: renders one TUI component in createTestRenderer at a fixed size and theme and
 // writes its cells to parity/fixtures/<fixture>.json (format in cells.ts). Run each component script
 // from parity/ so bun picks up parity/bunfig.toml, for example `bun run component/H.1-alert.tsx`.
-// The Rust side compares a TestApp capture with the file through opencode_parity::assert_fixture.
+// The Rust side compares a TestApp capture with the file through xccode_parity::assert_fixture.
 import { testRender } from "@opentui/solid"
 import { onMount, type JSX } from "solid-js"
 import { ConfigProvider } from "../../../tui/src/config"
@@ -30,7 +30,7 @@ export type ComponentOptions = {
   height: number
   // More `cli.json` fields for the resolved config, merged over the theme and `animations: false`.
   config?: Record<string, unknown>
-  // A built-in theme name; default "opencode".
+  // A built-in theme name; default "xccode".
   theme?: string
   mode?: "dark" | "light"
   // Opened with useDialog().replace once mounted. Use for dialog kinds.
@@ -72,7 +72,7 @@ function Providers(props: ComponentOptions) {
   const api = createApi(createFetch(undefined, createEventStream()).fetch)
   const config = createTuiResolvedConfig(
     withNewDesigns({
-      theme: { name: props.theme ?? "opencode", mode: props.mode ?? "dark" },
+      theme: { name: props.theme ?? "xccode", mode: props.mode ?? "dark" },
       animations: false,
       ...props.config,
     }),
@@ -82,7 +82,7 @@ function Providers(props: ComponentOptions) {
       <ConfigProvider config={config}>
         <RouteProvider initialRoute={{ type: "home" }}>
           <ClientProvider api={api}>
-            <DataProvider directory="/tmp/opencode">
+            <DataProvider directory="/tmp/xccode">
               <LocationProvider>
                 <ThemeProvider mode={props.mode ?? "dark"} source={emptyThemeSource}>
                   <Keymap.Provider>

@@ -1,7 +1,7 @@
 import { Schema } from "effect"
 import { extensionLabel } from "./label"
 import type { ContextMenuParams, Extension, MenuItemConstructorOptions } from "electron"
-import type { Storage } from "@opencode/plugin/gui/main"
+import type { Storage } from "@xccode/plugin/gui/main"
 import { method, none, optional, type ApiModule, type Emit } from "./api"
 import { matchesHost } from "./match-pattern"
 import type { Manifests } from "./manifest"

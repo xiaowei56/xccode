@@ -1,6 +1,6 @@
 //! Paged transcripts and streaming message updates.
 
-use opencode_api::generated::*;
+use xccode_api::generated::*;
 use serde_json::Value;
 use std::collections::HashMap;
 use std::collections::HashSet;

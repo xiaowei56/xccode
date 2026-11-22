@@ -1,4 +1,4 @@
-import type { OpenOptions, PanelState } from "@opencode/plugin/gui"
+import type { OpenOptions, PanelState } from "@xccode/plugin/gui"
 
 /**
  * Where a panel key stands in a session, as `Layout.state` reports it. A New tab view shown in the key's pane covers

@@ -1160,7 +1160,7 @@ function formatProvider(provider: string) {
     moonshot: "Moonshot",
     moonshotai: "Moonshot",
     nvidia: "NVIDIA",
-    opencode: "opencode",
+    xccode: "xccode",
     openai: "OpenAI",
     qwen: "Qwen",
     tencent: "Tencent",

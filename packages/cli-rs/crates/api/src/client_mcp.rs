@@ -1,4 +1,4 @@
-//! Serves MCP tools to the OpenCode server, one JSON-RPC message per WebSocket text frame. [`connect`] reconnects
+//! Serves MCP tools to the Xccode server, one JSON-RPC message per WebSocket text frame. [`connect`] reconnects
 //! with backoff until the connection closes or drops.
 
 use std::sync::Arc;
@@ -13,7 +13,7 @@ use url::Url;
 use crate::ws::{self, BoxFuture, Incoming};
 pub use crate::ws::{Tungstenite, pair};
 
-const SESSION_ID_META_KEY: &str = "ai.opencode/sessionID";
+const SESSION_ID_META_KEY: &str = "ai.xccode/sessionID";
 pub const PROTOCOL_VERSION: &str = "2025-11-25";
 pub const RECONNECT_MIN: Duration = Duration::from_millis(500);
 pub const RECONNECT_MAX: Duration = Duration::from_secs(10);
@@ -21,7 +21,7 @@ pub const RECONNECT_MAX: Duration = Duration::from_secs(10);
 /// `connectClientMcp`'s options.
 #[derive(Clone)]
 pub struct Options {
-    /// The opencode server's base URL. Its query is kept.
+    /// The xccode server's base URL. Its query is kept.
     pub url: Url,
     /// `[a-zA-Z0-9_-]+`. The model sees the tools as `<name>_<tool>`.
     pub name: String,
@@ -46,7 +46,7 @@ pub struct Tool {
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct Context {
-    /// The opencode session that called the tool.
+    /// The xccode session that called the tool.
     pub session_id: Option<String>,
 }
 
@@ -197,7 +197,7 @@ async fn serve(
                 };
                 let Some(message) = parse(&text) else { continue };
                 let method = message.get("method").and_then(Value::as_str);
-                // Reset backoff only once the opencode server finished initializing, so a failed attach keeps
+                // Reset backoff only once the xccode server finished initializing, so a failed attach keeps
                 // backing off.
                 if method == Some("notifications/initialized") {
                     *delay = RECONNECT_MIN;
@@ -228,7 +228,7 @@ pub async fn respond(options: &Options, method: &str, params: &Value) -> Map<Str
     };
     match method {
         "initialize" => result(json!({
-            // The opencode server only offers versions it supports, so echo its choice.
+            // The xccode server only offers versions it supports, so echo its choice.
             "protocolVersion": params
                 .get("protocolVersion")
                 .and_then(Value::as_str)
@@ -358,7 +358,7 @@ mod tests {
             let reply = self
                 .request(
                     "initialize",
-                    json!({ "protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": { "name": "opencode", "version": "1.0.0" } }),
+                    json!({ "protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": { "name": "xccode", "version": "1.0.0" } }),
                 )
                 .await;
             self.send(json!({ "jsonrpc": "2.0", "method": "notifications/initialized" })).await;
@@ -377,7 +377,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn serves_registered_tools_to_the_opencode_server() {
+    async fn serves_registered_tools_to_the_xccode_server() {
         let (listener, base) = listen().await;
         let mut url = base.clone();
         url.set_query(Some("ticket=t1"));
@@ -433,7 +433,7 @@ mod tests {
             ])
         );
         assert_eq!(
-            peer.call(json!({ "name": "whoami", "arguments": {}, "_meta": { "ai.opencode/sessionID": "ses_1" } }))
+            peer.call(json!({ "name": "whoami", "arguments": {}, "_meta": { "ai.xccode/sessionID": "ses_1" } }))
                 .await["result"],
             json!({ "content": [{ "type": "text", "text": "ses_1" }] })
         );
@@ -518,7 +518,7 @@ mod tests {
 
     fn quiet() -> Options {
         Options {
-            url: crate::js::parse_url("http://opencode.local").unwrap(),
+            url: crate::js::parse_url("http://xccode.local").unwrap(),
             name: "tui".into(),
             directory: None,
             headers: Vec::new(),
@@ -547,7 +547,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn keeps_backing_off_while_the_opencode_server_never_initializes() {
+    async fn keeps_backing_off_while_the_xccode_server_never_initializes() {
         let (connector, opened, mut remotes) = tracked();
         let _connection = connect(quiet(), connector);
         let drop_socket = async |remotes: &mut mpsc::UnboundedReceiver<Remote>| {

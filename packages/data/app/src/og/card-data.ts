@@ -1,4 +1,4 @@
-import { statModel } from "@opencode/data-core/domain/model-normalization"
+import { statModel } from "@xccode/data-core/domain/model-normalization"
 import { formatTokens, fromFirstUsage, isoDay } from "../lib/format"
 import { baseUrl } from "../lib/language"
 import { publicModelName } from "../lib/model-name"
@@ -86,10 +86,10 @@ export function ogImageAlt(card: OgCard) {
   const tokens = `${formatTokens(card.tokens)} tokens in the last 2 months`
   if (card.kind === "lab") {
     const models = `${card.models} ${card.models === 1 ? "model" : "models"}`
-    if (card.tokens === 0) return `${card.name} on OpenCode Data, with ${models}.`
-    return `${card.name} on OpenCode Data, with ${tokens} across ${models}.`
+    if (card.tokens === 0) return `${card.name} on Xccode Data, with ${models}.`
+    return `${card.name} on Xccode Data, with ${tokens} across ${models}.`
   }
-  const subject = card.lab ? `${card.name} by ${card.lab.name} on OpenCode Data` : `${card.name} on OpenCode Data`
+  const subject = card.lab ? `${card.name} by ${card.lab.name} on Xccode Data` : `${card.name} on Xccode Data`
   if (card.tokens === 0) return `${subject}.`
   if (!card.rank) return `${subject}, with ${tokens}.`
   return `${subject}, ranked #${card.rank} last week with ${tokens}.`

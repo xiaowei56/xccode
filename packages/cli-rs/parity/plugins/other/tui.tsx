@@ -1,5 +1,5 @@
 // The distractor of the views machine (parity/machines/plugins.json): a second plugin beside life whose setup throws,
-// with its own cause, under the option fail. Its opencode-native twin is init.luau beside it.
+// with its own cause, under the option fail. Its xccode-native twin is init.luau beside it.
 import type { Context } from "../../../../plugin/src/tui/plugin"
 
 export default {

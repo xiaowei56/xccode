@@ -1,9 +1,9 @@
 //! Prompt footer for session activity, hints, and status.
 
-use opencode_plugin::abi::interact::{Event, Handled};
-use opencode_plugin::abi::v2::{Node, Place, Surface};
-use opencode_plugin::abi::{self, Changed, Click, Layout, Placement, PromptInput, SlotInput, Span, Wrap};
-use opencode_plugin::slot;
+use xccode_plugin::abi::interact::{Event, Handled};
+use xccode_plugin::abi::v2::{Node, Place, Surface};
+use xccode_plugin::abi::{self, Changed, Click, Layout, Placement, PromptInput, SlotInput, Span, Wrap};
+use xccode_plugin::slot;
 use unicode_width::UnicodeWidthStr;
 
 use super::goal::{self, Goal, Goals};
@@ -13,7 +13,7 @@ use super::sidebar_context::{self, Last, Usage, money};
 use crate::prelude::*;
 
 pub fn plugin() -> abi::Plugin {
-    abi::Plugin { id: "opencode.prompt.footer", setup }
+    abi::Plugin { id: "xccode.prompt.footer", setup }
 }
 
 const ROOT: &str = "footer";

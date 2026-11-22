@@ -1,6 +1,6 @@
-use opencode_api::generated::{SessionID, SessionUpdateInput};
-use opencode_store::target::{self, Prepared, TargetInput};
-use opencode_util::error;
+use xccode_api::generated::{SessionID, SessionUpdateInput};
+use xccode_store::target::{self, Prepared, TargetInput};
+use xccode_util::error;
 use serde_json::json;
 use std::cell::Cell;
 use std::io::{IsTerminal, Read};
@@ -78,7 +78,7 @@ async fn execute(
     if args.worktree.is_some() && (args.continue_ || args.session.is_some()) {
         return Err("--worktree starts a new session and cannot be combined with --continue or --session".into());
     }
-    let root = opencode_local::paths::start_directory()?;
+    let root = xccode_local::paths::start_directory()?;
     let directory = root.to_string_lossy().into_owned();
     let argument = Some(args.message.join(" ")).filter(|message| !message.is_empty());
     // With a message argument, stdin is extra context: a shell pipe is read in full, but the open, silent
@@ -91,7 +91,7 @@ async fn execute(
         Some(read_stdin()?)
     };
     let message = merge_input(argument, piped).unwrap_or_default();
-    if message.trim_matches(opencode_api::js::is_whitespace).is_empty() {
+    if message.trim_matches(xccode_api::js::is_whitespace).is_empty() {
         return Err("You must provide a message".into());
     }
     let files = args.file.iter().map(|file| files::prepare(file, &root)).collect::<Result<Vec<_>, _>>()?;
@@ -105,7 +105,7 @@ async fn execute(
         }
     };
     if let Some(worktree) = &worktree {
-        let root = opencode_ui::terminal_text(&worktree.root);
+        let root = xccode_ui::terminal_text(&worktree.root);
         ui::println(&[&format!("{}worktree {root}{}", ui::TEXT_DIM, ui::TEXT_NORMAL)]);
     }
     let target = target::resolve_session_target(
@@ -117,7 +117,7 @@ async fn execute(
             fork: args.fork,
             model: explicit,
             agent: args.agent.clone(),
-            environment: server.is_service().then(opencode_store::environment::session_environment),
+            environment: server.is_service().then(xccode_store::environment::session_environment),
         },
         |next| async move { Ok(Prepared { model: next.model, agent: next.agent }) },
     )

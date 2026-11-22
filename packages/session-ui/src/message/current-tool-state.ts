@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant, SessionMessageAssistantTool } from "@opencode/client/promise"
+import type { SessionMessageAssistant, SessionMessageAssistantTool } from "@xccode/client/promise"
 import { Option, Predicate, Schema } from "effect"
 import type { ToolProps } from "../tools/tool-renderer"
 

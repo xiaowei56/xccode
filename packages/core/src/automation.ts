@@ -23,9 +23,9 @@ import {
   Semaphore,
   Stream,
 } from "effect"
-import { Node, makeGlobalNode } from "@opencode/util/effect/app-node"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { FSUtil } from "@opencode/util/fs-util"
+import { Node, makeGlobalNode } from "@xccode/util/effect/app-node"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { FSUtil } from "@xccode/util/fs-util"
 import {
   Action,
   ActionInput,
@@ -39,9 +39,9 @@ import {
   Status,
   Target,
   Trigger,
-} from "@opencode/schema/automation"
-import type { ProjectID } from "@opencode/schema/project-id"
-import { AbsolutePath } from "@opencode/schema/schema"
+} from "@xccode/schema/automation"
+import type { ProjectID } from "@xccode/schema/project-id"
+import { AbsolutePath } from "@xccode/schema/schema"
 import { Agent } from "./agent.js"
 import { type Invocation, matchesAuthor } from "./automation/author.js"
 import { AutomationCode } from "./automation/code.js"
@@ -115,7 +115,7 @@ export interface Interface {
   readonly run: Effect.Effect<never>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Automation") {}
+export class Service extends Context.Service<Service, Interface>()("@xccode/Automation") {}
 
 type Row = typeof AutomationTable.$inferSelect
 
@@ -791,7 +791,7 @@ const layer = Layer.effect(
         return yield* new InvalidError({
           reason: "The session that authorized this watch moved or was deleted",
         })
-      const action = "opencode_watch_mcp_event"
+      const action = "xccode_watch_mcp_event"
       yield* Effect.gen(function* () {
         yield* Plugin.awaitActivation
         const agents = yield* Agent.Service
@@ -1071,7 +1071,7 @@ const layer = Layer.effect(
             const permission = yield* Permission.Service
             yield* permission.assert({
               ...invocation,
-              action: "opencode_watch_mcp_event",
+              action: "xccode_watch_mcp_event",
               resources: [trigger.server],
               metadata: { automation: input.name, trigger },
             })

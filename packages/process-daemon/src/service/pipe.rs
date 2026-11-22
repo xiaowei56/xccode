@@ -189,7 +189,7 @@ fn start_pipe(
     let mut joins = vec![thread];
     let reader_actor_tx = actor_tx.clone();
     let reader = thread::Builder::new()
-        .name(format!("opencode-pty-reader-{id}"))
+        .name(format!("xccode-pty-reader-{id}"))
         .spawn(move || reader(reader_actor_tx))
         .context("failed to spawn terminal reader");
     let reader = match reader {
@@ -202,7 +202,7 @@ fn start_pipe(
     joins.push(reader);
     let wait_actor_tx = actor_tx.clone();
     let waiter = thread::Builder::new()
-        .name(format!("opencode-pty-wait-{id}"))
+        .name(format!("xccode-pty-wait-{id}"))
         .spawn(move || waiter(wait_actor_tx))
         .context("failed to spawn terminal child waiter");
     let waiter = match waiter {

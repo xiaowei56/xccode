@@ -1,8 +1,8 @@
 {
-  "name": "opencode-legacy-dev",
+  "name": "xccode-legacy-dev",
   "compatibilityDate": "2026-07-25",
   "compatibilityFlags": ["nodejs_compat"],
-  "domains": ["dev.opncd.ai", "api.dev.opencode.ai"],
+  "domains": ["dev.opncd.ai", "api.dev.xccode.ai"],
   "logpush": false,
   "observability": { "enabled": true },
   "workersDev": false,

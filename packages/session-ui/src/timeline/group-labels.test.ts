@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { useI18n } from "@opencode/ui/context/i18n"
+import { useI18n } from "@xccode/ui/context/i18n"
 import { storyTool } from "../storybook/current-session-scenarios"
 import { contextGroupLabel } from "../tools/context-group-label"
 import type { ContextGroupPart } from "../tools/tool-renderer"

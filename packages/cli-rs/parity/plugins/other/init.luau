@@ -1,7 +1,7 @@
 --!strict
--- The distractor of the views machine (parity/machines/plugins.json), opencode-native side: `tui.tsx` in Luau, whose
+-- The distractor of the views machine (parity/machines/plugins.json), xccode-native side: `tui.tsx` in Luau, whose
 -- setup throws, with its own cause, under the option fail.
-local plugin = require("@opencode/plugin")
+local plugin = require("@xccode/plugin")
 
 return plugin.define(function(setup)
     if setup.options and setup.options.fail then

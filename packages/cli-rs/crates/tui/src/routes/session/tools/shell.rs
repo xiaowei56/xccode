@@ -1,7 +1,7 @@
 //! Shell tool view with paged output for named shells.
 
-use opencode_api::generated::ShellID;
-use opencode_ui::motion::Spinner;
+use xccode_api::generated::ShellID;
+use xccode_ui::motion::Spinner;
 use opentui::input::strip_ansi_sequences;
 
 use super::dispatch::{Block, BlockTool, Header, Props, Status, content_width, format_path, paint_badge, status_badge};

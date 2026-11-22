@@ -9,7 +9,7 @@ use std::sync::mpsc;
 use std::thread;
 use std::time::{Duration, Instant, SystemTime};
 
-use opencode_util::busy;
+use xccode_util::busy;
 use serde::{Deserialize, Serialize};
 use sha1::{Digest, Sha1};
 
@@ -157,7 +157,7 @@ fn try_acquire(lock_dir: &Path, options: &Options) -> Result<Option<Lock>, Error
         token: token.clone(),
         pid: std::process::id(),
         hostname: hostname(),
-        created_at: opencode_util::time::iso(opencode_util::time::now_ms()).unwrap_or_default(),
+        created_at: xccode_util::time::iso(xccode_util::time::now_ms()).unwrap_or_default(),
     })
     .expect("meta serializes");
     if create_new(&heartbeat, b"").is_err() {
@@ -324,7 +324,7 @@ mod tests {
     // the default (60 s, a beat every 20 s) leaves room for.
     #[test]
     fn heartbeat_keeps_a_long_hold_fresh() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let options = Options { stale: Duration::from_millis(300), ..quick() };
         let held = acquire(dir.path(), "k", &options).unwrap();
         let heartbeat = held.path().join("heartbeat");
@@ -342,7 +342,7 @@ mod tests {
 
     #[test]
     fn refuses_to_release_a_lock_it_lost() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let lock = acquire(dir.path(), "k", &quick()).unwrap();
         fs::write(lock.path().join("meta.json"), r#"{"token":"someone-else"}"#).unwrap();
         let path = lock.path().to_path_buf();

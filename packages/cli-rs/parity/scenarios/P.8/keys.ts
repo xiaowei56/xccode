@@ -3,7 +3,7 @@
 import { assistant, session, user } from "../../lib/app"
 
 const id = "ses_d"
-const location = { directory: "/tmp/opencode/packages/tui" }
+const location = { directory: "/tmp/xccode/packages/tui" }
 
 export const keysApp = {
   args: { sessionID: id },

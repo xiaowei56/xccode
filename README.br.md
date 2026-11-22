@@ -1,17 +1,17 @@
 <p align="center">
-  <a href="https://opencode.ai">
+  <a href="https://xccode.ai">
     <picture>
       <source srcset=".github/assets/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset=".github/assets/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src=".github/assets/logo-ornate-light.svg" alt="Logo do OpenCode">
+      <img src=".github/assets/logo-ornate-light.svg" alt="Logo do Xccode">
     </picture>
   </a>
 </p>
 <p align="center">O agente de programação com IA de código aberto.</p>
 <p align="center">
-  <a href="https://opencode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/@opencode/cli"><img alt="npm" src="https://img.shields.io/npm/v/@opencode/cli?style=flat-square" /></a>
-  <a href="https://github.com/anomalyco/opencode/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/anomalyco/opencode/release.yml?style=flat-square&branch=dev" /></a>
+  <a href="https://xccode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
+  <a href="https://www.npmjs.com/package/@xccode/cli"><img alt="npm" src="https://img.shields.io/npm/v/@xccode/cli?style=flat-square" /></a>
+  <a href="https://github.com/xiaowei56/xccode/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/xiaowei56/xccode/release.yml?style=flat-square&branch=dev" /></a>
 </p>
 
 <p align="center">
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![OpenCode Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://opencode.ai)
+[![Xccode Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://xccode.ai)
 
 ---
 
@@ -47,16 +47,16 @@
 
 ```bash
 # YOLO
-curl -fsSL https://opencode.ai/v2/install | bash
+curl -fsSL https://xccode.ai/v2/install | bash
 
 # Gerenciadores de pacotes
-npm i -g @opencode/cli@latest      # ou bun/pnpm/yarn
-brew install anomalyco/tap/opencode-v2 # macOS e Linux (recomendado, sempre atualizado)
-brew install opencode              # macOS e Linux (fórmula oficial do brew, atualiza menos)
-sudo pacman -S opencode            # Arch Linux (Stable)
-paru -S opencode-beta              # Arch Linux (Latest from AUR)
-mise use -g opencode               # qualquer sistema
-nix run github:anomalyco/opencode  # Nix
+npm i -g @xccode/cli@latest      # ou bun/pnpm/yarn
+brew install anomalyco/tap/xccode-v2 # macOS e Linux (recomendado, sempre atualizado)
+brew install xccode              # macOS e Linux (fórmula oficial do brew, atualiza menos)
+sudo pacman -S xccode            # Arch Linux (Stable)
+paru -S xccode-beta              # Arch Linux (Latest from AUR)
+mise use -g xccode               # qualquer sistema
+nix run github:xiaowei56/xccode  # Nix
 ```
 
 > [!TIP]
@@ -64,27 +64,27 @@ nix run github:anomalyco/opencode  # Nix
 
 ### App desktop (BETA)
 
-O OpenCode também está disponível como aplicativo desktop. Baixe em [opencode.ai/download](https://opencode.ai/download).
+O Xccode também está disponível como aplicativo desktop. Baixe em [xccode.ai/download](https://xccode.ai/download).
 
 | Plataforma            | Download                           |
 | --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `opencode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `opencode-desktop-mac-x64.dmg`     |
-| Windows               | `opencode-desktop-win-x64.exe`     |
+| macOS (Apple Silicon) | `xccode-desktop-mac-arm64.dmg`   |
+| macOS (Intel)         | `xccode-desktop-mac-x64.dmg`     |
+| Windows               | `xccode-desktop-win-x64.exe`     |
 | Linux                 | `.deb`, `.rpm` ou AppImage         |
 
 ```bash
 # macOS (Homebrew)
-brew install --cask opencode-desktop
+brew install --cask xccode-desktop
 ```
 
 #### Diretório de instalação
 
-O script de instalação instala o OpenCode em `$HOME/.opencode/bin`.
+O script de instalação instala o Xccode em `$HOME/.xccode/bin`.
 
 ### Agents
 
-O OpenCode inclui dois agents integrados, que você pode alternar com a tecla `Tab`.
+O Xccode inclui dois agents integrados, que você pode alternar com a tecla `Tab`.
 
 - **build** - Padrão, agent com acesso total para trabalho de desenvolvimento
 - **plan** - Agent somente leitura para análise e exploração de código
@@ -95,20 +95,20 @@ O OpenCode inclui dois agents integrados, que você pode alternar com a tecla `T
 Também há um subagent **general** para buscas complexas e tarefas em várias etapas.
 Ele é usado internamente e pode ser invocado com `@general` nas mensagens.
 
-Saiba mais sobre [agents](https://opencode.ai/docs/agents).
+Saiba mais sobre [agents](https://xccode.ai/docs/agents).
 
 ### Documentação
 
-Para mais informações sobre como configurar o OpenCode, [**veja nossa documentação**](https://opencode.ai/docs).
+Para mais informações sobre como configurar o Xccode, [**veja nossa documentação**](https://xccode.ai/docs).
 
 ### Contribuir
 
-Se você tem interesse em contribuir com o OpenCode, leia os [contributing docs](./CONTRIBUTING.md) antes de enviar um pull request.
+Se você tem interesse em contribuir com o Xccode, leia os [contributing docs](./CONTRIBUTING.md) antes de enviar um pull request.
 
-### Construindo com OpenCode
+### Construindo com Xccode
 
-Se você estiver trabalhando em um projeto relacionado ao OpenCode e estiver usando "opencode" como parte do nome (por exemplo, "opencode-dashboard" ou "opencode-mobile"), adicione uma nota no README para deixar claro que não foi construído pela equipe do OpenCode e não é afiliado a nós de nenhuma forma.
+Se você estiver trabalhando em um projeto relacionado ao Xccode e estiver usando "xccode" como parte do nome (por exemplo, "xccode-dashboard" ou "xccode-mobile"), adicione uma nota no README para deixar claro que não foi construído pela equipe do Xccode e não é afiliado a nós de nenhuma forma.
 
 ---
 
-**Junte-se à nossa comunidade** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)
+**Junte-se à nossa comunidade** [Discord](https://discord.gg/xccode) | [X.com](https://x.com/xccode)

@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "عیب‌یابی حافظه: هر ۳۰ ثانیه حافظه برنامه را در گزارش‌های دسکتاپ ثبت می‌کند. تا وقتی خاموش نشود پس از راه‌اندازی مجدد هم روشن می‌ماند؛ نوار تا زمان اجرا باز می‌ماند.",
-  "memory.tipEnv": "عیب‌یابی حافظه برای این اجرا روشن است: OPENCODE_DESKTOP_MEMORY_LOG تنظیم شده است.",
+  "memory.tipEnv": "عیب‌یابی حافظه برای این اجرا روشن است: XCCODE_DESKTOP_MEMORY_LOG تنظیم شده است.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "پیچ‌های تنظیم",

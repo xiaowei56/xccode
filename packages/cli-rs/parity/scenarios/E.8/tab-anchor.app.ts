@@ -2,7 +2,7 @@
 // session opened as a tab, and `<leader>1` back to the first, which shows the rows the reader left.
 import { assistant, defineApp, session, user } from "../../lib/app"
 
-const here = { directory: "/tmp/opencode/packages/tui" }
+const here = { directory: "/tmp/xccode/packages/tui" }
 const turns = Array.from({ length: 8 }, (_, index) => index + 1)
 
 const messages = turns.flatMap((turn) => {

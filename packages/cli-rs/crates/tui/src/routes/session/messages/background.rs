@@ -1,7 +1,7 @@
 //! Offer to background a running shell after three seconds. Subagents already run in the background.
 
-use opencode_api::generated::{SessionMessageAssistantContentItem, SessionMessageAssistantToolState};
-use opencode_ui::tool_info::canonical_tool_name;
+use xccode_api::generated::{SessionMessageAssistantContentItem, SessionMessageAssistantToolState};
+use xccode_ui::tool_info::canonical_tool_name;
 
 use crate::prelude::*;
 

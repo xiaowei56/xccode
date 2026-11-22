@@ -7,9 +7,9 @@ use std::rc::{Rc, Weak};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 
-use opencode_plugin_abi::v2::{self, ContentRef, Node, Source};
-use opencode_plugin_abi::{self as abi};
-use opencode_ui::theme::Theme;
+use xccode_plugin_abi::v2::{self, ContentRef, Node, Source};
+use xccode_plugin_abi::{self as abi};
+use xccode_ui::theme::Theme;
 use opentui::keymap::Disposer;
 use opentui::prelude::*;
 
@@ -53,7 +53,7 @@ fn merge(into: &mut abi::Changed, from: &abi::Changed) {
 /// Fails the plugin with the error.
 pub(crate) type Fail = Rc<dyn Fn(String)>;
 /// A route's commands, bound to one mount: what they ask for ends with the mount.
-pub(crate) type Commands = Rc<dyn Fn(&Weak<()>) -> Vec<opencode_ui::keymap::TuiCommand>>;
+pub(crate) type Commands = Rc<dyn Fn(&Weak<()>) -> Vec<xccode_ui::keymap::TuiCommand>>;
 
 /// The content handles of every mount: a handle is never given twice, so one a closed mount gave names nothing in
 /// another, also one opened again under the same key.
@@ -1454,7 +1454,7 @@ fn mounted_owner(weak: &Weak<Surface>) -> Option<Rc<dyn Host>> {
 /// The text tool call `part` returned, as the transcript shows it: its content items, a file by its name; nothing
 /// while it streams its input or runs, and `None` while the host has not loaded it.
 pub(crate) fn part_output(host: &dyn Host, part: &v2::PartRef) -> Option<String> {
-    use opencode_plugin_abi::types::{SessionMessageAssistantContentItem, SessionMessageInfo, ToolContent};
+    use xccode_plugin_abi::types::{SessionMessageAssistantContentItem, SessionMessageInfo, ToolContent};
     let mut found = None;
     host.read(&mut |read| {
         read.messages(&part.session, &mut |messages| {
@@ -1466,7 +1466,7 @@ pub(crate) fn part_output(host: &dyn Host, part: &v2::PartRef) -> Option<String>
                 _ => None,
             });
             found = tool.map(|tool| {
-                opencode_ui::tool_info::tool_display_content(&tool.state)
+                xccode_ui::tool_info::tool_display_content(&tool.state)
                     .iter()
                     .filter_map(|content| match content {
                         ToolContent::Text(text) => Some(text.text.clone()),

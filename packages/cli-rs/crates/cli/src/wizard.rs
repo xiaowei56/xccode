@@ -2,7 +2,7 @@
 
 mod prompt;
 
-use opencode_util::{err, error};
+use xccode_util::{err, error};
 use std::ffi::OsString;
 
 use crate::args::{Count, Kind, Param, Spec};
@@ -32,7 +32,7 @@ pub fn run(path: &[&'static Spec], argv: &[OsString]) -> error::Result<()> {
     // exit with its code.
     #[cfg(windows)]
     {
-        let _ = opencode_util::win::ignore_interrupts();
+        let _ = xccode_util::win::ignore_interrupts();
         std::process::exit(process.status()?.code().unwrap_or(1))
     }
 }
@@ -143,7 +143,7 @@ struct Prompted {
     inline: bool,
 }
 
-/// The params of `node` the wizard asks for: the TypeScript CLI's, without opencode-native's own flags (`Flag::own`),
+/// The params of `node` the wizard asks for: the TypeScript CLI's, without xccode-native's own flags (`Flag::own`),
 /// so the wizard asks what TypeScript's does.
 fn asked(node: &'static Spec) -> impl Iterator<Item = &'static Param> {
     node.params.iter().filter(|param| !matches!(param, Param::Flag(flag) if flag.own))
@@ -314,9 +314,9 @@ mod tests {
     #[test]
     fn long_commands_wrap_at_88_columns() {
         let line: Vec<String> =
-            std::iter::once("opencode".to_string()).chain((0..12).map(|index| format!("--flag-{index:02}"))).collect();
+            std::iter::once("xccode".to_string()).chain((0..12).map(|index| format!("--flag-{index:02}"))).collect();
         let lines = wrap_command(&line);
-        assert_eq!(lines[0], "  $ opencode --flag-00 --flag-01 --flag-02 --flag-03 --flag-04 --flag-05 --flag-06 \\");
+        assert_eq!(lines[0], "  $ xccode --flag-00 --flag-01 --flag-02 --flag-03 --flag-04 --flag-05 --flag-06 \\");
         assert_eq!(lines[1], "    --flag-07 --flag-08 --flag-09 --flag-10 --flag-11");
     }
 

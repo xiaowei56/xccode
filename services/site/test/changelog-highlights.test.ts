@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test"
 import type { ChangelogRelease } from "../src/lib/changelog"
 import { changelogEntryView, changelogView, parseReleaseNotes } from "../src/lib/changelog-notes"
 
-const pr = (number: number) => `[#${number}](https://github.com/anomalyco/opencode/pull/${number})`
+const pr = (number: number) => `[#${number}](https://github.com/xiaowei56/xccode/pull/${number})`
 
 // The shape of v2.2.6: five highlights, each repeated as a note under the area it belongs to.
 const body = [
@@ -11,16 +11,16 @@ const body = [
   `- **Shared MCP Connections**: Share one connection across projects. (${pr(61185)})`,
   `- **GUI Plugin Themes and New Slots**: GUI plugins can add color themes. (${pr(61485)}, ${pr(61533)})`,
   `- **Mobile Composer Dock**: Composer actions sit in a touch dock. (${pr(61773)})`,
-  `- **Scripted Runs in Worktrees**: Run \`opencode run -w\`. (${pr(60712)})`,
-  `- **Automatically Archived Runs**: Add \`--archived\` to \`opencode run\`. (${pr(61270)})`,
+  `- **Scripted Runs in Worktrees**: Run \`xccode run -w\`. (${pr(60712)})`,
+  `- **Automatically Archived Runs**: Add \`--archived\` to \`xccode run\`. (${pr(61270)})`,
   "",
   "### Core",
   "",
   "#### Improvements",
   "",
   `- Added opt-in MCP connection sharing through \`pool: true\`. (${pr(61185)})`,
-  `- Added \`opencode run --archived\`. (${pr(61270)})`,
-  `- Added \`opencode run --worktree\`. (${pr(60712)})`,
+  `- Added \`xccode run --archived\`. (${pr(61270)})`,
+  `- Added \`xccode run --worktree\`. (${pr(60712)})`,
   `- Added Azure Messages support for Foundry Claude models. (${pr(60934)})`,
   "",
   "### Desktop",
@@ -42,7 +42,7 @@ const release: ChangelogRelease = {
   tag: "v2.2.6",
   name: "v2.2.6",
   date: "2026-11-06T23:37:20Z",
-  url: "https://github.com/anomalyco/opencode/releases/tag/v2.2.6",
+  url: "https://github.com/xiaowei56/xccode/releases/tag/v2.2.6",
   highlights: [],
   sections: [],
   notes: parseReleaseNotes(body),

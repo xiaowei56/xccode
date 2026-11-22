@@ -1,5 +1,5 @@
 import { createEffect, createSignal } from "solid-js"
-import { Field } from "@opencode/ui/field"
+import { Field } from "@xccode/ui/field"
 import { Select, type SelectProps } from "./select"
 
 const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry"]

@@ -1,6 +1,6 @@
 //! Terminal picker for the current session.
 
-use opencode_api::generated::PersistentPtyInfo;
+use xccode_api::generated::PersistentPtyInfo;
 use opentui::prelude::Container;
 
 use super::{Inner, Label, RowState, Tab, row};

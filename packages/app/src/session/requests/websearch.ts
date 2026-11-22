@@ -4,9 +4,9 @@ import {
   type FormInfo,
   type FormOption,
   type SessionFormReplyInput,
-} from "@opencode/client/promise"
+} from "@xccode/client/promise"
 import { createEffect, createSignal, on, onCleanup } from "solid-js"
-import type { OpenCodeEventStream } from "@/runtime/server/client"
+import type { XccodeEventStream } from "@/runtime/server/client"
 import {
   createWebSearchState,
   selectWebSearchView,
@@ -21,7 +21,7 @@ export function createWebSearchRequest(input: {
   request: () => FormInfo | undefined
   providers: (sessionID: string) => Promise<FormOption[]>
   reply: (input: SessionFormReplyInput) => Promise<void>
-  events: Pick<OpenCodeEventStream, "listen">
+  events: Pick<XccodeEventStream, "listen">
 }) {
   const [machine, setMachine] = createSignal(createWebSearchState(input.connected()))
   // Read through the signal rather than a memo, so the model still reports its final state after its owner is disposed.

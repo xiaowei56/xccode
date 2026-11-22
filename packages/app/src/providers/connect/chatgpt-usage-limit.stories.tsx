@@ -1,5 +1,5 @@
-import { Button } from "@opencode/ui/button"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { Button } from "@xccode/ui/button"
+import { useDialog } from "@xccode/ui/context/dialog"
 import { onMount } from "solid-js"
 import { DialogChatGPTUsageLimit } from "./chatgpt-usage-limit"
 

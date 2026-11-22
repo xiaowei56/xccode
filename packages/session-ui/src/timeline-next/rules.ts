@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@opencode/client/promise"
+import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@xccode/client/promise"
 import { currentToolInput } from "../message/current-tool-state"
 import { toolName } from "../timeline/facts"
 import type { TimelineDetail } from "../timeline/detail"

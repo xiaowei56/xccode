@@ -43,9 +43,9 @@ import {
   Semaphore,
   Stream,
 } from "effect"
-import { ConfigMCP } from "@opencode/schema/config/mcp"
-import type { Session } from "@opencode/schema/session"
-import { isRecord } from "@opencode/util/record"
+import { ConfigMCP } from "@xccode/schema/config/mcp"
+import type { Session } from "@xccode/schema/session"
+import { isRecord } from "@xccode/util/record"
 import { codecFor } from "../tool/runtime.js"
 import { McpStdio } from "./stdio.js"
 import { EventStreamRejectedError, EventStreamTerminatedError, reopen } from "./event-errors.js"
@@ -404,11 +404,11 @@ export const connect = Effect.fnUntraced(function* (options: ConnectOptions) {
     const context = yield* Effect.context()
     const runFork = Effect.runForkWith(context)
     const runPromise = Effect.runPromiseWith(context)
-    const client = new Client(options.clientInfo ?? { name: "opencode", version: "unknown" }, {
+    const client = new Client(options.clientInfo ?? { name: "xccode", version: "unknown" }, {
       capabilities: {
         ...(elicitation ? { elicitation: { form: {}, url: {} } } : {}),
         // Legacy era only: roots are deprecated as of 2026-07-28 and modern servers cannot request them.
-        // Some legacy servers refuse to run without one (https://github.com/anomalyco/opencode/issues/2308).
+        // Some legacy servers refuse to run without one (https://github.com/xiaowei56/xccode/issues/2308).
         ...(options.roots === false ? {} : { roots: {} }),
         ...(options.events ? { extensions: { [EVENTS]: {} } } : {}),
       },
@@ -522,7 +522,7 @@ export const connect = Effect.fnUntraced(function* (options: ConnectOptions) {
           args,
           cwd: McpStdio.resolveCwd(options.directory, config.cwd),
           environment: {
-            ...(command === "opencode" ? { BUN_BE_BUN: "1" } : {}),
+            ...(command === "xccode" ? { BUN_BE_BUN: "1" } : {}),
             ...config.environment,
           },
         }).pipe(Effect.flatMap((transport) => initialize(transport, protocol)))
@@ -881,7 +881,7 @@ export const connect = Effect.fnUntraced(function* (options: ConnectOptions) {
               {
                 name: input.name,
                 arguments: input.args ?? {},
-                ...(input.sessionID === undefined ? {} : { _meta: { "ai.opencode/sessionID": input.sessionID } }),
+                ...(input.sessionID === undefined ? {} : { _meta: { "ai.xccode/sessionID": input.sessionID } }),
               },
               {
                 signal: claim(signal, input),

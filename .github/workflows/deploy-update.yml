@@ -26,7 +26,7 @@ permissions:
 
 jobs:
   update-build:
-    if: github.repository == 'anomalyco/opencode' && github.ref_name == 'production'
+    if: github.repository == 'xiaowei56/xccode' && github.ref_name == 'production'
     runs-on: blacksmith-4vcpu-ubuntu-2404
     outputs:
       digest: ${{ steps.upload.outputs.digest }}
@@ -61,7 +61,7 @@ jobs:
 
   update-deploy:
     needs: update-build
-    if: github.repository == 'anomalyco/opencode' && github.ref_name == 'production'
+    if: github.repository == 'xiaowei56/xccode' && github.ref_name == 'production'
     runs-on: blacksmith-4vcpu-ubuntu-2404
     environment: production
     permissions:
@@ -94,8 +94,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
-          role-to-assume: arn:aws:iam::604439173067:role/github/opencode-production
-          role-session-name: opencode-${{ github.run_id }}
+          role-to-assume: arn:aws:iam::604439173067:role/github/xccode-production
+          role-session-name: xccode-${{ github.run_id }}
           aws-region: us-east-1
 
       # A 15-minute token for production, minted by the token issuer (anomalyco/secrets) from the role above.

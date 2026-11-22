@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test"
-import { Browser } from "@opencode/plugin-browser/rpc"
+import { Browser } from "@xccode/plugin-browser/rpc"
 import { createDocumentState, documentTab, transitionDocument } from "./page-machine"
 import { invalidReply, wireOutcome, wireState } from "./wire"
-import { SessionNotFoundError } from "@opencode/protocol/errors"
+import { SessionNotFoundError } from "@xccode/protocol/errors"
 import {
   attachmentFailure,
   createPaneState,

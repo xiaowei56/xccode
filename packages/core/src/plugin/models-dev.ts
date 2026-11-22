@@ -1,7 +1,7 @@
-import { define } from "@opencode/plugin/effect/plugin"
-import { Event } from "@opencode/schema/config"
-import { Integration } from "@opencode/schema/integration"
-import { Provider } from "@opencode/schema/provider"
+import { define } from "@xccode/plugin/effect/plugin"
+import { Event } from "@xccode/schema/config"
+import { Integration } from "@xccode/schema/integration"
+import { Provider } from "@xccode/schema/provider"
 import { Effect, Stream } from "effect"
 import { Bus } from "../bus.js"
 import { Config } from "../config.js"
@@ -34,7 +34,7 @@ const BEDROCK_PROFILE_ONLY_IDS = [
 ]
 
 export const ModelsDevPlugin = define({
-  id: "opencode.models.dev",
+  id: "xccode.models.dev",
   effect: Effect.fn(function* (ctx) {
     const modelsDev = yield* ModelsDev.Service
     const bus = yield* Bus.Service

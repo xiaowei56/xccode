@@ -1,11 +1,11 @@
 import { createSignal, Show } from "solid-js"
 import { render } from "solid-js/web"
-import { DialogProvider } from "@opencode/ui/context/dialog"
-import { I18nProvider, useI18n } from "@opencode/ui/context/i18n"
+import { DialogProvider } from "@xccode/ui/context/dialog"
+import { I18nProvider, useI18n } from "@xccode/ui/context/i18n"
 import { Markdown } from "../src/components/markdown"
 import { preloadMarkdown } from "../src/components/markdown-cache"
 import { MarkdownProvider, type MarkdownLocalFileExists } from "../src/context/markdown"
-import { OpenCode } from "@opencode/client/promise"
+import { Xccode } from "@xccode/client/promise"
 import { readLocalImage } from "../../app/src/runtime/server/image"
 
 export {
@@ -38,9 +38,9 @@ export async function mountMarkdown(options: {
   host.dataset.testid = "markdown-fixture"
   document.body.appendChild(host)
   render(() => {
-    const api = OpenCode.make({
+    const api = Xccode.make({
       baseUrl: location.origin,
-      headers: { Authorization: `Basic ${btoa("opencode:fixture")}` },
+      headers: { Authorization: `Basic ${btoa("xccode:fixture")}` },
     })
 
     const [text, setText] = createSignal(options.text)

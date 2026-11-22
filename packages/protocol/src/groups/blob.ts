@@ -1,4 +1,4 @@
-import { BlobStore } from "@opencode/schema/blob-store"
+import { BlobStore } from "@xccode/schema/blob-store"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiSchema, OpenApi } from "effect/http-api"
 import { BlobNotFoundError } from "../errors.js"

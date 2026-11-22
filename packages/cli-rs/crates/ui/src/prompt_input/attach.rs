@@ -270,13 +270,13 @@ fn decode_file_url(value: &str, windows: bool) -> Option<String> {
     if !value.starts_with("file://") {
         return None;
     }
-    let url = opencode_api_types::js::parse_url(value).ok()?;
+    let url = xccode_api_types::js::parse_url(value).ok()?;
     let encoded = url.path();
     let lower = encoded.to_ascii_lowercase();
     if lower.contains("%2f") || lower.contains("%5c") {
         return None;
     }
-    let pathname = opencode_api_types::js::decode_component(encoded)?;
+    let pathname = xccode_api_types::js::decode_component(encoded)?;
     let host = url.host_str().filter(|host| !host.is_empty());
     if !windows {
         if host.is_some_and(|host| host != "localhost") {

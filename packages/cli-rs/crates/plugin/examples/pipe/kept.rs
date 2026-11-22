@@ -4,8 +4,8 @@
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
-use opencode_plugin_abi::interact::{Event, Handled};
-use opencode_plugin_abi::{Command, Setup, Span, v2};
+use xccode_plugin_abi::interact::{Event, Handled};
+use xccode_plugin_abi::{Command, Setup, Span, v2};
 
 pub const ID: &str = "example.kept";
 

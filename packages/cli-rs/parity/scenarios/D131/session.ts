@@ -4,7 +4,7 @@
 import type { Logged, Options } from "../../lib/fake-server"
 import { catalog, inbox } from "../C.13/catalog"
 
-const location = { directory: "/tmp/opencode/packages/tui" }
+const location = { directory: "/tmp/xccode/packages/tui" }
 
 function info(id: string) {
   return {

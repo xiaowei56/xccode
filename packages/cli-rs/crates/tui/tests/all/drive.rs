@@ -6,7 +6,7 @@ use std::net::SocketAddr;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use opencode_api::memory::{Memory, Route as MemoryRoute};
+use xccode_api::memory::{Memory, Route as MemoryRoute};
 use opentui::app::HeadlessOptions;
 use opentui::prelude::*;
 use serde_json::{Value, json};
@@ -66,10 +66,10 @@ fn a_driver_types_into_the_headless_tui_and_captures_it() {
     let options = AppOptions { exit_on_ctrl_c: false, suspend_on_ctrl_z: false, ..AppOptions::default() };
     let app = App::headless(HeadlessOptions { width: 100, height: 30, app: options }).unwrap();
     let deps =
-        opencode_tui::Deps { route: opencode_tui::Route::Home, ..support::deps(Arc::new(Memory::new(routes()))) };
-    let tui = opencode_tui::mount_with(&app, deps, opencode_tui::Args::default());
+        xccode_tui::Deps { route: xccode_tui::Route::Home, ..support::deps(Arc::new(Memory::new(routes()))) };
+    let tui = xccode_tui::mount_with(&app, deps, xccode_tui::Args::default());
     let server =
-        opencode_tui::features::drive::start(&tui, SocketAddr::from(([127, 0, 0, 1], 0)), "0.0.0-test".into()).unwrap();
+        xccode_tui::features::drive::start(&tui, SocketAddr::from(([127, 0, 0, 1], 0)), "0.0.0-test".into()).unwrap();
     let proxy = app.proxy();
     let url = server.url();
     let driver = std::thread::spawn(move || {
@@ -95,7 +95,7 @@ fn a_driver_types_into_the_headless_tui_and_captures_it() {
     let (handshake, typed, matched, resized, frame, state) = driver.join().unwrap();
     drop(tui);
 
-    assert_eq!(handshake.unwrap()["server"], json!({ "name": "opencode", "version": "0.0.0-test" }));
+    assert_eq!(handshake.unwrap()["server"], json!({ "name": "xccode", "version": "0.0.0-test" }));
     assert_eq!(typed.unwrap(), json!({ "focused": { "editor": true }, "elements": [] }));
     assert_eq!(matched, Ok(json!(true)));
     assert_eq!(resized.unwrap()["focused"]["editor"], true);

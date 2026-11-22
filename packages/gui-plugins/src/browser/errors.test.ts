@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { Browser } from "@opencode/plugin-browser/rpc"
+import { Browser } from "@xccode/plugin-browser/rpc"
 import { FileVerificationError } from "./file-verification"
 import { undrawableMessage } from "./capture"
 import { browserFailure, CodedError, keepsOpenedTab, missingArtifact, PageEndedError, pageReports, protocolError } from "./errors"

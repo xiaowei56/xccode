@@ -1,4 +1,4 @@
-use opencode_api_types::js::truthy;
+use xccode_api_types::js::truthy;
 use serde_json::{Map, Value};
 
 use crate::tool_info::{canonical_tool_name, finite_number, web_search_provider_label};

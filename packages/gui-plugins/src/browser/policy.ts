@@ -1,10 +1,10 @@
 // URL policy shared by the pane and page. Electron-free so it stays unit-testable under Bun.
 
-import { Browser } from "@opencode/plugin-browser/rpc"
-import { encodeFilePath } from "@opencode/util/path"
+import { Browser } from "@xccode/plugin-browser/rpc"
+import { encodeFilePath } from "@xccode/util/path"
 import { remotePath } from "./remote-address"
 import { artifactAddress } from "./artifact-link"
-import { windowsPreviewSegment } from "@opencode/plugin-browser/preview-path"
+import { windowsPreviewSegment } from "@xccode/plugin-browser/preview-path"
 
 export function destinationOrigin(input: string) {
   if (!URL.canParse(input)) return

@@ -1,5 +1,5 @@
 import { Schema } from "effect"
-import { Ipc } from "@opencode/plugin/gui"
+import { Ipc } from "@xccode/plugin/gui"
 
 /** An address as a page reports it; the history keeps only web pages of up to `MAX_URL_LENGTH`. */
 const address = Schema.String.check(Schema.isMinLength(1), Schema.isMaxLength(16_384))

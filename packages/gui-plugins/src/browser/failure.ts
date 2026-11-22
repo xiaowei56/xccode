@@ -2,7 +2,7 @@
 // be, as a browser does. A command that failed says what the person tried. Nothing here returns the app's generic
 // "Request failed": a code this file does not know gets a sentence from what was being attempted, and is reported
 // as unknown so the model logs it.
-import type { Browser } from "@opencode/plugin-browser/rpc"
+import type { Browser } from "@xccode/plugin-browser/rpc"
 import { FileVerificationError } from "./file-verification"
 import type { RefusalNotice } from "./ipc"
 

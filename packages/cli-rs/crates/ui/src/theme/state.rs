@@ -110,12 +110,12 @@ impl ThemeState {
             mode = lock.or(options.terminal).or_else(|| terminal_mode(palette)).unwrap_or(mode);
         }
         let catalog = Catalog::default();
-        let current = catalog.load("opencode", mode).expect("the built-in opencode theme loads");
+        let current = catalog.load("xccode", mode).expect("the built-in xccode theme loads");
         let mut state = Self {
             catalog,
             mode,
             lock,
-            active: options.name.unwrap_or_else(|| "opencode".to_owned()),
+            active: options.name.unwrap_or_else(|| "xccode".to_owned()),
             terminal: options.terminal,
             palette,
             current,
@@ -133,7 +133,7 @@ impl ThemeState {
     }
 
     /// The configured theme name, which may differ from the loaded one until a failed theme falls back. The old name
-    /// `opencode2` reads as `opencode`.
+    /// `xccode2` reads as `xccode`.
     pub fn selected(&self) -> &str {
         self.alias(&self.active)
     }
@@ -174,9 +174,9 @@ impl ThemeState {
         true
     }
 
-    /// `opencode2` was the new theme's name before it became `opencode`; a custom theme of that name keeps it.
+    /// `xccode2` was the new theme's name before it became `xccode`; a custom theme of that name keeps it.
     fn alias<'a>(&self, name: &'a str) -> &'a str {
-        if name == "opencode2" && !self.catalog.has(name) { "opencode" } else { name }
+        if name == "xccode2" && !self.catalog.has(name) { "xccode" } else { name }
     }
 
     /// Locks `mode` (the current mode when `None`); false when the theme does not support it.
@@ -235,9 +235,9 @@ impl ThemeState {
         self.reload();
     }
 
-    /// Custom theme discovery failed: TypeScript falls back to `opencode` without a toast.
+    /// Custom theme discovery failed: TypeScript falls back to `xccode` without a toast.
     pub fn discovery_failed(&mut self) {
-        self.active = "opencode".to_owned();
+        self.active = "xccode".to_owned();
         self.reload();
     }
 
@@ -307,18 +307,18 @@ impl ThemeState {
         }
     }
 
-    /// Loads the active theme, falling back to `opencode` with a [`ThemeError`] when it fails.
+    /// Loads the active theme, falling back to `xccode` with a [`ThemeError`] when it fails.
     fn reload(&mut self) {
-        let name = if self.has(&self.active) { self.alias(&self.active).to_owned() } else { "opencode".to_owned() };
+        let name = if self.has(&self.active) { self.alias(&self.active).to_owned() } else { "xccode".to_owned() };
         match self.catalog.load(&name, self.mode) {
             Ok(loaded) => self.current = loaded,
             Err(message) => {
                 self.error = Some(ThemeError { name, message });
-                self.active = "opencode".to_owned();
-                // If a custom `opencode` theme fails to load, fall back to the bundled one.
-                self.current = self.catalog.load("opencode", self.mode).unwrap_or_else(|message| {
-                    log::warn!("custom theme opencode: {message}; using the built-in opencode theme");
-                    Catalog::default().load("opencode", self.mode).expect("the built-in opencode theme loads")
+                self.active = "xccode".to_owned();
+                // If a custom `xccode` theme fails to load, fall back to the bundled one.
+                self.current = self.catalog.load("xccode", self.mode).unwrap_or_else(|message| {
+                    log::warn!("custom theme xccode: {message}; using the built-in xccode theme");
+                    Catalog::default().load("xccode", self.mode).expect("the built-in xccode theme loads")
                 });
             }
         }
@@ -401,7 +401,7 @@ mod tests {
         let full = light(palette("#fdf6e3"));
         let night = palette("#1d1f21");
         let (dark, bright) = (Some(ThemeMode::Dark), Some(ThemeMode::Light));
-        // (reply, terminal mode, startup palette, cached palette, mode under `opencode` and `system`)
+        // (reply, terminal mode, startup palette, cached palette, mode under `xccode` and `system`)
         let cases = [
             ("none or DA1 only", None, None, None, ThemeMode::Dark),
             ("none or DA1 only, cached", None, None, Some(full.clone()), ThemeMode::Light),
@@ -411,7 +411,7 @@ mod tests {
             ("full dark, cached light", dark, Some(night), Some(full), ThemeMode::Dark),
         ];
         for (reply, terminal, startup, cached, want) in cases {
-            for name in ["opencode", "system"] {
+            for name in ["xccode", "system"] {
                 let mut state = ThemeState::new(ThemeStateOptions {
                     name: Some(name.to_owned()),
                     terminal,
@@ -444,32 +444,32 @@ mod tests {
             (Some("aura"), Some("system"))
         );
         assert_eq!(names.len(), 35);
-        let opencode = names.iter().position(|name| name == "opencode");
-        assert_eq!(names.get(opencode.unwrap() + 1).map(String::as_str), Some("opencode-classic"));
+        let xccode = names.iter().position(|name| name == "xccode");
+        assert_eq!(names.get(xccode.unwrap() + 1).map(String::as_str), Some("xccode-classic"));
     }
 
     #[test]
-    fn opencode2_reads_as_opencode_unless_a_custom_theme_takes_the_name() {
+    fn xccode2_reads_as_xccode_unless_a_custom_theme_takes_the_name() {
         let builtin = ThemeState::new(options());
-        let mut state = ThemeState::new(ThemeStateOptions { name: Some("opencode2".to_owned()), ..options() });
-        assert_eq!(state.selected(), "opencode");
+        let mut state = ThemeState::new(ThemeStateOptions { name: Some("xccode2".to_owned()), ..options() });
+        assert_eq!(state.selected(), "xccode");
         assert_eq!(**state.theme(), **builtin.theme());
         assert!(state.take_error().is_none());
-        assert!(state.has("opencode2"));
-        assert!(state.set("opencode2"));
-        assert_eq!(state.take_effects(), [Effect::PersistName("opencode".to_owned())]);
+        assert!(state.has("xccode2"));
+        assert!(state.set("xccode2"));
+        assert_eq!(state.take_effects(), [Effect::PersistName("xccode".to_owned())]);
 
         let Some(super::super::ThemeSource::Builtin(aura)) = Catalog::default().source("aura") else {
             panic!("aura is built in");
         };
-        state.config_name("opencode2");
-        state.custom_themes(IndexMap::from([("opencode2".to_owned(), aura.clone())]));
-        assert_eq!(state.selected(), "opencode2");
+        state.config_name("xccode2");
+        state.custom_themes(IndexMap::from([("xccode2".to_owned(), aura.clone())]));
+        assert_eq!(state.selected(), "xccode2");
         assert_eq!(state.modes(), [ThemeMode::Dark]);
     }
 
     #[test]
-    fn a_broken_custom_theme_falls_back_to_opencode_with_an_error() {
+    fn a_broken_custom_theme_falls_back_to_xccode_with_an_error() {
         let mut state = ThemeState::new(ThemeStateOptions { name: Some("mine".to_owned()), ..options() });
         let broken = serde_json::json!({ "theme": { "primary": "missing" } });
         state
@@ -477,21 +477,21 @@ mod tests {
         let error = state.take_error().unwrap();
         assert_eq!(error.name, "mine");
         assert_eq!(error.message, "Color reference \"missing\" not found in defs or theme");
-        assert_eq!(state.selected(), "opencode");
+        assert_eq!(state.selected(), "xccode");
         assert!(!state.has("notes"), "values that are not themes are dropped");
         assert!(state.take_error().is_none());
     }
 
     #[test]
-    fn a_broken_custom_opencode_falls_back_to_the_built_in_opencode() {
+    fn a_broken_custom_xccode_falls_back_to_the_built_in_xccode() {
         let builtin = ThemeState::new(options());
         let broken = serde_json::json!({ "base": {} });
-        for name in ["opencode", "mine", "system"] {
+        for name in ["xccode", "mine", "system"] {
             let mut state = ThemeState::new(ThemeStateOptions { name: Some(name.to_owned()), ..options() });
             let mine = serde_json::json!({ "theme": { "primary": "missing" } });
-            state.custom_themes(IndexMap::from([("opencode".to_owned(), broken.clone()), ("mine".to_owned(), mine)]));
+            state.custom_themes(IndexMap::from([("xccode".to_owned(), broken.clone()), ("mine".to_owned(), mine)]));
             assert_eq!(**state.theme(), **builtin.theme(), "{name}");
-            assert_eq!(state.selected(), "opencode", "{name}");
+            assert_eq!(state.selected(), "xccode", "{name}");
         }
     }
 
@@ -516,9 +516,9 @@ mod tests {
     }
 
     #[test]
-    fn without_a_palette_system_is_opencode() {
+    fn without_a_palette_system_is_xccode() {
         let state = ThemeState::new(ThemeStateOptions { name: Some("system".to_owned()), ..options() });
-        let opencode = ThemeState::new(options());
-        assert_eq!(**state.theme(), **opencode.theme());
+        let xccode = ThemeState::new(options());
+        assert_eq!(**state.theme(), **xccode.theme());
     }
 }

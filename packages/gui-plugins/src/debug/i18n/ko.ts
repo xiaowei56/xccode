@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "메모리 진단: 30초마다 앱 메모리를 데스크톱 로그에 기록합니다. 끌 때까지 다시 시작해도 계속 켜져 있으며, 실행 중에는 바가 열린 상태로 유지됩니다.",
-  "memory.tipEnv": "이번 실행에서 메모리 진단이 켜져 있습니다: OPENCODE_DESKTOP_MEMORY_LOG가 설정되어 있습니다.",
+  "memory.tipEnv": "이번 실행에서 메모리 진단이 켜져 있습니다: XCCODE_DESKTOP_MEMORY_LOG가 설정되어 있습니다.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

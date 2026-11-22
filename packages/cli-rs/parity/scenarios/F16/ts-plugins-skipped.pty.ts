@@ -1,13 +1,13 @@
 // FT-10: a server plugin with a TUI part. TS loads that part from the server's list (`serverTuiPlugins`, here the
 // directory `energy` beside `cli.json`, whose command shows in `/plugins` as an active TUI plugin). The JS host is on by
-// default; here `OPENCODE_PLUGIN_JS=0` turns it off, so opencode-native does not load TypeScript TUI plugins,
+// default; here `XCCODE_PLUGIN_JS=0` turns it off, so xccode-native does not load TypeScript TUI plugins,
 // says so once in a notice with how to turn it back on, and lists the part as skipped (`F16-typescript-plugins-skipped`).
 // `ts-plugin-loads` is the default.
 import { mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { definePty } from "../../pty/run"
 
-const directory = "/tmp/opencode/packages/tui"
+const directory = "/tmp/xccode/packages/tui"
 const location = { directory, project: { id: "proj_test", directory, canonical: directory } }
 
 const plugin = `export default {
@@ -23,7 +23,7 @@ const plugin = `export default {
 
 export default definePty({
   args: [],
-  env: { OPENCODE_PLUGIN_JS: "0" },
+  env: { XCCODE_PLUGIN_JS: "0" },
   cols: 120,
   rows: 30,
   server: {
@@ -46,7 +46,7 @@ export default definePty({
     ],
   },
   setup: async (root) => {
-    const config = path.join(root, "home/.config/opencode")
+    const config = path.join(root, "home/.config/xccode")
     await mkdir(path.join(config, "energy"), { recursive: true })
     await writeFile(path.join(config, "energy/tui.ts"), plugin)
     const cli = { experimental: { "new-designs": true }, animations: false, debug: { devtools: false } }

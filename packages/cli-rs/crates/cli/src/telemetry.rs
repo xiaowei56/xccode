@@ -8,8 +8,8 @@ use std::sync::mpsc::{Receiver, RecvTimeoutError, SyncSender};
 use std::time::{Duration, Instant, SystemTime};
 
 use log::{Level, LevelFilter, Log, Metadata, Record};
-use opencode_api::js::decode_component;
-use opencode_util::time;
+use xccode_api::js::decode_component;
+use xccode_util::time;
 use serde_json::{Value, json};
 
 use crate::args::LogLevel;
@@ -45,11 +45,11 @@ impl Options {
     pub fn from_env(flag: Option<LogLevel>) -> Self {
         let var = |name: &str| std::env::var(name).ok();
         let run = run_id();
-        let channel = opencode_local::channel::Channels::from_env().channel;
+        let channel = xccode_local::channel::Channels::from_env().channel;
         Self {
-            level: min_level(flag, var("OPENCODE_LOG_LEVEL").as_deref()),
-            dir: opencode_local::paths::Paths::from_env().ok().map(|paths| paths.log),
-            print: var("OPENCODE_PRINT_LOGS").as_deref() == Some("1"),
+            level: min_level(flag, var("XCCODE_LOG_LEVEL").as_deref()),
+            dir: xccode_local::paths::Paths::from_env().ok().map(|paths| paths.log),
+            print: var("XCCODE_PRINT_LOGS").as_deref() == Some("1"),
             endpoint: var("OTEL_EXPORTER_OTLP_ENDPOINT").filter(|value| !value.is_empty()),
             headers: var("OTEL_EXPORTER_OTLP_HEADERS").filter(|value| !value.is_empty()),
             resource: resource(&crate::env::client(), crate::help::VERSION, &channel, run, |name| var(name)),
@@ -70,7 +70,7 @@ pub fn install(options: Options) {
     log::set_max_level(logger.level);
     let _ = LOGGER.set(logger);
     if let Some(path) = logger.path.clone() {
-        let spawned = std::thread::Builder::new().name("opencode-log-trim".into()).spawn(move || {
+        let spawned = std::thread::Builder::new().name("xccode-log-trim".into()).spawn(move || {
             loop {
                 let _ = trim(&path, LOG_MAX_BYTES, LOG_KEEP_BYTES);
                 std::thread::sleep(LOG_TRIM_INTERVAL);
@@ -97,7 +97,7 @@ pub fn flush() {
     }
 }
 
-/// `--log-level` overrides `OPENCODE_LOG_LEVEL`. The default is info.
+/// `--log-level` overrides `XCCODE_LOG_LEVEL`. The default is info.
 pub fn min_level(flag: Option<LogLevel>, env: Option<&str>) -> LevelFilter {
     if let Some(flag) = flag {
         return match flag {
@@ -117,22 +117,22 @@ pub fn min_level(flag: Option<LogLevel>, env: Option<&str>) -> LevelFilter {
     }
 }
 
-/// Release channels share `opencode.log`; local builds log per channel.
+/// Release channels share `xccode.log`; local builds log per channel.
 pub fn file_name(channel: &str) -> String {
     if channel != "local" {
-        return "opencode.log".to_owned();
+        return "xccode.log".to_owned();
     }
     let safe: String = channel
         .chars()
         .map(|c| if c.is_ascii_alphanumeric() || matches!(c, '.' | '_' | '-') { c } else { '-' })
         .collect();
-    format!("opencode-{safe}.log")
+    format!("xccode-{safe}.log")
 }
 
 /// Run ID shared by every record from this process.
 pub fn run_id() -> &'static str {
     static RUN: OnceLock<String> = OnceLock::new();
-    RUN.get_or_init(|| opencode_local::id::v4()[..8].to_owned())
+    RUN.get_or_init(|| xccode_local::id::v4()[..8].to_owned())
 }
 
 struct Logger {
@@ -153,7 +153,7 @@ impl Logger {
         let file = path.as_ref().and_then(|path| OpenOptions::new().create(true).append(true).open(path).ok());
         let otlp = options
             .endpoint
-            .and_then(|endpoint| opencode_api::js::parse_url(&format!("{endpoint}/v1/logs")).ok())
+            .and_then(|endpoint| xccode_api::js::parse_url(&format!("{endpoint}/v1/logs")).ok())
             .map(|url| {
                 Otlp { url, headers: parse_headers(options.headers.as_deref()), resource: options.resource }.start()
             });
@@ -172,7 +172,7 @@ impl Logger {
 impl Log for Logger {
     fn enabled(&self, metadata: &Metadata) -> bool {
         // Other crates' debug and trace records (HTTP connections, TLS) would drown the client's own.
-        metadata.level() <= self.level && (metadata.level() <= Level::Info || metadata.target().starts_with("opencode"))
+        metadata.level() <= self.level && (metadata.level() <= Level::Info || metadata.target().starts_with("xccode"))
     }
 
     fn log(&self, record: &Record) {
@@ -377,15 +377,15 @@ pub fn resource(client: &str, version: &str, channel: &str, run: &str, var: impl
         set(key, value);
     }
     set("deployment.environment.name", channel);
-    set("opencode.client", client);
-    set("opencode.run", run);
+    set("xccode.client", client);
+    set("xccode.run", run);
     set("service.instance.id", run);
     for (key, value) in &raw {
         set(key, value);
     }
     let lookup = |key: &str| attributes.iter().find(|(k, _)| k == key).map(|(_, value)| value.clone());
     let service_name =
-        var("OTEL_SERVICE_NAME").or_else(|| lookup("service.name")).unwrap_or_else(|| "opencode".to_owned());
+        var("OTEL_SERVICE_NAME").or_else(|| lookup("service.name")).unwrap_or_else(|| "xccode".to_owned());
     let service_version =
         var("OTEL_SERVICE_VERSION").or_else(|| lookup("service.version")).unwrap_or_else(|| version.to_owned());
     let mut list: Vec<Value> = attributes
@@ -466,7 +466,7 @@ pub fn logs_body(resource: &Value, records: Vec<Value>) -> Value {
                 .find(|entry| entry["key"] == "service.name")
                 .and_then(|entry| entry["value"]["stringValue"].as_str())
         })
-        .unwrap_or("opencode")
+        .unwrap_or("xccode")
         .to_owned();
     json!({ "resourceLogs": [{
         "resource": resource,
@@ -490,14 +490,14 @@ impl Otlp {
     /// drops records for 60 s, as Effect's exporter does. The queue is bounded; a full queue drops records.
     fn start(self) -> io::Result<SyncSender<Message>> {
         let (sender, receiver) = std::sync::mpsc::sync_channel(OTLP_QUEUE);
-        std::thread::Builder::new().name("opencode-otlp".into()).spawn(move || self.run(receiver))?;
+        std::thread::Builder::new().name("xccode-otlp".into()).spawn(move || self.run(receiver))?;
         Ok(sender)
     }
 
     fn run(self, receiver: Receiver<Message>) {
         let Ok(runtime) = tokio::runtime::Builder::new_current_thread().enable_all().build() else { return };
         // Its own client: a connection pooled on this runtime only makes progress inside `block_on`.
-        let Ok(client) = opencode_api::transport::client_builder().build() else { return };
+        let Ok(client) = xccode_api::transport::client_builder().build() else { return };
         let mut buffer: Vec<Value> = Vec::new();
         let mut disabled_until: Option<Instant> = None;
         let mut next = Instant::now() + OTLP_INTERVAL;
@@ -538,13 +538,13 @@ impl Otlp {
         let mut request = client
             .post(self.url.clone())
             .header("content-type", "application/json")
-            .header("user-agent", format!("opencode-native/{}", crate::help::VERSION))
+            .header("user-agent", format!("xccode-native/{}", crate::help::VERSION))
             .timeout(OTLP_SHUTDOWN)
             .body(body.to_string());
         for (key, value) in &self.headers {
             request = request.header(key.as_str(), value.as_str());
         }
-        opencode_api::transport::fetch(request).await.is_ok_and(|response| response.status().is_success())
+        xccode_api::transport::fetch(request).await.is_ok_and(|response| response.status().is_success())
     }
 }
 
@@ -584,9 +584,9 @@ mod tests {
 
     #[test]
     fn file_names_follow_the_channel() {
-        assert_eq!(file_name("local"), "opencode-local.log");
-        assert_eq!(file_name("latest"), "opencode.log");
-        assert_eq!(file_name("oc-x"), "opencode.log");
+        assert_eq!(file_name("local"), "xccode-local.log");
+        assert_eq!(file_name("latest"), "xccode.log");
+        assert_eq!(file_name("oc-x"), "xccode.log");
     }
 
     #[test]
@@ -611,7 +611,7 @@ mod tests {
 
     #[test]
     fn the_logger_writes_records_to_the_channel_file() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let logger = Logger::new(Options {
             level: LevelFilter::Info,
             dir: Some(dir.path().join("log")),
@@ -624,13 +624,13 @@ mod tests {
         let record = |level, target, message: &str| {
             logger.log(&Record::builder().level(level).target(target).args(format_args!("{message}")).build());
         };
-        record(Level::Info, "opencode_cli", "kept");
-        record(Level::Debug, "opencode_cli", "below the level");
+        record(Level::Info, "xccode_cli", "kept");
+        record(Level::Debug, "xccode_cli", "below the level");
         record(Level::Warn, "hyper", "other crate warning");
-        let text = std::fs::read_to_string(dir.path().join("log/opencode-local.log")).unwrap();
+        let text = std::fs::read_to_string(dir.path().join("log/xccode-local.log")).unwrap();
         let messages: Vec<&str> = text.lines().map(|line| line.split(" message=").nth(1).unwrap()).collect();
         assert_eq!(messages, [r#"kept role=cli"#, r#""other crate warning" role=cli"#]);
-        assert_eq!(logger.path.as_deref(), Some(dir.path().join("log/opencode-local.log").as_path()));
+        assert_eq!(logger.path.as_deref(), Some(dir.path().join("log/xccode-local.log").as_path()));
     }
 
     #[test]
@@ -645,15 +645,15 @@ mod tests {
             resource: json!({}),
         });
         let enabled = |level, target| logger.enabled(&Metadata::builder().level(level).target(target).build());
-        assert!(enabled(Level::Trace, "opencode_service::connect"));
+        assert!(enabled(Level::Trace, "xccode_service::connect"));
         assert!(!enabled(Level::Debug, "reqwest::connect"));
         assert!(enabled(Level::Info, "reqwest::connect"));
     }
 
     #[test]
     fn trim_keeps_the_tail_from_a_line_boundary() {
-        let dir = opencode_util::temp::tempdir().unwrap();
-        let path = dir.path().join("opencode-local.log");
+        let dir = xccode_util::temp::tempdir().unwrap();
+        let path = dir.path().join("xccode-local.log");
         let lines: String = (0..100).map(|index| format!("line {index:03}\n")).collect();
         std::fs::write(&path, &lines).unwrap();
         // Under the limit: nothing changes.
@@ -662,7 +662,7 @@ mod tests {
         // Over it: the head goes, the cut moves forward to the next line.
         trim(&path, 100, 25).unwrap();
         assert_eq!(std::fs::read_to_string(&path).unwrap(), "line 098\nline 099\n");
-        assert!(!dir.path().join("opencode-local.log.trim").exists());
+        assert!(!dir.path().join("xccode-local.log.trim").exists());
         // A tail without a newline is dropped whole.
         std::fs::write(&path, "aaaa\nbbbbbbbbbb").unwrap();
         trim(&path, 4, 4).unwrap();
@@ -671,10 +671,10 @@ mod tests {
 
     #[test]
     fn trim_skips_while_another_process_holds_the_lock() {
-        let dir = opencode_util::temp::tempdir().unwrap();
-        let path = dir.path().join("opencode.log");
+        let dir = xccode_util::temp::tempdir().unwrap();
+        let path = dir.path().join("xccode.log");
         std::fs::write(&path, "a\nb\nc\n").unwrap();
-        let lock = dir.path().join("opencode.log.trim");
+        let lock = dir.path().join("xccode.log.trim");
         std::fs::create_dir(&lock).unwrap();
         trim(&path, 1, 1).unwrap();
         assert_eq!(std::fs::read_to_string(&path).unwrap(), "a\nb\nc\n");
@@ -685,7 +685,7 @@ mod tests {
         File::open(&lock).unwrap().set_modified(old).unwrap();
         // A directory opens only with backup semantics, and its time is set only with write access.
         #[cfg(windows)]
-        opencode_util::win::set_modified(&lock, old).unwrap();
+        xccode_util::win::set_modified(&lock, old).unwrap();
         trim(&path, 1, 1).unwrap();
         assert!(!lock.exists());
         assert_eq!(std::fs::read_to_string(&path).unwrap(), "a\nb\nc\n");
@@ -710,7 +710,7 @@ mod tests {
     fn the_resource_names_the_client_channel_and_run() {
         let attributes = |vars: &[(&str, &str)]| {
             let vars: Vec<(String, String)> = vars.iter().map(|(k, v)| (k.to_string(), v.to_string())).collect();
-            let resource = resource("opencode-native", "1.2.3", "local", "abcd1234", |name| {
+            let resource = resource("xccode-native", "1.2.3", "local", "abcd1234", |name| {
                 vars.iter().find(|(k, _)| k == name).map(|(_, v)| v.clone())
             });
             resource["attributes"]
@@ -726,10 +726,10 @@ mod tests {
             attributes(&[]),
             [
                 "deployment.environment.name=local",
-                "opencode.client=opencode-native",
-                "opencode.run=abcd1234",
+                "xccode.client=xccode-native",
+                "xccode.run=abcd1234",
                 "service.instance.id=abcd1234",
-                "service.name=opencode",
+                "service.name=xccode",
                 "service.version=1.2.3",
             ]
         );
@@ -741,8 +741,8 @@ mod tests {
             [
                 "team=a%20b",
                 "deployment.environment.name=local",
-                "opencode.client=opencode-native",
-                "opencode.run=abcd1234",
+                "xccode.client=xccode-native",
+                "xccode.run=abcd1234",
                 "service.instance.id=abcd1234",
                 "service.name=custom",
                 "service.version=9",
@@ -779,7 +779,7 @@ mod tests {
             ] } })
         );
         let body = logs_body(&resource("c", "v", "local", "r", |_| None), vec![record]);
-        assert_eq!(body["resourceLogs"][0]["scopeLogs"][0]["scope"]["name"], "opencode");
+        assert_eq!(body["resourceLogs"][0]["scopeLogs"][0]["scope"]["name"], "xccode");
     }
 
     #[test]
@@ -819,9 +819,9 @@ mod tests {
             print: false,
             endpoint: Some(format!("http://127.0.0.1:{port}")),
             headers: Some("x-team=core".into()),
-            resource: resource("opencode-native", "local", "local", "r", |_| None),
+            resource: resource("xccode-native", "local", "local", "r", |_| None),
         });
-        logger.log(&Record::builder().level(Level::Info).target("opencode_cli").args(format_args!("exported")).build());
+        logger.log(&Record::builder().level(Level::Info).target("xccode_cli").args(format_args!("exported")).build());
         logger.export();
         let (head, body) = server.join().unwrap();
         assert_eq!(head[0], "POST /v1/logs HTTP/1.1");

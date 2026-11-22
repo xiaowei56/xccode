@@ -5,10 +5,10 @@ use crate::support;
 use std::sync::Arc;
 use std::time::Duration;
 
-use opencode_api::memory::{Memory, Route as MemoryRoute};
-use opencode_tui::Deps;
-use opencode_tui::dialogs::settings;
-use opencode_ui::motion::{SPINNER_FRAMES, SPINNER_INTERVAL};
+use xccode_api::memory::{Memory, Route as MemoryRoute};
+use xccode_tui::Deps;
+use xccode_tui::dialogs::settings;
+use xccode_ui::motion::{SPINNER_FRAMES, SPINNER_INTERVAL};
 use opentui::prelude::Color;
 use serde_json::{Value, json};
 

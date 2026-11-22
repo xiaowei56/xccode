@@ -6,8 +6,8 @@ import {
   type MarketDay,
   type NewModelCandidate,
   type TokenCostEntry,
-} from "@opencode/data-core/domain/home"
-import { STEALTH_MODELS, statModel } from "@opencode/data-core/domain/model-normalization"
+} from "@xccode/data-core/domain/home"
+import { STEALTH_MODELS, statModel } from "@xccode/data-core/domain/model-normalization"
 import { runStatsEffect } from "../stats-runtime"
 import {
   catalogSlug,

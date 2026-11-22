@@ -2,7 +2,7 @@ import { expect, test } from "bun:test"
 import { createTestRenderer } from "@opentui/core/testing"
 import { InputRenderable } from "@opentui/core"
 import { Effect, FileSystem } from "effect"
-import { Global } from "@opencode/util/global"
+import { Global } from "@xccode/util/global"
 import { createEventStream, createFetch, directory, json } from "./fixture/tui-client"
 import { tmpdir } from "./fixture/fixture"
 
@@ -63,7 +63,7 @@ test.each([70, 120])(
           get: async () => ({
             animations: false,
             experimental: { "new-designs": false },
-            theme: { name: "opencode-classic" },
+            theme: { name: "xccode-classic" },
           }),
           update: async () => ({}),
         },
@@ -196,7 +196,7 @@ test.each(["first", "second"])(
           get: async () => ({
             animations: false,
             experimental: { "new-designs": false },
-            theme: { name: "opencode-classic" },
+            theme: { name: "xccode-classic" },
           }),
           update: async () => ({}),
         },

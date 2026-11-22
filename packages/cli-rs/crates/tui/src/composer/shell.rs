@@ -1,7 +1,7 @@
 //! Shell tab and its output dialog.
 
-use opencode_api::generated::{LocationQueryInput, SessionMessageShellStatus, ShellRemoveInput};
-use opencode_store::Shell;
+use xccode_api::generated::{LocationQueryInput, SessionMessageShellStatus, ShellRemoveInput};
+use xccode_store::Shell;
 use opentui::prelude::Container;
 
 use super::{Inner, Label, RowState, Tab, empty, row, window};

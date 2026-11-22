@@ -1,14 +1,14 @@
-import picker from "@brendonovich/vite-plugin-opencode"
+import picker from "@brendonovich/vite-plugin-xccode"
 import MagicString from "magic-string"
 import { existsSync } from "node:fs"
 import { dirname, join, relative, resolve, sep } from "node:path"
 import { parseSync, Visitor } from "vite"
 
-const attribute = "data-opencode-picker-source"
+const attribute = "data-xccode-picker-source"
 
 export function pickerPlugin() {
   const plugin = picker()
-  const client = "/__vite_opencode_picker_client.js"
+  const client = "/__vite_xccode_picker_client.js"
 
   let workspaceRoot = ""
 
@@ -19,12 +19,12 @@ export function pickerPlugin() {
       workspaceRoot = gitRoot(config.root)
     },
     resolveId(id: string) {
-      return plugin.resolveId(id === client ? "virtual:vite-opencode-picker/client" : id)
+      return plugin.resolveId(id === client ? "virtual:vite-xccode-picker/client" : id)
     },
     configureServer(server: Parameters<typeof plugin.configureServer>[0]) {
       server.middlewares.use(client, (_request, response) => {
         response.setHeader("content-type", "text/javascript")
-        response.end(plugin.load(plugin.resolveId("virtual:vite-opencode-picker/client")!))
+        response.end(plugin.load(plugin.resolveId("virtual:vite-xccode-picker/client")!))
       })
       plugin.configureServer(server)
     },

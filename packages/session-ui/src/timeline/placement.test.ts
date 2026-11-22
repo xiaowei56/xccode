@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import { Predicate } from "effect"
-import type { SessionMessageAssistant } from "@opencode/client/promise"
+import type { SessionMessageAssistant } from "@xccode/client/promise"
 import type { TimelineDetail } from "./detail"
 import { placeContent } from "./place"
 import { openMark, placementDetails, placementMessages } from "./placement-fixtures"

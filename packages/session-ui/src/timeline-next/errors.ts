@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant } from "@opencode/client/promise"
+import type { SessionMessageAssistant } from "@xccode/client/promise"
 import { Effect, Option, Schema } from "effect"
 import type { TurnErrorInfo } from "../timeline/turn-phase-machine"
 
@@ -54,7 +54,7 @@ function usageLimit(
   return { kind, resetAt: base + delay }
 }
 
-// OpenCode Console says when the budget resets in its refusal's metadata, which every protocol's envelope names `resetsAt`.
+// Xccode Console says when the budget resets in its refusal's metadata, which every protocol's envelope names `resetsAt`.
 function budgetLimit(message: Pick<SessionMessageAssistant, "error">) {
   const type = message.error?.type
 

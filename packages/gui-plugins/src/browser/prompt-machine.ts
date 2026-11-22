@@ -3,7 +3,7 @@
 // Oldest first; the pane shows one at a time with a count of the rest. A request with the key of one that waits joins
 // it instead of queueing again. Every item ends with an answer: the user's, its deadline, or a navigation or close
 // that clears it, each settled exactly once.
-import type { Browser } from "@opencode/plugin-browser/rpc"
+import type { Browser } from "@xccode/plugin-browser/rpc"
 import { displayHost } from "./host-display"
 import { previewScheme } from "./scheme"
 import { originOf, type PermissionKind } from "./site-permissions"

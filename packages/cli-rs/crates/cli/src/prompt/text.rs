@@ -26,7 +26,7 @@ impl<'a> Text<'a> {
         self
     }
 
-    #[allow(dead_code, reason = "only opencode-prompt-demo uses it")]
+    #[allow(dead_code, reason = "only xccode-prompt-demo uses it")]
     /// The answer when the input is empty on submit.
     pub fn default_value(mut self, value: impl Into<String>) -> Self {
         self.default_value = Some(super::clean(value));

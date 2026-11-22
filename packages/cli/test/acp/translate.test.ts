@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
-import { OpenCodeEvent, type OpenCodeEventEncoded } from "@opencode/protocol/groups/event"
-import { Session } from "@opencode/schema/session"
-import { SessionMessage } from "@opencode/schema/session-message"
+import { XccodeEvent, type XccodeEventEncoded } from "@xccode/protocol/groups/event"
+import { Session } from "@xccode/schema/session"
+import { SessionMessage } from "@xccode/schema/session-message"
 import { Schema } from "effect"
 import path from "node:path"
 import { ACPReplay } from "../../src/acp/replay"
@@ -34,10 +34,10 @@ const ctx: ACPTranslate.TurnContext = {
   childUpdates: false,
   compaction: false,
 }
-const decodeEvent = Schema.decodeUnknownSync(OpenCodeEvent)
+const decodeEvent = Schema.decodeUnknownSync(XccodeEvent)
 const decodeMessage = Schema.decodeUnknownSync(SessionMessage.Info)
 
-const live = (...events: OpenCodeEventEncoded[]) => [delivered(root, "msg_input"), ...events]
+const live = (...events: XccodeEventEncoded[]) => [delivered(root, "msg_input"), ...events]
 const usage = (input: number, output: number, reasoning = 0, read = 0, write = 0) => ({
   input,
   output,
@@ -56,10 +56,10 @@ const compaction = {
 }
 const marker = (value: Record<string, unknown>) => ({
   sessionUpdate: "session_info_update",
-  _meta: { "opencode/compaction": { messageId: "msg_compact", reason: "manual", ...value } },
+  _meta: { "xccode/compaction": { messageId: "msg_compact", reason: "manual", ...value } },
 })
 const childMeta = (id: string, parentID: string, depth: number, title: string) => ({
-  "opencode/child-session": { id, parentID, depth, title },
+  "xccode/child-session": { id, parentID, depth, title },
 })
 const compactionMessage = (input: Record<string, unknown>) => ({
   id: "msg_compaction",
@@ -72,7 +72,7 @@ const compactionMessage = (input: Record<string, unknown>) => ({
 type Row = {
   readonly name: string
   readonly ctx?: Partial<ACPTranslate.TurnContext>
-  readonly events?: OpenCodeEventEncoded[]
+  readonly events?: XccodeEventEncoded[]
   readonly messages?: unknown[]
   readonly expected: object
 }
@@ -494,7 +494,7 @@ const rows: Row[] = [
       updates: [
         {
           _meta: {
-            "opencode/compaction": { status: "failed", messageId: "msg_2", reason: "auto", error: providerError },
+            "xccode/compaction": { status: "failed", messageId: "msg_2", reason: "auto", error: providerError },
           },
         },
       ],
@@ -510,8 +510,8 @@ const rows: Row[] = [
     ),
     expected: {
       updates: [
-        { _meta: { "opencode/compaction": { status: "started" }, ...childMeta("ses_child", root, 1, "Explore") } },
-        { _meta: { "opencode/compaction": { status: "completed" }, ...childMeta("ses_child", root, 1, "Explore") } },
+        { _meta: { "xccode/compaction": { status: "started" }, ...childMeta("ses_child", root, 1, "Explore") } },
+        { _meta: { "xccode/compaction": { status: "completed" }, ...childMeta("ses_child", root, 1, "Explore") } },
       ],
     },
   },
@@ -571,7 +571,7 @@ const rows: Row[] = [
       updates: [
         {
           sessionUpdate: "session_info_update",
-          _meta: { "opencode/compaction": { status: "completed", messageId: "msg_compaction", reason: "auto" } },
+          _meta: { "xccode/compaction": { status: "completed", messageId: "msg_compaction", reason: "auto" } },
         },
       ],
     },
@@ -683,7 +683,7 @@ function translate(row: Row) {
   }
 }
 
-function run(events: ReadonlyArray<OpenCodeEventEncoded>, context = ctx) {
+function run(events: ReadonlyArray<XccodeEventEncoded>, context = ctx) {
   return events.reduce<{
     state: ACPTranslate.TurnState
     outputs: ACPTranslate.Output[]

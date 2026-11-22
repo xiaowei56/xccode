@@ -1,5 +1,5 @@
-import { getFilename } from "@opencode/util/path"
-import type { PromptAttachment } from "@opencode/client/promise"
+import { getFilename } from "@xccode/util/path"
+import type { PromptAttachment } from "@xccode/client/promise"
 
 export function attached(file: PromptAttachment) {
   if (file.mention) return false

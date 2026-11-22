@@ -1,11 +1,11 @@
 export * as ImageGenerateTool from "./image-generate.js"
 
 import path from "path"
-import { ToolFailure } from "@opencode/ai/effect"
-import type { Context } from "@opencode/plugin/effect/plugin"
-import type { Document, Entry } from "@opencode/schema/config"
-import { Identifier } from "@opencode/schema/identifier"
-import { Global } from "@opencode/util/global"
+import { ToolFailure } from "@xccode/ai/effect"
+import type { Context } from "@xccode/plugin/effect/plugin"
+import type { Document, Entry } from "@xccode/schema/config"
+import { Identifier } from "@xccode/schema/identifier"
+import { Global } from "@xccode/util/global"
 import { Duration, Effect, Schema, Scope, Stream } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { toolFailure } from "../runtime.js"
@@ -73,7 +73,7 @@ export const Output = Schema.Struct({
 })
 
 export const Plugin = {
-  id: "opencode.tool.image-generate",
+  id: "xccode.tool.image-generate",
   effect: Effect.fn("ImageGenerateTool.Plugin")(function* (ctx: Context) {
     const access = yield* FileAccess.Service
     const environment = yield* Environment.Service

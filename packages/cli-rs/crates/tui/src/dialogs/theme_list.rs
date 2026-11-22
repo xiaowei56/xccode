@@ -1,6 +1,6 @@
 //! Preview themes while browsing; persist the choice only on Enter.
 
-use opencode_ui::select::{Select, select};
+use xccode_ui::select::{Select, select};
 
 use crate::dialogs::settings::{set_path, update};
 use crate::prelude::*;

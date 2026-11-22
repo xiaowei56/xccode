@@ -28,7 +28,7 @@ export const IDLE_MS = 5 * 60_000
 export interface Request {
   // Only primary calls have one. Side calls run in a throwaway process.
   readonly sessionID?: string
-  // Native OpenCode fork lineage, or the session supplying a compaction/generate snapshot.
+  // Native Xccode fork lineage, or the session supplying a compaction/generate snapshot.
   readonly sourceID?: string
   readonly model: string
   readonly effort?: Options["effort"]
@@ -66,9 +66,9 @@ interface Entry {
 
 export interface Interface {
   readonly run: (request: Request) => Effect.Effect<void, Error>
-  // OpenCode stopped running the session, so a turn still waiting for tool results will not get them.
+  // Xccode stopped running the session, so a turn still waiting for tool results will not get them.
   readonly idle: (sessionID: string) => Effect.Effect<void>
-  // OpenCode deleted the session, so nothing can resume it.
+  // Xccode deleted the session, so nothing can resume it.
   readonly remove: (sessionID: string) => Effect.Effect<void>
 }
 
@@ -250,9 +250,9 @@ export function registry() {
       const emit = (message: SDKMessage) => {
         if (message.type === "system" && message.subtype === "init" && request.tools.length > 0) {
           const connected = message.mcp_servers.some(
-            (server) => server.name === "opencode" && server.status === "connected",
+            (server) => server.name === "xccode" && server.status === "connected",
           )
-          if (!connected) throw new Error("The OpenCode tool server did not connect to Claude Code")
+          if (!connected) throw new Error("The Xccode tool server did not connect to Claude Code")
         }
         if (
           message.type === "assistant" &&
@@ -310,7 +310,7 @@ export function registry() {
         live.waiting = parked ? waiting : undefined
       })
 
-      // A tool boundary ends only the OpenCode step; the Claude turn waits for the results. Anything else interrupts and drains it.
+      // A tool boundary ends only the Xccode step; the Claude turn waits for the results. Anything else interrupts and drains it.
       const interruptUnlessParked = Effect.gen(function* () {
         if (parked) return
         yield* interrupt(entry).pipe(Effect.orDie)
@@ -357,7 +357,7 @@ export function registry() {
         return
       }
       // A turn waiting for tool results is still busy. Subagents, permission prompts and questions can take longer
-      // than IDLE_MS, so idle() starts the timer once OpenCode stops running the session.
+      // than IDLE_MS, so idle() starts the timer once Xccode stops running the session.
       if (entry.process?.waiting) return
       yield* armIdle(entry)
     })
@@ -449,7 +449,7 @@ export function registry() {
         continuation.results.push({ id, result })
       }
       if (collected.aborted) {
-        // A stopped OpenCode turn needs a fresh Claude turn; addUser would only steer the old one.
+        // A stopped Xccode turn needs a fresh Claude turn; addUser would only steer the old one.
         // After a launch change it also needs a new process.
         yield* live.launch === launch(request) ? interrupt(entry) : stop(entry)
         return { start, continuation: undefined }

@@ -1,7 +1,7 @@
-import { Button } from "@opencode/ui/button"
-import { Icon } from "@opencode/ui/icon"
-import { Menu } from "@opencode/ui/menu"
-import { Tabs } from "@opencode/ui/tabs"
+import { Button } from "@xccode/ui/button"
+import { Icon } from "@xccode/ui/icon"
+import { Menu } from "@xccode/ui/menu"
+import { Tabs } from "@xccode/ui/tabs"
 import {
   createEffect,
   ErrorBoundary,

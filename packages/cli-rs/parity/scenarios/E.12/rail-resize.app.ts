@@ -2,7 +2,7 @@
 // handle from column 41 to 30 narrows the rail to 31, and a drag to column 8 makes it compact.
 import { assistant, defineApp, session, user } from "../../lib/app"
 
-const here = { directory: "/tmp/opencode/packages/tui" }
+const here = { directory: "/tmp/xccode/packages/tui" }
 const messages = (text: string) => ({
   json: { data: [assistant("msg_2", text), user("msg_1", "Why?")], cursor: {} },
 })

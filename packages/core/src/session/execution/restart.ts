@@ -2,9 +2,9 @@ export * as SessionRestart from "./restart.js"
 
 import { Cause, Context, Effect, Layer, Option, Schema } from "effect"
 import { isReadonlyArrayNonEmpty } from "effect/Array"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { Shell as ShellSchema } from "@opencode/schema/shell"
-import { FSUtil } from "@opencode/util/fs-util"
+import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { Shell as ShellSchema } from "@xccode/schema/shell"
+import { FSUtil } from "@xccode/util/fs-util"
 import { BlobStore } from "../../blob-store.js"
 import { Bus } from "../../bus.js"
 import { Database } from "../../database/database.js"
@@ -77,7 +77,7 @@ export interface Interface {
  * — the managed server invokes it at boot; embedders may call it from their
  * own start-up.
  */
-export class Service extends Context.Service<Service, Interface>()("@opencode/SessionRestart") {}
+export class Service extends Context.Service<Service, Interface>()("@xccode/SessionRestart") {}
 
 export const layer = (options?: Options) =>
   Layer.effect(

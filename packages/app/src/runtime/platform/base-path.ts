@@ -1,4 +1,4 @@
-/** The path a build is served under, such as `/opencode`, without a trailing slash; empty at the root. */
+/** The path a build is served under, such as `/xccode`, without a trailing slash; empty at the root. */
 export const basePath = normalizeBasePath(import.meta.env.BASE_URL)
 
 export function normalizeBasePath(base: string | undefined) {
@@ -7,7 +7,7 @@ export function normalizeBasePath(base: string | undefined) {
   return trimmed ? `/${trimmed}` : ""
 }
 
-/** The browser path for an app path, such as `/opencode/new-session` for `/new-session`. */
+/** The browser path for an app path, such as `/xccode/new-session` for `/new-session`. */
 export function withBasePath(path: string, base = basePath) {
   if (!base) return path
 

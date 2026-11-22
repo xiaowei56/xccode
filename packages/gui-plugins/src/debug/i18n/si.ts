@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "මතක රෝග විනිශ්චය: සෑම තත්පර 30 කට වරක් යෙදුමේ මතකය ඩෙස්ක්ටොප් ලොග වෙත සටහන් කරන්න. අක්‍රිය කරන තෙක් යළි ආරම්භ කිරීම් පුරා සක්‍රියව පවතී; එය ධාවනය වන අතරතුර තීරුව විවෘතව පවතී.",
-  "memory.tipEnv": "මෙම දියත් කිරීම සඳහා මතක රෝග විනිශ්චය සක්‍රියයි: OPENCODE_DESKTOP_MEMORY_LOG සකසා ඇත.",
+  "memory.tipEnv": "මෙම දියත් කිරීම සඳහා මතක රෝග විනිශ්චය සක්‍රියයි: XCCODE_DESKTOP_MEMORY_LOG සකසා ඇත.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

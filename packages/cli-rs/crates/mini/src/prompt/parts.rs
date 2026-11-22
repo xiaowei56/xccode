@@ -1,9 +1,9 @@
 //! Converts between editable prompts, wire requests and history entries.
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     PromptBase64, PromptFileAttachment, PromptFileSource, PromptFileSourceInline, PromptMention,
 };
-use opencode_ui::prompt_input::editor::Mention;
+use xccode_ui::prompt_input::editor::Mention;
 use serde_json::{Map, Value, json};
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]

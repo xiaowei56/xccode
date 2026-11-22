@@ -4,7 +4,7 @@ import { env, info, only, pairRoute, register } from "../C.8/fixture"
 
 export default defineCli({
   args: [],
-  command: only(["pair", "--url", "https://opencode.example/base/"]),
+  command: only(["pair", "--url", "https://xccode.example/base/"]),
   env,
   server: { version: false, routes: [info(["http://127.0.0.1:4096"]), pairRoute] },
   setup: register,

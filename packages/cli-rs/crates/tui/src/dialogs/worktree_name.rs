@@ -1,6 +1,6 @@
 //! Choose or generate a name for a new worktree.
 
-use opencode_ui::prompt::{PromptAction, PromptProps, prompt};
+use xccode_ui::prompt::{PromptAction, PromptProps, prompt};
 
 use crate::prelude::*;
 

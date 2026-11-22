@@ -3,10 +3,10 @@
 TypeScript: the stderr logger (`packages/util/src/observability/logging.ts`) writes every record with
 `process.stderr.write`. OpenTUI's renderer runs with `externalOutputMode: "passthrough"` and does not capture
 stderr, so while the TUI is on the alternate screen the records draw over it. A 110x32 PTY run of
-`opencode --print-logs` with `OPENCODE_LOG_LEVEL=DEBUG` showed 137 records written inside the alternate screen,
+`xccode --print-logs` with `XCCODE_LOG_LEVEL=DEBUG` showed 137 records written inside the alternate screen,
 and none after it. They stay on the screen until the next redraw of those cells and are not in the scrollback.
 
-Rust: `opencode_tui::run` sets `AppOptions::capture_stderr`. While the TUI runs, whatever the process writes to
+Rust: `xccode_tui::run` sets `AppOptions::capture_stderr`. While the TUI runs, whatever the process writes to
 stderr (log records, stray `eprintln!`) goes to the opentui console, and is written to the real stderr after
 the terminal is restored. "Toggle console" in the palette (`app.console`, unbound by default, as in TS) shows
 the console while the TUI runs. The same PTY run, with a record written to the process's stderr during the TUI, shows

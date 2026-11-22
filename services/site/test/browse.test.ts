@@ -15,8 +15,8 @@ describe("browse", () => {
   test("leads the install with the extension, then lists the standalone scripts first", () => {
     expect(browse.install.lead).toContain("[Chrome extension]")
     expect(browse.install.commands?.slice(0, 2)).toEqual([
-      { method: "curl", command: "curl -fsSL https://opencode.ai/browse/install | bash" },
-      { method: "pwsh", command: "irm https://opencode.ai/browse/install.ps1 | iex" },
+      { method: "curl", command: "curl -fsSL https://xccode.ai/browse/install | bash" },
+      { method: "pwsh", command: "irm https://xccode.ai/browse/install.ps1 | iex" },
     ])
   })
 

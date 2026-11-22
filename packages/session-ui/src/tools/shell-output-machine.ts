@@ -1,4 +1,4 @@
-import { TextBoundary } from "@opencode/util/text-boundary"
+import { TextBoundary } from "@xccode/util/text-boundary"
 
 // Same page size as the TUI shell output viewer; only this much recent output is retained and rendered.
 export const SHELL_OUTPUT_TAIL_BYTES = 64 * 1024

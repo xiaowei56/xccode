@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 
-use opencode_util::json_object;
+use xccode_util::json_object;
 use serde_json::{Value, json};
 
-const MARKER_META: &str = "opencode/compaction";
+const MARKER_META: &str = "xccode/compaction";
 
 /// A compaction that started and has not ended.
 #[derive(Debug, Clone, PartialEq)]

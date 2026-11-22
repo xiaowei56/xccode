@@ -1,10 +1,10 @@
 //! Inline transcript notices for skills and session changes.
 
-use opencode_api::generated::{ModelInfo, ModelRef};
+use xccode_api::generated::{ModelInfo, ModelRef};
 use unicode_width::{UnicodeWidthChar, UnicodeWidthStr};
 
 use super::list::Context;
-use opencode_ui::locale::titlecase;
+use xccode_ui::locale::titlecase;
 
 use crate::prelude::*;
 
@@ -42,7 +42,7 @@ impl Notice {
         });
         inner.root.on_hover(bind!(inner, |inner, _, hovered| {
             let child = matches!(&*inner.rendered.borrow(), Some(Line::Completion { child: Some(_), .. }));
-            inner.root.mouse_pointer(opencode_ui::click_pointer(child));
+            inner.root.mouse_pointer(xccode_ui::click_pointer(child));
             inner.hover.set(hovered);
             inner.paint();
         }));

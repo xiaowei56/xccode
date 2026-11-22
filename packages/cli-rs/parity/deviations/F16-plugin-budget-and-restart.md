@@ -14,10 +14,10 @@ Every plugin call, of a built-in and of an external plugin, is timed.
   and worst per call kind. This applies to built-ins too.
 - One call over 100 ms fails an external plugin, after the call's effects applied: the toast `Plugin failed: <id>`,
   and `/plugins` lists `<call> took <n> ms, over the limit of 100 ms`. A Luau call is stopped by its VM's interrupt at
-  that limit. For a built-in it is logged as a host bug. `OPENCODE_PLUGIN_LIMITS` changes the limits.
+  that limit. For a built-in it is logged as a host bug. `XCCODE_PLUGIN_LIMITS` changes the limits.
 
 There is no crash guard: a plugin that crashes the process (only the Luau VM could) ends the client, and
-`opencode-native --no-plugins` starts it with no external plugin ([`D01-no-plugins.md`](D01-no-plugins.md)).
+`xccode-native --no-plugins` starts it with no external plugin ([`D01-no-plugins.md`](D01-no-plugins.md)).
 
 ## Reason
 

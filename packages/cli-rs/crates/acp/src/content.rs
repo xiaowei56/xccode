@@ -1,5 +1,5 @@
 use base64::Engine as _;
-use opencode_util::json_object;
+use xccode_util::json_object;
 use serde_json::{Value, json};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -63,7 +63,7 @@ fn content_block_to_parts(block: &Value) -> Vec<PromptPart> {
             let field = |key: &str| resource.get(key).and_then(Value::as_str);
             let uri = field("uri").unwrap_or_default();
             if let Some(body) = field("text") {
-                let parsed = opencode_api::js::parse_url(uri).ok();
+                let parsed = xccode_api::js::parse_url(uri).ok();
                 let decoded = parsed.as_ref().filter(|parsed| parsed.scheme() == "file").and_then(|parsed| {
                     parsed.to_file_path().ok().map(|path| path.to_string_lossy().into_owned()).or_else(|| {
                         percent_encoding::percent_decode_str(parsed.path())
@@ -174,7 +174,7 @@ fn resource_link_to_part(uri: &str, name: Option<&str>, mime: Option<&str>) -> P
         };
     }
     if uri.starts_with("zed://")
-        && let Ok(parsed) = opencode_api::js::parse_url(uri)
+        && let Ok(parsed) = xccode_api::js::parse_url(uri)
         && let Some(pathname) = query_param(&parsed, "path").filter(|path| !path.is_empty())
     {
         let base = js_basename(&pathname);
@@ -204,7 +204,7 @@ fn query_param(url: &url::Url, name: &str) -> Option<String> {
 
 fn filename_from_uri(uri: Option<&str>) -> Option<String> {
     let uri = uri.filter(|uri| !uri.is_empty() && !uri.starts_with("data:"))?;
-    let base = match opencode_api::js::parse_url(uri) {
+    let base = match xccode_api::js::parse_url(uri) {
         Ok(url) => {
             let zed =
                 (url.scheme() == "zed").then(|| query_param(&url, "path")).flatten().filter(|path| !path.is_empty());
@@ -217,7 +217,7 @@ fn filename_from_uri(uri: Option<&str>) -> Option<String> {
 
 /// Node's `path.basename`: the last segment, ignoring trailing separators.
 pub fn js_basename(path: &str) -> String {
-    opencode_util::path::Flavor::NATIVE.basename(path).to_owned()
+    xccode_util::path::Flavor::NATIVE.basename(path).to_owned()
 }
 
 /// Node's `pathToFileURL(path).href`: resolved against the working directory.
@@ -240,8 +240,8 @@ mod tests {
     fn non_ascii_hosts_from_the_client_do_not_panic() {
         for uri in ["https://Bücher.example", "file://Bücher.example/a.txt"] {
             assert_eq!(
-                opencode_api::js::parse_url(uri).unwrap_err().to_string(),
-                format!("{uri}: {}", opencode_api::js::ASCII_HOST)
+                xccode_api::js::parse_url(uri).unwrap_err().to_string(),
+                format!("{uri}: {}", xccode_api::js::ASCII_HOST)
             );
         }
         let rows = [

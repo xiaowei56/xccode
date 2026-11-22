@@ -8,14 +8,14 @@ pub mod permission;
 mod scroll;
 pub mod subagent;
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     FormID, FormInfo, FormListInput, PermissionAskedData, PermissionListInput, PermissionReplyInput, PermissionRequest,
     SessionFormCancelInput, SessionFormListInput, SessionFormReplyInput, SessionGetInput, SessionID,
     SessionInboxListInput, SessionInfo, SessionInterruptInput, SessionListInput, SessionListInputOrder,
     SessionMessageGetInput,
 };
-use opencode_local::cli_config::Visibility;
-use opencode_ui::keymap::{KeymapLayer, TuiCommand};
+use xccode_local::cli_config::Visibility;
+use xccode_ui::keymap::{KeymapLayer, TuiCommand};
 use opentui::input::KeyEvent;
 use opentui::keymap::{Condition, Disposer};
 
@@ -456,7 +456,7 @@ impl Footers {
     /// A form of no session at the session's location (`sameLocation`).
     fn global_event(&self, event: &V2Event) -> bool {
         let directory = self.0.target.borrow().as_ref().map(|target| target.directory.clone());
-        let here = |location: &Option<opencode_api::generated::LocationRef>| {
+        let here = |location: &Option<xccode_api::generated::LocationRef>| {
             location.as_ref().is_some_and(|location| Some(&location.directory.0) == directory.as_ref())
         };
         let mut state = self.0.state.borrow_mut();
@@ -821,7 +821,7 @@ impl Inner {
             .hooks()
             .settings
             .as_ref()
-            .is_none_or(|settings| settings().shell_output == opencode_local::cli_config::Visibility::Show);
+            .is_none_or(|settings| settings().shell_output == xccode_local::cli_config::Visibility::Show);
         let tracker = self.tracker.borrow();
         let mut state = self.state.borrow_mut();
         let state = &mut *state;
@@ -976,7 +976,7 @@ impl Inner {
                 let cwd = std::env::current_dir().unwrap_or_default();
                 let home = self.home.clone();
                 let format =
-                    move |path: &str| opencode_ui::path::format(path, directory.as_deref(), &cwd, home.as_deref());
+                    move |path: &str| xccode_ui::path::format(path, directory.as_deref(), &cwd, home.as_deref());
                 let info = permission::info(request, &format, self.mono);
                 let painted = permission::paint(
                     &self.app,
@@ -1640,7 +1640,7 @@ impl Inner {
         let unsupported = form::unsupported(&info).is_some();
         let confirm = form::confirm(&info, &current);
         let editing =
-            !unsupported && !confirm && (opencode_ui::form::textual(form::current(&info, &current)) || current.editing);
+            !unsupported && !confirm && (xccode_ui::form::textual(form::current(&info, &current)) || current.editing);
         if editing {
             if name != "return" {
                 return false;
@@ -1676,10 +1676,10 @@ impl Inner {
                 let next = (current.field + if back { total - 1 } else { 1 }) % total;
                 if !back && !confirm {
                     let problem = match &field {
-                        Some(field @ opencode_api::generated::FormField::External(_)) => (current.answer(field)
-                            != Some(&opencode_api::generated::FormValue::Bool(true)))
-                        .then(|| format!("Acknowledge {}", opencode_ui::form::label(field))),
-                        Some(field) => opencode_ui::form::validate(field, current.answer(field)),
+                        Some(field @ xccode_api::generated::FormField::External(_)) => (current.answer(field)
+                            != Some(&xccode_api::generated::FormValue::Bool(true)))
+                        .then(|| format!("Acknowledge {}", xccode_ui::form::label(field))),
+                        Some(field) => xccode_ui::form::validate(field, current.answer(field)),
                         None => None,
                     };
                     if let Some(problem) = problem {
@@ -1692,7 +1692,7 @@ impl Inner {
                 self.set_form(current);
             }
             "return" if confirm => self.submit_form(&info, current),
-            "return" if matches!(field, Some(opencode_api::generated::FormField::External(_))) => {
+            "return" if matches!(field, Some(xccode_api::generated::FormField::External(_))) => {
                 self.external(&info, current);
             }
             "up" | "k" => {
@@ -1708,8 +1708,8 @@ impl Inner {
                 self.choose(&info, current, selected);
             }
             digit => {
-                let total = opencode_ui::form::rows(field.as_ref()).len()
-                    + usize::from(opencode_ui::form::custom(field.as_ref()));
+                let total = xccode_ui::form::rows(field.as_ref()).len()
+                    + usize::from(xccode_ui::form::custom(field.as_ref()));
                 let Some(number) = digit.parse::<usize>().ok().filter(|number| (1..=total.min(9)).contains(number))
                 else {
                     return false;
@@ -1725,7 +1725,7 @@ impl Inner {
         current.select(selected);
         current.pick(info);
         let multiple =
-            matches!(form::current(info, &current), Some(opencode_api::generated::FormField::Multiselect(_)));
+            matches!(form::current(info, &current), Some(xccode_api::generated::FormField::Multiselect(_)));
         if current.editing || multiple || !form::single(info) {
             self.set_form(current);
             return;
@@ -1735,11 +1735,11 @@ impl Inner {
 
     /// `external`: opens the URL, then acknowledges it on the next Enter.
     fn external(self: &Rc<Self>, info: &FormInfo, mut current: form::State) {
-        let Some(opencode_api::generated::FormField::External(field)) = form::current(info, &current).cloned() else {
+        let Some(xccode_api::generated::FormField::External(field)) = form::current(info, &current).cloned() else {
             return;
         };
-        if current.answer(&opencode_api::generated::FormField::External(field.clone()))
-            == Some(&opencode_api::generated::FormValue::Bool(true))
+        if current.answer(&xccode_api::generated::FormField::External(field.clone()))
+            == Some(&xccode_api::generated::FormValue::Bool(true))
         {
             if form::single(info) {
                 return self.submit_form(info, current);
@@ -1803,7 +1803,7 @@ impl Inner {
 
     /// A reply or cancel answered: the form leaves (`settleForm`), unless it failed for another reason than being
     /// settled already (`formAlreadySettled`).
-    fn form_settled(self: &Rc<Self>, id: &str, result: Result<(), opencode_api::error::Error>) {
+    fn form_settled(self: &Rc<Self>, id: &str, result: Result<(), xccode_api::error::Error>) {
         if let Err(error) = result {
             let settled = error.declared().is_some_and(|declared| {
                 matches!(declared.tag.as_deref(), Some("FormNotFoundError" | "FormAlreadySettledError"))
@@ -1855,13 +1855,13 @@ fn form_client(target: &Target, form: &FormInfo) -> Client {
     if form.session_id != GLOBAL {
         return target.client.clone();
     }
-    target.client.with_header("x-opencode-directory", opencode_api::js::encode_component(&target.directory))
+    target.client.with_header("x-xccode-directory", xccode_api::js::encode_component(&target.directory))
 }
 
 /// `openUrl`: a form's URL is not trusted to name a web link, so anything else fails before a process starts.
 fn open_url(url: &str) -> bool {
-    let Ok(url) = opencode_ui::open::web_url(url) else { return false };
-    opencode_ui::open::command(&url)
+    let Ok(url) = xccode_ui::open::web_url(url) else { return false };
+    xccode_ui::open::command(&url)
         .stdin(std::process::Stdio::null())
         .stdout(std::process::Stdio::null())
         .stderr(std::process::Stdio::null())
@@ -2019,7 +2019,7 @@ async fn lineage(client: &Client, session: &str, family: &HashSet<String>) -> Di
     Discovery::Unrelated
 }
 
-/// `RunModelSelectBody`'s entries: every model but the deprecated, opencode first, then by provider and model name.
+/// `RunModelSelectBody`'s entries: every model but the deprecated, xccode first, then by provider and model name.
 /// A query shows each model's provider in the footer.
 fn model_entries(models: &Models, query: String) -> Vec<Entry<Pick>> {
     let current = models.current.as_ref();
@@ -2035,7 +2035,7 @@ fn model_entries(models: &Models, query: String) -> Vec<Entry<Pick>> {
                     current.is_some_and(|current| current.provider_id == provider.id && current.model_id == *id);
                 let footer = if selected {
                     Some("current".to_owned())
-                } else if model.cost == Some(0.0) && provider.id == "opencode" {
+                } else if model.cost == Some(0.0) && provider.id == "xccode" {
                     Some("Free".to_owned())
                 } else {
                     (title != *id).then(|| id.clone())
@@ -2064,15 +2064,15 @@ fn model_entries(models: &Models, query: String) -> Vec<Entry<Pick>> {
         })
         .collect();
     entries.sort_by(|(a_id, a), (b_id, b)| {
-        (a_id != "opencode")
-            .cmp(&(b_id != "opencode"))
+        (a_id != "xccode")
+            .cmp(&(b_id != "xccode"))
             .then_with(|| {
-                opencode_api::js::locale_compare(
+                xccode_api::js::locale_compare(
                     a.item.category.as_deref().unwrap_or_default(),
                     b.item.category.as_deref().unwrap_or_default(),
                 )
             })
-            .then_with(|| opencode_api::js::locale_compare(&a.item.display, &b.item.display))
+            .then_with(|| xccode_api::js::locale_compare(&a.item.display, &b.item.display))
     });
     entries.into_iter().map(|(_, entry)| entry).collect()
 }
@@ -2320,7 +2320,7 @@ impl Footers {
 mod tests {
     use std::sync::Arc;
 
-    use opencode_api::memory::{Memory, Route};
+    use xccode_api::memory::{Memory, Route};
     use opentui::testing::TestApp;
     use serde::Deserialize;
     use serde_json::json;

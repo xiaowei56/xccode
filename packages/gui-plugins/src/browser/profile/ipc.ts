@@ -1,6 +1,6 @@
 import { Schema } from "effect"
-import { Ipc } from "@opencode/plugin/gui"
-import { Browser } from "@opencode/plugin-browser/rpc"
+import { Ipc } from "@xccode/plugin/gui"
+import { Browser } from "@xccode/plugin-browser/rpc"
 
 const Count = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0))
 

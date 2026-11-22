@@ -13,7 +13,7 @@ pub fn install(tui: &Rc<Tui>) {
         match event.kind {
             // The root's shape reaches every widget without one of its own, such as transcript text.
             MouseEventKind::Moved => {
-                tui.app.root().mouse_pointer(opencode_ui::click_pointer(link_at(&tui.app, event.x, event.y).is_some()));
+                tui.app.root().mouse_pointer(xccode_ui::click_pointer(link_at(&tui.app, event.x, event.y).is_some()));
             }
             MouseEventKind::Down(MouseButton::Left) => {
                 pressed.set(plain.then_some((event.x, event.y)));
@@ -62,7 +62,7 @@ pub fn link_at(app: &App, x: u16, y: u16) -> Option<String> {
 
 /// `openUrl`: http and https links only, in the system browser.
 pub fn open_url(input: &str) -> Result<(), String> {
-    open(&opencode_ui::open::web_url(input)?)
+    open(&xccode_ui::open::web_url(input)?)
 }
 
 pub fn open_path(path: &str) -> Result<(), String> {
@@ -73,7 +73,7 @@ fn open(target: &str) -> Result<(), String> {
     if testing::record(target) {
         return Ok(());
     }
-    spawn(opencode_ui::open::command(target)).map(drop)
+    spawn(xccode_ui::open::command(target)).map(drop)
 }
 
 /// Starts `command` and waits for it off the UI thread, so the exited opener does not stay a zombie.
@@ -140,7 +140,7 @@ mod tests {
     #[test]
     fn only_web_links_open_in_the_browser() {
         let capture = testing::capture();
-        assert_eq!(open_url("https://opencode.ai/v2/docs"), Ok(()));
+        assert_eq!(open_url("https://xccode.ai/v2/docs"), Ok(()));
         assert_eq!(
             open_url("file:///etc/passwd"),
             Err("Only http and https links can be opened in the browser: file:///etc/passwd".into())
@@ -155,7 +155,7 @@ mod tests {
             );
         }
         assert_eq!(open_path("/tmp/project"), Ok(()));
-        assert_eq!(*capture.0.opened.borrow(), ["https://opencode.ai/v2/docs", "/tmp/project"]);
+        assert_eq!(*capture.0.opened.borrow(), ["https://xccode.ai/v2/docs", "/tmp/project"]);
     }
 
     #[cfg(target_os = "linux")]

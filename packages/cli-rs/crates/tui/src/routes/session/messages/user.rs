@@ -1,7 +1,7 @@
 //! User prompts, attachments, and mention chips.
 
-use opencode_api::generated::{PromptFileSource, SessionInboxDelivery, SessionMessageUser};
-use opencode_ui::theme::ThemeMode;
+use xccode_api::generated::{PromptFileSource, SessionInboxDelivery, SessionMessageUser};
+use xccode_ui::theme::ThemeMode;
 
 use super::images::{self, Images};
 use super::list::Context;

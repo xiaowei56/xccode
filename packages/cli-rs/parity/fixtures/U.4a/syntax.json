@@ -1,5 +1,5 @@
 [
-{"name":"opencode","mode":"dark","styles":{
+{"name":"xccode","mode":"dark","styles":{
   "default":["ffffffff",null,false,false,false],
   "prompt":["93a2b7ff",null,false,false,false],
   "extmark.file":["f5a742ff",null,true,false,false],
@@ -103,7 +103,7 @@
   "warning":["f5a742ff",null,true,false,false],
   "info":["7699feff",null,false,false,false]
 }},
-{"name":"opencode","mode":"light","styles":{
+{"name":"xccode","mode":"light","styles":{
   "default":["101010ff",null,false,false,false],
   "prompt":["6e7380ff",null,false,false,false],
   "extmark.file":["d68c27ff",null,true,false,false],

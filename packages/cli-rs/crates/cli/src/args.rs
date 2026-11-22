@@ -36,7 +36,7 @@ pub struct Flag {
     /// `Flag.withOptionalValue`: the flag takes a value only after `=`, and is this value without one.
     pub optional_value: Option<&'static str>,
     pub check: Check,
-    /// opencode-native's own, which the TypeScript CLI does not have: the tests that hold the table, the help and the
+    /// xccode-native's own, which the TypeScript CLI does not have: the tests that hold the table, the help and the
     /// completions to TypeScript's leave it out (`D01-no-plugins`).
     pub own: bool,
 }
@@ -301,7 +301,7 @@ const MCP_NAME: &str = "Name of the MCP server";
 const MACHINE_NAME: &str = "Name of the machine";
 const KEY: &str = "Service setting or env";
 
-pub static ROOT: Spec = Spec::new("opencode", "OpenCode command line interface")
+pub static ROOT: Spec = Spec::new("xccode", "Xccode command line interface")
     .globals(&[PRINT_LOGS])
     .params(&[
         Param::Flag(STANDALONE),
@@ -309,18 +309,18 @@ pub static ROOT: Spec = Spec::new("opencode", "OpenCode command line interface")
         AUTO,
         YOLO,
         DANGEROUSLY,
-        Param::Arg(optional("directory", "Directory to start OpenCode in")),
+        Param::Arg(optional("directory", "Directory to start Xccode in")),
         CONTINUE,
         SESSION,
         PROMPT,
         NO_PLUGINS,
     ])
     .commands(&[
-        Spec::new("upgrade", "Upgrade OpenCode to the latest or a specific version").alias("update").params(&[
+        Spec::new("upgrade", "Upgrade Xccode to the latest or a specific version").alias("update").params(&[
             Param::Arg(optional("target", "Version to upgrade to (with or without a leading v)")),
             Param::Flag(choice("method", "Installation method to use", UPGRADE_METHODS).alias(&["m"])),
         ]),
-        Spec::new("uninstall", "Uninstall OpenCode, keeping session data, configuration, and state").params(&[
+        Spec::new("uninstall", "Uninstall Xccode, keeping session data, configuration, and state").params(&[
             Param::Flag(boolean("dry-run", "Show what would be removed without removing")),
             Param::Flag(boolean("force", "Skip confirmation prompts").alias(&["f"])),
         ]),
@@ -430,7 +430,7 @@ pub static ROOT: Spec = Spec::new("opencode", "OpenCode command line interface")
             PROMPT,
             Param::Flag(boolean("demo", "").hidden()),
         ]),
-        Spec::new("run", "Run OpenCode with a message").globals(SERVER_FLAGS).params(&[
+        Spec::new("run", "Run Xccode with a message").globals(SERVER_FLAGS).params(&[
             Param::Arg(variadic("message", "Message to send", 0, None)),
             CONTINUE,
             SESSION,

@@ -703,7 +703,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
 
 [[package]]
-name = "opencode-acp"
+name = "xccode-acp"
 version = "0.1.0"
 dependencies = [
  "base64",
@@ -711,9 +711,9 @@ dependencies = [
  "futures-util",
  "indexmap",
  "log",
- "opencode-api",
- "opencode-service",
- "opencode-util",
+ "xccode-api",
+ "xccode-service",
+ "xccode-util",
  "percent-encoding",
  "regex",
  "serde_json",
@@ -723,7 +723,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-api"
+name = "xccode-api"
 version = "0.1.0"
 dependencies = [
  "base64",
@@ -733,8 +733,8 @@ dependencies = [
  "indexmap",
  "log",
  "memchr",
- "opencode-api-types",
- "opencode-util",
+ "xccode-api-types",
+ "xccode-util",
  "percent-encoding",
  "rand",
  "reqwest",
@@ -750,7 +750,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-api-types"
+name = "xccode-api-types"
 version = "0.1.0"
 dependencies = [
  "bytes",
@@ -762,7 +762,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-cli"
+name = "xccode-cli"
 version = "0.1.0"
 dependencies = [
  "base64",
@@ -770,18 +770,18 @@ dependencies = [
  "indexmap",
  "libc",
  "log",
- "opencode-acp",
- "opencode-api",
- "opencode-latex",
- "opencode-local",
- "opencode-mermaid",
- "opencode-mini",
- "opencode-plugin",
- "opencode-service",
- "opencode-store",
- "opencode-tui",
- "opencode-ui",
- "opencode-util",
+ "xccode-acp",
+ "xccode-api",
+ "xccode-latex",
+ "xccode-local",
+ "xccode-mermaid",
+ "xccode-mini",
+ "xccode-plugin",
+ "xccode-service",
+ "xccode-store",
+ "xccode-tui",
+ "xccode-ui",
+ "xccode-util",
  "opentui",
  "regex",
  "reqwest",
@@ -794,12 +794,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-drive"
+name = "xccode-drive"
 version = "0.1.0"
 dependencies = [
  "log",
- "opencode-api-types",
- "opencode-util",
+ "xccode-api-types",
+ "xccode-util",
  "opentui",
  "serde",
  "serde_json",
@@ -807,13 +807,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-latex"
+name = "xccode-latex"
 version = "0.1.0"
 dependencies = [
- "opencode-parity",
- "opencode-plugin",
- "opencode-plugin-abi",
- "opencode-ui",
+ "xccode-parity",
+ "xccode-plugin",
+ "xccode-plugin-abi",
+ "xccode-ui",
  "opentui",
  "serde_json",
  "unicode-segmentation",
@@ -821,15 +821,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-local"
+name = "xccode-local"
 version = "0.1.0"
 dependencies = [
  "base64",
  "indexmap",
  "log",
  "notify",
- "opencode-api-types",
- "opencode-util",
+ "xccode-api-types",
+ "xccode-util",
  "rand",
  "rustix",
  "serde",
@@ -839,14 +839,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-mermaid"
+name = "xccode-mermaid"
 version = "0.1.0"
 dependencies = [
  "indexmap",
- "opencode-parity",
- "opencode-plugin",
- "opencode-plugin-abi",
- "opencode-ui",
+ "xccode-parity",
+ "xccode-plugin",
+ "xccode-plugin-abi",
+ "xccode-ui",
  "opentui",
  "regex",
  "serde_json",
@@ -854,17 +854,17 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-mini"
+name = "xccode-mini"
 version = "0.1.0"
 dependencies = [
  "futures-util",
  "indexmap",
  "log",
- "opencode-api",
- "opencode-local",
- "opencode-store",
- "opencode-ui",
- "opencode-util",
+ "xccode-api",
+ "xccode-local",
+ "xccode-store",
+ "xccode-ui",
+ "xccode-util",
  "opentui",
  "rustix",
  "serde",
@@ -874,7 +874,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-parity"
+name = "xccode-parity"
 version = "0.1.0"
 dependencies = [
  "opentui",
@@ -884,16 +884,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-plugin"
+name = "xccode-plugin"
 version = "0.1.0"
 dependencies = [
  "libc",
  "log",
  "mlua",
- "opencode-api-types",
- "opencode-plugin-abi",
- "opencode-ui",
- "opencode-util",
+ "xccode-api-types",
+ "xccode-plugin-abi",
+ "xccode-ui",
+ "xccode-util",
  "opentui",
  "ring",
  "serde",
@@ -904,25 +904,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-plugin-abi"
+name = "xccode-plugin-abi"
 version = "0.1.0"
 dependencies = [
- "opencode-api-types",
+ "xccode-api-types",
  "serde",
  "serde_json",
 ]
 
 [[package]]
-name = "opencode-service"
+name = "xccode-service"
 version = "0.1.0"
 dependencies = [
  "base64",
  "bytes",
  "futures-util",
  "log",
- "opencode-api",
- "opencode-local",
- "opencode-util",
+ "xccode-api",
+ "xccode-local",
+ "xccode-util",
  "rand",
  "reqwest",
  "rustix",
@@ -933,17 +933,17 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-store"
+name = "xccode-store"
 version = "0.1.0"
 dependencies = [
  "bytes",
  "futures-util",
  "indexmap",
  "log",
- "opencode-api",
- "opencode-local",
- "opencode-service",
- "opencode-util",
+ "xccode-api",
+ "xccode-local",
+ "xccode-service",
+ "xccode-util",
  "serde",
  "serde_json",
  "tokio",
@@ -951,7 +951,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-tui"
+name = "xccode-tui"
 version = "0.1.0"
 dependencies = [
  "base64",
@@ -959,17 +959,17 @@ dependencies = [
  "futures-util",
  "indexmap",
  "log",
- "opencode-api",
- "opencode-drive",
- "opencode-latex",
- "opencode-local",
- "opencode-mermaid",
- "opencode-parity",
- "opencode-plugin",
- "opencode-plugin-abi",
- "opencode-store",
- "opencode-ui",
- "opencode-util",
+ "xccode-api",
+ "xccode-drive",
+ "xccode-latex",
+ "xccode-local",
+ "xccode-mermaid",
+ "xccode-parity",
+ "xccode-plugin",
+ "xccode-plugin-abi",
+ "xccode-store",
+ "xccode-ui",
+ "xccode-util",
  "opentui",
  "rand",
  "regex",
@@ -982,15 +982,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-ui"
+name = "xccode-ui"
 version = "0.1.0"
 dependencies = [
  "base64",
  "indexmap",
  "log",
- "opencode-api-types",
- "opencode-parity",
- "opencode-util",
+ "xccode-api-types",
+ "xccode-parity",
+ "xccode-util",
  "opentui",
  "regex",
  "serde",
@@ -1034,7 +1034,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-util"
+name = "xccode-util"
 version = "0.1.0"
 dependencies = [
  "libc",

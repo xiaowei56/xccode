@@ -1,8 +1,8 @@
 //! Select a skill to insert it into the prompt.
 
-use opencode_api::generated::{SkillID, SkillInfo};
-use opencode_store::{Catalog, Location};
-use opencode_ui::dialog::DIALOG_LIST_INSET;
+use xccode_api::generated::{SkillID, SkillInfo};
+use xccode_store::{Catalog, Location};
+use xccode_ui::dialog::DIALOG_LIST_INSET;
 
 use crate::prelude::*;
 

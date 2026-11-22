@@ -56,7 +56,7 @@ export type Definition<S extends Stores = Stores, I extends Icons = Icons> = Dec
 
 /**
  * Defines a plugin's GUI, the default export of its `./gui-experimental` bundle, as `Plugin.define` from
- * `@opencode/plugin` and `@opencode/plugin/tui` define its server and terminal halves. It declares no id: the host
+ * `@xccode/plugin` and `@xccode/plugin/tui` define its server and terminal halves. It declares no id: the host
  * assigns the server plugin's (`ctx.id`). The window setup's `ctx.stores` and `ctx.icons` are typed from the declared
  * stores and icons.
  *

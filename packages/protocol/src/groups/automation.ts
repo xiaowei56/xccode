@@ -1,5 +1,5 @@
-import { Automation } from "@opencode/schema/automation"
-import { Session } from "@opencode/schema/session"
+import { Automation } from "@xccode/schema/automation"
+import { Session } from "@xccode/schema/session"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiSchema, OpenApi } from "effect/http-api"
 import { AutomationNotFoundError, ForbiddenError, InvalidRequestError, SessionNotFoundError } from "../errors.js"

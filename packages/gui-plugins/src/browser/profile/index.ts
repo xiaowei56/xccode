@@ -4,7 +4,7 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import electron, { app, type Extension, type Session } from "electron"
 import { Schema } from "effect"
-import type { Log, Storage } from "@opencode/plugin/gui/main"
+import type { Log, Storage } from "@xccode/plugin/gui/main"
 import type { PagePermissions } from "../page-prompts"
 import { guardSession } from "../session-guard"
 import { extensionAccess, extensionCompatibility } from "./compatibility"
@@ -46,7 +46,7 @@ import {
 } from "./sources"
 
 /** The partition every page of the desktop browser shares, on disk under the app's user data. */
-export const PARTITION = "persist:opencode-browser"
+export const PARTITION = "persist:xccode-browser"
 
 const StoredExtension = Schema.Struct({
   id: Schema.String,

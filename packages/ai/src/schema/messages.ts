@@ -1,6 +1,6 @@
 import { Option, Schema } from "effect"
-import { withStatics } from "@opencode/schema/schema"
-import { Tool } from "@opencode/schema/tool"
+import { withStatics } from "@xccode/schema/schema"
+import { Tool } from "@xccode/schema/tool"
 import {
   type BaseRequest,
   CacheHint,

@@ -3,7 +3,7 @@ import type {
   SessionMessageAssistant,
   SessionMessageAssistantTool,
   SessionMessageInfo,
-} from "@opencode/client/promise"
+} from "@xccode/client/promise"
 import { createTwoFilesPatch, diffLines } from "diff"
 import type { SessionDocument } from "../../document"
 import {
@@ -185,7 +185,7 @@ const themeIndexAfter = themeIndexBefore.replace(
   "applyScheme, resolvedScheme, setScheme, storedScheme,",
 )
 
-const toggleFirst = `import { Switch } from "@opencode/ui/switch"
+const toggleFirst = `import { Switch } from "@xccode/ui/switch"
 import { useLanguage } from "@/runtime/i18n/language"
 import { resolvedScheme, setScheme } from "@/theme"
 
@@ -545,7 +545,7 @@ const everyTool: Beat[] = [
   {
     kind: "tool",
     name: "websearch",
-    input: { query: '"applyScheme" opencode theme flash' },
+    input: { query: '"applyScheme" xccode theme flash' },
     output: "No results found.",
   },
   {
@@ -570,7 +570,7 @@ const everyTool: Beat[] = [
     kind: "tool",
     name: "linear_create_issue",
     input: { title: "Light theme flashes on load in Safari", team: "Desktop" },
-    output: "Created DES-418: https://linear.app/opencode/issue/DES-418",
+    output: "Created DES-418: https://linear.app/xccode/issue/DES-418",
   },
   {
     kind: "tool",

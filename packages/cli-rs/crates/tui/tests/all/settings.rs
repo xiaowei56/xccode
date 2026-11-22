@@ -4,10 +4,10 @@ use crate::support::{self, WAIT, wait_for};
 
 use std::rc::Rc;
 
-use opencode_local::cli_config::CliConfig;
-use opencode_parity::{Fixture, fixtures_dir};
-use opencode_tui::app::Roots;
-use opencode_tui::dialogs::{debug, experiments, settings};
+use xccode_local::cli_config::CliConfig;
+use xccode_parity::{Fixture, fixtures_dir};
+use xccode_tui::app::Roots;
+use xccode_tui::dialogs::{debug, experiments, settings};
 
 use opentui::prelude::{MouseButton, MouseEventKind};
 use opentui::testing::TestApp;
@@ -69,7 +69,7 @@ fn settings_table_matches_the_typescript_table() {
         .collect();
     let expected = expected.as_array().unwrap();
     for (actual, expected) in actual.iter().zip(expected) {
-        assert!(opencode_local::jsonc::same(actual, expected), "Rust {actual}\nTypeScript {expected}");
+        assert!(xccode_local::jsonc::same(actual, expected), "Rust {actual}\nTypeScript {expected}");
     }
     assert_eq!(actual.len(), expected.len(), "SETTINGS has {} rows, TypeScript {}", actual.len(), expected.len());
 }
@@ -182,7 +182,7 @@ fn left_and_right_cycle_values_and_numbers_step_within_bounds() {
     app.type_text("color mode");
     app.press("right");
     assert_eq!(footer(&app, "Color mode"), "light");
-    assert_eq!(tui.theme.borrow().mode(), opencode_ui::theme::ThemeMode::Light);
+    assert_eq!(tui.theme.borrow().mode(), xccode_ui::theme::ThemeMode::Light);
 }
 
 #[test]
@@ -206,11 +206,11 @@ fn the_palette_lists_settings_while_filtering_and_opens_the_one_chosen() {
 fn experiments_toggle_and_new_designs_graduated() {
     let app = TestApp::new(80, 24);
     let tui = support::mount_empty(&app, support::component_info(json!({})), None);
-    // The new designs are the only ones: `opencode` is the new theme, `opencode-classic` the old one, and the
+    // The new designs are the only ones: `xccode` is the new theme, `xccode-classic` the old one, and the
     // experiment is gone.
     let names = tui.theme.borrow().names();
-    assert!(!names.iter().any(|name| name == "opencode2"));
-    assert!(names.iter().any(|name| name == "opencode-classic"));
+    assert!(!names.iter().any(|name| name == "xccode2"));
+    assert!(names.iter().any(|name| name == "xccode-classic"));
     experiments::show(&tui);
     wait_for(&app, "TUI tools");
     assert!(!app.text().contains("New designs"));
@@ -225,14 +225,14 @@ fn experiments_toggle_and_new_designs_graduated() {
 #[test]
 fn debug_names_the_model_and_plugin_copies_drop_nul() {
     let fake = support::Fake::new(|seen| support::base(seen, support::DIRECTORY));
-    let deps = opencode_tui::Deps { route: opencode_tui::Route::Home, ..support::deps(std::sync::Arc::new(fake)) };
+    let deps = xccode_tui::Deps { route: xccode_tui::Route::Home, ..support::deps(std::sync::Arc::new(fake)) };
     let harness = support::mount(100, 30, deps);
     harness.wait_for("Model M");
     let entries = debug::entries(&harness.tui);
     assert_eq!(entries.last(), Some(&("Model", "p/m".to_owned())));
 
-    let capture = opencode_tui::features::links::testing::capture();
-    let host = opencode_tui::plugins::host::host(&harness.tui);
+    let capture = xccode_tui::features::links::testing::capture();
+    let host = xccode_tui::plugins::host::host(&harness.tui);
     assert!(host.copy("a\0b"));
     assert_eq!(*capture.0.copied.borrow(), ["ab"]);
 }
@@ -241,7 +241,7 @@ fn debug_names_the_model_and_plugin_copies_drop_nul() {
 fn slash_and_palette_commands_open_settings_and_debug() {
     let app = TestApp::new(100, 30);
     let tui = support::mount_empty(&app, support::component_info(json!({})), None);
-    tui.keymap.dispatch("opencode.debug", None);
+    tui.keymap.dispatch("xccode.debug", None);
     let screen = wait_for(&app, "Share this when reporting an issue");
     for label in ["Version", "Date", "OS", "Terminal", "Session ID", "Model"] {
         assert!(screen.contains(label), "{label}: {screen}");
@@ -252,17 +252,17 @@ fn slash_and_palette_commands_open_settings_and_debug() {
     app.press("c");
     wait_for(&app, "Failed to copy to clipboard");
     assert!(app.text().contains("copy c"));
-    tui.keymap.dispatch("opencode.settings", None);
+    tui.keymap.dispatch("xccode.settings", None);
     wait_for(&app, "Search settings");
 }
 
 /// The terminal row names the program, its version and the multiplexer from the environment, so it runs in a child.
 #[test]
 fn the_debug_dialog_names_the_terminal_from_the_environment() {
-    if std::env::var_os("OPENCODE_RS_TERMINAL_CHILD").is_none() {
+    if std::env::var_os("XCCODE_RS_TERMINAL_CHILD").is_none() {
         let output = std::process::Command::new(std::env::current_exe().unwrap())
             .args(["--exact", "settings::the_debug_dialog_names_the_terminal_from_the_environment"])
-            .env("OPENCODE_RS_TERMINAL_CHILD", "1")
+            .env("XCCODE_RS_TERMINAL_CHILD", "1")
             .env("TERM_PROGRAM", "ghostty")
             .env("TERM_PROGRAM_VERSION", "1.2")
             .env("TMUX", "/tmp/tmux")
@@ -275,7 +275,7 @@ fn the_debug_dialog_names_the_terminal_from_the_environment() {
     }
     let app = TestApp::new(100, 30);
     let tui = support::mount_empty(&app, support::component_info(json!({})), None);
-    tui.keymap.dispatch("opencode.debug", None);
+    tui.keymap.dispatch("xccode.debug", None);
     wait_for(&app, "ghostty 1.2 in tmux");
 }
 
@@ -290,7 +290,7 @@ fn the_devtools_bar_follows_the_setting_and_opens_panels() {
     let row = app.size().1 - 1;
     app.click(column(bar, "Theme"), row);
     let panel = wait_for(&app, "Name");
-    assert!(panel.contains("opencode"), "{panel}");
+    assert!(panel.contains("xccode"), "{panel}");
     assert!(panel.contains("Switch to light"), "{panel}");
     app.press("escape");
     assert!(!app.text().contains("Switch to light"));
@@ -322,10 +322,10 @@ fn the_devtools_bar_hides_over_stats() {
     let app = TestApp::new(100, 30);
     let tui = support::mount_empty(&app, support::component_info(json!({ "debug": { "devtools": true } })), None);
     wait_for(&app, "Experiments");
-    tui.navigate(opencode_tui::Route::Plugin { id: "opencode.stats".into(), name: "stats".into() });
+    tui.navigate(xccode_tui::Route::Plugin { id: "xccode.stats".into(), name: "stats".into() });
     app.render();
     assert!(!app.text().contains("Experiments"), "{}", app.text());
-    tui.navigate(opencode_tui::Route::Home);
+    tui.navigate(xccode_tui::Route::Home);
     wait_for(&app, "Experiments");
 }
 
@@ -370,11 +370,11 @@ fn a_devtools_click_survives_redraws_between_press_and_release() {
     }
 }
 
-const ORIGINAL: &str = "{\n  // my settings\n  \"$schema\": \"https://opencode.ai/v2/cli.json\",\n  \"session\": { \"thinking\": \"hide\" }\n}\n";
+const ORIGINAL: &str = "{\n  // my settings\n  \"$schema\": \"https://xccode.ai/v2/cli.json\",\n  \"session\": { \"thinking\": \"hide\" }\n}\n";
 
 #[test]
 fn settings_writes_match_typescript_and_typescript_reads_them() {
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let paths = support::xdg_paths(home.path());
     std::fs::create_dir_all(&paths.config).unwrap();
     let file = paths.config.join("cli.json");
@@ -395,7 +395,7 @@ fn settings_writes_match_typescript_and_typescript_reads_them() {
     let text = std::fs::read_to_string(&file).unwrap();
     assert_eq!(
         text,
-        "{\n  // my settings\n  \"$schema\": \"https://opencode.ai/v2/cli.json\",\n  \"session\": {\n    \"thinking\": \"show\"\n  },\n  \"experimental\": {\n    \"client-mcp\": true\n  }\n}\n"
+        "{\n  // my settings\n  \"$schema\": \"https://xccode.ai/v2/cli.json\",\n  \"session\": {\n    \"thinking\": \"show\"\n  },\n  \"experimental\": {\n    \"client-mcp\": true\n  }\n}\n"
     );
     // A whole number is written without a fraction, as JavaScript writes it.
     settings::show(&tui, None);
@@ -404,7 +404,7 @@ fn settings_writes_match_typescript_and_typescript_reads_them() {
     let written = || std::fs::read_to_string(&file).unwrap();
     assert!(app.wait_until(WAIT, || written().contains("\"timeout\": 2250\n")), "{}", written());
 
-    let twin = opencode_util::temp::tempdir().unwrap();
+    let twin = xccode_util::temp::tempdir().unwrap();
     let twin_file = support::xdg_paths(twin.path()).config.join("cli.json");
     std::fs::create_dir_all(twin_file.parent().unwrap()).unwrap();
     std::fs::write(&twin_file, ORIGINAL).unwrap();
@@ -431,7 +431,7 @@ fn a_settings_step_while_saving_is_ignored_after_a_theme_change() {
     use opentui::prelude::Event;
     use opentui::theme::ThemeMode;
 
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let paths = support::xdg_paths(home.path());
     std::fs::create_dir_all(&paths.config).unwrap();
     let config = CliConfig::new(&paths);
@@ -444,10 +444,10 @@ fn a_settings_step_while_saving_is_ignored_after_a_theme_change() {
     );
     settings::show(&tui, Some("animations"));
     wait_for(&app, "Animations");
-    let lock = opencode_local::lock::acquire(
+    let lock = xccode_local::lock::acquire(
         &paths.state.join("locks"),
         &config.path().to_string_lossy(),
-        &opencode_local::lock::Options::default(),
+        &xccode_local::lock::Options::default(),
     )
     .unwrap();
     app.press("right");
@@ -465,7 +465,7 @@ fn an_experiment_change_while_saving_is_ignored_also_after_a_theme_change() {
     use opentui::prelude::Event;
     use opentui::theme::ThemeMode;
 
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let paths = support::xdg_paths(home.path());
     std::fs::create_dir_all(&paths.config).unwrap();
     let config = CliConfig::new(&paths);
@@ -478,10 +478,10 @@ fn an_experiment_change_while_saving_is_ignored_also_after_a_theme_change() {
     );
     experiments::show(&tui);
     wait_for(&app, "TUI tools");
-    let lock = opencode_local::lock::acquire(
+    let lock = xccode_local::lock::acquire(
         &paths.state.join("locks"),
         &config.path().to_string_lossy(),
-        &opencode_local::lock::Options::default(),
+        &xccode_local::lock::Options::default(),
     )
     .unwrap();
     app.press("right");
@@ -501,7 +501,7 @@ fn an_experiment_change_while_saving_is_ignored_also_after_a_theme_change() {
 
 #[test]
 fn an_experiment_write_that_lands_on_a_full_ui_queue_ends_saving() {
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let paths = support::xdg_paths(home.path());
     std::fs::create_dir_all(&paths.config).unwrap();
     let config = CliConfig::new(&paths);
@@ -514,10 +514,10 @@ fn an_experiment_write_that_lands_on_a_full_ui_queue_ends_saving() {
     );
     experiments::show(&tui);
     wait_for(&app, "TUI tools");
-    let lock = opencode_local::lock::acquire(
+    let lock = xccode_local::lock::acquire(
         &paths.state.join("locks"),
         &config.path().to_string_lossy(),
-        &opencode_local::lock::Options::default(),
+        &xccode_local::lock::Options::default(),
     )
     .unwrap();
     app.press("right");
@@ -541,12 +541,12 @@ fn an_experiment_write_that_lands_on_a_full_ui_queue_ends_saving() {
 
 #[test]
 fn an_outside_theme_change_restyles_each_kind_of_open_dialog_in_place() {
-    use opencode_api::generated::SessionID;
-    use opencode_tui::dialogs::rename;
+    use xccode_api::generated::SessionID;
+    use xccode_tui::dialogs::rename;
     use opentui::prelude::Event;
     use opentui::theme::ThemeMode;
 
-    type Open = fn(&TestApp, &opencode_tui::app::Tui);
+    type Open = fn(&TestApp, &xccode_tui::app::Tui);
     let cases: [(&str, Open); 3] = [
         ("select", |app, tui| {
             experiments::show(tui);
@@ -565,14 +565,14 @@ fn an_outside_theme_change_restyles_each_kind_of_open_dialog_in_place() {
         }),
     ];
     let info =
-        || opencode_local::cli_config::merge(&[Some(json!({ "theme": { "name": "opencode" }, "animations": false }))]);
+        || xccode_local::cli_config::merge(&[Some(json!({ "theme": { "name": "xccode" }, "animations": false }))]);
     let rows = |screen: &opentui::native::Capture| -> Vec<Vec<opentui::native::Cell>> {
         (0..screen.height)
             .filter(|&y| !screen.row(y).contains("Ask anything"))
             .map(|y| (0..screen.width).map(|x| screen.cell(x, y).unwrap().clone()).collect())
             .collect()
     };
-    let light = |app: &TestApp, tui: &opencode_tui::app::Tui, file: bool| match file {
+    let light = |app: &TestApp, tui: &xccode_tui::app::Tui, file: bool| match file {
         true => settings::update(tui, |draft| settings::set_path(draft, &["theme", "mode"], json!("light"))),
         false => app.event(Event::ThemeMode(ThemeMode::Light)),
     };
@@ -604,8 +604,8 @@ fn changing_the_color_mode_restyles_the_open_settings_dialog() {
     settings::show(&tui, Some("theme.mode"));
     app.type_text("color mode");
     app.press("right");
-    assert_eq!(tui.theme.borrow().mode(), opencode_ui::theme::ThemeMode::Light);
-    let theme = tui.page().surface(opencode_ui::theme::Surface::Dialog);
+    assert_eq!(tui.theme.borrow().mode(), xccode_ui::theme::ThemeMode::Light);
+    let theme = tui.page().surface(xccode_ui::theme::Surface::Dialog);
     let screen = app.render();
     let y = (0..screen.height).find(|&y| screen.row(y).contains("color mode")).expect("the filter stays");
     let x = column(&screen.row(y), "color mode") as u32;

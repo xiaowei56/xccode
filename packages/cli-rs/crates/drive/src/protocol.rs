@@ -177,7 +177,7 @@ pub fn handshake(params: &HandshakeParams, version: &str) -> Result<Value, Strin
     Ok(json!({
         "protocolVersion": 1,
         "role": "ui",
-        "server": { "name": "opencode", "version": if version.is_empty() { "unknown" } else { version } },
+        "server": { "name": "xccode", "version": if version.is_empty() { "unknown" } else { version } },
         "capabilities": CAPABILITIES,
     }))
 }

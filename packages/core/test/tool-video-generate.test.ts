@@ -1,21 +1,21 @@
 import { describe, expect } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
-import type { Media } from "@opencode/ai/effect"
-import { Bus } from "@opencode/core/bus"
-import { Flag } from "@opencode/core/flag"
-import { Generate } from "@opencode/core/generate"
-import { Location } from "@opencode/core/location"
-import { Model } from "@opencode/core/model"
-import { Permission } from "@opencode/core/permission"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { Provider } from "@opencode/core/provider"
-import { Session } from "@opencode/core/session"
-import { SessionEvent } from "@opencode/core/session/event"
-import { Tool } from "@opencode/core/tool"
-import { OpenCodeTools } from "@opencode/core/tool/plugin/opencode"
-import { VideoGenerateTool } from "@opencode/core/tool/plugin/video-generate"
+import type { Media } from "@xccode/ai/effect"
+import { Bus } from "@xccode/core/bus"
+import { Flag } from "@xccode/core/flag"
+import { Generate } from "@xccode/core/generate"
+import { Location } from "@xccode/core/location"
+import { Model } from "@xccode/core/model"
+import { Permission } from "@xccode/core/permission"
+import { Plugin } from "@xccode/core/plugin"
+import { PluginHost } from "@xccode/core/plugin/host"
+import { Provider } from "@xccode/core/provider"
+import { Session } from "@xccode/core/session"
+import { SessionEvent } from "@xccode/core/session/event"
+import { Tool } from "@xccode/core/tool"
+import { XccodeTools } from "@xccode/core/tool/plugin/xccode"
+import { VideoGenerateTool } from "@xccode/core/tool/plugin/video-generate"
 import { Effect, Layer, Stream } from "effect"
 import { advance } from "./lib/clock"
 import { testEffect } from "./lib/effect"
@@ -92,7 +92,7 @@ const setup = (providerID = "test") =>
     const location = yield* Location.Service
     const host = yield* PluginHost.make(plugins, "test")
     yield* VideoGenerateTool.Plugin.effect(host)
-    yield* OpenCodeTools.Plugin.effect(host)
+    yield* XccodeTools.Plugin.effect(host)
     const session = yield* sessions.create({
       location: Location.Ref.make({ directory: location.directory }),
       model: Model.Ref.make({ providerID: Provider.ID.make(providerID), id: Model.ID.make("chat") }),

@@ -5,14 +5,14 @@ use crate::support::{self, Fake, Harness, Log, WAIT, deref_harness, list};
 use std::rc::Rc;
 use std::sync::Arc;
 
-use opencode_api::generated::{SessionID, V2Event};
-use opencode_api::memory::Memory;
-use opencode_api::transport::{BoxFuture, Request, Response, Transport};
-use opencode_local::model_pref::Model;
-use opencode_tui::dialogs::session_list::pins;
-use opencode_tui::prompt::history::{Cursor, History};
-use opencode_tui::{Deps, Route};
-use opencode_ui::path::Flavor;
+use xccode_api::generated::{SessionID, V2Event};
+use xccode_api::memory::Memory;
+use xccode_api::transport::{BoxFuture, Request, Response, Transport};
+use xccode_local::model_pref::Model;
+use xccode_tui::dialogs::session_list::pins;
+use xccode_tui::prompt::history::{Cursor, History};
+use xccode_tui::{Deps, Route};
+use xccode_ui::path::Flavor;
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
 
@@ -69,7 +69,7 @@ fn session() -> Value {
 struct Setup {
     harness: Harness,
     seen: Log,
-    home: opencode_util::temp::TempDir,
+    home: xccode_util::temp::TempDir,
     seq: std::cell::Cell<u64>,
 }
 
@@ -82,7 +82,7 @@ impl Setup {
     }
 
     fn at(route: Route, state: &[(&str, &str)]) -> Self {
-        let home = opencode_util::temp::tempdir().unwrap();
+        let home = xccode_util::temp::tempdir().unwrap();
         let paths = support::paths(home.path());
         std::fs::create_dir_all(&paths.state).unwrap();
         for (name, text) in state {
@@ -184,7 +184,7 @@ fn home_follows_the_canonical_default_location() {
     let h = support::mount(100, 30, deps);
     h.wait("the home agents", || !h.tui.local.agents().is_empty());
     h.wait("the server's directory", || {
-        opencode_tui::features::location::current(&h.tui).map(|location| location.directory).as_deref()
+        xccode_tui::features::location::current(&h.tui).map(|location| location.directory).as_deref()
             == Some("/project")
     });
 }
@@ -282,7 +282,7 @@ fn pins_keep_other_clients_pins_and_prune_deleted_sessions() {
 
 #[test]
 fn a_prompt_appended_before_the_history_loads_is_kept() {
-    let state = opencode_util::temp::tempdir().unwrap();
+    let state = xccode_util::temp::tempdir().unwrap();
     // A long, broken file takes a while to read and heal.
     let junk = "not json\n".repeat(400_000);
     let file = state.path().join("prompt-history.jsonl");
@@ -297,7 +297,7 @@ fn a_prompt_appended_before_the_history_loads_is_kept() {
     });
     assert!(saved, "{:?}", std::fs::read_to_string(&file).unwrap().get(..200));
     let cursor = Cursor::default();
-    let step = |direction, input| history.step(&cursor, direction, input, opencode_local::jsonl::empty_prompt);
+    let step = |direction, input| history.step(&cursor, direction, input, xccode_local::jsonl::empty_prompt);
     assert_eq!(step(-1, "").unwrap()["text"], entry["text"]);
     assert_eq!(step(-1, "early").unwrap()["text"], "old");
 }
@@ -308,14 +308,14 @@ fn a_save_past_the_limit_keeps_lines_another_client_appended() {
     let setup = Setup::new(&[("prompt-history.jsonl", &full)]);
     setup.wait("the catalog", || setup.tui.local.catalog_ready());
     // Wait for the load: Up shows the newest entry.
-    let up = || setup.tui.prompt.history.step(&Cursor::default(), -1, "", opencode_local::jsonl::empty_prompt);
+    let up = || setup.tui.prompt.history.step(&Cursor::default(), -1, "", xccode_local::jsonl::empty_prompt);
     setup.wait("the history", || up().is_some());
     let file = setup.state().join("prompt-history.jsonl");
     let mut append = std::fs::OpenOptions::new().append(true).open(&file).unwrap();
     std::io::Write::write_all(&mut append, b"{\"text\":\"from ts\",\"pasted\":[]}\n").unwrap();
     setup.submit("from rust", 1);
     setup.wait("the save", || setup.file("prompt-history.jsonl").contains("from rust"));
-    let history = opencode_local::jsonl::History::load(&setup.state());
+    let history = xccode_local::jsonl::History::load(&setup.state());
     let texts: Vec<&str> = history.entries().iter().filter_map(|entry| entry["text"].as_str()).collect();
     assert_eq!(texts.len(), 50);
     assert_eq!(texts[0], "2");

@@ -32,7 +32,7 @@ export function linkPhrases(text: string, links: readonly { text: string; href: 
  * `route` localizes a site path.
  */
 export function homeContent(t: Translate, route: (path: string) => string) {
-  const docs = (path: string) => `https://opencode.ai${docsUrl(path)}`
+  const docs = (path: string) => `https://xccode.ai${docsUrl(path)}`
   return {
     title: t("home.title"),
     hero: {
@@ -63,7 +63,7 @@ export function homeContent(t: Translate, route: (path: string) => string) {
       label: t("home.providers.label"),
       items: logoWalls.providers,
     },
-    // Services with official MCP servers (icons from Simple Icons), and the ways to extend OpenCode.
+    // Services with official MCP servers (icons from Simple Icons), and the ways to extend Xccode.
     tools: {
       title: t("home.tools.title"),
       lead: rich(t("home.tools.lead"), {

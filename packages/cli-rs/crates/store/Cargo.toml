@@ -1,5 +1,5 @@
 [package]
-name = "opencode-store"
+name = "xccode-store"
 description = "Client data store, ported from packages/client/src/solid/data.ts."
 version.workspace = true
 edition.workspace = true
@@ -15,16 +15,16 @@ workspace = true
 futures-util.workspace = true
 indexmap.workspace = true
 log.workspace = true
-opencode-api.workspace = true
-opencode-util.workspace = true
+xccode-api.workspace = true
+xccode-util.workspace = true
 serde_json.workspace = true
 tokio.workspace = true
 tokio-util.workspace = true
 
 [dev-dependencies]
 bytes.workspace = true
-opencode-local.workspace = true
-opencode-service.workspace = true
+xccode-local.workspace = true
+xccode-service.workspace = true
 serde.workspace = true
 tokio = { workspace = true, features = ["test-util"] }
 

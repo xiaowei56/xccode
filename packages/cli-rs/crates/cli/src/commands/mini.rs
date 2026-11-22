@@ -1,13 +1,13 @@
 use std::io::IsTerminal;
 use std::time::Instant;
 
-use opencode_api::generated::SessionID;
-use opencode_local::cli_config::CliConfig;
-use opencode_local::paths::{self, Paths};
-use opencode_mini::stdin::{self, INTERACTIVE_INPUT_ERROR};
-use opencode_mini::{Input, InputError, signals::Trace};
-use opencode_store::target::{self, TargetInput};
-use opencode_util::{bail, error};
+use xccode_api::generated::SessionID;
+use xccode_local::cli_config::CliConfig;
+use xccode_local::paths::{self, Paths};
+use xccode_mini::stdin::{self, INTERACTIVE_INPUT_ERROR};
+use xccode_mini::{Input, InputError, signals::Trace};
+use xccode_store::target::{self, TargetInput};
+use xccode_util::{bail, error};
 
 use super::Context;
 use super::client::connect_following;
@@ -17,7 +17,7 @@ use crate::output::Exit;
 pub fn run(context: &Context, args: &MiniArgs) -> error::Result<()> {
     let start = Instant::now();
     if !std::io::stdout().is_terminal() {
-        return fail("opencode mini requires a TTY stdout");
+        return fail("xccode mini requires a TTY stdout");
     }
     if let Some(limit) = args.replay_limit
         && limit <= 0
@@ -53,12 +53,12 @@ pub fn run(context: &Context, args: &MiniArgs) -> error::Result<()> {
     let runtime = tokio::runtime::Builder::new_multi_thread()
         .worker_threads(2)
         .enable_all()
-        .thread_name("opencode-mini")
+        .thread_name("xccode-mini")
         .build()?;
     let server = runtime.block_on(connect_following(context))?;
     let input = Input {
         client: server.client.clone(),
-        theme_directories: opencode_ui::theme::config_directories(&paths.config, std::path::Path::new(&directory)),
+        theme_directories: xccode_ui::theme::config_directories(&paths.config, std::path::Path::new(&directory)),
         home: paths.home.clone(),
         trace: Trace::from_env(&paths.log, &directory, &context.args),
         target: TargetInput {
@@ -68,7 +68,7 @@ pub fn run(context: &Context, args: &MiniArgs) -> error::Result<()> {
             fork: args.fork,
             model,
             agent: args.agent.clone(),
-            environment: server.is_service().then(opencode_store::environment::session_environment),
+            environment: server.is_service().then(xccode_store::environment::session_environment),
         },
         directory,
         initial_input,
@@ -80,7 +80,7 @@ pub fn run(context: &Context, args: &MiniArgs) -> error::Result<()> {
         start,
     };
     let _guard = runtime.enter();
-    let result = opencode_mini::run(input);
+    let result = xccode_mini::run(input);
     drop(server);
     match result {
         Err(error) if error.downcast_ref::<InputError>().is_some() => fail(&error.to_string()),
@@ -90,6 +90,6 @@ pub fn run(context: &Context, args: &MiniArgs) -> error::Result<()> {
 
 /// `fail`: the error in TS's colors on stderr, then exit 1.
 fn fail(message: &str) -> error::Result<()> {
-    eprintln!("\x1b[91m\x1b[1mError: \x1b[0m{}", opencode_ui::terminal_text(message));
+    eprintln!("\x1b[91m\x1b[1mError: \x1b[0m{}", xccode_ui::terminal_text(message));
     Err(Exit(1).into())
 }

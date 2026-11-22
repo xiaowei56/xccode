@@ -44,7 +44,7 @@ mod capture {
             restore_on_panic();
             let stop = Arc::new(AtomicBool::new(false));
             let proxy = app.proxy();
-            let reader = std::thread::Builder::new().name("opencode-mini-stderr".into()).spawn({
+            let reader = std::thread::Builder::new().name("xccode-mini-stderr".into()).spawn({
                 let stop = stop.clone();
                 move || {
                     super::read_lines(
@@ -149,12 +149,12 @@ mod sys {
         let (read, write) = rustix::pipe::pipe()?;
         let real = rustix::io::dup(std::io::stderr().as_fd())?;
         rustix::stdio::dup2_stderr(&write)?;
-        *opencode_util::lock(&REAL) = Some(real);
+        *xccode_util::lock(&REAL) = Some(real);
         Ok(read)
     }
 
     pub fn restore() {
-        if let Some(real) = opencode_util::lock(&REAL).take() {
+        if let Some(real) = xccode_util::lock(&REAL).take() {
             let _ = rustix::stdio::dup2_stderr(&real);
         }
     }
@@ -182,7 +182,7 @@ mod sys {
     use std::os::windows::io::AsHandle;
     use std::sync::Mutex;
 
-    use opencode_util::win;
+    use xccode_util::win;
 
     use super::{Chunk, WAIT};
 
@@ -192,13 +192,13 @@ mod sys {
     /// Makes a new pipe the standard error and returns its read end.
     pub fn redirect() -> std::io::Result<std::fs::File> {
         let (read, write) = win::pipe()?;
-        *opencode_util::lock(&REDIRECT) = Some(win::redirect_stderr(write)?);
+        *xccode_util::lock(&REDIRECT) = Some(win::redirect_stderr(write)?);
         Ok(read.into())
     }
 
     /// Gives the real standard error back and closes the pipe's write end, so the reader sees the pipe end.
     pub fn restore() {
-        if let Some(redirect) = opencode_util::lock(&REDIRECT).take() {
+        if let Some(redirect) = xccode_util::lock(&REDIRECT).take() {
             redirect.restore();
         }
     }
@@ -237,7 +237,7 @@ mod tests {
 
     #[cfg(windows)]
     fn written(bytes: &[u8]) -> std::fs::File {
-        let (read, write) = opencode_util::win::pipe().unwrap();
+        let (read, write) = xccode_util::win::pipe().unwrap();
         std::fs::File::from(write).write_all(bytes).unwrap();
         read.into()
     }

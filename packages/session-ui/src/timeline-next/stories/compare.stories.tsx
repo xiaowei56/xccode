@@ -1,4 +1,4 @@
-import type { SessionMessageInfo } from "@opencode/client/promise"
+import type { SessionMessageInfo } from "@xccode/client/promise"
 import { For, Show, createEffect, createMemo, on, onCleanup, onMount, type JSX } from "solid-js"
 import { createStore } from "solid-js/store"
 import { timelinePresets } from "../../timeline/detail"
@@ -16,7 +16,7 @@ import { replayScript, replaySession, scenarios, sessionSteps, ticks } from "./s
  * address, so a link opens on the same session, setting and step.
  */
 export default {
-  title: "OpenCode/Timeline/Compare",
+  title: "Xccode/Timeline/Compare",
   id: "timeline-compare",
   parameters: { layout: "fullscreen" },
 }

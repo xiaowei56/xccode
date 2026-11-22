@@ -4,7 +4,7 @@ TypeScript: Core highlights with its six bundled grammars and the TUI's 34 from 
 It downloads each grammar's WASM and highlight queries on first use, caches them under
 `~/.local/share/opentui/tree-sitter`, and rewrites `#lua-match?` to `#match?` as it loads them.
 
-Rust: `opencode_ui::grammars` links the grammars statically and registers them with the same queries. The queries are
+Rust: `xccode_ui::grammars` links the grammars statically and registers them with the same queries. The queries are
 generated into `assets/queries` by `script/gen/grammars.ts`, which reads Core's cache first, as Core does, and applies
 Core's rewrite. They use Core's capture rules (`Grammar::core_captures`) and Core's theme fallback
 (`SyntaxTheme::first_part_fallback`). `crates/ui/tests/all/grammars.rs` and `content.rs` match the TypeScript renders cell

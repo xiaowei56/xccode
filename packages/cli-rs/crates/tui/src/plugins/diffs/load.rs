@@ -1,8 +1,8 @@
-use opencode_api::client::Client;
-use opencode_api::generated::{
+use xccode_api::client::Client;
+use xccode_api::generated::{
     FileDiffInfo, FileReadInput, SessionDiffInput, SessionID, VcsBaseInput, VcsBaseOutput, VcsDiffInput, VcsDiffOutput,
 };
-use opencode_plugin::abi::{self, Host, RequestId};
+use xccode_plugin::abi::{self, Host, RequestId};
 
 use super::Diffs;
 use super::viewer::{Base, File, Load, Mode, Preview, Viewer, is_image};

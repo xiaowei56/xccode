@@ -30,7 +30,7 @@ const root = '[data-timeline="next"]'
 describe("New timeline boundary", () => {
   test("only the switches import the New timeline", async () => {
     const importers = (await sources()).filter(
-      (file) => !inFolder(file.path) && /["'](@opencode\/session-ui\/|(\.\.\/)+)timeline-next\b/.test(file.text),
+      (file) => !inFolder(file.path) && /["'](@xccode\/session-ui\/|(\.\.\/)+)timeline-next\b/.test(file.text),
     )
 
     expect(importers.map((file) => file.name).filter((name) => !switches.includes(name))).toEqual([])

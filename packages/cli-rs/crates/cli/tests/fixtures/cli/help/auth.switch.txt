@@ -2,7 +2,7 @@
   switch the active account for an integration
 
 [1mUSAGE[0m
-  [36mopencode auth switch [flags] [<target>] [<credential>][0m
+  [36mxccode auth switch [flags] [<target>] [<credential>][0m
 
 [1mARGUMENTS[0m
   [32mtarget[0m [2mstring[0m        Integration ID or name[2m (optional)[0m

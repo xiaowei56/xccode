@@ -4,11 +4,11 @@ use std::path::Path;
 use std::rc::Rc;
 use std::time::Duration;
 
-use opencode_local::cli_config::{CliConfig, Info};
-use opencode_tui::Tui;
-use opencode_tui::app::Roots;
-use opencode_tui::dialogs::settings;
-use opencode_tui::tabs::Tabs;
+use xccode_local::cli_config::{CliConfig, Info};
+use xccode_tui::Tui;
+use xccode_tui::app::Roots;
+use xccode_tui::dialogs::settings;
+use xccode_tui::tabs::Tabs;
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
 
@@ -62,7 +62,7 @@ fn the_leader_sequence_expires_on_the_app_clock() {
         (r#"{ "leader": { "timeout": 250 } }"#, 250, false),
     ] {
         let app = TestApp::new(100, 30);
-        let tui = support::mount_empty(&app, opencode_local::cli_config::decode_text(config).unwrap(), None);
+        let tui = support::mount_empty(&app, xccode_local::cli_config::decode_text(config).unwrap(), None);
         app.press("ctrl+x");
         // Reading the pending sequence prunes captures and restarts its timer.
         assert!(tui.keymap.leader_active());
@@ -99,7 +99,7 @@ fn closed_settings_dialogs_drop_their_config_listeners() {
         settings::show(&tui, None);
         app.render();
         tui.dialogs.clear();
-        opencode_tui::dialogs::experiments::show(&tui);
+        xccode_tui::dialogs::experiments::show(&tui);
         app.render();
         tui.dialogs.clear();
         app.render();
@@ -109,7 +109,7 @@ fn closed_settings_dialogs_drop_their_config_listeners() {
 
 #[test]
 fn an_outside_cli_json_edit_reloads() {
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let app = TestApp::new(100, 30);
     let (tui, file) = mount_with_file(&app, home.path(), "{}\n");
     assert!(Tabs::enabled(&tui));
@@ -123,7 +123,7 @@ fn an_outside_cli_json_edit_reloads() {
 
 #[test]
 fn two_quick_writes_both_reach_the_file() {
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let app = TestApp::new(100, 30);
     let (tui, file) = mount_with_file(&app, home.path(), "{}\n");
     settings::update(&tui, set(&["session", "scrollbar"], json!(true)));

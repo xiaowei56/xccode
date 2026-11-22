@@ -1,6 +1,6 @@
 //! Opt-in feature settings.
 
-use opencode_ui::select::select;
+use xccode_ui::select::select;
 
 use super::settings::{self, set_path};
 

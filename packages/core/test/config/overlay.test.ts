@@ -2,22 +2,22 @@ import { afterAll, describe, expect } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
 import { Duration, Effect, Layer, LayerMap, Schedule, Stream } from "effect"
-import { Agent } from "@opencode/core/agent"
-import { App } from "@opencode/core/app"
-import { Config } from "@opencode/core/config"
-import { ConfigPluginSource } from "@opencode/core/config/plugin/source"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Instance } from "@opencode/core/instance"
-import { Location } from "@opencode/core/location"
-import { LocationServiceMap } from "@opencode/core/location-services"
-import { Plugin } from "@opencode/core/plugin"
-import { SdkPlugins } from "@opencode/core/plugin/sdk"
-import { Project } from "@opencode/core/project"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Skill } from "@opencode/core/skill"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Global } from "@opencode/util/global"
-import { Npm } from "@opencode/util/npm"
+import { Agent } from "@xccode/core/agent"
+import { App } from "@xccode/core/app"
+import { Config } from "@xccode/core/config"
+import { ConfigPluginSource } from "@xccode/core/config/plugin/source"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { Instance } from "@xccode/core/instance"
+import { Location } from "@xccode/core/location"
+import { LocationServiceMap } from "@xccode/core/location-services"
+import { Plugin } from "@xccode/core/plugin"
+import { SdkPlugins } from "@xccode/core/plugin/sdk"
+import { Project } from "@xccode/core/project"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Skill } from "@xccode/core/skill"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Global } from "@xccode/util/global"
+import { Npm } from "@xccode/util/npm"
 import { Bus } from "../../src/bus"
 import { Database } from "../../src/database/database"
 import { offlineModels } from "../fixture/models"
@@ -29,7 +29,7 @@ afterAll(() => temp[Symbol.asyncDispose]())
 // A release channel keeps project_overlay off by default, so global config turns it on for every test here.
 await fs.mkdir(path.join(temp.path, "config"), { recursive: true })
 await fs.writeFile(
-  path.join(temp.path, "config", "opencode.json"),
+  path.join(temp.path, "config", "xccode.json"),
   JSON.stringify({ experimental: { project_overlay: true } }),
 )
 // One Global for the app and every instance, so the test writes where the instances read.
@@ -132,17 +132,17 @@ describe("project overlay config directory", () => {
       const repo = yield* tmpdirScoped()
       const other = yield* tmpdirScoped()
       const root = yield* overlay(repo.path)
-      yield* write(path.join(repo.path, ".opencode", "skills", "shared", "SKILL.md"), skill("shared", "from repo"))
-      yield* write(path.join(repo.path, ".opencode", "agents", "reviewer.md"), "---\ndescription: from repo\n---\nrepo")
+      yield* write(path.join(repo.path, ".xccode", "skills", "shared", "SKILL.md"), skill("shared", "from repo"))
+      yield* write(path.join(repo.path, ".xccode", "agents", "reviewer.md"), "---\ndescription: from repo\n---\nrepo")
       yield* write(
-        path.join(repo.path, ".opencode", "opencode.json"),
+        path.join(repo.path, ".xccode", "xccode.json"),
         JSON.stringify({ agents: { helper: { description: "from repo" } } }),
       )
       yield* write(path.join(root, "skills", "shared", "SKILL.md"), skill("shared", "from overlay"))
       yield* write(path.join(root, "skills", "personal", "SKILL.md"), skill("personal", "from overlay"))
       yield* write(path.join(root, "agents", "reviewer.md"), "---\ndescription: from overlay\n---\noverlay")
       yield* write(
-        path.join(root, "opencode.json"),
+        path.join(root, "xccode.json"),
         JSON.stringify({ agents: { helper: { description: "from overlay" }, mine: { description: "mine" } } }),
       )
 
@@ -166,11 +166,11 @@ describe("project overlay config directory", () => {
       const repo = yield* tmpdirScoped()
       const root = yield* overlay(repo.path)
       yield* write(
-        path.join(repo.path, ".opencode", "opencode.json"),
+        path.join(repo.path, ".xccode", "xccode.json"),
         JSON.stringify({ experimental: { project_overlay: false } }),
       )
       yield* write(path.join(root, "skills", "personal", "SKILL.md"), skill("personal", "from overlay"))
-      yield* write(path.join(root, "opencode.json"), JSON.stringify({ agents: { mine: { description: "mine" } } }))
+      yield* write(path.join(root, "xccode.json"), JSON.stringify({ agents: { mine: { description: "mine" } } }))
 
       const result = yield* load(repo.path)
       expect(result.skills.map((item) => item.id)).not.toContain(Skill.ID.make("personal"))

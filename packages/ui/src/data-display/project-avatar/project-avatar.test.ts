@@ -11,10 +11,10 @@ describe("getProjectAvatarSource", () => {
     expect(getProjectAvatarSource("abc", { url: "data:auto" })).toBe("data:auto")
   })
 
-  test("recognizes the OpenCode repository by its remote-derived project ID", () => {
-    const id = createHash("sha1").update("git-remote:github.com/anomalyco/opencode").digest("hex")
+  test("recognizes the Xccode repository by its remote-derived project ID", () => {
+    const id = createHash("sha1").update("git-remote:github.com/xiaowei56/xccode").digest("hex")
 
-    expect(getProjectAvatarSource(id)).toBe("https://opencode.ai/favicon.svg")
+    expect(getProjectAvatarSource(id)).toBe("https://xccode.ai/favicon.svg")
     expect(getProjectAvatarSource(id, { override: "data:custom" })).toBe("data:custom")
     expect(getProjectAvatarSource(id, { color: "blue" })).toBeUndefined()
   })

@@ -1,4 +1,4 @@
-//! Finding, probing, and starting the OpenCode server.
+//! Finding, probing, and starting the Xccode server.
 
 pub mod connect;
 pub mod contender;

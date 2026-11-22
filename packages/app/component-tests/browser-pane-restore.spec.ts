@@ -1,7 +1,7 @@
 import type { Locator, Page } from "@playwright/test"
 import { expect, sourceURL, story } from "../../stories/playwright/story"
 import type { Accessor, ParentProps } from "solid-js"
-import type { Command, MenuItem } from "@opencode/plugin/gui"
+import type { Command, MenuItem } from "@xccode/plugin/gui"
 import type { Item } from "../src/runtime/plugin/host"
 
 const source = (path: string) => sourceURL(new URL(path, import.meta.url))

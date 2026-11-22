@@ -1,30 +1,30 @@
 import { describe, expect, test } from "bun:test"
-import { Agent } from "@opencode/core/agent"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { FileMutation } from "@opencode/core/file-mutation"
-import { FileWrite } from "@opencode/core/file-write"
-import { Flag } from "@opencode/core/flag"
-import { Formatter } from "@opencode/core/formatter"
-import { InstructionBuiltIns } from "@opencode/core/instructions/builtins"
-import { InstructionDiscovery } from "@opencode/core/instruction-discovery"
-import { Instructions } from "@opencode/core/instructions/index"
-import { Location } from "@opencode/core/location"
-import { Mcp } from "@opencode/core/mcp/index"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { ReferenceInstructions } from "@opencode/core/reference/instructions"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { SessionContext } from "@opencode/core/session/context"
-import { SessionRunnerModel } from "@opencode/core/session/runner/model"
-import { SkillInstructions } from "@opencode/core/skill/instructions"
-import { Tool } from "@opencode/core/tool"
-import { modelTools } from "@opencode/core/tool/model-policy"
-import { EditTool } from "@opencode/core/tool/plugin/edit"
-import { PatchTool } from "@opencode/core/tool/plugin/patch"
-import { WriteTool } from "@opencode/core/tool/plugin/write"
-import { WebSearch } from "@opencode/core/websearch"
-import { LayerNode } from "@opencode/util/effect/layer-node"
+import { Agent } from "@xccode/core/agent"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { FileMutation } from "@xccode/core/file-mutation"
+import { FileWrite } from "@xccode/core/file-write"
+import { Flag } from "@xccode/core/flag"
+import { Formatter } from "@xccode/core/formatter"
+import { InstructionBuiltIns } from "@xccode/core/instructions/builtins"
+import { InstructionDiscovery } from "@xccode/core/instruction-discovery"
+import { Instructions } from "@xccode/core/instructions/index"
+import { Location } from "@xccode/core/location"
+import { Mcp } from "@xccode/core/mcp/index"
+import { Model } from "@xccode/core/model"
+import { Provider } from "@xccode/core/provider"
+import { ReferenceInstructions } from "@xccode/core/reference/instructions"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Session } from "@xccode/core/session"
+import { SessionContext } from "@xccode/core/session/context"
+import { SessionRunnerModel } from "@xccode/core/session/runner/model"
+import { SkillInstructions } from "@xccode/core/skill/instructions"
+import { Tool } from "@xccode/core/tool"
+import { modelTools } from "@xccode/core/tool/model-policy"
+import { EditTool } from "@xccode/core/tool/plugin/edit"
+import { PatchTool } from "@xccode/core/tool/plugin/patch"
+import { WriteTool } from "@xccode/core/tool/plugin/write"
+import { WebSearch } from "@xccode/core/websearch"
+import { LayerNode } from "@xccode/util/effect/layer-node"
 import { Effect, Layer, Schema } from "effect"
 import { testEffect } from "./lib/effect"
 import { readInitial } from "./lib/instructions"
@@ -206,7 +206,7 @@ const setupContext = Effect.gen(function* () {
       description: "Move session",
       input: Schema.Struct({}),
       output: Schema.String,
-      options: { namespace: "opencode", codemode: { pinned: true } },
+      options: { namespace: "xccode", codemode: { pinned: true } },
       execute: () => Effect.succeed({ output: "moved" }),
     })
   })
@@ -259,7 +259,7 @@ describe("SessionContext.select model tool policy", () => {
         const gptListings = codeModeListings(gpt.tools.codeModeCatalog!)
         expect(gptListings.map((entry) => entry.path)).toEqual([
           "alpha.search",
-          "opencode.session_move",
+          "xccode.session_move",
           "patch",
           "read",
           "shell",
@@ -284,11 +284,11 @@ describe("SessionContext.select model tool policy", () => {
 
         const claude = yield* select("anthropic", "claude-sonnet-4-5")
         expect(names(claude)).toEqual(["execute"])
-        expect(paths(claude).join(",")).toBe("alpha.search,edit,opencode.session_move,read,shell,websearch,write")
+        expect(paths(claude).join(",")).toBe("alpha.search,edit,xccode.session_move,read,shell,websearch,write")
 
         const deepseek = yield* select("deepseek", "deepseek-reasoner")
         expect(names(deepseek)).toEqual(["execute"])
-        expect(paths(deepseek).join(",")).toBe("alpha.search,edit,opencode.session_move,read,shell,websearch,write")
+        expect(paths(deepseek).join(",")).toBe("alpha.search,edit,xccode.session_move,read,shell,websearch,write")
 
         yield* websearch.select(false)
         expect(paths(yield* select("openai", "gpt-5"))).not.toContain("websearch")

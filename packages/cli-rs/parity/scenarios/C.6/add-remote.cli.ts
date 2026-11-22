@@ -1,7 +1,7 @@
 import { defineCli } from "../../cli/run"
 import { commented } from "./fixture"
 
-// `mcp add --url` with headers edits the existing commented `.opencode/opencode.jsonc` and keeps its comments.
+// `mcp add --url` with headers edits the existing commented `.xccode/xccode.jsonc` and keeps its comments.
 export default defineCli({
   args: [
     "mcp",
@@ -14,6 +14,6 @@ export default defineCli({
     "--header",
     "X-Team=core",
   ],
-  files: { ".opencode/opencode.jsonc": commented },
-  collect: ["work/.opencode/opencode.jsonc", "work/opencode.json"],
+  files: { ".xccode/xccode.jsonc": commented },
+  collect: ["work/.xccode/xccode.jsonc", "work/xccode.json"],
 })

@@ -17,7 +17,7 @@ export default defineCli({
         json: {
           location,
           data: [
-            { id: "opencode.core", source: { type: "builtin" }, features, state },
+            { id: "xccode.core", source: { type: "builtin" }, features, state },
             { id: "acme", source: { type: "package", target: "acme-plugin", version: "1.2.0" }, features, state },
             { id: "mine", source: { type: "local", path: "/work/plugins/mine" }, features, state },
           ],

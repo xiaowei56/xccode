@@ -6,7 +6,7 @@ use std::collections::VecDeque;
 use std::sync::Weak;
 use std::sync::{Arc, Mutex, PoisonError};
 
-use opencode_plugin_abi::mail::{Link, Message, Outgoing, Refused};
+use xccode_plugin_abi::mail::{Link, Message, Outgoing, Refused};
 
 use crate::abi;
 use crate::activation::Wake;

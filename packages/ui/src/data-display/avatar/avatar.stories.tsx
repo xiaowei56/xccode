@@ -5,7 +5,7 @@ import { Avatar, type AvatarProps } from "./avatar"
 const sizes = ["small", "normal", "large"] satisfies AvatarProps["size"][]
 
 const docs = `### Overview
-Avatar matching OpenCode DS variants from Figma, for user lists and headers.
+Avatar matching Xccode DS variants from Figma, for user lists and headers.
 
 ### API and states
 Provide a fallback string. The avatar displays its first grapheme or the image at src. Background and foreground override the fallback colors.

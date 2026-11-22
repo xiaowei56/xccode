@@ -24,13 +24,13 @@ type ServerSource = { type: "build" } | { type: "download"; version: string }
 type DevOptions = { server: ServerSource; electron: string[] }
 
 async function main() {
-  process.env.OPENCODE_CHANNEL = "local"
-  process.env.OPENCODE_VERSION ??= `2.0.0-local-${Date.now()}`
-  process.env.OPENCODE_DISABLE_CHANNEL_DB = "0"
+  process.env.XCCODE_CHANNEL = "local"
+  process.env.XCCODE_VERSION ??= `2.0.0-local-${Date.now()}`
+  process.env.XCCODE_DISABLE_CHANNEL_DB = "0"
   const options = selectOptions()
 
-  if (options.server.type === "build") process.env.OPENCODE_DESKTOP_SERVER_CHANNEL = "local"
-  process.env.OPENCODE_DESKTOP_ISOLATED_SERVER ??= "1"
+  if (options.server.type === "build") process.env.XCCODE_DESKTOP_SERVER_CHANNEL = "local"
+  process.env.XCCODE_DESKTOP_ISOLATED_SERVER ??= "1"
   cloneLockedDevProfile()
   await prepareDesktop()
   await prepareDevServer(options.server)
@@ -40,7 +40,7 @@ async function main() {
 async function prepareDesktop() {
   await Promise.all([
     $`bun run install-electron`,
-    $`bun ./script/copy-icons.ts ${process.env.OPENCODE_CHANNEL ?? "dev"}`,
+    $`bun ./script/copy-icons.ts ${process.env.XCCODE_CHANNEL ?? "dev"}`,
   ])
 
   if (process.platform === "darwin") process.env.ELECTRON_EXEC_PATH = await prepareDevElectron()
@@ -65,24 +65,24 @@ function selectOptions(): DevOptions {
 }
 
 async function prepareDevServer(source: ServerSource) {
-  if (process.env.OPENCODE_DESKTOP_REUSE_SERVER !== "1") return prepareServer(source)
+  if (process.env.XCCODE_DESKTOP_REUSE_SERVER !== "1") return prepareServer(source)
 
   if (source.type === "download") {
-    return downloadCliToResources(source.version, windowsify("resources/opencode-cli-dev"))
+    return downloadCliToResources(source.version, windowsify("resources/xccode-cli-dev"))
   }
 
-  process.env.OPENCODE_DESKTOP_CLI_DEV = join(import.meta.dirname, "../../cli")
+  process.env.XCCODE_DESKTOP_CLI_DEV = join(import.meta.dirname, "../../cli")
 }
 
 async function prepareServer(source: ServerSource) {
   if (source.type === "download")
-    return downloadCliToResources(source.version, windowsify("resources/opencode-cli-dev"))
+    return downloadCliToResources(source.version, windowsify("resources/xccode-cli-dev"))
   buildWebUi()
-  process.env.OPENCODE_DESKTOP_CLI_DEV = join(import.meta.dirname, "../../cli")
+  process.env.XCCODE_DESKTOP_CLI_DEV = join(import.meta.dirname, "../../cli")
 
   if (process.platform !== "win32") return
-  process.env.OPENCODE_DESKTOP_WSL_CLI_BUILD = join(import.meta.dirname, "../../cli/script/build.ts")
-  process.env.OPENCODE_DESKTOP_WSL_CLI_OUTPUT = join(import.meta.dirname, "../resources/opencode-cli-wsl")
+  process.env.XCCODE_DESKTOP_WSL_CLI_BUILD = join(import.meta.dirname, "../../cli/script/build.ts")
+  process.env.XCCODE_DESKTOP_WSL_CLI_OUTPUT = join(import.meta.dirname, "../resources/xccode-cli-wsl")
 }
 
 // The source CLI serves packages/app/dist only to paired devices, and nothing on the way to the
@@ -93,7 +93,7 @@ function buildWebUi() {
 
   const build = Bun.spawn(["bun", "run", "build"], {
     cwd: join(import.meta.dirname, "../../app"),
-    env: { ...process.env, VITE_OPENCODE_SERVER_MODE: "origin" },
+    env: { ...process.env, VITE_XCCODE_SERVER_MODE: "origin" },
     stdio: ["ignore", "ignore", "ignore"],
   })
 
@@ -110,14 +110,14 @@ function buildWebUi() {
 
 function defaultDevUserData() {
   if (process.platform === "win32") {
-    return join(process.env.APPDATA ?? join(homedir(), "AppData", "Roaming"), "ai.opencode.desktop.dev")
+    return join(process.env.APPDATA ?? join(homedir(), "AppData", "Roaming"), "ai.xccode.desktop.dev")
   }
 
   if (process.platform === "darwin") {
-    return join(homedir(), "Library", "Application Support", "ai.opencode.desktop.dev")
+    return join(homedir(), "Library", "Application Support", "ai.xccode.desktop.dev")
   }
 
-  return join(process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"), "ai.opencode.desktop.dev")
+  return join(process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"), "ai.xccode.desktop.dev")
 }
 
 function isPidAlive(pid: number) {
@@ -183,15 +183,15 @@ function hasLiveRegisteredService(serviceFile: string) {
   }
 }
 
-// When OpenCode Dev is already running, snapshot only its small desktop profile (`drafts.sqlite` + window state)
-// into a per-worktree temp userData dir while sharing the main OpenCode database (`~/.local/share/opencode`) in place.
+// When Xccode Dev is already running, snapshot only its small desktop profile (`drafts.sqlite` + window state)
+// into a per-worktree temp userData dir while sharing the main Xccode database (`~/.local/share/xccode`) in place.
 function cloneLockedDevProfile() {
-  if (process.env.OPENCODE_DESKTOP_USER_DATA || process.env.OPENCODE_DESKTOP_TEST_ROOT) return
+  if (process.env.XCCODE_DESKTOP_USER_DATA || process.env.XCCODE_DESKTOP_TEST_ROOT) return
   const sourceDir = defaultDevUserData()
 
   if (!isProfileLocked(sourceDir)) return
   const slug = createHash("sha1").update(import.meta.dirname).digest("hex").slice(0, 8)
-  const cloneDir = join(tmpdir(), `opencode-desktop-dev-${slug}`)
+  const cloneDir = join(tmpdir(), `xccode-desktop-dev-${slug}`)
   mkdirSync(cloneDir, { recursive: true })
 
   const sourceDb = join(sourceDir, "drafts.sqlite")
@@ -206,7 +206,7 @@ function cloneLockedDevProfile() {
 
   for (const entry of readdirSync(sourceDir)) {
     if (
-      entry === "opencode.settings" ||
+      entry === "xccode.settings" ||
       entry === "Local State" ||
       entry === "Preferences" ||
       entry.startsWith("window-state-")
@@ -215,18 +215,18 @@ function cloneLockedDevProfile() {
     }
   }
 
-  const isolatedServiceFile = join(sourceDir, "opencode", "service-local.json")
+  const isolatedServiceFile = join(sourceDir, "xccode", "service-local.json")
 
   if (hasLiveRegisteredService(isolatedServiceFile)) {
     process.env.XDG_STATE_HOME = sourceDir
-    process.env.OPENCODE_DESKTOP_REUSE_SERVICE_FILE = isolatedServiceFile
+    process.env.XCCODE_DESKTOP_REUSE_SERVICE_FILE = isolatedServiceFile
   }
 
-  process.env.OPENCODE_DESKTOP_USER_DATA = cloneDir
-  process.env.OPENCODE_DESKTOP_REUSE_SERVER = "1"
-  process.env.OPENCODE_DESKTOP_ISOLATED_SERVER = "0"
-  process.env.OPENCODE_DESKTOP_REMOTE_DEBUGGING_PORT ??= "0"
-  console.log(`OpenCode Dev is already running; cloned UI state into ${cloneDir} and reusing live background server`)
+  process.env.XCCODE_DESKTOP_USER_DATA = cloneDir
+  process.env.XCCODE_DESKTOP_REUSE_SERVER = "1"
+  process.env.XCCODE_DESKTOP_ISOLATED_SERVER = "0"
+  process.env.XCCODE_DESKTOP_REMOTE_DEBUGGING_PORT ??= "0"
+  console.log(`Xccode Dev is already running; cloned UI state into ${cloneDir} and reusing live background server`)
 }
 
 async function startDesktop(args: string[]) {

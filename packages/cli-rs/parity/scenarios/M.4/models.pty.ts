@@ -1,5 +1,5 @@
 // The status row names the model and provider from the catalog. The command menu's "Switch model" lists the
-// catalog (opencode first, deprecated models left out); a pick names the new model, and the variant cycle steps
+// catalog (xccode first, deprecated models left out); a pick names the new model, and the variant cycle steps
 // through its variants. `/settings` lists mini's settings, and right on Verbosity saves the next preset.
 import { definePty } from "../../pty/run"
 import { catalog, config, leave } from "./fixture"

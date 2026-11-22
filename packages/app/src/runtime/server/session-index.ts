@@ -1,4 +1,4 @@
-import type { SessionInfo } from "@opencode/client/promise"
+import type { SessionInfo } from "@xccode/client/promise"
 import { rawTime } from "./data"
 
 /** Merge live metadata into indexed roots. Only a completed run advances an indexed row's recency. */

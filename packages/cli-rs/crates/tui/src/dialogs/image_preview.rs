@@ -1,8 +1,8 @@
 //! Full-size image preview with navigation between attachments.
 
-use opencode_api::generated::{ExperimentalMediaGetInput, MediaHash};
-use opencode_ui::dialog::{DialogCx, FooterAction, FooterProps, layout};
-use opencode_ui::prompt_input::attach::data_uri;
+use xccode_api::generated::{ExperimentalMediaGetInput, MediaHash};
+use xccode_ui::dialog::{DialogCx, FooterAction, FooterProps, layout};
+use xccode_ui::prompt_input::attach::data_uri;
 use opentui::native::ImageFit;
 use opentui::widget::ImageView;
 

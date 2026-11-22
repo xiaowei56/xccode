@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { FileContent } from "@opencode/plugin/gui"
+import type { FileContent } from "@xccode/plugin/gui"
 import {
   createFileContentState,
   selectFileLoading,

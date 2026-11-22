@@ -1,9 +1,9 @@
 import { Option, Schema } from "effect"
 import { For, Show } from "solid-js"
-import type { PermissionRequest } from "@opencode/client/promise"
-import { Button } from "@opencode/ui/button"
-import { DockPrompt } from "@opencode/session-ui/dock-prompt"
-import { Icon } from "@opencode/ui/icon"
+import type { PermissionRequest } from "@xccode/client/promise"
+import { Button } from "@xccode/ui/button"
+import { DockPrompt } from "@xccode/session-ui/dock-prompt"
+import { Icon } from "@xccode/ui/icon"
 import { useLanguage } from "@/runtime/i18n/language"
 
 const decodeToolInput = Schema.decodeUnknownOption(Schema.Record(Schema.String, Schema.Unknown))

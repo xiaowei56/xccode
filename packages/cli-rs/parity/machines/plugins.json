@@ -64,7 +64,7 @@
       ]
     },
     "project": {
-      "about": "The same plugin found in the project's .opencode/plugins instead of the config: the client starts in the project, and nothing names the plugin in its config. approve and decline answer the plugin manager's question about it (Enter on its row, then Approve or Decline); TS has no such question, so for TS they do nothing. TS loads the plugin at once. Rust lists it pending until it is approved, and declined once it is declined (deviation F16-project-plugin-approval); approved, it is the plugin TS shows. The xfail rows are those observations, and since Rust then follows TS again, a known row here does not end the path (continue).",
+      "about": "The same plugin found in the project's .xccode/plugins instead of the config: the client starts in the project, and nothing names the plugin in its config. approve and decline answer the plugin manager's question about it (Enter on its row, then Approve or Decline); TS has no such question, so for TS they do nothing. TS loads the plugin at once. Rust lists it pending until it is approved, and declined once it is declined (deviation F16-project-plugin-approval); approved, it is the plugin TS shows. The xfail rows are those observations, and since Rust then follows TS again, a known row here does not end the path (continue).",
       "initial": "found",
       "continue": true,
       "states": {

@@ -78,7 +78,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "新增點數",
 
   "dialog.usageExceeded.freeTier.title": "已達免費額度上限",
-  "dialog.usageExceeded.freeTier.description": "每月 $10 訂閱 OpenCode Go，可靠地使用最佳開源模型。",
+  "dialog.usageExceeded.freeTier.description": "每月 $10 訂閱 Xccode Go，可靠地使用最佳開源模型。",
   "dialog.usageExceeded.freeTier.actionLabel": "訂閱",
 
   "ui.sessionTurn.status.delegating": "正在委派工作",
@@ -288,8 +288,8 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "已達模型預算上限 · 此模型暫停至預算重設",
   "ui.sessionTurn.budgetLimit.useFreeModel": "使用免費模型",
   "ui.sessionTurn.budgetLimit.switchModel": "切換模型",
-  "ui.sessionTurn.goLimit.title": "你已達到 OpenCode Go 使用上限。",
-  "ui.sessionTurn.goLimit.lineReset": "你已達到 OpenCode Go 使用上限，將於 {{time}} 重設。",
+  "ui.sessionTurn.goLimit.title": "你已達到 Xccode Go 使用上限。",
+  "ui.sessionTurn.goLimit.lineReset": "你已達到 Xccode Go 使用上限，將於 {{time}} 重設。",
   "dialog.usageExceeded.freeTier.reset": "你的免費訊息將於 {{time}} 重設。",
   "ui.messagePart.compaction.queued": "工作階段壓縮已排入佇列",
   "ui.messagePart.compaction.done": "已壓縮",

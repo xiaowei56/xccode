@@ -21,7 +21,7 @@ ts-dist
 /result
 refs
 Session.vim
-/opencode.json
+/xccode.json
 a.out
 target
 .scripts
@@ -29,7 +29,7 @@ target
 .direnv/
 
 # Local dev files
-opencode-dev
+xccode-dev
 RELEASE_REVIEW.md
 logs/
 *.bun-build

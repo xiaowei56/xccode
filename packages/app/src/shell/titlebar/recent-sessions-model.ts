@@ -1,4 +1,4 @@
-import type { OpenCodeEvent, SessionInfo } from "@opencode/client/promise"
+import type { XccodeEvent, SessionInfo } from "@xccode/client/promise"
 import { ServerConnection } from "@/runtime/server/registry"
 
 const separator = "\u0000"
@@ -291,7 +291,7 @@ function finishLoading(
  * Whether an event makes Recent reload page one: only a new root session. Other changes (run ends, renames, archive)
  * reach the rows through the live store, so the order stays put until the next reconnect refresh.
  */
-export function recentReloadsOn(event: OpenCodeEvent) {
+export function recentReloadsOn(event: XccodeEvent) {
   return event.type === "session.created" && !event.data.parentID
 }
 

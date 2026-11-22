@@ -1,4 +1,4 @@
-import type { JobInfo, SessionMessageInfo } from "@opencode/client"
+import type { JobInfo, SessionMessageInfo } from "@xccode/client"
 import { describe, expect, test } from "bun:test"
 import { sessionFamily, ownedJobs, scriptLabel } from "../../src/util/session"
 

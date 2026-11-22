@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, mock, spyOn, test } from "bun:test"
-import { OpenCode } from "@opencode/client/promise"
+import { Xccode } from "@xccode/client/promise"
 import { resolveMiniSettings, resolveModelInfo, resolveRunTuiConfig } from "../../src/mini/runtime.boot"
 import { catalogModel, catalogProvider } from "./fixture/catalog"
 import { createTuiResolvedConfig } from "../fixture/tui-runtime"
@@ -35,7 +35,7 @@ describe("run runtime boot", () => {
       }),
     )
 
-    expect(result.theme).toEqual({ mode: "light", name: "opencode-classic" })
+    expect(result.theme).toEqual({ mode: "light", name: "xccode-classic" })
     expect(result.leader.timeout).toBe(450)
     expect(result.cursor).toEqual({ style: "underline", blinking: false })
     expect(resolveMiniSettings(result)).toEqual({
@@ -74,7 +74,7 @@ describe("run runtime boot", () => {
   })
 
   test("loads v2 providers and models for model selector data", async () => {
-    const sdk = OpenCode.make({ baseUrl: "https://opencode.test" })
+    const sdk = Xccode.make({ baseUrl: "https://xccode.test" })
     const location = { directory: "/workspace", project: { id: "proj_1", directory: "/workspace" } }
     const providerList = spyOn(sdk.provider, "list").mockResolvedValue({
       location,

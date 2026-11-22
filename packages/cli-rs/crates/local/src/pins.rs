@@ -64,7 +64,7 @@ mod tests {
 
     #[test]
     fn changes_keep_pins_and_fields_written_since() {
-        let state = opencode_util::temp::tempdir().unwrap();
+        let state = xccode_util::temp::tempdir().unwrap();
         assert_eq!(set(state.path(), "a", true).unwrap(), ["a"]);
         // Another client pins `b` and adds a field after this one read the file.
         fs::write(file(state.path()), r#"{"pinned":["a","b"],"other":1}"#).unwrap();
@@ -83,7 +83,7 @@ mod tests {
 
     #[test]
     fn concurrent_changes_lose_nothing() {
-        let state = opencode_util::temp::tempdir().unwrap();
+        let state = xccode_util::temp::tempdir().unwrap();
         let threads: Vec<_> = (0..4)
             .map(|n| {
                 let state = state.path().to_owned();

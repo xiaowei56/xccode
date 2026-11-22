@@ -500,7 +500,7 @@ export interface ServerEntry {
   readonly http?: {
     /** The base URL. */
     readonly url: string
-    /** The HTTP basic password; the user name is always `opencode`. */
+    /** The HTTP basic password; the user name is always `xccode`. */
     readonly password?: string
   }
   /**
@@ -857,7 +857,7 @@ export type ThemeVariant =
     })
 
 /**
- * A color theme, in the format of the app's own themes (`https://opencode.ai/desktop-theme.json`), so a theme file
+ * A color theme, in the format of the app's own themes (`https://xccode.ai/desktop-theme.json`), so a theme file
  * imports as it is. The host lists it in Settings › Appearance › Theme among the app's themes, alphabetically by
  * `name`, under the key `${plugin}:${id}`; withdrawing the theme takes it out of the list. A user who picked it keeps the choice: the window
  * shows the theme's colors from the last run until the plugin contributes it again, and the default theme while it is

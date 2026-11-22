@@ -1,13 +1,13 @@
 //! Workspace usage limits and account status.
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     ModelInfo, ProviderInfo, UsageLimitsBudget, UsageLimitsBudgetCoverage, UsageLimitsBudgetPer,
     UsageLimitsBudgetScope, UsageLimitsInfo,
 };
-use opencode_api::js::locale_compare;
-use opencode_ui::dialog::{DIALOG_LIST_INSET, DialogCx, layout};
-use opencode_ui::select::Select;
-use opencode_util::time::{self, Zone};
+use xccode_api::js::locale_compare;
+use xccode_ui::dialog::{DIALOG_LIST_INSET, DialogCx, layout};
+use xccode_ui::select::Select;
+use xccode_util::time::{self, Zone};
 
 use crate::local::Local;
 use crate::prelude::*;
@@ -40,7 +40,7 @@ pub enum Level {
 
 pub fn served_by_console(provider: Option<&ProviderInfo>) -> bool {
     provider.is_some_and(|provider| {
-        provider.integration_id.as_ref().is_some_and(|id| id.0 == "opencode") && provider.id.0 != "opencode-go"
+        provider.integration_id.as_ref().is_some_and(|id| id.0 == "xccode") && provider.id.0 != "xccode-go"
     })
 }
 
@@ -254,7 +254,7 @@ fn build(cx: &Rc<DialogCx>, local: &Rc<Local>) -> View {
         return message(
             cx,
             "Usage",
-            "Sign in to OpenCode Console with /connect to see your workspace's usage limits.",
+            "Sign in to Xccode Console with /connect to see your workspace's usage limits.",
             true,
         );
     };

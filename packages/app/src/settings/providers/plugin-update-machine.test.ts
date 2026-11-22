@@ -25,9 +25,9 @@ function harness() {
   return { machine, effects, dispatch }
 }
 
-const a = "opencode-plugin-a@latest"
+const a = "xccode-plugin-a@latest"
 
-const b = "opencode-plugin-b@latest"
+const b = "xccode-plugin-b@latest"
 
 /** A listed package source, which carries `outdated` only when it is true. */
 function listed(target: string, outdated: boolean): Parameters<typeof pluginUpdateView>[1] {

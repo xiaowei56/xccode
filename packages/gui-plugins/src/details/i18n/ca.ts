@@ -36,15 +36,15 @@ export default {
   "move.recovery.remove": "Suprimeix l'arbre de treball",
   "mcp.manage": "Gestiona els servidors MCP",
   timedOut: "El servidor ha trigat massa a respondre",
-  "setup.mcp": "Afegeix un servidor amb OpenCode",
+  "setup.mcp": "Afegeix un servidor amb Xccode",
   "setup.mcp.prompt":
-    "Ajuda'm a afegir un servidor MCP a la meva configuració global d'OpenCode. Pregunta'm quin servei vull connectar, configura'l i comprova que es connecta.",
-  "setup.plugins": "Afegeix un connector amb OpenCode",
+    "Ajuda'm a afegir un servidor MCP a la meva configuració global d'Xccode. Pregunta'm quin servei vull connectar, configura'l i comprova que es connecta.",
+  "setup.plugins": "Afegeix un connector amb Xccode",
   "setup.plugins.prompt":
-    "Ajuda'm a afegir un connector a la meva configuració global d'OpenCode. Pregunta'm què vull que faci, suggereix-me un connector i afegeix-lo.",
-  "setup.skills": "Habilitat nova amb OpenCode",
+    "Ajuda'm a afegir un connector a la meva configuració global d'Xccode. Pregunta'm què vull que faci, suggereix-me un connector i afegeix-lo.",
+  "setup.skills": "Habilitat nova amb Xccode",
   "setup.skills.prompt":
-    "Ajuda'm a escriure una habilitat nova d'OpenCode a la meva configuració global. Pregunta'm què t'ha d'ensenyar i escriu-ne el SKILL.md.",
+    "Ajuda'm a escriure una habilitat nova d'Xccode a la meva configuració global. Pregunta'm què t'ha d'ensenyar i escriu-ne el SKILL.md.",
   changesFailed: "No s'han pogut carregar els canvis",
   changesOffline: "No es pot accedir a aquest servidor",
   "mcp.signIn": "Inicia la sessió",
@@ -56,7 +56,7 @@ export default {
   "mcp.error.actionLabel": "Detalls de {{name}}",
   "mcp.signIn.open": "Inicia la sessió a {{name}}",
   "mcp.signIn.description":
-    "S'obrirà el navegador perquè inicieu la sessió a {{name}}. Si no pot accedir a la màquina on s'executa OpenCode, enganxeu a sota l'URL al qual s'ha redirigit.",
+    "S'obrirà el navegador perquè inicieu la sessió a {{name}}. Si no pot accedir a la màquina on s'executa Xccode, enganxeu a sota l'URL al qual s'ha redirigit.",
   "mcp.signIn.waiting": "S'està esperant l'autorització…",
   "mcp.signIn.failed": "L'autorització ha fallat: {{error}}",
   "mcp.signIn.expired": "L'autorització ha caducat",

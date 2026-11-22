@@ -4,8 +4,8 @@ import {
   type FormInfo,
   type JobInfo,
   type PermissionRequest,
-} from "@opencode/client/promise"
-import { abort } from "@opencode/util/abort"
+} from "@xccode/client/promise"
+import { abort } from "@xccode/util/abort"
 import { useParams } from "@solidjs/router"
 import { showToast } from "@/shell/notifications/toast"
 import { useServerSDK } from "@/runtime/server/client"

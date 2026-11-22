@@ -1,12 +1,12 @@
 {
-  "name": "@opencode/pty",
+  "name": "@xccode/pty",
   "version": "0.6.0",
-  "description": "Persistent PTY service for OpenCode",
+  "description": "Persistent PTY service for Xccode",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/xiaowei56/xccode.git",
     "directory": "packages/process-daemon/npm"
   },
   "exports": {
@@ -17,7 +17,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "opencode-pty": "./bin/opencode-pty.js"
+    "xccode-pty": "./bin/xccode-pty.js"
   },
   "files": [
     "bin",
@@ -25,14 +25,14 @@
     "index.js"
   ],
   "optionalDependencies": {
-    "@opencode/pty-darwin-arm64": "0.6.0",
-    "@opencode/pty-darwin-x64": "0.6.0",
-    "@opencode/pty-linux-arm64-gnu": "0.6.0",
-    "@opencode/pty-linux-arm64-musl": "0.6.0",
-    "@opencode/pty-linux-x64-gnu": "0.6.0",
-    "@opencode/pty-linux-x64-musl": "0.6.0",
-    "@opencode/pty-win32-arm64": "0.6.0",
-    "@opencode/pty-win32-x64": "0.6.0"
+    "@xccode/pty-darwin-arm64": "0.6.0",
+    "@xccode/pty-darwin-x64": "0.6.0",
+    "@xccode/pty-linux-arm64-gnu": "0.6.0",
+    "@xccode/pty-linux-arm64-musl": "0.6.0",
+    "@xccode/pty-linux-x64-gnu": "0.6.0",
+    "@xccode/pty-linux-x64-musl": "0.6.0",
+    "@xccode/pty-win32-arm64": "0.6.0",
+    "@xccode/pty-win32-x64": "0.6.0"
   },
   "publishConfig": {
     "access": "public"

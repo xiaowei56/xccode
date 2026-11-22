@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Diagnostyka pamięci: zapisuje użycie pamięci aplikacji w dziennikach desktopowych co 30 sekund. Pozostaje włączona po ponownym uruchomieniu, dopóki jej nie wyłączysz; pasek pozostaje otwarty, gdy działa.",
-  "memory.tipEnv": "Diagnostyka pamięci jest włączona dla tego uruchomienia: ustawiono OPENCODE_DESKTOP_MEMORY_LOG.",
+  "memory.tipEnv": "Diagnostyka pamięci jest włączona dla tego uruchomienia: ustawiono XCCODE_DESKTOP_MEMORY_LOG.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Pokrętła",

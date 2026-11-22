@@ -32,7 +32,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Diagnóstico de memoria: registra la memoria de la aplicación en los registros de la aplicación de escritorio cada 30 segundos. Sigue activo tras reiniciar hasta que lo desactives; la barra permanece abierta mientras se ejecuta.",
-  "memory.tipEnv": "El diagnóstico de memoria está activo en este inicio: OPENCODE_DESKTOP_MEMORY_LOG está definida.",
+  "memory.tipEnv": "El diagnóstico de memoria está activo en este inicio: XCCODE_DESKTOP_MEMORY_LOG está definida.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

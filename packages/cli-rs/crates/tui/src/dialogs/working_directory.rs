@@ -33,7 +33,7 @@ pub fn show(tui: &Tui, directory: &str) {
 fn options(tui: &Rc<Tui>, directory: &str) -> Vec<SelectOption<String>> {
     let action = |run: fn(&Tui, &str)| {
         let (weak, directory) = (tui.weak(), directory.to_owned());
-        bind!(weak, |tui, _: &opencode_ui::dialog::Dialogs| run(&tui, &directory))
+        bind!(weak, |tui, _: &xccode_ui::dialog::Dialogs| run(&tui, &directory))
     };
     vec![
         SelectOption::new("Copy path", "location.copy".to_owned()).description(directory).on_select(action(

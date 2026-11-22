@@ -1,6 +1,6 @@
 // Generates Rust API types and endpoints from ClientApi.
-import { compile, type Endpoint } from "@opencode/httpapi-codegen"
-import { ClientApi, clientNamespace, groupNames, promiseOmitEndpoints } from "@opencode/protocol/client"
+import { compile, type Endpoint } from "@xccode/httpapi-codegen"
+import { ClientApi, clientNamespace, groupNames, promiseOmitEndpoints } from "@xccode/protocol/client"
 import { Schema, SchemaAST, SchemaRepresentation } from "effect"
 import { HttpApiSchema } from "effect/http-api"
 import { emitMethod, type Field, type Method } from "../rust/methods.ts"
@@ -137,7 +137,7 @@ await Bun.write(
 )
 await Bun.write(
   `${directory}/methods.rs`,
-  `${header}#![allow(clippy::all, clippy::pedantic)]\n\nuse super::types::*;\nuse crate::client::{Call, Client};\nuse crate::error::Error;\nuse crate::transport::SseResponse;\nuse opencode_api_types::client;
+  `${header}#![allow(clippy::all, clippy::pedantic)]\n\nuse super::types::*;\nuse crate::client::{Call, Client};\nuse crate::error::Error;\nuse crate::transport::SseResponse;\nuse xccode_api_types::client;
 
 macro_rules! endpoint {
     ($doc:literal, $name:ident, $builder:ident, $send:ident, $output:ty $(, $arg:ident: $input:ty)?) => {
@@ -186,7 +186,7 @@ await Bun.write(operationsFile, lines(Object.entries(operations)))
 await Bun.write(samplesFile, lines(methods.map((method) => [method.name, method.sample])))
 await Bun.write(
   `${directory}/mod.rs`,
-  `${header}//! HTTP API types and endpoint methods.\n\nmod methods;\n\npub use opencode_api_types::types;\npub use types::*;\n\n/// Endpoints in the generated client.\npub const ENDPOINTS: usize = ${plans.length};\n`,
+  `${header}//! HTTP API types and endpoint methods.\n\nmod methods;\n\npub use xccode_api_types::types;\npub use types::*;\n\n/// Endpoints in the generated client.\npub const ENDPOINTS: usize = ${plans.length};\n`,
 )
 const format = Bun.spawnSync(["rustfmt", "--edition", "2024", `${directory}/mod.rs`, typesFile, clientFile], {
   stdout: "inherit",

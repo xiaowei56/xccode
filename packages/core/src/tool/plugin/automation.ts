@@ -1,8 +1,8 @@
 export * as AutomationTools from "./automation.js"
 
-import { ToolFailure } from "@opencode/ai/effect"
-import type { Context } from "@opencode/plugin/effect/plugin"
-import { optional } from "@opencode/schema/schema"
+import { ToolFailure } from "@xccode/ai/effect"
+import type { Context } from "@xccode/plugin/effect/plugin"
+import { optional } from "@xccode/schema/schema"
 import { DateTime, Effect, Option, Schema } from "effect"
 import { Automation } from "../../automation.js"
 import { Config } from "../../config.js"
@@ -42,7 +42,7 @@ export const IDInput = Schema.Struct({
 const RemoveOutput = Schema.Struct({ id: Automation.ID, removed: Schema.Boolean })
 
 export const Plugin = {
-  id: "opencode.tool.automation",
+  id: "xccode.tool.automation",
   effect: Effect.fn("AutomationTools.Plugin")(function* (ctx: Context) {
     const config = yield* Config.Service
     const automations = yield* Automation.Service

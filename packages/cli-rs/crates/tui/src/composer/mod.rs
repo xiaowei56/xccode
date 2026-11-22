@@ -7,7 +7,7 @@ mod subagents;
 mod terminals;
 
 use crate::prelude::*;
-use opencode_store::SessionStatus;
+use xccode_store::SessionStatus;
 
 /// The input mode the composer pushes while it is open.
 pub(crate) const MODE: &str = "composer";
@@ -495,7 +495,7 @@ fn pick(tabs: &[Tab], active: Tab, requested: Option<Tab>, reopened: bool, chose
 
 /// What a session has running (TS `busyCounts`): its own scripts, the subagents in its family that run or own
 /// running jobs, and its shells.
-pub(crate) fn busy(state: &opencode_store::State, session: &SessionID) -> (usize, usize, usize) {
+pub(crate) fn busy(state: &xccode_store::State, session: &SessionID) -> (usize, usize, usize) {
     let jobs = state.jobs(session);
     let scripts = jobs.iter().filter(|job| crate::plugins::host::is_script(job, session)).count();
     let subagents = state

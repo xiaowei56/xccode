@@ -6,7 +6,7 @@ use std::future::Future;
 use futures_util::FutureExt;
 use futures_util::future::BoxFuture;
 use indexmap::IndexMap;
-use opencode_api::generated::*;
+use xccode_api::generated::*;
 
 use crate::connection::Follow;
 use crate::messages::{MessageExt, from_event};
@@ -337,7 +337,7 @@ fn optimistic_files(files: Option<&Vec<PromptInputFileAttachment>>) -> Option<Ve
 
 /// `Date.now()`, on the sim's clock when it sets one.
 pub(crate) fn now() -> f64 {
-    opencode_util::time::now_ms() as f64
+    xccode_util::time::now_ms() as f64
 }
 
 impl Data {
@@ -461,7 +461,7 @@ impl Data {
         let prompt = prompt.into();
         let mut request = prompt.input;
         let session = request.session_id.clone();
-        let id = request.id.clone().flatten().unwrap_or_else(|| SessionMessageID(opencode_api::id::message()));
+        let id = request.id.clone().flatten().unwrap_or_else(|| SessionMessageID(xccode_api::id::message()));
         request.id = Some(Some(id.clone()));
         let fresh = self.write(|state| {
             // A retry may reuse an ID that is already rendered, and possibly durable.
@@ -509,7 +509,7 @@ impl Data {
     /// request. The server may coalesce onto another ID; the response's ID then replaces the
     /// proposed row.
     pub fn compact(&self, session: &SessionID, model: Option<ModelRef>) -> Task<SessionInboxCompaction> {
-        let id = SessionMessageID(opencode_api::id::message());
+        let id = SessionMessageID(xccode_api::id::message());
         let existing = self.write(|state| {
             if let Some(active) = state.compacting.get(session) {
                 return Some(active.request.clone());
@@ -647,16 +647,16 @@ fn release_updates(state: &mut State, session: &SessionID, token: u64) {
 
 #[cfg(test)]
 mod tests {
-    /// Queued prompts and optimistic sessions take their time from the sim's fixed clock (`OPENCODE_DRIVE_NOW`). A
+    /// Queued prompts and optimistic sessions take their time from the sim's fixed clock (`XCCODE_DRIVE_NOW`). A
     /// process reads that once, so a child of this test binary sets it.
     #[test]
     fn local_times_read_the_sim_clock() {
         const FIXED: f64 = 1_600_000_000_000.0;
-        if std::env::var_os("OPENCODE_RS_CLOCK_CHILD").is_none() {
+        if std::env::var_os("XCCODE_RS_CLOCK_CHILD").is_none() {
             let output = std::process::Command::new(std::env::current_exe().unwrap())
                 .args(["--exact", "inbox::tests::local_times_read_the_sim_clock"])
-                .env("OPENCODE_RS_CLOCK_CHILD", "1")
-                .env("OPENCODE_DRIVE_NOW", (FIXED as i64).to_string())
+                .env("XCCODE_RS_CLOCK_CHILD", "1")
+                .env("XCCODE_DRIVE_NOW", (FIXED as i64).to_string())
                 .output()
                 .unwrap();
             let (stdout, stderr) = (String::from_utf8_lossy(&output.stdout), String::from_utf8_lossy(&output.stderr));

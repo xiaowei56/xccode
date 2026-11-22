@@ -5,7 +5,7 @@
 //! instead.
 //!
 //! ```
-//! use opencode_plugin_abi::{Absolute, Command, Layout};
+//! use xccode_plugin_abi::{Absolute, Command, Layout};
 //! let command = Command::new("queue.manager.open").title("Queue Manager").group("Queue Manager").palette().slash("qm");
 //! assert_eq!(command.slash.as_deref(), Some("qm"));
 //! let layout = Layout::default().absolute(Absolute::new().top(0).right(1).z(10));
@@ -15,7 +15,7 @@
 //! A literal, even one that takes the rest from the default, does not compile outside the SDK:
 //!
 //! ```compile_fail,E0639
-//! let fetch = opencode_plugin_abi::Fetch { path: "/api/x".to_owned(), ..Default::default() };
+//! let fetch = xccode_plugin_abi::Fetch { path: "/api/x".to_owned(), ..Default::default() };
 //! ```
 
 use crate::interact::{self, Anchor, Bind, LayerScope, OpenPanel, Overlay};

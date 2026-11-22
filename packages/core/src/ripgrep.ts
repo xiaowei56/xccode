@@ -2,10 +2,10 @@ export * as Ripgrep from "./ripgrep.js"
 
 import { Context, Effect, Fiber, Layer, Schema, Stream } from "effect"
 import { ChildProcess } from "effect/process"
-import { Entry, Match } from "@opencode/schema/filesystem"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
-import { collectStream, waitForAbort } from "@opencode/util/process"
-import { TextBoundary } from "@opencode/util/text-boundary"
+import { Entry, Match } from "@xccode/schema/filesystem"
+import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { collectStream, waitForAbort } from "@xccode/util/process"
+import { TextBoundary } from "@xccode/util/text-boundary"
 import type { Environment } from "./environment/index.js"
 import { NonNegativeInt, PositiveInt, RelativePath } from "./schema.js"
 import { RipgrepBinary } from "./ripgrep/binary.js"
@@ -97,7 +97,7 @@ export interface Interface {
   readonly grep: (input: GrepInput) => Effect.Effect<readonly Match[], Error | InvalidPatternError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Ripgrep") {}
+export class Service extends Context.Service<Service, Interface>()("@xccode/Ripgrep") {}
 
 const failure = (message: string, cause?: unknown) => new Error({ message, cause })
 

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/data",
+  "name": "@xccode/data",
   "private": true,
   "type": "module",
   "license": "MIT",
@@ -16,8 +16,8 @@
   "devDependencies": {
     "@cloudflare/build-output-utils": "0.8.5",
     "@cloudflare/config": "0.23.0",
-    "@opencode/data-app": "workspace:*",
-    "@opencode/data-server": "workspace:*",
+    "@xccode/data-app": "workspace:*",
+    "@xccode/data-server": "workspace:*",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:",
     "cf": "1.0.0-beta.12",

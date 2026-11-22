@@ -71,7 +71,7 @@ impl Queue {
         {
             self.admissions += 1;
             let delivery = prompt.delivery.unwrap_or(Delivery::Queue);
-            let sent = RunPrompt { message_id: Some(opencode_api::id::message()), ..prompt };
+            let sent = RunPrompt { message_id: Some(xccode_api::id::message()), ..prompt };
             self.follow_ups.push_back((sent, delivery));
             return Submitted::Admit;
         }
@@ -97,7 +97,7 @@ impl Queue {
         let sent = if prompt.shell {
             prompt
         } else {
-            RunPrompt { message_id: prompt.message_id.clone().or_else(|| Some(opencode_api::id::message())), ..prompt }
+            RunPrompt { message_id: prompt.message_id.clone().or_else(|| Some(xccode_api::id::message())), ..prompt }
         };
         self.admissions = 0;
         self.first_pending = !sent.shell;
@@ -157,7 +157,7 @@ mod tests {
     mod model {
         use super::*;
         use crate::prompt::parts::Command as ServerCommand;
-        use opencode_util::rng::SplitMix64;
+        use xccode_util::rng::SplitMix64;
 
         fn env(name: &str, default: u64) -> u64 {
             std::env::var(name).ok().and_then(|value| value.parse().ok()).unwrap_or(default)

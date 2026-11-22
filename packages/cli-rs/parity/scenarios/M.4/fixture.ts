@@ -117,13 +117,13 @@ const model = (providerID: string, id: string, name: string, extra: Record<strin
 
 const free = [{ input: 0, output: 0, cache: { read: 0, write: 0 } }]
 
-// Two providers: the session's `demo/model` and another model with variants, and opencode's free model.
+// Two providers: the session's `demo/model` and another model with variants, and xccode's free model.
 export const catalog = [
   {
     path: "/api/provider",
     json: listed([
       { id: "demo", name: "Demo", activation: "auto", package: "demo" },
-      { id: "opencode", name: "OpenCode Zen", activation: "auto", package: "opencode" },
+      { id: "xccode", name: "Xccode Zen", activation: "auto", package: "xccode" },
     ]),
   },
   {
@@ -132,7 +132,7 @@ export const catalog = [
       model("demo", "model", "Demo Model"),
       model("demo", "other", "Other Model", { variants: [{ id: "high" }, { id: "max" }] }),
       model("demo", "old", "Old Model", { status: "deprecated" }),
-      model("opencode", "zen", "Zen", { cost: free }),
+      model("xccode", "zen", "Zen", { cost: free }),
     ]),
   },
 ]

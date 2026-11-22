@@ -1,6 +1,6 @@
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@xccode/plugin/tui"
 
-// A dialog that throws while rendering (anomalyco/opencode#61101).
+// A dialog that throws while rendering (xiaowei56/xccode#61101).
 export default Plugin.define({
   id: "fixture.dialog-throw",
   setup(context) {

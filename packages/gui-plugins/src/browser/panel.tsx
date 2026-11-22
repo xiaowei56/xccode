@@ -1,15 +1,15 @@
 import { Popover } from "@kobalte/core/popover"
-import { Button } from "@opencode/ui/button"
-import { Icon } from "@opencode/ui/icon"
-import type { IconName } from "@opencode/ui/icons/catalog"
-import { IconButton } from "@opencode/ui/icon-button"
-import { LineCommentEditor } from "@opencode/ui/line-comment"
-import { Loader } from "@opencode/ui/loader"
-import { Keybind } from "@opencode/ui/keybind"
-import { Menu } from "@opencode/ui/menu"
-import { MenuScroll } from "@opencode/ui/menu-scroll"
-import { showToast } from "@opencode/ui/toast"
-import { Tooltip } from "@opencode/ui/tooltip"
+import { Button } from "@xccode/ui/button"
+import { Icon } from "@xccode/ui/icon"
+import type { IconName } from "@xccode/ui/icons/catalog"
+import { IconButton } from "@xccode/ui/icon-button"
+import { LineCommentEditor } from "@xccode/ui/line-comment"
+import { Loader } from "@xccode/ui/loader"
+import { Keybind } from "@xccode/ui/keybind"
+import { Menu } from "@xccode/ui/menu"
+import { MenuScroll } from "@xccode/ui/menu-scroll"
+import { showToast } from "@xccode/ui/toast"
+import { Tooltip } from "@xccode/ui/tooltip"
 import { createEventListener } from "@solid-primitives/event-listener"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
 import { debounce } from "@solid-primitives/scheduled"
@@ -29,7 +29,7 @@ import {
   type JSX,
   type ParentProps,
 } from "solid-js"
-import type { Browser } from "@opencode/plugin-browser/rpc"
+import type { Browser } from "@xccode/plugin-browser/rpc"
 import {
   createKeyed,
   usePlugin,
@@ -38,7 +38,7 @@ import {
   type PanelTab,
   type MountedSession,
   type SessionScreen,
-} from "@opencode/plugin/gui"
+} from "@xccode/plugin/gui"
 import { addressParts, connection, externalAction, externalPage, loopback } from "./address"
 import { hostDisplay } from "./host-display"
 import { FileSource } from "../file/contract"
@@ -1162,7 +1162,7 @@ export default function SessionBrowserPane(props: {
                   variant="ghost-muted"
                   size="large"
                   data-action="browser-extensions"
-                  // A browser extension's own mark, not the one for OpenCode's extensions.
+                  // A browser extension's own mark, not the one for Xccode's extensions.
                   icon={<Icon name="puzzle" />}
                   aria-label={plugin.t("extensions.menu")}
                 />

@@ -9,7 +9,7 @@ pub fn mount(tui: &Tui, id: &str, name: &str) -> View {
         .plugins
         .entries()
         .into_iter()
-        .any(|entry| entry.id == id && matches!(entry.status, opencode_plugin::Status::Failed(_)));
+        .any(|entry| entry.id == id && matches!(entry.status, xccode_plugin::Status::Failed(_)));
     let message = match failed {
         true => format!("Plugin {id} failed. Run /plugins for details."),
         false => format!("Unknown plugin route: {id}/{name}"),

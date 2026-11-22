@@ -1,6 +1,6 @@
 ---
 title: "Console providers"
-description: "Connect your own model provider accounts to an OpenCode Console workspace and choose which models members can use."
+description: "Connect your own model provider accounts to an Xccode Console workspace and choose which models members can use."
 ---
 
 Connect provider accounts you already pay for, such as Anthropic, OpenAI, or AWS Bedrock, and share their models
@@ -8,7 +8,7 @@ with everyone in the workspace. Console stores the credential and serves each pr
 use the models without ever seeing the provider key. The same gateway is available to your own tools through the
 [Providers API](/console/api/providers).
 
-Owners and admins manage providers from the **Providers** tab. Members get the enabled models in OpenCode after
+Owners and admins manage providers from the **Providers** tab. Members get the enabled models in Xccode after
 running `/connect`.
 
 ## Connect a provider
@@ -83,7 +83,7 @@ Add a **Context** tier when a model charges more above a context size, for examp
 Click **Add Model** to add a model the catalog doesn't include, with its **Display name** and **Model ID**. Use
 **⋯ › Duplicate...** on an existing model to start from its settings.
 
-## OpenCode models
+## Xccode models
 
 The **Models** tab manages the [models](/console/models) Console provides, which are paid from workspace credits. It
 works like a provider page:
@@ -94,7 +94,7 @@ works like a provider page:
 
 Disable the whole provider from **⋯ › Disable** to use only your own providers.
 
-## Use in OpenCode
+## Use in Xccode
 
 Members run `/connect` and choose the workspace. Each enabled provider appears as the workspace name followed by the
 provider name, and `/models` lists its enabled models.
@@ -103,23 +103,23 @@ provider name, and `/models` lists its enabled models.
 Acme Inc. / Anthropic
 ```
 
-Turn on **Managed providers only** in **Settings › General** to restrict OpenCode to the workspace's providers for
+Turn on **Managed providers only** in **Settings › General** to restrict Xccode to the workspace's providers for
 everyone.
 
 ## Send identity
 
-When a provider is a gateway you run, turn on **Send identity** on its page. Console then adds an `x-opencode-actor`
+When a provider is a gateway you run, turn on **Send identity** on its page. Console then adds an `x-xccode-actor`
 header to every model request it sends there. The header names the member or service account behind the request, so
 your gateway can log or restrict requests by sender.
 
 ```text
-x-opencode-actor: eyJhbGciOiJFUzI1NiIsInR5cCI6Im9wZW5jb2RlLWFjdG9yK2p3dCIsImtpZCI6Ii4uLiJ9...
+x-xccode-actor: eyJhbGciOiJFUzI1NiIsInR5cCI6Im9wZW5jb2RlLWFjdG9yK2p3dCIsImtpZCI6Ii4uLiJ9...
 ```
 
 - It's off by default, and changing the base URL turns it off.
 - A provider still at its vendor's own API, such as `https://api.openai.com/v1`, doesn't show the setting, since the
   vendor ignores the header.
-- Console removes any `x-opencode-*` header a client sends, so the only `x-opencode-actor` your gateway receives is the
+- Console removes any `x-xccode-*` header a client sends, so the only `x-xccode-actor` your gateway receives is the
   one Console signed.
 - **Test connection** and model listing call `GET <base URL>/models` with the credential alone, so don't require the
   header on that route.
@@ -131,8 +131,8 @@ The header is a JWT that Console signs for each request.
 | Field        | Value                                            |
 | ------------ | ------------------------------------------------ |
 | `alg`        | `ES256`                                          |
-| `typ`        | `opencode-actor+jwt`                             |
-| `iss`        | `https://opencode.ai/inference`                  |
+| `typ`        | `xccode-actor+jwt`                             |
+| `iss`        | `https://xccode.ai/inference`                  |
 | `aud`        | The provider's base URL without trailing slashes |
 | `iat`, `exp` | `exp` is 120 seconds after `iat`                 |
 
@@ -143,13 +143,13 @@ The header is a JWT that Console signs for each request.
 | `user_id`, `email`   | The member, when a member sent the request                             |
 | `service_account_id` | The service account, when a service account sent it (agents included)  |
 | `session_id`         | The client's session ID, when it sent one                              |
-| `request_id`         | The ID the client gets back in the `x-opencode-log-id` response header |
+| `request_id`         | The ID the client gets back in the `x-xccode-log-id` response header |
 
 A member's request carries a payload like this:
 
 ```json
 {
-  "iss": "https://opencode.ai/inference",
+  "iss": "https://xccode.ai/inference",
   "aud": "https://llm.example.com/v1",
   "sub": "user_...",
   "workspace_id": "org_...",
@@ -164,23 +164,23 @@ A member's request carries a payload like this:
 
 ### Verify the token
 
-Console publishes its public keys at `https://opencode.ai/inference/.well-known/jwks.json`, served with
+Console publishes its public keys at `https://xccode.ai/inference/.well-known/jwks.json`, served with
 `Cache-Control: public, max-age=300`. Check the signature, issuer, audience, type and age, then the workspace. This
 example uses [jose](https://github.com/panva/jose).
 
 ```ts
 import { createRemoteJWKSet, jwtVerify } from "jose"
 
-const keys = createRemoteJWKSet(new URL("https://opencode.ai/inference/.well-known/jwks.json"))
+const keys = createRemoteJWKSet(new URL("https://xccode.ai/inference/.well-known/jwks.json"))
 
 export async function sender(request: Request) {
-  const token = request.headers.get("x-opencode-actor")
-  if (!token) throw new Error("Missing x-opencode-actor")
+  const token = request.headers.get("x-xccode-actor")
+  if (!token) throw new Error("Missing x-xccode-actor")
   const { payload } = await jwtVerify(token, keys, {
-    issuer: "https://opencode.ai/inference",
+    issuer: "https://xccode.ai/inference",
     audience: "https://llm.example.com/v1",
     algorithms: ["ES256"],
-    typ: "opencode-actor+jwt",
+    typ: "xccode-actor+jwt",
     maxTokenAge: "120s",
     clockTolerance: "5s",
   })
@@ -208,4 +208,4 @@ To rotate a key, click the credential on the provider page and enter the new one
 The provider bills you for tokens; Console does not charge credits for them. Console still records each request and
 its cost using the model's pricing, so usage reports and [budgets](/console/budgets) include it.
 
-To call a provider from your own tools instead of OpenCode, use the [Providers API](/console/api/providers).
+To call a provider from your own tools instead of Xccode, use the [Providers API](/console/api/providers).

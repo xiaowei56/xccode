@@ -9,7 +9,7 @@ export default definePty({
   args: [],
   cols: 100,
   rows: 30,
-  env: { OPENCODE_CLI_CONFIG_CONTENT: config },
+  env: { XCCODE_CLI_CONFIG_CONTENT: config },
   server: {
     fallback: "tui",
     routes: catalog.map((route) => (route.path === "/api/model" ? { ...route, delay: 4000 } : route)),

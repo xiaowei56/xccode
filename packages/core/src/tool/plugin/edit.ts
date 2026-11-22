@@ -6,8 +6,8 @@
  */
 export * as EditTool from "./edit.js"
 
-import type { Context } from "@opencode/plugin/effect/plugin"
-import { ToolFailure } from "@opencode/ai/effect"
+import type { Context } from "@xccode/plugin/effect/plugin"
+import { ToolFailure } from "@xccode/ai/effect"
 import { Effect, Schema } from "effect"
 import { Config } from "../../config.js"
 import { ConfigEntryObserver } from "../../config/plugin/entry-observer.js"
@@ -256,7 +256,7 @@ const countBefore = (positions: number[], offset: number) => {
 // TODO: Add LSP notification and diagnostics after LSP runtime exists.
 
 export const Plugin = {
-  id: "opencode.tool.edit",
+  id: "xccode.tool.edit",
   effect: Effect.fn("EditTool.Plugin")(function* (ctx: Context) {
     const fileMutation = yield* FileMutation.Service
     const fileWrite = yield* FileWrite.Service

@@ -15,7 +15,7 @@ export default definePty({
   args: [],
   cols: 120,
   rows: 30,
-  env: { ...home.env, OPENCODE_CLI_CONFIG_CONTENT: config },
+  env: { ...home.env, XCCODE_CLI_CONFIG_CONTENT: config },
   server: {
     ...home.server,
     routes: [

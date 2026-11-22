@@ -2,7 +2,7 @@
 // "1 shell" opens the composer on the Shell tab, and a click on a tab label switches to it.
 import { assistant, defineApp, location, session, user } from "../../lib/app"
 
-const directory = "/tmp/opencode/packages/tui"
+const directory = "/tmp/xccode/packages/tui"
 
 const shell = {
   id: "sh_1",

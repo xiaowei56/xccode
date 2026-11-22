@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "የማህደረ ትውስታ ምርመራ፡ በየ30 ሰከንዱ የመተግበሪያውን ማህደረ ትውስታ ወደ ዴስክቶፕ ምዝግብ ማስታወሻዎች ይመዘግባል። እስኪጠፋ ድረስ በዳግም ማስጀመሮች ውስጥ እንደበራ ይቆያል፤ በሚሰራበት ጊዜ አሞሌው ክፍት ሆኖ ይቆያል።",
-  "memory.tipEnv": "ለዚህ ማስጀመሪያ የማህደረ ትውስታ ምርመራ በርቷል፡ OPENCODE_DESKTOP_MEMORY_LOG ተቀምጧል።",
+  "memory.tipEnv": "ለዚህ ማስጀመሪያ የማህደረ ትውስታ ምርመራ በርቷል፡ XCCODE_DESKTOP_MEMORY_LOG ተቀምጧል።",
   "memory.env": "ENV",
   "motion.label": "ማስተካከያዎች",
   "motion.title": "ማስተካከያዎች",

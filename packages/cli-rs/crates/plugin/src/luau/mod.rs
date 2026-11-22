@@ -25,7 +25,7 @@ use crate::loader::approval::Artifact;
 use crate::{Definition, ErrorFn};
 
 /// The run-time flag that turns Luau plugins on, in a build with the feature.
-pub const FLAG: &str = "OPENCODE_PLUGIN_LUAU";
+pub const FLAG: &str = "XCCODE_PLUGIN_LUAU";
 
 /// A Luau plugin's manifest file.
 pub const MANIFEST: &str = "plugin.toml";
@@ -66,7 +66,7 @@ pub fn approves(artifact: &Artifact) -> bool {
     artifact.sha256.starts_with(TAG)
 }
 
-/// Luau plugins load unless `OPENCODE_PLUGIN_LUAU` is `0`, `false` or `off`.
+/// Luau plugins load unless `XCCODE_PLUGIN_LUAU` is `0`, `false` or `off`.
 pub fn enabled() -> bool {
     !crate::turned_off(std::env::var_os(FLAG).as_deref())
 }
@@ -198,7 +198,7 @@ impl Manifest {
         }
         let id = fields.remove("id").filter(|id| !id.is_empty()).ok_or("plugin.toml names no id")?;
         if let Some(contract) = fields.get("contract").filter(|contract| contract.split('.').next() != Some("2")) {
-            return Err(format!("plugin.toml asks for contract {contract}; this opencode-native serves 2.x"));
+            return Err(format!("plugin.toml asks for contract {contract}; this xccode-native serves 2.x"));
         }
         let entry = fields.remove("entry").unwrap_or_else(|| "init.luau".to_owned());
         if !entry.ends_with(".luau") || entry.split('/').any(|part| part.is_empty() || part == "..") {
@@ -394,7 +394,7 @@ fn lock<T>(mutex: &Mutex<T>) -> std::sync::MutexGuard<'_, T> {
 pub fn idle_memory(sources: &Sources) -> Result<usize, String> {
     let manifest = Manifest::parse(sources.text(MANIFEST)?)?;
     let compiled = Rc::new(vm::Compiled::new(sources, &manifest.id, &manifest.entry)?);
-    let mut registered = opencode_plugin_abi::Registered::new(&manifest.id, None);
+    let mut registered = xccode_plugin_abi::Registered::new(&manifest.id, None);
     let limit = crate::contain::Limits::default().overrun;
     let plugin = bind::setup(&compiled, &mut registered.setup(), limit, MEMORY, None)?;
     let vm = plugin.vm.borrow();

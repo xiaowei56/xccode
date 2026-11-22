@@ -3,8 +3,8 @@ import { Router, useCurrentMatches, useLocation } from "@solidjs/router"
 import { FileRoutes } from "@solidjs/start/router"
 import { type JSX, Show, Suspense } from "solid-js"
 import { isServer } from "solid-js/web"
-import { Favicon } from "@opencode/ui/favicon"
-import { Font } from "@opencode/ui/font"
+import { Favicon } from "@xccode/ui/favicon"
+import { Font } from "@xccode/ui/font"
 import "./style/ibm-plex-mono.dev.css"
 import "./style/fonts.css"
 import "./app.css"
@@ -48,7 +48,7 @@ function AppMeta() {
   const notFound = () => matches().some((match) => match.route.pattern.includes("404"))
   return (
     <>
-      <Title>opencode</Title>
+      <Title>xccode</Title>
       <LiveMeta name="viewport" content={viewportContent()} />
       {/* Defaults, skipped on pages that set their own: the server renders both tags, which would compete. */}
       <Show when={!ownDescription(strip(location.pathname))}>

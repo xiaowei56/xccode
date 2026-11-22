@@ -1,5 +1,5 @@
-// Writes crates/plugin/src/luau/opencode/plugin.luau: the types of a Luau plugin, as a stub of the module
-// `@opencode/plugin` that luau-analyze and luau-lsp resolve through a `.luaurc` alias (a definitions file cannot type a
+// Writes crates/plugin/src/luau/xccode/plugin.luau: the types of a Luau plugin, as a stub of the module
+// `@xccode/plugin` that luau-analyze and luau-lsp resolve through a `.luaurc` alias (a definitions file cannot type a
 // `require`). Every definition of contract 2.0's schema (crates/plugin-abi/schema/v2.json, which plugin-schema.ts
 // writes first) becomes an `export type`, so a Luau plugin's tables are the contract's own shapes; the module and the
 // `setup`, `read`, `host` and `view` objects are written here by hand, as crates/plugin/src/luau/bind.rs binds them.
@@ -304,7 +304,7 @@ const reads = `    themeMode: (self: Read) -> "dark" | "light",
     models: (self: Read, location: LocationRef?) -> { ${server("Model.Info")} }?,
     --- The providers where the TUI works; \`nil\` while they are not loaded.
     providers: (self: Read) -> { ${server("Provider.Info")} }?,
-    --- The OpenCode Console workspace's usage limits; \`nil\` while they are not loaded.
+    --- The Xccode Console workspace's usage limits; \`nil\` while they are not loaded.
     limits: (self: Read) -> ${server("UsageLimits.Info")}?,
     model: (self: Read) -> ${server("Model.Ref")}?,
     info: (self: Read) -> Info,
@@ -463,7 +463,7 @@ export type BoxProps = ${props(schema.$defs.Node, ["type", "row", "children"], "
 --- and the error. Only a task can call one.
 export type Client = ${client("")}
 
---- \`require("@opencode/plugin")\`.
+--- \`require("@xccode/plugin")\`.
 export type Plugin = {
     contract: string,
     client: Client,
@@ -521,14 +521,14 @@ export type Json = {
 `
 
 const header = `--!strict
--- OpenCode plugin contract ${schema["x-abi"].major}.${schema["x-abi"].minor}: the types of a Luau plugin, as the module \`@opencode/plugin\`.
+-- Xccode plugin contract ${schema["x-abi"].major}.${schema["x-abi"].minor}: the types of a Luau plugin, as the module \`@xccode/plugin\`.
 -- Generated from crates/plugin-abi/schema/v2.json by \`bun run generate\` (script/gen/plugin-types-luau.ts). Do not edit.
 --
 -- The host registers the real module; this file only types it for luau-analyze and luau-lsp. Point the alias
--- \`opencode\` at this directory in a \`.luaurc\` beside your plugin or above it:
---   { "languageMode": "strict", "aliases": { "opencode": "<path to crates/plugin/src/luau/opencode>" } }
+-- \`xccode\` at this directory in a \`.luaurc\` beside your plugin or above it:
+--   { "languageMode": "strict", "aliases": { "xccode": "<path to crates/plugin/src/luau/xccode>" } }
 -- then \`luau-analyze --formatter=gnu <your .luau files>\` or open the plugin in luau-lsp. At run time the host keeps
--- \`@opencode\` its own whatever a \`.luaurc\` says, and reads no \`.luaurc\` outside the plugin. Require your own modules
+-- \`@xccode\` its own whatever a \`.luaurc\` says, and reads no \`.luaurc\` outside the plugin. Require your own modules
 -- by Luau's rules: \`@self/x\` in \`init.luau\`, \`./x\` in the other modules.
 --
 -- A handler that acts is a task: \`local ok = host:confirm({ ... })\` and \`local body, err = host:fetch({ ... })\` wait in
@@ -579,7 +579,7 @@ const served = [
   ...[...written.keys()].toSorted().map((name) => written.get(name)!),
 ]
 
-const file = `${root}crates/plugin/src/luau/opencode/plugin.luau`
+const file = `${root}crates/plugin/src/luau/xccode/plugin.luau`
 await Bun.write(
   file,
   `${header}\n${generated.join("\n")}\n-- The HTTP API's types (packages/protocol/openapi.json) ${"-".repeat(57)}\n\n${served.join("\n")}\n${api}${footer}`,

@@ -1,8 +1,8 @@
-import type { SessionMessageAssistantTool } from "@opencode/client/promise"
-import { AnimatedNumber } from "@opencode/ui/animated-number"
-import { Badge } from "@opencode/ui/badge"
-import { type UiI18n, useI18n } from "@opencode/ui/context/i18n"
-import { TextShimmer } from "@opencode/ui/text-shimmer"
+import type { SessionMessageAssistantTool } from "@xccode/client/promise"
+import { AnimatedNumber } from "@xccode/ui/animated-number"
+import { Badge } from "@xccode/ui/badge"
+import { type UiI18n, useI18n } from "@xccode/ui/context/i18n"
+import { TextShimmer } from "@xccode/ui/text-shimmer"
 import { createMemo, For, Index, Match, Show, Switch } from "solid-js"
 import { BasicTool } from "../../components/basic-tool"
 import {
@@ -441,7 +441,7 @@ function SkillsItem(props: { tools: SessionMessageAssistantTool[] }) {
     }),
   )
 
-  const marker = "__OPENCODE_LOADED_SKILL__"
+  const marker = "__XCCODE_LOADED_SKILL__"
   const loaded = createMemo(() => i18n.plural("ui.tool.loadedSkills", skills().length, { name: marker }))
 
   return (

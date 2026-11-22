@@ -1,12 +1,12 @@
 // P-WIRE: runs each ACP subprocess suite of `packages/cli/test/acp` against the TS agent and
-// against `opencode-native acp`, records every agent's JSON-RPC traffic, and compares the transcripts.
+// against `xccode-native acp`, records every agent's JSON-RPC traffic, and compares the transcripts.
 //
 //   bun run parity/acp/run.ts [suite ...]
 //
 // A suite is a `*.subprocess.test.ts` file name, with or without the suffix; without names it runs them
-// all. Both sides run through `record.sh` (OPENCODE_ACP_TEST_BIN), which records `in.ndjson` (client to
+// all. Both sides run through `record.sh` (XCCODE_ACP_TEST_BIN), which records `in.ndjson` (client to
 // agent) and `out.ndjson` (agent to client) per agent process under
-// `$TMPDIR/opencode-parity/acp/<suite>-<side>/`. The n-th process of one side is compared with the n-th
+// `$TMPDIR/xccode-parity/acp/<suite>-<side>/`. The n-th process of one side is compared with the n-th
 // of the other, each direction on its own, so the interleaving of the two directions does not matter.
 // Lines are compared byte for byte, key order included, after the normalizers of `parity/cli`
 // and with the fixture's temporary root replaced.
@@ -55,7 +55,7 @@ const failed = await suites.reduce(async (previous, suite) => {
 process.exit(failed ? 1 : 0)
 
 async function runSuite(suite: string, side: Side) {
-  const dir = path.join(tmpdir(), "opencode-parity/acp", `${suite}-${side}`)
+  const dir = path.join(tmpdir(), "xccode-parity/acp", `${suite}-${side}`)
   await rm(dir, { recursive: true, force: true })
   await mkdir(dir, { recursive: true })
   // A suite whose server can take either of two correct paths gets a preload that fixes the fixture's timing.
@@ -65,13 +65,13 @@ async function runSuite(suite: string, side: Side) {
     cwd: cli,
     env: {
       ...process.env,
-      OPENCODE_ACP_TEST_BIN: path.join(import.meta.dir, "record.sh"),
+      XCCODE_ACP_TEST_BIN: path.join(import.meta.dir, "record.sh"),
       ACP_RECORD_DIR: dir,
       ACP_RECORD_TARGET:
         side === "ts"
           ? `${process.execPath} run src/index.ts`
-          : (process.env.OPENCODE_RS_BIN ?? path.join(rs, "target/debug/opencode-native")),
-      ...(side === "rs" ? { OPENCODE_TS_BIN: path.join(import.meta.dir, "opencode-ts") } : {}),
+          : (process.env.XCCODE_RS_BIN ?? path.join(rs, "target/debug/xccode-native")),
+      ...(side === "rs" ? { XCCODE_TS_BIN: path.join(import.meta.dir, "xccode-ts") } : {}),
     },
     stdout: "pipe",
     stderr: "pipe",
@@ -127,7 +127,7 @@ function messages(text: string) {
         [/\/shell\/[0-9a-f]{40}\//g, "/shell/<hash>/"] as const,
       ].reduce(
         (current, [pattern, replacement]) => current.replaceAll(pattern, replacement),
-        normalize(line.replaceAll(/(?:\/[\w.-]+)*\/opencode-cli-acp-[A-Za-z0-9]+/g, "<root>"), { root: "<root>" }),
+        normalize(line.replaceAll(/(?:\/[\w.-]+)*\/xccode-cli-acp-[A-Za-z0-9]+/g, "<root>"), { root: "<root>" }),
       ),
     )
 }

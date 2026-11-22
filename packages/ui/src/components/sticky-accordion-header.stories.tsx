@@ -1,5 +1,5 @@
 import { createEffect, createSignal } from "solid-js"
-import { Accordion } from "@opencode/ui/accordion"
+import { Accordion } from "@xccode/ui/accordion"
 import { StickyAccordionHeader } from "./sticky-accordion-header"
 
 const docs = `### Overview

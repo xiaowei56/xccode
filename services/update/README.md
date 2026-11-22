@@ -1,26 +1,26 @@
-# OpenCode Update
+# Xccode Update
 
 The update Worker serves all selected artifacts for a channel.
 
 ```sh
-curl 'https://opencode.ai/update/api/latest'
-curl 'https://opencode.ai/update/api/latest/cli'
-curl 'https://opencode.ai/update/api/latest/cli/npm'
+curl 'https://xccode.ai/update/api/latest'
+curl 'https://xccode.ai/update/api/latest/cli'
+curl 'https://xccode.ai/update/api/latest/cli/npm'
 ```
 
-The Worker serves only `opencode.ai/update/*`; any other host or path returns 404.
+The Worker serves only `xccode.ai/update/*`; any other host or path returns 404.
 
 ## Desktop update feeds
 
 Electron updater manifests are available at `/api/<channel>/desktop/<distribution>/<filename>`:
 
 ```sh
-curl 'https://opencode.ai/update/api/beta/desktop/opencode/latest-mac.yml'
+curl 'https://xccode.ai/update/api/beta/desktop/xccode/latest-mac.yml'
 ```
 
 Use `latest.yml` for Windows, `latest-mac.yml` for macOS, `latest-linux.yml` for Linux x64,
 and `latest-linux-arm64.yml` for Linux ARM64. The distribution selects the stored download
-URLs (`opencode` or `github`). Each manifest includes the selected artifact's version,
+URLs (`xccode` or `github`). Each manifest includes the selected artifact's version,
 file URLs, SHA-512 checksums, sizes, and release date. Existing minimum-version selection
 and `current`/User-Agent handling also apply to these feeds.
 
@@ -59,8 +59,8 @@ cannot set a minimum and lookups ignore any existing preview minimum; the admin 
 still lets you clear one.
 
 Clients send their running version as `?current=<version>` and use the CLI's default
-`User-Agent: opencode/<channel>/<version>/cli`. When `current` is absent, the service
-parses that User-Agent or the older `opencode/<version>` format.
+`User-Agent: xccode/<channel>/<version>/cli`. When `current` is absent, the service
+parses that User-Agent or the older `xccode/<version>` format.
 The caller's channel comes from the default User-Agent, or from a preview version
 such as `0.0.0-beta-18955` when that channel is absent. If an identified caller channel
 differs from the requested channel, the service serves the active release without
@@ -77,10 +77,10 @@ channel transparently resolves to `beta` for older clients.
 
 Choose a minimum that older clients can install and that can itself consume the active
 release. For the CLI package migration, retain a package-aware release published as
-`@opencode-ai/cli` as the minimum before activating releases under `@opencode/cli`.
+`@xccode-ai/cli` as the minimum before activating releases under `@xccode/cli`.
 
 The admin pages are protected by the `update-admin-production` Cloudflare Access application
-on `opencode.ai/update/admin*`. The Worker also verifies the Access JWT
+on `xccode.ai/update/admin*`. The Worker also verifies the Access JWT
 (`Cf-Access-Jwt-Assertion` or the `CF_Authorization` cookie) against that application's
 audience on every admin route and returns 403 without a valid one. Admin mutations log
 the authenticated email.
@@ -109,22 +109,22 @@ has a single public deployment.
 ## Publishing
 
 The release workflow also registers direct binary downloads with distribution
-`opencode`, after uploading every file to the public files bucket:
+`xccode`, after uploading every file to the public files bucket:
 
 ```sh
-curl 'https://opencode.ai/update/api/dev/cli/opencode'
-curl 'https://opencode.ai/update/api/dev/cli-node/opencode'
-curl 'https://opencode.ai/update/api/latest/desktop/opencode'
+curl 'https://xccode.ai/update/api/dev/cli/xccode'
+curl 'https://xccode.ai/update/api/dev/cli-node/xccode'
+curl 'https://xccode.ai/update/api/latest/desktop/xccode'
 ```
 
 `metadata.files` maps each filename to its direct
-`https://opencode.ai/files/bin/<version>/<filename>` URL, SHA-256 checksum, and
+`https://xccode.ai/files/bin/<version>/<filename>` URL, SHA-256 checksum, and
 byte size. Desktop records additionally contain `metadata.manifests`, with
 the CDN URLs and SHA-512 checksums computed from the final signed files. Existing `npm`,
 `github`, and `aur` distributions are published independently.
 
-GitHub Actions publishes artifacts through `POST https://opencode.ai/update/api/publish`
-using a short-lived OIDC token with audience `https://update.opencode.ai` (an identifier only;
+GitHub Actions publishes artifacts through `POST https://xccode.ai/update/api/publish`
+using a short-lived OIDC token with audience `https://update.xccode.ai` (an identifier only;
 that hostname is not served). The Worker accepts only tokens signed by
 GitHub for repository ID `975734319`, owner ID `66570915`, `.github/workflows/release.yml`
 and environment `release`. Pushes to `dev` may publish only to `dev`; only a

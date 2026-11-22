@@ -1,7 +1,7 @@
 //! Subagent tree and session selection.
 
-use opencode_api::generated::{SessionInfo, SessionInterruptInput};
-use opencode_store::SessionStatus;
+use xccode_api::generated::{SessionInfo, SessionInterruptInput};
+use xccode_store::SessionStatus;
 use opentui::prelude::Container;
 use regex::Regex;
 use std::sync::LazyLock;
@@ -238,8 +238,8 @@ fn entry(session: &SessionInfo, prefix: String, current: &SessionID, status: Ses
     let title = crate::dialogs::session_list::title(session);
     let found = AGENT.captures(&title);
     let agent = match (&session.agent, &found) {
-        (Some(agent), _) => opencode_ui::tool_info::titlecase(&agent.0),
-        (None, Some(found)) => opencode_ui::tool_info::titlecase(&found[1]),
+        (Some(agent), _) => xccode_ui::tool_info::titlecase(&agent.0),
+        (None, Some(found)) => xccode_ui::tool_info::titlecase(&found[1]),
         (None, None) => "Subagent".to_owned(),
     };
     let title = match &found {

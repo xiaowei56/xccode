@@ -4,7 +4,7 @@
 // Each dialog event moves `revision`, and handling a dialog closes only the revision it answered: a dialog the page
 // opens right after stays open. The user (in the pane) and the agent (browser.dialog) answer the same dialog: the
 // first to start answering a revision does, and the other finds it closed.
-import type { Browser } from "@opencode/plugin-browser/rpc"
+import type { Browser } from "@xccode/plugin-browser/rpc"
 
 export type DialogInfo = { readonly type: string; readonly message: string; readonly defaultValue: string }
 

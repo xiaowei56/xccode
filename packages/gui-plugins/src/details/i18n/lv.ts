@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Dzēst darbkoku",
   "mcp.manage": "Pārvaldīt MCP serverus",
   timedOut: "Serveris pārāk ilgi neatbildēja",
-  "setup.mcp": "Pievienot serveri ar OpenCode",
+  "setup.mcp": "Pievienot serveri ar Xccode",
   "setup.mcp.prompt":
-    "Palīdzi man pievienot MCP serveri manai globālajai OpenCode konfigurācijai. Pajautā, kuru pakalpojumu vēlos savienot, tad iestati to un pārbaudi, vai tas savienojas.",
-  "setup.plugins": "Pievienot spraudni ar OpenCode",
+    "Palīdzi man pievienot MCP serveri manai globālajai Xccode konfigurācijai. Pajautā, kuru pakalpojumu vēlos savienot, tad iestati to un pārbaudi, vai tas savienojas.",
+  "setup.plugins": "Pievienot spraudni ar Xccode",
   "setup.plugins.prompt":
-    "Palīdzi man pievienot spraudni manai globālajai OpenCode konfigurācijai. Pajautā, ko tam vajadzētu darīt, iesaki spraudni un tad pievieno to.",
-  "setup.skills": "Jauna prasme ar OpenCode",
+    "Palīdzi man pievienot spraudni manai globālajai Xccode konfigurācijai. Pajautā, ko tam vajadzētu darīt, iesaki spraudni un tad pievieno to.",
+  "setup.skills": "Jauna prasme ar Xccode",
   "setup.skills.prompt":
-    "Palīdzi man uzrakstīt jaunu OpenCode prasmi manā globālajā konfigurācijā. Pajautā, ko tai vajadzētu tev iemācīt, tad uzraksti tās SKILL.md.",
+    "Palīdzi man uzrakstīt jaunu Xccode prasmi manā globālajā konfigurācijā. Pajautā, ko tai vajadzētu tev iemācīt, tad uzraksti tās SKILL.md.",
   changesFailed: "Neizdevās ielādēt izmaiņas",
   changesOffline: "Nevar sasniegt šo serveri",
   "mcp.signIn": "Pierakstīties",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "{{name}} detaļas",
   "mcp.signIn.open": "Pierakstīties pakalpojumā {{name}}",
   "mcp.signIn.description":
-    "Tiks atvērta pārlūkprogramma, lai jūs varētu pierakstīties pakalpojumā {{name}}. Ja tā nevar sasniegt datoru, kurā darbojas OpenCode, ielīmējiet zemāk URL, uz kuru tā tika novirzīta.",
+    "Tiks atvērta pārlūkprogramma, lai jūs varētu pierakstīties pakalpojumā {{name}}. Ja tā nevar sasniegt datoru, kurā darbojas Xccode, ielīmējiet zemāk URL, uz kuru tā tika novirzīta.",
   "mcp.signIn.waiting": "Gaida autorizāciju…",
   "mcp.signIn.failed": "Autorizācija neizdevās: {{error}}",
   "mcp.signIn.expired": "Autorizācijas termiņš beidzies",

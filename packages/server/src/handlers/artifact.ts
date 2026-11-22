@@ -1,9 +1,9 @@
-import { Artifact } from "@opencode/core/artifact"
-import { KV } from "@opencode/core/kv"
-import { Location } from "@opencode/core/location"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
+import { Artifact } from "@xccode/core/artifact"
+import { KV } from "@xccode/core/kv"
+import { Location } from "@xccode/core/location"
+import { LocationServiceMap } from "@xccode/core/location-service-map"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Session } from "@xccode/core/session"
 import {
   ArtifactNotFoundError,
   FileNotFoundError,
@@ -11,7 +11,7 @@ import {
   InvalidRequestError,
   ProviderNotFoundError,
   ServiceUnavailableError,
-} from "@opencode/protocol/errors"
+} from "@xccode/protocol/errors"
 import { Effect } from "effect"
 import { type HttpServerRequest, HttpServerResponse } from "effect/http"
 import { HttpApiSchema } from "effect/http-api"
@@ -31,7 +31,7 @@ export const makeArtifact = Effect.gen(function* () {
     if (location?.directory !== undefined) return location.directory
     const query = new URL(request.url, "http://localhost").searchParams.get("location[directory]")
     if (query) return query
-    const header = request.headers["x-opencode-directory"]
+    const header = request.headers["x-xccode-directory"]
     if (!header) return undefined
     try {
       return decodeURIComponent(header)

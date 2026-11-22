@@ -29,7 +29,7 @@ export default {
   "session.copyFailed": "复制会话 ID 失败",
   "memory.label": "MEMLOG",
   "memory.tip": "内存诊断：每 30 秒将应用内存记录到桌面日志。重启后仍保持开启，直到手动关闭；运行期间调试栏保持打开。",
-  "memory.tipEnv": "本次启动已开启内存诊断：已设置 OPENCODE_DESKTOP_MEMORY_LOG。",
+  "memory.tipEnv": "本次启动已开启内存诊断：已设置 XCCODE_DESKTOP_MEMORY_LOG。",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "调节旋钮",

@@ -67,8 +67,8 @@ describe("database", () => {
   test.each(["symlink", "copy"].filter((link) => link === "copy" || process.platform !== "win32"))(
     "moves aside a drafts.sqlite that is the CLI database (%s) without writing to it",
     (link) => {
-      const root = mkdtempSync(path.join(tmpdir(), "opencode-drafts-cli-"))
-      const cli = path.join(root, "opencode.db")
+      const root = mkdtempSync(path.join(tmpdir(), "xccode-drafts-cli-"))
+      const cli = path.join(root, "xccode.db")
       const drafts = path.join(root, "drafts.sqlite")
       const seeded = new DatabaseSync(cli)
       seeded.exec(

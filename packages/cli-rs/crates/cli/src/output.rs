@@ -1,6 +1,6 @@
 //! Writing to stdout, and how errors end the process.
 
-use opencode_util::error;
+use xccode_util::error;
 use std::io::{ErrorKind, Write};
 
 /// Writes to stdout. A downstream reader closing its pipe is a successful exit.
@@ -30,6 +30,6 @@ pub fn fail(error: error::Error) -> u8 {
     if let Some(exit) = error.downcast_ref::<Exit>() {
         return exit.0;
     }
-    eprintln!("Error: {}", opencode_ui::terminal_text(&format!("{error:#}")));
+    eprintln!("Error: {}", xccode_ui::terminal_text(&format!("{error:#}")));
     1
 }

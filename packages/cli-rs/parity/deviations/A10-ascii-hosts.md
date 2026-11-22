@@ -7,12 +7,12 @@ Rust: the `url` crate is built with the `idna_adapter` 1.0.0 stub (pinned in the
 `Cargo.toml`, used by `crates/api`), which turns IDNA off. A host with a non-ASCII character fails
 to parse. A punycode host (`https://xn--bcher-kva.example`) and every ASCII host parse as before.
 
-Every URL a user types goes through one parse boundary, `opencode_api::js::parse_url`, which
+Every URL a user types goes through one parse boundary, `xccode_api::js::parse_url`, which
 rejects a host that is not ASCII after percent-decoding before `url` sees it (the stub asserts on
 some such hosts, for example `https://Bücher.example`). The message is "<url>: a host name must be
 ASCII; write an international name in its punycode (xn--) form", from:
 
-- `--server` and any other base URL given to `opencode_api::Client`;
+- `--server` and any other base URL given to `xccode_api::Client`;
 - `auth login <url>`, `mcp add --url`, `session import <url>` and opening a link in the TUI;
 - `pair --url`, as a usage error: "Invalid value for flag --url: "<url>". Expected: a host name
   must be ASCII; ...";
@@ -32,7 +32,7 @@ and `clippy.toml` forbids calling `url`'s parsers anywhere else:
 - an OTLP endpoint (`OTEL_EXPORTER_OTLP_ENDPOINT`) with a non-ASCII host exports nothing;
 - a redirect whose `Location` has a non-ASCII host fails the request with the message above,
   where Bun's `fetch` follows it to the punycode host. Requests follow redirects in
-  `opencode_api::transport::fetch`, which resolves `Location` with `join_url`; `clippy.toml`
+  `xccode_api::transport::fetch`, which resolves `Location` with `join_url`; `clippy.toml`
   forbids reqwest's own `send` and `execute`. reqwest still resolves `Location` itself before it
   consults its redirect policy, so the root `Cargo.toml` turns off debug assertions in `idna` and
   `idna_adapter`; the result of that parse is discarded.

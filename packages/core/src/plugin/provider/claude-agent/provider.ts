@@ -1,7 +1,7 @@
 export * as ClaudeProvider from "./provider.js"
 
 import type { AccountInfo } from "@anthropic-ai/claude-agent-sdk"
-import type { Context } from "@opencode/plugin/effect/plugin"
+import type { Context } from "@xccode/plugin/effect/plugin"
 import { Effect, Option, Schema, Stream, SubscriptionRef } from "effect"
 import { Model } from "../../../model.js"
 import { Provider } from "../../../provider.js"
@@ -11,9 +11,9 @@ import { ClaudeQueryOptions } from "./claude/query-options.js"
 import type { ClaudeStatus } from "./claude/status.js"
 
 export const ID = Provider.ID.claudeAgent
-export const PACKAGE = "@opencode/claude-agent"
+export const PACKAGE = "@xccode/claude-agent"
 
-// The model list we keep between starts, so opencode can list models without running `claude`
+// The model list we keep between starts, so xccode can list models without running `claude`
 const CatalogModel = Schema.Struct({
   id: Schema.String,
   name: Schema.String,
@@ -30,7 +30,7 @@ const Catalog = Schema.Struct({
 type Catalog = typeof Catalog.Type
 const CATALOG_KEY = "models"
 
-// Mantle is Bedrock serving Anthropic's API, and opencode drops most of its `anthropic.…` IDs from Bedrock's list,
+// Mantle is Bedrock serving Anthropic's API, and xccode drops most of its `anthropic.…` IDs from Bedrock's list,
 // so it uses Anthropic's prices.
 const PRICE_SOURCES: Partial<Record<NonNullable<AccountInfo["apiProvider"]>, Provider.ID>> = {
   firstParty: Provider.ID.anthropic,
@@ -116,7 +116,7 @@ export const configDirs = Effect.fn("ClaudeProvider.configDirs")(function* (ctx:
 // ID keeps it when Claude Code lists it under another.
 // Context windows only come from the full check, so a chat's startup report keeps the saved ones.
 function fromClaude(models: readonly ClaudeProbe.Model[], saved: readonly CatalogModel[]): CatalogModel[] {
-  // "default" follows Claude Code's own default, which can change under a running opencode session
+  // "default" follows Claude Code's own default, which can change under a running xccode session
   const listed = models.filter((model) => model.value !== "default")
   const result = new Map<string, CatalogModel>()
   for (const model of listed) {
@@ -165,14 +165,14 @@ function toModel(model: CatalogModel, prices: ReadonlyMap<string, Model.Info> | 
   return {
     ...defaults,
     name: model.name,
-    // The SDK reports context windows before a prompt, but not output limits. 0 means unknown in OpenCode.
+    // The SDK reports context windows before a prompt, but not output limits. 0 means unknown in Xccode.
     limit: { context: model.contextWindow ?? defaults.limit.context, output: 0 },
-    // OpenCode picks the title model by family (Model.small).
+    // Xccode picks the title model by family (Model.small).
     family: model.id.includes("haiku") ? Model.Family.make("claude-haiku") : undefined,
     capabilities: { tools: true, input: ["text", "image", "pdf"], output: ["text"] },
     variants: model.efforts.map((effort) => ({ id: Model.VariantID.make(effort), settings: { effort } })),
     cost: priced?.cost ?? [],
-    // opencode keeps a deprecated model out of its pickers and still runs chats on it
+    // xccode keeps a deprecated model out of its pickers and still runs chats on it
     status: model.hidden ? "deprecated" : defaults.status,
   }
 }

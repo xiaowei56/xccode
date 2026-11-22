@@ -58,7 +58,7 @@ impl Panels {
             crate::frame::refresh(tui);
             tui.app.defer(bind!(tui, |tui, _| {
                 if tui.app.focused().is_none() {
-                    opencode_plugin::Host::focus_composer(&*tui);
+                    xccode_plugin::Host::focus_composer(&*tui);
                 }
             }));
         }
@@ -85,7 +85,7 @@ impl Panels {
 pub struct Host {
     pub root: View,
     target: Target,
-    content: Option<opencode_plugin::PanelMount>,
+    content: Option<xccode_plugin::PanelMount>,
 }
 
 impl Host {

@@ -3,13 +3,13 @@
 use std::cell::{Cell, RefCell};
 use std::sync::LazyLock;
 
-use opencode_local::cli_config::{AttentionSoundName, Info};
+use xccode_local::cli_config::{AttentionSoundName, Info};
 use regex::Regex;
 
 use super::focus::{self, Focus, Skip, When};
 use crate::app::Tui;
 
-const DEFAULT_TITLE: &str = "OpenCode";
+const DEFAULT_TITLE: &str = "Xccode";
 const TITLE_LIMIT: usize = 80;
 const MESSAGE_LIMIT: usize = 240;
 
@@ -145,7 +145,7 @@ mod tests {
 
     fn info(notifications: bool, sound: bool) -> Info {
         Info {
-            attention: Some(opencode_local::cli_config::Attention {
+            attention: Some(xccode_local::cli_config::Attention {
                 notifications: Some(notifications),
                 sound: Some(sound),
                 ..Default::default()
@@ -237,7 +237,7 @@ mod tests {
         let blurred = run_with_sound(&on, Focus::Focused, &sound(AttentionSoundName::Done, When::Blurred, None));
         assert_eq!(blurred.0, skipped(Skip::Focused), "the sound's rule held it back");
         let mut volume = info(false, true);
-        volume.attention.as_mut().unwrap().volume = Some(opencode_local::cli_config::Bounded(0.7));
+        volume.attention.as_mut().unwrap().volume = Some(xccode_local::cli_config::Bounded(0.7));
         let played = run_with_sound(&volume, Focus::Focused, &sound(AttentionSoundName::Done, When::Always, None)).2;
         assert_eq!(played, Some((AttentionSoundName::Done, 0.7)), "attention.volume");
         let failed = decide(
@@ -258,12 +258,12 @@ mod tests {
             ("one  \r\n\t two\nthree", "", 240, "one two three"),
             ("bell\x07 and\x7f\u{85} c1", "", 240, "bell and c1"),
             ("\x1b]8;;https://example.com\x1b\\link\x1b]8;;\x1b\\", "", 240, "link"),
-            ("   ", "OpenCode", 80, "OpenCode"),
+            ("   ", "Xccode", 80, "Xccode"),
             ("ééééé", "", 3, "ééé"),
         ];
         for (input, fallback, limit, expected) in table {
             assert_eq!(normalize_text(Some(input), fallback, limit), expected, "{input:?}");
         }
-        assert_eq!(normalize_text(None, "OpenCode", 80), "OpenCode");
+        assert_eq!(normalize_text(None, "Xccode", 80), "Xccode");
     }
 }

@@ -63,8 +63,8 @@ impl Write {
         children.clear();
         self.paints.clear();
         let filetype = opentui::syntax::filetype_for_path(path);
-        let code = opencode_ui::code::view_painted(cx.app, cx.theme, filetype, content, &self.paints);
-        let numbered = opencode_ui::code::numbered(cx.app, cx.theme, &code);
+        let code = xccode_ui::code::view_painted(cx.app, cx.theme, filetype, content, &self.paints);
+        let numbered = xccode_ui::code::numbered(cx.app, cx.theme, &code);
         children.add(&numbered);
         self.paints.keep(move |theme| {
             numbered.fg(theme.text.muted);

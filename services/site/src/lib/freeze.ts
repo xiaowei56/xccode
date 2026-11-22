@@ -12,9 +12,9 @@
  * Applying what was held is a single reload of the page, which reloads the frames with it.
  */
 
-export const freezeKey = "opencode-site-freeze"
+export const freezeKey = "xccode-site-freeze"
 /** Dispatched on window with the number of held updates. */
-export const freezeEvent = "opencode-site-freeze-pending"
+export const freezeEvent = "xccode-site-freeze-pending"
 
 declare global {
   interface Window {

@@ -1,8 +1,8 @@
 --!strict
--- The P0b title plugin for opencode-native: `/p0btitle` and `/p0blong` set the terminal title, and `/p0brun` and
+-- The P0b title plugin for xccode-native: `/p0btitle` and `/p0blong` set the terminal title, and `/p0brun` and
 -- `/p0btwice` run their input with `sh -c`, once or twice at once. How each program ended becomes the title, which a
 -- terminal's title log keeps where a later toast replaces an earlier one, and a toast.
-local plugin = require("@opencode/plugin")
+local plugin = require("@xccode/plugin")
 
 return plugin.define(function(setup)
     local function command(name: string, title: string, slash: string, arguments: boolean?): plugin.CommandSpec

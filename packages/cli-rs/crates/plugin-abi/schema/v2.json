@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "opencode plugin ABI 2.0",
-  "description": "Generated from opencode_plugin_abi by `examples/schema.rs`; do not edit. Normative for every binding: a plugin registers a Manifest; the host's `call` sends a Request and the plugin's sends a HostRequest, each answered as `x-messages` says by the request's type; a view answers a ViewReply whose tree is a Node, and a draw a DrawList. A field the schema leaves out of `required` may be left out; a reader ignores a field it does not know. A later 2.x minor only adds optional fields, request types and node kinds. The HTTP API's types are references into its OpenAPI document, `packages/protocol/openapi.json`, relative to this file.",
+  "title": "xccode plugin ABI 2.0",
+  "description": "Generated from xccode_plugin_abi by `examples/schema.rs`; do not edit. Normative for every binding: a plugin registers a Manifest; the host's `call` sends a Request and the plugin's sends a HostRequest, each answered as `x-messages` says by the request's type; a view answers a ViewReply whose tree is a Node, and a draw a DrawList. A field the schema leaves out of `required` may be left out; a reader ignores a field it does not know. A later 2.x minor only adds optional fields, request types and node kinds. The HTTP API's types are references into its OpenAPI document, `packages/protocol/openapi.json`, relative to this file.",
   "x-abi": {
     "major": 2,
     "minor": 0,

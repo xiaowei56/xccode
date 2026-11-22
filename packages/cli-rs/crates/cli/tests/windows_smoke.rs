@@ -22,7 +22,7 @@ const LEAVE_ALT: &str = "\x1b[?1049l";
 fn the_tui_reaches_home_and_ctrl_c_restores_the_terminal() {
     let sandbox = Sandbox::new();
     let server = fake_service(&sandbox.path("work"));
-    let mut command = sandbox.command(env!("CARGO_BIN_EXE_opencode-native"));
+    let mut command = sandbox.command(env!("CARGO_BIN_EXE_xccode-native"));
     command.args(["--server", &server]);
     let run = Run::start(command, 100, 30);
     run.wait(Some("Ask anything"), 500, 30_000).unwrap();
@@ -197,12 +197,12 @@ const CASES: &[Case] = &[
 
 #[test]
 fn the_prompts_run_the_c_p_scenarios() {
-    let out = std::env::var_os("OPENCODE_SMOKE_OUT").map(|dir| Path::new(&dir).join("C.p"));
+    let out = std::env::var_os("XCCODE_SMOKE_OUT").map(|dir| Path::new(&dir).join("C.p"));
     let failures: Vec<String> = CASES
         .iter()
         .filter_map(|case| {
             let sandbox = Sandbox::new();
-            let mut command = sandbox.command(env!("CARGO_BIN_EXE_opencode-prompt-demo"));
+            let mut command = sandbox.command(env!("CARGO_BIN_EXE_xccode-prompt-demo"));
             command.arg(case.demo);
             let run = Run::start(command, case.cols, case.rows);
             let mut checkpoints = serde_json::Map::new();
@@ -235,12 +235,12 @@ fn the_prompts_run_the_c_p_scenarios() {
 
 /// A temporary home with its own XDG roots and temporary directory, as P-PTY's sandbox.
 struct Sandbox {
-    root: opencode_util::temp::TempDir,
+    root: xccode_util::temp::TempDir,
 }
 
 impl Sandbox {
     fn new() -> Self {
-        let sandbox = Self { root: opencode_util::temp::tempdir().unwrap() };
+        let sandbox = Self { root: xccode_util::temp::tempdir().unwrap() };
         for dir in ["home", "config", "data", "state", "cache", "tmp", "work"] {
             std::fs::create_dir_all(sandbox.path(dir)).unwrap();
         }
@@ -255,7 +255,7 @@ impl Sandbox {
         let mut command = Command::new(program);
         command.current_dir(self.path("work"));
         for (name, _) in std::env::vars_os() {
-            if name.to_string_lossy().to_ascii_uppercase().starts_with("OPENCODE_") {
+            if name.to_string_lossy().to_ascii_uppercase().starts_with("XCCODE_") {
                 command.env_remove(name);
             }
         }
@@ -274,7 +274,7 @@ impl Sandbox {
         ] {
             command.env(name, self.path(dir));
         }
-        command.env("OPENCODE_CLI_NAME", "opencode").env("OPENCODE_DISABLE_AUTOUPDATE", "1");
+        command.env("XCCODE_CLI_NAME", "xccode").env("XCCODE_DISABLE_AUTOUPDATE", "1");
         command
     }
 }
@@ -464,7 +464,7 @@ fn reply(method: &str, path: &str, directory: &str) -> (u16, Option<Value>) {
         ("GET", ["api", "experimental", "session", _, "terminal"]) => (200, Some(json!({ "data": [] }))),
         ("POST", ["api", "session", _, "model"]) | (_, ["api", "worktree", "refresh"]) => (204, None),
         ("GET", ["api", "experimental", "migration", "v1"]) => (200, Some(json!({ "status": "completed" }))),
-        (_, ["api", "rpc", "opencode.goal", "get"]) => (200, Some(json!({ "output": null }))),
+        (_, ["api", "rpc", "xccode.goal", "get"]) => (200, Some(json!({ "output": null }))),
         _ => {
             (404, Some(json!({ "_tag": "NotFound", "message": format!("fake service: no route for {method} {path}") })))
         }

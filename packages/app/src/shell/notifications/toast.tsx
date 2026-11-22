@@ -1,5 +1,5 @@
-import { Icon, type IconProps } from "@opencode/ui/icon"
-import { Toast, showToast, type ToastOptions } from "@opencode/ui/toast"
+import { Icon, type IconProps } from "@xccode/ui/icon"
+import { Toast, showToast, type ToastOptions } from "@xccode/ui/toast"
 import { createEffect, type JSX } from "solid-js"
 import { Predicate } from "effect"
 import { useLanguage } from "@/runtime/i18n/language"

@@ -3,7 +3,7 @@ pub mod patch;
 use std::sync::LazyLock;
 
 use indexmap::IndexSet;
-use opencode_util::json_object;
+use xccode_util::json_object;
 use regex::Regex;
 use serde_json::{Value, json};
 

@@ -37,4 +37,4 @@ export function breadcrumbList(items: { name: string; url: string }[]) {
   }
 }
 
-export const openCodeOrganization = { "@type": "Organization", name: "OpenCode", url: "https://opencode.ai" }
+export const xccodeOrganization = { "@type": "Organization", name: "Xccode", url: "https://xccode.ai" }

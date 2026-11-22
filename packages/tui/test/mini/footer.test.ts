@@ -11,7 +11,7 @@ import type { MiniSettingChange, MiniSettings, RunAgent, RunTuiConfig, StreamCom
 import { createTuiResolvedConfig } from "../fixture/tui-runtime"
 import { tmpdir } from "../fixture/fixture"
 import { createFooterApiFixture } from "./fixture/footer-api"
-import { getOpenCodeTheme } from "../../src/theme"
+import { getXccodeTheme } from "../../src/theme"
 
 function progress(input: Partial<StreamCommit> = {}): StreamCommit {
   return {
@@ -383,8 +383,8 @@ test.each([false, true])("production footer preserves wrapped input and status o
 
 test("explicit theme refresh reloads custom colors without a palette event", async () => {
   await using tmp = await tmpdir()
-  const previous = process.env.OPENCODE_CONFIG_DIR
-  process.env.OPENCODE_CONFIG_DIR = tmp.path
+  const previous = process.env.XCCODE_CONFIG_DIR
+  process.env.XCCODE_CONFIG_DIR = tmp.path
   const app = await setup({ mono: false, theme: { name: "mini-refresh", mode: "dark" } })
   app.renderer.getPalette = async () => {
     throw new Error("no OSC response")
@@ -396,8 +396,8 @@ test("explicit theme refresh reloads custom colors without a palette event", asy
       await Bun.write(
         path.join(tmp.path, "themes", "mini-refresh.json"),
         JSON.stringify({
-          base: { ...getOpenCodeTheme().base, text: { ...getOpenCodeTheme().base.text, base: color } },
-          dark: { hue: getOpenCodeTheme().dark.hue },
+          base: { ...getXccodeTheme().base, text: { ...getXccodeTheme().base.text, base: color } },
+          dark: { hue: getXccodeTheme().dark.hue },
         }),
       )
       await app.footer.refreshTheme()
@@ -413,8 +413,8 @@ test("explicit theme refresh reloads custom colors without a palette event", asy
   } finally {
     app.footer.destroy()
     app.renderer.destroy()
-    if (previous === undefined) delete process.env.OPENCODE_CONFIG_DIR
-    else process.env.OPENCODE_CONFIG_DIR = previous
+    if (previous === undefined) delete process.env.XCCODE_CONFIG_DIR
+    else process.env.XCCODE_CONFIG_DIR = previous
   }
 })
 

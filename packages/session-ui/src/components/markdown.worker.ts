@@ -1,8 +1,8 @@
 /// <reference lib="webworker" />
 
 import { codeToTokens, isSupportedLanguage, LiveTokenizer, type ThemedToken } from "@pierre/highlights"
-import { createMarkdownParser } from "@opencode/ui/context/marked-parser"
-import { OpenCodeTheme } from "@opencode/ui/context/highlight-theme"
+import { createMarkdownParser } from "@xccode/ui/context/marked-parser"
+import { XccodeTheme } from "@xccode/ui/context/highlight-theme"
 import {
   diffProjectionBlocks,
   type MarkdownToken,
@@ -101,7 +101,7 @@ function highlight(request: Extract<MarkdownWorkerRequest, { type: "highlight" }
     const lang = isSupportedLanguage(language) ? language : "text"
 
     if (request.complete) {
-      const result = codeToTokens(request.text, { lang, theme: OpenCodeTheme })
+      const result = codeToTokens(request.text, { lang, theme: XccodeTheme })
       closeStream(request.key)
       post({
         type: "highlight",
@@ -127,7 +127,7 @@ function highlight(request: Extract<MarkdownWorkerRequest, { type: "highlight" }
 
     const stream =
       reset || !previous
-        ? { language, source: "", tokenizer: new LiveTokenizer({ lang, theme: OpenCodeTheme }) }
+        ? { language, source: "", tokenizer: new LiveTokenizer({ lang, theme: XccodeTheme }) }
         : previous
 
     // Lines before the last are final because a lexer only carries state forward; the last line can still grow.

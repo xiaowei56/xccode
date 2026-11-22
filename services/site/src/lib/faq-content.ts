@@ -9,7 +9,7 @@ import type { RichText } from "~/lib/markdown"
  * the download section, on every page, doesn't take the home page copy with it.
  */
 export function homeFaq(t: Translate, route: (path: string) => string) {
-  const docs = (path: string) => `https://opencode.ai${docsUrl(path)}`
+  const docs = (path: string) => `https://xccode.ai${docsUrl(path)}`
   return {
     title: t("common.faq"),
     items: [
@@ -25,7 +25,7 @@ export function homeFaq(t: Translate, route: (path: string) => string) {
         question: t("home.faq.q3"),
         answer: rich(
           `${t("home.faq.a3.p1")} ${t("home.faq.a3.p4.beforeLocal")} ${t("home.faq.a3.providers")} ${t("home.faq.a3.models.after")}`,
-          { local: docs("/models/#local"), models: "https://opencode.ai/console/models" },
+          { local: docs("/models/#local"), models: "https://xccode.ai/console/models" },
         ),
       },
       {

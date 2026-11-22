@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Yaddaş diaqnostikası: hər 30 saniyədən bir tətbiqin yaddaşını masaüstü jurnallarına yazır. Söndürülənədək yenidən başlatmalardan sonra da açıq qalır; işlədiyi müddətdə panel açıq qalır.",
-  "memory.tipEnv": "Yaddaş diaqnostikası bu işə salma üçün aktivdir: OPENCODE_DESKTOP_MEMORY_LOG təyin olunub.",
+  "memory.tipEnv": "Yaddaş diaqnostikası bu işə salma üçün aktivdir: XCCODE_DESKTOP_MEMORY_LOG təyin olunub.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

@@ -1,11 +1,11 @@
 //! Code-mode execution details and nested tool calls.
 
-use opencode_api::generated::{SessionMessageAssistantTool, SessionMessageAssistantToolState, ToolContent};
-use opencode_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer};
-use opencode_ui::tool_info::tool_display_metadata;
+use xccode_api::generated::{SessionMessageAssistantTool, SessionMessageAssistantToolState, ToolContent};
+use xccode_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer};
+use xccode_ui::tool_info::tool_display_metadata;
 use opentui::syntax::SyntaxTheme;
 
-use opencode_ui::locale::duration;
+use xccode_ui::locale::duration;
 use opentui::input::strip_ansi_sequences;
 
 use crate::prelude::*;
@@ -56,7 +56,7 @@ pub fn show(tui: &Tui, part: SessionMessageAssistantTool) -> Weak<Live> {
 
 fn view(cx: &Rc<DialogCx>, tui: Weak<Tui>, live: &Rc<Live>, page: Theme) -> View {
     let app = &cx.app;
-    let syntax = opencode_ui::code::syntax_theme(&page);
+    let syntax = xccode_ui::code::syntax_theme(&page);
     let max_height = (u32::from(app.size().1) * 7 / 10).saturating_sub(6).max(3);
 
     let copy: Rc<dyn Fn(Copied)> = {
@@ -176,7 +176,7 @@ fn view(cx: &Rc<DialogCx>, tui: Weak<Tui>, live: &Rc<Live>, page: Theme) -> View
         TuiCommand::inline("o", copy_command(Copied::Output)).title("Copy output").group("Execute"),
     ]));
 
-    opencode_ui::dialog::layout_view(cx, &head, &body, Some(&foot), DIALOG_INSET, 0)
+    xccode_ui::dialog::layout_view(cx, &head, &body, Some(&foot), DIALOG_INSET, 0)
 }
 
 struct Shown {
@@ -319,7 +319,7 @@ fn guttered(
         })
         .collect::<Vec<_>>()
         .join("\n");
-    let code = opencode_ui::code::view(app, theme, syntax, Some(filetype), content)
+    let code = xccode_ui::code::view(app, theme, syntax, Some(filetype), content)
         .wrap(WrapMode::Char)
         .grow(1.0)
         .shrink(1.0)
@@ -342,7 +342,7 @@ fn highlighted(text: &str) -> Option<(String, Option<String>)> {
         ["\n\nWarnings:\n", "\n\nLogs:\n"].iter().filter_map(|marker| text.find(marker)).min().unwrap_or(text.len());
     let json = serde_json::from_str::<Value>(&text[..end]).ok()?;
     let rest = text[end..].trim();
-    Some((opencode_local::jsonc::stringify_pretty(&json), (!rest.is_empty()).then(|| rest.to_owned())))
+    Some((xccode_local::jsonc::stringify_pretty(&json), (!rest.is_empty()).then(|| rest.to_owned())))
 }
 
 fn wrapped_rows(text: Option<&str>, width: usize) -> usize {

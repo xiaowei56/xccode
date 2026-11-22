@@ -3,10 +3,10 @@ import path from "path"
 import { render, useRenderer, useTerminalDimensions } from "@opentui/solid"
 import "./component/spinner-renderable"
 import { Effect, Latch } from "effect"
-import { Service, type Endpoint } from "@opencode/client/effect/service"
-import { OpenCode, type SessionInfo } from "@opencode/client"
-import { Global } from "@opencode/util/global"
-import { noTimeoutFetch } from "@opencode/util/no-timeout-fetch"
+import { Service, type Endpoint } from "@xccode/client/effect/service"
+import { Xccode, type SessionInfo } from "@xccode/client"
+import { Global } from "@xccode/util/global"
+import { noTimeoutFetch } from "@xccode/util/no-timeout-fetch"
 import { ClipboardProvider, useClipboard } from "./context/clipboard"
 import { LogProvider, type LogSink } from "./context/log"
 import { ExitProvider, useExit } from "./context/exit"
@@ -90,10 +90,10 @@ import { PromptHistoryProvider } from "./prompt/history"
 import { FrecencyProvider } from "./prompt/frecency"
 import { PromptStashProvider } from "./prompt/stash"
 import { Toast, ToastProvider, useToast } from "./ui/toast"
-import { isFallbackTitle } from "@opencode/util/session-title-fallback"
+import { isFallbackTitle } from "@xccode/util/session-title-fallback"
 import * as Model from "./util/model"
 import { ArgsProvider, useArgs, type Args } from "./context/args"
-import { openUrl } from "@opencode/util/open"
+import { openUrl } from "@xccode/util/open"
 import { PromptRefProvider, usePromptRef } from "./context/prompt"
 import { Config, ConfigProvider, useConfig } from "./config"
 import { newSessionLocation } from "./config/new-session-location"
@@ -163,13 +163,13 @@ const appBindingCommands = [
   "variant.cycle",
   "variant.list",
   "provider.connect",
-  "opencode.settings",
-  "opencode.status",
-  "opencode.update",
+  "xccode.settings",
+  "xccode.status",
+  "xccode.update",
   "server.pair",
   "service.restart",
   "location.reload",
-  "opencode.debug",
+  "xccode.debug",
   "theme.switch",
   "theme.switch_mode",
   "theme.mode.lock",
@@ -223,7 +223,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
     headers,
     fetch: noTimeoutFetch,
   }
-  const api = OpenCode.make(options)
+  const api = Xccode.make(options)
   const location = yield* Effect.tryPromise(() => api.file.list({ location: { directory: process.cwd() } })).pipe(
     Effect.map((response) => response.location),
     Effect.catch(() => Effect.tryPromise(() => api.location.get())),
@@ -237,7 +237,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
         reconnect: async (signal: AbortSignal) => {
           const endpoint = await managed.reconnect(signal)
           const next = { baseUrl: endpoint.url, headers: Service.headers(endpoint), fetch: noTimeoutFetch }
-          return { api: OpenCode.make(next), url: endpoint.url, headers: next.headers }
+          return { api: Xccode.make(next), url: endpoint.url, headers: next.headers }
         },
         restart: managed.restart,
       }
@@ -273,8 +273,8 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
             }),
           )
         }
-        if (process.env.OPENCODE_DRIVE) {
-          const { Drive } = yield* Effect.promise(() => import("@opencode/simulation/frontend"))
+        if (process.env.XCCODE_DRIVE) {
+          const { Drive } = yield* Effect.promise(() => import("@xccode/simulation/frontend"))
           return yield* Drive.create(options, input.app.version)
         }
         return yield* Effect.acquireRelease(
@@ -367,21 +367,21 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                             >
                               <TuiStartupProvider
                                 value={{
-                                  initialRoute: process.env.OPENCODE_STORY
+                                  initialRoute: process.env.XCCODE_STORY
                                     ? {
                                         type: "plugin",
-                                        id: "opencode.storybook",
+                                        id: "xccode.storybook",
                                         name: "storybook",
-                                        // OPENCODE_STORY=1 opens the index; any other value opens that story.
+                                        // XCCODE_STORY=1 opens the index; any other value opens that story.
                                         data:
-                                          process.env.OPENCODE_STORY === "1"
+                                          process.env.XCCODE_STORY === "1"
                                             ? undefined
-                                            : { story: process.env.OPENCODE_STORY },
+                                            : { story: process.env.XCCODE_STORY },
                                       }
-                                    : process.env.OPENCODE_ROUTE
-                                      ? JSON.parse(process.env.OPENCODE_ROUTE)
+                                    : process.env.XCCODE_ROUTE
+                                      ? JSON.parse(process.env.XCCODE_ROUTE)
                                       : undefined,
-                                  skipInitialLoading: Boolean(process.env.OPENCODE_FAST_BOOT),
+                                  skipInitialLoading: Boolean(process.env.XCCODE_FAST_BOOT),
                                 }}
                               >
                                 <ClipboardProvider value={clipboard}>
@@ -657,14 +657,14 @@ function App() {
     if (!terminalTitleEnabled()) return
 
     if (route.data.type === "home") {
-      setTerminalTitle(renderer, "OpenCode")
+      setTerminalTitle(renderer, "Xccode")
       return
     }
 
     if (route.data.type === "session") {
       const title = session?.title
       if (!title || isFallbackTitle(title)) {
-        setTerminalTitle(renderer, "OpenCode")
+        setTerminalTitle(renderer, "Xccode")
         return
       }
 
@@ -752,7 +752,7 @@ function App() {
     if (config.data.highlights === false) return
     if (route.data.type !== "home" || dialog.stack.length > 0 || promptRef.current?.current.text) return
     if (args.prompt || args.continue || args.sessionID || args.newSessionID) return
-    if (process.env.OPENCODE_DRIVE || process.env.OPENCODE_STORY || process.env.OPENCODE_ROUTE) return
+    if (process.env.XCCODE_DRIVE || process.env.XCCODE_STORY || process.env.XCCODE_ROUTE) return
     void claim(storage, {
       version: app.version,
       count: items.length,
@@ -1049,7 +1049,7 @@ function App() {
       ...(app.highlights?.length
         ? [
             {
-              name: "opencode.highlights",
+              name: "xccode.highlights",
               title: "Show release highlights",
               slash: { name: "highlights" },
               run: () => dialog.replace(() => <DialogHighlights version={app.version} items={app.highlights ?? []} />),
@@ -1058,7 +1058,7 @@ function App() {
           ]
         : []),
       {
-        name: "opencode.settings",
+        name: "xccode.settings",
         title: "Open settings",
         suggested: true,
         slash: { name: "settings" },
@@ -1068,7 +1068,7 @@ function App() {
         category: "System",
       },
       {
-        name: "opencode.status",
+        name: "xccode.status",
         title: "View status",
         slash: { name: "status" },
         run: () => {
@@ -1079,8 +1079,8 @@ function App() {
       ...(updater.open
         ? [
             {
-              name: "opencode.update",
-              title: "Update OpenCode",
+              name: "xccode.update",
+              title: "Update Xccode",
               slash: { name: "update" },
               run: () => updater.open?.("manual"),
               category: "System",
@@ -1134,7 +1134,7 @@ function App() {
         category: "System",
       },
       {
-        name: "opencode.debug",
+        name: "xccode.debug",
         title: "View debug info",
         slash: { name: "debug" },
         run: () => {
@@ -1186,7 +1186,7 @@ function App() {
         name: "docs.open",
         title: "Open docs",
         run: () => {
-          openUrl("https://opencode.ai/docs").catch(() => {})
+          openUrl("https://xccode.ai/docs").catch(() => {})
           dialog.clear()
         },
         category: "System",
@@ -1486,7 +1486,7 @@ function App() {
           <PaneResizeHandle resize={tabsResize} left={tabsResize.size() - 1} />
         </Show>
       </box>
-      <Show when={devtools() && !(route.data.type === "plugin" && route.data.id === "opencode.stats")}>
+      <Show when={devtools() && !(route.data.type === "plugin" && route.data.id === "xccode.stats")}>
         <DevToolsBar />
       </Show>
       <Show when={!startup.skipInitialLoading}>

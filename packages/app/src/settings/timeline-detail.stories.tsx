@@ -1,13 +1,13 @@
 import { Show } from "solid-js"
 import { createStore } from "solid-js/store"
-import { Button } from "@opencode/ui/button"
-import { timelinePresets, type TimelineDetail } from "@opencode/session-ui/timeline/detail"
+import { Button } from "@xccode/ui/button"
+import { timelinePresets, type TimelineDetail } from "@xccode/session-ui/timeline/detail"
 import { SettingsList } from "./list"
 import { TimelineDetailControl } from "./timeline-detail"
 import "./settings.css"
 
 export default {
-  title: "OpenCode/Settings/Timeline detail",
+  title: "Xccode/Settings/Timeline detail",
   id: "settings-timeline-detail",
   args: { preset: "compact" },
   argTypes: { preset: { options: [...timelinePresets.map((preset) => preset.id), "custom"] } },

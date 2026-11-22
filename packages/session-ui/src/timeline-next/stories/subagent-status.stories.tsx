@@ -9,7 +9,7 @@ import type { TimelineEvent } from "../events"
  * follow-up to a running task), completed, failed and stopped.
  */
 export default {
-  title: "OpenCode/Timeline/Subagent status",
+  title: "Xccode/Timeline/Subagent status",
   id: "timeline-subagent-status",
   parameters: { layout: "fullscreen" },
 }

@@ -4,9 +4,9 @@ use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use opencode_api::memory::{Logged, Memory, Route as MemoryRoute};
-use opencode_api::pty::{self, Incoming, Remote};
-use opencode_tui::Deps;
+use xccode_api::memory::{Logged, Memory, Route as MemoryRoute};
+use xccode_api::pty::{self, Incoming, Remote};
+use xccode_tui::Deps;
 use opentui::keymap::RunResult;
 use serde_json::{Value, json};
 
@@ -57,7 +57,7 @@ struct Terminal {
     remotes: Arc<Mutex<Vec<Remote>>>,
     attachments: Arc<Mutex<Vec<String>>>,
     state: PathBuf,
-    _home: opencode_util::temp::TempDir,
+    _home: xccode_util::temp::TempDir,
 }
 
 deref_harness!(Terminal);
@@ -67,7 +67,7 @@ fn mount(persistent_pty: bool, selection: Option<Value>) -> Terminal {
 }
 
 fn mount_at(width: u16, persistent_pty: bool, selection: Option<Value>) -> Terminal {
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let paths = support::home_paths(home.path());
     let tui_state = paths.state.join(CHANNEL).join("tui");
     std::fs::create_dir_all(&tui_state).unwrap();

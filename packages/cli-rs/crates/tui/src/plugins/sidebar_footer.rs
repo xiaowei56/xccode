@@ -1,14 +1,14 @@
 //! Sidebar footer with the session location and dismissible getting-started card.
 
-use opencode_plugin::abi::v2::{Node, Place, Surface};
-use opencode_plugin::abi::{self, Click, Command, Justify, Layout, Placement, Span, Wrap};
-use opencode_plugin::slot;
+use xccode_plugin::abi::v2::{Node, Place, Surface};
+use xccode_plugin::abi::{self, Click, Command, Justify, Layout, Placement, Span, Wrap};
+use xccode_plugin::slot;
 use serde_json::json;
 
 use super::kept;
 
 pub fn plugin() -> abi::Plugin {
-    abi::Plugin { id: "opencode.sidebar.footer", setup }
+    abi::Plugin { id: "xccode.sidebar.footer", setup }
 }
 
 const DISMISS: &str = "sidebar.footer.dismiss";
@@ -45,8 +45,8 @@ fn view(read: &dyn abi::Read, session: &str) -> Node {
     if info.size.1 >= 22 && connected == Some(false) && !dismissed {
         children.push(card());
     }
-    let home = opencode_local::paths::home();
-    let directory = opencode_ui::path::abbreviate_home(&location.directory, &home);
+    let home = xccode_local::paths::home();
+    let directory = xccode_ui::path::abbreviate_home(&location.directory, &home);
     let value = match branch {
         Some(branch) => format!("{directory}:{branch}"),
         None => directory,
@@ -69,7 +69,7 @@ fn card() -> Node {
             Node::text([Span::new("✕")]).fg("text.muted").on_click(Click::command(DISMISS)),
         ])
         .justify(Justify::SpaceBetween),
-        muted("OpenCode includes free models so you can start immediately."),
+        muted("Xccode includes free models so you can start immediately."),
         muted("Connect from 75+ providers to use other models, including Claude, GPT, Gemini etc"),
         Node::row(vec![
             Node::text([Span::new("Connect provider").fg("text.base")]),

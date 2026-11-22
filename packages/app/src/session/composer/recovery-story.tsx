@@ -1,5 +1,5 @@
-import { CurrentSessionProviders, pendingAndQueuedDocument } from "@opencode/session-ui/storybook"
-import { SessionTimeline } from "@opencode/session-ui/timeline"
+import { CurrentSessionProviders, pendingAndQueuedDocument } from "@xccode/session-ui/storybook"
+import { SessionTimeline } from "@xccode/session-ui/timeline"
 import { createSignal, type ParentProps } from "solid-js"
 import { Composer } from "@/composer/composer"
 import { createPromptController } from "@/session/story-model"

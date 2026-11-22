@@ -1,5 +1,5 @@
 import { Option, Schema } from "effect"
-import type { Persisted, Storage } from "@opencode/plugin/gui/main"
+import type { Persisted, Storage } from "@xccode/plugin/gui/main"
 import { method, none, optional, type ApiModule, type Emit, type Wire } from "./api"
 
 /** One extension's items, by key, each as its JSON text. */

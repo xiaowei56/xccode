@@ -1,7 +1,7 @@
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
+import { Icon } from "@xccode/ui/icon"
+import { IconButton } from "@xccode/ui/icon-button"
 import { Show, onMount, untrack } from "solid-js"
-import { usePlugin } from "@opencode/plugin/gui"
+import { usePlugin } from "@xccode/plugin/gui"
 import type definition from "./index"
 import type { FindAction, FindView } from "./ipc"
 

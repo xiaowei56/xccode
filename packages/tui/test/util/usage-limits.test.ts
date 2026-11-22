@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, setSystemTime, test } from "bun:test"
-import type { UsageLimitsBudget, UsageLimitsInfo } from "@opencode/client"
+import type { UsageLimitsBudget, UsageLimitsInfo } from "@xccode/client"
 import {
   formatDollars,
   formatReset,
@@ -28,13 +28,13 @@ const budget = (input: Partial<UsageLimitsBudget> & Pick<UsageLimitsBudget, "id"
 })
 
 const info = (...budgets: UsageLimitsBudget[]): UsageLimitsInfo => ({
-  workspace: { id: "wrk_1", name: "Acme", usageURL: "https://opencode.ai/wrk_1/activity/overview" },
+  workspace: { id: "wrk_1", name: "Acme", usageURL: "https://xccode.ai/wrk_1/activity/overview" },
   budgets,
 })
 
 // One request that fills Sol's context costs $4, so $12 covers three.
-const sol = { id: "gpt-5.6-sol", providerID: "opencode", cost: [{ input: 4 }], limit: { context: 1_000_000 } }
-const served = { id: "opencode", integrationID: "opencode" }
+const sol = { id: "gpt-5.6-sol", providerID: "xccode", cost: [{ input: 4 }], limit: { context: 1_000_000 } }
+const served = { id: "xccode", integrationID: "xccode" }
 
 afterEach(() => setSystemTime())
 
@@ -49,8 +49,8 @@ describe("util.usage-limits", () => {
         limit: 50,
         spent: 50,
         models: [
-          { providerID: "opencode", modelID: "gpt-5.6-sol", name: "GPT 5.6 Sol", spent: 20 },
-          { providerID: "opencode", modelID: "claude-opus-5", name: "Claude Opus 5", spent: 50 },
+          { providerID: "xccode", modelID: "gpt-5.6-sol", name: "GPT 5.6 Sol", spent: 20 },
+          { providerID: "xccode", modelID: "claude-opus-5", name: "Claude Opus 5", spent: 50 },
         ],
       }),
     )
@@ -65,9 +65,9 @@ describe("util.usage-limits", () => {
       ],
     })
     expect(modelUsage(limits, { ...sol, id: "claude-opus-5" }, served)).toMatchObject({ left: 0, reached: true })
-    // Spend on all models covers what OpenCode Console serves, but not OpenCode Go, a direct provider or a free model.
+    // Spend on all models covers what Xccode Console serves, but not Xccode Go, a direct provider or a free model.
     expect(
-      modelUsage(limits, { ...sol, providerID: "opencode-go" }, { id: "opencode-go", integrationID: "opencode" }),
+      modelUsage(limits, { ...sol, providerID: "xccode-go" }, { id: "xccode-go", integrationID: "xccode" }),
     ).toBeUndefined()
     expect(modelUsage(limits, { ...sol, providerID: "openai" }, { id: "openai" })).toBeUndefined()
     expect(modelUsage(limits, { ...sol, cost: [{ input: 0 }] }, served)).toBeUndefined()
@@ -107,7 +107,7 @@ describe("util.usage-limits", () => {
           id: "d",
           coverage: "models",
           picked: true,
-          models: ["A", "B", "C", "D"].map((name) => ({ providerID: "opencode", modelID: name, name })),
+          models: ["A", "B", "C", "D"].map((name) => ({ providerID: "xccode", modelID: name, name })),
         }),
         "Acme",
       ),
@@ -141,10 +141,10 @@ describe("util.usage-limits", () => {
 
   test("a Go limit links to its workspace's Go page for new and migrated workspaces", () => {
     const body = (workspace: string) => ({ response: { body: JSON.stringify({ metadata: { workspace } }) } })
-    expect(goLimitLink(body("org_01JXYZ7Q2M"))).toBe("https://opencode.ai/console/org_01JXYZ7Q2M/go")
-    expect(goLimitLink(body("wrk_legacy"))).toBe("https://opencode.ai/console/wrk_legacy/go")
-    expect(goLimitLink(body("acct_other"))).toBe("https://opencode.ai/console")
-    expect(goLimitLink({ response: { body: "{}" } })).toBe("https://opencode.ai/console")
+    expect(goLimitLink(body("org_01JXYZ7Q2M"))).toBe("https://xccode.ai/console/org_01JXYZ7Q2M/go")
+    expect(goLimitLink(body("wrk_legacy"))).toBe("https://xccode.ai/console/wrk_legacy/go")
+    expect(goLimitLink(body("acct_other"))).toBe("https://xccode.ai/console")
+    expect(goLimitLink({ response: { body: "{}" } })).toBe("https://xccode.ai/console")
   })
 
   test("a monthly Go limit keeps its reset weeks out", () => {

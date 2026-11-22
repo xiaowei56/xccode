@@ -11,14 +11,14 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use bytes::Bytes;
-use opencode_api::client::Client;
-use opencode_api::generated::SessionID;
-use opencode_api::memory;
-use opencode_api::transport::{BoxFuture, Request, Response, Transport};
-use opencode_local::cli_config::{self, Info, Resolved};
-use opencode_local::paths::Paths;
-use opencode_tui::app::Roots;
-use opencode_tui::{Args, Deps, Route, Tui};
+use xccode_api::client::Client;
+use xccode_api::generated::SessionID;
+use xccode_api::memory;
+use xccode_api::transport::{BoxFuture, Request, Response, Transport};
+use xccode_local::cli_config::{self, Info, Resolved};
+use xccode_local::paths::Paths;
+use xccode_tui::app::Roots;
+use xccode_tui::{Args, Deps, Route, Tui};
 use opentui::AppOptions;
 use opentui::prelude::*;
 use opentui::testing::TestApp;
@@ -166,7 +166,7 @@ pub fn location(directory: &str) -> Value {
 }
 
 /// The durable event `kind` of `session`, number `seq` in its aggregate.
-pub fn event(session: &str, kind: &str, seq: u64, data: Value) -> opencode_api::generated::V2Event {
+pub fn event(session: &str, kind: &str, seq: u64, data: Value) -> xccode_api::generated::V2Event {
     serde_json::from_value(json!({
         "id": format!("evt_{seq}"), "created": 10_000 + seq, "type": kind,
         "durable": { "aggregateID": session, "seq": seq, "version": 1 },
@@ -234,14 +234,14 @@ pub fn model(provider: &str, id: &str, name: &str) -> Value {
 
 pub fn deps(transport: Arc<dyn Transport>) -> Deps {
     Deps {
-        client: Client::with_transport("http://opencode.local", transport).unwrap(),
+        client: Client::with_transport("http://xccode.local", transport).unwrap(),
         directory: DIRECTORY.into(),
         config: config(Info::default()),
         roots: None,
         route: session_route("ses_a"),
         continue_: false,
         events: false,
-        builtins: vec![opencode_mermaid::plugin().into(), opencode_latex::plugin().into()],
+        builtins: vec![xccode_mermaid::plugin().into(), xccode_latex::plugin().into()],
     }
 }
 
@@ -306,7 +306,7 @@ pub fn roots(paths: Paths, channel: &str) -> Option<Roots> {
 /// Clear with the dark page background so dialog backdrop blending matches the fixture.
 pub fn dark_app(width: u16, height: u16) -> TestApp {
     let theme =
-        opencode_ui::theme::Catalog::default().load("opencode", opencode_ui::theme::ThemeMode::Dark).unwrap().theme;
+        xccode_ui::theme::Catalog::default().load("xccode", xccode_ui::theme::ThemeMode::Dark).unwrap().theme;
     TestApp::with_options(
         width,
         height,
@@ -319,18 +319,18 @@ pub fn dark_app(width: u16, height: u16) -> TestApp {
 }
 
 pub fn ts_root() -> Option<PathBuf> {
-    let root = std::env::var_os("OPENCODE_TS_ROOT")
+    let root = std::env::var_os("XCCODE_TS_ROOT")
         .map(PathBuf::from)
         .unwrap_or_else(|| Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../.."));
     let present =
         root.join("node_modules").is_dir() && std::process::Command::new("bun").arg("--version").output().is_ok();
     if !present {
         assert!(
-            std::env::var_os("OPENCODE_RS_REQUIRE_TS").is_none(),
-            "OPENCODE_RS_REQUIRE_TS is set, but skipped: needs bun and {}/node_modules; set OPENCODE_TS_ROOT",
+            std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(),
+            "XCCODE_RS_REQUIRE_TS is set, but skipped: needs bun and {}/node_modules; set XCCODE_TS_ROOT",
             root.display()
         );
-        eprintln!("skipped: needs bun and {}/node_modules; set OPENCODE_TS_ROOT", root.display());
+        eprintln!("skipped: needs bun and {}/node_modules; set XCCODE_TS_ROOT", root.display());
     }
     present.then_some(root)
 }
@@ -373,7 +373,7 @@ pub fn bun_json(command: &mut std::process::Command, input: Option<&Value>) -> V
 
 pub fn component_info(extra: Value) -> Info {
     cli_config::merge(&[
-        Some(json!({ "theme": { "name": "opencode", "mode": "dark" }, "animations": false })),
+        Some(json!({ "theme": { "name": "xccode", "mode": "dark" }, "animations": false })),
         Some(extra),
     ])
 }
@@ -395,14 +395,14 @@ pub fn xdg_paths(home: &Path) -> Paths {
 }
 
 /// Compares the screen with the P-COMP fixture `name` inside the bounding box of the fixture cells `inside` picks; the
-/// cells outside it are taken from the fixture. A mismatch writes the screen to `<temp>/opencode-parity/<name>.json`.
+/// cells outside it are taken from the fixture. A mismatch writes the screen to `<temp>/xccode-parity/<name>.json`.
 pub fn panel_diff(
     app: &TestApp,
     name: &str,
-    expected: &opencode_parity::Fixture,
+    expected: &xccode_parity::Fixture,
     inside: impl Fn(&opentui::native::Cell) -> bool,
 ) -> Result<(), String> {
-    let mut actual = opencode_parity::Fixture::from_capture(&app.render());
+    let mut actual = xccode_parity::Fixture::from_capture(&app.render());
     let inside: Vec<(u32, u32)> = (0..expected.height)
         .flat_map(|y| (0..expected.width).map(move |x| (x, y)))
         .filter(|&(x, y)| inside(expected.cell(x, y).unwrap()))
@@ -416,11 +416,11 @@ pub fn panel_diff(
             }
         }
     }
-    let comparison = opencode_parity::compare(expected, &actual);
+    let comparison = xccode_parity::compare(expected, &actual);
     if comparison.is_equal() {
         return Ok(());
     }
-    let path = std::env::temp_dir().join("opencode-parity").join(format!("{name}.json"));
+    let path = std::env::temp_dir().join("xccode-parity").join(format!("{name}.json"));
     std::fs::create_dir_all(path.parent().unwrap()).unwrap();
     std::fs::write(&path, actual.to_json()).unwrap();
     Err(format!("P-COMP {name} (panel {left}..={right} x {top}..={bottom}): {comparison}"))
@@ -436,9 +436,9 @@ pub fn ts_config(home: &Path, op: Value) -> Option<Value> {
             .arg(Path::new(env!("CARGO_MANIFEST_DIR")).join("../../parity/oracle/F.5-config.ts"))
             .arg(&root)
             .arg("config")
-            .env_remove("OPENCODE_CLI_CONFIG_CONTENT")
-            .env_remove("OPENCODE_CONFIG_DIR")
-            .env("BUN_RUNTIME_TRANSPILER_CACHE_PATH", std::env::temp_dir().join("opencode-rs-f5-bun-cache"))
+            .env_remove("XCCODE_CLI_CONFIG_CONTENT")
+            .env_remove("XCCODE_CONFIG_DIR")
+            .env("BUN_RUNTIME_TRANSPILER_CACHE_PATH", std::env::temp_dir().join("xccode-rs-f5-bun-cache"))
             .envs(xdg_env(home)),
         Some(&json!([op])),
     );
@@ -466,11 +466,11 @@ pub fn mount_still(width: u16, height: u16, deps: Deps) -> Harness {
 }
 
 pub fn mount_empty(app: &TestApp, info: Info, roots: Option<Roots>) -> Rc<Tui> {
-    opencode_tui::mount(app, Deps { config: config(info), roots, route: Route::Home, ..deps(Arc::new(empty())) })
+    xccode_tui::mount(app, Deps { config: config(info), roots, route: Route::Home, ..deps(Arc::new(empty())) })
 }
 
 pub fn mount_on(app: TestApp, deps: Deps, args: Args) -> Harness {
-    let tui = opencode_tui::mount_with(&app, deps, args);
+    let tui = xccode_tui::mount_with(&app, deps, args);
     Harness { app, tui }
 }
 
@@ -608,12 +608,12 @@ pub fn wait_for_all(app: &TestApp, texts: &[&str]) -> String {
 /// for can still lack rows that land later.
 #[track_caller]
 pub fn wait_fixture(app: &TestApp, name: &str) {
-    let expected = opencode_parity::Fixture::load(opencode_parity::fixtures_dir().join(format!("{name}.json")))
+    let expected = xccode_parity::Fixture::load(xccode_parity::fixtures_dir().join(format!("{name}.json")))
         .unwrap_or_else(|error| panic!("{error}"));
     app.wait_until(WAIT, || {
-        opencode_parity::compare(&expected, &opencode_parity::Fixture::from_capture(&app.render())).is_equal()
+        xccode_parity::compare(&expected, &xccode_parity::Fixture::from_capture(&app.render())).is_equal()
     });
-    opencode_parity::assert_fixture(&app.render(), name);
+    xccode_parity::assert_fixture(&app.render(), name);
 }
 
 const SWITCHED: &str = "tokyonight";
@@ -681,9 +681,9 @@ pub fn at(screen: &str, needle: &str) -> Option<(u16, u16)> {
 }
 
 /// Temporarily lift host limits for fixtures that measure work above the default limits.
-pub fn unlimited() -> opencode_plugin::limits::Restore {
+pub fn unlimited() -> xccode_plugin::limits::Restore {
     let most = u64::MAX;
-    opencode_plugin::limits::set(opencode_plugin::limits::Limits {
+    xccode_plugin::limits::set(xccode_plugin::limits::Limits {
         nodes: most,
         rows: most,
         text: most,

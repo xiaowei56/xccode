@@ -1,7 +1,7 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import { expect } from "bun:test"
-import { OpenCode } from "@opencode/client"
+import { Xccode } from "@xccode/client"
 import { Effect } from "effect"
 import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
 import { it } from "../../core/test/lib/effect"
@@ -10,8 +10,8 @@ import { ServerProcess } from "../src/process"
 import { startServer } from "./fixture/server"
 
 const client = (handler: (request: Request) => Promise<Response>) =>
-  OpenCode.make({
-    baseUrl: "http://opencode.local",
+  Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: Object.assign((input: string | URL | Request, init?: RequestInit) => handler(new Request(input, init)), {
       preconnect: fetch.preconnect,
     }),
@@ -23,19 +23,19 @@ it.live(
   "manages automations through the experimental API when enabled and honors a project automations override",
   () =>
     Effect.gen(function* () {
-      const dir = (yield* tmpdirScoped("opencode-automation-api-")).path
+      const dir = (yield* tmpdirScoped("xccode-automation-api-")).path
       const global = path.join(dir, "global")
       const enabled = path.join(dir, "enabled")
       const ask = path.join(dir, "ask")
       yield* Effect.promise(async () => {
         await Promise.all([global, enabled, ask].map((item) => fs.mkdir(item, { recursive: true })))
-        await fs.writeFile(path.join(global, "opencode.json"), JSON.stringify({ automations: true }))
-        await fs.writeFile(path.join(enabled, "opencode.json"), JSON.stringify({}))
-        await fs.writeFile(path.join(ask, "opencode.json"), JSON.stringify({ permission: { execute: "ask" } }))
+        await fs.writeFile(path.join(global, "xccode.json"), JSON.stringify({ automations: true }))
+        await fs.writeFile(path.join(enabled, "xccode.json"), JSON.stringify({}))
+        await fs.writeFile(path.join(ask, "xccode.json"), JSON.stringify({ permission: { execute: "ask" } }))
       })
       const handler = yield* ServerFetch.make({
         app: { version: "test" },
-        database: { path: path.join(dir, "opencode.db") },
+        database: { path: path.join(dir, "xccode.db") },
         config: { directory: global, project: true, claude: false },
         models: { fetch: false },
         fs: { filewatcher: false },
@@ -43,7 +43,7 @@ it.live(
       const api = client(handler)
       const post = (body: unknown) =>
         handler(
-          new Request("http://opencode.local/api/experimental/automation", {
+          new Request("http://xccode.local/api/experimental/automation", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(body),
@@ -172,7 +172,7 @@ it.live(
         expect(await api.experimental.automation.list({ sessionID: session.id })).toEqual([])
 
         // Turn off the directory that still owns the standalone automation. Even unfiltered lists must hide it.
-        await fs.writeFile(path.join(enabled, "opencode.json"), JSON.stringify({ automations: false }))
+        await fs.writeFile(path.join(enabled, "xccode.json"), JSON.stringify({ automations: false }))
         await api.location.reload()
         expect(await api.experimental.automation.list({})).toEqual([])
         await expect(api.experimental.automation.get({ automationID: standalone.id })).rejects.toMatchObject({
@@ -209,9 +209,9 @@ it.live(
 
 it.live("runs due automations in standalone ServerProcess.start without lifecycle", () =>
   Effect.gen(function* () {
-    const dir = (yield* tmpdirScoped("opencode-automation-serve-")).path
+    const dir = (yield* tmpdirScoped("xccode-automation-serve-")).path
     const server = yield* startServer(dir)
-    const api = OpenCode.make({ baseUrl: server.base, headers: server.headers })
+    const api = Xccode.make({ baseUrl: server.base, headers: server.headers })
 
     yield* Effect.promise(async () => {
       const session = await api.session.create({ location: { directory: dir } })
@@ -221,7 +221,7 @@ it.live("runs due automations in standalone ServerProcess.start without lifecycl
         trigger: { type: "at", at: "in 150 millis" },
         action: {
           type: "code",
-          code: 'const models = await tools.opencode.models({}); console.log("models=" + models.total); return { state: { total: models.total } }',
+          code: 'const models = await tools.xccode.models({}); console.log("models=" + models.total); return { state: { total: models.total } }',
         },
       })
       expect(created.status).toBe("active")
@@ -245,11 +245,11 @@ it.live("runs due automations in standalone ServerProcess.start without lifecycl
 
 it.live("starts one child for a due automation when two servers share a database", () =>
   Effect.gen(function* () {
-    const dir = (yield* tmpdirScoped("opencode-automation-leader-")).path
+    const dir = (yield* tmpdirScoped("xccode-automation-leader-")).path
     const dbPath = path.join(dir, "shared.db")
     yield* Effect.promise(() =>
       fs.writeFile(
-        path.join(dir, "opencode.json"),
+        path.join(dir, "xccode.json"),
         JSON.stringify({
           // Exercise the child's durable prompt and wake, not inference through a default provider.
           policies: [{ action: "provider.use", resource: "*", effect: "deny" }],
@@ -295,9 +295,9 @@ it.live("starts one child for a due automation when two servers share a database
       })
     const [first] = yield* Effect.all([boot(), boot()], { concurrency: 2 })
     const base = `http://127.0.0.1:${"port" in first.address ? first.address.port : 0}`
-    const api = OpenCode.make({
+    const api = Xccode.make({
       baseUrl: base,
-      headers: { authorization: `Basic ${btoa("opencode:secret")}` },
+      headers: { authorization: `Basic ${btoa("xccode:secret")}` },
     })
 
     yield* Effect.promise(async () => {

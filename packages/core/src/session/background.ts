@@ -1,6 +1,6 @@
 export * as SessionBackground from "./background.js"
 
-import type { Kind, Status } from "@opencode/schema/job"
+import type { Kind, Status } from "@xccode/schema/job"
 import { Effect } from "effect"
 import type { Job } from "../job.js"
 import type { OutstandingItem } from "../job/recovery.js"

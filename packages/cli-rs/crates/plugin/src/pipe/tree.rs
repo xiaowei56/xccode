@@ -365,7 +365,7 @@ mod tests {
 
     #[test]
     fn a_stale_walk_reads_every_file_on_the_same_thread() {
-        let root = opencode_util::temp::tempdir().unwrap();
+        let root = xccode_util::temp::tempdir().unwrap();
         let (dir, file) = (root.path(), root.path().join("tui.ts"));
         let old = std::time::SystemTime::now() - std::time::Duration::from_secs(10);
         let write = |text: &str| {
@@ -387,7 +387,7 @@ mod tests {
 
     #[test]
     fn a_failed_copy_counts_only_for_the_files_it_failed_on() {
-        let root = opencode_util::temp::tempdir().unwrap();
+        let root = xccode_util::temp::tempdir().unwrap();
         let (dir, staging) = (root.path().join("p"), root.path().join("staged"));
         std::fs::create_dir_all(&dir).unwrap();
         std::fs::write(dir.join("tui.ts"), "a").unwrap();
@@ -418,7 +418,7 @@ mod tests {
 
     #[test]
     fn a_walk_or_a_copy_runs_until_its_wake_is_posted() {
-        let root = opencode_util::temp::tempdir().unwrap();
+        let root = xccode_util::temp::tempdir().unwrap();
         let (dir, staging) = (root.path().join("p"), root.path().join("staged"));
         std::fs::create_dir_all(&dir).unwrap();
         std::fs::write(dir.join("tui.ts"), "a").unwrap();

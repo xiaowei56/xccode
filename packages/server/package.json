@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/server",
+  "name": "@xccode/server",
   "version": "2.3.0",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/xiaowei56/xccode.git",
     "directory": "packages/server"
   },
   "publishConfig": {
@@ -29,17 +29,17 @@
   "dependencies": {
     "@effect/platform-node": "catalog:",
     "@effect/platform-node-shared": "catalog:",
-    "@opencode/core": "workspace:*",
-    "@opencode/protocol": "workspace:*",
-    "@opencode/schema": "workspace:*",
-    "@opencode/simulation": "workspace:*",
-    "@opencode/util": "workspace:*",
+    "@xccode/core": "workspace:*",
+    "@xccode/protocol": "workspace:*",
+    "@xccode/schema": "workspace:*",
+    "@xccode/simulation": "workspace:*",
+    "@xccode/util": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {
-    "@opencode/pty": "0.6.0",
-    "@opencode/client": "workspace:*",
-    "@opencode/plugin": "workspace:*",
+    "@xccode/pty": "0.6.0",
+    "@xccode/client": "workspace:*",
+    "@xccode/plugin": "workspace:*",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:",

@@ -1,7 +1,7 @@
 export * as CodeModeTool from "./tool.js"
 
-import { ToolFailure } from "@opencode/ai/effect"
-import { CodeMode, Namespace, Tool } from "@opencode/codemode"
+import { ToolFailure } from "@xccode/ai/effect"
+import { CodeMode, Namespace, Tool } from "@xccode/codemode"
 import type {
   Content,
   Context as ToolContext,
@@ -10,9 +10,9 @@ import type {
   Metadata,
   Namespace as ToolNamespace,
   Result,
-} from "@opencode/schema/tool"
-import { Identifier } from "@opencode/schema/identifier"
-import { CallID } from "@opencode/schema/tool"
+} from "@xccode/schema/tool"
+import { Identifier } from "@xccode/schema/identifier"
+import { CallID } from "@xccode/schema/tool"
 import { Clock, Context, Effect, Ref, Schema, Scope, Semaphore } from "effect"
 import { toSessionError } from "../session/to-session-error.js"
 import { definition, normalizedName } from "../tool/runtime.js"
@@ -74,7 +74,7 @@ class Run extends Context.Service<
     readonly executeTool: (name: string, tool: Info, input: unknown) => Effect.Effect<unknown, unknown>
     readonly hooks: CodeMode.Hooks
   }
->()("@opencode/CodeModeTool/Run") {}
+>()("@xccode/CodeModeTool/Run") {}
 
 /** The session's Location and file services, which a run with the experimental `path` and `Bun` globals acts through. */
 export type Services = Location.Service | CodeModeBun.Services
@@ -489,7 +489,7 @@ function flattenTools(node: ToolNode, path: ReadonlyArray<string>, tools: Tools)
   for (const [name, child] of node.children) flattenTools(child, [...path, name], tools)
 }
 
-/** An inventory tool and its registry ID, by registry ID or by the path a program calls it at (`opencode.session.search`). */
+/** An inventory tool and its registry ID, by registry ID or by the path a program calls it at (`xccode.session.search`). */
 export const find = (inventory: Inventory, name: string) => {
   const registration = inventory.tools.get(name)
   if (registration) return { id: name, registration }

@@ -1,5 +1,5 @@
-import { Button } from "@opencode/ui/button"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { Button } from "@xccode/ui/button"
+import { useDialog } from "@xccode/ui/context/dialog"
 import { createMemo, createSignal, onMount } from "solid-js"
 import { DialogStoryRuntime } from "@/components-lab/dialog-story-runtime"
 import { isFreeModel } from "./models"
@@ -29,7 +29,7 @@ function SelectModelWithoutProviders(props: { count: number }) {
       ...free,
       id: name.toLowerCase().replaceAll(" ", "-"),
       name,
-      provider: { ...free.provider, name: "OpenCode" },
+      provider: { ...free.provider, name: "Xccode" },
       limit: { ...free.limit, context: 128_000 },
       capabilities: {
         ...free.capabilities,

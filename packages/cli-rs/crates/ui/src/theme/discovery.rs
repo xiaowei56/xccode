@@ -6,12 +6,12 @@ use std::path::{Path, PathBuf};
 use indexmap::IndexMap;
 use serde_json::Value;
 
-/// Searches the config directory, then `.opencode` directories from root to working directory, once per directory.
+/// Searches the config directory, then `.xccode` directories from root to working directory, once per directory.
 pub fn config_directories(config: &Path, cwd: &Path) -> Vec<PathBuf> {
     let mut ancestors: Vec<&Path> = cwd.ancestors().collect();
     ancestors.reverse();
     let mut result = vec![config.to_path_buf()];
-    for directory in ancestors.into_iter().map(|directory| directory.join(".opencode")) {
+    for directory in ancestors.into_iter().map(|directory| directory.join(".xccode")) {
         if !result.contains(&directory) {
             result.push(directory);
         }
@@ -56,22 +56,22 @@ mod tests {
 
     #[test]
     fn config_directories_lists_config_then_each_ancestor() {
-        let directories = config_directories(Path::new("/home/u/.config/opencode"), Path::new("/home/u/project"));
+        let directories = config_directories(Path::new("/home/u/.config/xccode"), Path::new("/home/u/project"));
         let expected = [
-            "/home/u/.config/opencode",
-            "/.opencode",
-            "/home/.opencode",
-            "/home/u/.opencode",
-            "/home/u/project/.opencode",
+            "/home/u/.config/xccode",
+            "/.xccode",
+            "/home/.xccode",
+            "/home/u/.xccode",
+            "/home/u/project/.xccode",
         ];
         assert_eq!(directories, expected.map(PathBuf::from));
-        let repeated = config_directories(Path::new("/a/.opencode"), Path::new("/a"));
-        assert_eq!(repeated, ["/a/.opencode", "/.opencode"].map(PathBuf::from));
+        let repeated = config_directories(Path::new("/a/.xccode"), Path::new("/a"));
+        assert_eq!(repeated, ["/a/.xccode", "/.xccode"].map(PathBuf::from));
     }
 
     #[test]
     fn discover_reads_sorted_json_files_and_later_directories_override() {
-        let root = opencode_util::temp::tempdir().unwrap();
+        let root = xccode_util::temp::tempdir().unwrap();
         let (first, second) = (root.path().join("one"), root.path().join("two"));
         for (directory, files) in
             [(&first, ["b.json", "a.json", "notes.txt"]), (&second, ["b.json", "c.json", "skip.md"])]

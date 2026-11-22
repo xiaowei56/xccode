@@ -1,7 +1,7 @@
-use opencode_mermaid::{Palette, Rendered, render};
-use opencode_plugin::node::Reader;
-use opencode_plugin_abi::Rgba;
-use opencode_ui::theme::{Catalog, ThemeMode};
+use xccode_mermaid::{Palette, Rendered, render};
+use xccode_plugin::node::Reader;
+use xccode_plugin_abi::Rgba;
+use xccode_ui::theme::{Catalog, ThemeMode};
 
 const CORPUS: &str = include_str!("../../../../parity/fixtures/P.3/corpus.json");
 
@@ -69,7 +69,7 @@ fn diagrams_match_typescript() {
     let corpus: serde_json::Value = serde_json::from_str(CORPUS).unwrap();
     let styles: Vec<String> =
         corpus["styles"].as_array().unwrap().iter().map(|s| s.as_str().unwrap().to_string()).collect();
-    let theme = Catalog::default().load("opencode", ThemeMode::Dark).unwrap().theme;
+    let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
     let palette = Palette::read(&Reader::new(&theme, ThemeMode::Dark));
     let only = std::env::var("MERMAID_ONLY").ok();
     let mut failures: Vec<String> = Vec::new();
@@ -130,7 +130,7 @@ fn diagrams_match_typescript() {
     }
     eprintln!("P.3 oracle: {} of {total} cases equal", total - failures.len());
     if !failures.is_empty() {
-        let directory = std::env::temp_dir().join("opencode-parity/P.3");
+        let directory = std::env::temp_dir().join("xccode-parity/P.3");
         std::fs::create_dir_all(&directory).unwrap();
         std::fs::write(directory.join("failures.txt"), failures.join("\n\n========\n\n")).unwrap();
         panic!(

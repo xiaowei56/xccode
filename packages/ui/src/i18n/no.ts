@@ -92,7 +92,7 @@ export const dict: Record<Keys, string> = {
 
   "dialog.usageExceeded.freeTier.title": "Gratisgrensen er nådd",
   "dialog.usageExceeded.freeTier.description":
-    "Abonner på OpenCode Go for $10/måned for pålitelig tilgang til de beste modellene med åpen kildekode.",
+    "Abonner på Xccode Go for $10/måned for pålitelig tilgang til de beste modellene med åpen kildekode.",
   "dialog.usageExceeded.freeTier.actionLabel": "Abonner",
 
   "ui.sessionTurn.status.delegating": "Delegerer arbeid",
@@ -293,8 +293,8 @@ export const dict: Record<Keys, string> = {
     "Modellbudsjettet er nådd · denne modellen er satt på pause til det tilbakestilles",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Bruk en gratis modell",
   "ui.sessionTurn.budgetLimit.switchModel": "Bytt modell",
-  "ui.sessionTurn.goLimit.title": "Du har nådd forbruksgrensen for OpenCode Go.",
-  "ui.sessionTurn.goLimit.lineReset": "Du har nådd forbruksgrensen for OpenCode Go. Den tilbakestilles {{time}}.",
+  "ui.sessionTurn.goLimit.title": "Du har nådd forbruksgrensen for Xccode Go.",
+  "ui.sessionTurn.goLimit.lineReset": "Du har nådd forbruksgrensen for Xccode Go. Den tilbakestilles {{time}}.",
   "dialog.usageExceeded.freeTier.reset": "Gratismeldingene dine tilbakestilles {{time}}.",
   "ui.messagePart.compaction.queued": "Øktkomprimering i kø",
   "ui.messagePart.compaction.done": "Komprimert",

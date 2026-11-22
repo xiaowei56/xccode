@@ -4,7 +4,7 @@ use std::ffi::OsString;
 
 use crate::lock;
 
-/// The channel when `OPENCODE_CHANNEL` is not set. It shares `service.json` and port `0xC0DE` with
+/// The channel when `XCCODE_CHANNEL` is not set. It shares `service.json` and port `0xC0DE` with
 /// `dev`, `beta`, and `next`, so it finds a released client's service.
 pub const DEFAULT: &str = "latest";
 
@@ -22,12 +22,12 @@ impl Channels {
         Self::from_vars(|name| std::env::var_os(name))
     }
 
-    /// `OPENCODE_CHANNEL` defaults to `latest`. `OPENCODE_TUI_CHANNEL` overrides it for storage only.
+    /// `XCCODE_CHANNEL` defaults to `latest`. `XCCODE_TUI_CHANNEL` overrides it for storage only.
     pub fn from_vars(var: impl Fn(&str) -> Option<OsString>) -> Self {
         let set =
             |name: &str| var(name).filter(|value| !value.is_empty()).map(|value| value.to_string_lossy().into_owned());
-        let channel = set("OPENCODE_CHANNEL").unwrap_or_else(|| DEFAULT.to_string());
-        Self { storage: set("OPENCODE_TUI_CHANNEL").unwrap_or_else(|| channel.clone()), channel }
+        let channel = set("XCCODE_CHANNEL").unwrap_or_else(|| DEFAULT.to_string());
+        Self { storage: set("XCCODE_TUI_CHANNEL").unwrap_or_else(|| channel.clone()), channel }
     }
 }
 
@@ -113,11 +113,11 @@ mod tests {
     fn channel_from_env() {
         assert_eq!(channels(&[]), Channels { channel: "latest".into(), storage: "latest".into() });
         assert_eq!(
-            channels(&[("OPENCODE_CHANNEL", "oc-x"), ("OPENCODE_TUI_CHANNEL", "dev")]),
+            channels(&[("XCCODE_CHANNEL", "oc-x"), ("XCCODE_TUI_CHANNEL", "dev")]),
             Channels { channel: "oc-x".into(), storage: "dev".into() }
         );
-        assert_eq!(channels(&[("OPENCODE_CHANNEL", "beta")]).storage, "beta");
-        assert_eq!(channels(&[("OPENCODE_CHANNEL", "")]).channel, "latest");
+        assert_eq!(channels(&[("XCCODE_CHANNEL", "beta")]).storage, "beta");
+        assert_eq!(channels(&[("XCCODE_CHANNEL", "")]).channel, "latest");
         assert_eq!(filename("a b/ü😀"), "service-a-b----.json");
     }
 }

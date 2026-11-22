@@ -1,5 +1,5 @@
 import { Card, CardActions, CardDescription, CardTitle, type CardProps } from "./card"
-import { Button } from "@opencode/ui/button"
+import { Button } from "@xccode/ui/button"
 
 const docs = `### Overview
 Surface container for grouping related content and actions.

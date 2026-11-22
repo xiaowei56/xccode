@@ -8,30 +8,30 @@ TUI plugins, then runs each one's `setup` beside the built-ins.
 built-ins (`-<id>`, `<id>`, `*`, `<prefix>.*`) exactly as TS does. The loader (`crates/plugin/src/loader`,
 `docs/plugins.md`) discovers the same targets as TS: the subdirectories of the `plugins` directories and the
 `cli.json` entries that name no built-in. A directory with a `plugin.toml` is a Luau plugin, and loads with hot
-reload. A native plugin library (`plugin.so`, `.dylib`, `.dll`) is listed `Skipped`: "opencode-native does not load
+reload. A native plugin library (`plugin.so`, `.dylib`, `.dll`) is listed `Skipped`: "xccode-native does not load
 native plugin libraries". Any other directory target is a TypeScript plugin. By default it
 runs on the JS host, a Bun process the client starts (`docs/plugin-abi.md`, "The JS
 host"), through the V2 compatibility layer (P8), which gives a V2 `{ id, setup }` module the context
-and the modules TS gives it. Bun is looked for only when the first TypeScript plugin needs it (`OPENCODE_BUN`, the
-local server's opencode binary run as its own Bun, the opencode bundled beside the client, or `bun` on the path), so a client with none runs no process for
+and the modules TS gives it. Bun is looked for only when the first TypeScript plugin needs it (`XCCODE_BUN`, the
+local server's xccode binary run as its own Bun, the xccode bundled beside the client, or `bun` on the path), so a client with none runs no process for
 it. Otherwise the registry lists it with status `Skipped`, its slot claims, commands and routes absent:
-- `OPENCODE_PLUGIN_JS` set to `0`, `false` or `off` (any case) turns the JS host off: "TypeScript TUI plugins run on
-  the JS host, which OPENCODE_PLUGIN_JS turns off: unset it to turn the JS host back on";
-- a build without the cargo feature `ts` (on by default, ts-feature) has no JS host: "this build of opencode-native has
+- `XCCODE_PLUGIN_JS` set to `0`, `false` or `off` (any case) turns the JS host off: "TypeScript TUI plugins run on
+  the JS host, which XCCODE_PLUGIN_JS turns off: unset it to turn the JS host back on";
+- a build without the cargo feature `ts` (on by default, ts-feature) has no JS host: "this build of xccode-native has
   no TypeScript plugin support (built without the ts feature)";
-- with no Bun found: "TypeScript TUI plugins run on the JS host, which needs Bun: neither the server's opencode nor bun
-  on the path runs it; install Bun 1.4 or newer, or set OPENCODE_BUN to its absolute path".
+- with no Bun found: "TypeScript TUI plugins run on the JS host, which needs Bun: neither the server's xccode nor bun
+  on the path runs it; install Bun 1.4 or newer, or set XCCODE_BUN to its absolute path".
 
 `scenarios/F16/ts-plugin-loads.pty.ts` drives the default: a plugin in the global `plugins` directory loads in both
 clients, with no variable set.
 
 Plugins named by npm package run on the JS host too, from the package cache TS installs into, and only from there:
-opencode-native installs and fetches nothing. TS's client prepares a `cli.json` entry with `Npm.add`
+xccode-native installs and fetches nothing. TS's client prepares a `cli.json` entry with `Npm.add`
 (`packages/cli/src/commands/handlers/default.ts:143`), which installs a package the cache lacks and returns an
 installed one as it is (`packages/util/src/npm.ts:263-268`), and a server plugin's TUI part with `Npm.resolve`
 (`npm.ts:358-366`), then loads `Host.resolve(target).tui` (`packages/tui/src/plugin/context.tsx:652-671`). The Rust
 loader (`crates/plugin/src/loader/npm.rs`) finds the package as `Npm.resolve` does: under
-`<cache>/npm/<key>` (`npm.ts:148`, `<cache>` the global cache, `$XDG_CACHE_HOME/opencode` else `~/.cache/opencode`),
+`<cache>/npm/<key>` (`npm.ts:148`, `<cache>` the global cache, `$XDG_CACHE_HOME/xccode` else `~/.cache/xccode`),
 the key being the spec's text and not a version it resolves to (`npm.ts:60-97`: `<name>@<spec>` for a version, range or
 tag, `<name>@latest` for a bare name, `git-<slug>-<hash>` for a git spec, else the spec), in the generation with the
 largest number (`npm.ts:149-162`), as `node_modules/<name>` (`installedName`, `npm.ts:173-183`); so the same spec
@@ -58,8 +58,8 @@ paths without that prefix. Like any global or `cli.json` plugin a `cli.json` pac
 approval, and its build identity is computed off the UI thread (FT-2). As TS resolves a loaded package once a session
 (`context.tsx:663-665`), the directory a spec resolved to stays while the spec is a target: a later install (a new
 generation) does not move it, and a package is not watched. A `cli.json` entry whose key the cache does not hold, where
-TS installs it, is listed `Skipped` with the reason "not in opencode's package cache, and opencode-native installs
-nothing: run `opencode-native plugin add <spec>`", and named so in the notice below. The TUI parts of the server's
+TS installs it, is listed `Skipped` with the reason "not in xccode's package cache, and xccode-native installs
+nothing: run `xccode-native plugin add <spec>`", and named so in the notice below. The TUI parts of the server's
 plugins (`GET /api/plugin`, active with `features.tui`, by the package target or the local path the server reports,
 TS `serverTuiPlugins`, `context.tsx:96-103`, `301-305`) load the same way, in TS's order: the discovered directories,
 then the server parts, then `cli.json`; one the cache does not hold is left out, as TS leaves out an optional target it
@@ -67,15 +67,15 @@ cannot load (`context.tsx:362-363`).
 
 Unlike TS, which asks for no approval at all, a server part loads without approval only when the user's own
 configuration names it. `GET /api/plugin` carries no provenance, and a project's
-`opencode.json` can name a package (a `.tgz`, a git spec) with no server export, so the server runs none of its code.
-So the client reads the user's layers itself. They are the `plugins` entries of the global opencode config (`opencode.json`,
-then `opencode.jsonc`, in the global config directory, in the order TS's `loadDirectory` reads them), then those of
+`xccode.json` can name a package (a `.tgz`, a git spec) with no server export, so the server runs none of its code.
+So the client reads the user's layers itself. They are the `plugins` entries of the global xccode config (`xccode.json`,
+then `xccode.jsonc`, in the global config directory, in the order TS's `loadDirectory` reads them), then those of
 `cli.json`. Each is a string or the `package` of `{ package, options }`. The entries fold in order, as TS's server folds
 its operations (`core/src/plugin/supervisor.ts` `resolve`):
 - a plugin directly under a global `plugin` or `plugins` directory starts named, as discovery adds it before any
   entry;
 - an entry that is a part's spec, or names its path, names and enables it;
-- a selector (`*`, `<prefix>.*`, `opencode.…`, or the part's ID) enables it again, without naming it;
+- a selector (`*`, `<prefix>.*`, `xccode.…`, or the part's ID) enables it again, without naming it;
 - a removal `-<selector>` disables it, when the selector is the spec, the path or the plugin ID the server reports
   (`selects` is TS's `matches`).
 
@@ -84,8 +84,8 @@ removal by spec or path too can only withdraw a vouch, so the client errs toward
 refolds them at once.
 - **Package:** it is named by an entry that is its spec exactly as written, which is the text TS's server reports as
   `source.target` (`core/src/config/plugin/source.ts` `parse`, `plugin/module.ts` `source`). The same package at
-  another version, or one named only by the project's configuration (`opencode.json`, `.opencode/opencode.json`),
-  waits for approval. A managed, explicit (`OPENCODE_CONFIG`) or `OPENCODE_CONFIG_CONTENT` layer vouches for
+  another version, or one named only by the project's configuration (`xccode.json`, `.xccode/xccode.json`),
+  waits for approval. A managed, explicit (`XCCODE_CONFIG`) or `XCCODE_CONFIG_CONTENT` layer vouches for
   nothing.
 - **`cli.json`'s version of a package wins.** A server part for a package that a `cli.json` entry names, by its npm
   name or, for a git spec, by its installed name, is left out at whatever version. TS folds
@@ -125,10 +125,10 @@ plugin list, so the server plugins' TUI parts are in the same notice; one found 
 directory, a new server plugin) is told then, once. `/plugins` lists each as a TUI row `skipped`, named by the `name` of
 its directory's `package.json` where there is one, else by its target, with the reason as its error; the log has
 `plugin <target> skipped: <reason>` once for each. `scenarios/F16/ts-plugins-skipped.pty.ts` drives it: a server plugin
-whose TUI part TS loads and Rust, with `OPENCODE_PLUGIN_JS=0`, lists as skipped, with the notice.
+whose TUI part TS loads and Rust, with `XCCODE_PLUGIN_JS=0`, lists as skipped, with the notice.
 
 What runs on the JS host differs from TS as `F16-v2-compat-layer` says, and one found in a project's
-`.opencode/plugins` waits for the user's approval first (`F16-project-plugin-approval`). It is a second timing tier: a
+`.xccode/plugins` waits for the user's approval first (`F16-project-plugin-approval`). It is a second timing tier: a
 tree, an effect and a read arrive a paint late or more; a node's layout (`getLayout()`, R1 to R3) is what the host laid
 out, a frame late (`F16-v2-compat-layer`, "Layout reads"); and a handler that throws fails the plugin with none of its
 effects (as `F16-plugin-panic-no-effects` does in process), where TS keeps them and the plugin. A key reaches a handler

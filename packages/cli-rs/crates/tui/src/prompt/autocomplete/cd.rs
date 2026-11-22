@@ -1,8 +1,8 @@
 //! `/cd` moves the current session or selects the directory of the next session on home.
 
-use opencode_api::generated::{AbsolutePath, LocationGetInput, LocationQueryInput, SessionMoveInput};
-use opencode_ui::keymap::Slash;
-use opencode_ui::path::Flavor;
+use xccode_api::generated::{AbsolutePath, LocationGetInput, LocationQueryInput, SessionMoveInput};
+use xccode_ui::keymap::Slash;
+use xccode_ui::path::Flavor;
 
 use super::parse;
 use crate::prelude::*;
@@ -39,7 +39,7 @@ fn run(tui: &Tui, prompt: &Rc<Inner>, input: &str) {
     }
     let project = project(tui, prompt);
     let value = input.trim();
-    let home = opencode_local::paths::home();
+    let home = xccode_local::paths::home();
     let expanded = match value {
         "~" => home.clone(),
         _ => match value.strip_prefix("~/") {
@@ -65,7 +65,7 @@ fn run(tui: &Tui, prompt: &Rc<Inner>, input: &str) {
                         if let Some(project) = &project {
                             tui.prompt.complete.touch(&tui, project, &info.directory.0);
                         }
-                        crate::features::location::set(&tui, opencode_store::Location::new(info.directory.0));
+                        crate::features::location::set(&tui, xccode_store::Location::new(info.directory.0));
                         prompt.relocate(&tui);
                     }
                 }

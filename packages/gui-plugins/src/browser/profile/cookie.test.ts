@@ -124,14 +124,14 @@ test("Chromium timestamps count microseconds from 1601, and zero means none", ()
 test("the profile's user agent is Chromium's, without the app and Electron tokens sign-in pages refuse", () => {
   expect(
     browserUserAgent(
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) OpenCode/2.2.5 Chrome/140.0.7339.80 Electron/44.9.1 Safari/537.36",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Xccode/2.2.5 Chrome/140.0.7339.80 Electron/44.9.1 Safari/537.36",
     ),
   ).toBe(
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.80 Safari/537.36",
   )
   expect(
     browserUserAgent(
-      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) opencode-beta/2.3.0-beta.1 Chrome/140.0.0.0 Electron/44.9.1 Safari/537.36",
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) xccode-beta/2.3.0-beta.1 Chrome/140.0.0.0 Electron/44.9.1 Safari/537.36",
     ),
   ).toBe(
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",

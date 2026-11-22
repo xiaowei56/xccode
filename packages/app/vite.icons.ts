@@ -19,7 +19,7 @@ export function icons(channel: string): Plugin {
     })),
   ]
 
-  // Vite's resolved `base`, such as `/opencode/` for `vite build --base=/opencode/`.
+  // Vite's resolved `base`, such as `/xccode/` for `vite build --base=/xccode/`.
   let base = "/"
 
   const webManifest = () => ({
@@ -37,7 +37,7 @@ export function icons(channel: string): Plugin {
   const files = () => [...iconFiles, webManifest()]
 
   return {
-    name: "opencode-app:icons",
+    name: "xccode-app:icons",
     configResolved(config) {
       base = config.base
     },
@@ -57,8 +57,8 @@ export function icons(channel: string): Plugin {
       order: "pre",
       handler(html) {
         return html
-          .replace("%OPENCODE_FAVICON%", `${base}${prefix}/favicon.ico`)
-          .replace("%OPENCODE_APPLE_TOUCH_ICON%", `${base}${prefix}/apple-touch-icon.png`)
+          .replace("%XCCODE_FAVICON%", `${base}${prefix}/favicon.ico`)
+          .replace("%XCCODE_APPLE_TOUCH_ICON%", `${base}${prefix}/apple-touch-icon.png`)
       },
     },
   }

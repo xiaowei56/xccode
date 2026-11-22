@@ -1,12 +1,12 @@
 //! Built-in manager for local and server plugins.
 
-use opencode_api::client::Client;
-use opencode_api::generated::{
+use xccode_api::client::Client;
+use xccode_api::generated::{
     LocationQueryInput, PluginCheckInput, PluginInfo, PluginListInput, PluginSource, PluginSourcePackage, PluginState,
     PluginUpdateInput,
 };
-use opencode_api::js::locale_compare;
-use opencode_plugin::abi::{
+use xccode_api::js::locale_compare;
+use xccode_plugin::abi::{
     self, Action, Command, Dialog, ErrorDetails, Gutter, Host, PanelSize, PluginEntry, PluginOrigin, PluginStatus,
     Read, RequestId, Select, SelectAction, SelectOption, Span, Toast, Variant,
 };
@@ -15,7 +15,7 @@ use super::fetch::{data, fetch_of};
 
 use crate::prelude::*;
 
-pub const ID: &str = "opencode.plugins";
+pub const ID: &str = "xccode.plugins";
 const LIST: &str = "plugins";
 const ERROR: &str = "plugins.error";
 
@@ -62,19 +62,19 @@ fn setup(setup: &mut abi::Setup) -> Result<(), String> {
     });
     // Ignore manager actions when the list is closed.
     let internal = state.clone();
-    setup.command(hidden("opencode.plugins.internal"), move |host, _| {
+    setup.command(hidden("xccode.plugins.internal"), move |host, _| {
         internal.internal.set(!internal.internal.get());
         internal.show(host);
     });
     let check = state.clone();
-    setup.command(hidden("opencode.plugins.check"), move |host, _| {
+    setup.command(hidden("xccode.plugins.check"), move |host, _| {
         if host.dialog_open(LIST) && !check.checking.replace(true) {
             check.show(host);
             check.fetch(host, Asked::Check(check.opened.get(), check.next()));
         }
     });
     let update = state.clone();
-    setup.command(hidden("opencode.plugins.update"), move |host, key| {
+    setup.command(hidden("xccode.plugins.update"), move |host, key| {
         let key = key.filter(|_| host.dialog_open(LIST));
         let row = key.and_then(|key| update.rows(host).into_iter().find(|row| row.key() == key));
         if let Some(row) = row.filter(|row| update.updatable(row)) {
@@ -84,7 +84,7 @@ fn setup(setup: &mut abi::Setup) -> Result<(), String> {
         }
     });
     let detail = state.clone();
-    setup.command(hidden("opencode.plugins.error"), move |host, key| {
+    setup.command(hidden("xccode.plugins.error"), move |host, key| {
         let key = key.filter(|_| host.dialog_open(LIST));
         let row = key.and_then(|key| detail.rows(host).into_iter().find(|row| row.key() == key));
         if let Some(row) = row.filter(Row::has_details) {
@@ -93,14 +93,14 @@ fn setup(setup: &mut abi::Setup) -> Result<(), String> {
         }
     });
     let back = state.clone();
-    setup.command(hidden("opencode.plugins.back"), move |host, key| {
+    setup.command(hidden("xccode.plugins.back"), move |host, key| {
         if back.erring.replace(false) {
             host.dialog(Dialog::Select(list(host, &back, key.map(str::to_owned))));
         }
     });
     // Refresh server entries after approval because list subscriptions stop while the question is open.
     let asked = state.clone();
-    setup.command(hidden("opencode.plugins.asked"), move |host, key| {
+    setup.command(hidden("xccode.plugins.asked"), move |host, key| {
         if asked.opened.get() > 0 && !host.dialog_open(LIST) {
             host.dialog(Dialog::Select(list(host, &asked, key.map(str::to_owned))));
             asked.fetch(host, Asked::List(asked.opened.get(), asked.next()));
@@ -235,12 +235,12 @@ fn list(read: &dyn Read, state: &State, focus: Option<String>) -> Select {
         visible.iter().filter(|row| !applies(row)).map(|row| row.key()).collect()
     };
     let checking = state.checking.get();
-    let error = command("opencode.plugins.error", None);
+    let error = command("xccode.plugins.error", None);
     // Keep the host's toggle distinct from plugin-supplied update and error actions.
     let mut actions = vec![SelectAction {
         title: if checking { "checking for updates" } else { "check for updates" }.to_owned(),
         key: Some("ctrl+r".to_owned()),
-        action: command("opencode.plugins.check", None),
+        action: command("xccode.plugins.check", None),
         hidden: Vec::new(),
         primary: None,
         rowless: true,
@@ -264,7 +264,7 @@ fn list(read: &dyn Read, state: &State, focus: Option<String>) -> Select {
         SelectAction {
             title: "update".to_owned(),
             key: Some("ctrl+u".to_owned()),
-            action: command("opencode.plugins.update", None),
+            action: command("xccode.plugins.update", None),
             hidden: except(&|row| state.updatable(row)),
             primary: None,
             rowless: false,
@@ -286,7 +286,7 @@ fn list(read: &dyn Read, state: &State, focus: Option<String>) -> Select {
         SelectAction {
             title: format!("{} internal", if state.internal.get() { "hide" } else { "show" }),
             key: Some("ctrl+a".to_owned()),
-            action: command("opencode.plugins.internal", None),
+            action: command("xccode.plugins.internal", None),
             hidden: Vec::new(),
             primary: Some(false),
             rowless: true,
@@ -329,7 +329,7 @@ fn option(row: &Row, state: &State) -> SelectOption {
         )
         .maybe(row.toggle(), SelectOption::toggle)
         // The host asks about a held build; once its question closes, the list comes back on the row as it is then.
-        .maybe(row.held().then(|| command("opencode.plugins.asked", None)), SelectOption::action)
+        .maybe(row.held().then(|| command("xccode.plugins.asked", None)), SelectOption::action)
 }
 
 fn details(row: &Row) -> ErrorDetails {
@@ -348,7 +348,7 @@ fn details(row: &Row) -> ErrorDetails {
         error,
         context: Some(format!("Plugin: {}\nStatus: {status}\nRuntime: {runtime}\nSource: {source}", row.label())),
         source: Some(source),
-        back: Some(command("opencode.plugins.back", Some(row.key()))),
+        back: Some(command("xccode.plugins.back", Some(row.key()))),
         reference: match row {
             Row::Server { plugin: PluginInfo { state: PluginState::Failed(failed), .. }, .. } => failed.r#ref.clone(),
             _ => None,
@@ -516,7 +516,7 @@ fn slow_summary(report: &str) -> String {
 fn source(plugin: &PluginInfo, directory: &str) -> String {
     match &plugin.source {
         PluginSource::Package(package) => package.target.clone(),
-        PluginSource::Local(local) => opencode_ui::path::format(
+        PluginSource::Local(local) => xccode_ui::path::format(
             &local.path,
             Some(directory),
             &std::env::current_dir().unwrap_or_default(),

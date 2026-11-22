@@ -1,6 +1,6 @@
-import { Browser } from "@opencode/plugin-browser/rpc"
+import { Browser } from "@xccode/plugin-browser/rpc"
 import { Schema } from "effect"
-import type { BuiltinMainStorage, MainStoreFrom } from "@opencode/plugin/gui/builtin"
+import type { BuiltinMainStorage, MainStoreFrom } from "@xccode/plugin/gui/builtin"
 import type { TabActivity } from "./policy"
 
 const Stored = Schema.Struct({
@@ -33,9 +33,9 @@ export function restoredActivity(saved: Stored) {
   )
 }
 
-/** Tab URLs and focus per `${server}\n${session}`, imported once from the desktop's own `opencode.browser.dat` rows. */
+/** Tab URLs and focus per `${server}\n${session}`, imported once from the desktop's own `xccode.browser.dat` rows. */
 export function createBrowserRestoreStore(storage: BuiltinMainStorage) {
-  const from = (key: string): MainStoreFrom => ({ state: ["opencode.browser.dat", key] })
+  const from = (key: string): MainStoreFrom => ({ state: ["xccode.browser.dat", key] })
   const open = (key: string) => storage.store(`restore:${key}`, { schema: Stored, initial: empty, from: from(key) })
 
   const stores = new Map<string, ReturnType<typeof open>>()

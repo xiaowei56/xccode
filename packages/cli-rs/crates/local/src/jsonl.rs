@@ -6,7 +6,7 @@ use std::io::{self, Read, Seek, SeekFrom, Write};
 use std::path::{Path, PathBuf};
 
 use indexmap::IndexMap;
-use opencode_util::path::Flavor;
+use xccode_util::path::Flavor;
 use serde_json::{Map, Value, json};
 
 use crate::jsonc;
@@ -186,7 +186,7 @@ fn rewrite(file: &Path, mut change: impl FnMut(&str) -> Option<String>) -> io::R
             if !unchanged(file, old.is_some().then_some(&bytes))? {
                 return Ok(false);
             }
-            opencode_util::busy::rename_synced(&temp, file).map(|()| true)
+            xccode_util::busy::rename_synced(&temp, file).map(|()| true)
         });
         if !matches!(replaced, Ok(true)) {
             let _ = fs::remove_file(&temp);
@@ -460,7 +460,7 @@ mod tests {
 
     #[test]
     fn history_heals_and_appends() {
-        let state = opencode_util::temp::tempdir().unwrap();
+        let state = xccode_util::temp::tempdir().unwrap();
         let file = state.path().join("prompt-history.jsonl");
         fs::write(&file, "{\"text\":\"a\",\"pasted\":[]}\nbroken\n{\"text\":1}\n").unwrap();
         let mut history = History::load(state.path());
@@ -476,7 +476,7 @@ mod tests {
 
     #[test]
     fn last_line_reads_backwards_like_lines() {
-        let state = opencode_util::temp::tempdir().unwrap();
+        let state = xccode_util::temp::tempdir().unwrap();
         let file = state.path().join("lines.jsonl");
         let texts = [
             "",
@@ -500,7 +500,7 @@ mod tests {
 
     #[test]
     fn a_failed_append_is_an_error() {
-        let state = opencode_util::temp::tempdir().unwrap();
+        let state = xccode_util::temp::tempdir().unwrap();
         for name in ["prompt-stash.jsonl", "prompt-history.jsonl", "frecency.jsonl"] {
             fs::create_dir(state.path().join(name)).unwrap();
         }
@@ -511,7 +511,7 @@ mod tests {
 
     #[test]
     fn stash_pushes_pops_and_removes() {
-        let state = opencode_util::temp::tempdir().unwrap();
+        let state = xccode_util::temp::tempdir().unwrap();
         let mut stash = Stash::load(state.path());
         stash.push(prompt("a"), 1);
         stash.push(prompt("b"), 2);
@@ -547,7 +547,7 @@ mod tests {
     /// and its replace: the change is made again against what the file now holds.
     #[test]
     fn a_rewrite_redoes_its_change_when_another_client_rewrote_the_file() {
-        let state = opencode_util::temp::tempdir().unwrap();
+        let state = xccode_util::temp::tempdir().unwrap();
         let file = state.path().join("prompt-stash.jsonl");
         ts_stash(&file, "a", 1);
         ts_stash(&file, "b", 2);

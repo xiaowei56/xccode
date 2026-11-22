@@ -1,6 +1,6 @@
-import { Splash } from "@opencode/ui/logo"
-import { Wordmark } from "@opencode/ui/wordmark"
-import type { Platform } from "@opencode/app/desktop"
+import { Splash } from "@xccode/ui/logo"
+import { Wordmark } from "@xccode/ui/wordmark"
+import type { Platform } from "@xccode/app/desktop"
 import { onCleanup, onMount, Show } from "solid-js"
 import "./splash.css"
 

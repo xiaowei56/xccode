@@ -1,5 +1,5 @@
 import { For, Show } from "solid-js"
-import { Button } from "@opencode/ui/button"
+import { Button } from "@xccode/ui/button"
 import { useLanguage } from "@/runtime/i18n/language"
 import { StepActions, WaitingButton } from "./step-actions"
 

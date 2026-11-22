@@ -14,10 +14,10 @@ use std::os::raw::c_int;
 use mlua::{Lua, Table, Value, ffi};
 
 /// Where the registry keeps the array marker, a frozen metatable `{ __json = "array" }`.
-pub(crate) const ARRAY: &CStr = c"opencode.json.array";
+pub(crate) const ARRAY: &CStr = c"xccode.json.array";
 
 /// Where the registry keeps the object marker, a frozen metatable `{ __json = "object" }`.
-pub(crate) const OBJECT: &CStr = c"opencode.json.object";
+pub(crate) const OBJECT: &CStr = c"xccode.json.object";
 
 /// The field of a marker that names what it marks.
 pub(crate) const MARK: &CStr = c"__json";

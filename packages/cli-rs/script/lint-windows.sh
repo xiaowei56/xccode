@@ -5,7 +5,7 @@
 #   join-text  `.join("a/b")` turned into text in the same expression: `to_string_lossy()`, `to_str()`, or
 #              `display()` on a line that builds a string with `format!` (a message to a person is no comparison).
 #   join-let   `let x = ….join("a/b")…;` and, later in the same function, `x` (or `x.join(…)`) turned into text so.
-#   unix-abs   an `OPENCODE_*` variable set to a literal Unix absolute path (`.env`, `set_var`, `"OPENCODE_X" =>`).
+#   unix-abs   an `XCCODE_*` variable set to a literal Unix absolute path (`.env`, `set_var`, `"XCCODE_X" =>`).
 #
 # A deliberate exception carries `// windows-lint: allow <reason>` on the line or the line above it. A file that is
 # `#![cfg(unix)]` as a whole is not read, and neither is a function gated to Unix (`#[cfg(unix)]`,
@@ -20,7 +20,7 @@ cd -- "$here"
 slash='(?:"[^"]*/[^"]*"|format!\("[^"]*/[^"]*"(?:[^()]|\([^()]*\))*\))'
 join_text="\\.join\\($slash\\)(?:\\.join\\((?:[^()]|\\([^()]*\\))*\\))*\\.(?:to_string_lossy|to_str|display)\\(\\)"
 join_let="^\\s*let (?:mut )?([a-z_][a-z0-9_]*) = [^;]*\\.join\\($slash\\)"
-unix_abs='(?:\.env|set_var)\("OPENCODE_[A-Z0-9_]+",\s*"/|"OPENCODE_[A-Z0-9_]+"\s*=>\s*Some\("/'
+unix_abs='(?:\.env|set_var)\("XCCODE_[A-Z0-9_]+",\s*"/|"XCCODE_[A-Z0-9_]+"\s*=>\s*Some\("/'
 
 report=$(
     rg -lP --type rust "$join_text|$join_let|$unix_abs" "$@" | sort | while read -r file; do
@@ -65,7 +65,7 @@ report=$(
                 if (rule == "join-text") {
                     printf "%s:%d: join-text: a path joined with a `/` in one argument is turned into text\n", file, at
                 } else if (rule == "unix-abs") {
-                    printf "%s:%d: unix-abs: an OPENCODE_* variable is set to a Unix absolute path\n", file, at
+                    printf "%s:%d: unix-abs: an XCCODE_* variable is set to a Unix absolute path\n", file, at
                 } else if ((used = as_text(name, at)) && !allowed(used)) {
                     printf "%s:%d: join-let: `%s` is joined with a `/` in one argument and turned into text at line %d\n", file, at, name, used
                 }

@@ -1,4 +1,4 @@
-import type { Browser } from "@opencode/plugin-browser/rpc"
+import type { Browser } from "@xccode/plugin-browser/rpc"
 
 /** Electron rejects loadURL as soon as a second main-frame navigation starts, before its document commits. */
 export function replacementNavigation() {

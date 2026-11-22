@@ -3,7 +3,7 @@
 
 use std::collections::HashSet;
 
-use opencode_ui::markdown::CodeBlockRenderers;
+use xccode_ui::markdown::CodeBlockRenderers;
 use opentui::widget::{InlineContext, InlineSpan, Markdown};
 
 use crate::prelude::*;
@@ -28,7 +28,7 @@ pub fn attach(tui: &Tui, markdown: &Markdown, renderers: &CodeBlockRenderers) ->
     let used: Rc<RefCell<HashMap<SessionID, Option<String>>>> = Rc::default();
     let links = Rc::new(Links { markdown: markdown.clone(), used: used.clone(), pressed: Cell::new(None) });
     let weak = tui.weak();
-    opencode_ui::markdown::inline_hook(markdown, renderers, move |spans, cx| match weak.upgrade() {
+    xccode_ui::markdown::inline_hook(markdown, renderers, move |spans, cx| match weak.upgrade() {
         Some(tui) => link_spans(&tui, &used, spans, cx),
         None => spans,
     });
@@ -118,7 +118,7 @@ fn link_spans(
     for span in spans {
         let text = span.span.content.as_ref();
         // Like the web app, a code span links only when it is exactly a session ID, so a command such as
-        // `opencode --session ses_…` stays copyable.
+        // `xccode --session ses_…` stays copyable.
         let plain = span.span.link.is_some() || (span.code && parse(strip_ticks(text)).is_none());
         if plain || !text.contains("ses_") {
             out.push(span);
@@ -209,7 +209,7 @@ impl Mention {
 const PREFIX: &str = "@session:";
 const ID_LEN: usize = 30;
 
-/// `sessionMentions` (`@opencode/util/session-mention`): complete generated IDs, optionally after `@session:`, not
+/// `sessionMentions` (`@xccode/util/session-mention`): complete generated IDs, optionally after `@session:`, not
 /// inside a word, path or URL: `(?<![\w/:@-])(?:@session:)?(ses_[A-Za-z0-9]{26})(?![\w/-])`.
 pub fn mentions(text: &str) -> impl Iterator<Item = Mention> + '_ {
     let bytes = text.as_bytes();

@@ -1,13 +1,13 @@
 //! Built-in home footer.
 
-use opencode_plugin::abi::v2::{Node, Place, Surface};
-use opencode_plugin::abi::{self, Click, Layout, Placement, Span, Width};
-use opencode_plugin::slot;
+use xccode_plugin::abi::v2::{Node, Place, Surface};
+use xccode_plugin::abi::{self, Click, Layout, Placement, Span, Width};
+use xccode_plugin::slot;
 
 use super::{hidden, kept};
 
 pub fn plugin() -> abi::Plugin {
-    abi::Plugin { id: "opencode.home.footer", setup }
+    abi::Plugin { id: "xccode.home.footer", setup }
 }
 
 const ROOT: &str = "footer";

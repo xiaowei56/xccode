@@ -60,7 +60,7 @@ function QueuePreview(props: QueueArgs) {
 }
 
 export default {
-  title: "OpenCode/Session/Queue panel",
+  title: "Xccode/Session/Queue panel",
   id: "session-queue-panel",
   render: (args: QueueArgs) => <QueuePreview {...args} />,
   args: { count: 3, context: false, working: true, pending: false },

@@ -16,74 +16,74 @@ import {
   RateLimitError,
   UnknownProviderError,
   type UserMessage,
-} from "@opencode/ai/effect"
-import { OpenAIChat } from "@opencode/ai/protocols/openai-chat"
-import { AnthropicMessages, OpenAIResponses } from "@opencode/ai/protocols"
-import { TestLLM, compileRequest } from "@opencode/ai/testing"
-import { RequestExecutor } from "@opencode/ai/route"
-import type { SessionHooks } from "@opencode/plugin/effect/session"
-import { Database } from "@opencode/core/database/database"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@opencode/core/effect/app-node-platform"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { Event } from "@opencode/schema/event"
-import { App } from "@opencode/core/app"
-import { Permission } from "@opencode/core/permission"
-import { EventTable } from "@opencode/core/event/sql"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { Form } from "@opencode/core/form"
-import { Job } from "@opencode/core/job"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { Snapshot } from "@opencode/core/snapshot"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionCompaction } from "@opencode/core/session/compaction"
-import { SessionInbox } from "@opencode/core/session/inbox"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionModelTransport } from "@opencode/core/session/model-transport"
-import { Money } from "@opencode/schema/money"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionExecution } from "@opencode/core/session/execution"
-import { SessionRunCoordinator } from "@opencode/core/session/run-coordinator"
-import { SessionRunner } from "@opencode/core/session/runner/index"
-import { SessionRunnerLLM } from "@opencode/core/session/runner/llm"
-import { SessionRunnerModel } from "@opencode/core/session/runner/model"
-import { SessionUsage } from "@opencode/core/session/usage"
-import { PluginSupervisor } from "@opencode/core/plugin/supervisor"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHooks } from "@opencode/core/plugin/hooks"
-import { PluginPromise } from "@opencode/core/plugin/promise"
-import { OptimizePlugin } from "@opencode/core/plugin/optimize"
-import { IdentityPlugin } from "@opencode/core/plugin/identity"
-import { QuestionTool } from "@opencode/core/tool/plugin/question"
-import { Agent } from "@opencode/core/agent"
-import { Config } from "@opencode/core/config"
-import { Document, Info } from "@opencode/schema/config"
-import { ConfigCompaction } from "@opencode/schema/config/compaction"
-import { Tool } from "@opencode/core/tool"
-import type { Info as ToolInfo } from "@opencode/schema/tool"
+} from "@xccode/ai/effect"
+import { OpenAIChat } from "@xccode/ai/protocols/openai-chat"
+import { AnthropicMessages, OpenAIResponses } from "@xccode/ai/protocols"
+import { TestLLM, compileRequest } from "@xccode/ai/testing"
+import { RequestExecutor } from "@xccode/ai/route"
+import type { SessionHooks } from "@xccode/plugin/effect/session"
+import { Database } from "@xccode/core/database/database"
+import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@xccode/core/effect/app-node-platform"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Bus } from "@xccode/core/bus"
+import { Event } from "@xccode/schema/event"
+import { App } from "@xccode/core/app"
+import { Permission } from "@xccode/core/permission"
+import { EventTable } from "@xccode/core/event/sql"
+import { Project } from "@xccode/core/project"
+import { ProjectTable } from "@xccode/core/project/sql"
+import { Form } from "@xccode/core/form"
+import { Job } from "@xccode/core/job"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Session } from "@xccode/core/session"
+import { Snapshot } from "@xccode/core/snapshot"
+import { SessionEvent } from "@xccode/core/session/event"
+import { SessionCompaction } from "@xccode/core/session/compaction"
+import { SessionInbox } from "@xccode/core/session/inbox"
+import { SessionMessage } from "@xccode/core/session/message"
+import { SessionModelTransport } from "@xccode/core/session/model-transport"
+import { Money } from "@xccode/schema/money"
+import { SessionProjector } from "@xccode/core/session/projector"
+import { SessionExecution } from "@xccode/core/session/execution"
+import { SessionRunCoordinator } from "@xccode/core/session/run-coordinator"
+import { SessionRunner } from "@xccode/core/session/runner/index"
+import { SessionRunnerLLM } from "@xccode/core/session/runner/llm"
+import { SessionRunnerModel } from "@xccode/core/session/runner/model"
+import { SessionUsage } from "@xccode/core/session/usage"
+import { PluginSupervisor } from "@xccode/core/plugin/supervisor"
+import { Plugin } from "@xccode/core/plugin"
+import { PluginHooks } from "@xccode/core/plugin/hooks"
+import { PluginPromise } from "@xccode/core/plugin/promise"
+import { OptimizePlugin } from "@xccode/core/plugin/optimize"
+import { IdentityPlugin } from "@xccode/core/plugin/identity"
+import { QuestionTool } from "@xccode/core/tool/plugin/question"
+import { Agent } from "@xccode/core/agent"
+import { Config } from "@xccode/core/config"
+import { Document, Info } from "@xccode/schema/config"
+import { ConfigCompaction } from "@xccode/schema/config/compaction"
+import { Tool } from "@xccode/core/tool"
+import type { Info as ToolInfo } from "@xccode/schema/tool"
 import {
   InstructionStateTable,
   SessionInboxTable,
   SessionMessageTable,
   SessionPartTable,
   SessionTable,
-} from "@opencode/core/session/sql"
-import { InstructionEntry } from "@opencode/core/session/instruction-entry"
-import { SessionStore } from "@opencode/core/session/store"
-import { Instructions } from "@opencode/core/instructions/index"
-import { InstructionBuiltIns } from "@opencode/core/instructions/builtins"
-import { InstructionDiscovery } from "@opencode/core/instruction-discovery"
-import { SkillInstructions } from "@opencode/core/skill/instructions"
-import { ReferenceInstructions } from "@opencode/core/reference/instructions"
-import { McpInstructions } from "@opencode/core/mcp/instructions"
-import { SessionSystemPrompt } from "@opencode/core/session/system-prompt"
-import { ID, Model } from "@opencode/core/model"
-import { Location } from "@opencode/core/location"
-import { Provider } from "@opencode/core/provider"
+} from "@xccode/core/session/sql"
+import { InstructionEntry } from "@xccode/core/session/instruction-entry"
+import { SessionStore } from "@xccode/core/session/store"
+import { Instructions } from "@xccode/core/instructions/index"
+import { InstructionBuiltIns } from "@xccode/core/instructions/builtins"
+import { InstructionDiscovery } from "@xccode/core/instruction-discovery"
+import { SkillInstructions } from "@xccode/core/skill/instructions"
+import { ReferenceInstructions } from "@xccode/core/reference/instructions"
+import { McpInstructions } from "@xccode/core/mcp/instructions"
+import { SessionSystemPrompt } from "@xccode/core/session/system-prompt"
+import { ID, Model } from "@xccode/core/model"
+import { Location } from "@xccode/core/location"
+import { Provider } from "@xccode/core/provider"
 import {
   Cause,
   Context,
@@ -103,11 +103,11 @@ import { TestClock } from "effect/testing"
 import { and, asc, desc, eq, sql } from "drizzle-orm"
 import { testEffect } from "./lib/effect"
 import { promptLocationNode } from "./fixture/prompt-location"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
+import { LocationServiceMap } from "@xccode/core/location-service-map"
 import { Expected } from "./lib/session-message"
 import { permissionLayer } from "./lib/permission"
 import { agentHost, modelHost, host, noProviders } from "./plugin/host"
-import { CodeModeInstructions } from "@opencode/core/codemode/instructions"
+import { CodeModeInstructions } from "@xccode/core/codemode/instructions"
 
 const emptyCodeMode = `${CodeModeInstructions.render({ total: 0, namespaces: [] })}\n\n`
 type ToolBarrier = {
@@ -5391,13 +5391,13 @@ describe("SessionRunnerLLM", () => {
     yield* s.runPrompt("Run correlated request")
 
     expect(s.requests[0]?.headers).toEqual({
-      "x-opencode-session-id": sessionID,
+      "x-xccode-session-id": sessionID,
       "x-session-affinity": sessionID,
       "X-Session-Id": sessionID,
       "User-Agent": App.useragent(App.make()),
-      "x-opencode-project": Project.ID.global,
-      "x-opencode-session": sessionID,
-      "x-opencode-client": "opencode",
+      "x-xccode-project": Project.ID.global,
+      "x-xccode-session": sessionID,
+      "x-xccode-client": "xccode",
     })
   })
 
@@ -5413,12 +5413,12 @@ describe("SessionRunnerLLM", () => {
     yield* s.runPrompt("Run child request")
 
     expect(s.requests[0]?.headers).toMatchObject({
-      "x-opencode-session-id": sessionID,
-      "x-opencode-parent-session-id": parentID,
+      "x-xccode-session-id": sessionID,
+      "x-xccode-parent-session-id": parentID,
       "x-session-affinity": parentID,
       "X-Session-Id": parentID,
       "x-parent-session-id": parentID,
-      "x-opencode-session": parentID,
+      "x-xccode-session": parentID,
     })
     expect(s.requests[0]?.promptCacheKey).toBe(parentID)
   })
@@ -6396,7 +6396,7 @@ describe("SessionRunnerLLM", () => {
           .filter((span) => span.name === "SessionStep.attempt")
           .map((span) => ({
             error: span.attributes.get("error.type"),
-            attempt: span.attributes.get("opencode.retry.attempt"),
+            attempt: span.attributes.get("xccode.retry.attempt"),
           })),
       ).toEqual([
         { error: "Transport", attempt: undefined },
@@ -6989,7 +6989,7 @@ describe("SessionRunnerLLM", () => {
     expect(yield* recordedEventTypes(sessionID)).not.toContain("session.retry.scheduled.1")
   })
 
-  scenario("records OpenCode Console's Go usage limit 429 as a typed step failure without retrying", function* (s) {
+  scenario("records Xccode Console's Go usage limit 429 as a typed step failure without retrying", function* (s) {
     // The exact refusal Console sends a Go subscriber at a limit.
     const body = JSON.stringify({
       type: "error",
@@ -6998,7 +6998,7 @@ describe("SessionRunnerLLM", () => {
     })
     const failure = RequestExecutor.httpFailure({
       message: "Go usage limit exceeded",
-      url: "https://opencode.ai/inference/go/openai/v1/chat/completions",
+      url: "https://xccode.ai/inference/go/openai/v1/chat/completions",
       status: 429,
       responseHeaders: { "retry-after": "3600" },
       responseBody: body,
@@ -7017,7 +7017,7 @@ describe("SessionRunnerLLM", () => {
           error: {
             type: "provider.go-limit",
             message:
-              "OpenCode Go 5 hour usage limit reached. Switch to a free model, or turn on Extra Usage on the Go page in OpenCode Console to keep going.",
+              "Xccode Go 5 hour usage limit reached. Switch to a free model, or turn on Extra Usage on the Go page in Xccode Console to keep going.",
             status: 429,
             response: { body },
             retryAfterMs: 3_600_000,

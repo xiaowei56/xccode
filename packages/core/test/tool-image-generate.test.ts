@@ -1,25 +1,25 @@
 import { describe, expect } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
-import { Bus } from "@opencode/core/bus"
-import { Config } from "@opencode/core/config"
-import { Generate } from "@opencode/core/generate"
-import { Job } from "@opencode/core/job"
-import { Location } from "@opencode/core/location"
-import { Model } from "@opencode/core/model"
-import { Permission } from "@opencode/core/permission"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { Provider } from "@opencode/core/provider"
-import { Session } from "@opencode/core/session"
-import { SessionEvent } from "@opencode/core/session/event"
-import { Tool } from "@opencode/core/tool"
-import { ImageGenerateTool } from "@opencode/core/tool/plugin/image-generate"
-import { OpenCodeTools } from "@opencode/core/tool/plugin/opencode"
-import { Document, Event, Info } from "@opencode/schema/config"
-import { ConfigExperimental } from "@opencode/schema/config/experimental"
-import type { ImageRequest, ImageResult } from "@opencode/schema/generate"
-import { Global } from "@opencode/util/global"
+import { Bus } from "@xccode/core/bus"
+import { Config } from "@xccode/core/config"
+import { Generate } from "@xccode/core/generate"
+import { Job } from "@xccode/core/job"
+import { Location } from "@xccode/core/location"
+import { Model } from "@xccode/core/model"
+import { Permission } from "@xccode/core/permission"
+import { Plugin } from "@xccode/core/plugin"
+import { PluginHost } from "@xccode/core/plugin/host"
+import { Provider } from "@xccode/core/provider"
+import { Session } from "@xccode/core/session"
+import { SessionEvent } from "@xccode/core/session/event"
+import { Tool } from "@xccode/core/tool"
+import { ImageGenerateTool } from "@xccode/core/tool/plugin/image-generate"
+import { XccodeTools } from "@xccode/core/tool/plugin/xccode"
+import { Document, Event, Info } from "@xccode/schema/config"
+import { ConfigExperimental } from "@xccode/schema/config/experimental"
+import type { ImageRequest, ImageResult } from "@xccode/schema/generate"
+import { Global } from "@xccode/util/global"
 import { Effect, Layer, Schedule, Stream } from "effect"
 import { testEffect } from "./lib/effect"
 import { permissionLayer } from "./lib/permission"
@@ -104,7 +104,7 @@ const setup = (providerID = "test") =>
     const location = yield* Location.Service
     const host = yield* PluginHost.make(plugins, "test")
     yield* ImageGenerateTool.Plugin.effect(host)
-    yield* OpenCodeTools.Plugin.effect(host)
+    yield* XccodeTools.Plugin.effect(host)
     const session = yield* sessions.create({
       location: Location.Ref.make({ directory: location.directory }),
       model: Model.Ref.make({ providerID: Provider.ID.make(providerID), id: Model.ID.make("chat") }),
@@ -493,7 +493,7 @@ describe("experimental_image_generate", () => {
             type: "tool-call",
             id: `models-${JSON.stringify(input)}`,
             name: "execute",
-            input: { code: `return await tools.opencode.models(${JSON.stringify(input)})` },
+            input: { code: `return await tools.xccode.models(${JSON.stringify(input)})` },
           },
         }).pipe(
           Effect.map((result) =>

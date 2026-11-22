@@ -11,37 +11,37 @@ import "@/settings/workspaces/project.css"
 import "@/providers/connect/models.css"
 import "@/shell/palette-menu.css"
 import "@/shell/search-list.css"
-import "@opencode/session-ui/sources/panel"
+import "@xccode/session-ui/sources/panel"
 import "../../../gui-plugins/src/browser/bar.css"
 import treeFocusCss from "../../../gui-plugins/src/file/tree-focus.css?inline"
 
-import { File } from "@opencode/session-ui/file"
-import { SessionFilePanelV2 } from "@opencode/session-ui/v2/session-file-panel-v2"
-import { SessionReviewV2Sidebar, SessionReviewV2SidebarToggle } from "@opencode/session-ui/v2/session-review-v2"
-import { Accordion } from "@opencode/ui/accordion"
-import { StickyAccordionHeader } from "@opencode/ui/sticky-accordion-header"
-import { Button } from "@opencode/ui/button"
-import { Checkbox } from "@opencode/ui/checkbox"
-import { Collapsible } from "@opencode/ui/collapsible"
-import { ErrorDetails } from "@opencode/ui/error-details"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { ProjectAvatar } from "@opencode/ui/project-avatar"
-import { RadioGroup, RadioItem } from "@opencode/ui/radio"
-import { ScrollView } from "@opencode/ui/scroll-view"
-import { SegmentedControl, SegmentedControlItem } from "@opencode/ui/segmented-control"
-import { Select } from "@opencode/ui/select"
-import { Switch } from "@opencode/ui/switch"
-import { Tabs } from "@opencode/ui/tabs"
-import { TextInput } from "@opencode/ui/text-input"
+import { File } from "@xccode/session-ui/file"
+import { SessionFilePanelV2 } from "@xccode/session-ui/v2/session-file-panel-v2"
+import { SessionReviewV2Sidebar, SessionReviewV2SidebarToggle } from "@xccode/session-ui/v2/session-review-v2"
+import { Accordion } from "@xccode/ui/accordion"
+import { StickyAccordionHeader } from "@xccode/ui/sticky-accordion-header"
+import { Button } from "@xccode/ui/button"
+import { Checkbox } from "@xccode/ui/checkbox"
+import { Collapsible } from "@xccode/ui/collapsible"
+import { ErrorDetails } from "@xccode/ui/error-details"
+import { Icon } from "@xccode/ui/icon"
+import { IconButton } from "@xccode/ui/icon-button"
+import { ProjectAvatar } from "@xccode/ui/project-avatar"
+import { RadioGroup, RadioItem } from "@xccode/ui/radio"
+import { ScrollView } from "@xccode/ui/scroll-view"
+import { SegmentedControl, SegmentedControlItem } from "@xccode/ui/segmented-control"
+import { Select } from "@xccode/ui/select"
+import { Switch } from "@xccode/ui/switch"
+import { Tabs } from "@xccode/ui/tabs"
+import { TextInput } from "@xccode/ui/text-input"
 import { createEffect, createSignal, createUniqueId, For, onCleanup, onMount, Show, type JSX } from "solid-js"
 import { createTabStripScroll } from "@/runtime/plugin/tab-strip-scroll"
-import { createFieldFocus } from "@opencode/ui/context/field-focus"
-import { createOverlayFocus } from "@opencode/ui/context/overlay-focus"
-import { installFocusRescue } from "@opencode/ui/context/focus-rescue"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@opencode/ui/dialog"
-import { Menu } from "@opencode/ui/menu"
+import { createFieldFocus } from "@xccode/ui/context/field-focus"
+import { createOverlayFocus } from "@xccode/ui/context/overlay-focus"
+import { installFocusRescue } from "@xccode/ui/context/focus-rescue"
+import { useDialog } from "@xccode/ui/context/dialog"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@xccode/ui/dialog"
+import { Menu } from "@xccode/ui/menu"
 import { Popover } from "@kobalte/core/popover"
 import { WaitingButton } from "@/providers/connect/step-actions"
 import { SessionHeaderActions } from "@/session/header/session-header-actions"
@@ -198,7 +198,7 @@ const surfaces: Surface[] = [
             class="flex h-7 items-center gap-2 rounded-[6px] px-1.5 text-13-regular text-v2-text-text-muted hover:bg-v2-overlay-simple-overlay-hover"
           >
             <ProjectAvatar fallback="O" variant="blue" class="!size-4" />
-            opencode
+            xccode
           </button>
         ),
       },
@@ -213,7 +213,7 @@ const surfaces: Surface[] = [
         render: () => (
           <div class="flex items-center gap-2">
             <button type="button" class="h-7 rounded-[6px] px-1.5 text-13-regular">
-              opencode
+              xccode
             </button>
             <Icon name="chevron-right" />
             <h1 class="session-title-rename w-fit text-13-medium">
@@ -642,7 +642,7 @@ const surfaces: Surface[] = [
           </ScrollView>
         ),
       },
-      ...(["Projects", "opencode"] as const).map(
+      ...(["Projects", "xccode"] as const).map(
         (label): Case => ({
           name: `Side tabs: ${label === "Projects" ? "Projects heading" : "project row"} has only a background change`,
           failure: "Inconsistent",
@@ -687,7 +687,7 @@ const surfaces: Surface[] = [
             >
               <ProjectAvatar fallback="O" variant="blue" class="!size-4" />
               <span>Test message</span>
-              <span class="text-13-regular text-v2-text-text-muted">opencode</span>
+              <span class="text-13-regular text-v2-text-text-muted">xccode</span>
             </button>
           </div>
         ),
@@ -720,7 +720,7 @@ const surfaces: Surface[] = [
                 class="flex h-7 w-full items-center gap-2 rounded-[6px] px-1.5 text-13-regular"
               >
                 <ProjectAvatar fallback="O" variant="blue" class="!size-4" />
-                opencode
+                xccode
               </button>
               <div data-slot="home-row-actions" class="absolute end-1 inset-y-0 flex items-center ps-2">
                 <IconButton
@@ -941,7 +941,7 @@ const surfaces: Surface[] = [
               <Tabs.Content value="mcps">
                 <div class="settings-extension-row">
                   <span>Available to all projects</span>
-                  <span class="text-v2-text-text-muted">Manage in opencode.json</span>
+                  <span class="text-v2-text-text-muted">Manage in xccode.json</span>
                 </div>
               </Tabs.Content>
               <Tabs.Content value="plugins">Manage plugins</Tabs.Content>
@@ -964,7 +964,7 @@ const surfaces: Surface[] = [
                 Connect
               </button>
               <Icon name="chevron-right" class="text-v2-icon-icon-muted" />
-              <span class="text-13-medium">OpenCode Go</span>
+              <span class="text-13-medium">Xccode Go</span>
             </nav>
           </div>
         ),
@@ -1032,7 +1032,7 @@ const surfaces: Surface[] = [
       {
         name: "Worktrees: Delete ring cut at the top and right by its row",
         failure: "Clipped",
-        target: '[aria-label="Delete “opencode-dialogs”?"]',
+        target: '[aria-label="Delete “xccode-dialogs”?"]',
         keys: "Click the path, press Tab.",
         sizing: "Audited at 1280×800. Delete is the row's top-right control.",
         source: "app/src/settings/settings.css:1919–27 (row overflow: hidden), workspaces.tsx:543–553",
@@ -1045,15 +1045,15 @@ const surfaces: Surface[] = [
                   <div class="settings-workspaces-row">
                     <div class="settings-workspaces-row-header">
                       <div class="settings-workspaces-copy">
-                        <div class="settings-workspaces-main">/Users/alex/work/opencode-dialogs</div>
-                        <span class="settings-workspaces-meta">0 sessions in opencode</span>
+                        <div class="settings-workspaces-main">/Users/alex/work/xccode-dialogs</div>
+                        <span class="settings-workspaces-meta">0 sessions in xccode</span>
                       </div>
                       <div class="settings-workspaces-row-actions">
                         <IconButton
                           type="button"
                           variant="ghost-muted"
                           size="small"
-                          aria-label="Delete “opencode-dialogs”?"
+                          aria-label="Delete “xccode-dialogs”?"
                           icon={<Icon name="trash" size="small" />}
                         />
                       </div>
@@ -1184,7 +1184,7 @@ const surfaces: Surface[] = [
                 class="flex h-full min-w-0 flex-1 items-center gap-2 rounded-[4px] bg-transparent text-start focus-visible:outline-none"
               >
                 <ProjectAvatar fallback="O" variant="blue" class="!size-5" />
-                <span class="text-[13px] font-[530]">opencode</span>
+                <span class="text-[13px] font-[530]">xccode</span>
               </button>
             </div>
           </div>
@@ -1674,7 +1674,7 @@ const surfaces: Surface[] = [
         fix: "The rows picked their background on :focus, so a click drew it too, and drew no ring. They now take the shared ring inset (-2px) on :focus-visible; hover and the arrow-key highlight keep the background.",
         render: () => (
           <div class="flex w-[320px] flex-col gap-0.5 overflow-y-auto">
-            <For each={["OpenCode Zen", "Anthropic", "OpenAI"]}>
+            <For each={["Xccode Zen", "Anthropic", "OpenAI"]}>
               {(name) => (
                 <button
                   type="button"
@@ -1815,7 +1815,7 @@ const surfaces: Surface[] = [
               Big Pickle
             </button>
             <div class="grid w-full grid-cols-2 gap-x-2 gap-y-1.5">
-              <For each={["OpenCode Zen", "OpenCode Go"]}>
+              <For each={["Xccode Zen", "Xccode Go"]}>
                 {(name) => (
                   <button
                     type="button"

@@ -5,8 +5,8 @@
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 
-use opencode_ui::dialog::FocusId;
-use opencode_ui::keymap::{Bind, KeymapLayer, TuiCommand};
+use xccode_ui::dialog::FocusId;
+use xccode_ui::keymap::{Bind, KeymapLayer, TuiCommand};
 use opentui::keymap::Disposer;
 use opentui::prelude::*;
 
@@ -14,7 +14,7 @@ use crate::node::{Mount, MountFn, SlotRender};
 use crate::{Claimed, Host, SlotInput, abi};
 
 /// A plugin's commands: the layers of its unscoped ones (global, then base mode), and the ones of each route.
-type Split = ([KeymapLayer<opencode_ui::dialog::FocusId>; 2], Vec<(String, TuiCommand)>);
+type Split = ([KeymapLayer<xccode_ui::dialog::FocusId>; 2], Vec<(String, TuiCommand)>);
 
 /// Splits `commands` by their scope. A layer without commands is left for the caller to skip.
 pub(crate) fn split(commands: Vec<(abi::Scope, TuiCommand)>) -> Split {

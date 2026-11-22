@@ -11,7 +11,7 @@
 // Enter opens and is always the chosen one: the typed text as a search or an address, or the page whose address the
 // typing completes, which the field shows after the typed text, selected. Moving through the list puts each row's
 // text in the field and holds the rows as they are.
-import type { Browser } from "@opencode/plugin-browser/rpc"
+import type { Browser } from "@xccode/plugin-browser/rpc"
 import { resolveAddress, searchAddress, searches } from "./address"
 import type { HistoryPage } from "./history/ipc"
 import { filled, pageKey } from "./history/page"

@@ -8,7 +8,7 @@ color the migration reads fails later with a JavaScript type error (`undefined i
 `parity/oracle/U.1-themes.ts` (15 broken themes: bad, numeric, and object colors, a syntax token that is not a hue
 reference, missing keys, empty and unknown categorical hues, bad hue steps, missing semantic hues, circular and
 missing references, keys the schema drops, no modes). Other malformed documents fail the same way (the theme falls
-back to `opencode` with a toast) but the value word can differ, because Effect's message format for nested unions
+back to `xccode` with a toast) but the value word can differ, because Effect's message format for nested unions
 is not reproduced. A V1 theme missing a color fails with `Color "<key>" is missing from the theme`.
 
 **Reason.** The message text only explains a bad file; reproducing Effect's issue formatter for every shape would

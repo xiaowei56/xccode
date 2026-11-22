@@ -1,14 +1,14 @@
 //! Submit, queue, and steer prompts. Restore the snapshot on failure only if the user has not started a new draft.
 
 use indexmap::IndexMap;
-use opencode_api::client::Client;
-use opencode_api::generated::{
+use xccode_api::client::Client;
+use xccode_api::generated::{
     AbsolutePath, AgentID, LocationPublicRef, ModelRef, SessionCommandInput, SessionInboxDelivery, SessionInboxInfo,
     SessionPromptInput, SessionRevertCommitInput, SessionShellInput, SessionSwitchAgentInput, SessionSwitchModelInput,
     SessionSyntheticInput,
 };
-use opencode_store::inbox::Gate;
-use opencode_store::{CreateSession, Error, Prompt};
+use xccode_store::inbox::Gate;
+use xccode_store::{CreateSession, Error, Prompt};
 
 use super::autocomplete::parts;
 use super::draft::Draft;
@@ -213,7 +213,7 @@ fn run(tui: &Tui, prompt: &Rc<Inner>, delivery: SessionInboxDelivery) -> bool {
                         creation.await?;
                     }
                     if let Some(variables) = environment {
-                        opencode_store::environment::upload(&client, &input.session_id, variables)
+                        xccode_store::environment::upload(&client, &input.session_id, variables)
                             .await
                             .map_err(Error::new)?;
                     }
@@ -340,7 +340,7 @@ impl Commit {
     async fn run(self) -> Result<(), Error> {
         self.interrupted.await;
         if let Some(variables) = self.environment {
-            opencode_store::environment::upload(&self.client, &self.session, variables).await.map_err(Error::new)?;
+            xccode_store::environment::upload(&self.client, &self.session, variables).await.map_err(Error::new)?;
         }
         if let Some(agent) = self.switch_agent {
             let input = SessionSwitchAgentInput { session_id: self.session.clone(), agent };
@@ -348,7 +348,7 @@ impl Commit {
         }
         let input = SessionSwitchModelInput { session_id: self.session, model: self.model };
         self.client.session_switch_model(&input).await.map_err(|error| {
-            Error::new(opencode_api::error::Error::Transport(format!("Failed to switch model: {error}")))
+            Error::new(xccode_api::error::Error::Transport(format!("Failed to switch model: {error}")))
         })
     }
 }

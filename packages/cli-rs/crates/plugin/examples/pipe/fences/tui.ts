@@ -8,7 +8,7 @@
 // - `hang`: never returns, so the JS host stops answering;
 // - the command `fences.late` registers a renderer of `late` after setup, which reloads the plugin's registrations;
 // - with the option `many`, as many more languages `x0`, `x1`, …, each declining.
-import { Plugin } from "@opencode/plugin/tui"
+import { Plugin } from "@xccode/plugin/tui"
 import { BoxRenderable, TextRenderable } from "@opentui/core"
 
 export default Plugin.define({

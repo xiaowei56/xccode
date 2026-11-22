@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use std::sync::Mutex;
 
 use bytes::Bytes;
-use opencode_api::transport::{BoxFuture, Request, Response, Transport};
+use xccode_api::transport::{BoxFuture, Request, Response, Transport};
 
 #[derive(Clone)]
 pub enum Reply {

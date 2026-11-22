@@ -7,8 +7,8 @@ use std::sync::Arc;
 use std::time::{Duration, Instant};
 
 use futures_util::future::join_all;
-use opencode_api::transport::Transport;
-use opencode_local::registration::{self, Registration};
+use xccode_api::transport::Transport;
+use xccode_local::registration::{self, Registration};
 
 use crate::contender::{Delays, Pool};
 use crate::discover;
@@ -198,7 +198,7 @@ impl Run<'_> {
         }
         if !self.pool.owns(info.pid) && stop::running(info.pid) {
             return Err(Error(format!(
-                "Background service at {} (pid {}) is not responding. Stop it with `opencode service stop`, or pass --server.",
+                "Background service at {} (pid {}) is not responding. Stop it with `xccode service stop`, or pass --server.",
                 info.url, info.pid
             )));
         }
@@ -271,7 +271,7 @@ async fn started_elsewhere(
 fn spawn_error(command: &[OsString], error: &std::io::Error) -> String {
     let program = command.first().map(|program| program.to_string_lossy().into_owned()).unwrap_or_default();
     format!(
-        "Failed to start server: {program}: {error}. Install opencode or set {} to the TypeScript opencode binary.",
+        "Failed to start server: {program}: {error}. Install xccode or set {} to the TypeScript xccode binary.",
         TsCommand::VAR
     )
 }

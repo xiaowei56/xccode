@@ -3,7 +3,7 @@
 
 use std::collections::{HashMap, HashSet, VecDeque};
 
-use opencode_api::generated::{AgentID, ModelRef, SessionID, SessionMessageID};
+use xccode_api::generated::{AgentID, ModelRef, SessionID, SessionMessageID};
 
 use crate::location::Location;
 

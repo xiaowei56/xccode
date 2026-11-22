@@ -5,8 +5,8 @@ use std::sync::Arc;
 use common::*;
 use futures_util::FutureExt;
 use futures_util::future::{BoxFuture, Shared};
-use opencode_api::generated::*;
-use opencode_store::{CreateSession, Data, Error, Options, Prompt, SessionStatus};
+use xccode_api::generated::*;
+use xccode_store::{CreateSession, Data, Error, Options, Prompt, SessionStatus};
 use serde_json::{Value, json};
 
 const SESSION: &str = "ses_compact";
@@ -127,7 +127,7 @@ impl Setup {
 }
 
 fn failure(message: &str) -> Error {
-    Arc::new(opencode_api::error::Error::Transport(message.into()))
+    Arc::new(xccode_api::error::Error::Transport(message.into()))
 }
 
 #[tokio::test]

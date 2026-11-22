@@ -10,7 +10,7 @@ export interface Interface {
   readonly cancel: (model: VideoModel, id: string) => Effect.Effect<void, AIError>
 }
 
-export class VideoClientService extends Context.Service<VideoClientService, Interface>()("@opencode/VideoClient") {}
+export class VideoClientService extends Context.Service<VideoClientService, Interface>()("@xccode/VideoClient") {}
 export const Service = VideoClientService
 export type Service = VideoClientService
 

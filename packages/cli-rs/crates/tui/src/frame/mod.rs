@@ -5,10 +5,10 @@ pub mod resize;
 
 use std::sync::OnceLock;
 
-use opencode_local::cli_config::TabsLayout;
-use opencode_local::serial::Serial;
-use opencode_local::storage::Storage;
-use opencode_plugin::{SlotInput, SlotMount, slot};
+use xccode_local::cli_config::TabsLayout;
+use xccode_local::serial::Serial;
+use xccode_local::storage::Storage;
+use xccode_plugin::{SlotInput, SlotMount, slot};
 
 use crate::panel::{Host, Presentation};
 use crate::prelude::*;
@@ -158,7 +158,7 @@ pub fn mount_app(tui: &Tui, remount: bool) {
     let slot = crate::plugins::host::slot(tui, &holder, slot::APP, &SlotInput::default(), |_| {});
     tui.frame.column.add(&holder);
     *tui.frame.app.borrow_mut() = Some((holder, Rc::new(slot)));
-    sync_app(tui, &opencode_store::Changes::everything());
+    sync_app(tui, &xccode_store::Changes::everything());
 }
 
 /// Restyles the `app` slot's claims in place, or mounts the slot again when one cannot.
@@ -169,7 +169,7 @@ pub fn restyle_app(tui: &Tui) {
     }
 }
 
-pub fn sync_app(tui: &Tui, changes: &opencode_store::Changes) {
+pub fn sync_app(tui: &Tui, changes: &xccode_store::Changes) {
     // A claim's handler may remount the slot while it syncs.
     let slot = tui.frame.app.borrow().as_ref().map(|(_, slot)| slot.clone());
     if let Some(slot) = slot {

@@ -50,5 +50,5 @@ function StandaloneLab() {
   )
 }
 
-document.title = "OpenCode Components Lab"
+document.title = "Xccode Components Lab"
 render(StandaloneLab, document.getElementById("story-root")!)

@@ -260,7 +260,7 @@ pub(crate) fn decode(bytes: &[u8]) -> Option<Pixels> {
 /// pixels.
 pub(crate) fn size(bytes: &[u8]) -> Option<(u32, u32)> {
     // One reader for the host and the plugins, which read a header before they show it.
-    opencode_plugin_abi::image_size(bytes)
+    xccode_plugin_abi::image_size(bytes)
 }
 
 /// What an image node shows.

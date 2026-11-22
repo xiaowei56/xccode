@@ -1,6 +1,6 @@
 import { TextAttributes, type CodeRenderable, type LineInfo, type ScrollBoxRenderable } from "@opentui/core"
 import { useTerminalDimensions } from "@opentui/solid"
-import type { SessionMessageAssistantTool } from "@opencode/client/promise"
+import type { SessionMessageAssistantTool } from "@xccode/client/promise"
 import { createMemo, createSignal, onCleanup, Show } from "solid-js"
 import stripAnsi from "strip-ansi"
 import { useConfig } from "../../config"
@@ -19,7 +19,7 @@ import {
 import { useToast } from "../../ui/toast"
 import { Locale } from "../../util/locale"
 import { getScrollAcceleration } from "../../util/scroll"
-import { formatExecuteOutput } from "@opencode/util/execute-output"
+import { formatExecuteOutput } from "@xccode/util/execute-output"
 
 // The part is the live store object, so the dialog follows the tool while child
 // calls stream and the output arrives.

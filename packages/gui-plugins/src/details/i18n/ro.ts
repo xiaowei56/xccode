@@ -36,15 +36,15 @@ export default {
   "move.recovery.remove": "Șterge arborele de lucru",
   "mcp.manage": "Gestionează serverele MCP",
   timedOut: "Serverul nu a răspuns suficient de rapid",
-  "setup.mcp": "Adaugă un server cu OpenCode",
+  "setup.mcp": "Adaugă un server cu Xccode",
   "setup.mcp.prompt":
-    "Ajută-mă să adaug un server MCP în configurația mea globală OpenCode. Întreabă-mă ce serviciu vreau să conectez, apoi configurează-l și verifică dacă se conectează.",
-  "setup.plugins": "Adaugă un plugin cu OpenCode",
+    "Ajută-mă să adaug un server MCP în configurația mea globală Xccode. Întreabă-mă ce serviciu vreau să conectez, apoi configurează-l și verifică dacă se conectează.",
+  "setup.plugins": "Adaugă un plugin cu Xccode",
   "setup.plugins.prompt":
-    "Ajută-mă să adaug un plugin în configurația mea globală OpenCode. Întreabă-mă ce vreau să facă, sugerează un plugin, apoi adaugă-l.",
-  "setup.skills": "Abilitate nouă cu OpenCode",
+    "Ajută-mă să adaug un plugin în configurația mea globală Xccode. Întreabă-mă ce vreau să facă, sugerează un plugin, apoi adaugă-l.",
+  "setup.skills": "Abilitate nouă cu Xccode",
   "setup.skills.prompt":
-    "Ajută-mă să scriu o abilitate OpenCode nouă în configurația mea globală. Întreabă-mă ce ar trebui să te învețe, apoi scrie fișierul SKILL.md.",
+    "Ajută-mă să scriu o abilitate Xccode nouă în configurația mea globală. Întreabă-mă ce ar trebui să te învețe, apoi scrie fișierul SKILL.md.",
   changesFailed: "Nu s-au putut încărca modificările",
   changesOffline: "Serverul nu poate fi accesat",
   "mcp.signIn": "Autentifică-te",
@@ -56,7 +56,7 @@ export default {
   "mcp.error.actionLabel": "Detalii pentru {{name}}",
   "mcp.signIn.open": "Autentifică-te la {{name}}",
   "mcp.signIn.description":
-    "Browserul se deschide ca să te autentifici la {{name}}. Dacă nu poate accesa mașina pe care rulează OpenCode, lipește mai jos URL-ul către care a fost redirecționat.",
+    "Browserul se deschide ca să te autentifici la {{name}}. Dacă nu poate accesa mașina pe care rulează Xccode, lipește mai jos URL-ul către care a fost redirecționat.",
   "mcp.signIn.waiting": "Se așteaptă autorizarea…",
   "mcp.signIn.failed": "Autorizare eșuată: {{error}}",
   "mcp.signIn.expired": "Autorizarea a expirat",

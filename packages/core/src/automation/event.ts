@@ -1,6 +1,6 @@
 export * as AutomationEvent from "./event.js"
 
-import type { Automation } from "@opencode/schema/automation"
+import type { Automation } from "@xccode/schema/automation"
 import { Effect, Stream } from "effect"
 import { LocationLifecycle } from "../location-lifecycle.js"
 import { Mcp } from "../mcp/index.js"

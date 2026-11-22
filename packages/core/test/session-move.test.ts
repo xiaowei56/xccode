@@ -1,30 +1,30 @@
-import type { FileSystem } from "@opencode/core/filesystem"
+import type { FileSystem } from "@xccode/core/filesystem"
 import { describe, expect } from "bun:test"
 import path from "path"
 import { chmod, mkdir, readdir, rm } from "fs/promises"
 import { Cause, Context, Deferred, Duration, Effect, Exit, Fiber, Layer, LayerMap, Queue } from "effect"
-import { Worktree } from "@opencode/schema/worktree"
-import { Workspace } from "@opencode/schema/workspace"
-import { Bus } from "@opencode/core/bus"
-import { Config } from "@opencode/core/config"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Instance } from "@opencode/core/instance"
-import { Location } from "@opencode/core/location"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
-import type { LocationServices } from "@opencode/core/location-services"
-import { Project } from "@opencode/core/project"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionExecution } from "@opencode/core/session/execution"
-import { SessionMove } from "@opencode/core/session/move"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionRunner } from "@opencode/core/session/runner/index"
-import { SessionStore } from "@opencode/core/session/store"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { Global } from "@opencode/util/global"
+import { Worktree } from "@xccode/schema/worktree"
+import { Workspace } from "@xccode/schema/workspace"
+import { Bus } from "@xccode/core/bus"
+import { Config } from "@xccode/core/config"
+import { Database } from "@xccode/core/database/database"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { Instance } from "@xccode/core/instance"
+import { Location } from "@xccode/core/location"
+import { LocationServiceMap } from "@xccode/core/location-service-map"
+import type { LocationServices } from "@xccode/core/location-services"
+import { Project } from "@xccode/core/project"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Session } from "@xccode/core/session"
+import { SessionEvent } from "@xccode/core/session/event"
+import { SessionExecution } from "@xccode/core/session/execution"
+import { SessionMove } from "@xccode/core/session/move"
+import { SessionProjector } from "@xccode/core/session/projector"
+import { SessionRunner } from "@xccode/core/session/runner/index"
+import { SessionStore } from "@xccode/core/session/store"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { Global } from "@xccode/util/global"
 import { tempGlobalLayer } from "./fixture/global"
 import { offlineModels } from "./fixture/models"
 import { tmpdirScoped } from "./fixture/tmpdir"
@@ -215,7 +215,7 @@ describe("Session.move", () => {
           yield* Effect.promise(() => Promise.all([mkdir(source), mkdir(destination)]))
           if (broken)
             yield* Effect.promise(() =>
-              Bun.write(path.join(source, "opencode.json"), JSON.stringify({ instructions: ["{file:.}"] })),
+              Bun.write(path.join(source, "xccode.json"), JSON.stringify({ instructions: ["{file:.}"] })),
             )
           const session = yield* Session.Service
           const execution = yield* SessionExecution.Service
@@ -272,7 +272,7 @@ describe("Session.move", () => {
           const destination = AbsolutePath.make(path.join(tmp.path, "destination"))
           yield* Effect.promise(() => Promise.all([mkdir(source.directory), mkdir(destination)]))
           const config = JSON.stringify({ instructions: ["{file:.}"] })
-          if (!broken) yield* Effect.promise(() => Bun.write(path.join(source.directory, "opencode.json"), config))
+          if (!broken) yield* Effect.promise(() => Bun.write(path.join(source.directory, "xccode.json"), config))
           const selectedID = Session.ID.create()
           const replacements: LayerNode.Replacements = [
             Global.node.replace(tempGlobalLayer),

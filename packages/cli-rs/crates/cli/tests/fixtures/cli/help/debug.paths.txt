@@ -2,7 +2,7 @@
   Show global paths (data, config, cache, state)
 
 [1mUSAGE[0m
-  [36mopencode debug paths [flags] [<name>][0m
+  [36mxccode debug paths [flags] [<name>][0m
 
 [1mARGUMENTS[0m
   [32mname[0m [2mchoice[0m    Print only one path: db, home, data, config, cache, state, tmp, bin, log, repos[2m (optional)[0m

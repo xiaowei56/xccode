@@ -2,18 +2,18 @@
 
 use std::collections::HashSet;
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     SessionMessageAssistant, SessionMessageAssistantContentItem, SessionMessageAssistantReasoning,
     SessionMessageAssistantTool, SessionMessageAssistantToolState, SessionMessageCompaction,
 };
-use opencode_local::cli_config::{Grouping, Info, Verbosity};
-use opencode_ui::motion::Spinner;
-use opencode_ui::tool_info::{canonical_tool_name, tool_display_metadata};
+use xccode_local::cli_config::{Grouping, Info, Verbosity};
+use xccode_ui::motion::Spinner;
+use xccode_ui::tool_info::{canonical_tool_name, tool_display_metadata};
 use opentui::widget::Markdown;
 
 use super::messages::list::{Context, Part, Row, Spec};
 use super::messages::reasoning;
-use opencode_ui::locale::duration;
+use xccode_ui::locale::duration;
 
 use crate::prelude::*;
 
@@ -1035,7 +1035,7 @@ struct Thought {
 impl Thought {
     fn new(cx: &Context<'_>) -> Self {
         let markdown =
-            opencode_ui::markdown::view(cx.app, cx.theme, cx.thinking_syntax, cx.renderers, cx.conceal, true)
+            xccode_ui::markdown::view(cx.app, cx.theme, cx.thinking_syntax, cx.renderers, cx.conceal, true)
                 .colors(thought_colors(cx.theme));
         let bar = View::new(cx.app)
             .border(BorderStyle::Heavy)
@@ -1049,7 +1049,7 @@ impl Thought {
 
     fn restyle(&self, cx: &Context<'_>) {
         self.bar.border_color(cx.theme.decrease(&cx.theme.background.raised.base, 1));
-        opencode_ui::markdown::restyle(&self.markdown, thought_colors(cx.theme), cx.thinking_syntax);
+        xccode_ui::markdown::restyle(&self.markdown, thought_colors(cx.theme), cx.thinking_syntax);
     }
 
     fn update(&self, message: &SessionMessageAssistant, part: &SessionMessageAssistantReasoning, conceal: bool) {
@@ -1069,7 +1069,7 @@ impl Thought {
 }
 
 fn thought_colors(theme: &Theme) -> opentui::widget::MarkdownColors {
-    opentui::widget::MarkdownColors { text: theme.text.muted, ..opencode_ui::markdown::colors(theme) }
+    opentui::widget::MarkdownColors { text: theme.text.muted, ..xccode_ui::markdown::colors(theme) }
 }
 
 #[cfg(test)]

@@ -8,26 +8,26 @@ import "@/settings/workspaces/project.css"
 import "@/shell/palette-menu.css"
 import "@/shell/search-list.css"
 import "@/shell/titlebar/titlebar.css"
-import "@opencode/session-ui/sources/panel"
+import "@xccode/session-ui/sources/panel"
 
-import { Accordion } from "@opencode/ui/accordion"
-import { Button } from "@opencode/ui/button"
-import { Checkbox } from "@opencode/ui/checkbox"
-import { Collapsible } from "@opencode/ui/collapsible"
-import { Field } from "@opencode/ui/field"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { InlineInput } from "@opencode/ui/inline-input"
-import { LineComment, LineCommentOverflowIcon } from "@opencode/ui/line-comment"
-import { ProjectAvatar } from "@opencode/ui/project-avatar"
-import { RadioGroup, RadioItem } from "@opencode/ui/radio"
-import { SegmentedControl, SegmentedControlItem } from "@opencode/ui/segmented-control"
-import { Select } from "@opencode/ui/select"
-import { SplitButton, SplitButtonAction, SplitButtonMenuTrigger } from "@opencode/ui/split-button"
-import { Switch } from "@opencode/ui/switch"
-import { Tabs } from "@opencode/ui/tabs"
-import { TextInput } from "@opencode/ui/text-input"
-import { Textarea } from "@opencode/ui/textarea"
+import { Accordion } from "@xccode/ui/accordion"
+import { Button } from "@xccode/ui/button"
+import { Checkbox } from "@xccode/ui/checkbox"
+import { Collapsible } from "@xccode/ui/collapsible"
+import { Field } from "@xccode/ui/field"
+import { Icon } from "@xccode/ui/icon"
+import { IconButton } from "@xccode/ui/icon-button"
+import { InlineInput } from "@xccode/ui/inline-input"
+import { LineComment, LineCommentOverflowIcon } from "@xccode/ui/line-comment"
+import { ProjectAvatar } from "@xccode/ui/project-avatar"
+import { RadioGroup, RadioItem } from "@xccode/ui/radio"
+import { SegmentedControl, SegmentedControlItem } from "@xccode/ui/segmented-control"
+import { Select } from "@xccode/ui/select"
+import { SplitButton, SplitButtonAction, SplitButtonMenuTrigger } from "@xccode/ui/split-button"
+import { Switch } from "@xccode/ui/switch"
+import { Tabs } from "@xccode/ui/tabs"
+import { TextInput } from "@xccode/ui/text-input"
+import { Textarea } from "@xccode/ui/textarea"
 import { createEffect, For, onCleanup, Show, type JSX } from "solid-js"
 import { focusTarget, forceFocusStyles } from "./force-focus"
 
@@ -117,7 +117,7 @@ const groups: Group[] = [
         note: "Was background only. Keyboard focus now uses the default ring; the background still indicates hover and an open menu.",
         render: () => (
           <button type="button" class="h-7 rounded-[6px] px-1.5 text-13-regular">
-            opencode
+            xccode
           </button>
         ),
       },
@@ -457,7 +457,7 @@ const groups: Group[] = [
                 class="flex h-full min-w-0 flex-1 items-center gap-2 rounded-[4px] bg-transparent text-start focus-visible:outline-none"
               >
                 <ProjectAvatar fallback="O" variant="blue" class="!size-5" />
-                <span class="text-[13px] font-[530]">opencode</span>
+                <span class="text-[13px] font-[530]">xccode</span>
               </button>
             </div>
           </div>

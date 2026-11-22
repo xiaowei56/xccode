@@ -1,5 +1,5 @@
 {
-  "name": "opencode-data-og-dev",
+  "name": "xccode-data-og-dev",
   "compatibilityDate": "2026-07-01",
   "observability": { "enabled": true },
   "workersDev": false,

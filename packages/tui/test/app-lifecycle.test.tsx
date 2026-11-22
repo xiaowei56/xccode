@@ -2,18 +2,18 @@ import { expect, spyOn, test } from "bun:test"
 import { EmbeddedTerminalRenderable, type Renderable } from "@opentui/core"
 import { createTestRenderer } from "@opentui/core/testing"
 import { Effect, FileSystem } from "effect"
-import { Global } from "@opencode/util/global"
-import * as Open from "@opencode/util/open"
+import { Global } from "@xccode/util/global"
+import * as Open from "@xccode/util/open"
 import { waitForGoUpsellConnect } from "../src/component/dialog-go-upsell"
 import { GoUpsellArtRenderable } from "../src/component/go-upsell-art"
-import { SimulationRenderer } from "@opencode/simulation/frontend/renderer"
+import { SimulationRenderer } from "@xccode/simulation/frontend/renderer"
 import path from "node:path"
 import { Writable } from "node:stream"
 import { createEventStream, createFetch, directory, json } from "./fixture/tui-client"
 import { tmpdir } from "./fixture/fixture"
 import { createAppFixture } from "./fixture/app"
 import { waitForHighlightedFrame } from "./fixture/frame"
-import type { PluginInfo } from "@opencode/client"
+import type { PluginInfo } from "@xccode/client"
 
 test.each([100, 44])("Ctrl-O is immediate, dismissible, and prunes cached deletions at width %s", async (width) => {
   await using state = await tmpdir()
@@ -256,7 +256,7 @@ test("SIGHUP clears title and disposes scoped resources once", async () => {
   })
   const setTitle = setup.renderer.setTerminalTitle.bind(setup.renderer)
   setup.renderer.setTerminalTitle = (title) => {
-    if (title === "OpenCode") started()
+    if (title === "Xccode") started()
     setTitle(title)
   }
   const listeners = new Set(process.listeners("SIGHUP"))
@@ -369,7 +369,7 @@ test("session lifecycle updates the terminal title and prints the epilogue after
     await task
 
     expect(stdout).toContain("Renamed session")
-    expect(stdout).toContain("opencode -s dummy")
+    expect(stdout).toContain("xccode -s dummy")
     expect(promptRequests).toBe(0)
   } finally {
     process.stdout.write = originalWrite
@@ -457,7 +457,7 @@ test("session title generated while an untitled session is loading remains visib
 
     const generated = titles.lastIndexOf("OC | Generated title")
     expect(generated).toBeGreaterThan(-1)
-    expect(titles.slice(generated + 1)).not.toContain("OpenCode")
+    expect(titles.slice(generated + 1)).not.toContain("Xccode")
     setup.renderer.destroy()
     await task
   } finally {
@@ -1366,7 +1366,7 @@ test("new session inherits the active session model", async () => {
 
 test("keeps the prompt display stable while a new location catalog loads", async () => {
   const source = process.cwd()
-  const target = path.join(path.parse(source).root, "opencode-target")
+  const target = path.join(path.parse(source).root, "xccode-target")
   const locationCatalog = Promise.withResolvers<void>()
   const catalog = Promise.withResolvers<void>()
   const providerCatalog = Promise.withResolvers<void>()
@@ -1473,7 +1473,7 @@ test("keeps the prompt display stable while a new location catalog loads", async
 
 test("configured app binding opens settings", async () => {
   await using setup = await createAppFixture({
-    config: { animations: false, keybinds: { "opencode.settings": "f6" } },
+    config: { animations: false, keybinds: { "xccode.settings": "f6" } },
   })
   await setup.ready
   await setup.waitForFrame((frame) => frame.includes("commands"))
@@ -1824,7 +1824,7 @@ test("server plugin failures share one notice and use source names before an ID 
   expect(setup.captureCharFrame()).toContain("Open plugins")
 })
 
-test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to Connect Go, and restores focus", async () => {
+test("free usage limit offers Xccode Go once per 24h, transitions Subscribe to Connect Go, and restores focus", async () => {
   await using state = await tmpdir()
   const baseNow = 1_700_000_000_000
   let currentNow = baseNow
@@ -1839,10 +1839,10 @@ test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
     time: { created: 1, updated: 1 },
   }
-  const model = { id: "big-pickle", providerID: "opencode" }
+  const model = { id: "big-pickle", providerID: "xccode" }
   const freeModel = {
     id: "big-pickle",
-    providerID: "opencode",
+    providerID: "xccode",
     name: "Big Pickle",
     status: "active",
     cost: [{ input: 0, output: 0, cache: { read: 0, write: 0 } }],
@@ -1853,7 +1853,7 @@ test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to
   }
   const goModel = {
     id: "glm-5-go",
-    providerID: "opencode-go",
+    providerID: "xccode-go",
     name: "GLM-5 Go",
     status: "active",
     cost: [{ input: 1, output: 2, cache: { read: 0, write: 0 } }],
@@ -1892,8 +1892,8 @@ test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to
         return json({
           location,
           data: [
-            { id: "opencode", name: "OpenCode Zen" },
-            ...(authorized ? [{ id: "opencode-go", integrationID: "opencode", name: "OpenCode Go" }] : []),
+            { id: "xccode", name: "Xccode Zen" },
+            ...(authorized ? [{ id: "xccode-go", integrationID: "xccode", name: "Xccode Go" }] : []),
           ],
         })
       if (url.pathname === "/api/model")
@@ -1906,20 +1906,20 @@ test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to
           location,
           data: [
             {
-              id: "opencode",
-              name: "OpenCode Console",
+              id: "xccode",
+              name: "Xccode Console",
               methods: [
                 {
                   id: "device",
                   type: "oauth",
-                  label: "OpenCode Console account",
+                  label: "Xccode Console account",
                   form: [
                     {
                       key: "server",
                       type: "string",
                       format: "uri",
                       hidden: true,
-                      default: "https://opencode.ai/console",
+                      default: "https://xccode.ai/console",
                     },
                   ],
                 },
@@ -1930,26 +1930,26 @@ test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to
                 : [],
             },
             {
-              id: "opencode-go",
-              name: "OpenCode Go",
+              id: "xccode-go",
+              name: "Xccode Go",
               methods: [{ type: "key", label: "Enter Go API key" }],
               connections: [],
             },
           ],
         })
-      if (url.pathname === "/api/integration/opencode/connect/oauth" && request.method === "POST") {
+      if (url.pathname === "/api/integration/xccode/connect/oauth" && request.method === "POST") {
         oauthRequests.push(await request.json())
         return json({
           location,
           data: {
             attemptID: "attempt_go",
             mode: "auto",
-            url: "https://opencode.ai/console/device?user_code=GOGO-1234",
+            url: "https://xccode.ai/console/device?user_code=GOGO-1234",
             instructions: "Enter code: GOGO-1234",
           },
         })
       }
-      if (url.pathname === "/api/integration/opencode/connect/oauth/attempt_go") {
+      if (url.pathname === "/api/integration/xccode/connect/oauth/attempt_go") {
         if (request.method === "DELETE") return new Response(null, { status: 204 })
         await oauthGate
         authorized = true
@@ -2015,13 +2015,13 @@ test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to
   using openSpy = spyOn(Open, "openUrl").mockResolvedValue(undefined as never)
   await setup.waitForFrame((frame) => frame.includes("Free limit reached"))
   const upsell = setup.captureCharFrame()
-  expect(upsell).toContain("OpenCode Go gives you reliable access")
+  expect(upsell).toContain("Xccode Go gives you reliable access")
   expect(upsell).toContain("▀▀▀▀ ▀▀▀▀")
-  expect(upsell).toContain("opencode.ai/go")
+  expect(upsell).toContain("xccode.ai/go")
   expect(upsell).toContain("don't show again")
   expect(upsell).toContain("dismiss")
   expect(upsell).toContain("subscribe")
-  expect(upsell).not.toContain("Connect OpenCode Go")
+  expect(upsell).not.toContain("Connect Xccode Go")
   expect(upsell).not.toContain("Session failed")
   // Dismiss closes the modal, leaves the muted notice, and restores focus to the composer.
   setup.mockInput.pressArrow("left")
@@ -2029,7 +2029,7 @@ test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to
   await setup.waitForFrame((frame) => !frame.includes("Free limit reached"))
   const frame = setup.captureCharFrame()
   expect(frame).toContain("You've used today's free messages. They reset at")
-  expect(frame).toContain("Upgrade to OpenCode Go → /connect · Switch model → /models")
+  expect(frame).toContain("Upgrade to Xccode Go → /connect · Switch model → /models")
   expect(frame).not.toContain("Error:")
   expect(frame).not.toContain("Session failed")
   // The delivered prompt (not the queued one) shows once in the transcript and once more back in the composer.
@@ -2082,9 +2082,9 @@ test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to
       frame.split("You've used today's free messages").length === 3 && frame.split("Queued follow-up").length === 3,
   )
   expect(setup.captureCharFrame()).not.toContain("Free limit reached")
-  expect(setup.captureCharFrame()).not.toContain("Connect OpenCode Go")
+  expect(setup.captureCharFrame()).not.toContain("Connect Xccode Go")
 
-  // Exactly at 24h (86_400_000 ms) with an empty composer: reopens Free limit reached, and Subscribe starts OpenCode device OAuth directly, selects Go, and resends the saved prompt.
+  // Exactly at 24h (86_400_000 ms) with an empty composer: reopens Free limit reached, and Subscribe starts Xccode device OAuth directly, selects Go, and resends the saved prompt.
   currentNow = baseNow + 86_400_000
   setup.mockInput.pressKey("c", { ctrl: true })
   await setup.waitForFrame((frame) => frame.split("Queued follow-up").length === 2)
@@ -2105,18 +2105,18 @@ test("free usage limit offers OpenCode Go once per 24h, transitions Subscribe to
   await setup.waitForFrame((frame) => frame.includes("Free limit reached"))
   setup.mockInput.pressEnter()
   await setup.waitForFrame((frame) => frame.includes("GOGO-1234"))
-  expect(openSpy).toHaveBeenCalledWith("https://opencode.ai/go")
+  expect(openSpy).toHaveBeenCalledWith("https://xccode.ai/go")
   expect(oauthRequests).toEqual([
-    { methodID: "device", answer: { server: "https://opencode.ai/console" } },
+    { methodID: "device", answer: { server: "https://xccode.ai/console" } },
   ])
   const connectFrame = setup.captureCharFrame()
-  expect(connectFrame).toContain("OpenCode Console account")
+  expect(connectFrame).toContain("Xccode Console account")
   expect(connectFrame).not.toContain("Enter Go API key")
   expect(connectFrame).not.toContain("API key (service account)")
   releaseOAuth()
   await promptResent.promise
   await setup.waitForFrame((frame) => !frame.includes("GOGO-1234") && frame.includes("GLM-5 Go"))
-  expect(switchedModels).toEqual([{ model: { providerID: "opencode-go", id: "glm-5-go" } }])
+  expect(switchedModels).toEqual([{ model: { providerID: "xccode-go", id: "glm-5-go" } }])
   expect(resentPrompts).toHaveLength(1)
   expect(resentPrompts[0]).toMatchObject({
     text: "Queued follow-up",
@@ -2139,10 +2139,10 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
     time: { created: 1, updated: 1 },
   }
-  const model = { id: "big-pickle", providerID: "opencode" }
+  const model = { id: "big-pickle", providerID: "xccode" }
   const freeModel = {
     id: "big-pickle",
-    providerID: "opencode",
+    providerID: "xccode",
     name: "Big Pickle",
     status: "active",
     cost: [{ input: 0, output: 0, cache: { read: 0, write: 0 } }],
@@ -2153,7 +2153,7 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
   }
   const goModel = {
     id: "glm-5-go",
-    providerID: "opencode-go",
+    providerID: "xccode-go",
     name: "GLM-5 Go",
     status: "active",
     cost: [{ input: 1, output: 2, cache: { read: 0, write: 0 } }],
@@ -2198,8 +2198,8 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
         return json({
           location,
           data: [
-            { id: "opencode", name: "OpenCode Zen" },
-            ...(goEntitled ? [{ id: "opencode-go", integrationID: "opencode", name: "OpenCode Go" }] : []),
+            { id: "xccode", name: "Xccode Zen" },
+            ...(goEntitled ? [{ id: "xccode-go", integrationID: "xccode", name: "Xccode Go" }] : []),
           ],
         })
       if (url.pathname === "/api/model") {
@@ -2214,10 +2214,10 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
           location,
           data: [
             {
-              id: "opencode",
-              name: "OpenCode Console",
+              id: "xccode",
+              name: "Xccode Console",
               methods: [
-                { id: "device", type: "oauth", label: "OpenCode Console account" },
+                { id: "device", type: "oauth", label: "Xccode Console account" },
                 { type: "key", label: "API key (service account)" },
               ],
               connections: connected
@@ -2236,19 +2236,19 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
           ],
         })
       }
-      if (url.pathname === "/api/integration/opencode/connect/oauth" && request.method === "POST") {
+      if (url.pathname === "/api/integration/xccode/connect/oauth" && request.method === "POST") {
         oauthConnectCalls += 1
         return json({
           location,
           data: {
             attemptID: "attempt_no_go",
             mode: "auto",
-            url: "https://opencode.ai/console/device?user_code=NOGO-5678",
+            url: "https://xccode.ai/console/device?user_code=NOGO-5678",
             instructions: "Enter code: NOGO-5678",
           },
         })
       }
-      if (url.pathname === "/api/integration/opencode/connect/oauth/attempt_no_go") {
+      if (url.pathname === "/api/integration/xccode/connect/oauth/attempt_no_go") {
         if (request.method === "DELETE") return new Response(null, { status: 204 })
         await oauthGate
         if (failModelSync) connected = true
@@ -2301,7 +2301,7 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
   })
   await setup.waitForFrame((frame) => frame.includes("Free limit reached"))
   setup.mockInput.pressEnter()
-  expect(openSpy).toHaveBeenCalledWith("https://opencode.ai/go")
+  expect(openSpy).toHaveBeenCalledWith("https://xccode.ai/go")
   await setup.waitForFrame((frame) => frame.includes("Connect an integration"))
   releaseCatalog()
   await setup.waitForFrame((frame) => frame.includes("Waiting for authorization…"))
@@ -2473,7 +2473,7 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
   await promptResent.promise
   await setup.waitForFrame((frame) => !frame.includes("Free limit reached") && frame.includes("GLM-5 Go"))
   expect(oauthConnectCalls).toBe(oauthCallsBeforeAlreadyConnected)
-  expect(switchedModels).toEqual([{ model: { providerID: "opencode-go", id: "glm-5-go" } }])
+  expect(switchedModels).toEqual([{ model: { providerID: "xccode-go", id: "glm-5-go" } }])
   expect(resentPrompts).toHaveLength(1)
   expect(resentPrompts[0]).toMatchObject({ text: "Refactor the parser" })
 
@@ -2512,7 +2512,7 @@ test("free usage limit Subscribe handles mid-auth/mid-sync Escape, sync failure,
       if (url.pathname === "/api/integration")
         return json({
           location: { directory, project: { id: "proj_test", directory, canonical: directory } },
-          data: [{ id: "opencode-go", name: "OpenCode Go", methods: [{ type: "key" }], connections: [] }],
+          data: [{ id: "xccode-go", name: "Xccode Go", methods: [{ type: "key" }], connections: [] }],
         })
       if (url.pathname === `/api/session/${session.id}/message`)
         return json({
@@ -2560,7 +2560,7 @@ test("free usage limit claims suppression atomically across two TUI instances an
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
     time: { created: 1, updated: 1 },
   }
-  const model = { id: "big-pickle", providerID: "opencode" }
+  const model = { id: "big-pickle", providerID: "xccode" }
   const error = {
     type: "provider.free-limit",
     message: "Free usage limit reached.",
@@ -2575,9 +2575,9 @@ test("free usage limit claims suppression atomically across two TUI instances an
         location: { directory, project: { id: "proj_test", directory, canonical: directory } },
         data: [
           {
-            id: "opencode-go",
-            name: "OpenCode Go",
-            methods: [{ id: "device", type: "oauth", label: "Sign in with your OpenCode account" }, { type: "key" }],
+            id: "xccode-go",
+            name: "Xccode Go",
+            methods: [{ id: "device", type: "oauth", label: "Sign in with your Xccode account" }, { type: "key" }],
             connections: [],
           },
         ],
@@ -2665,7 +2665,7 @@ test("free usage limit claims suppression atomically across two TUI instances an
   expect(frame).toContain("Draft in progress")
   expect(frame.split("Refactor the parser").length).toBe(2)
   expect(frame).not.toContain("Free limit reached")
-  expect(frame).not.toContain("Connect OpenCode Go")
+  expect(frame).not.toContain("Connect Xccode Go")
 })
 
 test("Go usage limit restores the prompt and explains the limit with its reset time instead of an error", async () => {
@@ -2681,7 +2681,7 @@ test("Go usage limit restores the prompt and explains the limit with its reset t
   }
   const error = {
     type: "provider.go-limit",
-    message: "OpenCode Go 5 hour usage limit reached.",
+    message: "Xccode Go 5 hour usage limit reached.",
     status: 429,
     response: {
       body: JSON.stringify({
@@ -2707,7 +2707,7 @@ test("Go usage limit restores the prompt and explains the limit with its reset t
               id: "msg_go_assistant",
               type: "assistant",
               agent: "build",
-              model: { id: "glm-5-go", providerID: "opencode-go" },
+              model: { id: "glm-5-go", providerID: "xccode-go" },
               content: [],
               time: { created: 2 },
             },
@@ -2731,13 +2731,13 @@ test("Go usage limit restores the prompt and explains the limit with its reset t
   })
   await setup.waitForFrame(
     (frame) =>
-      frame.includes("OpenCode Go 5 hour usage limit reached") &&
+      frame.includes("Xccode Go 5 hour usage limit reached") &&
       frame.includes("Resets ") &&
       frame.split("Refactor the parser").length === 3,
   )
   const frame = setup.captureCharFrame()
   expect(frame).toContain("Switch to a free model with")
-  expect(frame).toContain("https://opencode.ai/console/wrk_go_limit/go")
+  expect(frame).toContain("https://xccode.ai/console/wrk_go_limit/go")
   expect(frame).not.toContain("Error:")
   expect(frame).not.toContain("Free limit reached")
 })
@@ -2752,7 +2752,7 @@ test("free usage limit modal manages animation FPS and adapts to 44x24 and 60x12
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
     time: { created: 1, updated: 1 },
   }
-  const model = { id: "big-pickle", providerID: "opencode" }
+  const model = { id: "big-pickle", providerID: "xccode" }
   const error = {
     type: "provider.free-limit",
     message: "Free usage limit reached.",

@@ -234,7 +234,7 @@ body {
 }
 
 [data-page="stats"] {
-  /* opencode.ai's bar (packages/nav-menus): the logo where the site has it, the last item at its GitHub mark's edge. */
+  /* xccode.ai's bar (packages/nav-menus): the logo where the site has it, the last item at its GitHub mark's edge. */
   --stats-header-height: var(--nav-bar-height);
 }
 
@@ -258,11 +258,11 @@ body {
   --github-focus: var(--stats-accent);
 }
 
-/* Phones: the rule is drawn inside the 56px bar, as opencode.ai's top bar does. The menu button and the GitHub mark
-   before it sit where the Console's and opencode.ai's do: the button's centre where the site's 44px button has it
+/* Phones: the rule is drawn inside the 56px bar, as xccode.ai's top bar does. The menu button and the GitHub mark
+   before it sit where the Console's and xccode.ai's do: the button's centre where the site's 44px button has it
    (its 32px box 6px further in), the mark's 16px before it. */
 @media (max-width: 60rem) {
-  /* 12px at least between the lockup's chevron and TRY OPENCODE, so the 20px name still fits at 375px. */
+  /* 12px at least between the lockup's chevron and TRY XCCODE, so the 20px name still fits at 375px. */
   [data-page="stats"] [data-slot="header-bar"] {
     gap: 12px;
     border-bottom: 0;
@@ -309,7 +309,7 @@ body {
   color: var(--stats-text);
 }
 
-/* Try OpenCode, the GitHub mark and the menu button sit 24px apart, ink to ink: the button's edge to the mark, and the
+/* Try Xccode, the GitHub mark and the menu button sit 24px apart, ink to ink: the button's edge to the mark, and the
    mark to the menu's lines. That is as close as their 44px targets go without overlapping. */
 [data-page="stats"] [data-slot="header-actions"] {
   flex: 0 0 auto;
@@ -328,7 +328,7 @@ body {
   text-transform: uppercase;
 }
 
-/* Phones show the short label (header.tryOpenCodeShort: "Try now" where "Try OpenCode" doesn't fit beside the 20px
+/* Phones show the short label (header.tryXccodeShort: "Try now" where "Try Xccode" doesn't fit beside the 20px
    product name), on a button 4px shorter, 28px, with a 44px tall target. The link's aria-label keeps the full name. */
 [data-page="stats"] [data-slot="header-actions"] [data-slot="header-button"] [data-slot="label-short"] {
   display: none;
@@ -411,7 +411,7 @@ body {
     inset 0 1px 2px 0 #ffffff24;
 }
 
-/* The menu button, as the Console's (packages/site in anomalyco/opencode-console, landing.css): no box, two lines that
+/* The menu button, as the Console's (packages/site in xiaowei56/xccode-console, landing.css): no box, two lines that
    meet in the middle and turn into a cross while the menu is open, and back. 32 × 28, with a 44px target. */
 [data-page="stats"] [data-slot="menu-button"] {
   position: relative;
@@ -588,7 +588,7 @@ body {
   color: var(--stats-text);
 }
 
-[data-page="stats"] [data-slot="footer-mark"] [data-slot="opencode-mark"] {
+[data-page="stats"] [data-slot="footer-mark"] [data-slot="xccode-mark"] {
   display: block;
   width: 40px;
   height: 40px;

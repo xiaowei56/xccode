@@ -3,7 +3,7 @@ use std::path::{Path, PathBuf};
 use std::rc::Rc;
 use std::time::{Duration, Instant};
 
-use opencode_ui::dialog::DialogKeymap;
+use xccode_ui::dialog::DialogKeymap;
 use opentui::prelude::*;
 
 use super::*;
@@ -99,7 +99,7 @@ fn luau_plugins_are_on_unless_turned_off() {
 
 #[test]
 fn no_vm_is_made_without_a_luau_plugin() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let config = temp.path().join("config");
     fs::create_dir_all(config.join("plugins").join("not-luau")).unwrap();
     fs::write(config.join("plugins").join("not-luau").join("package.json"), "{}").unwrap();
@@ -128,7 +128,7 @@ fn a_manifest_reads_its_flat_keys() {
 fn a_spinning_plugin_is_failed_on_cpu_time_and_the_thread_is_back_at_once() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "spin" }, function(host)
                 host:toast({ variant = "info", message = "before the spin" })
@@ -158,7 +158,7 @@ fn a_spinning_plugin_is_failed_on_cpu_time_and_the_thread_is_back_at_once() {
 fn a_spinning_render_is_stopped_and_draws_nothing() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:slot({ path = "home.footer" }, function()
                 local n = 0
@@ -178,7 +178,7 @@ fn a_spinning_render_is_stopped_and_draws_nothing() {
 fn a_long_pattern_match_is_stopped() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "match" }, function(host)
                 -- Three lazy repetitions over 3000 bytes with no match: billions of matcher steps.
@@ -225,7 +225,7 @@ fn a_loop_of_expensive_built_ins_is_stopped_within_the_budget() {
         let host = host();
         let init = format!(
             r#"
-            local plugin = require("@opencode/plugin")
+            local plugin = require("@xccode/plugin")
             return plugin.define(function(setup)
                 setup:command({{ name = "spin" }}, function() {body} end)
             end)
@@ -330,7 +330,7 @@ fn a_plugin_that_allocates_past_its_cap_fails() {
     for keep in ["local keep = {}", "keep = {}"] {
         let init = format!(
             r#"
-            local plugin = require("@opencode/plugin")
+            local plugin = require("@xccode/plugin")
             local keep = {{}}
             return plugin.define(function(setup)
                 setup:command({{ name = "hog" }}, function(host)
@@ -350,7 +350,7 @@ fn a_plugin_that_allocates_past_its_cap_fails() {
 
 /// The test binary's variable that runs [`a_table_move_past_the_array_limit_raises_and_does_not_crash`]'s plugin in the
 /// child the row starts.
-const CHILD: &str = "OPENCODE_LUAU_TEST_CHILD";
+const CHILD: &str = "XCCODE_LUAU_TEST_CHILD";
 
 #[test]
 fn a_table_move_past_the_array_limit_raises_and_does_not_crash() {
@@ -370,7 +370,7 @@ fn a_table_move_past_the_array_limit_raises_and_does_not_crash() {
     }
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "move" }, function(host)
                 table.move({}, 1, 2147483647, 1, {[-2147483648] = 1})
@@ -390,7 +390,7 @@ fn a_table_move_past_the_array_limit_raises_and_does_not_crash() {
 fn a_sparse_table_move_returns_at_once() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "move" }, function(host)
                 local ok, moved = pcall(table.move, {}, 0, 2^31 - 2, 2^35, {})
@@ -425,7 +425,7 @@ fn timed(init: &str, name: &str) -> (Duration, Option<String>, Option<String>) {
 #[test]
 fn a_long_plain_search_is_linear() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "find" }, function(host)
                 local haystack = string.rep("a", 1024 * 1024)
@@ -446,7 +446,7 @@ fn a_long_plain_search_is_linear() {
 #[test]
 fn a_split_on_a_long_separator_is_linear() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "split" }, function(host)
                 local text = string.rep("a", 1024 * 1024)
@@ -464,7 +464,7 @@ fn a_split_on_a_long_separator_is_linear() {
 #[test]
 fn a_one_class_pattern_matches_as_the_general_matcher_does() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "scan" }, function(host)
                 local bytes = {}
@@ -500,7 +500,7 @@ fn a_one_class_pattern_matches_as_the_general_matcher_does() {
 #[test]
 fn format_and_bit32_edge_cases_are_defined() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "edges" }, function(host)
                 local big, field = 2^64, 2^31 - 1
@@ -527,7 +527,7 @@ fn format_and_bit32_edge_cases_are_defined() {
 #[test]
 fn a_move_of_absent_elements_does_not_rehash_each_one() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "move" }, function(host)
                 local t = {}
@@ -546,7 +546,7 @@ fn a_move_of_absent_elements_does_not_rehash_each_one() {
 #[test]
 fn a_gsub_over_40_kb_returns_within_the_budget() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "gsub" }, function(host)
                 local text, count = string.gsub(string.rep("ab", 20000), ".", string.upper)
@@ -562,7 +562,7 @@ fn a_gsub_over_40_kb_returns_within_the_budget() {
 #[test]
 fn a_quadratic_pattern_is_stopped_by_the_budget() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "match" }, function(host)
                 string.find(string.rep("a", 1024 * 1024), ".-b")
@@ -582,7 +582,7 @@ fn big_plugin(dir: &Path, items: usize) {
     fs::create_dir_all(dir).unwrap();
     fs::write(dir.join(MANIFEST), "id = \"test.big\"\n").unwrap();
     let init = format!(
-        "local plugin = require('@opencode/plugin')\nlocal big = {{{}}}\nreturn plugin.define(function(setup) end)\n",
+        "local plugin = require('@xccode/plugin')\nlocal big = {{{}}}\nreturn plugin.define(function(setup) end)\n",
         "1,".repeat(items)
     );
     fs::write(dir.join("init.luau"), init).unwrap();
@@ -590,7 +590,7 @@ fn big_plugin(dir: &Path, items: usize) {
 
 #[test]
 fn a_big_plugin_compiles_off_the_ui_thread() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let config = temp.path().join("config");
     let dir = config.join("plugins").join("big");
     big_plugin(&dir, (SOURCES as usize - 200) / 2);
@@ -617,7 +617,7 @@ fn a_big_plugin_compiles_off_the_ui_thread() {
 
 #[test]
 fn a_plugin_past_the_source_limit_is_refused() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let config = temp.path().join("config");
     let dir = config.join("plugins").join("big");
     big_plugin(&dir, SOURCES as usize / 2 + 1);
@@ -652,7 +652,7 @@ fn a_luaurc_that_is_not_json_is_refused() {
 #[test]
 fn a_long_pattern_match_is_stopped_at_the_budget() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "match" }, function(host)
                 local subject = string.rep("a", 4 * 1024 * 1024 + 255)
@@ -677,7 +677,7 @@ fn a_long_pattern_match_is_stopped_at_the_budget() {
 
 #[test]
 fn one_thread_compiles_a_plugin_and_the_newest_save_wins() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let dir = temp.path().join("big");
     big_plugin(&dir, 300_000);
     let builds = Builds::new(std::sync::Arc::new(|| {}));
@@ -696,7 +696,7 @@ fn one_thread_compiles_a_plugin_and_the_newest_save_wins() {
 
 #[test]
 fn a_build_holds_the_files_its_key_names() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let dir = temp.path().join("plugin");
     install("hello", &dir);
     let good = fs::read(dir.join("init.luau")).unwrap();
@@ -715,7 +715,7 @@ fn a_build_holds_the_files_its_key_names() {
 
 #[test]
 fn a_build_for_a_plugin_that_went_is_dropped() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let config = temp.path().join("config");
     let dir = config.join("plugins").join("big");
     big_plugin(&dir, (SOURCES as usize - 200) / 2);
@@ -767,7 +767,7 @@ fn a_plugin_holding_most_of_its_cap_runs() {
 fn a_long_error_is_cut_and_escaped() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "fail" }, function(host)
                 error("\27]0;title\7" .. string.rep("E", 6 * 1024 * 1024), 0)
@@ -804,7 +804,7 @@ fn print_writes_one_escaped_line_to_the_log() {
     let logged = crate::loader::tests::logged();
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "print" }, function(host)
                 print("\27]0;title\7\27[2J", 1, nil, true)
@@ -832,7 +832,7 @@ fn a_plugin_that_catches_running_out_of_memory_fails() {
         let host = host();
         let init = format!(
             r#"
-            local plugin = require("@opencode/plugin")
+            local plugin = require("@xccode/plugin")
             local keep = nil
             -- Live data up to the cap and no garbage: each node is one allocation that the next one holds.
             local function fill() while true do local node = table.create(64); node[1] = keep; keep = node end end
@@ -862,7 +862,7 @@ fn a_plugin_that_catches_running_out_of_memory_fails() {
 fn the_sandbox_holds_a_plugin_to_its_own_files() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local function refused(f) local ok, error = pcall(f) return (if ok then "allowed" else tostring(error)) end
         return plugin.define(function(setup)
             setup:command({ name = "probe" }, function(host)
@@ -915,7 +915,7 @@ fn the_sandbox_holds_a_plugin_to_its_own_files() {
 fn a_render_that_asks_for_an_effect_fails() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:slot({ path = "home.footer" }, function(read)
                 read:toast({ variant = "info", message = "from a render" })
@@ -928,7 +928,7 @@ fn a_render_that_asks_for_an_effect_fails() {
     assert!(error.contains("attempt to call") || error.contains("nil"), "{error}");
     // The host object refuses it too, by name.
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local held
         return plugin.define(function(setup)
             held = setup.host
@@ -946,7 +946,7 @@ fn a_render_that_asks_for_an_effect_fails() {
 
 #[test]
 fn a_luau_build_reloads_and_a_broken_one_keeps_the_running_version() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let config = temp.path().join("config");
     let dir = config.join("plugins").join("hello");
     install("hello", &dir);
@@ -975,10 +975,10 @@ fn a_luau_build_reloads_and_a_broken_one_keeps_the_running_version() {
 
 #[test]
 fn a_project_luau_plugin_waits_for_an_approval_of_its_directory() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let repo = temp.path().join("repo");
     fs::create_dir_all(repo.join(".git")).unwrap();
-    let dir = repo.join(".opencode").join("plugins").join("hello");
+    let dir = repo.join(".xccode").join("plugins").join("hello");
     install("hello", &dir);
     fs::write(dir.join("tui.ts"), "export default { id: 'unsandboxed', setup() {} }").unwrap();
     let target = dir.to_string_lossy().into_owned();
@@ -1020,7 +1020,7 @@ fn a_project_luau_plugin_waits_for_an_approval_of_its_directory() {
 fn a_value_past_the_conversion_bounds_is_refused_at_once() {
     let host = host();
     let shared = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:slot({ path = "home.footer" }, function()
                 local leaf = { text = "leaf", bold = true }
@@ -1033,7 +1033,7 @@ fn a_value_past_the_conversion_bounds_is_refused_at_once() {
     assert_eq!(failure(&registry, "test.luau"), None);
 
     let dag = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:slot({ path = "home.footer" }, function()
                 local node = { type = "text", spans = { { text = "leaf" } } }
@@ -1052,7 +1052,7 @@ fn a_value_past_the_conversion_bounds_is_refused_at_once() {
     assert!(!text.contains("leaf"));
 
     let caught = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "big" }, function(host)
                 local spans = {}
@@ -1077,7 +1077,7 @@ fn a_value_past_the_conversion_bounds_is_refused_at_once() {
 fn a_sparse_table_is_counted_before_its_gaps_are_filled() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:storageKey("items")
             setup:command({ name = "sparse" }, function(host)
@@ -1111,7 +1111,7 @@ fn a_sparse_table_is_counted_before_its_gaps_are_filled() {
 fn require_loads_each_module_once_and_names_a_cycle() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local one, two = require("@self/x"), require("@self/lib/again")
         local ok, cycle = pcall(require, "@self/a")
         return plugin.define(function(setup)
@@ -1141,7 +1141,7 @@ fn require_loads_each_module_once_and_names_a_cycle() {
 #[cfg(unix)]
 #[test]
 fn a_link_out_of_the_plugin_directory_is_refused() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let dir = temp.path().join("plugin");
     install("hello", &dir);
     fs::write(temp.path().join("outside.luau"), "return 1").unwrap();
@@ -1154,10 +1154,10 @@ fn a_link_out_of_the_plugin_directory_is_refused() {
 
 #[test]
 fn require_resolves_by_luaus_rules_within_the_plugin_and_reads_no_file_after_load() {
-    let temp = opencode_util::temp::tempdir().unwrap();
+    let temp = xccode_util::temp::tempdir().unwrap();
     let dir = temp.path().join("plugin");
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local function try(path: string)
             local ok, value = pcall(require, path)
             return if ok then tostring(value) else `refused: {value}`
@@ -1193,17 +1193,17 @@ fn require_resolves_by_luaus_rules_within_the_plugin_and_reads_no_file_after_loa
         ("lib/up.luau", "return require('../../escape')"),
         (
             "aliased.luau",
-            "return require('@util/x') .. ' ' .. require('@self/a') .. ' ' .. require('@opencode/plugin').contract",
+            "return require('@util/x') .. ' ' .. require('@self/a') .. ' ' .. require('@xccode/plugin').contract",
         ),
         // A root module other than `init.luau`, which the root `.luaurc` covers (Luau reads none for `init.luau`).
-        ("host.luau", "return require('@opencode/other')"),
+        ("host.luau", "return require('@xccode/other')"),
         ("aliased/a.luau", "return 'aliased/a'"),
         ("util/x.luau", "return 'util/x'"),
         ("fake/plugin.luau", "return { contract = 'fake' }"),
         ("fake/other.luau", "return 'fake/other'"),
         ("fake/a.luau", "return 'fake/a'"),
         ("late.luau", "return 'late'"),
-        (".luaurc", r#"{ "aliases": { "util": "./util", "opencode": "./fake", "self": "./fake" } }"#),
+        (".luaurc", r#"{ "aliases": { "util": "./util", "xccode": "./fake", "self": "./fake" } }"#),
     ] {
         fs::create_dir_all(dir.join(path).parent().unwrap()).unwrap();
         fs::write(dir.join(path), text).unwrap();
@@ -1245,7 +1245,7 @@ fn failed_probe(init: &str, files: &[(&str, &str)]) -> String {
 }
 
 const PROBE: &str = r#"
-    local plugin = require("@opencode/plugin")
+    local plugin = require("@xccode/plugin")
     local util = require("@self/lib/util")
     return plugin.define(function(setup)
         setup:command({ name = "probe" }, function(host)
@@ -1261,7 +1261,7 @@ fn a_luau_runtime_error_names_the_plugin_the_file_and_the_line() {
     assert!(error.starts_with("test.luau: lib/util.luau:3: attempt to index nil with 'text'\n"), "{error}");
     let traceback = error.split_once("\nstack traceback:\n").map(|(_, frames)| frames).unwrap_or_default();
     assert!(traceback.starts_with("\tlib/util.luau:3: in function 'width'\n\tinit.luau:6:"), "{error}");
-    for noise in ["runtime error", "[C]", "__mlua_require", "@opencode/plugin", "panicked"] {
+    for noise in ["runtime error", "[C]", "__mlua_require", "@xccode/plugin", "panicked"] {
         assert!(!error.contains(noise), "{noise}: {error}");
     }
 }
@@ -1275,7 +1275,7 @@ fn a_luau_error_call_names_the_plugin_the_file_and_the_line() {
 
 #[test]
 fn a_luau_syntax_error_names_the_plugin_the_file_and_the_line() {
-    let error = define(&sources("local plugin = require(\"@opencode/plugin\")\n\nlocal = 1\n"), None).err().unwrap();
+    let error = define(&sources("local plugin = require(\"@xccode/plugin\")\n\nlocal = 1\n"), None).err().unwrap();
     assert!(error.starts_with("test.luau: init.luau:3: "), "{error}");
     assert!(!error.contains("syntax error"), "{error}");
 }
@@ -1283,7 +1283,7 @@ fn a_luau_syntax_error_names_the_plugin_the_file_and_the_line() {
 #[test]
 fn a_reused_input_table_shows_each_call_its_own_values() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local kept
         return plugin.define(function(setup)
             setup:slot({ path = "home.footer" }, function(_read, input, changed)
@@ -1508,7 +1508,7 @@ fn checked(body: &str) -> (Vec<String>, Option<String>) {
     let host = host();
     let init = format!(
         r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local json = plugin.json
         return plugin.define(function(setup)
             setup:command({{ name = "check" }}, function(host)
@@ -1659,7 +1659,7 @@ fn plugin_json_holds_to_the_bounds() {
 fn an_empty_object_and_an_empty_array_cross_as_themselves() {
     let host = host();
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local json = plugin.json
         return plugin.define(function(setup)
             setup:command({ name = "send" }, function(host)
@@ -1694,7 +1694,7 @@ fn render_built(build: &str) -> (Option<String>, Duration) {
     let host = host();
     let init = format!(
         r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local node
         {build}
         return plugin.define(function(setup)
@@ -1792,7 +1792,7 @@ fn a_tables_slots_are_read_from_its_header() {
 #[test]
 fn each_kept_color_token_is_a_theme_token() {
     let theme =
-        opencode_ui::theme::Catalog::default().load("opencode", opencode_ui::theme::ThemeMode::Dark).unwrap().theme;
+        xccode_ui::theme::Catalog::default().load("xccode", xccode_ui::theme::ThemeMode::Dark).unwrap().theme;
     let unknown: Vec<_> = decode::TOKENS.iter().filter(|token| theme.get(token).is_none()).collect();
     assert!(unknown.is_empty(), "{unknown:?}");
 }
@@ -1800,7 +1800,7 @@ fn each_kept_color_token_is_a_theme_token() {
 #[test]
 fn a_reused_input_list_holds_only_the_running_calls_items() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local sessions, messages = {}, {}
         local function pairs(list)
             local out = {}
@@ -1935,7 +1935,7 @@ fn measure_one_call_on_each_carrier() {
 /// returns a node it built once (and its decode), and the quick start's (which builds the node each time).
 fn parts_of_a_render() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local node = plugin.show(plugin.text({ plugin.span("hello", { fg = "text.muted" }) }, { on_click = plugin.click("hello.greet") }))
         return plugin.define(function(setup)
             setup:slot({ path = "home.footer" }, function() return plugin.KEEP end)
@@ -1962,7 +1962,7 @@ fn parts_of_a_render() {
 
 /// The heavy claims' Luau: the first reads a large `Changed` and keeps its node, the second draws 200 rows.
 const HEAVY: &str = r#"
-    local plugin = require("@opencode/plugin")
+    local plugin = require("@xccode/plugin")
     return plugin.define(function(setup)
         setup:slot({ path = "home.footer" }, function(_read, input, changed)
             local sessions = changed.sessions or {}
@@ -2257,7 +2257,7 @@ fn reloadable<'a>(host: &'a Rc<TestHost>, init: &'a str) -> (Rc<Registry>, impl 
 /// A plugin `test.luau` whose setup body is `body`, active on `host`.
 fn tasking(host: &Rc<TestHost>, body: &str) -> Rc<Registry> {
     let init =
-        format!("local plugin = require(\"@opencode/plugin\")\nreturn plugin.define(function(setup)\n{body}\nend)\n");
+        format!("local plugin = require(\"@xccode/plugin\")\nreturn plugin.define(function(setup)\n{body}\nend)\n");
     running(host, define(&sources(&init), None).unwrap().0)
 }
 
@@ -2414,7 +2414,7 @@ fn every_operation_is_one_request_in_luau_rust_and_the_generated_client() {
     };
     let mut refused = Vec::new();
     for (name, input) in &samples {
-        let rust = opencode_api_types::client::probe(name, input).unwrap_or_else(|| panic!("the client has no {name}"));
+        let rust = xccode_api_types::client::probe(name, input).unwrap_or_else(|| panic!("the client has no {name}"));
         let luau = client::request(name, input).map(|(fetch, _)| fetch);
         let Ok(rust) = rust else {
             assert!(luau.is_err(), "{name}: Rust has no request for it, Luau sends {luau:?}");
@@ -2427,7 +2427,7 @@ fn every_operation_is_one_request_in_luau_rust_and_the_generated_client() {
             (Ok(sdk), Ok(luau)) => {
                 let generated = (rust.method.to_owned(), rust.path.clone(), sorted(rust.query.clone()));
                 let generated_body = match &rust.body {
-                    Some(opencode_api_types::call::Body::Json(value)) => Some(value.clone()),
+                    Some(xccode_api_types::call::Body::Json(value)) => Some(value.clone()),
                     _ => None,
                 };
                 for (column, fetch) in [("Rust", &sdk), ("Luau", &luau)] {
@@ -2452,7 +2452,7 @@ fn an_error_in_the_lazy_prelude_names_it_and_its_line() {
     let registry = tasking(&host, r#"setup:command({ name = "bad" }, function() plugin.text("x", 5) end)"#);
     run(&host, "bad", None);
     let error = failure(&registry, "test.luau").expect("the plugin failed");
-    let named = error.split_once("@opencode/plugin:").map(|(_, rest)| rest.split(':').next().unwrap_or_default());
+    let named = error.split_once("@xccode/plugin:").map(|(_, rest)| rest.split(':').next().unwrap_or_default());
     assert!(named.is_some_and(|line| line.parse::<u32>().is_ok()), "{error}");
 }
 
@@ -2491,7 +2491,7 @@ fn a_wait_outside_a_task_is_refused() {
     assert!(error.contains("init.luau:6: host:confirm waits, and only a task can"), "{error}");
     assert!(!text.contains("drawn"), "{text}");
     let failed = define(&sources(
-        "local plugin = require(\"@opencode/plugin\")\nreturn plugin.define(function(setup)\n    setup.host:fetch({ method = \"GET\", path = \"/x\" })\nend)\n",
+        "local plugin = require(\"@xccode/plugin\")\nreturn plugin.define(function(setup)\n    setup.host:fetch({ method = \"GET\", path = \"/x\" })\nend)\n",
     ), None)
     .unwrap()
     .0;
@@ -2544,7 +2544,7 @@ fn the_cpu_budget_holds_for_each_stretch_of_a_task() {
 #[test]
 fn a_parked_task_is_dropped_with_its_activation() {
     let host = host();
-    let init = r#"local plugin = require("@opencode/plugin")
+    let init = r#"local plugin = require("@xccode/plugin")
 return plugin.define(function(setup)
     setup:command({ name = "wait" }, function(host)
         host:fetch({ method = "GET", path = "/x" })
@@ -2633,7 +2633,7 @@ fn a_plugin_parks_at_most_256_tasks() {
 #[test]
 fn a_key_handler_that_waits_takes_its_key() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:layer({ scope = "global", keys = { { key = "x", name = "wait" }, { key = "y", name = "pass" } } }, function(host, event)
                 if event.bind == "wait" then
@@ -2657,7 +2657,7 @@ fn a_key_handler_that_waits_takes_its_key() {
 #[test]
 fn a_wait_where_a_task_cannot_pause_raises_and_leaves_nothing_behind() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local shared = require("@self/shared")
         return plugin.define(function(setup)
             local function say(host, text) host:toast({ variant = "info", message = text }) end
@@ -2807,7 +2807,7 @@ fn plugin_sleep_waits_on_the_hosts_clock_and_every_ticks_until_false() {
 #[test]
 fn a_plugin_waits_on_at_most_32_timers_which_end_with_it() {
     let host = host();
-    let init = r#"local plugin = require("@opencode/plugin")
+    let init = r#"local plugin = require("@xccode/plugin")
 return plugin.define(function(setup)
     setup:command({ name = "many" }, function(host)
         local slept, refused = 0, nil

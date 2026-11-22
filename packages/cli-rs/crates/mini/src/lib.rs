@@ -3,10 +3,10 @@
 use std::path::PathBuf;
 use std::time::Instant;
 
-use opencode_api::client::Client;
-use opencode_local::cli_config::Info;
-use opencode_store::target::TargetInput;
-use opencode_util::error;
+use xccode_api::client::Client;
+use xccode_local::cli_config::Info;
+use xccode_store::target::TargetInput;
+use xccode_util::error;
 
 pub mod footers;
 mod prelude;
@@ -24,7 +24,7 @@ pub mod theme;
 pub mod tools;
 pub mod variants;
 
-/// What `opencode mini` runs with (`MiniCommandInput` after the handler resolved it).
+/// What `xccode mini` runs with (`MiniCommandInput` after the handler resolved it).
 pub struct Input {
     pub client: Client,
     /// The logical working directory.
@@ -43,10 +43,10 @@ pub struct Input {
     pub replay_limit: Option<u32>,
     pub config: Info,
     /// The global paths: `cli.json` for `/settings` and `model.json` for saved variants.
-    pub paths: opencode_local::paths::Paths,
+    pub paths: xccode_local::paths::Paths,
     pub version: String,
     pub trace: Option<signals::Trace>,
-    /// When the command started, for `OPENCODE_SHOW_TTFD`.
+    /// When the command started, for `XCCODE_SHOW_TTFD`.
     pub start: Instant,
 }
 

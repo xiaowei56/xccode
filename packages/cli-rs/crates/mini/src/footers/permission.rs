@@ -1,7 +1,7 @@
 //! Always-allow needs confirmation; rejection offers a reason field.
 
-use opencode_api::generated::{PermissionReply, PermissionRequest};
-use opencode_ui::permission::{Presentation, always_lines, presentation};
+use xccode_api::generated::{PermissionReply, PermissionRequest};
+use xccode_ui::permission::{Presentation, always_lines, presentation};
 
 use super::scroll::Scroller;
 use crate::prelude::*;
@@ -240,7 +240,7 @@ pub fn paint(app: &App, root: &View, body: &Body<'_>) -> Painted {
                 .truncate(true),
         );
     if !compact && stage == Stage::Reject {
-        header.add(&Text::new(app, "Tell OpenCode what to do differently").fg(theme.muted));
+        header.add(&Text::new(app, "Tell Xccode what to do differently").fg(theme.muted));
     }
     root.add(&header);
     let waiting = || {
@@ -259,7 +259,7 @@ pub fn paint(app: &App, root: &View, body: &Body<'_>) -> Painted {
             .width(Length::percent(100.0))
             .min_height(1)
             .max_height(3)
-            .placeholder("Tell OpenCode what to do differently")
+            .placeholder("Tell Xccode what to do differently")
             .placeholder_color(theme.muted)
             .colors(theme.formfield_text, theme.surface)
             .focused_colors(theme.formfield_focused_text, theme.formfield_focused_bg)
@@ -343,7 +343,7 @@ pub fn paint(app: &App, root: &View, body: &Body<'_>) -> Painted {
                 let syntax = body.run.syntax.clone().unwrap_or_default();
                 let filetype = info.file.as_deref().and_then(crate::tools::filetype);
                 let look = crate::tools::diff_look(&body.run.block, theme.text);
-                let diff = opencode_ui::diff::view_with(
+                let diff = xccode_ui::diff::view_with(
                     app,
                     &look,
                     &syntax,
@@ -360,7 +360,7 @@ pub fn paint(app: &App, root: &View, body: &Body<'_>) -> Painted {
         } else if let Some(patch) = &info.patch {
             match &body.run.syntax {
                 Some(syntax) => {
-                    opencode_ui::grammars::register();
+                    xccode_ui::grammars::register();
                     let code = opentui::widget::Code::new(app)
                         .fg(theme.muted)
                         .syntax_theme(syntax.clone())

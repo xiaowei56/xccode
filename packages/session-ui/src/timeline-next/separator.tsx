@@ -1,5 +1,5 @@
-import { hasProviderIcon, ProviderIcon } from "@opencode/ui/provider-icon"
-import { Tooltip } from "@opencode/ui/tooltip"
+import { hasProviderIcon, ProviderIcon } from "@xccode/ui/provider-icon"
+import { Tooltip } from "@xccode/ui/tooltip"
 import { Show } from "solid-js"
 
 /**

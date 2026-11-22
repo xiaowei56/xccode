@@ -1,4 +1,4 @@
-import type { Browser } from "@opencode/plugin-browser/rpc"
+import type { Browser } from "@xccode/plugin-browser/rpc"
 
 /**
  * Which tab each tab was opened from, while that still places the next one: Chrome's tab openers

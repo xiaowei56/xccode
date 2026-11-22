@@ -1,6 +1,6 @@
 //! Release highlights dialog.
 
-use opencode_ui::dialog::{DIALOG_INSET, FooterAction, FooterProps, layout};
+use xccode_ui::dialog::{DIALOG_INSET, FooterAction, FooterProps, layout};
 use serde::Deserialize;
 
 use crate::prelude::*;

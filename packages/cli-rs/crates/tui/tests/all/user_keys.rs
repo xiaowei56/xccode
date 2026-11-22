@@ -5,16 +5,16 @@ use crate::support::{self, Harness, WAIT, deref_harness};
 
 use std::sync::Arc;
 
-use opencode_api::memory::{Memory, Route as MemoryRoute};
-use opencode_tui::Deps;
-use opencode_tui::dialogs::settings;
+use xccode_api::memory::{Memory, Route as MemoryRoute};
+use xccode_tui::Deps;
+use xccode_tui::dialogs::settings;
 use serde_json::json;
 
 const LEADERS: [&[u8]; 4] = [b"\x1c", b"\x1b[92;5u", b"\x1b[92;133u", b"\x1b[27;5;92~"];
 
 struct Keys {
     harness: Harness,
-    _home: opencode_util::temp::TempDir,
+    _home: xccode_util::temp::TempDir,
 }
 
 deref_harness!(Keys);
@@ -24,7 +24,7 @@ fn mount(mode: &str) -> Keys {
 }
 
 fn mount_at(mode: &str, width: u16) -> Keys {
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let paths = support::home_paths(home.path());
     std::fs::create_dir_all(&paths.state).unwrap();
     let config = json!({

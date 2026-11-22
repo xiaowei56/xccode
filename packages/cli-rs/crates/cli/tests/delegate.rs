@@ -5,37 +5,37 @@ use std::io::Write;
 use std::path::Path;
 use std::process::{Command, Output, Stdio};
 
-use opencode_service::ts_command::write_script;
+use xccode_service::ts_command::write_script;
 
 const FAKE: &str = r#"#!/bin/sh
 printf '%s\n' "$@" > "$DELEGATE_DIR/args"
 echo "$$" > "$DELEGATE_DIR/pid"
-echo "print-logs=$OPENCODE_PRINT_LOGS" > "$DELEGATE_DIR/env"
+echo "print-logs=$XCCODE_PRINT_LOGS" > "$DELEGATE_DIR/env"
 cat
 echo "to stderr" >&2
 exit "${DELEGATE_EXIT:-0}"
 "#;
 
 struct Fake {
-    dir: opencode_util::temp::TempDir,
+    dir: xccode_util::temp::TempDir,
 }
 
 impl Fake {
     fn new() -> Self {
-        let dir = opencode_util::temp::tempdir().unwrap();
-        let bin = dir.path().join("opencode");
+        let dir = xccode_util::temp::tempdir().unwrap();
+        let bin = dir.path().join("xccode");
         write_script(&bin, FAKE);
         Self { dir }
     }
 
     fn run(&self, args: &[&str], stdin: &str, exit: u8) -> (Output, u32) {
-        let mut child = Command::new(env!("CARGO_BIN_EXE_opencode-native"))
+        let mut child = Command::new(env!("CARGO_BIN_EXE_xccode-native"))
             .args(args)
-            .env("OPENCODE_TS_BIN", self.dir.path().join("opencode"))
+            .env("XCCODE_TS_BIN", self.dir.path().join("xccode"))
             .env("XDG_DATA_HOME", self.dir.path())
             .env("DELEGATE_DIR", self.dir.path())
             .env("DELEGATE_EXIT", exit.to_string())
-            .env_remove("OPENCODE_PRINT_LOGS")
+            .env_remove("XCCODE_PRINT_LOGS")
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
@@ -86,46 +86,46 @@ fn the_child_keeps_the_process_stdio_and_exit_code() {
 }
 
 #[test]
-fn adding_a_tui_package_says_how_opencode_native_loads_it() {
-    let dir = opencode_util::temp::tempdir().unwrap();
+fn adding_a_tui_package_says_how_xccode_native_loads_it() {
+    let dir = xccode_util::temp::tempdir().unwrap();
     let config = dir.path().join("config");
     std::fs::create_dir_all(&config).unwrap();
-    let bin = dir.path().join("opencode");
+    let bin = dir.path().join("xccode");
     write_script(
         &bin,
         r#"#!/bin/sh
 [ "$3" = "fail" ] && exit 4
 [ "$3" = "same" ] && exit 0
-printf '{ "plugins": ["old-tui@1.0.0", "%s"] }\n' "$3" > "$OPENCODE_CONFIG_DIR/cli.json"
-echo "TUI plugin \"$3\" installed and added to $OPENCODE_CONFIG_DIR/cli.json"
+printf '{ "plugins": ["old-tui@1.0.0", "%s"] }\n' "$3" > "$XCCODE_CONFIG_DIR/cli.json"
+echo "TUI plugin \"$3\" installed and added to $XCCODE_CONFIG_DIR/cli.json"
 "#,
     );
     let run = |package: &str, js: Option<&str>| {
         std::fs::write(config.join("cli.json"), r#"{ "plugins": ["old-tui@1.0.0"] }"#).unwrap();
-        let mut command = Command::new(env!("CARGO_BIN_EXE_opencode-native"));
+        let mut command = Command::new(env!("CARGO_BIN_EXE_xccode-native"));
         command
             .args(["plugin", "add", package])
-            .env("OPENCODE_TS_BIN", &bin)
-            .env("OPENCODE_CONFIG_DIR", &config)
+            .env("XCCODE_TS_BIN", &bin)
+            .env("XCCODE_CONFIG_DIR", &config)
             .env("XDG_DATA_HOME", dir.path())
-            .env_remove("OPENCODE_PLUGIN_JS");
+            .env_remove("XCCODE_PLUGIN_JS");
         if let Some(js) = js {
-            command.env("OPENCODE_PLUGIN_JS", js);
+            command.env("XCCODE_PLUGIN_JS", js);
         }
         command.output().unwrap()
     };
-    let installed = "TUI plugin \"opencode-pulse-ticker@0.2.1\" installed";
+    let installed = "TUI plugin \"xccode-pulse-ticker@0.2.1\" installed";
     // A build without the `ts` feature never loads it, whatever the variable says (ts-feature).
     #[cfg(not(feature = "ts"))]
     for js in [None, Some("1"), Some("0")] {
-        let output = run("opencode-pulse-ticker@0.2.1", js);
+        let output = run("xccode-pulse-ticker@0.2.1", js);
         let stdout = String::from_utf8_lossy(&output.stdout);
         let mut lines = stdout.lines();
         assert!(output.status.success() && lines.next().is_some_and(|line| line.starts_with(installed)), "{stdout}");
         let warning = lines.next().unwrap_or_default();
         assert!(
             warning.starts_with(
-                "opencode-native will not load TUI plugin \"opencode-pulse-ticker@0.2.1\": this build has no \
+                "xccode-native will not load TUI plugin \"xccode-pulse-ticker@0.2.1\": this build has no \
                  TypeScript plugin support"
             ),
             "{stdout}"
@@ -134,7 +134,7 @@ echo "TUI plugin \"$3\" installed and added to $OPENCODE_CONFIG_DIR/cli.json"
     }
     #[cfg(feature = "ts")]
     for off in ["0", "false", "off"] {
-        let output = run("opencode-pulse-ticker@0.2.1", Some(off));
+        let output = run("xccode-pulse-ticker@0.2.1", Some(off));
         assert!(output.status.success(), "{output:?}");
         let stdout = String::from_utf8_lossy(&output.stdout);
         let mut lines = stdout.lines();
@@ -142,8 +142,8 @@ echo "TUI plugin \"$3\" installed and added to $OPENCODE_CONFIG_DIR/cli.json"
         let warning = lines.next().unwrap_or_default();
         assert!(
             warning.starts_with(
-                "opencode-native loads TUI plugin \"opencode-pulse-ticker@0.2.1\" on its JS host, which \
-                 OPENCODE_PLUGIN_JS turns off: unset it"
+                "xccode-native loads TUI plugin \"xccode-pulse-ticker@0.2.1\" on its JS host, which \
+                 XCCODE_PLUGIN_JS turns off: unset it"
             ),
             "{stdout}"
         );
@@ -151,7 +151,7 @@ echo "TUI plugin \"$3\" installed and added to $OPENCODE_CONFIG_DIR/cli.json"
     }
     #[cfg(feature = "ts")]
     for on in [None, Some("1")] {
-        let output = run("opencode-pulse-ticker@0.2.1", on);
+        let output = run("xccode-pulse-ticker@0.2.1", on);
         let stdout = String::from_utf8_lossy(&output.stdout);
         assert!(output.status.success() && stdout.lines().count() == 1 && stdout.starts_with(installed), "{stdout}");
     }
@@ -173,20 +173,20 @@ fn usage_errors_and_bare_plugin_never_start_the_binary() {
     assert!(!Path::new(&fake.dir.path().join("args")).exists());
 }
 
-// Expected (native-upgrade): `upgrade` runs nothing and exits 1. Beside a bundled `opencode` it says to run that
-// `opencode upgrade`; with only an `opencode` on `PATH` or in `OPENCODE_TS_BIN`, this source build says to rebuild. In
-// none of them does any `opencode` run, and its flags keep their errors.
+// Expected (native-upgrade): `upgrade` runs nothing and exits 1. Beside a bundled `xccode` it says to run that
+// `xccode upgrade`; with only an `xccode` on `PATH` or in `XCCODE_TS_BIN`, this source build says to rebuild. In
+// none of them does any `xccode` run, and its flags keep their errors.
 #[test]
-fn upgrade_runs_no_opencode() {
+fn upgrade_runs_no_xccode() {
     let separate = Fake::new();
     let install = Install::new();
-    let client = install.path().join("opencode-native");
+    let client = install.path().join("xccode-native");
     // A hard link, as the client finds what is beside its own real path; a copy where the link cannot be made.
-    std::fs::hard_link(env!("CARGO_BIN_EXE_opencode-native"), &client)
-        .or_else(|_| std::fs::copy(env!("CARGO_BIN_EXE_opencode-native"), &client).map(drop))
+    std::fs::hard_link(env!("CARGO_BIN_EXE_xccode-native"), &client)
+        .or_else(|_| std::fs::copy(env!("CARGO_BIN_EXE_xccode-native"), &client).map(drop))
         .unwrap();
     // It records into `bundled`, the separate install into `args`, both in `DELEGATE_DIR`.
-    write_script(&install.path().join("opencode"), &FAKE.replace("/args", "/bundled"));
+    write_script(&install.path().join("xccode"), &FAKE.replace("/args", "/bundled"));
     let run = |client: &Path, args: &[&str], ts_bin: bool, path: bool| {
         let mut command = Command::new(client);
         command
@@ -194,29 +194,29 @@ fn upgrade_runs_no_opencode() {
             .env("XDG_DATA_HOME", separate.dir.path())
             .env("DELEGATE_DIR", install.path())
             .env("PATH", if path { std::env::join_paths([separate.dir.path()]).unwrap() } else { "".into() })
-            .env_remove("OPENCODE_TS_BIN");
+            .env_remove("XCCODE_TS_BIN");
         if ts_bin {
-            command.env("OPENCODE_TS_BIN", separate.dir.path().join("opencode"));
+            command.env("XCCODE_TS_BIN", separate.dir.path().join("xccode"));
         }
         let output = command.output().unwrap();
         let ran = ["bundled", "args"].map(|name| install.path().join(name).exists());
-        assert_eq!(ran, [false, false], "an opencode ran for {args:?}");
+        assert_eq!(ran, [false, false], "an xccode ran for {args:?}");
         output
     };
-    let bundled = std::fs::canonicalize(install.path().join("opencode")).unwrap();
+    let bundled = std::fs::canonicalize(install.path().join("xccode")).unwrap();
     let beside = format!(
-        "This opencode-native is updated with the opencode installed beside it ({}): run `opencode upgrade`.\n",
+        "This xccode-native is updated with the xccode installed beside it ({}): run `xccode upgrade`.\n",
         bundled.display()
     );
-    let source = "This opencode-native is a source build; rebuild it to update it.\n\
-                  `opencode upgrade` updates a separate TypeScript install, not this one.\n";
+    let source = "This xccode-native is a source build; rebuild it to update it.\n\
+                  `xccode upgrade` updates a separate TypeScript install, not this one.\n";
     let rows: [(&Path, &[&str], bool, bool, &str); 4] = [
         // Bundled, with a separate install in both lookups too.
         (&client, &["upgrade", "v1.2.3", "-m", "npm"], true, true, &beside),
         (&client, &["update", "--method=brew"], true, true, &beside),
-        // `PATH` alone and `OPENCODE_TS_BIN` alone, with nothing beside the binary.
-        (Path::new(env!("CARGO_BIN_EXE_opencode-native")), &["upgrade"], false, true, source),
-        (Path::new(env!("CARGO_BIN_EXE_opencode-native")), &["upgrade"], true, false, source),
+        // `PATH` alone and `XCCODE_TS_BIN` alone, with nothing beside the binary.
+        (Path::new(env!("CARGO_BIN_EXE_xccode-native")), &["upgrade"], false, true, source),
+        (Path::new(env!("CARGO_BIN_EXE_xccode-native")), &["upgrade"], true, false, source),
     ];
     for (client, args, ts_bin, path, expected) in rows {
         let output = run(client, args, ts_bin, path);
@@ -224,7 +224,7 @@ fn upgrade_runs_no_opencode() {
         assert_eq!(
             String::from_utf8_lossy(&output.stderr),
             expected,
-            "{args:?}, OPENCODE_TS_BIN {ts_bin}, PATH {path}"
+            "{args:?}, XCCODE_TS_BIN {ts_bin}, PATH {path}"
         );
         assert!(output.stdout.is_empty(), "{output:?}");
     }
@@ -232,7 +232,7 @@ fn upgrade_runs_no_opencode() {
     let output = run(&client, &["upgrade", "--method", "apt"], true, true);
     assert_eq!(output.status.code(), Some(1));
     let stderr = String::from_utf8_lossy(&output.stderr);
-    assert!(stderr.contains("apt") && !stderr.contains("opencode-native is"), "{stderr}");
+    assert!(stderr.contains("apt") && !stderr.contains("xccode-native is"), "{stderr}");
 }
 
 /// A new directory in cargo's target directory, on the file system of the test binaries, so they hard-link there.
@@ -259,18 +259,18 @@ impl Drop for Install {
 
 #[test]
 fn a_missing_binary_says_how_to_fix_it() {
-    let data = opencode_util::temp::tempdir().unwrap();
-    let output = Command::new(env!("CARGO_BIN_EXE_opencode-native"))
+    let data = xccode_util::temp::tempdir().unwrap();
+    let output = Command::new(env!("CARGO_BIN_EXE_xccode-native"))
         .args(["uninstall", "--dry-run"])
-        .env("OPENCODE_TS_BIN", "/nonexistent/opencode")
+        .env("XCCODE_TS_BIN", "/nonexistent/xccode")
         .env("XDG_DATA_HOME", data.path())
         .output()
         .unwrap();
     assert_eq!(output.status.code(), Some(1));
     let stderr = String::from_utf8_lossy(&output.stderr);
     assert!(
-        stderr.contains("Failed to start /nonexistent/opencode: No such file or directory")
-            && stderr.contains("set OPENCODE_TS_BIN"),
+        stderr.contains("Failed to start /nonexistent/xccode: No such file or directory")
+            && stderr.contains("set XCCODE_TS_BIN"),
         "{stderr}"
     );
 }
@@ -280,15 +280,15 @@ fn a_missing_binary_says_how_to_fix_it() {
 #[test]
 fn an_interrupt_waits_for_the_remote_access_command() {
     use std::os::unix::process::CommandExt;
-    let dir = opencode_util::temp::tempdir().unwrap();
-    let bin = dir.path().join("opencode");
+    let dir = xccode_util::temp::tempdir().unwrap();
+    let bin = dir.path().join("xccode");
     write_script(
         &bin,
         "#!/bin/sh\ntrap 'sleep 0.5; echo done > \"$DELEGATE_DIR/teardown\"; exit 130' INT\necho > \"$DELEGATE_DIR/started\"\nwhile :; do sleep 0.05; done\n",
     );
-    let mut child = Command::new(env!("CARGO_BIN_EXE_opencode-native"))
+    let mut child = Command::new(env!("CARGO_BIN_EXE_xccode-native"))
         .args(["service", "set", "remote", "true"])
-        .env("OPENCODE_TS_BIN", &bin)
+        .env("XCCODE_TS_BIN", &bin)
         .env("HOME", dir.path())
         .env("XDG_CONFIG_HOME", dir.path().join("config"))
         .env("XDG_DATA_HOME", dir.path().join("data"))

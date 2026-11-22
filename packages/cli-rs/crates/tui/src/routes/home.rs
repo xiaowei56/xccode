@@ -1,6 +1,6 @@
 //! Home route, prompt and footer.
 
-use opencode_ui::theme::tint;
+use xccode_ui::theme::tint;
 
 use super::RouteView;
 
@@ -18,7 +18,7 @@ pub struct Home {
     prompt: crate::prompt::editor::Prompt,
     /// A global form owns input while visible; the prompt must not take focus.
     forms: crate::features::home_forms::HomeForms,
-    slot: Rc<RefCell<Rc<opencode_plugin::SlotMount>>>,
+    slot: Rc<RefCell<Rc<xccode_plugin::SlotMount>>>,
     footer: View,
 }
 
@@ -75,8 +75,8 @@ impl Home {
     }
 }
 
-fn footer_slot(tui: &Tui, footer: &View) -> opencode_plugin::SlotMount {
-    crate::plugins::host::slot(tui, footer, opencode_plugin::slot::HOME_FOOTER, &Default::default(), |_| {})
+fn footer_slot(tui: &Tui, footer: &View) -> xccode_plugin::SlotMount {
+    crate::plugins::host::slot(tui, footer, xccode_plugin::slot::HOME_FOOTER, &Default::default(), |_| {})
 }
 
 impl RouteView for Home {

@@ -1,8 +1,8 @@
-// Emits, per endpoint: the request builder in `opencode-api-types` (`client::<name>`, typed by
+// Emits, per endpoint: the request builder in `xccode-api-types` (`client::<name>`, typed by
 // its output, with no transport), the `Client` method that sends it, the endpoint's row of the operations table the
 // Luau prelude's `plugin.client` builds requests from, and a probe that builds the request from JSON, for the table
 // test (`typed-client`).
-import type { Endpoint, Group } from "@opencode/httpapi-codegen"
+import type { Endpoint, Group } from "@xccode/httpapi-codegen"
 import type { SchemaRepresentation } from "effect"
 import { example, luauType } from "./example.ts"
 import { pascal, snake, type Types } from "./types.ts"

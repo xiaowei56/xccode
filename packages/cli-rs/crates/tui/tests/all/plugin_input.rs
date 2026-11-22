@@ -6,12 +6,12 @@ use std::cell::RefCell;
 use std::sync::Arc;
 use std::time::Duration;
 
-use opencode_plugin::abi::interact::{
+use xccode_plugin::abi::interact::{
     self as input, Anchor, Bind, Event, Handled, Interact, Layer, LayerScope, OpenPanel, Overlay, PointerKind,
 };
-use opencode_plugin::abi::{self, v2};
-use opencode_plugin::interact;
-use opencode_tui::Deps;
+use xccode_plugin::abi::{self, v2};
+use xccode_plugin::interact;
+use xccode_tui::Deps;
 use opentui::input::{Event as Input, KeyCode, KeyEvent, Modifiers, MouseButton, MouseEventKind};
 
 pub const ID: &str = "test.input";
@@ -388,7 +388,7 @@ fn select(read: &dyn abi::Read) -> abi::Select {
                     option.footer = Some(if other { "enabled" } else { "disabled" }.into());
                 }
                 "self" => option.toggle = Some(ID.into()),
-                "manager" => option.toggle = Some("opencode.plugins".into()),
+                "manager" => option.toggle = Some("xccode.plugins".into()),
                 "acme" => option.toggle = Some("@acme/skipped".into()),
                 "off" => option.disabled = true,
                 "spin" => option.gutter = Some(abi::Gutter::Spinner),
@@ -598,7 +598,7 @@ pub fn open_with(prepare: impl FnOnce(&mut Probe)) -> Harness {
     };
     if probe(|probe| probe.manual_copy) {
         let copy = serde_json::json!({ "terminal": { "copy": "manual" } });
-        deps.config = support::config(opencode_local::cli_config::merge(&[Some(copy)]));
+        deps.config = support::config(xccode_local::cli_config::merge(&[Some(copy)]));
     }
     let harness = support::mount_still(120, 30, deps);
     settle(&harness);
@@ -634,7 +634,7 @@ pub fn batch(harness: &Harness, keys: &[Input]) {
 
 fn composer(harness: &Harness) -> String {
     let mut text = String::new();
-    opencode_plugin::Host::read(&*harness.tui, &mut |read| {
+    xccode_plugin::Host::read(&*harness.tui, &mut |read| {
         text = read.composer().map(|composer| composer.text).unwrap_or_default();
     });
     text
@@ -755,7 +755,7 @@ fn a_mode_ends_with_its_scope_and_on_the_reserved_chord() {
     assert_eq!(interact::ledger(&*harness.tui).modes, base.modes + 1);
     run(&harness, "input.panel", None);
     run(&harness, "input.close", None);
-    opencode_plugin::Host::focus_composer(&*harness.tui);
+    xccode_plugin::Host::focus_composer(&*harness.tui);
     settle(&harness);
     harness.app.type_text("d");
     settle(&harness);
@@ -776,7 +776,7 @@ fn a_mode_ends_with_its_scope_and_on_the_reserved_chord() {
     harness.app.press("m");
     settle(&harness);
     assert_eq!(interact::ledger(&*harness.tui).modes, base.modes + 1);
-    opencode_plugin::Host::focus_composer(&*harness.tui);
+    xccode_plugin::Host::focus_composer(&*harness.tui);
     settle(&harness);
     assert_eq!(interact::ledger(&*harness.tui).modes, base.modes, "a mode stayed past its scope's blur");
 }
@@ -1124,7 +1124,7 @@ fn a_global_paste_layer_hears_a_paste_no_host_widget_takes() {
     harness.app.paste("e1");
     settle(&harness);
     assert_eq!(taken(), ["pasted: paste e1 [-]"]);
-    opencode_plugin::Host::focus_composer(&*harness.tui);
+    xccode_plugin::Host::focus_composer(&*harness.tui);
     run(&harness, "input.panel", None);
     harness.app.press("o");
     settle(&harness);
@@ -1193,7 +1193,7 @@ fn a_toggle_row_moves_the_registry_only_on_a_key_or_a_click() {
     // A host dialog that opens at once: the plugin manager's waits for its command to return, as any plugin's does.
     let tui = harness.tui.clone();
     harness.app.app().defer(move |_| {
-        tui.keymap.dispatch("opencode.status", None);
+        tui.keymap.dispatch("xccode.status", None);
     });
     harness.app.press("enter");
     settle(&harness);
@@ -1268,13 +1268,13 @@ fn a_hold_keeps_the_input_after_it_in_order_and_for_its_focus() {
     settle(&harness);
     assert_eq!(taken(), ["side: key x [-]"]);
     assert_eq!(composer(&harness), "");
-    assert!(opencode_plugin::Host::composer_focused(&*harness.tui));
+    assert!(xccode_plugin::Host::composer_focused(&*harness.tui));
     run(&harness, "input.close", None);
     run(&harness, "input.panel", None);
     taken();
     harness.app.press("x");
     harness.app.press("m");
-    opencode_plugin::Host::focus_composer(&*harness.tui);
+    xccode_plugin::Host::focus_composer(&*harness.tui);
     harness.app.advance(input::HOLD + Duration::from_millis(1));
     settle(&harness);
     assert_eq!(taken(), ["side: key x [-]"]);
@@ -1366,7 +1366,7 @@ fn the_reserved_chord_escapes_every_plugin_hold_spelling_and_listener() {
     settle(&harness);
     assert!(!taken().iter().any(|line| line.contains("down")), "the mode outlived the chord");
     // A listener that takes every key: after the chord the composer types again.
-    opencode_plugin::Host::focus_composer(&*harness.tui);
+    xccode_plugin::Host::focus_composer(&*harness.tui);
     settle(&harness);
     probe(|probe| probe.swallow = true);
     harness.app.type_text("a");
@@ -1494,7 +1494,7 @@ fn a_composer_mode_ends_with_its_route() {
     settle(&harness);
     assert_eq!(interact::ledger(&*harness.tui).modes, base + 1);
     run(&harness, "input.route", None);
-    harness.tui.navigate(opencode_tui::Route::Session { id: opencode_api::generated::SessionID("ses_a".into()) });
+    harness.tui.navigate(xccode_tui::Route::Session { id: xccode_api::generated::SessionID("ses_a".into()) });
     settle(&harness);
     assert_eq!(interact::ledger(&*harness.tui).modes, base);
     harness.app.type_text("d");
@@ -1567,7 +1567,7 @@ fn without() -> interact::Ledger {
 
 fn failure(harness: &Harness) -> Option<String> {
     harness.tui.plugins.entries().into_iter().find(|entry| entry.id == ID).and_then(|entry| match entry.status {
-        opencode_plugin::Status::Failed(error) => Some(error),
+        xccode_plugin::Status::Failed(error) => Some(error),
         _ => None,
     })
 }
@@ -1593,7 +1593,7 @@ fn a_panicking_handler_fails_its_plugin_and_leaves_no_input() {
     let error = failure(&harness).expect("the plugin failed");
     assert!(error.contains("handle panicked"), "{error}");
     assert_eq!(interact::ledger(&*harness.tui), twin);
-    assert!(opencode_plugin::Host::composer_focused(&*harness.tui));
+    assert!(xccode_plugin::Host::composer_focused(&*harness.tui));
     harness.app.type_text("z");
     settle(&harness);
     assert_eq!(composer(&harness), "z", "the held key reached the composer, or the host stopped");
@@ -1610,7 +1610,7 @@ fn a_panicking_handler_fails_its_plugin_and_leaves_no_input() {
     assert!(failure(&harness).is_some_and(|error| error.contains("handle panicked")));
     assert_eq!(interact::ledger(&*harness.tui), twin);
     assert!(!harness.app.text().contains("MENU"));
-    assert!(opencode_plugin::Host::composer_focused(&*harness.tui));
+    assert!(xccode_plugin::Host::composer_focused(&*harness.tui));
 }
 
 #[test]
@@ -1710,12 +1710,12 @@ fn the_reserved_chord_takes_the_focus_back_from_a_slot_field() {
     harness.app.type_text("draft");
     settle(&harness);
     run(&harness, "input.focus", Some("sf"));
-    assert!(!opencode_plugin::Host::composer_focused(&*harness.tui), "the strip's field took no focus");
+    assert!(!xccode_plugin::Host::composer_focused(&*harness.tui), "the strip's field took no focus");
     harness.app.type_text("x");
     harness.app.press("ctrl+c");
     settle(&harness);
     assert!(!harness.app.app().is_quitting(), "the chord ended the app over the draft");
-    assert!(opencode_plugin::Host::composer_focused(&*harness.tui), "the field kept the focus");
+    assert!(xccode_plugin::Host::composer_focused(&*harness.tui), "the field kept the focus");
     harness.app.type_text("y");
     settle(&harness);
     let text = harness.tui.textarea.borrow().as_ref().map(|area| area.text()).unwrap_or_default();
@@ -1795,7 +1795,7 @@ fn a_taken_press_owns_its_gesture() {
     assert!(taken().iter().any(|line| line.starts_with("side: Drag a")), "the capture ended with its own focus move");
     let harness = open_with(|probe| probe.pointer_b = true);
     run(&harness, "input.panel", None);
-    opencode_plugin::Host::focus_composer(&*harness.tui);
+    xccode_plugin::Host::focus_composer(&*harness.tui);
     settle(&harness);
     let (x, y) = support::at(&harness.app.text(), "BBBB").unwrap();
     harness.app.click(x + 1, y);
@@ -1831,7 +1831,7 @@ fn a_panel_shows_with_one_view_follows_its_room_and_its_theme() {
     let (mx, my) = support::at(&harness.app.text(), "MENU one").unwrap();
     let before = harness.app.render().cell(u32::from(mx), u32::from(my)).unwrap().fg;
     // A switch of the mode keeps the theme's name, which the plugins do not hear of: only the host restyles them.
-    assert!(harness.tui.theme.borrow_mut().set_mode(Some(opencode_ui::theme::ThemeMode::Light), false));
+    assert!(harness.tui.theme.borrow_mut().set_mode(Some(xccode_ui::theme::ThemeMode::Light), false));
     harness.tui.theme_changed();
     settle(&harness);
     assert_eq!(probe(|probe| probe.panels.last().unwrap().1), generation, "the panel mounted again");
@@ -1877,7 +1877,7 @@ fn a_select_toggles_only_what_it_shows() {
     harness.app.press("escape");
     settle(&harness);
     // A plugin the config names that never loaded: the host would not toggle it either.
-    harness.tui.plugins.set_targets(&opencode_tui::plugins::host::host(&harness.tui), ["@acme/skipped"]);
+    harness.tui.plugins.set_targets(&xccode_tui::plugins::host::host(&harness.tui), ["@acme/skipped"]);
     rows(&["self", "manager", "acme"], "f");
     run(&harness, "input.select", None);
     let screen = harness.app.text();
@@ -1886,7 +1886,7 @@ fn a_select_toggles_only_what_it_shows() {
     settle(&harness);
     harness.app.press("enter");
     settle(&harness);
-    assert!(active(&harness, "opencode.plugins"));
+    assert!(active(&harness, "xccode.plugins"));
     harness.app.type_text("zzz");
     settle(&harness);
     taken();

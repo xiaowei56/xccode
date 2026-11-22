@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/cli-rs",
+  "name": "@xccode/cli-rs",
   "private": true,
   "type": "module",
   "scripts": {
@@ -24,10 +24,10 @@
     "typecheck:tsc": "tsc --noEmit"
   },
   "devDependencies": {
-    "@opencode/httpapi-codegen": "workspace:*",
-    "@opencode/plugin": "workspace:*",
-    "@opencode/protocol": "workspace:*",
-    "@opencode/tui": "workspace:*",
+    "@xccode/httpapi-codegen": "workspace:*",
+    "@xccode/plugin": "workspace:*",
+    "@xccode/protocol": "workspace:*",
+    "@xccode/tui": "workspace:*",
     "@opentui/core": "catalog:",
     "@opentui/solid": "catalog:",
     "@tsconfig/bun": "catalog:",

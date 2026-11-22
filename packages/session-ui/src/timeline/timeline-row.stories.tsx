@@ -3,7 +3,7 @@ import type {
   SessionMessageAssistant,
   SessionMessageInfo,
   SessionMessageUser,
-} from "@opencode/client/promise"
+} from "@xccode/client/promise"
 import { createEffect, createMemo, For, onCleanup, onMount } from "solid-js"
 import { Dynamic } from "solid-js/web"
 import { createStore } from "solid-js/store"
@@ -35,7 +35,7 @@ import {
 } from "../storybook/current-session-fixtures"
 
 export default {
-  title: "OpenCode/Conversation/Message states",
+  title: "Xccode/Conversation/Message states",
   id: "current-session-timeline-rows",
   component: SessionTimeline,
   parameters: {
@@ -718,7 +718,7 @@ const MovedLocation = {
           {
             id: "msg_story_location",
             type: "location-switched",
-            location: { directory: `/Users/usrnk1/Developer/opencode/${"nested-directory/".repeat(24)}session` },
+            location: { directory: `/Users/usrnk1/Developer/xccode/${"nested-directory/".repeat(24)}session` },
             time: { created: 1_735_689_633_000 },
           },
         ],
@@ -857,7 +857,7 @@ const UserMessageLinks = {
           {
             id: "msg_story_user_links",
             type: "user",
-            text: "set it up on this pc https://github.com/Hona/mesh, then compare @src/a.ts with (https://opencode.ai/docs).",
+            text: "set it up on this pc https://github.com/Hona/mesh, then compare @src/a.ts with (https://xccode.ai/docs).",
             agents: [],
             files: [
               {

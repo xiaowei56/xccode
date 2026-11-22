@@ -1,4 +1,4 @@
-//! The HTTP API's generated types and the serde and JavaScript helpers they use. `opencode-api`
+//! The HTTP API's generated types and the serde and JavaScript helpers they use. `xccode-api`
 //! re-exports them at their old paths and adds the transports.
 
 pub mod call;

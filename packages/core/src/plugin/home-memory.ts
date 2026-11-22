@@ -1,11 +1,11 @@
 export * as HomeMemoryPlugin from "./home-memory.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
-import { AbsolutePath } from "@opencode/schema/schema"
-import { SessionID } from "@opencode/schema/session-id"
-import type { SessionMessage } from "@opencode/schema/session-message"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
+import { define } from "@xccode/plugin/effect/plugin"
+import { AbsolutePath } from "@xccode/schema/schema"
+import { SessionID } from "@xccode/schema/session-id"
+import type { SessionMessage } from "@xccode/schema/session-message"
+import { FSUtil } from "@xccode/util/fs-util"
+import { Global } from "@xccode/util/global"
 import { Clock, DateTime, Effect, Option, Schema } from "effect"
 import path from "path"
 import { Flag } from "../flag.js"
@@ -52,7 +52,7 @@ ${transcripts}
 </conversations>`
 
 export const Plugin = define({
-  id: "opencode.home-memory",
+  id: "xccode.home-memory",
   effect: Effect.fn("HomeMemoryPlugin")(function* (ctx) {
     if (!(yield* Flag.enabled("home_memory"))) return
     const global = yield* Global.Service

@@ -1,4 +1,4 @@
-import type { SessionMessageAssistantTool, SessionMessageInfo } from "@opencode/client/promise"
+import type { SessionMessageAssistantTool, SessionMessageInfo } from "@xccode/client/promise"
 import { Option, Schema } from "effect"
 import { currentToolInput, currentToolMetadata } from "../message/current-tool-state"
 import { toolRule } from "./rules"

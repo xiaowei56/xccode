@@ -1,5 +1,5 @@
 [package]
-name = "opencode-api-types"
+name = "xccode-api-types"
 description = "The HTTP API's generated types and the serde and JavaScript helpers they use, without a transport."
 version.workspace = true
 edition.workspace = true

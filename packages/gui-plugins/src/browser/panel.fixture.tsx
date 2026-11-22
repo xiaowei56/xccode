@@ -1,8 +1,8 @@
-import { Browser } from "@opencode/plugin-browser/rpc"
-import { uuid } from "@opencode/util/uuid"
+import { Browser } from "@xccode/plugin-browser/rpc"
+import { uuid } from "@xccode/util/uuid"
 import { Schema } from "effect"
-import { DialogProvider } from "@opencode/ui/context/dialog"
-import { ResizeHandle } from "@opencode/ui/resize-handle"
+import { DialogProvider } from "@xccode/ui/context/dialog"
+import { ResizeHandle } from "@xccode/ui/resize-handle"
 import {
   batch,
   createSignal,
@@ -23,7 +23,7 @@ import {
   type Bridge,
   type BridgeLayout,
   type Entry,
-} from "@opencode/plugin/gui/host"
+} from "@xccode/plugin/gui/host"
 import {
   type Appearance,
   type App,
@@ -47,7 +47,7 @@ import {
   type SetupContext,
   type Storage,
   type Workspaces,
-} from "@opencode/plugin/gui"
+} from "@xccode/plugin/gui"
 import barStyles from "./bar.css?inline"
 import { BrowserHistory } from "./history/ipc"
 import { pageKey, type PageVisit } from "./history/page"
@@ -61,7 +61,7 @@ import { BrowserPane, PluginTabHandle, type PaneEvent, type PromptAnswer, type P
 import { pageShortcut } from "./keys"
 import { normalizeURL, refusal } from "./policy"
 import { navigationNotice } from "./refusal-notice"
-import { type BuiltinLayout } from "@opencode/plugin/gui/builtin"
+import { type BuiltinLayout } from "@xccode/plugin/gui/builtin"
 
 /** The renderer host pieces the pane runs on, passed in by `packages/app/component-tests/browser-pane.spec.ts`. */
 type PaneHost = {
@@ -184,7 +184,7 @@ const DAY = 86_400_000
 // A made-up history as an import from another browser leaves it in main: many GitHub repositories, of which a few
 // have "rune" in their name or title, and other sites. No page has an icon, as imported pages have none.
 const repositories = [
-  "anomalyco/opencode",
+  "xiaowei56/xccode",
   "anomalyco/opentui",
   "anomalyco/models.dev",
   "sst/sst",
@@ -223,7 +223,7 @@ function importedPages(now: number): PageVisit[] {
     page("https://github.com/", "GitHub", 22, 0, 12),
     page("https://news.ycombinator.com/", "Hacker News", 140, 0, 30),
     page("https://developer.mozilla.org/en-US/docs/Web/API/Popover_API", "Popover API - Web APIs | MDN", 12, 3),
-    page("http://localhost:5173/", "OpenCode dev", 80, 0, 8),
+    page("http://localhost:5173/", "Xccode dev", 80, 0, 8),
     ...repositories.map((name, position) => page(`https://github.com/${name}`, `${name}: ${name.split("/")[1]} on GitHub`, 3 + ((position * 7) % 40), position % 30)),
     ...repositories.map((name, position) => page(`https://github.com/${name}/issues`, `Issues · ${name}`, 1 + (position % 6), 5 + position)),
   ]
@@ -727,7 +727,7 @@ export function browserPaneFixture(input: PaneHost | StoryHost) {
 
     const fake = {
       ...base,
-      app: { name: "opencode", version: "", channel: "dev", platform: "desktop", packaged: false },
+      app: { name: "xccode", version: "", channel: "dev", platform: "desktop", packaged: false },
       use: (token: { readonly id: string }) => (token.id === BrowserHistory.id ? historyLive : live),
       // The plugin instance's lifetime, which the model's calls to main's history end with.
       signal: new AbortController().signal,
@@ -1535,7 +1535,7 @@ export function mountBrowserRegion(input: RegionHost) {
       remove() {},
     })
 
-    const about: App = { name: "opencode", version: "", channel: "dev", platform: "desktop", packaged: false }
+    const about: App = { name: "xccode", version: "", channel: "dev", platform: "desktop", packaged: false }
     const locale: Locale = { locale: () => "en", direction: () => "ltr" }
     const appearance: Appearance = { font: () => "monospace", mode: () => "light" }
     const router: Router = { routing: () => false, path: () => "/" }
@@ -1659,7 +1659,7 @@ export function mountBrowserRegion(input: RegionHost) {
     const [apiResult, setApiResult] = createSignal("")
 
     const consumer: Entry = { id: "fixture-tabs", windowEntry: async () => {
-      const contract = await import("@opencode/plugin/gui/browser")
+      const contract = await import("@xccode/plugin/gui/browser")
 
       return { default(ctx: Context) {
         const read = ctx.use(contract.Browser)

@@ -4,8 +4,8 @@ import { DataProvider, type ReadMediaUrlFn, type TurnDiffSource } from "../conte
 import type { SessionUserActions } from "../message/current-message"
 import type { SessionUserPresentation } from "../timeline/session-timeline"
 import { SessionTimeline } from "../timeline/session-timeline"
-import { FileComponentProvider } from "@opencode/ui/context/file"
-import { Button } from "@opencode/ui/button"
+import { FileComponentProvider } from "@xccode/ui/context/file"
+import { Button } from "@xccode/ui/button"
 import { Show, createMemo, createSignal, type JSX } from "solid-js"
 import { CURRENT_SESSION_ID, STORY_TIME } from "./current-session-fixtures"
 
@@ -17,7 +17,7 @@ export function CurrentSessionProviders(props: {
 }) {
   return (
     <DataProvider
-      directory="C:/workspaces/opencode"
+      directory="C:/workspaces/xccode"
       sessionID={props.document.sessionID}
       readMedia={props.readMedia}
       data={{

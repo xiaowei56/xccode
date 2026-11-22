@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 // Writes src/gui/icon-name.ts: the names of the app's own icons that GUI SDK fields accept, from the app's icon catalog
-// in packages/ui. The published SDK cannot depend on @opencode/ui, so it carries the names; packages/gui-plugins fails
+// in packages/ui. The published SDK cannot depend on @xccode/ui, so it carries the names; packages/gui-plugins fails
 // its typecheck when they drift (src/icon-name.typecheck.ts). A plugin's own icons are not listed here: it declares
 // them in `Plugin.define({ icons })`.
 

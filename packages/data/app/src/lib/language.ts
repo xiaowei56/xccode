@@ -31,7 +31,7 @@ export function prefersMarkdown(accept: string | null | undefined) {
 }
 
 export const basePath = "/data"
-export const baseUrl = "https://opencode.ai"
+export const baseUrl = "https://xccode.ai"
 
 function normalizeDataPathname(pathname: string) {
   const next = localeStrip(pathname)

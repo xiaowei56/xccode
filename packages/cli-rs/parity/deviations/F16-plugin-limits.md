@@ -26,7 +26,7 @@ carrier and for built-ins too:
   the rest run in the next frames. A mailbox full at the end of more than 12 of the last 120 frames makes its plugin
   slow, with one notice: "Its mailbox is full".
 
-`OPENCODE_PLUGIN_LIMITS` sets the budget as before; the limits of host work are the client's.
+`XCCODE_PLUGIN_LIMITS` sets the budget as before; the limits of host work are the client's.
 
 ## Reason
 

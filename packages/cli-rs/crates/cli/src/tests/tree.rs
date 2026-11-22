@@ -12,7 +12,7 @@ fn table_matches_the_typescript_cli() {
     let builtins: Vec<Value> = BUILTINS.iter().chain(ROOT.globals).map(flag).collect();
     let mut diffs = Vec::new();
     compare("builtins", &fixture["builtins"], &Value::from(builtins), &mut diffs);
-    compare_command("opencode", &fixture["root"], &ROOT, &mut diffs);
+    compare_command("xccode", &fixture["root"], &ROOT, &mut diffs);
     assert!(diffs.is_empty(), "the table differs from the TypeScript tree:\n{}", diffs.join("\n"));
 }
 
@@ -29,9 +29,9 @@ fn compare_command(path: &str, ts: &Value, spec: &Spec, diffs: &mut Vec<String>)
         "description": spec.description,
         "hidden": spec.hidden,
         // The root adds `--print-logs` separately; the recording includes it with the built-ins.
-        "globalFlags": spec.globals.iter().map(|flag| flag.name).filter(|_| path != "opencode").collect::<Vec<_>>(),
+        "globalFlags": spec.globals.iter().map(|flag| flag.name).filter(|_| path != "xccode").collect::<Vec<_>>(),
         "arguments": spec.arguments().map(argument).collect::<Vec<_>>(),
-        // opencode-native's own flags are not in the TypeScript tree.
+        // xccode-native's own flags are not in the TypeScript tree.
         "flags": spec.flags().filter(|flag| !flag.own).map(flag).collect::<Vec<_>>(),
     });
     for key in ["name", "aliases", "description", "globalFlags", "arguments", "flags"] {

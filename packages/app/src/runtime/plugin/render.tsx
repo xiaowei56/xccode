@@ -21,11 +21,11 @@ import {
   type MarkdownCodeAction,
   type MarkdownCodeBlock,
   type MarkdownCodeBlocks,
-} from "@opencode/session-ui/context/markdown"
-import { SourcesProvider } from "@opencode/session-ui/context/sources"
-import { sourcesExperiment } from "@opencode/session-ui/sources/experiment"
-import { useTheme } from "@opencode/ui/theme/context"
-import type { DesktopTheme } from "@opencode/ui/theme/types"
+} from "@xccode/session-ui/context/markdown"
+import { SourcesProvider } from "@xccode/session-ui/context/sources"
+import { sourcesExperiment } from "@xccode/session-ui/sources/experiment"
+import { useTheme } from "@xccode/ui/theme/context"
+import type { DesktopTheme } from "@xccode/ui/theme/types"
 import {
   CodeBlock,
   CodeBlockAction,
@@ -33,13 +33,13 @@ import {
   Theme,
   type CodeBlockProps,
   type MountedSession,
-} from "@opencode/plugin/gui"
-import { BuiltinAppLink, BuiltinSlot, type BuiltinSlotMap } from "@opencode/plugin/gui/builtin"
+} from "@xccode/plugin/gui"
+import { BuiltinAppLink, BuiltinSlot, type BuiltinSlotMap } from "@xccode/plugin/gui/builtin"
 import { usePlatform } from "@/runtime/platform/platform"
 import { useLanguage } from "@/runtime/i18n/language"
 import { showToast } from "@/shell/notifications/toast"
 import { appLinkRoute, createAppLinks } from "./app-links"
-import { PluginContext } from "@opencode/plugin/gui/host"
+import { PluginContext } from "@xccode/plugin/gui/host"
 import { usePluginHost, type Item } from "./host"
 import { createLinkCheck } from "./link-check"
 import { webHref } from "./web-href"

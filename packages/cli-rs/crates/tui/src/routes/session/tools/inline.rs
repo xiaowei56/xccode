@@ -1,6 +1,6 @@
 use super::dispatch::{Inline, InlineTool, Props, ToolView, finite, format_path, number};
 use crate::routes::session::messages::list::Context;
-use opencode_ui::tool_info::web_search_provider_name;
+use xccode_ui::tool_info::web_search_provider_name;
 use opentui::prelude::View;
 
 type Line = fn(&Context<'_>, &Props<'_>) -> Inline;

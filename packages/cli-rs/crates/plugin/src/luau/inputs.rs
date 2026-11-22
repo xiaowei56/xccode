@@ -8,7 +8,7 @@ use std::os::raw::c_int;
 use std::rc::Rc;
 
 use mlua::{Lua, Table, Value, ffi};
-use opencode_plugin_abi::{Changed, SlotInput, v2};
+use xccode_plugin_abi::{Changed, SlotInput, v2};
 
 use super::bind::out;
 

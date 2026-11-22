@@ -2,7 +2,7 @@
   List top-level sessions in the current project, newest first
 
 [1mUSAGE[0m
-  [36mopencode session list [flags][0m
+  [36mxccode session list [flags][0m
 
 [1mFLAGS[0m
   [32m--max-count[0m, [32m-n[0m [2minteger[0m    Limit to N most recent sessions (default: 100)

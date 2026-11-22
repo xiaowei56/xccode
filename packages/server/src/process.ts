@@ -1,17 +1,17 @@
 export * as ServerProcess from "./process"
 
 import { NodeHttpServer } from "@effect/platform-node"
-import { Bus } from "@opencode/core/bus"
-import { SessionRestart } from "@opencode/core/session/execution/restart"
-import { Automation } from "@opencode/core/automation"
-import { SessionSearchBuild } from "@opencode/core/session/search-build"
-import { InstallationEvent } from "@opencode/schema/installation-event"
-import { hasPtyConnectTicketURL } from "@opencode/protocol/groups/pty"
-import { hasPersistentPtyConnectTicketURL } from "@opencode/protocol/groups/persistent-pty"
-import { hasMcpClientTicketURL } from "@opencode/protocol/groups/mcp"
-import { isMachineLinkUpgrade } from "@opencode/protocol/groups/machine"
-import { isPairingConnectURL } from "@opencode/protocol/groups/server"
-import { Global } from "@opencode/util/global"
+import { Bus } from "@xccode/core/bus"
+import { SessionRestart } from "@xccode/core/session/execution/restart"
+import { Automation } from "@xccode/core/automation"
+import { SessionSearchBuild } from "@xccode/core/session/search-build"
+import { InstallationEvent } from "@xccode/schema/installation-event"
+import { hasPtyConnectTicketURL } from "@xccode/protocol/groups/pty"
+import { hasPersistentPtyConnectTicketURL } from "@xccode/protocol/groups/persistent-pty"
+import { hasMcpClientTicketURL } from "@xccode/protocol/groups/mcp"
+import { isMachineLinkUpgrade } from "@xccode/protocol/groups/machine"
+import { isPairingConnectURL } from "@xccode/protocol/groups/server"
+import { Global } from "@xccode/util/global"
 import { Cause, Context, Effect, Exit, Latch, Layer, Option, Ref, Scope } from "effect"
 import { HttpMiddleware, HttpRouter, HttpServerRequest, HttpServerResponse } from "effect/http"
 import { NetAddress } from "effect/net"
@@ -128,7 +128,7 @@ export const start = Effect.fn("ServerProcess.start")(function* <E, R>(
         Effect.provideService(Scope.Scope, applicationScope),
       )
     }
-    // Automations run from any server process (`service`, `opencode serve`, or `--standalone`); the table holds all their state.
+    // Automations run from any server process (`service`, `xccode serve`, or `--standalone`); the table holds all their state.
     yield* Effect.forkIn(Context.get(context, Automation.Service).run, applicationScope)
     // Likewise the one-time session search build, once a location has sqlite_fts on.
     yield* Effect.forkIn(Context.get(context, SessionSearchBuild.Service).run, applicationScope)
@@ -204,7 +204,7 @@ function dispatch(
   urls: () => ReadonlyArray<string>,
   tmp: string,
 ): App {
-  const auth = ServerAuth.Config.of({ password: Option.some(password), username: "opencode" })
+  const auth = ServerAuth.Config.of({ password: Option.some(password), username: "xccode" })
   return Effect.gen(function* () {
     const request = yield* HttpServerRequest.HttpServerRequest
     const url = new URL(request.url, "http://localhost")
@@ -254,7 +254,7 @@ function unavailable(status: Status.State) {
       {
         code: "service_failed",
         message: "The background service could not start.",
-        action: "Run `opencode service restart` after checking the service logs.",
+        action: "Run `xccode service restart` after checking the service logs.",
       },
       { status: 503 },
     )

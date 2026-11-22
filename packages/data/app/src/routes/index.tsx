@@ -1,5 +1,5 @@
 import { Meta, Title } from "@solidjs/meta"
-import { ProviderIcon } from "@opencode/ui/provider-icon"
+import { ProviderIcon } from "@xccode/ui/provider-icon"
 import { scaleSqrt } from "d3-scale"
 import countryCodesSource from "i18n-iso-countries/codes.json?raw"
 import {
@@ -9,11 +9,11 @@ import {
   type SessionCostEntry,
   type TokenCostEntry,
   type UsagePoint,
-} from "@opencode/data-core/domain/home"
+} from "@xccode/data-core/domain/home"
 import { createAsync, query } from "@solidjs/router"
 import { createEffect, createMemo, createSignal, For, onCleanup, onMount, Show, type JSX } from "solid-js"
 import { getRequestEvent } from "solid-js/web"
-import { FormatLinks, JsonLd, LastModified, openCodeOrganization } from "../component/agent-meta"
+import { FormatLinks, JsonLd, LastModified, xccodeOrganization } from "../component/agent-meta"
 import { ChartDataTable } from "../component/chart-data-table"
 import { LocaleLinks } from "../component/locale-links"
 import { useI18n } from "../context/i18n"
@@ -114,7 +114,7 @@ export default function StatsHome() {
             <FormatLinks path="/data/" />
             <LastModified value={stats().updatedAt} />
             <Meta property="og:type" content="website" />
-            <Meta property="og:site_name" content="OpenCode" />
+            <Meta property="og:site_name" content="Xccode" />
             <Meta property="og:title" content={i18n.t("app.title")} />
             <Meta property="og:description" content={i18n.t("app.description")} />
             <Meta property="og:url" content={statsHomeUrl} />
@@ -1836,8 +1836,8 @@ function homeStructuredData(
         name: page.name,
         description: page.description,
         url: page.url,
-        creator: openCodeOrganization,
-        publisher: openCodeOrganization,
+        creator: xccodeOrganization,
+        publisher: xccodeOrganization,
         isAccessibleForFree: true,
         variableMeasured: ["Tokens", "Unique users", "Sessions", "Cost per session", "Cache ratio", "Weekly retention"],
         ...(data.updatedAt ? { dateModified: data.updatedAt } : {}),

@@ -1,5 +1,5 @@
 import { startTransition } from "solid-js"
-import type { SessionInfo } from "@opencode/client/promise"
+import type { SessionInfo } from "@xccode/client/promise"
 import { useGlobal, type ServerCtx } from "@/runtime/server/runtime"
 import { ServerConnection } from "@/runtime/server/registry"
 import { useTabs, type Tab } from "./tabs"

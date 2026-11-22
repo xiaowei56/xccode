@@ -9,7 +9,7 @@ export function plugins(config: object): PtyCase {
     args: [],
     cols: 120,
     rows: 44,
-    env: { OPENCODE_CLI_CONFIG_CONTENT: JSON.stringify({ ...config, debug: { devtools: false } }) },
+    env: { XCCODE_CLI_CONFIG_CONTENT: JSON.stringify({ ...config, debug: { devtools: false } }) },
     server: {
       fallback: "tui",
       routes: [

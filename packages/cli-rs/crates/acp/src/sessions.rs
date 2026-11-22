@@ -5,12 +5,12 @@ use std::future::Future;
 use std::sync::{Arc, Mutex, MutexGuard};
 
 use futures_util::StreamExt;
-use opencode_api::client::Client;
-use opencode_api::generated::{
+use xccode_api::client::Client;
+use xccode_api::generated::{
     AgentID, ExperimentalMcpAddInput, ExperimentalMcpAddInputConfig, LocationQueryInput, ModelRef, SessionID,
     SessionInfo, SessionSwitchAgentInput, SessionSwitchModelInput,
 };
-use opencode_util::lock;
+use xccode_util::lock;
 use serde_json::{Map, Value, json};
 use tokio::sync::{mpsc, watch};
 use tokio_util::sync::CancellationToken;

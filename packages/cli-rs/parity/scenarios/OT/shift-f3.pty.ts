@@ -8,7 +8,7 @@ import { home, homeMasks } from "./home"
 const config = JSON.stringify({
   experimental: { "new-designs": true },
   debug: { devtools: false },
-  keybinds: { "opencode.settings": "shift+f3" },
+  keybinds: { "xccode.settings": "shift+f3" },
 })
 
 export default definePty({
@@ -16,7 +16,7 @@ export default definePty({
   cols: 100,
   rows: 30,
   ...home,
-  env: { OPENCODE_CLI_CONFIG_CONTENT: config },
+  env: { XCCODE_CLI_CONFIG_CONTENT: config },
   steps: [
     { until: { screen: "█▀▀█" }, settle: 500, timeout: 30_000 },
     {

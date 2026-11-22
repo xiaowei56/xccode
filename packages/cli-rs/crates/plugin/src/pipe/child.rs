@@ -177,7 +177,7 @@ struct Shared {
     /// The job that holds the child and what it starts; closing it ends them all. It goes when the child is killed,
     /// not when the `Child` drops, so a drop's grace period stands.
     #[cfg(windows)]
-    job: Mutex<Option<opencode_util::win::KillOnCloseJob>>,
+    job: Mutex<Option<xccode_util::win::KillOnCloseJob>>,
 }
 
 /// A running JS host. Dropping it closes its input, which ends it; one that does not end within 500 ms is killed, off
@@ -206,7 +206,7 @@ impl Child {
         drop(command);
         // Without its job the child would outlive a client that dies: it is not run then.
         #[cfg(windows)]
-        let job = match opencode_util::win::KillOnCloseJob::new().and_then(|job| job.assign(&process).map(|()| job)) {
+        let job = match xccode_util::win::KillOnCloseJob::new().and_then(|job| job.assign(&process).map(|()| job)) {
             Ok(job) => job,
             Err(error) => {
                 let _ = process.kill();
@@ -733,7 +733,7 @@ fn errors(shared: &Shared, stderr: std::process::ChildStderr) {
 /// What marks, on standard output, whose code the JS host runs from then on: the plugin's ID as JSON, or `null`, up to
 /// a NUL (`host.ts` `own`). What a plugin writes with `fs.writeSync(1, …)` while its code runs comes after its mark, as
 /// writes to one descriptor from one thread keep their order.
-const OWNER: &[u8] = b"\0OPENCODE_JS_HOST_OWNER ";
+const OWNER: &[u8] = b"\0XCCODE_JS_HOST_OWNER ";
 
 /// The most records of standard output logged in a second, the most bytes logged for one JS host, and the most of a
 /// record's bytes shown.
@@ -928,14 +928,14 @@ mod channel {
     }
 
     #[cfg(windows)]
-    pub(super) struct Reader(std::sync::Arc<opencode_util::win::Duplex>);
+    pub(super) struct Reader(std::sync::Arc<xccode_util::win::Duplex>);
     #[cfg(windows)]
-    pub(super) struct Writer(std::sync::Arc<opencode_util::win::Duplex>);
+    pub(super) struct Writer(std::sync::Arc<xccode_util::win::Duplex>);
 
-    /// A duplex named pipe ([`opencode_util::win::duplex`]): its end here, read and written apart, and the child's end.
+    /// A duplex named pipe ([`xccode_util::win::duplex`]): its end here, read and written apart, and the child's end.
     #[cfg(windows)]
     pub(super) fn open() -> std::io::Result<(Reader, Writer, Stdio)> {
-        let (duplex, theirs) = opencode_util::win::duplex()?;
+        let (duplex, theirs) = xccode_util::win::duplex()?;
         let duplex = std::sync::Arc::new(duplex);
         Ok((Reader(duplex.clone()), Writer(duplex), Stdio::from(theirs)))
     }
@@ -1065,7 +1065,7 @@ fn resident(shared: &Shared) -> Option<u64> {
     }
     #[cfg(windows)]
     {
-        lock(&shared.process).as_ref().and_then(opencode_util::win::process_resident).map(|bytes| bytes as u64)
+        lock(&shared.process).as_ref().and_then(xccode_util::win::process_resident).map(|bytes| bytes as u64)
     }
     #[cfg(not(any(target_os = "linux", target_os = "macos", windows)))]
     {
@@ -1124,10 +1124,10 @@ mod stray_tests {
             assert_eq!(total(&found, "plugin bg-sync"), 18, "{cut}: {found:?}");
             assert_eq!(total(&found, "a plugin"), 6, "{cut}: {found:?}");
             assert_eq!(total(&found, "plugin other"), 1, "{cut}: {found:?}");
-            assert!(found.iter().all(|record| !record.contains("OPENCODE_JS_HOST_OWNER")), "{cut}: {found:?}");
+            assert!(found.iter().all(|record| !record.contains("XCCODE_JS_HOST_OWNER")), "{cut}: {found:?}");
         }
         // The start of a mark that never comes is the plugin's own.
-        let found = records(&[b"a\0OPENCODE_JS".to_vec()]);
+        let found = records(&[b"a\0XCCODE_JS".to_vec()]);
         assert_eq!(total(&found, "a plugin"), 13, "{found:?}");
     }
 
@@ -1166,11 +1166,11 @@ mod stray_tests {
 mod tests {
     use super::*;
     use crate::pipe::proto::Up;
-    use opencode_plugin_abi::{HostRequest, Level};
+    use xccode_plugin_abi::{HostRequest, Level};
 
     /// A child that writes `frames` to its output and then waits for its input to end, as the JS host does.
-    fn fake(frames: &[u8], limits: Limits) -> (Child, opencode_util::temp::TempDir) {
-        let dir = opencode_util::temp::tempdir().unwrap();
+    fn fake(frames: &[u8], limits: Limits) -> (Child, xccode_util::temp::TempDir) {
+        let dir = xccode_util::temp::tempdir().unwrap();
         let file = dir.path().join("frames");
         std::fs::write(&file, frames).unwrap();
         let mut command = Command::new("sh");
@@ -1230,7 +1230,7 @@ mod tests {
 
     #[test]
     fn a_full_queue_wakes_the_host_once_it_has_room() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let file = dir.path().join("frames");
         std::fs::write(&file, hello()).unwrap();
         // It says hello, reads nothing for a while, then reads all and says nothing.
@@ -1343,7 +1343,7 @@ mod tests {
     #[cfg(unix)]
     #[test]
     fn pieces_that_trickle_in_are_progress() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let path = |name: &str| dir.path().join(name);
         let log = Up::Log { id: Some("p".into()), level: Level::Info, message: "m".repeat(5 * wire::CONTROL_CAP) };
         let json = serde_json::to_vec(&log).unwrap();
@@ -1499,7 +1499,7 @@ mod tests {
             let mut ack = Duration::from_millis(100);
             loop {
                 // The child acknowledges once it read the event, never before it was sent.
-                let dir = opencode_util::temp::tempdir().unwrap();
+                let dir = xccode_util::temp::tempdir().unwrap();
                 let (hello_file, ack_file) = (dir.path().join("hello"), dir.path().join("ack"));
                 std::fs::write(&hello_file, hello()).unwrap();
                 std::fs::write(&ack_file, control(&Up::Ack { seq: 1 })).unwrap();
@@ -1551,7 +1551,7 @@ mod tests {
     #[test]
     fn an_answer_behind_unread_trees_is_not_late() {
         let limits = Limits { ack: Duration::from_millis(100), trees: 2, ..Limits::default() };
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let (hello_file, answer_file) = (dir.path().join("hello"), dir.path().join("answer"));
         std::fs::write(&hello_file, hello()).unwrap();
         let mut answer: Vec<u8> = (1..=4).flat_map(tree).collect();
@@ -1585,7 +1585,7 @@ mod tests {
     fn a_slow_start_is_not_a_hang() {
         for (setup, hung) in [(Duration::from_secs(5), false), (Duration::from_millis(200), true)] {
             let limits = Limits { ack: Duration::from_millis(100), setup, ..Limits::default() };
-            let dir = opencode_util::temp::tempdir().unwrap();
+            let dir = xccode_util::temp::tempdir().unwrap();
             let (hello_file, ack_file) = (dir.path().join("hello"), dir.path().join("ack"));
             std::fs::write(&hello_file, hello()).unwrap();
             std::fs::write(&ack_file, control(&Up::Ack { seq: 1 })).unwrap();
@@ -1622,8 +1622,8 @@ mod tests {
     #[test]
     fn messages_past_the_inbox_bytes_end_the_stream() {
         let limits = Limits { inbox: 64 << 10, ..Limits::default() };
-        let request = opencode_plugin_abi::HostRequest::Log {
-            level: opencode_plugin_abi::Level::Info,
+        let request = xccode_plugin_abi::HostRequest::Log {
+            level: xccode_plugin_abi::Level::Info,
             message: "x".repeat(20 << 10),
         };
         let effects =

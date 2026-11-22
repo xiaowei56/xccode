@@ -1,5 +1,5 @@
 export const dict = {
-  "desktop.menu.app": "OpenCode",
+  "desktop.menu.app": "Xccode",
   "desktop.menu.file": "Αρχείο",
   "desktop.menu.edit": "Επεξεργασία",
   "desktop.menu.view": "Προβολή",
@@ -38,18 +38,18 @@ export const dict = {
   "desktop.menu.nextProject": "Επόμενο έργο",
   "desktop.menu.minimize": "Ελαχιστοποίηση",
   "desktop.menu.maximize": "Μεγιστοποίηση",
-  "desktop.menu.documentation": "OpenCode Τεκμηρίωση",
+  "desktop.menu.documentation": "Xccode Τεκμηρίωση",
   "desktop.menu.supportForum": "Φόρουμ υποστήριξης",
   "desktop.menu.shareFeedback": "Κοινή χρήση σχολίων",
   "desktop.menu.reportBug": "Αναφορά σφάλματος",
-  "desktop.menu.ariaLabel": "OpenCode μενού",
+  "desktop.menu.ariaLabel": "Xccode μενού",
   "desktop.recovery.action.relaunch": "Επανεκκίνηση",
   "desktop.recovery.action.exportLogs": "Εξαγωγή αρχείων καταγραφής",
   "desktop.recovery.action.keepWaiting": "Συνεχίστε την αναμονή",
   "desktop.recovery.action.quit": "Τερματισμός",
-  "desktop.recovery.loadFailed": "OpenCode απέτυχε η φόρτωση",
-  "desktop.recovery.terminated": "OpenCode το παράθυρο τερματίστηκε απροσδόκητα",
-  "desktop.recovery.unresponsive": "OpenCode δεν αποκρίνεται",
+  "desktop.recovery.loadFailed": "Xccode απέτυχε η φόρτωση",
+  "desktop.recovery.terminated": "Xccode το παράθυρο τερματίστηκε απροσδόκητα",
+  "desktop.recovery.unresponsive": "Xccode δεν αποκρίνεται",
   "desktop.recovery.unresponsive.detail":
     "Μπορείτε να επανεκκινήσετε την εφαρμογή, να ανοίξετε τα αρχεία καταγραφής ή να συνεχίσετε να περιμένετε.",
   "desktop.recovery.loadFailed.detail": "Παράθυρο: {{window}}\nURL: {{url}}\nΣφάλμα: {{code}} {{description}}",
@@ -129,9 +129,9 @@ export const dict = {
   "dialog.provider.empty": "Δεν βρέθηκαν πάροχοι",
   "dialog.provider.group.popular": "Δημοφιλή",
   "dialog.provider.tag.recommended": "Συνιστάται",
-  "dialog.provider.opencode.note": "Επιμελημένα μοντέλα συμπεριλαμβανομένων των Claude, GPT, Gemini και άλλων",
-  "dialog.provider.opencode.tagline": "Αξιόπιστα βελτιστοποιημένα μοντέλα",
-  "dialog.provider.opencodeGo.tagline": "Συνδρομή χαμηλού κόστους για όλους",
+  "dialog.provider.xccode.note": "Επιμελημένα μοντέλα συμπεριλαμβανομένων των Claude, GPT, Gemini και άλλων",
+  "dialog.provider.xccode.tagline": "Αξιόπιστα βελτιστοποιημένα μοντέλα",
+  "dialog.provider.xccodeGo.tagline": "Συνδρομή χαμηλού κόστους για όλους",
   "dialog.provider.copilot.note": "Μοντέλα AI για βοήθεια κωδικοποίησης μέσω GitHub Copilot",
   "dialog.provider.openai.note": "GPT μοντέλα για γρήγορες, ικανές εργασίες γενικής τεχνητής νοημοσύνης",
   "dialog.provider.google.note": "Gemini μοντέλα για γρήγορες, δομημένες απαντήσεις",
@@ -142,7 +142,7 @@ export const dict = {
   "dialog.model.empty": "Δεν υπάρχουν αποτελέσματα μοντέλου",
   "dialog.model.manage": "Διαχείριση μοντέλων",
   "dialog.model.manage.description": "Προσαρμογή των μοντέλων που εμφανίζονται στον επιλογέα μοντέλων.",
-  "dialog.model.unpaid.freeModels.title": "Δωρεάν μοντέλα παρέχονται από OpenCode",
+  "dialog.model.unpaid.freeModels.title": "Δωρεάν μοντέλα παρέχονται από Xccode",
   "dialog.model.unpaid.addMore.title": "Προσθήκη περισσότερων μοντέλων από δημοφιλείς παρόχους",
   "dialog.model.unpaid.viewMoreProviders": "Δείτε 70+ ακόμη παρόχους",
   "dialog.provider.viewAll": "Εμφάνιση περισσότερων παρόχων",
@@ -152,7 +152,7 @@ export const dict = {
   "provider.connect.status.waiting": "Αναμονή για εξουσιοδότηση",
   "provider.connect.status.failed": "Η εξουσιοδότηση απέτυχε: {{error}}",
   "provider.connect.apiKey.description":
-    "Εισαγάγετε το κλειδί {{provider}} API για να συνδέσετε τον λογαριασμό σας και χρησιμοποιήστε μοντέλα {{provider}} στο OpenCode.",
+    "Εισαγάγετε το κλειδί {{provider}} API για να συνδέσετε τον λογαριασμό σας και χρησιμοποιήστε μοντέλα {{provider}} στο Xccode.",
   "provider.connect.apiKey.label": "{{provider}} API κλειδί",
   "provider.connect.apiKey.placeholder": "API κλειδί",
   "provider.connect.apiKey.required": "API απαιτείται κλειδί",
@@ -267,7 +267,7 @@ export const dict = {
   "error.page.action.checkUpdates": "Έλεγχος για ενημερώσεις",
   "error.page.action.updateTo": "Ενημέρωση σε {{version}}",
   "error.page.circular": "[Circular]",
-  "error.page.report.prefix": "Αναφέρετε αυτό το σφάλμα στην ομάδα OpenCode",
+  "error.page.report.prefix": "Αναφέρετε αυτό το σφάλμα στην ομάδα Xccode",
   "error.page.report.discord": "στο Discord",
   "error.page.version": "Έκδοση: {{version}}",
   "error.dev.rootNotFound":
@@ -288,9 +288,9 @@ export const dict = {
   "error.chain.responseBody": "Σώμα απόκρισης:\n{{body}}",
   "error.chain.didYouMean": "Μήπως εννοείτε: {{suggestions}}",
   "error.chain.modelNotFound": "Το μοντέλο δεν βρέθηκε: {{provider}}/{{model}}",
-  "error.chain.checkConfig": "Ελέγξτε τη διαμόρφωση (opencode.json) ονόματα παρόχου/μοντέλων",
+  "error.chain.checkConfig": "Ελέγξτε τη διαμόρφωση (xccode.json) ονόματα παρόχου/μοντέλων",
   "error.chain.mcpFailed":
-    'MCP διακομιστής "{{name}}" απέτυχε. Σημείωση, το OpenCode δεν υποστηρίζει ακόμη έλεγχο ταυτότητας MCP.',
+    'MCP διακομιστής "{{name}}" απέτυχε. Σημείωση, το Xccode δεν υποστηρίζει ακόμη έλεγχο ταυτότητας MCP.',
   "error.chain.providerAuthFailed": "Ο έλεγχος ταυτότητας παρόχου απέτυχε ({{provider}}): {{message}}",
   "error.chain.providerInitFailed":
     'Απέτυχε η προετοιμασία του παρόχου "{{provider}}". Ελέγξτε τα διαπιστευτήρια και τη διαμόρφωση.',
@@ -395,16 +395,16 @@ export const dict = {
   "settings.general.section.notifications": "Ειδοποιήσεις συστήματος",
   "settings.general.section.sounds": "Ηχητικά εφέ",
   "settings.general.row.language.title": "Γλώσσα",
-  "settings.general.row.language.description": "Αλλαγή της γλώσσας εμφάνισης για το OpenCode",
+  "settings.general.row.language.description": "Αλλαγή της γλώσσας εμφάνισης για το Xccode",
   "settings.general.row.shell.title": "Τερματικό κέλυφος",
   "settings.general.row.shell.description": "Κέλυφος που χρησιμοποιείται από το τερματικό και τα εργαλεία του πράκτορα",
   "settings.general.row.shell.autoDefault": "Αυτόματο (Προεπιλογή)",
   "settings.general.row.shell.terminalOnly": "μόνο τερματικό",
   "settings.general.row.colorScheme.title": "Χρωματικός συνδυασμός",
   "settings.general.row.colorScheme.description":
-    "Επιλέξτε εάν το OpenCode ακολουθεί το σύστημα, το ανοιχτό ή το σκοτεινό θέμα",
+    "Επιλέξτε εάν το Xccode ακολουθεί το σύστημα, το ανοιχτό ή το σκοτεινό θέμα",
   "settings.general.row.theme.title": "Θέμα",
-  "settings.general.row.theme.description": "Προσαρμογή του τρόπου με τον οποίο έχει θέμα το OpenCode.",
+  "settings.general.row.theme.description": "Προσαρμογή του τρόπου με τον οποίο έχει θέμα το Xccode.",
   "settings.general.row.font.title": "Γραμματοσειρά κώδικα",
   "settings.general.row.font.description": "Προσαρμογή της γραμματοσειράς που χρησιμοποιείται στα μπλοκ κώδικα",
   "settings.general.row.terminalFont.title": "Τερματική γραμματοσειρά",
@@ -598,7 +598,7 @@ export const dict = {
   "settings.extensions.tab.mcps": "MCP",
   "settings.extensions.tab.skills": "Δεξιότητες",
   "settings.extensions.availableAll": "Διαθέσιμο σε όλα τα έργα",
-  "settings.extensions.manageConfig": "Διαχείριση στο opencode.json",
+  "settings.extensions.manageConfig": "Διαχείριση στο xccode.json",
   "settings.extensions.addSkills": "Πώς να προσθέσετε δεξιότητες",
   "project.settings.extensions.description": "Προβολή επεκτάσεων που είναι διαθέσιμες σε αυτό το έργο",
   "project.settings.extensions.tab.lsps": "LSP",
@@ -609,13 +609,13 @@ export const dict = {
   "desktop.menu.installCli": "Εγκατάσταση CLI...",
   "desktop.cli.installed.title": "Το CLI εγκαταστάθηκε",
   "desktop.cli.installed.message":
-    "Το CLI εγκαταστάθηκε στη διαδρομή {{path}}\n\nΕπανεκκινήστε το τερματικό για να χρησιμοποιήσετε την εντολή 'opencode2'.",
+    "Το CLI εγκαταστάθηκε στη διαδρομή {{path}}\n\nΕπανεκκινήστε το τερματικό για να χρησιμοποιήσετε την εντολή 'xccode2'.",
   "desktop.cli.failed.title": "Η εγκατάσταση απέτυχε",
   "desktop.cli.failed.message": "Αποτυχία εγκατάστασης του CLI: {{error}}",
   "command.project.copyID": "Αντιγραφή ID έργου",
   "command.session.copyID": "Αντιγραφή ID συνεδρίας",
   "server.row.incompatible":
-    "Αυτός ο διακομιστής εκτελεί το OpenCode {{version}}, το οποίο δεν είναι συμβατό με αυτήν την εφαρμογή. Αναβαθμίστε τον σε OpenCode V2 για να συνεχίσετε.",
+    "Αυτός ο διακομιστής εκτελεί το Xccode {{version}}, το οποίο δεν είναι συμβατό με αυτήν την εφαρμογή. Αναβαθμίστε τον σε Xccode V2 για να συνεχίσετε.",
   "toast.session.copyID.failed.title": "Αποτυχία αντιγραφής του ID συνεδρίας",
   "toast.session.copyID.failed.description": "Παρουσιάστηκε σφάλμα κατά την αντιγραφή του ID συνεδρίας",
   "toast.project.copyID.failed.title": "Αποτυχία αντιγραφής του ID έργου",
@@ -625,7 +625,7 @@ export const dict = {
   "error.page.action.reload": "Επαναφόρτωση",
   "session.error.incompatible": "Αυτή η έκδοση διακομιστή δεν υποστηρίζεται",
   "session.error.incompatible.description":
-    "Ο διακομιστής {{server}} εκτελεί το OpenCode {{version}}, το οποίο δεν είναι συμβατό με αυτήν την εφαρμογή. Αναβαθμίστε τον διακομιστή σε OpenCode V2 για να συνεχίσετε.",
+    "Ο διακομιστής {{server}} εκτελεί το Xccode {{version}}, το οποίο δεν είναι συμβατό με αυτήν την εφαρμογή. Αναβαθμίστε τον διακομιστή σε Xccode V2 για να συνεχίσετε.",
   "session.background.moveInline": "Πατήστε {{keybind}} για να μετακινήσετε την εργασία που εκτελείται στο παρασκήνιο",
   "dialog.server.menu.hide": "Απόκρυψη από τη λίστα έργων",
   "dialog.server.menu.show": "Εμφάνιση στη λίστα έργων",
@@ -679,9 +679,9 @@ export const dict = {
   "settings.about.otherContributor.other": "{{count}} άλλοι",
   "settings.about.firstPublished": "Πρωτοδημοσιεύτηκε στο Μιζούρι των Η.Π.Α",
   "settings.about.firstIllustrated": "Εικονογραφήθηκε για πρώτη φορά στο Λονδίνο της Αγγλίας",
-  "settings.about.website": "www.opencode.ai",
-  "settings.about.description": "OpenCode, ο παράγοντας κωδικοποίησης ανοιχτού κώδικα",
-  "settings.about.trademark": "Το OpenCode είναι σήμα κατατεθέν της Anomaly Innovations, Inc.",
+  "settings.about.website": "www.xccode.ai",
+  "settings.about.description": "Xccode, ο παράγοντας κωδικοποίησης ανοιχτού κώδικα",
+  "settings.about.trademark": "Το Xccode είναι σήμα κατατεθέν της Anomaly Innovations, Inc.",
   "settings.about.typeset": "Δακτυλογράφηση σε Inter και IBM Plex Mono",
   "settings.about.tagline": "Το AI δεν μπορεί να δημιουργήσει εξαιρετικό λογισμικό, χωρίς εσάς",
   "settings.about.copyright": "© Anomaly Innovations, Inc.",
@@ -725,9 +725,9 @@ export const dict = {
   "server.connect.failed":
     "Δεν ήταν δυνατή η σύνδεση. Ελέγξτε τη διεύθυνση του διακομιστή και τον κωδικό πρόσβασης και, στη συνέχεια, δοκιμάστε ξανά.",
   "server.connect.scan": "Σάρωση κωδικού QR",
-  "server.connect.scan.description": "Στρέψτε την κάμερά σας στον κωδικό QR που εμφανίζεται από το opencode pair.",
+  "server.connect.scan.description": "Στρέψτε την κάμερά σας στον κωδικό QR που εμφανίζεται από το xccode pair.",
   "server.connect.scan.invalid":
-    "Αυτός δεν είναι κωδικός σύζευξης OpenCode. Σαρώστε τον κωδικό που εμφανίζεται από το opencode pair.",
+    "Αυτός δεν είναι κωδικός σύζευξης Xccode. Σαρώστε τον κωδικό που εμφανίζεται από το xccode pair.",
   "server.connect.camera": "Κάμερα ζευγοποίησης",
   "server.connect.camera.starting": "Άνοιγμα κάμερας…",
   "server.connect.mixedContent":
@@ -764,22 +764,22 @@ export const dict = {
     "Επιλέξτε τους πράκτορες παροχής αναζήτησης που χρησιμοποιούν για την αναζήτηση στον ιστό",
   "settings.projects.search.placeholder": "Αναζήτηση έργων",
   "project.settings.name.title": "Όνομα έργου",
-  "project.settings.name.description": "Το όνομα που εμφανίζεται για αυτό το έργο σε όλο το OpenCode",
+  "project.settings.name.description": "Το όνομα που εμφανίζεται για αυτό το έργο σε όλο το Xccode",
   "project.settings.icon.description": "Προτείνεται: 128×128 px. Κάντε κλικ ή σύρετε για να ανεβάσετε μια εικόνα.",
   "project.settings.color.description":
     "Χρησιμοποιείται για το εικονίδιο του έργου όταν δεν έχει οριστεί προσαρμοσμένη εικόνα",
   "project.settings.worktree.startup.description": "Εκτελείται μία φορά μετά τη δημιουργία ενός νέου δέντρου εργασίας",
   "project.settings.worktree.startup.hint.base":
-    "Χρησιμοποιήστε το $OPENCODE_WORKTREE_BASE για το βασικό δέντρο εργασίας.",
-  "project.settings.worktree.startup.hint.new": "Χρησιμοποιήστε το $OPENCODE_WORKTREE_PATH για το νέο δέντρο εργασίας.",
+    "Χρησιμοποιήστε το $XCCODE_WORKTREE_BASE για το βασικό δέντρο εργασίας.",
+  "project.settings.worktree.startup.hint.new": "Χρησιμοποιήστε το $XCCODE_WORKTREE_PATH για το νέο δέντρο εργασίας.",
   "project.settings.extensions.empty.mcps.title": "Όχι MCPs ακόμα",
-  "project.settings.extensions.empty.mcps.description": "Το MCPs διαθέσιμο στο OpenCode θα εμφανιστεί εδώ",
+  "project.settings.extensions.empty.mcps.description": "Το MCPs διαθέσιμο στο Xccode θα εμφανιστεί εδώ",
   "project.settings.extensions.empty.plugins.title": "Δεν υπάρχουν πρόσθετα ακόμα",
   "project.settings.extensions.empty.plugins.description":
-    "Τα πρόσθετα που είναι διαθέσιμα στο OpenCode θα εμφανιστούν εδώ",
+    "Τα πρόσθετα που είναι διαθέσιμα στο Xccode θα εμφανιστούν εδώ",
   "project.settings.extensions.empty.skills.title": "Δεν υπάρχουν ακόμη δεξιότητες",
   "project.settings.extensions.empty.skills.description":
-    "Οι δεξιότητες που είναι διαθέσιμες στο OpenCode θα εμφανιστούν εδώ",
+    "Οι δεξιότητες που είναι διαθέσιμες στο Xccode θα εμφανιστούν εδώ",
   "project.settings.extensions.lsp.configured": "Διακομιστές γλώσσας που έχουν διαμορφωθεί",
   "project.settings.extensions.lsp.status.enabled": "Ενεργοποιήθηκε στο config",
   "project.settings.extensions.lsp.status.disabled": "Απενεργοποιήθηκε στη διαμόρφωση",
@@ -801,7 +801,7 @@ export const dict = {
   "settings.timeline.collapsed.label": "Το {{activity}} κατέρρευσε",
   "session.new.workspace.search.empty": "Δεν υπάρχουν δέντρα εργασίας που να ταιριάζουν",
   "settings.workspaces.description": "Ελέγξτε τα δέντρα εργασίας και διαχειριστείτε τη χρήση του δίσκου",
-  "settings.workspaces.empty.description": "Τα δέντρα εργασίας που δημιουργήθηκαν στο OpenCode θα εμφανιστούν εδώ",
+  "settings.workspaces.empty.description": "Τα δέντρα εργασίας που δημιουργήθηκαν στο Xccode θα εμφανιστούν εδώ",
   "settings.workspaces.sessions.filtered.one": "Συνεδρία {{count}}",
   "settings.workspaces.sessions.filtered.other": "Συνεδρίες {{count}}",
   "settings.workspaces.deleteAll.confirm.one": "Αυτό θα διαγράψει οριστικά το επιλεγμένο δέντρο εργασίας {{count}}.",
@@ -853,22 +853,22 @@ export const dict = {
   "voice.captions.hide": "Απόκρυψη υποτίτλων",
   "voice.connecting": "Σύνδεση…",
   "voice.you": "Εσείς:",
-  "voice.assistant": "OpenCode:",
+  "voice.assistant": "Xccode:",
   "voice.failure.unavailable": "Οι φωνητικές κλήσεις απαιτούν κλειδί API του OpenAI σε αυτόν τον διακομιστή.",
   "voice.failure.microphone": "Απαιτείται πρόσβαση στο μικρόφωνο για την κλήση.",
   "voice.failure.dropped": "Η κλήση αποσυνδέθηκε.",
   "voice.failure.connection": "Δεν ήταν δυνατή η σύνδεση της κλήσης.",
-  "desktop.microphoneUsage": "Το OpenCode χρησιμοποιεί το μικρόφωνό σας για φωνητικές κλήσεις.",
+  "desktop.microphoneUsage": "Το Xccode χρησιμοποιεί το μικρόφωνό σας για φωνητικές κλήσεις.",
   "desktop.documentsFolderUsage":
-    "Το OpenCode χρησιμοποιεί αρχεία στον φάκελο Έγγραφα για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
+    "Το Xccode χρησιμοποιεί αρχεία στον φάκελο Έγγραφα για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
   "desktop.desktopFolderUsage":
-    "Το OpenCode χρησιμοποιεί αρχεία στην Επιφάνεια εργασίας για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
+    "Το Xccode χρησιμοποιεί αρχεία στην Επιφάνεια εργασίας για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
   "desktop.downloadsFolderUsage":
-    "Το OpenCode χρησιμοποιεί αρχεία στον φάκελο Λήψεις για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
+    "Το Xccode χρησιμοποιεί αρχεία στον φάκελο Λήψεις για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
   "desktop.networkVolumesUsage":
-    "Το OpenCode χρησιμοποιεί αρχεία σε τόμους δικτύου για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
+    "Το Xccode χρησιμοποιεί αρχεία σε τόμους δικτύου για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
   "desktop.removableVolumesUsage":
-    "Το OpenCode χρησιμοποιεί αρχεία σε αφαιρούμενους τόμους για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
+    "Το Xccode χρησιμοποιεί αρχεία σε αφαιρούμενους τόμους για τα έργα που ανοίγετε και τις εντολές που εκτελείτε εκεί.",
   "desktop.contextMenu.spellcheck": "Ορθογραφικός έλεγχος",
   "desktop.contextMenu.spellcheckLanguages": "Γλώσσες ορθογραφικού ελέγχου",
   "session.location.unavailable": "Η τοποθεσία της συνεδρίας δεν είναι διαθέσιμη",
@@ -881,7 +881,7 @@ export const dict = {
   "session.location.moving": "Μετακίνηση συνεδρίας…",
   "session.location.moveFailed": "Αποτυχία μετακίνησης συνεδρίας",
   "server.thisComputer": "Αυτός ο υπολογιστής",
-  "command.provider.connect.description": "Συνδεθείτε στο OpenCode Go, στο OpenCode Console ή σε άλλον πάροχο μοντέλων",
+  "command.provider.connect.description": "Συνδεθείτε στο Xccode Go, στο Xccode Console ή σε άλλον πάροχο μοντέλων",
   "command.config.reload": "Επαναφόρτωση διαμόρφωσης",
   "command.config.reload.description":
     "Επαναφόρτωση πρακτόρων, εντολών, δεξιοτήτων, διακομιστών MCP και πρόσθετων από τη διαμόρφωσή σας",
@@ -889,7 +889,7 @@ export const dict = {
   "command.config.reload.done": "Η διαμόρφωση επαναφορτώθηκε",
   "command.config.reload.failed": "Δεν ήταν δυνατή η επαναφόρτωση της διαμόρφωσης",
   "command.usage.view": "Προβολή χρήσης",
-  "command.usage.view.description": "Δείτε το όριο του OpenCode Go και τους προϋπολογισμούς του Console",
+  "command.usage.view.description": "Δείτε το όριο του Xccode Go και τους προϋπολογισμούς του Console",
   "command.session.branch.choose": "Επιλογή βασικού κλάδου",
   "session.location.toggle": "Εναλλαγή τοποθεσίας συνεδρίας",
   "command.commands.search": "Αναζήτηση εντολών",
@@ -910,7 +910,7 @@ export const dict = {
   "palette.group.settings": "Ρυθμίσεις",
   "palette.session.location": "{{project}} · {{server}}",
   "dialog.provider.title": "Ενσωματώσεις",
-  "dialog.provider.description": "Συνδέστε υπηρεσίες ώστε να μπορεί να τις χρησιμοποιεί το OpenCode.",
+  "dialog.provider.description": "Συνδέστε υπηρεσίες ώστε να μπορεί να τις χρησιμοποιεί το Xccode.",
   "dialog.provider.group.services": "Υπηρεσίες",
   "dialog.provider.environmentOnly": "Μόνο από το περιβάλλον",
   "dialog.provider.signInRequired": "Απαιτείται σύνδεση →",
@@ -937,11 +937,11 @@ export const dict = {
   "provider.connect.breadcrumb.root": "Σύνδεση",
   "provider.connect.breadcrumb.label": "Βήματα σύνδεσης",
   "provider.connect.methods.description": "Επιλέξτε πώς θα συνδέσετε το {{provider}}.",
-  "provider.connect.opencode.name": "OpenCode",
-  "provider.connect.opencode.freeName": "OpenCode Free",
+  "provider.connect.xccode.name": "Xccode",
+  "provider.connect.xccode.freeName": "Xccode Free",
   "provider.connect.console.retry": "Δοκιμάστε ξανά",
   "provider.connect.console.serviceKeyDescription":
-    "Σύνδεση με κλειδί API λογαριασμού υπηρεσίας από το OpenCode Console.",
+    "Σύνδεση με κλειδί API λογαριασμού υπηρεσίας από το Xccode Console.",
   "provider.connect.console.instructions":
     "Συνεχίστε στο πρόγραμμα περιήγησης. Βεβαιωθείτε ότι ο κωδικός που εμφανίζεται εκεί ταιριάζει με τον παρακάτω.",
   "provider.connect.console.deviceCode": "Κωδικός συσκευής",
@@ -968,7 +968,7 @@ export const dict = {
   "provider.connect.models.available": "Διαθέσιμα μοντέλα",
   "provider.connect.chatgptWelcome.title": "Το ChatGPT συνδέθηκε",
   "provider.connect.chatgptWelcome.description":
-    "Τα επιλέξιμα αιτήματα στο OpenCode μπορούν να χρησιμοποιούν το πρόγραμμα ChatGPT σας.",
+    "Τα επιλέξιμα αιτήματα στο Xccode μπορούν να χρησιμοποιούν το πρόγραμμα ChatGPT σας.",
   "provider.connect.chatgptWelcome.usage": "Διαχείριση χρήσης στις ρυθμίσεις του ChatGPT",
   "provider.connect.chatgptWelcome.confirm": "Κατάλαβα",
   "provider.connect.models.list": "Διαθέσιμα μοντέλα από {{provider}}",
@@ -978,7 +978,7 @@ export const dict = {
   "provider.connect.chatgptUsageLimit.close": "Κλείσιμο",
   "provider.connect.console.refreshFailed":
     "Ο λογαριασμός σας συνδέθηκε, αλλά δεν ήταν δυνατή η φόρτωση των μοντέλων σας. Δοκιμάστε ξανά για ανανέωση.",
-  "provider.connect.console.connected": "Το OpenCode συνδέθηκε",
+  "provider.connect.console.connected": "Το Xccode συνδέθηκε",
   "provider.connect.console.noModels":
     "Ο λογαριασμός σας συνδέθηκε, αλλά αυτός ο χώρος εργασίας του Console δεν έχει διαθέσιμα μοντέλα. Ελέγξτε τη ρύθμισή του στο Console και ανανεώστε.",
   "provider.connect.console.modelsLoading": "Τα μοντέλα σας φορτώνονται ακόμα. Ανανεώστε για να ελέγξετε ξανά.",
@@ -986,7 +986,7 @@ export const dict = {
   "provider.connect.console.openingBrowser": "Άνοιγμα προγράμματος περιήγησης",
   "provider.connect.remote.label": "στο {{server}}",
   "provider.connect.remote.description":
-    "Τα διαπιστευτήρια του OpenCode θα αποθηκευτούν σε αυτόν τον διακομιστή. Τα μοντέλα θα είναι διαθέσιμα μέσω αυτού του διακομιστή.",
+    "Τα διαπιστευτήρια του Xccode θα αποθηκευτούν σε αυτόν τον διακομιστή. Τα μοντέλα θα είναι διαθέσιμα μέσω αυτού του διακομιστή.",
   "provider.connect.claudeAgent.description":
     "Χρησιμοποιήστε το πρόγραμμα Claude σας ή άλλη σύνδεση Claude Code. Εγκαταστήστε το Claude Code και συνδεθείτε πρώτα.",
   "provider.connect.claudeAgent.install": "Εγκατάσταση Claude Code",
@@ -1020,7 +1020,7 @@ export const dict = {
     "Δεν ήταν δυνατό το άνοιγμα του προγράμματος περιήγησης. Επιλέξτε Άνοιγμα προγράμματος περιήγησης για να δοκιμάσετε ξανά.",
   "provider.connect.oauth.paste.toggle": "Συνδέεστε από άλλη συσκευή;",
   "provider.connect.oauth.paste.description":
-    "Αν το πρόγραμμα περιήγησης δεν μπορεί να φτάσει στο μηχάνημα που εκτελεί το OpenCode, επικολλήστε το URL στο οποίο ανακατευθύνθηκε.",
+    "Αν το πρόγραμμα περιήγησης δεν μπορεί να φτάσει στο μηχάνημα που εκτελεί το Xccode, επικολλήστε το URL στο οποίο ανακατευθύνθηκε.",
   "provider.connect.oauth.expired": "Η εξουσιοδότηση έληξε",
   "model.details.input.text": "Κείμενο",
   "model.details.input.image": "Εικόνα",
@@ -1057,7 +1057,7 @@ export const dict = {
   "dialog.mcp.signIn": "Σύνδεση",
   "dialog.mcp.signIn.open": "Σύνδεση στο {{name}}",
   "dialog.mcp.signIn.description":
-    "Το πρόγραμμα περιήγησης ανοίγει για να συνδεθείτε στο {{name}}. Αν δεν μπορεί να φτάσει στο μηχάνημα που εκτελεί το OpenCode, επικολλήστε παρακάτω το URL στο οποίο ανακατευθύνθηκε.",
+    "Το πρόγραμμα περιήγησης ανοίγει για να συνδεθείτε στο {{name}}. Αν δεν μπορεί να φτάσει στο μηχάνημα που εκτελεί το Xccode, επικολλήστε παρακάτω το URL στο οποίο ανακατευθύνθηκε.",
   "dialog.mcp.signIn.syncFailed": "Συνδεθήκατε, αλλά δεν ήταν δυνατή η ανανέωση του {{name}}: {{error}}",
   "dialog.mcp.error.details":
     "Διακομιστής MCP: {{name}}\nΚατάσταση: απέτυχε\nΔιαμόρφωση: mcp.servers.{{name}}\nΣφάλμα: {{error}}",
@@ -1086,11 +1086,11 @@ export const dict = {
   "server.connect.link": "Σύνδεσμος ζευγοποίησης",
   "server.connect.link.placeholder": "http://192.168.1.2:4096/auth/connect/…",
   "server.connect.link.invalid":
-    "Επικολλήστε ολόκληρο τον σύνδεσμο ζευγοποίησης από το opencode pair ή από Ρυθμίσεις → Ζευγοποίηση στον υπολογιστή του διακομιστή.",
+    "Επικολλήστε ολόκληρο τον σύνδεσμο ζευγοποίησης από το xccode pair ή από Ρυθμίσεις → Ζευγοποίηση στον υπολογιστή του διακομιστή.",
   "server.connect.password.prompt": "Δεν έχετε σύνδεσμο ζευγοποίησης;",
   "server.connect.password.use": "Χρήση κωδικού πρόσβασης",
   "server.connect.password.hint":
-    "Για να τον δείτε, εκτελέστε opencode service get password στον υπολογιστή του διακομιστή.",
+    "Για να τον δείτε, εκτελέστε xccode service get password στον υπολογιστή του διακομιστή.",
   "server.connect.link.prompt": "Έχετε σύνδεσμο ζευγοποίησης;",
   "server.connect.link.use": "Χρήση συνδέσμου ζευγοποίησης",
   "server.connect.pair.link":
@@ -1098,11 +1098,11 @@ export const dict = {
   "server.connect.scan.failed":
     "Αυτό το πρόγραμμα περιήγησης δεν μπόρεσε να διαβάσει τον κωδικό QR. Εισαγάγετε τα στοιχεία σύνδεσης χειροκίνητα.",
   "server.connect.link.expired":
-    "Αυτός ο σύνδεσμος ζευγοποίησης έληξε ή έχει ήδη χρησιμοποιηθεί. Εκτελέστε opencode pair για να λάβετε νέο.",
+    "Αυτός ο σύνδεσμος ζευγοποίησης έληξε ή έχει ήδη χρησιμοποιηθεί. Εκτελέστε xccode pair για να λάβετε νέο.",
   "server.connect.link.unreachable":
     "Δεν ήταν δυνατή η πρόσβαση στο {{url}}. Βεβαιωθείτε ότι αυτή η συσκευή μπορεί να φτάσει στον διακομιστή και δοκιμάστε ξανά.",
   "server.connect.link.legacy":
-    "Αυτός ο κωδικός ζευγοποίησης είναι από παλαιότερη έκδοση του OpenCode. Ενημερώστε το OpenCode στον διακομιστή και εκτελέστε ξανά opencode pair.",
+    "Αυτός ο κωδικός ζευγοποίησης είναι από παλαιότερη έκδοση του Xccode. Ενημερώστε το Xccode στον διακομιστή και εκτελέστε ξανά xccode pair.",
   "server.connect.camera.native":
     "Αυτή η σελίδα δεν μπορεί να χρησιμοποιήσει την κάμερα μέσω HTTP. Επικολλήστε τον σύνδεσμο ζευγοποίησης παραπάνω.",
   "dialog.server.signedOut":
@@ -1124,7 +1124,7 @@ export const dict = {
   "home.sessions.load.timeout": "Ο διακομιστής άργησε πολύ να απαντήσει",
   "tips.browse.title": "Ελέγξτε το πρόγραμμα περιήγησής σας",
   "tips.browse.description":
-    "Αφήστε το OpenCode να εργάζεται στο πρόγραμμα περιήγησής σας με τις καρτέλες, τις συνδέσεις και τις επεκτάσεις σας.",
+    "Αφήστε το Xccode να εργάζεται στο πρόγραμμα περιήγησής σας με τις καρτέλες, τις συνδέσεις και τις επεκτάσεις σας.",
   "tips.browse.install": "Εγκατάσταση",
   "tips.hex.title": "Χρησιμοποιήστε τη φωνή σας",
   "tips.hex.description":
@@ -1314,10 +1314,10 @@ export const dict = {
   "settings.plugins.part.server": "Διακομιστής",
   "settings.plugins.part.tui": "TUI",
   "settings.plugins.parts.note":
-    'Οι διακόπτες απενεργοποιούν μόνο το περιβάλλον επιφάνειας εργασίας ενός πρόσθετου. Προσθέστε "-<id>" στα plugins του καθολικού opencode.json για να απενεργοποιήσετε το τμήμα διακομιστή του, ή "-" και το ID του πρόσθετου TUI του στα plugins του cli.json για να απενεργοποιήσετε το τμήμα TUI του.',
+    'Οι διακόπτες απενεργοποιούν μόνο το περιβάλλον επιφάνειας εργασίας ενός πρόσθετου. Προσθέστε "-<id>" στα plugins του καθολικού xccode.json για να απενεργοποιήσετε το τμήμα διακομιστή του, ή "-" και το ID του πρόσθετου TUI του στα plugins του cli.json για να απενεργοποιήσετε το τμήμα TUI του.',
   "settings.about.copyVersionFailed": "Αποτυχία αντιγραφής έκδοσης",
   "settings.about.notices.title": "Σημειώσεις τρίτων",
-  "settings.about.notices.description": "Το OpenCode περιλαμβάνει το ακόλουθο λογισμικό ανοιχτού κώδικα.",
+  "settings.about.notices.description": "Το Xccode περιλαμβάνει το ακόλουθο λογισμικό ανοιχτού κώδικα.",
   "settings.about.notices.license": "Κείμενο άδειας",
   "settings.about.notices.fonts.title": "Γραμματοσειρές στις προεπισκοπήσεις Office",
   "settings.about.notices.fonts.description":
@@ -1359,7 +1359,7 @@ export const dict = {
   "settings.extensions.sources.loadFailed": "Δεν ήταν δυνατή η φόρτωση των πηγών επεκτάσεων",
   "settings.extensions.console.temporary":
     "Οι διακόπτες ελέγχουν προσωρινά τις συνδέσεις MCP για το τρέχον έργο, όχι τις προτιμήσεις σας στο Console. Αλλαγές στη διαμόρφωση του διακομιστή μπορεί να τις επανασυνδέσουν.",
-  "settings.extensions.console.replaced": "Αντικαθιστά το OpenCode Console",
+  "settings.extensions.console.replaced": "Αντικαθιστά το Xccode Console",
   "settings.extensions.console.connect": "Σύνδεση του {{name}} στο Console",
   "settings.extensions.console.manage": "Διαχείριση του {{name}} στο Console",
   "project.settings.autoAccept.description": "Έγκριση των αιτημάτων άδειας αυτού του έργου χωρίς ερώτηση",
@@ -1440,8 +1440,8 @@ export const dict = {
   "lab.noControls": "Αυτό το story δεν έχει στοιχεία ελέγχου",
   "lab.grid": "Πλέγμα",
   "usage.title": "Χρήση",
-  "usage.section.go": "OpenCode Go",
-  "usage.section.console": "OpenCode Console",
+  "usage.section.go": "Xccode Go",
+  "usage.section.console": "Xccode Console",
   "usage.workspace.fallback": "τον χώρο εργασίας σας",
   "usage.time": "{{date}} στις {{time}} ({{zone}})",
   "usage.go.rolling": "Κυλιόμενο",
@@ -1504,9 +1504,9 @@ export const dict = {
   "usage.footer.budgetsReset": "Οι προϋπολογισμοί επαναφέρονται {{time}}",
   "usage.footer.creditsOnly": "Οι δαπάνες περιορίζονται μόνο από τις πιστώσεις του {{workspace}}",
   "usage.footer.details": "Προβολή λεπτομερειών",
-  "usage.signedOut.title": "Δεν έχετε συνδεθεί στο OpenCode Console",
+  "usage.signedOut.title": "Δεν έχετε συνδεθεί στο Xccode Console",
   "usage.signedOut.body":
-    "Συνδέστε το OpenCode Console για να δείτε τους προϋπολογισμούς του χώρου εργασίας σας και τη χρήση του Go.",
+    "Συνδέστε το Xccode Console για να δείτε τους προϋπολογισμούς του χώρου εργασίας σας και τη χρήση του Go.",
   "usage.error": "Δεν ήταν δυνατή η φόρτωση των ορίων χρήσης.",
   "usage.retry": "Δοκιμάστε ξανά",
 }

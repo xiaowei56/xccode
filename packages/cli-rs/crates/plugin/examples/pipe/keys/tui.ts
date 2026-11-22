@@ -6,7 +6,7 @@ import path from "node:path"
 export default {
   id: "example.keys",
   setup(api: any) {
-    const carrier = api[Symbol.for("opencode.carrier")]
+    const carrier = api[Symbol.for("xccode.carrier")]
     const log = (entry: unknown) => appendFileSync(path.join(import.meta.dir, "..", ".keys.log.jsonl"), JSON.stringify(entry) + "\n")
     const effect = (request: unknown) => carrier.effect(request)
     const said = (owner: string) => (event: any) => {

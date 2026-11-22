@@ -183,7 +183,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "opencode-pty"
+name = "xccode-pty"
 version = "0.6.0"
 dependencies = [
  "anyhow",

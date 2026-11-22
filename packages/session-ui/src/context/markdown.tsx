@@ -1,4 +1,4 @@
-import type { IconProps } from "@opencode/ui/icon"
+import type { IconProps } from "@xccode/ui/icon"
 import { createContext, useContext, type ParentProps } from "solid-js"
 import type { SessionReferenceMenu } from "../components/markdown-session-links"
 

@@ -71,7 +71,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "Legg stig til",
   "dialog.usageExceeded.freeTier.title": "Frítt mark er nátt",
   "dialog.usageExceeded.freeTier.description":
-    "Tekna teg til OpenCode Go fyri $10 um mánaðin og fá álítandi atgongd til bestu open-source modellini.",
+    "Tekna teg til Xccode Go fyri $10 um mánaðin og fá álítandi atgongd til bestu open-source modellini.",
   "dialog.usageExceeded.freeTier.actionLabel": "Tekna teg",
   "ui.sessionTurn.status.delegating": "At útnevna arbeiði",
   "ui.sessionTurn.status.planning": "Planleggja næstu stig",
@@ -267,9 +267,9 @@ export const dict = {
     "Modellfíggjarætlanin er nátt · hetta modellið er steðgað til hon verður nullstillað",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Brúka eitt ókeypis modell",
   "ui.sessionTurn.budgetLimit.switchModel": "Skift modell",
-  "ui.sessionTurn.goLimit.title": "Tú hevur nátt nýtslumarkið hjá OpenCode Go.",
+  "ui.sessionTurn.goLimit.title": "Tú hevur nátt nýtslumarkið hjá Xccode Go.",
   "ui.sessionTurn.goLimit.lineReset":
-    "Tú hevur nátt nýtslumarkið hjá OpenCode Go. Tað verður nullstillað kl. {{time}}.",
+    "Tú hevur nátt nýtslumarkið hjá Xccode Go. Tað verður nullstillað kl. {{time}}.",
   "dialog.usageExceeded.freeTier.reset": "Ókeypis boðini verða nullstillað kl. {{time}}.",
   "ui.messagePart.compaction.queued": "Samanpakking av setu er í bíðirøð",
   "ui.messagePart.compaction.done": "Samanpakkað",

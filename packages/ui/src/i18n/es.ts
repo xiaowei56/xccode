@@ -119,7 +119,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "Límite gratuito alcanzado",
   "dialog.usageExceeded.freeTier.description":
-    "Suscríbete a OpenCode Go por 10 USD al mes para acceder de forma fiable a los mejores modelos de código abierto.",
+    "Suscríbete a Xccode Go por 10 USD al mes para acceder de forma fiable a los mejores modelos de código abierto.",
   "dialog.usageExceeded.freeTier.actionLabel": "Suscribirse",
 
   "ui.sessionTurn.status.delegating": "Delegando trabajo",
@@ -302,8 +302,8 @@ export const dict = {
     "Presupuesto del modelo alcanzado · este modelo está en pausa hasta que se restablezca",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Usar un modelo gratuito",
   "ui.sessionTurn.budgetLimit.switchModel": "Cambiar modelo",
-  "ui.sessionTurn.goLimit.title": "Has alcanzado tu límite de uso de OpenCode Go.",
-  "ui.sessionTurn.goLimit.lineReset": "Has alcanzado tu límite de uso de OpenCode Go. Se restablece a las {{time}}.",
+  "ui.sessionTurn.goLimit.title": "Has alcanzado tu límite de uso de Xccode Go.",
+  "ui.sessionTurn.goLimit.lineReset": "Has alcanzado tu límite de uso de Xccode Go. Se restablece a las {{time}}.",
   "dialog.usageExceeded.freeTier.reset": "Tus mensajes gratuitos se restablecen a las {{time}}.",
   "ui.messagePart.compaction.queued": "Compactación de la sesión en cola",
   "ui.messagePart.compaction.done": "Compactada",

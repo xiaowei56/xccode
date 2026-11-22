@@ -3,7 +3,7 @@
 // session goes home with a toast.
 import { assistant, defineApp, HOME_PLACEHOLDER, session, user } from "../../lib/app"
 
-const here = { directory: "/tmp/opencode/packages/tui" }
+const here = { directory: "/tmp/xccode/packages/tui" }
 const event = (id: string, type: string, data: unknown, location: unknown = here) => ({
   event: { id, created: 3, type, location, data },
 })

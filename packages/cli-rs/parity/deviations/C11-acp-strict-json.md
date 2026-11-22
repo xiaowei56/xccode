@@ -4,7 +4,7 @@
 surrogate, a number past the double range (`1e400`) reads as `Infinity` (written back as `null`), and any depth of
 nesting parses. A number keeps only its value: `1.0`, `1E2` and `-0` are written back as `1`, `100` and `0`.
 
-**Rust.** `opencode-native acp` reads each line with serde_json. A line with a lone surrogate escape, a number past
+**Rust.** `xccode-native acp` reads each line with serde_json. A line with a lone surrogate escape, a number past
 the double range, or nesting deeper than 128 levels is a parse error: the agent answers `-32700 Parse error` with a
 null id, as for any other line that is not JSON, and reads the next line. A number keeps its written form, so an id
 `1.0` is answered as `1.0`. Every other line reads the same.

@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "การวินิจฉัยหน่วยความจำ: บันทึกหน่วยความจำของแอปลงในบันทึกเดสก์ท็อปทุก 30 วินาที จะเปิดอยู่แม้รีสตาร์ทจนกว่าจะปิด และแถบจะเปิดค้างไว้ขณะทำงาน",
-  "memory.tipEnv": "การวินิจฉัยหน่วยความจำเปิดอยู่สำหรับการเปิดครั้งนี้: มีการตั้งค่า OPENCODE_DESKTOP_MEMORY_LOG",
+  "memory.tipEnv": "การวินิจฉัยหน่วยความจำเปิดอยู่สำหรับการเปิดครั้งนี้: มีการตั้งค่า XCCODE_DESKTOP_MEMORY_LOG",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

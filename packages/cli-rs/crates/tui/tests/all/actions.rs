@@ -5,9 +5,9 @@ use crate::support::{self, Fake, Harness, Log, WAIT, deref_harness, user};
 use std::sync::Arc;
 use std::time::Duration;
 
-use opencode_api::generated::{SessionID, SessionMessageInfo};
-use opencode_parity::assert_fixture;
-use opencode_tui::{Deps, Route};
+use xccode_api::generated::{SessionID, SessionMessageInfo};
+use xccode_parity::assert_fixture;
+use xccode_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 const LOCATION: &str = "/project";
@@ -395,7 +395,7 @@ fn undo_moves_a_web_mention_from_string_indexes_to_cells() {
     kit.wait_writes(3);
     let found = kit.app.wait_until(WAIT, || kit.prompt_text() == "\t中 @note.ts x");
     assert!(found, "{:?}", kit.prompt_text());
-    let start = opencode_ui::prompt_input::parse::measure(&kit.app, "\t中 ");
+    let start = xccode_ui::prompt_input::parse::measure(&kit.app, "\t中 ");
     let marks = kit
         .tui
         .textarea
@@ -613,7 +613,7 @@ fn export_saves_markdown_or_sanitized_json_and_shows_the_path() {
     kit.wait_for("‹ temp ›");
     kit.app.press("return");
     let screen = kit.wait_for("Session exported");
-    let temp = opencode_local::paths::temp();
+    let temp = xccode_local::paths::temp();
     assert!(take_export(".md", "ses_export_tmp").is_none());
     let markdown = take_export_in(&temp, ".md", "ses_export_tmp").expect("the export in the temporary directory");
     assert!(markdown.starts_with("# Fix the parser\n"), "{markdown}");
@@ -625,7 +625,7 @@ fn export_saves_markdown_or_sanitized_json_and_shows_the_path() {
 fn dialogs_match_typescript() {
     let mut failed = Vec::new();
     // Shift prompt times by the local offset to compare against UTC recordings.
-    let offset = i64::from(opencode_util::time::Zone::Local.offset(1_772_539_200_000)) * 1000;
+    let offset = i64::from(xccode_util::time::Zone::Local.offset(1_772_539_200_000)) * 1000;
     let shifted: Vec<Value> = turns()
         .into_iter()
         .map(|mut message| {
@@ -658,7 +658,7 @@ fn dialogs_match_typescript() {
 
     let kit = Kit::sized(100, 30, session("ses_a", json!({})), shifted.clone(), vec![]);
     kit.ready();
-    opencode_tui::dialogs::export::result(&kit.tui, "/tmp/session-0b6c1f62-3d4e-4b7a-9f1e-2a5c8d7e6f40.md".into());
+    xccode_tui::dialogs::export::result(&kit.tui, "/tmp/session-0b6c1f62-3d4e-4b7a-9f1e-2a5c8d7e6f40.md".into());
     kit.wait_for("Session exported");
     kit.only_dialog();
     check(&mut failed, &kit, "E.10a/export-result");

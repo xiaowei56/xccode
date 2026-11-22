@@ -55,9 +55,9 @@ pub async fn start(command: &[OsString], cwd: &Path, print_logs: bool) -> Result
     let mut child = command
         .args(args)
         .current_dir(cwd)
-        // An explicit entry wins over anything inherited, so an exported OPENCODE_PASSWORD cannot
+        // An explicit entry wins over anything inherited, so an exported XCCODE_PASSWORD cannot
         // shadow the lease credential.
-        .env("OPENCODE_PASSWORD", &password)
+        .env("XCCODE_PASSWORD", &password)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(if print_logs { Stdio::inherit() } else { Stdio::null() })
@@ -177,7 +177,7 @@ mod tests {
         assert!(started.elapsed() < FORCE_KILL_AFTER, "taskkill did not end the server");
         // `TerminateProcess` returns before the process has exited.
         let deadline = std::time::Instant::now() + Duration::from_secs(5);
-        while opencode_util::win::process_alive(ping) {
+        while xccode_util::win::process_alive(ping) {
             assert!(std::time::Instant::now() < deadline, "the server's child survived");
             tokio::time::sleep(Duration::from_millis(50)).await;
         }

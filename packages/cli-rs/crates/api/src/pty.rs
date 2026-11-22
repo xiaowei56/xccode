@@ -56,7 +56,7 @@ pub enum Message {
 pub fn decode(text: &str) -> Option<Message> {
     let value: Value = serde_json::from_str(text)
         .ok()
-        .or_else(|| serde_json::from_slice(&opencode_api_types::de::well_formed(text.as_bytes())?).ok())?;
+        .or_else(|| serde_json::from_slice(&xccode_api_types::de::well_formed(text.as_bytes())?).ok())?;
     let field = |name: &str| value.get(name);
     let optional = |name: &str| match field(name) {
         None => Some(None),
@@ -172,7 +172,7 @@ pub async fn connect(client: &Client, connector: &dyn Connector, input: &Connect
     let token = client
         .experimental_persistent_pty_connect_token(&ExperimentalPersistentPtyConnectTokenInput {
             pty_id: input.pty_id.clone(),
-            x_opencode_ticket: Some("1".to_owned()),
+            x_xccode_ticket: Some("1".to_owned()),
         })
         .await?;
     let url = client.transport().route(url(client.base_url(), input, &token.ticket)?);
@@ -367,7 +367,7 @@ mod tests {
             200,
             &json!({ "data": { "ticket": "tk", "expires_in": 30 } }),
         )]);
-        let client = Client::with_transport("http://opencode.local", Arc::new(memory.clone())).unwrap();
+        let client = Client::with_transport("http://xccode.local", Arc::new(memory.clone())).unwrap();
         let opened = Arc::new(Mutex::new(None));
         let remote = Arc::new(Mutex::new(None));
         let connector = {
@@ -385,7 +385,7 @@ mod tests {
         let (url, socket) = connect(&client, &connector, &input).await.unwrap();
         assert_eq!(
             url.as_str(),
-            "ws://opencode.local/api/experimental/persistent-pty/pty_1/connect?ticket=tk&cursor=0&attachment_id=att&takeover=false&input_protocol=1"
+            "ws://xccode.local/api/experimental/persistent-pty/pty_1/connect?ticket=tk&cursor=0&attachment_id=att&takeover=false&input_protocol=1"
         );
         assert_eq!(opened.lock().unwrap().as_ref(), Some(&url));
         let request = &memory.requests()[0];

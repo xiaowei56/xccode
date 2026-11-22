@@ -16,14 +16,14 @@ export default defineApp({
   routes: [
     {
       path: "/api/worktree",
-      json: [{ directory: "/tmp/opencode" }, { directory: "/tmp/opencode-spike", strategy: "git" }],
+      json: [{ directory: "/tmp/xccode" }, { directory: "/tmp/xccode-spike", strategy: "git" }],
     },
     { method: "POST", path: "/api/worktree/refresh", status: 204 },
     { method: "DELETE", path: "/api/worktree", status: 400, json: refused },
     {
       path: "/api/vcs/status",
       json: {
-        location: { directory: "/tmp/opencode-spike" },
+        location: { directory: "/tmp/xccode-spike" },
         data: [
           { file: "src/parser.ts", additions: 12, deletions: 3, status: "modified" },
           { file: "notes.md", additions: 4, deletions: 0, status: "added" },
@@ -39,7 +39,7 @@ export default defineApp({
     // Enter waits for the popup.
     { checkpoint: "slash", until: "Manage workspaces" },
     { keys: ["enter"] },
-    { checkpoint: "list", until: "opencode-spike" },
+    { checkpoint: "list", until: "xccode-spike" },
     { keys: ["down", "ctrl+d", "ctrl+d"] },
     { checkpoint: "changes", until: "old.txt" },
     { keys: ["d"] },

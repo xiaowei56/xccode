@@ -6,11 +6,11 @@ use std::collections::{HashMap, HashSet};
 use std::hash::{Hash, Hasher};
 use std::rc::{Rc, Weak};
 
-use opencode_plugin_abi::v2::{
+use xccode_plugin_abi::v2::{
     self, AnchorAt, Edge, Geometry, LayoutFn, LayoutReply, Node, Notify, Scroll, ScrollEvent, ScrollState, Split,
     Target, Top, TranscriptView,
 };
-use opencode_plugin_abi::{self as abi};
+use xccode_plugin_abi::{self as abi};
 use opentui::input::MouseEventKind;
 use opentui::prelude::*;
 use opentui::widget::ScrollCause;
@@ -147,7 +147,7 @@ struct Scrolled {
     anchors: Vec<(String, AnchorAt, AnyWidget)>,
     /// A sticky node, its parent, and its edge.
     stickies: Vec<(AnyWidget, AnyWidget, Edge)>,
-    chunked: Vec<Rc<opencode_ui::diff::Chunked>>,
+    chunked: Vec<Rc<xccode_ui::diff::Chunked>>,
     notify_top: Option<String>,
     user_scroll: bool,
     /// A list of items in a row: its offset is horizontal.
@@ -472,7 +472,7 @@ pub(crate) fn detach(app: &App, surface: *const Surface) {
         if empty { hooks.remove(&root) } else { None }
     });
     if let Some(hook) = gone {
-        opencode_ui::root::release(&hook.app);
+        xccode_ui::root::release(&hook.app);
     }
 }
 
@@ -501,7 +501,7 @@ impl Hook {
             stalled: Cell::new(0),
             this: this.clone(),
         });
-        opencode_ui::root::keep_last(app, &hook.node);
+        xccode_ui::root::keep_last(app, &hook.node);
         tally(|counts| counts.placed += 1);
         let weak = Rc::downgrade(&hook);
         hook.node.on_resize(move |_, rect| {
@@ -1456,7 +1456,7 @@ pub(crate) struct SplitState {
 impl SplitState {
     /// The split of `view`, whose first child starts `split.at` wide; a press on its handle, the last column of the
     /// first child and the column after it, starts a drag.
-    pub(crate) fn attach(app: &App, view: &View, split: Split, theme: &opencode_ui::theme::Theme) -> Rc<Self> {
+    pub(crate) fn attach(app: &App, view: &View, split: Split, theme: &xccode_ui::theme::Theme) -> Rc<Self> {
         let bar = View::new(app).width(1).height(Length::percent(100.0));
         let handle = View::new(app)
             .absolute()
@@ -1558,7 +1558,7 @@ impl SplitState {
     }
 
     /// Takes `theme`'s highlight.
-    pub(crate) fn restyle(&self, theme: &opencode_ui::theme::Theme) {
+    pub(crate) fn restyle(&self, theme: &xccode_ui::theme::Theme) {
         self.highlight.set(theme.background.raised.high);
         self.paint();
     }

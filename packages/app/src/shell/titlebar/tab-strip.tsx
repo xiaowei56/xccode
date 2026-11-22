@@ -28,12 +28,12 @@ import { useCommand } from "@/shell/commands/command"
 import { useTabs } from "@/shell/tabs/tabs"
 import { useSessionTabAvatarState } from "@/shell/layout/project-avatar-state"
 import { createTabComposerState } from "@/composer/persistence"
-import { base64Encode } from "@opencode/util/encode"
+import { base64Encode } from "@xccode/util/encode"
 import { showToast } from "@/shell/notifications/toast"
 import { adjacentTabKey, mergeVisibleTabOrder } from "./tab-order"
-import { Button } from "@opencode/ui/button"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { Dialog, DialogFooter, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
+import { Button } from "@xccode/ui/button"
+import { useDialog } from "@xccode/ui/context/dialog"
+import { Dialog, DialogFooter, DialogHeader, DialogTitleGroup } from "@xccode/ui/dialog"
 import { sessionMayHoldRequests, sessionTreeIDs } from "@/session/requests/session-request-tree"
 import { sessionTitle } from "@/session/title"
 import { errorMessage } from "@/shell/layout/helpers"
@@ -56,7 +56,7 @@ import {
   type TabHintsEffect,
   type TabHintsEvent,
 } from "./tab-hints-machine"
-import type { SessionInfo } from "@opencode/client/promise"
+import type { SessionInfo } from "@xccode/client/promise"
 
 const IS_MAC = typeof navigator !== "undefined" && /(Mac|iPod|iPhone|iPad)/.test(navigator.platform)
 

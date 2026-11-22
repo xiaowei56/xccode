@@ -2,7 +2,7 @@
 --!strict
 -- A misspelled field of a server type: `read:messages` returns the HTTP API's `SessionMessageInfo`, so the checker
 -- refuses `message.contnet`, which was `any` before the stub carried the API's types.
-local plugin = require("@opencode/plugin")
+local plugin = require("@xccode/plugin")
 
 return function(read: plugin.Read, id: string): number
     local parts = 0

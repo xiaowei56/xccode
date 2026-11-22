@@ -1,11 +1,11 @@
-//! Resolves the drive manifest from `OPENCODE_DRIVE`.
+//! Resolves the drive manifest from `XCCODE_DRIVE`.
 
-use opencode_util::path::Flavor;
+use xccode_util::path::Flavor;
 use serde::Deserialize;
 use std::net::SocketAddr;
 use std::path::{Path, PathBuf};
 
-/// Where the endpoints listen and the screen size, from `OPENCODE_DRIVE`.
+/// Where the endpoints listen and the screen size, from `XCCODE_DRIVE`.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Manifest {
     /// The UI endpoint, `ws://127.0.0.1:<port>`.
@@ -19,7 +19,7 @@ pub struct Manifest {
 }
 
 impl Manifest {
-    /// Endpoints for `OPENCODE_DRIVE=1`.
+    /// Endpoints for `XCCODE_DRIVE=1`.
     pub fn defaults() -> Self {
         Self {
             ui: "ws://127.0.0.1:40900".into(),
@@ -46,16 +46,16 @@ impl std::fmt::Display for Error {
 
 impl std::error::Error for Error {}
 
-/// Resolves the manifest named by `OPENCODE_DRIVE`, or `None` when it is unset or empty. `env` reads a variable.
+/// Resolves the manifest named by `XCCODE_DRIVE`, or `None` when it is unset or empty. `env` reads a variable.
 pub fn resolve(env: impl Fn(&str) -> Option<String>) -> Option<Result<Manifest, Error>> {
-    let name = env("OPENCODE_DRIVE").filter(|name| !name.is_empty())?;
+    let name = env("XCCODE_DRIVE").filter(|name| !name.is_empty())?;
     Some(resolve_name(&name, env))
 }
 
 fn resolve_name(name: &str, env: impl Fn(&str) -> Option<String>) -> Result<Manifest, Error> {
     if !valid_name(name) {
         return Err(Error(format!(
-            "Invalid Drive configuration: OPENCODE_DRIVE: expected a valid Drive instance name, got {name:?}"
+            "Invalid Drive configuration: XCCODE_DRIVE: expected a valid Drive instance name, got {name:?}"
         )));
     }
     if name == "1" {
@@ -65,7 +65,7 @@ fn resolve_name(name: &str, env: impl Fn(&str) -> Option<String>) -> Result<Mani
         let state = env("XDG_STATE_HOME")
             .map(PathBuf::from)
             .unwrap_or_else(|| Path::new(&env("HOME").unwrap_or_default()).join(".local").join("state"));
-        state.join("opencode-drive").join("instances")
+        state.join("xccode-drive").join("instances")
     });
     let file = directory.join(format!("{name}.json"));
     let contents = std::fs::read_to_string(&file).map_err(|error| {
@@ -140,7 +140,7 @@ fn decode(contents: &str) -> Result<Manifest, String> {
 
 /// Accepts only a loopback WebSocket endpoint.
 fn endpoint(value: &str) -> Option<SocketAddr> {
-    let url = opencode_api_types::js::parse_url(value).ok()?;
+    let url = xccode_api_types::js::parse_url(value).ok()?;
     let port = url.port().filter(|port| *port >= 1)?;
     (url.scheme() == "ws" && url.host_str() == Some("127.0.0.1")).then(|| SocketAddr::from(([127, 0, 0, 1], port)))
 }
@@ -161,15 +161,15 @@ mod tests {
     #[test]
     fn manifests_come_from_the_registry() {
         assert_eq!(resolve(env(&[])), None);
-        assert_eq!(resolve(env(&[("OPENCODE_DRIVE", "")])), None);
-        assert_eq!(resolve(env(&[("OPENCODE_DRIVE", "1")])), Some(Ok(Manifest::defaults())));
+        assert_eq!(resolve(env(&[("XCCODE_DRIVE", "")])), None);
+        assert_eq!(resolve(env(&[("XCCODE_DRIVE", "1")])), Some(Ok(Manifest::defaults())));
         assert_eq!(Manifest::defaults().ui_addr(), SocketAddr::from(([127, 0, 0, 1], 40900)));
         for name in ["-x", "a/b", "a b", &"a".repeat(65)] {
-            let error = resolve(env(&[("OPENCODE_DRIVE", name)])).unwrap().unwrap_err();
+            let error = resolve(env(&[("XCCODE_DRIVE", name)])).unwrap().unwrap_err();
             assert!(error.0.starts_with("Invalid Drive configuration"), "{name}: {error}");
         }
-        let directory = opencode_util::temp::tempdir().unwrap();
-        let instances = directory.path().join("opencode-drive").join("instances");
+        let directory = xccode_util::temp::tempdir().unwrap();
+        let instances = directory.path().join("xccode-drive").join("instances");
         std::fs::create_dir_all(&instances).unwrap();
         let state = directory.path().to_str().unwrap();
         let write = |name: &str, body: &str| std::fs::write(instances.join(format!("{name}.json")), body).unwrap();
@@ -183,7 +183,7 @@ mod tests {
             "zero",
             r#"{"endpoints":{"ui":"ws://127.0.0.1:1","backend":"ws://127.0.0.1:2"},"viewport":{"cols":0,"rows":2}}"#,
         );
-        let get = |name: &str| resolve(env(&[("OPENCODE_DRIVE", name), ("XDG_STATE_HOME", state)])).unwrap();
+        let get = |name: &str| resolve(env(&[("XCCODE_DRIVE", name), ("XDG_STATE_HOME", state)])).unwrap();
 
         let good = get("good").unwrap();
         assert_eq!(good.ui_addr(), SocketAddr::from(([127, 0, 0, 1], 4100)));
@@ -194,7 +194,7 @@ mod tests {
         }
         assert!(get("missing").unwrap_err().0.starts_with("Drive manifest not found: "));
 
-        let registry = resolve(env(&[("OPENCODE_DRIVE", "good"), ("DRIVE_REGISTRY_DIR", instances.to_str().unwrap())]));
+        let registry = resolve(env(&[("XCCODE_DRIVE", "good"), ("DRIVE_REGISTRY_DIR", instances.to_str().unwrap())]));
         assert_eq!(registry.unwrap().unwrap(), good);
     }
 }

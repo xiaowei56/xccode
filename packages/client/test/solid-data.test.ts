@@ -2,7 +2,7 @@ import { expect, test } from "bun:test"
 import { getEventListeners } from "node:events"
 import { createRoot, createSignal } from "solid-js"
 import { createData, type CreateDataInput } from "../src/solid"
-import { OpenCode, type ModelInfo, type OpenCodeEvent, type Project, type SessionInfo } from "../src/promise"
+import { Xccode, type ModelInfo, type XccodeEvent, type Project, type SessionInfo } from "../src/promise"
 
 const session = (viewed: number): SessionInfo => ({
   id: "ses_refresh",
@@ -16,8 +16,8 @@ const session = (viewed: number): SessionInfo => ({
 
 test("uses the configured initial window and retains normal cursor page sizes", async () => {
   const requests: { limit: string | null; cursor: string | null }[] = []
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const url = new URL((input instanceof Request ? input : new Request(input, init)).url)
       const cursor = url.searchParams.get("cursor")
@@ -60,8 +60,8 @@ test("counts every subagent page in a root session's cost", async () => {
     cost: 1,
   })
   const requests: string[] = []
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const url = new URL((input instanceof Request ? input : new Request(input, init)).url)
       requests.push(`${url.pathname}?${url.searchParams}`)
@@ -105,8 +105,8 @@ test("keeps the previous model in a live variant notice until the projected mess
   const previous = { providerID: "provider", id: "model", variant: "high" }
   const model = { providerID: "provider", id: "model" }
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const pathname = new URL(request.url).pathname
@@ -144,7 +144,7 @@ test("keeps the previous model in a live variant notice until the projected mess
 
   try {
     await setup.data.session.message.sync("ses_refresh")
-    const event: OpenCodeEvent = {
+    const event: XccodeEvent = {
       id: "evt_variant",
       created: 2,
       type: "session.model.selected",
@@ -169,8 +169,8 @@ test("reconciles a stale running tool when execution settles", async () => {
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
   let completed = false
   let requests = 0
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async () => {
       requests++
       return Response.json({
@@ -216,7 +216,7 @@ test("reconciles a stale running tool when execution settles", async () => {
   try {
     await setup.data.session.message.sync("ses_refresh")
     completed = true
-    const interrupted: OpenCodeEvent = {
+    const interrupted: XccodeEvent = {
       id: "evt_interrupted",
       created: 3,
       type: "session.execution.interrupted",
@@ -249,8 +249,8 @@ test("omits inline tool-result file payloads from read and live tool results whe
     time: { created: 1, ran: 1 },
     state,
   })
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async () =>
       Response.json({
         data: [
@@ -294,7 +294,7 @@ test("omits inline tool-result file payloads from read and live tool results whe
   }))
   try {
     await setup.data.session.message.sync("ses_refresh")
-    const success: OpenCodeEvent = {
+    const success: XccodeEvent = {
       id: "evt_success",
       created: 2,
       type: "session.tool.success",
@@ -340,8 +340,8 @@ test("reads a function omitToolFileData for each live tool result", async () => 
     time: { created: 1, ran: 1 },
     state: { status: "running", input: {}, metadata: {} },
   })
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async () =>
       Response.json({
         data: [
@@ -374,7 +374,7 @@ test("reads a function omitToolFileData for each live tool result", async () => 
     dispose,
   }))
   const succeed = (id: string, seq: number) => {
-    const event: OpenCodeEvent = {
+    const event: XccodeEvent = {
       id: `evt_${id}`,
       created: 2,
       type: "session.tool.success",
@@ -418,8 +418,8 @@ test("restores dropped tool files from the server once they are shown again", as
     content: [{ type: "tool", id: "call_shot", name: "execute", time: { created: 1, ran: 1 }, state }],
   })
   const requests: string[] = []
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input) => {
       const url = new URL(input instanceof Request ? input.url : String(input))
       requests.push(url.pathname)
@@ -452,7 +452,7 @@ test("restores dropped tool files from the server once they are shown again", as
   }))
   try {
     await setup.data.session.message.sync("ses_restore")
-    const success: OpenCodeEvent = {
+    const success: XccodeEvent = {
       id: "evt_shot",
       created: 2,
       type: "session.tool.success",
@@ -499,8 +499,8 @@ test("restoring dropped tool files keeps live progress made while the server rea
     content,
   })
   const read = Promise.withResolvers<Response>()
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input) => {
       const url = new URL(input instanceof Request ? input.url : String(input))
       if (url.pathname.endsWith("/message/msg_assistant")) return read.promise
@@ -526,9 +526,9 @@ test("restoring dropped tool files keeps live progress made while the server rea
   const succeed = (
     id: string,
     seq: number,
-    content: Extract<OpenCodeEvent, { type: "session.tool.success" }>["data"]["content"],
+    content: Extract<XccodeEvent, { type: "session.tool.success" }>["data"]["content"],
   ) => {
-    const event: OpenCodeEvent = {
+    const event: XccodeEvent = {
       id: `evt_${id}`,
       created: 2,
       type: "session.tool.success",
@@ -567,8 +567,8 @@ test("restoring dropped tool files keeps live progress made while the server rea
 
 test("refreshes a loaded session's execution start when it starts running", async () => {
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       if (!request.url.endsWith("/api/session/ses_refresh")) throw new Error(`Unexpected request: ${request.url}`)
@@ -577,9 +577,9 @@ test("refreshes a loaded session's execution start when it starts running", asyn
   })
   const event: CreateDataInput["event"] = {
     on:
-      <Type extends OpenCodeEvent["type"]>(
+      <Type extends XccodeEvent["type"]>(
         _type: Type,
-        _handler: (event: Extract<OpenCodeEvent, { type: Type }>) => void,
+        _handler: (event: Extract<XccodeEvent, { type: Type }>) => void,
       ) =>
       () => {},
     listen(handler) {
@@ -594,7 +594,7 @@ test("refreshes a loaded session's execution start when it starts running", asyn
 
   try {
     setup.data.session.remember(session(2))
-    const started: OpenCodeEvent = {
+    const started: XccodeEvent = {
       id: "evt_started",
       created: 3,
       type: "session.execution.started",
@@ -614,8 +614,8 @@ test("revalidates after an event overtakes an active session read", async () => 
   const gate = new Promise<void>((resolve) => (release = resolve))
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
   let requests = 0
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       if (!request.url.endsWith("/api/session/ses_refresh")) throw new Error(`Unexpected request: ${request.url}`)
@@ -629,9 +629,9 @@ test("revalidates after an event overtakes an active session read", async () => 
   })
   const event: CreateDataInput["event"] = {
     on:
-      <Type extends OpenCodeEvent["type"]>(
+      <Type extends XccodeEvent["type"]>(
         _type: Type,
-        _handler: (event: Extract<OpenCodeEvent, { type: Type }>) => void,
+        _handler: (event: Extract<XccodeEvent, { type: Type }>) => void,
       ) =>
       () => {},
     listen(handler) {
@@ -650,7 +650,7 @@ test("revalidates after an event overtakes an active session read", async () => 
     const initial = setup.data.session.sync("ses_refresh")
     await wait(() => requests === 1)
 
-    const viewed: OpenCodeEvent = {
+    const viewed: XccodeEvent = {
       id: "evt_viewed",
       created: 2,
       type: "session.viewed",
@@ -674,8 +674,8 @@ test("preserves a live session rename across concurrent session and family reads
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
   let requests = 0
   const stale = { ...session(0), title: undefined }
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       if (!request.url.endsWith(`/api/session/${stale.id}`)) return Response.json({ data: [], cursor: {} })
@@ -702,7 +702,7 @@ test("preserves a live session rename across concurrent session and family reads
   try {
     const initial = setup.data.session.sync(stale.id, { children: true })
     await wait(() => requests === 1)
-    const event: OpenCodeEvent = {
+    const event: XccodeEvent = {
       id: "evt_renamed",
       created: 1,
       type: "session.renamed",
@@ -742,8 +742,8 @@ test("updates authoritative cached project metadata from live events", async () 
     sandboxes: [],
   }
   let requests = 0
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       if (!request.url.endsWith("/api/project")) throw new Error(`Unexpected request: ${request.url}`)
@@ -767,7 +767,7 @@ test("updates authoritative cached project metadata from live events", async () 
     await setup.data.project.sync()
     expect(setup.data.project.get(original.id)).toEqual(original)
 
-    const updated: OpenCodeEvent = {
+    const updated: XccodeEvent = {
       id: "evt_project_renamed",
       created: 2,
       type: "project.updated",
@@ -785,7 +785,7 @@ test("updates authoritative cached project metadata from live events", async () 
     expect(setup.data.project.get(unrelated.id)).toEqual(unrelated)
     expect(requests).toBe(1)
 
-    const reset: OpenCodeEvent = {
+    const reset: XccodeEvent = {
       id: "evt_project_name_reset",
       created: 3,
       type: "project.updated",
@@ -816,8 +816,8 @@ test("adopts cached directory-project sessions when their repository is resolved
     location: { directory: "/unknown-alias" },
     subpath: "app",
   }
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       if (!request.url.endsWith("/api/session/ses_uncached")) throw new Error(`Unexpected request: ${request.url}`)
@@ -867,7 +867,7 @@ test("adopts cached directory-project sessions when their repository is resolved
       { id: "directory-root", canonical: "/repo" },
       { id: "directory-nested", canonical: "/repo/app" },
     ]) {
-      const updated: OpenCodeEvent = {
+      const updated: XccodeEvent = {
         id: `evt_${project.id}`,
         created: 0,
         type: "project.updated",
@@ -876,7 +876,7 @@ test("adopts cached directory-project sessions when their repository is resolved
       listeners.forEach((listener) => listener({ name: updated.type, details: updated }))
     }
 
-    const resolved: OpenCodeEvent = {
+    const resolved: XccodeEvent = {
       id: "evt_repository_resolved",
       created: 1,
       type: "worktree.resolved",
@@ -910,8 +910,8 @@ test("adopts cached directory-project sessions when their repository is resolved
 test("refreshes global credential events across every loaded location", async () => {
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
   const requests: URL[] = []
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const url = new URL(request.url)
@@ -955,7 +955,7 @@ test("refreshes global credential events across every loaded location", async ()
     const references = locations.map((location) => setup.data.location.reference.list(location))
     requests.length = 0
 
-    const updated: OpenCodeEvent = {
+    const updated: XccodeEvent = {
       id: "evt_credential.updated",
       created: 1,
       type: "credential.updated",
@@ -970,7 +970,7 @@ test("refreshes global credential events across every loaded location", async ()
     requests.length = 0
 
     for (const credentialID of ["credential", null]) {
-      const switched: OpenCodeEvent = {
+      const switched: XccodeEvent = {
         id: `evt_credential.switched.${credentialID}`,
         created: 2,
         type: "credential.switched",
@@ -1001,8 +1001,8 @@ for (const resource of ["provider", "model"] as const) {
     const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
     const requests: URL[] = []
     const current = { name: "Before" }
-    const api = OpenCode.make({
-      baseUrl: "http://opencode.local",
+    const api = Xccode.make({
+      baseUrl: "http://xccode.local",
       fetch: async (input, init) => {
         const request = input instanceof Request ? input : new Request(input, init)
         const url = new URL(request.url)
@@ -1049,7 +1049,7 @@ for (const resource of ["provider", "model"] as const) {
       const untouchedLocation = setup.data.location[resource].list(other)
       requests.length = 0
       current.name = "After"
-      const event: OpenCodeEvent = {
+      const event: XccodeEvent = {
         id: `evt_${resource}_updated`,
         created: 1,
         type: `${resource}.updated`,
@@ -1076,8 +1076,8 @@ test("ignores catalog updates for unloaded locations while refreshing loaded loc
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
   const requests: Array<[string, string | null]> = []
   const current = { version: "v1" }
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const url = new URL(request.url)
@@ -1129,7 +1129,7 @@ test("ignores catalog updates for unloaded locations while refreshing loaded loc
     }),
     dispose,
   }))
-  const emit = (details: OpenCodeEvent) => listeners.forEach((listener) => listener({ name: details.type, details }))
+  const emit = (details: XccodeEvent) => listeners.forEach((listener) => listener({ name: details.type, details }))
   const loaded = { directory: "/project" }
   const vcsOnly = { directory: "/vcs-only" }
   const unloaded = { directory: "/unloaded" }
@@ -1179,8 +1179,8 @@ test("revalidates model discovery when an update overtakes an in-flight model li
   const release = Promise.withResolvers<void>()
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
   let requests = 0
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       if (new URL(request.url).pathname !== "/api/model") throw new Error(`Unexpected request: ${request.url}`)
@@ -1214,7 +1214,7 @@ test("revalidates model discovery when an update overtakes an in-flight model li
   try {
     const initial = setup.data.location.model.sync()
     await started.promise
-    const event: OpenCodeEvent = {
+    const event: XccodeEvent = {
       id: "evt_models_discovered",
       created: 1,
       type: "model.updated",
@@ -1235,8 +1235,8 @@ test("revalidates model discovery when an update overtakes an in-flight model li
 test("refreshes references for the location an update names", async () => {
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
   const requests: URL[] = []
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const url = new URL(request.url)
@@ -1272,7 +1272,7 @@ test("refreshes references for the location an update names", async () => {
     await Promise.all([setup.data.location.reference.sync(), setup.data.location.reference.sync(other)])
     requests.length = 0
 
-    const updated: OpenCodeEvent = {
+    const updated: XccodeEvent = {
       id: "evt_reference.updated",
       created: 1,
       type: "reference.updated",
@@ -1295,8 +1295,8 @@ test("reloads VCS info when the branch changes", async () => {
   const location = { directory: "/worktree", project: { id: "project", directory: "/worktree", canonical: "/main" } }
   // A location's first read can land before its VCS provider loads, and so has no branches.
   const responses = [{ branch: {} }, { provider: "git", branch: { current: "feature", default: "dev" } }]
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async () => Response.json({ location, data: responses.shift() }),
   })
   const setup = createRoot((dispose) => ({
@@ -1319,7 +1319,7 @@ test("reloads VCS info when the branch changes", async () => {
     await setup.data.location.vcs.sync()
     expect(setup.data.location.vcs.info()).toEqual({ branch: {} })
 
-    const updated: OpenCodeEvent = {
+    const updated: XccodeEvent = {
       id: "evt_vcs.branch.updated",
       created: 1,
       type: "vcs.branch.updated",
@@ -1339,8 +1339,8 @@ test("preserves sibling catalogs through location preload, branch, shell, and we
   const location = { directory: "/project", project: { id: "project", directory: "/project", canonical: "/project" } }
   const requests: string[] = []
   let branch = "main"
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const pathname = new URL((input instanceof Request ? input : new Request(input, init)).url).pathname
       requests.push(pathname)
@@ -1373,7 +1373,7 @@ test("preserves sibling catalogs through location preload, branch, shell, and we
     }),
     dispose,
   }))
-  const emit = (details: OpenCodeEvent) => listeners.forEach((listener) => listener({ name: details.type, details }))
+  const emit = (details: XccodeEvent) => listeners.forEach((listener) => listener({ name: details.type, details }))
   const shell = {
     id: "sh_first",
     status: "running" as const,
@@ -1434,8 +1434,8 @@ test("preserves sibling catalogs through location preload, branch, shell, and we
 
 test("reports optimistic sessions as creating until the request settles", async () => {
   const release = Promise.withResolvers<void>()
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       if (!request.url.endsWith("/api/session")) throw new Error(`Unexpected request: ${request.url}`)
@@ -1465,8 +1465,8 @@ test("reports optimistic sessions as creating until the request settles", async 
 
 test("loads bounded message pages", async () => {
   const requests: URL[] = []
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const url = new URL(request.url)
@@ -1508,8 +1508,8 @@ test.each(["success", "failure", "cancel", "cancel-retry", "cancel-page", "join-
     const controller = new AbortController()
     const requests: URL[] = []
     const publications: string[][] = []
-    const api = OpenCode.make({
-      baseUrl: "http://opencode.local",
+    const api = Xccode.make({
+      baseUrl: "http://xccode.local",
       fetch: async (input, init) => {
         const url = new URL(input instanceof Request ? input.url : String(input))
         requests.push(url)
@@ -1642,7 +1642,7 @@ test.each([
         sessionID: "ses_refresh",
         reason: "user",
         ...(type === "session.execution.failed"
-          ? { error: { type: "provider.no-route", message: "Model unavailable: opencode/gpt-5.2" } }
+          ? { error: { type: "provider.no-route", message: "Model unavailable: xccode/gpt-5.2" } }
           : {}),
       },
     })
@@ -1652,7 +1652,7 @@ test.each([
         id: "msg_activity",
         type: "idle",
         outcome: "failed",
-        error: { type: "provider.no-route", message: "Model unavailable: opencode/gpt-5.2" },
+        error: { type: "provider.no-route", message: "Model unavailable: xccode/gpt-5.2" },
         time: { created: 2 },
       })
     }
@@ -1753,8 +1753,8 @@ function modelInfo(name: string): ModelInfo {
 
 function activityFixture(read: () => Response | Promise<Response>, sessions: SessionInfo[] = []) {
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
-  const api = OpenCode.make({
-    baseUrl: "http://opencode.local",
+  const api = Xccode.make({
+    baseUrl: "http://xccode.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const path = new URL(request.url).pathname
@@ -1778,7 +1778,7 @@ function activityFixture(read: () => Response | Promise<Response>, sessions: Ses
         },
       },
     }),
-    emit: (details: OpenCodeEvent) => listeners.forEach((listener) => listener({ name: details.type, details })),
+    emit: (details: XccodeEvent) => listeners.forEach((listener) => listener({ name: details.type, details })),
     dispose,
   }))
 }

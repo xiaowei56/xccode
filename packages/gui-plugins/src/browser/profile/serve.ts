@@ -1,5 +1,5 @@
 import { resolvePreviewRequest, type PreviewSource } from "../workspace-file"
-import { FSUtil } from "@opencode/util/fs-util"
+import { FSUtil } from "@xccode/util/fs-util"
 import type { FileHandle } from "node:fs/promises"
 import type { HandlePath } from "../disk"
 import { Readable } from "node:stream"

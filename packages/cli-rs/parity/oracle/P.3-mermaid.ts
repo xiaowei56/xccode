@@ -1,5 +1,5 @@
 // P-ORACLE for P.3: every Mermaid source in the merman tests, rendered by the TypeScript plugin's own code-block
-// renderer (`createMermaidCodeBlockRenderer`, as `plugin.ts` registers it) with the `opencode` dark palette at a
+// renderer (`createMermaidCodeBlockRenderer`, as `plugin.ts` registers it) with the `xccode` dark palette at a
 // few terminal widths. Writes parity/fixtures/P.3/corpus.json; crates/mermaid/tests/all/oracle.rs renders the same
 // sources in Rust and compares the styled lines.
 //
@@ -12,7 +12,7 @@ import type { TextRenderable } from "@opentui/core"
 import { resolveThemeDocument } from "../../../theme/src/tui/index.ts"
 import { allThemes, parseTheme } from "../../../tui/src/theme/index.ts"
 import { createMermaidCodeBlockRenderer } from "../../../merman/src/markdown.ts"
-import { resolveOpenCodeDiagramPalette } from "../../../merman/src/palette.ts"
+import { resolveXccodeDiagramPalette } from "../../../merman/src/palette.ts"
 import { detectMermaidDiagram } from "../../../merman/src/detect.ts"
 
 const WIDTHS = [120, 60]
@@ -37,8 +37,8 @@ for (const file of files) {
 // What crates/mermaid's parser test once asserted by hand: dotted operators and the `-.` lookahead.
 sources.add("flowchart LR\n  A -.-> B\n  C -.->D.- E\n  F -. note .-> G\n  H -.-> I -. x .- J")
 
-const theme = resolveThemeDocument(parseTheme(allThemes().opencode, "opencode"), "dark")
-const colors = resolveOpenCodeDiagramPalette(theme, "dark")
+const theme = resolveThemeDocument(parseTheme(allThemes().xccode, "xccode"), "dark")
+const colors = resolveXccodeDiagramPalette(theme, "dark")
 const styles = new Map<string, number>()
 const hex = (color: { toInts(): number[] } | undefined) =>
   color

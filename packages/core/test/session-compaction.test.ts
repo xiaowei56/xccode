@@ -8,41 +8,41 @@ import {
   Message,
   ToolDefinition,
   type LLMRequest,
-} from "@opencode/ai/effect"
-import { OpenAIChat } from "@opencode/ai/protocols"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { llmClient } from "@opencode/core/effect/app-node-platform"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { EventTable } from "@opencode/core/event/sql"
-import { Instructions } from "@opencode/core/instructions/index"
-import { SessionCompaction } from "@opencode/core/session/compaction"
-import type { SessionContext } from "@opencode/core/session/context"
-import { MessageDecodeError } from "@opencode/core/session/error"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionHistory } from "@opencode/core/session/history"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionModelRequest } from "@opencode/core/session/model-request"
-import { PluginHooks } from "@opencode/core/plugin/hooks"
-import { Token } from "@opencode/core/util/token"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionRunnerModel } from "@opencode/core/session/runner/model"
-import { toLLMMessages } from "@opencode/core/session/runner/to-llm-message"
-import { SessionMessageTable, SessionTable } from "@opencode/core/session/sql"
-import { SessionStore } from "@opencode/core/session/store"
-import { Session } from "@opencode/core/session"
-import { Location } from "@opencode/core/location"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { App } from "@opencode/core/app"
-import { Agent } from "@opencode/core/agent"
-import { Model } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Money } from "@opencode/schema/money"
-import { Skill } from "@opencode/schema/skill"
-import { Shell } from "@opencode/schema/shell"
+} from "@xccode/ai/effect"
+import { OpenAIChat } from "@xccode/ai/protocols"
+import { Database } from "@xccode/core/database/database"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { llmClient } from "@xccode/core/effect/app-node-platform"
+import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Bus } from "@xccode/core/bus"
+import { EventTable } from "@xccode/core/event/sql"
+import { Instructions } from "@xccode/core/instructions/index"
+import { SessionCompaction } from "@xccode/core/session/compaction"
+import type { SessionContext } from "@xccode/core/session/context"
+import { MessageDecodeError } from "@xccode/core/session/error"
+import { SessionEvent } from "@xccode/core/session/event"
+import { SessionHistory } from "@xccode/core/session/history"
+import { SessionMessage } from "@xccode/core/session/message"
+import { SessionModelRequest } from "@xccode/core/session/model-request"
+import { PluginHooks } from "@xccode/core/plugin/hooks"
+import { Token } from "@xccode/core/util/token"
+import { SessionProjector } from "@xccode/core/session/projector"
+import { SessionRunnerModel } from "@xccode/core/session/runner/model"
+import { toLLMMessages } from "@xccode/core/session/runner/to-llm-message"
+import { SessionMessageTable, SessionTable } from "@xccode/core/session/sql"
+import { SessionStore } from "@xccode/core/session/store"
+import { Session } from "@xccode/core/session"
+import { Location } from "@xccode/core/location"
+import { Project } from "@xccode/core/project"
+import { ProjectTable } from "@xccode/core/project/sql"
+import { App } from "@xccode/core/app"
+import { Agent } from "@xccode/core/agent"
+import { Model } from "@xccode/core/model"
+import { Provider } from "@xccode/core/provider"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Money } from "@xccode/schema/money"
+import { Skill } from "@xccode/schema/skill"
+import { Shell } from "@xccode/schema/shell"
 import { DateTime, Deferred, Effect, Fiber, Layer, Schema, Stream } from "effect"
 import { TestClock } from "effect/testing"
 import { asc, eq, inArray, sql } from "drizzle-orm"
@@ -713,15 +713,15 @@ it.effect("manual compaction summarizes short context instead of no-op", () =>
     expect(requests).toHaveLength(1)
     expect(requests[0]?.promptCacheKey).toBe(parentID)
     expect(requests[0]?.headers).toEqual({
-      "x-opencode-session-id": session.id,
-      "x-opencode-parent-session-id": parentID,
+      "x-xccode-session-id": session.id,
+      "x-xccode-parent-session-id": parentID,
       "x-session-affinity": parentID,
       "X-Session-Id": parentID,
       "x-parent-session-id": parentID,
       "User-Agent": App.useragent(App.make()),
-      "x-opencode-project": Project.ID.global,
-      "x-opencode-session": parentID,
-      "x-opencode-client": "opencode",
+      "x-xccode-project": Project.ID.global,
+      "x-xccode-session": parentID,
+      "x-xccode-client": "xccode",
     })
     expect(requests[0]?.maxTokens).toBe(30_000)
     expect(JSON.stringify(requests[0]?.messages)).toContain("Manual compaction should include this short conversation.")

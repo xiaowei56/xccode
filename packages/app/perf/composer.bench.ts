@@ -18,7 +18,7 @@ export default bench({
 
   targets: {
     web: web({
-      expect: { title: "OpenCode" },
+      expect: { title: "Xccode" },
       viewport: { width: 1440, height: 900 },
       async prepare(ctx) {
         const { setupKey, url } = ctx

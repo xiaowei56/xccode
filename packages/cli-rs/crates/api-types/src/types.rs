@@ -7140,7 +7140,7 @@ pub struct ExperimentalMcpDisconnectInput {
 pub struct ExperimentalMcpClientTokenInput {
     pub location: Option<LocationQueryInput>,
     pub name: String,
-    pub x_opencode_ticket: Option<String>,
+    pub x_xccode_ticket: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
@@ -10099,7 +10099,7 @@ pub struct PtyRemoveInput {
 pub struct PtyConnectTokenInput {
     pub pty_id: PtyID,
     pub location: Option<LocationQueryInput>,
-    pub x_opencode_ticket: Option<String>,
+    pub x_xccode_ticket: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
@@ -10234,7 +10234,7 @@ pub struct ExperimentalPersistentPtyRemoveInput {
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct ExperimentalPersistentPtyConnectTokenInput {
     pub pty_id: PtyID,
-    pub x_opencode_ticket: Option<String>,
+    pub x_xccode_ticket: Option<String>,
 }
 
 /// Output of `Client::experimental_persistent_pty_connect_token`.

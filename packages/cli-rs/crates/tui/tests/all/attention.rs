@@ -3,8 +3,8 @@
 use std::sync::Arc;
 use std::time::Duration;
 
-use opencode_api::memory::{Memory, Route as MemoryRoute};
-use opencode_tui::{Deps, Tui};
+use xccode_api::memory::{Memory, Route as MemoryRoute};
+use xccode_tui::{Deps, Tui};
 use serde_json::json;
 
 use crate::support::{self, Harness};

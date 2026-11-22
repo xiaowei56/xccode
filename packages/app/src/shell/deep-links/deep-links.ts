@@ -5,7 +5,7 @@ import { useGlobal } from "@/runtime/server/runtime"
 import { useTabs } from "@/shell/tabs/tabs"
 import { INITIAL_DEEP_LINK_STATE, transitionDeepLinks, type DeepLinkEffect, type DeepLinkEvent } from "./machine"
 
-/** Opens the `opencode://` links the desktop app receives, for as long as the shell lives. */
+/** Opens the `xccode://` links the desktop app receives, for as long as the shell lives. */
 export function useDeepLinks() {
   const platform = usePlatform()
   const servers = useServers()

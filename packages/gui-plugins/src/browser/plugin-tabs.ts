@@ -1,4 +1,4 @@
-import type { Browser } from "@opencode/plugin-browser/rpc"
+import type { Browser } from "@xccode/plugin-browser/rpc"
 import { PluginTabHandle } from "./ipc"
 
 /** Main keeps this authority beside the binding, not in the public inventory or in a plugin-supplied tab handle. */

@@ -5,5 +5,5 @@ import { defineCli } from "../../cli/run"
 export default defineCli({
   stderrLines: 1,
   args: ["mcp", "add", "x", "--url", "https://a.test", "--", "node"],
-  collect: ["work/opencode.json"],
+  collect: ["work/xccode.json"],
 })

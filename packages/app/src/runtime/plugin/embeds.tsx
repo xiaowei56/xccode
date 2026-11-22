@@ -1,9 +1,9 @@
 import { createEffect, createMemo, createSignal, on, onCleanup, Show, untrack } from "solid-js"
 import { createEventListener } from "@solid-primitives/event-listener"
 import { embedBounds, overlaps } from "./embed-geometry"
-import { frameLoop, observeReducedMotion, prefersReducedMotion } from "@opencode/ui/motion"
-import type { EmbedProps, Embeds } from "@opencode/plugin/gui"
-import type { Bridge, BridgeLayout } from "@opencode/plugin/gui/host"
+import { frameLoop, observeReducedMotion, prefersReducedMotion } from "@xccode/ui/motion"
+import type { EmbedProps, Embeds } from "@xccode/plugin/gui"
+import type { Bridge, BridgeLayout } from "@xccode/plugin/gui/host"
 import {
   createEmbedStillState,
   INITIAL_FLIGHT_STATE,

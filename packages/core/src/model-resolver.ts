@@ -1,6 +1,6 @@
 export * as ModelResolver from "./model-resolver.js"
 
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { makeLocationNode } from "@xccode/util/effect/app-node"
 import {
   DecisionModel,
   DecisionModelCompatibility,
@@ -12,15 +12,15 @@ import {
   type ProviderPackage,
   VideoModel,
   VideoModelSchema,
-} from "@opencode/ai/effect"
-import { Auth, mergeTransport } from "@opencode/ai/route"
+} from "@xccode/ai/effect"
+import { Auth, mergeTransport } from "@xccode/ai/route"
 import { Context, Effect, Layer, Schema, Struct } from "effect"
 import { AISDK } from "./aisdk.js"
 import { Credential } from "./credential.js"
 import { Integration } from "./integration.js"
 import { Capabilities, Compatibility, ID, Info, Model, Ref, VariantID } from "./model.js"
 import type { RuntimeInfo } from "./model.js"
-import { Npm } from "@opencode/util/npm"
+import { Npm } from "@xccode/util/npm"
 import { Provider } from "./provider.js"
 
 export class VariantUnavailableError extends Schema.TaggedError<VariantUnavailableError>()(
@@ -160,7 +160,7 @@ export interface Interface {
   readonly resolveDecision: (ref: Ref) => Effect.Effect<DecisionModel | undefined, MediaError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/ModelResolver") {}
+export class Service extends Context.Service<Service, Interface>()("@xccode/ModelResolver") {}
 
 // Variant resolution adds request-local overlays without changing the committed model snapshot.
 export const withVariant = (
@@ -420,7 +420,7 @@ const nativeCredentialSettings = (model: RuntimeInfo, specifier: string, credent
   if (credential.type === "key") return { apiKey: credential.key }
   if (credential.type === "oauth") return tokenSettings(specifier, credential.access)
   // The Bedrock plugin projects the saved profile into settings; SigV4 keeps an ambient bearer token from taking over.
-  if (specifier.startsWith("@opencode/ai/providers/amazon-bedrock")) return { auth: "sigv4" }
+  if (specifier.startsWith("@xccode/ai/providers/amazon-bedrock")) return { auth: "sigv4" }
   // The Azure plugin's request hooks replace this with an Entra ID token from the Azure CLI; it only gets the
   // request past the package's own credential check.
   if (model.providerID === Provider.ID.azure) return tokenSettings(specifier, "azure-cli")
@@ -428,11 +428,11 @@ const nativeCredentialSettings = (model: RuntimeInfo, specifier: string, credent
 }
 
 const tokenSettings = (specifier: string, token: string) => {
-  if (specifier === "@opencode/ai/providers/anthropic" || specifier === "@opencode/ai/providers/anthropic-compatible")
+  if (specifier === "@xccode/ai/providers/anthropic" || specifier === "@xccode/ai/providers/anthropic-compatible")
     return { authToken: token }
   if (
-    specifier === "@opencode/ai/providers/google-vertex" ||
-    specifier.startsWith("@opencode/ai/providers/google-vertex/")
+    specifier === "@xccode/ai/providers/google-vertex" ||
+    specifier.startsWith("@xccode/ai/providers/google-vertex/")
   )
     return { accessToken: token }
   return { apiKey: token }
@@ -597,27 +597,27 @@ const API_KEY_AUTH_PACKAGES: ReadonlySet<string> = new Set([
   "@ai-sdk/xai",
   "@openrouter/ai-sdk-provider",
   "@ai-sdk/azure",
-  "@opencode/ai/providers/openai",
-  "@opencode/ai/providers/anthropic",
-  "@opencode/ai/providers/anthropic-compatible",
-  "@opencode/ai/providers/baseten",
-  "@opencode/ai/providers/cerebras",
-  "@opencode/ai/providers/cloudflare-ai-gateway",
-  "@opencode/ai/providers/cloudflare-workers-ai",
-  "@opencode/ai/providers/deepinfra",
-  "@opencode/ai/providers/deepseek",
-  "@opencode/ai/providers/fireworks",
-  "@opencode/ai/providers/openai-compatible",
-  "@opencode/ai/providers/openai-compatible/decisions",
-  "@opencode/ai/providers/google",
-  "@opencode/ai/providers/google/interactions",
-  "@opencode/ai/providers/groq",
-  "@opencode/ai/providers/mistral",
-  "@opencode/ai/providers/togetherai",
-  "@opencode/ai/providers/vercel-ai-gateway",
-  "@opencode/ai/providers/xai",
-  "@opencode/ai/providers/openrouter",
-  "@opencode/ai/providers/azure",
+  "@xccode/ai/providers/openai",
+  "@xccode/ai/providers/anthropic",
+  "@xccode/ai/providers/anthropic-compatible",
+  "@xccode/ai/providers/baseten",
+  "@xccode/ai/providers/cerebras",
+  "@xccode/ai/providers/cloudflare-ai-gateway",
+  "@xccode/ai/providers/cloudflare-workers-ai",
+  "@xccode/ai/providers/deepinfra",
+  "@xccode/ai/providers/deepseek",
+  "@xccode/ai/providers/fireworks",
+  "@xccode/ai/providers/openai-compatible",
+  "@xccode/ai/providers/openai-compatible/decisions",
+  "@xccode/ai/providers/google",
+  "@xccode/ai/providers/google/interactions",
+  "@xccode/ai/providers/groq",
+  "@xccode/ai/providers/mistral",
+  "@xccode/ai/providers/togetherai",
+  "@xccode/ai/providers/vercel-ai-gateway",
+  "@xccode/ai/providers/xai",
+  "@xccode/ai/providers/openrouter",
+  "@xccode/ai/providers/azure",
 ])
 
 function usesAPIKeyAuth(packageName: string | undefined) {
@@ -625,8 +625,8 @@ function usesAPIKeyAuth(packageName: string | undefined) {
   if (name === undefined) return false
   return (
     API_KEY_AUTH_PACKAGES.has(name) ||
-    name.startsWith("@opencode/ai/providers/openai/") ||
-    name.startsWith("@opencode/ai/providers/azure/")
+    name.startsWith("@xccode/ai/providers/openai/") ||
+    name.startsWith("@xccode/ai/providers/azure/")
   )
 }
 

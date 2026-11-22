@@ -36,15 +36,15 @@ export default {
   "move.recovery.remove": "Worktree löschen",
   "mcp.manage": "MCP-Server verwalten",
   timedOut: "Der Server hat zu lange für eine Antwort gebraucht",
-  "setup.mcp": "Server mit OpenCode hinzufügen",
+  "setup.mcp": "Server mit Xccode hinzufügen",
   "setup.mcp.prompt":
-    "Hilf mir, einen MCP-Server zu meiner globalen OpenCode-Konfiguration hinzuzufügen. Frag mich, welchen Dienst ich verbinden möchte, richte ihn dann ein und prüfe, ob die Verbindung funktioniert.",
-  "setup.plugins": "Plugin mit OpenCode hinzufügen",
+    "Hilf mir, einen MCP-Server zu meiner globalen Xccode-Konfiguration hinzuzufügen. Frag mich, welchen Dienst ich verbinden möchte, richte ihn dann ein und prüfe, ob die Verbindung funktioniert.",
+  "setup.plugins": "Plugin mit Xccode hinzufügen",
   "setup.plugins.prompt":
-    "Hilf mir, ein Plugin zu meiner globalen OpenCode-Konfiguration hinzuzufügen. Frag mich, was es tun soll, schlage ein Plugin vor und füge es dann hinzu.",
-  "setup.skills": "Neuer Skill mit OpenCode",
+    "Hilf mir, ein Plugin zu meiner globalen Xccode-Konfiguration hinzuzufügen. Frag mich, was es tun soll, schlage ein Plugin vor und füge es dann hinzu.",
+  "setup.skills": "Neuer Skill mit Xccode",
   "setup.skills.prompt":
-    "Hilf mir, einen neuen OpenCode-Skill in meiner globalen Konfiguration zu schreiben. Frag mich, was er dir beibringen soll, und schreibe dann seine SKILL.md.",
+    "Hilf mir, einen neuen Xccode-Skill in meiner globalen Konfiguration zu schreiben. Frag mich, was er dir beibringen soll, und schreibe dann seine SKILL.md.",
   changesFailed: "Änderungen konnten nicht geladen werden",
   changesOffline: "Server nicht erreichbar",
   "mcp.signIn": "Anmelden",
@@ -56,7 +56,7 @@ export default {
   "mcp.error.actionLabel": "Details für {{name}}",
   "mcp.signIn.open": "Bei {{name}} anmelden",
   "mcp.signIn.description":
-    "Ihr Browser wird geöffnet, damit Sie sich bei {{name}} anmelden können. Wenn er den Rechner, auf dem OpenCode läuft, nicht erreicht, fügen Sie unten die URL ein, zu der er weitergeleitet wurde.",
+    "Ihr Browser wird geöffnet, damit Sie sich bei {{name}} anmelden können. Wenn er den Rechner, auf dem Xccode läuft, nicht erreicht, fügen Sie unten die URL ein, zu der er weitergeleitet wurde.",
   "mcp.signIn.waiting": "Warten auf Autorisierung…",
   "mcp.signIn.failed": "Autorisierung fehlgeschlagen: {{error}}",
   "mcp.signIn.expired": "Autorisierung abgelaufen",

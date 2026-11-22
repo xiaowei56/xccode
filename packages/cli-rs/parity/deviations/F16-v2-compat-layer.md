@@ -6,10 +6,10 @@ synchronous. A module under `node_modules` (an installed package) compiles with 
 read once as the component is created; a local module compiles with Solid's compiler, whose props follow their signals
 (`@opentui/solid/scripts/solid-plugin.js`).
 
-**Rust.** The JS host gives the module the same context and the modules TS gives it (`@opencode/plugin/tui`, Solid,
+**Rust.** The JS host gives the module the same context and the modules TS gives it (`@xccode/plugin/tui`, Solid,
 `@opentui/solid`, `@opentui/core`), from the compatibility layer (`crates/plugin/src/pipe/compat`). Its JSX renders with
 Solid's universal renderer into plain nodes, which each view reads into a contract 2.0 tree for the host to draw. The JS host is on unless
-`OPENCODE_PLUGIN_JS` is `0`, `false` or `off`. What differs:
+`XCCODE_PLUGIN_JS` is `0`, `false` or `off`. What differs:
 
 - **Every module compiles as an installed one**, with Bun's JSX transform: a local TSX plugin that relies on Solid's
   compiler for props that follow signals renders them once, as the same plugin installed from npm does in TS. A
@@ -21,7 +21,7 @@ Solid's universal renderer into plain nodes, which each view reads into a contra
   watches at most 128 reads; one no live mount or store holds goes when a new one needs its place, and one the host could not
   answer rejects its `sync` and is reported once. `data.session.sync` and `message.sync` answer what the host has
   loaded; they do not load a session the host has not. A session, `data.session.get` and `status` come from the one
-  read of every session the host has loaded, with no read a session (CT-36: opencode-sesh asks the status of each of
+  read of every session the host has loaded, with no read a session (CT-36: xccode-sesh asks the status of each of
   900 sessions, which churned 1,800 watches past the bound). One missing from it is read from its own read where there
   is one, the route's session seeded at setup and one `sync(id)` watches; any other session the host has not loaded
   reads as nothing and `idle`, also while it runs, where TS's status map holds every running session.
@@ -31,7 +31,7 @@ Solid's universal renderer into plain nodes, which each view reads into a contra
 - **A command a component registers** (`keymap.layer` in a render) runs nothing once the component ended, but the
   host lists it 250 ms longer, unless a new mount registered it again. A registration after setup (such a layer, a
   store made late, the scroll keys a dialog with a `<scrollbox>` registers) reloads the plugin's registrations: its
-  open dialog stays and acts, as in TS, and so does its session panel, which mounts again from the new registrations (CT-29: opencode-self-improvement's `/memory` panel registers keys as it renders, and the reload closed it; `plugin_compat::a_session_panel_stays_open_across_a_reload`). Each mount the
+  open dialog stays and acts, as in TS, and so does its session panel, which mounts again from the new registrations (CT-29: xccode-self-improvement's `/memory` panel registers keys as it renders, and the reload closed it; `plugin_compat::a_session_panel_stays_open_across_a_reload`). Each mount the
   reload ends and begins again keeps its components, which do not run again, as TS takes a registration without a
   remount (CT-21: a plugin that named a binding anew on each mount), and the field the plugin
   focused in it takes the host's focus again;
@@ -44,7 +44,7 @@ Solid's universal renderer into plain nodes, which each view reads into a contra
   (contract ergonomics 2.5): a disabled command stays registered, binds no key and is in neither the palette nor the
   slash list, as TS binds no disabled command, and the layer follows what they read, telling the host each change
   with no reload (a palette entry off a session). Its `target` holds
-  its commands to the plugin's focus in that node, elsewhere they decline (CT-20: @slkiser/opencode-quota's window
+  its commands to the plugin's focus in that node, elsewhere they decline (CT-20: @slkiser/xccode-quota's window
   Escape kept Goal's select open), but the focus is the layer's record of what the plugin focused or the user edited:
   the host's focus by a click or Tab does not reach it, so a target the user clicks into still declines. A command
   without an `id` is named by what the host lists of it (its layer's mode, its keys, title, slash name and the rest) and
@@ -78,9 +78,9 @@ Solid's universal renderer into plain nodes, which each view reads into a contra
   client names (`EventSubscribeInput`), made with its first listener; a type the client does not name, as a plugin's
   own `rpc.*` events, never comes. The streaming deltas (`session.*.delta`) do not come, as the host's store sends no
   plugin a delta.
-- **Server RPC** (CT-4): `@opencode/plugin/rpc` gives `Rpc.define`, and so does `@opencode/plugin/effect`, whose other
+- **Server RPC** (CT-4): `@xccode/plugin/rpc` gives `Rpc.define`, and so does `@xccode/plugin/effect`, whose other
   names (the server's Effect schemas, `Agent`, `Tool` and the rest) link but are undefined (CT-23:
-  opencode-superagent's TUI); and `client.rpc(definition)` calls each method as
+  xccode-superagent's TUI); and `client.rpc(definition)` calls each method as
   TS's client does (`/api/rpc/<id>/<method>`, the output answered), with its events heard as the host's events of type
   `rpc.<id>.<name>`. An error the server gives an RPC reaches the plugin as the client's error, not as TS's
   `{ type, message, data }`, as the host's fetch answers an error as text. Every module the layer serves is also
@@ -169,7 +169,7 @@ Solid's universal renderer into plain nodes, which each view reads into a contra
   as TS's `<Slot>` is a fragment; OpenTUI's Rust layout has no way back, so the box stays absolute if a later render
   of the claim is in the flow.
 - **Not mapped**, each reported once a plugin in the client's log, by the plugin's name (`plugin <id>: <id>: <feature>
-  is not supported by opencode-native yet`), and doing nothing (a list answers empty). The report is no toast: a toast
+  is not supported by xccode-native yet`), and doing nothing (a list answers empty). The report is no toast: a toast
   covered the plugin's own surface until it timed out, which TS never shows and a checkpoint saw or not by the machine's speed. Not mapped: `data.project.permission`, the location's `mcp.resource` list, `renderer` members other than
   `requestRender`, `width`, `height` and `keyInput` (a method of OpenTUI's `CliRenderer` does nothing, an emitter's
   returns the renderer and an async one a resolved promise),
@@ -189,13 +189,13 @@ Solid's universal renderer into plain nodes, which each view reads into a contra
   (`tab_select`, `ascii_font`, `diff`, `line_number`, `image`, `video`) throw as they are created, which the plugin's boundary reports as TS reports a crash in a render
   (`<id> crashed in slot <path>: …`). `<Portal>` draws its children in a box that fills the room of the mount that
   renders it, over the rest, which its `ref` gets as the container (CT-10): in the `app` slot that is the screen, as
-  TS's renderer root (opencode-landstrip's pane); elsewhere it is the slot's room, not the screen, and its `mount` is
-  not followed (opencode-sesh's menu draws over its sidebar section). Drawing over the whole screen from another slot
+  TS's renderer root (xccode-landstrip's pane); elsewhere it is the slot's room, not the screen, and its `mount` is
+  not followed (xccode-sesh's menu draws over its sidebar section). Drawing over the whole screen from another slot
   would need the contract to let a mount place a node outside its room. The TS TUI's own `<spinner>` is the contract's spinner, in the host's frames,
   pace and color; its `frames`, `interval`, `color`, `backgroundColor` and `autoplay` are reported (CT-14).
   `renderer.root` takes nothing, and `renderer.currentFocusedEditor` and `currentFocusedRenderable` are undefined,
-  each reported as it is read, so a plugin that checks they exist starts (CT-17: opencode-dollar-skills). What such a
-  plugin then does with the composer's editor (opencode-vim-navigation's modal editing, dollar-skills' completion)
+  each reported as it is read, so a plugin that checks they exist starts (CT-17: xccode-dollar-skills). What such a
+  plugin then does with the composer's editor (xccode-vim-navigation's modal editing, dollar-skills' completion)
   would need the composer as a renderable a plugin edits, where the contract has only `ComposerEdit`. The root's
   `findDescendantById` finds nothing, as it holds none of the host's renderables, so a plugin that finds a message's
   renderable to place its own beside it starts and draws nothing there (CT-40: recap's card after the message it
@@ -234,24 +234,24 @@ Solid's universal renderer into plain nodes, which each view reads into a contra
 - **OpenTUI's exports**: the layer exports every name the installed `@opentui/core` and `@opentui/solid` export, so a
   plugin's import of one links. Beyond the colors, attributes, small data (enums, border sets), Solid's renderer, and
   styled text (`StyledText`, `t`, `fg`, `bg`, `bold` and the other attribute helpers, `link`, `stringToStyledText`,
-  which a text node's `content` draws chunk by chunk, CT-27: @encoredigitalgroup/opencode's panels drew
+  which a text node's `content` draws chunk by chunk, CT-27: @encoredigitalgroup/xccode's panels drew
   "[object Object]"; its tarball is proprietary, so a layer test pins it) the layer gives, each is inert: a class constructs, extends and answers its methods with nothing, a function does
   nothing, and the first use of each warns once in the JS host's log, not in a toast, as the module cannot tell which
   plugin used it. A renderable a plugin builds itself (`new BoxRenderable(renderer, options)`, and `TextRenderable`,
   `MarkdownRenderable`, `CodeRenderable`, `ScrollBoxRenderable`, `InputRenderable`) is the node its JSX intrinsic makes,
   with its options as its props, `add`, `insertBefore`, `remove` and the option setters, and draws as that JSX would:
   returned from a code block's renderer, from a render, or added to a node by its ref (contract 2.x, step D; CT-15,
-  opencode-quick-quote returns one as its slot's element, opencode-gpt-live and opencode-task-completion-loop the same,
+  xccode-quick-quote returns one as its slot's element, xccode-gpt-live and xccode-task-completion-loop the same,
   not checked one by one). What OpenTUI does with the renderer it is given is the host's. A call of a method any of OpenTUI's
   declarations returns a promise from answers a resolved promise of an inert value, so a chain such as
   `getTreeSitterClient().initialize().then(…)` runs on (CT-16): the grammar it registers is
   not the host's, which would need the contract to take a plugin's tree-sitter grammar. The `effect` package is not
   served: the layer serves what the TUI plugin API defines, not libraries a plugin expects the host to happen
-  to have. TS's runtime provides its own, so a plugin that imports it (opencode-plugboard and
-  @davidaayers/opencode-codex-usage-plugin declare it a peer) fails to load here, named
+  to have. TS's runtime provides its own, so a plugin that imports it (xccode-plugboard and
+  @davidaayers/xccode-codex-usage-plugin declare it a peer) fails to load here, named
   (`plugin_compat::a_plugin_that_imports_effect_fails_to_load_naming_it`).
 - **Shrink and wrap**: a node with a fixed `width` or `height` does not shrink unless its `flexShrink` says so, as
-  OpenTUI's renderables (CT-25: @wpro-eng/opencode-config's 14-cell agent names shrank to their text; its tarball is
+  OpenTUI's renderables (CT-25: @wpro-eng/xccode-config's 14-cell agent names shrank to their text; its tarball is
   unlicensed, so a layer test pins it). Where a long word breaks is the host's text wrap: TS's breaks
   `github-copilot/gemini-3.8-flash` after the `/`, the host's after `gemini-`, which is OpenTUI's Rust wrap, not the
   layer's. A panel sized by its box's width (CT-28) draws as TS once the host's layout reaches it (above).

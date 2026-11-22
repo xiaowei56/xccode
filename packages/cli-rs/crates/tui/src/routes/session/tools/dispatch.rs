@@ -1,11 +1,11 @@
 //! Dispatch tool calls by canonical name to their inline or block views.
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageAssistantToolState, ToolContent,
 };
-use opencode_plugin::claim;
-use opencode_ui::motion::Spinner;
-use opencode_ui::tool_info::{canonical_tool_name, tool_display_content, tool_display_metadata};
+use xccode_plugin::claim;
+use xccode_ui::motion::Spinner;
+use xccode_ui::tool_info::{canonical_tool_name, tool_display_content, tool_display_metadata};
 use serde_json::Map;
 use unicode_width::UnicodeWidthStr;
 
@@ -274,7 +274,7 @@ pub enum Status {
 pub fn format_path(cx: &Context<'_>, input: Option<&str>) -> String {
     let cwd = std::env::current_dir().unwrap_or_default();
     let home = std::env::home_dir();
-    opencode_ui::path::format(input.unwrap_or_default(), cx.directory, &cwd, home.as_deref())
+    xccode_ui::path::format(input.unwrap_or_default(), cx.directory, &cwd, home.as_deref())
 }
 
 /// The width tool rows lay out in (`ctx.width`).
@@ -293,7 +293,7 @@ pub fn fingerprint(shown: &impl std::hash::Hash) -> u64 {
 
 /// A number as JavaScript prints it.
 pub fn number(value: f64) -> String {
-    opencode_api::query::js_string(&Value::from(value))
+    xccode_api::query::js_string(&Value::from(value))
 }
 
 /// JavaScript truthiness.
@@ -308,7 +308,7 @@ pub fn truthy(value: Option<&Value>) -> bool {
 
 /// `finiteNumber(value)`, when it is not 0 (`finiteNumber(x) || …`).
 pub fn finite(value: Option<&Value>) -> Option<f64> {
-    value.and_then(opencode_ui::tool_info::finite_number).filter(|number| *number != 0.0)
+    value.and_then(xccode_ui::tool_info::finite_number).filter(|number| *number != 0.0)
 }
 
 /// What an [`InlineTool`] shows.
@@ -408,7 +408,7 @@ impl InlineTool {
         });
         inner.root.on_hover(bind!(inner, |inner, _, hovered| {
             let clickable = inner.state.borrow().as_ref().is_some_and(|state| state.clickable || state.failed());
-            inner.root.mouse_pointer(opencode_ui::click_pointer(clickable));
+            inner.root.mouse_pointer(xccode_ui::click_pointer(clickable));
             inner.hover.set(hovered && clickable);
             inner.recolor();
         }));
@@ -653,7 +653,7 @@ impl BlockTool {
         });
         inner.root.on_hover(bind!(inner, |inner, _, hovered| {
             let clickable = inner.state.borrow().as_ref().is_some_and(|state| state.clickable);
-            inner.root.mouse_pointer(opencode_ui::click_pointer(clickable));
+            inner.root.mouse_pointer(xccode_ui::click_pointer(clickable));
             inner.hover.set(hovered && clickable);
             inner.paint_background();
         }));

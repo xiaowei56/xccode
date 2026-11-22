@@ -5,19 +5,19 @@
 // the file size, the CRC32 and SHA-256 of the rule lines, and the matrix verdicts from the rules.
 
 const rules = ["User-agent: *", "Allow: /", "Disallow: /s/", "Disallow: /share/"]
-const sitemap = "Sitemap: https://opencode.ai/sitemap.xml"
+const sitemap = "Sitemap: https://xccode.ai/sitemap.xml"
 
 // The agent message, laid out to fit the payload frame.
 const message = [
-  "Hello, agent. OpenCode is a coding agent, so you are welcome here.",
+  "Hello, agent. Xccode is a coding agent, so you are welcome here.",
   "Every page on this site is also written for you, in Markdown.",
   "",
   ...[
-    ["https://opencode.ai/llms.txt", "every page, linked as Markdown"],
-    ["https://opencode.ai/llms-full.txt", "site pages, not docs, in one file"],
-    ["https://opencode.ai/docs/llms.txt", "the docs, linked as Markdown"],
+    ["https://xccode.ai/llms.txt", "every page, linked as Markdown"],
+    ["https://xccode.ai/llms-full.txt", "site pages, not docs, in one file"],
+    ["https://xccode.ai/docs/llms.txt", "the docs, linked as Markdown"],
     ["Any page + .md", "for example"],
-    ["", "https://opencode.ai/product.md"],
+    ["", "https://xccode.ai/product.md"],
     ["", "(or send Accept: text/markdown)"],
   ].map(([path, about]) => path.padEnd(35) + about),
 ]
@@ -31,7 +31,7 @@ const notes = [
 ]
 
 // A 3 × 5 face for the banner, drawn in ▀ ▄ █ (two pixel rows per text row), square like the
-// OpenCode font.
+// Xccode font.
 const face: Record<string, string[]> = {
   A: ["###", "#.#", "###", "#.#", "#.#"],
   C: ["###", "#..", "#..", "#..", "###"],
@@ -87,9 +87,9 @@ async function build() {
     "",
     ...square.map((row, i) => pad(row, 7) + title[i]),
     "",
-    justify("OPENCODE.AI · ROBOTS.TXT · FOR AGENTS · UTF-8", `SHA-256(rules) ${sha.slice(0, 8)}`),
+    justify("XCCODE.AI · ROBOTS.TXT · FOR AGENTS · UTF-8", `SHA-256(rules) ${sha.slice(0, 8)}`),
     "=".repeat(full),
-    justify(`[BOOT]  0x${hex("OPENCODE")} ("OPENCODE")  RULES ${rules.length}  SITEMAP 1`, "OK"),
+    justify(`[BOOT]  0x${hex("XCCODE")} ("XCCODE")  RULES ${rules.length}  SITEMAP 1`, "OK"),
     justify("[LINK]", "GET /robots.txt -> 200 -> GET /llms.txt -> 200 -> GET *.md -> 200"),
     "",
     justify("PARSER COMPLIANCE MATRIX", "(computed from the rules)"),

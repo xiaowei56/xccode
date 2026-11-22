@@ -12,7 +12,7 @@
 //! ```ignore
 //! let app = TestApp::new(60, 12);
 //! // build the widget...
-//! opencode_parity::assert_fixture(&app.render(), "U.3/alert");
+//! xccode_parity::assert_fixture(&app.render(), "U.3/alert");
 //! ```
 
 pub mod app;
@@ -34,7 +34,7 @@ pub fn fixtures_dir() -> PathBuf {
 }
 
 /// Compares a capture with `parity/fixtures/<name>.json` cell by cell. On a difference it writes the capture to
-/// `<temp>/opencode-parity/<name>.json` in the fixture format, so the two files can be diffed, and panics with the
+/// `<temp>/xccode-parity/<name>.json` in the fixture format, so the two files can be diffed, and panics with the
 /// report.
 #[track_caller]
 pub fn assert_fixture(capture: &Capture, name: &str) {
@@ -44,7 +44,7 @@ pub fn assert_fixture(capture: &Capture, name: &str) {
     if comparison.is_equal() {
         return;
     }
-    let path = std::env::temp_dir().join("opencode-parity").join(format!("{name}.json"));
+    let path = std::env::temp_dir().join("xccode-parity").join(format!("{name}.json"));
     let written = path
         .parent()
         .map_or(Ok(()), std::fs::create_dir_all)

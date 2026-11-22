@@ -1,6 +1,6 @@
 # Browser plugin
 
-`@opencode/plugin-browser` exposes the desktop browser through Code Mode.
+`@xccode/plugin-browser` exposes the desktop browser through Code Mode.
 The server owns tools, invocation scope, and permissions; the desktop owns tabs,
 CDP, captured traffic, evaluations, and capture files. Core only registers the
 plugin. Neither endpoint imports the other's implementation.
@@ -28,7 +28,7 @@ Screenshots, clicks and hovers work while the tab is hidden; only a full-page sc
 - Audits: `lighthouse` (accessibility, SEO, best practices).
 
 The source of truth for inputs, descriptions, and outputs is
-`Browser.Operations` in `@opencode/plugin-browser/rpc`.
+`Browser.Operations` in `@xccode/plugin-browser/rpc`.
 
 `tabs.open` and `navigate` take a web address in `url` or a workspace file in
 `path`, never both. The server checks that a path is a readable file inside the
@@ -59,7 +59,7 @@ The desktop implementation is the built-in `browser` GUI plugin
 
 ## RPC
 
-The plugin-owned contract is `@opencode/plugin-browser/rpc`. This entrypoint
+The plugin-owned contract is `@xccode/plugin-browser/rpc`. This entrypoint
 contains only schemas and descriptions; it does not load the server plugin or
 filesystem code. The desktop subscribes
 to control events before starting `attach` with `version: 4`. The attachment call
@@ -140,5 +140,5 @@ Per-URL and server-file permission checks belong to the final permission layer
 Disable through normal configuration:
 
 ```jsonc
-{ "plugins": ["-opencode.browser"] }
+{ "plugins": ["-xccode.browser"] }
 ```

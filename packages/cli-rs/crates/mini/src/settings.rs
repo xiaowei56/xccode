@@ -1,6 +1,6 @@
 //! Mini preferences and verbosity presets.
 
-use opencode_local::cli_config::{Info, Mini, MiniWorkSpinner, Visibility};
+use xccode_local::cli_config::{Info, Mini, MiniWorkSpinner, Visibility};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct MiniSettings {
@@ -137,7 +137,7 @@ impl MiniSettings {
             Key::Verbosity => self.verbosity_change(forward),
             Key::Mono => Some(Change::Mono(!self.mono)),
             Key::WorkSpinner => {
-                let names = &opencode_ui::motion::WORK_SPINNER_NAMES;
+                let names = &xccode_ui::motion::WORK_SPINNER_NAMES;
                 let index = names.iter().position(|name| *name == self.work_spinner.as_str()).unwrap_or(0);
                 let next = if forward { (index + 1) % names.len() } else { (index + names.len() - 1) % names.len() };
                 spinner(names[next]).map(Change::WorkSpinner)
@@ -195,6 +195,6 @@ pub fn write_change(info: &mut Info, change: Change) {
 
 /// The `work_spinner` value of a name.
 pub fn spinner(name: &str) -> Option<MiniWorkSpinner> {
-    use opencode_local::cli_config::Decode;
+    use xccode_local::cli_config::Decode;
     MiniWorkSpinner::decode(&serde_json::Value::String(name.to_owned()))
 }

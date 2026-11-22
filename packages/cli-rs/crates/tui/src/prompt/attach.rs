@@ -1,7 +1,7 @@
 use opentui::native::ImageFit;
 use opentui::widget::ImageView;
 
-pub use opencode_ui::prompt_input::attach::*;
+pub use xccode_ui::prompt_input::attach::*;
 
 use super::editor::Inner;
 

@@ -57,7 +57,7 @@ type Validate<'a, V> = Box<dyn Fn(&V) -> Option<String> + 'a>;
 /// Strips terminal escape sequences and controls from untrusted text before styling it.
 fn clean(text: impl Into<String>) -> String {
     let text: String = text.into();
-    opencode_ui::terminal_text(&text).into_owned()
+    xccode_ui::terminal_text(&text).into_owned()
 }
 
 /// Whether stdin and stdout are both terminals.
@@ -118,13 +118,13 @@ impl Output {
     }
 }
 
-#[allow(dead_code, reason = "only opencode-prompt-demo uses it")]
+#[allow(dead_code, reason = "only xccode-prompt-demo uses it")]
 /// A boxed note with a title, its lines dim.
 pub fn note(message: &str, title: &str) {
     note_with(message, title, dim);
 }
 
-#[allow(dead_code, reason = "only opencode-prompt-demo uses it")]
+#[allow(dead_code, reason = "only xccode-prompt-demo uses it")]
 /// [`note`] with each line styled by `format`.
 pub fn note_with(message: &str, title: &str, format: impl Fn(&str) -> String) {
     // Clack measures in UTF-16 units of the text without escape sequences.

@@ -1,13 +1,13 @@
 import { NodeHttpClient } from "@effect/platform-node"
 import { homedir } from "node:os"
-import { Browser } from "@opencode/plugin-browser/rpc"
-import { OpenCode } from "@opencode/client/effect"
-import { SessionID } from "@opencode/schema/session-id"
+import { Browser } from "@xccode/plugin-browser/rpc"
+import { Xccode } from "@xccode/client/effect"
+import { SessionID } from "@xccode/schema/session-id"
 import electron, { type BrowserWindow } from "electron"
 import { Cause, Deferred, Effect, ManagedRuntime, Option, Queue, Schedule, Schema, Stream } from "effect"
 import { HttpClient, HttpClientRequest } from "effect/http"
-import type { BuiltinMainStorage } from "@opencode/plugin/gui/builtin"
-import type { Embeds, Log, Persisted, ServerEndpoints, Windows } from "@opencode/plugin/gui/main"
+import type { BuiltinMainStorage } from "@xccode/plugin/gui/builtin"
+import type { Embeds, Log, Persisted, ServerEndpoints, Windows } from "@xccode/plugin/gui/main"
 import { createBrowserPage, type BrowserPage, type Shared } from "./chromium"
 import { browserFailure, CodedError, keepsOpenedTab, missingArtifact, PageEndedError, pageReports } from "./errors"
 import { createBrowserNetwork, createDirectNetwork, type BrowserNetwork } from "./network"
@@ -49,7 +49,7 @@ import { workspaceFile, type WorkspaceSource } from "./workspace-file"
 import { workspacePages } from "./workspace-pages"
 import { FileVerificationError } from "./file-verification"
 import type { HandlePath } from "./disk"
-import { artifactKind } from "@opencode/util/artifact"
+import { artifactKind } from "@xccode/util/artifact"
 import { fileTab, reusableFile, workspaceFileURL } from "./link"
 import { createPreviews } from "./profile/previews"
 import { pluginTabs } from "./plugin-tabs"
@@ -210,7 +210,7 @@ export function createBrowserPane(input: {
       // A server on this machine reaches the same network as this desktop, so its pages browse in the profile. Another
       // server's pages need its network through a proxy, which Chromium sets per partition.
       const shared = server.sameMachine
-      const partition = shared ? input.profile.partition : `opencode-browser-${crypto.randomUUID()}`
+      const partition = shared ? input.profile.partition : `xccode-browser-${crypto.randomUUID()}`
 
       const remote = shared ? undefined : electron.session.fromPartition(partition)
       const abort = new AbortController()
@@ -271,7 +271,7 @@ export function createBrowserPane(input: {
 
             // The renderer never holds the managed sidecar's password; Node requests bypass
             // the webRequest header injection, so the host resolves the credential here in main.
-            const client = yield* OpenCode.make({ baseUrl: server.url }).pipe(
+            const client = yield* Xccode.make({ baseUrl: server.url }).pipe(
               Effect.provideService(
                 HttpClient.HttpClient,
                 Object.keys(server.headers).length

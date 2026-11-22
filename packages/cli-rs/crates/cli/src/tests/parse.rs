@@ -2,7 +2,7 @@ use crate::args::{Command, LogLevel, McpCommand, ServerFlags, SessionCommand, Sh
 use crate::parse::{self, Invocation, Outcome};
 
 fn outcome(line: &[&str]) -> Outcome {
-    parse::parse(&line.iter().map(|arg| arg.to_string()).collect::<Vec<_>>(), "opencode-native")
+    parse::parse(&line.iter().map(|arg| arg.to_string()).collect::<Vec<_>>(), "xccode-native")
 }
 
 fn parse(line: &[&str]) -> Result<Invocation, String> {

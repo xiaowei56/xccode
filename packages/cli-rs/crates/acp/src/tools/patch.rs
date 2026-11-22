@@ -1,6 +1,6 @@
 //! Parse errors are opaque: the agent only needs to know whether the patch is valid.
 
-use opencode_api::js::is_whitespace;
+use xccode_api::js::is_whitespace;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Hunk {

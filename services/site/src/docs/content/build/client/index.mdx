@@ -1,17 +1,17 @@
 ---
 title: "JavaScript"
-description: "Connect your application to an OpenCode server with @opencode/client, the TypeScript client for the OpenCode HTTP API."
+description: "Connect your application to an Xccode server with @xccode/client, the TypeScript client for the Xccode HTTP API."
 ---
 
-`@opencode/client` is the TypeScript client for the OpenCode HTTP
-API. Use it when your application connects to an OpenCode server over the
+`@xccode/client` is the TypeScript client for the Xccode HTTP
+API. Use it when your application connects to an Xccode server over the
 network. Its native types and methods are generated from the same contract as the
 [API reference](/api). Plugin RPC types come from imported RPC definitions.
 
 ## Install
 
 ```sh
-bun add @opencode/client
+bun add @xccode/client
 ```
 
 ## Create a client
@@ -19,9 +19,9 @@ bun add @opencode/client
 Create a client with the server URL, then call methods grouped by API resource:
 
 ```ts
-import { OpenCode } from "@opencode/client"
+import { Xccode } from "@xccode/client"
 
-const client = OpenCode.make({
+const client = Xccode.make({
   baseUrl: "http://localhost:4096",
 })
 
@@ -37,17 +37,17 @@ await client.session.prompt({
 
 ## Headers and requests
 
-Pass default authentication or application headers to `OpenCode.make` with
+Pass default authentication or application headers to `Xccode.make` with
 `headers`. You can also supply a custom `fetch` implementation. Each operation
 accepts request options as its final argument for an `AbortSignal` or
 per-request headers. Event subscriptions are the exception: they accept only
 subscriber-local cancellation and use the base client's headers.
 
 ```ts
-const client = OpenCode.make({
-  baseUrl: "https://opencode.example.com",
+const client = Xccode.make({
+  baseUrl: "https://xccode.example.com",
   headers: {
-    authorization: `Bearer ${process.env.OPENCODE_TOKEN}`,
+    authorization: `Bearer ${process.env.XCCODE_TOKEN}`,
   },
 })
 
@@ -91,8 +91,8 @@ for await (const event of client.event.subscribe({ types: ["config.updated"] }))
 Import a plugin's shared contract and pass it to `client.rpc`:
 
 ```ts
-import { OpenCode } from "@opencode/client"
-import { Acme } from "opencode-acme-plugin/rpc"
+import { Xccode } from "@xccode/client"
+import { Acme } from "xccode-acme-plugin/rpc"
 
 const acme = client.rpc(Acme)
 const result = await acme.search(
@@ -149,7 +149,7 @@ definition and registration API. Any HTTP client can also invoke the generic
 
 The main client entrypoints are browser-compatible and do not include local
 process management. In a Node application, import the native Promise service
-API from `@opencode/client/service`.
+API from `@xccode/client/service`.
 
 - `Service.discover()` returns a healthy registered endpoint without starting
   a process.
@@ -158,11 +158,11 @@ API from `@opencode/client/service`.
 - `Service.headers(endpoint)` creates the authentication headers for a client.
 
 ```ts
-import { OpenCode } from "@opencode/client"
-import { Service } from "@opencode/client/service"
+import { Xccode } from "@xccode/client"
+import { Service } from "@xccode/client/service"
 
 const endpoint = await Service.ensure()
-const client = OpenCode.make({
+const client = Xccode.make({
   baseUrl: endpoint.url,
   headers: Service.headers(endpoint),
 })
@@ -176,9 +176,9 @@ compatibility predicate:
 
 ```ts
 const endpoint = await Service.ensure({
-  file: "/var/run/opencode/service.json",
+  file: "/var/run/xccode/service.json",
   version: (version) => version.startsWith("2."),
-  command: ["opencode", "serve", "--service"],
+  command: ["xccode", "serve", "--service"],
   onStart(reason, previousVersion) {
     console.log(reason, previousVersion)
   },
@@ -186,4 +186,4 @@ const endpoint = await Service.ensure({
 ```
 
 Omit these options to use the standard registration path and
-`opencode serve --service` command.
+`xccode serve --service` command.

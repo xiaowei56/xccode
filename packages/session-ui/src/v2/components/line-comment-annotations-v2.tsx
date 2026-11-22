@@ -9,13 +9,13 @@ import {
   type SavedLineComment,
 } from "../../components/line-comment-annotations"
 import { viewCommentItem } from "../../components/line-comment-machine"
-import { useI18n } from "@opencode/ui/context/i18n"
+import { useI18n } from "@xccode/ui/context/i18n"
 import {
   LineCommentEditor,
   LineComment,
   type LineCommentEditorMention,
   type LineCommentEditorProps,
-} from "@opencode/ui/line-comment"
+} from "@xccode/ui/line-comment"
 
 export type LineCommentSendAction = {
   label: string

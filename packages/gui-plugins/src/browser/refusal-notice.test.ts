@@ -47,7 +47,7 @@ test("external app launches need a known scheme and a non-agent request; unsafe 
     "oc",
     "javascript",
     "chrome-extension",
-    "opencode",
+    "xccode",
     "ms-msdt",
     "search-ms",
     "ms-officecmd",

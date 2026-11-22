@@ -2,11 +2,11 @@ import { describe, expect } from "bun:test"
 import path from "node:path"
 import { Effect, Fiber, SubscriptionRef } from "effect"
 import { TestClock } from "effect/testing"
-import { ClaudeSessions } from "@opencode/core/plugin/provider/claude-agent/claude/sessions"
-import { ClaudeAgentLanguageModel } from "@opencode/core/plugin/provider/claude-agent/language-model/claude-agent-language-model"
-import { RequestKind } from "@opencode/core/plugin/provider/claude-agent/language-model/request-kind"
-import { ClaudeSystemPrompt } from "@opencode/core/plugin/provider/claude-agent/language-model/system-prompt"
-import { SessionRecord } from "@opencode/core/plugin/provider/claude-agent/sync/record"
+import { ClaudeSessions } from "@xccode/core/plugin/provider/claude-agent/claude/sessions"
+import { ClaudeAgentLanguageModel } from "@xccode/core/plugin/provider/claude-agent/language-model/claude-agent-language-model"
+import { RequestKind } from "@xccode/core/plugin/provider/claude-agent/language-model/request-kind"
+import { ClaudeSystemPrompt } from "@xccode/core/plugin/provider/claude-agent/language-model/system-prompt"
+import { SessionRecord } from "@xccode/core/plugin/provider/claude-agent/sync/record"
 import { it } from "../../../../lib/effect"
 import { FakeClaude } from "../lib/fake-claude"
 import { TestSessions } from "../lib/sessions"
@@ -219,7 +219,7 @@ describe("Claude sessions", () => {
       yield* Effect.addFinalizer(() => registry.close())
       const sessions = yield* registry.attach(test.input)
       const model = yield* TestSessions.model(sessions)
-      // OpenCode may save no assistant text when cancellation happens early.
+      // Xccode may save no assistant text when cancellation happens early.
       const prompt = [...first, { role: "user" as const, content: [{ type: "text" as const, text: "Continue" }] }]
       expect(TestSessions.text(yield* TestSessions.reply(model, prompt))).toBe("COPPER-OTTER")
       expect(claude.runs[1]!.args).toContain(`--resume=${saved.claudeSessionID}`)
@@ -232,7 +232,7 @@ describe("Claude sessions", () => {
     }),
   )
 
-  it.effect("chat keeps the Claude Code preset when OpenCode's built-in prompt changes", () =>
+  it.effect("chat keeps the Claude Code preset when Xccode's built-in prompt changes", () =>
     Effect.gen(function* () {
       const claude = FakeClaude.make([
         FakeClaude.expectStartup(),
@@ -243,13 +243,13 @@ describe("Claude sessions", () => {
       const test = yield* TestSessions.start(claude)
       yield* TestSessions.reply(test.model, first)
       const prompt = TestSessions.followup()
-      prompt[0] = { role: "system", content: "A changed OpenCode built-in agent prompt" }
+      prompt[0] = { role: "system", content: "A changed Xccode built-in agent prompt" }
       yield* TestSessions.reply(test.model, prompt)
       expect(claude.runs).toHaveLength(1)
       const run = claude.runs[0]!
       const init = run.received.find((message) => message.request?.subtype === "initialize").request
       expect(init.systemPrompt).toBeUndefined()
-      expect(JSON.stringify(run.received)).not.toContain("A changed OpenCode built-in agent prompt")
+      expect(JSON.stringify(run.received)).not.toContain("A changed Xccode built-in agent prompt")
       yield* test.registry.close()
       claude.check()
     }),
@@ -437,21 +437,21 @@ describe("Claude sessions", () => {
         FakeClaude.expectInterrupt(),
       ])
       const test = yield* TestSessions.start(claude)
-      // OpenCode's session hooks set these on chats and branches alike.
+      // Xccode's session hooks set these on chats and branches alike.
       const settings = {
         "claude-agent": {
           [ClaudeSystemPrompt.AGENT_OPTION]: "AGENT-ROLE",
-          [ClaudeSystemPrompt.INSTRUCTIONS_OPTION]: "OPENCODE-INSTRUCTIONS",
+          [ClaudeSystemPrompt.INSTRUCTIONS_OPTION]: "XCCODE-INSTRUCTIONS",
         },
       }
       yield* TestTools.step(test.model, first, TestTools.tools, "primary", settings)
       const parts = yield* TestTools.step(test.model, TestSessions.followup(), TestTools.tools, "generate", settings)
       const chat = claude.runs[0]!.received.find((message) => message.request?.subtype === "initialize").request
       const branch = claude.runs[1]!.received.find((message) => message.request?.subtype === "initialize").request
-      expect(chat.sdkMcpServers).toEqual(["opencode"])
+      expect(chat.sdkMcpServers).toEqual(["xccode"])
       expect(branch.sdkMcpServers).toEqual(chat.sdkMcpServers)
       expect(chat.appendSystemPrompt).toContain("AGENT-ROLE")
-      expect(chat.appendSystemPrompt).toContain("OPENCODE-INSTRUCTIONS")
+      expect(chat.appendSystemPrompt).toContain("XCCODE-INSTRUCTIONS")
       expect(branch.appendSystemPrompt).toBe(chat.appendSystemPrompt)
       // The reply ends at the tool call, and the throwaway process and fork are cleaned up.
       expect(parts.filter((part) => part.type === "tool-call")).toHaveLength(2)

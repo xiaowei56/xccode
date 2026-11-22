@@ -35,7 +35,7 @@ function isColor(value: unknown): value is Color {
 // Key order differs between documents, so tokens are listed by sorted path.
 const paths = sections
   .flatMap((section) =>
-    flatten(resolveThemeDocument(parseTheme(allThemes().opencode, "opencode"), "dark")[section], section),
+    flatten(resolveThemeDocument(parseTheme(allThemes().xccode, "xccode"), "dark")[section], section),
   )
   .map(([path]) => path)
   .sort()
@@ -127,7 +127,7 @@ for (const [name, palette] of Object.entries(palettes)) {
 }
 
 // Custom themes that fail to load, with the message the theme-error toast shows.
-const valid = allThemes().opencode as Record<string, unknown>
+const valid = allThemes().xccode as Record<string, unknown>
 const broken: Record<string, unknown> = {
   "v1-missing-reference": { theme: { ...(allThemes().aura as { theme: object }).theme, primary: "nope" } },
   "v1-circular": { defs: { a: "b", b: "a" }, theme: { ...(allThemes().aura as { theme: object }).theme, primary: "a" } },

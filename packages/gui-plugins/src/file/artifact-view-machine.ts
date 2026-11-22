@@ -1,5 +1,5 @@
-import type { FileContent } from "@opencode/plugin/gui"
-import { artifactKind, type ArtifactKind } from "@opencode/util/artifact"
+import type { FileContent } from "@xccode/plugin/gui"
+import { artifactKind, type ArtifactKind } from "@xccode/util/artifact"
 
 export type ArtifactMode = "preview" | "source"
 

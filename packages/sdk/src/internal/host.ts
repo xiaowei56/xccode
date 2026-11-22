@@ -1,14 +1,14 @@
 export * as EmbeddedHost from "./host"
 
-import { SdkPlugins } from "@opencode/core/plugin/sdk"
-import type { Plugin } from "@opencode/plugin/effect/plugin"
-import { SessionRestart } from "@opencode/core/session/execution/restart"
-import { Session } from "@opencode/core/session"
-import { Workspace } from "@opencode/core/workspace"
-import { WorkspaceDriver } from "@opencode/core/workspace/driver"
-import { createEmbeddedRoutes } from "@opencode/server/routes"
-import type { ServerOptions } from "@opencode/server/options"
-import type { LayerNode } from "@opencode/util/effect/layer-node"
+import { SdkPlugins } from "@xccode/core/plugin/sdk"
+import type { Plugin } from "@xccode/plugin/effect/plugin"
+import { SessionRestart } from "@xccode/core/session/execution/restart"
+import { Session } from "@xccode/core/session"
+import { Workspace } from "@xccode/core/workspace"
+import { WorkspaceDriver } from "@xccode/core/workspace/driver"
+import { createEmbeddedRoutes } from "@xccode/server/routes"
+import type { ServerOptions } from "@xccode/server/options"
+import type { LayerNode } from "@xccode/util/effect/layer-node"
 import { Context, Effect, Layer, ManagedRuntime, Scope } from "effect"
 import { HttpEffect, HttpRouter, HttpServer, HttpServerRequest } from "effect/http"
 import { context, layer, type LogOptions } from "../logging"
@@ -22,7 +22,7 @@ export interface CreateOptions<R = never> extends Omit<ServerOptions, "hostname"
   readonly instances?: SdkInstances.Options<R>
 }
 
-/** Host hooks for embedding opencode on a non-default runtime profile. */
+/** Host hooks for embedding xccode on a non-default runtime profile. */
 export interface EmbedOptions {
   readonly overrides?: LayerNode.Replacements
 }

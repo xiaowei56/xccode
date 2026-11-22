@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, setSystemTime, test } from "bu
 import { mkdtemp, readFile, rm } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
-import type { BuiltinMainStorage, MainStoreFrom } from "@opencode/plugin/gui/builtin"
+import type { BuiltinMainStorage, MainStoreFrom } from "@xccode/plugin/gui/builtin"
 import { earlierVisits } from "./earlier"
 import { MAX_PAGES, type PageVisit } from "./page"
 import { createHistoryStore, type HistoryStore } from "./store"
@@ -21,7 +21,7 @@ const page = (url: string, title: string, visits: number, days: number, typed = 
 
 const rune = "https://github.com/anomalyco/rune-desktop"
 
-const opencode = "https://github.com/anomalyco/opencode"
+const xccode = "https://github.com/xiaowei56/xccode"
 
 const opentui = "https://github.com/sst/opentui"
 
@@ -35,7 +35,7 @@ const dashboard = "http://localhost:3000/dashboard"
 
 const seeded = [
   page(rune, "anomalyco/rune-desktop: Rune for the desktop", 40, 1, 2),
-  page(opencode, "anomalyco/opencode: The open source coding agent", 120, 0, 5),
+  page(xccode, "xiaowei56/xccode: The open source coding agent", 120, 0, 5),
   page(opentui, "sst/opentui", 30, 3),
   page(essence, "Rune essence - The RuneScape Wiki", 3, 200),
   page(pruned, "Pruned trees", 500, 0),
@@ -76,13 +76,13 @@ describe("what the address field finds", () => {
     ["rune anom", [rune]],
     // The typed text begins a host: its front page leads with the visits of all its pages, then pages by how often
     // and how recently they were visited, whether the address or only the title matches.
-    ["gith", ["https://github.com/", opencode, rune, opentui, keynote]],
-    ["GITH", ["https://github.com/", opencode, rune, opentui, keynote]],
+    ["gith", ["https://github.com/", xccode, rune, opentui, keynote]],
+    ["GITH", ["https://github.com/", xccode, rune, opentui, keynote]],
     ["github.com/anomalyco/ru", [rune]],
     ["https://github.com/sst", [opentui]],
     ["desktop", [rune]],
     // Inside a word only: by visits and recency.
-    ["hub", [opencode, rune, opentui, keynote]],
+    ["hub", [xccode, rune, opentui, keynote]],
     // The front page keeps the scheme and the port of the pages visited.
     ["local", ["http://localhost:3000/", dashboard]],
     ["nothing-like-this", []],
@@ -169,9 +169,9 @@ test("the pages a window kept before the store existed come over once, web pages
 })
 
 test.each([
-  ["opencode.global.dat\nplugin.browser.history"],
+  ["xccode.global.dat\nplugin.browser.history"],
   // Where builds before the plugin rename kept the list.
-  ["opencode.global.dat\nextension.browser.history"],
+  ["xccode.global.dat\nextension.browser.history"],
 ])("the windows' list is read from %p, where every window stores it, and stays theirs", (home) => {
   const listed = { visits: [{ url: "https://kept.test/", title: "Kept", icon: "data:image/png;base64,AAAA" }] }
   const removed: [string, boolean][] = []

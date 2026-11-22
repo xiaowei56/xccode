@@ -1,7 +1,7 @@
-import { Icon } from "@opencode/ui/icon"
-import { Menu } from "@opencode/ui/menu"
+import { Icon } from "@xccode/ui/icon"
+import { Menu } from "@xccode/ui/menu"
 import { Popover } from "@kobalte/core/popover"
-import { createOverlayFocus } from "@opencode/ui/context/overlay-focus"
+import { createOverlayFocus } from "@xccode/ui/context/overlay-focus"
 import { createMemo, For, Match, Show, Switch, untrack, type Accessor, type JSX } from "solid-js"
 import { createStore } from "solid-js/store"
 import {
@@ -12,7 +12,7 @@ import {
   type IconName,
   type MountedSession,
   type SessionScreen,
-} from "@opencode/plugin/gui"
+} from "@xccode/plugin/gui"
 import { usePluginHost } from "@/runtime/plugin/host"
 import { Contribution } from "@/runtime/plugin/render"
 import { composerLanePlacement, type useComposerLaneAlignment } from "./composer-lane"

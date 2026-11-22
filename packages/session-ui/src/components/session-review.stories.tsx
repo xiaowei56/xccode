@@ -3,7 +3,7 @@ import { parseDiffFromFile } from "@pierre/diffs"
 import { CurrentSessionProviders } from "../storybook/current-session-story"
 import { editThenTestDocument, reviewDiffs } from "../storybook/current-session-fixtures"
 import { File } from "./file"
-import { Button } from "@opencode/ui/button"
+import { Button } from "@xccode/ui/button"
 import { SessionReview, type SessionReviewComment, type SessionReviewFocus } from "./session-review"
 
 type ReviewArgs = { split: boolean; empty: boolean; disableLineNumbers: boolean; overflow: "wrap" | "scroll" }
@@ -26,7 +26,7 @@ function ReviewStory(props: ReviewArgs) {
 }
 
 export default {
-  title: "OpenCode/Review/Changed files",
+  title: "Xccode/Review/Changed files",
   id: "components-session-review",
   component: SessionReview,
   parameters: {
@@ -153,7 +153,7 @@ export const FocusedComment = { render: () => <FocusedCommentStory /> }
 
 const gitDiffs = [
   {
-    // OpenCode 93e1f383dd79683af4fc5ad139cea0516603c838, unchanged git-show output.
+    // Xccode 93e1f383dd79683af4fc5ad139cea0516603c838, unchanged git-show output.
     file: "packages/session-ui/src/components/file.tsx",
     additions: 1,
     deletions: 1,
@@ -173,7 +173,7 @@ index 704971b014..4876731cbd 100644
 `,
   },
   {
-    // OpenCode 497a24c17d, unchanged git-show output.
+    // Xccode 497a24c17d, unchanged git-show output.
     file: "packages/core/src/session/runner/retry.ts",
     additions: 1,
     deletions: 1,
@@ -200,7 +200,7 @@ export const InlineChanges = {
     <CurrentSessionProviders document={editThenTestDocument}>
       <div class="mx-auto h-screen min-h-[620px] w-full max-w-[1100px] overflow-hidden bg-background-base">
         <SessionReview
-          title="OpenCode Git history"
+          title="Xccode Git history"
           diffs={gitDiffs}
           open={gitDiffs.map((diff) => diff.file)}
           split={args.split}

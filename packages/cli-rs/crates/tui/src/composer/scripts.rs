@@ -1,6 +1,6 @@
 //! Scripts tab: the Code Mode scripts the session runs in the background (`scripts-tab.tsx`).
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     JobInfo, SessionMessageAssistantContentItem, SessionMessageAssistantToolState, SessionMessageInfo,
 };
 use opentui::prelude::Container;
@@ -166,7 +166,7 @@ pub(super) fn draw(inner: &Rc<Inner>, tui: &Tui, theme: &Theme) -> Vec<(String, 
 /// Seconds under a minute, else `Locale.duration`.
 fn elapsed(ms: f64) -> String {
     let ms = ms.max(0.0);
-    if ms < 60_000.0 { format!("{}s", (ms / 1000.0).floor()) } else { opencode_ui::locale::duration(ms) }
+    if ms < 60_000.0 { format!("{}s", (ms / 1000.0).floor()) } else { xccode_ui::locale::duration(ms) }
 }
 
 /// `scriptLabel`: a script moved to the background ends its `execute` call with the job's ID, and its first line

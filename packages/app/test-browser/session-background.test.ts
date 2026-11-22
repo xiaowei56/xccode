@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { JobInfo, SessionInfo, SessionMessageAssistantTool, ShellInfo } from "@opencode/client/promise"
+import type { JobInfo, SessionInfo, SessionMessageAssistantTool, ShellInfo } from "@xccode/client/promise"
 import { createRoot } from "solid-js"
 import { createStore } from "solid-js/store"
 import { createSessionBackground } from "@/session/requests/background"

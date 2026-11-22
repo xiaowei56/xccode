@@ -1,12 +1,12 @@
-import { SessionMessage } from "@opencode/core/session/message"
-import { Session } from "@opencode/core/session"
+import { SessionMessage } from "@xccode/core/session/message"
+import { Session } from "@xccode/core/session"
 import { Effect, Option, Schema } from "effect"
 import { HttpServerResponse } from "effect/http"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"
 import { wantsMediaRefs } from "../media-uri"
-import { InvalidCursorError } from "@opencode/protocol/errors"
-import { SessionMediaMessagesResponse } from "@opencode/protocol/groups/message"
+import { InvalidCursorError } from "@xccode/protocol/errors"
+import { SessionMediaMessagesResponse } from "@xccode/protocol/groups/message"
 import { failedMessageDecode, missingSession } from "./session-error"
 
 const DefaultMessagesLimit = 50

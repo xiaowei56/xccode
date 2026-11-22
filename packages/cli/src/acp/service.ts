@@ -1,9 +1,9 @@
-import type { OpenCodeClient } from "@opencode/client/effect"
-import { AbsolutePath } from "@opencode/schema/schema"
-import { Session } from "@opencode/schema/session"
-import { FSUtil } from "@opencode/util/fs-util"
+import type { XccodeClient } from "@xccode/client/effect"
+import { AbsolutePath } from "@xccode/schema/schema"
+import { Session } from "@xccode/schema/session"
+import { FSUtil } from "@xccode/util/fs-util"
 import { DateTime, Effect, Ref, Schema } from "effect"
-import { withTimestampedFallback } from "@opencode/util/session-title-fallback"
+import { withTimestampedFallback } from "@xccode/util/session-title-fallback"
 import type {
   AuthenticateRequest,
   AuthenticateResponse,
@@ -33,7 +33,7 @@ import type {
   SetSessionModeRequest,
   SetSessionModeResponse,
 } from "@agentclientprotocol/sdk"
-import { OPENCODE_VERSION } from "../version"
+import { XCCODE_VERSION } from "../version"
 import { ACPCapabilities, type Capabilities } from "./capabilities"
 import type { ACPCatalog } from "./catalog"
 import { ACPClient } from "./client"
@@ -45,7 +45,7 @@ import { ACPReplay } from "./replay"
 import type { ACPSessions, Attached, SupportedMcpServer } from "./sessions"
 import type { ACPTurn } from "./turn"
 
-const AuthMethodID = "opencode-login"
+const AuthMethodID = "xccode-login"
 
 export interface Interface {
   readonly initialize: (input: InitializeRequest) => Effect.Effect<InitializeResponse>
@@ -67,7 +67,7 @@ export interface Interface {
 }
 
 export function make(input: {
-  readonly client: OpenCodeClient
+  readonly client: XccodeClient
   readonly connection: ACPConnection.Interface
   readonly catalog: ACPCatalog.Interface
   readonly sessions: ACPSessions.Interface
@@ -120,14 +120,14 @@ export function make(input: {
     initialize: Effect.fnUntraced(function* (params) {
       yield* Ref.set(input.capabilities, ACPCapabilities.parse(params.clientCapabilities))
       const authMethod: AuthMethod = {
-        description: "Run `opencode auth login` in the terminal",
-        name: "Login with opencode",
+        description: "Run `xccode auth login` in the terminal",
+        name: "Login with xccode",
         id: AuthMethodID,
         ...(params.clientCapabilities?.auth?.terminal ? { type: "terminal" as const, args: ["--login"] } : {}),
       }
       if (params.clientCapabilities?._meta?.["terminal-auth"] === true) {
         authMethod._meta = {
-          "terminal-auth": { command: "opencode", args: ["auth", "login"], label: "OpenCode Login" },
+          "terminal-auth": { command: "xccode", args: ["auth", "login"], label: "Xccode Login" },
         }
       }
       return {
@@ -141,7 +141,7 @@ export function make(input: {
         },
         authMethods: [authMethod],
         _meta: { steering: { supported: true } },
-        agentInfo: { name: "OpenCode", version: OPENCODE_VERSION },
+        agentInfo: { name: "Xccode", version: XCCODE_VERSION },
       }
     }),
     authenticate: Effect.fnUntraced(function* (params) {

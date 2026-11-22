@@ -1,7 +1,7 @@
 //! Scrollback is immutable, so its colors use palette slots that still track terminal palette changes. Mono mode uses
 //! only terminal defaults.
 
-use opencode_ui::theme::{
+use xccode_ui::theme::{
     Catalog, TerminalColors, Theme as UiTheme, ThemeMode, discover, generate_system, terminal_mode,
 };
 use opentui::style::Intent;
@@ -95,7 +95,7 @@ pub struct RunTheme {
 /// What the theme is resolved from.
 #[derive(Clone, Debug, Default)]
 pub struct ThemeInput {
-    /// `theme.name` from `cli.json`, `opencode` when unset.
+    /// `theme.name` from `cli.json`, `xccode` when unset.
     pub name: Option<String>,
     /// `theme.mode` from `cli.json`, used when the terminal does not report its background.
     pub mode: Option<ThemeMode>,
@@ -112,7 +112,7 @@ pub fn resolve(input: &ThemeInput) -> RunTheme {
     if input.mono {
         return mono(mode);
     }
-    let name = input.name.as_deref().unwrap_or("opencode");
+    let name = input.name.as_deref().unwrap_or("xccode");
     let indexed = indexed(input.palette.as_ref());
     if name == "system" && colors.is_none() {
         return map(&fallback(mode), &indexed, false);
@@ -124,7 +124,7 @@ pub fn resolve(input: &ThemeInput) -> RunTheme {
     } else if let Ok(custom) = discover(&input.directories) {
         catalog.set_custom(custom);
     }
-    // Mini keeps the terminal background, so a theme without this mode falls back to opencode.
+    // Mini keeps the terminal background, so a theme without this mode falls back to xccode.
     let resolved = catalog.load(name, mode).ok().filter(|loaded| loaded.mode == mode).map(|loaded| loaded.theme);
     let system = name == "system" && resolved.is_some();
     let theme = resolved.unwrap_or_else(|| fallback(mode));
@@ -136,7 +136,7 @@ pub fn resolve(input: &ThemeInput) -> RunTheme {
 }
 
 fn fallback(mode: ThemeMode) -> UiTheme {
-    Catalog::default().load("opencode", mode).expect("the built-in opencode theme resolves").theme
+    Catalog::default().load("xccode", mode).expect("the built-in xccode theme resolves").theme
 }
 
 /// The 256 palette slots: the terminal's colors where it reported them, else xterm's.
@@ -186,7 +186,7 @@ fn map(theme: &UiTheme, indexed: &[(u8, Color)], system: bool) -> RunTheme {
             categorical.push(color);
         }
     }
-    let mut syntax = opencode_ui::code::syntax_theme(theme);
+    let mut syntax = xccode_ui::code::syntax_theme(theme);
     let names: Vec<String> = syntax.names().map(str::to_owned).collect();
     for name in names {
         if let Some(mut style) = syntax.get(&name) {
@@ -195,7 +195,7 @@ fn map(theme: &UiTheme, indexed: &[(u8, Color)], system: bool) -> RunTheme {
             syntax.set(name, style);
         }
     }
-    let markdown = opencode_ui::markdown::colors(theme);
+    let markdown = xccode_ui::markdown::colors(theme);
     RunTheme {
         background: terminal_default(theme.background.base),
         footer: FooterTheme {

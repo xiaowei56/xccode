@@ -7,12 +7,12 @@ use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use opencode_api::client::Auth;
-use opencode_api::client_mcp;
-use opencode_api::memory::{Logged, Memory, Route as MemoryRoute};
-use opencode_api::pty::{self, Incoming};
-use opencode_api::transport::{BoxFuture, Request, Response, Transport};
-use opencode_tui::{Deps, Tui};
+use xccode_api::client::Auth;
+use xccode_api::client_mcp;
+use xccode_api::memory::{Logged, Memory, Route as MemoryRoute};
+use xccode_api::pty::{self, Incoming};
+use xccode_api::transport::{BoxFuture, Request, Response, Transport};
+use xccode_tui::{Deps, Tui};
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
 
@@ -107,7 +107,7 @@ struct Harness {
     opened: Opened,
     state: PathBuf,
     next: std::cell::Cell<i64>,
-    _home: opencode_util::temp::TempDir,
+    _home: xccode_util::temp::TempDir,
 }
 
 fn mount() -> Harness {
@@ -153,7 +153,7 @@ fn mount_family() -> Harness {
 }
 
 fn mount_routes(endpoint: Option<Endpoint>, routes: Vec<MemoryRoute>) -> Harness {
-    let home = opencode_util::temp::tempdir().unwrap();
+    let home = xccode_util::temp::tempdir().unwrap();
     let paths = support::home_paths(home.path());
     let state = paths.state.clone();
     let memory = Memory::new(routes);
@@ -212,8 +212,8 @@ impl Harness {
     }
 
     fn experiment(&self, on: bool) {
-        opencode_tui::dialogs::settings::update(&self.tui, move |value| {
-            opencode_tui::dialogs::settings::set_path(value, &["experimental", "client-mcp"], json!(on));
+        xccode_tui::dialogs::settings::update(&self.tui, move |value| {
+            xccode_tui::dialogs::settings::set_path(value, &["experimental", "client-mcp"], json!(on));
         });
     }
 
@@ -279,7 +279,7 @@ impl Harness {
     fn call(&self, tool: &str, arguments: Value, session: Option<&str>) -> Value {
         let mut params = json!({ "name": tool, "arguments": arguments });
         if let Some(session) = session {
-            params["_meta"] = json!({ "ai.opencode/sessionID": session });
+            params["_meta"] = json!({ "ai.xccode/sessionID": session });
         }
         self.request("tools/call", params)["result"].clone()
     }
@@ -309,7 +309,7 @@ fn the_client_mcp_experiment_serves_the_terminal_tools() {
         let opened = harness.opened.lock().unwrap();
         (opened[0].0.clone(), opened[0].1.clone())
     };
-    assert_eq!(url, "ws://opencode.local/api/experimental/client-mcp?location%5Bdirectory%5D=%2Fproject&name=tui");
+    assert_eq!(url, "ws://xccode.local/api/experimental/client-mcp?location%5Bdirectory%5D=%2Fproject&name=tui");
     assert!(headers.is_empty());
 
     let tools = harness.request("tools/list", json!({}))["result"]["tools"].clone();
@@ -353,7 +353,7 @@ fn the_client_mcp_experiment_serves_the_terminal_tools() {
 
 #[test]
 fn the_client_mcp_socket_follows_a_restarted_service() {
-    let at = |url: &str, password: &str| (opencode_api::js::parse_url(url).unwrap(), Some(Auth::password(password)));
+    let at = |url: &str, password: &str| (xccode_api::js::parse_url(url).unwrap(), Some(Auth::password(password)));
     let endpoint = Arc::new(Mutex::new(at("http://127.0.0.1:4096/", "old")));
     let harness = mount_with(Some(endpoint.clone()));
     harness.experiment(true);
@@ -504,7 +504,7 @@ fn the_shell_output_dialog_waits_while_the_server_holds_back_a_live_character() 
     // its cursor before `€` (#63984): reading again at once would spin until the shell writes the last byte.
     let location = json!({ "directory": "/project", "project": { "id": "proj_test", "directory": "/project" } });
     let page = |cursor: &str, limit: bool, data: Value| {
-        let mut query = opencode_api::memory::Query::new();
+        let mut query = xccode_api::memory::Query::new();
         query.insert("cursor".to_owned(), vec![cursor.to_owned()]);
         query.insert("location[directory]".to_owned(), vec!["/project".to_owned()]);
         if limit {

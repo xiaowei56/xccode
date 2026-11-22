@@ -1,5 +1,5 @@
-use opencode_parity::{Fixture, compare, fixtures_dir};
-use opencode_ui::motion::{
+use xccode_parity::{Fixture, compare, fixtures_dir};
+use xccode_ui::motion::{
     FadeInText, ScannerOptions, ScannerStyle, ShimmerText, Spinner, one_cell_frame, scanner_colors, scanner_frames,
     set_running, work_spinner,
 };

@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Worktree’ni o‘chirish",
   "mcp.manage": "MCP serverlarini boshqarish",
   timedOut: "Server juda uzoq javob bermadi",
-  "setup.mcp": "OpenCode yordamida server qo‘shish",
+  "setup.mcp": "Xccode yordamida server qo‘shish",
   "setup.mcp.prompt":
-    "Global OpenCode konfiguratsiyamga MCP server qo‘shishga yordam ber. Qaysi xizmatni ulamoqchi ekanligimni so‘ra, keyin uni sozla va ulanishini tekshir.",
-  "setup.plugins": "OpenCode yordamida plagin qo‘shish",
+    "Global Xccode konfiguratsiyamga MCP server qo‘shishga yordam ber. Qaysi xizmatni ulamoqchi ekanligimni so‘ra, keyin uni sozla va ulanishini tekshir.",
+  "setup.plugins": "Xccode yordamida plagin qo‘shish",
   "setup.plugins.prompt":
-    "Global OpenCode konfiguratsiyamga plagin qo‘shishga yordam ber. U nima qilishi kerakligini so‘ra, plagin taklif qil, keyin uni qo‘sh.",
-  "setup.skills": "OpenCode yordamida yangi ko‘nikma",
+    "Global Xccode konfiguratsiyamga plagin qo‘shishga yordam ber. U nima qilishi kerakligini so‘ra, plagin taklif qil, keyin uni qo‘sh.",
+  "setup.skills": "Xccode yordamida yangi ko‘nikma",
   "setup.skills.prompt":
-    "Global konfiguratsiyamda yangi OpenCode ko‘nikmasini yozishga yordam ber. U senga nimani o‘rgatishi kerakligini so‘ra, keyin uning SKILL.md faylini yoz.",
+    "Global konfiguratsiyamda yangi Xccode ko‘nikmasini yozishga yordam ber. U senga nimani o‘rgatishi kerakligini so‘ra, keyin uning SKILL.md faylini yoz.",
   changesFailed: "O‘zgarishlarni yuklab bo‘lmadi",
   changesOffline: "Bu serverga ulanib bo‘lmayapti",
   "mcp.signIn": "Kirish",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "{{name}} tafsilotlari",
   "mcp.signIn.open": "{{name}} ga kirish",
   "mcp.signIn.description":
-    "{{name}} ga kirishingiz uchun brauzer ochiladi. Agar u OpenCode ishlayotgan kompyuterga ulana olmasa, u yo‘naltirilgan URL manzilini quyiga joylashtiring.",
+    "{{name}} ga kirishingiz uchun brauzer ochiladi. Agar u Xccode ishlayotgan kompyuterga ulana olmasa, u yo‘naltirilgan URL manzilini quyiga joylashtiring.",
   "mcp.signIn.waiting": "Avtorizatsiya kutilmoqda…",
   "mcp.signIn.failed": "Avtorizatsiya amalga oshmadi: {{error}}",
   "mcp.signIn.expired": "Avtorizatsiya muddati tugadi",

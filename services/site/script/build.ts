@@ -64,7 +64,7 @@ await cp(output, assets, {
   filter: (file) => !inBucket(path.relative(output, file)),
 })
 const shipped = await Array.fromAsync(new Bun.Glob("**/*").scan({ cwd: assets, dot: true }))
-// Every opencode.json and V1 TUI config names these as its $schema; /openapi.json is the protocol's.
+// Every xccode.json and V1 TUI config names these as its $schema; /openapi.json is the protocol's.
 // The V2 config names /v2/cli.json, and the docs link /docs/openapi.json.
 const fixed = ["config.json", "tui.json", "openapi.json", "v2/cli.json", "docs/openapi.json"].filter(
   (file) => !shipped.includes(file),
@@ -74,7 +74,7 @@ if (fixed.length) throw new Error(`fixed-URL files missing from Worker assets: $
 const headers = Object.entries(stageHeaders(mode)).map(([name, value]) => `  ${name}: ${value}\n`)
 if (headers.length) await appendFile(path.join(assets, "_headers"), `\n/*\n${headers.join("")}`)
 // Open pages from earlier builds keep loading their code after this deploy (script/retain-assets.ts).
-await retainAssets(assets, mode === "dev" ? "https://dev.opencode.ai" : "https://opencode.ai")
+await retainAssets(assets, mode === "dev" ? "https://dev.xccode.ai" : "https://xccode.ai")
 await writeAssets({ root, sourceDirectory: assets })
 
 const bundle = getWorkerBundleDir(root)

@@ -32,7 +32,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Diagnostikimi i memories: regjistron memorien e aplikacionit në regjistrat e desktopit çdo 30 sekonda. Mbetet aktiv pas rinisjeve derisa të çaktivizohet; shiriti mbetet i hapur ndërsa ekzekutohet.",
-  "memory.tipEnv": "Diagnostikimi i memories është aktiv për këtë nisje: OPENCODE_DESKTOP_MEMORY_LOG është vendosur.",
+  "memory.tipEnv": "Diagnostikimi i memories është aktiv për këtë nisje: XCCODE_DESKTOP_MEMORY_LOG është vendosur.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

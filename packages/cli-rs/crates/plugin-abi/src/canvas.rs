@@ -391,12 +391,12 @@ fn char_at(bytes: &[u8]) -> Option<char> {
 /// The SDK's builder of a list: each call appends one operation.
 ///
 /// ```
-/// use opencode_plugin_abi::Rgba;
-/// use opencode_plugin_abi::canvas::{List, Style};
+/// use xccode_plugin_abi::Rgba;
+/// use xccode_plugin_abi::canvas::{List, Style};
 ///
 /// let mut list = List::new();
 /// list.fill(0, 0, 10, 1, Rgba::new(0, 0, 80, 255)).text(1, 0, "score 120", Style::new().fg(Rgba::new(255, 255, 255, 255)));
-/// assert!(opencode_plugin_abi::canvas::check(list.as_bytes()).is_ok());
+/// assert!(xccode_plugin_abi::canvas::check(list.as_bytes()).is_ok());
 /// ```
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct List {

@@ -1,15 +1,15 @@
-import { SessionMessage } from "@opencode/schema/session-message"
-import { SessionInbox } from "@opencode/schema/session-inbox"
-import { PromptInput } from "@opencode/schema/prompt-input"
-import { Session } from "@opencode/schema/session"
-import { SessionStats } from "@opencode/schema/session-stats"
-import { TokenUsage } from "@opencode/schema/token-usage"
-import { Money } from "@opencode/schema/money"
-import { InstructionEntry } from "@opencode/schema/instruction-entry"
-import { Project } from "@opencode/schema/project"
-import { DateTimeUtcFromMillis, NonNegativeInt, PositiveInt } from "@opencode/schema/schema"
-import { Event } from "@opencode/schema/event"
-import { SessionLegacy } from "@opencode/schema/session-legacy"
+import { SessionMessage } from "@xccode/schema/session-message"
+import { SessionInbox } from "@xccode/schema/session-inbox"
+import { PromptInput } from "@xccode/schema/prompt-input"
+import { Session } from "@xccode/schema/session"
+import { SessionStats } from "@xccode/schema/session-stats"
+import { TokenUsage } from "@xccode/schema/token-usage"
+import { Money } from "@xccode/schema/money"
+import { InstructionEntry } from "@xccode/schema/instruction-entry"
+import { Project } from "@xccode/schema/project"
+import { DateTimeUtcFromMillis, NonNegativeInt, PositiveInt } from "@xccode/schema/schema"
+import { Event } from "@xccode/schema/event"
+import { SessionLegacy } from "@xccode/schema/session-legacy"
 import { Context, Schema, SchemaGetter, Struct } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiMiddleware, HttpApiSchema, OpenApi } from "effect/http-api"
 import {
@@ -29,15 +29,15 @@ import {
   SkillNotFoundError,
   UnknownError,
 } from "../errors.js"
-import { Agent } from "@opencode/schema/agent"
-import { Skill } from "@opencode/schema/skill"
-import { Model } from "@opencode/schema/model"
-import { Permission } from "@opencode/schema/permission"
-import { Location } from "@opencode/schema/location"
-import { SessionEvent } from "@opencode/schema/session-event"
-import { EventLog } from "@opencode/schema/event-log"
-import { FileDiff } from "@opencode/schema/file-diff"
-import { Form } from "@opencode/schema/form"
+import { Agent } from "@xccode/schema/agent"
+import { Skill } from "@xccode/schema/skill"
+import { Model } from "@xccode/schema/model"
+import { Permission } from "@xccode/schema/permission"
+import { Location } from "@xccode/schema/location"
+import { SessionEvent } from "@xccode/schema/session-event"
+import { EventLog } from "@xccode/schema/event-log"
+import { FileDiff } from "@xccode/schema/file-diff"
+import { Form } from "@xccode/schema/form"
 import { PublicSessionMessage } from "./message.js"
 
 const SessionActive = Schema.Struct({
@@ -229,7 +229,7 @@ export const makeSessionGroup = <I extends HttpApiMiddleware.AnyId, S, FormI ext
           identifier: "session.active",
           summary: "List active sessions",
           description:
-            "Retrieve foreground Session drains currently owned by this OpenCode process. Sessions absent from the result are inactive.",
+            "Retrieve foreground Session drains currently owned by this Xccode process. Sessions absent from the result are inactive.",
         }),
       ),
     )
@@ -681,7 +681,7 @@ export const makeSessionGroup = <I extends HttpApiMiddleware.AnyId, S, FormI ext
         query: { resume: BooleanFromString.pipe(Schema.optional) },
         success: Schema.Struct({
           interrupted: Schema.Boolean.annotate({
-            description: "Whether an active execution owned by this OpenCode process was interrupted.",
+            description: "Whether an active execution owned by this Xccode process was interrupted.",
           }),
         }).annotate({ identifier: "SessionInterruptResponse" }),
         error: SessionNotFoundError,
@@ -690,7 +690,7 @@ export const makeSessionGroup = <I extends HttpApiMiddleware.AnyId, S, FormI ext
           identifier: "session.interrupt",
           summary: "Interrupt session execution",
           description:
-            "Interrupt active execution owned by this OpenCode process. Returns interrupted=true when an active execution was interrupted and false for the idle no-op. When resume=true, execution resumes pending steering input and next-in-line control items (manual compaction, moves) while queued prompts remain parked.",
+            "Interrupt active execution owned by this Xccode process. Returns interrupted=true when an active execution was interrupted and false for the idle no-op. When resume=true, execution resumes pending steering input and next-in-line control items (manual compaction, moves) while queued prompts remain parked.",
         }),
       ),
     )

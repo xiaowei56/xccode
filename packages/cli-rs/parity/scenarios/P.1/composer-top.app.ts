@@ -1,6 +1,6 @@
 // The session.composer.top slot (P.1, E.13b): the test plugin's line shows under the queued dock and above the
 // prompt, and stays above the composer when Down opens it and the dock hides. TS loads the plugin from
-// parity/plugins/slot as a local plugin; Rust registers its twin when OPENCODE_PARITY_PLUGIN is `slot`.
+// parity/plugins/slot as a local plugin; Rust registers its twin when XCCODE_PARITY_PLUGIN is `slot`.
 import { assistant, defineApp, session, user } from "../../lib/app"
 
 const id = "ses_s"
@@ -11,7 +11,7 @@ const startup = { x: 39, y: 28, width: 22, height: 1, reason: "TS plugin loading
 export default defineApp({
   height: 30,
   config: { experimental: { "new-designs": true }, plugins: ["./plugins/slot"] },
-  env: { OPENCODE_PARITY_PLUGIN: "slot" },
+  env: { XCCODE_PARITY_PLUGIN: "slot" },
   args: { sessionID: id },
   routes: [
     { path: `/api/session/${id}`, json: { data: session(id, "Plan the release", { updated: 2 }) } },

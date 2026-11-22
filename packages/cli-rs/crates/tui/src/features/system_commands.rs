@@ -1,12 +1,12 @@
 //! System commands and settings toggles. Restart is unavailable because the client shares its background service.
 
-use opencode_local::cli_config::{CursorStyle, DiffWrap, Info, PromptPaste, Resolved};
+use xccode_local::cli_config::{CursorStyle, DiffWrap, Info, PromptPaste, Resolved};
 use opentui::native::{Control, MouseTracking};
 
 use crate::dialogs::settings::{set_path, update};
 use crate::prelude::*;
 
-const DOCS: &str = "https://opencode.ai/docs";
+const DOCS: &str = "https://xccode.ai/docs";
 
 pub fn install(tui: &Rc<Tui>) -> Vec<Disposer> {
     let info = tui.settings.info();
@@ -30,7 +30,7 @@ pub fn install(tui: &Rc<Tui>) -> Vec<Disposer> {
         })
         .palette(),
         command("terminal.suspend", "Suspend terminal", |tui| {
-            opencode_plugin::canvas::handover(&tui.app);
+            xccode_plugin::canvas::handover(&tui.app);
             tui.app.suspend();
         })
         .enabled(if cfg!(windows) { Condition::Never } else { Condition::Always }),

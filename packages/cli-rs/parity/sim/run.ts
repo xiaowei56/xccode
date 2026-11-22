@@ -9,7 +9,7 @@ import { cp, mkdir, rm, stat, writeFile } from "node:fs/promises"
 import { homedir } from "node:os"
 import path from "node:path"
 import { Schema } from "effect"
-import { Frontend, Handshake } from "@opencode/protocol/simulation"
+import { Frontend, Handshake } from "@xccode/protocol/simulation"
 import { applyMasks } from "../lib/app"
 import { writeFixture, type Fixture } from "../lib/cells"
 import { freePort } from "../lib/port"
@@ -32,7 +32,7 @@ const CLOCK = path.join(import.meta.dir, "clock.ts")
 const GRAMMAR_CACHE =
   process.env.PARITY_GRAMMAR_CACHE ??
   path.join(process.env.XDG_DATA_HOME ?? path.join(homedir(), ".local/share"), "opentui", "tree-sitter")
-const SANDBOX_MASK = { line: "opencode-parity-[A-Za-z0-9]{6}", reason: "the sandbox name is random" }
+const SANDBOX_MASK = { line: "xccode-parity-[A-Za-z0-9]{6}", reason: "the sandbox name is random" }
 
 const children = new Set<{ kill(signal?: number): void }>()
 const stopAll = () => children.forEach((child) => child.kill(9))
@@ -71,7 +71,7 @@ stopAll()
 process.exit(failed ? 1 : 0)
 
 async function runScenario(name: string, scenario: SimScenario) {
-  const box = await sandbox({ OPENCODE_PASSWORD: password })
+  const box = await sandbox({ XCCODE_PASSWORD: password })
   const labels = sides[0] === sides[1] ? [sides[0], `${sides[1]}2`] : sides
   const results = []
   for (const [index, side] of sides.entries()) results.push(await runSide(box, side, labels[index], scenario))
@@ -143,7 +143,7 @@ async function runScenario(name: string, scenario: SimScenario) {
 async function runSide(box: Sandbox, side: Side, label: string, scenario: SimScenario) {
   // A fresh home for each side; `work` keeps its path so paths on screen match.
   await Promise.all(
-    ["home", "tmp", "drive", "opencode-config"].map((dir) =>
+    ["home", "tmp", "drive", "xccode-config"].map((dir) =>
       rm(path.join(box.root, dir), { recursive: true, force: true }),
     ),
   )
@@ -171,7 +171,7 @@ async function runSide(box: Sandbox, side: Side, label: string, scenario: SimSce
   for (const [file, contents] of Object.entries(scenario.files ?? {}))
     await Bun.write(path.join(box.cwd, file), contents)
   await Bun.write(
-    path.join(box.env.XDG_CONFIG_HOME, "opencode", "cli.json"),
+    path.join(box.env.XDG_CONFIG_HOME, "xccode", "cli.json"),
     // The TS CLI from source is the `local` channel, which shows the DevTools bar by default.
     JSON.stringify({
       experimental: { "new-designs": true },
@@ -180,11 +180,11 @@ async function runSide(box: Sandbox, side: Side, label: string, scenario: SimSce
       ...scenario.config,
     }),
   )
-  const configDir = path.join(box.root, "opencode-config")
-  await Bun.write(path.join(configDir, "opencode.jsonc"), JSON.stringify(serverConfig(scenario), null, 2))
+  const configDir = path.join(box.root, "xccode-config")
+  await Bun.write(path.join(configDir, "xccode.jsonc"), JSON.stringify(serverConfig(scenario), null, 2))
   const registry = path.join(box.root, "drive")
   // A scenario's fixed clock: Rust reads the variable itself, and each TS process gets the preload that reads it.
-  const clock: Record<string, string> = scenario.now === undefined ? {} : { OPENCODE_DRIVE_NOW: String(scenario.now) }
+  const clock: Record<string, string> = scenario.now === undefined ? {} : { XCCODE_DRIVE_NOW: String(scenario.now) }
   const start = (side: Side, args: string[]) => {
     const cmd = command(side, args)
     return side === "ts" && scenario.now !== undefined ? [cmd[0]!, `--preload=${CLOCK}`, ...cmd.slice(1)] : cmd
@@ -206,11 +206,11 @@ async function runSide(box: Sandbox, side: Side, label: string, scenario: SimSce
   try {
     const server = spawn(start("ts", ["serve", "--port", String(serverPort)]), box, log("server.stderr"), {
       ...clock,
-      OPENCODE_SIMULATE: "1",
-      OPENCODE_DRIVE: "server",
+      XCCODE_SIMULATE: "1",
+      XCCODE_DRIVE: "server",
       DRIVE_REGISTRY_DIR: registry,
-      OPENCODE_DB: ":memory:",
-      OPENCODE_CONFIG_DIR: configDir,
+      XCCODE_DB: ":memory:",
+      XCCODE_CONFIG_DIR: configDir,
     })
     stopped.push(() => server.kill(9))
     const serverUrl = `http://127.0.0.1:${serverPort}`
@@ -225,7 +225,7 @@ async function runSide(box: Sandbox, side: Side, label: string, scenario: SimSce
     )
     await waitFor(
       `${label} backend endpoint`,
-      async () => (await readText(log("server.stderr"))).includes("opencode drive backend websocket:"),
+      async () => (await readText(log("server.stderr"))).includes("xccode drive backend websocket:"),
       60_000,
     )
     const model: { url: string; kind: string; reply: number | null; tools?: string[] }[] = []
@@ -250,15 +250,15 @@ async function runSide(box: Sandbox, side: Side, label: string, scenario: SimSce
     )
     const client = spawn(start(side, [...args, "--server", proxy.url]), box, log("client.stderr"), {
       ...clock,
-      OPENCODE_DRIVE: side,
+      XCCODE_DRIVE: side,
       DRIVE_REGISTRY_DIR: registry,
-      OPENCODE_DRIVE_RENDERER: "headless",
+      XCCODE_DRIVE_RENDERER: "headless",
       TERM: "xterm-256color",
     })
     stopped.push(() => client.kill(9))
     await waitFor(
       `${label} drive endpoint`,
-      async () => (await readText(log("client.stderr"))).includes("opencode drive ui websocket:"),
+      async () => (await readText(log("client.stderr"))).includes("xccode drive ui websocket:"),
       60_000,
     )
     const drive = await connectDrive(`ws://127.0.0.1:${uiPort}`, label)
@@ -271,7 +271,7 @@ async function runSide(box: Sandbox, side: Side, label: string, scenario: SimSce
     }
     Schema.decodeUnknownSync(Handshake.Response)(
       await result("simulation.handshake", {
-        client: { name: "opencode-parity", version: "1" },
+        client: { name: "xccode-parity", version: "1" },
         expectedRole: "ui",
         offeredVersions: [1],
         requiredCapabilities: ["ui.type", "ui.press", "ui.enter", "ui.mouse", "ui.matches", "ui.capture"],
@@ -360,7 +360,7 @@ async function runStep(
 // a history built by real turns. Returns the session IDs in order.
 async function createSessions(server: string, directory: string, sessions: NonNullable<SimScenario["sessions"]>) {
   const headers = {
-    authorization: `Basic ${Buffer.from(`opencode:${password}`).toString("base64")}`,
+    authorization: `Basic ${Buffer.from(`xccode:${password}`).toString("base64")}`,
     "content-type": "application/json",
   }
   const api = async (method: string, route: string, body?: unknown) => {
@@ -405,7 +405,7 @@ async function createSessions(server: string, directory: string, sessions: NonNu
   return ids
 }
 
-// The simulation provider of `opencode-drive`'s default config: an OpenAI-compatible provider at the default
+// The simulation provider of `xccode-drive`'s default config: an OpenAI-compatible provider at the default
 // OpenAI URL, which the simulated network routes to the backend driver.
 function serverConfig(scenario: SimScenario) {
   return {

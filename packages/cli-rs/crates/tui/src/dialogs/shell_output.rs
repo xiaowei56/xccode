@@ -1,16 +1,16 @@
 //! Interactive shell output with paging, live follow, and copy actions.
 
-use opencode_api::client::Client;
-use opencode_api::error::Error;
-use opencode_api::generated::{
+use xccode_api::client::Client;
+use xccode_api::error::Error;
+use xccode_api::generated::{
     LocationQueryInput, SessionMessageShellOutput, SessionMessageShellStatus, ShellGetInput, ShellInfo,
     ShellOutputInput,
 };
-use opencode_store::Location;
-use opencode_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
+use xccode_store::Location;
+use xccode_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
 use opentui::widget::ScrollEdge;
 
-use opencode_util::text_boundary;
+use xccode_util::text_boundary;
 use opentui::input::strip_ansi_sequences;
 
 use crate::prelude::*;
@@ -31,7 +31,7 @@ pub fn show(tui: &Tui, shell: ShellInfo, location: Location) {
 struct Poll {
     tui: Weak<Tui>,
     cx: Weak<DialogCx>,
-    id: opencode_api::generated::ShellID,
+    id: xccode_api::generated::ShellID,
     command: String,
     location: Location,
     info: RefCell<ShellInfo>,
@@ -320,7 +320,7 @@ impl Poll {
 
 async fn load(
     client: Client,
-    id: opencode_api::generated::ShellID,
+    id: xccode_api::generated::ShellID,
     directory: String,
     running: bool,
     cursor: Option<i64>,

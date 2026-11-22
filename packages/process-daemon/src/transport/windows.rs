@@ -266,7 +266,7 @@ impl Connection {
         if pid != server_pid {
             return Err(io::Error::new(
                 io::ErrorKind::PermissionDenied,
-                "named pipe server is not the registered opencode-pty daemon",
+                "named pipe server is not the registered xccode-pty daemon",
             ));
         }
         Ok(connection)
@@ -577,7 +577,7 @@ fn cancelled() -> io::Error {
 
 fn endpoint_name(endpoint: &Path) -> io::Result<Vec<u16>> {
     let value = endpoint.as_os_str().encode_wide().collect::<Vec<_>>();
-    let prefix = r"\\.\pipe\opencode-pty-".encode_utf16().collect::<Vec<_>>();
+    let prefix = r"\\.\pipe\xccode-pty-".encode_utf16().collect::<Vec<_>>();
     if !value.starts_with(&prefix)
         || value.len() == prefix.len()
         || value[prefix.len()..]
@@ -586,7 +586,7 @@ fn endpoint_name(endpoint: &Path) -> io::Result<Vec<u16>> {
     {
         return Err(io::Error::new(
             io::ErrorKind::InvalidInput,
-            "expected a local opencode-pty named-pipe endpoint",
+            "expected a local xccode-pty named-pipe endpoint",
         ));
     }
     Ok(value.into_iter().chain([0]).collect())
@@ -600,7 +600,7 @@ mod tests {
 
     fn endpoint() -> PathBuf {
         PathBuf::from(format!(
-            r"\\.\pipe\opencode-pty-{:032x}",
+            r"\\.\pipe\xccode-pty-{:032x}",
             rand::random::<u128>()
         ))
     }
@@ -784,9 +784,9 @@ mod tests {
     #[test]
     fn remote_and_non_pipe_endpoints_are_rejected() {
         for endpoint in [
-            r"\\remote\pipe\opencode-pty-test",
+            r"\\remote\pipe\xccode-pty-test",
             r"C:\tmp\pipe",
-            r"\\.\pipe\opencode-pty-test\nested",
+            r"\\.\pipe\xccode-pty-test\nested",
         ] {
             assert!(Connection::connect(Path::new(endpoint)).is_err());
             assert!(Listener::bind(Path::new(endpoint)).is_err());

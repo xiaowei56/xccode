@@ -27,17 +27,17 @@ async function fence(lang: string, text: string, meta?: string) {
 
 describe("docs code frames", () => {
   test("a shell session copies its commands, without the prompts or the output", async () => {
-    const frame = await fence("bash", "$ opencode pair\nPairing code: 123456\n$ opencode service status")
+    const frame = await fence("bash", "$ xccode pair\nPairing code: 123456\n$ xccode service status")
     expect(frame.name).toBe("CodeFrame")
     expect(attributes(frame)).toMatchObject({
       variant: "terminal",
       kind: "terminal",
-      copy: "$ opencode pair\n$ opencode service status",
+      copy: "$ xccode pair\n$ xccode service status",
     })
     // Named "Terminal" in the page's language (document.tsx).
     expect(attributes(frame).label).toBeUndefined()
     const pre = frame.children[0] as Element
-    expect(toText(pre, { whitespace: "pre" })).toBe("$ opencode pair\nPairing code: 123456\n$ opencode service status")
+    expect(toText(pre, { whitespace: "pre" })).toBe("$ xccode pair\nPairing code: 123456\n$ xccode service status")
     const tokens = (pre.children[0] as Element).children.flatMap((node) =>
       node.type === "element" ? [node.properties.dataToken] : [],
     )
@@ -45,10 +45,10 @@ describe("docs code frames", () => {
   })
 
   test("a titled block names its file, with the file's icon, and other titles stay plain labels", async () => {
-    expect(attributes(await fence("jsonc", "{}", 'title="opencode.jsonc"'))).toMatchObject({
+    expect(attributes(await fence("jsonc", "{}", 'title="xccode.jsonc"'))).toMatchObject({
       variant: "codeTitle",
       kind: "file",
-      label: "opencode.jsonc",
+      label: "xccode.jsonc",
       copy: "{}",
     })
     expect(attributes(await fence("json", "{}", 'title="theme.json (excerpt)"'))).toMatchObject({
@@ -65,12 +65,12 @@ describe("docs code frames", () => {
   })
 
   test("a box-drawn tree in a text block is the site's file tree, with nothing to copy", async () => {
-    const frame = await fence("text", ".opencode/\n└── plugins/\n    └── concise.ts")
+    const frame = await fence("text", ".xccode/\n└── plugins/\n    └── concise.ts")
     expect(attributes(frame)).toEqual({ variant: "fileTree", kind: "tree" })
     const tree = frame.children[0] as unknown as Jsx
     expect(tree.name).toBe("FileTree")
-    expect(attributes(tree).tree).toBe(".opencode/\n└── plugins/\n    └── concise.ts")
-    expect(attributes(await fence("txt", ".opencode/\n└── agents/"))).toMatchObject({ variant: "fileTree" })
+    expect(attributes(tree).tree).toBe(".xccode/\n└── plugins/\n    └── concise.ts")
+    expect(attributes(await fence("txt", ".xccode/\n└── agents/"))).toMatchObject({ variant: "fileTree" })
   })
 
   test("a diff copies the result, without the removed lines", async () => {

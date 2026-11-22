@@ -1,5 +1,5 @@
-use opencode_api::error::{DeclaredError, TaggedError};
-use opencode_api::generated::*;
+use xccode_api::error::{DeclaredError, TaggedError};
+use xccode_api::generated::*;
 use serde_json::json;
 
 #[test]

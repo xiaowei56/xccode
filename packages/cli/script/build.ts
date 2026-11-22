@@ -4,20 +4,20 @@ import { $ } from "bun"
 import { createHash } from "node:crypto"
 import { mkdir, rm } from "fs/promises"
 import path from "path"
-import { Script } from "@opencode/script"
-import { embed } from "@opencode/script/highlights"
+import { Script } from "@xccode/script"
+import { embed } from "@xccode/script/highlights"
 import { createSolidTransformPlugin } from "@opentui/solid/bun-plugin"
 import type { BunPlugin } from "bun"
 import pkg from "../package.json"
-import { discoverPluginRuntimeSpecifiers, pluginRuntimeLoaderCode } from "@opencode/plugin/runtime-modules"
+import { discoverPluginRuntimeSpecifiers, pluginRuntimeLoaderCode } from "@xccode/plugin/runtime-modules"
 import { buildAppArchive } from "./app-assets"
 import { verifyArtifact, verifySimulationGraph } from "./verify-artifact"
-import { resolveOpencodePty } from "./opencode-pty"
+import { resolveXccodePty } from "./xccode-pty"
 import { NativeArch } from "../../../script/native-arch"
 import { bundledModelsSnapshot, modelsSnapshotPlugin } from "../../core/script/models-snapshot"
 
 const dir = path.resolve(import.meta.dirname, "..")
-const binary = "opencode"
+const binary = "xccode"
 const outdir = path.resolve(
   dir,
   process.argv.find((arg) => arg.startsWith("--outdir="))?.slice("--outdir=".length) ?? "dist",
@@ -29,11 +29,11 @@ await rm(outdir, { recursive: true, force: true })
 
 const singleFlag = process.argv.includes("--single")
 const baselineFlag = process.argv.includes("--baseline")
-const requestedTarget = process.env.OPENCODE_TARGET
+const requestedTarget = process.env.XCCODE_TARGET
 const skipInstall = process.argv.includes("--skip-install")
 const skipWebUi = process.argv.includes("--skip-web-ui")
 const solidPlugin = createSolidTransformPlugin()
-const highlights = Script.preview ? undefined : embed(process.env.OPENCODE_RELEASE_NOTES)
+const highlights = Script.preview ? undefined : embed(process.env.XCCODE_RELEASE_NOTES)
 const releaseAssets = new Map<string, Promise<Map<string, string>>>()
 const modelsSnapshot = modelsSnapshotPlugin(await bundledModelsSnapshot())
 
@@ -71,17 +71,17 @@ if (!targets.length) throw new Error(`Unknown build target: ${requestedTarget}`)
 
 // Bun 1.4.4 skips native packages for the other libc by default, but the musl targets need them.
 if (!skipInstall)
-  await $`bun install --os="*" --cpu="*" --libc="*" @opentui/core@${pkg.dependencies["@opentui/core"]} @opencode/pty@${pkg.dependencies["@opencode/pty"]}`
+  await $`bun install --os="*" --cpu="*" --libc="*" @opentui/core@${pkg.dependencies["@opentui/core"]} @xccode/pty@${pkg.dependencies["@xccode/pty"]}`
 const appArchive = path.join(dir, ".cache", "bun-app-archive.bin")
 await Bun.write(appArchive, await buildAppArchive(Script.channel, Script.version, { skipBuild: skipWebUi }))
 const appAssetsPlugin: BunPlugin = {
-  name: "opencode-app-assets",
+  name: "xccode-app-assets",
   setup(build) {
-    build.onResolve({ filter: /^virtual:opencode-app-assets$/ }, () => ({
-      path: "opencode-app-assets",
-      namespace: "opencode",
+    build.onResolve({ filter: /^virtual:xccode-app-assets$/ }, () => ({
+      path: "xccode-app-assets",
+      namespace: "xccode",
     }))
-    build.onLoad({ filter: /^opencode-app-assets$/, namespace: "opencode" }, () => ({
+    build.onLoad({ filter: /^xccode-app-assets$/, namespace: "xccode" }, () => ({
       loader: "js",
       // Embedded as a file, not a string: its bytes go into the executable once and unencoded.
       contents: `import { readFileSync } from "node:fs"
@@ -101,7 +101,7 @@ const pluginRuntimeModulesSource = [
   "export const loadRuntimeModules = () => modules",
 ].join("\n")
 const pluginRuntimePlugin: BunPlugin = {
-  name: "opencode-plugin-runtime",
+  name: "xccode-plugin-runtime",
   setup(build) {
     build.onLoad({ filter: /plugin[/\\]src[/\\]runtime-modules\.ts$/ }, () => ({
       contents: pluginRuntimeModulesSource,
@@ -109,7 +109,7 @@ const pluginRuntimePlugin: BunPlugin = {
     }))
     build.onLoad({ filter: /[/\\]internal[/\\]httpApi(?:Scalar|Swagger)\.js$/ }, () => ({
       contents:
-        'export const css = ""; export const javascript = \'document.body.textContent = "Scalar/Swagger UI assets are not bundled in OpenCode"\'',
+        'export const css = ""; export const javascript = \'document.body.textContent = "Scalar/Swagger UI assets are not bundled in Xccode"\'',
       loader: "js",
     }))
   },
@@ -128,26 +128,26 @@ const wsReexportPlugin: BunPlugin = {
 }
 
 for (const item of targets) {
-  const opencodePty = await resolveOpencodePty({
+  const xccodePty = await resolveXccodePty({
     platform: item.os,
     arch: item.arch,
     ...(item.os === "linux" ? { libc: item.abi ?? "glibc" } : {}),
   })
-  const opencodePtyPlugin: BunPlugin = {
-    name: "opencode-pty-binary",
+  const xccodePtyPlugin: BunPlugin = {
+    name: "xccode-pty-binary",
     setup(build) {
       build.onLoad({ filter: /persistent-pty[/\\]pty-binding\.ts$/ }, () => ({
         loader: "js",
-        contents: opencodePty
-          ? `import file from ${JSON.stringify(opencodePty.source)} with { type: "file" }
-export default { path: file, version: ${JSON.stringify(opencodePty.version)}, sha256: ${JSON.stringify(opencodePty.sha256)} }`
+        contents: xccodePty
+          ? `import file from ${JSON.stringify(xccodePty.source)} with { type: "file" }
+export default { path: file, version: ${JSON.stringify(xccodePty.version)}, sha256: ${JSON.stringify(xccodePty.sha256)} }`
           : "export default undefined",
       }))
     },
   }
   const simulationInputs = new Set<string>()
   const simulationGraphPlugin: BunPlugin = {
-    name: "opencode-simulation-graph",
+    name: "xccode-simulation-graph",
     setup(build) {
       build.onLoad(
         { filter: /packages[/\\]simulation[/\\]src[/\\](frontend[/\\](simulation|server)|control-server)\.ts$/ },
@@ -192,7 +192,7 @@ export default { path: file, version: ${JSON.stringify(opencodePty.version)}, sh
       solidPlugin,
       parcelWatcherPlugin,
       irohBindingPlugin,
-      opencodePtyPlugin,
+      xccodePtyPlugin,
       pluginRuntimePlugin,
       wsReexportPlugin,
       simulationGraphPlugin,
@@ -214,7 +214,7 @@ export default { path: file, version: ${JSON.stringify(opencodePty.version)}, sh
       outfile: path.join(outdir, name, "bin", binary),
       execArgv: [
         "--smol",
-        `--user-agent=opencode/${Script.channel}/${Script.version}/cli`,
+        `--user-agent=xccode/${Script.channel}/${Script.version}/cli`,
         "--use-system-ca",
         "--no-warnings",
         "--",
@@ -222,12 +222,12 @@ export default { path: file, version: ${JSON.stringify(opencodePty.version)}, sh
       windows: {},
     },
     define: {
-      OPENCODE_VERSION: `'${Script.version}'`,
-      OPENCODE_CLI_NAME: "'opencode'",
-      OPENCODE_CHANNEL: `'${Script.channel}'`,
-      OPENCODE_ARTIFACT: `'cli'`,
-      ...(highlights ? { OPENCODE_RELEASE_HIGHLIGHTS: JSON.stringify(highlights) } : {}),
-      OPENCODE_LIBC: item.os === "linux" ? `'${item.abi ?? "glibc"}'` : "undefined",
+      XCCODE_VERSION: `'${Script.version}'`,
+      XCCODE_CLI_NAME: "'xccode'",
+      XCCODE_CHANNEL: `'${Script.channel}'`,
+      XCCODE_ARTIFACT: `'cli'`,
+      ...(highlights ? { XCCODE_RELEASE_HIGHLIGHTS: JSON.stringify(highlights) } : {}),
+      XCCODE_LIBC: item.os === "linux" ? `'${item.abi ?? "glibc"}'` : "undefined",
       // FFF_LIBC selects the fff native lib variant: "musl" or "gnu".
       FFF_LIBC: item.os === "linux" ? `'${item.abi ?? "gnu"}'` : "undefined",
       ...(item.os === "linux" ? { "process.env.OPENTUI_LIBC": JSON.stringify(item.abi ?? "glibc") } : {}),
@@ -245,10 +245,10 @@ export default { path: file, version: ${JSON.stringify(opencodePty.version)}, sh
     path.join(outdir, name, "package.json"),
     JSON.stringify(
       {
-        name: `@opencode/${name}`,
+        name: `@xccode/${name}`,
         version: Script.version,
         license: "MIT",
-        repository: { type: "git", url: "git+https://github.com/anomalyco/opencode.git" },
+        repository: { type: "git", url: "git+https://github.com/xiaowei56/xccode.git" },
         os: [item.os],
         cpu: [item.arch],
       },

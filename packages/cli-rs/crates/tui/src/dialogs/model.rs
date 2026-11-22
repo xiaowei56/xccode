@@ -1,11 +1,11 @@
 //! Model selection, favorites, and usage alerts.
 
-use opencode_api::generated::{ModelInfo, ModelInfoStatus, ProviderInfo};
-use opencode_api::js::locale_compare;
-use opencode_local::model_pref::Model;
-use opencode_ui::fuzzy;
-use opencode_ui::keymap::Slash;
-use opencode_ui::select::{ActionRun, SelectAction};
+use xccode_api::generated::{ModelInfo, ModelInfoStatus, ProviderInfo};
+use xccode_api::js::locale_compare;
+use xccode_local::model_pref::Model;
+use xccode_ui::fuzzy;
+use xccode_ui::keymap::Slash;
+use xccode_ui::select::{ActionRun, SelectAction};
 
 use crate::local::{Local, is};
 use crate::prelude::*;
@@ -26,13 +26,13 @@ struct Row {
     free: bool,
 }
 
-/// `sortModelOptions`: OpenCode Go, then OpenCode, then by provider name, free models first; stable otherwise.
+/// `sortModelOptions`: Xccode Go, then Xccode, then by provider name, free models first; stable otherwise.
 fn sort_rows(rows: &mut [Row], grouped: bool) {
     rows.sort_by(|a, b| {
         let provider = if grouped {
-            (b.provider_id == "opencode-go")
-                .cmp(&(a.provider_id == "opencode-go"))
-                .then((b.provider_id == "opencode").cmp(&(a.provider_id == "opencode")))
+            (b.provider_id == "xccode-go")
+                .cmp(&(a.provider_id == "xccode-go"))
+                .then((b.provider_id == "xccode").cmp(&(a.provider_id == "xccode")))
         } else {
             std::cmp::Ordering::Equal
         };
@@ -64,7 +64,7 @@ fn open(local: &Rc<Local>, provider: Option<String>, filter: String) {
     );
 }
 
-fn build(cx: &Rc<opencode_ui::dialog::DialogCx>, local: &Rc<Local>, provider: Option<String>, filter: &str) -> View {
+fn build(cx: &Rc<xccode_ui::dialog::DialogCx>, local: &Rc<Local>, provider: Option<String>, filter: &str) -> View {
     // Favoriting does not reorder the list until the dialog is reopened, which a build in a new theme is not.
     let favorites = Rc::new(local.favorite());
     let saved = favorites.clone();
@@ -191,8 +191,8 @@ fn catalog_options(
     let recent_items: Vec<Model> = recents.iter().filter(|item| !favorites.contains(item)).cloned().collect();
     let recent_options = section(&recent_items, "Recent");
 
-    // OpenCode's own free models get their own group at the end of the list instead of joining "OpenCode".
-    let free_group = |model: &ModelInfo| provider.is_none() && model.provider_id.0 == "opencode" && is_free(model);
+    // Xccode's own free models get their own group at the end of the list instead of joining "Xccode".
+    let free_group = |model: &ModelInfo| provider.is_none() && model.provider_id.0 == "xccode" && is_free(model);
     let mut rows: Vec<Row> = models
         .iter()
         .filter(|model| !matches!(model.status, ModelInfoStatus::Deprecated))

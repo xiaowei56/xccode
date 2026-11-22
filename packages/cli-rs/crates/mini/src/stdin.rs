@@ -2,7 +2,7 @@
 
 use std::io::{IsTerminal, Read};
 
-pub const INTERACTIVE_INPUT_ERROR: &str = "opencode mini requires a controlling terminal for input";
+pub const INTERACTIVE_INPUT_ERROR: &str = "xccode mini requires a controlling terminal for input";
 
 /// Reads piped stdin to its end, then puts the controlling terminal (`/dev/tty`, the console `CONIN$` on Windows)
 /// on standard input, where the renderer reads keys. Returns `None` when stdin is already a terminal.
@@ -27,7 +27,7 @@ fn reopen_terminal() -> Result<(), String> {
 /// renderer look up.
 #[cfg(windows)]
 fn reopen_terminal() -> Result<(), String> {
-    opencode_util::win::set_stdin_console().map_err(|_| INTERACTIVE_INPUT_ERROR.to_owned())
+    xccode_util::win::set_stdin_console().map_err(|_| INTERACTIVE_INPUT_ERROR.to_owned())
 }
 
 /// `mergeInput`: the piped text, then `--prompt` on its own line; either alone; `None` when both are empty.

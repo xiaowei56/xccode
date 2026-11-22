@@ -1,12 +1,12 @@
 //! Connects the way the CLI does and prints the server version from `/api/info`.
 //!
-//! `cargo run -p opencode-service --example connect [-- --print-logs] [--server URL]
+//! `cargo run -p xccode-service --example connect [-- --print-logs] [--server URL]
 //! [--standalone] [--no-autostart]`. Without a running service it starts the TypeScript one
-//! (`OPENCODE_TS_BIN`, else `opencode`).
+//! (`XCCODE_TS_BIN`, else `xccode`).
 
-use opencode_api::transport::Reqwest;
-use opencode_local::paths::Paths;
-use opencode_service::connect::{self, Env, Options};
+use xccode_api::transport::Reqwest;
+use xccode_local::paths::Paths;
+use xccode_service::connect::{self, Env, Options};
 use std::sync::Arc;
 
 #[tokio::main]

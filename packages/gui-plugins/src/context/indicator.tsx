@@ -1,11 +1,11 @@
 import { Show, createMemo, type ComponentProps, type JSX } from "solid-js"
-import { ProgressCircle } from "@opencode/ui/progress-circle"
-import { Button } from "@opencode/ui/button"
-import { Menu } from "@opencode/ui/menu"
-import { Tooltip } from "@opencode/ui/tooltip"
-import { useI18n } from "@opencode/ui/context/i18n"
-import { lastAssistantWithUsage } from "@opencode/client/solid"
-import { usePlugin, type MountedSession } from "@opencode/plugin/gui"
+import { ProgressCircle } from "@xccode/ui/progress-circle"
+import { Button } from "@xccode/ui/button"
+import { Menu } from "@xccode/ui/menu"
+import { Tooltip } from "@xccode/ui/tooltip"
+import { useI18n } from "@xccode/ui/context/i18n"
+import { lastAssistantWithUsage } from "@xccode/client/solid"
+import { usePlugin, type MountedSession } from "@xccode/plugin/gui"
 import { catalogModel, syncCatalog } from "./catalog"
 
 export function SessionContextUsage(props: {
@@ -79,7 +79,7 @@ export function SessionContextUsage(props: {
     if (spent() > 0) return true
     const ref = info()?.model ?? messages().findLast((item) => item.type === "assistant")?.model
 
-    if (ref?.providerID === "opencode-go") return false
+    if (ref?.providerID === "xccode-go") return false
     const model = ref ? catalogModel(props.session, ref)?.model : undefined
 
     if (!model) return true

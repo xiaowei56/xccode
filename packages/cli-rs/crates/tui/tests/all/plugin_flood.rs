@@ -7,8 +7,8 @@ use std::cell::{Cell, RefCell};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use opencode_plugin::abi::{self, v2};
-use opencode_tui::{Deps, Route};
+use xccode_plugin::abi::{self, v2};
+use xccode_tui::{Deps, Route};
 
 const PLUGINS: [&str; 2] = ["test.flood.a", "test.flood.b"];
 const COST: Duration = Duration::from_micros(300);
@@ -92,7 +92,7 @@ fn open(all: Duration) -> Harness {
     let monitor = harness.tui.plugins.monitor().clone();
     let start = Instant::now();
     monitor.set_clock(move || start + CLOCK.with(Cell::get));
-    monitor.set_limits(opencode_plugin::contain::Limits { frame: FRAME, all, ..monitor.limits() });
+    monitor.set_limits(xccode_plugin::contain::Limits { frame: FRAME, all, ..monitor.limits() });
     harness.tui.navigate(Route::Plugin { id: PLUGINS[0].to_owned(), name: "flood".to_owned() });
     harness.app.advance(Duration::from_millis(1));
     harness.app.render();
@@ -129,7 +129,7 @@ impl Flood {
         let mut numbers = [0u32; 2];
         let mut frames_of_b = vec![Vec::new()];
         let mut seen = 0;
-        let mut drains = opencode_plugin::schedule::work().drains;
+        let mut drains = xccode_plugin::schedule::work().drains;
         let fail = |property: &'static str, step: usize, detail: String| Run {
             frames_of_b: Vec::new(),
             failure: Some(Failure { property, site: property, step, detail }),
@@ -140,7 +140,7 @@ impl Flood {
         let mut more = 0;
         let drained = std::iter::from_fn(|| {
             more += 1;
-            (more == 1 || more < 10_000 && opencode_plugin::schedule::busy(&harness.app)).then_some(Command::Frame)
+            (more == 1 || more < 10_000 && xccode_plugin::schedule::busy(&harness.app)).then_some(Command::Frame)
         });
         for (step, command) in commands.iter().copied().chain(drained).enumerate() {
             match command {
@@ -166,7 +166,7 @@ impl Flood {
                 }
             }
             // A drain runs only as a paint starts, once a frame.
-            let ran = opencode_plugin::schedule::work().drains - drains;
+            let ran = xccode_plugin::schedule::work().drains - drains;
             drains += ran;
             if ran > u64::from(command == Command::Frame) {
                 return fail("backlog", step, format!("{command:?} ran {ran} drains"));
@@ -221,7 +221,7 @@ impl Flood {
                 }
             }
             for plugin in PLUGINS {
-                let stats = opencode_plugin::mailbox::stats(plugin).unwrap_or_default();
+                let stats = xccode_plugin::mailbox::stats(plugin).unwrap_or_default();
                 if stats.high > abi::BOUND {
                     return fail("backlog", step, format!("{plugin}'s mailbox held {} entries", stats.high));
                 }
@@ -385,12 +385,12 @@ fn plugins_take_turns_to_go_first() {
 fn sends_between_paints_wake_the_ui_thread_once() {
     let harness = open(Duration::from_millis(4));
     for round in 0..2 {
-        let before = opencode_plugin::schedule::work().wakes;
+        let before = xccode_plugin::schedule::work().wakes;
         for _ in 0..25 {
             send(0, 1);
             harness.app.event(opentui::prelude::Event::Wake);
         }
-        let wakes = opencode_plugin::schedule::work().wakes - before;
+        let wakes = xccode_plugin::schedule::work().wakes - before;
         assert_eq!(wakes, 1, "round {round}: wakes between two paints");
         harness.app.render();
     }

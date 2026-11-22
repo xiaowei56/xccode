@@ -1,5 +1,5 @@
 {
-  "name": "opencode-site-dev",
+  "name": "xccode-site-dev",
   "compatibilityDate": "2026-07-25",
   "compatibilityFlags": ["nodejs_compat"],
   "assets": {
@@ -22,10 +22,10 @@
       "!/v1/docs/theme.json"
     ]
   },
-  "domains": ["dev.opencode.ai", "docs.dev.opencode.ai"],
+  "domains": ["dev.xccode.ai", "docs.dev.xccode.ai"],
   "triggers": [
-    { "type": "fetch", "pattern": "dev.opencode.ai", "zone": "dev.opencode.ai" },
-    { "type": "fetch", "pattern": "dev.opencode.ai/*", "zone": "dev.opencode.ai" }
+    { "type": "fetch", "pattern": "dev.xccode.ai", "zone": "dev.xccode.ai" },
+    { "type": "fetch", "pattern": "dev.xccode.ai/*", "zone": "dev.xccode.ai" }
   ],
   "observability": { "enabled": true },
   "workersDev": false,

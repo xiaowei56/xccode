@@ -1,7 +1,7 @@
-import { Button } from "@opencode/ui/button"
-import { FileComponentProvider } from "@opencode/ui/context/file"
+import { Button } from "@xccode/ui/button"
+import { FileComponentProvider } from "@xccode/ui/context/file"
 import { createMemo, createSignal, onCleanup, Show } from "solid-js"
-import audio from "@opencode/ui/audio/alert-03.mp3?inline"
+import audio from "@xccode/ui/audio/alert-03.mp3?inline"
 import image from "../../../ui/src/assets/favicon/web-app-manifest-192x192.png?inline"
 import type { PresentationFileContent, PresentationFileDiff } from "../file-presentation"
 import { File } from "./file"
@@ -88,7 +88,7 @@ function MediaReview(props: Args) {
 }
 
 export default {
-  title: "OpenCode/Review/File media",
+  title: "Xccode/Review/File media",
   id: "review-file-media",
   args: { kind: "image", state: "ready" } satisfies Args,
   argTypes: { kind: { options: ["image", "audio"] }, state: { options: states } },

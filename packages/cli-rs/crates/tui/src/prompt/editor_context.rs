@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
 use futures_util::{SinkExt, StreamExt};
-use opencode_ui::path::Flavor;
+use xccode_ui::path::Flavor;
 use serde::Deserialize;
 use tokio_tungstenite::tungstenite::Message as Frame;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
@@ -28,14 +28,14 @@ pub struct Source {
 impl Source {
     pub fn from_env() -> Self {
         let var = |name: &str| std::env::var(name).ok().filter(|value| !value.is_empty());
-        let home = Some(opencode_local::paths::home()).filter(|home| !home.is_empty()).map(PathBuf::from);
+        let home = Some(xccode_local::paths::home()).filter(|home| !home.is_empty()).map(PathBuf::from);
         let port = var("CLAUDE_CODE_SSE_PORT")
-            .or_else(|| var("OPENCODE_EDITOR_SSE_PORT"))
+            .or_else(|| var("XCCODE_EDITOR_SSE_PORT"))
             .and_then(|value| parse_port(&value));
         let zed_terminal = var("ZED_TERM").as_deref() == Some("true")
             || var("TERM_PROGRAM").is_some_and(|value| value.to_lowercase() == "zed");
         let local_app_data = if cfg!(windows) { var("LOCALAPPDATA") } else { None };
-        let zed_db = zed_db_candidates(var("OPENCODE_ZED_DB"), home.as_deref(), local_app_data);
+        let zed_db = zed_db_candidates(var("XCCODE_ZED_DB"), home.as_deref(), local_app_data);
         Self { port, home, zed_terminal, zed_db }
     }
 }
@@ -613,7 +613,7 @@ async fn session(mut socket: Socket, request_id: &mut i64, post: &impl Fn(Event)
         "params": {
             "protocolVersion": MCP_PROTOCOL_VERSION,
             "capabilities": {},
-            "clientInfo": { "name": "opencode", "version": "0.0.0" },
+            "clientInfo": { "name": "xccode", "version": "0.0.0" },
         },
     });
     if socket.send(Frame::text(request.to_string())).await.is_err() {
@@ -932,7 +932,7 @@ mod sqlite {
         column_text: unsafe extern "C" fn(Stmt, c_int) -> *const u8,
         column_bytes: unsafe extern "C" fn(Stmt, c_int) -> c_int,
         finalize: unsafe extern "C" fn(Stmt) -> c_int,
-        _library: opencode_util::dl::Library,
+        _library: xccode_util::dl::Library,
     }
 
     impl Sqlite {
@@ -945,7 +945,7 @@ mod sqlite {
 
         pub fn load(name: &str) -> Option<Sqlite> {
             // SAFETY: SQLite's initializers have no preconditions.
-            let library = unsafe { opencode_util::dl::Library::open(name) }.ok()?;
+            let library = unsafe { xccode_util::dl::Library::open(name) }.ok()?;
             macro_rules! symbol {
                 ($name:literal) => {
                     // SAFETY: each field's type is the C signature of the symbol it names, and the library outlives
@@ -1117,7 +1117,7 @@ mod tests {
 
     #[test]
     fn zed_without_the_sqlite_library_is_unavailable() {
-        let root = opencode_util::temp::tempdir().unwrap();
+        let root = xccode_util::temp::tempdir().unwrap();
         let db = root.path().join("db.sqlite");
         zed::exec(
             &db,

@@ -1,5 +1,5 @@
 [package]
-name = "opencode-mermaid"
+name = "xccode-mermaid"
 description = "The Mermaid plugin (P.3)."
 version.workspace = true
 edition.workspace = true
@@ -13,16 +13,16 @@ workspace = true
 
 # The plugin depends on the plugin API alone; the host turns what it returns into widgets.
 [dependencies]
-opencode-plugin-abi.workspace = true
+xccode-plugin-abi.workspace = true
 indexmap.workspace = true
 regex.workspace = true
 unicode-segmentation = "1"
 
 [dev-dependencies]
-opencode-plugin.workspace = true
-opencode-ui.workspace = true
+xccode-plugin.workspace = true
+xccode-ui.workspace = true
 opentui.workspace = true
-opencode-parity.workspace = true
+xccode-parity.workspace = true
 serde_json.workspace = true
 
 [[test]]

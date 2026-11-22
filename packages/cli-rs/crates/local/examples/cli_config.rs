@@ -1,12 +1,12 @@
 //! Reads the user's `cli.json` without writing anything, then edits a copy of it in a temporary
 //! directory to show that comments and formatting stay.
 //!
-//!   bun run --cwd packages/cli-rs cargo run -q -p opencode-local --example cli_config
+//!   bun run --cwd packages/cli-rs cargo run -q -p xccode-local --example cli_config
 
 use std::fs;
 
-use opencode_local::cli_config::{self, CliConfig, Resolved};
-use opencode_local::paths::Paths;
+use xccode_local::cli_config::{self, CliConfig, Resolved};
+use xccode_local::paths::Paths;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let real = Paths::from_env()?;
@@ -17,8 +17,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let keys: Vec<String> = info.to_value().as_object().map_or(Vec::new(), |map| map.keys().cloned().collect());
     println!("file:      {} ({} bytes)", file.display(), text.len());
     // Compare with sha1(JSON.stringify(decoded)) on the TypeScript side.
-    let decoded = opencode_local::jsonc::stringify(&info.to_value());
-    println!("decoded:   sha1 {}", opencode_local::lock::hash(&decoded));
+    let decoded = xccode_local::jsonc::stringify(&info.to_value());
+    println!("decoded:   sha1 {}", xccode_local::lock::hash(&decoded));
     println!("keys:      {}", keys.join(", "));
     println!(
         "theme:     {:?} / {:?}",
@@ -29,7 +29,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("leader:    {:?}", resolved.leader_timeout);
     println!("tabs:      {} enabled={}", resolved.tabs.mode.as_str(), resolved.tabs.enabled);
 
-    let temp = opencode_util::temp::tempdir()?;
+    let temp = xccode_util::temp::tempdir()?;
     let paths = Paths::from_vars(|name| match name {
         "HOME" => Some(temp.path().into()),
         "XDG_CONFIG_HOME" => Some(temp.path().join("config").into()),

@@ -6,7 +6,7 @@ import type {
   SessionMessageShell,
   SessionMessageUser,
   SessionStatus,
-} from "@opencode/client/promise"
+} from "@xccode/client/promise"
 import { Effect, Option, Predicate, Schema } from "effect"
 import { createComputed, createMemo, createSignal, mapArray, untrack, type Accessor } from "solid-js"
 import { turnCommentary } from "../timeline/commentary"

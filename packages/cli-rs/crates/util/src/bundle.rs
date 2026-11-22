@@ -5,7 +5,7 @@ use std::path::{Path, PathBuf};
 use crate::path::realpath;
 
 /// The bundled TypeScript binary's file name.
-pub const SERVER: &str = if cfg!(windows) { "opencode.exe" } else { "opencode" };
+pub const SERVER: &str = if cfg!(windows) { "xccode.exe" } else { "xccode" };
 
 /// The TypeScript binary beside this executable, when there is one ([`beside`]).
 pub fn server() -> Option<PathBuf> {
@@ -31,7 +31,7 @@ mod tests {
         let real = |path: &Path| realpath(path).unwrap();
         let install = dir.path().join("lib");
         std::fs::create_dir_all(&install).unwrap();
-        let client = install.join(if cfg!(windows) { "opencode-native.exe" } else { "opencode-native" });
+        let client = install.join(if cfg!(windows) { "xccode-native.exe" } else { "xccode-native" });
         std::fs::write(&client, "client").unwrap();
         assert_eq!(beside(&client), None, "no server yet");
         std::fs::create_dir(install.join(SERVER)).unwrap();
@@ -39,15 +39,15 @@ mod tests {
         std::fs::remove_dir(install.join(SERVER)).unwrap();
         std::fs::write(install.join(SERVER), "server").unwrap();
         assert_eq!(beside(&client), Some(real(&install.join(SERVER))));
-        assert_eq!(beside(&install.join(SERVER)), None, "the client named opencode");
+        assert_eq!(beside(&install.join(SERVER)), None, "the client named xccode");
         assert_eq!(beside(&dir.path().join("missing")), None);
         #[cfg(unix)]
         {
             let bin = dir.path().join("bin");
             std::fs::create_dir_all(&bin).unwrap();
-            std::os::unix::fs::symlink(&client, bin.join("opencode-native")).unwrap();
+            std::os::unix::fs::symlink(&client, bin.join("xccode-native")).unwrap();
             std::fs::write(bin.join(SERVER), "someone else's").unwrap();
-            assert_eq!(beside(&bin.join("opencode-native")), Some(real(&install.join(SERVER))), "through the link");
+            assert_eq!(beside(&bin.join("xccode-native")), Some(real(&install.join(SERVER))), "through the link");
         }
     }
 }

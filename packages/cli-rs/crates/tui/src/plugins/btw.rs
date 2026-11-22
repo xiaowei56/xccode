@@ -1,13 +1,13 @@
 //! `/btw` asks a side question with session context and shows the answer without interrupting the session.
 
-use opencode_api::client::Client;
-use opencode_api::generated::{SessionGenerateInput, SessionGenerateOutput};
-use opencode_plugin::abi::v2::{self, Place, Surface};
-use opencode_plugin::abi::{
+use xccode_api::client::Client;
+use xccode_api::generated::{SessionGenerateInput, SessionGenerateOutput};
+use xccode_plugin::abi::v2::{self, Place, Surface};
+use xccode_plugin::abi::{
     self, Action, Command, Dialog, Host, Layout, Node, Panel, PanelAction, PanelBind, PanelSize, Placement, Prompt,
     RequestId, Span, Toast, Variant,
 };
-use opencode_plugin::slot;
+use xccode_plugin::slot;
 
 use super::fetch::{data, fetch_of};
 use super::kept;
@@ -22,7 +22,7 @@ const INSTRUCTIONS: &str = "The user is asking a quick side question about the c
 Answer directly and concisely in markdown from what you already know. \
 Do not call any tools and do not take any actions.";
 
-pub const ID: &str = "opencode.btw";
+pub const ID: &str = "xccode.btw";
 
 pub fn plugin() -> abi::Plugin {
     abi::Plugin { id: ID, setup }

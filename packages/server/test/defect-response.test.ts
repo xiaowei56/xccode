@@ -1,8 +1,8 @@
 import path from "node:path"
 import { expect } from "bun:test"
-import { OpenCode } from "@opencode/client"
-import { Database } from "@opencode/core/database/database"
-import { Global } from "@opencode/util/global"
+import { Xccode } from "@xccode/client"
+import { Database } from "@xccode/core/database/database"
+import { Global } from "@xccode/util/global"
 import { Context, Effect } from "effect"
 import { tempGlobalLayer } from "../../core/test/fixture/global"
 import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
@@ -12,11 +12,11 @@ import { serveRoutes } from "./fixture/routes"
 const large = "x".repeat(60_000)
 
 const boot = Effect.gen(function* () {
-  const dir = yield* tmpdirScoped("opencode-defect-response-")
+  const dir = yield* tmpdirScoped("xccode-defect-response-")
   const server = yield* serveRoutes(
     {
       app: { version: "test" },
-      database: { path: path.join(dir.path, "opencode.db") },
+      database: { path: path.join(dir.path, "xccode.db") },
       models: { fetch: false },
       fs: { filewatcher: false },
     },
@@ -28,15 +28,15 @@ const boot = Effect.gen(function* () {
     location: { directory: dir.path },
     request: (method: string, route: string, body?: unknown) =>
       Effect.promise(async () => {
-        const response = await server.fetch(`http://opencode.local${route}`, {
+        const response = await server.fetch(`http://xccode.local${route}`, {
           method,
           headers: { "content-type": "application/json" },
           ...(body === undefined ? {} : { body: JSON.stringify(body) }),
         })
         return { status: response.status, body: await response.text() }
       }),
-    api: OpenCode.make({
-      baseUrl: "http://opencode.local",
+    api: Xccode.make({
+      baseUrl: "http://xccode.local",
       fetch: Object.assign(
         (input: string | URL | Request, init?: RequestInit) => server.handler(new Request(input, init)),
         { preconnect: fetch.preconnect },

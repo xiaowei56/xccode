@@ -1,5 +1,5 @@
 import { For, onMount } from "solid-js"
-import { Button } from "@opencode/ui/button"
+import { Button } from "@xccode/ui/button"
 import { useDialog } from "../context/dialog"
 import { DiagramPreview } from "./diagram-preview"
 

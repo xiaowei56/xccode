@@ -2,7 +2,7 @@
 // read of a line range, each call in its own row (`session.grouping: none`).
 import { defineApp, session } from "../../lib/app"
 
-const directory = "/tmp/opencode/packages/tui"
+const directory = "/tmp/xccode/packages/tui"
 const patch = [
   "Index: src/parser.rs",
   "===================================================================",

@@ -15,12 +15,12 @@ pub fn install() {
             backtrace = backtrace.as_str();
             "panic {info}"
         );
-        if thread.id() != ui || opencode_plugin::contain::catching() {
+        if thread.id() != ui || xccode_plugin::contain::catching() {
             return;
         }
         match crate::telemetry::file() {
-            Some(path) => eprintln!("opencode-native {info}\nThe backtrace is in {}", path.display()),
-            None => eprintln!("opencode-native {info}\n{backtrace}"),
+            Some(path) => eprintln!("xccode-native {info}\nThe backtrace is in {}", path.display()),
+            None => eprintln!("xccode-native {info}\n{backtrace}"),
         }
         crate::telemetry::flush();
         std::process::exit(101);
@@ -30,7 +30,7 @@ pub fn install() {
 #[cfg(test)]
 mod tests {
     /// Set in the process the row starts: what panics there.
-    const PROBE: &str = "OPENCODE_PANIC_PROBE";
+    const PROBE: &str = "XCCODE_PANIC_PROBE";
 
     #[test]
     fn a_caught_plugin_panic_leaves_the_client_running() {
@@ -41,9 +41,9 @@ mod tests {
                 eprintln!("restored");
                 previous(info);
             }));
-            opencode_plugin::contain::filter_panics();
+            xccode_plugin::contain::filter_panics();
             if mode == "plugin" {
-                assert!(opencode_plugin::contain::catch(|| panic!("a built-in's bug")).is_err());
+                assert!(xccode_plugin::contain::catch(|| panic!("a built-in's bug")).is_err());
                 println!("alive");
                 std::process::exit(0);
             }

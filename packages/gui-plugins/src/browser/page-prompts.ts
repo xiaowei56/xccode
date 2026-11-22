@@ -1,5 +1,5 @@
 import type { WebContents } from "electron"
-import { Browser } from "@opencode/plugin-browser/rpc"
+import { Browser } from "@xccode/plugin-browser/rpc"
 import { CodedError } from "./errors"
 import type { DialogInfo } from "./dialog-machine"
 import { displayHost } from "./host-display"

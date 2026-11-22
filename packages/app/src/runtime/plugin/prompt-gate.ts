@@ -1,5 +1,5 @@
-import type { SessionRef } from "@opencode/plugin/gui"
-import type { BuiltinPromptGate } from "@opencode/plugin/gui/builtin"
+import type { SessionRef } from "@xccode/plugin/gui"
+import type { BuiltinPromptGate } from "@xccode/plugin/gui/builtin"
 
 /**
  * How long a prompt waits for the plugins' gates before it is sent anyway. A gate that misses it costs the model one

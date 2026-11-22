@@ -1,7 +1,7 @@
-import { Global } from "@opencode/util/global"
-import { AppProcess } from "@opencode/util/process"
-import { EffectFlock } from "@opencode/util/effect-flock"
-import { OPENCODE_ARTIFACT, OPENCODE_CHANNEL, OPENCODE_LOCAL, OPENCODE_VERSION } from "../version"
+import { Global } from "@xccode/util/global"
+import { AppProcess } from "@xccode/util/process"
+import { EffectFlock } from "@xccode/util/effect-flock"
+import { XCCODE_ARTIFACT, XCCODE_CHANNEL, XCCODE_LOCAL, XCCODE_VERSION } from "../version"
 import { Context, Duration, Effect, FileSystem, Layer, Option, Ref, Schema } from "effect"
 import { ChildProcess } from "effect/process"
 import { parse, type ParseError } from "jsonc-parser"
@@ -49,7 +49,7 @@ const decodeManifestVersion = Schema.decodeUnknownOption(
 )
 
 const installNames: Record<Method, string> = {
-  curl: "The OpenCode installer",
+  curl: "The Xccode installer",
   npm: "npm",
   pnpm: "pnpm",
   bun: "Bun",
@@ -59,7 +59,7 @@ const installNames: Record<Method, string> = {
   winget: "WinGet",
 }
 
-const wingetPackage = "Anomaly.OpenCode"
+const wingetPackage = "Anomaly.Xccode"
 const wingetArgs = [
   "--id",
   wingetPackage,
@@ -122,7 +122,7 @@ export interface Interface {
   ) => { readonly command: ReadonlyArray<string>; readonly run: Effect.Effect<void, Error> } | undefined
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/cli/Updater") {}
+export class Service extends Context.Service<Service, Interface>()("@xccode/cli/Updater") {}
 
 export function decodePolicy(text: string): Policy | undefined {
   // The CLI only projects this host-level preference instead of initializing
@@ -146,8 +146,8 @@ const make = Effect.gen(function* () {
   const global = yield* Global.Service
   const appProcess = yield* AppProcess.Service
   const flock = yield* EffectFlock.Service
-  const installedVersion = yield* Ref.make(OPENCODE_VERSION)
-  const channel = OPENCODE_CHANNEL.replace(/[^a-zA-Z0-9._-]/g, "-")
+  const installedVersion = yield* Ref.make(XCCODE_VERSION)
+  const channel = XCCODE_CHANNEL.replace(/[^a-zA-Z0-9._-]/g, "-")
   const executable = yield* fs.realPath(process.execPath).pipe(Effect.orElseSucceed(() => process.execPath))
   const installedPackage = yield* Effect.gen(function* () {
     const directory = path.dirname(path.dirname(executable))
@@ -155,16 +155,16 @@ const make = Effect.gen(function* () {
       .readFileString(path.join(directory, "package.json"))
       .pipe(Effect.flatMap((text) => Effect.try(() => JSON.parse(text))))
     // Source invocations run inside Bun or Node, which may themselves be npm packages.
-    if (!/^@opencode(?:-ai)?\/cli(?:-node)?$/.test(manifest.name)) return
+    if (!/^@xccode(?:-ai)?\/cli(?:-node)?$/.test(manifest.name)) return
     if (Object.values(manifest.bin ?? {}).some((bin) => path.resolve(directory, bin) === executable))
       return manifest.name
   }).pipe(Effect.orElseSucceed(() => undefined))
-  // "opencode" is Homebrew Core's formula; the others are published to anomalyco/tap.
-  const installedFormula = ["opencode", "opencode-beta", "opencode-v2"].find((name) =>
+  // "xccode" is Homebrew Core's formula; the others are published to anomalyco/tap.
+  const installedFormula = ["xccode", "xccode-beta", "xccode-v2"].find((name) =>
     executable.includes(`${path.sep}Cellar${path.sep}${name}${path.sep}`),
   )
   // WinGet extracts portable packages into a directory named after the package identifier.
-  const installedWinget = /[\\/]winget[\\/]packages[\\/]anomaly\.opencode_/i.test(executable)
+  const installedWinget = /[\\/]winget[\\/]packages[\\/]anomaly\.xccode_/i.test(executable)
   // Volta packages (tools/image/packages) and mise's npm backend (installs/npm-<name>) keep their own record of the
   // installed version, so updating the copy in place would leave it stale. npm globals under a Volta or mise Node
   // (tools/image/node, installs/node) are ordinary npm installs.
@@ -196,7 +196,7 @@ const make = Effect.gen(function* () {
   const npm = prefixNpm ?? "npm"
 
   const readPolicy = Effect.fnUntraced(function* () {
-    const values = yield* Effect.forEach(["config.json", "opencode.json", "opencode.jsonc"], (name) =>
+    const values = yield* Effect.forEach(["config.json", "xccode.json", "xccode.jsonc"], (name) =>
       fs.readFileString(path.join(global.config, name)).pipe(
         Effect.map(decodePolicy),
         Effect.orElseSucceed(() => undefined),
@@ -229,24 +229,24 @@ const make = Effect.gen(function* () {
 
   const curlPath = path.resolve(
     global.home,
-    ".opencode",
+    ".xccode",
     "bin",
-    process.platform === "win32" ? "opencode.exe" : "opencode",
+    process.platform === "win32" ? "xccode.exe" : "xccode",
   )
   const curlBinary = yield* fs.realPath(curlPath).pipe(Effect.orElseSucceed(() => curlPath))
 
   // On Windows a bare `bash` may be the WSL launcher, which cannot run the installer against Windows paths.
   const installerBash = Effect.fnUntraced(function* () {
     if (process.platform !== "win32") return "bash"
-    if (process.env.OPENCODE_GIT_BASH_PATH) return process.env.OPENCODE_GIT_BASH_PATH
+    if (process.env.XCCODE_GIT_BASH_PATH) return process.env.XCCODE_GIT_BASH_PATH
     const git = yield* exec(["git", "--exec-path"]).pipe(Effect.orElseSucceed(() => undefined))
     const bash = git?.code === 0 ? path.resolve(git.stdout.trim(), "..", "..", "..", "bin", "bash.exe") : undefined
     if (bash && (yield* fs.exists(bash).pipe(Effect.orElseSucceed(() => false)))) return bash
     return yield* Effect.fail(
       new UpgradeError({
-        title: "Git Bash is required to update OpenCode",
-        detail: "The OpenCode installer runs with Git Bash on Windows, and it was not found.",
-        retry: "Install Git for Windows or set OPENCODE_GIT_BASH_PATH, then run opencode upgrade again.",
+        title: "Git Bash is required to update Xccode",
+        detail: "The Xccode installer runs with Git Bash on Windows, and it was not found.",
+        retry: "Install Git for Windows or set XCCODE_GIT_BASH_PATH, then run xccode upgrade again.",
       }),
     )
   })
@@ -315,13 +315,13 @@ const make = Effect.gen(function* () {
   const release = Effect.fnUntraced(function* (method?: Method) {
     const distribution = method === "brew" ? "homebrew" : "npm"
     // Homebrew Core builds its formula on its own schedule, so the tap release does not describe it.
-    const core = method === "brew" && installedFormula === "opencode"
+    const core = method === "brew" && installedFormula === "xccode"
     const response = yield* Effect.tryPromise({
       try: (signal) =>
         fetch(
           core
-            ? "https://formulae.brew.sh/api/formula/opencode.json"
-            : `https://opencode.ai/update/api/${encodeURIComponent(channel)}/${encodeURIComponent(OPENCODE_ARTIFACT)}/${distribution}?current=${encodeURIComponent(OPENCODE_VERSION)}`,
+            ? "https://formulae.brew.sh/api/formula/xccode.json"
+            : `https://xccode.ai/update/api/${encodeURIComponent(channel)}/${encodeURIComponent(XCCODE_ARTIFACT)}/${distribution}?current=${encodeURIComponent(XCCODE_VERSION)}`,
           {
             signal: AbortSignal.any([signal, AbortSignal.timeout(10_000)]),
           },
@@ -329,9 +329,9 @@ const make = Effect.gen(function* () {
       catch: (cause) =>
         new UpgradeError(
           {
-            title: "Could not check for OpenCode updates",
+            title: "Could not check for Xccode updates",
             detail: errorDetail(cause),
-            retry: "Check your network, then run opencode upgrade again.",
+            retry: "Check your network, then run xccode upgrade again.",
           },
           { cause },
         ),
@@ -339,7 +339,7 @@ const make = Effect.gen(function* () {
     if (!response.ok)
       return yield* Effect.fail(
         new UpgradeError({
-          title: "Could not check for OpenCode updates",
+          title: "Could not check for Xccode updates",
           detail: `The update service returned HTTP ${response.status}.`,
           retry: "Try again in a few minutes.",
         }),
@@ -350,7 +350,7 @@ const make = Effect.gen(function* () {
         catch: (cause) =>
           new UpgradeError(
             {
-              title: "Could not read the OpenCode update information",
+              title: "Could not read the Xccode update information",
               detail: errorDetail(cause),
               retry: "Try again in a few minutes.",
             },
@@ -358,11 +358,11 @@ const make = Effect.gen(function* () {
           ),
       })
     const version = core ? data.versions?.stable : data.version
-    const packageName = core ? "opencode" : data.metadata?.package
+    const packageName = core ? "xccode" : data.metadata?.package
     if (!version || !packageName)
       return yield* Effect.fail(
         new UpgradeError({
-          title: "Could not read the OpenCode update information",
+          title: "Could not read the Xccode update information",
           detail: "The update service returned incomplete release information.",
           retry: "Try again in a few minutes.",
         }),
@@ -375,10 +375,10 @@ const make = Effect.gen(function* () {
     const failure = (detail: string, cause?: unknown) =>
       new UpgradeError(
         {
-          title: "Could not check for OpenCode updates",
+          title: "Could not check for Xccode updates",
           detail,
           command: ["winget", "search", ...wingetArgs].join(" "),
-          retry: "Fix the issue above, then run opencode upgrade again.",
+          retry: "Fix the issue above, then run xccode upgrade again.",
         },
         cause === undefined ? undefined : { cause },
       )
@@ -407,10 +407,10 @@ const make = Effect.gen(function* () {
 
   const managedError = (owner: { name: string; command: string }, target: string) =>
     new UpgradeError({
-      title: `OpenCode is managed by ${owner.name}`,
-      detail: `This copy was installed with ${owner.name}, which keeps its own record of the installed version, so OpenCode won't update it directly.`,
+      title: `Xccode is managed by ${owner.name}`,
+      detail: `This copy was installed with ${owner.name}, which keeps its own record of the installed version, so Xccode won't update it directly.`,
       command: `${owner.command}${target}`,
-      retry: "Run the command above, then restart OpenCode.",
+      retry: "Run the command above, then restart Xccode.",
     })
 
   const managedMessage = (error: UpgradeError) => `${error.title}. Update it with ${error.command}`
@@ -456,10 +456,10 @@ const make = Effect.gen(function* () {
     const failure = (detail: string, cause?: unknown) =>
       new UpgradeError(
         {
-          title: input.title ?? `${installNames[input.method]} could not install OpenCode`,
+          title: input.title ?? `${installNames[input.method]} could not install Xccode`,
           detail,
           command: (input.displayCommand ?? input.command).join(" "),
-          retry: input.retry ?? "Fix the issue above, then run opencode upgrade again.",
+          retry: input.retry ?? "Fix the issue above, then run xccode upgrade again.",
         },
         cause === undefined ? undefined : { cause },
       )
@@ -486,8 +486,8 @@ const make = Effect.gen(function* () {
     const packageName =
       method === "winget"
         ? wingetPackage
-        : method === "brew" && installedFormula === "opencode"
-          ? "opencode"
+        : method === "brew" && installedFormula === "xccode"
+          ? "xccode"
           : (yield* release(method)).package
     const target = `${packageName}@${version}`
     if (installedPackage && packageName !== installedPackage && (method === "pnpm" || method === "yarn")) {
@@ -501,7 +501,7 @@ const make = Effect.gen(function* () {
         "--global",
         ...npmPrefixArgs,
         `--allow-scripts=${packageName}`,
-        ...((OPENCODE_ARTIFACT === "cli" && !installedPackage?.endsWith("/cli-node")) ||
+        ...((XCCODE_ARTIFACT === "cli" && !installedPackage?.endsWith("/cli-node")) ||
         (installedPackage && packageName !== installedPackage)
           ? ["--force"]
           : []),
@@ -516,7 +516,7 @@ const make = Effect.gen(function* () {
     }
     yield* Effect.scoped(
       Effect.gen(function* () {
-        // Other OpenCode processes may be installing at the same time. Wait longer than the
+        // Other Xccode processes may be installing at the same time. Wait longer than the
         // slowest install (curl runs two 5-minute commands).
         yield* flock.acquire("cli-upgrade", undefined, { timeoutMs: Duration.toMillis("15 minutes") })
         if (method === "bun") {
@@ -539,18 +539,18 @@ const make = Effect.gen(function* () {
           const installer = path.join(directory, "install")
           yield* runUpgrade({
             method,
-            command: ["curl", "-fsSL", "-o", installer, "https://opencode.ai/v2/install"],
-            displayCommand: ["curl", "-fsSL", "https://opencode.ai/v2/install"],
-            title: "Could not download the OpenCode installer",
-            retry: "Check your network, then run opencode upgrade again.",
+            command: ["curl", "-fsSL", "-o", installer, "https://xccode.ai/v2/install"],
+            displayCommand: ["curl", "-fsSL", "https://xccode.ai/v2/install"],
+            title: "Could not download the Xccode installer",
+            retry: "Check your network, then run xccode upgrade again.",
           })
           return yield* retaining(
             method,
             runUpgrade({
               method,
               command: [bash, installer, "--version", version, "--no-modify-path"],
-              displayCommand: ["opencode", "upgrade", version, "--method", "curl"],
-              title: "The OpenCode installer failed",
+              displayCommand: ["xccode", "upgrade", version, "--method", "curl"],
+              title: "The Xccode installer failed",
             }),
           )
         }
@@ -579,9 +579,9 @@ const make = Effect.gen(function* () {
           ? cause
           : new UpgradeError(
               {
-                title: "Could not prepare the OpenCode upgrade",
+                title: "Could not prepare the Xccode upgrade",
                 detail: errorDetail(cause),
-                retry: "Fix the issue above, then run opencode upgrade again.",
+                retry: "Fix the issue above, then run xccode upgrade again.",
               },
               { cause },
             ),
@@ -597,19 +597,19 @@ const make = Effect.gen(function* () {
     if (installed !== version)
       return yield* Effect.fail(
         new UpgradeError({
-          title: `${installNames[method]} did not update this copy of OpenCode`,
+          title: `${installNames[method]} did not update this copy of Xccode`,
           detail: `${installNames[method]} reported success, but ${executable} is still version ${installed ?? "unknown"}.`,
-          retry: `Update the copy at ${executable} with the package manager that installed it, then run opencode upgrade again.`,
+          retry: `Update the copy at ${executable} with the package manager that installed it, then run xccode upgrade again.`,
         }),
       )
   })
 
   const inspect = Effect.fnUntraced(function* () {
-    if (OPENCODE_LOCAL || ["1", "true"].includes(process.env.OPENCODE_DISABLE_AUTOUPDATE?.toLowerCase() ?? "")) {
+    if (XCCODE_LOCAL || ["1", "true"].includes(process.env.XCCODE_DISABLE_AUTOUPDATE?.toLowerCase() ?? "")) {
       yield* Effect.logInfo("update check skipped", {
-        reason: OPENCODE_LOCAL ? "local-install" : "disabled",
-        version: OPENCODE_VERSION,
-        channel: OPENCODE_CHANNEL,
+        reason: XCCODE_LOCAL ? "local-install" : "disabled",
+        version: XCCODE_VERSION,
+        channel: XCCODE_CHANNEL,
       })
       return undefined
     }
@@ -630,7 +630,7 @@ const make = Effect.gen(function* () {
       yield* Effect.logInfo("update check done", { action: "up-to-date" })
       return undefined
     }
-    yield* Effect.logInfo("OpenCode update available", { current, latest: version, action: next })
+    yield* Effect.logInfo("Xccode update available", { current, latest: version, action: next })
     return { policy, version }
   })
 
@@ -643,7 +643,7 @@ const make = Effect.gen(function* () {
     const current = yield* Ref.get(installedVersion)
     yield* upgrade(detected, version)
     yield* Ref.set(installedVersion, version)
-    yield* Effect.logInfo("updated OpenCode", { from: current, to: version, method: detected })
+    yield* Effect.logInfo("updated Xccode", { from: current, to: version, method: detected })
     return true
   })
 
@@ -660,15 +660,15 @@ const make = Effect.gen(function* () {
   })
 
   const check = Effect.fn("cli.updater.check")(function* () {
-    if (OPENCODE_LOCAL)
+    if (XCCODE_LOCAL)
       return {
         type: "unavailable" as const,
-        message: "This build runs from a source checkout. Use an installed OpenCode release to check for updates.",
+        message: "This build runs from a source checkout. Use an installed Xccode release to check for updates.",
       }
     const detected = yield* method()
     if (!detected && installedOwner) {
       const data = yield* release("npm")
-      if (action(OPENCODE_VERSION, data.version, "auto") === "none") return undefined
+      if (action(XCCODE_VERSION, data.version, "auto") === "none") return undefined
       return {
         type: "unavailable" as const,
         message: managedMessage(managedError(installedOwner, `${data.package}@${data.version}`)),
@@ -685,7 +685,7 @@ const make = Effect.gen(function* () {
     const current = yield* Ref.get(installedVersion)
     if (action(current, version, "auto") === "none") {
       // An earlier check may have installed the update while this client is still running.
-      return action(OPENCODE_VERSION, current, "auto") === "none"
+      return action(XCCODE_VERSION, current, "auto") === "none"
         ? undefined
         : { type: "installed" as const, version: current }
     }

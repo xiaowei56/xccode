@@ -1,15 +1,15 @@
 import { isAbsolute, join, resolve } from "node:path"
 import { isDeepStrictEqual } from "node:util"
-import type { OpenCodeClient } from "@opencode/client/effect"
-import type { Permission } from "@opencode/schema/permission"
-import { AbsolutePath } from "@opencode/schema/schema"
-import type { Session } from "@opencode/schema/session"
-import { FSUtil } from "@opencode/util/fs-util"
+import type { XccodeClient } from "@xccode/client/effect"
+import type { Permission } from "@xccode/schema/permission"
+import { AbsolutePath } from "@xccode/schema/schema"
+import type { Session } from "@xccode/schema/session"
+import { FSUtil } from "@xccode/util/fs-util"
 import { Effect, Option, Schema } from "effect"
 import { ACPClient } from "./client"
 import { ACPError } from "./error"
 
-const key = "opencode.acp.additionalDirectories"
+const key = "xccode.acp.additionalDirectories"
 const decodeStored = Schema.decodeUnknownOption(Schema.Array(Schema.String))
 
 // Permission resources treat `*` and `?` as wildcards.
@@ -39,7 +39,7 @@ export function list(session: Pick<Session.Info, "metadata">) {
 }
 
 export const activate = Effect.fnUntraced(function* (
-  client: OpenCodeClient,
+  client: XccodeClient,
   session: Session.Info,
   directories: readonly string[],
 ) {

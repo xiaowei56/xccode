@@ -3,9 +3,9 @@ import { artworkNames, isIconName, getIcon, resolveIconName, type IconName } fro
 import { isRegisteredIconName, mountRegisteredIcon, registeredIconSymbol, type RegisteredIconName } from "../registry"
 import "./icon.css"
 
-const spriteID = "opencode-v2-icon-sprite"
+const spriteID = "xccode-v2-icon-sprite"
 
-const symbol = (name: string) => `opencode-v2-icon-${name}`
+const symbol = (name: string) => `xccode-v2-icon-${name}`
 
 let spriteInserted = false
 

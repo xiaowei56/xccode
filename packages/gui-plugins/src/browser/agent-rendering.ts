@@ -1,4 +1,4 @@
-import type { Browser } from "@opencode/plugin-browser/rpc"
+import type { Browser } from "@xccode/plugin-browser/rpc"
 
 /** A paused page cannot paint the frame that its dialog or a recovery navigation would unblock. */
 export function needsWakeFrame(method: Browser.Method, loaded: boolean, dialog: boolean) {

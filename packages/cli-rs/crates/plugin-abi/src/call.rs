@@ -1,9 +1,9 @@
 //! Typed calls: a request from [`crate::client`] sent as a [`Fetch`] and its reply decoded as the operation's output. [`Cx::call`], [`Cx::call_on_thread`] and [`Cx::send`] send them.
 //!
 //! ```
-//! # use opencode_plugin_abi::*;
-//! # use opencode_plugin_abi::task::Cx;
-//! # use opencode_plugin_abi::types::{SessionInboxListInput, SessionID};
+//! # use xccode_plugin_abi::*;
+//! # use xccode_plugin_abi::task::Cx;
+//! # use xccode_plugin_abi::types::{SessionInboxListInput, SessionID};
 //! async fn pending(cx: Cx, session: SessionID) -> Result<usize, String> {
 //!     let input = SessionInboxListInput { session_id: session };
 //!     let items = cx.call(client::session_inbox_list(&input)).await?;
@@ -13,7 +13,7 @@
 
 use std::future::Future;
 
-use opencode_api_types::call::{Body, Call, Reply};
+use xccode_api_types::call::{Body, Call, Reply};
 use serde::de::DeserializeOwned;
 use serde_json::Value;
 

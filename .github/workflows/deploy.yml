@@ -29,7 +29,7 @@ permissions:
 
 jobs:
   legacy-build:
-    if: github.repository == 'anomalyco/opencode' && (github.ref_name == 'dev' || github.ref_name == 'production')
+    if: github.repository == 'xiaowei56/xccode' && (github.ref_name == 'dev' || github.ref_name == 'production')
     runs-on: blacksmith-4vcpu-ubuntu-2404
     outputs:
       digest: ${{ steps.upload.outputs.digest }}
@@ -55,7 +55,7 @@ jobs:
 
   legacy-deploy:
     needs: legacy-build
-    if: github.repository == 'anomalyco/opencode' && (github.ref_name == 'dev' || github.ref_name == 'production')
+    if: github.repository == 'xiaowei56/xccode' && (github.ref_name == 'dev' || github.ref_name == 'production')
     runs-on: blacksmith-4vcpu-ubuntu-2404
     environment: ${{ github.ref_name }}
     permissions:
@@ -88,8 +88,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
-          role-to-assume: arn:aws:iam::604439173067:role/github/opencode-${{ github.ref_name }}
-          role-session-name: opencode-${{ github.run_id }}
+          role-to-assume: arn:aws:iam::604439173067:role/github/xccode-${{ github.ref_name }}
+          role-session-name: xccode-${{ github.run_id }}
           aws-region: us-east-1
 
       # A 15-minute token for this stage, minted by the token issuer (anomalyco/secrets) from the role above.
@@ -116,13 +116,13 @@ jobs:
           secrets="$RUNNER_TEMP/legacy-secrets.json"
           trap 'rm -f "$secrets"' EXIT
           for name in GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY; do
-            aws secretsmanager get-secret-value --secret-id "opencode/production/$name" --output json |
+            aws secretsmanager get-secret-value --secret-id "xccode/production/$name" --output json |
               jq --arg name "$name" '{($name): .SecretString}'
           done | jq -s add > "$secrets"
           bash .github/release/deploy-legacy.sh "$STAGE" "$RUNNER_TEMP/in/legacy-$STAGE" "$secrets"
 
   data-build:
-    if: github.repository == 'anomalyco/opencode' && (github.ref_name == 'dev' || github.ref_name == 'production')
+    if: github.repository == 'xiaowei56/xccode' && (github.ref_name == 'dev' || github.ref_name == 'production')
     runs-on: blacksmith-4vcpu-ubuntu-2404
     outputs:
       digest: ${{ steps.upload.outputs.digest }}
@@ -149,7 +149,7 @@ jobs:
   # The /data site, its OG image Worker and the sync Workflow (services/data).
   data-deploy:
     needs: data-build
-    if: github.repository == 'anomalyco/opencode' && (github.ref_name == 'dev' || github.ref_name == 'production')
+    if: github.repository == 'xiaowei56/xccode' && (github.ref_name == 'dev' || github.ref_name == 'production')
     runs-on: blacksmith-4vcpu-ubuntu-2404
     environment: ${{ github.ref_name }}
     permissions:
@@ -182,8 +182,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
-          role-to-assume: arn:aws:iam::604439173067:role/github/opencode-${{ github.ref_name }}
-          role-session-name: opencode-${{ github.run_id }}
+          role-to-assume: arn:aws:iam::604439173067:role/github/xccode-${{ github.ref_name }}
+          role-session-name: xccode-${{ github.run_id }}
           aws-region: us-east-1
 
       - name: Cloudflare token
@@ -205,7 +205,7 @@ jobs:
           secrets="$RUNNER_TEMP/data-secrets.json"
           trap 'rm -f "$secrets" "$secrets".*' EXIT
           for name in DATA_DATABASE_HOST DATA_DATABASE_USERNAME DATA_DATABASE_PASSWORD R2_SQL_AUTH_TOKEN DATA_HIDDEN_MODELS; do
-            aws secretsmanager get-secret-value --secret-id "opencode/$STAGE/$name" --output json |
+            aws secretsmanager get-secret-value --secret-id "xccode/$STAGE/$name" --output json |
               jq --arg name "$name" '{($name): .SecretString}'
           done | jq -s add > "$secrets"
           bash .github/release/deploy-data.sh "$STAGE" "$RUNNER_TEMP/in/data-$STAGE" "$secrets"

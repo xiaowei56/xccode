@@ -2,12 +2,12 @@
 
 use std::collections::HashSet;
 
-use opencode_api::generated::{
+use xccode_api::generated::{
     PermissionID, PermissionReply, PermissionReplyInput, PermissionRequest, SessionMessageAssistantContentItem,
 };
-use opencode_local::cli_config::{DiffView as ConfigDiffView, Permissions};
-use opencode_store::State;
-pub use opencode_ui::permission::{Presentation, always_lines, presentation};
+use xccode_local::cli_config::{DiffView as ConfigDiffView, Permissions};
+use xccode_store::State;
+pub use xccode_ui::permission::{Presentation, always_lines, presentation};
 use opentui::widget::{DiffView, Textarea};
 
 use crate::prelude::*;
@@ -98,7 +98,7 @@ impl Permission {
             .position(Edge::Bottom, 0)
             .z_index(2000)
             .visible(false);
-        opencode_ui::root::add(&tui.app, &overlay);
+        xccode_ui::root::add(&tui.app, &overlay);
         let inner = Rc::new(Inner {
             tui: tui.weak(),
             session: session.clone(),
@@ -456,7 +456,7 @@ impl Inner {
             let cwd = std::env::current_dir().unwrap_or_default();
             let home = std::env::home_dir();
             presentation(&request.action, &request.resources, request.metadata.as_ref(), &input, &metadata, &|path| {
-                opencode_ui::path::format(path, directory.as_deref(), &cwd, home.as_deref())
+                xccode_ui::path::format(path, directory.as_deref(), &cwd, home.as_deref())
             })
         });
 
@@ -557,7 +557,7 @@ impl Inner {
         let (mark, title, subtitle) = (
             Text::new(app, "△"),
             Text::new(app, "Reject permission"),
-            Text::new(app, "Tell OpenCode what to do differently"),
+            Text::new(app, "Tell Xccode what to do differently"),
         );
         let heading = View::new(app)
             .column()
@@ -699,7 +699,7 @@ fn presentation_body(tui: &Tui, theme: &Theme, request: &PermissionRequest, curr
 
 fn edit_body(tui: &Tui, theme: &Theme, current: &Presentation) -> View {
     let app = &tui.app;
-    let syntax = opencode_ui::code::syntax_theme(theme);
+    let syntax = xccode_ui::code::syntax_theme(theme);
     let scroll = || ScrollBox::new(app).height(Length::percent(100.0));
     let column = View::new(app).column().gap(1).grow(1.0).basis(Length::Auto).min_height(0);
     if let Some(diff) = &current.diff {
@@ -711,11 +711,11 @@ fn edit_body(tui: &Tui, theme: &Theme, current: &Presentation) -> View {
         };
         let file = current.file.as_deref().unwrap_or_default();
         let filetype = opentui::syntax::filetype_for_path(file);
-        let diff = opencode_ui::diff::view(app, theme, &syntax, diff, view, filetype, WrapMode::Word, 0);
+        let diff = xccode_ui::diff::view(app, theme, &syntax, diff, view, filetype, WrapMode::Word, 0);
         return column.child(&scroll().child(&diff));
     }
     if let Some(patch) = &current.patch {
-        let code = opencode_ui::code::view(app, theme, &syntax, Some("diff"), patch).fg(theme.text.muted);
+        let code = xccode_ui::code::view(app, theme, &syntax, Some("diff"), patch).fg(theme.text.muted);
         return column.child(&scroll().child(&code));
     }
     column.child(

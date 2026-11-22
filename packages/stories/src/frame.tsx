@@ -2,7 +2,7 @@ import "../../app/src/index.css"
 
 import { createResource, Show, type Component, type JSX } from "solid-js"
 import { Dynamic, render } from "solid-js/web"
-import type { ColorScheme } from "@opencode/ui/theme"
+import type { ColorScheme } from "@xccode/ui/theme"
 import { findStory } from "virtual:story-index"
 import { PluginStory } from "./plugin"
 import { StoryProviders } from "./providers"

@@ -3,16 +3,16 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
-use opencode_util::time;
+use xccode_util::time;
 use opentui::prelude::*;
 use serde_json::{Value, json};
 
-/// `OPENCODE_SHOW_TTFD` is `1` or `true`, in any case.
+/// `XCCODE_SHOW_TTFD` is `1` or `true`, in any case.
 pub fn show_timing() -> bool {
-    std::env::var("OPENCODE_SHOW_TTFD").is_ok_and(|value| matches!(value.to_lowercase().as_str(), "1" | "true"))
+    std::env::var("XCCODE_SHOW_TTFD").is_ok_and(|value| matches!(value.to_lowercase().as_str(), "1" | "true"))
 }
 
-/// The JSONL trace (`createTrace`), on when `OPENCODE_DIRECT_TRACE` is set and not empty.
+/// The JSONL trace (`createTrace`), on when `XCCODE_DIRECT_TRACE` is set and not empty.
 #[derive(Clone)]
 pub struct Trace {
     path: PathBuf,
@@ -23,7 +23,7 @@ pub struct Trace {
 impl Trace {
     /// Starts a trace under `<log>/direct/<stamp>-<pid>.jsonl` and points `<log>/direct/latest.json` at it.
     pub fn from_env(log: &Path, cwd: &str, argv: &[String]) -> Option<Self> {
-        std::env::var_os("OPENCODE_DIRECT_TRACE").filter(|value| !value.is_empty())?;
+        std::env::var_os("XCCODE_DIRECT_TRACE").filter(|value| !value.is_empty())?;
         Self::start(log, std::process::id(), cwd, argv)
             .inspect_err(|error| log::warn!("mini trace failed to start: {error}"))
             .ok()
@@ -108,7 +108,7 @@ mod tests {
 
     #[test]
     fn a_trace_writes_latest_and_records() {
-        let dir = opencode_util::temp::tempdir().unwrap();
+        let dir = xccode_util::temp::tempdir().unwrap();
         let trace = Trace::start(dir.path(), 42, "/work", &["mini".into()]).unwrap();
         trace.write("send.prompt", json!({ "sessionID": "ses_1" }));
         trace.write("ui.idle", Value::Null);

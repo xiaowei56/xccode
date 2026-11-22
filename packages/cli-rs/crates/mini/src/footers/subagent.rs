@@ -1,6 +1,6 @@
 //! The selected child's transcript follows new entries at the tail.
 
-use opencode_ui::motion::{SPINNER_FRAMES, Spinner};
+use xccode_ui::motion::{SPINNER_FRAMES, Spinner};
 use opentui::widget::ScrollEdge;
 
 use crate::prelude::*;

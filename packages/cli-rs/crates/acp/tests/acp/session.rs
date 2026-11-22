@@ -15,7 +15,7 @@ async fn initialize_advertises_capabilities_and_offers_terminal_auth_only_when_a
 
     let plain = acp.initialize(json!({ "_meta": {} })).await;
     let terminal =
-        acp.initialize(json!({ "_meta": { "terminal-auth": true, "opencode/child-session-updates": true } })).await;
+        acp.initialize(json!({ "_meta": { "terminal-auth": true, "xccode/child-session-updates": true } })).await;
     let standard = acp
         .request("initialize", json!({ "protocolVersion": 1, "clientCapabilities": { "auth": { "terminal": true } } }))
         .await
@@ -30,31 +30,31 @@ async fn initialize_advertises_capabilities_and_offers_terminal_auth_only_when_a
                 "mcpCapabilities": { "http": true, "sse": false },
                 "promptCapabilities": { "embeddedContext": true, "image": true },
                 "sessionCapabilities": { "additionalDirectories": {}, "close": {}, "delete": {}, "fork": {}, "list": {}, "resume": {} },
-                "_meta": { "opencode/child-session-updates": true },
+                "_meta": { "xccode/child-session-updates": true },
             },
-            "agentInfo": { "name": "OpenCode" },
+            "agentInfo": { "name": "Xccode" },
             "_meta": { "steering": { "supported": true } },
         }),
     );
     assert_eq!(
         plain["authMethods"],
-        json!([{ "id": "opencode-login", "name": "Login with opencode", "description": "Run `opencode auth login` in the terminal" }])
+        json!([{ "id": "xccode-login", "name": "Login with xccode", "description": "Run `xccode auth login` in the terminal" }])
     );
     assert_eq!(
         terminal["authMethods"][0]["_meta"],
-        json!({ "terminal-auth": { "command": "opencode", "args": ["auth", "login"], "label": "OpenCode Login" } })
+        json!({ "terminal-auth": { "command": "xccode", "args": ["auth", "login"], "label": "Xccode Login" } })
     );
     assert_eq!(
         standard["authMethods"],
         json!([{
-            "id": "opencode-login",
-            "name": "Login with opencode",
-            "description": "Run `opencode auth login` in the terminal",
+            "id": "xccode-login",
+            "name": "Login with xccode",
+            "description": "Run `xccode auth login` in the terminal",
             "type": "terminal",
             "args": ["--login"],
         }])
     );
-    assert_eq!(acp.request("authenticate", json!({ "methodId": "opencode-login" })).await.unwrap(), json!({}));
+    assert_eq!(acp.request("authenticate", json!({ "methodId": "xccode-login" })).await.unwrap(), json!({}));
     assert_matches(
         &error(acp.request("authenticate", json!({ "methodId": "missing" })).await),
         &json!({ "code": -32602, "data": { "methodId": "missing" } }),

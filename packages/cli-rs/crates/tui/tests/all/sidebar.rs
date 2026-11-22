@@ -4,8 +4,8 @@ use crate::support::{self, DIRECTORY, Fake, deref_harness, list};
 
 use std::sync::Arc;
 
-use opencode_plugin::{Host, SlotInput, slot};
-use opencode_tui::{Deps, Route};
+use xccode_plugin::{Host, SlotInput, slot};
+use xccode_tui::{Deps, Route};
 use opentui::prelude::*;
 use serde_json::{Value, json};
 
@@ -20,7 +20,7 @@ fn servers() -> Value {
 
 struct Sidebar {
     harness: support::Harness,
-    _home: Option<opencode_util::temp::TempDir>,
+    _home: Option<xccode_util::temp::TempDir>,
 }
 
 deref_harness!(Sidebar);
@@ -30,7 +30,7 @@ fn mount(plugins: &[&str], stored: bool) -> Sidebar {
         ("GET", "/api/mcp") => (200, list(DIRECTORY, servers())),
         _ => support::base(seen, DIRECTORY),
     });
-    let home = stored.then(|| opencode_util::temp::tempdir().unwrap());
+    let home = stored.then(|| xccode_util::temp::tempdir().unwrap());
     let config = json!({ "animations": false, "plugins": plugins });
     let deps = Deps {
         config: support::config(support::decode(&config.to_string())),
@@ -105,7 +105,7 @@ fn dismissing_the_card_stores_the_new_value() {
     let h = mount(&[], true);
     h.click("✕");
     h.wait_gone("Getting started");
-    let key = "plugin.opencode.sidebar.footer.getting-started";
+    let key = "plugin.xccode.sidebar.footer.getting-started";
     let stored: Value = serde_json::from_str(&h.tui.storage_read(key).unwrap()).unwrap();
     assert_eq!(stored, json!({ "dismissed": true }));
     let storage = h.tui.storage().unwrap();
@@ -113,13 +113,13 @@ fn dismissing_the_card_stores_the_new_value() {
     assert!(written, "{:?}", storage.load(key, &Value::Null));
 }
 
-const VIEW: &str = "plugin.opencode.sidebar.mcp.view";
-const CARD: &str = "plugin.opencode.sidebar.footer.getting-started";
+const VIEW: &str = "plugin.xccode.sidebar.mcp.view";
+const CARD: &str = "plugin.xccode.sidebar.footer.getting-started";
 
 impl Sidebar {
     fn write(&self, key: &str, value: Value) {
         let file = self.tui.storage().unwrap().file(key).unwrap();
-        opencode_local::storage::write_json_atomic(&file, &value).unwrap();
+        xccode_local::storage::write_json_atomic(&file, &value).unwrap();
     }
 
     /// Waits until `key` holds `value` on disk.
@@ -191,8 +191,8 @@ fn the_sections_let_go_of_their_settings_listeners() {
     let mounts = |count: usize| {
         for _ in 0..count {
             let parent = View::new(&h.app);
-            let content = opencode_tui::plugins::host::slot(&h.tui, &parent, slot::SIDEBAR_CONTENT, &input, |_| {});
-            let footer = opencode_tui::plugins::host::slot(&h.tui, &parent, slot::SIDEBAR_FOOTER, &input, |_| {});
+            let content = xccode_tui::plugins::host::slot(&h.tui, &parent, slot::SIDEBAR_CONTENT, &input, |_| {});
+            let footer = xccode_tui::plugins::host::slot(&h.tui, &parent, slot::SIDEBAR_FOOTER, &input, |_| {});
             assert!(!content.is_empty() && !footer.is_empty());
         }
         h.app.render();

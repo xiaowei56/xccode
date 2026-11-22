@@ -1,5 +1,5 @@
 use indexmap::IndexMap;
-use opencode_ui::theme::{Catalog, TerminalColors, Theme, ThemeMode, generate_system, terminal_mode};
+use xccode_ui::theme::{Catalog, TerminalColors, Theme, ThemeMode, generate_system, terminal_mode};
 use opentui::style::Color;
 use serde_json::Value;
 
@@ -62,8 +62,8 @@ fn compare(key: &str, modes: &[ThemeMode], theme: &Theme, expected: &Value, path
         paths.iter().map(|path| list.get(path).copied().unwrap_or(Color::rgba(1, 2, 3, 4))).collect::<Vec<_>>()
     };
     check("base", paths.to_vec(), sorted(theme));
-    check("dialog", paths.to_vec(), sorted(&theme.surface(opencode_ui::theme::Surface::Dialog)));
-    check("footer", paths.to_vec(), sorted(&theme.surface(opencode_ui::theme::Surface::DialogFooter)));
+    check("dialog", paths.to_vec(), sorted(&theme.surface(xccode_ui::theme::Surface::Dialog)));
+    check("footer", paths.to_vec(), sorted(&theme.surface(xccode_ui::theme::Surface::DialogFooter)));
     // Shifts take references into the theme, as TypeScript matches colors by identity.
     let token = |path: &String| theme.get(path).unwrap_or(&Color::TRANSPARENT);
     check("decrease", paths.to_vec(), paths.iter().map(|path| theme.decrease(token(path), 1)).collect());
@@ -134,8 +134,8 @@ fn v1_migration_matches_the_typescript_migration() {
     let mut checked = 0;
     for (key, expected) in fixture["builtins"].as_object().unwrap() {
         let [name, requested] = key.splitn(2, '/').collect::<Vec<_>>()[..] else { panic!("{key}") };
-        // The built-in opencode theme is the V2 document; assets/opencode.json is an unused V1 copy.
-        if name == "opencode" {
+        // The built-in xccode theme is the V2 document; assets/xccode.json is an unused V1 copy.
+        if name == "xccode" {
             continue;
         }
         let Ok(raw) = std::fs::read_to_string(format!("{ASSETS}/{name}.json")) else { continue };

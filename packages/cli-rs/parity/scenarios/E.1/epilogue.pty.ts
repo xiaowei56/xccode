@@ -1,6 +1,6 @@
 // The exit epilogue (G14): `-s ses_b` opens the session, Ctrl+C quits, and the terminal shows the wordmark, the
 // session title, and the command that continues it (`util/presentation.ts`). Both sides name themselves
-// "opencode" (OPENCODE_CLI_NAME).
+// "xccode" (XCCODE_CLI_NAME).
 import { definePty } from "../../pty/run"
 
 const session = {
@@ -10,7 +10,7 @@ const session = {
   cost: 0,
   tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
   time: { created: 1, updated: 2 },
-  location: { directory: "/tmp/opencode/packages/tui" },
+  location: { directory: "/tmp/xccode/packages/tui" },
 }
 
 export default definePty({
@@ -28,7 +28,7 @@ export default definePty({
   steps: [
     { until: { screen: "Fix the parser" }, settle: 500, timeout: 30_000 },
     // One Ctrl+C on the empty prompt exits; a second press could land once the terminal is restored, as a SIGINT.
-    { keys: "\x03", until: { screen: "opencode -s ses_b" }, settle: 300, checkpoint: "epilogue", timeout: 10_000 },
+    { keys: "\x03", until: { screen: "xccode -s ses_b" }, settle: 300, checkpoint: "epilogue", timeout: 10_000 },
   ],
   osc: [],
   exits: true,

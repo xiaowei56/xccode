@@ -6,18 +6,18 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, mpsc};
 
-use opencode_api::client::Client;
-use opencode_api::generated::{
+use xccode_api::client::Client;
+use xccode_api::generated::{
     AgentInfo, AgentInfoMode, IntegrationInfo, LocationQueryInput, ModelInfo, ModelRef, ProviderInfo, SessionInfo,
     UsageLimitsInfo,
 };
-use opencode_local::model_pref::{self, Model, ModelPreferences, Preference};
-use opencode_local::storage::Storage;
-use opencode_local::watch::Watch;
-use opencode_store::location::{Catalog, Location, LocationData};
-use opencode_store::{Data, Selected};
-use opencode_ui::dialog::Dialogs;
-use opencode_ui::toast::Toasts;
+use xccode_local::model_pref::{self, Model, ModelPreferences, Preference};
+use xccode_local::storage::Storage;
+use xccode_local::watch::Watch;
+use xccode_store::location::{Catalog, Location, LocationData};
+use xccode_store::{Data, Selected};
+use xccode_ui::dialog::Dialogs;
+use xccode_ui::toast::Toasts;
 
 use crate::prelude::*;
 
@@ -227,7 +227,7 @@ impl Local {
     pub(crate) fn reload(
         &self,
         catalog: Catalog,
-    ) -> impl Future<Output = Result<(), opencode_store::Error>> + Send + use<> {
+    ) -> impl Future<Output = Result<(), xccode_store::Error>> + Send + use<> {
         let data = self.data.clone();
         let location = self.catalog_location();
         async move {
@@ -331,7 +331,7 @@ impl Local {
     }
 
     // `model.json` writes, in order, off the UI thread.
-    fn write(&self, job: impl FnOnce(&ModelPreferences) -> Result<(), opencode_local::lock::Error> + Send + 'static) {
+    fn write(&self, job: impl FnOnce(&ModelPreferences) -> Result<(), xccode_local::lock::Error> + Send + 'static) {
         let (Some(writer), Some(preferences)) = (&self.writer, self.preferences.clone()) else { return };
         self.writes.set(self.writes.get() + 1);
         let written = self.written.clone();
@@ -379,7 +379,7 @@ impl Local {
     }
 
     /// `useUsageLimits().info`, from the store: `None` until loaded, `Some(None)` when the location is not signed in
-    /// to OpenCode Console.
+    /// to Xccode Console.
     pub fn usage(&self) -> Option<Option<UsageLimitsInfo>> {
         self.catalog(|data| data?.usage_limits.clone())
     }
@@ -405,7 +405,7 @@ impl Local {
         }
     }
 
-    /// Load limits when OpenCode Console serves the selected model.
+    /// Load limits when Xccode Console serves the selected model.
     pub(crate) fn load_served_usage(&self) {
         let served = self
             .current()

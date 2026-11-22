@@ -64,8 +64,8 @@ Producer capture remains local to producers. Shell stores combined process outpu
 
 `tool/model-policy.ts` (`modelTools`) decides, per model, which tools are hidden and which tools that allow Code Mode stay direct. `Tool.snapshot` in `src/tool.ts` applies it: a tool is inside Code Mode only when Code Mode is enabled, `defaultCodeMode` in `tool/runtime.ts` allows it (`options.codemode !== false`), and the policy doesn't keep it direct. The built-in registrations in `tool/plugin/` decide which tools allow Code Mode.
 
-The team docs site mirrors this logic in an interactive page: https://anoma.ly/team/abattoir/projects/opencode/model-tools (repo `anomalyco/abattoir`). When you change `modelTools`, the placement check in `Tool.snapshot`, `defaultCodeMode`, or a built-in's `codemode` option, update the page in the same change:
+The team docs site mirrors this logic in an interactive page: https://anoma.ly/team/abattoir/projects/xccode/model-tools (repo `anomalyco/abattoir`). When you change `modelTools`, the placement check in `Tool.snapshot`, `defaultCodeMode`, or a built-in's `codemode` option, update the page in the same change:
 
 - `src/guides/oc-model-tools.ts` holds a hand-copied version of `modelTools` and the snapshot placement, plus the `MODELS` and `TOOLS` example lists. Keep the copy identical to the code here.
-- `content/projects/opencode/model-tools.md` has the page text; update it if a rule changes.
+- `content/projects/xccode/model-tools.md` has the page text; update it if a rule changes.
 - Open a PR into Abattoir's `dev` branch.

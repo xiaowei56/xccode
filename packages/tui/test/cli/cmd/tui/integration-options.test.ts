@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { IntegrationInfo } from "@opencode/client"
+import type { IntegrationInfo } from "@xccode/client"
 import {
   connectionSummary,
   connectMethods,
@@ -21,27 +21,27 @@ describe("integrationOptions", () => {
         integration({ id: "openai", name: "OpenAI" }),
         integration({ id: "custom-z", name: "Zebra" }),
         integration({ id: "anthropic", name: "Anthropic" }),
-        integration({ id: "opencode", name: "OpenCode Zen" }),
+        integration({ id: "xccode", name: "Xccode Zen" }),
         integration({
-          id: "opencode-go",
-          name: "OpenCode Go",
+          id: "xccode-go",
+          name: "Xccode Go",
           connections: [{ type: "credential", id: "go", label: "Go", method: "key" }],
         }),
       ]).map((item) => item.id),
-    ).toEqual(["opencode", "opencode-go", "openai", "anthropic", "mistral", "custom-z"])
+    ).toEqual(["xccode", "xccode-go", "openai", "anthropic", "mistral", "custom-z"])
   })
 
-  test("hides OpenCode Go until a Go key is saved", () => {
+  test("hides Xccode Go until a Go key is saved", () => {
     expect(
       integrationOptions([
-        integration({ id: "opencode", name: "OpenCode Zen" }),
+        integration({ id: "xccode", name: "Xccode Zen" }),
         integration({
-          id: "opencode-go",
-          name: "OpenCode Go",
-          connections: [{ type: "env", name: "OPENCODE_API_KEY" }],
+          id: "xccode-go",
+          name: "Xccode Go",
+          connections: [{ type: "env", name: "XCCODE_API_KEY" }],
         }),
       ]).map((item) => item.id),
-    ).toEqual(["opencode"])
+    ).toEqual(["xccode"])
   })
 })
 

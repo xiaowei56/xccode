@@ -1,6 +1,6 @@
 // Light product pages with copy from their READMEs and source. Browse is a product, listed on
 // /product with the others and served at /product/browse. SSH and WSL, built-in desktop app extensions
-// (anomalyco/opencode packages/gui-extensions), were listed under /extensions.
+// (xiaowei56/xccode packages/gui-extensions), were listed under /extensions.
 
 // SSH and WSL are left out for now, like Isocast in links.ts: to bring them back, restore "ssh" |
 // "wsl" here, uncomment their entries below and their pages in routes/extensions (now redirects).
@@ -35,9 +35,9 @@ export const extensionPages: readonly Extension[] = [
     slug: "browse",
     name: "Browse",
     body: "Let agents use your real browser.",
-    title: "OpenCode | Browse, your real browser for coding agents",
+    title: "Xccode | Browse, your real browser for coding agents",
     description:
-      "Browse lets OpenCode and other MCP clients use your real browser. Agents read, click, type, take screenshots, record tabs and hand logins and 2FA back to you.",
+      "Browse lets Xccode and other MCP clients use your real browser. Agents read, click, type, take screenshots, record tabs and hand logins and 2FA back to you.",
     intro:
       "An MCP server and a Chromium extension that let your agents use your real browser, with your tabs, your logins and your extensions. They open tabs in the background, grouped out of your way, and read pages, click, type, take screenshots and record tabs. When it's your turn, for a login, a 2FA prompt or a payment, they hand the tab back to you and continue once you click Continue.",
     features: [
@@ -46,17 +46,17 @@ export const extensionPages: readonly Extension[] = [
       { title: "Handoffs", body: "Do the login or 2FA step yourself, then click Continue." },
       { title: "Lend a tab", body: "Click the toolbar button to hand an agent a tab you have open." },
       { title: "Record and capture", body: "Screenshots, tab recordings and network traffic." },
-      { title: "Any MCP client", body: "OpenCode, Claude Code, Cursor, Codex, Zed and many more." },
+      { title: "Any MCP client", body: "Xccode, Claude Code, Cursor, Codex, Zed and many more." },
       { title: "All your logins", body: "Agents use the sites you're already signed into. No keys, no setup." },
       { title: "Allowed sites", body: "Keep an agent's tab on the sites you name." },
     ],
     install: {
       lead: "Install the [Chrome extension] first. It walks you through the rest of the steps. To install the CLI directly (you should not need to do this), use any of these.",
       commands: [
-        { method: "curl", command: "curl -fsSL https://opencode.ai/browse/install | bash" },
-        { method: "pwsh", command: "irm https://opencode.ai/browse/install.ps1 | iex" },
-        { method: "npm", command: "npm install -g @opencode/browse && browse install" },
-        { method: "bun", command: "bun add -g @opencode/browse && browse install" },
+        { method: "curl", command: "curl -fsSL https://xccode.ai/browse/install | bash" },
+        { method: "pwsh", command: "irm https://xccode.ai/browse/install.ps1 | iex" },
+        { method: "npm", command: "npm install -g @xccode/browse && browse install" },
+        { method: "bun", command: "bun add -g @xccode/browse && browse install" },
       ],
     },
     store: "https://chromewebstore.google.com/detail/mfnicocicmmlkpjnaffgihfjhdgjkdjg",
@@ -68,11 +68,11 @@ export const extensionPages: readonly Extension[] = [
   //   slug: "ssh",
   //   name: "SSH",
   //   body: "Work on a server's projects over SSH.",
-  //   title: "OpenCode | SSH to work on a remote machine from the desktop",
+  //   title: "Xccode | SSH to work on a remote machine from the desktop",
   //   description:
-  //     "The SSH extension connects the OpenCode desktop app to a Linux or macOS machine over SSH. It sets up the remote server for you and keeps your sessions there.",
+  //     "The SSH extension connects the Xccode desktop app to a Linux or macOS machine over SSH. It sets up the remote server for you and keeps your sessions there.",
   //   intro:
-  //     "Connect the desktop app to another machine over SSH and open its projects. Enter a host or an SSH command, and OpenCode installs its server on the remote machine for you. If the connection drops, reconnect and pick up where you were: your remote session is preserved.",
+  //     "Connect the desktop app to another machine over SSH and open its projects. Enter a host or an SSH command, and Xccode installs its server on the remote machine for you. If the connection drops, reconnect and pick up where you were: your remote session is preserved.",
   //   features: [
   //     { title: "Host or command", body: "Enter user@example.com or the ssh command you already use." },
   //     { title: "Set up for you", body: "The remote server installs itself on first connect." },
@@ -84,20 +84,20 @@ export const extensionPages: readonly Extension[] = [
   //     { title: "Sign in as usual", body: "SSH authentication prompts appear in the app." },
   //   ],
   //   install: { lead: "Built into the desktop app. Open the server menu and choose Add SSH server." },
-  //   source: "https://github.com/anomalyco/opencode/tree/v2/packages/gui-extensions/src/ssh",
+  //   source: "https://github.com/xiaowei56/xccode/tree/v2/packages/gui-extensions/src/ssh",
   // },
   // {
   //   slug: "wsl",
   //   name: "WSL",
-  //   body: "Run OpenCode in WSL 2 from Windows.",
-  //   title: "OpenCode | WSL to use a Linux distro from the Windows desktop",
+  //   body: "Run Xccode in WSL 2 from Windows.",
+  //   title: "Xccode | WSL to use a Linux distro from the Windows desktop",
   //   description:
-  //     "The WSL extension adds a WSL server to the OpenCode desktop app on Windows, so sessions run in your Linux distro. It installs and updates OpenCode there.",
+  //     "The WSL extension adds a WSL server to the Xccode desktop app on Windows, so sessions run in your Linux distro. It installs and updates Xccode there.",
   //   intro:
-  //     "On Windows, add a WSL server to the desktop app and your sessions run inside a Linux distribution. The app lists your installed distros, installs or updates OpenCode in the one you choose, and tells you what is missing, such as WSL 2 or a restart to finish installing WSL.",
+  //     "On Windows, add a WSL server to the desktop app and your sessions run inside a Linux distribution. The app lists your installed distros, installs or updates Xccode in the one you choose, and tells you what is missing, such as WSL 2 or a restart to finish installing WSL.",
   //   features: [
   //     { title: "Your distro", body: "Pick from the WSL distros you have installed." },
-  //     { title: "Installs OpenCode", body: "Installs or updates OpenCode inside the distro." },
+  //     { title: "Installs Xccode", body: "Installs or updates Xccode inside the distro." },
   //     { title: "Checks setup", body: "Reports missing tools such as bash and curl." },
   //     { title: "WSL 2", body: "Works with WSL 2 distros." },
   //     { title: "Guided install", body: "Says when Windows needs a restart to finish." },
@@ -106,6 +106,6 @@ export const extensionPages: readonly Extension[] = [
   //     { title: "More distros", body: "Install another distribution from the WSL catalog." },
   //   ],
   //   install: { lead: "Built into the desktop app on Windows. Open the server menu and choose Add WSL server." },
-  //   source: "https://github.com/anomalyco/opencode/tree/v2/packages/gui-extensions/src/wsl",
+  //   source: "https://github.com/xiaowei56/xccode/tree/v2/packages/gui-extensions/src/wsl",
   // },
 ]

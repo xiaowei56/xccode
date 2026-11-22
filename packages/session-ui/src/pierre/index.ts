@@ -5,16 +5,16 @@ import {
   registerCustomTheme,
   type SelectedLineRange,
 } from "@pierre/diffs"
-import { OpenCodeTheme } from "@opencode/ui/context/highlight-theme"
+import { XccodeTheme } from "@xccode/ui/context/highlight-theme"
 import { ComponentProps } from "solid-js"
 import { lineCommentStyles } from "../components/line-comment-styles"
 import quoteHighlightStyles from "../components/quote-highlight.css?inline"
 
 // Pierre resolves themes on the main thread and hands them to its workers, so register before any viewer renders.
-registerCustomTheme(OpenCodeTheme.name, () => Promise.resolve(OpenCodeTheme), "zed")
+registerCustomTheme(XccodeTheme.name, () => Promise.resolve(XccodeTheme), "zed")
 
 // Viewers and worker pools must agree: the pool's options win whenever it renders.
-export const highlightOptions = { theme: OpenCodeTheme.name, preferredHighlighter: "highlights" } as const
+export const highlightOptions = { theme: XccodeTheme.name, preferredHighlighter: "highlights" } as const
 
 export type DiffProps<T = {}> = FileDiffOptions<T, undefined> & {
   before: FileContents
@@ -30,7 +30,7 @@ export type DiffProps<T = {}> = FileDiffOptions<T, undefined> & {
 
 const unsafeCSS = `
 :host {
-  --diffs-bg: var(--opencode-diffs-bg, var(--color-background-stronger));
+  --diffs-bg: var(--xccode-diffs-bg, var(--color-background-stronger));
   /* Pierre mixes 15% in dark mode, which makes collapsed rows read as highlighted. */
   --diffs-bg-separator-override: light-dark(
     color-mix(in lab, var(--diffs-bg) 98%, var(--diffs-mixer)),
@@ -45,9 +45,9 @@ const unsafeCSS = `
     rgb(from var(--v2-red-600) r g b / 0.4)
   );
   --diffs-fg-number-override: var(--v2-text-text-faint);
-  /* A page can set the --opencode-diffs-addition-* variables to show additions plain, as a created file does. */
+  /* A page can set the --xccode-diffs-addition-* variables to show additions plain, as a created file does. */
   --diffs-fg-number-addition-override: var(
-    --opencode-diffs-addition-number-fg,
+    --xccode-diffs-addition-number-fg,
     light-dark(var(--v2-green-900), var(--v2-green-400))
   );
   --diffs-fg-number-deletion-override: light-dark(var(--v2-red-800), var(--v2-red-500));
@@ -63,7 +63,7 @@ const unsafeCSS = `
   );
   --diffs-bg-deletion-number-override: var(--diffs-bg-deletion-override);
   --diffs-bg-addition-override: var(
-    --opencode-diffs-addition-bg,
+    --xccode-diffs-addition-bg,
     light-dark(rgb(from var(--v2-green-600) r g b / 0.05), rgb(from var(--v2-green-800) r g b / 0.1))
   );
   --diffs-bg-addition-number-override: var(--diffs-bg-addition-override);
@@ -82,7 +82,7 @@ const unsafeCSS = `
     background-color: var(--timeline-quote-background);
   }
 
-  :host::highlight(opencode-find) {
+  :host::highlight(xccode-find) {
     background-color: rgb(from var(--surface-warning-base) r g b / 0.35);
   }
 
@@ -93,7 +93,7 @@ const unsafeCSS = `
     background-color: var(--timeline-quote-background);
   }
 
-  :host::highlight(opencode-find-current) {
+  :host::highlight(xccode-find-current) {
     background-color: rgb(from var(--surface-warning-strong) r g b / 0.55);
   }
 }
@@ -104,7 +104,7 @@ const unsafeCSS = `
     background-color: var(--timeline-quote-background);
   }
 
-  ::highlight(opencode-find) {
+  ::highlight(xccode-find) {
     background-color: rgb(from var(--surface-warning-base) r g b / 0.35);
   }
 
@@ -115,7 +115,7 @@ const unsafeCSS = `
     background-color: var(--timeline-quote-background);
   }
 
-  ::highlight(opencode-find-current) {
+  ::highlight(xccode-find-current) {
     background-color: rgb(from var(--surface-warning-strong) r g b / 0.55);
   }
 }
@@ -124,11 +124,11 @@ const unsafeCSS = `
 [data-indicators='bars'] [data-column-number][data-line-type='change-deletion']::before {
   width: 2px;
   /* A page can quiet the change bars, as the Activity timeline does. */
-  opacity: var(--opencode-diffs-bar-opacity, 1);
+  opacity: var(--xccode-diffs-bar-opacity, 1);
 }
 
 [data-indicators='bars'] [data-column-number][data-line-type='change-addition']::before {
-  background-color: var(--opencode-diffs-addition-color, light-dark(var(--v2-green-900), var(--v2-green-400)));
+  background-color: var(--xccode-diffs-addition-color, light-dark(var(--v2-green-900), var(--v2-green-400)));
 }
 
 [data-indicators='bars'] [data-column-number][data-line-type='change-deletion']::before {
@@ -274,7 +274,7 @@ const unsafeCSS = `
 
 /* Pierre insets line numbers by 2ch to leave room for diff change bars; compact file viewers can tighten it. */
 [data-file]:not([data-disable-line-numbers]) :is([data-column-number], [data-gutter-buffer]) {
-  padding-left: var(--opencode-diffs-number-inset, 2ch);
+  padding-left: var(--xccode-diffs-number-inset, 2ch);
 }
 
 [data-diff-header],

@@ -1,5 +1,5 @@
-# The P0b title plugin's opencode-native side, which parity/scenarios/P.0b/fixture.ts installs beside `tui.ts`: the TS
-# client loads `tui.ts`, opencode-native this Luau plugin.
+# The P0b title plugin's xccode-native side, which parity/scenarios/P.0b/fixture.ts installs beside `tui.ts`: the TS
+# client loads `tui.ts`, xccode-native this Luau plugin.
 id = "parity.title"
 name = "P0b title"
 version = "0.1.0"

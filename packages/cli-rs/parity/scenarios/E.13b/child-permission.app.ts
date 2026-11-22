@@ -24,7 +24,7 @@ export default defineApp({
     },
     { method: "POST", path: "/api/session/ses_c/permission/per_1/reply", status: 204 },
     // The Rust prompt under the child's composer mounts its footer, which reads the goal; TS mounts no prompt here.
-    { method: "POST", path: "/api/rpc/opencode.goal/get", json: { output: null } },
+    { method: "POST", path: "/api/rpc/xccode.goal/get", json: { output: null } },
   ],
   steps: [
     { checkpoint: "prompted", until: "Permission required" },

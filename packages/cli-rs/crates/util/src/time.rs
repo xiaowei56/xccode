@@ -232,10 +232,10 @@ pub fn iso(ms: i64) -> Option<String> {
     UTC.at(ms).map(|time| time.iso())
 }
 
-/// Milliseconds since the epoch. `OPENCODE_DRIVE_NOW` sets the simulation clock's starting instant.
+/// Milliseconds since the epoch. `XCCODE_DRIVE_NOW` sets the simulation clock's starting instant.
 pub fn now_ms() -> i64 {
     static OFFSET: LazyLock<i64> = LazyLock::new(|| {
-        std::env::var("OPENCODE_DRIVE_NOW")
+        std::env::var("XCCODE_DRIVE_NOW")
             .ok()
             .and_then(|start| start.parse::<i64>().ok())
             .map_or(0, |start| start - millis(SystemTime::now()))

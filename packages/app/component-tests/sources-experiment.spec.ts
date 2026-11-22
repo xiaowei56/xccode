@@ -1,5 +1,5 @@
-import type { SessionMessageInfo } from "@opencode/client/promise"
-import type { MotionKnob } from "@opencode/ui/motion-tuning"
+import type { SessionMessageInfo } from "@xccode/client/promise"
+import type { MotionKnob } from "@xccode/ui/motion-tuning"
 import { expect, sourceURL, story } from "../../stories/playwright/story"
 
 const source = (path: string) => sourceURL(new URL(path, import.meta.url))

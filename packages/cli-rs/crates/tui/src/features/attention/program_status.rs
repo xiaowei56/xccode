@@ -9,7 +9,7 @@ use regex::Regex;
 use crate::prelude::*;
 use crate::tabs::Attention;
 
-const APP: &str = "opencode";
+const APP: &str = "xccode";
 const ROOT: &str = "";
 
 #[derive(Clone, Debug, PartialEq)]
@@ -187,7 +187,7 @@ fn record_id(id: &str) -> String {
     if valid {
         return id.to_owned();
     }
-    format!("ses_{}", &opencode_util::hash::sha256_hex(id.as_bytes())[..16])
+    format!("ses_{}", &xccode_util::hash::sha256_hex(id.as_bytes())[..16])
 }
 
 /// `clip`: records reject control characters and oversized fields, so the text becomes one line within `bytes`,

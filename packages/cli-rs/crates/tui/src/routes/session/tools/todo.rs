@@ -1,6 +1,6 @@
 //! Todo tool summary and checklist.
 
-use opencode_ui::tool_info::{Todo as Item, TodoStatus, parse_todos, todo_marker};
+use xccode_ui::tool_info::{Todo as Item, TodoStatus, parse_todos, todo_marker};
 
 use super::dispatch::{Block, BlockTool, Header, Inline, InlineTool, Props, Status, content_width};
 use crate::prelude::*;

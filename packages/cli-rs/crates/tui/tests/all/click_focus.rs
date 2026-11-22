@@ -5,11 +5,11 @@ use crate::support;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use opencode_api::memory::{Memory, Route as MemoryRoute};
-use opencode_api::pty::{self, Incoming, Remote};
-use opencode_plugin::abi;
-use opencode_tui::{Args, Deps};
-use opencode_ui::toast::{ToastOptions, Variant};
+use xccode_api::memory::{Memory, Route as MemoryRoute};
+use xccode_api::pty::{self, Incoming, Remote};
+use xccode_plugin::abi;
+use xccode_tui::{Args, Deps};
+use xccode_ui::toast::{ToastOptions, Variant};
 use opentui::AppOptions;
 use opentui::prelude::*;
 use opentui::testing::TestApp;
@@ -91,7 +91,7 @@ fn mount() -> Focus {
         events: true,
         ..support::deps(Arc::new(memory.clone()))
     };
-    let options = AppOptions { capture_stderr: false, ..opencode_tui::app::options() };
+    let options = AppOptions { capture_stderr: false, ..xccode_tui::app::options() };
     let harness = support::mount_on(TestApp::with_options(160, 30, options), deps, Args::default());
     let remotes: Arc<Mutex<Vec<Remote>>> = Arc::default();
     let opened = remotes.clone();
@@ -280,10 +280,10 @@ fn probe(setup: &mut abi::Setup) -> Result<(), String> {
 #[test]
 fn a_pane_focus_switch_dims_the_footer_hints_without_remounting_the_footer() {
     let h = mount();
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "probe", setup: probe }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "probe", setup: probe }.into());
     h.wait_for("probe claim");
     h.wait_for("ctrl+p commands");
-    let reads = || h.memory.requests().iter().filter(|logged| logged.path == "/api/rpc/opencode.goal/get").count();
+    let reads = || h.memory.requests().iter().filter(|logged| logged.path == "/api/rpc/xccode.goal/get").count();
     h.wait("the goal read", || reads() >= 1);
     let fg = || {
         h.app.advance(Duration::from_millis(1));

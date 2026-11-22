@@ -9,13 +9,13 @@ const TIMEOUT: Duration = Duration::from_secs(5 * 60);
 
 /// The port when the process runs as the askpass helper.
 pub fn port() -> Option<String> {
-    std::env::var("OPENCODE_SSH_ASKPASS_PORT").ok().filter(|port| !port.is_empty())
+    std::env::var("XCCODE_SSH_ASKPASS_PORT").ok().filter(|port| !port.is_empty())
 }
 
 /// Runs the helper from the process environment and returns its exit code.
 pub fn run(port: &str) -> u8 {
     let request = Request {
-        token: std::env::var("OPENCODE_SSH_ASKPASS_TOKEN").ok(),
+        token: std::env::var("XCCODE_SSH_ASKPASS_TOKEN").ok(),
         text: std::env::args_os().skip(1).map(|arg| arg.to_string_lossy().into_owned()).collect::<Vec<_>>().join(" "),
         confirm: std::env::var("SSH_ASKPASS_PROMPT").as_deref() == Ok("confirm"),
     };
@@ -81,7 +81,7 @@ fn remaining(deadline: Instant) -> Option<Duration> {
 /// `Schema.NumberFromString` with an integer in 1..=65535: JavaScript's `Number(text)`, which trims
 /// whitespace and accepts `0x`, `0o`, `0b`, exponents, and fractions that are whole.
 fn parse_port(text: &str) -> Option<u16> {
-    let number = opencode_api::js::parse_number(text)?;
+    let number = xccode_api::js::parse_number(text)?;
     (number.fract() == 0.0 && number > 0.0 && number <= 65535.0).then_some(number as u16)
 }
 

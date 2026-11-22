@@ -5,7 +5,7 @@ use crate::support::{self, Fake, Harness, Log, WAIT, deref_harness, user};
 use std::sync::Arc;
 use std::time::Duration;
 
-use opencode_tui::Deps;
+use xccode_tui::Deps;
 use serde_json::{Value, json};
 
 const LOCATION: &str = "/project";

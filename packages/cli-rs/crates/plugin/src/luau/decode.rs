@@ -14,7 +14,7 @@ use std::fmt;
 use std::os::raw::{c_char, c_int};
 
 use mlua::{AppDataRef, Function, LightUserData, Lua, Value, ffi};
-use opencode_plugin_abi::{self as abi, v2};
+use xccode_plugin_abi::{self as abi, v2};
 use serde::de::{self, DeserializeOwned, DeserializeSeed, Deserializer, IntoDeserializer, Visitor};
 
 /// The parts (keys, values) a value may hold for each node a tree may hold ([`crate::limits::Limits::nodes`]).

@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "تشخيص الذاكرة: تسجيل ذاكرة التطبيق في سجلات سطح المكتب كل 30 ثانية. يبقى مفعّلًا عبر عمليات إعادة التشغيل حتى إيقافه؛ ويبقى الشريط مفتوحًا أثناء تشغيله.",
-  "memory.tipEnv": "تشخيص الذاكرة مفعّل لهذا التشغيل: تم تعيين OPENCODE_DESKTOP_MEMORY_LOG.",
+  "memory.tipEnv": "تشخيص الذاكرة مفعّل لهذا التشغيل: تم تعيين XCCODE_DESKTOP_MEMORY_LOG.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "المقابض",

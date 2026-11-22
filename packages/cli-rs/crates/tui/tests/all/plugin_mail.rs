@@ -8,9 +8,9 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 
-use opencode_plugin::abi::{self, SendError};
-use opencode_tui::plugins::host::host;
-use opencode_tui::{Deps, Route};
+use xccode_plugin::abi::{self, SendError};
+use xccode_tui::plugins::host::host;
+use xccode_tui::{Deps, Route};
 use opentui::app::ProxyError;
 
 const ID: &str = "test.mail";
@@ -79,7 +79,7 @@ fn frame(harness: &Harness) {
 /// Paints frames until no plugin has updates waiting for one.
 pub(crate) fn drain(harness: &Harness) {
     for _ in 0..10_000 {
-        if !opencode_plugin::schedule::busy(&harness.app) {
+        if !xccode_plugin::schedule::busy(&harness.app) {
             return;
         }
         harness.app.render();
@@ -228,7 +228,7 @@ impl Model for Backlog {
                     }
                 }
             }
-            let stats = opencode_plugin::mailbox::stats(ID).unwrap_or_default();
+            let stats = xccode_plugin::mailbox::stats(ID).unwrap_or_default();
             if stats.high > abi::BOUND {
                 return fail("backlog", format!("the mailbox held {} entries", stats.high));
             }
@@ -270,7 +270,7 @@ fn a_flood_from_many_threads_keeps_its_order_and_bound() {
         assert_eq!(&own, accepted, "thread {from}");
     }
     assert_eq!(arrived.len(), abi::BOUND, "the first bound of sends fit, no more");
-    let stats = opencode_plugin::mailbox::stats(ID).unwrap();
+    let stats = xccode_plugin::mailbox::stats(ID).unwrap();
     assert_eq!((stats.high, stats.refused), (abi::BOUND, 80_000 - abi::BOUND as u64));
 
     let replacer =
@@ -331,17 +331,17 @@ fn a_stop_flag_ends_a_thread_and_a_failure_closes_the_mailbox() {
     harness.wait("the panic failed the plugin", || {
         harness.app.advance(Duration::from_millis(1));
         harness.app.render();
-        tui.plugins.entries().iter().any(|entry| entry.id == ID && entry.status != opencode_plugin::Status::Active)
+        tui.plugins.entries().iter().any(|entry| entry.id == ID && entry.status != xccode_plugin::Status::Active)
     });
     let status = tui.plugins.entries().into_iter().find(|entry| entry.id == ID).unwrap().status;
     let expected = "thread boom panicked: a mail thread panicked".to_owned();
-    assert_eq!(status, opencode_plugin::Status::Failed(expected));
+    assert_eq!(status, xccode_plugin::Status::Failed(expected));
     assert!(done.recv_timeout(Duration::from_secs(10)).is_ok(), "a thread ran on after the failure");
     let sender = mail(|mail| mail.sender.clone()).unwrap();
     assert_eq!(sender.send((3, 1)), Err(SendError::Closed((3, 1))));
-    assert_eq!(opencode_plugin::mailbox::stats(ID), None);
+    assert_eq!(xccode_plugin::mailbox::stats(ID), None);
     tui.plugins.toggle(&host(tui), ID, false);
-    assert_eq!(opencode_plugin::mailbox::stats(ID), None);
+    assert_eq!(xccode_plugin::mailbox::stats(ID), None);
 }
 
 /// A message whose serializer waits until the test lets it go, up to five seconds.
@@ -455,7 +455,7 @@ fn an_update_that_fails_ends_its_batch() {
     frame(&harness);
     assert_eq!(mail(|mail| mail.arrived.clone()), [(1, 1)]);
     let status = harness.tui.plugins.entries().into_iter().find(|entry| entry.id == ID).unwrap().status;
-    let failed = matches!(&status, opencode_plugin::Status::Failed(error) if error.contains("a failing update"));
+    let failed = matches!(&status, xccode_plugin::Status::Failed(error) if error.contains("a failing update"));
     assert!(failed, "{status:?}");
 }
 
@@ -485,7 +485,7 @@ fn a_refilled_mailbox_holds_back_no_report_and_no_wake() {
     // Start the interval when the report enters the queue; a panicking thread can be descheduled before posting it.
     let before = {
         let begun = std::time::Instant::now();
-        while !opencode_plugin::mailbox::stats(ID).is_some_and(|stats| stats.reported) {
+        while !xccode_plugin::mailbox::stats(ID).is_some_and(|stats| stats.reported) {
             assert!(begun.elapsed() < Duration::from_secs(10), "no report was put in");
             std::thread::sleep(Duration::from_millis(1));
         }
@@ -499,7 +499,7 @@ fn a_refilled_mailbox_holds_back_no_report_and_no_wake() {
             .plugins
             .entries()
             .iter()
-            .any(|entry| entry.id == ID && entry.status != opencode_plugin::Status::Active)
+            .any(|entry| entry.id == ID && entry.status != xccode_plugin::Status::Active)
     });
     let (after, refill) = mail(|mail| (mail.arrived.len(), mail.refill));
     assert!(after - before <= abi::BOUND + 1, "{} updates came before the report", after - before);
@@ -546,7 +546,7 @@ fn a_mailbox_full_at_the_end_of_13_frames_is_a_backlog() {
     }
     let report = monitor.report(ID).unwrap_or_default();
     assert!(!report.contains("backlog"), "a backlog 120 frames after it ended: {report}");
-    let host = opencode_tui::plugins::host::host(&harness.tui);
+    let host = xccode_tui::plugins::host::host(&harness.tui);
     harness.tui.plugins.toggle(&host, ID, false).unwrap().unwrap();
     harness.tui.plugins.toggle(&host, ID, true).unwrap().unwrap();
     frame(&harness);
@@ -591,7 +591,7 @@ fn a_full_queue_starts_one_wake_thread_a_plugin() {
     harness.wait("the refills ended", || {
         harness.app.advance(Duration::from_millis(1));
         harness.app.render();
-        !opencode_plugin::schedule::busy(&harness.app)
+        !xccode_plugin::schedule::busy(&harness.app)
     });
     let arrived = mail(|mail| mail.arrived.len());
     mail(|mail| mail.sender.clone()).unwrap().send((8, 0)).unwrap();

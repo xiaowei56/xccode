@@ -11,7 +11,7 @@
 use std::cell::Cell;
 
 use mlua::Error;
-use opencode_plugin_abi::{self as abi, v2};
+use xccode_plugin_abi::{self as abi, v2};
 
 /// The borrow of the running call, if any.
 #[derive(Clone, Copy, Default)]

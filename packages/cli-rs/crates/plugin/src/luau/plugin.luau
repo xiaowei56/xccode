@@ -1,6 +1,6 @@
 --!strict
--- `@opencode/plugin`: what every Luau plugin requires. `define` names the setup; the rest builds the contract's tables
--- (`schema/v2.json`), which a plugin may also write by hand. Types: `opencode/plugin.luau`.
+-- `@xccode/plugin`: what every Luau plugin requires. `define` names the setup; the rest builds the contract's tables
+-- (`schema/v2.json`), which a plugin may also write by hand. Types: `xccode/plugin.luau`.
 --
 -- Each helper builds its table in one record literal. A literal with only named fields is a copy of a template made
 -- when the chunk loads (`DUPTABLE`), and a field written `= nil` still gets its slot in the template. So a helper given
@@ -577,7 +577,7 @@ function plugin.define(setup)
         error("plugin.define needs a setup function", 2)
     end
     return table.freeze({
-        __opencode_setup = function(raw)
+        __xccode_setup = function(raw)
             setup(tasked(raw))
         end,
     })

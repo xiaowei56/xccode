@@ -15,7 +15,7 @@ type Artwork = {
 
 const namespace = "http://www.w3.org/2000/svg"
 
-const spriteID = "opencode-v2-icon-registered"
+const spriteID = "xccode-v2-icon-registered"
 
 // What the artwork's root says about its document or its frame, not about the drawing.
 const structural = new Set(["xmlns", "width", "height", "viewBox", "id"])

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # tag-release.sh: in a checkout of the dispatched dev commit, commits the release versions and changelog
-# (OPENCODE_RELEASE_NOTES) and pushes only the v<version> tag at it. Writes sha=<commit> to $GITHUB_OUTPUT.
+# (XCCODE_RELEASE_NOTES) and pushes only the v<version> tag at it. Writes sha=<commit> to $GITHUB_OUTPUT.
 # Runs git only, with hooks disabled; no repository code.
 . "$(dirname "$0")/lib.sh"
 
-tag="v$OPENCODE_VERSION"
+tag="v$XCCODE_VERSION"
 if ! dry_run; then
   umask 077
   ssh_dir=$(mktemp -d)
@@ -13,14 +13,14 @@ if ! dry_run; then
   unset RELEASE_TAG_KEY
   echo 'github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' > "$ssh_dir/known_hosts"
   export GIT_SSH_COMMAND="ssh -i $ssh_dir/key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$ssh_dir/known_hosts"
-  git remote set-url origin git@github.com:anomalyco/opencode.git
+  git remote set-url origin git@github.com:xiaowei56/xccode.git
 fi
-# @opencode/pty is versioned separately, by process-daemon-v<version> tags.
-git ls-files -z -- '*package.json' bun.lock ':!packages/process-daemon/**' | xargs -0 sed -i -E "s/\"version\": \"[^\"]+\"/\"version\": \"$OPENCODE_VERSION\"/g"
+# @xccode/pty is versioned separately, by process-daemon-v<version> tags.
+git ls-files -z -- '*package.json' bun.lock ':!packages/process-daemon/**' | xargs -0 sed -i -E "s/\"version\": \"[^\"]+\"/\"version\": \"$XCCODE_VERSION\"/g"
 
-if [ -n "${OPENCODE_RELEASE_NOTES:-}" ] && ! grep -qF -x "## $tag" CHANGELOG.md && ! grep -qF "## $tag " CHANGELOG.md; then
+if [ -n "${XCCODE_RELEASE_NOTES:-}" ] && ! grep -qF -x "## $tag" CHANGELOG.md && ! grep -qF "## $tag " CHANGELOG.md; then
   notes=$(mktemp)
-  printf '%s\n' "$OPENCODE_RELEASE_NOTES" > "$notes"
+  printf '%s\n' "$XCCODE_RELEASE_NOTES" > "$notes"
   awk -v entry="## $tag — $(date -u +%F)" -v notes="$notes" '
     function emit() { print entry; print ""; while ((getline line < notes) > 0) print line; print ""; done = 1 }
     !done && /^## / { emit() }

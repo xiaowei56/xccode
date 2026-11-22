@@ -1,9 +1,9 @@
-import { activeQuestionRequest, questionPendingDocument } from "@opencode/session-ui/storybook"
+import { activeQuestionRequest, questionPendingDocument } from "@xccode/session-ui/storybook"
 import { SessionPreview } from "./story-model"
 import { SettingsExperimental } from "@/settings/experimental/experimental"
 
 export default {
-  title: "OpenCode/Session/Question switch",
+  title: "Xccode/Session/Question switch",
   id: "session-question-switch",
   component: SessionPreview,
   parameters: {
@@ -23,7 +23,7 @@ export const Experiments = {
   render: () => (
     <SessionPreview
       title="Choose a Session layout"
-      description="opencode · question UI experiments"
+      description="xccode · question UI experiments"
       document={questionPendingDocument}
       request={{ type: "question", value: activeQuestionRequest }}
       side={<SettingsExperimental />}
@@ -36,7 +36,7 @@ export const QuestionSeries = {
   render: () => (
     <SessionPreview
       title="Decide what to build next"
-      description="opencode · modular-session-ui"
+      description="xccode · modular-session-ui"
       document={questionPendingDocument}
       request={{
         type: "question",
@@ -108,7 +108,7 @@ export const LinkPrompt = {
   render: () => (
     <SessionPreview
       title="Harden package publishing"
-      description="opencode · release"
+      description="xccode · release"
       document={questionPendingDocument}
       request={{
         type: "question",
@@ -136,7 +136,7 @@ export const LongList = {
   render: () => (
     <SessionPreview
       title="Polish the docs site"
-      description="opencode · docs"
+      description="xccode · docs"
       document={questionPendingDocument}
       request={{
         type: "question",
@@ -261,7 +261,7 @@ const longMobileOptions = [
     value: "opt-11",
     label: "11. Offline CLI migration subcommand with progress bar",
     description:
-      "Require explicit operator confirmation via opencode db migrate and refuse automatic background writes on startup.",
+      "Require explicit operator confirmation via xccode db migrate and refuse automatic background writes on startup.",
   },
   {
     value: "opt-12",
@@ -293,7 +293,7 @@ export const LongPrompt = {
   render: () => (
     <SessionPreview
       title="Plan the storage migration"
-      description="opencode · storage-rollout"
+      description="xccode · storage-rollout"
       document={questionPendingDocument}
       request={{
         type: "question",
@@ -358,7 +358,7 @@ export const FreeResponse = {
   render: () => (
     <SessionPreview
       title="Name the release"
-      description="opencode · release"
+      description="xccode · release"
       document={questionPendingDocument}
       request={{
         type: "question",

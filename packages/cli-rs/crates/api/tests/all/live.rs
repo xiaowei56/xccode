@@ -1,16 +1,16 @@
-//! Opt-in live test (`OPENCODE_LIVE=1`): the GET endpoints the TUI uses decode against the running
-//! service. The URL and password come from `opencode service status` and `opencode service get password`,
+//! Opt-in live test (`XCCODE_LIVE=1`): the GET endpoints the TUI uses decode against the running
+//! service. The URL and password come from `xccode service status` and `xccode service get password`,
 //! as `script/live.sh` does. Only reads; it uses the location of an existing session, so it adds none.
 //!
-//! `OPENCODE_LIVE_SESSIONS` (default 20) sets how many sessions get their per-session reads.
+//! `XCCODE_LIVE_SESSIONS` (default 20) sets how many sessions get their per-session reads.
 
 use std::time::Duration;
 
 use futures_util::StreamExt;
-use opencode_api::client::{Auth, Client};
-use opencode_api::error::Error;
-use opencode_api::events::Event;
-use opencode_api::generated::*;
+use xccode_api::client::{Auth, Client};
+use xccode_api::error::Error;
+use xccode_api::events::Event;
+use xccode_api::generated::*;
 
 #[derive(Default)]
 struct Report {
@@ -40,8 +40,8 @@ impl Report {
 }
 
 fn command(args: &[&str]) -> String {
-    let output = std::process::Command::new("opencode").args(args).output().expect("opencode runs");
-    assert!(output.status.success(), "opencode {args:?} failed");
+    let output = std::process::Command::new("xccode").args(args).output().expect("xccode runs");
+    assert!(output.status.success(), "xccode {args:?} failed");
     String::from_utf8(output.stdout).unwrap().trim().to_owned()
 }
 
@@ -56,13 +56,13 @@ fn count<T: serde::Serialize>(value: &T) -> String {
 
 #[tokio::test]
 async fn live_reads_decode() {
-    if std::env::var("OPENCODE_LIVE").as_deref() != Ok("1") {
+    if std::env::var("XCCODE_LIVE").as_deref() != Ok("1") {
         return;
     }
     let server = command(&["service", "status"]);
     let client = Client::new(&server).unwrap().auth(Auth::password(command(&["service", "get", "password"])));
     let sessions_wanted: usize =
-        std::env::var("OPENCODE_LIVE_SESSIONS").ok().and_then(|value| value.parse().ok()).unwrap_or(20);
+        std::env::var("XCCODE_LIVE_SESSIONS").ok().and_then(|value| value.parse().ok()).unwrap_or(20);
     let mut report = Report::default();
 
     let info = report.check("server.info", client.server_info().await, |info| format!("version {}", info.version));

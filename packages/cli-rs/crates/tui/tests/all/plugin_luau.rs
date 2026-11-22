@@ -6,19 +6,19 @@ use std::path::Path;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use opencode_plugin::abi::{self, Click, Command, Node, Placement, Render, Span, Toast, Variant};
-use opencode_plugin::luau::{Sources, define};
-use opencode_tui::{Deps, Route};
+use xccode_plugin::abi::{self, Click, Command, Node, Placement, Render, Span, Toast, Variant};
+use xccode_plugin::luau::{Sources, define};
+use xccode_tui::{Deps, Route};
 
 use crate::support::{self, Harness};
 
-fn home(definition: opencode_plugin::Definition) -> Harness {
+fn home(definition: xccode_plugin::Definition) -> Harness {
     let h = support::mount(80, 24, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    opencode_tui::plugins::host::add(&h.tui, definition);
+    xccode_tui::plugins::host::add(&h.tui, definition);
     h
 }
 
-fn example(name: &str) -> opencode_plugin::Definition {
+fn example(name: &str) -> xccode_plugin::Definition {
     let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../plugin/examples/luau").join(name);
     define(&Sources::read(&dir).unwrap(), None).unwrap().0
 }
@@ -69,7 +69,7 @@ fn the_counter_asks_before_it_resets_and_its_answer_comes_back() {
     });
     let h = support::mount(100, 30, support::deps(Arc::new(server)));
     h.wait_for("Fix the parser");
-    opencode_tui::plugins::host::add(&h.tui, example("counter"));
+    xccode_tui::plugins::host::add(&h.tui, example("counter"));
     for _ in 0..3 {
         _ = h.tui.keymap.dispatch("counter.count", None);
         frames(&h);
@@ -83,7 +83,7 @@ fn the_counter_asks_before_it_resets_and_its_answer_comes_back() {
 fn page(view: &str) -> Harness {
     let init = format!(
         r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         local builds, views = 0, 0
         return plugin.define(function(setup)
             setup:command({{ name = "poke" }}, function() end)
@@ -133,7 +133,7 @@ fn a_refused_luau_tree_fails_the_plugin_the_second_time() {
         let entries = h.tui.plugins.entries();
         entries
             .iter()
-            .any(|entry| entry.id == "test.page" && matches!(entry.status, opencode_plugin::Status::Failed(_)))
+            .any(|entry| entry.id == "test.page" && matches!(entry.status, xccode_plugin::Status::Failed(_)))
     });
     assert!(!h.app.text().contains("twice"));
 }
@@ -141,7 +141,7 @@ fn a_refused_luau_tree_fails_the_plugin_the_second_time() {
 #[test]
 fn a_spinning_luau_plugin_is_failed_and_the_tui_keeps_drawing() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "spin" }, function() while true do end end)
             setup:slot({ path = "home.footer" }, function() return plugin.show(plugin.text("spinner claim")) end)
@@ -157,7 +157,7 @@ fn a_spinning_luau_plugin_is_failed_and_the_tui_keeps_drawing() {
     h.wait_gone("spinner claim");
     let entries = h.tui.plugins.entries();
     let spin = entries.iter().find(|entry| entry.id == "test.spin").unwrap();
-    let opencode_plugin::Status::Failed(error) = &spin.status else { panic!("{:?}", spin.status) };
+    let xccode_plugin::Status::Failed(error) = &spin.status else { panic!("{:?}", spin.status) };
     assert!(error.contains("Luau budget"), "{error}");
     h.app.type_text("still here");
     h.wait_for("still here");
@@ -168,7 +168,7 @@ fn a_spinning_luau_plugin_is_failed_and_the_tui_keeps_drawing() {
 #[test]
 fn a_configured_luau_plugin_does_not_load_with_no_plugins() {
     for no_plugins in [false, true] {
-        let root = opencode_util::temp::tempdir().unwrap();
+        let root = xccode_util::temp::tempdir().unwrap();
         let config = root.path().join("config");
         let dir = config.join("plugins").join("hello");
         std::fs::create_dir_all(&dir).unwrap();
@@ -182,17 +182,17 @@ fn a_configured_luau_plugin_does_not_load_with_no_plugins() {
             config: support::config(support::decode(&serde_json::json!({ "plugins": [target] }).to_string())),
             ..support::deps(Arc::new(support::empty()))
         };
-        let args = opencode_tui::Args { no_plugins, ..opencode_tui::Args::default() };
+        let args = xccode_tui::Args { no_plugins, ..xccode_tui::Args::default() };
         let h = support::mount_on(opentui::testing::TestApp::new(80, 24), deps, args);
-        let external = opencode_tui::plugins::host::External { config_dir: config, cwd: root.path().to_path_buf() };
-        opencode_tui::plugins::host::external(&h.tui, external);
+        let external = xccode_tui::plugins::host::External { config_dir: config, cwd: root.path().to_path_buf() };
+        xccode_tui::plugins::host::external(&h.tui, external);
         let status = || {
             let entries = h.tui.plugins.entries();
             entries.into_iter().find(|entry| entry.target.as_deref() == Some(&*target)).map(|entry| entry.status)
         };
         let expected = match no_plugins {
-            false => opencode_plugin::Status::Active,
-            true => opencode_plugin::Status::Skipped(opencode_plugin::SKIPPED_NO_PLUGINS.to_owned()),
+            false => xccode_plugin::Status::Active,
+            true => xccode_plugin::Status::Skipped(xccode_plugin::SKIPPED_NO_PLUGINS.to_owned()),
         };
         h.wait("the plugin's status", || {
             frames(&h);
@@ -207,7 +207,7 @@ fn a_configured_luau_plugin_does_not_load_with_no_plugins() {
 #[test]
 fn a_dialog_the_host_keeps_out_answers_its_task_nil() {
     let init = r#"
-        local plugin = require("@opencode/plugin")
+        local plugin = require("@xccode/plugin")
         return plugin.define(function(setup)
             setup:command({ name = "ask" }, function(host)
                 local answer = host:confirm({ title = "Kept out?", message = "asked under the host's dialog" })
@@ -218,7 +218,7 @@ fn a_dialog_the_host_keeps_out_answers_its_task_nil() {
     let sources = Sources::from_files([("plugin.toml", "id = \"test.ask\""), ("init.luau", init)]);
     let h = home(define(&sources, None).unwrap().0);
     frames(&h);
-    let options = opencode_ui::dialog::DialogOptions::new(opencode_ui::dialog::DialogSize::Medium).key("host.approval");
+    let options = xccode_ui::dialog::DialogOptions::new(xccode_ui::dialog::DialogSize::Medium).key("host.approval");
     h.tui.dialogs.replace(|cx| opentui::prelude::View::new(&cx.app), None, options);
     _ = h.tui.keymap.dispatch("ask", None);
     h.wait_for("answer=nil");

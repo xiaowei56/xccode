@@ -4,7 +4,7 @@
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
-use opencode_api_types::call::{append, path_param, path_wildcard};
+use xccode_api_types::call::{append, path_param, path_wildcard};
 use serde::Deserialize;
 use serde_json::Value;
 

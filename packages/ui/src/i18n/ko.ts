@@ -51,7 +51,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "무료 한도에 도달했습니다",
   "dialog.usageExceeded.freeTier.description":
-    "월 $10로 OpenCode Go를 구독하여 최고의 오픈 소스 모델에 안정적으로 액세스하세요.",
+    "월 $10로 Xccode Go를 구독하여 최고의 오픈 소스 모델에 안정적으로 액세스하세요.",
   "dialog.usageExceeded.freeTier.actionLabel": "구독",
 
   "ui.sessionTurn.status.delegating": "작업 위임 중",
@@ -288,8 +288,8 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "모델 예산 소진 · 초기화될 때까지 이 모델 일시 중지",
   "ui.sessionTurn.budgetLimit.useFreeModel": "무료 모델 사용",
   "ui.sessionTurn.budgetLimit.switchModel": "모델 전환",
-  "ui.sessionTurn.goLimit.title": "OpenCode Go 사용 한도에 도달했습니다.",
-  "ui.sessionTurn.goLimit.lineReset": "OpenCode Go 사용 한도에 도달했습니다. {{time}}에 초기화됩니다.",
+  "ui.sessionTurn.goLimit.title": "Xccode Go 사용 한도에 도달했습니다.",
+  "ui.sessionTurn.goLimit.lineReset": "Xccode Go 사용 한도에 도달했습니다. {{time}}에 초기화됩니다.",
   "dialog.usageExceeded.freeTier.reset": "무료 메시지는 {{time}}에 초기화됩니다.",
   "ui.messagePart.compaction.queued": "세션 압축 대기 중",
   "ui.messagePart.compaction.done": "압축됨",

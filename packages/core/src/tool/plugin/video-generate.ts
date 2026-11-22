@@ -1,12 +1,12 @@
 export * as VideoGenerateTool from "./video-generate.js"
 
 import path from "path"
-import { Media, ToolFailure, VideoAspectRatio } from "@opencode/ai/effect"
-import type { Context } from "@opencode/plugin/effect/plugin"
-import type { Document, Entry } from "@opencode/schema/config"
-import type { VideoID } from "@opencode/schema/generate"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
+import { Media, ToolFailure, VideoAspectRatio } from "@xccode/ai/effect"
+import type { Context } from "@xccode/plugin/effect/plugin"
+import type { Document, Entry } from "@xccode/schema/config"
+import type { VideoID } from "@xccode/schema/generate"
+import { FSUtil } from "@xccode/util/fs-util"
+import { Global } from "@xccode/util/global"
 import { Effect, Schema, Scope, Stream } from "effect"
 import { toolFailure } from "../runtime.js"
 import { Config } from "../../config.js"
@@ -176,7 +176,7 @@ export const track = Effect.fnUntraced(function* (input: {
 })
 
 export const Plugin = {
-  id: "opencode.tool.video-generate",
+  id: "xccode.tool.video-generate",
   effect: Effect.fn("VideoGenerateTool.Plugin")(function* (ctx: Context) {
     const access = yield* FileAccess.Service
     const environment = yield* Environment.Service

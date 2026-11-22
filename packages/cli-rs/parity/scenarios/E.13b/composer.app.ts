@@ -4,7 +4,7 @@
 // output dialog, Ctrl+D kills the shell, the Terminals tab offers a new terminal, and Escape gives the prompt back.
 import { assistant, defineApp, location, session, user } from "../../lib/app"
 
-const directory = "/tmp/opencode/packages/tui"
+const directory = "/tmp/xccode/packages/tui"
 
 const child = (id: string, parentID: string, title: string, updated: number, agent?: string) => ({
   ...session(id, title, { updated }),

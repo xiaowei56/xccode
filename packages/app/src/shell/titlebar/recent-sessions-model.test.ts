@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { OpenCodeEvent, SessionInfo } from "@opencode/client/promise"
+import type { XccodeEvent, SessionInfo } from "@xccode/client/promise"
 import { resolveServerList, ServerConnection } from "@/runtime/server/registry"
 import {
   addPin,
@@ -624,7 +624,7 @@ test("only a new root session reloads Recent", () => {
     data: { sessionID, projectID: "project", location: { directory: "/project" }, slug: sessionID, version: "1", parentID },
   })
 
-  const cases: [OpenCodeEvent, boolean][] = [
+  const cases: [XccodeEvent, boolean][] = [
     [created("ses_new"), true],
     [created("ses_sub", "ses_root"), false],
     [{ ...envelope("ses_root"), type: "session.execution.succeeded", data: { sessionID: "ses_root" } }, false],

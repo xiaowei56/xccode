@@ -1,11 +1,11 @@
 //! Only clients connected to a local server upload their terminal environment for shells and tools.
 
 use indexmap::IndexMap;
-use opencode_api::client::Client;
-use opencode_api::generated::{SessionEnvironmentInput, SessionID};
+use xccode_api::client::Client;
+use xccode_api::generated::{SessionEnvironmentInput, SessionID};
 
 /// Variables that never leave the client: the server password, under both names.
-const PRIVATE: [&str; 2] = ["OPENCODE_PASSWORD", "OPENCODE_SERVER_PASSWORD"];
+const PRIVATE: [&str; 2] = ["XCCODE_PASSWORD", "XCCODE_SERVER_PASSWORD"];
 
 /// `Env.session()`: the process environment without the password variables. Variables whose
 /// name or value is not UTF-8 are skipped, as Node's `process.env` cannot hold them either.
@@ -23,7 +23,7 @@ pub async fn upload(
     client: &Client,
     session: &SessionID,
     variables: IndexMap<String, String>,
-) -> Result<(), opencode_api::error::Error> {
+) -> Result<(), xccode_api::error::Error> {
     client.session_environment(&SessionEnvironmentInput { session_id: session.clone(), variables }).await
 }
 
@@ -33,10 +33,10 @@ mod tests {
     fn drops_the_password_variables() {
         let variables = super::filter([
             ("PATH".to_owned(), "/bin".to_owned()),
-            ("OPENCODE_PASSWORD".to_owned(), "secret".to_owned()),
-            ("OPENCODE_SERVER_PASSWORD".to_owned(), "legacy".to_owned()),
-            ("OPENCODE_PASSWORD_HINT".to_owned(), "kept".to_owned()),
+            ("XCCODE_PASSWORD".to_owned(), "secret".to_owned()),
+            ("XCCODE_SERVER_PASSWORD".to_owned(), "legacy".to_owned()),
+            ("XCCODE_PASSWORD_HINT".to_owned(), "kept".to_owned()),
         ]);
-        assert_eq!(variables.keys().collect::<Vec<_>>(), ["PATH", "OPENCODE_PASSWORD_HINT"]);
+        assert_eq!(variables.keys().collect::<Vec<_>>(), ["PATH", "XCCODE_PASSWORD_HINT"]);
     }
 }

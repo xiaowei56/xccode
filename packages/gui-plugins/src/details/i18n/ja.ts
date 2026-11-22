@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "ワークツリーを削除",
   "mcp.manage": "MCPサーバーを管理",
   timedOut: "サーバーの応答に時間がかかりすぎました",
-  "setup.mcp": "OpenCodeでサーバーを追加",
+  "setup.mcp": "Xccodeでサーバーを追加",
   "setup.mcp.prompt":
-    "グローバルのOpenCode設定にMCPサーバーを追加するのを手伝ってください。接続したいサービスを私に確認してから設定し、接続できることを確認してください。",
-  "setup.plugins": "OpenCodeでプラグインを追加",
+    "グローバルのXccode設定にMCPサーバーを追加するのを手伝ってください。接続したいサービスを私に確認してから設定し、接続できることを確認してください。",
+  "setup.plugins": "Xccodeでプラグインを追加",
   "setup.plugins.prompt":
-    "グローバルのOpenCode設定にプラグインを追加するのを手伝ってください。何をさせたいかを私に確認し、プラグインを提案してから追加してください。",
-  "setup.skills": "OpenCodeで新しいスキルを作成",
+    "グローバルのXccode設定にプラグインを追加するのを手伝ってください。何をさせたいかを私に確認し、プラグインを提案してから追加してください。",
+  "setup.skills": "Xccodeで新しいスキルを作成",
   "setup.skills.prompt":
-    "グローバル設定に新しいOpenCodeスキルを書くのを手伝ってください。何を教えるべきかを私に確認してから、そのSKILL.mdを書いてください。",
+    "グローバル設定に新しいXccodeスキルを書くのを手伝ってください。何を教えるべきかを私に確認してから、そのSKILL.mdを書いてください。",
   changesFailed: "変更を読み込めませんでした",
   changesOffline: "このサーバーにアクセスできません",
   "mcp.signIn": "サインイン",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "{{name}}の詳細",
   "mcp.signIn.open": "{{name}}にサインイン",
   "mcp.signIn.description":
-    "ブラウザーが開き、{{name}}にサインインできます。ブラウザーからOpenCodeを実行しているマシンにアクセスできない場合は、リダイレクト先のURLを下に貼り付けてください。",
+    "ブラウザーが開き、{{name}}にサインインできます。ブラウザーからXccodeを実行しているマシンにアクセスできない場合は、リダイレクト先のURLを下に貼り付けてください。",
   "mcp.signIn.waiting": "認証を待機中…",
   "mcp.signIn.failed": "認証に失敗しました: {{error}}",
   "mcp.signIn.expired": "認証の有効期限が切れました",

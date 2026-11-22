@@ -1,8 +1,8 @@
 [1mDESCRIPTION[0m
-  Run OpenCode with a message
+  Run Xccode with a message
 
 [1mUSAGE[0m
-  [36mopencode run [flags] [<message...>][0m
+  [36mxccode run [flags] [<message...>][0m
 
 [1mARGUMENTS[0m
   [32mmessage...[0m [2mstring[0m    Message to send[2m (optional)[0m

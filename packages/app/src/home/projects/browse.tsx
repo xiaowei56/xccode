@@ -1,4 +1,4 @@
-import { useDialog } from "@opencode/ui/context/dialog"
+import { useDialog } from "@xccode/ui/context/dialog"
 import { lazy, Suspense } from "solid-js"
 import type { ServerConnection } from "@/runtime/server/registry"
 

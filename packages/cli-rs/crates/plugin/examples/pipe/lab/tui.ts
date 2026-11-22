@@ -3,7 +3,7 @@
 export default {
   id: "example.lab",
   setup(api: any) {
-    const carrier = api[Symbol.for("opencode.carrier")]
+    const carrier = api[Symbol.for("xccode.carrier")]
     const toast = (message: string) => api.ui.toast.show({ message })
     const state = { a: 0, c: 0, zero: false, big: false, exit: false }
     // Each mount's content handle, as a handle names content of its own mount alone, and its inner builds.

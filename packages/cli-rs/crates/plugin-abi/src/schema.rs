@@ -433,8 +433,8 @@ pub fn schema() -> Value {
         defs.into_iter().chain(wire::definitions()).map(|(name, schema)| (name.to_owned(), schema)).collect();
     json!({
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "title": format!("opencode plugin ABI {}.{}", crate::ABI_MAJOR, crate::ABI_MINOR),
-        "description": "Generated from opencode_plugin_abi by `examples/schema.rs`; do not edit. Normative for every \
+        "title": format!("xccode plugin ABI {}.{}", crate::ABI_MAJOR, crate::ABI_MINOR),
+        "description": "Generated from xccode_plugin_abi by `examples/schema.rs`; do not edit. Normative for every \
                         binding: a plugin registers a Manifest; the host's `call` sends a \
                         Request and the plugin's sends a HostRequest, each answered as `x-messages` says by the \
                         request's type; a view answers a ViewReply whose tree is a Node, and a draw a DrawList. A \

@@ -1,5 +1,5 @@
 [package]
-name = "opencode-ui"
+name = "xccode-ui"
 description = "UI kit on opentui: themes, keymap, dialogs, and content widgets."
 version.workspace = true
 edition.workspace = true
@@ -11,8 +11,8 @@ workspace = true
 
 [dependencies]
 opentui.workspace = true
-opencode-api-types.workspace = true
-opencode-util.workspace = true
+xccode-api-types.workspace = true
+xccode-util.workspace = true
 base64.workspace = true
 indexmap.workspace = true
 log.workspace = true
@@ -93,4 +93,4 @@ grammars = [
 ]
 
 [dev-dependencies]
-opencode-parity.workspace = true
+xccode-parity.workspace = true

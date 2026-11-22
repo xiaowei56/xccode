@@ -1,11 +1,11 @@
 export * as BlobStore from "./blob-store.js"
 
 import path from "path"
-import { Media } from "@opencode/ai/effect"
-import { BlobStore } from "@opencode/schema/blob-store"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { FSUtil } from "@opencode/util/fs-util"
-import { Global } from "@opencode/util/global"
+import { Media } from "@xccode/ai/effect"
+import { BlobStore } from "@xccode/schema/blob-store"
+import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { FSUtil } from "@xccode/util/fs-util"
+import { Global } from "@xccode/util/global"
 import { Context, Effect, Layer, Schema, Stream } from "effect"
 
 export const ID = BlobStore.ID
@@ -36,7 +36,7 @@ export interface Interface {
   readonly remove: (id: ID) => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/BlobStore") {}
+export class Service extends Context.Service<Service, Interface>()("@xccode/BlobStore") {}
 
 /** Files under `<data>/blobs/`, kept until something removes them. */
 const layer = Layer.effect(

@@ -1,7 +1,7 @@
 import { Logo, Mark, Splash } from "./logo"
 
 const docs = `### Overview
-OpenCode logo assets: mark, splash, and wordmark.
+Xccode logo assets: mark, splash, and wordmark.
 
 Use Mark for compact spaces, Logo for headers, Splash for hero sections.
 

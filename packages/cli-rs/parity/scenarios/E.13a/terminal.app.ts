@@ -8,7 +8,7 @@ const terminal = {
   title: "Terminal",
   command: "/bin/sh",
   args: [],
-  cwd: "/tmp/opencode/packages/tui",
+  cwd: "/tmp/xccode/packages/tui",
   status: "running",
   pid: 42,
   sessionID: "ses_t",

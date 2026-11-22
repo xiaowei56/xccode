@@ -16,7 +16,7 @@ export const content = {
     },
     "steer-your-sessions-from-your-phone": {
       text: "Steruj sesjami z telefonu.",
-      link: "Poznaj OpenCode Mobile",
+      link: "Poznaj Xccode Mobile",
     },
     "a-refreshed-desktop-app": {
       text: "Odświeżona aplikacja desktopowa.",
@@ -41,7 +41,7 @@ export const content = {
     },
     sdk: {
       name: "SDK",
-      body: "Steruj OpenCode z własnych skryptów, zadań CI i narzędzi.",
+      body: "Steruj Xccode z własnych skryptów, zadań CI i narzędzi.",
       action: "Czytaj docs",
     },
     mini: {
@@ -52,9 +52,9 @@ export const content = {
   },
   productDetails: {
     desktop: {
-      title: "OpenCode | Aplikacja desktopowa na macOS, Windows i Linux",
+      title: "Xccode | Aplikacja desktopowa na macOS, Windows i Linux",
       description:
-        "Uruchamiaj równolegle tylu agentów OpenCode, ilu chcesz, oglądaj każdą zmianę w przeglądarce obok i kontynuuj na dowolnym urządzeniu. Na macOS, Windows i Linux.",
+        "Uruchamiaj równolegle tylu agentów Xccode, ilu chcesz, oglądaj każdą zmianę w przeglądarce obok i kontynuuj na dowolnym urządzeniu. Na macOS, Windows i Linux.",
       intro:
         "Uruchamiaj kilku agentów naraz, każdą sesję w osobnej karcie. Przeglądaj każdą zmianę jako diff, komentuj dowolną linię i sprawdzaj wynik we wbudowanej przeglądarce. Na macOS, Windows i Linux.",
       showcase: {
@@ -72,16 +72,16 @@ export const content = {
         },
         "extend-it": {
           title: "Rozszerzaj",
-          body: "Podłącz swoje narzędzia i usługi, aby agent mógł pracować ze wszystkim. Albo pozwól OpenCode zbudować wtyczki dla samego siebie, z własnym interfejsem w panelu bocznym.",
+          body: "Podłącz swoje narzędzia i usługi, aby agent mógł pracować ze wszystkim. Albo pozwól Xccode zbudować wtyczki dla samego siebie, z własnym interfejsem w panelu bocznym.",
         },
       },
     },
     mobile: {
-      title: "OpenCode | Mobile, Twoje sesje programowania na telefonie",
+      title: "Xccode | Mobile, Twoje sesje programowania na telefonie",
       description:
-        "Uruchamiaj i prowadź sesje OpenCode z telefonu. Rozmawiaj z agentem, gdy działa na Twoim komputerze.",
+        "Uruchamiaj i prowadź sesje Xccode z telefonu. Rozmawiaj z agentem, gdy działa na Twoim komputerze.",
       intro:
-        "Uruchamiaj i prowadź sesje z telefonu, gdziekolwiek jesteś. Zadzwoń do sesji i rozmawiaj z agentem albo otwórz sesję i kontynuuj od miejsca, w którym skończyłeś, wszystko z OpenCode na Twoim komputerze.",
+        "Uruchamiaj i prowadź sesje z telefonu, gdziekolwiek jesteś. Zadzwoń do sesji i rozmawiaj z agentem albo otwórz sesję i kontynuuj od miejsca, w którym skończyłeś, wszystko z Xccode na Twoim komputerze.",
       features: {
         "notify-when-done": {
           title: "Powiadomienia",
@@ -89,7 +89,7 @@ export const content = {
         },
         "pair-from-anywhere": {
           title: "Paruj skądkolwiek",
-          body: "Łącz się z dowolnej sieci przez opencode pair --remote.",
+          body: "Łącz się z dowolnej sieci przez xccode pair --remote.",
         },
         "every-computer": {
           title: "Każdy komputer",
@@ -105,7 +105,7 @@ export const content = {
         },
         "your-computer": {
           title: "Twój komputer",
-          body: "Łączy się z OpenCode działającym na Twojej maszynie.",
+          body: "Łączy się z Xccode działającym na Twojej maszynie.",
         },
         "share-sheet": {
           title: "Udostępnianie",
@@ -136,9 +136,9 @@ export const content = {
       },
     },
     terminal: {
-      title: "OpenCode | Interfejs terminalowy agenta open source",
+      title: "Xccode | Interfejs terminalowy agenta open source",
       description:
-        "Szybki interfejs terminalowy OpenCode, który działa w każdej powłoce, edytorze i na zdalnym serwerze. Opisz, czego chcesz, oglądaj każdą edycję jako diff i zatwierdzaj polecenia.",
+        "Szybki interfejs terminalowy Xccode, który działa w każdej powłoce, edytorze i na zdalnym serwerze. Opisz, czego chcesz, oglądaj każdą edycję jako diff i zatwierdzaj polecenia.",
       intro:
         "Szybki interfejs terminalowy, który działa w każdej powłoce, edytorze i na zdalnym serwerze. Opisz zwykłymi słowami, czego chcesz, patrz, jak każda edycja pojawia się jako diff, i wybierz, które polecenia uruchamiają się same.",
       features: {
@@ -156,7 +156,7 @@ export const content = {
         },
         "one-off-runs": {
           title: "Jednorazowo",
-          body: "opencode run wysyła jedną wiadomość i wypisuje odpowiedź.",
+          body: "xccode run wysyła jedną wiadomość i wypisuje odpowiedź.",
         },
         "agents-and-commands": {
           title: "Agenci i polecenia",
@@ -168,11 +168,11 @@ export const content = {
         },
         "any-server": {
           title: "Każdy serwer",
-          body: "Połącz się z serwerem OpenCode przez URL z --server.",
+          body: "Połącz się z serwerem Xccode przez URL z --server.",
         },
         "usage-stats": {
           title: "Statystyki",
-          body: "opencode stats pokazuje statystyki użycia do udostępnienia.",
+          body: "xccode stats pokazuje statystyki użycia do udostępnienia.",
         },
       },
       showcase: {
@@ -190,20 +190,20 @@ export const content = {
         },
         mini: {
           title: "Mini",
-          body: "Uruchom opencode mini, a odpowiedzi trafią do historii terminala.",
+          body: "Uruchom xccode mini, a odpowiedzi trafią do historii terminala.",
         },
       },
     },
     sdk: {
-      title: "OpenCode | SDK TypeScript dla skryptów, zadań CI i narzędzi",
+      title: "Xccode | SDK TypeScript dla skryptów, zadań CI i narzędzi",
       description:
-        "Steruj OpenCode z własnych skryptów, zadań CI i narzędzi. Typowany klient TypeScript tworzy sesje, wysyła prompty i strumieniuje każde zdarzenie na bieżąco.",
+        "Steruj Xccode z własnych skryptów, zadań CI i narzędzi. Typowany klient TypeScript tworzy sesje, wysyła prompty i strumieniuje każde zdarzenie na bieżąco.",
       intro:
-        "Steruj OpenCode z własnych skryptów, zadań CI i narzędzi. SDK uruchamia OpenCode w Twoim procesie, z Twoją konfiguracją i modelami, a typowany klient tworzy sesje, wysyła prompty i strumieniuje każde zdarzenie.",
+        "Steruj Xccode z własnych skryptów, zadań CI i narzędzi. SDK uruchamia Xccode w Twoim procesie, z Twoją konfiguracją i modelami, a typowany klient tworzy sesje, wysyła prompty i strumieniuje każde zdarzenie.",
       features: {
         "typescript-client": {
           title: "Klient TypeScript",
-          body: "Typowane żądania i zdarzenia, z tymi samymi wartościami co @opencode/client.",
+          body: "Typowane żądania i zdarzenia, z tymi samymi wartościami co @xccode/client.",
         },
         "sessions-from-code": {
           title: "Sesje z kodu",
@@ -211,15 +211,15 @@ export const content = {
         },
         "any-model": {
           title: "Każdy model",
-          body: "Używa modeli skonfigurowanych w Twoim OpenCode.",
+          body: "Używa modeli skonfigurowanych w Twoim Xccode.",
         },
         "npm-or-bun": {
           title: "npm lub bun",
-          body: "Zainstaluj przez npm i @opencode/sdk lub bun add @opencode/sdk.",
+          body: "Zainstaluj przez npm i @xccode/sdk lub bun add @xccode/sdk.",
         },
         "in-process-host": {
           title: "Host w procesie",
-          body: "Uruchamia OpenCode w pamięci, bez ruchu sieciowego.",
+          body: "Uruchamia Xccode w pamięci, bez ruchu sieciowego.",
         },
         "your-plugins": {
           title: "Twoje pluginy",
@@ -231,13 +231,13 @@ export const content = {
         },
         "cloudflare-workers": {
           title: "Cloudflare Workers",
-          body: "Uruchamiaj OpenCode w Durable Object Cloudflare na Workers.",
+          body: "Uruchamiaj Xccode w Durable Object Cloudflare na Workers.",
         },
       },
       showcase: {
         "fix-ci-from-code": {
           title: "Napraw CI z kodu",
-          body: "Skrypt prosi OpenCode o naprawę nieudanych testów i uruchamia je ponownie.",
+          body: "Skrypt prosi Xccode o naprawę nieudanych testów i uruchamia je ponownie.",
         },
         "follow-every-step": {
           title: "Śledź każdy krok",
@@ -245,20 +245,20 @@ export const content = {
         },
         "build-your-own-tools": {
           title: "Własne narzędzia",
-          body: "Podłącz OpenCode do botów, dashboardów i workflowów w kilku linijkach.",
+          body: "Podłącz Xccode do botów, dashboardów i workflowów w kilku linijkach.",
         },
         "in-your-process": {
           title: "W Twoim procesie",
-          body: "Uruchamia OpenCode w Twoim procesie, z Twoją konfiguracją i modelami.",
+          body: "Uruchamia Xccode w Twoim procesie, z Twoją konfiguracją i modelami.",
         },
       },
     },
     mini: {
-      title: "OpenCode | Mini, minimalny interfejs terminalowy dla agenta",
+      title: "Xccode | Mini, minimalny interfejs terminalowy dla agenta",
       description:
-        "Mini uruchamia OpenCode w minimalnym interfejsie terminalowym. Odpowiedzi trafiają do historii terminala, a na dole zostają tylko prompt i linia statusu.",
+        "Mini uruchamia Xccode w minimalnym interfejsie terminalowym. Odpowiedzi trafiają do historii terminala, a na dole zostają tylko prompt i linia statusu.",
       intro:
-        "Minimalny interfejs terminalowy dla OpenCode. Uruchom opencode mini, a odpowiedzi trafią prosto do historii Twojego terminala, więc przewijasz, wyszukujesz i kopiujesz je jak każde inne wyjście. Na dole zostają tylko prompt i linia statusu.",
+        "Minimalny interfejs terminalowy dla Xccode. Uruchom xccode mini, a odpowiedzi trafią prosto do historii Twojego terminala, więc przewijasz, wyszukujesz i kopiujesz je jak każde inne wyjście. Na dole zostają tylko prompt i linia statusu.",
       features: {
         "your-scrollback": {
           title: "Twoja historia",
@@ -280,8 +280,8 @@ export const content = {
           title: "Wróć później",
           body: "Kontynuuj ostatnią sesję z -c albo dowolną z -s.",
         },
-        "same-opencode": {
-          title: "Ten sam OpenCode",
+        "same-xccode": {
+          title: "Ten sam Xccode",
           body: "Ten sam serwer, agenci i modele co w innych aplikacjach.",
         },
         agents: {
@@ -297,16 +297,16 @@ export const content = {
   },
   extensionCard: {
     name: "Rozszerzenia",
-    body: "Używaj OpenCode w VS Code albo w Zedzie i innych edytorach przez ACP.",
+    body: "Używaj Xccode w VS Code albo w Zedzie i innych edytorach przez ACP.",
     action: "Instaluj",
   },
   extensions: {
     browse: {
       name: "Browse",
       body: "Pozwól agentom korzystać z Twojej przeglądarki.",
-      title: "OpenCode | Browse, Twoja prawdziwa przeglądarka dla agentów",
+      title: "Xccode | Browse, Twoja prawdziwa przeglądarka dla agentów",
       description:
-        "Browse pozwala OpenCode i innym klientom MCP korzystać z Twojej prawdziwej przeglądarki. Agenci czytają, klikają, piszą, robią zrzuty, nagrywają karty i oddają Ci logowanie i 2FA.",
+        "Browse pozwala Xccode i innym klientom MCP korzystać z Twojej prawdziwej przeglądarki. Agenci czytają, klikają, piszą, robią zrzuty, nagrywają karty i oddają Ci logowanie i 2FA.",
       intro:
         "Serwer MCP i rozszerzenie Chromium, dzięki którym agenci korzystają z Twojej prawdziwej przeglądarki, z Twoimi kartami, logowaniami i rozszerzeniami. Otwierają karty w tle, zgrupowane tak, by Ci nie przeszkadzały, i czytają strony, klikają, piszą, robią zrzuty ekranu i nagrywają karty. Gdy przychodzi Twoja kolej, przy logowaniu, kodzie 2FA czy płatności, oddają Ci kartę i działają dalej, gdy klikniesz Continue.",
       features: {
@@ -332,7 +332,7 @@ export const content = {
         },
         "any-mcp-client": {
           title: "Każdy klient MCP",
-          body: "OpenCode, Claude Code, Cursor, Codex, Zed i wiele innych.",
+          body: "Xccode, Claude Code, Cursor, Codex, Zed i wiele innych.",
         },
         "all-your-logins": {
           title: "Wszystkie twoje logowania",
@@ -367,10 +367,10 @@ export const content = {
   },
   getStarted: {
     title: "Zacznij",
-    lead: "Najprościej zacząć, gdy pobierzesz OpenCode i użyjesz darmowych modeli. Konto nie jest potrzebne. Jeśli chcesz więcej, użyj własnej subskrypcji albo OpenCode Go.",
+    lead: "Najprościej zacząć, gdy pobierzesz Xccode i użyjesz darmowych modeli. Konto nie jest potrzebne. Jeśli chcesz więcej, użyj własnej subskrypcji albo Xccode Go.",
     phrases: {
-      "download-opencode": {
-        text: "pobierzesz OpenCode",
+      "download-xccode": {
+        text: "pobierzesz Xccode",
       },
       "free-models": {
         text: "darmowych modeli",
@@ -381,8 +381,8 @@ export const content = {
       "a-subscription-you-already-have": {
         text: "subskrypcji, którą już masz",
       },
-      "opencode-go": {
-        text: "OpenCode Go",
+      "xccode-go": {
+        text: "Xccode Go",
       },
     },
     subscriptions: {
@@ -394,11 +394,11 @@ export const content = {
       },
     },
     plans: {
-      "opencode-go": {
-        name: "OpenCode Go",
+      "xccode-go": {
+        name: "Xccode Go",
       },
-      "opencode-go-plus": {
-        name: "OpenCode Go Plus",
+      "xccode-go-plus": {
+        name: "Xccode Go Plus",
       },
     },
     steps: {
@@ -408,20 +408,20 @@ export const content = {
       },
       "use-free-models": {
         title: "Darmowe modele",
-        line: "OpenCode ma zestaw darmowych modeli. Konto nie jest potrzebne.",
+        line: "Xccode ma zestaw darmowych modeli. Konto nie jest potrzebne.",
       },
       "add-more-models": {
         title: "Więcej modeli",
-        line: "Użyj własnej subskrypcji albo wybranych modeli OpenCode Go od 10 $ miesięcznie.",
+        line: "Użyj własnej subskrypcji albo wybranych modeli Xccode Go od 10 $ miesięcznie.",
       },
     },
     sentence:
-      "Pobierz OpenCode, zacznij od darmowych modeli, a gdy zechcesz więcej, użyj własnej subskrypcji lub OpenCode Go.",
+      "Pobierz Xccode, zacznij od darmowych modeli, a gdy zechcesz więcej, użyj własnej subskrypcji lub Xccode Go.",
   },
   byos: {
     title: "Własne subskrypcje",
     headline: "Używaj subskrypcji, które już masz.",
-    line: "Zaloguj się przez ChatGPT Plus lub Pro albo GitHub Copilot. Możesz też wybrać subskrypcję OpenCode.",
+    line: "Zaloguj się przez ChatGPT Plus lub Pro albo GitHub Copilot. Możesz też wybrać subskrypcję Xccode.",
     yours: {
       label: "Twoja subskrypcja",
       items: {
@@ -433,9 +433,9 @@ export const content = {
         },
       },
     },
-    planLinks: ["subskrypcję OpenCode", "OpenCode Go"],
+    planLinks: ["subskrypcję Xccode", "Xccode Go"],
     ours: {
-      label: "Plany OpenCode",
+      label: "Plany Xccode",
     },
   },
   brand: {
@@ -447,8 +447,8 @@ export const content = {
     },
     naming: {
       title: "Nazwa",
-      body: "Pisz OpenCode jako jedno słowo, z wielkim O i wielkim C. Nie pisz Opencode, Open Code, OpenCode AI ani Open-Code.",
-      code: "Małych liter `opencode` używaj tylko w kodzie i nazwach pakietów, takich jak `opencode-figma` czy `@acme/opencode-plugin`.",
+      body: "Pisz Xccode jako jedno słowo, z wielkim O i wielkim C. Nie pisz Xccode, Open Code, Xccode AI ani Open-Code.",
+      code: "Małych liter `xccode` używaj tylko w kodzie i nazwach pakietów, takich jak `xccode-figma` czy `@acme/xccode-plugin`.",
     },
     families: {
       logo: {
@@ -471,7 +471,7 @@ export const content = {
       },
       wordmark: {
         title: "Logotyp",
-        body: "Pełna nazwa zapisana literami OpenCode. Używaj go wszędzie, gdzie jest miejsce na całą nazwę.",
+        body: "Pełna nazwa zapisana literami Xccode. Używaj go wszędzie, gdzie jest miejsce na całą nazwę.",
         assets: {
           light: {
             name: "Jasny",
@@ -676,21 +676,21 @@ export const content = {
     },
     integrations: {
       title: "Integracje",
-      body: "Pluginy, dostawcy i narzędzia, które działają z OpenCode, oraz projekty z jego użyciem mogą o tym mówić. Użyj odznaki albo lockupu partnerskiego i nazwij projekt tak, aby było jasne, że jest Twój.",
+      body: "Pluginy, dostawcy i narzędzia, które działają z Xccode, oraz projekty z jego użyciem mogą o tym mówić. Użyj odznaki albo lockupu partnerskiego i nazwij projekt tak, aby było jasne, że jest Twój.",
       badges: {
-        body: "Umieść odznakę w README, dokumentacji lub na stronie i podlinkuj ją do opencode.ai. Wybierz plik jasny lub ciemny pod swoje tło (HTML przełącza się sam) i nie zmieniaj kolorów ani tekstu.",
+        body: "Umieść odznakę w README, dokumentacji lub na stronie i podlinkuj ją do xccode.ai. Wybierz plik jasny lub ciemny pod swoje tło (HTML przełącza się sam) i nie zmieniaj kolorów ani tekstu.",
         sizes: "Każdy styl jest w rozmiarach 20, 32 i 44px (Shields tylko 20px), jako SVG i PNG w 2×.",
-        mono: "Każdy plik ma też wersję z tekstem OpenTUI Mono. Dodaj -mono przed rozszerzeniem, jak w opencode-works-with-a-light-20-mono.svg, albo -mono-caps dla OpenTUI Mono wielkimi literami.",
+        mono: "Każdy plik ma też wersję z tekstem OpenTUI Mono. Dodaj -mono przed rozszerzeniem, jak w xccode-works-with-a-light-20-mono.svg, albo -mono-caps dla OpenTUI Mono wielkimi literami.",
         groups: {
           "works-with": {
             title: "Działa z",
-            alt: "Działa z OpenCode",
-            body: "Dla pluginów, dostawców i narzędzi, które działają z OpenCode.",
+            alt: "Działa z Xccode",
+            body: "Dla pluginów, dostawców i narzędzi, które działają z Xccode.",
           },
           "built-with": {
             title: "Zbudowane z",
-            alt: "Zbudowane z OpenCode",
-            body: "Dla projektów stworzonych z OpenCode.",
+            alt: "Zbudowane z Xccode",
+            body: "Dla projektów stworzonych z Xccode.",
           },
         },
         styles: {
@@ -710,7 +710,7 @@ export const content = {
       },
       lockup: {
         title: "Lockup partnerski",
-        body: "Ustaw logo OpenCode i logo partnera obok siebie, z × pomiędzy. Zostaw 3 kreski odstępu po obu stronach ×, dobierz rozmiar logo partnera tak, by wyglądało na tak wysokie jak logo OpenCode, i zachowaj wolną przestrzeń wokół całości.",
+        body: "Ustaw logo Xccode i logo partnera obok siebie, z × pomiędzy. Zostaw 3 kreski odstępu po obu stronach ×, dobierz rozmiar logo partnera tak, by wyglądało na tak wysokie jak logo Xccode, i zachowaj wolną przestrzeń wokół całości.",
         partners: {
           github: {
             name: "GitHub",
@@ -720,12 +720,12 @@ export const content = {
       naming: {
         title: "Nazwa projektu",
         body: "Zacznij od własnej nazwy, aby było jasne, że projekt jest Twój.",
-        rule: "Pisz `Linear for OpenCode` albo nazwij pakiet `opencode-linear`. Nie pisz `OpenCode Linear` ani `Linear by OpenCode`.",
+        rule: "Pisz `Linear for Xccode` albo nazwij pakiet `xccode-linear`. Nie pisz `Xccode Linear` ani `Linear by Xccode`.",
       },
     },
     trademarks: {
       title: "Znaki towarowe",
-      body: "OpenCode i logo OpenCode są znakami towarowymi Anomaly. Nie używaj ich, aby sugerować, że Anomaly Cię popiera lub sponsoruje, w nazwie produktu czy firmy ani na gadżetach bez zgody.",
+      body: "Xccode i logo Xccode są znakami towarowymi Anomaly. Nie używaj ich, aby sugerować, że Anomaly Cię popiera lub sponsoruje, w nazwie produktu czy firmy ani na gadżetach bez zgody.",
       contact: {
         before: "W razie pytań napisz na ",
         after: ".",
@@ -733,21 +733,21 @@ export const content = {
     },
   },
   press: {
-    title: "OpenCode | Materiały prasowe, fakty o firmie i zasoby marki",
+    title: "Xccode | Materiały prasowe, fakty o firmie i zasoby marki",
     description:
-      "Materiały prasowe OpenCode, z faktami o OpenCode i Anomaly, firmie, która za nim stoi, oraz logo i logotypami do pobrania i kontaktem dla prasy.",
+      "Materiały prasowe Xccode, z faktami o Xccode i Anomaly, firmie, która za nim stoi, oraz logo i logotypami do pobrania i kontaktem dla prasy.",
     hero: {
       title: "Prasa",
-      body: "Fakty, zasoby marki i kontakty dla piszących o OpenCode i Anomaly.",
+      body: "Fakty, zasoby marki i kontakty dla piszących o Xccode i Anomaly.",
     },
     company: {
       title: "O Anomaly",
-      lead: "Anomaly to firma, która stoi za OpenCode. Tworzy narzędzia open source dla programistów.",
+      lead: "Anomaly to firma, która stoi za Xccode. Tworzy narzędzia open source dla programistów.",
       more: "Inne projekty to między innymi SST i OpenTUI, wszystkie open source na [GitHubie](github).",
       learnMore: "Więcej informacji znajdziesz na [anoma.ly](site).",
       projects: {
-        opencode: {
-          name: "OpenCode",
+        xccode: {
+          name: "Xccode",
           body: "Open source'owy agent do programowania, z aplikacjami na desktop, terminal i telefon oraz SDK. Licencja MIT, ponad 220 000 gwiazdek na GitHubie.",
         },
         sst: {
@@ -756,7 +756,7 @@ export const content = {
         },
         opentui: {
           name: "OpenTUI",
-          body: "Biblioteka do interfejsów terminalowych w TypeScript, React lub Solid, z rdzeniem w Zig. OpenCode używa jej produkcyjnie. Ponad 13 000 gwiazdek na GitHubie.",
+          body: "Biblioteka do interfejsów terminalowych w TypeScript, React lub Solid, z rdzeniem w Zig. Xccode używa jej produkcyjnie. Ponad 13 000 gwiazdek na GitHubie.",
         },
         "models-dev": {
           name: "Models.dev",
@@ -773,31 +773,31 @@ export const content = {
       },
     },
     about: {
-      title: "O OpenCode",
-      body: "Opisy OpenCode i jego produktów w wersji długiej i krótkiej, gotowe do skopiowania.",
+      title: "O Xccode",
+      body: "Opisy Xccode i jego produktów w wersji długiej i krótkiej, gotowe do skopiowania.",
       boilerplate: {
-        long: "OpenCode to open source'owy agent do programowania. Jest dostępny jako aplikacja desktopowa, interfejs terminalowy, aplikacja mobilna i SDK, i działa z modelami dowolnego dostawcy, w tym Claude, GPT i Gemini. OpenCode ma licencję MIT i jest tworzony przez Anomaly. Ma ponad 220 000 gwiazdek na GitHubie i ponad 1000 współtwórców, a co miesiąc korzysta z niego ponad 22 miliony programistów.",
+        long: "Xccode to open source'owy agent do programowania. Jest dostępny jako aplikacja desktopowa, interfejs terminalowy, aplikacja mobilna i SDK, i działa z modelami dowolnego dostawcy, w tym Claude, GPT i Gemini. Xccode ma licencję MIT i jest tworzony przez Anomaly. Ma ponad 220 000 gwiazdek na GitHubie i ponad 1000 współtwórców, a co miesiąc korzysta z niego ponad 22 miliony programistów.",
         short:
-          "OpenCode to open source'owy agent do programowania od Anomaly, z aplikacjami na desktop, terminal i telefon oraz SDK.",
+          "Xccode to open source'owy agent do programowania od Anomaly, z aplikacjami na desktop, terminal i telefon oraz SDK.",
       },
       products: {
-        "opencode-console": {
-          name: "OpenCode Console",
-          long: "OpenCode Console to aplikacja webowa, w której programiści i zespoły kupują dostęp do modeli AI dla OpenCode i innych agentów do programowania oraz nim zarządzają. Oferuje inferencję pay-as-you-go dla modeli frontier i open-weight, rozliczaną za żądanie z przedpłaconych kredytów, oraz subskrypcje OpenCode Go. Zespoły dostają przestrzenie robocze z rolami Member, Admin i Owner, limity wydatków dla przestrzeni i użytkowników, logowanie jednokrotne przez Okta, Microsoft Entra ID lub Google Workspace oraz SCIM. Console obsługuje ponad 30 dostawców, więc zespoły mogą podłączyć konta, które już mają, a własna inferencja jest opcjonalna. Działa pod adresem opencode.ai/console.",
+        "xccode-console": {
+          name: "Xccode Console",
+          long: "Xccode Console to aplikacja webowa, w której programiści i zespoły kupują dostęp do modeli AI dla Xccode i innych agentów do programowania oraz nim zarządzają. Oferuje inferencję pay-as-you-go dla modeli frontier i open-weight, rozliczaną za żądanie z przedpłaconych kredytów, oraz subskrypcje Xccode Go. Zespoły dostają przestrzenie robocze z rolami Member, Admin i Owner, limity wydatków dla przestrzeni i użytkowników, logowanie jednokrotne przez Okta, Microsoft Entra ID lub Google Workspace oraz SCIM. Console obsługuje ponad 30 dostawców, więc zespoły mogą podłączyć konta, które już mają, a własna inferencja jest opcjonalna. Działa pod adresem xccode.ai/console.",
           short:
-            "OpenCode Console to aplikacja webowa Anomaly do dostępu do modeli AI w modelu pay-as-you-go, subskrypcji OpenCode Go i kontroli zespołowych, takich jak budżety i logowanie jednokrotne.",
+            "Xccode Console to aplikacja webowa Anomaly do dostępu do modeli AI w modelu pay-as-you-go, subskrypcji Xccode Go i kontroli zespołowych, takich jak budżety i logowanie jednokrotne.",
         },
-        "opencode-go": {
-          name: "OpenCode Go",
-          long: "OpenCode Go to subskrypcja dla programistów, którzy chcą stałej miesięcznej ceny za modele do programowania. Go kosztuje 10 $ miesięcznie, Go Plus 40 $ miesięcznie z wyższymi limitami, a Go Teams 20 $ miesięcznie za członka. Każdy plan obejmuje wybrany zestaw modeli przetestowanych pod kątem programowania z agentami. Limity użycia to miesięczne kwoty w dolarach dla każdego modelu, z kroczącymi limitami 5-godzinnymi i tygodniowymi wynoszącymi 20% i 50% limitu miesięcznego. Subskrybenci mogą doładować kredyty, przejść na saldo pay-as-you-go i zrezygnować w każdej chwili. Go działa z OpenCode i innymi agentami. Działa pod adresem opencode.ai/console/go.",
+        "xccode-go": {
+          name: "Xccode Go",
+          long: "Xccode Go to subskrypcja dla programistów, którzy chcą stałej miesięcznej ceny za modele do programowania. Go kosztuje 10 $ miesięcznie, Go Plus 40 $ miesięcznie z wyższymi limitami, a Go Teams 20 $ miesięcznie za członka. Każdy plan obejmuje wybrany zestaw modeli przetestowanych pod kątem programowania z agentami. Limity użycia to miesięczne kwoty w dolarach dla każdego modelu, z kroczącymi limitami 5-godzinnymi i tygodniowymi wynoszącymi 20% i 50% limitu miesięcznego. Subskrybenci mogą doładować kredyty, przejść na saldo pay-as-you-go i zrezygnować w każdej chwili. Go działa z Xccode i innymi agentami. Działa pod adresem xccode.ai/console/go.",
           short:
-            "OpenCode Go to miesięczna subskrypcja od Anomaly, która daje programistom miesięczne limity użycia wybranego zestawu modeli do programowania, od 10 $ miesięcznie.",
+            "Xccode Go to miesięczna subskrypcja od Anomaly, która daje programistom miesięczne limity użycia wybranego zestawu modeli do programowania, od 10 $ miesięcznie.",
         },
-        "opencode-data": {
-          name: "OpenCode Data",
-          long: "OpenCode Data to publiczny dashboard, który pokazuje, jakich modeli AI programiści używają w OpenCode i jak ta struktura zmienia się w czasie. Publikuje ranking najpopularniejszych modeli, zużycie tokenów, koszty sesji i tokenów, współczynniki cache, udziały w rynku i podział na kraje. Dane są agregowane co godzinę, z dniami i tygodniami w UTC. Liczby użytkowników i sesji są przybliżone, a koszty opierają się na cenach katalogowych z katalogu modeli OpenCode. Dziennikarze mogą cytować go jako OpenCode Data (opencode.ai/data) z godziną aktualizacji podaną na stronie.",
+        "xccode-data": {
+          name: "Xccode Data",
+          long: "Xccode Data to publiczny dashboard, który pokazuje, jakich modeli AI programiści używają w Xccode i jak ta struktura zmienia się w czasie. Publikuje ranking najpopularniejszych modeli, zużycie tokenów, koszty sesji i tokenów, współczynniki cache, udziały w rynku i podział na kraje. Dane są agregowane co godzinę, z dniami i tygodniami w UTC. Liczby użytkowników i sesji są przybliżone, a koszty opierają się na cenach katalogowych z katalogu modeli Xccode. Dziennikarze mogą cytować go jako Xccode Data (xccode.ai/data) z godziną aktualizacji podaną na stronie.",
           short:
-            "OpenCode Data to publiczny dashboard pod adresem opencode.ai/data, który szereguje modele AI według rzeczywistego użycia w OpenCode, z tokenami, kosztami i udziałami w rynku aktualizowanymi co godzinę.",
+            "Xccode Data to publiczny dashboard pod adresem xccode.ai/data, który szereguje modele AI według rzeczywistego użycia w Xccode, z tokenami, kosztami i udziałami w rynku aktualizowanymi co godzinę.",
         },
       },
     },
@@ -826,9 +826,9 @@ export const content = {
           date: "Paź 2025",
           text: "1 mln+ pobrań",
         },
-        "opencode-1-0": {
+        "xccode-1-0": {
           date: "Paź 2025",
-          text: "OpenCode 1.0",
+          text: "Xccode 1.0",
         },
         "desktop-app-ships": {
           date: "Gru 2025",
@@ -838,9 +838,9 @@ export const content = {
           date: "Sty 2026",
           text: "10 mln+ pobrań",
         },
-        "opencode-2-0": {
+        "xccode-2-0": {
           date: "Wrz 2026",
-          text: "OpenCode 2.0",
+          text: "Xccode 2.0",
         },
         "220-000-github-stars": {
           date: "Lis 2026",
@@ -850,7 +850,7 @@ export const content = {
     },
     news: {
       title: "Najnowsze wydania",
-      intro: "OpenCode wydaje nowe wersje często. Oto najnowsze wydania z nowymi funkcjami.",
+      intro: "Xccode wydaje nowe wersje często. Oto najnowsze wydania z nowymi funkcjami.",
       changelog: {
         text: "Dziennik zmian",
       },
@@ -861,7 +861,7 @@ export const content = {
     media: {
       title: "Media",
       intro:
-        "Zrzuty i krótkie filmy każdej aplikacji, nagrane z prawdziwego produktu. Możesz ich używać, pisząc o OpenCode.",
+        "Zrzuty i krótkie filmy każdej aplikacji, nagrane z prawdziwego produktu. Możesz ich używać, pisząc o Xccode.",
       note: "Wszystkie nagrania używają ciemnego motywu. Zrzuty i okładki to pliki JPG do 1920 × 1080 lub 1080 × 1350 w pionie. Filmy to klipy MP4 bez dźwięku.",
       products: {
         desktop: {
@@ -1021,13 +1021,13 @@ export const content = {
     brand: {
       title: "Marka",
       before:
-        "Pobierz logo i logotypy OpenCode w jednym pliku ZIP. Pojedyncze pliki, warianty i zasady użycia znajdziesz na ",
+        "Pobierz logo i logotypy Xccode w jednym pliku ZIP. Pojedyncze pliki, warianty i zasady użycia znajdziesz na ",
       link: {
         text: "stronie marki",
       },
       after: ".",
       usage:
-        "Możesz używać tych plików, pisząc o OpenCode. Nie zmieniaj ich i nie sugeruj, że OpenCode popiera Twoją pracę.",
+        "Możesz używać tych plików, pisząc o Xccode. Nie zmieniaj ich i nie sugeruj, że Xccode popiera Twoją pracę.",
     },
     product: {
       title: "Produkt",
@@ -1038,7 +1038,7 @@ export const content = {
         },
         mobile: {
           name: "Mobile",
-          body: "Najnowsza aplikacja OpenCode. Zadzwoń do sesji, aby porozmawiać z agentem, a potem przeglądaj i zatwierdzaj jego zmiany z telefonu, gdziekolwiek jesteś.",
+          body: "Najnowsza aplikacja Xccode. Zadzwoń do sesji, aby porozmawiać z agentem, a potem przeglądaj i zatwierdzaj jego zmiany z telefonu, gdziekolwiek jesteś.",
         },
         terminal: {
           name: "Terminal",
@@ -1059,7 +1059,7 @@ export const content = {
         },
         support: {
           title: "Wsparcie",
-          body: "Jeśli potrzebujesz pomocy z OpenCode, zgłoś issue lub zapytaj społeczność. W sprawach konta i płatności napisz do nas.",
+          body: "Jeśli potrzebujesz pomocy z Xccode, zgłoś issue lub zapytaj społeczność. W sprawach konta i płatności napisz do nas.",
           links: {
             "github-issues": {
               text: "Zgłoszenia GitHub",
@@ -1136,7 +1136,7 @@ export const content = {
       },
     },
     mini: {
-      lead: "Mini jest częścią OpenCode CLI. Zainstaluj go dowolnym z tych sposobów, a potem uruchom opencode mini.",
+      lead: "Mini jest częścią Xccode CLI. Zainstaluj go dowolnym z tych sposobów, a potem uruchom xccode mini.",
       commands: {
         curl: {
           name: "Skrypt",
@@ -1155,11 +1155,11 @@ export const content = {
     title: "Połącz telefon",
     cardTitle: "Sparuj telefon jednym poleceniem",
     intro:
-      "OpenCode Mobile to pilot do OpenCode na Twoim komputerze. Sesje działają dalej na komputerze, a aplikacja je pokazuje i pozwala nimi sterować.",
+      "Xccode Mobile to pilot do Xccode na Twoim komputerze. Sesje działają dalej na komputerze, a aplikacja je pokazuje i pozwala nimi sterować.",
     steps: {
       "get-the-app": {
         title: "Pobierz aplikację",
-        body: "Zainstaluj betę OpenCode na iPhonie z TestFlight. Aplikacja na Androida pojawi się wkrótce.",
+        body: "Zainstaluj betę Xccode na iPhonie z TestFlight. Aplikacja na Androida pojawi się wkrótce.",
       },
       "run-this-on-your-computer": {
         title: "Uruchom to na komputerze",
@@ -1170,12 +1170,12 @@ export const content = {
         body: "Zeskanuj kod QR w aplikacji albo wklej link. Ostatnie sesje z komputera otworzą się na telefonie.",
       },
     },
-    note: "--remote łączy się przez adres OpenTunnel, więc działa z każdej sieci. W tej samej sieci Wi-Fi uruchom raz opencode service set hostname 0.0.0.0, a potem opencode pair.",
+    note: "--remote łączy się przez adres OpenTunnel, więc działa z każdej sieci. W tej samej sieci Wi-Fi uruchom raz xccode service set hostname 0.0.0.0, a potem xccode pair.",
     facts: [
       "Parowanie działa z każdej sieci, bo --remote łączy się przez adres OpenTunnel.",
       "Link i kod działają raz i wygasają po 5 minutach.",
       "Komputer musi być włączony, bo agent działa na nim, a nie na telefonie.",
-      "W tej samej sieci Wi-Fi uruchom raz opencode service set hostname 0.0.0.0, a potem opencode pair.",
+      "W tej samej sieci Wi-Fi uruchom raz xccode service set hostname 0.0.0.0, a potem xccode pair.",
     ],
   },
 } satisfies ContentOverlay

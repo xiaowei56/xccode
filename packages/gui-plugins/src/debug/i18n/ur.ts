@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "میموری کی تشخیص: ہر 30 سیکنڈ بعد ایپ کی میموری ڈیسک ٹاپ لاگز میں درج کریں۔ بند کیے جانے تک ری اسٹارٹس کے بعد بھی آن رہتی ہے؛ اس کے چلنے کے دوران بار کھلی رہتی ہے۔",
-  "memory.tipEnv": "اس لانچ کے لیے میموری کی تشخیص آن ہے: OPENCODE_DESKTOP_MEMORY_LOG سیٹ ہے۔",
+  "memory.tipEnv": "اس لانچ کے لیے میموری کی تشخیص آن ہے: XCCODE_DESKTOP_MEMORY_LOG سیٹ ہے۔",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

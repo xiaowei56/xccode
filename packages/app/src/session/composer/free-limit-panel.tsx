@@ -1,7 +1,7 @@
 import { createSignal, onCleanup, Show } from "solid-js"
 import { Schema } from "effect"
-import { Button } from "@opencode/ui/button"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { Button } from "@xccode/ui/button"
+import { useDialog } from "@xccode/ui/context/dialog"
 import { useLanguage } from "@/runtime/i18n/language"
 import { usePlatform } from "@/runtime/platform/platform"
 import { Persist, persisted } from "@/runtime/persistence/storage"
@@ -10,9 +10,9 @@ import { useWorkspaceLocation } from "@/workspaces/location"
 import type { ModelSelection } from "@/providers/models/selection"
 import { limitResetAt } from "../usage-exceeded-dialogs"
 
-const GO_URL = "https://opencode.ai/go"
+const GO_URL = "https://xccode.ai/go"
 
-// OpenCode Zen always says when free usage resets; this covers a refusal that doesn't, or a delay out of range.
+// Xccode Zen always says when free usage resets; this covers a refusal that doesn't, or a delay out of range.
 const FALLBACK_RESET_MS = 3_600_000
 
 const FreeLimitState = Persistence.struct({ resetAt: Schema.NullOr(Schema.Finite) })
@@ -87,7 +87,7 @@ export function SessionFreeLimitPanel(props: { resetAt: number | null; selection
 
   const subscribe = () => {
     platform.openExternal(GO_URL)
-    connect("opencode")
+    connect("xccode")
   }
 
   return (

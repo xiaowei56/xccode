@@ -408,7 +408,7 @@ pub fn duplex() -> io::Result<(Duplex, OwnedHandle)> {
         ConnectNamedPipe, CreateNamedPipeW, PIPE_READMODE_BYTE, PIPE_REJECT_REMOTE_CLIENTS, PIPE_TYPE_BYTE, PIPE_WAIT,
     };
     let random = || std::collections::hash_map::RandomState::new().build_hasher().finish();
-    let name = format!(r"\\.\pipe\opencode-js-host-{}-{:016x}{:016x}", std::process::id(), random(), random());
+    let name = format!(r"\\.\pipe\xccode-js-host-{}-{:016x}{:016x}", std::process::id(), random(), random());
     let name: Vec<u16> = OsStr::new(&name).encode_wide().chain([0]).collect();
     // Full access for the object's owner (this user) alone, and no inherited entries.
     let sddl: Vec<u16> = OsStr::new("D:P(A;;GA;;;OW)").encode_wide().chain([0]).collect();

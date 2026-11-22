@@ -80,7 +80,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "Dostignut besplatan limit",
   "dialog.usageExceeded.freeTier.description":
-    "Pretplati se na OpenCode Go za $10/mjesec i ostvari pouzdan pristup najboljim modelima otvorenog koda.",
+    "Pretplati se na Xccode Go za $10/mjesec i ostvari pouzdan pristup najboljim modelima otvorenog koda.",
   "dialog.usageExceeded.freeTier.actionLabel": "Pretplati se",
 
   "ui.sessionTurn.status.delegating": "Delegiranje posla",
@@ -304,8 +304,8 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "Budžet modela je dostignut · ovaj model je pauziran do resetovanja",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Koristi besplatni model",
   "ui.sessionTurn.budgetLimit.switchModel": "Promijeni model",
-  "ui.sessionTurn.goLimit.title": "Dostigli ste limit potrošnje za OpenCode Go.",
-  "ui.sessionTurn.goLimit.lineReset": "Dostigli ste limit potrošnje za OpenCode Go. Resetuje se u {{time}}.",
+  "ui.sessionTurn.goLimit.title": "Dostigli ste limit potrošnje za Xccode Go.",
+  "ui.sessionTurn.goLimit.lineReset": "Dostigli ste limit potrošnje za Xccode Go. Resetuje se u {{time}}.",
   "dialog.usageExceeded.freeTier.reset": "Vaše besplatne poruke se resetuju u {{time}}.",
   "ui.messagePart.compaction.queued": "Sažimanje sesije je u redu čekanja",
   "ui.messagePart.compaction.done": "Sažeto",

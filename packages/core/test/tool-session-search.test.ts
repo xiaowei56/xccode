@@ -1,23 +1,23 @@
 import { describe, expect } from "bun:test"
 import { DateTime, Effect, Layer, Schema } from "effect"
-import { Bus } from "@opencode/core/bus"
-import { Config } from "@opencode/core/config"
-import { Database } from "@opencode/core/database/database"
-import { Location } from "@opencode/core/location"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionSearch } from "@opencode/core/session/search"
-import { SessionSearchIndex } from "@opencode/core/session/search-index"
-import { SessionMessageTable, SessionTable } from "@opencode/core/session/sql"
-import { Tool } from "@opencode/core/tool"
-import { SessionSearchTools } from "@opencode/core/tool/plugin/session-search"
-import { Document, Event, Info } from "@opencode/schema/config"
-import { ConfigExperimental } from "@opencode/schema/config/experimental"
+import { Bus } from "@xccode/core/bus"
+import { Config } from "@xccode/core/config"
+import { Database } from "@xccode/core/database/database"
+import { Location } from "@xccode/core/location"
+import { Plugin } from "@xccode/core/plugin"
+import { PluginHost } from "@xccode/core/plugin/host"
+import { Project } from "@xccode/core/project"
+import { ProjectTable } from "@xccode/core/project/sql"
+import { AbsolutePath } from "@xccode/core/schema"
+import { Session } from "@xccode/core/session"
+import { SessionMessage } from "@xccode/core/session/message"
+import { SessionSearch } from "@xccode/core/session/search"
+import { SessionSearchIndex } from "@xccode/core/session/search-index"
+import { SessionMessageTable, SessionTable } from "@xccode/core/session/sql"
+import { Tool } from "@xccode/core/tool"
+import { SessionSearchTools } from "@xccode/core/tool/plugin/session-search"
+import { Document, Event, Info } from "@xccode/schema/config"
+import { ConfigExperimental } from "@xccode/schema/config/experimental"
 import { testEffect } from "./lib/effect"
 import { codeModeListings, executeTool, toolIdentity } from "./lib/tool"
 import { makePluginTestLayer } from "./plugin/fixture"
@@ -60,25 +60,25 @@ describe("SessionSearchTools", () => {
       yield* config.setEntries(documents(false))
       yield* SessionSearchTools.Plugin.effect(yield* PluginHost.make(plugins, "test"))
 
-      expect(yield* paths(tools)).not.toContain("opencode.session.search")
-      expect(yield* paths(tools)).not.toContain("opencode.session.read")
+      expect(yield* paths(tools)).not.toContain("xccode.session.search")
+      expect(yield* paths(tools)).not.toContain("xccode.session.read")
 
       yield* config.setEntries(documents(true))
       yield* bus.publish(Event.Updated, {})
       const deadline = Date.now() + 5_000
-      while (!(yield* paths(tools)).includes("opencode.session.search") && Date.now() < deadline) {
+      while (!(yield* paths(tools)).includes("xccode.session.search") && Date.now() < deadline) {
         yield* Effect.sleep("5 millis")
       }
 
-      expect(yield* paths(tools)).toContain("opencode.session.search")
-      expect(yield* paths(tools)).toContain("opencode.session.read")
+      expect(yield* paths(tools)).toContain("xccode.session.search")
+      expect(yield* paths(tools)).toContain("xccode.session.read")
 
       const listed = yield* tools.list()
       const searchTool = listed.find((def) => def.name === "search")
       const readTool = listed.find((def) => def.name === "read")
-      expect(searchTool?.options?.namespace).toBe("opencode.session")
+      expect(searchTool?.options?.namespace).toBe("xccode.session")
       expect(searchTool?.options?.codemode).toBe(true)
-      expect(readTool?.options?.namespace).toBe("opencode.session")
+      expect(readTool?.options?.namespace).toBe("xccode.session")
       expect(readTool?.options?.codemode).toBe(true)
     }),
   )
@@ -156,17 +156,17 @@ describe("SessionSearchTools", () => {
       yield* SessionSearchTools.Plugin.effect(yield* PluginHost.make(plugins, "test"))
 
       // Defaults to the caller's project; scope: "all" widens it.
-      const searched = yield* runCode(tools, `return await tools.opencode.session.search({ query: "walrus" })`)
+      const searched = yield* runCode(tools, `return await tools.xccode.session.search({ query: "walrus" })`)
       expect(searched.status).toBe("completed")
       const scoped = JSON.parse(searched.content?.[0]?.type === "text" ? searched.content[0].text : "")
       expect(scoped.results.map((r: { sessionID: string }) => r.sessionID)).toEqual([targetSession])
-      const everywhere = yield* runCode(tools, `return await tools.opencode.session.search({ query: "walrus", scope: "all" })`)
+      const everywhere = yield* runCode(tools, `return await tools.xccode.session.search({ query: "walrus", scope: "all" })`)
       const all = JSON.parse(everywhere.content?.[0]?.type === "text" ? everywhere.content[0].text : "")
       expect(all.results.map((r: { sessionID: string }) => r.sessionID).toSorted()).toEqual(["ses_elsewhere", targetSession].toSorted())
 
       const read = yield* runCode(
         tools,
-        `return await tools.opencode.session.read({ sessionID: ${JSON.stringify(targetSession)}, messageID: ${JSON.stringify(targetMessage)} })`,
+        `return await tools.xccode.session.read({ sessionID: ${JSON.stringify(targetSession)}, messageID: ${JSON.stringify(targetMessage)} })`,
       )
       expect(read.status).toBe("completed")
       expect(JSON.parse(read.content?.[0]?.type === "text" ? read.content[0].text : "")).toMatchObject({

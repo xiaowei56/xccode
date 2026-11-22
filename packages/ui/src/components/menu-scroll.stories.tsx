@@ -1,5 +1,5 @@
 import { createSignal, For } from "solid-js"
-import { Button } from "@opencode/ui/button"
+import { Button } from "@xccode/ui/button"
 import { MenuScroll } from "./menu-scroll"
 
 const branches = [

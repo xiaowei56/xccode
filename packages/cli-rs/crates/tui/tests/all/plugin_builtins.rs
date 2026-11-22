@@ -6,15 +6,15 @@ use std::cell::{Cell, RefCell};
 use std::sync::Arc;
 use std::time::Duration;
 
-use opencode_api::generated::V2Event;
-use opencode_plugin::abi::interact::{Event, Handled};
-use opencode_plugin::abi::v2::{Node, Place, Surface};
-use opencode_plugin::abi::{self, Changed, Command, Placement, Span};
-use opencode_plugin::{reconcile, slot, surface};
-use opencode_tui::Deps;
+use xccode_api::generated::V2Event;
+use xccode_plugin::abi::interact::{Event, Handled};
+use xccode_plugin::abi::v2::{Node, Place, Surface};
+use xccode_plugin::abi::{self, Changed, Command, Placement, Span};
+use xccode_plugin::{reconcile, slot, surface};
+use xccode_tui::Deps;
 use serde_json::{Value, json};
 
-fn session(plugins: &[&str], extra: Vec<opencode_plugin::Builtin>) -> Harness {
+fn session(plugins: &[&str], extra: Vec<xccode_plugin::Builtin>) -> Harness {
     let config = json!({ "animations": false, "plugins": plugins });
     let mut builtins = support::deps(Arc::new(support::empty())).builtins;
     builtins.extend(extra);
@@ -25,7 +25,7 @@ fn session(plugins: &[&str], extra: Vec<opencode_plugin::Builtin>) -> Harness {
     };
     let harness = support::mount_still(170, 34, deps);
     // The card shows once the integrations loaded; without the footer that draws it, the location stands in.
-    harness.wait_for(match plugins.contains(&"-opencode.sidebar.footer") {
+    harness.wait_for(match plugins.contains(&"-xccode.sidebar.footer") {
         true => "Fix the parser",
         false => "Getting started",
     });
@@ -79,7 +79,7 @@ fn stream(harness: &Harness, count: u64) {
 
 #[test]
 fn a_theme_switch_builds_nothing_in_the_built_ins() {
-    for route in [opencode_tui::Route::Home, support::session_route("ses_a")] {
+    for route in [xccode_tui::Route::Home, support::session_route("ses_a")] {
         let harness = session(&[], Vec::new());
         harness.tui.navigate(route.clone());
         settle(&harness);
@@ -114,11 +114,11 @@ fn stats_route(height: u16) -> Harness {
     });
     let deps = Deps {
         config: support::config(support::decode(r#"{ "animations": false }"#)),
-        route: opencode_tui::Route::Home,
+        route: xccode_tui::Route::Home,
         ..support::deps(Arc::new(fake))
     };
     let harness = support::mount_still(100, height, deps);
-    harness.tui.navigate(opencode_tui::Route::Plugin { id: "opencode.stats".into(), name: "stats".into() });
+    harness.tui.navigate(xccode_tui::Route::Plugin { id: "xccode.stats".into(), name: "stats".into() });
     harness.wait_for("TOKENS");
     harness
 }
@@ -175,12 +175,12 @@ fn a_stats_reply_after_the_route_closed_reaches_nothing() {
     });
     let deps = Deps {
         config: support::config(support::decode(r#"{ "animations": false }"#)),
-        route: opencode_tui::Route::Home,
+        route: xccode_tui::Route::Home,
         ..support::deps(Arc::new(fake))
     };
     let harness = support::mount_still(100, 30, deps);
     harness.wait_for("Ask anything");
-    let route = opencode_tui::Route::Plugin { id: "opencode.stats".into(), name: "stats".into() };
+    let route = xccode_tui::Route::Plugin { id: "xccode.stats".into(), name: "stats".into() };
     harness.tui.navigate(route.clone());
     harness.wait_for("Gathering your stats");
     harness.wait("the stats to be asked for", || ASKED.load(Ordering::SeqCst) == 1);
@@ -192,7 +192,7 @@ fn a_stats_reply_after_the_route_closed_reaches_nothing() {
     }
     let screen = harness.app.render().text();
     assert!(screen.contains("Ask anything") && !screen.contains("TOKENS"), "{screen}");
-    assert_eq!(surface::ledger_of("opencode.stats"), surface::Ledger::default());
+    assert_eq!(surface::ledger_of("xccode.stats"), surface::Ledger::default());
     harness.tui.navigate(route);
     harness.wait_for("TOKENS");
     assert_eq!(ASKED.load(Ordering::SeqCst), 2);
@@ -237,21 +237,21 @@ fn a_todo_list_written_in_a_streaming_reply_shows_in_the_sidebar() {
 }
 
 const SESSION: [&str; 7] = [
-    "opencode.prompt.footer",
-    "opencode.btw",
-    "opencode.sidebar.context",
-    "opencode.sidebar.limit",
-    "opencode.sidebar.mcp",
-    "opencode.sidebar.todo",
-    "opencode.sidebar.footer",
+    "xccode.prompt.footer",
+    "xccode.btw",
+    "xccode.sidebar.context",
+    "xccode.sidebar.limit",
+    "xccode.sidebar.mcp",
+    "xccode.sidebar.todo",
+    "xccode.sidebar.footer",
 ];
 
 #[test]
 fn a_disabled_built_in_holds_nothing_and_draws_as_one_never_enabled() {
-    let mut cases: Vec<(&str, Option<opencode_tui::Route>)> = SESSION.iter().map(|id| (*id, None)).collect();
-    cases.push(("opencode.home.footer", Some(opencode_tui::Route::Home)));
-    let stats = opencode_tui::Route::Plugin { id: "opencode.stats".into(), name: "stats".into() };
-    cases.push(("opencode.stats", Some(stats)));
+    let mut cases: Vec<(&str, Option<xccode_tui::Route>)> = SESSION.iter().map(|id| (*id, None)).collect();
+    cases.push(("xccode.home.footer", Some(xccode_tui::Route::Home)));
+    let stats = xccode_tui::Route::Plugin { id: "xccode.stats".into(), name: "stats".into() };
+    cases.push(("xccode.stats", Some(stats)));
     for (id, route) in cases {
         let open = |plugins: &[&str]| {
             let harness = session(plugins, Vec::new());
@@ -265,7 +265,7 @@ fn a_disabled_built_in_holds_nothing_and_draws_as_one_never_enabled() {
         let held = surface::ledger_of(id);
         assert!(held.mounts > 0, "{id} holds no mount: {held:?}");
         let toggle = |active| {
-            let host = opencode_tui::plugins::host::host(&harness.tui);
+            let host = xccode_tui::plugins::host::host(&harness.tui);
             assert_eq!(harness.tui.plugins.toggle(&host, id, active), Some(Ok(())), "{id}");
             harness.tui.navigate(harness.tui.route());
             settle(&harness);
@@ -424,7 +424,7 @@ fn a_surface_hears_its_mounts_begin_and_end_in_order() {
     ];
     expected.sort();
     assert_eq!(sorted, expected);
-    let host = opencode_tui::plugins::host::host(&harness.tui);
+    let host = xccode_tui::plugins::host::host(&harness.tui);
     assert_eq!(harness.tui.plugins.toggle(&host, "test.probe", false), Some(Ok(())));
     harness.tui.navigate(harness.tui.route());
     settle(&harness);
@@ -473,7 +473,7 @@ fn a_view_hears_what_changed_since_the_last() {
     let retried: Vec<String> = heard();
     assert!(retried.len() >= 2 && retried[1].contains(" all"), "{retried:?}");
     let status = harness.tui.plugins.entries().into_iter().find(|entry| entry.id == "test.probe").unwrap().status;
-    assert_eq!(status, opencode_plugin::Status::Active);
+    assert_eq!(status, xccode_plugin::Status::Active);
     assert!(harness.app.render().text().contains("probe"));
     KEEPING.set(false);
 }
@@ -619,18 +619,18 @@ fn mounter(setup: &mut abi::Setup) -> Result<(), String> {
 #[test]
 fn what_a_mount_notice_opens_ends_with_the_plugin() {
     let harness = session(&[], vec![abi::Plugin { id: "test.mounter", setup: mounter }.into()]);
-    let overlays = opencode_plugin::interact::ledger(&*harness.tui).overlays;
+    let overlays = xccode_plugin::interact::ledger(&*harness.tui).overlays;
     VIEWS.set(0);
-    harness.tui.navigate(opencode_tui::Route::Plugin { id: "test.mounter".into(), name: "mounter".into() });
+    harness.tui.navigate(xccode_tui::Route::Plugin { id: "test.mounter".into(), name: "mounter".into() });
     harness.wait_for("POPPED");
     settle(&harness);
     // The mount builds its whole tree once: the notice's opening does not, and no later view is a first one again.
     assert_eq!(VIEWS.get(), 1);
-    let host = opencode_tui::plugins::host::host(&harness.tui);
+    let host = xccode_tui::plugins::host::host(&harness.tui);
     assert_eq!(harness.tui.plugins.toggle(&host, "test.mounter", false), Some(Ok(())));
     harness.tui.navigate(support::session_route("ses_a"));
     settle(&harness);
     assert!(!harness.app.render().text().contains("POPPED"));
-    assert_eq!(opencode_plugin::interact::ledger(&*harness.tui).overlays, overlays);
+    assert_eq!(xccode_plugin::interact::ledger(&*harness.tui).overlays, overlays);
     assert_eq!(surface::ledger_of("test.mounter"), surface::Ledger::default());
 }

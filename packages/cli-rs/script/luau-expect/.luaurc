@@ -1,6 +1,6 @@
 {
     "languageMode": "strict",
     "aliases": {
-        "opencode": "../../crates/plugin/src/luau/opencode"
+        "xccode": "../../crates/plugin/src/luau/xccode"
     }
 }

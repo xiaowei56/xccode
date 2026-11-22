@@ -76,7 +76,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "Достигнут бесплатный лимит",
   "dialog.usageExceeded.freeTier.description":
-    "Подпишитесь на OpenCode Go за $10/месяц для надёжного доступа к лучшим моделям с открытым исходным кодом.",
+    "Подпишитесь на Xccode Go за $10/месяц для надёжного доступа к лучшим моделям с открытым исходным кодом.",
   "dialog.usageExceeded.freeTier.actionLabel": "Подписаться",
 
   "ui.sessionTurn.status.delegating": "Делегирование работы",
@@ -313,8 +313,8 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "Бюджет модели исчерпан · модель приостановлена до сброса",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Использовать бесплатную модель",
   "ui.sessionTurn.budgetLimit.switchModel": "Сменить модель",
-  "ui.sessionTurn.goLimit.title": "Вы достигли лимита использования OpenCode Go.",
-  "ui.sessionTurn.goLimit.lineReset": "Вы достигли лимита использования OpenCode Go. Он сбросится в {{time}}.",
+  "ui.sessionTurn.goLimit.title": "Вы достигли лимита использования Xccode Go.",
+  "ui.sessionTurn.goLimit.lineReset": "Вы достигли лимита использования Xccode Go. Он сбросится в {{time}}.",
   "dialog.usageExceeded.freeTier.reset": "Бесплатные сообщения обновятся в {{time}}.",
   "ui.messagePart.compaction.queued": "Сжатие сессии в очереди",
   "ui.messagePart.compaction.done": "Сжато",

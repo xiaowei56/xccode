@@ -2,7 +2,7 @@
   Add a machine and print a one-time join string
 
 [1mUSAGE[0m
-  [36mopencode machine add [flags] <name>[0m
+  [36mxccode machine add [flags] <name>[0m
 
 [1mARGUMENTS[0m
   [32mname[0m [2mstring[0m    Name of the machine

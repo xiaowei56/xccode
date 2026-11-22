@@ -1,6 +1,6 @@
 {
-  "name": "OpenCode",
-  "short_name": "OpenCode",
+  "name": "Xccode",
+  "short_name": "Xccode",
   "description": "The open source coding agent.",
   "id": "/",
   "start_url": "/",

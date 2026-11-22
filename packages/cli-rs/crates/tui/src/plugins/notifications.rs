@@ -3,10 +3,10 @@
 use std::cell::RefCell;
 use std::collections::HashSet;
 
-use opencode_api::generated::V2Event;
-use opencode_plugin::abi::{self, Attention, Sound, SoundName, Toast, Variant, When};
+use xccode_api::generated::V2Event;
+use xccode_plugin::abi::{self, Attention, Sound, SoundName, Toast, Variant, When};
 
-pub const ID: &str = "opencode.notifications";
+pub const ID: &str = "xccode.notifications";
 
 pub fn plugin() -> abi::Plugin {
     abi::Plugin { id: ID, setup }

@@ -1,6 +1,6 @@
-import { Integration } from "@opencode/schema/integration"
-import { Location } from "@opencode/schema/location"
-import { Form } from "@opencode/schema/form"
+import { Integration } from "@xccode/schema/integration"
+import { Location } from "@xccode/schema/location"
+import { Form } from "@xccode/schema/form"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiSchema, OpenApi } from "effect/http-api"
 import {

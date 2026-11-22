@@ -1,15 +1,15 @@
 ---
 title: Politike
-description: Kontrolirajte koje konfigurirane resurse OpenCode smije koristiti.
+description: Kontrolirajte koje konfigurirane resurse Xccode smije koristiti.
 ---
 
-:::caution[Zahtijeva OpenCode 2]
-Politike se ne primjenjuju u OpenCode 1. Primjeri na ovoj stranici zahtijevaju OpenCode 2. U OpenCode 1 koristite [`disabled_providers`](/docs/config#disabled-providers) ili [`enabled_providers`](/docs/config#enabled-providers) za kontrolu dostupnosti provajdera. Za trenutnu upotrebu pogledajte [dokumentaciju o politikama za OpenCode 2](https://opencode.ai/docs/policies/).
+:::caution[Zahtijeva Xccode 2]
+Politike se ne primjenjuju u Xccode 1. Primjeri na ovoj stranici zahtijevaju Xccode 2. U Xccode 1 koristite [`disabled_providers`](/docs/config#disabled-providers) ili [`enabled_providers`](/docs/config#enabled-providers) za kontrolu dostupnosti provajdera. Za trenutnu upotrebu pogledajte [dokumentaciju o politikama za Xccode 2](https://xccode.ai/docs/policies/).
 :::
 
-Politike određuju da li OpenCode smije izvršiti radnju nad imenovanim resursom. Ova funkcija u OpenCode 2 je eksperimentalna i konfiguriše se nizom `experimental.policies` u `opencode.json`.
+Politike određuju da li Xccode smije izvršiti radnju nad imenovanim resursom. Ova funkcija u Xccode 2 je eksperimentalna i konfiguriše se nizom `experimental.policies` u `xccode.json`.
 
-Politike su odvojene od [dozvola](/docs/permissions). Dozvole kontroliraju šta alati mogu raditi tokom sesije, dok politike kontroliraju da li OpenCode smije koristiti resurs kao što je LLM provajder.
+Politike su odvojene od [dozvola](/docs/permissions). Dozvole kontroliraju šta alati mogu raditi tokom sesije, dok politike kontroliraju da li Xccode smije koristiti resurs kao što je LLM provajder.
 
 ---
 
@@ -23,9 +23,9 @@ Svaka izjava politike ima tri polja:
 
 Na primjer, zabranite upotrebu provajdera `openai`:
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://xccode.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ Provajder zabranjen politikom nije dostupan za odabir ili upotrebu modela, čak 
 
 ## Dostupne politike
 
-OpenCode trenutno podržava jednu radnju politike:
+Xccode trenutno podržava jednu radnju politike:
 
 | Radnja         | Resurs                             | Opis                                               |
 | -------------- | ---------------------------------- | -------------------------------------------------- |
@@ -58,9 +58,9 @@ U budućnosti mogu biti dodane nove radnje politika.
 
 Polje `resource` podržava podudaranje zamjenskim znakovima. Koristite `*` za podudaranje nula ili više znakova i `?` za podudaranje tačno jednog znaka.
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://xccode.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ Kada se podudara više izjava, pobjeđuje posljednja izjava koja se podudara. Pr
 
 Na primjer, dozvolite samo Anthropic:
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$schema": "https://xccode.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ Politike se mogu postaviti i u globalnoj i u projektnoj konfiguraciji. Ako se po
 
 ## Liste provajdera
 
-U OpenCode 2 koristite politike umjesto starijih postavki `disabled_providers` i `enabled_providers` kada kontrolirate pristup provajderima. U OpenCode 1 nastavite koristiti te liste provajdera.
+U Xccode 2 koristite politike umjesto starijih postavki `disabled_providers` i `enabled_providers` kada kontrolirate pristup provajderima. U Xccode 1 nastavite koristiti te liste provajdera.
 
 Da zamijenite `disabled_providers`:
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ Da zamijenite `disabled_providers`:
 
 Da zamijenite `enabled_providers`, prvo zabranite sve provajdere, a zatim dozvolite odabrane provajdere:
 
-```json title="opencode.json"
+```json title="xccode.json"
 {
   "experimental": {
     "policies": [

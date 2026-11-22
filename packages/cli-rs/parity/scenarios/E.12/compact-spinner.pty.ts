@@ -11,7 +11,7 @@ const config = JSON.stringify({
   debug: { devtools: false },
   tabs: { layout: "vertical" },
 })
-const here = { directory: "/tmp/opencode/packages/tui" }
+const here = { directory: "/tmp/xccode/packages/tui" }
 
 const session = (id: string, title: string) => ({
   id,
@@ -53,7 +53,7 @@ export default definePty({
   args: ["-s", "ses_a"],
   cols: 120,
   rows: 30,
-  env: { OPENCODE_CLI_CONFIG_CONTENT: config },
+  env: { XCCODE_CLI_CONFIG_CONTENT: config },
   server: {
     fallback: "tui",
     routes: [

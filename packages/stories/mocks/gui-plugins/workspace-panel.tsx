@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query"
-import { File } from "@opencode/session-ui/file"
-import { FileComponentProvider } from "@opencode/ui/context/file"
+import { File } from "@xccode/session-ui/file"
+import { FileComponentProvider } from "@xccode/ui/context/file"
 import { Show, createMemo, createSignal, type Accessor } from "solid-js"
 import { createStore, produce } from "solid-js/store"
 import { PluginHostProvider, usePluginHost } from "@/runtime/plugin/host"

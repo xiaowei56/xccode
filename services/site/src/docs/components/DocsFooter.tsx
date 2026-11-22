@@ -47,7 +47,7 @@ export function DocsFooter(props: {
             </For>
             <li>
               <a
-                href="https://status.opencode.ai"
+                href="https://status.xccode.ai"
                 target="_blank"
                 rel="noopener"
                 data-component="status"

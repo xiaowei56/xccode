@@ -1,9 +1,9 @@
 ---
 title: "Tools"
-description: "OpenCode's built-in tools read and edit files, run shell commands, fetch and search the web, start subagents, and drive a browser."
+description: "Xccode's built-in tools read and edit files, run shell commands, fetch and search the web, start subagents, and drive a browser."
 ---
 
-Ask for the outcome you want. OpenCode chooses the available tools, requests
+Ask for the outcome you want. Xccode chooses the available tools, requests
 approval when required, and returns the result.
 
 ```text
@@ -74,7 +74,7 @@ is true.
 In src/config.ts, replace the unique text "timeout: 60" with "timeout: 30".
 ```
 
-Use `edit` for a focused change. OpenCode may format the file after writing it.
+Use `edit` for a focused change. Xccode may format the file after writing it.
 Permission: `edit` with the target path as its resource.
 
 ### Write
@@ -99,7 +99,7 @@ sections.
 Use patch to rename src/old.ts to src/new.ts and update its exported name.
 ```
 
-OpenCode exposes `patch` for supported GPT models; other models receive `edit`
+Xccode exposes `patch` for supported GPT models; other models receive `edit`
 and `write` instead. Permission: `edit` with every affected path as a resource.
 
 Paths outside the active Location or its project worktree are also checked
@@ -246,8 +246,8 @@ tools enforce the permissions they assert.
 
 ### Sessions
 
-The `opencode.session` Code Mode namespace contains session utilities. Without Code
-Mode they are listed as `opencode_session_rename` and `opencode_session_move`.
+The `xccode.session` Code Mode namespace contains session utilities. Without Code
+Mode they are listed as `xccode_session_rename` and `xccode_session_move`.
 
 - `rename` changes the title of the current session, or another session
   selected by `sessionID`.
@@ -261,13 +261,13 @@ Rename this session to "Timeout cleanup", then move it to the new worktree.
 
 ### Worktrees
 
-The `opencode` namespace manages worktrees for the session's project:
+The `xccode` namespace manages worktrees for the session's project:
 
 - `worktree_create` creates a worktree from a `name` and returns its
   `directory`. The project's worktree configuration selects the destination and
   strategy.
 - `worktree_list` lists the project's worktrees.
-- `worktree_remove` removes a worktree OpenCode recorded for the project. Set
+- `worktree_remove` removes a worktree Xccode recorded for the project. Set
   `force` to discard uncommitted changes.
 
 ```text
@@ -280,7 +280,7 @@ action.
 
 ## Browser
 
-The `browser` Code Mode namespace controls the browser attached by the OpenCode
+The `browser` Code Mode namespace controls the browser attached by the Xccode
 desktop app. Open a tab, keep its returned `tabID`, then pass that explicit ID to
 every page operation.
 

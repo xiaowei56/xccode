@@ -1,30 +1,30 @@
 import { expect } from "bun:test"
-import { Automation } from "@opencode/core/automation"
-import { AutomationTable } from "@opencode/core/automation/sql"
-import { Agent } from "@opencode/core/agent"
-import { Bus } from "@opencode/core/bus"
-import { Config } from "@opencode/core/config"
-import { Database } from "@opencode/core/database/database"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
-import { LocationLifecycle } from "@opencode/core/location-lifecycle"
-import { LocationActivity } from "@opencode/core/location-activity"
-import { Mcp } from "@opencode/core/mcp/index"
-import { McpClient } from "@opencode/core/mcp/client"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHooks } from "@opencode/core/plugin/hooks"
-import { PluginSupervisor } from "@opencode/core/plugin/supervisor"
-import { Session } from "@opencode/core/session"
-import { SessionExecution } from "@opencode/core/session/execution"
-import { SessionProjector } from "@opencode/core/session/projector"
-import { SessionMessage } from "@opencode/core/session/message"
-import { Permission } from "@opencode/core/permission"
-import { SessionInboxTable, SessionTable } from "@opencode/core/session/sql"
-import { AbsolutePath } from "@opencode/schema/schema"
-import { Tool } from "@opencode/schema/tool"
-import { Document, Info } from "@opencode/schema/config"
-import { ConfigExperimental } from "@opencode/schema/config/experimental"
-import { LayerNode } from "@opencode/util/effect/layer-node"
+import { Automation } from "@xccode/core/automation"
+import { AutomationTable } from "@xccode/core/automation/sql"
+import { Agent } from "@xccode/core/agent"
+import { Bus } from "@xccode/core/bus"
+import { Config } from "@xccode/core/config"
+import { Database } from "@xccode/core/database/database"
+import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
+import { LocationServiceMap } from "@xccode/core/location-service-map"
+import { LocationLifecycle } from "@xccode/core/location-lifecycle"
+import { LocationActivity } from "@xccode/core/location-activity"
+import { Mcp } from "@xccode/core/mcp/index"
+import { McpClient } from "@xccode/core/mcp/client"
+import { Plugin } from "@xccode/core/plugin"
+import { PluginHooks } from "@xccode/core/plugin/hooks"
+import { PluginSupervisor } from "@xccode/core/plugin/supervisor"
+import { Session } from "@xccode/core/session"
+import { SessionExecution } from "@xccode/core/session/execution"
+import { SessionProjector } from "@xccode/core/session/projector"
+import { SessionMessage } from "@xccode/core/session/message"
+import { Permission } from "@xccode/core/permission"
+import { SessionInboxTable, SessionTable } from "@xccode/core/session/sql"
+import { AbsolutePath } from "@xccode/schema/schema"
+import { Tool } from "@xccode/schema/tool"
+import { Document, Info } from "@xccode/schema/config"
+import { ConfigExperimental } from "@xccode/schema/config/experimental"
+import { LayerNode } from "@xccode/util/effect/layer-node"
 import { Clock, Context, Duration, Effect, Fiber, Latch, Layer, Schedule, Schema } from "effect"
 import { TestClock } from "effect/testing"
 import { eq } from "drizzle-orm"
@@ -582,7 +582,7 @@ it.effect("validates permission, push capability and arguments before creating a
       sessionID,
       permissions: [
         {
-          action: "opencode_watch_mcp_event",
+          action: "xccode_watch_mcp_event",
           resource: "ci",
           effect: "deny",
         },
@@ -659,7 +659,7 @@ for (const stop of ["terminated", "permission revoked", "expired"]) {
             sessionID,
             permissions: [
               {
-                action: "opencode_watch_mcp_event",
+                action: "xccode_watch_mcp_event",
                 resource: "ci",
                 effect: "deny",
               },

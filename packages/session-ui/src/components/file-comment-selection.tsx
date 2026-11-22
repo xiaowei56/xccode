@@ -4,8 +4,8 @@ import { Portal } from "solid-js/web"
 import { makeEventListener } from "@solid-primitives/event-listener"
 import { createMediaQuery } from "@solid-primitives/media"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
-import { Button } from "@opencode/ui/button"
-import { useI18n } from "@opencode/ui/context/i18n"
+import { Button } from "@xccode/ui/button"
+import { useI18n } from "@xccode/ui/context/i18n"
 import {
   createCommentSelectionState,
   selectCommentSelectionToolbar,

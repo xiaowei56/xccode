@@ -1,7 +1,7 @@
 //! Register update actions only when an updater is available. Keep dismissed notices in shared storage.
 
-use opencode_api::generated::V2Event;
-use opencode_ui::motion::FadeInText;
+use xccode_api::generated::V2Event;
+use xccode_ui::motion::FadeInText;
 
 use crate::prelude::*;
 
@@ -76,14 +76,14 @@ pub struct Updates {
 
 pub fn set_source(tui: &Rc<Tui>, source: Rc<dyn Source>) {
     *tui.updates.source.borrow_mut() = Some(source);
-    let command = TuiCommand::new("opencode.update", bind!(tui, |tui, _, _| open(&tui, Origin::Manual)))
+    let command = TuiCommand::new("xccode.update", bind!(tui, |tui, _, _| open(&tui, Origin::Manual)))
         .bind(Bind::Off)
-        .title("Update OpenCode")
+        .title("Update Xccode")
         .group("System")
         .palette()
         .slash("update");
     tui.keymap
-        .install("update", [KeymapLayer::global(vec![command]), KeymapLayer::default().bindings(["opencode.update"])]);
+        .install("update", [KeymapLayer::global(vec![command]), KeymapLayer::default().bindings(["xccode.update"])]);
     crate::features::events::subscribe(tui, ["installation.update-available", "installation.updated"], |tui, event| {
         let (kind, version) = match event {
             V2Event::InstallationUpdateAvailable(event) => (Kind::Available, event.data.version.clone()),

@@ -7,8 +7,8 @@ use std::rc::Rc;
 use std::sync::Arc;
 use std::time::Duration;
 
-use opencode_plugin::abi;
-use opencode_tui::{Deps, Route};
+use xccode_plugin::abi;
+use xccode_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 fn fake(text: String) -> Fake {
@@ -63,7 +63,7 @@ fn probe(setup: &mut abi::Setup) -> Result<(), String> {
 /// The TUI's home with `setup` active.
 fn home_with(setup: fn(&mut abi::Setup) -> Result<(), String>, deps: Deps) -> Harness {
     let h = support::mount(100, 30, Deps { route: Route::Home, ..deps });
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "probe", setup }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "probe", setup }.into());
     h
 }
 
@@ -114,7 +114,7 @@ fn a_chain_of_dispatches_never_holds_the_ui_thread() {
     h.tui.keymap.dispatch("chain.fan", None);
     h.app.advance(Duration::from_millis(16));
     let first = CHAINED.get().1;
-    let budget = opencode_plugin::FRAME_EFFECTS;
+    let budget = xccode_plugin::FRAME_EFFECTS;
     assert!((2..=budget).contains(&first), "{first} ran before the first paint");
     // The rest waits for the next paint, and runs just after it, one budget (frame-effects).
     h.app.advance(Duration::from_millis(16));
@@ -129,7 +129,7 @@ fn a_chain_of_dispatches_never_holds_the_ui_thread() {
         h.app.render();
         h.app.advance(Duration::ZERO);
     }
-    let waiting = opencode_plugin::effects_waiting();
+    let waiting = xccode_plugin::effects_waiting();
     assert!((60_000..=1 << 16).contains(&waiting), "{waiting} effects wait");
     h.app.type_text("still here");
     h.wait_for("still here");
@@ -156,9 +156,9 @@ fn fetcher(setup: &mut abi::Setup) -> Result<(), String> {
 #[test]
 fn a_fetch_given_an_id_gets_its_reply_under_queue_pressure() {
     let h = home_with(chain, support::deps(Arc::new(fake(String::new()))));
-    let host = opencode_tui::plugins::host::host(&h.tui);
+    let host = xccode_tui::plugins::host::host(&h.tui);
     let definition = abi::Plugin { id: "fetcher", setup: fetcher }.into();
-    opencode_tui::plugins::host::add(&h.tui, definition);
+    xccode_tui::plugins::host::add(&h.tui, definition);
     h.wait_for("chain ready");
     FETCHES.with_borrow_mut(|fetches| *fetches = Default::default());
     h.tui.keymap.dispatch("chain.fan", None);
@@ -166,7 +166,7 @@ fn a_fetch_given_an_id_gets_its_reply_under_queue_pressure() {
         h.app.render();
         h.app.advance(Duration::ZERO);
     }
-    assert!(opencode_plugin::effects_waiting() >= 60_000, "the queue is not under pressure");
+    assert!(xccode_plugin::effects_waiting() >= 60_000, "the queue is not under pressure");
     h.tui.keymap.dispatch("fetcher.go", None);
     let under = FETCHES.with_borrow(|fetches| fetches.0.clone());
     let refused = matches!(&under[..], [Err(error)] if error.contains("the effects that wait fill its queue"));
@@ -175,13 +175,13 @@ fn a_fetch_given_an_id_gets_its_reply_under_queue_pressure() {
     h.tui.plugins.set_active(&host, "probe", false);
     // A frame runs its budget of what waits: the drain is so many frames, however long each takes under load
     // (pipe-flakes: it outlasted the 30 s of a wait under load).
-    let waiting = opencode_plugin::effects_waiting();
+    let waiting = xccode_plugin::effects_waiting();
     // Each paint runs nothing past its budget; the rest comes due just after it.
-    for _ in 0..waiting.div_ceil(opencode_plugin::FRAME_EFFECTS) {
+    for _ in 0..waiting.div_ceil(xccode_plugin::FRAME_EFFECTS) {
         h.app.render();
         h.app.advance(Duration::ZERO);
     }
-    let left = opencode_plugin::effects_waiting();
+    let left = xccode_plugin::effects_waiting();
     assert_eq!(left, 0, "the queue did not drain within a frame for each budget of {waiting}");
     h.tui.keymap.dispatch("fetcher.go", None);
     let replied = h.app.wait_until(support::WAIT, || {
@@ -250,7 +250,7 @@ fn one_call_of_many_effects_and_a_chain_of_closes_are_bounded() {
         h.app.advance(Duration::ZERO);
         let ran = BURST.get().0 - before;
         assert!(ran > 0, "stuck at {before}");
-        assert!(ran <= opencode_plugin::FRAME_EFFECTS, "{ran} ran in one frame");
+        assert!(ran <= xccode_plugin::FRAME_EFFECTS, "{ran} ran in one frame");
     }
     assert_eq!(BURST.get().0, 3000);
     let (x, y) = h.find("PAD");
@@ -279,7 +279,7 @@ fn updates(setup: &mut abi::Setup) -> Result<(), String> {
 
 #[test]
 fn an_event_handler_renders_its_plugins_claims_again() {
-    let memory = opencode_api::memory::Memory::new(vec![opencode_api::memory::Route::json(
+    let memory = xccode_api::memory::Memory::new(vec![xccode_api::memory::Route::json(
         "GET",
         "/api/session",
         200,
@@ -310,14 +310,14 @@ fn exiting(setup: &mut abi::Setup) -> Result<(), String> {
 fn the_tui_disposes_its_plugins_as_it_exits() {
     let options = opentui::AppOptions { exit_on_ctrl_c: false, ..opentui::AppOptions::default() };
     let app = opentui::App::headless(opentui::app::HeadlessOptions { width: 80, height: 24, app: options }).unwrap();
-    let launch = opencode_tui::app::Launch {
+    let launch = xccode_tui::app::Launch {
         deps: Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) },
-        args: opencode_tui::Args { version: "9.9.9".to_owned(), ..opencode_tui::Args::default() },
+        args: xccode_tui::Args { version: "9.9.9".to_owned(), ..xccode_tui::Args::default() },
         keep: Box::new(()),
         plugins: None,
     };
-    opencode_tui::app::run_on(app, launch, |tui| {
-        opencode_tui::plugins::host::add(tui, abi::Plugin { id: "exiting", setup: exiting }.into());
+    xccode_tui::app::run_on(app, launch, |tui| {
+        xccode_tui::plugins::host::add(tui, abi::Plugin { id: "exiting", setup: exiting }.into());
         tui.app.quit();
         Ok(())
     })
@@ -341,14 +341,14 @@ fn running(setup: &mut abi::Setup) -> Result<(), String> {
 fn a_headless_tui_refuses_a_program_in_the_foreground() {
     let options = opentui::AppOptions { exit_on_ctrl_c: false, ..opentui::AppOptions::default() };
     let app = opentui::App::headless(opentui::app::HeadlessOptions { width: 80, height: 24, app: options }).unwrap();
-    let launch = opencode_tui::app::Launch {
+    let launch = xccode_tui::app::Launch {
         deps: Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) },
-        args: opencode_tui::Args::default(),
+        args: xccode_tui::Args::default(),
         keep: Box::new(()),
         plugins: None,
     };
-    opencode_tui::app::run_on(app, launch, |tui| {
-        opencode_tui::plugins::host::add(tui, abi::Plugin { id: "running", setup: running }.into());
+    xccode_tui::app::run_on(app, launch, |tui| {
+        xccode_tui::plugins::host::add(tui, abi::Plugin { id: "running", setup: running }.into());
         tui.keymap.dispatch("x.run", None);
         let app = tui.app.clone();
         tui.app.set_timeout(Duration::from_millis(200), move |_| app.quit());
@@ -359,36 +359,36 @@ fn a_headless_tui_refuses_a_program_in_the_foreground() {
     assert!(ran.as_ref().is_err_and(|error| error.contains("headless")), "{ran:?}");
 }
 
-/// Stores `{"saved":true}` as it is disposed, then creates the file `OPENCODE_TEST_DISPOSED` names.
+/// Stores `{"saved":true}` as it is disposed, then creates the file `XCCODE_TEST_DISPOSED` names.
 fn saving(setup: &mut abi::Setup) -> Result<(), String> {
     setup.storage_key("state");
     setup.on_dispose(|host| {
         host.storage_set("state", json!({ "saved": true }));
-        std::fs::write(std::env::var_os("OPENCODE_TEST_DISPOSED").unwrap(), "").unwrap();
+        std::fs::write(std::env::var_os("XCCODE_TEST_DISPOSED").unwrap(), "").unwrap();
     });
     Ok(())
 }
 
 /// The child of [`a_storage_write_made_on_exit_reaches_the_disk`]: runs the TUI with storage under
-/// `OPENCODE_TEST_HOME` until it quits.
+/// `XCCODE_TEST_HOME` until it quits.
 #[test]
 #[ignore = "run by a_storage_write_made_on_exit_reaches_the_disk"]
 fn exit_with_a_saving_plugin() {
-    let home = std::path::PathBuf::from(std::env::var_os("OPENCODE_TEST_HOME").unwrap());
+    let home = std::path::PathBuf::from(std::env::var_os("XCCODE_TEST_HOME").unwrap());
     let options = opentui::AppOptions { exit_on_ctrl_c: false, ..opentui::AppOptions::default() };
     let app = opentui::App::headless(opentui::app::HeadlessOptions { width: 80, height: 24, app: options }).unwrap();
-    let launch = opencode_tui::app::Launch {
+    let launch = xccode_tui::app::Launch {
         deps: Deps {
             route: Route::Home,
             roots: support::roots(support::home_paths(&home), "test"),
             ..support::deps(Arc::new(support::empty()))
         },
-        args: opencode_tui::Args::default(),
+        args: xccode_tui::Args::default(),
         keep: Box::new(()),
         plugins: None,
     };
-    opencode_tui::app::run_on(app, launch, |tui| {
-        opencode_tui::plugins::host::add(tui, abi::Plugin { id: "saving", setup: saving }.into());
+    xccode_tui::app::run_on(app, launch, |tui| {
+        xccode_tui::plugins::host::add(tui, abi::Plugin { id: "saving", setup: saving }.into());
         tui.app.quit();
         Ok(())
     })
@@ -397,17 +397,17 @@ fn exit_with_a_saving_plugin() {
 
 #[test]
 fn a_storage_write_made_on_exit_reaches_the_disk() {
-    let root = opencode_util::temp::tempdir().unwrap();
+    let root = xccode_util::temp::tempdir().unwrap();
     let home = root.path().join("home");
     let disposed = root.path().join("disposed");
-    let storage = opencode_local::storage::Storage::new(&support::home_paths(&home).state, "test").unwrap();
+    let storage = xccode_local::storage::Storage::new(&support::home_paths(&home).state, "test").unwrap();
     let mut child = None;
     storage
         .update("plugin.saving.state", &json!({}), |_| {
             let spawned = std::process::Command::new(std::env::current_exe().unwrap())
                 .args(["--exact", "plugins::exit_with_a_saving_plugin", "--ignored", "--test-threads=1"])
-                .env("OPENCODE_TEST_HOME", &home)
-                .env("OPENCODE_TEST_DISPOSED", &disposed)
+                .env("XCCODE_TEST_HOME", &home)
+                .env("XCCODE_TEST_DISPOSED", &disposed)
                 .stdout(std::process::Stdio::piped())
                 .stderr(std::process::Stdio::piped())
                 .spawn()
@@ -458,7 +458,7 @@ fn trap(setup: &mut abi::Setup) -> Result<(), String> {
 #[test]
 fn a_panel_cannot_take_the_keys_that_close_it() {
     let h = support::mount(100, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "trap", setup: trap }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "trap", setup: trap }.into());
     for close in ["escape", "ctrl+c"] {
         h.tui.keymap.dispatch("trap.panel", None);
         h.wait_for("trap panel");
@@ -492,7 +492,7 @@ fn asks(setup: &mut abi::Setup) -> Result<(), String> {
 #[test]
 fn a_plugin_prompt_shows_its_value_on_one_line_under_a_bounded_description() {
     let h = support::mount(100, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "asks", setup: asks }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "asks", setup: asks }.into());
     h.tui.keymap.dispatch("asks.prompt", None);
     h.wait_for("Asks prompt");
     let text = h.app.text();
@@ -527,7 +527,7 @@ fn second(setup: &mut abi::Setup) -> Result<(), String> {
 fn a_second_failure_goes_ahead_of_the_plugin_toasts_that_wait() {
     let h = support::mount(100, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
     for (id, setup) in [("chatty", chatty as fn(&mut abi::Setup) -> _), ("boomer", boomer), ("second", second)] {
-        opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id, setup }.into());
+        xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id, setup }.into());
     }
     h.app.render();
     let title = |h: &Harness| h.tui.toasts.current().map(|toast| toast.title.unwrap_or(toast.message));
@@ -546,21 +546,21 @@ fn a_second_failure_goes_ahead_of_the_plugin_toasts_that_wait() {
     // `plugins changed` is chatty's toast of each failure, which waits as the burst does: of the seven that waited, the
     // first failure's and `chat 0` to `chat 2` went.
     assert_eq!(shown, ["Plugin failed: second", "chat 3", "chat 4", "chat 5", "plugins changed"]);
-    assert_eq!(opencode_ui::toast::PLUGIN_WAITING, 4);
+    assert_eq!(xccode_ui::toast::PLUGIN_WAITING, 4);
     // A plugin's toast that comes while another's shows and more wait takes its turn behind them.
-    h.tui.toasts.show(opencode_ui::toast::ToastOptions::new(opencode_ui::toast::Variant::Info, "host").keep());
+    h.tui.toasts.show(xccode_ui::toast::ToastOptions::new(xccode_ui::toast::Variant::Info, "host").keep());
     h.tui.keymap.dispatch("chatty.burst", None);
     h.app.advance(Duration::from_millis(1));
     h.tui.toasts.dismiss();
-    h.tui.toasts.show_behind_kept(opencode_ui::toast::ToastOptions::new(opencode_ui::toast::Variant::Info, "late"));
+    h.tui.toasts.show_behind_kept(xccode_ui::toast::ToastOptions::new(xccode_ui::toast::Variant::Info, "late"));
     assert_eq!(title(&h).as_deref(), Some("chat 2"));
 }
 
 #[test]
 fn a_plugin_toast_never_hides_the_report_of_a_failure() {
     let h = support::mount(100, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "chatty", setup: chatty }.into());
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "boomer", setup: boomer }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "chatty", setup: chatty }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "boomer", setup: boomer }.into());
     h.app.render();
     while h.tui.toasts.current().is_some() {
         h.tui.toasts.dismiss();
@@ -571,7 +571,7 @@ fn a_plugin_toast_never_hides_the_report_of_a_failure() {
     let screen = h.wait_for("Plugin failed: boomer");
     assert!(!screen.contains("plugins changed"), "{screen}");
     assert!(h.tui.toasts.pending() > 0, "the plugin's toast waits behind it");
-    h.app.advance(opencode_ui::toast::DEFAULT_DURATION);
+    h.app.advance(xccode_ui::toast::DEFAULT_DURATION);
     h.wait_for("plugins changed");
 }
 
@@ -596,17 +596,17 @@ fn paneled<const SUB: bool>(setup: &mut abi::Setup) -> Result<(), String> {
 #[test]
 fn a_plugin_ends_only_its_own_dialog() {
     let h = support::mount(100, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "owner", setup: paneled::<false> }.into());
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "owner/sub", setup: paneled::<true> }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "owner", setup: paneled::<false> }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "owner/sub", setup: paneled::<true> }.into());
     h.tui.keymap.dispatch("owner/sub.panel", None);
     h.wait_for("owner/sub panel");
-    opencode_plugin::Host::revoked(&*h.tui, "owner/sub");
+    xccode_plugin::Host::revoked(&*h.tui, "owner/sub");
     h.app.render();
     assert_eq!(h.tui.dialogs.key().as_deref(), Some("owner/sub/panel"));
     h.tui.keymap.dispatch("owner.close", None);
     h.app.render();
     assert_eq!(h.tui.dialogs.key().as_deref(), Some("owner/sub/panel"));
-    h.tui.plugins.toggle(&opencode_tui::plugins::host::host(&h.tui), "owner", false);
+    h.tui.plugins.toggle(&xccode_tui::plugins::host::host(&h.tui), "owner", false);
     h.app.render();
     assert_eq!(h.tui.dialogs.key().as_deref(), Some("owner/sub/panel"));
     h.tui.keymap.dispatch("owner/sub.close", None);
@@ -645,7 +645,7 @@ fn shifting(setup: &mut abi::Setup) -> Result<(), String> {
 #[test]
 fn a_panel_shown_again_under_its_key_takes_its_footer_and_bareness() {
     let h = support::mount(100, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    opencode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "shifting", setup: shifting }.into());
+    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "shifting", setup: shifting }.into());
     SHIFT.set(0);
     h.tui.keymap.dispatch("shifting.panel", None);
     let screen = h.wait_for("shifting body");
@@ -692,17 +692,17 @@ fn cloud(setup: &mut abi::Setup) -> Result<(), String> {
 
 #[test]
 fn storage_keys_of_dotted_ids_and_keys_keep_apart() {
-    let root = opencode_util::temp::tempdir().unwrap();
+    let root = xccode_util::temp::tempdir().unwrap();
     let paths = support::home_paths(&root.path().join("home"));
-    let storage = opencode_local::storage::Storage::new(&paths.state, "test").unwrap();
+    let storage = xccode_local::storage::Storage::new(&paths.state, "test").unwrap();
     storage.update("plugin.acme.cloud.token", &json!({}), |value| *value = json!({ "legacy": true })).unwrap();
     STORED.with_borrow_mut(Vec::clear);
     let deps = Deps {
         route: Route::Home,
         roots: support::roots(paths, "test"),
         builtins: vec![
-            opencode_plugin::abi::Plugin { id: "acme", setup: acme }.into(),
-            opencode_plugin::abi::Plugin { id: "acme.cloud", setup: cloud }.into(),
+            xccode_plugin::abi::Plugin { id: "acme", setup: acme }.into(),
+            xccode_plugin::abi::Plugin { id: "acme.cloud", setup: cloud }.into(),
         ],
         ..support::deps(Arc::new(support::empty()))
     };
@@ -718,7 +718,7 @@ fn storage_keys_of_dotted_ids_and_keys_keep_apart() {
     for command in order {
         run(command);
     }
-    opencode_tui::plugins::host::flush_storage(&harness.tui);
+    xccode_tui::plugins::host::flush_storage(&harness.tui);
     let own = json!({ "m": 1 });
     let other = json!({ "other": 2 });
     assert_eq!(
@@ -736,7 +736,7 @@ fn storage_keys_of_dotted_ids_and_keys_keep_apart() {
     assert_eq!(file("plugin.acme.cloud.token"), other, "TS's name is the dot-free key's");
 }
 
-const FIELD: usize = opencode_plugin::storage::VALUE_BYTES / 64 * 35;
+const FIELD: usize = xccode_plugin::storage::VALUE_BYTES / 64 * 35;
 
 thread_local! {
     /// The field names and the first letter of each field's value `big` read back, in order.
@@ -770,7 +770,7 @@ fn a_merge_is_bounded_by_the_value_it_makes() {
     BIG.with_borrow_mut(Vec::clear);
     let deps = Deps {
         route: Route::Home,
-        builtins: vec![opencode_plugin::abi::Plugin { id: "big", setup: big }.into()],
+        builtins: vec![xccode_plugin::abi::Plugin { id: "big", setup: big }.into()],
         ..support::deps(Arc::new(support::empty()))
     };
     let harness = support::mount(80, 24, deps);
@@ -809,14 +809,14 @@ fn two(setup: &mut abi::Setup) -> Result<(), String> {
 
 #[test]
 fn two_clients_merging_a_key_stay_within_its_bound_together() {
-    let root = opencode_util::temp::tempdir().unwrap();
+    let root = xccode_util::temp::tempdir().unwrap();
     let paths = support::home_paths(&root.path().join("home"));
-    let other = opencode_local::storage::Storage::new(&paths.state, "test").unwrap();
+    let other = xccode_local::storage::Storage::new(&paths.state, "test").unwrap();
     TWO.with_borrow_mut(Vec::clear);
     let deps = Deps {
         route: Route::Home,
         roots: support::roots(paths, "test"),
-        builtins: vec![opencode_plugin::abi::Plugin { id: "two", setup: two }.into()],
+        builtins: vec![xccode_plugin::abi::Plugin { id: "two", setup: two }.into()],
         ..support::deps(Arc::new(support::empty()))
     };
     let harness = support::mount(80, 24, deps);
@@ -829,12 +829,12 @@ fn two_clients_merging_a_key_stay_within_its_bound_together() {
     run("two.read");
     let theirs = json!({ "b": "b".repeat(FIELD) });
     other
-        .update_within("plugin.two.state", &json!({}), opencode_plugin::storage::VALUE_BYTES, |value| {
+        .update_within("plugin.two.state", &json!({}), xccode_plugin::storage::VALUE_BYTES, |value| {
             *value = theirs.clone();
         })
         .unwrap();
     run("two.add");
-    opencode_tui::plugins::host::flush_storage(&harness.tui);
+    xccode_tui::plugins::host::flush_storage(&harness.tui);
     let fields = |value: Value| value.as_object().map(|object| object.keys().cloned().collect::<Vec<_>>());
     let stored = other.load("plugin.two.state", &Value::Null).unwrap();
     assert_eq!(fields(stored), Some(vec!["b".to_owned()]), "both fields were kept");
@@ -851,21 +851,21 @@ fn two_clients_merging_a_key_stay_within_its_bound_together() {
 
 #[test]
 fn a_refused_write_leaves_the_cache_equal_to_the_file_when_its_notice_is_lost() {
-    let root = opencode_util::temp::tempdir().unwrap();
+    let root = xccode_util::temp::tempdir().unwrap();
     let paths = support::home_paths(&root.path().join("home"));
-    let other = opencode_local::storage::Storage::new(&paths.state, "test").unwrap();
+    let other = xccode_local::storage::Storage::new(&paths.state, "test").unwrap();
     TWO.with_borrow_mut(Vec::clear);
     let deps = Deps {
         route: Route::Home,
         roots: support::roots(paths, "test"),
-        builtins: vec![opencode_plugin::abi::Plugin { id: "two", setup: two }.into()],
+        builtins: vec![xccode_plugin::abi::Plugin { id: "two", setup: two }.into()],
         ..support::deps(Arc::new(support::empty()))
     };
     let harness = support::mount(80, 24, deps);
     harness.tui.keymap.dispatch("two.read", None);
     let theirs = json!({ "b": "b".repeat(FIELD) });
     other
-        .update_within("plugin.two.state", &json!({}), opencode_plugin::storage::VALUE_BYTES, |value| {
+        .update_within("plugin.two.state", &json!({}), xccode_plugin::storage::VALUE_BYTES, |value| {
             *value = theirs.clone();
         })
         .unwrap();
@@ -874,12 +874,12 @@ fn a_refused_write_leaves_the_cache_equal_to_the_file_when_its_notice_is_lost() 
     while proxy.send(()).is_ok() {}
     harness.tui.keymap.dispatch("two.add", None);
     harness.tui.keymap.dispatch("two.note", None);
-    opencode_tui::plugins::host::flush_storage(&harness.tui);
+    xccode_tui::plugins::host::flush_storage(&harness.tui);
     harness.app.advance(Duration::ZERO);
     harness.tui.keymap.dispatch("two.read", None);
     assert_eq!(TWO.take().last().cloned(), Some(vec!["b".to_owned()]), "the refused merge shows");
     for key in ["plugin.two.state", "plugin.two.note"] {
         let file = other.load(key, &Value::Null).ok().filter(|value| !value.is_null()).map(|value| value.to_string());
-        assert_eq!(opencode_plugin::Host::storage_read(&*harness.tui, key), file, "{key}");
+        assert_eq!(xccode_plugin::Host::storage_read(&*harness.tui, key), file, "{key}");
     }
 }

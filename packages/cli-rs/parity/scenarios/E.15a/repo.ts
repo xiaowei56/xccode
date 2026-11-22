@@ -20,7 +20,7 @@ export async function repoFixture(
   options: { context?: number; branches?: string[] } = {},
 ) {
   const context = options.context ?? 12
-  const root = await mkdtemp(path.join(tmpdir(), "opencode-parity-repo-"))
+  const root = await mkdtemp(path.join(tmpdir(), "xccode-parity-repo-"))
   try {
     const git = (...args: string[]) => {
       const result = Bun.spawnSync(

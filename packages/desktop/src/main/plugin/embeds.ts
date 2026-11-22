@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto"
 import { BaseWindow, ImageView, screen, View, type BrowserWindow, type WebContentsView } from "electron"
-import type { Embed } from "@opencode/plugin/gui/main"
-import type { BridgeLayout } from "@opencode/plugin/gui/host"
+import type { Embed } from "@xccode/plugin/gui/main"
+import type { BridgeLayout } from "@xccode/plugin/gui/host"
 import { createCornerImages } from "../native/corners"
 import type { Instance } from "./lifecycle"
 

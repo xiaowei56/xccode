@@ -4,10 +4,10 @@ use crate::support::{self, Fake, Harness, WAIT, deref_harness};
 
 use std::sync::{Arc, Mutex};
 
-use opencode_api::generated::SessionInfo;
-use opencode_local::cli_config::Permissions;
-use opencode_tui::Deps;
-use opencode_tui::routes::session::permission::{always_lines, presentation};
+use xccode_api::generated::SessionInfo;
+use xccode_local::cli_config::Permissions;
+use xccode_tui::Deps;
+use xccode_tui::routes::session::permission::{always_lines, presentation};
 use serde_json::{Value, json};
 
 #[derive(Debug, PartialEq)]
@@ -61,7 +61,7 @@ deref_harness!(Prompt);
 
 fn mount(fixture: Fixture, permissions: Permissions) -> Prompt {
     let sent = Arc::default();
-    let mut config = support::config(opencode_local::cli_config::Info::default());
+    let mut config = support::config(xccode_local::cli_config::Info::default());
     config.permissions = permissions;
     let deps = Deps {
         config,
@@ -149,7 +149,7 @@ fn a_subagent_rejection_asks_what_to_do_differently() {
     // `h` wraps from "Allow once" to "Reject".
     harness.app.press("h");
     harness.app.press("enter");
-    harness.wait_for("Tell OpenCode what to do differently");
+    harness.wait_for("Tell Xccode what to do differently");
     // Escape goes back to the question without replying.
     harness.app.press("escape");
     harness.wait_for("Grep \"TODO\"");
@@ -190,7 +190,7 @@ fn a_theme_switch_keeps_the_rejection_and_its_reason() {
             harness.wait_for("Reject permission");
             harness.app.type_text("use rg");
         },
-        |screen| screen.contains("use rg") && screen.contains("Tell OpenCode what to do differently"),
+        |screen| screen.contains("use rg") && screen.contains("Tell Xccode what to do differently"),
     );
 }
 
@@ -244,8 +244,8 @@ fn turning_on_autoaccept_answers_and_hides_the_shown_request() {
         Permissions::Prompt,
     );
     harness.wait_for("Permission required");
-    opencode_tui::dialogs::settings::update(&harness.tui, |draft| {
-        opencode_tui::dialogs::settings::set_path(draft, &["session", "permissions"], json!("autoaccept"))
+    xccode_tui::dialogs::settings::update(&harness.tui, |draft| {
+        xccode_tui::dialogs::settings::set_path(draft, &["session", "permissions"], json!("autoaccept"))
     });
     assert_eq!(harness.replies(1), [reply("per_1", "ses_root", json!({ "decision": "once" }))]);
     let screen = harness.wait_for("╹▀");
@@ -349,10 +349,10 @@ mod model {
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
 
-    use opencode_api::generated::{PermissionListInput, SessionID, SessionInfo};
-    use opencode_api::memory::{Memory, Route as MemoryRoute};
-    use opencode_api::transport::{BoxFuture, Request, Response, Transport};
-    use opencode_tui::{Deps, Tui};
+    use xccode_api::generated::{PermissionListInput, SessionID, SessionInfo};
+    use xccode_api::memory::{Memory, Route as MemoryRoute};
+    use xccode_api::transport::{BoxFuture, Request, Response, Transport};
+    use xccode_tui::{Deps, Tui};
     use opentui::prelude::{Event, KeyEvent};
     use opentui::testing::TestApp;
     use opentui::widget::Widget;
@@ -654,7 +654,7 @@ mod model {
     fn observe(app: &TestApp, tui: &Tui) -> Observation {
         let screen = app.text();
         let commands = tui.keymap.commands();
-        let count = |found: &dyn Fn(&opencode_ui::keymap::CommandView) -> bool| {
+        let count = |found: &dyn Fn(&xccode_ui::keymap::CommandView) -> bool| {
             commands.iter().filter(|command| found(command)).count()
         };
         let prompt = tui.textarea.borrow().as_ref().map(Widget::id);
@@ -665,7 +665,7 @@ mod model {
         };
         Observation {
             question: screen.contains("Permission required"),
-            rejecting: screen.contains("Tell OpenCode what to do differently"),
+            rejecting: screen.contains("Tell Xccode what to do differently"),
             minimize: screen.contains("ctrl+f minimize"),
             always: screen.contains("This will always allow"),
             request: screen
@@ -766,8 +766,8 @@ mod model {
                 }
                 Step::Autoaccept(on) => {
                     let value = if *on { "autoaccept" } else { "prompt" };
-                    opencode_tui::dialogs::settings::update(&self.tui, move |draft| {
-                        opencode_tui::dialogs::settings::set_path(draft, &["session", "permissions"], json!(value))
+                    xccode_tui::dialogs::settings::update(&self.tui, move |draft| {
+                        xccode_tui::dialogs::settings::set_path(draft, &["session", "permissions"], json!(value))
                     });
                     model.auto = *on;
                     model.settle()

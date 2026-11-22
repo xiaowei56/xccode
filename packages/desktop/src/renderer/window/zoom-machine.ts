@@ -1,4 +1,4 @@
-import type { DesktopZoomLevel } from "@opencode/app/desktop-menu"
+import type { DesktopZoomLevel } from "@xccode/app/desktop-menu"
 
 const MAX_ZOOM_LEVEL = 10
 

@@ -1,8 +1,8 @@
 import { lazy, onCleanup, Show, Suspense } from "solid-js"
-import { Panel, Slot, Style, usePanel, type Plugin } from "@opencode/plugin/gui"
+import { Panel, Slot, Style, usePanel, type Plugin } from "@xccode/plugin/gui"
 import type Details from "./index"
 import { DetailsHeader, type DetailsMenus } from "./popover"
-import { BuiltinSlot, onIdle } from "@opencode/plugin/gui/builtin"
+import { BuiltinSlot, onIdle } from "@xccode/plugin/gui/builtin"
 import type { McpControllers } from "./server-panel"
 import type { WorkspaceMoveControllers } from "./workspace-menu"
 

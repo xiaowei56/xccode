@@ -1,6 +1,6 @@
 //! Diff viewer keyboard help.
 
-use opencode_plugin::abi::{Dialog, Host, Layout, Node, Panel, PanelSize, Read, Span, Width};
+use xccode_plugin::abi::{Dialog, Host, Layout, Node, Panel, PanelSize, Read, Span, Width};
 
 use super::viewer::Viewer;
 

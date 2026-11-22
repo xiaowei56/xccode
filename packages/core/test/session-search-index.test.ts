@@ -2,28 +2,28 @@ import { describe, expect } from "bun:test"
 import { SqliteClient } from "@effect/sql-sqlite-bun"
 import { DateTime, Effect, Exit, Layer, Schema, SchemaAST } from "effect"
 import { and, eq, sql } from "drizzle-orm"
-import { Agent } from "@opencode/core/agent"
-import { DatabaseMigration } from "@opencode/core/database/migration"
-import { migrations } from "@opencode/core/database/migration.gen"
-import { EffectDrizzleSqlite } from "@opencode/core/database/drizzle"
-import { KVTable } from "@opencode/core/kv/sql"
-import { Model } from "@opencode/core/model"
-import { Project } from "@opencode/core/project"
-import { ProjectTable } from "@opencode/core/project/sql"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
-import { SessionMessage } from "@opencode/core/session/message"
-import { SessionSearchIndex } from "@opencode/core/session/search-index"
-import { SessionMessageTable, SessionPartTable, SessionTable } from "@opencode/core/session/sql"
-import { SessionID } from "@opencode/schema/session-id"
-import { Skill } from "@opencode/schema/skill"
-import { Global } from "@opencode/util/global"
+import { Agent } from "@xccode/core/agent"
+import { DatabaseMigration } from "@xccode/core/database/migration"
+import { migrations } from "@xccode/core/database/migration.gen"
+import { EffectDrizzleSqlite } from "@xccode/core/database/drizzle"
+import { KVTable } from "@xccode/core/kv/sql"
+import { Model } from "@xccode/core/model"
+import { Project } from "@xccode/core/project"
+import { ProjectTable } from "@xccode/core/project/sql"
+import { Provider } from "@xccode/core/provider"
+import { AbsolutePath } from "@xccode/core/schema"
+import { SessionMessage } from "@xccode/core/session/message"
+import { SessionSearchIndex } from "@xccode/core/session/search-index"
+import { SessionMessageTable, SessionPartTable, SessionTable } from "@xccode/core/session/sql"
+import { SessionID } from "@xccode/schema/session-id"
+import { Skill } from "@xccode/schema/skill"
+import { Global } from "@xccode/util/global"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(
   Layer.mergeAll(
     SqliteClient.layer({ filename: ":memory:", disableWAL: true }),
-    Layer.succeed(Global.Service, Global.make({ data: "/nonexistent/opencode-session-search" })),
+    Layer.succeed(Global.Service, Global.make({ data: "/nonexistent/xccode-session-search" })),
   ),
 )
 

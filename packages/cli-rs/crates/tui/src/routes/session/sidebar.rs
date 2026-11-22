@@ -1,7 +1,7 @@
 //! Sidebar content and footer slots for the current session.
 
-use opencode_local::cli_config::Sidebar as SidebarSetting;
-use opencode_plugin::{SlotInput, SlotMount, slot};
+use xccode_local::cli_config::Sidebar as SidebarSetting;
+use xccode_plugin::{SlotInput, SlotMount, slot};
 
 use crate::frame::layout::SESSION_SIDEBAR_WIDTH;
 use crate::prelude::*;

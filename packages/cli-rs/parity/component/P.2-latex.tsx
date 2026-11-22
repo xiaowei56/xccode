@@ -1,7 +1,7 @@
 /** @jsxImportSource @opentui/solid */
 // P-COMP fixtures of the LaTeX plugin (packages/latex/src/plugin.ts) in `TextPart`'s <markdown>
 // (routes/session/message-parts.tsx): fences from packages/latex/src/markdown.test.ts, rendered, wide, and
-// invalid. crates/latex/src/tests.rs renders the same documents with opencode_latex::renderer.
+// invalid. crates/latex/src/tests.rs renders the same documents with xccode_latex::renderer.
 import { createMarkdownCodeBlockRenderer } from "@opentui/core"
 import { useRenderer } from "@opentui/solid"
 import { createLatexCodeBlockRenderer } from "../../../latex/src/markdown"

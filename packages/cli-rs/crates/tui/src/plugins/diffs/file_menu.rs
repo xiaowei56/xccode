@@ -1,8 +1,8 @@
 //! Context menu for a file heading or file-tree entry.
 
-use opencode_plugin::abi::interact::{Anchor, Bind, Button, Event, Handled, Interact, Layer, Overlay, PointerKind};
-use opencode_plugin::abi::v2::{self, Node};
-use opencode_plugin::abi::{Host, Layout, Span, Width, Wrap};
+use xccode_plugin::abi::interact::{Anchor, Bind, Button, Event, Handled, Interact, Layer, Overlay, PointerKind};
+use xccode_plugin::abi::v2::{self, Node};
+use xccode_plugin::abi::{Host, Layout, Span, Width, Wrap};
 
 use super::{Diffs, MENU};
 
@@ -20,7 +20,7 @@ pub fn view(diffs: &Diffs, _: &mut v2::View<'_>) -> Node {
     Node::row(vec![Node::text([Span::new(label)]).fg("text.base").unselectable().wrap(Wrap::None).truncate()])
         .with_id(ROW)
         .bg("background.raised.high")
-        .padding_sides(opencode_plugin::abi::Edges { left: 1, right: 1, ..Default::default() })
+        .padding_sides(xccode_plugin::abi::Edges { left: 1, right: 1, ..Default::default() })
         .interact(Interact {
             pointer: true,
             hover: Some("background.action.primary.hovered".into()),

@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/theme",
+  "name": "@xccode/theme",
   "version": "2.3.0",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/xiaowei56/xccode.git",
     "directory": "packages/theme"
   },
   "publishConfig": {

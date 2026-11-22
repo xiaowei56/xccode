@@ -1,7 +1,7 @@
 //! Session export options and result dialogs.
 
-use opencode_ui::dialog::{FooterAction, FooterProps, layout};
-use opencode_ui::select::{ActionRun, FooterHint, Group, SelectAction};
+use xccode_ui::dialog::{FooterAction, FooterProps, layout};
+use xccode_ui::select::{ActionRun, FooterHint, Group, SelectAction};
 
 use crate::prelude::*;
 

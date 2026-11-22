@@ -26,7 +26,7 @@ impl<T> Choice<T> {
 }
 
 impl<T: ToString> Choice<T> {
-    #[allow(dead_code, reason = "only opencode-prompt-demo uses it")]
+    #[allow(dead_code, reason = "only xccode-prompt-demo uses it")]
     /// An option labeled with its value, as Clack labels an option without `label`.
     pub fn plain(value: T) -> Choice<T> {
         let label = value.to_string();
@@ -95,7 +95,7 @@ impl<T: Clone + PartialEq> Select<T> {
         self
     }
 
-    #[allow(dead_code, reason = "only opencode-prompt-demo uses it")]
+    #[allow(dead_code, reason = "only xccode-prompt-demo uses it")]
     pub fn max_items(mut self, items: usize) -> Self {
         self.max_items = Some(items);
         self
