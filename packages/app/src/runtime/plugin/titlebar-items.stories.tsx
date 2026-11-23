@@ -1,5 +1,5 @@
 import { createEffect, createSignal, For, Show } from "solid-js"
-import type { TitlebarItem } from "@xccode/plugin/gui"
+import type { TitlebarItem } from "@xiaochuan/plugin/gui"
 import { TitlebarItems } from "./titlebar-items"
 
 type Labels = { "status.label": string; "action.installRestart": string; "action.installing": string }

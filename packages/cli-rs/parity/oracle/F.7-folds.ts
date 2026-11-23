@@ -9,8 +9,8 @@
 //
 // The TUI uses Solid's browser build, whose effects and stores react; the script runs itself again under
 // `bun --conditions=browser` when started without it.
-import type { CreateDataInput } from "@xccode/client/solid"
-import type { XccodeEvent, SessionMessageInfo } from "@xccode/client/promise"
+import type { CreateDataInput } from "@xiaochuan/client/solid"
+import type { XiaochuanEvent, SessionMessageInfo } from "@xiaochuan/client/promise"
 import { records } from "../lib/records"
 
 if (process.env.F7_BROWSER !== "1") {
@@ -23,8 +23,8 @@ if (process.env.F7_BROWSER !== "1") {
 }
 
 const { createRoot } = await import("solid-js")
-const { createData } = await import("@xccode/client/solid")
-const { Xccode } = await import("@xccode/client/promise")
+const { createData } = await import("@xiaochuan/client/solid")
+const { Xiaochuan } = await import("@xiaochuan/client/promise")
 
 type Schema = Record<string, unknown> & {
   $ref?: string
@@ -319,7 +319,7 @@ function eventOf(variant: { type: string; schema: Schema }, patch: unknown) {
     ...(variant.schema.properties?.location ? { location } : {}),
     data: ids,
   }
-  return merge(merge(base, common), patch) as XccodeEvent
+  return merge(merge(base, common), patch) as XiaochuanEvent
 }
 
 const cases = [
@@ -330,10 +330,10 @@ const cases = [
   })),
 ]
 
-async function run(event: XccodeEvent, loaded: boolean) {
+async function run(event: XiaochuanEvent, loaded: boolean) {
   const requests: string[] = []
-  const api = Xccode.make({
-    baseUrl: "http://xccode.local",
+  const api = Xiaochuan.make({
+    baseUrl: "http://xiaochuan.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const url = new URL(request.url)
@@ -364,7 +364,7 @@ async function run(event: XccodeEvent, loaded: boolean) {
     dispose,
   }))
   const data = setup.data
-  const apply = (event: XccodeEvent) => listeners.forEach((listener) => listener({ name: event.type, details: event }))
+  const apply = (event: XiaochuanEvent) => listeners.forEach((listener) => listener({ name: event.type, details: event }))
   const quiet = (promise: Promise<unknown>) => void promise.catch(() => {})
   const strip = (value: unknown) => JSON.parse(JSON.stringify(value ?? null)) as Json
 
@@ -419,7 +419,7 @@ async function run(event: XccodeEvent, loaded: boolean) {
   }
 
   if (loaded) {
-    apply({ id: "evt_connected", type: "server.connected", data: {} } as unknown as XccodeEvent)
+    apply({ id: "evt_connected", type: "server.connected", data: {} } as unknown as XiaochuanEvent)
     await settle()
     quiet(data.session.sync("ses_a"))
     quiet(data.session.message.sync("ses_a"))

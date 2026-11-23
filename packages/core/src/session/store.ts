@@ -2,15 +2,15 @@ export * as SessionStore from "./store.js"
 
 import { and, asc, desc, eq, gt, isNotNull, isNull, lt, notInArray, or, sql, type SQL } from "drizzle-orm"
 import { Context, Effect, Layer, Schema } from "effect"
-import { Project } from "@xccode/schema/project"
-import { Workspace } from "@xccode/schema/workspace"
-import { AbsolutePath, PositiveInt, RelativePath } from "@xccode/schema/schema"
+import { Project } from "@xiaochuan/schema/project"
+import { Workspace } from "@xiaochuan/schema/workspace"
+import { AbsolutePath, PositiveInt, RelativePath } from "@xiaochuan/schema/schema"
 import { Database } from "../database/database.js"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { SessionHistory } from "./history.js"
 import { MessageDecodeError } from "./error.js"
 import { SessionMessage } from "./message.js"
-import { Session } from "@xccode/schema/session"
+import { Session } from "@xiaochuan/schema/session"
 import { SessionMessageTable, SessionTable } from "./sql.js"
 import { fromRow } from "./info.js"
 import { LiveToolMetadata } from "./runner/live-tool-metadata.js"
@@ -99,7 +99,7 @@ export interface Interface {
   readonly countResume: (sessionID: Session.ID) => Effect.Effect<number | undefined>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionStore") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionStore") {}
 
 const layer = Layer.effect(
   Service,

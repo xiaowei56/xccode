@@ -3,7 +3,7 @@ import { copyFile, lstat, mkdir, readdir, rm, rmdir, unlink } from "node:fs/prom
 import path from "node:path"
 import { DatabaseSync } from "node:sqlite"
 
-const PREFIX = "xccode-browser-import-"
+const PREFIX = "xiaochuan-browser-import-"
 
 /**
  * Where copies of another browser's databases, its cookies and its history, live while they are read: a directory of

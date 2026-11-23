@@ -1,24 +1,24 @@
-import type { XccodeEvent } from "@xccode/client"
+import type { XiaochuanEvent } from "@xiaochuan/client"
 import { useClient } from "./client"
 
 type EventMetadata = {
   directory: string | undefined
 }
-type XccodeEventMap = { [Type in XccodeEvent["type"]]: Extract<XccodeEvent, { type: Type }> }
+type XiaochuanEventMap = { [Type in XiaochuanEvent["type"]]: Extract<XiaochuanEvent, { type: Type }> }
 
 export function useEvent() {
   const client = useClient()
 
-  function subscribe(handler: (event: XccodeEvent, metadata: EventMetadata) => void) {
+  function subscribe(handler: (event: XiaochuanEvent, metadata: EventMetadata) => void) {
     return client.event.listen(({ details }) => {
       if (details.type === "server.connected") return
       handler(details, { directory: details.location?.directory })
     })
   }
 
-  function on<T extends XccodeEvent["type"]>(
+  function on<T extends XiaochuanEvent["type"]>(
     type: T,
-    handler: (event: XccodeEventMap[T], metadata: EventMetadata) => void,
+    handler: (event: XiaochuanEventMap[T], metadata: EventMetadata) => void,
   ) {
     return client.event.on(type, (event) => {
       handler(event, { directory: event.location?.directory })

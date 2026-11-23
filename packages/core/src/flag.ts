@@ -1,9 +1,9 @@
 export * as Flag from "./flag.js"
 
 import { Context, Effect, Layer } from "effect"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { ConfigFlag } from "@xccode/schema/config/flag"
-import type { Entry } from "@xccode/schema/config"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { ConfigFlag } from "@xiaochuan/schema/config/flag"
+import type { Entry } from "@xiaochuan/schema/config"
 import { App } from "./app.js"
 import { Config } from "./config.js"
 import { FlagResolve } from "./flag/resolve.js"
@@ -18,7 +18,7 @@ export interface Interface {
   readonly enabled: (key: Key) => Effect.Effect<boolean>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Flag") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Flag") {}
 
 export const Overrides = FlagResolve.Overrides
 

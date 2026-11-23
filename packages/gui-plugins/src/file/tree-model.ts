@@ -1,5 +1,5 @@
-import type { ChangeKind } from "@xccode/plugin/gui/review"
-import type { FileNode } from "@xccode/plugin/gui"
+import type { ChangeKind } from "@xiaochuan/plugin/gui/review"
+import type { FileNode } from "@xiaochuan/plugin/gui"
 
 export type TreeGitStatus = "added" | "deleted" | "modified" | "ignored"
 

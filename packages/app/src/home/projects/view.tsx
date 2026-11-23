@@ -2,20 +2,20 @@ import { createMemo, For, type JSX, onCleanup, Show, splitProps } from "solid-js
 import { createStore } from "solid-js/store"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
 import { Popover } from "@kobalte/core/popover"
-import { createOverlayFocus } from "@xccode/ui/context/overlay-focus"
+import { createOverlayFocus } from "@xiaochuan/ui/context/overlay-focus"
 import {
   displayName,
   getProjectAvatarGenerated,
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@xccode/ui/project-avatar"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Button } from "@xccode/ui/button"
-import { Loader } from "@xccode/ui/loader"
-import { Menu } from "@xccode/ui/menu"
-import { Tooltip } from "@xccode/ui/tooltip"
+} from "@xiaochuan/ui/project-avatar"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Button } from "@xiaochuan/ui/button"
+import { Loader } from "@xiaochuan/ui/loader"
+import { Menu } from "@xiaochuan/ui/menu"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import type { HomeProjectSelection, LocalProject } from "@/shell/state/layout"
 import { ServerConnection } from "@/runtime/server/registry"
 import { useLanguage } from "@/runtime/i18n/language"

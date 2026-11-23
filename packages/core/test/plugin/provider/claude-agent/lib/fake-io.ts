@@ -1,6 +1,6 @@
 export * as FakeIO from "./fake-io"
 
-import type { ClaudeIO } from "@xccode/core/plugin/provider/claude-agent/claude/io"
+import type { ClaudeIO } from "@xiaochuan/core/plugin/provider/claude-agent/claude/io"
 import type { FakeClaude } from "./fake-claude"
 
 export const EXECUTABLE = "/fake/bin/claude"

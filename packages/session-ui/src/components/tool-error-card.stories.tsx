@@ -36,7 +36,7 @@ const samples: { tool: string; error: string; subtitle?: string; defaultOpen?: b
   {
     tool: "read",
     error:
-      "read File not found: /Users/davidhill/Documents/Local/xccode/packages/ui/src/components/does-not-exist.tsx",
+      "read File not found: /Users/davidhill/Documents/Local/xiaochuan/packages/ui/src/components/does-not-exist.tsx",
   },
   {
     tool: "glob",
@@ -61,7 +61,7 @@ const samples: { tool: string; error: string; subtitle?: string; defaultOpen?: b
 ]
 
 export default {
-  title: "Xccode/Tools/Failure details",
+  title: "Xiaochuan/Tools/Failure details",
   id: "components-tool-error-card",
   component: ToolErrorCard,
   tags: ["autodocs"],

@@ -1,7 +1,7 @@
 export * as Instructions from "./index.js"
 
 import { createHash } from "crypto"
-import { Instruction } from "@xccode/schema/instruction"
+import { Instruction } from "@xiaochuan/schema/instruction"
 import { Data, Effect, Option, Schema } from "effect"
 import { canonicalJson } from "../util/canonical-json.js"
 

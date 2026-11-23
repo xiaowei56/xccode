@@ -1,4 +1,4 @@
-import type { LocationRef } from "@xccode/client/promise"
+import type { LocationRef } from "@xiaochuan/client/promise"
 
 export const LOCATION_SYNC_RETRIES = 2
 

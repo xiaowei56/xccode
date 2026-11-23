@@ -1,9 +1,9 @@
-import type { FileSystem } from "@xccode/core/filesystem"
+import type { FileSystem } from "@xiaochuan/core/filesystem"
 import fs from "fs/promises"
 import path from "path"
 import { describe, expect } from "bun:test"
-import { Event } from "@xccode/schema/config"
-import { Money } from "@xccode/schema/money"
+import { Event } from "@xiaochuan/schema/config"
+import { Money } from "@xiaochuan/schema/money"
 import {
   Context,
   DateTime,
@@ -24,26 +24,26 @@ import {
   Stream,
 } from "effect"
 import { TestClock } from "effect/testing"
-import { Agent } from "@xccode/core/agent"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
-import { LocationServiceMap, type LocationServices } from "@xccode/core/location-services"
-import { LocationActivity } from "@xccode/core/location-activity"
-import { Location } from "@xccode/core/location"
-import { LocationLifecycle } from "@xccode/core/location-lifecycle"
-import { Config } from "@xccode/core/config"
-import { LocationWatcher } from "@xccode/core/filesystem/location-watcher"
-import { Plugin } from "@xccode/core/plugin"
-import { Model } from "@xccode/core/model"
-import { Project } from "@xccode/core/project"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { Workspace } from "@xccode/core/workspace"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
+import { Agent } from "@xiaochuan/core/agent"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
+import { LocationServiceMap, type LocationServices } from "@xiaochuan/core/location-services"
+import { LocationActivity } from "@xiaochuan/core/location-activity"
+import { Location } from "@xiaochuan/core/location"
+import { LocationLifecycle } from "@xiaochuan/core/location-lifecycle"
+import { Config } from "@xiaochuan/core/config"
+import { LocationWatcher } from "@xiaochuan/core/filesystem/location-watcher"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { Model } from "@xiaochuan/core/model"
+import { Project } from "@xiaochuan/core/project"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { Workspace } from "@xiaochuan/core/workspace"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
 import { tmpdir, tmpdirScoped } from "./fixture/tmpdir"
 import { tempGlobalLayer } from "./fixture/global"
 import { offlineModels } from "./fixture/models"
@@ -592,7 +592,7 @@ describe("LocationServiceMap", () => {
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             fs.writeFile(
-              path.join(dir.path, "xccode.json"),
+              path.join(dir.path, "xiaochuan.json"),
               JSON.stringify({ agents: { plan: { disabled: true } } }),
             ),
           )
@@ -618,7 +618,7 @@ describe("LocationServiceMap", () => {
           const location = Location.Ref.make({ directory: AbsolutePath.make(dir.path) })
           yield* Effect.promise(() =>
             fs.writeFile(
-              path.join(dir.path, "xccode.json"),
+              path.join(dir.path, "xiaochuan.json"),
               JSON.stringify({
                 providers: {
                   unavailable: {
@@ -717,7 +717,7 @@ describe("LocationServiceMap", () => {
             const modelState = yield* Model.Service
             yield* providers.transform((editor) => {
               editor.update(Provider.ID.make("aliased"), (provider) => {
-                provider.package = "@xccode/ai/providers/openai"
+                provider.package = "@xiaochuan/ai/providers/openai"
               })
               editor.models.update(Provider.ID.make("aliased"), Model.ID.make("fast"), (model) => {
                 // Catalog id and package model id intentionally differ, like gpt-5.5-fast -> gpt-5.5.
@@ -770,7 +770,7 @@ describe("LocationServiceMap", () => {
             yield* providers.transform((editor) => {
               for (const id of ["router", "other"])
                 editor.update(Provider.ID.make(id), (provider) => {
-                  provider.package = "@xccode/ai/providers/openai"
+                  provider.package = "@xiaochuan/ai/providers/openai"
                 })
               editor.models.update(router, Model.ID.make("auto"), () => {})
               editor.models.update(router, Model.ID.make("hidden"), (model) => {

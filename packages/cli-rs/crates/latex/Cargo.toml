@@ -1,5 +1,5 @@
 [package]
-name = "xccode-latex"
+name = "xiaochuan-latex"
 description = "Terminal renderer for fenced and inline LaTeX."
 version.workspace = true
 edition.workspace = true
@@ -11,13 +11,13 @@ workspace = true
 
 # The plugin depends on the plugin API alone; the host turns what it returns into widgets.
 [dependencies]
-xccode-plugin-abi.workspace = true
+xiaochuan-plugin-abi.workspace = true
 unicode-segmentation = "1"
 unicode-width.workspace = true
 
 [dev-dependencies]
-xccode-plugin.workspace = true
-xccode-ui.workspace = true
+xiaochuan-plugin.workspace = true
+xiaochuan-ui.workspace = true
 opentui.workspace = true
-xccode-parity.workspace = true
+xiaochuan-parity.workspace = true
 serde_json.workspace = true

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { SessionMessageAssistant, SessionMessageInfo, SessionMessageUser } from "@xccode/client/promise"
+import type { SessionMessageAssistant, SessionMessageInfo, SessionMessageUser } from "@xiaochuan/client/promise"
 import { Predicate } from "effect"
 import { createRoot } from "solid-js"
 import { commentaryRuns, subagentReport } from "../storybook/current-session-fixtures"

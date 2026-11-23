@@ -1,8 +1,8 @@
 import { confirm, log, multiselect, password, select, text, type Option } from "@clack/prompts"
 import { Effect, Schema } from "effect"
-import { Form } from "@xccode/schema/form"
-import { formValidateValue } from "@xccode/tui/util/form"
-import type { FormAnswer, FormField, FormFields } from "@xccode/client"
+import { Form } from "@xiaochuan/schema/form"
+import { formValidateValue } from "@xiaochuan/tui/util/form"
+import type { FormAnswer, FormField, FormFields } from "@xiaochuan/client"
 import { openUrl, prompt, requireInteractive } from "../../../ui/prompt"
 
 const skip = Symbol("skip")

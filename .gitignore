@@ -21,7 +21,7 @@ ts-dist
 /result
 refs
 Session.vim
-/xccode.json
+/xiaochuan.json
 a.out
 target
 .scripts
@@ -29,7 +29,7 @@ target
 .direnv/
 
 # Local dev files
-xccode-dev
+xiaochuan-dev
 RELEASE_REVIEW.md
 logs/
 *.bun-build

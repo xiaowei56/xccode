@@ -1,5 +1,5 @@
-import type { AgentApi } from "@xccode/client/promise/api"
-import type { Agent } from "@xccode/schema/agent"
+import type { AgentApi } from "@xiaochuan/client/promise/api"
+import type { Agent } from "@xiaochuan/schema/agent"
 import type { Types } from "effect"
 import type { Transform } from "./registration.js"
 

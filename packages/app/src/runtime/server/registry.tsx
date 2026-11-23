@@ -1,4 +1,4 @@
-import { createSimpleContext } from "@xccode/ui/context"
+import { createSimpleContext } from "@xiaochuan/ui/context"
 import { useLanguage } from "@/runtime/i18n/language"
 import { batch, createMemo } from "solid-js"
 import { reconcile, type SetStoreFunction, type Store } from "solid-js/store"

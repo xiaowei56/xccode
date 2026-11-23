@@ -1,23 +1,23 @@
-//! Read-only live service test (`XCCODE_LIVE=1`). Resolves an existing session without uploading an environment,
+//! Read-only live service test (`XIAOCHUAN_LIVE=1`). Resolves an existing session without uploading an environment,
 //! creating a session or requesting usage limits or stats.
 
 use std::time::Duration;
 
-use xccode_api::client::{Auth, Client};
-use xccode_api::events::{self, Status};
-use xccode_api::generated::*;
-use xccode_store::target::{Prepared, TargetInput, resolve_session_target};
-use xccode_store::{Data, Options};
+use xiaochuan_api::client::{Auth, Client};
+use xiaochuan_api::events::{self, Status};
+use xiaochuan_api::generated::*;
+use xiaochuan_store::target::{Prepared, TargetInput, resolve_session_target};
+use xiaochuan_store::{Data, Options};
 
 fn command(args: &[&str]) -> String {
-    let output = std::process::Command::new("xccode").args(args).output().expect("xccode runs");
-    assert!(output.status.success(), "xccode {args:?} failed");
+    let output = std::process::Command::new("xiaochuan").args(args).output().expect("xiaochuan runs");
+    assert!(output.status.success(), "xiaochuan {args:?} failed");
     String::from_utf8(output.stdout).unwrap().trim().to_owned()
 }
 
 #[tokio::test(flavor = "multi_thread")]
 async fn live_store_reads_locations_and_resolves_a_session() {
-    if std::env::var("XCCODE_LIVE").as_deref() != Ok("1") {
+    if std::env::var("XIAOCHUAN_LIVE").as_deref() != Ok("1") {
         return;
     }
     let server = command(&["service", "status"]);
@@ -25,7 +25,7 @@ async fn live_store_reads_locations_and_resolves_a_session() {
     let directory = std::env::current_dir().unwrap().display().to_string();
     let data = Data::new(client.clone(), Options { directory, ..Default::default() });
     data.on_error(|error| eprintln!("live: refresh failed: {error}"));
-    let (connection, _task) = xccode_store::connection::connect(&data, events::Options::default());
+    let (connection, _task) = xiaochuan_store::connection::connect(&data, events::Options::default());
     let mut state = connection.watch();
     tokio::time::timeout(Duration::from_secs(5), state.wait_for(|state| state.status == Status::Connected))
         .await

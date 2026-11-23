@@ -113,14 +113,14 @@ export function pageMedia(
 }
 
 /**
- * The cards after the carousel's four with a resting loop in card-loops: Mini's is real `xccode
+ * The cards after the carousel's four with a resting loop in card-loops: Mini's is real `xiaochuan
  * mini` sitting idle, its caret blinking (made in product-videos/mini next to the checkout).
  */
 const moreLoops: Partial<Record<MoreSlug, true>> = { mini: true }
 
 /**
  * The products after the carousel's four with real footage, the same in every set
- * (public/product-videos/more): Mini is a real `xccode mini` session recorded with VHS. IDE
+ * (public/product-videos/more): Mini is a real `xiaochuan mini` session recorded with VHS. IDE
  * extensions has none yet.
  */
 const moreMedia: Partial<Record<MoreSlug, true>> = { mini: true }

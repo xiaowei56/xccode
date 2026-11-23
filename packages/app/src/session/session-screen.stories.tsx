@@ -13,11 +13,11 @@ import {
   STORY_TIME,
   subagentDocument,
   terminalPassedDocument,
-} from "@xccode/session-ui/storybook"
+} from "@xiaochuan/session-ui/storybook"
 import { SessionPreview } from "./story-model"
 import type { SubagentStatus } from "./composer/subagent-bar"
 
-const description = "xccode · modular-session-ui"
+const description = "xiaochuan · modular-session-ui"
 
 const retryAfterInterruption = {
   ...retryDocument,
@@ -49,7 +49,7 @@ const implementAndVerify = () => (
 )
 
 export default {
-  title: "Xccode/Session/Complete workspace",
+  title: "Xiaochuan/Session/Complete workspace",
   id: "app-current-session-surface",
   component: SessionPreview,
   parameters: {
@@ -100,7 +100,7 @@ export const MixedDirectionRtl = {
   render: () => (
     <SessionPreview
       title="مراجعة واجهة Session"
-      description="xccode · packages/app/src/session/screen.tsx"
+      description="xiaochuan · packages/app/src/session/screen.tsx"
       document={attachmentsAndCommentsDocument}
       draft="راجع المسار packages/app/src/session/screen.tsx ثم شغّل bun test"
     />

@@ -1,11 +1,11 @@
-import { Button } from "@xccode/ui/button"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@xccode/ui/dialog"
-import { Divider } from "@xccode/ui/divider"
-import { TextInput } from "@xccode/ui/text-input"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { uuid } from "@xccode/util/uuid"
+import { Button } from "@xiaochuan/ui/button"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@xiaochuan/ui/dialog"
+import { Divider } from "@xiaochuan/ui/divider"
+import { TextInput } from "@xiaochuan/ui/text-input"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { uuid } from "@xiaochuan/util/uuid"
 import { createMemo, createSignal, onCleanup, onMount, Show, untrack } from "solid-js"
-import { createKeyed, usePlugin } from "@xccode/plugin/gui"
+import { createKeyed, usePlugin } from "@xiaochuan/plugin/gui"
 import type { SshConfig } from "./contract"
 import {
   createSshDialogState,

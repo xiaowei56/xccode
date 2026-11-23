@@ -1,11 +1,11 @@
 import { describe, expect, test } from "bun:test"
 import { Effect } from "effect"
-import { Integration } from "@xccode/core/integration"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { ProviderPlugins } from "@xccode/core/plugin/provider"
-import { LLMGatewayPlugin } from "@xccode/core/plugin/provider/llmgateway"
-import { Provider } from "@xccode/core/provider"
+import { Integration } from "@xiaochuan/core/integration"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { ProviderPlugins } from "@xiaochuan/core/plugin/provider"
+import { LLMGatewayPlugin } from "@xiaochuan/core/plugin/provider/llmgateway"
+import { Provider } from "@xiaochuan/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -19,7 +19,7 @@ const addPlugin = Effect.fn(function* () {
 
 describe("LLMGatewayPlugin", () => {
   test("is registered so legacy referer headers can be applied", () => {
-    expect(ProviderPlugins.map((item) => item.id)).toContain("xccode.provider.llmgateway")
+    expect(ProviderPlugins.map((item) => item.id)).toContain("xiaochuan.provider.llmgateway")
   })
 
   it.effect("applies legacy referer headers only to enabled llmgateway", () =>
@@ -32,7 +32,7 @@ describe("LLMGatewayPlugin", () => {
       })
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("llmgateway"), (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.settings = { baseURL: "https://api.llmgateway.io/v1" }
           provider.headers = { Existing: "value" }
         })
@@ -41,9 +41,9 @@ describe("LLMGatewayPlugin", () => {
       yield* addPlugin()
       expect((yield* catalog.get(Provider.ID.make("llmgateway")))?.headers).toEqual({
         Existing: "value",
-        "HTTP-Referer": "https://xccode.ai/",
-        "X-Title": "xccode",
-        "X-Source": "xccode",
+        "HTTP-Referer": "https://xiaochuan.ai/",
+        "X-Title": "xiaochuan",
+        "X-Source": "xiaochuan",
       })
       expect((yield* catalog.get(Provider.ID.openrouter))?.headers).toBeUndefined()
     }),
@@ -59,7 +59,7 @@ describe("LLMGatewayPlugin", () => {
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("llmgateway"), (provider) => {
           provider.activation = "disabled"
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.settings = { baseURL: "https://api.llmgateway.io/v1" }
         })
       })

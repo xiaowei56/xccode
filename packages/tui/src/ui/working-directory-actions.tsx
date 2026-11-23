@@ -1,5 +1,5 @@
 import { createSignal } from "solid-js"
-import { openPath } from "@xccode/util/open"
+import { openPath } from "@xiaochuan/util/open"
 import { useRenderer } from "@opentui/solid"
 import { useClipboard } from "../context/clipboard"
 import { useDialog } from "./dialog"

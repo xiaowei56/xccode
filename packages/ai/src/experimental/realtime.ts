@@ -24,9 +24,9 @@ export interface RealtimeConnectInput {
   readonly engine: RealtimeEngine
   readonly model: string
   readonly apiKey: Redacted.Redacted
-  /** Where a GPT-Live session starts, OpenAI by default: another host of its API, such as Xccode's. */
+  /** Where a GPT-Live session starts, OpenAI by default: another host of its API, such as Xiaochuan's. */
   readonly baseURL?: string
-  /** Headers that host needs besides the API key, such as Xccode's workspace. */
+  /** Headers that host needs besides the API key, such as Xiaochuan's workspace. */
   readonly headers?: Readonly<Record<string, string>>
   readonly timeout?: RequestTimeout
   readonly session?: RealtimeSession

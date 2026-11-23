@@ -1,4 +1,4 @@
-import { getDirectory, getFilename } from "@xccode/util/path"
+import { getDirectory, getFilename } from "@xiaochuan/util/path"
 import {
   createComputed,
   createEffect,
@@ -22,12 +22,12 @@ import {
   type LineCommentEditorConfig,
   type LineCommentEditorEffect,
   type LineCommentEditorEvent,
-} from "@xccode/ui/line-comment/machine"
-import { Button } from "@xccode/ui/button"
-import { FileIcon } from "@xccode/ui/file-icon"
-import { Icon } from "@xccode/ui/icon"
+} from "@xiaochuan/ui/line-comment/machine"
+import { Button } from "@xiaochuan/ui/button"
+import { FileIcon } from "@xiaochuan/ui/file-icon"
+import { Icon } from "@xiaochuan/ui/icon"
 import { installLineCommentStyles } from "./line-comment-styles"
-import { useI18n } from "@xccode/ui/context/i18n"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
 
 installLineCommentStyles()
 

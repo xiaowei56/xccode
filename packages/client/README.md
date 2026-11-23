@@ -1,24 +1,24 @@
-# @xccode/client
+# @xiaochuan/client
 
-Private generation target for clients derived directly from Xccode's authoritative Effect `HttpApi`.
+Private generation target for clients derived directly from Xiaochuan's authoritative Effect `HttpApi`.
 
 ## Entrypoints
 
-- `@xccode/client`: zero-Effect Promise client using `fetch`.
-- `@xccode/client/effect`: rich Effect network client using an environment-provided `HttpClient`.
+- `@xiaochuan/client`: zero-Effect Promise client using `fetch`.
+- `@xiaochuan/client/effect`: rich Effect network client using an environment-provided `HttpClient`.
 
-The generated surface includes every standard HTTP group from Server's concrete API. The build compiler reads `@xccode/server/api`; the generated Effect runtime imports a client-local projection built from Protocol, with a generation-equivalence test preventing transport drift. Custom transports such as the PTY WebSocket connection remain outside the generic HTTP client. Run `bun run generate` after changing the contract and `bun run check:generated` to detect committed-output drift.
+The generated surface includes every standard HTTP group from Server's concrete API. The build compiler reads `@xiaochuan/server/api`; the generated Effect runtime imports a client-local projection built from Protocol, with a generation-equivalence test preventing transport drift. Custom transports such as the PTY WebSocket connection remain outside the generic HTTP client. Run `bun run generate` after changing the contract and `bun run check:generated` to detect committed-output drift.
 
-The Effect entrypoint uses canonical decoded values such as `Session.ID`, `Location.Ref`, and `Prompt`. These datatypes come from the lightweight `@xccode/schema` package and are re-exported so callers depend only on the client surface. Protocol owns endpoint construction and middleware placement; Server supplies the concrete middleware keys used by the build-time API.
+The Effect entrypoint uses canonical decoded values such as `Session.ID`, `Location.Ref`, and `Prompt`. These datatypes come from the lightweight `@xiaochuan/schema` package and are re-exported so callers depend only on the client surface. Protocol owns endpoint construction and middleware placement; Server supplies the concrete middleware keys used by the build-time API.
 
 The Promise root remains structural and has no Core or Effect runtime dependency. `/effect` depends only on Effect, Schema, and Protocol and is browser-bundle safe. Bundle-boundary tests enforce both import graphs.
 
 Effect consumers construct canonical decoded inputs:
 
 ```ts
-import { AbsolutePath, Location, Xccode, Prompt } from "@xccode/client/effect"
+import { AbsolutePath, Location, Xiaochuan, Prompt } from "@xiaochuan/client/effect"
 
-const client = yield * Xccode.make({ baseUrl: "https://xccode.example" })
+const client = yield * Xiaochuan.make({ baseUrl: "https://xiaochuan.example" })
 yield *
   client.sessions.create({
     location: Location.Ref.make({ directory: AbsolutePath.make("/workspace") }),

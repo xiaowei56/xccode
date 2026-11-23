@@ -1,5 +1,5 @@
-import type { Plugin } from "@xccode/plugin/tui"
-import type { SessionMessageAssistant, SessionMessageAssistantText } from "@xccode/client"
+import type { Plugin } from "@xiaochuan/plugin/tui"
+import type { SessionMessageAssistant, SessionMessageAssistantText } from "@xiaochuan/client"
 import { useTerminalDimensions } from "@opentui/solid"
 import { createSignal } from "solid-js"
 import { useConfig } from "../../../config"
@@ -15,14 +15,14 @@ const text = `Click, double-click, drag, right-click, or Ctrl/Shift+click the li
 
 **Named link:** read [the OpenTUI terminal capabilities guide](https://github.com/anomalyco/opentui/blob/main/packages/core/docs/terminal-capabilities.mdx) for details.
 
-**URL in inline code (not linked):** \`https://github.com/xiaowei56/xccode/issues/51727#issuecomment-wrapped-link\`
+**URL in inline code (not linked):** \`https://github.com/xiaowei56/xiaochuan/issues/51727#issuecomment-wrapped-link\`
 
 **Relative link (not http):** see [link.tsx](packages/tui/src/ui/link.tsx).
 
 | Issue | Link |
 | --- | --- |
-| Wrapped links | https://github.com/xiaowei56/xccode/issues/51727 |
-| Ctrl+click | https://github.com/xiaowei56/xccode/issues/44442 |
+| Wrapped links | https://github.com/xiaowei56/xiaochuan/issues/51727 |
+| Ctrl+click | https://github.com/xiaowei56/xiaochuan/issues/44442 |
 
 - A list item ending in https://example.com/a/very/long/path/that/keeps/going/until/it/wraps/around`
 

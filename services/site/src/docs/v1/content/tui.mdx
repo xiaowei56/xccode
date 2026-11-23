@@ -1,22 +1,22 @@
 ---
 title: TUI
-description: Using the Xccode terminal user interface.
+description: Using the Xiaochuan terminal user interface.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-Xccode provides an interactive terminal interface or TUI for working on your projects with an LLM.
+Xiaochuan provides an interactive terminal interface or TUI for working on your projects with an LLM.
 
-Running Xccode starts the TUI for the current directory.
+Running Xiaochuan starts the TUI for the current directory.
 
 ```bash
-xccode
+xiaochuan
 ```
 
 Or you can start it for a specific working directory.
 
 ```bash
-xccode /path/to/project
+xiaochuan /path/to/project
 ```
 
 Once you're in the TUI, you can prompt it with a message.
@@ -63,7 +63,7 @@ The output of the command is added to the conversation as a tool result.
 
 ## Commands
 
-When using the Xccode TUI, you can type `/` followed by a command name to quickly execute actions. For example:
+When using the Xiaochuan TUI, you can type `/` followed by a command name to quickly execute actions. For example:
 
 ```bash frame="none"
 /help
@@ -77,7 +77,7 @@ Here are all available slash commands:
 
 ### connect
 
-Add a provider to Xccode. Allows you to select from available providers and add their API keys.
+Add a provider to Xiaochuan. Allows you to select from available providers and add their API keys.
 
 ```bash frame="none"
 /connect
@@ -111,7 +111,7 @@ Open external editor for composing messages. Uses the editor set in your `EDITOR
 
 ### exit
 
-Exit Xccode. _Aliases_: `/quit`, `/q`
+Exit Xiaochuan. _Aliases_: `/quit`, `/q`
 
 ```bash frame="none"
 /exit
@@ -255,7 +255,7 @@ be a Git repository**.
 
 ### update
 
-Check for a new version of Xccode and install it. If a newer Xccode 1 release is available, the dialog installs it. If Xccode 1 is up to date, it offers to upgrade you to Xccode 2 instead. Xccode never installs updates on its own.
+Check for a new version of Xiaochuan and install it. If a newer Xiaochuan 1 release is available, the dialog installs it. If Xiaochuan 1 is up to date, it offers to upgrade you to Xiaochuan 2 instead. Xiaochuan never installs updates on its own.
 
 ```bash frame="none"
 /update
@@ -337,8 +337,8 @@ You can customize TUI behavior through `tui.json` (or `tui.jsonc`).
 
 ```json title="tui.json"
 {
-  "$schema": "https://xccode.ai/tui.json",
-  "theme": "xccode",
+  "$schema": "https://xiaochuan.ai/tui.json",
+  "theme": "xiaochuan",
   "leader_timeout": 2000,
   "keybinds": {
     "leader": "ctrl+x",
@@ -359,7 +359,7 @@ You can customize TUI behavior through `tui.json` (or `tui.jsonc`).
     "notifications": true,
     "sound": true,
     "volume": 0.4,
-    "sound_pack": "xccode.default",
+    "sound_pack": "xiaochuan.default",
     "sounds": {
       "error": "./sounds/error.mp3"
     }
@@ -367,7 +367,7 @@ You can customize TUI behavior through `tui.json` (or `tui.jsonc`).
 }
 ```
 
-This is separate from `xccode.json`, which configures server/runtime behavior.
+This is separate from `xiaochuan.json`, which configures server/runtime behavior.
 
 `keybinds` is merged with built-in defaults, so you only need to configure the shortcuts you want to change.
 
@@ -375,7 +375,7 @@ This is separate from `xccode.json`, which configures server/runtime behavior.
 
 - `theme` - Sets your UI theme. [Learn more](/docs/themes).
 - `keybinds` - Customizes keyboard shortcuts. [Learn more](/docs/keybinds).
-- `leader_timeout` - Controls how long Xccode waits after the leader key. Defaults to `2000`.
+- `leader_timeout` - Controls how long Xiaochuan waits after the leader key. Defaults to `2000`.
 - `scroll_acceleration.enabled` - Enable macOS-style scroll acceleration for smooth, natural scrolling. When enabled, scroll speed increases with rapid scrolling gestures and stays precise for slower movements. **This setting takes precedence over `scroll_speed` and overrides it when enabled.**
 - `scroll_speed` - Controls how fast the TUI scrolls when using scroll commands (minimum: `0.001`, supports decimal values). Defaults to `3`. **Note: This is ignored if `scroll_acceleration.enabled` is set to `true`.**
 - `diff_style` - Controls diff rendering. `"auto"` adapts to terminal width, `"stacked"` always shows a single-column layout.
@@ -383,7 +383,7 @@ This is separate from `xccode.json`, which configures server/runtime behavior.
 - `mouse` - Enable or disable mouse capture in the TUI (default: `true`). When disabled, the terminal's native mouse selection/scrolling behavior is preserved.
 - `attention` - Configures TUI desktop notifications and sounds. Disabled by default.
 
-Use `XCCODE_TUI_CONFIG` to load a custom TUI config path.
+Use `XIAOCHUAN_TUI_CONFIG` to load a custom TUI config path.
 
 ### Attention
 
@@ -393,7 +393,7 @@ The TUI can request attention for questions, permissions, session errors, and co
 - `notifications` - Allow terminal-mediated desktop notifications when attention is enabled. Defaults to `true`.
 - `sound` - Allow attention sounds when attention is enabled. Defaults to `true`.
 - `volume` - Default sound volume from `0` to `1`. Defaults to `0.4`.
-- `sound_pack` - Sound pack ID to use. Defaults to `xccode.default`.
+- `sound_pack` - Sound pack ID to use. Defaults to `xiaochuan.default`.
 - `sounds` - Override sound files for `default`, `question`, `permission`, `error`, `done`, or `subagent_done`. Paths can be absolute, `file://` URLs, or relative to `tui.json`.
 
 ---

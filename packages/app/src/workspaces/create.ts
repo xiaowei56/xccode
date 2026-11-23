@@ -1,8 +1,8 @@
-import type { LocationGetOutput, XccodeClient } from "@xccode/client/promise"
-import type { Data } from "@xccode/client/solid"
+import type { LocationGetOutput, XiaochuanClient } from "@xiaochuan/client/promise"
+import type { Data } from "@xiaochuan/client/solid"
 
 export async function createWorktree(input: {
-  api: Pick<XccodeClient, "location" | "worktree">
+  api: Pick<XiaochuanClient, "location" | "worktree">
   data: Pick<Data, "location">
   directory: string
   project?: LocationGetOutput["project"]

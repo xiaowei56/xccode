@@ -1,10 +1,10 @@
 import { describe, expect } from "bun:test"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Config } from "@xccode/core/config"
-import { Document, Info } from "@xccode/schema/config"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Config } from "@xiaochuan/core/config"
+import { Document, Info } from "@xiaochuan/schema/config"
 import { Effect, Layer, Stream } from "effect"
-import { SkillPlugin } from "@xccode/core/plugin/skill"
-import { Skill } from "@xccode/core/skill"
+import { SkillPlugin } from "@xiaochuan/core/plugin/skill"
+import { Skill } from "@xiaochuan/core/skill"
 import { testEffect } from "../lib/effect"
 import { host } from "./host"
 
@@ -37,10 +37,10 @@ describe("SkillPlugin.Plugin", () => {
 
       expect(skills).toContainEqual(
         expect.objectContaining({
-          id: "xccode",
-          name: "Xccode",
-          path: "skill://xccode/SKILL.md",
-          description: expect.stringContaining("any question about Xccode itself"),
+          id: "xiaochuan",
+          name: "Xiaochuan",
+          path: "skill://xiaochuan/SKILL.md",
+          description: expect.stringContaining("any question about Xiaochuan itself"),
         }),
       )
       expect(skills).toContainEqual(
@@ -48,10 +48,10 @@ describe("SkillPlugin.Plugin", () => {
           id: "report",
           name: "Report",
           path: "skill://report/SKILL.md",
-          description: expect.stringContaining("xccode issue"),
+          description: expect.stringContaining("xiaochuan issue"),
         }),
       )
-      expect(report?.content).toContain("- xccode version: 1.2.3")
+      expect(report?.content).toContain("- xiaochuan version: 1.2.3")
       expect(report?.content).toContain("- install/channel: beta")
     }),
   )

@@ -13,10 +13,10 @@ use std::sync::mpsc;
 use std::thread;
 use std::time::{Duration, Instant};
 
-use xccode_pty::service::CreatePty;
+use xiaochuan_pty::service::CreatePty;
 use serde::{Deserialize, Serialize};
 
-const ADDRESS: &str = "XCCODE_PTY_FIXTURE_ADDRESS";
+const ADDRESS: &str = "XIAOCHUAN_PTY_FIXTURE_ADDRESS";
 const TIMEOUT: Duration = Duration::from_secs(15);
 
 #[derive(Serialize, Deserialize)]

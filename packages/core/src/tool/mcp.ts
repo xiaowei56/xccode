@@ -1,9 +1,9 @@
 export * as McpTool from "./mcp.js"
 
-import { ToolFailure } from "@xccode/ai/effect"
-import { McpEvent } from "@xccode/schema/mcp-event"
+import { ToolFailure } from "@xiaochuan/ai/effect"
+import { McpEvent } from "@xiaochuan/schema/mcp-event"
 import { Context, Effect, Fiber, type JsonSchema, Layer, Option, PubSub, Schema, Semaphore, Stream } from "effect"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { extension } from "mime-types"
 import { Bus } from "../bus.js"
 
@@ -32,7 +32,7 @@ export interface Interface {
   readonly flush: Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/McpTool") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/McpTool") {}
 
 export const layer = Layer.effect(
   Service,

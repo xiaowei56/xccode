@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Minnisgreining: skráir minnisnotkun forritsins í atvikaskrár skjáborðsforritsins á 30 sekúndna fresti. Helst á milli endurræsinga þar til slökkt er á henni; stikan helst opin á meðan hún keyrir.",
-  "memory.tipEnv": "Minnisgreining er virk fyrir þessa ræsingu: XCCODE_DESKTOP_MEMORY_LOG er stillt.",
+  "memory.tipEnv": "Minnisgreining er virk fyrir þessa ræsingu: XIAOCHUAN_DESKTOP_MEMORY_LOG er stillt.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Stillihnappar",

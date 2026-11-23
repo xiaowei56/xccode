@@ -1,6 +1,6 @@
 import { NodeFileSystem } from "@effect/platform-node"
-import { Flock } from "@xccode/util/flock"
-import { Global } from "@xccode/util/global"
+import { Flock } from "@xiaochuan/util/flock"
+import { Global } from "@xiaochuan/util/global"
 import { Effect, FileSystem, Option, Schema } from "effect"
 import { expect, test } from "bun:test"
 import { parse } from "jsonc-parser"
@@ -48,14 +48,14 @@ test("includes the published schema when creating cli.json", async () => {
     }),
   )
 
-  expect(config).toEqual({ $schema: "https://xccode.ai/v2/cli.json", animations: false })
+  expect(config).toEqual({ $schema: "https://xiaochuan.ai/v2/cli.json", animations: false })
   expect(await Bun.file(path.join(directory.path, "cli.json")).json()).toEqual(config)
 })
 
 test("preserves the schema in an existing cli.json", async () => {
   await using directory = await tmpdir()
   const file = path.join(directory.path, "cli.json")
-  await Bun.write(file, JSON.stringify({ $schema: "https://xccode.ai/v2/cli.json", animations: true }))
+  await Bun.write(file, JSON.stringify({ $schema: "https://xiaochuan.ai/v2/cli.json", animations: true }))
 
   const config = await run(
     directory.path,
@@ -67,14 +67,14 @@ test("preserves the schema in an existing cli.json", async () => {
     }),
   )
 
-  expect(config).toEqual({ $schema: "https://xccode.ai/v2/cli.json", animations: false })
+  expect(config).toEqual({ $schema: "https://xiaochuan.ai/v2/cli.json", animations: false })
   expect(await Bun.file(file).json()).toEqual(config)
 })
 
 test("merges inline CLI config content over the global config", async () => {
   await using directory = await tmpdir()
   const file = path.join(directory.path, "cli.json")
-  const previous = process.env.XCCODE_CLI_CONFIG_CONTENT
+  const previous = process.env.XIAOCHUAN_CLI_CONFIG_CONTENT
   await Bun.write(
     file,
     JSON.stringify({
@@ -84,7 +84,7 @@ test("merges inline CLI config content over the global config", async () => {
       animations: true,
     }),
   )
-  process.env.XCCODE_CLI_CONFIG_CONTENT = JSON.stringify({
+  process.env.XIAOCHUAN_CLI_CONFIG_CONTENT = JSON.stringify({
     tabs: { enabled: false },
     keybinds: { "help.show": false },
     plugins: ["inline"],
@@ -111,8 +111,8 @@ test("merges inline CLI config content over the global config", async () => {
     expect(result.updated).toMatchObject({ animations: false, mouse: false })
     expect(await Bun.file(file).json()).toMatchObject({ animations: true, mouse: false })
   } finally {
-    if (previous === undefined) delete process.env.XCCODE_CLI_CONFIG_CONTENT
-    else process.env.XCCODE_CLI_CONFIG_CONTENT = previous
+    if (previous === undefined) delete process.env.XIAOCHUAN_CLI_CONFIG_CONTENT
+    else process.env.XIAOCHUAN_CLI_CONFIG_CONTENT = previous
   }
 })
 
@@ -189,7 +189,7 @@ test("migrates tui and kv config into cli.json", async () => {
   )
 
   expect(config).toMatchObject({
-    $schema: "https://xccode.ai/v2/cli.json",
+    $schema: "https://xiaochuan.ai/v2/cli.json",
     theme: { name: "legacy", mode: "light" },
     keybinds: {
       leader: "ctrl+o",
@@ -243,13 +243,13 @@ test("migrates before the first update and does not remigrate afterward", async 
   )
 
   expect(config).toEqual({
-    $schema: "https://xccode.ai/v2/cli.json",
+    $schema: "https://xiaochuan.ai/v2/cli.json",
     theme: { name: "legacy" },
     animations: false,
     mouse: false,
   })
   expect(await Bun.file(path.join(directory.path, "cli.json")).json()).toEqual({
-    $schema: "https://xccode.ai/v2/cli.json",
+    $schema: "https://xiaochuan.ai/v2/cli.json",
     theme: { name: "legacy" },
     animations: false,
     mouse: false,
@@ -489,24 +489,24 @@ test("updates effective duplicate canonical keybinds", async () => {
   const file = path.join(directory.path, "cli.json")
   await Bun.write(
     file,
-    `{"keybinds":{"session.delete":"first","session.delete":"last","xccode.settings":"off","xccode.settings":"on"}}`,
+    `{"keybinds":{"session.delete":"first","session.delete":"last","xiaochuan.settings":"off","xiaochuan.settings":"on"}}`,
   )
 
   const config = await run(
     directory.path,
     Effect.gen(function* () {
       const service = yield* Config.Service
-      expect((yield* service.get()).keybinds).toEqual({ "session.delete": "last", "xccode.settings": "on" })
+      expect((yield* service.get()).keybinds).toEqual({ "session.delete": "last", "xiaochuan.settings": "on" })
       return yield* service.update((draft) => {
-        draft.keybinds = { ...draft.keybinds, "session.delete": "changed", "xccode.settings": "changed" }
+        draft.keybinds = { ...draft.keybinds, "session.delete": "changed", "xiaochuan.settings": "changed" }
       })
     }),
   )
 
-  expect(config.keybinds).toEqual({ "session.delete": "changed", "xccode.settings": "changed" })
+  expect(config.keybinds).toEqual({ "session.delete": "changed", "xiaochuan.settings": "changed" })
   expect(parse(await Bun.file(file).text()).keybinds).toEqual({
     "session.delete": "changed",
-    "xccode.settings": "changed",
+    "xiaochuan.settings": "changed",
   })
 })
 

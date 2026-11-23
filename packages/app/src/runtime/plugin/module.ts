@@ -4,22 +4,22 @@ import {
   mainOnlyModule,
   type PluginModule,
   type Entry,
-} from "@xccode/plugin/gui/host"
+} from "@xiaochuan/plugin/gui/host"
 
 // Plugin bundles share the host's module instances, so tokens, contexts and schemas they import are the same objects
 // the host checks against. In a window, the main SDK's name resolves to the window SDK.
 const modules = {
   effect: () => import("effect"),
-  "@xccode/plugin/gui": () => import("@xccode/plugin/gui"),
-  "@xccode/plugin/gui/main": () => import("@xccode/plugin/gui"),
-  "@xccode/plugin/gui/file": () => import("@xccode/plugin/gui/file"),
-  "@xccode/plugin/gui/review": () => import("@xccode/plugin/gui/review"),
-  "@xccode/plugin/gui/browser": () => import("@xccode/plugin/gui/browser"),
-  "@xccode/plugin/rpc": () => import("@xccode/plugin/rpc"),
-  "@xccode/schema/rpc": () => import("@xccode/schema/rpc"),
-  "@xccode/client": () => import("@xccode/client"),
-  "@xccode/client/effect": () => import("@xccode/client/effect"),
-  "@xccode/client/solid": () => import("@xccode/client/solid"),
+  "@xiaochuan/plugin/gui": () => import("@xiaochuan/plugin/gui"),
+  "@xiaochuan/plugin/gui/main": () => import("@xiaochuan/plugin/gui"),
+  "@xiaochuan/plugin/gui/file": () => import("@xiaochuan/plugin/gui/file"),
+  "@xiaochuan/plugin/gui/review": () => import("@xiaochuan/plugin/gui/review"),
+  "@xiaochuan/plugin/gui/browser": () => import("@xiaochuan/plugin/gui/browser"),
+  "@xiaochuan/plugin/rpc": () => import("@xiaochuan/plugin/rpc"),
+  "@xiaochuan/schema/rpc": () => import("@xiaochuan/schema/rpc"),
+  "@xiaochuan/client": () => import("@xiaochuan/client"),
+  "@xiaochuan/client/effect": () => import("@xiaochuan/client/effect"),
+  "@xiaochuan/client/solid": () => import("@xiaochuan/client/solid"),
   "solid-js": () => import("solid-js"),
   "solid-js/web": () => import("solid-js/web"),
   "solid-js/store": () => import("solid-js/store"),

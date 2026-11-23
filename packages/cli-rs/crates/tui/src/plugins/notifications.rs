@@ -3,10 +3,10 @@
 use std::cell::RefCell;
 use std::collections::HashSet;
 
-use xccode_api::generated::V2Event;
-use xccode_plugin::abi::{self, Attention, Sound, SoundName, Toast, Variant, When};
+use xiaochuan_api::generated::V2Event;
+use xiaochuan_plugin::abi::{self, Attention, Sound, SoundName, Toast, Variant, When};
 
-pub const ID: &str = "xccode.notifications";
+pub const ID: &str = "xiaochuan.notifications";
 
 pub fn plugin() -> abi::Plugin {
     abi::Plugin { id: ID, setup }

@@ -16,7 +16,7 @@ export const content = {
     },
     "steer-your-sessions-from-your-phone": {
       text: "Conduza suas sessões pelo celular.",
-      link: "Conheça o Xccode Mobile",
+      link: "Conheça o Xiaochuan Mobile",
     },
     "a-refreshed-desktop-app": {
       text: "Um app desktop renovado.",
@@ -41,7 +41,7 @@ export const content = {
     },
     sdk: {
       name: "SDK",
-      body: "Controle o Xccode pelos seus scripts, jobs de CI e ferramentas.",
+      body: "Controle o Xiaochuan pelos seus scripts, jobs de CI e ferramentas.",
       action: "Ver docs",
     },
     mini: {
@@ -52,9 +52,9 @@ export const content = {
   },
   productDetails: {
     desktop: {
-      title: "Xccode | App desktop para macOS, Windows e Linux",
+      title: "Xiaochuan | App desktop para macOS, Windows e Linux",
       description:
-        "Rode quantos agentes do Xccode quiser em paralelo, veja cada mudança em um navegador ao lado e retome-os em qualquer dispositivo. Para macOS, Windows e Linux.",
+        "Rode quantos agentes do Xiaochuan quiser em paralelo, veja cada mudança em um navegador ao lado e retome-os em qualquer dispositivo. Para macOS, Windows e Linux.",
       intro:
         "Rode vários agentes ao mesmo tempo, cada sessão na sua própria aba. Revise cada mudança como diff, comente qualquer linha e confira o resultado no navegador integrado. Para macOS, Windows e Linux.",
       showcase: {
@@ -72,16 +72,16 @@ export const content = {
         },
         "extend-it": {
           title: "Estenda",
-          body: "Conecte suas ferramentas e serviços para o agente trabalhar com qualquer coisa. Ou peça ao Xccode para criar plugins para si mesmo, com interface própria na barra lateral.",
+          body: "Conecte suas ferramentas e serviços para o agente trabalhar com qualquer coisa. Ou peça ao Xiaochuan para criar plugins para si mesmo, com interface própria na barra lateral.",
         },
       },
     },
     mobile: {
-      title: "Xccode | Mobile, suas sessões de código no seu celular",
+      title: "Xiaochuan | Mobile, suas sessões de código no seu celular",
       description:
-        "Inicie e conduza sessões do Xccode pelo celular. Fale com o agente enquanto ele roda no seu computador.",
+        "Inicie e conduza sessões do Xiaochuan pelo celular. Fale com o agente enquanto ele roda no seu computador.",
       intro:
-        "Inicie e conduza sessões pelo celular, onde você estiver. Ligue para uma sessão e fale com o agente, ou abra qualquer sessão para continuar de onde parou, tudo no Xccode rodando no seu próprio computador.",
+        "Inicie e conduza sessões pelo celular, onde você estiver. Ligue para uma sessão e fale com o agente, ou abra qualquer sessão para continuar de onde parou, tudo no Xiaochuan rodando no seu próprio computador.",
       features: {
         "notify-when-done": {
           title: "Aviso ao terminar",
@@ -89,7 +89,7 @@ export const content = {
         },
         "pair-from-anywhere": {
           title: "Pareie de qualquer lugar",
-          body: "Conecte-se de qualquer rede com xccode pair --remote.",
+          body: "Conecte-se de qualquer rede com xiaochuan pair --remote.",
         },
         "every-computer": {
           title: "Cada computador",
@@ -105,7 +105,7 @@ export const content = {
         },
         "your-computer": {
           title: "Seu computador",
-          body: "Conecta ao Xccode rodando na sua própria máquina.",
+          body: "Conecta ao Xiaochuan rodando na sua própria máquina.",
         },
         "share-sheet": {
           title: "Compartilhar",
@@ -136,9 +136,9 @@ export const content = {
       },
     },
     terminal: {
-      title: "Xccode | Interface de terminal do agente de código aberto",
+      title: "Xiaochuan | Interface de terminal do agente de código aberto",
       description:
-        "Uma interface de terminal rápida para o Xccode que funciona em qualquer shell, editor ou servidor remoto. Descreva o que quer, veja cada edição como diff e aprove comandos.",
+        "Uma interface de terminal rápida para o Xiaochuan que funciona em qualquer shell, editor ou servidor remoto. Descreva o que quer, veja cada edição como diff e aprove comandos.",
       intro:
         "Uma interface de terminal rápida que funciona em qualquer shell, editor ou servidor remoto. Descreva o que quer em palavras simples, veja cada edição chegar como diff e escolha quais comandos rodam sozinhos.",
       features: {
@@ -156,7 +156,7 @@ export const content = {
         },
         "one-off-runs": {
           title: "Uso avulso",
-          body: "xccode run envia uma mensagem e imprime a resposta.",
+          body: "xiaochuan run envia uma mensagem e imprime a resposta.",
         },
         "agents-and-commands": {
           title: "Agentes e comandos",
@@ -168,11 +168,11 @@ export const content = {
         },
         "any-server": {
           title: "Todo servidor",
-          body: "Conecte-se a um servidor Xccode pela URL com --server.",
+          body: "Conecte-se a um servidor Xiaochuan pela URL com --server.",
         },
         "usage-stats": {
           title: "Estatísticas",
-          body: "xccode stats mostra estatísticas de uso para compartilhar.",
+          body: "xiaochuan stats mostra estatísticas de uso para compartilhar.",
         },
       },
       showcase: {
@@ -190,20 +190,20 @@ export const content = {
         },
         mini: {
           title: "Mini",
-          body: "Rode xccode mini e as respostas vão para o seu histórico.",
+          body: "Rode xiaochuan mini e as respostas vão para o seu histórico.",
         },
       },
     },
     sdk: {
-      title: "Xccode | SDK TypeScript para scripts, jobs de CI e ferramentas",
+      title: "Xiaochuan | SDK TypeScript para scripts, jobs de CI e ferramentas",
       description:
-        "Controle o Xccode pelos seus scripts, jobs de CI e ferramentas. O cliente TypeScript tipado cria sessões, envia prompts e transmite cada evento em tempo real.",
+        "Controle o Xiaochuan pelos seus scripts, jobs de CI e ferramentas. O cliente TypeScript tipado cria sessões, envia prompts e transmite cada evento em tempo real.",
       intro:
-        "Controle o Xccode pelos seus scripts, jobs de CI e ferramentas. O SDK roda o Xccode dentro do seu processo, com sua configuração e seus modelos, e o cliente tipado cria sessões, envia prompts e transmite cada evento.",
+        "Controle o Xiaochuan pelos seus scripts, jobs de CI e ferramentas. O SDK roda o Xiaochuan dentro do seu processo, com sua configuração e seus modelos, e o cliente tipado cria sessões, envia prompts e transmite cada evento.",
       features: {
         "typescript-client": {
           title: "Cliente TypeScript",
-          body: "Requisições e eventos tipados, com os mesmos valores de @xccode/client.",
+          body: "Requisições e eventos tipados, com os mesmos valores de @xiaochuan/client.",
         },
         "sessions-from-code": {
           title: "Sessões pelo código",
@@ -211,15 +211,15 @@ export const content = {
         },
         "any-model": {
           title: "Todo modelo",
-          body: "Usa os modelos que o seu Xccode tiver configurados.",
+          body: "Usa os modelos que o seu Xiaochuan tiver configurados.",
         },
         "npm-or-bun": {
           title: "npm ou bun",
-          body: "Instale com npm i @xccode/sdk ou bun add @xccode/sdk.",
+          body: "Instale com npm i @xiaochuan/sdk ou bun add @xiaochuan/sdk.",
         },
         "in-process-host": {
           title: "Host no processo",
-          body: "Roda o Xccode na memória, sem passar pela rede.",
+          body: "Roda o Xiaochuan na memória, sem passar pela rede.",
         },
         "your-plugins": {
           title: "Seus plugins",
@@ -231,13 +231,13 @@ export const content = {
         },
         "cloudflare-workers": {
           title: "Cloudflare Workers",
-          body: "Rode o Xccode em um Durable Object da Cloudflare no Workers.",
+          body: "Rode o Xiaochuan em um Durable Object da Cloudflare no Workers.",
         },
       },
       showcase: {
         "fix-ci-from-code": {
           title: "Corrija o CI",
-          body: "Um script pede ao Xccode para corrigir testes com falha e os roda de novo.",
+          body: "Um script pede ao Xiaochuan para corrigir testes com falha e os roda de novo.",
         },
         "follow-every-step": {
           title: "Acompanhe cada passo",
@@ -245,20 +245,20 @@ export const content = {
         },
         "build-your-own-tools": {
           title: "Crie suas ferramentas",
-          body: "Integre o Xccode a bots, dashboards e fluxos de trabalho com poucas linhas.",
+          body: "Integre o Xiaochuan a bots, dashboards e fluxos de trabalho com poucas linhas.",
         },
         "in-your-process": {
           title: "No seu processo",
-          body: "Roda o Xccode no seu processo, com sua configuração e seus modelos.",
+          body: "Roda o Xiaochuan no seu processo, com sua configuração e seus modelos.",
         },
       },
     },
     mini: {
-      title: "Xccode | Mini, uma interface de terminal mínima para o agente",
+      title: "Xiaochuan | Mini, uma interface de terminal mínima para o agente",
       description:
-        "O Mini roda o Xccode em uma interface de terminal mínima. As respostas vão para o histórico do próprio terminal, e só um prompt e uma linha de status ficam embaixo.",
+        "O Mini roda o Xiaochuan em uma interface de terminal mínima. As respostas vão para o histórico do próprio terminal, e só um prompt e uma linha de status ficam embaixo.",
       intro:
-        "Uma interface de terminal mínima para o Xccode. Rode xccode mini e as respostas vão direto para o histórico do seu terminal, para você rolar, buscar e copiar como qualquer outra saída. Só o prompt e uma linha de status ficam embaixo.",
+        "Uma interface de terminal mínima para o Xiaochuan. Rode xiaochuan mini e as respostas vão direto para o histórico do seu terminal, para você rolar, buscar e copiar como qualquer outra saída. Só o prompt e uma linha de status ficam embaixo.",
       features: {
         "your-scrollback": {
           title: "Seu histórico",
@@ -280,8 +280,8 @@ export const content = {
           title: "Continue depois",
           body: "Retome a última sessão com -c, ou qualquer uma com -s.",
         },
-        "same-xccode": {
-          title: "Mesmo Xccode",
+        "same-xiaochuan": {
+          title: "Mesmo Xiaochuan",
           body: "O mesmo servidor, agentes e modelos dos outros apps.",
         },
         agents: {
@@ -297,16 +297,16 @@ export const content = {
   },
   extensionCard: {
     name: "Extensões",
-    body: "Use o Xccode no VS Code, ou no Zed e em outros editores via ACP.",
+    body: "Use o Xiaochuan no VS Code, ou no Zed e em outros editores via ACP.",
     action: "Instalar",
   },
   extensions: {
     browse: {
       name: "Browse",
       body: "Deixe agentes usarem seu navegador de verdade.",
-      title: "Xccode | Browse, seu navegador real para agentes de programação",
+      title: "Xiaochuan | Browse, seu navegador real para agentes de programação",
       description:
-        "Browse deixa o Xccode e outros clientes MCP usarem seu navegador de verdade. Agentes leem, clicam, digitam, tiram capturas, gravam abas e devolvem logins e 2FA a você.",
+        "Browse deixa o Xiaochuan e outros clientes MCP usarem seu navegador de verdade. Agentes leem, clicam, digitam, tiram capturas, gravam abas e devolvem logins e 2FA a você.",
       intro:
         "Um servidor MCP e uma extensão do Chromium que deixam seus agentes usarem seu navegador de verdade, com suas abas, seus logins e suas extensões. Eles abrem abas em segundo plano, agrupadas fora do seu caminho, e leem páginas, clicam, digitam, tiram capturas de tela e gravam abas. Quando é a sua vez, para um login, um código 2FA ou um pagamento, eles devolvem a aba a você e continuam quando você clica em Continue.",
       features: {
@@ -332,7 +332,7 @@ export const content = {
         },
         "any-mcp-client": {
           title: "Todo cliente MCP",
-          body: "Xccode, Claude Code, Cursor, Codex, Zed e muitos outros.",
+          body: "Xiaochuan, Claude Code, Cursor, Codex, Zed e muitos outros.",
         },
         "all-your-logins": {
           title: "Todos os seus logins",
@@ -367,10 +367,10 @@ export const content = {
   },
   getStarted: {
     title: "Comece agora",
-    lead: "O jeito mais fácil de começar é baixar o Xccode e usar os modelos grátis. Não precisa de conta. Para mais, traga sua própria assinatura ou use o Xccode Go.",
+    lead: "O jeito mais fácil de começar é baixar o Xiaochuan e usar os modelos grátis. Não precisa de conta. Para mais, traga sua própria assinatura ou use o Xiaochuan Go.",
     phrases: {
-      "download-xccode": {
-        text: "baixar o Xccode",
+      "download-xiaochuan": {
+        text: "baixar o Xiaochuan",
       },
       "free-models": {
         text: "modelos grátis",
@@ -381,8 +381,8 @@ export const content = {
       "a-subscription-you-already-have": {
         text: "uma assinatura que você já tem",
       },
-      "xccode-go": {
-        text: "Xccode Go",
+      "xiaochuan-go": {
+        text: "Xiaochuan Go",
       },
     },
     subscriptions: {
@@ -394,11 +394,11 @@ export const content = {
       },
     },
     plans: {
-      "xccode-go": {
-        name: "Xccode Go",
+      "xiaochuan-go": {
+        name: "Xiaochuan Go",
       },
-      "xccode-go-plus": {
-        name: "Xccode Go Plus",
+      "xiaochuan-go-plus": {
+        name: "Xiaochuan Go Plus",
       },
     },
     steps: {
@@ -408,20 +408,20 @@ export const content = {
       },
       "use-free-models": {
         title: "Use modelos grátis",
-        line: "O Xccode vem com um conjunto de modelos grátis. Não precisa de conta.",
+        line: "O Xiaochuan vem com um conjunto de modelos grátis. Não precisa de conta.",
       },
       "add-more-models": {
         title: "Adicione modelos",
-        line: "Traga sua própria assinatura ou use os modelos selecionados do Xccode Go a partir de US$ 10/mês.",
+        line: "Traga sua própria assinatura ou use os modelos selecionados do Xiaochuan Go a partir de US$ 10/mês.",
       },
     },
     sentence:
-      "Baixe o Xccode, comece com modelos grátis e traga sua própria assinatura ou o Xccode Go quando quiser mais.",
+      "Baixe o Xiaochuan, comece com modelos grátis e traga sua própria assinatura ou o Xiaochuan Go quando quiser mais.",
   },
   byos: {
     title: "Use suas assinaturas",
     headline: "Use as assinaturas que você já tem.",
-    line: "Entre com ChatGPT Plus ou Pro, ou com GitHub Copilot. Ou use uma assinatura Xccode.",
+    line: "Entre com ChatGPT Plus ou Pro, ou com GitHub Copilot. Ou use uma assinatura Xiaochuan.",
     yours: {
       label: "Sua assinatura",
       items: {
@@ -433,9 +433,9 @@ export const content = {
         },
       },
     },
-    planLinks: ["assinatura Xccode", "Xccode Go"],
+    planLinks: ["assinatura Xiaochuan", "Xiaochuan Go"],
     ours: {
-      label: "Planos Xccode",
+      label: "Planos Xiaochuan",
     },
   },
   brand: {
@@ -447,8 +447,8 @@ export const content = {
     },
     naming: {
       title: "Nome",
-      body: "Escreva Xccode como uma palavra só, com O e C maiúsculos. Não escreva Xccode, Open Code, Xccode AI nem Open-Code.",
-      code: "Use `xccode` em minúsculas só em código e nomes de pacotes, como `xccode-figma` ou `@acme/xccode-plugin`.",
+      body: "Escreva Xiaochuan como uma palavra só, com O e C maiúsculos. Não escreva Xiaochuan, Open Code, Xiaochuan AI nem Open-Code.",
+      code: "Use `xiaochuan` em minúsculas só em código e nomes de pacotes, como `xiaochuan-figma` ou `@acme/xiaochuan-plugin`.",
     },
     families: {
       logo: {
@@ -471,7 +471,7 @@ export const content = {
       },
       wordmark: {
         title: "Logotipo",
-        body: "O nome completo com as letras do Xccode. Use sempre que houver espaço para escrever o nome por extenso.",
+        body: "O nome completo com as letras do Xiaochuan. Use sempre que houver espaço para escrever o nome por extenso.",
         assets: {
           light: {
             name: "Claro",
@@ -676,21 +676,21 @@ export const content = {
     },
     integrations: {
       title: "Integrações",
-      body: "Plugins, provedores e ferramentas que funcionam com o Xccode, e projetos feitos com ele, podem dizer isso. Use um selo ou um lockup de parceria, e dê ao seu projeto um nome que deixe claro que ele é seu.",
+      body: "Plugins, provedores e ferramentas que funcionam com o Xiaochuan, e projetos feitos com ele, podem dizer isso. Use um selo ou um lockup de parceria, e dê ao seu projeto um nome que deixe claro que ele é seu.",
       badges: {
-        body: "Coloque um selo no seu README, docs ou site com link para xccode.ai. Escolha o arquivo claro ou escuro para o seu fundo (o HTML alterna sozinho) e não mude as cores nem o texto.",
+        body: "Coloque um selo no seu README, docs ou site com link para xiaochuan.ai. Escolha o arquivo claro ou escuro para o seu fundo (o HTML alterna sozinho) e não mude as cores nem o texto.",
         sizes: "Todo estilo vem em 20, 32 e 44px (Shields só em 20px), em SVG e em PNG a 2×.",
-        mono: "Cada arquivo também vem com texto em OpenTUI Mono. Adicione -mono antes da extensão, como em xccode-works-with-a-light-20-mono.svg, ou -mono-caps para OpenTUI Mono em maiúsculas.",
+        mono: "Cada arquivo também vem com texto em OpenTUI Mono. Adicione -mono antes da extensão, como em xiaochuan-works-with-a-light-20-mono.svg, ou -mono-caps para OpenTUI Mono em maiúsculas.",
         groups: {
           "works-with": {
             title: "Funciona com",
-            alt: "Funciona com Xccode",
-            body: "Para plugins, provedores e ferramentas que rodam com o Xccode.",
+            alt: "Funciona com Xiaochuan",
+            body: "Para plugins, provedores e ferramentas que rodam com o Xiaochuan.",
           },
           "built-with": {
             title: "Feito com",
-            alt: "Feito com Xccode",
-            body: "Para projetos feitos com o Xccode.",
+            alt: "Feito com Xiaochuan",
+            body: "Para projetos feitos com o Xiaochuan.",
           },
         },
         styles: {
@@ -710,7 +710,7 @@ export const content = {
       },
       lockup: {
         title: "Lockup de parceria",
-        body: "Coloque o logo do Xccode e o logo do parceiro lado a lado, com um × entre eles. Deixe 3 traços de espaço de cada lado do ×, ajuste o logo do parceiro para parecer tão alto quanto o do Xccode e mantenha área de respiro em volta de todo o conjunto.",
+        body: "Coloque o logo do Xiaochuan e o logo do parceiro lado a lado, com um × entre eles. Deixe 3 traços de espaço de cada lado do ×, ajuste o logo do parceiro para parecer tão alto quanto o do Xiaochuan e mantenha área de respiro em volta de todo o conjunto.",
         partners: {
           github: {
             name: "GitHub",
@@ -720,12 +720,12 @@ export const content = {
       naming: {
         title: "Nome do seu projeto",
         body: "Comece pelo seu próprio nome, para deixar claro que o projeto é seu.",
-        rule: "Escreva `Linear for Xccode` ou chame o pacote de `xccode-linear`. Não escreva `Xccode Linear` nem `Linear by Xccode`.",
+        rule: "Escreva `Linear for Xiaochuan` ou chame o pacote de `xiaochuan-linear`. Não escreva `Xiaochuan Linear` nem `Linear by Xiaochuan`.",
       },
     },
     trademarks: {
       title: "Marcas",
-      body: "Xccode e o logo do Xccode são marcas registradas da Anomaly. Não as use para sugerir que a Anomaly apoia ou patrocina você, no nome do seu produto ou empresa, nem em produtos à venda sem permissão.",
+      body: "Xiaochuan e o logo do Xiaochuan são marcas registradas da Anomaly. Não as use para sugerir que a Anomaly apoia ou patrocina você, no nome do seu produto ou empresa, nem em produtos à venda sem permissão.",
       contact: {
         before: "Em caso de dúvidas, escreva para ",
         after: ".",
@@ -733,21 +733,21 @@ export const content = {
     },
   },
   press: {
-    title: "Xccode | Kit de imprensa com dados da empresa e da marca",
+    title: "Xiaochuan | Kit de imprensa com dados da empresa e da marca",
     description:
-      "O kit de imprensa do Xccode, com dados sobre o Xccode e a Anomaly, a empresa por trás dele, além de logos e logotipos para baixar e um contato para a imprensa.",
+      "O kit de imprensa do Xiaochuan, com dados sobre o Xiaochuan e a Anomaly, a empresa por trás dele, além de logos e logotipos para baixar e um contato para a imprensa.",
     hero: {
       title: "Imprensa",
-      body: "Dados, ativos da marca e contatos para escrever sobre o Xccode e a Anomaly.",
+      body: "Dados, ativos da marca e contatos para escrever sobre o Xiaochuan e a Anomaly.",
     },
     company: {
       title: "Sobre a Anomaly",
-      lead: "A Anomaly é a empresa por trás do Xccode. Ela cria ferramentas de código aberto para desenvolvedores.",
+      lead: "A Anomaly é a empresa por trás do Xiaochuan. Ela cria ferramentas de código aberto para desenvolvedores.",
       more: "Outros projetos incluem SST e OpenTUI, todos de código aberto no [GitHub](github).",
       learnMore: "Para saber mais, acesse [anoma.ly](site).",
       projects: {
-        xccode: {
-          name: "Xccode",
+        xiaochuan: {
+          name: "Xiaochuan",
           body: "O agente de programação de código aberto, com apps para desktop, terminal e mobile, e um SDK. Licença MIT, mais de 220.000 estrelas no GitHub.",
         },
         sst: {
@@ -756,7 +756,7 @@ export const content = {
         },
         opentui: {
           name: "OpenTUI",
-          body: "Uma biblioteca para interfaces de terminal em TypeScript, React ou Solid, com núcleo em Zig. O Xccode a usa em produção. Mais de 13.000 estrelas no GitHub.",
+          body: "Uma biblioteca para interfaces de terminal em TypeScript, React ou Solid, com núcleo em Zig. O Xiaochuan a usa em produção. Mais de 13.000 estrelas no GitHub.",
         },
         "models-dev": {
           name: "Models.dev",
@@ -773,31 +773,31 @@ export const content = {
       },
     },
     about: {
-      title: "Sobre o Xccode",
-      body: "Descrições do Xccode e de seus produtos em versões longa e curta, prontas para copiar.",
+      title: "Sobre o Xiaochuan",
+      body: "Descrições do Xiaochuan e de seus produtos em versões longa e curta, prontas para copiar.",
       boilerplate: {
-        long: "Xccode é um agente de programação de código aberto. Ele vem como app desktop, interface de terminal, app mobile e SDK, e funciona com modelos de qualquer provedor, incluindo Claude, GPT e Gemini. O Xccode tem licença MIT e é feito pela Anomaly. Tem mais de 220.000 estrelas no GitHub e mais de 1.000 colaboradores, e mais de 22 milhões de desenvolvedores o usam todo mês.",
+        long: "Xiaochuan é um agente de programação de código aberto. Ele vem como app desktop, interface de terminal, app mobile e SDK, e funciona com modelos de qualquer provedor, incluindo Claude, GPT e Gemini. O Xiaochuan tem licença MIT e é feito pela Anomaly. Tem mais de 220.000 estrelas no GitHub e mais de 1.000 colaboradores, e mais de 22 milhões de desenvolvedores o usam todo mês.",
         short:
-          "Xccode é um agente de programação de código aberto da Anomaly, com apps para desktop, terminal e mobile, e um SDK.",
+          "Xiaochuan é um agente de programação de código aberto da Anomaly, com apps para desktop, terminal e mobile, e um SDK.",
       },
       products: {
-        "xccode-console": {
-          name: "Xccode Console",
-          long: "O Xccode Console é o app web onde desenvolvedores e equipes compram e gerenciam acesso a modelos de IA para o Xccode e outros agentes de programação. Ele oferece inferência pré-paga para modelos de fronteira e de pesos abertos, cobrada por requisição a partir de créditos, e assinaturas do Xccode Go. Equipes têm workspaces com funções de Member, Admin e Owner, limites de gasto por workspace e por usuário, login único com Okta, Microsoft Entra ID ou Google Workspace, e SCIM. O Console aceita mais de 30 provedores, então as equipes podem conectar contas que já têm, e a inferência própria é opcional. Fica em xccode.ai/console.",
+        "xiaochuan-console": {
+          name: "Xiaochuan Console",
+          long: "O Xiaochuan Console é o app web onde desenvolvedores e equipes compram e gerenciam acesso a modelos de IA para o Xiaochuan e outros agentes de programação. Ele oferece inferência pré-paga para modelos de fronteira e de pesos abertos, cobrada por requisição a partir de créditos, e assinaturas do Xiaochuan Go. Equipes têm workspaces com funções de Member, Admin e Owner, limites de gasto por workspace e por usuário, login único com Okta, Microsoft Entra ID ou Google Workspace, e SCIM. O Console aceita mais de 30 provedores, então as equipes podem conectar contas que já têm, e a inferência própria é opcional. Fica em xiaochuan.ai/console.",
           short:
-            "O Xccode Console é o app web da Anomaly para acesso pré-pago a modelos de IA, assinaturas do Xccode Go e controles de equipe como orçamentos e login único.",
+            "O Xiaochuan Console é o app web da Anomaly para acesso pré-pago a modelos de IA, assinaturas do Xiaochuan Go e controles de equipe como orçamentos e login único.",
         },
-        "xccode-go": {
-          name: "Xccode Go",
-          long: "O Xccode Go é uma assinatura para desenvolvedores que querem um preço mensal fixo para modelos de programação. O Go custa US$ 10/mês, o Go Plus custa US$ 40/mês com limites maiores, e o Go Teams custa US$ 20/mês por membro. Cada plano inclui um conjunto selecionado de modelos testados para programação com agentes. Os limites de uso são valores mensais em dólares para cada modelo, com cotas contínuas de 5 horas e semanais de 20% e 50% do limite mensal. Assinantes podem recarregar créditos, recorrer a um saldo pré-pago e cancelar quando quiserem. O Go funciona com o Xccode e outros agentes. Fica em xccode.ai/console/go.",
+        "xiaochuan-go": {
+          name: "Xiaochuan Go",
+          long: "O Xiaochuan Go é uma assinatura para desenvolvedores que querem um preço mensal fixo para modelos de programação. O Go custa US$ 10/mês, o Go Plus custa US$ 40/mês com limites maiores, e o Go Teams custa US$ 20/mês por membro. Cada plano inclui um conjunto selecionado de modelos testados para programação com agentes. Os limites de uso são valores mensais em dólares para cada modelo, com cotas contínuas de 5 horas e semanais de 20% e 50% do limite mensal. Assinantes podem recarregar créditos, recorrer a um saldo pré-pago e cancelar quando quiserem. O Go funciona com o Xiaochuan e outros agentes. Fica em xiaochuan.ai/console/go.",
           short:
-            "O Xccode Go é uma assinatura mensal da Anomaly que dá aos desenvolvedores limites de uso mensais em um conjunto selecionado de modelos de programação, a partir de US$ 10/mês.",
+            "O Xiaochuan Go é uma assinatura mensal da Anomaly que dá aos desenvolvedores limites de uso mensais em um conjunto selecionado de modelos de programação, a partir de US$ 10/mês.",
         },
-        "xccode-data": {
-          name: "Xccode Data",
-          long: "O Xccode Data é um painel público que mostra quais modelos de IA os desenvolvedores usam no Xccode e como essa combinação muda ao longo do tempo. Ele publica um ranking dos principais modelos, uso de tokens, custos por sessão e por token, taxas de cache, participação de mercado e uma divisão por país. Os números são agregados a cada hora, com dias e semanas em UTC. As contagens de usuários e sessões são aproximadas, e os custos usam preços de tabela do catálogo de modelos do Xccode. Jornalistas podem citá-lo como Xccode Data (xccode.ai/data), com o horário de atualização mostrado na página.",
+        "xiaochuan-data": {
+          name: "Xiaochuan Data",
+          long: "O Xiaochuan Data é um painel público que mostra quais modelos de IA os desenvolvedores usam no Xiaochuan e como essa combinação muda ao longo do tempo. Ele publica um ranking dos principais modelos, uso de tokens, custos por sessão e por token, taxas de cache, participação de mercado e uma divisão por país. Os números são agregados a cada hora, com dias e semanas em UTC. As contagens de usuários e sessões são aproximadas, e os custos usam preços de tabela do catálogo de modelos do Xiaochuan. Jornalistas podem citá-lo como Xiaochuan Data (xiaochuan.ai/data), com o horário de atualização mostrado na página.",
           short:
-            "O Xccode Data é um painel público em xccode.ai/data que classifica modelos de IA pelo uso real no Xccode, com tokens, custos e participação de mercado atualizados a cada hora.",
+            "O Xiaochuan Data é um painel público em xiaochuan.ai/data que classifica modelos de IA pelo uso real no Xiaochuan, com tokens, custos e participação de mercado atualizados a cada hora.",
         },
       },
     },
@@ -826,9 +826,9 @@ export const content = {
           date: "Out 2025",
           text: "1 mi+ de downloads",
         },
-        "xccode-1-0": {
+        "xiaochuan-1-0": {
           date: "Out 2025",
-          text: "Xccode 1.0",
+          text: "Xiaochuan 1.0",
         },
         "desktop-app-ships": {
           date: "Dez 2025",
@@ -838,9 +838,9 @@ export const content = {
           date: "Jan 2026",
           text: "10 mi+ de downloads",
         },
-        "xccode-2-0": {
+        "xiaochuan-2-0": {
           date: "Set 2026",
-          text: "Xccode 2.0",
+          text: "Xiaochuan 2.0",
         },
         "220-000-github-stars": {
           date: "Nov 2026",
@@ -850,7 +850,7 @@ export const content = {
     },
     news: {
       title: "Últimas versões",
-      intro: "O Xccode lança versões com frequência. Estas são as mais recentes com novos recursos.",
+      intro: "O Xiaochuan lança versões com frequência. Estas são as mais recentes com novos recursos.",
       changelog: {
         text: "Changelog completo",
       },
@@ -861,7 +861,7 @@ export const content = {
     media: {
       title: "Mídia",
       intro:
-        "Imagens e vídeos curtos de cada app, gravados do produto real. Você pode usá-los para escrever sobre o Xccode.",
+        "Imagens e vídeos curtos de cada app, gravados do produto real. Você pode usá-los para escrever sobre o Xiaochuan.",
       note: "Todas as capturas usam o tema escuro. Imagens e capas são JPGs de até 1920 × 1080, ou 1080 × 1350 na vertical. Os vídeos são clipes MP4 sem som.",
       products: {
         desktop: {
@@ -1021,13 +1021,13 @@ export const content = {
     brand: {
       title: "Marca",
       before:
-        "Baixe os logos e logotipos do Xccode em um único arquivo ZIP. Para arquivos individuais, variantes e regras de uso, acesse a página da ",
+        "Baixe os logos e logotipos do Xiaochuan em um único arquivo ZIP. Para arquivos individuais, variantes e regras de uso, acesse a página da ",
       link: {
         text: "marca",
       },
       after: ".",
       usage:
-        "Você pode usar estes arquivos para escrever sobre o Xccode. Não os altere e não sugira que o Xccode apoia o seu trabalho.",
+        "Você pode usar estes arquivos para escrever sobre o Xiaochuan. Não os altere e não sugira que o Xiaochuan apoia o seu trabalho.",
     },
     product: {
       title: "Produto",
@@ -1038,7 +1038,7 @@ export const content = {
         },
         mobile: {
           name: "Mobile",
-          body: "O app mais novo do Xccode. Ligue para uma sessão para falar com o agente e revise e aprove as mudanças pelo celular, de qualquer lugar.",
+          body: "O app mais novo do Xiaochuan. Ligue para uma sessão para falar com o agente e revise e aprove as mudanças pelo celular, de qualquer lugar.",
         },
         terminal: {
           name: "Terminal",
@@ -1059,7 +1059,7 @@ export const content = {
         },
         support: {
           title: "Suporte",
-          body: "Para ajuda com o Xccode, abra uma issue ou pergunte à comunidade. Para dúvidas de conta e cobrança, mande um e-mail.",
+          body: "Para ajuda com o Xiaochuan, abra uma issue ou pergunte à comunidade. Para dúvidas de conta e cobrança, mande um e-mail.",
           links: {
             "github-issues": {
               text: "Issues no GitHub",
@@ -1136,7 +1136,7 @@ export const content = {
       },
     },
     mini: {
-      lead: "O Mini vem com a CLI do Xccode. Instale com qualquer uma destas opções e rode xccode mini.",
+      lead: "O Mini vem com a CLI do Xiaochuan. Instale com qualquer uma destas opções e rode xiaochuan mini.",
       commands: {
         curl: {
           name: "Script",
@@ -1155,11 +1155,11 @@ export const content = {
     title: "Conecte seu celular",
     cardTitle: "Pareie seu celular com um comando",
     intro:
-      "O Xccode Mobile é um controle remoto para o Xccode no seu computador. Suas sessões continuam rodando lá, e o app as mostra e deixa você conduzi-las.",
+      "O Xiaochuan Mobile é um controle remoto para o Xiaochuan no seu computador. Suas sessões continuam rodando lá, e o app as mostra e deixa você conduzi-las.",
     steps: {
       "get-the-app": {
         title: "Baixe o app",
-        body: "Instale o beta do Xccode no iPhone pelo TestFlight. O app para Android chega em breve.",
+        body: "Instale o beta do Xiaochuan no iPhone pelo TestFlight. O app para Android chega em breve.",
       },
       "run-this-on-your-computer": {
         title: "Rode isto no computador",
@@ -1170,12 +1170,12 @@ export const content = {
         body: "Leia o QR code com o app ou cole o link. As sessões recentes do computador abrem no celular.",
       },
     },
-    note: "--remote conecta por um endereço OpenTunnel, então funciona de qualquer rede. Na mesma rede Wi-Fi, rode xccode service set hostname 0.0.0.0 uma vez e depois xccode pair.",
+    note: "--remote conecta por um endereço OpenTunnel, então funciona de qualquer rede. Na mesma rede Wi-Fi, rode xiaochuan service set hostname 0.0.0.0 uma vez e depois xiaochuan pair.",
     facts: [
       "O pareamento funciona de qualquer rede, porque --remote conecta por um endereço OpenTunnel.",
       "O link e o código funcionam uma vez e expiram em 5 minutos.",
       "Deixe o computador ligado, porque o agente roda nele e não no celular.",
-      "Na mesma rede Wi-Fi, rode xccode service set hostname 0.0.0.0 uma vez e depois xccode pair.",
+      "Na mesma rede Wi-Fi, rode xiaochuan service set hostname 0.0.0.0 uma vez e depois xiaochuan pair.",
     ],
   },
 } satisfies ContentOverlay

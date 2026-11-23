@@ -1,5 +1,5 @@
 import { createEffect, createMemo, createSignal, onCleanup, untrack } from "solid-js"
-import type { SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
 import { useServer } from "@/runtime/server/current"
 import type { SessionModel } from "../model"
 import {

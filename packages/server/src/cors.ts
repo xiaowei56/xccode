@@ -1,10 +1,10 @@
 import { Context } from "effect"
 
-const xccodeOrigin = /^https:\/\/([a-z0-9-]+\.)*xccode\.ai$/
+const xiaochuanOrigin = /^https:\/\/([a-z0-9-]+\.)*xiaochuan\.ai$/
 
 export type CorsOptions = { readonly cors?: ReadonlyArray<string> }
 
-export const CorsConfig = Context.Reference<CorsOptions | undefined>("@xccode/ServerCorsConfig", {
+export const CorsConfig = Context.Reference<CorsOptions | undefined>("@xiaochuan/ServerCorsConfig", {
   defaultValue: () => undefined,
 })
 
@@ -15,7 +15,7 @@ export function isAllowedCorsOrigin(input: string | undefined, opts?: CorsOption
   if (input.startsWith("oc://renderer")) return true
   if (input === "tauri://localhost" || input === "http://tauri.localhost" || input === "https://tauri.localhost")
     return true
-  if (xccodeOrigin.test(input)) return true
+  if (xiaochuanOrigin.test(input)) return true
   return opts?.cors?.includes(input) ?? false
 }
 

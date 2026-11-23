@@ -3,7 +3,7 @@
 // lines at the cursor. The recording also keeps what the TUI sent the server.
 import { defineApp, session, user } from "../../lib/app"
 
-const file = "/tmp/xccode/packages/tui/src/parser.ts"
+const file = "/tmp/xiaochuan/packages/tui/src/parser.ts"
 
 export default defineApp({
   args: { sessionID: "ses_b" },

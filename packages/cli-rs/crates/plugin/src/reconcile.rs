@@ -5,10 +5,10 @@ use std::cell::{Cell, RefCell};
 use std::collections::{HashMap, HashSet};
 use std::rc::{Rc, Weak};
 
-use xccode_plugin_abi::v2::{ContentRef, DiffView, Node, Source};
-use xccode_plugin_abi::{self as abi};
-use xccode_ui::diff::Patch;
-use xccode_ui::theme::Theme;
+use xiaochuan_plugin_abi::v2::{ContentRef, DiffView, Node, Source};
+use xiaochuan_plugin_abi::{self as abi};
+use xiaochuan_ui::diff::Patch;
+use xiaochuan_ui::theme::Theme;
 use opentui::prelude::*;
 use opentui::style::Color;
 use opentui::syntax::SyntaxTheme;
@@ -307,12 +307,12 @@ pub(crate) enum Extra {
         /// Its hover events, when it has them.
         _wired: Option<Rc<crate::interact::Wired>>,
     },
-    Spinner(xccode_ui::motion::Spinner),
+    Spinner(xiaochuan_ui::motion::Spinner),
     Scroll(ScrollBox),
     /// The patch, and the text it shows.
     Diff(Patch, Rc<str>),
     /// An added file over 3,000 lines, in chunks mounted near the view, and the text it shows.
-    Chunked(Rc<xccode_ui::diff::Chunked>, Rc<str>),
+    Chunked(Rc<xiaochuan_ui::diff::Chunked>, Rc<str>),
     /// The Markdown, and the text it shows.
     Markdown(opentui::widget::Markdown, Rc<str>),
     Slot(Option<SlotMount>),
@@ -1256,7 +1256,7 @@ const HUNK_ROWS: u64 = 30;
 /// What a line of code costs the host, in rows: its first frame highlights it.
 const CODE_ROWS: u64 = 2;
 /// The lines of an added file over 3,000 lines that the host builds at once: it mounts only the chunks near the view
-/// (`xccode_ui::diff::Chunked`), four of 128 lines, each a hunk.
+/// (`xiaochuan_ui::diff::Chunked`), four of 128 lines, each a hunk.
 const CHUNKED_ROWS: u64 = 512 + 4 * HUNK_ROWS;
 
 /// A node's own text and rows, by what each costs the host (the probe of `plugin_limits.rs`): a node is one row, a
@@ -1297,7 +1297,7 @@ fn rows_of(node: &Node, text: Measure) -> u64 {
 }
 
 /// What a source's text costs the host: its bytes; and, within one node's text, its lines, the hunks it has as a
-/// patch, and whether the renderer shows it as an added file in chunks (`xccode_ui::diff::chunks`).
+/// patch, and whether the renderer shows it as an added file in chunks (`xiaochuan_ui::diff::chunks`).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct Measure {
     pub bytes: u64,
@@ -1315,8 +1315,8 @@ pub fn measure(text: &str) -> Measure {
     count(|work| work.scanned += bytes);
     // A last line without its line break is a line too.
     let lines = text.bytes().filter(|byte| *byte == b'\n').count() as u64 + u64::from(!text.ends_with('\n'));
-    let hunks = xccode_ui::diff::hunk_count(text) as u64;
-    Measure { bytes, lines, hunks, chunked: xccode_ui::diff::chunks(text) }
+    let hunks = xiaochuan_ui::diff::hunk_count(text) as u64;
+    Measure { bytes, lines, hunks, chunked: xiaochuan_ui::diff::chunks(text) }
 }
 
 /// What a mount's content costs, by handle: content never changes, so each handle's bytes are read once a mount, and
@@ -1702,7 +1702,7 @@ impl Pass<'_, '_> {
                 Node::Diff { content, filetype, padding, .. },
             ) if matches!(old.extra, Extra::Chunked(..))
                 || ((was != content || had != filetype || matches!(content, Source::PartOutput(_)))
-                    && xccode_ui::diff::chunks(&self.text(content))) =>
+                    && xiaochuan_ui::diff::chunks(&self.text(content))) =>
             {
                 let text = (was != content || matches!(content, Source::PartOutput(_))).then(|| self.text(content));
                 let syntax = self.syntax();
@@ -1994,8 +1994,8 @@ impl Pass<'_, '_> {
             }
             (Node::Markdown { .. }, Extra::Markdown(markdown, shown)) => {
                 if self.restyle {
-                    let colors = xccode_ui::markdown::view_colors(env.theme, &syntax);
-                    xccode_ui::markdown::restyle(markdown, colors, &syntax);
+                    let colors = xiaochuan_ui::markdown::view_colors(env.theme, &syntax);
+                    xiaochuan_ui::markdown::restyle(markdown, colors, &syntax);
                     count(|work| work.set += 1);
                 }
                 if let Some(text) = text.filter(|text| text != shown) {
@@ -2093,7 +2093,7 @@ impl Pass<'_, '_> {
 
     /// The syntax theme of the pass's theme, made once.
     fn syntax(&self) -> Rc<SyntaxTheme> {
-        self.syntax.get_or_init(|| Rc::new(xccode_ui::code::syntax_theme(self.env.theme))).clone()
+        self.syntax.get_or_init(|| Rc::new(xiaochuan_ui::code::syntax_theme(self.env.theme))).clone()
     }
 
     /// `node` built and added to `parent`.
@@ -2236,7 +2236,7 @@ impl Pass<'_, '_> {
             }
             Node::Spinner { label, .. } => {
                 let spinner =
-                    xccode_ui::motion::Spinner::new(app).color(theme.interactive().step(200)).label(label.clone());
+                    xiaochuan_ui::motion::Spinner::new(app).color(theme.interactive().step(200)).label(label.clone());
                 (spinner.as_any(), Extra::Spinner(spinner))
             }
             Node::Markdown { source, .. } => {
@@ -2322,7 +2322,7 @@ impl Pass<'_, '_> {
             }
             Node::Code { content, filetype, numbers, layout, .. } => {
                 let text = self.text(content);
-                let code = xccode_ui::code::view(app, theme, &self.syntax(), filetype.as_deref(), &text)
+                let code = xiaochuan_ui::code::view(app, theme, &self.syntax(), filetype.as_deref(), &text)
                     .line_numbers(*numbers)
                     .line_number_fg(theme.text.muted);
                 lay_out(&code, layout);
@@ -2339,7 +2339,7 @@ impl Pass<'_, '_> {
                 count(|work| work.parses += 1);
                 let syntax = self.syntax();
                 let padding = u32::from(*padding);
-                match xccode_ui::diff::Chunked::new(app, theme, &syntax, &text, filetype.as_deref(), padding) {
+                match xiaochuan_ui::diff::Chunked::new(app, theme, &syntax, &text, filetype.as_deref(), padding) {
                     Some(chunked) => (chunked.root().as_any(), Extra::Chunked(Rc::new(chunked), text)),
                     None => {
                         let view = diff_view(*view);
@@ -2694,11 +2694,11 @@ fn decoded(env: &Env<'_>, source: &Source) -> Option<opentui::native::Image> {
     }
 }
 
-fn image_fit(fit: xccode_plugin_abi::v2::Fit) -> opentui::native::ImageFit {
+fn image_fit(fit: xiaochuan_plugin_abi::v2::Fit) -> opentui::native::ImageFit {
     match fit {
-        xccode_plugin_abi::v2::Fit::Contain => opentui::native::ImageFit::Contain,
-        xccode_plugin_abi::v2::Fit::Cover => opentui::native::ImageFit::Cover,
-        xccode_plugin_abi::v2::Fit::Fill => opentui::native::ImageFit::Fill,
+        xiaochuan_plugin_abi::v2::Fit::Contain => opentui::native::ImageFit::Contain,
+        xiaochuan_plugin_abi::v2::Fit::Cover => opentui::native::ImageFit::Cover,
+        xiaochuan_plugin_abi::v2::Fit::Fill => opentui::native::ImageFit::Fill,
     }
 }
 

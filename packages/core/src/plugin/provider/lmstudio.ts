@@ -23,7 +23,7 @@ const RemoteModel = Schema.Struct({
 const Response = Schema.Struct({ models: Schema.Array(RemoteModel) })
 
 export const make = createLocalProviderPlugin({
-  id: "xccode.provider.lmstudio",
+  id: "xiaochuan.provider.lmstudio",
   providerID: "lmstudio",
   name: "LM Studio",
   origin: "http://127.0.0.1:1234",

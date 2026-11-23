@@ -1,7 +1,7 @@
 export * as CodeModeBun from "./bun.js"
 
-import { Extension } from "@xccode/codemode"
-import { Glob } from "@xccode/util/glob"
+import { Extension } from "@xiaochuan/codemode"
+import { Glob } from "@xiaochuan/util/glob"
 import { isUtf8 } from "buffer"
 import { Context, Effect, Option } from "effect"
 import { constants } from "os"

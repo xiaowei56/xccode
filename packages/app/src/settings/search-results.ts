@@ -1,5 +1,5 @@
 import fuzzysort from "fuzzysort"
-import type { IconProps } from "@xccode/ui/icon"
+import type { IconProps } from "@xiaochuan/ui/icon"
 import type { SettingsView } from "./surface"
 import type { LocalProject } from "@/shell/state/layout"
 

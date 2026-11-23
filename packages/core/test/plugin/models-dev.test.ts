@@ -1,24 +1,24 @@
 import path from "path"
 import { describe, expect } from "bun:test"
-import { Document, Event, Info } from "@xccode/schema/config"
-import { Money } from "@xccode/schema/money"
+import { Document, Event, Info } from "@xiaochuan/schema/config"
+import { Money } from "@xiaochuan/schema/money"
 import { Context, Effect, Exit, Layer, Scope } from "effect"
 import { TestClock } from "effect/testing"
-import { Integration } from "@xccode/core/integration"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { Config } from "@xccode/core/config"
-import { Flag } from "@xccode/core/flag"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { ModelsDev } from "@xccode/core/models-dev"
-import { ModelsDevPlugin } from "@xccode/core/plugin/models-dev"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { ProviderPlugins } from "@xccode/core/plugin/provider"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
+import { Integration } from "@xiaochuan/core/integration"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { Config } from "@xiaochuan/core/config"
+import { Flag } from "@xiaochuan/core/flag"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { ModelsDev } from "@xiaochuan/core/models-dev"
+import { ModelsDevPlugin } from "@xiaochuan/core/plugin/models-dev"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { ProviderPlugins } from "@xiaochuan/core/plugin/provider"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
 import { withEnv } from "../fixture/env"
 import { location } from "../fixture/location"
 import { drain } from "../lib/clock"
@@ -79,7 +79,7 @@ const richSnapshot = (name = "Acme") => {
         id: providerID,
         name,
         activation: "auto",
-        package: "@xccode/ai/providers/openai-compatible",
+        package: "@xiaochuan/ai/providers/openai-compatible",
         settings: { baseURL: "https://api.acme.test/v1", thinking: { type: "adaptive", display: "summarized" } },
         headers: { "x-acme": "provider" },
         body: { service_tier: "default", tags: ["stable"] },
@@ -154,7 +154,7 @@ describe("ModelsDevPlugin", () => {
         }
         const model = required(yield* location.models.get(providerID, modelID))
         expect(model.package).toBe(
-          enabled ? "@xccode/ai/providers/google/interactions" : "@xccode/ai/providers/google",
+          enabled ? "@xiaochuan/ai/providers/google/interactions" : "@xiaochuan/ai/providers/google",
         )
         expect(model.settings?.baseURL).toBe(`https://api.acme.test/${enabled ? "v1beta" : "v1"}`)
         expect(model.variants.find((variant) => variant.id === "low")?.settings).toEqual(
@@ -378,7 +378,7 @@ describe("ModelsDevPlugin", () => {
                 id: providerID,
                 name: "Acme",
                 activation: "auto",
-                package: "@xccode/ai/providers/openai-compatible",
+                package: "@xiaochuan/ai/providers/openai-compatible",
               },
               environment: [],
               models: [
@@ -435,7 +435,7 @@ describe("ModelsDevPlugin", () => {
             id: providerID,
             name: "Acme",
             activation: "auto",
-            package: "@xccode/ai/providers/openai-compatible",
+            package: "@xiaochuan/ai/providers/openai-compatible",
             settings: { baseURL: "https://api.acme.test/v1" },
             headers: { "x-acme": "provider" },
           },
@@ -514,7 +514,7 @@ describe("ModelsDevPlugin", () => {
                 id: providerID,
                 name: "Acme",
                 activation: "auto",
-                package: "@xccode/ai/providers/openai-compatible",
+                package: "@xiaochuan/ai/providers/openai-compatible",
                 settings: { baseURL: "https://api.acme.test/v1" },
               },
               environment: [],
@@ -566,7 +566,7 @@ describe("ModelsDevPlugin", () => {
                   providerID,
                   name: "GPT-5.4 Fast",
                   family: Model.Family.make("gpt"),
-                  package: "@xccode/ai/providers/openai-compatible",
+                  package: "@xiaochuan/ai/providers/openai-compatible",
                   settings: { baseURL: "https://api.acme.test/v1" },
                   headers: { "x-mode": "fast" },
                   body: { service_tier: "priority" },
@@ -629,7 +629,7 @@ describe("ModelsDevPlugin", () => {
         modelID: "gpt-5.4",
         providerID: "acme",
         name: "GPT-5.4 Fast",
-        package: "@xccode/ai/providers/openai-compatible",
+        package: "@xiaochuan/ai/providers/openai-compatible",
         settings: { baseURL: "https://api.acme.test/v1" },
         headers: { "x-mode": "fast" },
         body: { service_tier: "priority" },
@@ -694,7 +694,7 @@ describe("ModelsDevPlugin", () => {
             id: providerID,
             name: "Acme",
             activation: "auto",
-            package: "@xccode/ai/providers/openai-compatible",
+            package: "@xiaochuan/ai/providers/openai-compatible",
           },
           environment: [],
           models: [
@@ -771,7 +771,7 @@ describe("ModelsDevPlugin", () => {
           id: providerID,
           name: "Acme",
           activation: "auto",
-          package: "@xccode/ai/providers/openai-compatible",
+          package: "@xiaochuan/ai/providers/openai-compatible",
         },
         environment: [],
         models: Object.entries(types).map(([id, type]) => ({
@@ -866,7 +866,7 @@ describe("ModelsDevPlugin", () => {
                         id: providerID,
                         name: "Acme",
                         activation: "auto",
-                        package: "@xccode/ai/providers/openai-compatible",
+                        package: "@xiaochuan/ai/providers/openai-compatible",
                         settings: { baseURL: "https://${ACME_HOST}/${UNDECLARED_HOST}/v1" },
                       },
                       environment: ["ACME_HOST", "ACME_MODEL_PATH", "ACME_API_KEY"],
@@ -918,7 +918,7 @@ describe("ModelsDevPlugin", () => {
           id: providerID,
           name: "Acme",
           activation: "auto",
-          package: "@xccode/ai/providers/openai-compatible",
+          package: "@xiaochuan/ai/providers/openai-compatible",
         },
         environment: [],
         models: [
@@ -1011,8 +1011,8 @@ describe("ModelsDevPlugin", () => {
       expect(yield* integrations.get(Integration.ID.make("google-vertex"))).toBeDefined()
       expect(yield* integrations.get(Integration.ID.make("azure-cognitive-services"))).toBeUndefined()
       expect(yield* integrations.get(Integration.ID.make("google-vertex-anthropic"))).toBeUndefined()
-      expect(ProviderPlugins.map((plugin) => plugin.id)).not.toContain("xccode.provider.azure.cognitive.services")
-      expect(ProviderPlugins.map((plugin) => plugin.id)).not.toContain("xccode.provider.google.vertex.anthropic")
+      expect(ProviderPlugins.map((plugin) => plugin.id)).not.toContain("xiaochuan.provider.azure.cognitive.services")
+      expect(ProviderPlugins.map((plugin) => plugin.id)).not.toContain("xiaochuan.provider.google.vertex.anthropic")
     }),
   )
 
@@ -1037,7 +1037,7 @@ describe("ModelsDevPlugin", () => {
                     id: Provider.ID.make("cloudflare-workers-ai"),
                     name: "Cloudflare Workers AI",
                     activation: "auto",
-                    package: "@xccode/ai/providers/cloudflare-workers-ai",
+                    package: "@xiaochuan/ai/providers/cloudflare-workers-ai",
                   },
                   environment: ["CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_KEY"],
                   models: [],
@@ -1047,7 +1047,7 @@ describe("ModelsDevPlugin", () => {
                     id: Provider.ID.make("google-vertex"),
                     name: "Google Vertex",
                     activation: "auto",
-                    package: "@xccode/ai/providers/google-vertex",
+                    package: "@xiaochuan/ai/providers/google-vertex",
                   },
                   environment: ["GOOGLE_VERTEX_PROJECT", "GOOGLE_VERTEX_LOCATION", "GOOGLE_APPLICATION_CREDENTIALS"],
                   models: [],
@@ -1171,7 +1171,7 @@ describe("ModelsDevPlugin", () => {
         })),
       )
 
-      const minimax = yield* modelState.get(Provider.ID.make("xccode-go"), Model.ID.make("minimax-m3"))
+      const minimax = yield* modelState.get(Provider.ID.make("xiaochuan-go"), Model.ID.make("minimax-m3"))
       expect(minimax?.variants).toEqual([
         { id: Model.VariantID.make("none"), settings: { thinking: { type: "disabled" } } },
         {

@@ -1,14 +1,14 @@
 export * as SessionTitle from "./title.js"
 
 import { isDeepStrictEqual } from "node:util"
-import { LLMClient, LLMEvent, Message, SystemPart } from "@xccode/ai/effect"
-import type { Agent } from "@xccode/schema/agent"
+import { LLMClient, LLMEvent, Message, SystemPart } from "@xiaochuan/ai/effect"
+import type { Agent } from "@xiaochuan/schema/agent"
 import { Context, DateTime, Effect, Layer, Stream } from "effect"
 import { Database } from "../database/database.js"
 import { Bus } from "../bus.js"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { isExactRootFallback } from "@xccode/util/session-title-fallback"
-import { TextBoundary } from "@xccode/util/text-boundary"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { isExactRootFallback } from "@xiaochuan/util/session-title-fallback"
+import { TextBoundary } from "@xiaochuan/util/text-boundary"
 import { llmClient } from "../effect/app-node-platform.js"
 import { SessionContext } from "./context.js"
 import { SessionEvent } from "./event.js"
@@ -28,7 +28,7 @@ export interface Interface {
   readonly generate: (sessionID: SessionSchema.ID) => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionTitle") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionTitle") {}
 
 const truncate = (value: string) =>
   value.length <= MAX_LENGTH ? value : `${TextBoundary.head(value, MAX_LENGTH - 3)}...`

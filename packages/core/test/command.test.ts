@@ -1,7 +1,7 @@
 import { describe, expect } from "bun:test"
-import { Command } from "@xccode/core/command"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Session } from "@xccode/schema/session"
+import { Command } from "@xiaochuan/core/command"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Session } from "@xiaochuan/schema/session"
 import { Effect } from "effect"
 import { testEffect } from "./lib/effect"
 

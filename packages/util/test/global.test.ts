@@ -8,7 +8,7 @@ import { Global } from "../src/global.js"
 
 describe("global", () => {
   test("importing the module does not create directories", () => {
-    const root = fs.mkdtempSync(path.join(os.tmpdir(), "xccode-global-import-"))
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "xiaochuan-global-import-"))
     const directories = ["data", "cache", "config", "state", "tmp"].map((directory) => path.join(root, directory))
     const module = pathToFileURL(path.join(import.meta.dir, "../src/global.ts")).href
     const result = Bun.spawnSync({
@@ -27,12 +27,12 @@ describe("global", () => {
     })
 
     expect(result.exitCode, result.stderr.toString()).toBe(0)
-    directories.forEach((directory) => expect(fs.existsSync(path.join(directory, "xccode"))).toBe(false))
+    directories.forEach((directory) => expect(fs.existsSync(path.join(directory, "xiaochuan"))).toBe(false))
     fs.rmSync(root, { recursive: true, force: true })
   })
 
   test("building layerWith creates service directories and preserves an explicit tmp", async () => {
-    const root = fs.mkdtempSync(path.join(os.tmpdir(), "xccode-global-layer-"))
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "xiaochuan-global-layer-"))
     const directories = {
       data: path.join(root, "data"),
       config: path.join(root, "config"),
@@ -51,7 +51,7 @@ describe("global", () => {
   })
 
   test("building a layer with default tmp creates and canonicalizes it", () => {
-    const root = fs.mkdtempSync(path.join(os.tmpdir(), "xccode-global-layer-"))
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "xiaochuan-global-layer-"))
     const directories = ["data", "cache", "config", "state", "tmp"].map((directory) => path.join(root, directory))
     const module = pathToFileURL(path.join(import.meta.dir, "../src/global.ts")).href
     const result = Bun.spawnSync({
@@ -83,15 +83,15 @@ describe("global", () => {
     expect(result.exitCode, result.stderr.toString()).toBe(0)
     // The layer canonicalizes through the native realpath, which on Windows also expands 8.3 short
     // names such as RUNNER~1 that the JavaScript realpathSync leaves in place.
-    expect(result.stdout.toString()).toBe(fs.realpathSync.native(path.join(directories[4], "xccode")))
+    expect(result.stdout.toString()).toBe(fs.realpathSync.native(path.join(directories[4], "xiaochuan")))
     const created = [
-      path.join(directories[0], "xccode"),
-      path.join(directories[1], "xccode", "bin"),
-      path.join(directories[2], "xccode"),
-      path.join(directories[3], "xccode"),
-      path.join(directories[0], "xccode", "log"),
-      path.join(directories[0], "xccode", "repos"),
-      path.join(directories[4], "xccode"),
+      path.join(directories[0], "xiaochuan"),
+      path.join(directories[1], "xiaochuan", "bin"),
+      path.join(directories[2], "xiaochuan"),
+      path.join(directories[3], "xiaochuan"),
+      path.join(directories[0], "xiaochuan", "log"),
+      path.join(directories[0], "xiaochuan", "repos"),
+      path.join(directories[4], "xiaochuan"),
     ]
     created.forEach((directory) => expect(fs.statSync(directory).isDirectory()).toBe(true))
     fs.rmSync(root, { recursive: true, force: true })

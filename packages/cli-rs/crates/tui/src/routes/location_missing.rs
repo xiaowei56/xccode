@@ -1,6 +1,6 @@
 //! Offer to move the session when the server cannot find its working directory.
 
-use xccode_api::generated::{AbsolutePath, ProjectID, SessionMoveInput, WorktreeCreateInput};
+use xiaochuan_api::generated::{AbsolutePath, ProjectID, SessionMoveInput, WorktreeCreateInput};
 
 use crate::dialogs::worktrees::Selection;
 use crate::prelude::*;
@@ -98,8 +98,8 @@ fn dispose(tui: &Tui, layer: Option<Disposer>) {
 fn view(tui: &Tui, session: &SessionID, directory: &str) -> View {
     let app = &tui.app;
     let theme = tui.page();
-    let home = xccode_local::paths::home();
-    let shown = xccode_ui::select::truncate_middle(&xccode_ui::path::abbreviate_home(directory, &home), 72);
+    let home = xiaochuan_local::paths::home();
+    let shown = xiaochuan_ui::select::truncate_middle(&xiaochuan_ui::path::abbreviate_home(directory, &home), 72);
     let header = View::new(app)
         .row()
         .gap(1)
@@ -166,7 +166,7 @@ fn choose(tui: &Tui, session: SessionID, directory: String) {
         tui,
         crate::dialogs::worktrees::Props {
             project_id: project.clone(),
-            location: Some(xccode_store::Location::new(directory.clone())),
+            location: Some(xiaochuan_store::Location::new(directory.clone())),
             current: Some(Selection::Directory { directory, subdirectory }),
             on_select: Rc::new(move |tui, selection| {
                 tui.dialogs.clear();

@@ -8,26 +8,26 @@ import "@/settings/workspaces/project.css"
 import "@/shell/palette-menu.css"
 import "@/shell/search-list.css"
 import "@/shell/titlebar/titlebar.css"
-import "@xccode/session-ui/sources/panel"
+import "@xiaochuan/session-ui/sources/panel"
 
-import { Accordion } from "@xccode/ui/accordion"
-import { Button } from "@xccode/ui/button"
-import { Checkbox } from "@xccode/ui/checkbox"
-import { Collapsible } from "@xccode/ui/collapsible"
-import { Field } from "@xccode/ui/field"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { InlineInput } from "@xccode/ui/inline-input"
-import { LineComment, LineCommentOverflowIcon } from "@xccode/ui/line-comment"
-import { ProjectAvatar } from "@xccode/ui/project-avatar"
-import { RadioGroup, RadioItem } from "@xccode/ui/radio"
-import { SegmentedControl, SegmentedControlItem } from "@xccode/ui/segmented-control"
-import { Select } from "@xccode/ui/select"
-import { SplitButton, SplitButtonAction, SplitButtonMenuTrigger } from "@xccode/ui/split-button"
-import { Switch } from "@xccode/ui/switch"
-import { Tabs } from "@xccode/ui/tabs"
-import { TextInput } from "@xccode/ui/text-input"
-import { Textarea } from "@xccode/ui/textarea"
+import { Accordion } from "@xiaochuan/ui/accordion"
+import { Button } from "@xiaochuan/ui/button"
+import { Checkbox } from "@xiaochuan/ui/checkbox"
+import { Collapsible } from "@xiaochuan/ui/collapsible"
+import { Field } from "@xiaochuan/ui/field"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { InlineInput } from "@xiaochuan/ui/inline-input"
+import { LineComment, LineCommentOverflowIcon } from "@xiaochuan/ui/line-comment"
+import { ProjectAvatar } from "@xiaochuan/ui/project-avatar"
+import { RadioGroup, RadioItem } from "@xiaochuan/ui/radio"
+import { SegmentedControl, SegmentedControlItem } from "@xiaochuan/ui/segmented-control"
+import { Select } from "@xiaochuan/ui/select"
+import { SplitButton, SplitButtonAction, SplitButtonMenuTrigger } from "@xiaochuan/ui/split-button"
+import { Switch } from "@xiaochuan/ui/switch"
+import { Tabs } from "@xiaochuan/ui/tabs"
+import { TextInput } from "@xiaochuan/ui/text-input"
+import { Textarea } from "@xiaochuan/ui/textarea"
 import { createEffect, For, onCleanup, Show, type JSX } from "solid-js"
 import { focusTarget, forceFocusStyles } from "./force-focus"
 
@@ -117,7 +117,7 @@ const groups: Group[] = [
         note: "Was background only. Keyboard focus now uses the default ring; the background still indicates hover and an open menu.",
         render: () => (
           <button type="button" class="h-7 rounded-[6px] px-1.5 text-13-regular">
-            xccode
+            xiaochuan
           </button>
         ),
       },
@@ -457,7 +457,7 @@ const groups: Group[] = [
                 class="flex h-full min-w-0 flex-1 items-center gap-2 rounded-[4px] bg-transparent text-start focus-visible:outline-none"
               >
                 <ProjectAvatar fallback="O" variant="blue" class="!size-5" />
-                <span class="text-[13px] font-[530]">xccode</span>
+                <span class="text-[13px] font-[530]">xiaochuan</span>
               </button>
             </div>
           </div>

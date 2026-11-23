@@ -4,19 +4,19 @@ import { bindings, defineConfig } from "cf/config"
 // here; delete a hostname once old links and V1 clients no longer need an answer from it.
 // - opncd.ai: the retired session-sharing host. Session sharing is retired and V2 has no sharing, so it only answers
 //   the tombstone page and the V1 share API stubs.
-// - api.xccode.ai: the GitHub App token exchange used by the V1 GitHub Action.
+// - api.xiaochuan.ai: the GitHub App token exchange used by the V1 GitHub Action.
 export default defineConfig(({ mode }) => {
   const dev = mode === "dev"
   return {
     // Anomaly
     accountId: dev ? "d8e944f537ceef3f06a5bd3aec1d7a53" : "15d29c8639fd3733b1b5486a2acfd968",
     worker: {
-      name: dev ? "xccode-legacy-dev" : "xccode-legacy-production",
+      name: dev ? "xiaochuan-legacy-dev" : "xiaochuan-legacy-production",
       compatibilityDate: "2026-07-25",
       // @octokit/auth-app signs the GitHub App JWT with node:crypto.
       compatibilityFlags: ["nodejs_compat"],
       entrypoint: "./src/index.ts",
-      domains: dev ? ["dev.opncd.ai", "api.dev.xccode.ai"] : ["opncd.ai", "api.xccode.ai"],
+      domains: dev ? ["dev.opncd.ai", "api.dev.xiaochuan.ai"] : ["opncd.ai", "api.xiaochuan.ai"],
       // The production deploy supplies these from AWS Secrets Manager with --secrets-file.
       env: mode !== "production" ? undefined : {
         GITHUB_APP_ID: bindings.secret(),

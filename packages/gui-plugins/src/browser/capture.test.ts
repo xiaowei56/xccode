@@ -151,7 +151,7 @@ test.each([
 test.each(["minimized", "hidden"] as const)("the %s message asks for the window, not the connection", (reason) => {
   const message = undrawableMessage(reason)
 
-  expect(message).toContain("restore the Xccode window")
+  expect(message).toContain("restore the Xiaochuan window")
   expect(message).not.toMatch(/connection|reload|crash/i)
 })
 

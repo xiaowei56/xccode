@@ -47,7 +47,7 @@ describe("prompt display", () => {
       "\0@x",
       "Review /api design",
       "Review /tmp/file.ts",
-      "https://xccode.ai/docs",
+      "https://xiaochuan.ai/docs",
       "\0/x",
     ]
     expect(

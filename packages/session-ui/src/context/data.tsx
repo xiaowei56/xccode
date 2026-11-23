@@ -4,8 +4,8 @@ import type {
   SessionStatus,
   ShellOutputInput,
   ShellOutputOutput,
-} from "@xccode/client/promise"
-import { createSimpleContext } from "@xccode/ui/context"
+} from "@xiaochuan/client/promise"
+import { createSimpleContext } from "@xiaochuan/ui/context"
 import { PreloadMultiFileDiffResult } from "@pierre/diffs/ssr"
 
 export type SessionSummary = Pick<SessionInfo, "id" | "parentID" | "title" | "time">

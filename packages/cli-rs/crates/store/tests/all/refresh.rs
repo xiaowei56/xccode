@@ -5,9 +5,9 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use common::*;
-use xccode_api::generated::*;
-use xccode_store::location::SETTLE;
-use xccode_store::{Catalog, Data, Options};
+use xiaochuan_api::generated::*;
+use xiaochuan_store::location::SETTLE;
+use xiaochuan_store::{Catalog, Data, Options};
 use serde_json::{Value, json};
 
 fn id(value: &str) -> SessionID {

@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/client",
+  "name": "@xiaochuan/client",
   "version": "2.3.0",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaowei56/xccode.git",
+    "url": "git+https://github.com/xiaowei56/xiaochuan.git",
     "directory": "packages/client"
   },
   "publishConfig": {
@@ -36,8 +36,8 @@
     "typecheck:tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@xccode/schema": "workspace:*",
-    "@xccode/protocol": "workspace:*"
+    "@xiaochuan/schema": "workspace:*",
+    "@xiaochuan/protocol": "workspace:*"
   },
   "peerDependencies": {
     "effect": "catalog:",
@@ -54,7 +54,7 @@
   "devDependencies": {
     "@effect/platform-node": "catalog:",
     "@modelcontextprotocol/client": "2.4.0",
-    "@xccode/httpapi-codegen": "workspace:*",
+    "@xiaochuan/httpapi-codegen": "workspace:*",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:",

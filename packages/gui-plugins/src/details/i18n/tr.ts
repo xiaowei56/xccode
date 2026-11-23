@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Çalışma ağacını sil",
   "mcp.manage": "MCP sunucularını yönet",
   timedOut: "Sunucunun yanıt vermesi çok uzun sürdü",
-  "setup.mcp": "Xccode ile sunucu ekle",
+  "setup.mcp": "Xiaochuan ile sunucu ekle",
   "setup.mcp.prompt":
-    "Genel Xccode yapılandırmama bir MCP sunucusu eklememe yardım et. Hangi hizmeti bağlamak istediğimi sor, ardından kur ve bağlandığını kontrol et.",
-  "setup.plugins": "Xccode ile eklenti ekle",
+    "Genel Xiaochuan yapılandırmama bir MCP sunucusu eklememe yardım et. Hangi hizmeti bağlamak istediğimi sor, ardından kur ve bağlandığını kontrol et.",
+  "setup.plugins": "Xiaochuan ile eklenti ekle",
   "setup.plugins.prompt":
-    "Genel Xccode yapılandırmama bir eklenti eklememe yardım et. Ne yapmasını istediğimi sor, bir eklenti öner, ardından ekle.",
-  "setup.skills": "Xccode ile yeni beceri",
+    "Genel Xiaochuan yapılandırmama bir eklenti eklememe yardım et. Ne yapmasını istediğimi sor, bir eklenti öner, ardından ekle.",
+  "setup.skills": "Xiaochuan ile yeni beceri",
   "setup.skills.prompt":
-    "Genel yapılandırmamda yeni bir Xccode becerisi yazmama yardım et. Sana ne öğretmesi gerektiğini sor, ardından SKILL.md dosyasını yaz.",
+    "Genel yapılandırmamda yeni bir Xiaochuan becerisi yazmama yardım et. Sana ne öğretmesi gerektiğini sor, ardından SKILL.md dosyasını yaz.",
   changesFailed: "Değişiklikler yüklenemedi",
   changesOffline: "Bu sunucuya ulaşılamıyor",
   "mcp.signIn": "Oturum aç",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "{{name}} ayrıntıları",
   "mcp.signIn.open": "{{name}} hesabında oturum aç",
   "mcp.signIn.description":
-    "{{name}} hesabında oturum açabilmeniz için tarayıcınız açılır. Tarayıcı Xccode'u çalıştıran makineye erişemiyorsa, yönlendirildiği URL'yi aşağıya yapıştırın.",
+    "{{name}} hesabında oturum açabilmeniz için tarayıcınız açılır. Tarayıcı Xiaochuan'u çalıştıran makineye erişemiyorsa, yönlendirildiği URL'yi aşağıya yapıştırın.",
   "mcp.signIn.waiting": "Yetkilendirme bekleniyor…",
   "mcp.signIn.failed": "Yetkilendirme başarısız: {{error}}",
   "mcp.signIn.expired": "Yetkilendirmenin süresi doldu",

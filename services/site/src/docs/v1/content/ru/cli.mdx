@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: Параметры и команда xccode CLI.
+description: Параметры и команда xiaochuan CLI.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-CLI xccode по умолчанию запускает [TUI](/docs/tui) при запуске без каких-либо аргументов.
+CLI xiaochuan по умолчанию запускает [TUI](/docs/tui) при запуске без каких-либо аргументов.
 
 ```bash
-xccode
+xiaochuan
 ```
 
-Но он также принимает команды, описанные на этой странице. Это позволяет вам программно взаимодействовать с xccode.
+Но он также принимает команды, описанные на этой странице. Это позволяет вам программно взаимодействовать с xiaochuan.
 
 ```bash
-xccode run "Explain how closures work in JavaScript"
+xiaochuan run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-Запустите TUI xccode.
+Запустите TUI xiaochuan.
 
 ```bash
-xccode [project]
+xiaochuan [project]
 ```
 
 #### Флаги
@@ -44,26 +44,26 @@ xccode [project]
 
 ## Команды
 
-CLI xccode также имеет следующие команды.
+CLI xiaochuan также имеет следующие команды.
 
 ---
 
 ### attach
 
-Подключите терминал к уже работающему внутреннему серверу xccode, запущенному с помощью команд `serve` или `web`.
+Подключите терминал к уже работающему внутреннему серверу xiaochuan, запущенному с помощью команд `serve` или `web`.
 
 ```bash
-xccode attach [url]
+xiaochuan attach [url]
 ```
 
-Это позволяет использовать TUI с удаленным сервером xccode. Например:
+Это позволяет использовать TUI с удаленным сервером xiaochuan. Например:
 
 ```bash
 # Start the backend server for web/mobile access
-xccode web --port 4096 --hostname 0.0.0.0
+xiaochuan web --port 4096 --hostname 0.0.0.0
 
 # In another terminal, attach the TUI to the running backend
-xccode attach http://10.20.30.40:4096
+xiaochuan attach http://10.20.30.40:4096
 ```
 
 #### Флаги
@@ -74,8 +74,8 @@ xccode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c`     | Продолжить последний сеанс                                                                       |
 | <nobr><code>{"--session"}</code></nobr>  | `-s`     | Идентификатор сеанса для продолжения                                                             |
 | <nobr><code>{"--fork"}</code></nobr>     |          | Создать ответвление сеанса при продолжении (используйте с `--continue` или `--session`)          |
-| <nobr><code>{"--password"}</code></nobr> | `-p`     | Пароль базовой аутентификации (по умолчанию `XCCODE_SERVER_PASSWORD`)                          |
-| <nobr><code>{"--username"}</code></nobr> | `-u`     | Имя пользователя базовой аутентификации (по умолчанию `XCCODE_SERVER_USERNAME` или `xccode`) |
+| <nobr><code>{"--password"}</code></nobr> | `-p`     | Пароль базовой аутентификации (по умолчанию `XIAOCHUAN_SERVER_PASSWORD`)                          |
+| <nobr><code>{"--username"}</code></nobr> | `-u`     | Имя пользователя базовой аутентификации (по умолчанию `XIAOCHUAN_SERVER_USERNAME` или `xiaochuan`) |
 
 ---
 
@@ -84,20 +84,20 @@ xccode attach http://10.20.30.40:4096
 Команда для управления учетными данными и входом в систему для провайдеров.
 
 ```bash
-xccode auth [command]
+xiaochuan auth [command]
 ```
 
 ---
 
 #### login
 
-xccode использует список провайдеров с [Models.dev](https://models.dev), поэтому вы можете использовать `xccode auth login` для настройки ключей API для любого поставщика, которого вы хотите использовать. Это хранится в `~/.local/share/xccode/auth.json`.
+xiaochuan использует список провайдеров с [Models.dev](https://models.dev), поэтому вы можете использовать `xiaochuan auth login` для настройки ключей API для любого поставщика, которого вы хотите использовать. Это хранится в `~/.local/share/xiaochuan/auth.json`.
 
 ```bash
-xccode auth login
+xiaochuan auth login
 ```
 
-Когда xccode запускается, он загружает поставщиков из файла учетных данных. И если в ваших средах определены какие-либо ключи или файл `.env` в вашем проекте.
+Когда xiaochuan запускается, он загружает поставщиков из файла учетных данных. И если в ваших средах определены какие-либо ключи или файл `.env` в вашем проекте.
 
 ---
 
@@ -106,13 +106,13 @@ xccode auth login
 Перечисляет всех проверенных поставщиков, которые хранятся в файле учетных данных.
 
 ```bash
-xccode auth list
+xiaochuan auth list
 ```
 
 Или короткая версия.
 
 ```bash
-xccode auth ls
+xiaochuan auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ xccode auth ls
 Выключает вас из провайдера, удаляя его из файла учетных данных.
 
 ```bash
-xccode auth logout
+xiaochuan auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ xccode auth logout
 Управляйте агентом GitHub для автоматизации репозитория.
 
 ```bash
-xccode github [command]
+xiaochuan github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ xccode github [command]
 Установите агент GitHub в свой репозиторий.
 
 ```bash
-xccode github install
+xiaochuan github install
 ```
 
 Это настроит необходимый рабочий процесс GitHub Actions и проведет вас через процесс настройки. [Подробнее](/docs/github).
@@ -154,7 +154,7 @@ xccode github install
 Запустите агент GitHub. Обычно это используется в действиях GitHub.
 
 ```bash
-xccode github run
+xiaochuan github run
 ```
 
 ##### Флаги
@@ -171,7 +171,7 @@ xccode github run
 Управляйте серверами протокола контекста модели.
 
 ```bash
-xccode mcp [command]
+xiaochuan mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ xccode mcp [command]
 Добавьте сервер MCP в свою конфигурацию.
 
 ```bash
-xccode mcp add
+xiaochuan mcp add
 ```
 
 Эта команда поможет вам добавить локальный или удаленный сервер MCP.
@@ -193,13 +193,13 @@ xccode mcp add
 Перечислите все настроенные серверы MCP и состояние их подключения.
 
 ```bash
-xccode mcp list
+xiaochuan mcp list
 ```
 
 Или используйте короткую версию.
 
 ```bash
-xccode mcp ls
+xiaochuan mcp ls
 ```
 
 ---
@@ -209,7 +209,7 @@ xccode mcp ls
 Аутентификация с помощью сервера MCP с поддержкой OAuth.
 
 ```bash
-xccode mcp auth [name]
+xiaochuan mcp auth [name]
 ```
 
 Если вы не укажете имя сервера, вам будет предложено выбрать один из доступных серверов с поддержкой OAuth.
@@ -217,13 +217,13 @@ xccode mcp auth [name]
 Вы также можете перечислить серверы с поддержкой OAuth и их статус аутентификации.
 
 ```bash
-xccode mcp auth list
+xiaochuan mcp auth list
 ```
 
 Или используйте короткую версию.
 
 ```bash
-xccode mcp auth ls
+xiaochuan mcp auth ls
 ```
 
 ---
@@ -233,7 +233,7 @@ xccode mcp auth ls
 Удалите учетные данные OAuth для сервера MCP.
 
 ```bash
-xccode mcp logout [name]
+xiaochuan mcp logout [name]
 ```
 
 ---
@@ -243,7 +243,7 @@ xccode mcp logout [name]
 Отладка проблем с подключением OAuth для сервера MCP.
 
 ```bash
-xccode mcp debug <name>
+xiaochuan mcp debug <name>
 ```
 
 ---
@@ -253,7 +253,7 @@ xccode mcp debug <name>
 Перечислите все доступные модели от настроенных поставщиков.
 
 ```bash
-xccode models [provider]
+xiaochuan models [provider]
 ```
 
 Эта команда отображает все модели, доступные у настроенных вами поставщиков, в формате `provider/model`.
@@ -263,7 +263,7 @@ xccode models [provider]
 При желании вы можете передать идентификатор поставщика, чтобы фильтровать модели по этому поставщику.
 
 ```bash
-xccode models anthropic
+xiaochuan models anthropic
 ```
 
 #### Флаги
@@ -273,36 +273,36 @@ xccode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | Обновите кеш моделей на сайте models.dev.                                         |
 | <nobr><code>{"--verbose"}</code></nobr> | Используйте более подробный вывод модели (включая метаданные, такие как затраты). |
 
-Используйте флаг `--refresh` для обновления списка кэшированных моделей. Это полезно, когда к поставщику добавлены новые модели и вы хотите увидеть их в xccode.
+Используйте флаг `--refresh` для обновления списка кэшированных моделей. Это полезно, когда к поставщику добавлены новые модели и вы хотите увидеть их в xiaochuan.
 
 ```bash
-xccode models --refresh
+xiaochuan models --refresh
 ```
 
 ---
 
 ### run
 
-Запустите xccode в неинтерактивном режиме, передав приглашение напрямую.
+Запустите xiaochuan в неинтерактивном режиме, передав приглашение напрямую.
 
 ```bash
-xccode run [message..]
+xiaochuan run [message..]
 ```
 
 Это полезно для создания сценариев, автоматизации или когда вам нужен быстрый ответ без запуска полного TUI. Например.
 
-```bash "xccode run"
-xccode run Explain the use of context in Go
+```bash "xiaochuan run"
+xiaochuan run Explain the use of context in Go
 ```
 
-Вы также можете подключиться к работающему экземпляру `xccode serve`, чтобы избежать холодной загрузки сервера MCP при каждом запуске:
+Вы также можете подключиться к работающему экземпляру `xiaochuan serve`, чтобы избежать холодной загрузки сервера MCP при каждом запуске:
 
 ```bash
 # Start a headless server in one terminal
-xccode serve
+xiaochuan serve
 
 # In another terminal, run commands that attach to it
-xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+xiaochuan run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### Флаги
@@ -318,9 +318,9 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f`     | Файл(ы) для прикрепления к сообщению                                                             |
 | <nobr><code>{"--format"}</code></nobr>   |          | Формат: по умолчанию (отформатированный) или json (необработанные события JSON).                 |
 | <nobr><code>{"--title"}</code></nobr>    |          | Название сеанса (использует усеченное приглашение, если значение не указано)                     |
-| <nobr><code>{"--attach"}</code></nobr>   |          | Подключитесь к работающему серверу xccode (например, http://localhost:4096)                    |
-| <nobr><code>{"--password"}</code></nobr> | `-p`     | Пароль базовой аутентификации (по умолчанию `XCCODE_SERVER_PASSWORD`)                          |
-| <nobr><code>{"--username"}</code></nobr> | `-u`     | Имя пользователя базовой аутентификации (по умолчанию `XCCODE_SERVER_USERNAME` или `xccode`) |
+| <nobr><code>{"--attach"}</code></nobr>   |          | Подключитесь к работающему серверу xiaochuan (например, http://localhost:4096)                    |
+| <nobr><code>{"--password"}</code></nobr> | `-p`     | Пароль базовой аутентификации (по умолчанию `XIAOCHUAN_SERVER_PASSWORD`)                          |
+| <nobr><code>{"--username"}</code></nobr> | `-u`     | Имя пользователя базовой аутентификации (по умолчанию `XIAOCHUAN_SERVER_USERNAME` или `xiaochuan`) |
 | <nobr><code>{"--dir"}</code></nobr>      |          | Каталог для выполнения или путь на удалённом сервере при подключении                             |
 | <nobr><code>{"--variant"}</code></nobr>  |          | Вариант модели (уровень рассуждений для провайдера)                                              |
 | <nobr><code>{"--thinking"}</code></nobr> |          | Показать блоки размышлений                                                                       |
@@ -330,13 +330,13 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-Запустите автономный сервер xccode для доступа к API. Полный HTTP-интерфейс можно найти в [server docs](/docs/server).
+Запустите автономный сервер xiaochuan для доступа к API. Полный HTTP-интерфейс можно найти в [server docs](/docs/server).
 
 ```bash
-xccode serve
+xiaochuan serve
 ```
 
-При этом запускается HTTP-сервер, который обеспечивает доступ API к функциям xccode без интерфейса TUI. Установите `XCCODE_SERVER_PASSWORD`, чтобы включить базовую аутентификацию HTTP (имя пользователя по умолчанию — `xccode`).
+При этом запускается HTTP-сервер, который обеспечивает доступ API к функциям xiaochuan без интерфейса TUI. Установите `XIAOCHUAN_SERVER_PASSWORD`, чтобы включить базовую аутентификацию HTTP (имя пользователя по умолчанию — `xiaochuan`).
 
 #### Флаги
 
@@ -351,20 +351,20 @@ xccode serve
 
 ### session
 
-Управляйте сессиями xccode.
+Управляйте сессиями xiaochuan.
 
 ```bash
-xccode session [command]
+xiaochuan session [command]
 ```
 
 ---
 
 #### list
 
-Перечислите все сеансы xccode.
+Перечислите все сеансы xiaochuan.
 
 ```bash
-xccode session list
+xiaochuan session list
 ```
 
 ##### Флаги
@@ -378,10 +378,10 @@ xccode session list
 
 ### stats
 
-Покажите статистику использования токенов и затрат для ваших сеансов xccode.
+Покажите статистику использования токенов и затрат для ваших сеансов xiaochuan.
 
 ```bash
-xccode stats
+xiaochuan stats
 ```
 
 #### Флаги
@@ -400,7 +400,7 @@ xccode stats
 Экспортируйте данные сеанса в формате JSON.
 
 ```bash
-xccode export [sessionID]
+xiaochuan export [sessionID]
 ```
 
 Если вы не укажете идентификатор сеанса, вам будет предложено выбрать один из доступных сеансов.
@@ -412,24 +412,24 @@ xccode export [sessionID]
 Импортируйте данные сеанса из файла JSON.
 
 ```bash
-xccode import <file>
+xiaochuan import <file>
 ```
 
 ```bash
-xccode import session.json
+xiaochuan import session.json
 ```
 
 ---
 
 ### web
 
-Запустите автономный сервер xccode с веб-интерфейсом.
+Запустите автономный сервер xiaochuan с веб-интерфейсом.
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-При этом запускается HTTP-сервер и открывается веб-браузер для доступа к xccode через веб-интерфейс. Установите `XCCODE_SERVER_PASSWORD`, чтобы включить базовую аутентификацию HTTP (имя пользователя по умолчанию — `xccode`).
+При этом запускается HTTP-сервер и открывается веб-браузер для доступа к xiaochuan через веб-интерфейс. Установите `XIAOCHUAN_SERVER_PASSWORD`, чтобы включить базовую аутентификацию HTTP (имя пользователя по умолчанию — `xiaochuan`).
 
 #### Флаги
 
@@ -447,7 +447,7 @@ xccode web
 Запустите сервер ACP (агент-клиентский протокол).
 
 ```bash
-xccode acp
+xiaochuan acp
 ```
 
 Эта команда запускает сервер ACP, который обменивается данными через stdin/stdout с использованием nd-JSON.
@@ -464,10 +464,10 @@ xccode acp
 
 ### uninstall
 
-Удалите xccode и удалите все связанные файлы.
+Удалите xiaochuan и удалите все связанные файлы.
 
 ```bash
-xccode uninstall
+xiaochuan uninstall
 ```
 
 #### Флаги
@@ -483,22 +483,22 @@ xccode uninstall
 
 ### upgrade
 
-Обновляет xccode до последней версии или определенной версии.
+Обновляет xiaochuan до последней версии или определенной версии.
 
 ```bash
-xccode upgrade [target]
+xiaochuan upgrade [target]
 ```
 
 Чтобы обновиться до последней версии.
 
 ```bash
-xccode upgrade
+xiaochuan upgrade
 ```
 
 Для обновления до определенной версии.
 
 ```bash
-xccode upgrade v0.1.48
+xiaochuan upgrade v0.1.48
 ```
 
 #### Флаги
@@ -511,7 +511,7 @@ xccode upgrade v0.1.48
 
 ## Глобальные флаги
 
-CLI xccode принимает следующие глобальные флаги.
+CLI xiaochuan принимает следующие глобальные флаги.
 
 | Флаг                                       | Короткий | Описание                                   |
 | ------------------------------------------ | -------- | ------------------------------------------ |
@@ -524,33 +524,33 @@ CLI xccode принимает следующие глобальные флаги
 
 ## Переменные среды
 
-xccode можно настроить с помощью переменных среды.
+xiaochuan можно настроить с помощью переменных среды.
 
 | Переменная                            | Тип                 | Описание                                                                         |
 | ------------------------------------- | ------------------- | -------------------------------------------------------------------------------- |
-| `XCCODE_GIT_BASH_PATH`              | строка              | Путь к исполняемому файлу Git Bash в Windows                                     |
-| `XCCODE_CONFIG`                     | строка              | Путь к файлу конфигурации                                                        |
-| `XCCODE_TUI_CONFIG`                 | строка              | Путь к файлу конфигурации TUI                                                    |
-| `XCCODE_CONFIG_DIR`                 | строка              | Путь к каталогу конфигурации                                                     |
-| `XCCODE_CONFIG_CONTENT`             | строка              | Встроенное содержимое конфигурации json                                          |
-| `XCCODE_DISABLE_AUTOUPDATE`         | логическое значение | Отключить автоматическую проверку обновлений                                     |
-| `XCCODE_DISABLE_PRUNE`              | логическое значение | Отключить удаление старых данных                                                 |
-| `XCCODE_DISABLE_TERMINAL_TITLE`     | логическое значение | Отключить автоматическое обновление заголовка терминала                          |
-| `XCCODE_PERMISSION`                 | строка              | Встроенная конфигурация разрешений json                                          |
-| `XCCODE_DISABLE_DEFAULT_PLUGINS`    | логическое значение | Отключить плагины по умолчанию                                                   |
-| `XCCODE_DISABLE_LSP_DOWNLOAD`       | логическое значение | Отключить автоматическую загрузку LSP-сервера                                    |
-| `XCCODE_ENABLE_EXPERIMENTAL_MODELS` | логическое значение | Включить экспериментальные модели                                                |
-| `XCCODE_DISABLE_AUTOCOMPACT`        | логическое значение | Отключить автоматическое сжатие контекста                                        |
-| `XCCODE_DISABLE_CLAUDE_CODE`        | логическое значение | Отключить чтение из `.claude` (подсказка + навыки)                               |
-| `XCCODE_DISABLE_CLAUDE_CODE_PROMPT` | логическое значение | Отключить чтение `~/.claude/CLAUDE.md`                                           |
-| `XCCODE_DISABLE_CLAUDE_CODE_SKILLS` | логическое значение | Отключить загрузку `.claude/skills`                                              |
-| `XCCODE_DISABLE_MODELS_FETCH`       | логическое значение | Отключить получение моделей из удаленных источников                              |
-| `XCCODE_FAKE_VCS`                   | строка              | Поддельный поставщик VCS для целей тестирования                                  |
-| `XCCODE_CLIENT`                     | строка              | Идентификатор клиента (по умолчанию `cli`)                                       |
-| `XCCODE_ENABLE_EXA`                 | логическое значение | Включить инструменты веб-поиска Exa                                              |
-| `XCCODE_SERVER_PASSWORD`            | строка              | Включить базовую аутентификацию для `serve`/`web`                                |
-| `XCCODE_SERVER_USERNAME`            | строка              | Переопределить имя пользователя базовой аутентификации (по умолчанию `xccode`) |
-| `XCCODE_MODELS_URL`                 | строка              | Пользовательский URL-адрес для получения конфигурации модели                     |
+| `XIAOCHUAN_GIT_BASH_PATH`              | строка              | Путь к исполняемому файлу Git Bash в Windows                                     |
+| `XIAOCHUAN_CONFIG`                     | строка              | Путь к файлу конфигурации                                                        |
+| `XIAOCHUAN_TUI_CONFIG`                 | строка              | Путь к файлу конфигурации TUI                                                    |
+| `XIAOCHUAN_CONFIG_DIR`                 | строка              | Путь к каталогу конфигурации                                                     |
+| `XIAOCHUAN_CONFIG_CONTENT`             | строка              | Встроенное содержимое конфигурации json                                          |
+| `XIAOCHUAN_DISABLE_AUTOUPDATE`         | логическое значение | Отключить автоматическую проверку обновлений                                     |
+| `XIAOCHUAN_DISABLE_PRUNE`              | логическое значение | Отключить удаление старых данных                                                 |
+| `XIAOCHUAN_DISABLE_TERMINAL_TITLE`     | логическое значение | Отключить автоматическое обновление заголовка терминала                          |
+| `XIAOCHUAN_PERMISSION`                 | строка              | Встроенная конфигурация разрешений json                                          |
+| `XIAOCHUAN_DISABLE_DEFAULT_PLUGINS`    | логическое значение | Отключить плагины по умолчанию                                                   |
+| `XIAOCHUAN_DISABLE_LSP_DOWNLOAD`       | логическое значение | Отключить автоматическую загрузку LSP-сервера                                    |
+| `XIAOCHUAN_ENABLE_EXPERIMENTAL_MODELS` | логическое значение | Включить экспериментальные модели                                                |
+| `XIAOCHUAN_DISABLE_AUTOCOMPACT`        | логическое значение | Отключить автоматическое сжатие контекста                                        |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE`        | логическое значение | Отключить чтение из `.claude` (подсказка + навыки)                               |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_PROMPT` | логическое значение | Отключить чтение `~/.claude/CLAUDE.md`                                           |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_SKILLS` | логическое значение | Отключить загрузку `.claude/skills`                                              |
+| `XIAOCHUAN_DISABLE_MODELS_FETCH`       | логическое значение | Отключить получение моделей из удаленных источников                              |
+| `XIAOCHUAN_FAKE_VCS`                   | строка              | Поддельный поставщик VCS для целей тестирования                                  |
+| `XIAOCHUAN_CLIENT`                     | строка              | Идентификатор клиента (по умолчанию `cli`)                                       |
+| `XIAOCHUAN_ENABLE_EXA`                 | логическое значение | Включить инструменты веб-поиска Exa                                              |
+| `XIAOCHUAN_SERVER_PASSWORD`            | строка              | Включить базовую аутентификацию для `serve`/`web`                                |
+| `XIAOCHUAN_SERVER_USERNAME`            | строка              | Переопределить имя пользователя базовой аутентификации (по умолчанию `xiaochuan`) |
+| `XIAOCHUAN_MODELS_URL`                 | строка              | Пользовательский URL-адрес для получения конфигурации модели                     |
 
 ---
 
@@ -560,20 +560,20 @@ xccode можно настроить с помощью переменных ср
 
 | Переменная                                      | Тип                 | Описание                                               |
 | ----------------------------------------------- | ------------------- | ------------------------------------------------------ |
-| `XCCODE_EXPERIMENTAL`                         | логическое значение | Включить экспериментальные функции под общим флагом    |
-| `XCCODE_EXPERIMENTAL_ICON_DISCOVERY`          | логическое значение | Включить обнаружение значков                           |
-| `XCCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | логическое значение | Отключить копирование при выборе в TUI                 |
-| `XCCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | число               | Таймаут по умолчанию для команд bash в мс              |
-| `XCCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | число               | Максимальное количество токенов вывода для ответов LLM |
-| `XCCODE_EXPERIMENTAL_FILEWATCHER`             | логическое значение | Включить просмотр файлов для всего каталога            |
-| `XCCODE_EXPERIMENTAL_OXFMT`                   | логическое значение | Включить форматтер oxfmt                               |
-| `XCCODE_EXPERIMENTAL_LSP_TOOL`                | логическое значение | Включить экспериментальный инструмент LSP              |
-| `XCCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | логическое значение | Отключить просмотрщик файлов                           |
-| `XCCODE_EXPERIMENTAL_EXA`                     | логическое значение | Включить экспериментальные функции Exa                 |
-| `XCCODE_EXPERIMENTAL_LSP_TY`                  | логическое значение | Включить TY LSP для файлов python                      |
-| `XCCODE_EXPERIMENTAL_PLAN_MODE`               | логическое значение | Включить режим плана                                   |
-| `XCCODE_EXPERIMENTAL_EVENT_SYSTEM`            | логическое значение | Включить экспериментальную систему событий             |
-| `XCCODE_EXPERIMENTAL_NATIVE_LLM`              | логическое значение | Включить нативный путь запросов LLM                    |
-| `XCCODE_EXPERIMENTAL_PARALLEL`                | логическое значение | Включить параллельное выполнение веб-поиска            |
-| `XCCODE_EXPERIMENTAL_SCOUT`                   | логическое значение | Включить субагент Scout                                |
-| `XCCODE_EXPERIMENTAL_WORKSPACES`              | логическое значение | Включить поддержку рабочих областей                    |
+| `XIAOCHUAN_EXPERIMENTAL`                         | логическое значение | Включить экспериментальные функции под общим флагом    |
+| `XIAOCHUAN_EXPERIMENTAL_ICON_DISCOVERY`          | логическое значение | Включить обнаружение значков                           |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | логическое значение | Отключить копирование при выборе в TUI                 |
+| `XIAOCHUAN_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | число               | Таймаут по умолчанию для команд bash в мс              |
+| `XIAOCHUAN_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | число               | Максимальное количество токенов вывода для ответов LLM |
+| `XIAOCHUAN_EXPERIMENTAL_FILEWATCHER`             | логическое значение | Включить просмотр файлов для всего каталога            |
+| `XIAOCHUAN_EXPERIMENTAL_OXFMT`                   | логическое значение | Включить форматтер oxfmt                               |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TOOL`                | логическое значение | Включить экспериментальный инструмент LSP              |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_FILEWATCHER`     | логическое значение | Отключить просмотрщик файлов                           |
+| `XIAOCHUAN_EXPERIMENTAL_EXA`                     | логическое значение | Включить экспериментальные функции Exa                 |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TY`                  | логическое значение | Включить TY LSP для файлов python                      |
+| `XIAOCHUAN_EXPERIMENTAL_PLAN_MODE`               | логическое значение | Включить режим плана                                   |
+| `XIAOCHUAN_EXPERIMENTAL_EVENT_SYSTEM`            | логическое значение | Включить экспериментальную систему событий             |
+| `XIAOCHUAN_EXPERIMENTAL_NATIVE_LLM`              | логическое значение | Включить нативный путь запросов LLM                    |
+| `XIAOCHUAN_EXPERIMENTAL_PARALLEL`                | логическое значение | Включить параллельное выполнение веб-поиска            |
+| `XIAOCHUAN_EXPERIMENTAL_SCOUT`                   | логическое значение | Включить субагент Scout                                |
+| `XIAOCHUAN_EXPERIMENTAL_WORKSPACES`              | логическое значение | Включить поддержку рабочих областей                    |

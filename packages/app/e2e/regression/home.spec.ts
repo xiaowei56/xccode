@@ -1,4 +1,4 @@
-import type { XccodeEvent } from "@xccode/client/promise"
+import type { XiaochuanEvent } from "@xiaochuan/client/promise"
 import { expect, test, type Page } from "@playwright/test"
 import {
   expectPath,
@@ -12,7 +12,7 @@ import {
   sessionHref,
   T0,
 } from "../utils/app"
-import { mockXccodeServer, mockServers } from "../utils/mock-server"
+import { mockXiaochuanServer, mockServers } from "../utils/mock-server"
 import { fixture, mockStressTimeline } from "../utils/session-fixture"
 import { mockRemoteServer, mockWorkspace, newSessionLocation } from "../utils/workspace"
 import { APP_READY_TIMEOUT, expectAppVisible } from "../utils/waits"
@@ -174,7 +174,7 @@ test("Home lists projects and sessions when stored state hides every server", as
   await mockStressTimeline(page)
   await seed(page, { usedProjects: { local: [fixture.project.id] } })
   // A second seed merges into the server entry the first one wrote.
-  await seed(page, { storage: { "xccode.global.dat:server": { hidden: { [fixture.serverKey]: true } } } })
+  await seed(page, { storage: { "xiaochuan.global.dat:server": { hidden: { [fixture.serverKey]: true } } } })
   await page.goto("/")
 
   await expect(
@@ -391,15 +391,15 @@ test("the Home shortcut focuses session search, and the Home button leaves focus
 const entry = (name: string, active: number, id = `proj_${name}`) =>
   project({
     id,
-    directory: `C:/Xccode/${name}`,
+    directory: `C:/Xiaochuan/${name}`,
     name,
     time: { created: T0, updated: T0, active: T0 + active },
   })
 
 async function homeProjects(page: Page, projects: unknown[]) {
-  const directory = "C:/Xccode/home"
+  const directory = "C:/Xiaochuan/home"
 
-  const server = await mockXccodeServer(page, {
+  const server = await mockXiaochuanServer(page, {
     directory,
     project: project({ id: "proj_home", directory }),
     projects: () => projects,
@@ -429,7 +429,7 @@ test("Home lists the used server projects by recent activity, hides them, and li
   listed.splice(0, listed.length, fresh, active, listed[0]!, listed[1]!, listed[4]!)
   await view.server.push(
     [active, archived, fresh].map(
-      (data, index): XccodeEvent => ({
+      (data, index): XiaochuanEvent => ({
         id: `evt_home_project_${index}`,
         created: T0 + index,
         type: "project.updated",
@@ -456,7 +456,7 @@ test("Home lists the used server projects by recent activity, hides them, and li
   await expect(options.locator(".command-palette-title")).toHaveText(["oldest", "Other projects", "Add project"])
   await options.filter({ hasText: "Other projects" }).click()
   await expect(options.locator(".command-palette-title")).toHaveText(["fresh", "unused", "recent"])
-  await options.filter({ hasText: "C:/Xccode/recent" }).click()
+  await options.filter({ hasText: "C:/Xiaochuan/recent" }).click()
   await expect(newSessionLocation(page)).toContainText("recent")
   await page.getByRole("button", { name: "Home", exact: true }).click()
   await expect(view.rows).toHaveText(["oldest", "recent"])
@@ -473,16 +473,16 @@ test("Home migrates the directories an older build listed to the server's curren
   await seed(page, {
     legacyProjects: {
       local: [
-        { worktree: "C:/Xccode/api", expanded: true },
-        { worktree: "C:/Xccode/web/packages/app" },
-        { worktree: "C:/Xccode/gone" },
+        { worktree: "C:/Xiaochuan/api", expanded: true },
+        { worktree: "C:/Xiaochuan/web/packages/app" },
+        { worktree: "C:/Xiaochuan/gone" },
       ],
     },
   })
   await page.goto("/")
   await expect(view.rows).toHaveText(["api", "web"])
   await expect
-    .poll(() => page.evaluate(() => JSON.parse(localStorage.getItem("xccode.global.dat:server") ?? "{}")))
+    .poll(() => page.evaluate(() => JSON.parse(localStorage.getItem("xiaochuan.global.dat:server") ?? "{}")))
     .toMatchObject({ usedProjectIDs: { local: ["proj_api", "proj_web"] }, projects: {} })
 })
 
@@ -509,7 +509,7 @@ test("selecting a Home project lists its worktrees once, however often the proje
   await refreshed
 
   // Each update replaces the selected project's object in the store.
-  const renamed: XccodeEvent = {
+  const renamed: XiaochuanEvent = {
     id: "evt_home_worktrees",
     created: T0,
     type: "project.updated",
@@ -549,7 +549,7 @@ test("Home keeps a restored remote selection while the desktop server list loads
   await seed(page, {
     servers: [{ url: REMOTE_SERVER, name: "Remote" }],
     usedProjects: { [REMOTE_SERVER]: ["proj_remote"] },
-    storage: { "xccode.global.dat:layout": { home: { selection } } },
+    storage: { "xiaochuan.global.dat:layout": { home: { selection } } },
   })
   // Desktop storage is asynchronous; the stored servers load after the layout here.
   await page.goto(
@@ -566,7 +566,7 @@ test("Home keeps a restored remote selection while the desktop server list loads
   ).toHaveAttribute("data-selected", "")
   await expect(row(page, local.title)).toHaveCount(0)
   expect(
-    await page.evaluate(() => JSON.parse(localStorage.getItem("xccode.global.dat:layout") ?? "{}").home.selection),
+    await page.evaluate(() => JSON.parse(localStorage.getItem("xiaochuan.global.dat:layout") ?? "{}").home.selection),
   ).toEqual(selection)
 })
 
@@ -603,7 +603,7 @@ test("adding a project to a signed-out server re-pairs it, then continues at the
   // The saved address rejects the new token, so saving moves the server to the link's address.
   const paired = "http://127.0.0.1:4098"
   await mockRemoteServer(page, { name: "Remote", password: "old-password" })
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     server: paired,
     directory: "/remote/paired",
     project: project({ id: "proj_paired", directory: "/remote/paired" }),
@@ -631,7 +631,7 @@ test("adding a project to a signed-out server re-pairs it, then continues at the
 
 test("a server whose saved password changes works with the new password", async ({ page }) => {
   const accepted = { password: "old-password" }
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     server: REMOTE_SERVER,
     directory: "/remote/project",
     project: project({ id: "proj_remote", directory: "/remote/project" }),
@@ -644,7 +644,7 @@ test("a server whose saved password changes works with the new password", async 
   // Saved with the password the server accepts until the test changes it.
   await seed(page, {
     storage: {
-      "xccode.global.dat:server": {
+      "xiaochuan.global.dat:server": {
         list: [{ type: "http", displayName: "Remote", http: { url: REMOTE_SERVER, password: "old-password" } }],
       },
     },
@@ -663,7 +663,7 @@ test("a server whose saved password changes works with the new password", async 
   await page.getByRole("menuitem", { name: "Edit", exact: true }).click()
   const editor = page.getByRole("dialog", { name: "Edit server" })
   await editor.getByPlaceholder("password").fill("new-password")
-  // The server now rejects the old password, as after `xccode service set password`.
+  // The server now rejects the old password, as after `xiaochuan service set password`.
   accepted.password = "new-password"
   await editor.getByRole("button", { name: "Save", exact: true }).click()
   await expect(editor).toHaveCount(0)
@@ -674,10 +674,10 @@ test("a server whose saved password changes works with the new password", async 
   await expect(picker.getByText("Unable to read this folder")).toHaveCount(0)
 })
 
-const recovery = "C:/Xccode/Worktrees/project-menu-recovery"
+const recovery = "C:/Xiaochuan/Worktrees/project-menu-recovery"
 
 const worktree =
-  "C:/Xccode/Worktrees/project-42/long-folder-name-for-checking-wrapped-worktree-paths/another-long-folder-name"
+  "C:/Xiaochuan/Worktrees/project-42/long-folder-name-for-checking-wrapped-worktree-paths/another-long-folder-name"
 
 for (const state of [
   { name: "local", directory: fixture.directory },

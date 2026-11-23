@@ -1,7 +1,7 @@
 import { EOL } from "os"
 import { Effect } from "effect"
-import { Xccode } from "@xccode/client"
-import { Service } from "@xccode/client/effect/service"
+import { Xiaochuan } from "@xiaochuan/client"
+import { Service } from "@xiaochuan/client/effect/service"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
 import { ServerConnection } from "../../../services/server-connection"
@@ -11,7 +11,7 @@ export default Runtime.handler(
   Commands.commands.debug.commands.config,
   Effect.fn("cli.debug.config")(function* () {
     const { endpoint } = yield* ServerConnection.resolve()
-    const client = Xccode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+    const client = Xiaochuan.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
     const entries = yield* Effect.promise(() => client.config.get({ location: { directory: process.cwd() } }))
     process.stdout.write(JSON.stringify(redactConfig(entries), null, 2) + EOL)
   }),

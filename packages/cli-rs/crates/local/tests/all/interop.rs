@@ -7,15 +7,15 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::time::{Duration, SystemTime};
 
-use xccode_local::channel;
-use xccode_local::lock::{self, Options};
-use xccode_local::paths::Paths;
-use xccode_local::registration::Registration;
-use xccode_local::service_config::{Edit, ServiceConfig};
+use xiaochuan_local::channel;
+use xiaochuan_local::lock::{self, Options};
+use xiaochuan_local::paths::Paths;
+use xiaochuan_local::registration::Registration;
+use xiaochuan_local::service_config::{Edit, ServiceConfig};
 use serde_json::Value;
 
 fn ts_root() -> PathBuf {
-    std::env::var_os("XCCODE_TS_ROOT")
+    std::env::var_os("XIAOCHUAN_TS_ROOT")
         .map(PathBuf::from)
         .unwrap_or_else(|| Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../..").canonicalize().unwrap())
 }
@@ -27,8 +27,8 @@ fn script() -> PathBuf {
 fn bun(args: &[&str]) -> Option<Command> {
     if Command::new("bun").arg("--version").output().is_err() {
         assert!(
-            std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(),
-            "XCCODE_RS_REQUIRE_TS is set, but skipped: bun is not on PATH"
+            std::env::var_os("XIAOCHUAN_RS_REQUIRE_TS").is_none(),
+            "XIAOCHUAN_RS_REQUIRE_TS is set, but skipped: bun is not on PATH"
         );
         eprintln!("skipped: bun is not on PATH");
         return None;
@@ -42,11 +42,11 @@ fn with_modules() -> bool {
     let present = ts_root().join("node_modules").is_dir();
     if !present {
         assert!(
-            std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(),
-            "XCCODE_RS_REQUIRE_TS is set, but skipped: {} has no node_modules; set XCCODE_TS_ROOT",
+            std::env::var_os("XIAOCHUAN_RS_REQUIRE_TS").is_none(),
+            "XIAOCHUAN_RS_REQUIRE_TS is set, but skipped: {} has no node_modules; set XIAOCHUAN_TS_ROOT",
             ts_root().display()
         );
-        eprintln!("skipped: {} has no node_modules; set XCCODE_TS_ROOT", ts_root().display());
+        eprintln!("skipped: {} has no node_modules; set XIAOCHUAN_TS_ROOT", ts_root().display());
     }
     present
 }
@@ -68,7 +68,7 @@ fn lock_try(dir: &Path, key: &str, stale_ms: u64) -> Option<String> {
 
 #[test]
 fn typescript_holds_rust_waits() {
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     let Some(mut command) = bun(&["lock-hold", dir.path().to_str().unwrap(), "shared-key", "60000"]) else { return };
     let mut child = command.stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap();
     let mut out = BufReader::new(child.stdout.take().unwrap());
@@ -89,7 +89,7 @@ fn typescript_holds_rust_waits() {
 
 #[test]
 fn rust_holds_typescript_waits() {
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     let held = lock::acquire(dir.path(), "shared-key", &quick(60_000)).unwrap();
     let Some(result) = lock_try(dir.path(), "shared-key", 60_000) else { return };
     assert_eq!(result, "timeout");
@@ -100,7 +100,7 @@ fn rust_holds_typescript_waits() {
 #[test]
 fn stale_locks_are_broken_across_clients() {
     // A TypeScript owner killed while holding the lock.
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     let Some(mut command) = bun(&["lock-hold", dir.path().to_str().unwrap(), "k", "300"]) else { return };
     let mut child = command.stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap();
     let mut line = String::new();
@@ -152,12 +152,12 @@ fn channel_and_registration_match_typescript() {
 
 // A temporary home whose XDG roots both clients use. TypeScript run from source is channel `local`.
 struct Home {
-    dir: xccode_util::temp::TempDir,
+    dir: xiaochuan_util::temp::TempDir,
 }
 
 impl Home {
     fn new() -> Self {
-        Self { dir: xccode_util::temp::tempdir().unwrap() }
+        Self { dir: xiaochuan_util::temp::tempdir().unwrap() }
     }
 
     fn var(&self, name: &str) -> Option<OsString> {
@@ -183,7 +183,7 @@ impl Home {
     // Runs `config <args>` in TypeScript: `Ok` with the result, `Err` with the error message.
     fn ts(&self, args: &[&str]) -> Result<Value, String> {
         let mut command = bun(&[&["config"], args].concat()).unwrap();
-        command.env_remove("XCCODE_CONFIG_DIR").env_remove("XCCODE_PASSWORD");
+        command.env_remove("XIAOCHUAN_CONFIG_DIR").env_remove("XIAOCHUAN_PASSWORD");
         for name in ["HOME", "XDG_CONFIG_HOME", "XDG_STATE_HOME", "XDG_DATA_HOME", "XDG_CACHE_HOME"] {
             command.env(name, self.var(name).unwrap());
         }

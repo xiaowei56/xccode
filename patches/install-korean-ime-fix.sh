@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# xccode Korean IME Fix Installer
-# https://github.com/xiaowei56/xccode/issues/14371
+# xiaochuan Korean IME Fix Installer
+# https://github.com/xiaowei56/xiaochuan/issues/14371
 #
-# Patches xccode to prevent Korean (and other CJK) IME last character
+# Patches xiaochuan to prevent Korean (and other CJK) IME last character
 # truncation when pressing Enter in Kitty and other terminals.
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/claudianus/xccode/fix-zhipuai-coding-plan-thinking/patches/install-korean-ime-fix.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/claudianus/xiaochuan/fix-zhipuai-coding-plan-thinking/patches/install-korean-ime-fix.sh | bash
 #   # or from a cloned repo:
 #   ./patches/install-korean-ime-fix.sh
 
@@ -18,9 +18,9 @@ ORANGE='\033[38;5;214m'
 MUTED='\033[0;2m'
 NC='\033[0m'
 
-XCCODE_DIR="${XCCODE_DIR:-$HOME/.xccode}"
-XCCODE_SRC="${XCCODE_SRC:-$HOME/.xccode-src}"
-FORK_REPO="${FORK_REPO:-https://github.com/claudianus/xccode.git}"
+XIAOCHUAN_DIR="${XIAOCHUAN_DIR:-$HOME/.xiaochuan}"
+XIAOCHUAN_SRC="${XIAOCHUAN_SRC:-$HOME/.xiaochuan-src}"
+FORK_REPO="${FORK_REPO:-https://github.com/claudianus/xiaochuan.git}"
 FORK_BRANCH="${FORK_BRANCH:-fix-zhipuai-coding-plan-thinking}"
 
 info()  { echo -e "${MUTED}$*${NC}"; }
@@ -39,18 +39,18 @@ need git
 need bun
 
 # ── 1. Clone or update fork ────────────────────────────────────────────
-if [ -d "$XCCODE_SRC/.git" ]; then
-  info "Updating existing source at $XCCODE_SRC ..."
-  git -C "$XCCODE_SRC" fetch origin "$FORK_BRANCH"
-  git -C "$XCCODE_SRC" checkout "$FORK_BRANCH"
-  git -C "$XCCODE_SRC" reset --hard "origin/$FORK_BRANCH"
+if [ -d "$XIAOCHUAN_SRC/.git" ]; then
+  info "Updating existing source at $XIAOCHUAN_SRC ..."
+  git -C "$XIAOCHUAN_SRC" fetch origin "$FORK_BRANCH"
+  git -C "$XIAOCHUAN_SRC" checkout "$FORK_BRANCH"
+  git -C "$XIAOCHUAN_SRC" reset --hard "origin/$FORK_BRANCH"
 else
-  info "Cloning fork (shallow) to $XCCODE_SRC ..."
-  git clone --depth 1 --branch "$FORK_BRANCH" "$FORK_REPO" "$XCCODE_SRC"
+  info "Cloning fork (shallow) to $XIAOCHUAN_SRC ..."
+  git clone --depth 1 --branch "$FORK_BRANCH" "$FORK_REPO" "$XIAOCHUAN_SRC"
 fi
 
 # ── 2. Verify the IME fix is present in source ────────────────────────
-PROMPT_FILE="$XCCODE_SRC/packages/xccode/src/cli/cmd/tui/component/prompt/index.tsx"
+PROMPT_FILE="$XIAOCHUAN_SRC/packages/xiaochuan/src/cli/cmd/tui/component/prompt/index.tsx"
 if [ ! -f "$PROMPT_FILE" ]; then
   err "Prompt file not found: $PROMPT_FILE"
   exit 1
@@ -72,16 +72,16 @@ fi
 
 # ── 3. Install dependencies ────────────────────────────────────────────
 info "Installing dependencies (this may take a minute) ..."
-cd "$XCCODE_SRC"
+cd "$XIAOCHUAN_SRC"
 bun install --frozen-lockfile 2>/dev/null || bun install
 
 # ── 4. Build (current platform only) ──────────────────────────────────
-info "Building xccode for current platform ..."
-cd "$XCCODE_SRC/packages/xccode"
+info "Building xiaochuan for current platform ..."
+cd "$XIAOCHUAN_SRC/packages/xiaochuan"
 bun run build --single
 
 # ── 5. Install binary ──────────────────────────────────────────────────
-mkdir -p "$XCCODE_DIR/bin"
+mkdir -p "$XIAOCHUAN_DIR/bin"
 
 PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
@@ -90,23 +90,23 @@ ARCH=$(uname -m)
 [ "$PLATFORM" = "darwin" ] && true
 [ "$PLATFORM" = "linux" ] && true
 
-BUILT_BINARY="$XCCODE_SRC/packages/xccode/dist/xccode-${PLATFORM}-${ARCH}/bin/xccode"
+BUILT_BINARY="$XIAOCHUAN_SRC/packages/xiaochuan/dist/xiaochuan-${PLATFORM}-${ARCH}/bin/xiaochuan"
 
 if [ ! -f "$BUILT_BINARY" ]; then
-  BUILT_BINARY=$(find "$XCCODE_SRC/packages/xccode/dist" -name "xccode" -type f -executable 2>/dev/null | head -1)
+  BUILT_BINARY=$(find "$XIAOCHUAN_SRC/packages/xiaochuan/dist" -name "xiaochuan" -type f -executable 2>/dev/null | head -1)
 fi
 
 if [ -f "$BUILT_BINARY" ]; then
-  if [ -f "$XCCODE_DIR/bin/xccode" ]; then
-    cp "$XCCODE_DIR/bin/xccode" "$XCCODE_DIR/bin/xccode.bak.$(date +%Y%m%d%H%M%S)"
+  if [ -f "$XIAOCHUAN_DIR/bin/xiaochuan" ]; then
+    cp "$XIAOCHUAN_DIR/bin/xiaochuan" "$XIAOCHUAN_DIR/bin/xiaochuan.bak.$(date +%Y%m%d%H%M%S)"
   fi
-  cp "$BUILT_BINARY" "$XCCODE_DIR/bin/xccode"
-  chmod +x "$XCCODE_DIR/bin/xccode"
-  ok "Installed to $XCCODE_DIR/bin/xccode"
+  cp "$BUILT_BINARY" "$XIAOCHUAN_DIR/bin/xiaochuan"
+  chmod +x "$XIAOCHUAN_DIR/bin/xiaochuan"
+  ok "Installed to $XIAOCHUAN_DIR/bin/xiaochuan"
 else
   err "Build failed - binary not found in dist/"
   info "Try running manually:"
-  echo "  cd $XCCODE_SRC/packages/xccode && bun run build --single"
+  echo "  cd $XIAOCHUAN_SRC/packages/xiaochuan && bun run build --single"
   exit 1
 fi
 
@@ -114,7 +114,7 @@ echo ""
 ok "Done! Korean IME fix is now active."
 echo ""
 info "To uninstall and revert to the official release:"
-echo "  curl -fsSL https://xccode.ai/install | bash"
+echo "  curl -fsSL https://xiaochuan.ai/install | bash"
 echo ""
 info "To update (re-pull and rebuild):"
 echo "  $0"

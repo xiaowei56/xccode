@@ -1,7 +1,7 @@
-import { Xccode } from "@xccode/client/promise"
-import { useLanguage } from "@xccode/app/desktop"
-import { Loader } from "@xccode/ui/loader"
-import { showToast, toaster, Toast } from "@xccode/ui/toast"
+import { Xiaochuan } from "@xiaochuan/client/promise"
+import { useLanguage } from "@xiaochuan/app/desktop"
+import { Loader } from "@xiaochuan/ui/loader"
+import { showToast, toaster, Toast } from "@xiaochuan/ui/toast"
 import { createEffect, createRoot, createSignal, onCleanup, onMount } from "solid-js"
 import type { ServerReadyData } from "../shared/ipc-contract"
 import {
@@ -21,7 +21,7 @@ export function MigrationStatus(props: { server: ServerReadyData }) {
   const initial = createMigrationState()
   const [state, setState] = createSignal(initial.state)
   // The main process credentials sidecar requests; see `wireRendererHeaders`.
-  const client = Xccode.make({ baseUrl: props.server.url })
+  const client = Xiaochuan.make({ baseUrl: props.server.url })
   let timer: ReturnType<typeof setTimeout> | undefined
   let controller: AbortController | undefined
   // One handle per shown toast: a render that lands after the dismissal disposes its own root at once.

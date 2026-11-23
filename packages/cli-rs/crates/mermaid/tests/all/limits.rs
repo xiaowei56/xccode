@@ -1,13 +1,13 @@
 use std::time::{Duration, Instant};
 
-use xccode_mermaid::{Palette, Rendered, render};
-use xccode_plugin::node::Reader;
-use xccode_ui::theme::{Catalog, ThemeMode};
+use xiaochuan_mermaid::{Palette, Rendered, render};
+use xiaochuan_plugin::node::Reader;
+use xiaochuan_ui::theme::{Catalog, ThemeMode};
 
 /// Diagrams that once overflowed the stack, looped or froze draw, or fail as a syntax error, within seconds.
 #[test]
 fn hostile_diagrams_end_promptly() {
-    let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
+    let theme = Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme;
     let palette = Palette::read(&Reader::new(&theme, ThemeMode::Dark));
     // A hundred parallel labeled transitions out of a choice, in a composite state with a note.
     let labels = format!(

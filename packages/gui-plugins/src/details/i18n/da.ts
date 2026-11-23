@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Slet worktree",
   "mcp.manage": "Administrer MCP-servere",
   timedOut: "Serveren var for længe om at svare",
-  "setup.mcp": "Tilføj en server med Xccode",
+  "setup.mcp": "Tilføj en server med Xiaochuan",
   "setup.mcp.prompt":
-    "Hjælp mig med at tilføje en MCP-server til min globale Xccode-konfiguration. Spørg mig, hvilken tjeneste jeg vil forbinde, og sæt den derefter op og tjek, at den kan forbinde.",
-  "setup.plugins": "Tilføj et plugin med Xccode",
+    "Hjælp mig med at tilføje en MCP-server til min globale Xiaochuan-konfiguration. Spørg mig, hvilken tjeneste jeg vil forbinde, og sæt den derefter op og tjek, at den kan forbinde.",
+  "setup.plugins": "Tilføj et plugin med Xiaochuan",
   "setup.plugins.prompt":
-    "Hjælp mig med at tilføje et plugin til min globale Xccode-konfiguration. Spørg mig, hvad det skal gøre, foreslå et plugin, og tilføj det derefter.",
-  "setup.skills": "Ny færdighed med Xccode",
+    "Hjælp mig med at tilføje et plugin til min globale Xiaochuan-konfiguration. Spørg mig, hvad det skal gøre, foreslå et plugin, og tilføj det derefter.",
+  "setup.skills": "Ny færdighed med Xiaochuan",
   "setup.skills.prompt":
-    "Hjælp mig med at skrive en ny Xccode-færdighed i min globale konfiguration. Spørg mig, hvad den skal lære dig, og skriv derefter dens SKILL.md.",
+    "Hjælp mig med at skrive en ny Xiaochuan-færdighed i min globale konfiguration. Spørg mig, hvad den skal lære dig, og skriv derefter dens SKILL.md.",
   changesFailed: "Kunne ikke indlæse ændringer",
   changesOffline: "Kan ikke nå denne server",
   "mcp.signIn": "Log ind",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Detaljer for {{name}}",
   "mcp.signIn.open": "Log ind på {{name}}",
   "mcp.signIn.description":
-    "Din browser åbnes, så du kan logge ind på {{name}}. Hvis den ikke kan nå den maskine, der kører Xccode, så indsæt den URL, den blev omdirigeret til, nedenfor.",
+    "Din browser åbnes, så du kan logge ind på {{name}}. Hvis den ikke kan nå den maskine, der kører Xiaochuan, så indsæt den URL, den blev omdirigeret til, nedenfor.",
   "mcp.signIn.waiting": "Venter på godkendelse…",
   "mcp.signIn.failed": "Godkendelse mislykkedes: {{error}}",
   "mcp.signIn.expired": "Godkendelsen er udløbet",

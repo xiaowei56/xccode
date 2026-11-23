@@ -1,5 +1,5 @@
-import { artifactKind, artifactMime, type ArtifactKind } from "@xccode/util/artifact"
-import type { FileContent } from "@xccode/plugin/gui"
+import { artifactKind, artifactMime, type ArtifactKind } from "@xiaochuan/util/artifact"
+import type { FileContent } from "@xiaochuan/plugin/gui"
 
 /** Kinds whose raw bytes are kept so media elements and binary viewers can read them without a text round trip. */
 const binaryKinds = new Set<ArtifactKind>([

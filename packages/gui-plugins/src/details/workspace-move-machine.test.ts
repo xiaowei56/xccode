@@ -13,9 +13,9 @@ import {
   type WorkspaceMoveTransition,
 } from "./workspace-move-machine"
 
-const root = "C:/Xccode/repo"
+const root = "C:/Xiaochuan/repo"
 
-const created = "C:/Xccode/worktrees/quiet-river"
+const created = "C:/Xiaochuan/worktrees/quiet-river"
 
 const project = { id: "proj_repo", worktree: root, sandboxes: [`${root}-feature`] }
 
@@ -461,21 +461,21 @@ describe("workspaceMenuView", () => {
         attempt: 1,
         items: [
           { directory: root },
-          { directory: "C:/Xccode/repo-feature" },
-          { directory: "c:/xccode/REPO-FEATURE" },
-          { directory: "C:/Xccode/repo-other" },
+          { directory: "C:/Xiaochuan/repo-feature" },
+          { directory: "c:/xiaochuan/REPO-FEATURE" },
+          { directory: "C:/Xiaochuan/repo-other" },
         ],
       },
     ]).state
 
-    expect(workspaceMenuView(listed, "C:/Xccode/repo-feature/packages/app", project, false)).toEqual({
+    expect(workspaceMenuView(listed, "C:/Xiaochuan/repo-feature/packages/app", project, false)).toEqual({
       disabled: false,
       showLocal: true,
-      workspaces: ["C:/Xccode/repo-other"],
+      workspaces: ["C:/Xiaochuan/repo-other"],
     })
-    expect(workspaceMenuView(listed, "c:/xccode/repo", project, false)).toMatchObject({
+    expect(workspaceMenuView(listed, "c:/xiaochuan/repo", project, false)).toMatchObject({
       showLocal: false,
-      workspaces: ["C:/Xccode/repo-feature", "C:/Xccode/repo-other"],
+      workspaces: ["C:/Xiaochuan/repo-feature", "C:/Xiaochuan/repo-other"],
     })
     expect(workspaceMenuView(listed, root, project, true).disabled).toBe(true)
   })

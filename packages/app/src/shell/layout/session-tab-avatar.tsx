@@ -5,7 +5,7 @@ import {
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@xccode/ui/project-avatar"
+} from "@xiaochuan/ui/project-avatar"
 
 // The project avatar never changes while a session works: callers show `ActivityRing` at the row's trailing edge, as
 // session tabs do.

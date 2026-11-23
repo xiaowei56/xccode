@@ -1,11 +1,11 @@
 export * as GoalPlugin from "./goal.js"
 
-import { isContextOverflowFailure, Message } from "@xccode/ai/effect"
-import { define } from "@xccode/plugin/effect/plugin"
-import type { SessionIdleBackground } from "@xccode/plugin/effect/session"
-import { Goal } from "@xccode/schema/goal"
-import { Session } from "@xccode/schema/session"
-import { isExactRootFallback } from "@xccode/util/session-title-fallback"
+import { isContextOverflowFailure, Message } from "@xiaochuan/ai/effect"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import type { SessionIdleBackground } from "@xiaochuan/plugin/effect/session"
+import { Goal } from "@xiaochuan/schema/goal"
+import { Session } from "@xiaochuan/schema/session"
+import { isExactRootFallback } from "@xiaochuan/util/session-title-fallback"
 import { Cause, Clock, DateTime, Duration, Effect, FiberMap, Option, Schema, Stream } from "effect"
 import CONTINUATION from "./goal/continuation.txt"
 import JUDGE from "./goal/judge.txt"
@@ -38,7 +38,7 @@ const decodeVerdict = Schema.decodeUnknownOption(Schema.fromJsonString(Verdict))
 const USAGE = "Usage: /goal <objective> | pause | resume | clear"
 
 export const Plugin = define({
-  id: "xccode.goal",
+  id: "xiaochuan.goal",
   effect: Effect.fn(function* (ctx) {
     const read = Effect.fn("GoalPlugin.read")(function* (sessionID: string) {
       return Option.getOrUndefined(decodeState(yield* ctx.storage.get(PREFIX + sessionID)))

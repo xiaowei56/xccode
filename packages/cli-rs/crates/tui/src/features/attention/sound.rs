@@ -4,7 +4,7 @@
 use std::cell::{Cell, OnceCell, RefCell};
 use std::collections::HashMap;
 
-use xccode_local::cli_config::{AttentionSoundName, AttentionSounds};
+use xiaochuan_local::cli_config::{AttentionSoundName, AttentionSounds};
 use opentui::audio::{Audio, Sound};
 use opentui::native::Context;
 

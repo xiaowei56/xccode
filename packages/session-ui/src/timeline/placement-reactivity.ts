@@ -1,4 +1,4 @@
-import type { SessionMessageInfo, SessionStatus } from "@xccode/client/promise"
+import type { SessionMessageInfo, SessionStatus } from "@xiaochuan/client/promise"
 import { createRoot } from "solid-js"
 import { createStore, produce } from "solid-js/store"
 import { storyTool } from "../storybook/current-session-scenarios"

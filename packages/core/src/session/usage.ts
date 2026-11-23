@@ -1,9 +1,9 @@
 export * as SessionUsage from "./usage.js"
 
-import type { Usage } from "@xccode/ai/effect"
-import { Money } from "@xccode/schema/money"
-import type { TokenUsage } from "@xccode/schema/token-usage"
-import type { Model } from "@xccode/schema/model"
+import type { Usage } from "@xiaochuan/ai/effect"
+import { Money } from "@xiaochuan/schema/money"
+import type { TokenUsage } from "@xiaochuan/schema/token-usage"
+import type { Model } from "@xiaochuan/schema/model"
 
 const finite = (value: number) => (Number.isFinite(value) ? value : 0)
 const safe = (value: number | undefined) => Math.max(0, finite(value ?? 0))

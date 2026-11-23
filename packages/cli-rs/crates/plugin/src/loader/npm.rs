@@ -4,7 +4,7 @@
 
 use std::path::{Path, PathBuf};
 
-use xccode_api_types::js::decode_component;
+use xiaochuan_api_types::js::decode_component;
 
 /// A package the cache holds.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -13,11 +13,11 @@ pub struct Package {
     pub name: String,
 }
 
-/// Why a plugin named by npm package `spec` is not loaded: the cache does not hold it, and `xccode-native` installs
+/// Why a plugin named by npm package `spec` is not loaded: the cache does not hold it, and `xiaochuan-native` installs
 /// nothing.
 pub fn missing(spec: &str) -> String {
     format!(
-        "not in xccode's package cache, and xccode-native installs nothing: run `xccode-native plugin add {spec}`"
+        "not in xiaochuan's package cache, and xiaochuan-native installs nothing: run `xiaochuan-native plugin add {spec}`"
     )
 }
 
@@ -272,7 +272,7 @@ fn from_url(spec: &str) -> Result<bool, Throws> {
         true => spec.replace('\\', "/"),
         false => spec.to_owned(),
     };
-    let url = xccode_api_types::js::parse_url(&spec).map_err(|_| Throws)?;
+    let url = xiaochuan_api_types::js::parse_url(&spec).map_err(|_| Throws)?;
     match url.scheme() {
         "git" | "git+http" | "git+https" | "git+rsync" | "git+ftp" | "git+file" | "git+ssh" => {
             git_attrs(url.fragment())?;
@@ -472,7 +472,7 @@ const PROTOCOLS: &[&str] = &[
 /// path.
 fn parse_git_url(giturl: &str) -> Option<url::Url> {
     let with_protocol = correct_protocol(giturl);
-    let parse = |text: &str| xccode_api_types::js::parse_url(text).ok();
+    let parse = |text: &str| xiaochuan_api_types::js::parse_url(text).ok();
     parse(&with_protocol).or_else(|| parse(&correct_url(with_protocol.clone())))
 }
 
@@ -580,7 +580,7 @@ mod tests {
 
     #[test]
     fn a_package_resolves_in_the_newest_generation() {
-        let temp = xccode_util::temp::tempdir().unwrap();
+        let temp = xiaochuan_util::temp::tempdir().unwrap();
         // A package resolves to its real path: the temporary directory's may be an 8.3 name (GitHub's Windows runner).
         let cache = super::super::real(temp.path()).unwrap();
         let install = |key: &str, generation: &str, name: &str| {
@@ -610,7 +610,7 @@ mod tests {
     #[cfg(unix)]
     #[test]
     fn nothing_outside_the_cache_is_found() {
-        let root = xccode_util::temp::tempdir().unwrap();
+        let root = xiaochuan_util::temp::tempdir().unwrap();
         let cache = root.path().join("cache");
         let outside = root.path().join("escaped-js");
         std::fs::create_dir_all(outside.join("node_modules")).unwrap();

@@ -1,5 +1,5 @@
-import { Skill } from "@xccode/schema/skill"
-import { Location } from "@xccode/schema/location"
+import { Skill } from "@xiaochuan/schema/skill"
+import { Location } from "@xiaochuan/schema/location"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { LocationQuery, locationQueryOpenApi } from "./location.js"

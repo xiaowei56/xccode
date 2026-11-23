@@ -1,4 +1,4 @@
-// Per-tool display rules shared across `xccode run` output paths.
+// Per-tool display rules shared across `xiaochuan run` output paths.
 //
 // Each known tool (shell, edit, write, subagent, etc.) has a ToolRule that controls
 // four display hooks:
@@ -14,7 +14,7 @@
 import os from "os"
 import path from "path"
 import stripAnsi from "strip-ansi"
-import type { SessionMessageAssistantTool } from "@xccode/client/promise"
+import type { SessionMessageAssistantTool } from "@xiaochuan/client/promise"
 import { LANGUAGE_EXTENSIONS } from "../util/filetype"
 import { Locale } from "../util/locale"
 import {

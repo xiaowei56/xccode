@@ -2,21 +2,21 @@ import { describe, expect, test } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
 import { Effect, Fiber, Schema, Stream } from "effect"
-import { Agent } from "@xccode/core/agent"
-import { Bus } from "@xccode/core/bus"
-import { Config } from "@xccode/core/config"
-import { Directory, Document, Event, Info } from "@xccode/schema/config"
-import { Model } from "@xccode/schema/model"
-import { ConfigAgentPlugin } from "@xccode/core/config/plugin/agent"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
-import { Permission } from "@xccode/core/permission"
-import { AgentPlugin } from "@xccode/core/plugin/agent"
-import { AbsolutePath } from "@xccode/core/schema"
-import { ConfigNormalize } from "@xccode/core/config/normalize"
-import { ConfigAgentV1 } from "@xccode/core/v1/config/agent"
+import { Agent } from "@xiaochuan/core/agent"
+import { Bus } from "@xiaochuan/core/bus"
+import { Config } from "@xiaochuan/core/config"
+import { Directory, Document, Event, Info } from "@xiaochuan/schema/config"
+import { Model } from "@xiaochuan/schema/model"
+import { ConfigAgentPlugin } from "@xiaochuan/core/config/plugin/agent"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
+import { Permission } from "@xiaochuan/core/permission"
+import { AgentPlugin } from "@xiaochuan/core/plugin/agent"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { ConfigNormalize } from "@xiaochuan/core/config/normalize"
+import { ConfigAgentV1 } from "@xiaochuan/core/v1/config/agent"
 import { advance, drain } from "../lib/clock"
 import { tmpdir, tmpdirScoped } from "../fixture/tmpdir"
 import { testEffect } from "../lib/effect"
@@ -159,7 +159,7 @@ permissions: [{ action: edit, resource: "*", effect: deny }]`,
   it.effect("matches POSIX paths against home-relative permissions", () =>
     Effect.gen(function* () {
       const permissions = yield* loadHomePermissions("/home/test")
-      expect(Permission.evaluate("external_directory", "/home/test/p/xccode/src/*", permissions).effect).toBe("allow")
+      expect(Permission.evaluate("external_directory", "/home/test/p/xiaochuan/src/*", permissions).effect).toBe("allow")
       expect(Permission.evaluate("external_directory", "/home/test/cache/files/*", permissions).effect).toBe("deny")
       expect(Permission.evaluate("external_directory", "/some/~/path", permissions).effect).toBe("deny")
       expect(Permission.evaluate("external_directory", "$HOMELESS/private/*", permissions).effect).toBe("deny")
@@ -178,7 +178,7 @@ permissions: [{ action: edit, resource: "*", effect: deny }]`,
         effect: "allow",
       })
       expect(
-        Permission.evaluate("external_directory", "C:\\Users\\test\\p\\xccode\\src\\*", permissions).effect,
+        Permission.evaluate("external_directory", "C:\\Users\\test\\p\\xiaochuan\\src\\*", permissions).effect,
       ).toBe("allow")
       expect(Permission.evaluate("external_directory", "C:\\Users\\test\\cache\\files\\*", permissions).effect).toBe(
         "deny",
@@ -207,12 +207,12 @@ permissions: [{ action: edit, resource: "*", effect: deny }]`,
                   "*.env.*": "deny",
                   "*.env.example": "allow",
                   "*.dev.vars": "deny",
-                  "~/.local/share/xccode/mcp-auth.json": "deny",
-                  "$HOME/.local/share/xccode/mcp-auth.json": "deny",
+                  "~/.local/share/xiaochuan/mcp-auth.json": "deny",
+                  "$HOME/.local/share/xiaochuan/mcp-auth.json": "deny",
                 },
                 external_directory: {
                   "*": "ask",
-                  "~/.local/share/xccode/*": "deny",
+                  "~/.local/share/xiaochuan/*": "deny",
                 },
               },
             }),
@@ -228,7 +228,7 @@ permissions: [{ action: edit, resource: "*", effect: deny }]`,
                   { action: "external_directory", resource: "*", effect: "allow" },
                   {
                     action: "external_directory",
-                    resource: "~/.local/share/xccode/*",
+                    resource: "~/.local/share/xiaochuan/*",
                     effect: "deny",
                   },
                   { action: "read", resource: "*.env", effect: "deny" },
@@ -245,8 +245,8 @@ permissions: [{ action: edit, resource: "*", effect: deny }]`,
 
       const build = yield* agents.get(Agent.defaultID)
       if (!build) throw new Error("expected configured build agent")
-      const xccodeData = path.join(global.home, ".local", "share", "xccode", "*")
-      const mcpAuth = path.join(global.home, ".local", "share", "xccode", "mcp-auth.json")
+      const xiaochuanData = path.join(global.home, ".local", "share", "xiaochuan", "*")
+      const mcpAuth = path.join(global.home, ".local", "share", "xiaochuan", "mcp-auth.json")
       expect(build.permissions).toEqual([
         ...defaultPermissions,
         { action: "question", resource: "*", effect: "allow" },
@@ -261,17 +261,17 @@ permissions: [{ action: edit, resource: "*", effect: deny }]`,
         { action: "read", resource: mcpAuth, effect: "deny" },
         { action: "read", resource: mcpAuth, effect: "deny" },
         { action: "external_directory", resource: "*", effect: "ask" },
-        { action: "external_directory", resource: xccodeData, effect: "deny" },
+        { action: "external_directory", resource: xiaochuanData, effect: "deny" },
         { action: "*", resource: "*", effect: "allow" },
         { action: "external_directory", resource: "*", effect: "allow" },
-        { action: "external_directory", resource: xccodeData, effect: "deny" },
+        { action: "external_directory", resource: xiaochuanData, effect: "deny" },
         { action: "read", resource: "*.env", effect: "deny" },
       ])
       expect(Permission.evaluate("shell", "bun test", build.permissions).effect).toBe("allow")
       expect(Permission.evaluate("edit", "src/index.ts", build.permissions).effect).toBe("allow")
       expect(Permission.evaluate("webfetch", "https://example.com", build.permissions).effect).toBe("allow")
       expect(Permission.evaluate("read", ".env", build.permissions).effect).toBe("deny")
-      expect(Permission.evaluate("external_directory", xccodeData, build.permissions).effect).toBe("deny")
+      expect(Permission.evaluate("external_directory", xiaochuanData, build.permissions).effect).toBe("deny")
       expect(Permission.evaluate("external_directory", "/outside/*", build.permissions).effect).toBe("allow")
     }),
   )
@@ -456,9 +456,9 @@ permissions: [{ action: edit, resource: "*", effect: deny }]`,
           yield* Effect.promise(async () => {
             await fs.mkdir(path.join(tmp.path, "agents", "team"), { recursive: true })
             await fs.mkdir(path.join(tmp.path, "modes"), { recursive: true })
-            await fs.mkdir(path.join(tmp.path, "agents", ".xccode", "node_modules", "probe"), { recursive: true })
+            await fs.mkdir(path.join(tmp.path, "agents", ".xiaochuan", "node_modules", "probe"), { recursive: true })
             await fs.writeFile(
-              path.join(tmp.path, "agents", ".xccode", "node_modules", "probe", "README.md"),
+              path.join(tmp.path, "agents", ".xiaochuan", "node_modules", "probe", "README.md"),
               "# Dependency README",
             )
             await fs.writeFile(
@@ -528,7 +528,7 @@ Use native v2 fields.`,
           expect(themed?.color).toBeUndefined()
           expect(yield* agents.get(Agent.ID.make("disabled"))).toBeUndefined()
           expect(yield* agents.get(Agent.ID.make("empty"))).toBeUndefined()
-          expect(yield* agents.get(Agent.ID.make(".xccode/node_modules/probe/README"))).toBeUndefined()
+          expect(yield* agents.get(Agent.ID.make(".xiaochuan/node_modules/probe/README"))).toBeUndefined()
           expect(yield* agents.get(Agent.ID.make("plan"))).toMatchObject({ system: "Make a plan.", mode: "primary" })
         }),
       ),
@@ -705,7 +705,7 @@ Mixed fields.`,
           )
 
           yield* configTest.emitChange({ type: "create", path: path.join(tmp.path, "commands", "review.md") })
-          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "xccode.json") })
+          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "xiaochuan.json") })
           yield* drain
           expect(reloads).toBe(0)
 

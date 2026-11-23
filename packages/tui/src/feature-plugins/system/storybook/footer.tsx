@@ -1,4 +1,4 @@
-import type { Plugin } from "@xccode/plugin/tui"
+import type { Plugin } from "@xiaochuan/plugin/tui"
 import { For, Show } from "solid-js"
 
 export type StoryFooterControl = {

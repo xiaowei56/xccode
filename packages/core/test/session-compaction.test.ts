@@ -8,41 +8,41 @@ import {
   Message,
   ToolDefinition,
   type LLMRequest,
-} from "@xccode/ai/effect"
-import { OpenAIChat } from "@xccode/ai/protocols"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { llmClient } from "@xccode/core/effect/app-node-platform"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { EventTable } from "@xccode/core/event/sql"
-import { Instructions } from "@xccode/core/instructions/index"
-import { SessionCompaction } from "@xccode/core/session/compaction"
-import type { SessionContext } from "@xccode/core/session/context"
-import { MessageDecodeError } from "@xccode/core/session/error"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionHistory } from "@xccode/core/session/history"
-import { SessionMessage } from "@xccode/core/session/message"
-import { SessionModelRequest } from "@xccode/core/session/model-request"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { Token } from "@xccode/core/util/token"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { toLLMMessages } from "@xccode/core/session/runner/to-llm-message"
-import { SessionMessageTable, SessionTable } from "@xccode/core/session/sql"
-import { SessionStore } from "@xccode/core/session/store"
-import { Session } from "@xccode/core/session"
-import { Location } from "@xccode/core/location"
-import { Project } from "@xccode/core/project"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { App } from "@xccode/core/app"
-import { Agent } from "@xccode/core/agent"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Money } from "@xccode/schema/money"
-import { Skill } from "@xccode/schema/skill"
-import { Shell } from "@xccode/schema/shell"
+} from "@xiaochuan/ai/effect"
+import { OpenAIChat } from "@xiaochuan/ai/protocols"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { llmClient } from "@xiaochuan/core/effect/app-node-platform"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { EventTable } from "@xiaochuan/core/event/sql"
+import { Instructions } from "@xiaochuan/core/instructions/index"
+import { SessionCompaction } from "@xiaochuan/core/session/compaction"
+import type { SessionContext } from "@xiaochuan/core/session/context"
+import { MessageDecodeError } from "@xiaochuan/core/session/error"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionHistory } from "@xiaochuan/core/session/history"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { SessionModelRequest } from "@xiaochuan/core/session/model-request"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { Token } from "@xiaochuan/core/util/token"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { toLLMMessages } from "@xiaochuan/core/session/runner/to-llm-message"
+import { SessionMessageTable, SessionTable } from "@xiaochuan/core/session/sql"
+import { SessionStore } from "@xiaochuan/core/session/store"
+import { Session } from "@xiaochuan/core/session"
+import { Location } from "@xiaochuan/core/location"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { App } from "@xiaochuan/core/app"
+import { Agent } from "@xiaochuan/core/agent"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Money } from "@xiaochuan/schema/money"
+import { Skill } from "@xiaochuan/schema/skill"
+import { Shell } from "@xiaochuan/schema/shell"
 import { DateTime, Deferred, Effect, Fiber, Layer, Schema, Stream } from "effect"
 import { TestClock } from "effect/testing"
 import { asc, eq, inArray, sql } from "drizzle-orm"
@@ -713,15 +713,15 @@ it.effect("manual compaction summarizes short context instead of no-op", () =>
     expect(requests).toHaveLength(1)
     expect(requests[0]?.promptCacheKey).toBe(parentID)
     expect(requests[0]?.headers).toEqual({
-      "x-xccode-session-id": session.id,
-      "x-xccode-parent-session-id": parentID,
+      "x-xiaochuan-session-id": session.id,
+      "x-xiaochuan-parent-session-id": parentID,
       "x-session-affinity": parentID,
       "X-Session-Id": parentID,
       "x-parent-session-id": parentID,
       "User-Agent": App.useragent(App.make()),
-      "x-xccode-project": Project.ID.global,
-      "x-xccode-session": parentID,
-      "x-xccode-client": "xccode",
+      "x-xiaochuan-project": Project.ID.global,
+      "x-xiaochuan-session": parentID,
+      "x-xiaochuan-client": "xiaochuan",
     })
     expect(requests[0]?.maxTokens).toBe(30_000)
     expect(JSON.stringify(requests[0]?.messages)).toContain("Manual compaction should include this short conversation.")

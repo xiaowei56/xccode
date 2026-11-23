@@ -2,7 +2,7 @@
   Remove a plugin from global configuration
 
 [1mUSAGE[0m
-  [36mxccode plugin remove [flags] <package>[0m
+  [36mxiaochuan plugin remove [flags] <package>[0m
 
 [1mARGUMENTS[0m
   [32mpackage[0m [2mstring[0m    configured package specifier

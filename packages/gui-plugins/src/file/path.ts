@@ -1,5 +1,5 @@
-import { encodeFilePath } from "@xccode/util/path"
-import type { Files } from "@xccode/plugin/gui"
+import { encodeFilePath } from "@xiaochuan/util/path"
+import type { Files } from "@xiaochuan/plugin/gui"
 
 export function pathToFileUrl(filepath: string): string {
   return `file://${encodeFilePath(filepath)}`

@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Worktree verwijderen",
   "mcp.manage": "MCP-servers beheren",
   timedOut: "De server deed er te lang over om te reageren",
-  "setup.mcp": "Server toevoegen met Xccode",
+  "setup.mcp": "Server toevoegen met Xiaochuan",
   "setup.mcp.prompt":
-    "Help me een MCP-server toe te voegen aan mijn globale Xccode-configuratie. Vraag me welke service ik wil verbinden, stel die in en controleer of de verbinding werkt.",
-  "setup.plugins": "Plug-in toevoegen met Xccode",
+    "Help me een MCP-server toe te voegen aan mijn globale Xiaochuan-configuratie. Vraag me welke service ik wil verbinden, stel die in en controleer of de verbinding werkt.",
+  "setup.plugins": "Plug-in toevoegen met Xiaochuan",
   "setup.plugins.prompt":
-    "Help me een plug-in toe te voegen aan mijn globale Xccode-configuratie. Vraag me wat die moet doen, stel een plug-in voor en voeg die toe.",
-  "setup.skills": "Nieuwe vaardigheid met Xccode",
+    "Help me een plug-in toe te voegen aan mijn globale Xiaochuan-configuratie. Vraag me wat die moet doen, stel een plug-in voor en voeg die toe.",
+  "setup.skills": "Nieuwe vaardigheid met Xiaochuan",
   "setup.skills.prompt":
-    "Help me een nieuwe Xccode-vaardigheid te schrijven in mijn globale configuratie. Vraag me wat die je moet leren en schrijf daarna de SKILL.md.",
+    "Help me een nieuwe Xiaochuan-vaardigheid te schrijven in mijn globale configuratie. Vraag me wat die je moet leren en schrijf daarna de SKILL.md.",
   changesFailed: "Kan wijzigingen niet laden",
   changesOffline: "Kan deze server niet bereiken",
   "mcp.signIn": "Aanmelden",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Details voor {{name}}",
   "mcp.signIn.open": "Aanmelden bij {{name}}",
   "mcp.signIn.description":
-    "Je browser wordt geopend zodat je je kunt aanmelden bij {{name}}. Als die de machine waarop Xccode draait niet kan bereiken, plak dan hieronder de URL waarnaar je bent doorgestuurd.",
+    "Je browser wordt geopend zodat je je kunt aanmelden bij {{name}}. Als die de machine waarop Xiaochuan draait niet kan bereiken, plak dan hieronder de URL waarnaar je bent doorgestuurd.",
   "mcp.signIn.waiting": "Wachten op autorisatie…",
   "mcp.signIn.failed": "Autorisatie mislukt: {{error}}",
   "mcp.signIn.expired": "Autorisatie verlopen",

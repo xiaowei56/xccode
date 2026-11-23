@@ -9,9 +9,9 @@ pub mod strip;
 use std::collections::{BTreeMap, HashSet};
 use std::sync::{Arc, Mutex};
 
-use xccode_api::generated::{SessionInboxInfo, SessionInboxItem, SessionInfoOutcome, SessionViewInput};
-use xccode_local::storage::Storage;
-use xccode_store::{Catalog, Location, SessionStatus, State};
+use xiaochuan_api::generated::{SessionInboxInfo, SessionInboxItem, SessionInfoOutcome, SessionViewInput};
+use xiaochuan_local::storage::Storage;
+use xiaochuan_store::{Catalog, Location, SessionStatus, State};
 use opentui::input::{KeyCode, Modifiers};
 use serde::{Deserialize, Serialize};
 
@@ -86,7 +86,7 @@ pub struct Tabs {
     writes: Cell<u64>,
     /// Outstanding `tabs.json` writes in revision order.
     pending: Arc<Mutex<Vec<(u64, Write)>>>,
-    writer: std::cell::OnceCell<xccode_local::serial::Serial>,
+    writer: std::cell::OnceCell<xiaochuan_local::serial::Serial>,
     history: RefCell<History>,
     closed: RefCell<Vec<Closed>>,
     /// Closed tabs that a write still in flight must not bring back (`cancelledTabs`).
@@ -108,7 +108,7 @@ pub struct Tabs {
     fetched: RefCell<String>,
     prefetch: Cell<Option<opentui::prelude::TimerId>>,
     retention: RefCell<Retention>,
-    _watch: RefCell<Option<xccode_local::watch::Watch>>,
+    _watch: RefCell<Option<xiaochuan_local::watch::Watch>>,
 }
 
 impl Tabs {
@@ -119,7 +119,7 @@ impl Tabs {
     pub fn tabs(&self, tui: &Tui) -> Vec<Tab> {
         let file = self.file.borrow();
         let scope = match tui.config().tabs.scope {
-            xccode_local::cli_config::TabsScope::Cwd => file.cwd.get(self.cwd.borrow().as_str()),
+            xiaochuan_local::cli_config::TabsScope::Cwd => file.cwd.get(self.cwd.borrow().as_str()),
             _ => Some(&file.global),
         };
         scope.map(|scope| scope.tabs.clone()).unwrap_or_default()
@@ -667,7 +667,7 @@ fn cycle(tui: &Tui, forward: bool, unread: bool) {
 fn update(tui: &Tui, mutation: impl Fn(&mut Scope) + Send + Sync + 'static) {
     let mutation: Mutation = Arc::new(mutation);
     let cwd = tui.tabs.cwd.borrow().clone();
-    let scoped = matches!(tui.config().tabs.scope, xccode_local::cli_config::TabsScope::Cwd);
+    let scoped = matches!(tui.config().tabs.scope, xiaochuan_local::cli_config::TabsScope::Cwd);
     let apply = {
         let mutation = mutation.clone();
         move |file: &mut Persisted| {
@@ -688,7 +688,7 @@ fn update(tui: &Tui, mutation: impl Fn(&mut Scope) + Send + Sync + 'static) {
     }
     let pending = tui.tabs.pending.clone();
     let proxy = tui.app.proxy();
-    tui.tabs.writer.get_or_init(|| xccode_local::serial::Serial::new("tabs")).run(move || {
+    tui.tabs.writer.get_or_init(|| xiaochuan_local::serial::Serial::new("tabs")).run(move || {
         let Ok(batch) = pending.lock().map(|pending| pending.clone()) else { return };
         let Some(&(revision, _)) = batch.last() else { return };
         let result = storage.update("tabs", &serde_json::json!({}), |value| {

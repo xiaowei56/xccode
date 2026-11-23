@@ -1,5 +1,5 @@
-import type { Artifact } from "@xccode/schema/artifact"
-import type { Session } from "@xccode/schema/session"
+import type { Artifact } from "@xiaochuan/schema/artifact"
+import type { Session } from "@xiaochuan/schema/session"
 import type { Transform } from "./registration.js"
 
 export interface ArtifactProviderCreateInput {

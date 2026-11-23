@@ -1,6 +1,6 @@
 //! Diff commands and key bindings for route and docked views.
 
-use xccode_plugin::abi::interact::{Bind, Layer, LayerScope};
+use xiaochuan_plugin::abi::interact::{Bind, Layer, LayerScope};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Action {
@@ -68,7 +68,7 @@ mod tests {
     #[test]
     fn every_diff_keybind_is_a_command_or_deprecated() {
         let deprecated = ["diff.toggle", "diff.expand", "diff.expand_all", "diff.collapse", "diff.switch_focus"];
-        let keybinds: Vec<&str> = xccode_ui::keymap::DEFINITIONS
+        let keybinds: Vec<&str> = xiaochuan_ui::keymap::DEFINITIONS
             .iter()
             .map(|definition| definition.name)
             .filter(|name| name.starts_with("diff."))

@@ -1,6 +1,6 @@
-use xccode_parity::{Fixture, compare, fixtures_dir};
-use xccode_ui::code;
-use xccode_ui::theme::{Catalog, ThemeMode};
+use xiaochuan_parity::{Fixture, compare, fixtures_dir};
+use xiaochuan_ui::code;
+use xiaochuan_ui::theme::{Catalog, ThemeMode};
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 
@@ -9,7 +9,7 @@ const CORPUS: &str = include_str!("../../../../parity/fixtures/U.4b/corpus.json"
 #[test]
 fn default_grammars_match_typescript() {
     let corpus: serde_json::Map<String, serde_json::Value> = serde_json::from_str(CORPUS).unwrap();
-    let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
+    let theme = Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme;
     let syntax = code::syntax_theme(&theme);
     let mut failed = Vec::new();
     for (filetype, source) in &corpus {
@@ -30,7 +30,7 @@ fn default_grammars_match_typescript() {
         let actual = Fixture::from_capture(&app.render());
         let comparison = compare(&expected, &actual);
         if !comparison.is_equal() {
-            let path = std::env::temp_dir().join("xccode-parity").join(format!("{name}.json"));
+            let path = std::env::temp_dir().join("xiaochuan-parity").join(format!("{name}.json"));
             std::fs::create_dir_all(path.parent().unwrap()).unwrap();
             std::fs::write(&path, actual.to_json()).unwrap();
             failed.push(format!("{name}: {comparison} ({})", path.display()));

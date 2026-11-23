@@ -53,10 +53,10 @@ use std::panic::{AssertUnwindSafe, catch_unwind};
 use std::rc::Rc;
 use std::sync::{Arc, PoisonError, RwLock};
 
-pub use xccode_api_types as types;
+pub use xiaochuan_api_types as types;
 /// The API's requests, one builder per endpoint, typed by what each answers: [`task::Cx::call`] sends them.
-pub use xccode_api_types::call::Call;
-pub use xccode_api_types::client;
+pub use xiaochuan_api_types::call::Call;
+pub use xiaochuan_api_types::client;
 /// The serde the typed helpers decode with ([`Setup::options_as`], [`Stored`]), for a plugin's own types.
 pub use serde;
 use serde::de::DeserializeOwned;
@@ -2600,7 +2600,7 @@ pub struct PanelBind {
 /// A read is the UI thread's, as a [`Host`] is: a render cannot hand it to another thread.
 ///
 /// ```compile_fail,E0277
-/// # use xccode_plugin_abi::*;
+/// # use xiaochuan_plugin_abi::*;
 /// fn render(read: &dyn Read) {
 ///     std::thread::scope(|threads| {
 ///         threads.spawn(|| read.tabs());
@@ -2649,7 +2649,7 @@ pub trait Read {
     fn model(&self) -> Option<ModelRef> {
         None
     }
-    /// What the Xccode Console workspace's limits allow, where the TUI works; `None` while they are not loaded or
+    /// What the Xiaochuan Console workspace's limits allow, where the TUI works; `None` while they are not loaded or
     /// it is not signed in.
     fn limits(&self) -> Option<UsageLimitsInfo> {
         None
@@ -2832,7 +2832,7 @@ pub const SETTINGS: [&str; 5] = ["diffs.source", "diffs.view", "diffs.fullscreen
 /// A host is the UI thread's: a plugin's own thread cannot take one, and wakes the host with a [`Waker`] instead.
 ///
 /// ```compile_fail,E0277
-/// # use xccode_plugin_abi::*;
+/// # use xiaochuan_plugin_abi::*;
 /// fn command(host: &dyn Host) {
 ///     std::thread::scope(|threads| {
 ///         threads.spawn(|| host.edit_composer(ComposerEdit::Submit));
@@ -2841,7 +2841,7 @@ pub const SETTINGS: [&str; 5] = ["diffs.source", "diffs.view", "diffs.fullscreen
 /// ```
 ///
 /// ```compile_fail,E0277
-/// # use xccode_plugin_abi::*;
+/// # use xiaochuan_plugin_abi::*;
 /// fn command(host: &dyn Host) {
 ///     std::thread::scope(|threads| {
 ///         threads.spawn(|| host.try_foreground(Foreground { command: "true".into(), ..Foreground::default() }));
@@ -3552,7 +3552,7 @@ pub type DisposeFn = Box<dyn FnOnce(&dyn Host)>;
 /// effects. Setup itself reaches it through [`Setup::host`], which no callback can keep:
 ///
 /// ```compile_fail,E0521
-/// # use xccode_plugin_abi::*;
+/// # use xiaochuan_plugin_abi::*;
 /// fn setup(setup: &mut Setup) -> Result<(), String> {
 ///     let host = setup.host();
 ///     setup.slot(Placement::append("home.footer"), move |_, _, _| {
@@ -3566,7 +3566,7 @@ pub type DisposeFn = Box<dyn FnOnce(&dyn Host)>;
 /// Nor can a callback keep the setup itself, which lends that host:
 ///
 /// ```compile_fail,E0521
-/// # use xccode_plugin_abi::*;
+/// # use xiaochuan_plugin_abi::*;
 /// fn setup(setup: &mut Setup) -> Result<(), String> {
 ///     let other = Box::leak(Box::new(Registered::new("x", None))).setup();
 ///     let original = std::mem::replace(setup, other);
@@ -3579,7 +3579,7 @@ pub type DisposeFn = Box<dyn FnOnce(&dyn Host)>;
 /// ```
 ///
 /// ```
-/// # use xccode_plugin_abi::*;
+/// # use xiaochuan_plugin_abi::*;
 /// fn setup(setup: &mut Setup) -> Result<(), String> {
 ///     setup.host().toast(Toast::new(Variant::Info, "setup may show a toast"));
 ///     setup.command(Command::new("x.hello"), |host, _| {

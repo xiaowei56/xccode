@@ -1,16 +1,16 @@
-import { Npm } from "@xccode/util/npm"
+import { Npm } from "@xiaochuan/util/npm"
 import { describe, expect } from "bun:test"
 import { Cause, Effect, Layer } from "effect"
 import fs from "fs/promises"
 import os from "os"
 import path from "path"
-import { AISDK } from "@xccode/core/aisdk"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Model } from "@xccode/core/model"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { DynamicProviderPlugin } from "@xccode/core/plugin/provider/dynamic"
-import { Provider } from "@xccode/core/provider"
+import { AISDK } from "@xiaochuan/core/aisdk"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Model } from "@xiaochuan/core/model"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { DynamicProviderPlugin } from "@xiaochuan/core/plugin/provider/dynamic"
+import { Provider } from "@xiaochuan/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -39,7 +39,7 @@ const addPlugin = Effect.fn(function* (npm?: Npm.Interface) {
 function tempPackage(source: string) {
   return Effect.acquireRelease(
     Effect.promise(async () => {
-      const directory = await fs.mkdtemp(path.join(os.tmpdir(), "xccode-provider-dynamic-"))
+      const directory = await fs.mkdtemp(path.join(os.tmpdir(), "xiaochuan-provider-dynamic-"))
       await Bun.write(path.join(directory, "provider.mjs"), source)
       await Bun.write(
         path.join(directory, "package.json"),

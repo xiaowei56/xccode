@@ -30,7 +30,7 @@ describe("theme preload", () => {
     ({ stored, systemDark, scheme, background }) => {
       setSystemDark(systemDark)
 
-      if (stored) localStorage.setItem("xccode-color-scheme", stored)
+      if (stored) localStorage.setItem("xiaochuan-color-scheme", stored)
       run()
 
       expect(document.documentElement.dataset.theme).toBe("oc-2")
@@ -40,12 +40,12 @@ describe("theme preload", () => {
   )
 
   test.each([
-    { scheme: undefined, key: "xccode-theme-css-light", css: "--background-base:#fff;", expected: "light" },
-    { scheme: "dark", key: "xccode-theme-css-dark", css: "--background-base:#010203;", expected: "dark" },
+    { scheme: undefined, key: "xiaochuan-theme-css-light", css: "--background-base:#fff;", expected: "light" },
+    { scheme: "dark", key: "xiaochuan-theme-css-dark", css: "--background-base:#010203;", expected: "dark" },
   ])("restores the cached $expected css of a custom theme", ({ scheme, key, css, expected }) => {
-    localStorage.setItem("xccode-theme-id", "nightowl")
+    localStorage.setItem("xiaochuan-theme-id", "nightowl")
 
-    if (scheme) localStorage.setItem("xccode-color-scheme", scheme)
+    if (scheme) localStorage.setItem("xiaochuan-color-scheme", scheme)
     localStorage.setItem(key, css)
     run()
 

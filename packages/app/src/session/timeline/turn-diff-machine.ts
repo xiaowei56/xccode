@@ -1,5 +1,5 @@
-import type { FileDiffInfo } from "@xccode/client/promise"
-import type { TurnDiffState } from "@xccode/session-ui/context"
+import type { FileDiffInfo } from "@xiaochuan/client/promise"
+import type { TurnDiffState } from "@xiaochuan/session-ui/context"
 
 /**
  * A request's headers are bounded by the server queue (60 s), but a body that stalls after them is not, so each load

@@ -1,7 +1,7 @@
-import type { Xccode } from "./client.js"
+import type { Xiaochuan } from "./client.js"
 
 export * from "./generated/index.js"
-export { Xccode } from "./client.js"
+export { Xiaochuan } from "./client.js"
 export { mediaHashFromUri, withMediaRefs, type MediaRequestOptions } from "./media.js"
 export type {
   AgentApi,
@@ -21,9 +21,9 @@ export type {
   SessionApi,
   SkillApi,
 } from "./api.js"
-export type { EventSubscribeOutput as XccodeEvent } from "./generated/types.js"
+export type { EventSubscribeOutput as XiaochuanEvent } from "./generated/types.js"
 export type {
   MediaFileAttachment as PromptMediaFileAttachment,
   Attachment as PromptAttachment,
-} from "@xccode/schema/prompt"
-export type XccodeClient = ReturnType<typeof Xccode.make>
+} from "@xiaochuan/schema/prompt"
+export type XiaochuanClient = ReturnType<typeof Xiaochuan.make>

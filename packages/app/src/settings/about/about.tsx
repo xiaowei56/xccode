@@ -1,7 +1,7 @@
 import { createEffect, createMemo, createResource, createSignal, onCleanup, untrack } from "solid-js"
-import { writeClipboard } from "@xccode/session-ui/copy"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Tooltip } from "@xccode/ui/tooltip"
+import { writeClipboard } from "@xiaochuan/session-ui/copy"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import { useLanguage } from "@/runtime/i18n/language"
 import { usePlatform } from "@/runtime/platform/platform"
 import { ExternalLink } from "@/runtime/platform/external-link"
@@ -100,7 +100,7 @@ export function SettingsAbout(props: { active: boolean }) {
 
   const writerCredits = () => [
     ...writers.map(credit),
-    <ExternalLink href="https://github.com/xiaowei56/xccode/graphs/contributors">
+    <ExternalLink href="https://github.com/xiaowei56/xiaochuan/graphs/contributors">
       {language.plural("settings.about.otherContributor", otherContributors.latest, {
         count: otherContributors.latest,
       })}
@@ -164,7 +164,7 @@ export function SettingsAbout(props: { active: boolean }) {
       </div>
 
       <p class="settings-about-faint">
-        <ExternalLink href="https://xccode.ai">
+        <ExternalLink href="https://xiaochuan.ai">
           <bdi dir="ltr">{language.t("settings.about.website")}</bdi>
         </ExternalLink>
       </p>

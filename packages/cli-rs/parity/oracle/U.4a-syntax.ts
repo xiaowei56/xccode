@@ -1,14 +1,14 @@
 // P-ORACLE for U.4a: the syntax style the TUI derives from a theme (`generateSyntax`, packages/theme/src/tui/syntax.ts)
 // for a few built-in themes and modes. Writes parity/fixtures/U.4a/syntax.json; crates/ui/tests/all/content.rs builds
-// xccode_ui::code::syntax_theme for the same themes and compares every scope.
+// xiaochuan_ui::code::syntax_theme for the same themes and compares every scope.
 import { ResourceContext } from "@opentui/core"
 import { generateSyntax, resolveThemeDocument } from "../../../theme/src/tui/index.ts"
 import { allThemes, parseTheme } from "../../../tui/src/theme/index.ts"
 
 const output = new URL("../fixtures/U.4a/syntax.json", import.meta.url).pathname
 const views = [
-  ["xccode", "dark"],
-  ["xccode", "light"],
+  ["xiaochuan", "dark"],
+  ["xiaochuan", "light"],
   ["tokyonight", "dark"],
   ["github", "light"],
 ] as const

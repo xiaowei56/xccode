@@ -2,7 +2,7 @@
 const config = JSON.stringify({ experimental: { "new-designs": true }, debug: { devtools: false } })
 
 export const home = {
-  env: { XCCODE_CLI_CONFIG_CONTENT: config },
+  env: { XIAOCHUAN_CLI_CONFIG_CONTENT: config },
   server: { fallback: "tui" as const },
 }
 

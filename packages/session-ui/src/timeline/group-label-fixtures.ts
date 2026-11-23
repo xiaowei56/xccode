@@ -1,4 +1,4 @@
-import type { SessionMessageAssistantReasoning, SessionMessageAssistantTool } from "@xccode/client/promise"
+import type { SessionMessageAssistantReasoning, SessionMessageAssistantTool } from "@xiaochuan/client/promise"
 import { storyTool } from "../storybook/current-session-scenarios"
 
 // Representative groups whose labels the timeline tests pin.

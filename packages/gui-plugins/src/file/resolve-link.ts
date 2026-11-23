@@ -1,5 +1,5 @@
-import { parsePathLineSuffix } from "@xccode/util/path"
-import type { Files, LineRange } from "@xccode/plugin/gui"
+import { parsePathLineSuffix } from "@xiaochuan/util/path"
+import type { Files, LineRange } from "@xiaochuan/plugin/gui"
 
 export type ParsedFileLink = {
   /** The normalized path: absolute, or relative with any leading `../` kept. */

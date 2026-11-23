@@ -1,7 +1,7 @@
 import { createEffect, createSignal, splitProps } from "solid-js"
-import { Field } from "@xccode/ui/field"
-import { Icon } from "@xccode/ui/icon"
-import { Keybind } from "@xccode/ui/keybind"
+import { Field } from "@xiaochuan/ui/field"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Keybind } from "@xiaochuan/ui/keybind"
 import { TextInput, type TextInputProps } from "./text-input"
 
 const docs = `### Overview

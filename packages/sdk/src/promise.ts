@@ -1,8 +1,8 @@
 export * as PromiseSdk from "./promise"
 
-import { Xccode, type XccodeClient } from "@xccode/client"
-import type { Plugin } from "@xccode/plugin"
-import { Session } from "@xccode/schema/session"
+import { Xiaochuan, type XiaochuanClient } from "@xiaochuan/client"
+import type { Plugin } from "@xiaochuan/plugin"
+import { Session } from "@xiaochuan/schema/session"
 import { Effect, Schema } from "effect"
 import { EmbeddedHost } from "./internal/host"
 
@@ -23,10 +23,10 @@ export interface CreateOptions
   readonly instances?: InstanceOptions
 }
 
-export type Interface = Omit<XccodeClient, "plugin"> & {
-  readonly sessions: XccodeClient["session"]
-  readonly events: XccodeClient["event"]
-  readonly plugin: ((plugin: Plugin.Plugin) => Promise<void>) & XccodeClient["plugin"]
+export type Interface = Omit<XiaochuanClient, "plugin"> & {
+  readonly sessions: XiaochuanClient["session"]
+  readonly events: XiaochuanClient["event"]
+  readonly plugin: ((plugin: Plugin.Plugin) => Promise<void>) & XiaochuanClient["plugin"]
   readonly close: () => Promise<void>
   readonly [Symbol.asyncDispose]: () => Promise<void>
 }
@@ -43,7 +43,7 @@ export async function create(options: CreateOptions = {}, embed: EmbeddedHost.Em
               key: (session) => instances.key(Schema.encodeSync(Session.Info)(session)),
               configure: (key) =>
                 Effect.gen(function* () {
-                  const { PluginPromise } = yield* Effect.promise(() => import("@xccode/core/plugin/promise"))
+                  const { PluginPromise } = yield* Effect.promise(() => import("@xiaochuan/core/plugin/promise"))
                   const configuration = yield* Effect.tryPromise(async () => instances.configure(key))
                   return { plugins: configuration.plugins.map(PluginPromise.fromPromise) }
                 }),
@@ -53,9 +53,9 @@ export async function create(options: CreateOptions = {}, embed: EmbeddedHost.Em
       embed,
     ),
   )
-  const client = Xccode.make({ baseUrl: "http://xccode.local", fetch: host.fetch })
+  const client = Xiaochuan.make({ baseUrl: "http://xiaochuan.local", fetch: host.fetch })
   const register = async (plugin: Plugin.Plugin) => {
-    const { PluginPromise } = await import("@xccode/core/plugin/promise")
+    const { PluginPromise } = await import("@xiaochuan/core/plugin/promise")
     return host.runtime.runPromise(host.plugins.register(PluginPromise.fromPromise(plugin)))
   }
   return {
@@ -70,6 +70,6 @@ export async function create(options: CreateOptions = {}, embed: EmbeddedHost.Em
 
 async function adaptPlugins(plugins: ReadonlyArray<Plugin.Plugin> | undefined) {
   if (!plugins?.length) return undefined
-  const { PluginPromise } = await import("@xccode/core/plugin/promise")
+  const { PluginPromise } = await import("@xiaochuan/core/plugin/promise")
   return plugins.map(PluginPromise.fromPromise)
 }

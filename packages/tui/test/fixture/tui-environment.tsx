@@ -29,10 +29,10 @@ export function TestTuiContexts(
     <LogProvider log={props.log ?? (() => {})}>
       <TuiPathsProvider
         value={{
-          cwd: props.cwd ?? props.directory ?? "/tmp/xccode/packages/tui",
-          home: "/tmp/xccode/home",
-          state: "/tmp/xccode/state",
-          worktree: "/tmp/xccode",
+          cwd: props.cwd ?? props.directory ?? "/tmp/xiaochuan/packages/tui",
+          home: "/tmp/xiaochuan/home",
+          state: "/tmp/xiaochuan/state",
+          worktree: "/tmp/xiaochuan",
           ...props.paths,
         }}
       >

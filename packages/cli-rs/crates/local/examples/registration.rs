@@ -1,9 +1,9 @@
 //! Prints the paths, channel, and service registration this environment resolves to, read-only,
-//! with the password redacted: `cargo run -p xccode-local --example registration`.
+//! with the password redacted: `cargo run -p xiaochuan-local --example registration`.
 
-use xccode_local::channel::{self, Channels};
-use xccode_local::paths::Paths;
-use xccode_local::registration::Files;
+use xiaochuan_local::channel::{self, Channels};
+use xiaochuan_local::paths::Paths;
+use xiaochuan_local::registration::Files;
 
 fn main() -> std::io::Result<()> {
     let paths = Paths::from_env()?;

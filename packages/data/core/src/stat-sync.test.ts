@@ -15,12 +15,12 @@ const { CatalogUnavailableError, deterministicFailureAsResult, planDataSync, syn
   await import("./stat-sync")
 const { DatabaseError } = await import("./database")
 
-const catalog: CatalogSnapshot = { offerings: [["xccode/model-a", "lab"]], models: [["model-a", "lab"]] }
+const catalog: CatalogSnapshot = { offerings: [["xiaochuan/model-a", "lab"]], models: [["model-a", "lab"]] }
 const loadCatalog = () =>
   Promise.resolve({
     catalog: catalogIdentity({
       models: { "lab/model-a": {} },
-      providers: { xccode: { models: { "model-a": { canonical_model_id: "lab/model-a" } } } },
+      providers: { xiaochuan: { models: { "model-a": { canonical_model_id: "lab/model-a" } } } },
     }),
     stale: false,
   })
@@ -45,7 +45,7 @@ describe("data sync plan", () => {
       )
 
     const hourly = await plan(false)
-    expect(hourly.catalog).toEqual({ offerings: [["xccode/model-a", "lab"]], models: [["model-a", "lab"]] })
+    expect(hourly.catalog).toEqual({ offerings: [["xiaochuan/model-a", "lab"]], models: [["model-a", "lab"]] })
     expect(hourly.periods.map((period) => `${period.grain} ${period.key}`)).toEqual([
       "week 2026-W43",
       "day 2026-10-19",

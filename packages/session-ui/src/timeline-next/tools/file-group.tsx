@@ -1,4 +1,4 @@
-import type { FileDiffInfo, SessionMessageAssistantTool } from "@xccode/client/promise"
+import type { FileDiffInfo, SessionMessageAssistantTool } from "@xiaochuan/client/promise"
 import { createTwoFilesPatch, diffLines } from "diff"
 import { createMemo } from "solid-js"
 import { changedFileDiff } from "../../components/apply-patch-file"

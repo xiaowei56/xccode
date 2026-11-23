@@ -9,32 +9,32 @@ import {
   SystemPart,
   TransportError,
   type LLMRequest,
-} from "@xccode/ai/effect"
-import { OpenAIChat, OpenAIResponses } from "@xccode/ai/protocols"
-import { Agent } from "@xccode/core/agent"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { llmClient } from "@xccode/core/effect/app-node-platform"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionMessage } from "@xccode/core/session/message"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { SessionTable } from "@xccode/core/session/sql"
-import { SessionStore } from "@xccode/core/session/store"
-import { SessionTitle } from "@xccode/core/session/title"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { PluginSupervisor } from "@xccode/core/plugin/supervisor"
-import { Location } from "@xccode/core/location"
-import { Session } from "@xccode/core/session"
-import { Project } from "@xccode/core/project"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { App } from "@xccode/core/app"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Money } from "@xccode/schema/money"
+} from "@xiaochuan/ai/effect"
+import { OpenAIChat, OpenAIResponses } from "@xiaochuan/ai/protocols"
+import { Agent } from "@xiaochuan/core/agent"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { llmClient } from "@xiaochuan/core/effect/app-node-platform"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { SessionTable } from "@xiaochuan/core/session/sql"
+import { SessionStore } from "@xiaochuan/core/session/store"
+import { SessionTitle } from "@xiaochuan/core/session/title"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { PluginSupervisor } from "@xiaochuan/core/plugin/supervisor"
+import { Location } from "@xiaochuan/core/location"
+import { Session } from "@xiaochuan/core/session"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { App } from "@xiaochuan/core/app"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Money } from "@xiaochuan/schema/money"
 import { Deferred, Effect, Fiber, Layer, Schema, Stream } from "effect"
 import { testEffect } from "./lib/effect"
 
@@ -218,13 +218,13 @@ it.effect("generates a title from the sole user message and renames the session"
 
     expect(requests).toHaveLength(1)
     expect(requests[0]?.headers).toEqual({
-      "x-xccode-session-id": sessionID,
+      "x-xiaochuan-session-id": sessionID,
       "x-session-affinity": sessionID,
       "X-Session-Id": sessionID,
       "User-Agent": App.useragent(App.make()),
-      "x-xccode-project": Project.ID.global,
-      "x-xccode-session": sessionID,
-      "x-xccode-client": "xccode",
+      "x-xiaochuan-project": Project.ID.global,
+      "x-xiaochuan-session": sessionID,
+      "x-xiaochuan-client": "xiaochuan",
     })
     expect(requests[0]?.promptCacheKey).toBe(sessionID)
     expect(requests[0]?.tools).toEqual([])

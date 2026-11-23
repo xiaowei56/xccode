@@ -65,7 +65,7 @@ pub fn filter_panics() {
     });
 }
 
-/// Plugin call budgets. Override the defaults with `XCCODE_PLUGIN_LIMITS`.
+/// Plugin call budgets. Override the defaults with `XIAOCHUAN_PLUGIN_LIMITS`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Limits {
     /// Per plugin per frame.
@@ -112,11 +112,11 @@ impl Limits {
         Ok(limits)
     }
 
-    /// The limits `XCCODE_PLUGIN_LIMITS` sets, or the defaults; a bad value is logged and the defaults stay.
+    /// The limits `XIAOCHUAN_PLUGIN_LIMITS` sets, or the defaults; a bad value is logged and the defaults stay.
     pub fn from_env() -> Limits {
-        let Ok(text) = std::env::var("XCCODE_PLUGIN_LIMITS") else { return Limits::default() };
+        let Ok(text) = std::env::var("XIAOCHUAN_PLUGIN_LIMITS") else { return Limits::default() };
         Limits::parse(&text).unwrap_or_else(|error| {
-            log::warn!("XCCODE_PLUGIN_LIMITS: {error}");
+            log::warn!("XIAOCHUAN_PLUGIN_LIMITS: {error}");
             Limits::default()
         })
     }
@@ -770,7 +770,7 @@ pub(crate) fn thread_cpu() -> Option<Duration> {
 
 #[cfg(windows)]
 pub(crate) fn thread_cpu() -> Option<Duration> {
-    xccode_util::win::thread_cpu_time()
+    xiaochuan_util::win::thread_cpu_time()
 }
 
 #[cfg(not(any(unix, windows)))]

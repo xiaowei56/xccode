@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test"
 import { Effect } from "effect"
-import type { FormFields } from "@xccode/client"
+import type { FormFields } from "@xiaochuan/client"
 import { answerForm } from "../src/commands/handlers/auth/form"
 
 test("resolves hidden defaults without an interactive terminal", async () => {

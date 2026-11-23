@@ -1,21 +1,21 @@
 ---
 title: Kurallar
-description: xccode için özel talimatları ayarlayın.
+description: xiaochuan için özel talimatları ayarlayın.
 ---
 
-Bir `AGENTS.md` dosyası oluşturarak xccode için özel talimatlar verebilirsiniz. Bu, Cursor rules yaklaşımına benzer. Özel projeniz için davranışını özelleştirmek amacıyla LLM'in içeriğine dahil edilecek talimatları içerir.
+Bir `AGENTS.md` dosyası oluşturarak xiaochuan için özel talimatlar verebilirsiniz. Bu, Cursor rules yaklaşımına benzer. Özel projeniz için davranışını özelleştirmek amacıyla LLM'in içeriğine dahil edilecek talimatları içerir.
 
 ---
 
 ## Başlat
 
-Yeni bir `AGENTS.md` dosyası oluşturmak için `/init` komutunu xccode'da çalıştırabilirsiniz.
+Yeni bir `AGENTS.md` dosyası oluşturmak için `/init` komutunu xiaochuan'da çalıştırabilirsiniz.
 
 :::tip
 Projenizin `AGENTS.md` dosyasını Git'e göndermelisiniz.
 :::
 
-Bu, projenin neyle ilgili olduğunu anlamak için projenizi ve tüm içeriğini tarayacak ve onunla bir `AGENTS.md` dosyası oluşturacaktır. Bu, xccode'un projede daha iyi gezinmesine yardımcı olur.
+Bu, projenin neyle ilgili olduğunu anlamak için projenizi ve tüm içeriğini tarayacak ve onunla bir `AGENTS.md` dosyası oluşturacaktır. Bu, xiaochuan'un projede daha iyi gezinmesine yardımcı olur.
 
 Mevcut bir `AGENTS.md` dosyanız varsa, bu dosyaya eklemeye çalışacaktır.
 
@@ -54,7 +54,7 @@ Buraya projeye özel talimatlar ekliyoruz ve bu, ekibiniz arasında paylaşılac
 
 ## Türler
 
-xccode ayrıca `AGENTS.md` dosyasının birden fazla konumdan okunmasını da destekler. Ve bu farklı amaçlara hizmet ediyor.
+xiaochuan ayrıca `AGENTS.md` dosyasının birden fazla konumdan okunmasını da destekler. Ve bu farklı amaçlara hizmet ediyor.
 
 ### Proje
 
@@ -62,58 +62,58 @@ Projeye özel kurallar için proje kökünüze bir `AGENTS.md` yerleştirin. Bun
 
 ### Global
 
-Ayrıca `~/.config/xccode/AGENTS.md` dosyasında genel kurallara sahip olabilirsiniz. Bu, tüm xccode oturumlarına uygulanır.
+Ayrıca `~/.config/xiaochuan/AGENTS.md` dosyasında genel kurallara sahip olabilirsiniz. Bu, tüm xiaochuan oturumlarına uygulanır.
 
 Bu Git'e kaydedilmediği veya ekibinizle paylaşılmadığı için, LLM'ın uyması gereken kişisel kuralları belirtmek için bunu kullanmanızı öneririz.
 
 ### Claude Code uyumluluğu
 
-xccode, Claude Code'dan geçiş yapan kullanıcılar için yedek olarak Claude Code'un dosya kurallarını destekler:
+xiaochuan, Claude Code'dan geçiş yapan kullanıcılar için yedek olarak Claude Code'un dosya kurallarını destekler:
 
 - **Proje kuralları**: Proje dizininizdeki `CLAUDE.md` (`AGENTS.md` yoksa kullanılır)
-- **Global kurallar**: `~/.claude/CLAUDE.md` (`~/.config/xccode/AGENTS.md` yoksa kullanılır)
+- **Global kurallar**: `~/.claude/CLAUDE.md` (`~/.config/xiaochuan/AGENTS.md` yoksa kullanılır)
 - **Beceriler**: `~/.claude/skills/` — ayrıntılar için [Agent Skills](/docs/skills/)'e bakın
 
 Claude Code uyumluluğunu kapatmak için aşağıdaki ortam değişkenlerinden birini ayarlayın:
 
 ```bash
-export XCCODE_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
-export XCCODE_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
-export XCCODE_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
+export XIAOCHUAN_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
+export XIAOCHUAN_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
+export XIAOCHUAN_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
 ```
 
 ---
 
 ## Öncelik
 
-Xccode başlatıldığında kural dosyalarını şu sırayla arar:
+Xiaochuan başlatıldığında kural dosyalarını şu sırayla arar:
 
 1. **Yerel dosyalar** geçerli dizinden yukarıya doğru giderek (`AGENTS.md`, `CLAUDE.md`)
-2. **Global dosya** `~/.config/xccode/AGENTS.md` adresinde
+2. **Global dosya** `~/.config/xiaochuan/AGENTS.md` adresinde
 3. `~/.claude/CLAUDE.md` adresindeki **Claude Kod dosyası** (devre dışı bırakılmadığı sürece)
 
-Her kategoride ilk eşleşen dosya kazanır. Örneğin, hem `AGENTS.md` hem de `CLAUDE.md` varsa yalnızca `AGENTS.md` kullanılır. Benzer şekilde, `~/.config/xccode/AGENTS.md`, `~/.claude/CLAUDE.md`'ye göre önceliklidir.
+Her kategoride ilk eşleşen dosya kazanır. Örneğin, hem `AGENTS.md` hem de `CLAUDE.md` varsa yalnızca `AGENTS.md` kullanılır. Benzer şekilde, `~/.config/xiaochuan/AGENTS.md`, `~/.claude/CLAUDE.md`'ye göre önceliklidir.
 
 ---
 
 ## Özel talimatlar
 
-Özel talimat dosyalarını `xccode.json` veya global `~/.config/xccode/xccode.json`'de belirtebilirsiniz. Bu, sizin ve ekibinizin, mevcut kuralları AGENTS.md'ye kopyalamak yerine yeniden kullanmasına olanak tanır.
+Özel talimat dosyalarını `xiaochuan.json` veya global `~/.config/xiaochuan/xiaochuan.json`'de belirtebilirsiniz. Bu, sizin ve ekibinizin, mevcut kuralları AGENTS.md'ye kopyalamak yerine yeniden kullanmasına olanak tanır.
 
 Örnek:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "instructions": ["CONTRIBUTING.md", "docs/guidelines.md", ".cursor/rules/*.md"]
 }
 ```
 
 Web'den talimatlar yüklemek için uzak URL'leri de kullanabilirsiniz.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "instructions": ["https://raw.githubusercontent.com/my-org/shared-rules/main/style.md"]
 }
 ```
@@ -126,22 +126,22 @@ Tüm talimat dosyaları `AGENTS.md` dosyalarınızla birleştirilir.
 
 ## Harici Dosyalara Referans Verme
 
-Xccode, `AGENTS.md`'daki dosya referanslarını otomatik olarak ayrıştırmasa da, benzer işlevleri iki şekilde elde edebilirsiniz:
+Xiaochuan, `AGENTS.md`'daki dosya referanslarını otomatik olarak ayrıştırmasa da, benzer işlevleri iki şekilde elde edebilirsiniz:
 
-### xccode.json'u kullanma
+### xiaochuan.json'u kullanma
 
-Önerilen yaklaşım, `instructions`'deki `xccode.json` alanını kullanmaktır:
+Önerilen yaklaşım, `instructions`'deki `xiaochuan.json` alanını kullanmaktır:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "instructions": ["docs/development-standards.md", "test/testing-guidelines.md", "packages/*/AGENTS.md"]
 }
 ```
 
 ### AGENTS.md içinde manuel talimatlar
 
-`AGENTS.md`'nizde açık talimatlar sağlayarak xccode'u harici dosyaları okumayı öğretebilirsiniz. İşte pratik bir örnek:
+`AGENTS.md`'nizde açık talimatlar sağlayarak xiaochuan'u harici dosyaları okumayı öğretebilirsiniz. İşte pratik bir örnek:
 
 ```markdown title="AGENTS.md"
 # TypeScript Project Rules
@@ -173,8 +173,8 @@ Bu yaklaşım şunları yapmanızı sağlar:
 - Modüler, yeniden kullanılabilir kural dosyaları oluşturun
 - Sembolik bağlantılar veya git alt modülleri aracılığıyla kuralları projeler arasında paylaşın
 - AGENTS.md dosyasını kısa tutarken ayrıntılı kılavuzlara referans verin
-- xccode'un dosyaları yalnızca belirli bir görev için gerektiğinde yüklediğinden emin olun
+- xiaochuan'un dosyaları yalnızca belirli bir görev için gerektiğinde yüklediğinden emin olun
 
 :::tip
-Monorepo'lar veya ortak standartlara sahip projeler için, `xccode.json`'yi glob desenleriyle (`packages/*/AGENTS.md` gibi) kullanmak, manuel talimatlara göre daha sürdürülebilirdir.
+Monorepo'lar veya ortak standartlara sahip projeler için, `xiaochuan.json`'yi glob desenleriyle (`packages/*/AGENTS.md` gibi) kullanmak, manuel talimatlara göre daha sürdürülebilirdir.
 :::

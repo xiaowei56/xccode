@@ -1,14 +1,14 @@
 //! Select, create, or remove a project worktree.
 
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     AbsolutePath, LocationGetInput, LocationQueryInput, ProjectID, SessionMoveInput, VcsStatusInput, WorktreeDirectory,
     WorktreeListInput, WorktreeRefreshInput, WorktreeRemoveInput,
 };
-use xccode_store::Location;
-use xccode_ui::dialog::DIALOG_LIST_INSET;
-use xccode_ui::motion::Spinner;
-use xccode_ui::path::{Flavor, abbreviate_home};
-use xccode_ui::select::{ActionRun, Select, SelectAction, Truncate};
+use xiaochuan_store::Location;
+use xiaochuan_ui::dialog::DIALOG_LIST_INSET;
+use xiaochuan_ui::motion::Spinner;
+use xiaochuan_ui::path::{Flavor, abbreviate_home};
+use xiaochuan_ui::select::{ActionRun, Select, SelectAction, Truncate};
 
 use super::file_changes::{self, Choice};
 use super::session_list::dialog_theme;
@@ -116,7 +116,7 @@ impl Workspaces {
         }
     }
 
-    fn location_info(&self, tui: &Tui) -> Option<xccode_api::generated::LocationPublicInfo> {
+    fn location_info(&self, tui: &Tui) -> Option<xiaochuan_api::generated::LocationPublicInfo> {
         tui.data.read(|state| state.location(self.props.location.as_ref()).and_then(|data| data.info.clone()))
     }
 
@@ -322,7 +322,7 @@ impl Workspaces {
         });
         let width = u32::from(tui.app.size().0).saturating_sub(2).min(DialogSize::XLarge.width());
         let title_width = (select::content_width(width) as usize).max(1);
-        let home = xccode_local::paths::home();
+        let home = xiaochuan_local::paths::home();
         let delete_key = tui.keymap.shortcut("dialog.move_session.delete").unwrap_or_default();
         list.into_iter()
             .map(|(location, index)| {
@@ -609,7 +609,7 @@ impl Workspaces {
         self: &Rc<Self>,
         directory: String,
         force: bool,
-        then: impl FnOnce(&Rc<Self>, Result<(), xccode_api::error::Error>) + 'static,
+        then: impl FnOnce(&Rc<Self>, Result<(), xiaochuan_api::error::Error>) + 'static,
     ) {
         let Some(tui) = self.tui() else { return };
         let client = tui.data.client().clone();
@@ -622,7 +622,7 @@ impl Workspaces {
         tui.app.spawn(async move { client.worktree_remove(&input).await }, move |_, result| then(&workspaces, result));
     }
 
-    fn failed(&self, error: &xccode_api::error::Error) {
+    fn failed(&self, error: &xiaochuan_api::error::Error) {
         if let Some(tui) = self.tui() {
             tui.toasts.show(ToastOptions::new(Variant::Error, error.tui_message()).title("Failed to delete worktree"));
         }

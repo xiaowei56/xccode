@@ -1,4 +1,4 @@
-# The views machine's distractor for xccode-native (`init.luau`), beside its TypeScript side (`tui.tsx`).
+# The views machine's distractor for xiaochuan-native (`init.luau`), beside its TypeScript side (`tui.tsx`).
 id = "parity.other"
 name = "Other"
 version = "0.1.0"

@@ -1,6 +1,6 @@
 import { createMemo, Show } from "solid-js"
-import { Button } from "@xccode/ui/button"
-import { Select } from "@xccode/ui/select"
+import { Button } from "@xiaochuan/ui/button"
+import { Select } from "@xiaochuan/ui/select"
 import { useLanguage } from "@/runtime/i18n/language"
 import { SettingsRow } from "@/settings/row"
 import type { WebSearchRequestModel } from "./websearch"

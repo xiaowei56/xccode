@@ -1,4 +1,4 @@
-//! Resolves the server binary from `XCCODE_TS_BIN`, the bundled `xccode` beside the client, or `PATH`, in that
+//! Resolves the server binary from `XIAOCHUAN_TS_BIN`, the bundled `xiaochuan` beside the client, or `PATH`, in that
 //! order.
 
 use std::ffi::OsString;
@@ -13,18 +13,18 @@ pub struct TsCommand {
 
 impl TsCommand {
     /// The variable that names the TypeScript binary.
-    pub const VAR: &str = "XCCODE_TS_BIN";
+    pub const VAR: &str = "XIAOCHUAN_TS_BIN";
 
     pub fn from_env() -> Self {
         Self::from_vars(|name| std::env::var_os(name))
     }
 
-    /// `XCCODE_TS_BIN` (one executable path; an empty value counts as unset), else the `xccode`
-    /// installed beside this executable ([`xccode_util::bundle::server`]), else `xccode`, found on
-    /// `PATH` when it runs. On Windows `xccode` is looked up here, through `PATHEXT`, because
-    /// `Command` finds only `xccode.exe` and npm installs an `xccode.cmd` shim.
+    /// `XIAOCHUAN_TS_BIN` (one executable path; an empty value counts as unset), else the `xiaochuan`
+    /// installed beside this executable ([`xiaochuan_util::bundle::server`]), else `xiaochuan`, found on
+    /// `PATH` when it runs. On Windows `xiaochuan` is looked up here, through `PATHEXT`, because
+    /// `Command` finds only `xiaochuan.exe` and npm installs an `xiaochuan.cmd` shim.
     pub fn from_vars(var: impl Fn(&str) -> Option<OsString>) -> Self {
-        Self::resolve(var, cfg!(windows), xccode_util::bundle::server())
+        Self::resolve(var, cfg!(windows), xiaochuan_util::bundle::server())
     }
 
     /// `from_vars` as it runs on Windows when `windows` is set, so tests on other systems reach the lookup,
@@ -41,7 +41,7 @@ impl TsCommand {
                 search(
                     &path,
                     var("PATHEXT").as_deref(),
-                    "xccode",
+                    "xiaochuan",
                     |path| path.is_file(),
                     |path| std::fs::read_to_string(path).ok(),
                 )
@@ -49,19 +49,19 @@ impl TsCommand {
         } else {
             None
         };
-        Self::new(found.map_or_else(|| "xccode".into(), PathBuf::into_os_string))
+        Self::new(found.map_or_else(|| "xiaochuan".into(), PathBuf::into_os_string))
     }
 
     pub fn new(program: impl Into<OsString>) -> Self {
         Self { program: program.into(), args: Vec::new() }
     }
 
-    /// `xccode serve --service`.
+    /// `xiaochuan serve --service`.
     pub fn service(&self) -> Vec<OsString> {
         self.with(&["serve", "--service"])
     }
 
-    /// `xccode serve --stdio --port 0`.
+    /// `xiaochuan serve --stdio --port 0`.
     pub fn standalone(&self) -> Vec<OsString> {
         self.with(&["serve", "--stdio", "--port", "0"])
     }
@@ -154,23 +154,23 @@ mod tests {
     #[test]
     fn the_variable_wins_and_empty_means_unset() {
         let from = |value: Option<&str>| {
-            TsCommand::from_vars(|name| (name == "XCCODE_TS_BIN").then_some(value).flatten().map(OsString::from))
+            TsCommand::from_vars(|name| (name == "XIAOCHUAN_TS_BIN").then_some(value).flatten().map(OsString::from))
         };
-        assert_eq!(from(None).program, "xccode");
-        assert_eq!(from(Some("")).program, "xccode");
-        assert_eq!(from(Some("/x/xccode")).program, "/x/xccode");
+        assert_eq!(from(None).program, "xiaochuan");
+        assert_eq!(from(Some("")).program, "xiaochuan");
+        assert_eq!(from(Some("/x/xiaochuan")).program, "/x/xiaochuan");
         // Expected (the bundled layout): the bundled binary comes after the variable and before `PATH`.
         let path = |name: &str| (name == "PATH").then(|| OsString::from("/usr/bin"));
         for windows in [false, true] {
             let with = |var: &dyn Fn(&str) -> Option<OsString>| {
-                TsCommand::resolve(var, windows, Some(PathBuf::from("/lib/oc/xccode"))).program
+                TsCommand::resolve(var, windows, Some(PathBuf::from("/lib/oc/xiaochuan"))).program
             };
-            assert_eq!(with(&path), "/lib/oc/xccode");
+            assert_eq!(with(&path), "/lib/oc/xiaochuan");
             assert_eq!(
                 with(&|name| if name == TsCommand::VAR { Some("".into()) } else { path(name) }),
-                "/lib/oc/xccode"
+                "/lib/oc/xiaochuan"
             );
-            assert_eq!(with(&|name| (name == TsCommand::VAR).then(|| "/x/xccode".into())), "/x/xccode");
+            assert_eq!(with(&|name| (name == TsCommand::VAR).then(|| "/x/xiaochuan".into())), "/x/xiaochuan");
         }
         let mut command = TsCommand::new("bun");
         command.args.push("cli.ts".into());
@@ -179,17 +179,17 @@ mod tests {
     }
 
     // What `cmd-shim` (npm 10) writes for a native and for a JavaScript `bin`.
-    const EXE_SHIM: &str = "@ECHO off\r\nGOTO start\r\n:find_dp0\r\nSET dp0=%~dp0\r\nEXIT /b\r\n:start\r\nSETLOCAL\r\nCALL :find_dp0\r\n\"%dp0%\\node_modules\\@xccode\\cli\\bin\\xccode.exe\"   %*\r\n";
+    const EXE_SHIM: &str = "@ECHO off\r\nGOTO start\r\n:find_dp0\r\nSET dp0=%~dp0\r\nEXIT /b\r\n:start\r\nSETLOCAL\r\nCALL :find_dp0\r\n\"%dp0%\\node_modules\\@xiaochuan\\cli\\bin\\xiaochuan.exe\"   %*\r\n";
     const NODE_SHIM: &str = "@ECHO off\r\nGOTO start\r\n:find_dp0\r\nSET dp0=%~dp0\r\nEXIT /b\r\n:start\r\nSETLOCAL\r\nCALL :find_dp0\r\n\r\nIF EXIST \"%dp0%\\node.exe\" (\r\n  SET \"_prog=%dp0%\\node.exe\"\r\n) ELSE (\r\n  SET \"_prog=node\"\r\n  SET PATHEXT=%PATHEXT:;.JS;=;%\r\n)\r\n\r\nendLocal & goto #_undefined_# 2>NUL || title %COMSPEC% & \"%_prog%\"  \"%dp0%\\node_modules\\x\\cli.js\" %*\r\n";
 
     #[test]
     fn a_shim_names_its_exe() {
-        assert_eq!(shim_target(EXE_SHIM), Some("\\node_modules\\@xccode\\cli\\bin\\xccode.exe"));
-        assert_eq!(shim_target("\"%~dp0\\bin\\Xccode.EXE\" %*"), Some("\\bin\\Xccode.EXE"));
+        assert_eq!(shim_target(EXE_SHIM), Some("\\node_modules\\@xiaochuan\\cli\\bin\\xiaochuan.exe"));
+        assert_eq!(shim_target("\"%~dp0\\bin\\Xiaochuan.EXE\" %*"), Some("\\bin\\Xiaochuan.EXE"));
         assert_eq!(shim_target(NODE_SHIM), None);
-        assert_eq!(shim_target("\"%dp0%\\bin\\xccode.js\" %*"), None);
+        assert_eq!(shim_target("\"%dp0%\\bin\\xiaochuan.js\" %*"), None);
         assert_eq!(shim_target("\"%dp0%\\%x%.exe\" %*"), None);
-        assert_eq!(shim_target("\"C:\\xccode.exe\" %*"), None);
+        assert_eq!(shim_target("\"C:\\xiaochuan.exe\" %*"), None);
         assert_eq!(shim_target("\"%dp0%.exe\" %*"), None);
         assert_eq!(shim_target(""), None);
     }
@@ -197,18 +197,18 @@ mod tests {
     #[test]
     fn the_search_follows_path_then_extensions_with_exe_first() {
         let npm = Path::new("npm");
-        let shim_exe = ["npm", "node_modules", "@xccode", "cli", "bin", "xccode.exe"].iter().collect::<PathBuf>();
+        let shim_exe = ["npm", "node_modules", "@xiaochuan", "cli", "bin", "xiaochuan.exe"].iter().collect::<PathBuf>();
         let find = |pathext: Option<&str>, files: &[PathBuf], shim: &str| {
             search(
                 std::ffi::OsStr::new("\"npm\";;winget"),
                 pathext.map(std::ffi::OsStr::new),
-                "xccode",
+                "xiaochuan",
                 |path| files.iter().any(|file| file == path),
                 |path| (path.extension().is_some_and(|ext| ext == "cmd")).then(|| shim.to_owned()),
             )
         };
-        let winget = Path::new("winget").join("xccode.exe");
-        let cmd = npm.join("xccode.cmd");
+        let winget = Path::new("winget").join("xiaochuan.exe");
+        let cmd = npm.join("xiaochuan.cmd");
         let cases = [
             // A `.cmd` that names an existing `.exe` resolves to it.
             (None, vec![cmd.clone(), shim_exe.clone(), winget.clone()], EXE_SHIM, Some(shim_exe.clone())),
@@ -216,12 +216,12 @@ mod tests {
             (None, vec![cmd.clone(), winget.clone()], EXE_SHIM, Some(cmd.clone())),
             (None, vec![cmd.clone(), shim_exe.clone()], NODE_SHIM, Some(cmd.clone())),
             // An earlier directory wins over a later `.exe`; within one, `.exe` wins over PATHEXT's order.
-            (Some(".CMD;.EXE"), vec![cmd.clone(), npm.join("xccode.exe")], NODE_SHIM, Some(npm.join("xccode.exe"))),
+            (Some(".CMD;.EXE"), vec![cmd.clone(), npm.join("xiaochuan.exe")], NODE_SHIM, Some(npm.join("xiaochuan.exe"))),
             (None, vec![winget.clone()], "", Some(winget.clone())),
             // Only PATHEXT's extensions count, and the extensionless sh shim never does.
             (Some(".EXE"), vec![cmd.clone()], EXE_SHIM, None),
-            (None, vec![npm.join("xccode"), npm.join("xccode.ps1")], "", None),
-            (Some(".BAT"), vec![npm.join("xccode.bat")], "", Some(npm.join("xccode.bat"))),
+            (None, vec![npm.join("xiaochuan"), npm.join("xiaochuan.ps1")], "", None),
+            (Some(".BAT"), vec![npm.join("xiaochuan.bat")], "", Some(npm.join("xiaochuan.bat"))),
         ];
         for (pathext, files, shim, expected) in cases {
             assert_eq!(find(pathext, &files, shim), expected, "{pathext:?} {files:?}");
@@ -232,9 +232,9 @@ mod tests {
     #[cfg(windows)]
     #[test]
     fn a_found_cmd_shim_spawns_with_its_arguments() {
-        let dir = xccode_util::temp::tempdir().unwrap();
-        std::fs::write(dir.path().join("xccode"), "#!/bin/sh\n").unwrap();
-        std::fs::write(dir.path().join("xccode.cmd"), "@ECHO off\r\nECHO %*\r\n").unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
+        std::fs::write(dir.path().join("xiaochuan"), "#!/bin/sh\n").unwrap();
+        std::fs::write(dir.path().join("xiaochuan.cmd"), "@ECHO off\r\nECHO %*\r\n").unwrap();
         let ts = TsCommand::resolve(
             |name| match name {
                 "PATH" => Some(dir.path().into()),
@@ -244,7 +244,7 @@ mod tests {
             true,
             None,
         );
-        assert_eq!(ts.program, dir.path().join("xccode.cmd"));
+        assert_eq!(ts.program, dir.path().join("xiaochuan.cmd"));
         let command = ts.with(&["serve", "--stdio", "a b"]);
         let output = std::process::Command::new(&command[0]).args(&command[1..]).output().unwrap();
         assert!(output.status.success(), "{output:?}");
@@ -253,9 +253,9 @@ mod tests {
 
     #[test]
     fn a_quoted_directory_keeps_its_semicolon() {
-        let shim = Path::new("tool;cache").join("xccode.cmd");
+        let shim = Path::new("tool;cache").join("xiaochuan.cmd");
         let found =
-            search(std::ffi::OsStr::new("C:\\x;\"tool;cache\";D:\\y"), None, "xccode", |path| path == shim, |_| None);
+            search(std::ffi::OsStr::new("C:\\x;\"tool;cache\";D:\\y"), None, "xiaochuan", |path| path == shim, |_| None);
         assert_eq!(found, Some(shim));
     }
 }

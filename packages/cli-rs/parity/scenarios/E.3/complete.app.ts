@@ -2,7 +2,7 @@
 // subagent and a file from /api/fs/find, and Enter turns the agent into a highlighted mention.
 import { defineApp, session, user } from "../../lib/app"
 
-const location = { directory: "/tmp/xccode/packages/tui" }
+const location = { directory: "/tmp/xiaochuan/packages/tui" }
 
 export default defineApp({
   args: { sessionID: "ses_b" },

@@ -1,22 +1,22 @@
 import path from "path"
 import { describe, expect } from "bun:test"
 import { Effect, Exit, Fiber, Layer, Scope, Stream } from "effect"
-import { Agent } from "@xccode/core/agent"
-import { Bus } from "@xccode/core/bus"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Location } from "@xccode/core/location"
-import { Permission } from "@xccode/core/permission"
-import { AgentPlugin } from "@xccode/core/plugin/agent"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Global } from "@xccode/util/global"
+import { Agent } from "@xiaochuan/core/agent"
+import { Bus } from "@xiaochuan/core/bus"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Location } from "@xiaochuan/core/location"
+import { Permission } from "@xiaochuan/core/permission"
+import { AgentPlugin } from "@xiaochuan/core/plugin/agent"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Global } from "@xiaochuan/util/global"
 import { location } from "./fixture/location"
 import { testEffect } from "./lib/effect"
 import { agentHost, host } from "./plugin/host"
 
 const testLocation = location({ directory: AbsolutePath.make("/project") })
 const locationLayer = Layer.succeed(Location.Service, Location.Service.of(testLocation))
-const global = Global.make({ data: "/data", config: "/config", tmp: "/tmp/xccode" })
+const global = Global.make({ data: "/data", config: "/config", tmp: "/tmp/xiaochuan" })
 const globalLayer = Layer.succeed(Global.Service, Global.Service.of(global))
 
 const it = testEffect(

@@ -1,13 +1,13 @@
 import { afterAll, describe, expect, test } from "bun:test"
 import { OAuthError, UnauthorizedError, type AuthProvider } from "@modelcontextprotocol/client"
 import path from "path"
-import { ConfigMCP } from "@xccode/schema/config/mcp"
-import { Credential } from "@xccode/core/credential"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Integration } from "@xccode/core/integration"
-import { McpClient } from "@xccode/core/mcp/client"
-import { McpOAuth } from "@xccode/core/mcp/oauth"
+import { ConfigMCP } from "@xiaochuan/schema/config/mcp"
+import { Credential } from "@xiaochuan/core/credential"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Integration } from "@xiaochuan/core/integration"
+import { McpClient } from "@xiaochuan/core/mcp/client"
+import { McpOAuth } from "@xiaochuan/core/mcp/oauth"
 import { Cause, Effect, Exit, ManagedRuntime } from "effect"
 import { TestClock } from "effect/testing"
 import { hostEnvironmentLayer } from "./fixture/environment"
@@ -401,9 +401,9 @@ describe("MCP OAuth", () => {
       expect(url.searchParams.get("client_id")).toBe("registered")
       expect(registrations).toHaveLength(1)
       expect(registrations[0]).toMatchObject({
-        client_name: "xccode",
-        client_uri: "https://xccode.ai",
-        logo_uri: "https://xccode.ai/web-app-manifest-512x512.png",
+        client_name: "xiaochuan",
+        client_uri: "https://xiaochuan.ai",
+        logo_uri: "https://xiaochuan.ai/web-app-manifest-512x512.png",
       })
     })
 
@@ -460,7 +460,7 @@ describe("MCP OAuth connections", () => {
   const id = Credential.ID.make("cred_test")
 
   // Each instance has its own database connection, in-process lock table and file lock client over one file,
-  // like two Xccode processes sharing a database.
+  // like two Xiaochuan processes sharing a database.
   const instance = (file: string) =>
     ManagedRuntime.make(
       AppNodeBuilder.build(Credential.node, [Database.node.replace(Database.configured({ path: file }))]),
@@ -471,7 +471,7 @@ describe("MCP OAuth connections", () => {
     input: { expires?: number; metadata?: Record<string, unknown>; config?: typeof ConfigMCP.Remote.Type } = {},
   ) => {
     const tmp = await tmpdir()
-    const file = path.join(tmp.path, "xccode.db")
+    const file = path.join(tmp.path, "xiaochuan.db")
     const first = instance(file)
     const second = instance(file)
     const row = credential({ access: "a1", refresh: "r1", url, expires: input.expires ?? Date.now() + 3_600_000 })

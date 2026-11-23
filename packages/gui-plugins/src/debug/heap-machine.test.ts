@@ -14,7 +14,7 @@ import {
 
 const reply = (): HeapCaptureReply => ({ resolve: () => undefined, reject: () => undefined })
 
-const result = { directory: "/downloads/xccode-heap-1", complete: true }
+const result = { directory: "/downloads/xiaochuan-heap-1", complete: true }
 
 const command = (value = reply()): HeapCaptureEvent => ({
   type: "command.requested",

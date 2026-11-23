@@ -1,6 +1,6 @@
 ---
 title: "Keybinds"
-description: "Customize Xccode CLI keybinds in cli.json, and look up each command's ID and default binding."
+description: "Customize Xiaochuan CLI keybinds in cli.json, and look up each command's ID and default binding."
 ---
 
 Customize bindings in `cli.json`:
@@ -95,14 +95,14 @@ Unknown command IDs are ignored.
 | `command.palette.show`     | `ctrl+p`                  | List available commands             |
 | `help.show`                | `none`                    | Open help dialog                    |
 | `docs.open`                | `none`                    | Open documentation                  |
-| `xccode.settings`        | `none`                    | Open settings                       |
+| `xiaochuan.settings`        | `none`                    | Open settings                       |
 | `server.pair`              | `none`                    | Pair device                         |
 | `service.restart`          | `none`                    | Restart service                     |
 | `location.reload`          | `none`                    | Reload configuration                |
 
 ## Mini
 
-The `app.clear` command works only in [`xccode mini`](/cli). Press `ctrl+l` to clear the visible screen and draw the prompt again. The terminal keeps the scrollback.
+The `app.clear` command works only in [`xiaochuan mini`](/cli). Press `ctrl+l` to clear the visible screen and draw the prompt again. The terminal keeps the scrollback.
 
 ```json title="cli.json"
 {
@@ -171,8 +171,8 @@ The retired `diff.toggle`, `diff.expand`, `diff.expand_all`, `diff.collapse`, an
 | `terminal.toggle`          | `<leader>t`     | Toggle terminal pane                     |
 | `terminal.close`           | `<leader>up`    | Close terminal pane                      |
 | `session.toggle.scrollbar` | `none`          | Toggle session scrollbar                 |
-| `xccode.status`          | `<leader>s`     | View status                              |
-| `xccode.debug`           | `none`          | View debug info                          |
+| `xiaochuan.status`          | `<leader>s`     | View status                              |
+| `xiaochuan.debug`           | `none`          | View debug info                          |
 
 ## Sessions
 

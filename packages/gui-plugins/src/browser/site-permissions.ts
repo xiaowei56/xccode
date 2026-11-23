@@ -1,8 +1,8 @@
 // Which device and browser features a web page gets, and the decisions the user kept. Electron-free: the session
 // guard and each page's prompt driver call these, and the settings page lists the decisions through `BrowserSites`.
 import { Schema } from "effect"
-import { Ipc } from "@xccode/plugin/gui"
-import type { Storage } from "@xccode/plugin/gui/main"
+import { Ipc } from "@xiaochuan/plugin/gui"
+import type { Storage } from "@xiaochuan/plugin/gui/main"
 import { previewScheme } from "./scheme"
 
 /** The features a page may ask the user for. Every other permission stays denied without asking. */

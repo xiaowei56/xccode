@@ -1,6 +1,6 @@
 {
     "languageMode": "strict",
     "aliases": {
-        "xccode": "../../crates/plugin/src/luau/xccode"
+        "xiaochuan": "../../crates/plugin/src/luau/xiaochuan"
     }
 }

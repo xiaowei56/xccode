@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import type { ChangeKind } from "@xccode/plugin/gui/review"
-import type { FileNode } from "@xccode/plugin/gui"
+import type { ChangeKind } from "@xiaochuan/plugin/gui/review"
+import type { FileNode } from "@xiaochuan/plugin/gui"
 import {
   createPierreTreeState,
   runPierreTreeSync,

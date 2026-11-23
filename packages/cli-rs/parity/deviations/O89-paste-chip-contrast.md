@@ -8,7 +8,7 @@ foreground. In dark mode the chip text is then light on yellow. Example, Ghostty
 `#1a1b26`, foreground `#a9b1d6`, yellow `#e0af68`): `#a9b1d6` on `#e0af68`, a contrast of 1.06. In light mode, with
 background `#e1e2e7` and foreground `#3760bf`: `#3760bf` on `#8c6c3e`, 1.21.
 
-**Rust.** `xccode_ui::code::syntax_theme` keeps the intent of #62930 when the page is transparent:
+**Rust.** `xiaochuan_ui::code::syntax_theme` keeps the intent of #62930 when the page is transparent:
 
 - The system theme keeps the terminal's background (OSC 11) in the channels of its transparent page. The chip text
   is that color, made opaque. Tokyo Night dark: `#1a1b26` on `#e0af68` (contrast 8.55). Light: `#e1e2e7` on `#8c6c3e`

@@ -1,4 +1,4 @@
-import type { UsagePoint } from "@xccode/data-core/domain/home"
+import type { UsagePoint } from "@xiaochuan/data-core/domain/home"
 import { translate } from "../i18n"
 import {
   catalogModelPath,
@@ -296,7 +296,7 @@ export function modelMarkdown(data: ModelPageData, name: string) {
           ],
         ],
       ),
-    stats && "## Xccode usage: past 2 months",
+    stats && "## Xiaochuan usage: past 2 months",
     stats &&
       table(
         ["Metric", "Value"],
@@ -468,7 +468,7 @@ export function compareMarkdown(data: ComparePageData, params: string[]) {
         ["Output price per 1M tokens", ...cells((model) => optionalPrice(model.entry?.cost?.output))],
         ["Cached input price per 1M tokens", ...cells((model) => optionalPrice(model.entry?.cost?.cacheRead))],
         [
-          "Xccode tokens: past 2 months",
+          "Xiaochuan tokens: past 2 months",
           ...cells((model) => (model.stats ? formatTokens(model.stats.totals.tokens) : "-")),
         ],
         ["Share of all tokens", ...cells((model) => (model.stats ? formatPercent(model.stats.tokenShare) : "-"))],
@@ -487,8 +487,8 @@ export function compareMarkdown(data: ComparePageData, params: string[]) {
 
 export function llmsTxt(home: HomePageData, catalog: ModelCatalog) {
   return markdown(
-    "# Xccode Data",
-    "> AI model usage rankings, token prices, session costs, and market share from Xccode, updated hourly.",
+    "# Xiaochuan Data",
+    "> AI model usage rankings, token prices, session costs, and market share from Xiaochuan, updated hourly.",
     homeSummary("en", home),
     facts([
       ["Updates", translate("en", "methodology.updates")],

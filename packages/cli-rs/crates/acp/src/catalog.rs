@@ -6,12 +6,12 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use futures_util::StreamExt;
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     AgentInfoMode, AgentListInput, CommandInfo, CommandListInput, LocationQueryInput, ModelDefaultInput, ModelInfo,
     ModelListInput, ModelRef, PluginListInput,
 };
-use xccode_util::lock;
+use xiaochuan_util::lock;
 use serde_json::Value;
 use tokio::sync::{OnceCell, watch};
 use tokio::time::Instant;

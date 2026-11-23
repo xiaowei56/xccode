@@ -1,7 +1,7 @@
 export * as WebSearchTool from "./websearch.js"
 
-import type { Context } from "@xccode/plugin/effect/plugin"
-import { ToolFailure } from "@xccode/ai/effect"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
+import { ToolFailure } from "@xiaochuan/ai/effect"
 import { Effect, Schema, Semaphore } from "effect"
 import { HttpClientError } from "effect/http"
 import { Config } from "../../config.js"
@@ -36,7 +36,7 @@ const Output = Schema.Array(
   }),
 )
 export const Plugin = {
-  id: "xccode.tool.websearch",
+  id: "xiaochuan.tool.websearch",
   effect: Effect.fn("WebSearchTool.Plugin")(function* (ctx: Context) {
     const permission = yield* Permission.Service
     const forms = yield* Form.Service
@@ -86,7 +86,7 @@ export const Plugin = {
                           fields: [
                             {
                               key: "choice",
-                              description: "Allow Xccode to search the web for up-to-date information?",
+                              description: "Allow Xiaochuan to search the web for up-to-date information?",
                               type: "string",
                               required: true,
                               custom: false,

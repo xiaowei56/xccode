@@ -18,7 +18,7 @@
         "headers": {
           "content-type": "application/json"
         },
-        "body": "{\"text\":\"Hello from Xccode.\",\"model_id\":\"eleven_flash_v2_5\"}"
+        "body": "{\"text\":\"Hello from Xiaochuan.\",\"model_id\":\"eleven_flash_v2_5\"}"
       },
       "response": {
         "status": 200,

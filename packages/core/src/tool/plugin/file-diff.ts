@@ -1,4 +1,4 @@
-import { FileDiff } from "@xccode/schema/file-diff"
+import { FileDiff } from "@xiaochuan/schema/file-diff"
 import { createTwoFilesPatch, diffLines } from "diff"
 
 export function fileDiff(

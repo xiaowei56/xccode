@@ -12,7 +12,7 @@ export default definePty({
   rows: 30,
   server: { fallback: "tui" },
   setup: async (root) => {
-    const config = path.join(root, "home/.config/xccode")
+    const config = path.join(root, "home/.config/xiaochuan")
     await mkdir(config, { recursive: true })
     await writeFile(path.join(config, "cli.json"), JSON.stringify({ terminal: { title: false } }))
   },

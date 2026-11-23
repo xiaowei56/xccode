@@ -1,7 +1,7 @@
 export * as SessionSearchBuild from "./search-build.js"
 
 import { Cause, Clock, Context, Effect, Exit, Latch, Layer } from "effect"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { Database } from "../database/database.js"
 import { SessionSearchIndex } from "./search-index.js"
 
@@ -16,7 +16,7 @@ export interface Interface {
   readonly start: Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionSearchBuild") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionSearchBuild") {}
 
 /** Pause between transactions so requests waiting on the JS thread or the write lock get a turn. */
 const PAUSE = "5 millis"

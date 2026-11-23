@@ -45,7 +45,7 @@ fn child_work() -> WireOptions {
 
 async fn child_sessions(child_session_updates: bool, parent: Value, child: Value) {
     let acp =
-        start_session(child_work(), json!({ "_meta": { "xccode/child-session-updates": child_session_updates } }))
+        start_session(child_work(), json!({ "_meta": { "xiaochuan/child-session-updates": child_session_updates } }))
             .await;
 
     assert_eq!(acp.prompt(&acp.session_id, "hello").await.unwrap()["stopReason"], "end_turn");
@@ -68,7 +68,7 @@ async fn child_sessions(child_session_updates: bool, parent: Value, child: Value
     let parents: Vec<Value> = acp.turn_updates().into_iter().map(|item| item["update"].clone()).collect();
     assert_matches(&json!(parents), &parent);
     assert_matches(&json!(lock(&acp.child_updates).clone()), &child);
-    let grandchild = json!({ "xccode/child-session": { "id": "ses_grandchild", "parentID": "ses_child", "depth": 2, "title": "Deeper" } });
+    let grandchild = json!({ "xiaochuan/child-session": { "id": "ses_grandchild", "parentID": "ses_child", "depth": 2, "title": "Deeper" } });
     assert_matches(
         &json!(lock(&acp.permissions).clone()),
         &json!([
@@ -78,7 +78,7 @@ async fn child_sessions(child_session_updates: bool, parent: Value, child: Value
                 "toolCall": {
                     "toolCallId": "ses_background:perm_background",
                     "title": "Research: /workspace/notes.md",
-                    "_meta": { "xccode/child-session": { "id": "ses_background", "parentID": acp.session_id, "depth": 1, "title": "Research" } },
+                    "_meta": { "xiaochuan/child-session": { "id": "ses_background", "parentID": acp.session_id, "depth": 1, "title": "Research" } },
                 },
             },
         ]),
@@ -94,7 +94,7 @@ async fn child_sessions(child_session_updates: bool, parent: Value, child: Value
 
 #[tokio::test]
 async fn shows_nested_and_background_child_work_on_the_parent_without_the_child_capability() {
-    let grandchild = json!({ "xccode/child-session": { "id": "ses_grandchild", "parentID": "ses_child", "depth": 2, "title": "Deeper" } });
+    let grandchild = json!({ "xiaochuan/child-session": { "id": "ses_grandchild", "parentID": "ses_child", "depth": 2, "title": "Deeper" } });
     child_sessions(
         false,
         json!([
@@ -341,7 +341,7 @@ async fn cancels_unsupported_session_forms_so_execution_can_continue() {
         vec![json!({
             "sessionID": acp.session_id,
             "formID": "frm_question",
-            "message": xccode_acp::elicitation::UNSHOWN_QUESTION_MESSAGE,
+            "message": xiaochuan_acp::elicitation::UNSHOWN_QUESTION_MESSAGE,
         })]
     );
     assert!(lock(&acp.elicitations).is_empty());

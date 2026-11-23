@@ -36,15 +36,15 @@ export default {
   "move.recovery.remove": "Elimina worktree",
   "mcp.manage": "Gestisci server MCP",
   timedOut: "Il server ha impiegato troppo tempo a rispondere",
-  "setup.mcp": "Aggiungi un server con Xccode",
+  "setup.mcp": "Aggiungi un server con Xiaochuan",
   "setup.mcp.prompt":
-    "Aiutami ad aggiungere un server MCP alla mia configurazione globale di Xccode. Chiedimi quale servizio voglio collegare, poi configuralo e verifica che si connetta.",
-  "setup.plugins": "Aggiungi un plugin con Xccode",
+    "Aiutami ad aggiungere un server MCP alla mia configurazione globale di Xiaochuan. Chiedimi quale servizio voglio collegare, poi configuralo e verifica che si connetta.",
+  "setup.plugins": "Aggiungi un plugin con Xiaochuan",
   "setup.plugins.prompt":
-    "Aiutami ad aggiungere un plugin alla mia configurazione globale di Xccode. Chiedimi cosa voglio che faccia, suggeriscimi un plugin, poi aggiungilo.",
-  "setup.skills": "Nuova skill con Xccode",
+    "Aiutami ad aggiungere un plugin alla mia configurazione globale di Xiaochuan. Chiedimi cosa voglio che faccia, suggeriscimi un plugin, poi aggiungilo.",
+  "setup.skills": "Nuova skill con Xiaochuan",
   "setup.skills.prompt":
-    "Aiutami a scrivere una nuova skill di Xccode nella mia configurazione globale. Chiedimi cosa dovrebbe insegnarti, poi scrivi il suo SKILL.md.",
+    "Aiutami a scrivere una nuova skill di Xiaochuan nella mia configurazione globale. Chiedimi cosa dovrebbe insegnarti, poi scrivi il suo SKILL.md.",
   changesFailed: "Impossibile caricare le modifiche",
   changesOffline: "Impossibile raggiungere questo server",
   "mcp.signIn": "Accedi",
@@ -56,7 +56,7 @@ export default {
   "mcp.error.actionLabel": "Dettagli di {{name}}",
   "mcp.signIn.open": "Accedi a {{name}}",
   "mcp.signIn.description":
-    "Si aprirà il browser per accedere a {{name}}. Se non riesce a raggiungere la macchina su cui è in esecuzione Xccode, incolla qui sotto l'URL a cui è stato reindirizzato.",
+    "Si aprirà il browser per accedere a {{name}}. Se non riesce a raggiungere la macchina su cui è in esecuzione Xiaochuan, incolla qui sotto l'URL a cui è stato reindirizzato.",
   "mcp.signIn.waiting": "In attesa di autorizzazione…",
   "mcp.signIn.failed": "Autorizzazione non riuscita: {{error}}",
   "mcp.signIn.expired": "Autorizzazione scaduta",

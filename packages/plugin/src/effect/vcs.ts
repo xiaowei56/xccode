@@ -1,6 +1,6 @@
-import type { VcsApi } from "@xccode/client/effect/api"
-import type { FileDiff } from "@xccode/schema/file-diff"
-import type { Vcs } from "@xccode/schema/vcs"
+import type { VcsApi } from "@xiaochuan/client/effect/api"
+import type { FileDiff } from "@xiaochuan/schema/file-diff"
+import type { Vcs } from "@xiaochuan/schema/vcs"
 import type { Effect } from "effect"
 import type { Transform } from "./registration.js"
 

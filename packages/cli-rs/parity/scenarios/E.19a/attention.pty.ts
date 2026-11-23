@@ -18,7 +18,7 @@ const session = {
   cost: 0,
   tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
   time: { created: 1, updated: 2 },
-  location: { directory: "/tmp/xccode/packages/tui" },
+  location: { directory: "/tmp/xiaochuan/packages/tui" },
 }
 
 const durable = (seq: number) => ({ aggregateID: "ses_b", seq, version: 1 })
@@ -35,7 +35,7 @@ export default definePty({
   args: ["-s", "ses_b"],
   cols: 100,
   rows: 30,
-  env: { XCCODE_CLI_CONFIG_CONTENT: config },
+  env: { XIAOCHUAN_CLI_CONFIG_CONTENT: config },
   server: {
     fallback: "tui",
     routes: [

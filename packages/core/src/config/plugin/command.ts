@@ -1,9 +1,9 @@
 export * as ConfigCommandPlugin from "./command.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
-import type { Entry } from "@xccode/schema/config"
-import { ConfigCommand } from "@xccode/schema/config/command"
-import { AppProcess } from "@xccode/util/process"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import type { Entry } from "@xiaochuan/schema/config"
+import { ConfigCommand } from "@xiaochuan/schema/config/command"
+import { AppProcess } from "@xiaochuan/util/process"
 import path from "path"
 import { Effect, Result, SchemaIssue, SchemaParser } from "effect"
 import { ChildProcess } from "effect/process"
@@ -13,7 +13,7 @@ import { Location } from "../../location.js"
 import { Session } from "../../session.js"
 import { SubagentJob } from "../../session/subagent-job.js"
 import { ShellSelect } from "../../shell/select.js"
-import { FSUtil } from "@xccode/util/fs-util"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { ConfigMarkdown } from "../markdown.js"
 import { ConfigEntryObserver } from "./entry-observer.js"
 
@@ -21,7 +21,7 @@ const decodeCommand = SchemaParser.decodeUnknownResult(ConfigCommand.Info)
 const formatIssue = SchemaIssue.makeFormatterDefault()
 
 export const Plugin = define({
-  id: "xccode.config.command",
+  id: "xiaochuan.config.command",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const fs = yield* FSUtil.Service

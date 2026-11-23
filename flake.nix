@@ -1,5 +1,5 @@
 {
-  description = "Xccode development flake";
+  description = "Xiaochuan development flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -38,11 +38,11 @@
             };
           in
           rec {
-            xccode = final.callPackage ./nix/xccode.nix {
+            xiaochuan = final.callPackage ./nix/xiaochuan.nix {
               inherit node_modules;
             };
-            xccode-desktop = final.callPackage ./nix/desktop.nix {
-              inherit xccode;
+            xiaochuan-desktop = final.callPackage ./nix/desktop.nix {
+              inherit xiaochuan;
             };
           };
       };
@@ -55,12 +55,12 @@
           };
         in
         rec {
-          default = xccode;
-          xccode = pkgs.callPackage ./nix/xccode.nix {
+          default = xiaochuan;
+          xiaochuan = pkgs.callPackage ./nix/xiaochuan.nix {
             inherit node_modules;
           };
-          xccode-desktop = pkgs.callPackage ./nix/desktop.nix {
-            inherit xccode;
+          xiaochuan-desktop = pkgs.callPackage ./nix/desktop.nix {
+            inherit xiaochuan;
           };
           # Updater derivation with fakeHash - build fails and reveals correct hash
           node_modules_updater = node_modules.override {

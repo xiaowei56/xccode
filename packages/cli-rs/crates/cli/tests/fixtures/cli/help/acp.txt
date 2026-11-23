@@ -2,7 +2,7 @@
   Start an Agent Client Protocol server
 
 [1mUSAGE[0m
-  [36mxccode acp [flags][0m
+  [36mxiaochuan acp [flags][0m
 
 [1mFLAGS[0m
   [32m--login[0m    Run auth login instead of starting the server

@@ -1,9 +1,9 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import { expect } from "bun:test"
-import { Generate } from "@xccode/core/generate"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { Global } from "@xccode/util/global"
+import { Generate } from "@xiaochuan/core/generate"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { Global } from "@xiaochuan/util/global"
 import { Effect, Layer, Stream } from "effect"
 import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
 import { it } from "../../core/test/lib/effect"
@@ -37,7 +37,7 @@ const serve = (dir: string, enabled: boolean) =>
   ServerFetch.make(
     {
       app: { version: "test" },
-      database: { path: path.join(dir, "xccode.db") },
+      database: { path: path.join(dir, "xiaochuan.db") },
       config: {
         directory: dir,
         project: false,
@@ -55,12 +55,12 @@ const serve = (dir: string, enabled: boolean) =>
     },
   )
 
-const base = "http://xccode.local/api/experimental"
+const base = "http://xiaochuan.local/api/experimental"
 const unknown = `video_${"0".repeat(12)}${"A".repeat(14)}`
 
 it.live("generates a video in the background and serves its blob with Range and ETag support", () =>
   Effect.gen(function* () {
-    const dir = (yield* tmpdirScoped("xccode-video-route-")).path
+    const dir = (yield* tmpdirScoped("xiaochuan-video-route-")).path
     const handler = yield* serve(dir, true)
     const call = (url: string, init?: RequestInit) => Effect.promise(() => handler(new Request(url, init)))
 
@@ -133,7 +133,7 @@ it.live("generates a video in the background and serves its blob with Range and 
 
 it.live("rejects video routes while experimental.video_generate is off", () =>
   Effect.gen(function* () {
-    const dir = (yield* tmpdirScoped("xccode-video-off-")).path
+    const dir = (yield* tmpdirScoped("xiaochuan-video-off-")).path
     const handler = yield* serve(dir, false)
     const start = yield* Effect.promise(() =>
       handler(

@@ -1,4 +1,4 @@
-import type { ModelInfo } from "@xccode/client"
+import type { ModelInfo } from "@xiaochuan/client"
 import { createMemo, createSignal, Show } from "solid-js"
 import { useLocal } from "../context/local"
 import { DialogSelect } from "../ui/dialog-select"
@@ -72,9 +72,9 @@ function DialogConnectedModels(props: {
     if (newDesigns()) return favorite ? <FavoriteMarker /> : undefined
     return isFreeModel(model) ? "Free" : undefined
   }
-  // Xccode's own free models get their own group at the end of the list instead of joining "Xccode".
+  // Xiaochuan's own free models get their own group at the end of the list instead of joining "Xiaochuan".
   const freeGroup = (model: ModelInfo) =>
-    newDesigns() && !props.providerID && model.providerID === "xccode" && isFreeModel(model)
+    newDesigns() && !props.providerID && model.providerID === "xiaochuan" && isFreeModel(model)
 
   const connected = useConnected()
   const providers = createMemo(

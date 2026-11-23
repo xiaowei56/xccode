@@ -1,4 +1,4 @@
-@import "@xccode/ui/styles/tokens/colors.css";
+@import "@xiaochuan/ui/styles/tokens/colors.css";
 
 [data-page="go"] {
   --go-console-bg: var(--v2-grey-50);

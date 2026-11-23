@@ -1,10 +1,10 @@
 import "@pierre/trees/web-components"
 import { FileTree, type FileTreeDirectoryHandle, type FileTreeItemHandle } from "@pierre/trees"
-import { getIcon } from "@xccode/ui/icons/catalog"
+import { getIcon } from "@xiaochuan/ui/icons/catalog"
 import { createMemo, createSignal, onCleanup, onMount, untrack } from "solid-js"
-import { builtinContext } from "@xccode/plugin/gui/builtin"
-import type { ChangeKind } from "@xccode/plugin/gui/review"
-import { createKeyed, usePlugin, type FileNode, type MountedSession, type SessionScreen } from "@xccode/plugin/gui"
+import { builtinContext } from "@xiaochuan/plugin/gui/builtin"
+import type { ChangeKind } from "@xiaochuan/plugin/gui/review"
+import { createKeyed, usePlugin, type FileNode, type MountedSession, type SessionScreen } from "@xiaochuan/plugin/gui"
 import { startFileDrag } from "./drag"
 import { OpenInAppContextMenuV2, useOpenInApp } from "./open-in-app"
 import { resolveOpenInAppPath } from "./path"
@@ -387,7 +387,7 @@ export default function PierreFileTree(props: {
     if (effect.collapse.length > 0) run({ type: "sync-expansion", expand: [], collapse: effect.collapse })
     created.render({ containerWrapper: wrapper })
     widthHost = created.getFileTreeContainer()
-    widthHost?.classList.add("xccode-pierre-file-tree")
+    widthHost?.classList.add("xiaochuan-pierre-file-tree")
     const list = widthHost?.shadowRoot?.querySelector<HTMLElement>("[data-file-tree-virtualized-list]")
     const scroller = list?.closest<HTMLElement>("[data-file-tree-virtualized-scroll]")
 

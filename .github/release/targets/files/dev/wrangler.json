@@ -1,5 +1,5 @@
 {
-  "name": "xccode-dev-files",
+  "name": "xiaochuan-dev-files",
   "account_id": "d8e944f537ceef3f06a5bd3aec1d7a53",
   "main": "index.js",
   "no_bundle": true,
@@ -7,6 +7,6 @@
   "workers_dev": false,
   "preview_urls": false,
   "vars": { "STAGE": "dev" },
-  "routes": [{ "pattern": "dev.xccode.ai/files/*", "zone_name": "dev.xccode.ai" }],
-  "r2_buckets": [{ "binding": "FILES", "bucket_name": "xccode-dev-files" }]
+  "routes": [{ "pattern": "dev.xiaochuan.ai/files/*", "zone_name": "dev.xiaochuan.ai" }],
+  "r2_buckets": [{ "binding": "FILES", "bucket_name": "xiaochuan-dev-files" }]
 }

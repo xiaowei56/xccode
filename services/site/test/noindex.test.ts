@@ -22,7 +22,7 @@ afterEach(() => {
 
 async function robots(stage: string) {
   process.env.STAGE = stage
-  const responses = await Promise.all(paths.map((path) => app.fetch(new Request(`https://xccode.ai${path}`))))
+  const responses = await Promise.all(paths.map((path) => app.fetch(new Request(`https://xiaochuan.ai${path}`))))
   return responses.map((response) => response.headers.get("X-Robots-Tag"))
 }
 

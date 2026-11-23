@@ -1,8 +1,8 @@
 import { NodeServices } from "@effect/platform-node"
-import { EffectFlock } from "@xccode/util/effect-flock"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
-import { AppProcess } from "@xccode/util/process"
+import { EffectFlock } from "@xiaochuan/util/effect-flock"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
+import { AppProcess } from "@xiaochuan/util/process"
 import { expect, spyOn, test } from "bun:test"
 import { Effect, FileSystem, Layer, PlatformError, Stream } from "effect"
 import { ChildProcessSpawner } from "effect/process"
@@ -13,7 +13,7 @@ import { testEffect } from "../../core/test/lib/effect"
 
 const it = testEffect(NodeServices.layer)
 
-declare const XCCODE_CLI_NAME: string | undefined
+declare const XIAOCHUAN_CLI_NAME: string | undefined
 
 function fixture(
   respond: (command: {
@@ -22,7 +22,7 @@ function fixture(
   }) => Partial<AppProcess.RunResult> & {
     error?: AppProcess.AppProcessError
   } = () => ({}),
-  name = "@xccode/cli",
+  name = "@xiaochuan/cli",
   failCleanup = false,
   releasePackage = name,
   formula?: string,
@@ -34,21 +34,21 @@ function fixture(
   return Effect.gen(function* () {
     const fs = yield* FileSystem.FileSystem
     const spawner = yield* ChildProcessSpawner.ChildProcessSpawner
-    const root = yield* fs.makeTempDirectoryScoped({ prefix: "xccode-updater-" })
+    const root = yield* fs.makeTempDirectoryScoped({ prefix: "xiaochuan-updater-" })
     const execPath = process.execPath
     // npm's global layout on POSIX.
     const modules = path.join(root, "lib", "node_modules")
     const executable = executableOverride
       ? yield* executableOverride(root, path.join(root, "home"))
       : formula
-        ? path.join(root, "Cellar", formula, "2.0.20", "bin", "xccode")
-        : path.join(modules, ...name.split("/"), "bin", "xccode")
+        ? path.join(root, "Cellar", formula, "2.0.20", "bin", "xiaochuan")
+        : path.join(modules, ...name.split("/"), "bin", "xiaochuan")
     yield* fs.makeDirectory(path.dirname(executable), { recursive: true })
     yield* fs.writeFileString(executable, "binary")
     if (!formula && !executableOverride)
       yield* fs.writeFileString(
         path.join(modules, ...name.split("/"), "package.json"),
-        JSON.stringify({ name, bin: { xccode: "bin/xccode" } }),
+        JSON.stringify({ name, bin: { xiaochuan: "bin/xiaochuan" } }),
       )
     const requests: string[] = []
     // The updater uses global fetch; scope this replacement to each install test.
@@ -130,7 +130,7 @@ function fixture(
               // Successful installs replace the running copy, which the updater verifies afterwards.
               const installed = args.find((arg) => arg.startsWith(`${name}@`))?.slice(name.length + 1)
               if (!formula && !executableOverride && installed && (result.exitCode ?? 0) === 0)
-                writeFileSync(manifest, JSON.stringify({ name, version: installed, bin: { xccode: "bin/xccode" } }))
+                writeFileSync(manifest, JSON.stringify({ name, version: installed, bin: { xiaochuan: "bin/xiaochuan" } }))
               return Effect.succeed({
                 command: command.command,
                 exitCode: 0,
@@ -163,17 +163,17 @@ const installs = [
       "install",
       "--global",
       ...prefixArgs,
-      "--allow-scripts=@xccode/cli",
+      "--allow-scripts=@xiaochuan/cli",
       "--force",
-      "@xccode/cli@2.3.4-beta.1",
+      "@xiaochuan/cli@2.3.4-beta.1",
     ],
   },
   {
     method: "pnpm",
-    command: () => ["pnpm", "add", "--global", "--allow-build=@xccode/cli", "@xccode/cli@2.3.4-beta.1"],
+    command: () => ["pnpm", "add", "--global", "--allow-build=@xiaochuan/cli", "@xiaochuan/cli@2.3.4-beta.1"],
   },
-  { method: "yarn", command: () => ["yarn", "global", "add", "@xccode/cli@2.3.4-beta.1"] },
-  { method: "vp", command: () => ["vp", "update", "-g", "@xccode/cli@2.3.4-beta.1"] },
+  { method: "yarn", command: () => ["yarn", "global", "add", "@xiaochuan/cli@2.3.4-beta.1"] },
+  { method: "vp", command: () => ["vp", "update", "-g", "@xiaochuan/cli@2.3.4-beta.1"] },
 ] as const
 
 installs.forEach(({ method, command }) => {
@@ -190,9 +190,9 @@ installs.forEach(({ method, command }) => {
 const installed = (directory: string[], npm = false) =>
   fixture(
     () => ({}),
-    "@xccode/cli",
+    "@xiaochuan/cli",
     false,
-    "@xccode/cli",
+    "@xiaochuan/cli",
     undefined,
     (root) =>
       Effect.gen(function* () {
@@ -201,16 +201,16 @@ const installed = (directory: string[], npm = false) =>
         yield* fs.makeDirectory(pkg, { recursive: true })
         yield* fs.writeFileString(
           path.join(pkg, "package.json"),
-          JSON.stringify({ name: "@xccode/cli", version: "2.2.7", bin: { xccode: "bin/xccode" } }),
+          JSON.stringify({ name: "@xiaochuan/cli", version: "2.2.7", bin: { xiaochuan: "bin/xiaochuan" } }),
         )
         if (npm) {
           yield* fs.makeDirectory(path.join(root, "bin"), { recursive: true })
           yield* fs.writeFileString(path.join(root, "bin", "npm"), "npm")
         }
-        return path.join(pkg, "bin", "xccode")
+        return path.join(pkg, "bin", "xiaochuan")
       }),
   )
-const npmGlobal = ["lib", "node_modules", "@xccode", "cli"]
+const npmGlobal = ["lib", "node_modules", "@xiaochuan", "cli"]
 
 // Version managers such as fnm give each Node install its own prefix, while the npm on PATH may belong to another one.
 unix("npm runs from the prefix that owns the running binary with that prefix's node first on PATH", () =>
@@ -222,7 +222,7 @@ unix("npm runs from the prefix that owns the running binary with that prefix's n
     const removal = test.updater.removal("npm")
     if (!removal) return yield* Effect.die("Expected npm removal command")
     yield* removal.run
-    expect(test.commands[0]).toEqual([npm, "list", "-g", "--depth=0", "--prefix", test.prefix, "@xccode/cli"])
+    expect(test.commands[0]).toEqual([npm, "list", "-g", "--depth=0", "--prefix", test.prefix, "@xiaochuan/cli"])
     expect(test.commands.slice(5).map((command) => command.slice(0, 5))).toEqual([
       [npm, "install", "--global", "--prefix", test.prefix],
       [npm, "uninstall", "--global", "--prefix", test.prefix],
@@ -242,9 +242,9 @@ unix("npm runs from the prefix that owns the running binary with that prefix's n
 
 unix("npm only derives a prefix when the running package is that prefix's global package", () =>
   Effect.gen(function* () {
-    const test = yield* installed(["lib", "node_modules", "wrapper", "node_modules", "@xccode", "cli"], true)
+    const test = yield* installed(["lib", "node_modules", "wrapper", "node_modules", "@xiaochuan", "cli"], true)
     yield* test.updater.method()
-    expect(test.commands[0]).toEqual(["npm", "list", "-g", "--depth=0", "@xccode/cli"])
+    expect(test.commands[0]).toEqual(["npm", "list", "-g", "--depth=0", "@xiaochuan/cli"])
     expect(test.paths[0]).toBeUndefined()
   }),
 )
@@ -265,20 +265,20 @@ const managers = [
   {
     name: "Volta",
     label: "~/.volta",
-    directory: [".volta", "tools", "image", "packages", "@xccode", "cli", ...npmGlobal],
-    command: "volta install @xccode/cli",
+    directory: [".volta", "tools", "image", "packages", "@xiaochuan", "cli", ...npmGlobal],
+    command: "volta install @xiaochuan/cli",
   },
   {
     name: "Volta",
     label: "custom VOLTA_HOME",
-    directory: ["volta-home", "tools", "image", "packages", "@xccode", "cli", ...npmGlobal],
-    command: "volta install @xccode/cli",
+    directory: ["volta-home", "tools", "image", "packages", "@xiaochuan", "cli", ...npmGlobal],
+    command: "volta install @xiaochuan/cli",
   },
   {
     name: "mise",
     label: "mise npm backend",
-    directory: ["mise", "installs", "npm-xccode-cli", "2.2.7", ...npmGlobal],
-    command: "mise use -g npm:@xccode/cli",
+    directory: ["mise", "installs", "npm-xiaochuan-cli", "2.2.7", ...npmGlobal],
+    command: "mise use -g npm:@xiaochuan/cli",
   },
 ] as const
 
@@ -289,16 +289,16 @@ managers.forEach((manager) => {
       expect(yield* test.updater.method()).toBeUndefined()
       const latest = yield* test.updater.managed()
       const pinned = yield* test.updater.managed("v2.2.6")
-      expect(latest?.title).toBe(`Xccode is managed by ${manager.name}`)
+      expect(latest?.title).toBe(`Xiaochuan is managed by ${manager.name}`)
       expect(latest?.command).toBe(`${manager.command}@2.3.4`)
       expect(pinned?.command).toBe(`${manager.command}@2.2.6`)
       const applied = yield* test.updater.apply("2.3.4").pipe(Effect.flip)
-      expect(applied.message).toBe(`Xccode is managed by ${manager.name}. Update it with ${manager.command}@2.3.4`)
+      expect(applied.message).toBe(`Xiaochuan is managed by ${manager.name}. Update it with ${manager.command}@2.3.4`)
       // An explicit --method keeps its existing command, and the version check reports the untouched copy.
       const explicit = yield* test.updater.upgrade("npm", "2.3.4").pipe(Effect.flip)
       expect(explicit.message).toContain("is still version 2.2.7")
       expect(test.commands).toEqual([
-        ["npm", "install", "--global", "--allow-scripts=@xccode/cli", "--force", "@xccode/cli@2.3.4"],
+        ["npm", "install", "--global", "--allow-scripts=@xiaochuan/cli", "--force", "@xiaochuan/cli@2.3.4"],
       ])
     }),
   )
@@ -319,9 +319,9 @@ managers.forEach((manager) => {
 
 it.live("vp force-installs a renamed V2 package that replaces the existing binary owner", () =>
   Effect.gen(function* () {
-    const test = yield* fixture(() => ({}), "@xccode/cli", false, "@xccode/cli-node")
+    const test = yield* fixture(() => ({}), "@xiaochuan/cli", false, "@xiaochuan/cli-node")
     yield* test.updater.upgrade("vp", "v2.3.4-beta.1")
-    expect(test.commands).toEqual([["vp", "install", "-g", "--force", "@xccode/cli-node@2.3.4-beta.1"]])
+    expect(test.commands).toEqual([["vp", "install", "-g", "--force", "@xiaochuan/cli-node@2.3.4-beta.1"]])
   }),
 )
 
@@ -330,9 +330,9 @@ it.live("vp removes the package from its managed global store", () =>
     const test = yield* fixture()
     const removal = test.updater.removal("vp")
     if (!removal) return yield* Effect.die("Expected vp removal command")
-    expect(removal.command).toEqual(["vp", "uninstall", "-g", "@xccode/cli"])
+    expect(removal.command).toEqual(["vp", "uninstall", "-g", "@xiaochuan/cli"])
     yield* removal.run
-    expect(test.commands).toEqual([["vp", "uninstall", "-g", "@xccode/cli"]])
+    expect(test.commands).toEqual([["vp", "uninstall", "-g", "@xiaochuan/cli"]])
   }),
 )
 ;[0, 1].forEach((exitCode) => {
@@ -347,7 +347,7 @@ it.live("vp removes the package from its managed global store", () =>
       const cache = test.commands[0]?.[5]
       expect(cache).toStartWith(path.join(test.global.cache, "update-"))
       expect(test.commands).toEqual([
-        ["bun", "install", "--global", "--trust", "--cache-dir", cache, "@xccode/cli@2.3.4-beta.1"],
+        ["bun", "install", "--global", "--trust", "--cache-dir", cache, "@xiaochuan/cli@2.3.4-beta.1"],
       ])
       expect(yield* test.fs.readDirectory(test.global.cache)).toEqual([])
       expect(result._tag).toBe(exitCode === 0 ? "None" : "Some")
@@ -358,7 +358,7 @@ it.live("vp removes the package from its managed global store", () =>
 
 it.live("bun ignores install cache cleanup failures", () =>
   Effect.gen(function* () {
-    const test = yield* fixture(() => ({}), "@xccode/cli", true)
+    const test = yield* fixture(() => ({}), "@xiaochuan/cli", true)
     yield* test.updater.upgrade("bun", "v2.3.4-beta.1")
     expect(test.commands).toHaveLength(1)
   }),
@@ -382,7 +382,7 @@ it.live("bun ignores install cache cleanup failures", () =>
       const installer = test.commands[0]?.[3]
       expect(installer).toStartWith(path.join(test.global.cache, "update-"))
       expect(test.commands).toEqual([
-        ["curl", "-fsSL", "-o", installer, "https://xccode.ai/v2/install"],
+        ["curl", "-fsSL", "-o", installer, "https://xiaochuan.ai/v2/install"],
         ...(failure === "download" ? [] : [[test.bash, installer, "--version", "2.3.4-beta.1", "--no-modify-path"]]),
       ])
       expect(yield* test.fs.readDirectory(test.global.cache)).toEqual([])
@@ -429,20 +429,20 @@ it.live("install failures expose stderr and process errors do not report success
         stdout: Buffer.from(
           command.command === method
             ? method === "vp"
-              ? JSON.stringify([{ name: "@xccode/cli", version: "2.3.4" }])
-              : "@xccode/cli@2.3.4"
+              ? JSON.stringify([{ name: "@xiaochuan/cli", version: "2.3.4" }])
+              : "@xiaochuan/cli@2.3.4"
             : command.command === "vp"
               ? "[]"
-              : "xccode-ai@1.0.0",
+              : "xiaochuan-ai@1.0.0",
         ),
       }))
       expect(yield* test.updater.method()).toBe(method)
       expect(test.commands).toEqual([
-        ["npm", "list", "-g", "--depth=0", ...test.prefixArgs, "@xccode/cli"],
-        ["pnpm", "list", "-g", "--depth=0", "@xccode/cli"],
+        ["npm", "list", "-g", "--depth=0", ...test.prefixArgs, "@xiaochuan/cli"],
+        ["pnpm", "list", "-g", "--depth=0", "@xiaochuan/cli"],
         ["bun", "pm", "ls", "-g"],
         ["yarn", "global", "list"],
-        ["vp", "list", "-g", "--json", "@xccode/cli"],
+        ["vp", "list", "-g", "--json", "@xiaochuan/cli"],
       ])
     }),
   )
@@ -452,7 +452,7 @@ it.live("method detection tolerates unavailable package managers", () =>
   Effect.gen(function* () {
     const test = yield* fixture((command) =>
       command.command === "yarn"
-        ? { stdout: Buffer.from("@xccode/cli@2.3.4") }
+        ? { stdout: Buffer.from("@xiaochuan/cli@2.3.4") }
         : { error: new AppProcess.AppProcessError({ command: command.command }) },
     )
     expect(yield* test.updater.method()).toBe("yarn")
@@ -463,7 +463,7 @@ it.live("method detection tolerates unavailable package managers", () =>
 it.live("vp detection ignores no-match output that repeats the package name", () =>
   Effect.gen(function* () {
     const test = yield* fixture((command) => ({
-      stdout: Buffer.from(command.command === "vp" ? "No global packages matching '@xccode/cli'." : ""),
+      stdout: Buffer.from(command.command === "vp" ? "No global packages matching '@xiaochuan/cli'." : ""),
     }))
     expect(yield* test.updater.method()).toBeUndefined()
   }),
@@ -471,30 +471,30 @@ it.live("vp detection ignores no-match output that repeats the package name", ()
 
 it.live("Homebrew Core installs check and upgrade the Core formula", () =>
   Effect.gen(function* () {
-    const test = yield* fixture(() => ({}), "@xccode/cli", false, "anomalyco/tap/xccode-v2", "xccode")
+    const test = yield* fixture(() => ({}), "@xiaochuan/cli", false, "anomalyco/tap/xiaochuan-v2", "xiaochuan")
     expect(yield* test.updater.method()).toBe("brew")
     expect(yield* test.updater.latest()).toBe("2.0.21")
     yield* test.updater.upgrade("brew", "2.0.21")
-    expect(test.commands).toEqual([["brew", "upgrade", "xccode"]])
+    expect(test.commands).toEqual([["brew", "upgrade", "xiaochuan"]])
     // An explicitly selected method keeps its own release source.
     expect(yield* test.updater.latest("npm")).toBe("2.3.4")
     expect(test.requests).toEqual([
-      "https://formulae.brew.sh/api/formula/xccode.json",
-      "https://xccode.ai/update/api/local/cli/npm?current=local",
+      "https://formulae.brew.sh/api/formula/xiaochuan.json",
+      "https://xiaochuan.ai/update/api/local/cli/npm?current=local",
     ])
   }),
 )
-;["xccode-v2", "xccode-beta"].forEach((formula) => {
+;["xiaochuan-v2", "xiaochuan-beta"].forEach((formula) => {
   it.live(`Homebrew tap installs of ${formula} use the published tap formula`, () =>
     Effect.gen(function* () {
-      const test = yield* fixture(() => ({}), "@xccode/cli", false, `anomalyco/tap/${formula}`, formula)
+      const test = yield* fixture(() => ({}), "@xiaochuan/cli", false, `anomalyco/tap/${formula}`, formula)
       expect(yield* test.updater.method()).toBe("brew")
       expect(yield* test.updater.latest()).toBe("2.3.4")
       yield* test.updater.upgrade("brew", "2.3.4")
       expect(test.commands).toEqual([["brew", "upgrade", `anomalyco/tap/${formula}`]])
       expect(test.requests).toEqual([
-        "https://xccode.ai/update/api/local/cli/homebrew?current=local",
-        "https://xccode.ai/update/api/local/cli/homebrew?current=local",
+        "https://xiaochuan.ai/update/api/local/cli/homebrew?current=local",
+        "https://xiaochuan.ai/update/api/local/cli/homebrew?current=local",
       ])
     }),
   )
@@ -503,9 +503,9 @@ it.live("Homebrew Core installs check and upgrade the Core formula", () =>
 const winget = (search: Partial<AppProcess.RunResult>) =>
   fixture(
     (command) => (command.args[0] === "search" ? search : {}),
-    "@xccode/cli",
+    "@xiaochuan/cli",
     false,
-    "@xccode/cli",
+    "@xiaochuan/cli",
     undefined,
     (root) =>
       Effect.succeed(
@@ -516,14 +516,14 @@ const winget = (search: Partial<AppProcess.RunResult>) =>
           "Microsoft",
           "WinGet",
           "Packages",
-          "Anomaly.Xccode_Microsoft.Winget.Source_8wekyb3d8bbwe",
-          "xccode.exe",
+          "Anomaly.Xiaochuan_Microsoft.Winget.Source_8wekyb3d8bbwe",
+          "xiaochuan.exe",
         ),
       ),
   )
 const wingetArgs = [
   "--id",
-  "Anomaly.Xccode",
+  "Anomaly.Xiaochuan",
   "--exact",
   "--source",
   "winget",
@@ -535,7 +535,7 @@ it.live("WinGet installs check, upgrade, and remove the version in the WinGet in
   Effect.gen(function* () {
     const test = yield* winget({
       stdout: Buffer.from(
-        "Name     Id               Version\r\n------------------------------\r\nXccode Anomaly.Xccode 2.0.28\r\n",
+        "Name     Id               Version\r\n------------------------------\r\nXiaochuan Anomaly.Xiaochuan 2.0.28\r\n",
       ),
     })
     expect(yield* test.updater.method()).toBe("winget")
@@ -549,7 +549,7 @@ it.live("WinGet installs check, upgrade, and remove the version in the WinGet in
       ["winget", "upgrade", ...wingetArgs, "--version", "2.0.28", "--silent", "--accept-package-agreements"],
       ["winget", "uninstall", ...wingetArgs],
     ])
-    // WinGet moderates submissions, so the Xccode release service may list a version WinGet cannot install yet.
+    // WinGet moderates submissions, so the Xiaochuan release service may list a version WinGet cannot install yet.
     expect(test.requests).toEqual([])
   }),
 )
@@ -565,11 +565,11 @@ it.live("WinGet update checks report a missing package instead of a version", ()
   }),
 )
 
-// Links are named xccode-upgrade-<pid>-<random>.exe; read them from inside the installer run.
+// Links are named xiaochuan-upgrade-<pid>-<random>.exe; read them from inside the installer run.
 const links = (directory: string) =>
-  existsSync(directory) ? readdirSync(directory).filter((name) => name.startsWith("xccode-")) : []
+  existsSync(directory) ? readdirSync(directory).filter((name) => name.startsWith("xiaochuan-")) : []
 const upgradeLinks = (directory: string) =>
-  links(directory).filter((name) => name.startsWith(`xccode-upgrade-${process.pid}-`))
+  links(directory).filter((name) => name.startsWith(`xiaochuan-upgrade-${process.pid}-`))
 
 windows("windows keeps a second link to the running binary in the cache while the installer runs", () =>
   Effect.gen(function* () {
@@ -585,13 +585,13 @@ windows("windows keeps a second link to the running binary in the cache while th
     layout.cache = test.global.cache
     yield* test.fs.makeDirectory(test.global.cache, { recursive: true })
     // pid 999999999 does not exist; pid 4 is System, alive but not openable (EPERM).
-    yield* test.fs.writeFileString(path.join(test.global.cache, "xccode-upgrade-999999999-dead.exe"), "exited")
-    yield* test.fs.writeFileString(path.join(test.global.cache, "xccode-service-4-aa.exe"), "inaccessible")
+    yield* test.fs.writeFileString(path.join(test.global.cache, "xiaochuan-upgrade-999999999-dead.exe"), "exited")
+    yield* test.fs.writeFileString(path.join(test.global.cache, "xiaochuan-service-4-aa.exe"), "inaccessible")
     yield* test.updater.upgrade("bun", "2.3.4")
     expect(test.commands).toHaveLength(1)
     // The installed path never disappears; the extra link is released and only dead ones are swept.
     expect(yield* test.fs.readFileString(test.executable)).toBe("binary")
-    expect(links(test.global.cache)).toEqual(["xccode-service-4-aa.exe"])
+    expect(links(test.global.cache)).toEqual(["xiaochuan-service-4-aa.exe"])
   }),
 )
 
@@ -622,7 +622,7 @@ windows("windows keeps the uninstall link in the temporary directory, not the re
     const removal = test.updater.removal("bun")
     if (!removal) return yield* Effect.die("Expected bun removal command")
     yield* removal.run
-    expect(test.commands).toEqual([["bun", "remove", "--global", "@xccode/cli"]])
+    expect(test.commands).toEqual([["bun", "remove", "--global", "@xiaochuan/cli"]])
     expect(links(test.global.cache)).toEqual([])
     expect(links(test.global.tmp)).toEqual([])
   }),
@@ -639,11 +639,11 @@ windows("windows links the curl binary before the installer replaces it", () =>
         }
         return {}
       },
-      "@xccode/cli",
+      "@xiaochuan/cli",
       false,
-      "@xccode/cli",
+      "@xiaochuan/cli",
       undefined,
-      (_root, home) => Effect.succeed(path.join(home, ".xccode", "bin", "xccode.exe")),
+      (_root, home) => Effect.succeed(path.join(home, ".xiaochuan", "bin", "xiaochuan.exe")),
     )
     layout.executable = test.executable
     layout.cache = test.global.cache
@@ -662,15 +662,15 @@ unix("curl method detection resolves symlinked home directories", () =>
   Effect.gen(function* () {
     const test = yield* fixture(
       () => ({}),
-      "@xccode/cli",
+      "@xiaochuan/cli",
       false,
-      "@xccode/cli",
+      "@xiaochuan/cli",
       undefined,
       (root, home) =>
         Effect.gen(function* () {
           const fs = yield* FileSystem.FileSystem
           const realHome = path.join(root, "real-home")
-          const bin = path.join(realHome, ".xccode", "bin", "xccode")
+          const bin = path.join(realHome, ".xiaochuan", "bin", "xiaochuan")
           yield* fs.makeDirectory(path.dirname(bin), { recursive: true })
           yield* fs.symlink(realHome, home)
           return bin
@@ -687,7 +687,7 @@ windows("windows leaves a source checkout's runtime alone", () =>
     const test = yield* fixture(() => {
       expect(links(layout.cache)).toEqual([])
       return {}
-    }, "not-xccode")
+    }, "not-xiaochuan")
     layout.cache = test.global.cache
     yield* test.updater.upgrade("bun", "2.3.4")
     expect(test.commands).toHaveLength(1)
@@ -714,7 +714,7 @@ test("Node distribution honors the compile-time CLI name", async () => {
       "test",
       import.meta.path,
       "--define",
-      'XCCODE_CLI_NAME="xccode2-node"',
+      'XIAOCHUAN_CLI_NAME="xiaochuan2-node"',
       "--test-name-pattern",
       "^Node distribution resolves the published npm package$",
     ],
@@ -731,35 +731,35 @@ test("Node distribution honors the compile-time CLI name", async () => {
   expect(stderr).toContain("1 pass")
 })
 
-if (typeof XCCODE_CLI_NAME === "string" && XCCODE_CLI_NAME === "xccode2-node") {
+if (typeof XIAOCHUAN_CLI_NAME === "string" && XIAOCHUAN_CLI_NAME === "xiaochuan2-node") {
   it.live("Node distribution resolves the published npm package", () =>
     Effect.gen(function* () {
       const test = yield* fixture(
         (command) => ({
-          stdout: Buffer.from(command.command === "npm" ? "@xccode/cli-node@2.3.4" : ""),
+          stdout: Buffer.from(command.command === "npm" ? "@xiaochuan/cli-node@2.3.4" : ""),
         }),
-        "@xccode/cli-node",
+        "@xiaochuan/cli-node",
       )
       expect(yield* test.updater.method()).toBe("npm")
       yield* test.updater.upgrade("npm", "v2.3.4")
       yield* test.updater.upgrade("pnpm", "v2.3.4")
       yield* test.updater.upgrade("vp", "v2.3.4")
       expect(test.commands).toEqual([
-        ["npm", "list", "-g", "--depth=0", ...test.prefixArgs, "@xccode/cli-node"],
-        ["pnpm", "list", "-g", "--depth=0", "@xccode/cli-node"],
+        ["npm", "list", "-g", "--depth=0", ...test.prefixArgs, "@xiaochuan/cli-node"],
+        ["pnpm", "list", "-g", "--depth=0", "@xiaochuan/cli-node"],
         ["bun", "pm", "ls", "-g"],
         ["yarn", "global", "list"],
-        ["vp", "list", "-g", "--json", "@xccode/cli-node"],
+        ["vp", "list", "-g", "--json", "@xiaochuan/cli-node"],
         [
           "npm",
           "install",
           "--global",
           ...test.prefixArgs,
-          "--allow-scripts=@xccode/cli-node",
-          "@xccode/cli-node@2.3.4",
+          "--allow-scripts=@xiaochuan/cli-node",
+          "@xiaochuan/cli-node@2.3.4",
         ],
-        ["pnpm", "add", "--global", "--allow-build=@xccode/cli-node", "@xccode/cli-node@2.3.4"],
-        ["vp", "update", "-g", "@xccode/cli-node@2.3.4"],
+        ["pnpm", "add", "--global", "--allow-build=@xiaochuan/cli-node", "@xiaochuan/cli-node@2.3.4"],
+        ["vp", "update", "-g", "@xiaochuan/cli-node@2.3.4"],
       ])
     }),
   )

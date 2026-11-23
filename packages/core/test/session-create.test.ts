@@ -4,38 +4,38 @@ import fs from "fs/promises"
 import path from "path"
 import { DateTime, Effect, Layer, Stream } from "effect"
 import { TestClock } from "effect/testing"
-import { Money } from "@xccode/schema/money"
-import { Shell } from "@xccode/schema/shell"
-import { Skill } from "@xccode/schema/skill"
-import { Agent } from "@xccode/core/agent"
+import { Money } from "@xiaochuan/schema/money"
+import { Shell } from "@xiaochuan/schema/shell"
+import { Skill } from "@xiaochuan/schema/skill"
+import { Agent } from "@xiaochuan/core/agent"
 import { and, asc, eq } from "drizzle-orm"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Hash } from "@xccode/util/hash"
-import { Bus } from "@xccode/core/bus"
-import { EventTable } from "@xccode/core/event/sql"
-import { Instructions } from "@xccode/core/instructions/index"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { Project } from "@xccode/core/project"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath, RelativePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { SessionMessage } from "@xccode/core/session/message"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { SessionInbox } from "@xccode/core/session/inbox"
-import { InstructionEntry } from "@xccode/core/session/instruction-entry"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionTable } from "@xccode/core/session/sql"
-import { SessionStore } from "@xccode/core/session/store"
-import { SessionTransfer } from "@xccode/core/session/transfer"
-import { Workspace } from "@xccode/core/workspace"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Hash } from "@xiaochuan/util/hash"
+import { Bus } from "@xiaochuan/core/bus"
+import { EventTable } from "@xiaochuan/core/event/sql"
+import { Instructions } from "@xiaochuan/core/instructions/index"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath, RelativePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { SessionInbox } from "@xiaochuan/core/session/inbox"
+import { InstructionEntry } from "@xiaochuan/core/session/instruction-entry"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionTable } from "@xiaochuan/core/session/sql"
+import { SessionStore } from "@xiaochuan/core/session/store"
+import { SessionTransfer } from "@xiaochuan/core/session/transfer"
+import { Workspace } from "@xiaochuan/core/workspace"
 import { Expected } from "./lib/session-message"
 import { testEffect } from "./lib/effect"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
 import { initGit } from "./fixture/git"
 import { countingSpawner } from "./fixture/spawn"
 import { offlineModels } from "./fixture/models"
@@ -43,7 +43,7 @@ import { promptLocationNode } from "./fixture/prompt-location"
 import { globalProjectNode } from "./lib/project"
 import { tmpdirScoped } from "./fixture/tmpdir"
 import { makeDurableObjectStorage } from "./fixture/durable-object-storage"
-import { sqliteLayer } from "@xccode/core/database/sqlite.workerd"
+import { sqliteLayer } from "@xiaochuan/core/database/sqlite.workerd"
 
 const it = testEffect(
   AppNodeBuilder.build(
@@ -157,7 +157,7 @@ describe("Session.create", () => {
         const clone = AbsolutePath.make(path.join(directory, "other-clone"))
         yield* Effect.promise(async () => {
           await $`git init -q ${main}`.cwd(directory)
-          await $`git -c user.name=Test -c user.email=test@xccode.test -c commit.gpgsign=false commit --allow-empty -qm root`
+          await $`git -c user.name=Test -c user.email=test@xiaochuan.test -c commit.gpgsign=false commit --allow-empty -qm root`
             .cwd(main)
             .quiet()
           await $`git remote add origin git@github.com:owner/repo.git`.cwd(main)
@@ -1202,12 +1202,12 @@ describe("Session.create", () => {
         const created = yield* session.create({
           location: Location.Ref.make({ directory: AbsolutePath.make(directory) }),
         })
-        yield* session.environment({ sessionID: created.id, variables: { XCCODE_SESSION_ENV_TEST: "attached" } })
+        yield* session.environment({ sessionID: created.id, variables: { XIAOCHUAN_SESSION_ENV_TEST: "attached" } })
 
         const command =
           process.platform === "win32"
-            ? "[Console]::Out.Write($env:XCCODE_SESSION_ENV_TEST)"
-            : 'printf %s "$XCCODE_SESSION_ENV_TEST"'
+            ? "[Console]::Out.Write($env:XIAOCHUAN_SESSION_ENV_TEST)"
+            : 'printf %s "$XIAOCHUAN_SESSION_ENV_TEST"'
         yield* session.shell({ sessionID: created.id, command })
 
         const messages = yield* session.messages({ sessionID: created.id, order: "asc" })

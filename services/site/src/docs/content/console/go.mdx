@@ -3,7 +3,7 @@ title: "Go"
 description: "Reliable access to open coding models with three plans, for one person or a whole team."
 ---
 
-Xccode Go gives you reliable access to popular open coding models, with three monthly plans:
+Xiaochuan Go gives you reliable access to popular open coding models, with three monthly plans:
 
 | Plan         | Price                                  | Included usage                                                             |
 | ------------ | -------------------------------------- | -------------------------------------------------------------------------- |
@@ -11,14 +11,14 @@ Xccode Go gives you reliable access to popular open coding models, with three mo
 | **Go Plus**  | **$40/month**                          | Higher usage limits across the models below                                |
 | **Go Teams** | **$20/member/month**, 2-member minimum | Every member gets their own limits, $5/month higher than Go on every model |
 
-Go works like any other provider in Xccode. You subscribe to Xccode Go and get your API key. It's **completely optional** and you don't need it to use Xccode.
+Go works like any other provider in Xiaochuan. You subscribe to Xiaochuan Go and get your API key. It's **completely optional** and you don't need it to use Xiaochuan.
 
 The service is designed primarily for international users and provides stable global access.
 
 ## How it works
 
-1. Sign in to the [Xccode Console](https://xccode.ai/console), subscribe to Go, Go Plus, or Go Teams, add your billing details, and copy your API key.
-2. Run `/connect` in the TUI, select **Xccode Go**, and paste your API key.
+1. Sign in to the [Xiaochuan Console](https://xiaochuan.ai/console), subscribe to Go, Go Plus, or Go Teams, add your billing details, and copy your API key.
+2. Run `/connect` in the TUI, select **Xiaochuan Go**, and paste your API key.
 
    ```text
    /connect
@@ -38,7 +38,7 @@ The service is designed primarily for international users and provides stable gl
   mid-period is charged $20 and gets a full monthly allowance. Service accounts are not covered by Go Teams.
 </Callout>
 
-See the [current list of models](https://xccode.ai/console/go#models). It may change as we test and add new ones.
+See the [current list of models](https://xiaochuan.ai/console/go#models). It may change as we test and add new ones.
 
 ### Enable restricted models
 
@@ -69,7 +69,7 @@ the payment method when you subscribe, or later in **Manage subscription**. This
 
 ## Where can I use it?
 
-Xccode Go is designed for [Xccode](https://xccode.ai) and other coding agents
+Xiaochuan Go is designed for [Xiaochuan](https://xiaochuan.ai) and other coding agents
 that produce similar types of requests. Traffic is monitored for abuse that
 degrades the experience for other users.
 
@@ -78,25 +78,25 @@ Your client should:
 1. Send typical coding agent traffic
 2. Identify itself with its own user agent, such as `my-coding-agent/1.0`, rather
    than a generic SDK or HTTP-library name.
-3. Send a stable session ID in `x-xccode-session` for each conversation so we can optimize routing and
+3. Send a stable session ID in `x-xiaochuan-session` for each conversation so we can optimize routing and
    prompt caching.
 
 See [Harnesses](/console/harnesses) to set up Go in Claude Code, Codex, Hermes, Pi, and Raycast.
 
 ### Validated clients
 
-Besides Xccode, the following clients have been validated to work properly
-with Xccode Go, although we do not guarantee that they will continue to work in the future.
+Besides Xiaochuan, the following clients have been validated to work properly
+with Xiaochuan Go, although we do not guarantee that they will continue to work in the future.
 
 | Client            | Session support                                                                                                                                                                                                                             |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Hermes**        | Update to **v0.21.6 or later**, which sends the header on main and auxiliary Xccode requests ([PR #101864](https://github.com/NousResearch/hermes-agent/pull/101864)).                                                                    |
+| **Hermes**        | Update to **v0.21.6 or later**, which sends the header on main and auxiliary Xiaochuan requests ([PR #101864](https://github.com/NousResearch/hermes-agent/pull/101864)).                                                                    |
 | **Claude Code**   | Go recognizes its native session header. No custom-header wrapper is needed.                                                                                                                                                                |
 | **Codex**         | Go recognizes its native session header. Some versions and proxy setups still omit it; preserve the session header when forwarding requests.                                                                                                |
-| **ZCode**         | Go recognizes its native session header. Our [request for `x-xccode-session`](https://github.com/zai-org/feedback/issues/492) remains open, but it is no longer necessary to send that specific header.                                   |
-| **Pi**            | Current builds send session information for Xccode. Update older installations.                                                                                                                                                           |
+| **ZCode**         | Go recognizes its native session header. Our [request for `x-xiaochuan-session`](https://github.com/zai-org/feedback/issues/492) remains open, but it is no longer necessary to send that specific header.                                   |
+| **Pi**            | Current builds send session information for Xiaochuan. Update older installations.                                                                                                                                                           |
 | **jcode**         | Update to **v0.81.6 or later**, which includes the [session-header fix](https://github.com/1jehuang/jcode/issues/1167).                                                                                                                     |
-| **Kilo Code CLI** | Builds containing [PR #13752](https://github.com/Kilo-Org/kilocode/pull/13752) restore Xccode session headers. This fix covers the CLI, not the VS Code extension. See [issue #13723](https://github.com/Kilo-Org/kilocode/issues/13723). |
+| **Kilo Code CLI** | Builds containing [PR #13752](https://github.com/Kilo-Org/kilocode/pull/13752) restore Xiaochuan session headers. This fix covers the CLI, not the VS Code extension. See [issue #13723](https://github.com/Kilo-Org/kilocode/issues/13723). |
 
 ### Known problematic clients
 
@@ -121,11 +121,11 @@ The paid models you use on Go share one allowance. On Go Teams, each member has 
 Switching models draws from the same allowance. If you reach a limit, you can use a free model or turn on
 [Extra Usage](#usage-beyond-limits) to use your Console credits until you have allowance available again.
 
-Each model's [monthly limit](https://xccode.ai/console/go#limits) shows how much usage your plan covers if you use only that model over the month.
+Each model's [monthly limit](https://xiaochuan.ai/console/go#limits) shows how much usage your plan covers if you use only that model over the month.
 For example, $1.50 of usage on a model with a $15 limit uses 10% of your monthly allowance. So does $6 on a model
-with a $60 limit. Go responses report how much each request counted in [`xccode.allowance`](/console/api/inference#cost).
+with a $60 limit. Go responses report how much each request counted in [`xiaochuan.allowance`](/console/api/inference#cost).
 
-[Token prices](https://xccode.ai/console/go#pricing) are per 1M tokens and are the same for Go, Go Plus, and Go Teams.
+[Token prices](https://xiaochuan.ai/console/go#pricing) are per 1M tokens and are the same for Go, Go Plus, and Go Teams.
 
 **Beam Free:** Free for a limited time. Not available in Angola, Belarus, Cambodia, China (including Hong Kong and Macau), Cuba, the Democratic Republic of the Congo, Equatorial Guinea, Iran, Iraq, Laos, Libya, Nigeria, North Korea, Russia, Syria, Turkmenistan, Uzbekistan, Venezuela, or the Crimea, Donetsk, and Luhansk regions of Ukraine.
 
@@ -135,10 +135,10 @@ with a $60 limit. Go responses report how much each request counted in [`xccode.
 
 ### Estimated requests
 
-Console's Go page [estimates requests per 5 hours](https://xccode.ai/console/go#limits) for each model, based on
+Console's Go page [estimates requests per 5 hours](https://xiaochuan.ai/console/go#limits) for each model, based on
 typical Go usage patterns. Actual usage varies.
 
-You can track your current usage in the [console](https://xccode.ai/console), or with the [usage endpoint](#usage).
+You can track your current usage in the [console](https://xiaochuan.ai/console), or with the [usage endpoint](#usage).
 
 <Callout type="tip">If you reach the usage limit, you can continue using the free models.</Callout>
 
@@ -166,18 +166,18 @@ For these models, you still get a little more than if you paid the model provide
 
 ## Endpoints
 
-You can also access Go models through the API at `https://xccode.ai/inference/go`. See each model's
-[ID, path and AI SDK package](https://xccode.ai/console/go#api). Each model is listed with its native API, but every
+You can also access Go models through the API at `https://xiaochuan.ai/inference/go`. See each model's
+[ID, path and AI SDK package](https://xiaochuan.ai/console/go#api). Each model is listed with its native API, but every
 text model also works through the other APIs, which Console translates. See
 [Base URLs](/console/harnesses#base-urls) for the full set.
 
-These AI SDK packages are for applications calling Go directly. To use Go in Xccode, connect with `/connect` and set
-the [model](/models) using the format `xccode-go/<model-id>`:
+These AI SDK packages are for applications calling Go directly. To use Go in Xiaochuan, connect with `/connect` and set
+the [model](/models) using the format `xiaochuan-go/<model-id>`:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
-  "model": "xccode-go/kimi-k3",
+  "$schema": "https://xiaochuan.ai/config.json",
+  "model": "xiaochuan-go/kimi-k3",
 }
 ```
 
@@ -186,7 +186,7 @@ the [model](/models) using the format `xccode-go/<model-id>`:
 Fetch the full list of available models and their metadata from the models endpoint:
 
 ```bash
-curl https://xccode.ai/inference/go/v1/models
+curl https://xiaochuan.ai/inference/go/v1/models
 ```
 
 See the [model list API](/console/api/models) for every field in the response, including Go's monthly usage limits.
@@ -196,7 +196,7 @@ See the [model list API](/console/api/models) for every field in the response, i
 Check how much of your [usage limits](#usage-limits) you've used, for example to show them in your own client:
 
 ```bash
-curl https://xccode.ai/inference/go/v1/usage \
+curl https://xiaochuan.ai/inference/go/v1/usage \
   -H "Authorization: Bearer <token>"
 ```
 
@@ -226,12 +226,12 @@ Requests without a valid key return HTTP `401`. Keys Go doesn't cover return HTT
 why, for example when the workspace has no active Go subscription.
 
 ```json
-{ "type": "error", "error": { "type": "EntitlementError", "message": "Xccode Go subscription required." } }
+{ "type": "error", "error": { "type": "EntitlementError", "message": "Xiaochuan Go subscription required." } }
 ```
 
 ## Privacy
 
-See whether each model [trains on your data](https://xccode.ai/console/go#privacy).
+See whether each model [trains on your data](https://xiaochuan.ai/console/go#privacy).
 
 | Model                      | Data retention |
 | -------------------------- | -------------- |
@@ -283,7 +283,7 @@ Open models have gotten really good. They now reach performance close to proprie
 
 However, getting reliable, low latency access to them can be difficult. Providers vary in quality and availability.
 
-<Callout type="tip">We tested a select group of models and providers that work well with Xccode.</Callout>
+<Callout type="tip">We tested a select group of models and providers that work well with Xiaochuan.</Callout>
 
 To fix this, we did a couple of things:
 
@@ -296,9 +296,9 @@ Teams to cover your whole team.
 
 ## Goals
 
-We created Xccode Go to:
+We created Xiaochuan Go to:
 
 1. Make AI coding **accessible** to more people with a low cost subscription.
 2. Provide **reliable** access to the best open coding models.
 3. Curate models that are **tested and benchmarked** for coding agent use.
-4. Have **no lock-in** by allowing you to use any other provider with Xccode as well.
+4. Have **no lock-in** by allowing you to use any other provider with Xiaochuan as well.

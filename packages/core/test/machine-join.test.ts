@@ -2,10 +2,10 @@ import { describe, expect, test } from "bun:test"
 import { createPublicKey, verify } from "node:crypto"
 import { chmod, mkdir, readFile, stat, writeFile } from "node:fs/promises"
 import path from "node:path"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Identity } from "@xccode/core/machine/identity"
-import { Join } from "@xccode/core/machine/join"
-import { Global } from "@xccode/util/global"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Identity } from "@xiaochuan/core/machine/identity"
+import { Join } from "@xiaochuan/core/machine/join"
+import { Global } from "@xiaochuan/util/global"
 import { Effect, Option } from "effect"
 import { tmpdirScoped } from "./fixture/tmpdir"
 import { it } from "./lib/effect"
@@ -45,7 +45,7 @@ describe("Join", () => {
   })
 
   test("rejects a wrong prefix", () => {
-    expect(Join.decode(literal.replace("ocjoin_", "xccode_"))).toEqual(Option.none())
+    expect(Join.decode(literal.replace("ocjoin_", "xiaochuan_"))).toEqual(Option.none())
   })
 
   test("rejects a wrong version, key length or secret length", () => {

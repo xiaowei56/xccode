@@ -1,5 +1,5 @@
-import type { WorktreeDirectory } from "@xccode/client/promise"
-import { getFilename, sameDirectory } from "@xccode/util/path"
+import type { WorktreeDirectory } from "@xiaochuan/client/promise"
+import { getFilename, sameDirectory } from "@xiaochuan/util/path"
 
 /** The menu shows what it already has, with an error, once a worktree refresh and list take this long. */
 export const WORKTREES_LOAD_TIMEOUT_MS = 15_000

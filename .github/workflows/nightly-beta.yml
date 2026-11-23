@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   dispatch:
-    if: github.repository == 'xiaowei56/xccode'
+    if: github.repository == 'xiaowei56/xiaochuan'
     runs-on: ubuntu-latest
     steps:
       - name: Dispatch beta test runs

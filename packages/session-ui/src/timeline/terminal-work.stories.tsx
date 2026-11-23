@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant, SessionMessageShell } from "@xccode/client/promise"
+import type { SessionMessageAssistant, SessionMessageShell } from "@xiaochuan/client/promise"
 import { Match } from "effect"
 import { createEffect, createMemo, createSignal, Show } from "solid-js"
 import { createStore } from "solid-js/store"
@@ -21,7 +21,7 @@ import { storyDocument, storyTool } from "../storybook/current-session-scenarios
 import { SessionTimeline } from "./session-timeline"
 
 export default {
-  title: "Xccode/Work/Terminal",
+  title: "Xiaochuan/Work/Terminal",
   id: "current-session-terminal-work",
   component: SessionTimeline,
   parameters: {
@@ -234,7 +234,7 @@ export const ExecuteFailed = {
           "execute",
           "completed",
           {
-            code: 'const tab = await tools.browser.tabs.open({\n  url: "file:///C:/tmp/xccode/throne-of-glass-luke.html",\n  focus: true\n});\nconst shot = await tools.browser.screenshot({ tabID: tab.id, fullPage: true });\nreturn { tab, shot };\n',
+            code: 'const tab = await tools.browser.tabs.open({\n  url: "file:///C:/tmp/xiaochuan/throne-of-glass-luke.html",\n  focus: true\n});\nconst shot = await tools.browser.screenshot({ tabID: tab.id, fullPage: true });\nreturn { tab, shot };\n',
           },
           {
             output:
@@ -245,7 +245,7 @@ export const ExecuteFailed = {
                 {
                   tool: "browser.tabs.open",
                   status: "error",
-                  input: { url: "file:///C:/tmp/xccode/throne-of-glass-luke.html", focus: true },
+                  input: { url: "file:///C:/tmp/xiaochuan/throne-of-glass-luke.html", focus: true },
                 },
               ],
             },
@@ -262,7 +262,7 @@ export const ExecuteFailed = {
           "completed",
           {
             command:
-              "bun -e \"Bun.serve({ port: 4399, fetch() { return new Response(Bun.file('C:/tmp/xccode/throne-of-glass-luke.html'), { headers: { 'content-type': 'text/html' } }) } })\"",
+              "bun -e \"Bun.serve({ port: 4399, fetch() { return new Response(Bun.file('C:/tmp/xiaochuan/throne-of-glass-luke.html'), { headers: { 'content-type': 'text/html' } }) } })\"",
           },
           { output: "", metadata: { exit: 0 } },
         ),

@@ -1,13 +1,13 @@
-import { motionTuning } from "@xccode/ui/motion-tuning"
-import { Button } from "@xccode/ui/button"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Loader } from "@xccode/ui/loader"
+import { motionTuning } from "@xiaochuan/ui/motion-tuning"
+import { Button } from "@xiaochuan/ui/button"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Loader } from "@xiaochuan/ui/loader"
 import { Schema } from "effect"
 import { makeEventListener } from "@solid-primitives/event-listener"
 import { createEffect, createSignal, For, onCleanup, onMount, Show, untrack, type ParentProps } from "solid-js"
 import { createStore } from "solid-js/store"
-import type { SessionInfo } from "@xccode/client/promise"
+import type { SessionInfo } from "@xiaochuan/client/promise"
 import { useServer } from "@/runtime/server/current"
 import { useLanguage } from "@/runtime/i18n/language"
 import { usePlatform } from "@/runtime/platform/platform"
@@ -53,7 +53,7 @@ export function VoiceComposer(props: ParentProps<{ session: SessionInfo | undefi
   onCleanup(motionTuning.subscribe(() => setState("enabled", toggle())))
 
   const enabled = () =>
-    platform.platform === "desktop" && import.meta.env.VITE_XCCODE_CHANNEL !== "prod" && state.enabled
+    platform.platform === "desktop" && import.meta.env.VITE_XIAOCHUAN_CHANNEL !== "prod" && state.enabled
 
   createEffect(() => {
     const session = props.session

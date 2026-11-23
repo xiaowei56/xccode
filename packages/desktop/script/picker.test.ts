@@ -63,13 +63,13 @@ test.each([true, false])(
 
         expect(scripts.length).toBeGreaterThan(0)
 
-        if (bundledDev) expect(scripts.join("\n")).toContain("xccodePickerUi")
+        if (bundledDev) expect(scripts.join("\n")).toContain("xiaochuanPickerUi")
         expect([html, ...scripts].join("\n")).not.toMatch(/\bimport(?:\s*\(\s*|\s*)["']virtual:/)
       }
 
-      const direct = await fetch(new URL("/__vite_xccode_picker_client.js", url))
+      const direct = await fetch(new URL("/__vite_xiaochuan_picker_client.js", url))
       expect(direct.ok).toBe(true)
-      expect(await direct.text()).toContain("xccodePickerUi")
+      expect(await direct.text()).toContain("xiaochuanPickerUi")
     } finally {
       socket?.close()
       await server.close()

@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test"
 import { fileDiff, fileNode, openSession } from "../utils/workspace"
 import { openFileLauncher, openReviewLauncher, storedStrips } from "../utils/side-panel"
 import { expectSessionTitle } from "../utils/waits"
-import { base64Encode } from "@xccode/util/encode"
+import { base64Encode } from "@xiaochuan/util/encode"
 
 test("review content stays aligned with the side region in both directions", async ({ page }) => {
   await page.setViewportSize({ width: 1400, height: 900 })
@@ -36,7 +36,7 @@ test("review content stays aligned with the side region in both directions", asy
 
 test("new tab selection and closing stay in the focused pane", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/PaneNewTabs"
+  const directory = "C:/Xiaochuan/PaneNewTabs"
   const key = `local\u0000${base64Encode(directory)}/ses_panenewtabs`
 
   await openSession(page, {
@@ -46,7 +46,7 @@ test("new tab selection and closing stay in the focused pane", async ({ page }) 
     seed: {
       panes: { ses_panenewtabs: { review: true } },
       storage: {
-        "xccode.global.dat:layout": {
+        "xiaochuan.global.dat:layout": {
           sessionTabs: {
             [key]: {
               all: ["file://README.md", "file://notes.md"],
@@ -99,7 +99,7 @@ test("new tab selection and closing stay in the focused pane", async ({ page }) 
 
 test("closing another pane's tab keeps the side pane's New tab", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/OtherPaneClose"
+  const directory = "C:/Xiaochuan/OtherPaneClose"
   const key = `local\u0000${base64Encode(directory)}/ses_otherpaneclose`
 
   await openSession(page, {
@@ -109,7 +109,7 @@ test("closing another pane's tab keeps the side pane's New tab", async ({ page }
     seed: {
       panes: { ses_otherpaneclose: { review: true } },
       storage: {
-        "xccode.global.dat:layout": {
+        "xiaochuan.global.dat:layout": {
           sessionTabs: {
             // The side pane selects nothing of its own, so it shows its fallback tab while the split pane is active.
             [key]: {
@@ -226,7 +226,7 @@ test("tabs in a narrow side strip shrink to keep their close buttons, and a tab'
   page,
 }) => {
   await page.setViewportSize({ width: 1000, height: 700 })
-  const directory = "C:/Xccode/NarrowStrip"
+  const directory = "C:/Xiaochuan/NarrowStrip"
   const key = `local\u0000${base64Encode(directory)}/ses_narrowstrip`
   const files = ["a.md", "a-file-name-long-enough-to-overflow-the-side-strip-by-itself.md", "b.md"]
 
@@ -237,7 +237,7 @@ test("tabs in a narrow side strip shrink to keep their close buttons, and a tab'
     seed: {
       panes: { ses_narrowstrip: { review: true, sessionWidth: 640 } },
       storage: {
-        "xccode.global.dat:layout": {
+        "xiaochuan.global.dat:layout": {
           sessionTabs: { [key]: { all: files.map((file) => `file://${file}`), active: `file://${files[1]}` } },
         },
       },
@@ -277,7 +277,7 @@ test("tabs in a narrow side strip shrink to keep their close buttons, and a tab'
 
 test("a reopened side tab returns to where it closed", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/ReopenPlace"
+  const directory = "C:/Xiaochuan/ReopenPlace"
   const key = `local\u0000${base64Encode(directory)}/ses_reopenplace`
   const files = ["a.md", "b.md", "c.md"]
 
@@ -288,7 +288,7 @@ test("a reopened side tab returns to where it closed", async ({ page }) => {
     seed: {
       panes: { ses_reopenplace: { review: true } },
       storage: {
-        "xccode.global.dat:layout": {
+        "xiaochuan.global.dat:layout": {
           sessionTabs: { [key]: { all: files.map((file) => `file://${file}`), active: "file://b.md" } },
         },
       },
@@ -314,7 +314,7 @@ test("a session open in a shell tab keeps its side tabs when the layout forgets 
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/KeepOpenStrip"
+  const directory = "C:/Xiaochuan/KeepOpenStrip"
   const key = (session: string) => `local\u0000${base64Encode(directory)}/${session}`
   // Fifty-one sessions whose shell tabs are closed, oldest first, then the one open in a background shell tab.
   const closed = Array.from({ length: 51 }, (_, index) => key(`ses_closed_${String(index).padStart(2, "0")}`))
@@ -331,7 +331,7 @@ test("a session open in a shell tab keeps its side tabs when the layout forgets 
     seed: {
       panes: { ses_background: { review: true } },
       storage: {
-        "xccode.global.dat:layout": {
+        "xiaochuan.global.dat:layout": {
           sessionTabs: Object.fromEntries([...closed.map((item) => [item, strip]), [key("ses_background"), strip]]),
         },
       },
@@ -381,7 +381,7 @@ test("the new tab view lists recently closed tabs, expands to the rest, and keep
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/RecentlyClosed"
+  const directory = "C:/Xiaochuan/RecentlyClosed"
   const key = `local\u0000${base64Encode(directory)}/ses_recentlyclosed`
 
   // Twelve files closed earlier, newest first, as the app stores them beside the strip.
@@ -398,7 +398,7 @@ test("the new tab view lists recently closed tabs, expands to the rest, and keep
     seed: {
       panes: { ses_recentlyclosed: { review: true } },
       storage: {
-        "xccode.global.dat:layout": {
+        "xiaochuan.global.dat:layout": {
           sessionTabs: { [key]: { all: ["file://README.md"], active: "file://README.md" } },
           sessionView: { [key]: { scroll: {}, closed } },
         },
@@ -444,7 +444,7 @@ test("the new tab view lists recently closed tabs, expands to the rest, and keep
 
 test("Mod+F finds in Markdown and HTML previews with the code view's find bar", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/PreviewFind"
+  const directory = "C:/Xiaochuan/PreviewFind"
   const key = `local\u0000${base64Encode(directory)}/ses_previewfind`
 
   const files = new Map([
@@ -463,7 +463,7 @@ test("Mod+F finds in Markdown and HTML previews with the code view's find bar", 
     seed: {
       panes: { ses_previewfind: { review: true } },
       storage: {
-        "xccode.global.dat:layout": {
+        "xiaochuan.global.dat:layout": {
           sessionTabs: {
             [key]: { all: ["file://notes.md", "file://diagram.mmd", "file://page.html"], active: "file://notes.md" },
           },

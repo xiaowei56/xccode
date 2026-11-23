@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 use futures_util::FutureExt;
-use xccode_api::generated::*;
+use xiaochuan_api::generated::*;
 
 use crate::connection::Follow;
 use crate::inbox::now;
@@ -478,7 +478,7 @@ impl Data {
     /// open at once, then creates the session. Prompts to it wait for the request; a failure
     /// removes the record unless the server acknowledged it.
     pub fn session_create(&self, input: CreateSession) -> (SessionID, Task<SessionInfo>) {
-        let id = input.id.clone().unwrap_or_else(|| SessionID(xccode_api::id::session()));
+        let id = input.id.clone().unwrap_or_else(|| SessionID(xiaochuan_api::id::session()));
         let mut state = self.lock();
         let location = input.location.clone().unwrap_or_else(|| LocationPublicRef {
             directory: AbsolutePath(state.default_location().directory.clone()),

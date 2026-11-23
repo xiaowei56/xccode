@@ -6,9 +6,9 @@ use std::path::Path;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_tui::Deps;
-use xccode_ui::path::Flavor;
-use xccode_ui::prompt_input::parse::file_url;
+use xiaochuan_tui::Deps;
+use xiaochuan_ui::path::Flavor;
+use xiaochuan_ui::prompt_input::parse::file_url;
 use serde_json::{Value, json};
 
 fn fake() -> Fake {
@@ -80,17 +80,17 @@ fn fake() -> Fake {
 struct Setup {
     harness: Harness,
     seen: Log,
-    home: xccode_util::temp::TempDir,
+    home: xiaochuan_util::temp::TempDir,
 }
 
 deref_harness!(Setup);
 
 impl Setup {
     fn new() -> Self {
-        Self::with_home(xccode_util::temp::tempdir().unwrap())
+        Self::with_home(xiaochuan_util::temp::tempdir().unwrap())
     }
 
-    fn with_home(home: xccode_util::temp::TempDir) -> Self {
+    fn with_home(home: xiaochuan_util::temp::TempDir) -> Self {
         let fake = fake();
         let seen = fake.log();
         let deps =
@@ -322,7 +322,7 @@ fn a_mention_keeps_its_part_through_a_theme_switch() {
     assert_eq!(after.len(), 1);
     assert_eq!(after[0].range(), before.range());
     assert!(after[0].options.atomic);
-    let style = xccode_ui::code::syntax_theme(&setup.tui.page()).get("extmark.agent");
+    let style = xiaochuan_ui::code::syntax_theme(&setup.tui.page()).get("extmark.agent");
     assert_eq!(after[0].options.style, style);
     assert_ne!(after[0].options.style, before.options.style);
     setup.app.type_text("now");
@@ -473,9 +473,9 @@ fn cd_completes_directories_moves_the_session_and_keeps_recents() {
 
 #[test]
 fn an_open_cd_picker_shows_the_recents_a_write_merges_back() {
-    use xccode_local::lock;
+    use xiaochuan_local::lock;
 
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let state = home.path().join("state");
     std::fs::create_dir_all(state.join("latest/tui")).unwrap();
     std::fs::write(
@@ -530,7 +530,7 @@ fn an_open_list_stays_open_when_the_route_mounts_again() {
     setup.wait_for("/sessions");
     setup.app.press("down");
     let before = setup.app.render().text();
-    xccode_plugin::Host::remount(&*xccode_tui::plugins::host::host(&setup.tui));
+    xiaochuan_plugin::Host::remount(&*xiaochuan_tui::plugins::host::host(&setup.tui));
     assert_eq!(setup.app.render().text(), before);
     setup.app.type_text("ssions");
     setup.wait_for("/sessions");
@@ -545,7 +545,7 @@ fn a_list_typed_before_a_remounted_composer_lays_out_shows_every_row() {
         let setup = Setup::new();
         setup.app.render();
         if remount {
-            xccode_plugin::Host::remount(&*xccode_tui::plugins::host::host(&setup.tui));
+            xiaochuan_plugin::Host::remount(&*xiaochuan_tui::plugins::host::host(&setup.tui));
         }
         setup.app.type_text("/se");
         setup.wait_for("Open settings");
@@ -564,7 +564,7 @@ fn the_replay_settles_a_list_typed_before_its_composer_laid_out() {
         let setup = Setup::new();
         setup.app.render();
         if remount {
-            xccode_plugin::Host::remount(&*xccode_tui::plugins::host::host(&setup.tui));
+            xiaochuan_plugin::Host::remount(&*xiaochuan_tui::plugins::host::host(&setup.tui));
         }
         setup.app.type_text("/se");
         setup.wait_for("Open settings");
@@ -584,16 +584,16 @@ fn an_open_list_keeps_its_height_across_two_remounts_in_one_turn() {
     setup.wait_for("/sessions");
     setup.app.press("down");
     let before = setup.app.render().text();
-    let host = xccode_tui::plugins::host::host(&setup.tui);
-    xccode_plugin::Host::remount(&*host);
-    xccode_plugin::Host::remount(&*host);
+    let host = xiaochuan_tui::plugins::host::host(&setup.tui);
+    xiaochuan_plugin::Host::remount(&*host);
+    xiaochuan_plugin::Host::remount(&*host);
     assert_eq!(setup.app.render().text(), before);
 }
 
 #[test]
 fn a_dialog_over_an_open_list_keeps_its_keys_across_a_remount() {
     let setup = Setup::new();
-    let remount = || xccode_plugin::Host::remount(&*xccode_tui::plugins::host::host(&setup.tui));
+    let remount = || xiaochuan_plugin::Host::remount(&*xiaochuan_tui::plugins::host::host(&setup.tui));
     setup.app.type_text("/se");
     setup.wait_for("/sessions");
     for close in ["escape", "ctrl+c"] {
@@ -622,7 +622,7 @@ fn a_file_list_keeps_its_results_and_selection_across_a_remount() {
         let searches = setup.requests("GET", "/api/fs/find").len();
         setup.app.press("down");
         if remount {
-            xccode_plugin::Host::remount(&*xccode_tui::plugins::host::host(&setup.tui));
+            xiaochuan_plugin::Host::remount(&*xiaochuan_tui::plugins::host::host(&setup.tui));
         }
         let again =
             setup.app.wait_until(Duration::from_millis(200), || setup.requests("GET", "/api/fs/find").len() > searches);
@@ -664,7 +664,7 @@ fn frecency_file_is_shared_with_typescript() {
     assert_eq!(typescript.lines().next(), rust.lines().nth(1));
     assert_eq!(typescript.lines().count(), 3, "{typescript}");
 
-    let home = xccode_util::temp::TempDir::new().unwrap();
+    let home = xiaochuan_util::temp::TempDir::new().unwrap();
     std::fs::create_dir_all(home.path().join("state")).unwrap();
     std::fs::copy(state.join("frecency.jsonl"), home.path().join("state/frecency.jsonl")).unwrap();
     let again = Setup::with_home(home);

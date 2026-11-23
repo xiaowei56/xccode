@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Speicherdiagnose: protokolliert alle 30 Sekunden den Arbeitsspeicher der App in den Desktop-Logs. Bleibt über Neustarts hinweg aktiv, bis sie ausgeschaltet wird; die Leiste bleibt geöffnet, solange sie läuft.",
-  "memory.tipEnv": "Speicherdiagnose ist für diesen Start aktiv: XCCODE_DESKTOP_MEMORY_LOG ist gesetzt.",
+  "memory.tipEnv": "Speicherdiagnose ist für diesen Start aktiv: XIAOCHUAN_DESKTOP_MEMORY_LOG ist gesetzt.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Regler",

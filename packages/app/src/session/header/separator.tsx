@@ -1,4 +1,4 @@
-import { Slash } from "@xccode/ui/slash"
+import { Slash } from "@xiaochuan/ui/slash"
 
 /**
  * The slash between breadcrumb segments, with `gap` px of visible space on both sides. `before` and `after` are the

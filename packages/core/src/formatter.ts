@@ -3,8 +3,8 @@ export * as Formatter from "./formatter.js"
 import { Context, Effect, Layer } from "effect"
 import { ChildProcess } from "effect/process"
 import path from "path"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { AppProcess } from "@xccode/util/process"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { AppProcess } from "@xiaochuan/util/process"
 import type { FileAccess } from "./file-access.js"
 import { Location } from "./location.js"
 import type { Info } from "./formatter/builtins.js"
@@ -23,7 +23,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly file: (target: FileAccess.Target) => Effect.Effect<boolean>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/v2/Formatter") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/v2/Formatter") {}
 
 const layer = Layer.effect(
   Service,

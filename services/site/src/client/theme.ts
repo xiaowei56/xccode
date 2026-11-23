@@ -20,7 +20,7 @@ export function startTheme() {
 
 /** Shows and saves a theme (search's "Toggle theme"). */
 export function setTheme(theme: Theme) {
-  localStorage.setItem("xccode-theme", theme)
+  localStorage.setItem("xiaochuan-theme", theme)
   show?.(theme)
 }
 

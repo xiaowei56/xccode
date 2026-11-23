@@ -6,11 +6,11 @@ use std::cell::{Cell, RefCell};
 use std::collections::VecDeque;
 use std::rc::{Rc, Weak};
 
-use xccode_plugin_abi::interact::{
+use xiaochuan_plugin_abi::interact::{
     self as input, Anchor, Bind, Button, Event, Handled, Interact, Layer, LayerScope, Pointer, PointerKind,
 };
-use xccode_ui::dialog::MODAL_MODE;
-use xccode_ui::keymap::{BASE_MODE, KeymapLayer, TuiCommand};
+use xiaochuan_ui::dialog::MODAL_MODE;
+use xiaochuan_ui::keymap::{BASE_MODE, KeymapLayer, TuiCommand};
 use opentui::input::{Event as Input, KeyCode, KeyEvent, Modifiers, MouseButton, MouseEvent, MouseEventKind};
 use opentui::keymap::{Condition, Disposer, Stroke};
 use opentui::prelude::*;
@@ -72,7 +72,7 @@ pub struct Owner {
     /// The mount it holds the input of, as long as it lives; `None` for an activation.
     mount: Option<Weak<()>>,
     /// That mount's ID, which a call for it names to the plugin.
-    id: Option<xccode_plugin_abi::v2::MountId>,
+    id: Option<xiaochuan_plugin_abi::v2::MountId>,
 }
 
 struct Mode {
@@ -236,7 +236,7 @@ impl Owner {
         root: View,
         (lookup, nearest): (Lookup, Nearest),
         deliver: Option<Deliver>,
-        (id, mount): (xccode_plugin_abi::v2::MountId, Weak<()>),
+        (id, mount): (xiaochuan_plugin_abi::v2::MountId, Weak<()>),
     ) -> Rc<Self> {
         let mut owner = Self::new(plugin, surface, host, Some(root), Some((lookup, nearest)), deliver, Some(mount));
         owner.id = Some(id);
@@ -507,7 +507,7 @@ impl Owner {
         let mut command = match (&declared.command, declared.key.is_empty()) {
             (Some(name), true) => TuiCommand::new(name.clone(), run),
             (Some(name), false) => {
-                TuiCommand::new(name.clone(), run).bind(xccode_ui::keymap::Bind::Key(declared.key.clone()))
+                TuiCommand::new(name.clone(), run).bind(xiaochuan_ui::keymap::Bind::Key(declared.key.clone()))
             }
             (None, _) => TuiCommand::inline(declared.key.clone(), run),
         };
@@ -748,7 +748,7 @@ impl Owner {
     }
 
     /// The ID of the mount it holds the input of; `None` for an activation.
-    pub(crate) fn id(&self) -> Option<&xccode_plugin_abi::v2::MountId> {
+    pub(crate) fn id(&self) -> Option<&xiaochuan_plugin_abi::v2::MountId> {
         self.id.as_ref()
     }
 

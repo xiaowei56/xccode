@@ -1,5 +1,5 @@
-import { useDialog } from "@xccode/ui/context/dialog"
-import { DiagramPreview } from "@xccode/ui/diagram-preview"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { DiagramPreview } from "@xiaochuan/ui/diagram-preview"
 
 // Opens a rendered Mermaid diagram maximized when its button is pressed. The preview gets its own copy, so the diagram
 // in the message stays where it is, and keeps updating while it streams.

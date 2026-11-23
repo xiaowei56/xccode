@@ -1,11 +1,11 @@
 //! Host plugin dialogs and panels. A matching key updates a panel in place.
 
-use xccode_plugin::abi;
-use xccode_plugin::node::{self, Act};
-use xccode_ui::alert::AlertProps;
-use xccode_ui::confirm::ConfirmProps;
-use xccode_ui::dialog::{self, DIALOG_INSET, DialogCx, FooterAction, FooterProps, HeaderProps, MODAL_MODE};
-use xccode_ui::prompt::{PromptProps, prompt};
+use xiaochuan_plugin::abi;
+use xiaochuan_plugin::node::{self, Act};
+use xiaochuan_ui::alert::AlertProps;
+use xiaochuan_ui::confirm::ConfirmProps;
+use xiaochuan_ui::dialog::{self, DIALOG_INSET, DialogCx, FooterAction, FooterProps, HeaderProps, MODAL_MODE};
+use xiaochuan_ui::prompt::{PromptProps, prompt};
 
 use crate::features::session_links::{self, Links};
 use crate::prelude::*;
@@ -79,7 +79,7 @@ pub fn show(tui: &Tui, id: &str, generation: u64, dialog: abi::Dialog) {
                 .into_iter()
                 .filter(|image| {
                     let decodes = abi::base64::decode(&image.data)
-                        .is_some_and(|bytes| xccode_plugin::surface::within_bounds(&bytes));
+                        .is_some_and(|bytes| xiaochuan_plugin::surface::within_bounds(&bytes));
                     if !decodes {
                         log::warn!("plugin {id}: an image of its preview is not one the host decodes");
                     }
@@ -158,7 +158,7 @@ fn ask(tui: &Tui, owner: Owner, asked: abi::Prompt) {
                 let description = description.clone().map(|text| {
                     Rc::new(move |cx: &DialogCx| {
                         Text::new(&cx.app, &*text).fg(cx.theme.text.muted).max_height(DESCRIPTION_ROWS).as_any()
-                    }) as xccode_ui::prompt::Description
+                    }) as xiaochuan_ui::prompt::Description
                 });
                 let (view, _) = prompt(
                     cx,
@@ -183,7 +183,7 @@ fn ask(tui: &Tui, owner: Owner, asked: abi::Prompt) {
 const DESCRIPTION_ROWS: u32 = 8;
 
 fn bounded(text: &str) -> &str {
-    &text[..text.floor_char_boundary(xccode_plugin::limits::get().text as usize)]
+    &text[..text.floor_char_boundary(xiaochuan_plugin::limits::get().text as usize)]
 }
 
 /// Update a select with the same key in place so the filter and selection survive.
@@ -191,7 +191,7 @@ pub struct Picker {
     key: String,
     owner: RefCell<Owner>,
     shown: RefCell<abi::Select>,
-    handle: RefCell<Option<xccode_ui::select::Select<String>>>,
+    handle: RefCell<Option<xiaochuan_ui::select::Select<String>>>,
 }
 
 fn pick(tui: &Tui, owner: Owner, select: abi::Select) {
@@ -225,7 +225,7 @@ fn pick(tui: &Tui, owner: Owner, select: abi::Select) {
                 *picker.shown.borrow_mut() = select;
                 *picker.owner.borrow_mut() = owner.clone();
                 *tui.reads.owner.borrow_mut() = Some(owner);
-                let theme = xccode_ui::theme::Theme::clone(&tui.page());
+                let theme = xiaochuan_ui::theme::Theme::clone(&tui.page());
                 // The footer draws again only if what it shows changed, so a press on it is not lost to a rebuild.
                 handle.set_options(options(&theme, &picker.shown.borrow()));
                 tui.app.request_redraw();
@@ -292,7 +292,7 @@ fn list(tui: &Tui, owner: Owner, select: abi::Select, kept: Option<(String, Opti
                     let view: Rc<dyn Fn() -> AnyWidget> = Rc::new(move || {
                         let span = empty.upgrade().and_then(|picker| picker.shown.borrow().empty.clone());
                         let text = span.map(|span| styled(&app, &theme, &span)).unwrap_or_else(|| Text::new(&app, ""));
-                        View::new(&app).padding_x(xccode_ui::dialog::DIALOG_LIST_INSET).child(&text).as_any()
+                        View::new(&app).padding_x(xiaochuan_ui::dialog::DIALOG_LIST_INSET).child(&text).as_any()
                     });
                     props.empty_view = Some(view.clone());
                     props.no_match_view = Some(view);
@@ -311,7 +311,7 @@ fn list(tui: &Tui, owner: Owner, select: abi::Select, kept: Option<(String, Opti
                             shown.options.iter().filter(|option| !option.disabled).cloned().collect();
                         let host = super::host::host(&tui);
                         let values = tui.plugins.search(&*host, &owner.0, &name, query, &enabled);
-                        let theme = xccode_ui::theme::Theme::clone(&tui.page());
+                        let theme = xiaochuan_ui::theme::Theme::clone(&tui.page());
                         let rows = options(&theme, &shown);
                         values
                             .unwrap_or_default()
@@ -329,7 +329,7 @@ fn list(tui: &Tui, owner: Owner, select: abi::Select, kept: Option<(String, Opti
                 props.actions = actions(&tui, &picker);
                 props.actions.push(toggle(&tui, &picker));
                 props.bindings = binds(&tui, &picker);
-                let (view, handle) = xccode_ui::select::select(cx, props);
+                let (view, handle) = xiaochuan_ui::select::select(cx, props);
                 *picker.handle.borrow_mut() = Some(handle.clone());
                 if let Some((filter, selected)) = kept.borrow_mut().take() {
                     handle.set_filter(&filter);
@@ -349,7 +349,7 @@ fn list(tui: &Tui, owner: Owner, select: abi::Select, kept: Option<(String, Opti
 }
 
 /// A text of `span` in `theme`, its color `text.base` unless it names one.
-fn styled(app: &App, theme: &xccode_ui::theme::Theme, span: &abi::Span) -> Text {
+fn styled(app: &App, theme: &xiaochuan_ui::theme::Theme, span: &abi::Span) -> Text {
     let fg = span.fg.as_ref().and_then(|fg| node::color_of(theme, fg)).unwrap_or(theme.text.base);
     Text::new(app, span.text.clone()).fg(fg)
 }
@@ -378,11 +378,11 @@ fn query(tui: &Tui, picker: &Rc<Picker>) -> Rc<dyn Fn(&str)> {
     }))
 }
 
-fn toggle(tui: &Tui, picker: &Rc<Picker>) -> xccode_ui::select::SelectAction<String> {
-    use xccode_ui::select::{Group, SelectAction};
+fn toggle(tui: &Tui, picker: &Rc<Picker>) -> xiaochuan_ui::select::SelectAction<String> {
+    use xiaochuan_ui::select::{Group, SelectAction};
     let target = {
         let (tui, picker) = (tui.weak(), Rc::downgrade(picker));
-        move |option: Option<&SelectOption<String>>| -> Option<(xccode_plugin::Entry, Toggle, String)> {
+        move |option: Option<&SelectOption<String>>| -> Option<(xiaochuan_plugin::Entry, Toggle, String)> {
             let (tui, picker, option) = (tui.upgrade()?, picker.upgrade()?, option?);
             let plugin = picker
                 .shown
@@ -530,9 +530,9 @@ enum Toggle {
 /// What a toggle of the entry `name` does for plugin `caller`'s select: `name` is an entry's key, or the ID of a plugin
 /// of the registry. `None` for an entry it cannot toggle, one that never loaded, and any entry of the caller's ID or
 /// the plugin manager's.
-fn toggled(tui: &Tui, caller: &str, name: &str) -> Option<(xccode_plugin::Entry, Toggle)> {
+fn toggled(tui: &Tui, caller: &str, name: &str) -> Option<(xiaochuan_plugin::Entry, Toggle)> {
     let entries = tui.plugins.entries();
-    let plugin = xccode_plugin::Entry::plugin_key(name);
+    let plugin = xiaochuan_plugin::Entry::plugin_key(name);
     // Resolve the current entry by target across approval.
     let entry = entries
         .iter()
@@ -540,18 +540,18 @@ fn toggled(tui: &Tui, caller: &str, name: &str) -> Option<(xccode_plugin::Entry,
         .or_else(|| entries.iter().find(|entry| entry.key == plugin))
         .or_else(|| entries.iter().find(|entry| entry.target.as_deref() == Some(name)))?;
     // Reject the active caller and manager, not unrelated held builds with the same ID.
-    let refused = [xccode_plugin::Entry::plugin_key(caller), xccode_plugin::Entry::plugin_key(super::manager::ID)];
+    let refused = [xiaochuan_plugin::Entry::plugin_key(caller), xiaochuan_plugin::Entry::plugin_key(super::manager::ID)];
     if refused.contains(&entry.key) {
         return None;
     }
-    if matches!(entry.status, xccode_plugin::Status::Pending | xccode_plugin::Status::Declined) {
+    if matches!(entry.status, xiaochuan_plugin::Status::Pending | xiaochuan_plugin::Status::Declined) {
         let target = entry.target.clone().unwrap_or_else(|| entry.id.clone());
         return Some((entry.clone(), Toggle::Ask(target)));
     }
-    (entry.source != xccode_plugin::Source::Configured).then(|| (entry.clone(), Toggle::Switch(entry.active)))
+    (entry.source != xiaochuan_plugin::Source::Configured).then(|| (entry.clone(), Toggle::Switch(entry.active)))
 }
 
-fn options(theme: &xccode_ui::theme::Theme, select: &abi::Select) -> Vec<SelectOption<String>> {
+fn options(theme: &xiaochuan_ui::theme::Theme, select: &abi::Select) -> Vec<SelectOption<String>> {
     select
         .options
         .iter()
@@ -563,10 +563,10 @@ fn options(theme: &xccode_ui::theme::Theme, select: &abi::Select) -> Vec<SelectO
             item.disabled = option.disabled;
             item.search_text = option.search_text.clone();
             item.footer_color = option.footer_color.as_ref().and_then(|color| node::color_of(theme, color));
-            item.gutter = option.gutter.as_ref().map(|gutter| -> xccode_ui::select::Gutter {
+            item.gutter = option.gutter.as_ref().map(|gutter| -> xiaochuan_ui::select::Gutter {
                 match gutter {
                     abi::Gutter::Spinner => {
-                        Rc::new(|app: &App, color: Color| xccode_ui::motion::Spinner::new(app).color(color).as_any())
+                        Rc::new(|app: &App, color: Color| xiaochuan_ui::motion::Spinner::new(app).color(color).as_any())
                     }
                     abi::Gutter::Span(span) => {
                         let (text, fg) = (span.text.clone(), span.fg.as_ref().and_then(|fg| node::color_of(theme, fg)));
@@ -583,8 +583,8 @@ fn options(theme: &xccode_ui::theme::Theme, select: &abi::Select) -> Vec<SelectO
 
 /// The select's footer actions on the selected row. Each reads its title, the rows it hides on, whether it is disabled
 /// and what it runs from the select as last shown, so a select shown again with only those changed stays in place.
-fn actions(tui: &Tui, picker: &Rc<Picker>) -> Vec<xccode_ui::select::SelectAction<String>> {
-    use xccode_ui::select::{ActionRun, Group, SelectAction};
+fn actions(tui: &Tui, picker: &Rc<Picker>) -> Vec<xiaochuan_ui::select::SelectAction<String>> {
+    use xiaochuan_ui::select::{ActionRun, Group, SelectAction};
     let shown = picker.shown.borrow().clone();
     shown
         .actions
@@ -629,7 +629,7 @@ fn actions(tui: &Tui, picker: &Rc<Picker>) -> Vec<xccode_ui::select::SelectActio
             let known = action
                 .command
                 .as_deref()
-                .is_some_and(|name| xccode_ui::keymap::DEFINITIONS.iter().any(|definition| definition.name == name));
+                .is_some_and(|name| xiaochuan_ui::keymap::DEFINITIONS.iter().any(|definition| definition.name == name));
             item.bind = if known { None } else { action.key.clone() };
             item.group = Some(group);
             let disabled = read.clone();
@@ -670,7 +670,7 @@ fn usable_action(tui: &Tui, action: &abi::SelectAction) -> bool {
 /// Reject Escape and the reserved chord so a plugin cannot trap the user in a dialog.
 fn usable_key(tui: &Tui, key: &str) -> bool {
     let keymap = tui.keymap.keymap();
-    let closing: Vec<_> = ["escape", xccode_plugin::abi::interact::RESERVED]
+    let closing: Vec<_> = ["escape", xiaochuan_plugin::abi::interact::RESERVED]
         .into_iter()
         .filter_map(|key| keymap.parse_key(key).ok().map(|chord| chord.stroke))
         .collect();
@@ -745,7 +745,7 @@ fn detail(tui: &Tui, owner: Owner, details: abi::ErrorDetails) {
 fn plugin_error(tui: &Tui, key: &str) -> Option<String> {
     let entry = tui.plugins.entries().into_iter().find(|entry| entry.key == key)?;
     match entry.status {
-        xccode_plugin::Status::Failed(error) | xccode_plugin::Status::Skipped(error) => Some(error),
+        xiaochuan_plugin::Status::Failed(error) | xiaochuan_plugin::Status::Skipped(error) => Some(error),
         _ => None,
     }
 }
@@ -760,7 +760,7 @@ fn ask_yes(tui: &Tui, owner: Owner, confirm: abi::Confirm) {
                     let (owner, action) = (answered.clone(), confirm.action.clone());
                     Rc::new(bind!(weak, |tui| run(&tui, &owner, &action, Some(value))))
                 };
-                xccode_ui::confirm::confirm(
+                xiaochuan_ui::confirm::confirm(
                     cx,
                     ConfirmProps {
                         title: confirm.title.clone(),
@@ -793,7 +793,7 @@ fn tell(tui: &Tui, owner: Owner, alert: abi::Alert) {
             }
         });
         tui.dialogs.replace(
-            move |cx| xccode_ui::alert::alert(cx, props.clone()),
+            move |cx| xiaochuan_ui::alert::alert(cx, props.clone()),
             Some(on_close),
             DialogOptions::new(size),
         )
@@ -819,7 +819,7 @@ pub struct Body {
     body: View,
     /// The build of the moment, which the header is drawn in.
     cx: RefCell<Option<Rc<DialogCx>>>,
-    mount: RefCell<Option<xccode_plugin::PanelMount>>,
+    mount: RefCell<Option<xiaochuan_plugin::PanelMount>>,
     /// What runs as the dialog closes for the requests that changed it in place (`abi::Dialog::Dismissable`).
     dismissed: RefCell<Vec<(Owner, abi::Action)>>,
     /// A node that took the focus before a solve laid it out, which the scroll brings into view once one does.
@@ -909,7 +909,7 @@ fn surface(tui: &Tui, owner: Owner, shown: abi::DialogSurface) {
             // End the mount before dispatching its close callback so stale requests cannot escape.
             let body = closed.upgrade();
             let mount = body.as_ref().and_then(|body| body.mount.borrow_mut().take());
-            if let Some(tell) = mount.and_then(xccode_plugin::PanelMount::close) {
+            if let Some(tell) = mount.and_then(xiaochuan_plugin::PanelMount::close) {
                 tui.app.defer(bind!(tui, |tui, _| tell(&*super::host::host(&tui))));
             }
             let dismissed = body.map(|body| body.dismissed.take()).unwrap_or_default();
@@ -1311,7 +1311,7 @@ impl Live {
     }
 
     fn fill_body(&self, tui: &Tui, body: &abi::Node) {
-        use xccode_plugin::Host;
+        use xiaochuan_plugin::Host;
         self.content.clear();
         if !node::fits(body) {
             log::error!("plugin {}: its panel's body nests too deep or has a size OpenTUI refuses", self.owner.0);

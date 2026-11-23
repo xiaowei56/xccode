@@ -1,5 +1,5 @@
 [package]
-name = "xccode-acp"
+name = "xiaochuan-acp"
 description = "The ACP agent (C.11)."
 version.workspace = true
 edition.workspace = true
@@ -14,9 +14,9 @@ base64.workspace = true
 futures-util.workspace = true
 indexmap.workspace = true
 log = { workspace = true, features = ["kv"] }
-xccode-api.workspace = true
-xccode-service.workspace = true
-xccode-util.workspace = true
+xiaochuan-api.workspace = true
+xiaochuan-service.workspace = true
+xiaochuan-util.workspace = true
 percent-encoding.workspace = true
 regex.workspace = true
 serde_json.workspace = true

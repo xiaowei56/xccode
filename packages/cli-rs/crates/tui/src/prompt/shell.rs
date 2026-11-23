@@ -1,6 +1,6 @@
 //! Shell-mode prompt and bindings.
 
-use xccode_ui::dialog::FocusId;
+use xiaochuan_ui::dialog::FocusId;
 
 use super::editor::{Inner, Mode};
 

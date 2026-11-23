@@ -1,4 +1,4 @@
-import type { SessionMessageAssistantTool } from "@xccode/client/promise"
+import type { SessionMessageAssistantTool } from "@xiaochuan/client/promise"
 
 export function canonicalToolPart(
   name: string,

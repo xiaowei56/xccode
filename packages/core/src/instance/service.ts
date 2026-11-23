@@ -2,9 +2,9 @@ export * as Instance from "./service.js"
 export type { Services } from "../instance.js"
 
 import { Context, type Effect } from "effect"
-import type { Session } from "@xccode/schema/session"
-import { Node } from "@xccode/util/effect/app-node"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import type { Session } from "@xiaochuan/schema/session"
+import { Node } from "@xiaochuan/util/effect/app-node"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import type { Services, Error } from "../instance.js"
 
 /** Selects Session capabilities; implementations own caching and lifetime. */
@@ -16,6 +16,6 @@ export interface Interface {
   readonly live?: (session: Session.Info) => Effect.Effect<boolean>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Instance") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Instance") {}
 
 export const node = LayerNode.unbound(Service, Node.tags.values.global)

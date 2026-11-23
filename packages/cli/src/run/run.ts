@@ -1,14 +1,14 @@
-import { Service, type Endpoint } from "@xccode/client/effect/service"
-import { Xccode, type SessionMessageAssistantTool } from "@xccode/client/promise"
-import { FSUtil } from "@xccode/util/fs-util"
-import { noTimeoutFetch } from "@xccode/util/no-timeout-fetch"
+import { Service, type Endpoint } from "@xiaochuan/client/effect/service"
+import { Xiaochuan, type SessionMessageAssistantTool } from "@xiaochuan/client/promise"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { noTimeoutFetch } from "@xiaochuan/util/no-timeout-fetch"
 import { constants } from "node:fs"
 import { open } from "node:fs/promises"
 import path from "node:path"
 import { readStdin, readStdinIfReady } from "../util/io"
 import { ServerConnection } from "../services/server-connection"
 import { createWorktreeLocation, parseSessionTargetModel, resolveSessionTarget } from "../session-target"
-import { toolInlineInfo } from "@xccode/tui/mini/tool"
+import { toolInlineInfo } from "@xiaochuan/tui/mini/tool"
 import { runNonInteractivePrompt } from "./noninteractive"
 import { UI } from "./ui"
 import { Env } from "../env"
@@ -77,7 +77,7 @@ async function run(input: RunCommandInput, signal: AbortSignal) {
 }
 
 async function execute(input: RunCommandInput, prepared: Prepared, endpoint: Endpoint, signal: AbortSignal) {
-  const client = Xccode.make({
+  const client = Xiaochuan.make({
     baseUrl: endpoint.url,
     headers: Service.headers(endpoint),
     // Bun's default five-minute deadline terminates the event stream used by long-running sessions.

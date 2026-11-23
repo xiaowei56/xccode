@@ -1,5 +1,5 @@
-import { builtinCatalog } from "@xccode/plugin/gui/builtin"
-import { Plugin } from "@xccode/plugin/gui"
+import { builtinCatalog } from "@xiaochuan/plugin/gui/builtin"
+import { Plugin } from "@xiaochuan/plugin/gui"
 import en from "./i18n/en"
 
 /** Published as `terminal.toggle`; the desktop menu names it. */

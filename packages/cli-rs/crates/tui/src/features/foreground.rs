@@ -4,7 +4,7 @@
 
 use std::path::PathBuf;
 
-use xccode_plugin::abi;
+use xiaochuan_plugin::abi;
 
 use crate::prelude::*;
 
@@ -21,7 +21,7 @@ pub fn release(tui: &Tui, task: impl FnOnce() + 'static) -> bool {
         return false;
     }
     let slot = Slot(tui.weak());
-    xccode_plugin::canvas::handover(&tui.app);
+    xiaochuan_plugin::canvas::handover(&tui.app);
     tui.app.release_terminal(move |_| {
         let _slot = slot;
         task();
@@ -42,7 +42,7 @@ impl Drop for Slot {
 /// Runs a plugin's `program` in the foreground once the current turn is done, while `alive` still holds for its
 /// plugin, and calls `reply` with `{ "code" }` (and `"signal"` on Unix when a signal ended it) or the error. Every
 /// request gets one reply: a refused or dropped one gets an error.
-pub fn run(tui: &Tui, program: abi::Foreground, alive: Box<dyn Fn() -> bool>, reply: xccode_plugin::Reply) {
+pub fn run(tui: &Tui, program: abi::Foreground, alive: Box<dyn Fn() -> bool>, reply: xiaochuan_plugin::Reply) {
     let answer = Answer(Some(reply));
     if tui.app.is_headless() {
         return answer.send(Err("no terminal to give the program: the TUI runs headless".to_owned()));
@@ -66,7 +66,7 @@ pub fn run(tui: &Tui, program: abi::Foreground, alive: Box<dyn Fn() -> bool>, re
             if let Some(cwd) = &cwd {
                 command.current_dir(cwd);
             }
-            let result = xccode_util::job::run(&mut command).map(exit);
+            let result = xiaochuan_util::job::run(&mut command).map(exit);
             let result = result.map_err(|error| format!("{}: {error}", program.command));
             if let (Some(tui), Some(exited)) = (weak.upgrade(), EXITED.with_borrow(Clone::clone)) {
                 exited(&tui);
@@ -114,7 +114,7 @@ fn exit(status: std::process::ExitStatus) -> Value {
 }
 
 /// One reply: sent once, or an error when it drops unsent.
-struct Answer(Option<xccode_plugin::Reply>);
+struct Answer(Option<xiaochuan_plugin::Reply>);
 
 impl Answer {
     fn send(mut self, result: Result<Value, String>) {

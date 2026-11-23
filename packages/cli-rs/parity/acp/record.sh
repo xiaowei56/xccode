@@ -1,5 +1,5 @@
 #!/bin/sh
-# P-WIRE recorder, the XCCODE_ACP_TEST_BIN of `parity/acp/run.ts`. It runs `$ACP_RECORD_TARGET "$@"`
+# P-WIRE recorder, the XIAOCHUAN_ACP_TEST_BIN of `parity/acp/run.ts`. It runs `$ACP_RECORD_TARGET "$@"`
 # (split on spaces) and records its stdin and stdout into a fresh directory under `$ACP_RECORD_DIR`:
 # `in.ndjson` and `out.ndjson`, then `in.done` and `out.done` once each copy has finished.
 #

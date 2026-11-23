@@ -1,4 +1,4 @@
-import type { ModelInfo } from "@xccode/client"
+import type { ModelInfo } from "@xiaochuan/client"
 import { For, Show } from "solid-js"
 import { useTheme } from "../context/theme"
 import { modelPreferenceKey } from "../model-preference"
@@ -23,8 +23,8 @@ export function sortModelOptions<
 >(options: T[], grouped = true) {
   return options.toSorted((a, b) => {
     const provider = grouped
-      ? Number(b.providerID === "xccode-go") - Number(a.providerID === "xccode-go") ||
-        Number(b.providerID === "xccode") - Number(a.providerID === "xccode")
+      ? Number(b.providerID === "xiaochuan-go") - Number(a.providerID === "xiaochuan-go") ||
+        Number(b.providerID === "xiaochuan") - Number(a.providerID === "xiaochuan")
       : 0
     if (provider !== 0) return provider
 

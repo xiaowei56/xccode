@@ -1,7 +1,7 @@
-import type { FileDiffInfo, SessionMessageUser } from "@xccode/client/promise"
+import type { FileDiffInfo, SessionMessageUser } from "@xiaochuan/client/promise"
 import { HoverCard } from "@kobalte/core/hover-card"
 import { ComponentProps, For, Match, Show, createMemo, createSignal, splitProps, Switch } from "solid-js"
-import { useI18n } from "@xccode/ui/context/i18n"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
 
 export function MessageNav(
   props: ComponentProps<"ul"> & {

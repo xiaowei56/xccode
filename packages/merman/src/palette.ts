@@ -1,7 +1,7 @@
 import { RGBA } from "@opentui/core"
 import { blendColor } from "./core/color/style.js"
 
-export interface XccodeDiagramPaletteInput {
+export interface XiaochuanDiagramPaletteInput {
   readonly text: RGBA
   readonly subdued: RGBA
   readonly info: RGBA
@@ -14,9 +14,9 @@ export interface XccodeDiagramPaletteInput {
   }
 }
 
-export type XccodeDiagramPalette = ReturnType<typeof createXccodeDiagramPalette>
+export type XiaochuanDiagramPalette = ReturnType<typeof createXiaochuanDiagramPalette>
 
-export function createXccodeDiagramPalette(input: XccodeDiagramPaletteInput) {
+export function createXiaochuanDiagramPalette(input: XiaochuanDiagramPaletteInput) {
   const secondary = blendColor(input.text, input.subdued, 0.5)
   const muted = blendColor(input.text, input.subdued, 0.7)
   return {
@@ -43,7 +43,7 @@ export function createXccodeDiagramPalette(input: XccodeDiagramPaletteInput) {
   }
 }
 
-export function resolveXccodeDiagramPalette(
+export function resolveXiaochuanDiagramPalette(
   theme: {
     readonly text: {
       readonly base: RGBA
@@ -60,7 +60,7 @@ export function resolveXccodeDiagramPalette(
   mode: "dark" | "light",
 ) {
   const accent = theme.categorical[3] ?? theme.categorical[0]!
-  return createXccodeDiagramPalette({
+  return createXiaochuanDiagramPalette({
     text: theme.text.base,
     subdued: theme.text.muted,
     info: theme.text.feedback.info.base,

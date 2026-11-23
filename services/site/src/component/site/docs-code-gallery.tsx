@@ -20,7 +20,7 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
       </Item>
 
       <Item name="File name header" when="Tells the reader which file the code goes in.">
-        <CodeFrame variant="codeTitle" kind="file" label="xccode.jsonc" copy={configFile}>
+        <CodeFrame variant="codeTitle" kind="file" label="xiaochuan.jsonc" copy={configFile}>
           <pre>
             <code>{configFile}</code>
           </pre>
@@ -69,7 +69,7 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
       </Item>
 
       <Item name="Terminal command" when="Something to paste into a shell; Copy drops the $ prompt.">
-        <Terminal lines={['$ xccode run "Explain this repository"']} />
+        <Terminal lines={['$ xiaochuan run "Explain this repository"']} />
       </Item>
 
       <Show when={!props.reference}>
@@ -90,11 +90,11 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
               {([icon, name]) => (
                 <div>
                   <p data-slot="option-name">{name}</p>
-                  <CodeFrame variant="terminal" kind="terminal" label="Terminal" icon={icon} copy="$ xccode">
+                  <CodeFrame variant="terminal" kind="terminal" label="Terminal" icon={icon} copy="$ xiaochuan">
                     <pre data-component="code-block">
                       <code>
                         <span data-token="prompt">$ </span>
-                        <span data-token="command">xccode</span>
+                        <span data-token="command">xiaochuan</span>
                       </code>
                     </pre>
                   </CodeFrame>
@@ -108,42 +108,42 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
       <Item name="Command with output" when="What the reader should see after a command, so they can check it worked.">
         <Terminal
           lines={[
-            "$ xccode pair",
+            "$ xiaochuan pair",
             "",
             "  Open a link to connect. Links work once and expire in 5 minutes.",
             "",
             "  http://127.0.0.1:49374/auth/connect/...",
           ]}
-          copy="xccode pair"
+          copy="xiaochuan pair"
         />
       </Item>
 
       <Item name="Long multi-command script" when="A setup run top to bottom, one command per line.">
         <Terminal
           lines={[
-            "$ curl -fsSL https://xccode.ai/v2/install | bash",
+            "$ curl -fsSL https://xiaochuan.ai/v2/install | bash",
             "$ cd my-app",
-            "$ xccode auth login",
-            '$ xccode run --model xccode/claude-opus-5-5 "Add a health check route"',
-            "$ xccode service restart",
+            "$ xiaochuan auth login",
+            '$ xiaochuan run --model xiaochuan/claude-opus-5-5 "Add a health check route"',
+            "$ xiaochuan service restart",
           ]}
         />
       </Item>
 
       <Item name="Line numbers" when="Only when the text refers to lines by number.">
-        <CodeFrame variant="codeLines" kind="file" label=".xccode/tools/count-lines.ts" copy={countLines.join("\n")}>
+        <CodeFrame variant="codeLines" kind="file" label=".xiaochuan/tools/count-lines.ts" copy={countLines.join("\n")}>
           <CodeLines lines={countLines} />
         </CodeFrame>
       </Item>
 
       <Item name="Highlighted lines" when="Points at the lines that matter in a longer example.">
-        <CodeFrame variant="codeLines" kind="file" label=".xccode/tools/count-lines.ts" copy={countLines.join("\n")}>
+        <CodeFrame variant="codeLines" kind="file" label=".xiaochuan/tools/count-lines.ts" copy={countLines.join("\n")}>
           <CodeLines lines={countLines} mark={[4, 5]} plain />
         </CodeFrame>
       </Item>
 
       <Item name="Diff" when="Shows a change, like a renamed key, a migration or a fix.">
-        <CodeFrame variant="codeDiff" kind="file" label="xccode.jsonc" copy={diffAfter}>
+        <CodeFrame variant="codeDiff" kind="file" label="xiaochuan.jsonc" copy={diffAfter}>
           <pre data-component="code-diff">
             <For each={diff}>
               {([sign, line]) => (
@@ -162,7 +162,7 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
         <CodeFrame
           variant="codeLines"
           kind="file"
-          label="xccode.jsonc"
+          label="xiaochuan.jsonc"
           copy={[...focusLines, ...hiddenLines].join("\n")}
         >
           <CodeCollapse
@@ -194,7 +194,7 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
                   <CodeFrame
                     variant="codeLines"
                     kind="file"
-                    label="xccode.jsonc"
+                    label="xiaochuan.jsonc"
                     copy={[...focusLines, ...hiddenLines].join("\n")}
                   >
                     <CodeCollapse
@@ -214,13 +214,13 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
       <Item name="Long lines" when="Wider than the column, so the block scrolls sideways; code never wraps.">
         <Terminal
           lines={[
-            '$ xccode run --standalone --model xccode/claude-opus-5-5 "Review this repository for correctness and summarize any issues with file and line references"',
+            '$ xiaochuan run --standalone --model xiaochuan/claude-opus-5-5 "Review this repository for correctness and summarize any issues with file and line references"',
           ]}
         />
       </Item>
 
-      <Item name="Config (xccode.jsonc)" when="Config is JSON with comments; $schema gives editor completion.">
-        <CodeFrame variant="codeTitle" kind="file" label="xccode.jsonc" copy={permissionsFile}>
+      <Item name="Config (xiaochuan.jsonc)" when="Config is JSON with comments; $schema gives editor completion.">
+        <CodeFrame variant="codeTitle" kind="file" label="xiaochuan.jsonc" copy={permissionsFile}>
           <pre>
             <code>{permissionsFile}</code>
           </pre>
@@ -228,7 +228,7 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
       </Item>
 
       <Item name="YAML" when="Agent frontmatter and CI workflows.">
-        <CodeFrame variant="codeTitle" kind="file" label=".github/workflows/xccode.yml" copy={workflow}>
+        <CodeFrame variant="codeTitle" kind="file" label=".github/workflows/xiaochuan.yml" copy={workflow}>
           <pre>
             <code>{workflow}</code>
           </pre>
@@ -250,9 +250,9 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
       </Item>
 
       <Item name="CLI reference" when="Each command, its flags and an example.">
-        <CodeFrame variant="cli" kind="usage" label="Usage" copy="xccode run [message..]">
+        <CodeFrame variant="cli" kind="usage" label="Usage" copy="xiaochuan run [message..]">
           <pre>
-            <code>xccode run [message..]</code>
+            <code>xiaochuan run [message..]</code>
           </pre>
         </CodeFrame>
         <Table
@@ -268,7 +268,7 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
       </Item>
 
       <Item name="Config reference table" when="Every option with its type, default and meaning.">
-        <CodeFrame variant="config" kind="config" label="xccode.jsonc options">
+        <CodeFrame variant="config" kind="config" label="xiaochuan.jsonc options">
           <Table
             head={["Option", "Type", "Default", "Description"]}
             kinds={["code", "type", "code", "text"]}
@@ -291,7 +291,7 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
           <strong>Tip</strong>
           <div>
             <p>Skip project instructions for one run.</p>
-            <Terminal lines={["$ XCCODE_DISABLE_PROJECT_CONFIG=1 xccode"]} />
+            <Terminal lines={["$ XIAOCHUAN_DISABLE_PROJECT_CONFIG=1 xiaochuan"]} />
           </div>
         </aside>
       </Item>
@@ -300,9 +300,9 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
         <ol data-slot="gallery-steps">
           <li>
             <p>
-              <strong>Create the plugin.</strong> Add <code>.xccode/plugins/notify.ts</code>.
+              <strong>Create the plugin.</strong> Add <code>.xiaochuan/plugins/notify.ts</code>.
             </p>
-            <CodeFrame variant="codeTitle" kind="file" label=".xccode/plugins/notify.ts" copy={notifyPlugin}>
+            <CodeFrame variant="codeTitle" kind="file" label=".xiaochuan/plugins/notify.ts" copy={notifyPlugin}>
               <pre>
                 <code>{notifyPlugin}</code>
               </pre>
@@ -310,17 +310,17 @@ export function DocsCodeGallery(props: { reference?: boolean }) {
           </li>
           <li>
             <p>
-              <strong>Restart Xccode.</strong> Plugins load on start.
+              <strong>Restart Xiaochuan.</strong> Plugins load on start.
             </p>
-            <Terminal lines={["$ xccode service restart"]} />
+            <Terminal lines={["$ xiaochuan service restart"]} />
           </li>
         </ol>
       </Item>
 
       <Item name="Inline code" when="Names in running text: files, keys, commands.">
         <p>
-          Set <code>model</code> to <code>xccode/claude-opus-5-5</code> in <code>xccode.jsonc</code>, then run{" "}
-          <code>xccode run "fix the tests"</code>.
+          Set <code>model</code> to <code>xiaochuan/claude-opus-5-5</code> in <code>xiaochuan.jsonc</code>, then run{" "}
+          <code>xiaochuan run "fix the tests"</code>.
         </p>
       </Item>
     </div>
@@ -560,13 +560,13 @@ const permissionType = `type Permission = {
 }`
 
 const configFile = `{
-  "$schema": "https://xccode.ai/config.json",
-  "model": "xccode/claude-opus-5-5",
+  "$schema": "https://xiaochuan.ai/config.json",
+  "model": "xiaochuan/claude-opus-5-5",
   "instructions": ["AGENTS.md"]
 }`
 
 const files = [
-  { label: "xccode.jsonc", code: configFile },
+  { label: "xiaochuan.jsonc", code: configFile },
   {
     label: "AGENTS.md",
     code: `# Project instructions
@@ -575,11 +575,11 @@ const files = [
 - Keep database queries in \`src/database\`.`,
   },
   {
-    label: ".xccode/agents/reviewer.md",
+    label: ".xiaochuan/agents/reviewer.md",
     code: `---
 description: Reviews changes for correctness and regressions
 mode: subagent
-model: xccode/claude-opus-5-5
+model: xiaochuan/claude-opus-5-5
 ---
 
 Review the current changes. List findings in severity order.`,
@@ -587,7 +587,7 @@ Review the current changes. List findings in severity order.`,
 ]
 
 const countLines = [
-  'import { tool } from "@xccode-ai/plugin"',
+  'import { tool } from "@xiaochuan-ai/plugin"',
   "",
   "export default tool({",
   '  description: "Count lines in a file",',
@@ -601,7 +601,7 @@ const countLines = [
 
 const diff = [
   [" ", "{"],
-  [" ", '  "model": "xccode/claude-opus-5-5",'],
+  [" ", '  "model": "xiaochuan/claude-opus-5-5",'],
   ["+", '  "instructions": ["AGENTS.md"],'],
   [" ", '  "permissions": ['],
   ["-", '    { "action": "shell", "resource": "git push *", "effect": "allow" },'],
@@ -617,7 +617,7 @@ const diffAfter = diff
 
 const focusLines = [
   "{",
-  '  "$schema": "https://xccode.ai/config.json",',
+  '  "$schema": "https://xiaochuan.ai/config.json",',
   '  "permissions": [',
   "    {",
   '      "action": "shell",',
@@ -631,14 +631,14 @@ const hiddenLines = [
   '  "experimental": {',
   '    "policies": [',
   '      { "action": "provider.use", "resource": "*", "effect": "deny" },',
-  '      { "action": "provider.use", "resource": "xccode", "effect": "allow" },',
+  '      { "action": "provider.use", "resource": "xiaochuan", "effect": "allow" },',
   "    ],",
   "  },",
   "}",
 ]
 
 const permissionsFile = `{
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   // Ask before any git push; everything else follows the defaults.
   "permissions": [
     {
@@ -649,7 +649,7 @@ const permissionsFile = `{
   ],
 }`
 
-const workflow = `name: Xccode review
+const workflow = `name: Xiaochuan review
 on: [pull_request]
 
 jobs:
@@ -657,14 +657,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm install --global @xccode/cli
-      - run: xccode run --standalone --model xccode/claude-opus-5-5 "Review this repository"`
+      - run: npm install --global @xiaochuan/cli
+      - run: xiaochuan run --standalone --model xiaochuan/claude-opus-5-5 "Review this repository"`
 
 const env = `# Loaded by your shell or CI, never committed
 ANTHROPIC_API_KEY=sk-ant-...
-XCCODE_DISABLE_PROJECT_CONFIG=1`
+XIAOCHUAN_DISABLE_PROJECT_CONFIG=1`
 
-const tree = `.xccode/
+const tree = `.xiaochuan/
 ├── agents/
 │   └── reviewer.md
 ├── commands/
@@ -673,13 +673,13 @@ const tree = `.xccode/
 │   └── notify.ts
 ├── tools/
 │   └── count-lines.ts
-└── xccode.jsonc`
+└── xiaochuan.jsonc`
 
 const response = `[
   {
     "id": "msg_01JC4Y",
     "role": "assistant",
-    "model": "xccode/claude-opus-5-5",
+    "model": "xiaochuan/claude-opus-5-5",
     "parts": [{ "type": "text", "text": "The tests pass." }]
   }
 ]`

@@ -4,7 +4,7 @@ import type {
   IntegrationInfo,
   IntegrationMethod,
   IntegrationOauthConnectOutput,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import {
   createProviderFormState,
   selectProviderFormView,
@@ -450,7 +450,7 @@ function started(
   if (event.type !== "oauth.started" || method.type !== "oauth") return unchanged(state)
   const authorization = event.authorization
 
-  // Same as `xccode auth login`: hand the user straight to the browser instead of asking them to click a link.
+  // Same as `xiaochuan auth login`: hand the user straight to the browser instead of asking them to click a link.
   const open: ProviderConnectEffect = {
     type: "open.browser",
     attemptID: authorization.attemptID,

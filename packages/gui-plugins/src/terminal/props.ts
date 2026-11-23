@@ -1,4 +1,4 @@
-import type { ServerRef } from "@xccode/plugin/gui"
+import type { ServerRef } from "@xiaochuan/plugin/gui"
 import type { TerminalModel } from "./model"
 import type { TerminalQuoteTarget } from "./quote"
 

@@ -1,6 +1,6 @@
 //! Assistant text and streaming Markdown.
 
-use xccode_api::generated::{SessionMessageAssistant, SessionMessageAssistantText};
+use xiaochuan_api::generated::{SessionMessageAssistant, SessionMessageAssistantText};
 use opentui::widget::Markdown;
 
 use super::list::Context;
@@ -18,7 +18,7 @@ pub struct TextPart {
 
 impl TextPart {
     pub fn new(cx: &Context<'_>) -> Self {
-        let markdown = xccode_ui::markdown::view(cx.app, cx.theme, cx.syntax, cx.renderers, cx.conceal, true);
+        let markdown = xiaochuan_ui::markdown::view(cx.app, cx.theme, cx.syntax, cx.renderers, cx.conceal, true);
         let links = session_links::attach(cx.tui, &markdown, cx.renderers);
         let root = View::new(cx.app).padding_edge(Edge::Left, 3).shrink(0.0).child(&markdown);
         Self { root, markdown, _links: links, streaming: Cell::new(true) }
@@ -29,10 +29,10 @@ impl TextPart {
     }
 
     pub fn restyle(&self, cx: &Context<'_>) {
-        let colors = xccode_ui::markdown::view_colors(cx.theme, cx.syntax);
+        let colors = xiaochuan_ui::markdown::view_colors(cx.theme, cx.syntax);
         let width = self.markdown.rect().width as u16;
-        xccode_plugin::claim::with_fence_width(width, || {
-            xccode_ui::markdown::restyle(&self.markdown, colors, cx.syntax)
+        xiaochuan_plugin::claim::with_fence_width(width, || {
+            xiaochuan_ui::markdown::restyle(&self.markdown, colors, cx.syntax)
         });
     }
 
@@ -46,7 +46,7 @@ impl TextPart {
         // A fence a plugin claims gets the Markdown's width before the Markdown is laid out.
         let laid = self.markdown.rect().width as u16;
         let width = if laid > 0 { laid } else { width.saturating_sub(3) };
-        xccode_plugin::claim::with_fence_width(width, || self.show(message, part, conceal));
+        xiaochuan_plugin::claim::with_fence_width(width, || self.show(message, part, conceal));
     }
 
     fn show(&self, message: &SessionMessageAssistant, part: &SessionMessageAssistantText, conceal: bool) {

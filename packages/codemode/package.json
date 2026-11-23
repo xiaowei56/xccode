@@ -1,13 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/codemode",
+  "name": "@xiaochuan/codemode",
   "version": "2.3.0",
   "description": "Effect-native confined code execution over schema-described tools",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaowei56/xccode.git",
+    "url": "git+https://github.com/xiaowei56/xiaochuan.git",
     "directory": "packages/codemode"
   },
   "publishConfig": {

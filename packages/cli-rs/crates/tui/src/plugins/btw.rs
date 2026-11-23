@@ -1,13 +1,13 @@
 //! `/btw` asks a side question with session context and shows the answer without interrupting the session.
 
-use xccode_api::client::Client;
-use xccode_api::generated::{SessionGenerateInput, SessionGenerateOutput};
-use xccode_plugin::abi::v2::{self, Place, Surface};
-use xccode_plugin::abi::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{SessionGenerateInput, SessionGenerateOutput};
+use xiaochuan_plugin::abi::v2::{self, Place, Surface};
+use xiaochuan_plugin::abi::{
     self, Action, Command, Dialog, Host, Layout, Node, Panel, PanelAction, PanelBind, PanelSize, Placement, Prompt,
     RequestId, Span, Toast, Variant,
 };
-use xccode_plugin::slot;
+use xiaochuan_plugin::slot;
 
 use super::fetch::{data, fetch_of};
 use super::kept;
@@ -22,7 +22,7 @@ const INSTRUCTIONS: &str = "The user is asking a quick side question about the c
 Answer directly and concisely in markdown from what you already know. \
 Do not call any tools and do not take any actions.";
 
-pub const ID: &str = "xccode.btw";
+pub const ID: &str = "xiaochuan.btw";
 
 pub fn plugin() -> abi::Plugin {
     abi::Plugin { id: ID, setup }

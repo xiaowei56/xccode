@@ -1,14 +1,14 @@
 import path from "path"
 import { describe, expect, test } from "bun:test"
-import type { ConfigDiscovery } from "@xccode/core/config/discovery"
-import { ConfigWatch } from "@xccode/core/config/watch"
-import { AbsolutePath } from "@xccode/core/schema"
-import { FSUtil } from "@xccode/util/fs-util"
+import type { ConfigDiscovery } from "@xiaochuan/core/config/discovery"
+import { ConfigWatch } from "@xiaochuan/core/config/watch"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 
 const project = path.resolve("watch-plan-project")
-const root = AbsolutePath.make(path.join(project, ".xccode"))
+const root = AbsolutePath.make(path.join(project, ".xiaochuan"))
 const sources: ConfigDiscovery.Sources = {
-  direct: ["xccode.json", "xccode.jsonc"].map((name) => AbsolutePath.make(path.join(project, name))),
+  direct: ["xiaochuan.json", "xiaochuan.jsonc"].map((name) => AbsolutePath.make(path.join(project, name))),
   project: [{ path: root, present: false }],
   claude: [AbsolutePath.make(path.join(project, ".claude"))],
   agents: [AbsolutePath.make(path.join(project, ".agents"))],
@@ -18,9 +18,9 @@ describe("ConfigWatch.plan", () => {
   test("groups missing candidates and keeps parent watches when roots appear", () => {
     const missing = ConfigWatch.plan(sources)
     expect(Array.from(missing.values())).toEqual([
-      { path: project, type: "entries", names: [".agents", ".claude", ".xccode", "xccode.json", "xccode.jsonc"] },
+      { path: project, type: "entries", names: [".agents", ".claude", ".xiaochuan", "xiaochuan.json", "xiaochuan.jsonc"] },
     ])
-    const system = AbsolutePath.make(path.join(project, "system-xccode"))
+    const system = AbsolutePath.make(path.join(project, "system-xiaochuan"))
     const present = ConfigWatch.plan({
       ...sources,
       system: { path: system, present: true },
@@ -32,7 +32,7 @@ describe("ConfigWatch.plan", () => {
       {
         path: project,
         type: "entries",
-        names: [".agents", ".claude", ".xccode", "xccode.json", "xccode.jsonc", "system-xccode"],
+        names: [".agents", ".claude", ".xiaochuan", "xiaochuan.json", "xiaochuan.jsonc", "system-xiaochuan"],
       },
     ])
   })

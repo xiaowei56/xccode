@@ -1,8 +1,8 @@
-import type { LocationRef, UsageLimitsInfo } from "@xccode/client/promise"
-import { Button } from "@xccode/ui/button"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@xccode/ui/dialog"
-import { Loader } from "@xccode/ui/loader"
+import type { LocationRef, UsageLimitsInfo } from "@xiaochuan/client/promise"
+import { Button } from "@xiaochuan/ui/button"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@xiaochuan/ui/dialog"
+import { Loader } from "@xiaochuan/ui/loader"
 import {
   createEffect,
   createMemo,
@@ -40,7 +40,7 @@ import {
 } from "./machine"
 import "./dialog.css"
 
-/** The Usage dialog: the location's Xccode Go allowance and Console budgets, refreshed when it opens. */
+/** The Usage dialog: the location's Xiaochuan Go allowance and Console budgets, refreshed when it opens. */
 export function DialogUsage(props: {
   location: LocationRef
   /** The model in use, so a per-model budget shows this model's counter. */

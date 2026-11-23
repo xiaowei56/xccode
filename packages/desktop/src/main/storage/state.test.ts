@@ -104,7 +104,7 @@ describe("state store", () => {
   })
 
   test("survives close and reopen on disk", async () => {
-    const root = await mkdtemp(path.join(tmpdir(), "xccode-state-"))
+    const root = await mkdtemp(path.join(tmpdir(), "xiaochuan-state-"))
     roots.push(root)
     const file = path.join(root, "drafts.sqlite")
     const first = openDatabase(file)

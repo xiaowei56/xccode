@@ -1,11 +1,11 @@
-# xccode-plugin-abi
+# xiaochuan-plugin-abi
 
-The TUI plugin contract of `xccode-native` and its Rust SDK. The built-in plugins (`crates/tui/src/plugins`,
+The TUI plugin contract of `xiaochuan-native` and its Rust SDK. The built-in plugins (`crates/tui/src/plugins`,
 `crates/latex`, `crates/mermaid`) are linked plugins on it, the Luau carrier converts a Luau plugin's calls to its
 types, and the pipe carrier sends them to the JS host as JSON, whose schema is `schema/v2.json`. Native plugin
 libraries do not load; third-party native code may return as a supervised helper process.
 [`docs/plugins.md`](../../docs/plugins.md) explains how plugins work, [`docs/plugin-abi.md`](../../docs/plugin-abi.md)
-is the reference, and `cargo doc -p xccode-plugin-abi --open` documents every type.
+is the reference, and `cargo doc -p xiaochuan-plugin-abi --open` documents every type.
 
 A linked plugin is an `abi::Plugin { id, setup }`, where `setup` is `fn(&mut Setup) -> Result<(), String>`. The ID
 names the plugin in `/plugins` and `cli.json`, and scopes its storage keys. When a plugin fails, `/plugins` shows why

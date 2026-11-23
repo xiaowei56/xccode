@@ -4,7 +4,7 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
-use xccode_util::busy;
+use xiaochuan_util::busy;
 use serde_json::Value;
 
 use crate::jsonc;
@@ -144,7 +144,7 @@ mod tests {
 
     #[test]
     fn load_update_and_reject_bad_keys() {
-        let state = xccode_util::temp::tempdir().unwrap();
+        let state = xiaochuan_util::temp::tempdir().unwrap();
         let storage = Storage::new(state.path(), "dev").unwrap();
         let initial = json!({"open": true});
         assert_eq!(storage.load("view", &initial).unwrap(), initial);
@@ -168,7 +168,7 @@ mod tests {
     // a release that is deleting another writer's lock directory.
     #[test]
     fn concurrent_updates_keep_every_change() {
-        let state = xccode_util::temp::tempdir().unwrap();
+        let state = xiaochuan_util::temp::tempdir().unwrap();
         let storage = Storage::new(state.path(), "dev").unwrap();
         let threads: Vec<_> = (0..4)
             .map(|_| {
@@ -201,7 +201,7 @@ mod tests {
         use std::sync::atomic::{AtomicBool, Ordering};
         use std::time::Duration;
 
-        let state = xccode_util::temp::tempdir().unwrap();
+        let state = xiaochuan_util::temp::tempdir().unwrap();
         let storage = Storage::new(state.path(), "dev").unwrap();
         storage.update("count", &json!({ "count": 0 }), |_| ()).unwrap();
         let file = storage.file("count").unwrap();
@@ -265,7 +265,7 @@ mod tests {
     // written; one within the bound is written as `update` writes it.
     #[test]
     fn a_bounded_update_measures_the_locked_value() {
-        let state = xccode_util::temp::tempdir().unwrap();
+        let state = xiaochuan_util::temp::tempdir().unwrap();
         let storage = Storage::new(state.path(), "dev").unwrap();
         let add = |name: &str| {
             let name = name.to_owned();

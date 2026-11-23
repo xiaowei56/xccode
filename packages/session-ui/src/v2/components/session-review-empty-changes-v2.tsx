@@ -1,5 +1,5 @@
-import { useI18n } from "@xccode/ui/context/i18n"
-import { Icon } from "@xccode/ui/icon"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { Icon } from "@xiaochuan/ui/icon"
 import "./session-review-v2.css"
 
 export function SessionReviewEmptyChangesV2() {

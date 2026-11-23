@@ -1,5 +1,5 @@
 export const dict = {
-  "desktop.menu.app": "Xccode އެވެ",
+  "desktop.menu.app": "Xiaochuan އެވެ",
   "desktop.menu.file": "ފައިލް",
   "desktop.menu.edit": "ބަދަލު ގެނައުން",
   "desktop.menu.view": "މަންޒަރު",
@@ -38,18 +38,18 @@ export const dict = {
   "desktop.menu.nextProject": "ދެން އޮތް މަޝްރޫޢު",
   "desktop.menu.minimize": "އެންމެ ކުޑަކުރުން",
   "desktop.menu.maximize": "މެކްސިމަޒް ކުރުން",
-  "desktop.menu.documentation": "Xccode ޑޮކިއުމަންޓޭޝަން",
+  "desktop.menu.documentation": "Xiaochuan ޑޮކިއުމަންޓޭޝަން",
   "desktop.menu.supportForum": "ސަޕޯޓް ފޯރަމް",
   "desktop.menu.shareFeedback": "ޝެއާ ފީޑްބެކް",
   "desktop.menu.reportBug": "ބަގެއް ރިޕޯޓްކުރުން",
-  "desktop.menu.ariaLabel": "Xccode މެނޫ",
+  "desktop.menu.ariaLabel": "Xiaochuan މެނޫ",
   "desktop.recovery.action.relaunch": "ރީލޯންޗް ކުރުން",
   "desktop.recovery.action.exportLogs": "އެކްސްޕޯޓް ލޮގްސް",
   "desktop.recovery.action.keepWaiting": "އިންތިޒާރު ކުރަމުން ގެންދާށެވެ",
   "desktop.recovery.action.quit": "ދޫކޮށްލުން",
-  "desktop.recovery.loadFailed": "Xccode ލޯޑް ނުކުރެވިއްޖެއެވެ",
-  "desktop.recovery.terminated": "Xccode ވިންޑޯ ހީވެސް ނުކުރާ ގޮތަކަށް ނިމުނީއެވެ",
-  "desktop.recovery.unresponsive": "Xccode އިން ޖަވާބެއް ނުދެއެވެ",
+  "desktop.recovery.loadFailed": "Xiaochuan ލޯޑް ނުކުރެވިއްޖެއެވެ",
+  "desktop.recovery.terminated": "Xiaochuan ވިންޑޯ ހީވެސް ނުކުރާ ގޮތަކަށް ނިމުނީއެވެ",
+  "desktop.recovery.unresponsive": "Xiaochuan އިން ޖަވާބެއް ނުދެއެވެ",
   "desktop.recovery.unresponsive.detail":
     "އެޕް އަލުން ލޯންޗްކޮށް، ލޮގްތައް ހުޅުވައި، ނުވަތަ މަޑުކޮށްގެން ތިބެވޭނެ އެވެ.",
   "desktop.recovery.loadFailed.detail":
@@ -131,10 +131,10 @@ export const dict = {
   "dialog.provider.empty": "އެއްވެސް ޕްރޮވައިޑަރެއް ނުފެނެއެވެ",
   "dialog.provider.group.popular": "މަޝްހޫރު",
   "dialog.provider.tag.recommended": "ލަފާދެވިފައިވުން",
-  "dialog.provider.xccode.note":
+  "dialog.provider.xiaochuan.note":
     "ކިއުރެޓް ކުރެވިފައިވާ މޮޑެލްތަކުގެ ތެރޭގައި Claude، GPT، Gemini އަދި އެހެނިހެން މޮޑެލްތައް ހިމެނެއެވެ",
-  "dialog.provider.xccode.tagline": "އިތުބާރު ހުރި އޮޕްޓިމައިޒްޑް މޮޑެލްތަކެވެ",
-  "dialog.provider.xccodeGo.tagline": "އެންމެންނަށް ކުޑަ އަގެއްގައި ސަބްސްކްރިޕްޝަން ދިނުމެވެ",
+  "dialog.provider.xiaochuan.tagline": "އިތުބާރު ހުރި އޮޕްޓިމައިޒްޑް މޮޑެލްތަކެވެ",
+  "dialog.provider.xiaochuanGo.tagline": "އެންމެންނަށް ކުޑަ އަގެއްގައި ސަބްސްކްރިޕްޝަން ދިނުމެވެ",
   "dialog.provider.copilot.note": "GitHub Copilot މެދުވެރިކޮށް ކޯޑިންގ އެހީތެރިވުމަށް AI މޮޑެލްތައް",
   "dialog.provider.openai.note": "އަވަސް، ގާބިލް އާންމު AI ޓާސްކްތަކަށް GPT މޮޑެލްތަކެވެ",
   "dialog.provider.google.note": "އަވަސް، ސްޓްރަކްޗަރޑް ރެސްޕޮންސްތަކަށް Gemini މޮޑެލްތަކެވެ",
@@ -145,7 +145,7 @@ export const dict = {
   "dialog.model.empty": "މޮޑެލް ނަތީޖާއެއް ނެތެވެ",
   "dialog.model.manage": "މޮޑެލްތައް މެނޭޖްކުރުން",
   "dialog.model.manage.description": "މޮޑެލް ސެލެކްޓަރގައި ފެންނަނީ ކޮން މޮޑެލްތަކެއްކަން ކަސްޓަމައިޒް ކުރުން.",
-  "dialog.model.unpaid.freeModels.title": "ހިލޭ މޮޑެލްތައް ފޯރުކޮށްދެނީ Xccode އިންނެވެ",
+  "dialog.model.unpaid.freeModels.title": "ހިލޭ މޮޑެލްތައް ފޯރުކޮށްދެނީ Xiaochuan އިންނެވެ",
   "dialog.model.unpaid.addMore.title": "މަޝްހޫރު ޕްރޮވައިޑަރުންގެ އިތުރު މޮޑެލްތައް އިތުރުކުރުން",
   "dialog.model.unpaid.viewMoreProviders": "އިތުރު 70+ ޕްރޮވައިޑަރުން ބައްލަވާށެވެ",
   "dialog.provider.viewAll": "އިތުރު ޕްރޮވައިޑަރުން ދައްކާށެވެ",
@@ -155,7 +155,7 @@ export const dict = {
   "provider.connect.status.waiting": "ހުއްދައަށް އިންތިޒާރު ކުރަމުން",
   "provider.connect.status.failed": "ހުއްދަ ދިނުން ނާކާމިޔާބު: \u2068{{error}}\u2069",
   "provider.connect.apiKey.description":
-    "ތިބާގެ އެކައުންޓް ގުޅުވައި، Xccode ގައި \u2068{{provider}}\u2069 މޮޑެލްތައް ބޭނުންކުރުމަށް \u2068{{provider}}\u2069 API ކީ ލިޔުއްވާ.",
+    "ތިބާގެ އެކައުންޓް ގުޅުވައި، Xiaochuan ގައި \u2068{{provider}}\u2069 މޮޑެލްތައް ބޭނުންކުރުމަށް \u2068{{provider}}\u2069 API ކީ ލިޔުއްވާ.",
   "provider.connect.apiKey.label": "\u2068{{provider}}\u2069 API ކީ އެވެ",
   "provider.connect.apiKey.placeholder": "API ކީ އެވެ",
   "provider.connect.apiKey.required": "API ކީ ބޭނުންވެއެވެ",
@@ -269,7 +269,7 @@ export const dict = {
   "error.page.action.checkUpdates": "އަޕްޑޭޓްތައް ހުރިތޯ ބަލާށެވެ",
   "error.page.action.updateTo": "\u2068{{version}}\u2069 އަށް އަޕްޑޭޓް ކުރާށެވެ",
   "error.page.circular": "[ސާކިއުލާ]",
-  "error.page.report.prefix": "މި އެރަރ Xccode ޓީމަށް ރިޕޯޓް ކުރައްވާށެވެ",
+  "error.page.report.prefix": "މި އެރަރ Xiaochuan ޓީމަށް ރިޕޯޓް ކުރައްވާށެވެ",
   "error.page.report.discord": "Discord ގައި",
   "error.page.version": "ވަރޝަން: \u2068{{version}}\u2069",
   "error.dev.rootNotFound":
@@ -291,9 +291,9 @@ export const dict = {
   "error.chain.responseBody": "ޖަވާބުދާރީވާ ހަށިގަނޑު:\n\u2068{{body}}\u2069 އެވެ",
   "error.chain.didYouMean": "ތިޔަ މާނަކުރީ: \u2068{{suggestions}}\u2069 ހެއްޔެވެ",
   "error.chain.modelNotFound": "މޮޑެލް ނުފެނޭ: \u2068{{provider}}\u2069/\u2068{{model}}\u2069",
-  "error.chain.checkConfig": "ތިބާގެ ކޮންފިގް (xccode.json) ޕްރޮވައިޑަރ/މޮޑެލް ނަންތައް ޗެކްކުރުން",
+  "error.chain.checkConfig": "ތިބާގެ ކޮންފިގް (xiaochuan.json) ޕްރޮވައިޑަރ/މޮޑެލް ނަންތައް ޗެކްކުރުން",
   "error.chain.mcpFailed":
-    'MCP ސަރވަރ "\u2068{{name}}\u2069" ފޭލްވެއްޖެއެވެ. ނޯޓް، Xccode އިން އަދި MCP އޮތެންޓިކޭޝަން އަށް ސަޕޯޓް ނުކުރެއެވެ.',
+    'MCP ސަރވަރ "\u2068{{name}}\u2069" ފޭލްވެއްޖެއެވެ. ނޯޓް، Xiaochuan އިން އަދި MCP އޮތެންޓިކޭޝަން އަށް ސަޕޯޓް ނުކުރެއެވެ.',
   "error.chain.providerAuthFailed":
     "ޕްރޮވައިޑަރ އޮތެންޓިކޭޝަން ފެއިލްވެއްޖެ (\u2068{{provider}}\u2069): \u2068{{message}}\u2069",
   "error.chain.providerInitFailed":
@@ -400,16 +400,16 @@ export const dict = {
   "settings.general.section.notifications": "ސިސްޓަމް ނޮޓިފިކޭޝަންސް",
   "settings.general.section.sounds": "އަޑު އިފެކްޓްސް",
   "settings.general.row.language.title": "ބަސް",
-  "settings.general.row.language.description": "Xccode އަށް ޑިސްޕްލޭ ލޭންގުއޭޖް ބަދަލުކުރުން",
+  "settings.general.row.language.description": "Xiaochuan އަށް ޑިސްޕްލޭ ލޭންގުއޭޖް ބަދަލުކުރުން",
   "settings.general.row.shell.title": "ޓާމިނަލް ޝެލް އެވެ",
   "settings.general.row.shell.description": "ޓާމިނަލް އާއި އޭޖެންޓް ޓޫލްސް އިން ބޭނުންކުރާ ޝެލް",
   "settings.general.row.shell.autoDefault": "އޮޓޯ (ޑިފޯލްޓް)",
   "settings.general.row.shell.terminalOnly": "ޓާމިނަލް އެކަނި",
   "settings.general.row.colorScheme.title": "ކުލަ ސްކީމް",
   "settings.general.row.colorScheme.description":
-    "Xccode އިން ސިސްޓަމް، ލައިޓް، ނުވަތަ ޑާކް ތީމް އަށް ތަބާވާތޯ ހޮވާށެވެ",
+    "Xiaochuan އިން ސިސްޓަމް، ލައިޓް، ނުވަތަ ޑާކް ތީމް އަށް ތަބާވާތޯ ހޮވާށެވެ",
   "settings.general.row.theme.title": "ތީމް",
-  "settings.general.row.theme.description": "Xccode ތީމް ކުރެވިފައިވާ ގޮތް ކަސްޓަމައިޒް ކުރުން.",
+  "settings.general.row.theme.description": "Xiaochuan ތީމް ކުރެވިފައިވާ ގޮތް ކަސްޓަމައިޒް ކުރުން.",
   "settings.general.row.font.title": "ކޯޑް ފޮންޓެވެ",
   "settings.general.row.font.description": "ކޯޑް ބްލޮކްތަކުގައި ބޭނުންކުރާ ފޮންޓް ކަސްޓަމައިޒް ކުރުން",
   "settings.general.row.terminalFont.title": "ޓާމިނަލް ފޮންޓެވެ",
@@ -577,7 +577,7 @@ export const dict = {
   "settings.extensions.tab.mcps": "MCPs",
   "settings.extensions.tab.skills": "ހުނަރުތައް",
   "settings.extensions.availableAll": "ހުރިހާ ޕްރޮޖެކްޓަކަށް ލިބެންހުރި",
-  "settings.extensions.manageConfig": "xccode.json ގައި މެނޭޖްކުރާށެވެ",
+  "settings.extensions.manageConfig": "xiaochuan.json ގައި މެނޭޖްކުރާށެވެ",
   "settings.extensions.addSkills": "ހުނަރުތައް އިތުރުކުރާނެ ގޮތް",
   "project.settings.extensions.description": "މި ޕްރޮޖެކްޓަށް ލިބެންހުރި އެކްސްޓެންޝަންތައް ބަލާށެވެ",
   "project.settings.extensions.tab.lsps": "LSPs",
@@ -616,13 +616,13 @@ export const dict = {
   "desktop.menu.installCli": "CLI އިންސްޓޯލް ކުރާށެވެ...",
   "desktop.cli.installed.title": "CLI އިންސްޓޯލް ކުރެވިއްޖެ",
   "desktop.cli.installed.message":
-    "CLI އިންސްޓޯލް ކުރެވިފައިވަނީ \u2068{{path}}\u2069 އަށެވެ\n\n'xccode2' ކޮމާންޑް ބޭނުންކުރުމަށް ޓާމިނަލް އަލުން ފަށާށެވެ.",
+    "CLI އިންސްޓޯލް ކުރެވިފައިވަނީ \u2068{{path}}\u2069 އަށެވެ\n\n'xiaochuan2' ކޮމާންޑް ބޭނުންކުރުމަށް ޓާމިނަލް އަލުން ފަށާށެވެ.",
   "desktop.cli.failed.title": "އިންސްޓޯލް ކުރުން ނާކާމިޔާބުވެއްޖެ",
   "desktop.cli.failed.message": "CLI އިންސްޓޯލް ނުކުރެވުނެވެ: \u2068{{error}}\u2069",
   "command.project.copyID": "ޕްރޮޖެކްޓް ID ކޮޕީކުރުން",
   "command.session.copyID": "ސެޝަން ID ކޮޕީކުރުން",
   "server.row.incompatible":
-    "މި ސަރވަރގައި ހިނގަނީ Xccode \u2068{{version}}\u2069 އެވެ، އެއީ މި އެޕް އާއި އެއްގޮތް ނޫނެވެ. ކުރިއަށް ގެންދިއުމަށް Xccode V2 އަށް އަޕްގްރޭޑް ކުރާށެވެ.",
+    "މި ސަރވަރގައި ހިނގަނީ Xiaochuan \u2068{{version}}\u2069 އެވެ، އެއީ މި އެޕް އާއި އެއްގޮތް ނޫނެވެ. ކުރިއަށް ގެންދިއުމަށް Xiaochuan V2 އަށް އަޕްގްރޭޑް ކުރާށެވެ.",
   "toast.session.copyID.failed.title": "ސެޝަން ID ކޮޕީ ނުކުރެވުނެވެ",
   "toast.session.copyID.failed.description": "ސެޝަން ID ކޮޕީކުރަމުން ދިޔައިރު ގޯހެއް ދިމާވިއެވެ",
   "toast.project.copyID.failed.title": "ޕްރޮޖެކްޓް ID ކޮޕީ ނުކުރެވުނެވެ",
@@ -632,7 +632,7 @@ export const dict = {
   "error.page.action.reload": "އަލުން ލޯޑްކުރުން",
   "session.error.incompatible": "މި ސަރވަރ ވަރޝަން ސަޕޯޓް ނުކުރެއެވެ",
   "session.error.incompatible.description":
-    "\u2068{{server}}\u2069 ގައި ހިނގަނީ Xccode \u2068{{version}}\u2069 އެވެ، އެއީ މި އެޕް އާއި އެއްގޮތް ނޫނެވެ. ކުރިއަށް ގެންދިއުމަށް ސަރވަރ Xccode V2 އަށް އަޕްގްރޭޑް ކުރާށެވެ.",
+    "\u2068{{server}}\u2069 ގައި ހިނގަނީ Xiaochuan \u2068{{version}}\u2069 އެވެ، އެއީ މި އެޕް އާއި އެއްގޮތް ނޫނެވެ. ކުރިއަށް ގެންދިއުމަށް ސަރވަރ Xiaochuan V2 އަށް އަޕްގްރޭޑް ކުރާށެވެ.",
   "session.background.moveInline": "ހިނގަމުންދާ މަސައްކަތް ބެކްގްރައުންޑަށް ލުމަށް \u2068{{keybind}}\u2069 ފިއްތާށެވެ",
   "dialog.server.menu.hide": "ޕްރޮޖެކްޓް ލިސްޓުން ފޮރުވާށެވެ",
   "dialog.server.menu.show": "ޕްރޮޖެކްޓް ލިސްޓުގައި ދައްކާށެވެ",
@@ -686,9 +686,9 @@ export const dict = {
   "settings.about.otherContributor.other": "އެހެން \u2068{{count}}\u2069",
   "settings.about.firstPublished": "ފުރަތަމަ ޗާޕުކުރީ އެމެރިކާގެ މިޒޫރީގައެވެ",
   "settings.about.firstIllustrated": "ފުރަތަމަ ކުރެހީ އިނގިރޭސިވިލާތުގެ ލަންޑަންގައެވެ",
-  "settings.about.website": "www.xccode.ai",
-  "settings.about.description": "Xccode، އޯޕަން ސޯސް ކޯޑިންގ އޭޖެންޓް",
-  "settings.about.trademark": "Xccode އަކީ Anomaly Innovations, Inc. ގެ ރަޖިސްޓަރޑް ޓްރޭޑްމާކެވެ.",
+  "settings.about.website": "www.xiaochuan.ai",
+  "settings.about.description": "Xiaochuan، އޯޕަން ސޯސް ކޯޑިންގ އޭޖެންޓް",
+  "settings.about.trademark": "Xiaochuan އަކީ Anomaly Innovations, Inc. ގެ ރަޖިސްޓަރޑް ޓްރޭޑްމާކެވެ.",
   "settings.about.typeset": "Inter އަދި IBM Plex Mono އިން ޓައިޕްސެޓްކޮށްފައި",
   "settings.about.tagline": "ތިބާ ނެތި AI އަށް ރަނގަޅު ސޮފްޓްވެއަރ ނުހެދޭނެ",
   "settings.about.copyright": "© Anomaly Innovations, Inc.",
@@ -744,7 +744,7 @@ export const dict = {
     "ގުޅެވޭ ގޮތެއް ނުވިއެވެ. ސަރވަރ އެޑްރެހާއި ޕާސްވޯޑް ޗެކްކޮށްލުމަށްފަހު އަލުން މަސައްކަތް ކުރާށެވެ.",
   "server.connect.scan": "QR ކޯޑް ސްކޭން ކުރާށެވެ",
   "server.connect.scan.description": "އޮޕަންކޯޑް ޖޯޑުން ދައްކާ QR ކޯޑަށް ކެމެރާ އިޝާރާތް ކުރާށެވެ.",
-  "server.connect.scan.invalid": "މިއީ Xccode ޖޯޑު ކޯޑެއް ނޫނެވެ. އޮޕަންކޯޑް ޕެއާ އިން ދައްކާ ކޯޑް ސްކޭން ކުރާށެވެ.",
+  "server.connect.scan.invalid": "މިއީ Xiaochuan ޖޯޑު ކޯޑެއް ނޫނެވެ. އޮޕަންކޯޑް ޕެއާ އިން ދައްކާ ކޯޑް ސްކޭން ކުރާށެވެ.",
   "server.connect.camera": "ޕެއަރިންގ ކެމެރާ",
   "server.connect.camera.starting": "ކެމެރާ ހުޅުވަނީ...",
   "server.connect.mixedContent":
@@ -786,19 +786,19 @@ export const dict = {
     "ވެބް ސަރޗް ކުރުމަށް އޭޖެންޓުން ބޭނުންކުރާ ސަރޗް ޕްރޮވައިޑަރ ހޮވާށެވެ",
   "settings.projects.search.placeholder": "ޕްރޮޖެކްޓްތައް ހޯދުން",
   "project.settings.name.title": "ޕްރޮޖެކްޓްގެ ނަން",
-  "project.settings.name.description": "މުޅި Xccode ގައި މި މަޝްރޫޢަށް ދައްކާފައިވާ ނަން.",
+  "project.settings.name.description": "މުޅި Xiaochuan ގައި މި މަޝްރޫޢަށް ދައްކާފައިވާ ނަން.",
   "project.settings.icon.description":
     "ލަފާދެނީ: 128×128px. ތަސްވީރެއް އަޕްލޯޑް ކުރުމަށް ކްލިކް ނުވަތަ ޑްރެގް ކުރާށެވެ.",
   "project.settings.color.description": "ކަސްޓަމް އިމޭޖެއް ސެޓް ނުކުރާއިރު ޕްރޮޖެކްޓް އައިކޮންއަށް ބޭނުންކުރެއެވެ",
   "project.settings.worktree.startup.description": "އާ ވޯކްޓްރީއެއް އުފެއްދުމަށްފަހު އެއްފަހަރު ހިނގައެވެ",
-  "project.settings.worktree.startup.hint.base": "ބޭސް ވޯކްޓްރީއަށް $XCCODE_WORKTREE_BASE ބޭނުން ކުރާށެވެ.",
-  "project.settings.worktree.startup.hint.new": "އާ ވޯކްޓްރީއަށް $XCCODE_WORKTREE_PATH ބޭނުން ކުރާށެވެ.",
+  "project.settings.worktree.startup.hint.base": "ބޭސް ވޯކްޓްރީއަށް $XIAOCHUAN_WORKTREE_BASE ބޭނުން ކުރާށެވެ.",
+  "project.settings.worktree.startup.hint.new": "އާ ވޯކްޓްރީއަށް $XIAOCHUAN_WORKTREE_PATH ބޭނުން ކުރާށެވެ.",
   "project.settings.extensions.empty.mcps.title": "އަދި އެމްސީޕީއެއް ނެތެވެ",
-  "project.settings.extensions.empty.mcps.description": "Xccode އަށް ލިބޭ އެމްސީޕީތައް މިތަނުން ފެންނާނެއެވެ",
+  "project.settings.extensions.empty.mcps.description": "Xiaochuan އަށް ލިބޭ އެމްސީޕީތައް މިތަނުން ފެންނާނެއެވެ",
   "project.settings.extensions.empty.plugins.title": "އަދި ޕްލަގިންސްއެއް ނެތެވެ",
-  "project.settings.extensions.empty.plugins.description": "Xccode އަށް ލިބޭ ޕްލަގިންތައް މިތަނުން ފެންނާނެއެވެ",
+  "project.settings.extensions.empty.plugins.description": "Xiaochuan އަށް ލިބޭ ޕްލަގިންތައް މިތަނުން ފެންނާނެއެވެ",
   "project.settings.extensions.empty.skills.title": "އަދި ހުނަރެއް ނެތެވެ",
-  "project.settings.extensions.empty.skills.description": "Xccode އަށް ލިބިފައިވާ ހުނަރުތައް މިތަނުން ފެންނާނެއެވެ",
+  "project.settings.extensions.empty.skills.description": "Xiaochuan އަށް ލިބިފައިވާ ހުނަރުތައް މިތަނުން ފެންނާނެއެވެ",
   "project.settings.extensions.lsp.configured": "ކޮންފިގްރޭޓް ކުރެވިފައިވާ ބަހުގެ ސަރވަރސް",
   "project.settings.extensions.lsp.status.enabled": "ކޮންފިގްގައި އެނެބަލް ކުރެވިފައިވެއެވެ",
   "project.settings.extensions.lsp.status.disabled": "ކޮންފިގްގައި ޑިސެބިލްކޮށްފައިވެއެވެ",
@@ -820,7 +820,7 @@ export const dict = {
   "settings.timeline.collapsed.label": "\u2068{{activity}}\u2069 ވެއްޓިއްޖެއެވެ",
   "session.new.workspace.search.empty": "އެއްގޮތް ވޯކްޓްރީއެއް ނެތެވެ",
   "settings.workspaces.description": "ވޯކްޓްރީތައް ރިވިއުކޮށް ޑިސްކް ބޭނުންކުރުން މެނޭޖްކުރުން",
-  "settings.workspaces.empty.description": "Xccode ގައި އުފެއްދި ވޯކްޓްރީތައް މިތަނުން ފެންނާނެއެވެ",
+  "settings.workspaces.empty.description": "Xiaochuan ގައި އުފެއްދި ވޯކްޓްރީތައް މިތަނުން ފެންނާނެއެވެ",
   "settings.workspaces.sessions.filtered.one": "\u2068{{count}}\u2069 ސެޝަން",
   "settings.workspaces.sessions.filtered.other": "\u2068{{count}}\u2069 ސެޝަންތަކެވެ",
   "settings.workspaces.deleteAll.confirm.one":
@@ -861,22 +861,22 @@ export const dict = {
   "voice.captions.hide": "ކެޕްޝަންތައް ފޮރުވާ",
   "voice.connecting": "ގުޅުވަމުން…",
   "voice.you": "ތިބާ:",
-  "voice.assistant": "Xccode:",
+  "voice.assistant": "Xiaochuan:",
   "voice.failure.unavailable": "އަޑު ކޯލްތަކަށް މި ސަރވަރގައި OpenAI API ކީއެއް ބޭނުންވެއެވެ.",
   "voice.failure.microphone": "ކޯލް ކުރުމަށް މައިކްރޮފޯނަށް އެކްސެސް ބޭނުންވެއެވެ.",
   "voice.failure.dropped": "ކޯލް ކެނޑިއްޖެއެވެ.",
   "voice.failure.connection": "ކޯލް ގުޅުވޭ ގޮތެއް ނުވިއެވެ.",
-  "desktop.microphoneUsage": "Xccode އިން އަޑު ކޯލްތަކަށް ތިބާގެ މައިކްރޮފޯން ބޭނުންކުރެއެވެ.",
+  "desktop.microphoneUsage": "Xiaochuan އިން އަޑު ކޯލްތަކަށް ތިބާގެ މައިކްރޮފޯން ބޭނުންކުރެއެވެ.",
   "desktop.documentsFolderUsage":
-    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xccode އިން Documents ފޯލްޑަރުގެ ފައިލްތައް ބޭނުންކުރެއެވެ.",
+    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xiaochuan އިން Documents ފޯލްޑަރުގެ ފައިލްތައް ބޭނުންކުރެއެވެ.",
   "desktop.desktopFolderUsage":
-    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xccode އިން Desktop ގައިވާ ފައިލްތައް ބޭނުންކުރެއެވެ.",
+    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xiaochuan އިން Desktop ގައިވާ ފައިލްތައް ބޭނުންކުރެއެވެ.",
   "desktop.downloadsFolderUsage":
-    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xccode އިން Downloads ފޯލްޑަރުގެ ފައިލްތައް ބޭނުންކުރެއެވެ.",
+    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xiaochuan އިން Downloads ފޯލްޑަރުގެ ފައިލްތައް ބޭނުންކުރެއެވެ.",
   "desktop.networkVolumesUsage":
-    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xccode އިން ނެޓްވޯކް ވޮލިއުމްތަކުގައިވާ ފައިލްތައް ބޭނުންކުރެއެވެ.",
+    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xiaochuan އިން ނެޓްވޯކް ވޮލިއުމްތަކުގައިވާ ފައިލްތައް ބޭނުންކުރެއެވެ.",
   "desktop.removableVolumesUsage":
-    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xccode އިން ރިމޫވަބަލް ވޮލިއުމްތަކުގައިވާ ފައިލްތައް ބޭނުންކުރެއެވެ.",
+    "ތިބާ ހުޅުވާ ޕްރޮޖެކްޓްތަކާއި އެތަނުގައި ހިންގާ ކޮމާންޑްތަކަށް Xiaochuan އިން ރިމޫވަބަލް ވޮލިއުމްތަކުގައިވާ ފައިލްތައް ބޭނުންކުރެއެވެ.",
   "desktop.contextMenu.spellcheck": "ސްޕެލްޗެކް",
   "desktop.contextMenu.spellcheckLanguages": "ސްޕެލްޗެކް ބަސްތައް",
   "session.location.unavailable": "ސެޝަންގެ ލޮކޭޝަން ނުލިބެއެވެ",
@@ -890,7 +890,7 @@ export const dict = {
   "session.location.moveFailed": "ސެޝަން ބަދަލު ނުކުރެވުނެވެ",
   "server.thisComputer": "މި ކޮމްޕިއުޓަރު",
   "command.provider.connect.description":
-    "Xccode Go، Xccode Console، ނުވަތަ އެހެން މޮޑެލް ޕްރޮވައިޑަރަކަށް ސައިން އިން ވާ",
+    "Xiaochuan Go، Xiaochuan Console، ނުވަތަ އެހެން މޮޑެލް ޕްރޮވައިޑަރަކަށް ސައިން އިން ވާ",
   "command.config.reload": "ކޮންފިގްރޭޝަން ރީލޯޑް ކުރާ",
   "command.config.reload.description":
     "ތިބާގެ ކޮންފިގުން އޭޖެންޓުން، ކޮމާންޑްތައް، ހުނަރުތައް، MCP ސަރވަރތަކާއި ޕްލަގިންތައް ރީލޯޑް ކުރާ",
@@ -898,7 +898,7 @@ export const dict = {
   "command.config.reload.done": "ކޮންފިގްރޭޝަން ރީލޯޑް ކުރެވިއްޖެ",
   "command.config.reload.failed": "ކޮންފިގްރޭޝަން ރީލޯޑް ނުކުރެވުނެވެ",
   "command.usage.view": "ބޭނުންކުރި މިންވަރު ބަލާ",
-  "command.usage.view.description": "ތިބާގެ Xccode Go ލިމިޓާއި Console ބަޖެޓްތައް ބަލާ",
+  "command.usage.view.description": "ތިބާގެ Xiaochuan Go ލިމިޓާއި Console ބަޖެޓްތައް ބަލާ",
   "command.session.branch.choose": "ބޭސް ބްރާންޗް ހޮވާ",
   "session.location.toggle": "ސެޝަން ލޮކޭޝަން ޓޮގްލް ކުރާ",
   "command.commands.search": "ކޮމާންޑްތައް ހޯދާ",
@@ -919,7 +919,7 @@ export const dict = {
   "palette.group.settings": "ސެޓިންގްސް",
   "palette.session.location": "⁨{{project}}⁩ · ⁨{{server}}⁩",
   "dialog.provider.title": "އިންޓަގްރޭޝަންތައް",
-  "dialog.provider.description": "Xccode އަށް ބޭނުންކުރެވޭނެ ގޮތަށް ސާވިސްތައް ގުޅުވާށެވެ.",
+  "dialog.provider.description": "Xiaochuan އަށް ބޭނުންކުރެވޭނެ ގޮތަށް ސާވިސްތައް ގުޅުވާށެވެ.",
   "dialog.provider.group.services": "ސާވިސްތައް",
   "dialog.provider.environmentOnly": "މާޙައުލު އެކަނި",
   "dialog.provider.signInRequired": "ސައިން އިން ވާން ޖެހޭ ←",
@@ -946,11 +946,11 @@ export const dict = {
   "provider.connect.breadcrumb.root": "ގުޅުވާ",
   "provider.connect.breadcrumb.label": "ގުޅުވާ ފިޔަވަޅުތައް",
   "provider.connect.methods.description": "⁨{{provider}}⁩ ގުޅުވާނެ ގޮތް ހޮވާށެވެ.",
-  "provider.connect.xccode.name": "Xccode",
-  "provider.connect.xccode.freeName": "Xccode Free",
+  "provider.connect.xiaochuan.name": "Xiaochuan",
+  "provider.connect.xiaochuan.freeName": "Xiaochuan Free",
   "provider.connect.console.retry": "އަލުން ޖައްސަވާ",
   "provider.connect.console.serviceKeyDescription":
-    "Xccode Console ގެ ސާވިސް އެކައުންޓް API ކީއެއް ބޭނުންކޮށްގެން ގުޅުވާ.",
+    "Xiaochuan Console ގެ ސާވިސް އެކައުންޓް API ކީއެއް ބޭނުންކޮށްގެން ގުޅުވާ.",
   "provider.connect.console.instructions":
     "ބްރައުޒަރުގައި ކުރިއަށް ގެންދާށެވެ. އެތަނުގައި ދައްކާ ކޯޑަކީ ތިރީގައިވާ ކޯޑާ އެއްގޮތް ކޯޑެއްކަން ޔަޤީންކުރާށެވެ.",
   "provider.connect.console.deviceCode": "ޑިވައިސް ކޯޑް",
@@ -976,7 +976,7 @@ export const dict = {
   "provider.connect.models.available": "ލިބެންހުރި މޮޑެލްތައް",
   "provider.connect.chatgptWelcome.title": "ChatGPT ގުޅިއްޖެ",
   "provider.connect.chatgptWelcome.description":
-    "Xccode ގައި ޝަރުތު ހަމަވާ ރިކުއެސްޓްތަކަށް ތިބާގެ ChatGPT ޕްލޭން ބޭނުންކުރެވޭނެއެވެ.",
+    "Xiaochuan ގައި ޝަރުތު ހަމަވާ ރިކުއެސްޓްތަކަށް ތިބާގެ ChatGPT ޕްލޭން ބޭނުންކުރެވޭނެއެވެ.",
   "provider.connect.chatgptWelcome.usage": "ChatGPT ސެޓިންގްސްގައި ބޭނުންކުރުން މެނޭޖްކުރާ",
   "provider.connect.chatgptWelcome.confirm": "އެނގިއްޖެ",
   "provider.connect.models.list": "⁨{{provider}}⁩ އިން ލިބެންހުރި މޮޑެލްތައް",
@@ -987,7 +987,7 @@ export const dict = {
   "provider.connect.chatgptUsageLimit.close": "ބަންދުކުރާ",
   "provider.connect.console.refreshFailed":
     "ތިބާގެ އެކައުންޓް ގުޅިއްޖެ، ނަމަވެސް މޮޑެލްތައް ލޯޑް ނުކުރެވުނެވެ. ރިފްރެޝް ކުރުމަށް އަލުން ޖައްސަވާ.",
-  "provider.connect.console.connected": "Xccode ގުޅިއްޖެ",
+  "provider.connect.console.connected": "Xiaochuan ގުޅިއްޖެ",
   "provider.connect.console.noModels":
     "ތިބާގެ އެކައުންޓް ގުޅިއްޖެ، ނަމަވެސް މި Console ވޯކްސްޕޭސްގައި ލިބެންހުރި މޮޑެލެއް ނެތެވެ. Console ގައި އޭގެ ސެޓަޕް ޗެކްކޮށް، ދެން ރިފްރެޝް ކުރާށެވެ.",
   "provider.connect.console.modelsLoading":
@@ -996,7 +996,7 @@ export const dict = {
   "provider.connect.console.openingBrowser": "ބްރައުޒަރ ހުޅުވަމުން",
   "provider.connect.remote.label": "⁨{{server}}⁩ ގައި",
   "provider.connect.remote.description":
-    "ތިބާގެ Xccode ކްރެޑެންޝަލްތައް ރައްކާވާނީ މި ސަރވަރގައެވެ. މޮޑެލްތައް ލިބޭނީ މި ސަރވަރ މެދުވެރިކޮށެވެ.",
+    "ތިބާގެ Xiaochuan ކްރެޑެންޝަލްތައް ރައްކާވާނީ މި ސަރވަރގައެވެ. މޮޑެލްތައް ލިބޭނީ މި ސަރވަރ މެދުވެރިކޮށެވެ.",
   "provider.connect.claudeAgent.description":
     "ތިބާގެ Claude ޕްލޭން ނުވަތަ އެހެން Claude Code ލޮގިނެއް ބޭނުންކުރާ. ފުރަތަމަ Claude Code އިންސްޓޯލްކޮށް ސައިން އިން ވާށެވެ.",
   "provider.connect.claudeAgent.install": "Claude Code އިންސްޓޯލް ކުރާ",
@@ -1030,7 +1030,7 @@ export const dict = {
     "ތިބާގެ ބްރައުޒަރ ހުޅުވޭ ގޮތެއް ނުވިއެވެ. އަލުން ޖެއްސުމަށް ބްރައުޒަރ ހުޅުވާ ހޮވާށެވެ.",
   "provider.connect.oauth.paste.toggle": "އެހެން ޑިވައިސްއަކުން ސައިން އިން ވަނީތަ؟",
   "provider.connect.oauth.paste.description":
-    "Xccode ހިނގާ މެޝިނަށް ތިބާގެ ބްރައުޒަރ ނުގުޅެން ނަމަ، ރީޑައިރެކްޓް ކުރެވުނު URL ޕޭސްޓް ކުރާށެވެ.",
+    "Xiaochuan ހިނގާ މެޝިނަށް ތިބާގެ ބްރައުޒަރ ނުގުޅެން ނަމަ، ރީޑައިރެކްޓް ކުރެވުނު URL ޕޭސްޓް ކުރާށެވެ.",
   "provider.connect.oauth.expired": "އޮތޯރިޒޭޝަންގެ މުއްދަތު ހަމަވެއްޖެ",
   "model.details.input.text": "ލިޔުން",
   "model.details.input.image": "ފޮޓޯ",
@@ -1067,7 +1067,7 @@ export const dict = {
   "dialog.mcp.signIn": "ސައިން އިން",
   "dialog.mcp.signIn.open": "⁨{{name}}⁩ އަށް ސައިން އިން ވާ",
   "dialog.mcp.signIn.description":
-    "⁨{{name}}⁩ އަށް ސައިން އިން ވުމަށް ތިބާގެ ބްރައުޒަރ ހުޅުވޭނެއެވެ. Xccode ހިނގާ މެޝިނަށް އެ ބްރައުޒަރ ނުގުޅެން ނަމަ، ރީޑައިރެކްޓް ކުރެވުނު URL ތިރީގައި ޕޭސްޓް ކުރާށެވެ.",
+    "⁨{{name}}⁩ އަށް ސައިން އިން ވުމަށް ތިބާގެ ބްރައުޒަރ ހުޅުވޭނެއެވެ. Xiaochuan ހިނގާ މެޝިނަށް އެ ބްރައުޒަރ ނުގުޅެން ނަމަ، ރީޑައިރެކްޓް ކުރެވުނު URL ތިރީގައި ޕޭސްޓް ކުރާށެވެ.",
   "dialog.mcp.signIn.syncFailed": "ސައިން އިން ވެއްޖެ، ނަމަވެސް ⁨{{name}}⁩ ރިފްރެޝް ނުކުރެވުނެވެ: ⁨{{error}}⁩",
   "dialog.mcp.error.details":
     "MCP ސަރވަރ: ⁨{{name}}⁩\nސްޓޭޓަސް: ނާކާމިޔާބު\nކޮންފިގްރޭޝަން: mcp.servers.⁨{{name}}⁩\nއެރަރ: ⁨{{error}}⁩",
@@ -1096,10 +1096,10 @@ export const dict = {
   "server.connect.link": "ޕެއަރިންގ ލިންކް",
   "server.connect.link.placeholder": "http://192.168.1.2:4096/auth/connect/…",
   "server.connect.link.invalid":
-    "xccode pair އިން، ނުވަތަ ސަރވަރގެ ކޮމްޕިއުޓަރުގައި ސެޓިންގްސް ← Pairing އިން ލިބޭ މުޅި ޕެއަރިންގ ލިންކް ޕޭސްޓް ކުރާށެވެ.",
+    "xiaochuan pair އިން، ނުވަތަ ސަރވަރގެ ކޮމްޕިއުޓަރުގައި ސެޓިންގްސް ← Pairing އިން ލިބޭ މުޅި ޕެއަރިންގ ލިންކް ޕޭސްޓް ކުރާށެވެ.",
   "server.connect.password.prompt": "ޕެއަރިންގ ލިންކެއް ނެތްތަ؟",
   "server.connect.password.use": "ޕާސްވޯޑް ބޭނުންކުރާ",
-  "server.connect.password.hint": "އެ ފެނުމަށް، ސަރވަރގެ ކޮމްޕިއުޓަރުގައި xccode service get password ހިންގާށެވެ.",
+  "server.connect.password.hint": "އެ ފެނުމަށް، ސަރވަރގެ ކޮމްޕިއުޓަރުގައި xiaochuan service get password ހިންގާށެވެ.",
   "server.connect.link.prompt": "ޕެއަރިންގ ލިންކެއް އެބަ އޮތްތަ؟",
   "server.connect.link.use": "ޕެއަރިންގ ލިންކް ބޭނުންކުރާ",
   "server.connect.pair.link":
@@ -1107,11 +1107,11 @@ export const dict = {
   "server.connect.scan.failed":
     "މި ބްރައުޒަރަށް QR ކޯޑް ކިޔޭ ގޮތެއް ނުވިއެވެ. ކަނެކްޝަންގެ ތަފްޞީލު އަމިއްލައަށް ލިޔެލާށެވެ.",
   "server.connect.link.expired":
-    "މި ޕެއަރިންގ ލިންކްގެ މުއްދަތު ހަމަވެއްޖެ ނުވަތަ މިހާރުވެސް ބޭނުންކޮށްފައިވެއެވެ. އާ ލިންކެއް ހޯދުމަށް xccode pair ހިންގާށެވެ.",
+    "މި ޕެއަރިންގ ލިންކްގެ މުއްދަތު ހަމަވެއްޖެ ނުވަތަ މިހާރުވެސް ބޭނުންކޮށްފައިވެއެވެ. އާ ލިންކެއް ހޯދުމަށް xiaochuan pair ހިންގާށެވެ.",
   "server.connect.link.unreachable":
     "⁨{{url}}⁩ އާ ނުގުޅުނެވެ. މި ޑިވައިސްއަށް ސަރވަރާ ގުޅޭކަން ޗެކްކޮށް، އަލުން ޖައްސަވާ.",
   "server.connect.link.legacy":
-    "މި ޕެއަރިންގ ކޯޑަކީ Xccode ގެ ކުރީގެ ވަރޝަނެއްގެ ކޯޑެކެވެ. ސަރވަރގައި Xccode އަޕްޑޭޓްކޮށް، ދެން xccode pair އަލުން ހިންގާށެވެ.",
+    "މި ޕެއަރިންގ ކޯޑަކީ Xiaochuan ގެ ކުރީގެ ވަރޝަނެއްގެ ކޯޑެކެވެ. ސަރވަރގައި Xiaochuan އަޕްޑޭޓްކޮށް، ދެން xiaochuan pair އަލުން ހިންގާށެވެ.",
   "server.connect.camera.native":
     "މި ޕޭޖަށް HTTP މެދުވެރިކޮށް ކެމެރާ ބޭނުން ނުކުރެވޭނެއެވެ. މަތީގައި ޕެއަރިންގ ލިންކް ޕޭސްޓް ކުރާށެވެ.",
   "dialog.server.signedOut":
@@ -1134,7 +1134,7 @@ export const dict = {
   "home.sessions.load.timeout": "ސަރވަރުން ޖަވާބުދިނުމަށް ވަރަށް ގިނަ ވަގުތު ނެގިއްޖެ",
   "tips.browse.title": "ތިބާގެ ބްރައުޒަރ ކޮންޓްރޯލް ކުރާ",
   "tips.browse.description":
-    "ތިބާގެ ޓެބްތަކާއި، ލޮގިންތަކާއި، އެކްސްޓެންޝަންތަކާއެކު ބްރައުޒަރުގައި Xccode އަށް މަސައްކަތްކުރެވޭނެ ގޮތް ހައްދަވާ.",
+    "ތިބާގެ ޓެބްތަކާއި، ލޮގިންތަކާއި، އެކްސްޓެންޝަންތަކާއެކު ބްރައުޒަރުގައި Xiaochuan އަށް މަސައްކަތްކުރެވޭނެ ގޮތް ހައްދަވާ.",
   "tips.browse.install": "އިންސްޓޯލް ކުރާ",
   "tips.hex.title": "ތިބާގެ އަޑު ބޭނުންކުރާ",
   "tips.hex.description":
@@ -1324,10 +1324,10 @@ export const dict = {
   "settings.plugins.part.server": "ސަރވަރ",
   "settings.plugins.part.tui": "TUI",
   "settings.plugins.parts.note":
-    'ސްވިޗްތަކުން އޮފް ކުރަނީ ޕްލަގިނެއްގެ ޑެސްކްޓޮޕް UI އެކަންޏެވެ. އޭގެ ސަރވަރ ބައި އޮފް ކުރުމަށް ތިބާގެ ގްލޯބަލް xccode.json ގައި plugins އަށް "-<id>" އިތުރުކުރާށެވެ، ނުވަތަ TUI ބައި އޮފް ކުރުމަށް cli.json ގައި plugins އަށް "-" އާއި އޭގެ TUI ޕްލަގިންގެ ID އިތުރުކުރާށެވެ.',
+    'ސްވިޗްތަކުން އޮފް ކުރަނީ ޕްލަގިނެއްގެ ޑެސްކްޓޮޕް UI އެކަންޏެވެ. އޭގެ ސަރވަރ ބައި އޮފް ކުރުމަށް ތިބާގެ ގްލޯބަލް xiaochuan.json ގައި plugins އަށް "-<id>" އިތުރުކުރާށެވެ، ނުވަތަ TUI ބައި އޮފް ކުރުމަށް cli.json ގައި plugins އަށް "-" އާއި އޭގެ TUI ޕްލަގިންގެ ID އިތުރުކުރާށެވެ.',
   "settings.about.copyVersionFailed": "ވަރޝަން ކޮޕީ ނުކުރެވުނެވެ",
   "settings.about.notices.title": "ތިންވަނަ ފަރާތުގެ ނޯޓިސްތައް",
-  "settings.about.notices.description": "Xccode ގައި ތިރީގައިވާ އޯޕަން ސޯސް ސޮފްޓްވެއަރ ހިމެނެއެވެ.",
+  "settings.about.notices.description": "Xiaochuan ގައި ތިރީގައިވާ އޯޕަން ސޯސް ސޮފްޓްވެއަރ ހިމެނެއެވެ.",
   "settings.about.notices.license": "ލައިސަންސްގެ ލިޔުން",
   "settings.about.notices.fonts.title": "Office ޕްރިވިއުތަކުގެ ފޮންޓްތައް",
   "settings.about.notices.fonts.description":
@@ -1369,7 +1369,7 @@ export const dict = {
   "settings.extensions.sources.loadFailed": "އެކްސްޓެންޝަން ސޯސްތައް ލޯޑް ނުކުރެވުނެވެ",
   "settings.extensions.console.temporary":
     "ސްވިޗްތަކުން ވަގުތީގޮތުން ކޮންޓްރޯލް ކުރަނީ މިހާރުގެ ޕްރޮޖެކްޓުގެ MCP ކަނެކްޝަންތަކެވެ، ތިބާގެ Console ޕްރެފަރެންސްތައް ނޫނެވެ. ސަރވަރ ކޮންފިގްރޭޝަން ބަދަލުވުމުން އެ ކަނެކްޝަންތައް އަލުން ގުޅިދާނެއެވެ.",
-  "settings.extensions.console.replaced": "Xccode Console ގެ ބަދަލުގައި",
+  "settings.extensions.console.replaced": "Xiaochuan Console ގެ ބަދަލުގައި",
   "settings.extensions.console.connect": "Console ގައި ⁨{{name}}⁩ ގުޅުވާ",
   "settings.extensions.console.manage": "Console ގައި ⁨{{name}}⁩ މެނޭޖްކުރާ",
   "project.settings.autoAccept.description": "މި ޕްރޮޖެކްޓުގެ ހުއްދަ ރިކުއެސްޓްތައް ނުސުވާލުކޮށް ފާސްކުރާ",
@@ -1448,8 +1448,8 @@ export const dict = {
   "lab.noControls": "މި ސްޓޯރީގައި ކޮންޓްރޯލެއް ނެތެވެ",
   "lab.grid": "ގްރިޑް",
   "usage.title": "ބޭނުންކުރުން",
-  "usage.section.go": "Xccode Go",
-  "usage.section.console": "Xccode Console",
+  "usage.section.go": "Xiaochuan Go",
+  "usage.section.console": "Xiaochuan Console",
   "usage.workspace.fallback": "ތިބާގެ ވޯކްސްޕޭސް",
   "usage.time": "⁨{{date}}⁩ ⁨{{time}}⁩ ގައި (⁨{{zone}}⁩)",
   "usage.go.rolling": "ރޯލިންގ",
@@ -1514,9 +1514,9 @@ export const dict = {
   "usage.footer.budgetsReset": "ބަޖެޓްތައް ރީސެޓްވާނީ ⁨{{time}}⁩",
   "usage.footer.creditsOnly": "ޚަރަދު ލިމިޓްވަނީ ⁨{{workspace}}⁩ ގެ ކްރެޑިޓުން އެކަނިއެވެ",
   "usage.footer.details": "ތަފްޞީލު ބަލާ",
-  "usage.signedOut.title": "Xccode Console އަށް ސައިން އިން ވެފައެއް ނުވޭ",
+  "usage.signedOut.title": "Xiaochuan Console އަށް ސައިން އިން ވެފައެއް ނުވޭ",
   "usage.signedOut.body":
-    "ތިބާގެ ވޯކްސްޕޭސްގެ ބަޖެޓްތަކާއި Go ބޭނުންކުރި މިންވަރު ބެލުމަށް Xccode Console ގުޅުވާށެވެ.",
+    "ތިބާގެ ވޯކްސްޕޭސްގެ ބަޖެޓްތަކާއި Go ބޭނުންކުރި މިންވަރު ބެލުމަށް Xiaochuan Console ގުޅުވާށެވެ.",
   "usage.error": "ބޭނުންކުރުމުގެ ލިމިޓްތައް ލޯޑް ނުކުރެވުނެވެ.",
   "usage.retry": "އަލުން ޖައްސަވާ",
 }

@@ -1,7 +1,7 @@
-import { Database } from "@xccode/core/database/database"
-import { Project } from "@xccode/core/project"
-import { upsertProject } from "@xccode/core/project/sql"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { Database } from "@xiaochuan/core/database/database"
+import { Project } from "@xiaochuan/core/project"
+import { upsertProject } from "@xiaochuan/core/project/sql"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { Effect, Layer } from "effect"
 
 export const globalProjectNode = makeGlobalNode({

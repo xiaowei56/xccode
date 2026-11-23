@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { createMemo, Show } from "solid-js"
 import { contextUsage } from "../../util/session"
 
@@ -42,7 +42,7 @@ export function SidebarContext(props: { context: Plugin.Context; sessionID: stri
 }
 
 export default Plugin.define({
-  id: "xccode.sidebar.context",
+  id: "xiaochuan.sidebar.context",
   setup(context) {
     context.ui.slot({
       append: "sidebar.content",

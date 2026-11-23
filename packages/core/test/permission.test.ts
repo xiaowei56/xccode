@@ -1,23 +1,23 @@
 import { describe, expect, test } from "bun:test"
 import { Cause, Deferred, Effect, Fiber, Layer, Schema } from "effect"
-import { Agent } from "@xccode/core/agent"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { Location } from "@xccode/core/location"
-import { Permission } from "@xccode/core/permission"
-import { PermissionTable } from "@xccode/core/permission/sql"
-import { PermissionSaved } from "@xccode/core/permission/saved"
-import { Project } from "@xccode/core/project"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { SessionTable } from "@xccode/core/session/sql"
-import { SessionStore } from "@xccode/core/session/store"
-import { ShellParse } from "@xccode/core/shell/parse"
-import { Tool } from "@xccode/core/tool"
-import { Wildcard } from "@xccode/core/util/wildcard"
+import { Agent } from "@xiaochuan/core/agent"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { Location } from "@xiaochuan/core/location"
+import { Permission } from "@xiaochuan/core/permission"
+import { PermissionTable } from "@xiaochuan/core/permission/sql"
+import { PermissionSaved } from "@xiaochuan/core/permission/saved"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { SessionTable } from "@xiaochuan/core/session/sql"
+import { SessionStore } from "@xiaochuan/core/session/store"
+import { ShellParse } from "@xiaochuan/core/shell/parse"
+import { Tool } from "@xiaochuan/core/tool"
+import { Wildcard } from "@xiaochuan/core/util/wildcard"
 import { eq } from "drizzle-orm"
 import { location } from "./fixture/location"
 import { testEffect } from "./lib/effect"
@@ -210,19 +210,19 @@ describe("Permission", () => {
   test("matches file rules without case where file systems ignore it by default", () => {
     const rules: Permission.Ruleset = [
       { action: "*", resource: "*", effect: "allow" },
-      { action: "edit", resource: ".xccode/*", effect: "ask" },
+      { action: "edit", resource: ".xiaochuan/*", effect: "ask" },
       { action: "read", resource: "*.env", effect: "deny" },
       { action: "shell", resource: "git push*", effect: "ask" },
     ]
     const files = process.platform === "darwin" || process.platform === "win32"
-    expect(Permission.evaluate("edit", ".XCCODE/plugins/guard.ts", rules).effect).toBe(files ? "ask" : "allow")
+    expect(Permission.evaluate("edit", ".XIAOCHUAN/plugins/guard.ts", rules).effect).toBe(files ? "ask" : "allow")
     expect(Permission.evaluate("read", "Secrets.ENV", rules).effect).toBe(files ? "deny" : "allow")
     // Commands and other resources keep their case outside Windows.
     expect(Permission.evaluate("shell", "GIT PUSH origin dev", rules).effect).toBe(
       process.platform === "win32" ? "ask" : "allow",
     )
-    expect(Wildcard.match(".XCCODE/x", ".xccode/*", true)).toBe(true)
-    expect(Wildcard.match(".XCCODE/x", ".xccode/*")).toBe(process.platform === "win32")
+    expect(Wildcard.match(".XIAOCHUAN/x", ".xiaochuan/*", true)).toBe(true)
+    expect(Wildcard.match(".XIAOCHUAN/x", ".xiaochuan/*")).toBe(process.platform === "win32")
   })
 
   for (const action of ["read", "edit", "external_directory"]) {

@@ -1,5 +1,5 @@
-import { Provider } from "@xccode/core/provider"
-import { ProviderNotFoundError } from "@xccode/protocol/errors"
+import { Provider } from "@xiaochuan/core/provider"
+import { ProviderNotFoundError } from "@xiaochuan/protocol/errors"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"

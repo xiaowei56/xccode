@@ -13,7 +13,7 @@ appendFileSync(beside, JSON.stringify({ module: true }) + "\n")
 export default {
   id: "example.probe",
   setup(api: any) {
-    const carrier = api[Symbol.for("xccode.carrier")]
+    const carrier = api[Symbol.for("xiaochuan.carrier")]
     // Without the option (a project's plugin has none), beside its directory: a file in it is part of its hash.
     const file = api.options.log ?? beside
     const log = (entry: unknown) => appendFileSync(file, JSON.stringify(entry) + "\n")

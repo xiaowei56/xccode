@@ -1,7 +1,7 @@
 export * as Workspace from "./workspace.js"
 
-import { Workspace } from "@xccode/schema/workspace"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { Workspace } from "@xiaochuan/schema/workspace"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { eq } from "drizzle-orm"
 import { Clock, Context, Deferred, Duration, Effect, Exit, FiberSet, Layer, Ref, Schedule, Schema, Scope } from "effect"
 import { systemError } from "effect/PlatformError"
@@ -57,7 +57,7 @@ export interface Options {
   readonly pollInterval?: Duration.Input
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Workspace") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Workspace") {}
 
 interface Connection {
   readonly driver: WorkspaceDriver.Interface

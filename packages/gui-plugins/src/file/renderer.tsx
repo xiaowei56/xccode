@@ -11,8 +11,8 @@ import {
   type ParentProps,
 } from "solid-js"
 import { createStore, produce, unwrap } from "solid-js/store"
-import { Icon } from "@xccode/ui/icon"
-import { encodeFilePath, getFilename } from "@xccode/util/path"
+import { Icon } from "@xiaochuan/ui/icon"
+import { encodeFilePath, getFilename } from "@xiaochuan/util/path"
 import {
   Command,
   createKeyed,
@@ -29,9 +29,9 @@ import {
   type SessionScreen,
   type ServerRef,
   type Plugin,
-} from "@xccode/plugin/gui"
-import { artifactKind } from "@xccode/util/artifact"
-import { uuid } from "@xccode/util/uuid"
+} from "@xiaochuan/plugin/gui"
+import { artifactKind } from "@xiaochuan/util/artifact"
+import { uuid } from "@xiaochuan/util/uuid"
 import { resolveArtifactPath } from "./artifact"
 import { FileContext, type FileShared } from "./context"
 import { FileSource } from "./contract"
@@ -48,7 +48,7 @@ import {
   type FileListProps,
   type FileTreeProps,
   type OpenInAppProps,
-} from "@xccode/plugin/gui/file"
+} from "@xiaochuan/plugin/gui/file"
 import type File from "./index"
 import { FileVisual } from "./label"
 import {
@@ -84,9 +84,9 @@ import {
   type PickerEvent,
 } from "./picker-machine"
 import tabStyles from "./tabs.css?inline"
-import { onIdle, BuiltinPanel, BuiltinSlot, type BuiltinPanelTab } from "@xccode/plugin/gui/builtin"
-import { Browser } from "@xccode/plugin/gui/browser"
-import { Changes } from "@xccode/plugin/gui/review"
+import { onIdle, BuiltinPanel, BuiltinSlot, type BuiltinPanelTab } from "@xiaochuan/plugin/gui/builtin"
+import { Browser } from "@xiaochuan/plugin/gui/browser"
+import { Changes } from "@xiaochuan/plugin/gui/review"
 
 const OPEN = "open"
 

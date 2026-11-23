@@ -1,13 +1,13 @@
 {
-  "name": "@xccode/desktop",
+  "name": "@xiaochuan/desktop",
   "private": true,
   "version": "2.3.0",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://xccode.ai",
+  "homepage": "https://xiaochuan.ai",
   "author": {
-    "name": "Xccode",
-    "email": "hello@xccode.ai"
+    "name": "Xiaochuan",
+    "email": "hello@xiaochuan.ai"
   },
   "scripts": {
     "typecheck": "bun check --no-script -b",
@@ -29,16 +29,16 @@
     "lighthouse": "13.4.1"
   },
   "devDependencies": {
-    "@brendonovich/vite-plugin-xccode": "0.1.3",
+    "@brendonovich/vite-plugin-xiaochuan": "0.1.3",
     "@effect/platform-node": "catalog:",
     "@hona/strobe": "catalog:",
     "@lydell/node-pty": "catalog:",
-    "@xccode/app": "workspace:*",
-    "@xccode/gui-plugins": "workspace:*",
-    "@xccode/plugin": "workspace:*",
-    "@xccode/client": "workspace:*",
-    "@xccode/schema": "workspace:*",
-    "@xccode/ui": "workspace:*",
+    "@xiaochuan/app": "workspace:*",
+    "@xiaochuan/gui-plugins": "workspace:*",
+    "@xiaochuan/plugin": "workspace:*",
+    "@xiaochuan/client": "workspace:*",
+    "@xiaochuan/schema": "workspace:*",
+    "@xiaochuan/ui": "workspace:*",
     "@sentry/solid": "catalog:",
     "@solidjs/router": "catalog:",
     "@types/bun": "catalog:",

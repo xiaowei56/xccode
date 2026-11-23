@@ -1,6 +1,6 @@
 import { RGBA, SyntaxStyle, type CliRenderer, type ColorInput, type TerminalColors } from "@opentui/core"
-import { generateSyntax, resolveThemeDocument, themeModes, type ResolvedTheme } from "@xccode/theme/tui"
-import { allThemes, getXccodeTheme, isThemeSource, parseTheme, type ThemeDocumentSource } from "../theme"
+import { generateSyntax, resolveThemeDocument, themeModes, type ResolvedTheme } from "@xiaochuan/theme/tui"
+import { allThemes, getXiaochuanTheme, isThemeSource, parseTheme, type ThemeDocumentSource } from "../theme"
 import { ansiToRgba } from "../theme/color"
 import { discoverThemes } from "../theme/discovery"
 import { generateSystem, terminalMode } from "../theme/system"
@@ -196,11 +196,11 @@ function map(
 }
 
 export const RUN_THEME_FALLBACK = map(
-  resolveThemeDocument(parseTheme(getXccodeTheme()), "dark"),
+  resolveThemeDocument(parseTheme(getXiaochuanTheme()), "dark"),
   ansiPalette,
 )
 export const RUN_THEME_FALLBACK_LIGHT = map(
-  resolveThemeDocument(parseTheme(getXccodeTheme()), "light"),
+  resolveThemeDocument(parseTheme(getXiaochuanTheme()), "light"),
   ansiPalette,
 )
 
@@ -286,7 +286,7 @@ export async function resolveRunTheme(
     renderer.themeMode ??
     (colors && terminalMode(colors)) ??
     (config?.mode === "light" ? "light" : "dark")
-  const name = config?.name ?? "xccode"
+  const name = config?.name ?? "xiaochuan"
   if (name === "system" && !colors) {
     return mode === "light" ? RUN_THEME_FALLBACK_LIGHT : RUN_THEME_FALLBACK
   }
@@ -298,7 +298,7 @@ export async function resolveRunTheme(
       if (themeModes(document).includes(mode)) return resolveThemeDocument(document, mode)
     })
     .catch(() => undefined)
-  const theme = resolved ?? resolveThemeDocument(parseTheme(getXccodeTheme()), mode)
+  const theme = resolved ?? resolveThemeDocument(parseTheme(getXiaochuanTheme()), mode)
   const indexed = colors
     ? ansiPalette.map((color, index) => (colors.palette[index] ? RGBA.fromIndex(index, colors.palette[index]!) : color))
     : ansiPalette
@@ -319,10 +319,10 @@ async function themeSource(
   mode: "dark" | "light",
 ): Promise<ThemeDocumentSource> {
   if (name === "system" && colors) return generateSystem(colors, mode)
-  const { Global } = await import("@xccode/util/global")
+  const { Global } = await import("@xiaochuan/util/global")
   const custom = await discoverThemes(
-    configDirectories(process.env.XCCODE_CONFIG_DIR ?? Global.Path.config, process.cwd()),
+    configDirectories(process.env.XIAOCHUAN_CONFIG_DIR ?? Global.Path.config, process.cwd()),
   )
-  const source = custom[name] ?? allThemes()[name] ?? getXccodeTheme()
-  return isThemeSource(source) ? source : getXccodeTheme()
+  const source = custom[name] ?? allThemes()[name] ?? getXiaochuanTheme()
+  return isThemeSource(source) ? source : getXiaochuanTheme()
 }

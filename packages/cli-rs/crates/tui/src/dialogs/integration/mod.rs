@@ -2,8 +2,8 @@
 
 mod form;
 
-use xccode_api::error::Error;
-use xccode_api::generated::{
+use xiaochuan_api::error::Error;
+use xiaochuan_api::generated::{
     ConnectionCredentialInfo, ConnectionInfo, CredentialActivateInput, CredentialID, CredentialRemoveInput,
     CredentialUpdateInput, FormAnswer, IntegrationAttempt, IntegrationAttemptMode, IntegrationAttemptStatus,
     IntegrationCommandAttemptStatus, IntegrationCommandCancelInput, IntegrationCommandConnectInput,
@@ -12,18 +12,18 @@ use xccode_api::generated::{
     IntegrationMethod, IntegrationOAuthMethod, IntegrationOauthCancelInput, IntegrationOauthCompleteInput,
     IntegrationOauthConnectInput, IntegrationOauthStatusInput, LocationQueryInput, ModelInfoStatus,
 };
-use xccode_api::js::locale_compare;
-use xccode_store::Catalog;
-use xccode_ui::dialog::{DIALOG_INSET, DIALOG_LIST_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
-use xccode_ui::keymap::Slash;
-use xccode_ui::prompt::{PromptAction, PromptProps, prompt};
-use xccode_ui::select::{Gutter, SelectAction};
+use xiaochuan_api::js::locale_compare;
+use xiaochuan_store::Catalog;
+use xiaochuan_ui::dialog::{DIALOG_INSET, DIALOG_LIST_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
+use xiaochuan_ui::keymap::Slash;
+use xiaochuan_ui::prompt::{PromptAction, PromptProps, prompt};
+use xiaochuan_ui::select::{Gutter, SelectAction};
 
 use crate::local::Local;
 use crate::prelude::*;
 
 /// `INTEGRATION_PRIORITY`: these come first, as "Popular".
-const PRIORITY: [&str; 6] = ["xccode", "xccode-go", "openai", "github-copilot", "anthropic", "google"];
+const PRIORITY: [&str; 6] = ["xiaochuan", "xiaochuan-go", "openai", "github-copilot", "anthropic", "google"];
 const SIGN_IN: &str = "Sign in required →";
 const POLL: Duration = Duration::from_millis(500);
 
@@ -138,10 +138,10 @@ impl Method {
     }
 }
 
-/// `integrationOptions`: popular first, then by name and ID. Xccode Go connects through Xccode, so it's only
+/// `integrationOptions`: popular first, then by name and ID. Xiaochuan Go connects through Xiaochuan, so it's only
 /// listed for people who already saved a Go key.
 fn sorted(mut list: Vec<IntegrationInfo>) -> Vec<IntegrationInfo> {
-    list.retain(|integration| integration.id.0 != "xccode-go" || !credentials(integration).is_empty());
+    list.retain(|integration| integration.id.0 != "xiaochuan-go" || !credentials(integration).is_empty());
     let priority = |id: &IntegrationID| PRIORITY.iter().position(|name| *name == id.0).unwrap_or(99);
     list.sort_by(|a, b| {
         priority(&a.id)
@@ -291,7 +291,7 @@ fn build_list(cx: &Rc<DialogCx>, flow: Flow, only: Option<IntegrationID>) -> Vie
 fn list_options(
     local: &Local,
     only: Option<&IntegrationID>,
-    theme: &xccode_ui::theme::Theme,
+    theme: &xiaochuan_ui::theme::Theme,
 ) -> Vec<SelectOption<IntegrationID>> {
     let success = theme.text.feedback.success.base;
     let warning = theme.text.feedback.warning.base;
@@ -344,7 +344,7 @@ struct Manage {
     select: RefCell<Option<select::Select<Account>>>,
     built: (bool, Option<CredentialID>),
     reopened: Cell<bool>,
-    theme: xccode_ui::theme::Theme,
+    theme: xiaochuan_ui::theme::Theme,
 }
 
 fn manage(flow: &Flow, integration: IntegrationInfo, methods: Vec<Method>) {
@@ -471,7 +471,7 @@ impl Manage {
         select.and_then(|select| select.selected()).map(|option| option.value)
     }
 
-    fn options(&self, theme: &xccode_ui::theme::Theme) -> Vec<SelectOption<Account>> {
+    fn options(&self, theme: &xiaochuan_ui::theme::Theme) -> Vec<SelectOption<Account>> {
         let delete_key = self.flow.local.dialogs.keymap().shortcut("dialog.integration.delete").unwrap_or_default();
         let deleting = self.deleting.borrow().clone();
         let add = (!self.methods.is_empty()).then(|| SelectOption::new("Add account", Account::Add));
@@ -688,7 +688,7 @@ fn open_method(flow: &Flow, integration: IntegrationInfo, method: Method) {
 fn with_form(
     flow: &Flow,
     title: String,
-    fields: Option<Vec<xccode_api::generated::FormField>>,
+    fields: Option<Vec<xiaochuan_api::generated::FormField>>,
     then: impl FnOnce(Option<FormAnswer>) + 'static,
 ) {
     match fields {
@@ -851,7 +851,7 @@ struct Oauth {
 
 /// A pending device flow keeps polling; an unrecognized status expires it.
 pub(super) async fn oauth_complete(
-    client: xccode_api::client::Client,
+    client: xiaochuan_api::client::Client,
     input: IntegrationOauthStatusInput,
 ) -> Result<bool, String> {
     match client.integration_oauth_status(&input).await.map_err(|error| error.to_string())?.data {
@@ -1198,7 +1198,7 @@ fn command_starting(flow: &Flow, integration: IntegrationInfo, method: Integrati
 struct Command {
     flow: Flow,
     integration: IntegrationInfo,
-    attempt: xccode_api::generated::IntegrationAttemptID,
+    attempt: xiaochuan_api::generated::IntegrationAttemptID,
     output: RefCell<Option<Text>>,
     settled: Cell<bool>,
     timer: Cell<Option<TimerId>>,
@@ -1385,21 +1385,21 @@ mod tests {
                 integration("openai", "OpenAI", ""),
                 integration("custom-z", "Zebra", ""),
                 integration("anthropic", "Anthropic", ""),
-                integration("xccode", "Xccode Zen", ""),
-                integration("xccode-go", "Xccode Go", go),
+                integration("xiaochuan", "Xiaochuan Zen", ""),
+                integration("xiaochuan-go", "Xiaochuan Go", go),
             ]),
-            ["xccode", "xccode-go", "openai", "anthropic", "mistral", "custom-z"]
+            ["xiaochuan", "xiaochuan-go", "openai", "anthropic", "mistral", "custom-z"]
         );
     }
 
     #[test]
-    fn integration_options_hide_xccode_go_until_a_go_key_is_saved() {
+    fn integration_options_hide_xiaochuan_go_until_a_go_key_is_saved() {
         assert_eq!(
             ids(vec![
-                integration("xccode", "Xccode Zen", ""),
-                integration("xccode-go", "Xccode Go", r#"{"type":"env","name":"XCCODE_API_KEY"}"#),
+                integration("xiaochuan", "Xiaochuan Zen", ""),
+                integration("xiaochuan-go", "Xiaochuan Go", r#"{"type":"env","name":"XIAOCHUAN_API_KEY"}"#),
             ]),
-            ["xccode"]
+            ["xiaochuan"]
         );
     }
 }

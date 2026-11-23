@@ -1,5 +1,5 @@
 import path from "path"
-import { Global } from "@xccode/util/global"
+import { Global } from "@xiaochuan/util/global"
 import { Effect, Layer } from "effect"
 import { tmpdir } from "./tmpdir"
 

@@ -1,17 +1,17 @@
 import fs from "fs/promises"
 import { expect } from "bun:test"
-import { App } from "@xccode/core/app"
-import { Bus } from "@xccode/core/bus"
-import { Database } from "@xccode/core/database/database"
-import { Watcher } from "@xccode/core/filesystem/watcher"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { ModelsDev } from "@xccode/core/models-dev"
-import { Session } from "@xccode/core/session"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { Location } from "@xccode/schema/location"
-import { AbsolutePath } from "@xccode/schema/schema"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
+import { App } from "@xiaochuan/core/app"
+import { Bus } from "@xiaochuan/core/bus"
+import { Database } from "@xiaochuan/core/database/database"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { ModelsDev } from "@xiaochuan/core/models-dev"
+import { Session } from "@xiaochuan/core/session"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { Location } from "@xiaochuan/schema/location"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
 import { Context, Effect, Layer, RcMap } from "effect"
 import { HttpEffect, HttpRouter, HttpServer } from "effect/http"
 import { tempGlobalLayer } from "../../core/test/fixture/global"
@@ -52,7 +52,7 @@ it.live("admits synthetic messages and compaction requests without booting or re
     const post = (route: string, body: unknown) =>
       Effect.promise(() =>
         handler(
-          new Request(`http://xccode.local${route}`, {
+          new Request(`http://xiaochuan.local${route}`, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(body),

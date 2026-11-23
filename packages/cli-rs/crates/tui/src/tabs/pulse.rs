@@ -2,7 +2,7 @@
 
 use std::time::Duration;
 
-use xccode_ui::motion::{clamp, coast, intensity_at, smootherstep};
+use xiaochuan_ui::motion::{clamp, coast, intensity_at, smootherstep};
 use opentui::prelude::Color;
 
 const RUN_DURATION: f64 = 2_800.0;

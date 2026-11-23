@@ -4,7 +4,7 @@
 // shows its first line, which starts with `x` and not with the emoji or half of it.
 import { assistant, defineApp, location, session, user } from "../../lib/app"
 
-const directory = "/tmp/xccode/packages/tui"
+const directory = "/tmp/xiaochuan/packages/tui"
 const rest = `${"x".repeat(1023)}\n`.repeat(63) + "x".repeat(1023)
 const output = `😀${rest}`
 const size = Buffer.byteLength(output)

@@ -71,10 +71,10 @@ export function DocsLockup(props: {
       : label === "Docs"
         ? docsSectionName(i18n, label)
         : i18n.t("docs.lockup.sectionDocs", { section: docsSectionName(i18n, label) })
-  // The sections menu names each section's docs: "CLI docs", "API docs". The main docs are about Xccode
-  // itself, so they're "Xccode docs" rather than "Docs docs".
+  // The sections menu names each section's docs: "CLI docs", "API docs". The main docs are about Xiaochuan
+  // itself, so they're "Xiaochuan docs" rather than "Docs docs".
   const menuName = (label: string) =>
-    i18n.t("docs.lockup.sectionDocs", { section: label === "Docs" ? "Xccode" : docsSectionName(i18n, label) })
+    i18n.t("docs.lockup.sectionDocs", { section: label === "Docs" ? "Xiaochuan" : docsSectionName(i18n, label) })
   // V1 is a version, not a section: "Docs" has a submenu of versions, V2 (these docs) and V1 (the old
   // docs site). The /docs demo can pass its own (?version= switches in place).
   const sections = () => docsProducts.filter((product) => product.label !== "V1")

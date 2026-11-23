@@ -17,10 +17,10 @@ pub struct Watch {
     _stop: mpsc::Sender<()>,
 }
 
-/// Whether `XCCODE_FILEWATCHER_DISABLE`, else `XCCODE_DISABLE_FILEWATCHER`, is `1` or `true`.
+/// Whether `XIAOCHUAN_FILEWATCHER_DISABLE`, else `XIAOCHUAN_DISABLE_FILEWATCHER`, is `1` or `true`.
 pub fn disabled(var: impl Fn(&str) -> Option<String>) -> bool {
-    var("XCCODE_FILEWATCHER_DISABLE")
-        .or_else(|| var("XCCODE_DISABLE_FILEWATCHER"))
+    var("XIAOCHUAN_FILEWATCHER_DISABLE")
+        .or_else(|| var("XIAOCHUAN_DISABLE_FILEWATCHER"))
         .is_some_and(|value| value == "1" || value.to_lowercase() == "true")
 }
 
@@ -215,15 +215,15 @@ mod tests {
         let env = |pairs: &'static [(&'static str, &'static str)]| {
             move |name: &str| pairs.iter().find(|(key, _)| *key == name).map(|(_, value)| value.to_string())
         };
-        assert!(disabled(env(&[("XCCODE_FILEWATCHER_DISABLE", "1")])));
-        assert!(disabled(env(&[("XCCODE_DISABLE_FILEWATCHER", "TRUE")])));
-        assert!(!disabled(env(&[("XCCODE_FILEWATCHER_DISABLE", "0"), ("XCCODE_DISABLE_FILEWATCHER", "1")])));
+        assert!(disabled(env(&[("XIAOCHUAN_FILEWATCHER_DISABLE", "1")])));
+        assert!(disabled(env(&[("XIAOCHUAN_DISABLE_FILEWATCHER", "TRUE")])));
+        assert!(!disabled(env(&[("XIAOCHUAN_FILEWATCHER_DISABLE", "0"), ("XIAOCHUAN_DISABLE_FILEWATCHER", "1")])));
         assert!(!disabled(env(&[])));
     }
 
     #[test]
     fn a_burst_of_writes_gives_one_callback() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let (tx, rx) = mpsc::channel();
         let _watch = watch(dir.path(), |name| name == "a.json", DEBOUNCE, move || tx.send(()).unwrap()).unwrap();
         for index in 0..5 {
@@ -240,7 +240,7 @@ mod tests {
 
     #[test]
     fn an_atomic_save_over_a_watched_file_calls_back() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         std::fs::write(dir.path().join("a.json"), "0").unwrap();
         let (tx, rx) = mpsc::channel();
         let _watch = watch(dir.path(), |name| name == "a.json", DEBOUNCE, move || tx.send(()).unwrap()).unwrap();
@@ -254,7 +254,7 @@ mod tests {
     #[test]
     fn a_permission_change_calls_back() {
         use std::os::unix::fs::PermissionsExt;
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let file = dir.path().join("a.json");
         std::fs::write(&file, "{}").unwrap();
         std::fs::set_permissions(&file, std::fs::Permissions::from_mode(0o000)).unwrap();
@@ -266,7 +266,7 @@ mod tests {
 
     #[test]
     fn dropping_the_watch_ends_its_threads() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let (tx, rx) = mpsc::channel::<()>();
         let watch = watch(dir.path(), |_| true, DEBOUNCE, move || tx.send(()).unwrap()).unwrap();
         drop(watch);

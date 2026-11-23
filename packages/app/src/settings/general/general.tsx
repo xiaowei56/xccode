@@ -1,8 +1,8 @@
 import { Component, Show, createMemo } from "solid-js"
 import { createMediaQuery } from "@solid-primitives/media"
-import { Select } from "@xccode/ui/select"
-import { Switch } from "@xccode/ui/switch"
-import { Icon } from "@xccode/ui/icon"
+import { Select } from "@xiaochuan/ui/select"
+import { Switch } from "@xiaochuan/ui/switch"
+import { Icon } from "@xiaochuan/ui/icon"
 import { TimelineDetailControl } from "@/settings/timeline-detail"
 import { useLanguage } from "@/runtime/i18n/language"
 import { usePlatform } from "@/runtime/platform/platform"
@@ -335,7 +335,7 @@ export const SettingsGeneral: Component = () => {
           <div class="settings-tab-header-actions">
             <ExternalLink
               data-action="settings-help-feedback"
-              href="https://xccode.ai/desktop-feedback"
+              href="https://xiaochuan.ai/desktop-feedback"
               class="inline-flex items-center gap-1.5 text-13-regular text-v2-text-text-muted no-underline hover:text-v2-text-text-base hover:underline"
             >
               {language.t("settings.helpFeedback")}

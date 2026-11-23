@@ -4,9 +4,9 @@
   content.
 -->
 
-# Report an xccode Issue
+# Report an xiaochuan Issue
 
-Use this skill when the user wants to report an xccode issue or bug. Your job
+Use this skill when the user wants to report an xiaochuan issue or bug. Your job
 is to turn the user's problem into a useful GitHub issue with standard
 diagnostics plus the context needed to reproduce and resolve it.
 
@@ -26,7 +26,7 @@ title/body for the user.
 
 Collect these values when possible:
 
-- xccode version: run `xccode --version`.
+- xiaochuan version: run `xiaochuan --version`.
 - Operating system: run `uname -a` on Unix-like systems, or `ver` on Windows.
 - Terminal: inspect `$TERM`, `$TERM_PROGRAM`, `$COLORTERM`, and any obvious
   terminal app context the user provides.
@@ -34,11 +34,11 @@ Collect these values when possible:
   Windows when relevant.
 - Install/channel context: include whether this appears to be local, dev, beta,
   or release if the version output or environment reveals it.
-- Active plugins: inspect xccode config for configured plugins when possible.
-  Check likely config locations such as `xccode.json`, `xccode.jsonc`,
-  `.xccode/xccode.json`, and `~/.config/xccode/xccode.json`. Record
-  configured plugin entries, local plugin files under `.xccode/plugin/` or
-  `.xccode/plugins/`, and note if plugin status could not be determined.
+- Active plugins: inspect xiaochuan config for configured plugins when possible.
+  Check likely config locations such as `xiaochuan.json`, `xiaochuan.jsonc`,
+  `.xiaochuan/xiaochuan.json`, and `~/.config/xiaochuan/xiaochuan.json`. Record
+  configured plugin entries, local plugin files under `.xiaochuan/plugin/` or
+  `.xiaochuan/plugins/`, and note if plugin status could not be determined.
 
 If a diagnostic command fails, include `Unavailable` with the reason instead of
 guessing.
@@ -53,7 +53,7 @@ Capture the details that make the issue actionable:
 - Reproduction steps, ideally minimal and numbered.
 - Relevant logs, stack traces, screenshots, terminal output, or config snippets.
 - Whether the issue is reproducible consistently, intermittently, or only once.
-- Recent changes that may be related, such as updating xccode, changing
+- Recent changes that may be related, such as updating xiaochuan, changing
   config, installing a plugin, changing terminal, or switching workspace.
 - Workarounds tried and whether they helped.
 
@@ -72,7 +72,7 @@ otherwise:
 
 ## Environment
 
-- xccode version: <!-- value or Unavailable: reason -->
+- xiaochuan version: <!-- value or Unavailable: reason -->
 - OS: <!-- value or Unavailable: reason -->
 - Terminal: <!-- value or Unavailable: reason -->
 - Shell: <!-- value or Unavailable: reason -->

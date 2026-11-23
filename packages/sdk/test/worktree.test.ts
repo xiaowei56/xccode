@@ -1,13 +1,13 @@
 import { expect, test } from "bun:test"
 import { mkdir, rm } from "node:fs/promises"
 import { join } from "node:path"
-import { Plugin } from "@xccode/plugin"
+import { Plugin } from "@xiaochuan/plugin"
 import { initRepo } from "../../core/test/fixture/git"
 import { tmpdir } from "../../core/test/fixture/tmpdir"
-import { Xccode } from "../src"
+import { Xiaochuan } from "../src"
 
 test("embedded worktree APIs use project IDs and SDK-registered strategies", async () => {
-  await using directory = await tmpdir("xccode-sdk-worktree-")
+  await using directory = await tmpdir("xiaochuan-sdk-worktree-")
   await initRepo(directory.path)
   const state = { activated: 0, discovered: 0, removed: 0 }
   const plugin = Plugin.define({
@@ -36,30 +36,30 @@ test("embedded worktree APIs use project IDs and SDK-registered strategies", asy
       )
     },
   })
-  await using xccode = await Xccode.create({
+  await using xiaochuan = await Xiaochuan.create({
     plugins: [plugin],
     config: { directory: directory.path, project: false },
     models: { fetch: false },
     fs: { filewatcher: false },
   })
-  const session = await xccode.sessions.create({ location: { directory: directory.path } })
+  const session = await xiaochuan.sessions.create({ location: { directory: directory.path } })
   const projectID = session.projectID
-  expect(await xccode.worktree.list({ projectID })).toHaveLength(1)
+  expect(await xiaochuan.worktree.list({ projectID })).toHaveLength(1)
   expect(state.activated).toBe(0)
-  const worktree = await xccode.worktree.create({
+  const worktree = await xiaochuan.worktree.create({
     projectID,
     directory: join(directory.path, "copies"),
     name: "task",
   })
   expect(state.activated).toBe(1)
-  expect(await xccode.worktree.list({ projectID })).toContainEqual({
+  expect(await xiaochuan.worktree.list({ projectID })).toContainEqual({
     directory: worktree.directory,
     strategy: "sdk-copy",
   })
   expect(state.discovered).toBe(0)
-  await xccode.worktree.refresh({ projectID })
+  await xiaochuan.worktree.refresh({ projectID })
   expect(state.discovered).toBe(1)
-  await xccode.worktree.remove({ projectID, directory: worktree.directory, force: false })
+  await xiaochuan.worktree.remove({ projectID, directory: worktree.directory, force: false })
   expect(state.removed).toBe(1)
-  expect(await xccode.worktree.list({ projectID })).toHaveLength(1)
+  expect(await xiaochuan.worktree.list({ projectID })).toHaveLength(1)
 })

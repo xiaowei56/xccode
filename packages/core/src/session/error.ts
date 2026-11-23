@@ -1,11 +1,11 @@
 export * as SessionErrors from "./error.js"
 
 import { Schema } from "effect"
-import { Agent } from "@xccode/schema/agent"
-import { Skill } from "@xccode/schema/skill"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Skill } from "@xiaochuan/schema/skill"
 import { SessionMessage } from "./message.js"
 import { SessionSchema } from "./schema.js"
-import { SessionError } from "@xccode/schema/session-error"
+import { SessionError } from "@xiaochuan/schema/session-error"
 
 export class NotFoundError extends Schema.TaggedError<NotFoundError>()("Session.NotFoundError", {
   sessionID: SessionSchema.ID,

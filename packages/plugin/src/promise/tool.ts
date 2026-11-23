@@ -1,10 +1,10 @@
-export { CallID, Error } from "@xccode/schema/tool"
-export type { Metadata, Options, Result } from "@xccode/schema/tool"
+export { CallID, Error } from "@xiaochuan/schema/tool"
+export type { Metadata, Options, Result } from "@xiaochuan/schema/tool"
 
-import { Tool } from "@xccode/schema/tool"
-import type { Agent } from "@xccode/schema/agent"
-import type { Session } from "@xccode/schema/session"
-import type { SessionMessage } from "@xccode/schema/session-message"
+import { Tool } from "@xiaochuan/schema/tool"
+import type { Agent } from "@xiaochuan/schema/agent"
+import type { Session } from "@xiaochuan/schema/session"
+import type { SessionMessage } from "@xiaochuan/schema/session-message"
 import type { Types } from "effect"
 import type { Hooks, Transform } from "./registration.js"
 

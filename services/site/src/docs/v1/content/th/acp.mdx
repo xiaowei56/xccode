@@ -1,9 +1,9 @@
 ---
 title: การรองรับ ACP
-description: ใช้ Xccode ในโปรแกรมแก้ไขที่รองรับ ACP
+description: ใช้ Xiaochuan ในโปรแกรมแก้ไขที่รองรับ ACP
 ---
 
-Xccode รองรับ [Agent Client Protocol](https://agentclientprotocol.com) (ACP) ซึ่งช่วยให้สามารถทำงานร่วมกับ editor และ IDE ต่างๆ ได้โดยตรง
+Xiaochuan รองรับ [Agent Client Protocol](https://agentclientprotocol.com) (ACP) ซึ่งช่วยให้สามารถทำงานร่วมกับ editor และ IDE ต่างๆ ได้โดยตรง
 
 :::tip
 สำหรับรายชื่อเครื่องมือที่รองรับ ACP สามารถดูได้ที่ [ACP progress report](https://zed.dev/blog/acp-progress-report#available-now)
@@ -15,9 +15,9 @@ ACP เป็นมาตรฐานเปิดสำหรับการส�
 
 ## การกำหนดค่า
 
-ในการใช้ Xccode ผ่าน ACP ให้กำหนดค่าโปรแกรมแก้ไขของคุณให้รันคำสั่ง `xccode acp`
+ในการใช้ Xiaochuan ผ่าน ACP ให้กำหนดค่าโปรแกรมแก้ไขของคุณให้รันคำสั่ง `xiaochuan acp`
 
-คำสั่งนี้จะเริ่ม Xccode เป็น process ย่อยที่รองรับ ACP ซึ่งสื่อสารกับโปรแกรมแก้ไขของคุณผ่าน JSON-RPC ทาง stdio
+คำสั่งนี้จะเริ่ม Xiaochuan เป็น process ย่อยที่รองรับ ACP ซึ่งสื่อสารกับโปรแกรมแก้ไขของคุณผ่าน JSON-RPC ทาง stdio
 
 นี่คือตัวอย่างสำหรับโปรแกรมแก้ไขยอดนิยมที่รองรับ ACP
 
@@ -25,16 +25,16 @@ ACP เป็นมาตรฐานเปิดสำหรับการส�
 
 ### Zed
 
-ติดตั้ง Xccode จาก [รีจิสทรี ACP ของ Zed](https://zed.dev/docs/ai/external-agents#registry) โดยเรียกใช้ `zed: acp registry` ใน Command Palette
+ติดตั้ง Xiaochuan จาก [รีจิสทรี ACP ของ Zed](https://zed.dev/docs/ai/external-agents#registry) โดยเรียกใช้ `zed: acp registry` ใน Command Palette
 
-หากต้องการใช้ไฟล์ปฏิบัติการ Xccode แบบกำหนดเอง ให้เพิ่มลงในการตั้งค่า [Zed](https://zed.dev) (`~/.config/zed/settings.json`):
+หากต้องการใช้ไฟล์ปฏิบัติการ Xiaochuan แบบกำหนดเอง ให้เพิ่มลงในการตั้งค่า [Zed](https://zed.dev) (`~/.config/zed/settings.json`):
 
 ```json title="~/.config/zed/settings.json"
 {
   "agent_servers": {
-    "Xccode": {
+    "Xiaochuan": {
       "type": "custom",
-      "command": "xccode",
+      "command": "xiaochuan",
       "args": ["acp"]
     }
   }
@@ -54,9 +54,9 @@ ACP เป็นมาตรฐานเปิดสำหรับการส�
         {
           "agent": {
             "custom": {
-              "name": "Xccode",
+              "name": "Xiaochuan",
               "command": {
-                "command": "xccode",
+                "command": "xiaochuan",
                 "args": ["acp"]
               }
             }
@@ -77,15 +77,15 @@ ACP เป็นมาตรฐานเปิดสำหรับการส�
 ```json title="acp.json"
 {
   "agent_servers": {
-    "Xccode": {
-      "command": "/absolute/path/bin/xccode",
+    "Xiaochuan": {
+      "command": "/absolute/path/bin/xiaochuan",
       "args": ["acp"]
     }
   }
 }
 ```
 
-นี่เป็นการเปิดให้ตัวแทน 'Xccode' ในเนื้อหาของตัวแทน AI Chat
+นี่เป็นการเปิดให้ตัวแทน 'Xiaochuan' ในเนื้อหาของตัวแทน AI Chat
 
 ---
 
@@ -96,24 +96,24 @@ ACP เป็นมาตรฐานเปิดสำหรับการส�
 ```lua
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" }
     }
   }
 }
 ```
 
-หากคุณต้องการส่งผ่าน environment variables (เช่น `XCCODE_API_KEY`) คุณต้องระบุใน `env`:
+หากคุณต้องการส่งผ่าน environment variables (เช่น `XIAOCHUAN_API_KEY`) คุณต้องระบุใน `env`:
 
 ```lua {6-8}
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" },
       env = {
-        XCCODE_API_KEY = os.getenv("XCCODE_API_KEY")
+        XIAOCHUAN_API_KEY = os.getenv("XIAOCHUAN_API_KEY")
       }
     }
   }
@@ -124,14 +124,14 @@ ACP เป็นมาตรฐานเปิดสำหรับการส�
 
 ### CodeCompanion.nvim
 
-ลองใช้ Xccode ACP ใน [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim) ให้เพิ่มสิ่งต่อไปนี้ใน Neovim ของคุณ:
+ลองใช้ Xiaochuan ACP ใน [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim) ให้เพิ่มสิ่งต่อไปนี้ใน Neovim ของคุณ:
 
 ```lua
 require("codecompanion").setup({
   interactions = {
     chat = {
       adapter = {
-        name = "xccode",
+        name = "xiaochuan",
         model = "claude-sonnet-5-5",
       },
     },
@@ -139,13 +139,13 @@ require("codecompanion").setup({
 })
 ```
 
-คุณสามารถใช้ CodeCompanion เพื่อใช้ xccode เป็น ACP agent สำหรับแชท
+คุณสามารถใช้ CodeCompanion เพื่อใช้ xiaochuan เป็น ACP agent สำหรับแชท
 
-หากคุณต้องส่ง environment variables (เช่น `XCCODE_API_KEY`) โปรดดู [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) ในเอกสารของ CodeCompanion.nvim สำหรับรายละเอียดทั้งหมด
+หากคุณต้องส่ง environment variables (เช่น `XIAOCHUAN_API_KEY`) โปรดดู [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) ในเอกสารของ CodeCompanion.nvim สำหรับรายละเอียดทั้งหมด
 
 ## การรองรับ
 
-xccode ทำงานผ่าน ACP เหมือนกับใน terminal และรองรับฟีเจอร์ทั้งหมด:
+xiaochuan ทำงานผ่าน ACP เหมือนกับใน terminal และรองรับฟีเจอร์ทั้งหมด:
 
 :::note
 คำสั่ง slash ในตัวบางคำสั่งเช่น `/undo` และ `/redo` ยังไม่รองรับในขณะนี้
@@ -153,7 +153,7 @@ xccode ทำงานผ่าน ACP เหมือนกับใน termina
 
 - เครื่องมือใน (ไฟล์ไฟล์คำสั่งอื่นๆ)
 - คำอธิบายและคำสั่งสแลช
-- MCP แขกที่นี่คือข้อมูลเพิ่มเติมของ Xccode ของคุณ
+- MCP แขกที่นี่คือข้อมูลเพิ่มเติมของ Xiaochuan ของคุณ
 - กฎเฉพาะโครงการจาก `AGENTS.md`
 - คนจัดรูปแบบและ linters เวียนนา
 - ระบบตัวแทนและระบบ

@@ -1,8 +1,8 @@
-# Xccode V2 Promise Plugin API
+# Xiaochuan V2 Promise Plugin API
 
-The Promise plugin API at `@xccode/plugin` is the async/await equivalent of `@xccode/plugin/effect`. It grants plugins the same two in-process capabilities:
+The Promise plugin API at `@xiaochuan/plugin` is the async/await equivalent of `@xiaochuan/plugin/effect`. It grants plugins the same two in-process capabilities:
 
-- `hook` installs behavior at an Xccode extension point.
+- `hook` installs behavior at an Xiaochuan extension point.
 - `reload` reruns every transform hook for a stateful domain.
 
 The Promise API uses Promises instead of Effects for setup, runtime hook
@@ -12,7 +12,7 @@ editor callbacks remain synchronous.
 ## Defining A Plugin
 
 ```ts
-import { Plugin } from "@xccode/plugin"
+import { Plugin } from "@xiaochuan/plugin"
 
 export default Plugin.define({
   id: "example",
@@ -27,7 +27,7 @@ export default Plugin.define({
 ```
 
 Plugin setup registers hooks imperatively through each domain's `hook` method.
-It may return a synchronous or asynchronous cleanup function. Xccode awaits
+It may return a synchronous or asynchronous cleanup function. Xiaochuan awaits
 the cleanup when the plugin is unloaded or replaced:
 
 ```ts

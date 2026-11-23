@@ -1,19 +1,19 @@
 ---
 title: サーバー
-description: HTTP 経由で Xccode サーバーと通信します。
+description: HTTP 経由で Xiaochuan サーバーと通信します。
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-`xccode serve` コマンドは、Xccode クライアントが使用できる OpenAPI エンドポイントを公開するヘッドレス HTTP サーバーを実行します。
+`xiaochuan serve` コマンドは、Xiaochuan クライアントが使用できる OpenAPI エンドポイントを公開するヘッドレス HTTP サーバーを実行します。
 
 ---
 
 ### 使用法
 
 ```bash
-xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+xiaochuan serve [--port <number>] [--hostname <string>] [--cors <origin>]
 ```
 
 #### オプション
@@ -23,36 +23,36 @@ xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
 | `--port`        | リッスンするポート                | `4096`           |
 | `--hostname`    | リッスンするホスト名              | `127.0.0.1`      |
 | `--mdns`        | mDNS 検出を有効にする             | `false`          |
-| `--mdns-domain` | mDNS サービスのカスタムドメイン名 | `xccode.local` |
+| `--mdns-domain` | mDNS サービスのカスタムドメイン名 | `xiaochuan.local` |
 | `--cors`        | 許可する追加のブラウザーオリジン  | `[]`             |
 
 `--cors` は複数回渡すことができます。
 
 ```bash
-xccode serve --cors http://localhost:5173 --cors https://app.example.com
+xiaochuan serve --cors http://localhost:5173 --cors https://app.example.com
 ```
 
 ---
 
 ### 認証
 
-HTTP 基本認証でサーバーを保護するには、`XCCODE_SERVER_PASSWORD` を設定します。ユーザー名はデフォルトで `xccode` になるか、`XCCODE_SERVER_USERNAME` を設定してオーバーライドします。これは、`xccode serve` と `xccode web` の両方に当てはまります。
+HTTP 基本認証でサーバーを保護するには、`XIAOCHUAN_SERVER_PASSWORD` を設定します。ユーザー名はデフォルトで `xiaochuan` になるか、`XIAOCHUAN_SERVER_USERNAME` を設定してオーバーライドします。これは、`xiaochuan serve` と `xiaochuan web` の両方に当てはまります。
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve
 ```
 
 ---
 
 ### 仕組み
 
-`xccode` を実行すると、TUI とサーバーが起動します。 TUI はサーバーと通信するクライアントです。サーバーは OpenAPI 3.1 仕様のエンドポイントを公開します。このエンドポイントは、[SDK](/docs/sdk) を使用してアクセスできます。
+`xiaochuan` を実行すると、TUI とサーバーが起動します。 TUI はサーバーと通信するクライアントです。サーバーは OpenAPI 3.1 仕様のエンドポイントを公開します。このエンドポイントは、[SDK](/docs/sdk) を使用してアクセスできます。
 
 :::tip
-Xccode サーバーを使用して、プログラムで Xccode と対話します。
+Xiaochuan サーバーを使用して、プログラムで Xiaochuan と対話します。
 :::
 
-`xccode serve` を実行してスタンドアロンサーバーを起動できます。すでに Xccode TUI を実行している場合でも、`xccode serve` は新しいサーバーを起動します。
+`xiaochuan serve` を実行してスタンドアロンサーバーを起動できます。すでに Xiaochuan TUI を実行している場合でも、`xiaochuan serve` は新しいサーバーを起動します。
 
 ---
 
@@ -60,7 +60,7 @@ Xccode サーバーを使用して、プログラムで Xccode と対話しま�
 
 TUI を起動すると、ポートとホスト名がランダムに割り当てられます。代わりに、`--hostname` と `--port` [フラグ](/docs/cli) を使用して固定できます。次に、これを使用してサーバーに接続します。
 
-[`/tui`](#tui) エンドポイントは、サーバー経由で TUI を駆動するために使用できます。たとえば、プロンプトを事前入力したり、実行したりできます。この設定は、Xccode [IDE](/docs/ide) プラグインによって使用されます。
+[`/tui`](#tui) エンドポイントは、サーバー経由で TUI を駆動するために使用できます。たとえば、プロンプトを事前入力したり、実行したりできます。この設定は、Xiaochuan [IDE](/docs/ide) プラグインによって使用されます。
 
 ---
 
@@ -78,7 +78,7 @@ http://<hostname>:<port>/doc
 
 ## API
 
-Xccode サーバーは次の API を公開します。
+Xiaochuan サーバーは次の API を公開します。
 
 ---
 

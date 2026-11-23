@@ -1,5 +1,5 @@
-import type { XccodeEvent } from "@xccode/client/promise"
-import { createClientConnection, type ClientConnectionStatus } from "@xccode/client/solid"
+import type { XiaochuanEvent } from "@xiaochuan/client/promise"
+import { createClientConnection, type ClientConnectionStatus } from "@xiaochuan/client/solid"
 import { createGlobalEmitter } from "@solid-primitives/event-bus"
 import { type Accessor, createEffect, on, onCleanup } from "solid-js"
 import { createApiForServer, type ServerApi } from "@/runtime/server/api"
@@ -13,21 +13,21 @@ import { ServerScope } from "@/runtime/server/scope"
 import { useServer } from "./current"
 import { createEndpointSyncState, transitionEndpointSync, type EndpointSyncEvent } from "./server-sync/endpoint-machine"
 
-type XccodeEventMap = { [Type in XccodeEvent["type"]]: Extract<XccodeEvent, { type: Type }> }
+type XiaochuanEventMap = { [Type in XiaochuanEvent["type"]]: Extract<XiaochuanEvent, { type: Type }> }
 
-export type XccodeEventStream = {
-  on<Type extends XccodeEvent["type"]>(type: Type, handler: (event: XccodeEventMap[Type]) => void): VoidFunction
-  listen(handler: (event: XccodeEvent) => void): VoidFunction
+export type XiaochuanEventStream = {
+  on<Type extends XiaochuanEvent["type"]>(type: Type, handler: (event: XiaochuanEventMap[Type]) => void): VoidFunction
+  listen(handler: (event: XiaochuanEvent) => void): VoidFunction
 }
 
-type XccodeEventSource = XccodeEventStream & {
-  location(directory: string): XccodeEventStream
+type XiaochuanEventSource = XiaochuanEventStream & {
+  location(directory: string): XiaochuanEventStream
 }
 
-export function createXccodeEventSource() {
-  const emitter = createGlobalEmitter<XccodeEventMap>()
+export function createXiaochuanEventSource() {
+  const emitter = createGlobalEmitter<XiaochuanEventMap>()
 
-  function stream(directory?: string): XccodeEventStream {
+  function stream(directory?: string): XiaochuanEventStream {
     return {
       on(type, handler) {
         return emitter.on(type, (event) => {
@@ -44,7 +44,7 @@ export function createXccodeEventSource() {
     }
   }
 
-  const event: XccodeEventSource = {
+  const event: XiaochuanEventSource = {
     ...stream(),
     location: (directory) => stream(directory),
   }
@@ -53,7 +53,7 @@ export function createXccodeEventSource() {
 
   return {
     event,
-    publish(event: XccodeEvent) {
+    publish(event: XiaochuanEvent) {
       emitter.emit(event.type, event)
     },
   }
@@ -74,7 +74,7 @@ type ServerSDKBase = {
     attempt: Accessor<number>
     error: Accessor<string | undefined>
   }
-  event: XccodeEventSource
+  event: XiaochuanEventSource
 }
 
 // Where a plugin server's transport points until the plugin reports the server ready; it never answers. The server has
@@ -92,7 +92,7 @@ function createServerSdkContextBase(server: ServerConnection.Any, scope: ServerS
     media.dispose()
   })
 
-  const events = createXccodeEventSource()
+  const events = createXiaochuanEventSource()
   const reconnect = resolveEndpoint(server)
   // Read only by `dispatchEndpoint`, the transport's only writer.
   let endpoint = createEndpointSyncState(transport.http)
@@ -290,7 +290,7 @@ export const useServerSDK = () => {
 
 export type LocationContext = {
   directory: string
-  event: XccodeEventStream
+  event: XiaochuanEventStream
 }
 
 function createDirSdkContext(directory: string, serverSDK: ServerSDKBase): LocationContext {
@@ -300,7 +300,7 @@ function createDirSdkContext(directory: string, serverSDK: ServerSDKBase): Locat
   }
 }
 
-/** The path a server URL sits under, such as `/xccode` for `https://host/xccode/`; empty at the root. */
+/** The path a server URL sits under, such as `/xiaochuan` for `https://host/xiaochuan/`; empty at the root. */
 function serverPathPrefix(url: string) {
   if (!URL.canParse(url)) return ""
 

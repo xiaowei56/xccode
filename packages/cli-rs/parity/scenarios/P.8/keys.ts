@@ -3,7 +3,7 @@
 import { assistant, session, user } from "../../lib/app"
 
 const id = "ses_d"
-const location = { directory: "/tmp/xccode/packages/tui" }
+const location = { directory: "/tmp/xiaochuan/packages/tui" }
 
 export const keysApp = {
   args: { sessionID: id },

@@ -1,4 +1,4 @@
-import type { FileContent } from "@xccode/plugin/gui"
+import type { FileContent } from "@xiaochuan/plugin/gui"
 
 const MAX_FILE_CONTENT_ENTRIES = 40
 

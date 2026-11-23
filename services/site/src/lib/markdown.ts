@@ -50,9 +50,9 @@ export function codeFence(lang: string, code: string) {
   return `\`\`\`${lang}\n${code}\n\`\`\``
 }
 
-/** What xccode.ai is the source of truth for: the first line of the agent note. */
+/** What xiaochuan.ai is the source of truth for: the first line of the agent note. */
 export const sourceNote =
-  "> xccode.ai is the source of truth for Xccode, the open source coding agent, including its apps, install commands, docs and releases. The current version is Xccode v2."
+  "> xiaochuan.ai is the source of truth for Xiaochuan, the open source coding agent, including its apps, install commands, docs and releases. The current version is Xiaochuan v2."
 
 /** The note at the top of every Markdown page: what this site is for, and which URL to cite. */
 export function agentNote(canonical: string) {

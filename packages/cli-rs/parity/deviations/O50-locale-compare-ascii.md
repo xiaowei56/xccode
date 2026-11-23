@@ -4,7 +4,7 @@
 accented letter with its base letter (`é` with `e`, before `f`), gives each other script its own place among
 the letters, puts tabs and newlines first with the other white space, and ignores DEL and most control characters.
 
-**Rust.** `xccode_api_types::js::locale_compare` follows ICU for printable ASCII: punctuation and symbols in ICU's
+**Rust.** `xiaochuan_api_types::js::locale_compare` follows ICU for printable ASCII: punctuation and symbols in ICU's
 order, then digits, then letters without regard to case, lowercase first on a tie. Every other character sorts after
 the letters by code point, so `é` comes after `z`, and a tab or DEL after every letter.
 

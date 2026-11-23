@@ -1,8 +1,8 @@
 //! Renders tool progress and final results into scrollback. Mini adds structured bodies to the one-line summaries
 //! shared with `run`.
 
-use xccode_api::generated::{SessionMessageAssistantToolState as State, ToolContent};
-use xccode_ui::tool_info::{
+use xiaochuan_api::generated::{SessionMessageAssistantToolState as State, ToolContent};
+use xiaochuan_ui::tool_info::{
     Todo, TodoStatus, canonical_tool_name, normalize_input, normalize_metadata, parse_todos, primitive_input_summary,
     todo_marker, tool_display_content, tool_display_metadata, tool_output_text, tool_path, web_search_provider_label,
 };
@@ -115,14 +115,14 @@ impl Frame {
     }
 
     fn path(&self, input: &str, home: bool) -> String {
-        let home = home.then(xccode_local::paths::home);
+        let home = home.then(xiaochuan_local::paths::home);
         tool_path(input, self.directory.as_deref(), home.as_deref())
     }
 
     /// `span`: how long the tool ran.
     fn span(&self) -> String {
         match (self.start, self.end) {
-            (Some(start), Some(end)) if end > start => xccode_ui::locale::duration(end - start),
+            (Some(start), Some(end)) if end > start => xiaochuan_ui::locale::duration(end - start),
             _ => String::new(),
         }
     }
@@ -216,7 +216,7 @@ fn scroll(phase: Phase, frame: &Frame) -> String {
                 .into_iter()
                 .flatten()
                 .find(|name| !name.is_null())
-                .map(xccode_api::js::js_string)
+                .map(xiaochuan_api::js::js_string)
                 .unwrap_or_default();
             Some(format!("→ Skill \"{name}\""))
         }
@@ -309,7 +309,7 @@ fn shell_final(frame: &Frame) -> String {
     let suffix = if time.is_empty() { String::new() } else { format!(" · {time}") };
     match frame.meta.get("exit").filter(|exit| !exit.is_null()) {
         None => format!("shell completed{suffix}"),
-        Some(code) => format!("shell completed (exit {}){suffix}", xccode_api::js::js_string(code)),
+        Some(code) => format!("shell completed (exit {}){suffix}", xiaochuan_api::js::js_string(code)),
     }
 }
 
@@ -362,7 +362,7 @@ fn patch_final(frame: &Frame) -> String {
 }
 
 fn agent_kind(frame: &Frame, fallback: &str) -> String {
-    xccode_ui::tool_info::titlecase(match frame.input("agent") {
+    xiaochuan_ui::tool_info::titlecase(match frame.input("agent") {
         "" => fallback,
         agent => agent,
     })
@@ -422,7 +422,7 @@ fn lsp_title(frame: &Frame) -> String {
     if file.is_empty() {
         return format!("LSP {operation}");
     }
-    let number = |key| frame.input.get(key).filter(|value| value.is_number()).map(xccode_api::js::js_string);
+    let number = |key| frame.input.get(key).filter(|value| value.is_number()).map(xiaochuan_api::js::js_string);
     let position = match (number("line"), number("character")) {
         (Some(line), Some(character)) => format!(":{line}:{character}"),
         _ => String::new(),
@@ -719,8 +719,8 @@ pub fn filetype(path: &str) -> Option<&'static str> {
 }
 
 /// `PatchDiff`'s colors from the block theme, with `text` for the code (the scrollback's and the permission's).
-pub fn diff_look(block: &crate::theme::BlockTheme, text: Color) -> xccode_ui::diff::Look {
-    xccode_ui::diff::Look {
+pub fn diff_look(block: &crate::theme::BlockTheme, text: Color) -> xiaochuan_ui::diff::Look {
+    xiaochuan_ui::diff::Look {
         colors: DiffColors {
             line_number: block.diff_line_number,
             line_number_bg: block.diff_context_bg,
@@ -749,7 +749,7 @@ pub fn structured_widget(app: &App, snapshot: &Snapshot, theme: &RunTheme, mono:
     let syntax = theme.syntax.clone().unwrap_or_default();
     match snapshot {
         Snapshot::Code { title, content, file } => {
-            xccode_ui::grammars::register();
+            xiaochuan_ui::grammars::register();
             let code = Code::new(app)
                 .fg(block.text)
                 .syntax_theme(syntax)
@@ -773,7 +773,7 @@ pub fn structured_widget(app: &App, snapshot: &Snapshot, theme: &RunTheme, mono:
                     let plural = if lines == 1 { "" } else { "s" };
                     entry.add(&text(&format!("-{lines} line{plural}"), block.diff_removed));
                 } else {
-                    let diff = xccode_ui::diff::view_with(
+                    let diff = xiaochuan_ui::diff::view_with(
                         app,
                         &look,
                         &syntax,

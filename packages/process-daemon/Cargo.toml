@@ -1,11 +1,11 @@
 [package]
-name = "xccode-pty"
+name = "xiaochuan-pty"
 version = "0.6.0"
 edition = "2024"
 rust-version = "1.90"
-description = "Persistent PTY service for Xccode"
+description = "Persistent PTY service for Xiaochuan"
 license = "MIT"
-repository = "https://github.com/xiaowei56/xccode"
+repository = "https://github.com/xiaowei56/xiaochuan"
 links = "ghostty-vt"
 
 [dependencies]

@@ -22,10 +22,10 @@ const sentry =
       })
     : false
 
-// The app is built for the root by default; `vite build --base=/xccode/` serves it under that path. A base without
+// The app is built for the root by default; `vite build --base=/xiaochuan/` serves it under that path. A base without
 // its trailing slash would reach `import.meta.env.BASE_URL` and `%BASE_URL%` as is and glue paths onto it.
 const basePath: Plugin = {
-  name: "xccode-app:base-path",
+  name: "xiaochuan-app:base-path",
   config(config) {
     if (config.base?.startsWith("/") && !config.base.endsWith("/")) return { base: `${config.base}/` }
   },
@@ -41,7 +41,7 @@ const testFixtureInput = [
 
 const build: UserConfig["build"] = { assetsDir: "_assets", target: "esnext", sourcemap: true }
 
-if (process.env.VITE_XCCODE_TEST_FIXTURES === "1") build.rolldownOptions = { input: testFixtureInput }
+if (process.env.VITE_XIAOCHUAN_TEST_FIXTURES === "1") build.rolldownOptions = { input: testFixtureInput }
 
 export default defineConfig({
   // SAFETY: the plugins are typed against the different Vite versions their packages depend on, but all of them only

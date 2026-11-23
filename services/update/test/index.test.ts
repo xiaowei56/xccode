@@ -35,14 +35,14 @@ function database() {
   const insert = (input: { channel: string; version: string; time: number; active?: boolean; minimum?: boolean }) =>
     sqlite
       .query(
-        "INSERT INTO artifact (channel, name, distribution, version, metadata, active, minimum, time_created, time_updated) VALUES (?, 'cli', 'xccode', ?, '{}', ?, ?, ?, ?)",
+        "INSERT INTO artifact (channel, name, distribution, version, metadata, active, minimum, time_created, time_updated) VALUES (?, 'cli', 'xiaochuan', ?, '{}', ?, ?, ?, ?)",
       )
       .run(input.channel, input.version, input.active ? 1 : 0, input.minimum ? 1 : 0, input.time, input.time)
   return { sqlite, env, queries, insert }
 }
 
 function lookup(env: Env, pathname: string, headers?: HeadersInit) {
-  return worker.fetch(new Request(`https://xccode.ai/update/api/${pathname}`, { headers }), env, {
+  return worker.fetch(new Request(`https://xiaochuan.ai/update/api/${pathname}`, { headers }), env, {
     waitUntil: () => {},
   })
 }
@@ -60,7 +60,7 @@ test("returns a retryable 503 when D1 rejects a lookup", async () => {
     EVENTS: { send: () => Promise.resolve() },
   } as unknown as Env
   const response = await worker.fetch(
-    new Request("https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-win-x64.exe"),
+    new Request("https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-win-x64.exe"),
     env,
     { waitUntil: () => {} },
   )
@@ -76,7 +76,7 @@ test("reuses D1 reads across lookups for 1 minute", async () => {
   setSystemTime(new Date("2026-10-13T00:00:00Z"))
 
   expect(
-    await Promise.all([lookup(db.env, "reuse/cli/xccode"), lookup(db.env, "reuse/cli/xccode")]).then((responses) =>
+    await Promise.all([lookup(db.env, "reuse/cli/xiaochuan"), lookup(db.env, "reuse/cli/xiaochuan")]).then((responses) =>
       Promise.all(responses.map(version)),
     ),
   ).toEqual(["1.0.0", "1.0.0"])
@@ -85,11 +85,11 @@ test("reuses D1 reads across lookups for 1 minute", async () => {
   db.sqlite.query("UPDATE artifact SET active = 0").run()
   db.insert({ channel: "reuse", version: "1.0.1", time: 2, active: true })
   setSystemTime(new Date("2026-10-13T00:00:59Z"))
-  expect(await version(await lookup(db.env, "reuse/cli/xccode"))).toBe("1.0.0")
+  expect(await version(await lookup(db.env, "reuse/cli/xiaochuan"))).toBe("1.0.0")
   expect(db.queries).toHaveLength(2)
 
   setSystemTime(new Date("2026-10-13T00:01:01Z"))
-  expect(await version(await lookup(db.env, "reuse/cli/xccode"))).toBe("1.0.1")
+  expect(await version(await lookup(db.env, "reuse/cli/xiaochuan"))).toBe("1.0.1")
   expect(db.queries).toHaveLength(4)
 })
 
@@ -98,12 +98,12 @@ test("evicts stale and cold entries without clearing hot reads", async () => {
   db.insert({ channel: "hot", version: "1.0.0", time: 1, active: true })
   setSystemTime(new Date("2026-10-13T01:00:00Z"))
 
-  expect(await version(await lookup(db.env, "hot/cli/xccode"))).toBe("1.0.0")
+  expect(await version(await lookup(db.env, "hot/cli/xiaochuan"))).toBe("1.0.0")
   expect(db.queries).toHaveLength(2)
 
   for (let i = 0; i < 600; i++) {
-    expect((await lookup(db.env, `cold-${i}/cli/xccode`)).status).toBe(404)
-    expect(await version(await lookup(db.env, "hot/cli/xccode"))).toBe("1.0.0")
+    expect((await lookup(db.env, `cold-${i}/cli/xiaochuan`)).status).toBe(404)
+    expect(await version(await lookup(db.env, "hot/cli/xiaochuan"))).toBe("1.0.0")
   }
   expect(db.queries).toHaveLength(1202)
 })
@@ -118,9 +118,9 @@ test("retries D1 on the next lookup after a failed read", async () => {
       ? { bind: () => ({ first: () => Promise.reject(new Error("overloaded")) }) }
       : prepare.call(db.env.DB, sql)) as typeof prepare
 
-  expect((await lookup(db.env, "retry/cli/xccode")).status).toBe(503)
+  expect((await lookup(db.env, "retry/cli/xiaochuan")).status).toBe(503)
   fail = false
-  expect(await version(await lookup(db.env, "retry/cli/xccode"))).toBe("1.0.0")
+  expect(await version(await lookup(db.env, "retry/cli/xiaochuan"))).toBe("1.0.0")
 })
 
 test("selects the minimum and active artifacts from the partial indexes", async () => {
@@ -129,9 +129,9 @@ test("selects the minimum and active artifacts from the partial indexes", async 
   db.insert({ channel: "latest", version: "1.5.0", time: 2 })
   db.insert({ channel: "latest", version: "2.0.0", time: 3, active: true })
 
-  expect(await version(await lookup(db.env, "latest/cli/xccode?current=0.9.0"))).toBe("1.0.0")
-  expect(await version(await lookup(db.env, "latest/cli/xccode?current=1.0.0"))).toBe("2.0.0")
-  expect(await version(await lookup(db.env, "latest/cli/xccode"))).toBe("2.0.0")
+  expect(await version(await lookup(db.env, "latest/cli/xiaochuan?current=0.9.0"))).toBe("1.0.0")
+  expect(await version(await lookup(db.env, "latest/cli/xiaochuan?current=1.0.0"))).toBe("2.0.0")
+  expect(await version(await lookup(db.env, "latest/cli/xiaochuan"))).toBe("2.0.0")
 
   // A release that is both active and minimum is listed once.
   db.insert({ channel: "both", version: "3.0.0", time: 1, active: true, minimum: true })
@@ -149,18 +149,18 @@ test("ignores minimum artifacts outside the latest channel", async () => {
 
   expect(
     await version(
-      await lookup(db.env, "dev/cli/xccode", { "User-Agent": "xccode/dev/0.0.0-dev-18952/cli" }),
+      await lookup(db.env, "dev/cli/xiaochuan", { "User-Agent": "xiaochuan/dev/0.0.0-dev-18952/cli" }),
     ),
   ).toBe("0.0.0-dev-18952")
-  expect(await version(await lookup(db.env, "dev/cli/xccode?current=garbage"))).toBe("0.0.0-dev-18952")
+  expect(await version(await lookup(db.env, "dev/cli/xiaochuan?current=garbage"))).toBe("0.0.0-dev-18952")
 })
 
 test("rejects setting a minimum outside the latest channel", async () => {
   const db = database()
   const response = await markArtifact(
-    new Request("https://xccode.ai/update/admin/minimum", {
+    new Request("https://xiaochuan.ai/update/admin/minimum", {
       method: "POST",
-      body: new URLSearchParams({ channel: "dev", name: "cli", distribution: "xccode", version: "0.0.0-dev-18952" }),
+      body: new URLSearchParams({ channel: "dev", name: "cli", distribution: "xiaochuan", version: "0.0.0-dev-18952" }),
     }),
     db.env,
     "minimum",
@@ -174,22 +174,22 @@ function request(url: string, init?: RequestInit) {
 }
 
 test.each([
-  ["GET", "https://xccode.ai/update/admin", {}],
-  ["POST", "https://xccode.ai/update/admin/activate", {}],
-  ["POST", "https://xccode.ai/update/admin/minimum", { "Cf-Access-Jwt-Assertion": "invalid" }],
-  ["POST", "https://xccode.ai./update/admin/rollout", { Cookie: "CF_Authorization=invalid" }],
-  ["GET", "https://XCCODE.AI./update/admin/", {}],
+  ["GET", "https://xiaochuan.ai/update/admin", {}],
+  ["POST", "https://xiaochuan.ai/update/admin/activate", {}],
+  ["POST", "https://xiaochuan.ai/update/admin/minimum", { "Cf-Access-Jwt-Assertion": "invalid" }],
+  ["POST", "https://xiaochuan.ai./update/admin/rollout", { Cookie: "CF_Authorization=invalid" }],
+  ["GET", "https://XIAOCHUAN.AI./update/admin/", {}],
 ] as const)("rejects %s %s without a valid Access identity", async (method, url, headers) => {
   const response = await request(url, { method, headers })
   expect(response.status).toBe(403)
 })
 
 test.each([
-  "https://update.xccode.ai/admin",
-  "https://update.xccode.ai./update/admin",
-  "https://update.xccode.ai/api/latest/cli/npm",
+  "https://update.xiaochuan.ai/admin",
+  "https://update.xiaochuan.ai./update/admin",
+  "https://update.xiaochuan.ai/api/latest/cli/npm",
   "https://example.com/update/admin",
-  "https://xccode.ai/admin",
+  "https://xiaochuan.ai/admin",
 ])("does not serve %s", async (url) => {
   expect((await request(url)).status).toBe(404)
 })
@@ -197,8 +197,8 @@ test.each([
 test("serves the public API without an Access identity", async () => {
   const db = database()
   db.insert({ channel: "public", version: "1.0.0", time: 1, active: true })
-  expect(await version(await lookup(db.env, "public/cli/xccode"))).toBe("1.0.0")
-  const trailing = await worker.fetch(new Request("https://xccode.ai./update/api/public/cli/xccode"), db.env, {
+  expect(await version(await lookup(db.env, "public/cli/xiaochuan"))).toBe("1.0.0")
+  const trailing = await worker.fetch(new Request("https://xiaochuan.ai./update/api/public/cli/xiaochuan"), db.env, {
     waitUntil: () => {},
   })
   expect(await version(trailing)).toBe("1.0.0")
@@ -214,13 +214,13 @@ test("caches rollout fallback reads across caller IPs and overlapping releases",
   setSystemTime(new Date(base + 7 * 3_600_000 + 1_000))
 
   // Missing IP waits for full 6h rollout -> cutoff is base + 1h + 1s, selects 1.0.0.
-  expect(await version(await lookup(db.env, "rollout/cli/xccode"))).toBe("1.0.0")
+  expect(await version(await lookup(db.env, "rollout/cli/xiaochuan"))).toBe("1.0.0")
   expect(db.queries).toHaveLength(3)
 
   // Different caller IPs evaluate different cutoffs against the cached rollout history without extra D1 reads.
   const versions = await Promise.all(
     Array.from({ length: 20 }, (_, i) =>
-      lookup(db.env, "rollout/cli/xccode", { "CF-Connecting-IP": `203.0.113.${i + 1}` }).then(version),
+      lookup(db.env, "rollout/cli/xiaochuan", { "CF-Connecting-IP": `203.0.113.${i + 1}` }).then(version),
     ),
   )
   expect(new Set(versions)).toEqual(new Set(["1.0.0", "1.1.0"]))
@@ -229,17 +229,17 @@ test("caches rollout fallback reads across caller IPs and overlapping releases",
 
 function publishClaims(ref: string, event_name = "push", environment = "release") {
   return {
-    repository: "xiaowei56/xccode",
+    repository: "xiaowei56/xiaochuan",
     repository_id: "975734319",
     repository_owner_id: "66570915",
-    workflow_ref: `xiaowei56/xccode/.github/workflows/release.yml@${ref}`,
+    workflow_ref: `xiaowei56/xiaochuan/.github/workflows/release.yml@${ref}`,
     ref,
     event_name,
     environment,
     sha: "0".repeat(40),
     run_id: "1",
     run_attempt: "1",
-    actor: "xccode",
+    actor: "xiaochuan",
   }
 }
 

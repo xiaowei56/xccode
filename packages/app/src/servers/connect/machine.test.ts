@@ -474,7 +474,7 @@ describe("server connect form", () => {
     expect(
       formatServerConnectError(
         { type: "connection-failed", url: input.url },
-        { surface: input.surface, pageHref: "https://app.xccode.ai/", t: (key) => key },
+        { surface: input.surface, pageHref: "https://app.xiaochuan.ai/", t: (key) => key },
       ),
     ).toBe(input.key)
   })

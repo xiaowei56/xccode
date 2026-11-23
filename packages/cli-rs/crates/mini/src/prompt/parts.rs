@@ -1,9 +1,9 @@
 //! Converts between editable prompts, wire requests and history entries.
 
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     PromptBase64, PromptFileAttachment, PromptFileSource, PromptFileSourceInline, PromptMention,
 };
-use xccode_ui::prompt_input::editor::Mention;
+use xiaochuan_ui::prompt_input::editor::Mention;
 use serde_json::{Map, Value, json};
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]

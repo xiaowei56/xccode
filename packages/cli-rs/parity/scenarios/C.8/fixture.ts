@@ -1,27 +1,27 @@
 // What the C.8 (`service`) and C.9 (`pair`) scenarios share. Both clients run in the sandbox as channel
 // `local`, the channel of the TS CLI from source: config and registration are `service-local.json` under the
 // sandbox's XDG roots. A registered service is the fake server, under this runner's pid, so discovery accepts
-// it; no scenario stops a registered service, which would signal the runner. `xccode-native` gets a TS binary that
+// it; no scenario stops a registered service, which would signal the runner. `xiaochuan-native` gets a TS binary that
 // does not exist, so it can never start a real service.
 import { mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { command, type Side } from "../../cli/client"
 import type { Route } from "../../lib/fake-server"
 
-export const env = { XCCODE_CHANNEL: "local", XCCODE_TS_BIN: "/nonexistent/xccode-ts" }
+export const env = { XIAOCHUAN_CHANNEL: "local", XIAOCHUAN_TS_BIN: "/nonexistent/xiaochuan-ts" }
 
-export const configFile = "home/.config/xccode/service-local.json"
+export const configFile = "home/.config/xiaochuan/service-local.json"
 
 export async function writeConfig(root: string, config: unknown) {
-  await mkdir(path.join(root, "home/.config/xccode"), { recursive: true })
+  await mkdir(path.join(root, "home/.config/xiaochuan"), { recursive: true })
   await writeFile(path.join(root, configFile), JSON.stringify(config, null, 2) + "\n", { mode: 0o600 })
 }
 
 export async function register(root: string, server: string | undefined) {
   if (server === undefined) throw new Error("register needs a fake server")
-  await mkdir(path.join(root, "home/.local/state/xccode"), { recursive: true })
+  await mkdir(path.join(root, "home/.local/state/xiaochuan"), { recursive: true })
   await writeFile(
-    path.join(root, "home/.local/state/xccode/service-local.json"),
+    path.join(root, "home/.local/state/xiaochuan/service-local.json"),
     JSON.stringify({ id: "fake", version: "local", url: server, pid: process.pid, password: "private" }),
     { mode: 0o600 },
   )

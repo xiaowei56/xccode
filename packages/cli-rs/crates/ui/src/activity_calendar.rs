@@ -1,7 +1,7 @@
 //! Monday-first activity weeks for the CLI and TUI stats views.
 
-use xccode_api_types::SessionStatsActivity;
-use xccode_util::time::{Date, MONTHS, Zone};
+use xiaochuan_api_types::SessionStatsActivity;
+use xiaochuan_util::time::{Date, MONTHS, Zone};
 
 /// `Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC"` as Bun resolves it: `TZ` (an empty
 /// value is UTC), else the zone `/etc/localtime` links to. ICU's names for UTC become `UTC`, and a

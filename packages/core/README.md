@@ -1,3 +1,3 @@
-# @xccode/core
+# @xiaochuan/core
 
-Core runtime services for Xccode.
+Core runtime services for Xiaochuan.

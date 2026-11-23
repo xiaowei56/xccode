@@ -3,10 +3,10 @@
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_api::client::{Auth, Client};
-use xccode_api::error::Error;
-use xccode_api::transport::{Request, Transport};
-use xccode_local::registration::Registration;
+use xiaochuan_api::client::{Auth, Client};
+use xiaochuan_api::error::Error;
+use xiaochuan_api::transport::{Request, Transport};
+use xiaochuan_local::registration::Registration;
 
 pub const REQUEST_TIMEOUT: Duration = Duration::from_secs(2);
 
@@ -18,7 +18,7 @@ pub struct Endpoint {
 }
 
 impl Endpoint {
-    /// An endpoint with Basic credentials for user `xccode`, or none.
+    /// An endpoint with Basic credentials for user `xiaochuan`, or none.
     pub fn new(url: impl Into<String>, password: Option<String>) -> Self {
         Self { url: url.into(), auth: password.map(Auth::password) }
     }
@@ -119,7 +119,7 @@ struct Answer {
 
 async fn answer(transport: &dyn Transport, endpoint: &Endpoint) -> Option<Answer> {
     // `new URL("/api/info", url)`: the absolute path replaces any path on the registered URL.
-    let url = xccode_api::js::join_url(&xccode_api::js::parse_url(&endpoint.url).ok()?, "/api/info").ok()?;
+    let url = xiaochuan_api::js::join_url(&xiaochuan_api::js::parse_url(&endpoint.url).ok()?, "/api/info").ok()?;
     let headers =
         endpoint.auth.iter().map(|auth| ("authorization".to_owned(), format!("Basic {}", auth.token()))).collect();
     let response = transport.send(Request { method: "GET", url, headers, body: None }).await.ok()?;

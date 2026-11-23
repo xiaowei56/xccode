@@ -4,8 +4,8 @@ use crate::support::{self, WAIT};
 
 use std::sync::Arc;
 
-use xccode_api::memory::{Memory, Route as MemoryRoute};
-use xccode_tui::Deps;
+use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
+use xiaochuan_tui::Deps;
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
@@ -45,7 +45,7 @@ fn transcript() -> Vec<Value> {
             "model": { "providerID": "provider", "id": "model" },
             "time": { "created": 1500, "completed": 1600 }, "finish": "stop",
             "content": [
-                { "type": "text", "text": "Plain words, then [the docs site](https://xccode.ai/docs)." },
+                { "type": "text", "text": "Plain words, then [the docs site](https://xiaochuan.ai/docs)." },
                 { "type": "tool", "id": "call_1", "name": "task", "state": task, "time": { "created": 1500 } },
             ],
         }),
@@ -53,8 +53,8 @@ fn transcript() -> Vec<Value> {
     ]
 }
 
-fn with_tabs(width: u16, config: Value, check: impl FnOnce(&TestApp, &xccode_tui::Tui)) {
-    let home = xccode_util::temp::tempdir().unwrap();
+fn with_tabs(width: u16, config: Value, check: impl FnOnce(&TestApp, &xiaochuan_tui::Tui)) {
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let paths = support::home_paths(home.path());
     std::fs::create_dir_all(&paths.state).unwrap();
     let config = support::merge(config, json!({ "session": { "verbosity": "medium" } }));
@@ -115,7 +115,7 @@ fn clickable_elements_show_the_hand_and_everything_else_the_default() {
         assert_shapes(app, &hands, MousePointer::POINTER);
         assert_shapes(app, &defaults, MousePointer::DEFAULT);
 
-        tui.toasts.show(xccode_ui::toast::ToastOptions::new(xccode_ui::toast::Variant::Info, "Pointer toast"));
+        tui.toasts.show(xiaochuan_ui::toast::ToastOptions::new(xiaochuan_ui::toast::Variant::Info, "Pointer toast"));
         wait_for(app, &["Pointer toast"]);
         assert_eq!(pointer_over(app, "Pointer toast"), MousePointer::POINTER, "toast:\n{}", app.text());
         tui.toasts.dismiss();

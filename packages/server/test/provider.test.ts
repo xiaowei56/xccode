@@ -1,6 +1,6 @@
 import { expect } from "bun:test"
-import { SdkPlugins } from "@xccode/core/plugin/sdk"
-import { Plugin } from "@xccode/plugin/effect"
+import { SdkPlugins } from "@xiaochuan/core/plugin/sdk"
+import { Plugin } from "@xiaochuan/plugin/effect"
 import { Context, Deferred, Effect, Layer } from "effect"
 import { HttpEffect, HttpRouter, HttpServer } from "effect/http"
 import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
@@ -11,7 +11,7 @@ it.live(
   "catalog reads answer while plugins are still activating",
   () =>
     Effect.gen(function* () {
-      const tmp = yield* tmpdirScoped("xccode-provider-endpoints-")
+      const tmp = yield* tmpdirScoped("xiaochuan-provider-endpoints-")
       const started = yield* Deferred.make<void>()
       const release = yield* Deferred.make<void>()
       const context = yield* Layer.build(
@@ -27,7 +27,7 @@ it.live(
               providers: {
                 custom: {
                   name: "Configured Custom Provider",
-                  package: "@xccode/ai/providers/openai-compatible",
+                  package: "@xiaochuan/ai/providers/openai-compatible",
                   settings: { apiKey: "secret" },
                   models: { chat: {} },
                 },
@@ -53,12 +53,12 @@ it.live(
         .pipe(HttpEffect.toWebHandlerWith(context))
       const request = (method: "GET" | "POST", route: string) =>
         Effect.promise((signal) => {
-          const url = new URL(route, "http://xccode.local")
+          const url = new URL(route, "http://xiaochuan.local")
           url.searchParams.set("location[directory]", tmp.path)
           return handler(
             new Request(url, {
               method,
-              headers: { authorization: `Basic ${btoa("xccode:secret")}` },
+              headers: { authorization: `Basic ${btoa("xiaochuan:secret")}` },
               signal,
             }),
           )

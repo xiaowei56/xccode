@@ -1,5 +1,5 @@
-import { Generate } from "@xccode/schema/generate"
-import { Model } from "@xccode/schema/model"
+import { Generate } from "@xiaochuan/schema/generate"
+import { Model } from "@xiaochuan/schema/model"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import {

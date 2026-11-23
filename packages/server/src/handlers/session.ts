@@ -1,15 +1,15 @@
-import { Instance } from "@xccode/core/instance/service"
-import { Session } from "@xccode/core/session"
-import { SessionStats } from "@xccode/core/session/stats"
-import { SessionTitle } from "@xccode/core/session/title"
-import { SessionTransfer } from "@xccode/core/session/transfer"
-import { InstructionEntry } from "@xccode/core/session/instruction-entry"
-import { Form } from "@xccode/core/form"
+import { Instance } from "@xiaochuan/core/instance/service"
+import { Session } from "@xiaochuan/core/session"
+import { SessionStats } from "@xiaochuan/core/session/stats"
+import { SessionTitle } from "@xiaochuan/core/session/title"
+import { SessionTransfer } from "@xiaochuan/core/session/transfer"
+import { InstructionEntry } from "@xiaochuan/core/session/instruction-entry"
+import { Form } from "@xiaochuan/core/form"
 import { DateTime, Effect, Stream } from "effect"
 import { HttpServerResponse } from "effect/http"
 import { HttpApiBuilder, HttpApiSchema } from "effect/http-api"
-import { SessionMediaMessageResponse } from "@xccode/protocol/groups/message"
-import { SessionMediaInboxResponse } from "@xccode/protocol/groups/session"
+import { SessionMediaMessageResponse } from "@xiaochuan/protocol/groups/message"
+import { SessionMediaInboxResponse } from "@xiaochuan/protocol/groups/session"
 import { Api } from "../api"
 import { wantsMediaRefs } from "../media-uri"
 import {
@@ -25,8 +25,8 @@ import {
   ServiceUnavailableError,
   SessionBusyError,
   SkillNotFoundError,
-} from "@xccode/protocol/errors"
-import { AbsolutePath } from "@xccode/core/schema"
+} from "@xiaochuan/protocol/errors"
+import { AbsolutePath } from "@xiaochuan/core/schema"
 import { locationErrors } from "../location"
 import { failedMessageDecode, failedSnapshot, missingMessage, missingSession } from "./session-error"
 

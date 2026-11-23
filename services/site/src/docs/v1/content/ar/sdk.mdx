@@ -1,13 +1,13 @@
 ---
 title: مجموعة تطوير البرمجيات (SDK)
-description: عميل JavaScript آمن الأنواع لخادم xccode.
+description: عميل JavaScript آمن الأنواع لخادم xiaochuan.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-توفر SDK الخاصة بـ xccode لـ JS/TS عميلا آمنا للأنواع للتفاعل مع الخادم.
-استخدمها لبناء التكاملات والتحكم في xccode برمجيا.
+توفر SDK الخاصة بـ xiaochuan لـ JS/TS عميلا آمنا للأنواع للتفاعل مع الخادم.
+استخدمها لبناء التكاملات والتحكم في xiaochuan برمجيا.
 
 [اعرف المزيد](/docs/server) حول كيفية عمل الخادم. للاطلاع على أمثلة، تفقد [المشاريع](/docs/ecosystem#projects) التي أنشأها المجتمع.
 
@@ -18,19 +18,19 @@ export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types
 ثبّت SDK من npm:
 
 ```bash
-npm install @xccode-ai/sdk
+npm install @xiaochuan-ai/sdk
 ```
 
 ---
 
 ## إنشاء عميل
 
-أنشئ مثيلا من xccode:
+أنشئ مثيلا من xiaochuan:
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const { client } = await createXccode()
+const { client } = await createXiaochuan()
 ```
 
 هذا يشغّل خادما وعميلا معا.
@@ -49,12 +49,12 @@ const { client } = await createXccode()
 
 ## الإعدادات
 
-يمكنك تمرير كائن إعدادات لتخصيص السلوك. سيستمر المثيل في التقاط `xccode.json` لديك، لكن يمكنك تجاوز الإعدادات أو إضافة إعدادات مباشرة:
+يمكنك تمرير كائن إعدادات لتخصيص السلوك. سيستمر المثيل في التقاط `xiaochuan.json` لديك، لكن يمكنك تجاوز الإعدادات أو إضافة إعدادات مباشرة:
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const xccode = await createXccode({
+const xiaochuan = await createXiaochuan({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -62,19 +62,19 @@ const xccode = await createXccode({
   },
 })
 
-console.log(`Server running at ${xccode.server.url}`)
+console.log(`Server running at ${xiaochuan.server.url}`)
 
-xccode.server.close()
+xiaochuan.server.close()
 ```
 
 ## العميل فقط
 
-إذا كان لديك مثيل xccode يعمل بالفعل، يمكنك إنشاء مثيل عميل للاتصال به:
+إذا كان لديك مثيل xiaochuan يعمل بالفعل، يمكنك إنشاء مثيل عميل للاتصال به:
 
 ```javascript
-import { createXccodeClient } from "@xccode-ai/sdk"
+import { createXiaochuanClient } from "@xiaochuan-ai/sdk"
 
-const client = createXccodeClient({
+const client = createXiaochuanClient({
   baseUrl: "http://localhost:4096",
 })
 ```
@@ -96,7 +96,7 @@ const client = createXccodeClient({
 تتضمن SDK تعريفات TypeScript لجميع أنواع API. استوردها مباشرة:
 
 ```typescript
-import type { Session, Message, Part } from "@xccode-ai/sdk"
+import type { Session, Message, Part } from "@xiaochuan-ai/sdk"
 ```
 
 جميع الأنواع مولّدة من مواصفات OpenAPI الخاصة بالخادم ومتاحة في <a href={typesUrl}>ملف الأنواع</a>.
@@ -373,7 +373,7 @@ await client.session.prompt({
 ```javascript
 // Search and read files
 const textResults = await client.find.text({
-  query: { pattern: "function.*xccode" },
+  query: { pattern: "function.*xiaochuan" },
 })
 
 const files = await client.find.files({

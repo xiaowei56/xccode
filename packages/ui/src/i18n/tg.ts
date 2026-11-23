@@ -71,7 +71,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "Илова кардани кредитҳо",
   "dialog.usageExceeded.freeTier.title": "Ба ҳадди ройгон расид",
   "dialog.usageExceeded.freeTier.description":
-    "Ба Xccode Go бо нархи $10 дар як моҳ обуна шавед, то ба беҳтарин моделҳои кушодаасос дастрасии боэътимод дошта бошед.",
+    "Ба Xiaochuan Go бо нархи $10 дар як моҳ обуна шавед, то ба беҳтарин моделҳои кушодаасос дастрасии боэътимод дошта бошед.",
   "dialog.usageExceeded.freeTier.actionLabel": "Обуна шавед",
   "ui.sessionTurn.status.delegating": "Супоридани кор",
   "ui.sessionTurn.status.planning": "Банақшагирии қадамҳои оянда",
@@ -269,9 +269,9 @@ export const dict = {
     "Ба ҳадди буҷаи модел расид · ин модел то барқароршавӣ боздошта шудааст",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Истифодаи модели ройгон",
   "ui.sessionTurn.budgetLimit.switchModel": "Иваз кардани модел",
-  "ui.sessionTurn.goLimit.title": "Шумо ба ҳадди истифодаи Xccode Go расидед.",
+  "ui.sessionTurn.goLimit.title": "Шумо ба ҳадди истифодаи Xiaochuan Go расидед.",
   "ui.sessionTurn.goLimit.lineReset":
-    "Шумо ба ҳадди истифодаи Xccode Go расидед. Он соати {{time}} барқарор мешавад.",
+    "Шумо ба ҳадди истифодаи Xiaochuan Go расидед. Он соати {{time}} барқарор мешавад.",
   "dialog.usageExceeded.freeTier.reset": "Паёмҳои ройгони шумо соати {{time}} барқарор мешаванд.",
   "ui.messagePart.compaction.queued": "Фишурдани сессия дар навбат аст",
   "ui.messagePart.compaction.done": "Фишурда шуд",

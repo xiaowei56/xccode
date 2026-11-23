@@ -1,9 +1,9 @@
 ---
 title: Ferramentas Personalizadas
-description: Crie ferramentas que o LLM pode chamar no xccode.
+description: Crie ferramentas que o LLM pode chamar no xiaochuan.
 ---
 
-Ferramentas personalizadas são funções que você cria e que o LLM pode chamar durante as conversas. Elas funcionam junto com as [ferramentas integradas](/docs/tools) do xccode, como `read`, `write` e `bash`.
+Ferramentas personalizadas são funções que você cria e que o LLM pode chamar durante as conversas. Elas funcionam junto com as [ferramentas integradas](/docs/tools) do xiaochuan, como `read`, `write` e `bash`.
 
 ---
 
@@ -17,8 +17,8 @@ As ferramentas são definidas como arquivos **TypeScript** ou **JavaScript**. No
 
 Elas podem ser definidas:
 
-- Localmente, colocando-as no diretório `.xccode/tools/` do seu projeto.
-- Ou globalmente, colocando-as em `~/.config/xccode/tools/`.
+- Localmente, colocando-as no diretório `.xiaochuan/tools/` do seu projeto.
+- Ou globalmente, colocando-as em `~/.config/xiaochuan/tools/`.
 
 ---
 
@@ -26,8 +26,8 @@ Elas podem ser definidas:
 
 A maneira mais fácil de criar ferramentas é usando o helper `tool()`, que fornece segurança de tipo e validação.
 
-```ts title=".xccode/tools/database.ts" {1}
-import { tool } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/tools/database.ts" {1}
+import { tool } from "@xiaochuan-ai/plugin"
 
 export default tool({
   description: "Consultar o banco de dados do projeto",
@@ -49,8 +49,8 @@ O **nome do arquivo** se torna o **nome da ferramenta**. O acima cria uma ferram
 
 Você também pode exportar várias ferramentas de um único arquivo. Cada exportação se torna **uma ferramenta separada** com o nome **`<filename>_<exportname>`**:
 
-```ts title=".xccode/tools/math.ts"
-import { tool } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/tools/math.ts"
+import { tool } from "@xiaochuan-ai/plugin"
 
 export const add = tool({
   description: "Adicionar dois números",
@@ -85,8 +85,8 @@ Ferramentas personalizadas são chaveadas pelo nome da ferramenta. Se uma ferram
 
 Por exemplo, este arquivo substitui a ferramenta `bash` integrada:
 
-```ts title=".xccode/tools/bash.ts"
-import { tool } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/tools/bash.ts"
+import { tool } from "@xiaochuan-ai/plugin"
 
 export default tool({
   description: "Restricted bash wrapper",
@@ -138,8 +138,8 @@ export default {
 
 As ferramentas recebem contexto sobre a sessão atual:
 
-```ts title=".xccode/tools/project.ts" {8}
-import { tool } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/tools/project.ts" {8}
+import { tool } from "@xiaochuan-ai/plugin"
 
 export default tool({
   description: "Obter informações do projeto",
@@ -165,7 +165,7 @@ Você pode escrever suas ferramentas em qualquer linguagem que desejar. Aqui est
 
 Primeiro, crie a ferramenta como um script Python:
 
-```python title=".xccode/tools/add.py"
+```python title=".xiaochuan/tools/add.py"
 import sys
 
 a = int(sys.argv[1])
@@ -175,8 +175,8 @@ print(a + b)
 
 Em seguida, crie a definição da ferramenta que a invoca:
 
-```ts title=".xccode/tools/python-add.ts" {10}
-import { tool } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/tools/python-add.ts" {10}
+import { tool } from "@xiaochuan-ai/plugin"
 import path from "path"
 
 export default tool({
@@ -186,7 +186,7 @@ export default tool({
     b: tool.schema.number().describe("Segundo número"),
   },
   async execute(args, context) {
-    const script = path.join(context.worktree, ".xccode/tools/add.py")
+    const script = path.join(context.worktree, ".xiaochuan/tools/add.py")
     const result = await Bun.$`python3 ${script} ${args.a} ${args.b}`.text()
     return result.trim()
   },

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { persistentPtyFrame } from "@xccode/client/solid"
+import { persistentPtyFrame } from "@xiaochuan/client/solid"
 import {
   createConnectionState,
   transitionConnection,

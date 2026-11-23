@@ -1,5 +1,5 @@
 import type { LanguageModelV3 } from "@ai-sdk/provider"
-import type { Model } from "@xccode/schema/model"
+import type { Model } from "@xiaochuan/schema/model"
 import type { ModelHooks } from "./registration.js"
 
 export interface AISDKHooks {

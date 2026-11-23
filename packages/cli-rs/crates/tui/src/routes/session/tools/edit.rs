@@ -1,6 +1,6 @@
 //! Display the edit diff when a patch is available.
 
-use xccode_local::cli_config::{DiffView as ConfigDiffView, DiffWrap};
+use xiaochuan_local::cli_config::{DiffView as ConfigDiffView, DiffWrap};
 use opentui::widget::DiffView;
 
 use super::diagnostics;
@@ -87,7 +87,7 @@ impl Edit {
         let children = self.block.children();
         children.clear();
         self.paints.clear();
-        let diff = xccode_ui::diff::view_painted(
+        let diff = xiaochuan_ui::diff::view_painted(
             cx.app,
             cx.theme,
             cx.syntax,
@@ -117,7 +117,7 @@ fn first_file(files: Option<&Value>) -> Option<File> {
     files?.as_array()?.iter().find_map(|item| {
         let file = item.as_object()?;
         let text = |key: &str| file.get(key).and_then(Value::as_str);
-        let number = |key: &str| file.get(key).and_then(xccode_ui::tool_info::finite_number);
+        let number = |key: &str| file.get(key).and_then(xiaochuan_ui::tool_info::finite_number);
         let kind = text("type").or(match text("status") {
             Some("added") => Some("add"),
             Some("deleted") => Some("delete"),

@@ -1,8 +1,8 @@
 //! Session goal status, commands, and progress panel.
 
-use xccode_api::client::Client;
-use xccode_api::generated::{LocationQueryInput, RpcCallInput, RpcCallOutput, SessionCommandInput, V2Event};
-use xccode_plugin::abi::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{LocationQueryInput, RpcCallInput, RpcCallOutput, SessionCommandInput, V2Event};
+use xiaochuan_plugin::abi::{
     self, Action, Click, Command, Dialog, Host, Layout, Node, Panel, PanelAction, PanelBind, PanelSize, RequestId,
     Span, Toast, Variant, Wrap,
 };
@@ -12,8 +12,8 @@ use super::fetch::fetch_of;
 
 use crate::prelude::*;
 
-const RPC: &str = "xccode.goal";
-const CHANGED: &str = "rpc.xccode.goal.changed";
+const RPC: &str = "xiaochuan.goal";
+const CHANGED: &str = "rpc.xiaochuan.goal.changed";
 const PANEL: &str = "goal";
 /// The hidden commands of the status and the panel. Each takes the session as its input.
 const SHOW: &str = "prompt.goal.show";

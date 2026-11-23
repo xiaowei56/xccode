@@ -15,7 +15,7 @@ mod wizard;
 #[cfg(test)]
 mod tests;
 
-use xccode_util::error;
+use xiaochuan_util::error;
 use std::process::ExitCode;
 
 use parse::Outcome;
@@ -68,7 +68,7 @@ fn main() -> ExitCode {
         args = logged.as_str();
         "cli starting"
     );
-    if let Some(server) = xccode_util::bundle::server() {
+    if let Some(server) = xiaochuan_util::bundle::server() {
         log::info!(path = server.display().to_string().as_str(); "bundled server");
     }
     let context = commands::Context { server: invocation.server.clone(), args };
@@ -101,5 +101,5 @@ fn exit(result: error::Result<()>) -> ExitCode {
 #[allow(unsafe_code)]
 fn set_print_logs() {
     // SAFETY: no other thread runs yet; handlers start their runtimes after this.
-    unsafe { std::env::set_var("XCCODE_PRINT_LOGS", "1") };
+    unsafe { std::env::set_var("XIAOCHUAN_PRINT_LOGS", "1") };
 }

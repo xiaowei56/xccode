@@ -1,18 +1,18 @@
 import { describe, expect } from "bun:test"
-import { ai, LanguageModel, Message } from "@xccode/ai/effect"
-import { OpenAIChat } from "@xccode/ai/protocols"
-import { compileRequest } from "@xccode/ai/testing"
+import { ai, LanguageModel, Message } from "@xiaochuan/ai/effect"
+import { OpenAIChat } from "@xiaochuan/ai/protocols"
+import { compileRequest } from "@xiaochuan/ai/testing"
 import { ConfigProvider, Effect, Layer } from "effect"
 import { Headers } from "effect/http"
-import { AISDKNative } from "@xccode/core/aisdk-native"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { Compatibility, ID, Info, Model, VariantID } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { Variant } from "@xccode/core/variant"
-import { ModelResolver } from "@xccode/core/model-resolver"
-import { AISDK } from "@xccode/core/aisdk"
-import { Npm } from "@xccode/util/npm"
+import { AISDKNative } from "@xiaochuan/core/aisdk-native"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { Compatibility, ID, Info, Model, VariantID } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { Variant } from "@xiaochuan/core/variant"
+import { ModelResolver } from "@xiaochuan/core/model-resolver"
+import { AISDK } from "@xiaochuan/core/aisdk"
+import { Npm } from "@xiaochuan/util/npm"
 import { withEnv } from "./fixture/env"
 import { it } from "./lib/effect"
 
@@ -336,13 +336,13 @@ describe("ModelResolver", () => {
         settings: { baseURL: "https://mistral.example.com/v1" },
         headers: { "cf-access-token": "access-token" },
       }),
-      model("@xccode/ai/providers/mistral", {
+      model("@xiaochuan/ai/providers/mistral", {
         providerID: Provider.ID.make("gateway"),
         settings: { baseURL: "https://native-mistral.example.com/v1" },
         headers: { "cf-access-token": "access-token" },
       }),
       ...["baseten", "cloudflare-ai-gateway", "cloudflare-workers-ai", "deepseek", "fireworks"].map((name) =>
-        model(`@xccode/ai/providers/${name}`, {
+        model(`@xiaochuan/ai/providers/${name}`, {
           providerID: Provider.ID.make("gateway"),
           settings: { baseURL: `https://${name}.example.com/v1` },
           headers: { "cf-access-token": "access-token" },
@@ -584,7 +584,7 @@ describe("ModelResolver", () => {
 
   it.effect("sends xAI Responses effort variants with reasoning summaries", () =>
     Effect.gen(function* () {
-      const base = model("@xccode/ai/providers/xai", { providerID: Provider.ID.make("xai"), modelID: "grok-4.6" })
+      const base = model("@xiaochuan/ai/providers/xai", { providerID: Provider.ID.make("xai"), modelID: "grok-4.6" })
       const catalog = Info.make({
         ...base,
         variants: Variant.resolve(base, [{ type: "effort", values: ["low", "high"] }]),
@@ -829,7 +829,7 @@ describe("ModelResolver", () => {
   it.effect("applies plugin-projected OpenAI endpoint and headers", () =>
     Effect.gen(function* () {
       const resolved = yield* ModelResolver.fromCatalogModel(
-        model("@xccode/ai/providers/openai", {
+        model("@xiaochuan/ai/providers/openai", {
           settings: { baseURL: "https://chatgpt.com/backend-api/codex" },
           headers: { "chatgpt-account-id": "acct_123" },
           body: {},
@@ -880,7 +880,7 @@ describe("ModelResolver", () => {
   it.effect("does not route native OpenAI-compatible packages to the codex backend", () =>
     Effect.gen(function* () {
       const resolved = yield* ModelResolver.fromCatalogModel(
-        model("@xccode/ai/providers/openai-compatible", {
+        model("@xiaochuan/ai/providers/openai-compatible", {
           settings: { baseURL: "https://compatible.example/v1" },
         }),
         Credential.OAuth.make({
@@ -953,7 +953,7 @@ describe("ModelResolver", () => {
         }),
       )
       const resolved = yield* ModelResolver.fromCatalogModel(
-        model("@xccode/ai/providers/custom", {
+        model("@xiaochuan/ai/providers/custom", {
           settings: { region: "test" },
           headers: { "x-package": "header" },
           body: { custom: true },
@@ -961,7 +961,7 @@ describe("ModelResolver", () => {
         undefined,
         {
           loadPackage: (specifier) => {
-            expect(specifier).toBe("@xccode/ai/providers/custom")
+            expect(specifier).toBe("@xiaochuan/ai/providers/custom")
             return Effect.succeed({
               model: (modelID, settings) => {
                 expect(modelID).toBe("api-test-model")
@@ -997,14 +997,14 @@ describe("ModelResolver", () => {
         metadata: { server: "https://console.example", orgID: "org_123", orgName: "Acme" },
       })
       const packages = [
-        ["@xccode/ai/providers/google-vertex", "accessToken"],
-        ["@xccode/ai/providers/google-vertex/gemini", "accessToken"],
-        ["@xccode/ai/providers/google-vertex/interactions", "accessToken"],
-        ["@xccode/ai/providers/google-vertex/chat", "accessToken"],
-        ["@xccode/ai/providers/google-vertex/responses", "accessToken"],
-        ["@xccode/ai/providers/google-vertex/messages", "accessToken"],
-        ["@xccode/ai/providers/anthropic", "authToken"],
-        ["@xccode/ai/providers/anthropic-compatible", "authToken"],
+        ["@xiaochuan/ai/providers/google-vertex", "accessToken"],
+        ["@xiaochuan/ai/providers/google-vertex/gemini", "accessToken"],
+        ["@xiaochuan/ai/providers/google-vertex/interactions", "accessToken"],
+        ["@xiaochuan/ai/providers/google-vertex/chat", "accessToken"],
+        ["@xiaochuan/ai/providers/google-vertex/responses", "accessToken"],
+        ["@xiaochuan/ai/providers/google-vertex/messages", "accessToken"],
+        ["@xiaochuan/ai/providers/anthropic", "authToken"],
+        ["@xiaochuan/ai/providers/anthropic-compatible", "authToken"],
       ] as const
 
       yield* Effect.forEach(packages, ([specifier, key]) =>
@@ -1031,7 +1031,7 @@ describe("ModelResolver", () => {
       const packages = [
         [
           "@ai-sdk/openai",
-          "@xccode/ai/providers/openai",
+          "@xiaochuan/ai/providers/openai",
           {
             reasoningEffort: "xhigh",
             reasoningSummary: "auto",
@@ -1045,55 +1045,55 @@ describe("ModelResolver", () => {
         ],
         [
           "@ai-sdk/anthropic",
-          "@xccode/ai/providers/anthropic",
+          "@xiaochuan/ai/providers/anthropic",
           { thinking: { type: "adaptive", display: "summarized" }, effort: "high" },
           { thinking: { type: "adaptive", display: "summarized" }, effort: "high" },
         ],
         [
           "@ai-sdk/cerebras",
-          "@xccode/ai/providers/cerebras",
+          "@xiaochuan/ai/providers/cerebras",
           { reasoningEffort: "high" },
           { reasoningEffort: "high" },
         ],
         [
           "@ai-sdk/deepinfra",
-          "@xccode/ai/providers/deepinfra",
+          "@xiaochuan/ai/providers/deepinfra",
           { reasoningEffort: "none" },
           { reasoningEffort: "none" },
         ],
         [
           "@ai-sdk/openai-compatible",
-          "@xccode/ai/providers/openai-compatible",
+          "@xiaochuan/ai/providers/openai-compatible",
           { reasoningEffort: "high" },
           { reasoningEffort: "high" },
         ],
         [
           "@ai-sdk/google",
-          "@xccode/ai/providers/google",
+          "@xiaochuan/ai/providers/google",
           { thinkingConfig: { thinkingLevel: "high" } },
           { thinkingConfig: { thinkingLevel: "high" } },
         ],
         [
           "@ai-sdk/google-vertex",
-          "@xccode/ai/providers/google-vertex",
+          "@xiaochuan/ai/providers/google-vertex",
           { thinkingConfig: { thinkingLevel: "high" } },
           { thinkingConfig: { thinkingLevel: "high" } },
         ],
         [
           "@openrouter/ai-sdk-provider",
-          "@xccode/ai/providers/openrouter",
+          "@xiaochuan/ai/providers/openrouter",
           { reasoning: { effort: "high" } },
           { reasoning: { effort: "high" } },
         ],
         [
           "@ai-sdk/groq",
-          "@xccode/ai/providers/groq",
+          "@xiaochuan/ai/providers/groq",
           { reasoningEffort: "high", parallelToolCalls: false },
           { reasoningEffort: "high", parallelToolCalls: false },
         ],
         [
           "@ai-sdk/mistral",
-          "@xccode/ai/providers/mistral",
+          "@xiaochuan/ai/providers/mistral",
           {
             safePrompt: true,
             documentImageLimit: 4,
@@ -1111,11 +1111,11 @@ describe("ModelResolver", () => {
         ],
         [
           "@ai-sdk/togetherai",
-          "@xccode/ai/providers/togetherai",
+          "@xiaochuan/ai/providers/togetherai",
           { reasoningEffort: "high" },
           { reasoningEffort: "high" },
         ],
-        ["@ai-sdk/xai", "@xccode/ai/providers/xai", { reasoningEffort: "high" }, { reasoningEffort: "high" }],
+        ["@ai-sdk/xai", "@xiaochuan/ai/providers/xai", { reasoningEffort: "high" }, { reasoningEffort: "high" }],
       ] as const
 
       yield* Effect.forEach(packages, ([catalogPackage, nativePackage, sourceOptions, providerOptions]) =>
@@ -1154,25 +1154,25 @@ describe("ModelResolver", () => {
   it.effect("never loads the AI SDK for packages with native implementations", () =>
     Effect.gen(function* () {
       const packages = [
-        ["@ai-sdk/alibaba", "@xccode/ai/providers/alibaba/chat", "api-model"],
-        ["@ai-sdk/anthropic", "@xccode/ai/providers/anthropic", "api-model"],
-        ["@ai-sdk/amazon-bedrock", "@xccode/ai/providers/amazon-bedrock", "api-model"],
-        ["@ai-sdk/amazon-bedrock/mantle", "@xccode/ai/providers/amazon-bedrock/mantle/chat", "openai.gpt-oss-120b"],
-        ["@ai-sdk/azure", "@xccode/ai/providers/azure/responses", "api-model"],
-        ["@ai-sdk/cerebras", "@xccode/ai/providers/cerebras", "api-model"],
-        ["@ai-sdk/deepinfra", "@xccode/ai/providers/deepinfra", "api-model"],
-        ["@ai-sdk/google", "@xccode/ai/providers/google", "api-model"],
-        ["@ai-sdk/google-vertex", "@xccode/ai/providers/google-vertex", "api-model"],
-        ["@ai-sdk/google-vertex/anthropic", "@xccode/ai/providers/google-vertex/messages", "claude-sonnet-4-6"],
-        ["@ai-sdk/groq", "@xccode/ai/providers/groq", "api-model"],
-        ["@ai-sdk/mistral", "@xccode/ai/providers/mistral", "api-model"],
-        ["@ai-sdk/openai", "@xccode/ai/providers/openai", "api-model"],
-        ["@ai-sdk/openai-compatible", "@xccode/ai/providers/openai-compatible", "api-model"],
-        ["@openrouter/ai-sdk-provider", "@xccode/ai/providers/openrouter", "api-model"],
-        ["@ai-sdk/togetherai", "@xccode/ai/providers/togetherai", "api-model"],
-        ["@ai-sdk/gateway", "@xccode/ai/providers/vercel-ai-gateway", "openai/gpt-5.4"],
-        ["@ai-sdk/xai", "@xccode/ai/providers/xai", "api-model"],
-        ["ai-gateway-provider", "@xccode/ai/providers/cloudflare-ai-gateway", "xai/grok-4.6"],
+        ["@ai-sdk/alibaba", "@xiaochuan/ai/providers/alibaba/chat", "api-model"],
+        ["@ai-sdk/anthropic", "@xiaochuan/ai/providers/anthropic", "api-model"],
+        ["@ai-sdk/amazon-bedrock", "@xiaochuan/ai/providers/amazon-bedrock", "api-model"],
+        ["@ai-sdk/amazon-bedrock/mantle", "@xiaochuan/ai/providers/amazon-bedrock/mantle/chat", "openai.gpt-oss-120b"],
+        ["@ai-sdk/azure", "@xiaochuan/ai/providers/azure/responses", "api-model"],
+        ["@ai-sdk/cerebras", "@xiaochuan/ai/providers/cerebras", "api-model"],
+        ["@ai-sdk/deepinfra", "@xiaochuan/ai/providers/deepinfra", "api-model"],
+        ["@ai-sdk/google", "@xiaochuan/ai/providers/google", "api-model"],
+        ["@ai-sdk/google-vertex", "@xiaochuan/ai/providers/google-vertex", "api-model"],
+        ["@ai-sdk/google-vertex/anthropic", "@xiaochuan/ai/providers/google-vertex/messages", "claude-sonnet-4-6"],
+        ["@ai-sdk/groq", "@xiaochuan/ai/providers/groq", "api-model"],
+        ["@ai-sdk/mistral", "@xiaochuan/ai/providers/mistral", "api-model"],
+        ["@ai-sdk/openai", "@xiaochuan/ai/providers/openai", "api-model"],
+        ["@ai-sdk/openai-compatible", "@xiaochuan/ai/providers/openai-compatible", "api-model"],
+        ["@openrouter/ai-sdk-provider", "@xiaochuan/ai/providers/openrouter", "api-model"],
+        ["@ai-sdk/togetherai", "@xiaochuan/ai/providers/togetherai", "api-model"],
+        ["@ai-sdk/gateway", "@xiaochuan/ai/providers/vercel-ai-gateway", "openai/gpt-5.4"],
+        ["@ai-sdk/xai", "@xiaochuan/ai/providers/xai", "api-model"],
+        ["ai-gateway-provider", "@xiaochuan/ai/providers/cloudflare-ai-gateway", "xai/grok-4.6"],
       ] as const
 
       yield* Effect.forEach(packages, ([catalogPackage, nativePackage, modelID]) =>
@@ -1220,7 +1220,7 @@ describe("ModelResolver", () => {
         credential,
         {
           loadPackage: (specifier) => {
-            expect(specifier).toBe("@xccode/ai/providers/google-vertex/messages")
+            expect(specifier).toBe("@xiaochuan/ai/providers/google-vertex/messages")
             return Effect.succeed({
               model: (modelID, settings) => {
                 expect(modelID).toBe("claude-sonnet-4-6")
@@ -1247,8 +1247,8 @@ describe("ModelResolver", () => {
     ModelResolver.fromCatalogModel(
       model(Provider.aisdk("@openrouter/ai-sdk-provider"), {
         settings: {
-          appName: "Xccode",
-          appUrl: "https://xccode.ai",
+          appName: "Xiaochuan",
+          appUrl: "https://xiaochuan.ai",
           extraBody: { transforms: ["middle-out"], provider: { sort: "price" } },
         },
         headers: { "X-OpenRouter-Title": "Custom" },
@@ -1260,7 +1260,7 @@ describe("ModelResolver", () => {
           Effect.succeed({
             model: (modelID, settings) => {
               expect(settings.headers).toEqual({
-                "HTTP-Referer": "https://xccode.ai",
+                "HTTP-Referer": "https://xiaochuan.ai",
                 "X-OpenRouter-Title": "Custom",
               })
               expect(settings.body).toEqual({
@@ -1351,7 +1351,7 @@ describe("ModelResolver", () => {
         }),
       )
       const workers = yield* ModelResolver.fromCatalogModel(
-        model("@xccode/ai/providers/cloudflare-workers-ai", {
+        model("@xiaochuan/ai/providers/cloudflare-workers-ai", {
           modelID: "@cf/meta/llama-3.1-8b-instruct",
           settings: { accountId: "account" },
         }),
@@ -1538,7 +1538,7 @@ describe("ModelResolver", () => {
         _tag: "SessionRunnerModel.ModelConfigurationError",
         providerID: "azure",
         modelID: "test-model",
-        package: "@xccode/ai/providers/azure/responses",
+        package: "@xiaochuan/ai/providers/azure/responses",
         detail: "Azure requires resourceName or baseURL",
       })
       expect(failure.message).toBe("Cannot initialize azure/test-model: Azure requires resourceName or baseURL")
@@ -1547,7 +1547,7 @@ describe("ModelResolver", () => {
 
   it.effect("distinguishes unexpected constructor failures from configuration errors", () =>
     Effect.gen(function* () {
-      const failure = yield* ModelResolver.fromCatalogModel(model("@xccode/ai/providers/custom"), undefined, {
+      const failure = yield* ModelResolver.fromCatalogModel(model("@xiaochuan/ai/providers/custom"), undefined, {
         loadPackage: () =>
           Effect.succeed({
             model: () => {
@@ -1566,7 +1566,7 @@ describe("ModelResolver", () => {
 
   it.effect("reports package load and AISDK initialization failures with their causes", () =>
     Effect.gen(function* () {
-      const load = yield* ModelResolver.fromCatalogModel(model("@xccode/ai/providers/custom"), undefined, {
+      const load = yield* ModelResolver.fromCatalogModel(model("@xiaochuan/ai/providers/custom"), undefined, {
         loadPackage: (specifier) =>
           Effect.fail(
             new Provider.LoadError({ package: specifier, cause: new Error(`Provider package ${specifier} is broken`) }),
@@ -1575,7 +1575,7 @@ describe("ModelResolver", () => {
       expect(load).toMatchObject({
         _tag: "SessionRunnerModel.ModelInitializationError",
         phase: "load",
-        detail: "Provider package @xccode/ai/providers/custom is broken",
+        detail: "Provider package @xiaochuan/ai/providers/custom is broken",
       })
 
       const init = yield* ModelResolver.fromCatalogModel(model(Provider.aisdk("@ai-sdk/perplexity")), undefined, {
@@ -1621,9 +1621,9 @@ describe("ModelResolver", () => {
       const settings = { apiKey: "secret", timeout: 12_000, headerTimeout: 3_000, chunkTimeout: 4_000 }
       const providerID = Provider.ID.make("timed")
       const entries = [
-        model("@xccode/ai/providers/openai/images", { providerID, modelID: "gpt-image-2", settings }),
-        model("@xccode/ai/providers/xai/videos", { providerID, modelID: "grok-imagine-video-1.5", settings }),
-        model("@xccode/ai/providers/google/decisions", { providerID, modelID: "gemini-2.5-flash", settings }),
+        model("@xiaochuan/ai/providers/openai/images", { providerID, modelID: "gpt-image-2", settings }),
+        model("@xiaochuan/ai/providers/xai/videos", { providerID, modelID: "grok-imagine-video-1.5", settings }),
+        model("@xiaochuan/ai/providers/google/decisions", { providerID, modelID: "gemini-2.5-flash", settings }),
       ].map((entry, index) =>
         Info.make({
           ...entry,
@@ -1699,7 +1699,7 @@ describe("ModelResolver", () => {
   it.effect("reports whether a catalog model declares a provider package", () =>
     Effect.sync(() => {
       expect(ModelResolver.hasPackage(model(Provider.aisdk("@ai-sdk/openai")))).toBe(true)
-      expect(ModelResolver.hasPackage(model("@xccode/ai/providers/custom"))).toBe(true)
+      expect(ModelResolver.hasPackage(model("@xiaochuan/ai/providers/custom"))).toBe(true)
       expect(ModelResolver.hasPackage(model(undefined))).toBe(false)
     }),
   )

@@ -1,11 +1,11 @@
-import type { KeymapCommand } from "@xccode/plugin/tui/context"
-import type { XccodeClient } from "@xccode/client"
+import type { KeymapCommand } from "@xiaochuan/plugin/tui/context"
+import type { XiaochuanClient } from "@xiaochuan/client"
 import { measureEditText, type WidthMethod } from "@opentui/core"
 import path from "path"
 import { parseSlashHead } from "./parse"
 
 export async function directoryAutocomplete(
-  file: Pick<XccodeClient["file"], "list">,
+  file: Pick<XiaochuanClient["file"], "list">,
   location: { directory: string },
   query: string,
   home: string,

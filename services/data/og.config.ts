@@ -1,7 +1,7 @@
 import { defineConfig } from "cf/config"
 import { stage, stageAccount } from "./stage"
 
-export const ogWorkerName = (mode: string | undefined) => `xccode-data-og-${stage(mode)}`
+export const ogWorkerName = (mode: string | undefined) => `xiaochuan-data-og-${stage(mode)}`
 
 // The private Worker that renders the data pages' Open Graph images (packages/data/app/src/og/worker.ts). It has no
 // URL or route; the data Worker reaches it through its OG_WORKER Service Binding. It is its own Worker so the data

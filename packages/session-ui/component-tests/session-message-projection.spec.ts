@@ -403,7 +403,7 @@ story("marks pending metadata without badging delivered, starting, or queued pro
   await expect(indicator).toHaveText("Pending")
   await expect(indicator.locator("svg")).toHaveCount(0)
 
-  await expect(voice.locator("use")).toHaveAttribute("href", "#xccode-v2-icon-outline-wave-audio")
+  await expect(voice.locator("use")).toHaveAttribute("href", "#xiaochuan-v2-icon-outline-wave-audio")
   await expect(voice).toHaveCSS("width", "20px")
   await expect(voice).toHaveCSS("height", "20px")
   await expect(voice.locator('[data-slot="icon-svg"]')).toHaveCSS("width", "14px")
@@ -631,9 +631,9 @@ story("links URLs in user messages without swallowing punctuation or mentions", 
   await expect(links.nth(0)).toHaveAttribute("href", "https://github.com/Hona/mesh")
   await expect(links.nth(0)).toHaveAttribute("target", "_blank")
   await expect(links.nth(0)).toHaveCSS("cursor", "pointer")
-  await expect(links.nth(1)).toHaveText("https://xccode.ai/docs")
+  await expect(links.nth(1)).toHaveText("https://xiaochuan.ai/docs")
   await expect(timeline.getByText("@src/a.ts", { exact: true })).toBeVisible()
   await expect(timeline.locator('[data-slot="user-message-text"]')).toHaveText(
-    "set it up on this pc https://github.com/Hona/mesh, then compare @src/a.ts with (https://xccode.ai/docs).",
+    "set it up on this pc https://github.com/Hona/mesh, then compare @src/a.ts with (https://xiaochuan.ai/docs).",
   )
 })

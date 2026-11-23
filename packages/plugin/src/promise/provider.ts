@@ -1,7 +1,7 @@
-import type { ProviderApi } from "@xccode/client/promise/api"
-import type { Model } from "@xccode/schema/model"
-import type { Provider } from "@xccode/schema/provider"
-import type { ConnectionInfo } from "@xccode/client"
+import type { ProviderApi } from "@xiaochuan/client/promise/api"
+import type { Model } from "@xiaochuan/schema/model"
+import type { Provider } from "@xiaochuan/schema/provider"
+import type { ConnectionInfo } from "@xiaochuan/client"
 import type { Types } from "effect"
 import type { Transform } from "./registration.js"
 

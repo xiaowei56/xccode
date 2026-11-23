@@ -1,6 +1,6 @@
-import { Artifact } from "@xccode/schema/artifact"
-import { Location } from "@xccode/schema/location"
-import { Session } from "@xccode/schema/session"
+import { Artifact } from "@xiaochuan/schema/artifact"
+import { Location } from "@xiaochuan/schema/location"
+import { Session } from "@xiaochuan/schema/session"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiSchema, OpenApi } from "effect/http-api"
 import {

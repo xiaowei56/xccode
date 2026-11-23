@@ -18,7 +18,7 @@ export function mcpRoute(data: unknown[] = servers): Route {
 // A project config with comments and a server already in place, as people write them.
 export const commented = `{
   // Project config
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "mcp": {
     "servers": {
       /* keep me */

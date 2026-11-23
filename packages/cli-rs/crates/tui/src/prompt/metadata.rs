@@ -1,11 +1,11 @@
 //! Agent, model, variant, and usage labels below the prompt.
 
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     AgentInfo, ConfigEntry, ConfigEntryDocumentInfoModel, ModelInfo, ModelRef, ProviderID, ProviderInfo,
 };
-use xccode_store::location::{Catalog as Read, Location};
-use xccode_store::{Data, State, Task};
-use xccode_ui::theme::Theme;
+use xiaochuan_store::location::{Catalog as Read, Location};
+use xiaochuan_store::{Data, State, Task};
+use xiaochuan_ui::theme::Theme;
 use opentui::prelude::*;
 use unicode_width::UnicodeWidthStr;
 
@@ -276,8 +276,8 @@ mod tests {
 
     #[test]
     fn layout_drops_the_provider_before_it_truncates_the_model() {
-        let full = display("Claude Sonnet", "Xccode / Anthropic", Some("high"));
-        assert_eq!(layout(80, 100, &full).provider, "Xccode / Anthropic");
+        let full = display("Claude Sonnet", "Xiaochuan / Anthropic", Some("high"));
+        assert_eq!(layout(80, 100, &full).provider, "Xiaochuan / Anthropic");
         assert_eq!(layout(40, 100, &full).provider, "Anthropic");
         assert_eq!(layout(30, 100, &full).provider, "");
         let narrow = layout(18, 100, &full);
@@ -288,16 +288,16 @@ mod tests {
         assert!(layout(80, 100, &auto).auto);
         let tight = layout(flat(&auto).width() - 1, 100, &auto);
         assert!(!tight.auto);
-        assert_eq!(tight.provider, "Xccode / Anthropic");
+        assert_eq!(tight.provider, "Xiaochuan / Anthropic");
     }
 
     #[test]
     fn layout_keeps_the_limit_and_counts_it() {
         let full = Display {
             limit: Some(("$5 left".into(), false)),
-            ..display("Claude Sonnet", "Xccode / Anthropic", Some("high"))
+            ..display("Claude Sonnet", "Xiaochuan / Anthropic", Some("high"))
         };
-        assert_eq!(flat(&full), "Build · Claude Sonnet Xccode / Anthropic · high  $5 left");
+        assert_eq!(flat(&full), "Build · Claude Sonnet Xiaochuan / Anthropic · high  $5 left");
         // The provider goes before the limit does, and the model truncates around it.
         assert_eq!(layout(50, 100, &full).provider, "Anthropic");
         assert_eq!(layout(40, 100, &full).provider, "");

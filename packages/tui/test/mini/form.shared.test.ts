@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { FormField, FormInfo } from "@xccode/client/promise"
+import type { FormField, FormInfo } from "@xiaochuan/client/promise"
 import {
   createFormBodyState,
   formAcknowledge,

@@ -1,16 +1,16 @@
 ---
 title: "CLI commands"
-description: "Reference for the xccode command line."
+description: "Reference for the xiaochuan command line."
 ---
 
-Every command accepts `--help` for its full flag list, for example `xccode run --help`. Some server-backed commands accept `--standalone` to run a private server or `--server <url>` to target a specific one; check the command's help for its supported flags.
+Every command accepts `--help` for its full flag list, for example `xiaochuan run --help`. Some server-backed commands accept `--standalone` to run a private server or `--server <url>` to target a specific one; check the command's help for its supported flags.
 
 ## run
 
 Sends a message and prints the reply without opening the interactive interface.
 
 ```bash
-$ xccode run "Explain this repository"
+$ xiaochuan run "Explain this repository"
 ```
 
 ### CI
@@ -18,7 +18,7 @@ $ xccode run "Explain this repository"
 In CI, pass a provider API key as a secret and use standalone mode so the private server receives it. For example, this GitHub Actions job reviews the checked-out repository:
 
 ```yaml
-name: Xccode review
+name: Xiaochuan review
 on: [pull_request]
 
 jobs:
@@ -26,8 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm install --global @xccode/cli
-      - run: xccode run --standalone --model anthropic/claude-sonnet-5-5 "Review this repository for correctness and summarize any issues."
+      - run: npm install --global @xiaochuan/cli
+      - run: xiaochuan run --standalone --model anthropic/claude-sonnet-5-5 "Review this repository for correctness and summarize any issues."
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 ```
@@ -35,55 +35,55 @@ jobs:
 Choose a model.
 
 ```bash
-$ xccode run --model anthropic/claude-sonnet-5-5 "Refactor parseToken"
+$ xiaochuan run --model anthropic/claude-sonnet-5-5 "Refactor parseToken"
 ```
 
 Continue the last session.
 
 ```bash
-$ xccode run --continue "Now handle the expired case"
+$ xiaochuan run --continue "Now handle the expired case"
 ```
 
 Emit newline-delimited JSON for scripts.
 
 ```bash
-$ xccode run --format json "List the TODO comments"
+$ xiaochuan run --format json "List the TODO comments"
 ```
 
 Attach files to the message.
 
 ```bash
-$ xccode run --file src/server.ts --file src/client.ts "Review these for bugs"
+$ xiaochuan run --file src/server.ts --file src/client.ts "Review these for bugs"
 ```
 
 Run with a specific agent.
 
 ```bash
-$ xccode run --agent build "Fix the failing test"
+$ xiaochuan run --agent build "Fix the failing test"
 ```
 
 Continue a specific session.
 
 ```bash
-$ xccode run --session ses_4f2a1c "Check edge cases"
+$ xiaochuan run --session ses_4f2a1c "Check edge cases"
 ```
 
 Auto-approve permissions that are not explicitly denied.
 
 ```bash
-$ xccode run --auto "Fix the failing test"
+$ xiaochuan run --auto "Fix the failing test"
 ```
 
-Create the session archived so scripted or CI runs stay out of session lists and the inbox. The session still exists: `xccode session list` includes it, and you can open it by ID.
+Create the session archived so scripted or CI runs stay out of session lists and the inbox. The session still exists: `xiaochuan session list` includes it, and you can open it by ID.
 
 ```bash
-$ xccode run --archived "Review this diff"
+$ xiaochuan run --archived "Review this diff"
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode run --help
+$ xiaochuan run --help
 ```
 
 ## mini
@@ -91,31 +91,31 @@ $ xccode run --help
 Starts the minimal interactive interface instead of the full-screen TUI.
 
 ```bash
-$ xccode mini
+$ xiaochuan mini
 ```
 
 Continue the last session.
 
 ```bash
-$ xccode mini --continue
+$ xiaochuan mini --continue
 ```
 
 Start with a model and an initial prompt.
 
 ```bash
-$ xccode mini --model anthropic/claude-sonnet-5-5 --prompt "Summarize this repository"
+$ xiaochuan mini --model anthropic/claude-sonnet-5-5 --prompt "Summarize this repository"
 ```
 
 Continue a specific session.
 
 ```bash
-$ xccode mini --session ses_4f2a1c
+$ xiaochuan mini --session ses_4f2a1c
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode mini --help
+$ xiaochuan mini --help
 ```
 
 ## session
@@ -123,49 +123,49 @@ $ xccode mini --help
 Manages sessions.
 
 ```bash
-$ xccode session list
+$ xiaochuan session list
 ```
 
 Limit the list and print JSON.
 
 ```bash
-$ xccode session list --max-count 20 --format json
+$ xiaochuan session list --max-count 20 --format json
 ```
 
 Delete a session and its child sessions.
 
 ```bash
-$ xccode session delete ses_9c1b08
+$ xiaochuan session delete ses_9c1b08
 ```
 
 Export session data as JSON.
 
 ```bash
-$ xccode session export ses_4f2a1c
+$ xiaochuan session export ses_4f2a1c
 ```
 
 Redact sensitive transcript and file data when exporting.
 
 ```bash
-$ xccode session export ses_4f2a1c --sanitize
+$ xiaochuan session export ses_4f2a1c --sanitize
 ```
 
 Import session data from a JSON file or URL.
 
 ```bash
-$ xccode session import session.json
+$ xiaochuan session import session.json
 ```
 
 Import into a specific directory.
 
 ```bash
-$ xccode session import session.json --directory ~/code/project
+$ xiaochuan session import session.json --directory ~/code/project
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode session --help
+$ xiaochuan session --help
 ```
 
 ## auth
@@ -173,50 +173,50 @@ $ xccode session --help
 Manages AI providers and credentials.
 
 ```bash
-$ xccode auth list
+$ xiaochuan auth list
 ```
 
 List them as JSON.
 
 ```bash
-$ xccode auth list --format json
+$ xiaochuan auth list --format json
 ```
 
 Log in to a provider.
 
 ```bash
-$ xccode auth login anthropic
+$ xiaochuan auth login anthropic
 ```
 
 Log in with a specific authentication method.
 
 ```bash
-$ xccode auth login anthropic --method key
+$ xiaochuan auth login anthropic --method key
 ```
 
 Log out of a saved account.
 
 ```bash
-$ xccode auth logout anthropic work
+$ xiaochuan auth logout anthropic work
 ```
 
 Switch the active account for an integration.
 
 ```bash
-$ xccode auth switch anthropic work
+$ xiaochuan auth switch anthropic work
 ```
 
 Export saved credentials and import them on another machine. The file contains secrets.
 
 ```bash
-$ xccode auth export anthropic > credentials.json
-$ xccode auth import credentials.json
+$ xiaochuan auth export anthropic > credentials.json
+$ xiaochuan auth import credentials.json
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode auth --help
+$ xiaochuan auth --help
 ```
 
 ## models
@@ -224,13 +224,13 @@ $ xccode auth --help
 Lists every available model.
 
 ```bash
-$ xccode models
+$ xiaochuan models
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode models --help
+$ xiaochuan models --help
 ```
 
 ## mcp
@@ -238,49 +238,49 @@ $ xccode models --help
 Manages MCP (Model Context Protocol) servers.
 
 ```bash
-$ xccode mcp list
+$ xiaochuan mcp list
 ```
 
 Add a remote server.
 
 ```bash
-$ xccode mcp add context7 --url https://mcp.context7.com/mcp
+$ xiaochuan mcp add context7 --url https://mcp.context7.com/mcp
 ```
 
 Add a local server to the global config.
 
 ```bash
-$ xccode mcp add everything --global -- npx -y @modelcontextprotocol/server-everything
+$ xiaochuan mcp add everything --global -- npx -y @modelcontextprotocol/server-everything
 ```
 
 Add a local server with an environment variable.
 
 ```bash
-$ xccode mcp add everything --env LOG_LEVEL=debug -- npx -y @modelcontextprotocol/server-everything
+$ xiaochuan mcp add everything --env LOG_LEVEL=debug -- npx -y @modelcontextprotocol/server-everything
 ```
 
 Add a remote server with a header.
 
 ```bash
-$ xccode mcp add context7 --url https://mcp.context7.com/mcp --header CONTEXT7_API_KEY=secret
+$ xiaochuan mcp add context7 --url https://mcp.context7.com/mcp --header CONTEXT7_API_KEY=secret
 ```
 
 Authenticate with an OAuth-capable remote server.
 
 ```bash
-$ xccode mcp auth sentry
+$ xiaochuan mcp auth sentry
 ```
 
 Remove stored OAuth credentials for a server.
 
 ```bash
-$ xccode mcp logout sentry
+$ xiaochuan mcp logout sentry
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode mcp --help
+$ xiaochuan mcp --help
 ```
 
 ## plugin
@@ -288,43 +288,43 @@ $ xccode mcp --help
 Manages plugins.
 
 ```bash
-$ xccode plugin list
+$ xiaochuan plugin list
 ```
 
 Include built-in server plugins.
 
 ```bash
-$ xccode plugin list --builtin
+$ xiaochuan plugin list --builtin
 ```
 
 Install a plugin and add it to the global configuration.
 
 ```bash
-$ xccode plugin add @example/xccode-tui
+$ xiaochuan plugin add @example/xiaochuan-tui
 ```
 
 Check package plugins for updates.
 
 ```bash
-$ xccode plugin check
+$ xiaochuan plugin check
 ```
 
 Update package plugins.
 
 ```bash
-$ xccode plugin update
+$ xiaochuan plugin update
 ```
 
 Remove a plugin from global configuration.
 
 ```bash
-$ xccode plugin remove @example/xccode-tui
+$ xiaochuan plugin remove @example/xiaochuan-tui
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode plugin --help
+$ xiaochuan plugin --help
 ```
 
 ## stats
@@ -332,43 +332,43 @@ $ xccode plugin --help
 Shows shareable usage statistics.
 
 ```bash
-$ xccode stats
+$ xiaochuan stats
 ```
 
 Show the last 7 days.
 
 ```bash
-$ xccode stats --days 7
+$ xiaochuan stats --days 7
 ```
 
 Show model usage.
 
 ```bash
-$ xccode stats --models
+$ xiaochuan stats --models
 ```
 
 Show cost and token details.
 
 ```bash
-$ xccode stats --cost
+$ xiaochuan stats --cost
 ```
 
 Print JSON instead of a report.
 
 ```bash
-$ xccode stats --json
+$ xiaochuan stats --json
 ```
 
 Show only the current project.
 
 ```bash
-$ xccode stats --project .
+$ xiaochuan stats --project .
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode stats --help
+$ xiaochuan stats --help
 ```
 
 ## serve
@@ -376,25 +376,25 @@ $ xccode stats --help
 Starts the API and web server. See [Web](/cli/web).
 
 ```bash
-$ xccode serve
+$ xiaochuan serve
 ```
 
 Bind to all interfaces on a fixed port.
 
 ```bash
-$ xccode serve --hostname 0.0.0.0 --port 4096
+$ xiaochuan serve --hostname 0.0.0.0 --port 4096
 ```
 
 Allow a browser client from another origin.
 
 ```bash
-$ xccode serve --cors https://app.example.com
+$ xiaochuan serve --cors https://app.example.com
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode serve --help
+$ xiaochuan serve --help
 ```
 
 ## pair
@@ -403,13 +403,13 @@ Prints one-time links, plus a QR code of the first one, that sign a browser or
 app in to the server. Links expire after 5 minutes and work once.
 
 ```bash
-$ xccode pair
+$ xiaochuan pair
 ```
 
 Use an external URL in the links.
 
 ```bash
-$ xccode pair --url https://dev.example.com
+$ xiaochuan pair --url https://dev.example.com
 ```
 
 Pair from anywhere through an OpenTunnel remote address. This exposes the
@@ -417,19 +417,19 @@ server to the internet, so the first time it enables remote access it explains
 this and asks you to accept. See [Remote access](/cli/web#remote-access).
 
 ```bash
-$ xccode pair --remote
+$ xiaochuan pair --remote
 ```
 
 Accept without a prompt, for example in a script without a terminal.
 
 ```bash
-$ xccode pair --remote --yes
+$ xiaochuan pair --remote --yes
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode pair --help
+$ xiaochuan pair --help
 ```
 
 ## service
@@ -437,61 +437,61 @@ $ xccode pair --help
 Manages the background server. See [Web](/cli/web).
 
 ```bash
-$ xccode service start
+$ xiaochuan service start
 ```
 
 Restart it.
 
 ```bash
-$ xccode service restart
+$ xiaochuan service restart
 ```
 
 Show its status.
 
 ```bash
-$ xccode service status
+$ xiaochuan service status
 ```
 
 Stop it.
 
 ```bash
-$ xccode service stop
+$ xiaochuan service stop
 ```
 
 Read a setting.
 
 ```bash
-$ xccode service get hostname
+$ xiaochuan service get hostname
 ```
 
 Set a setting.
 
 ```bash
-$ xccode service set hostname 0.0.0.0
+$ xiaochuan service set hostname 0.0.0.0
 ```
 
 Allow an extra CORS origin.
 
 ```bash
-$ xccode service set cors https://app.example.com
+$ xiaochuan service set cors https://app.example.com
 ```
 
 Pass an environment variable to the server process.
 
 ```bash
-$ xccode service set env XCCODE_LOG_LEVEL DEBUG
+$ xiaochuan service set env XIAOCHUAN_LOG_LEVEL DEBUG
 ```
 
 Reset a setting to its default.
 
 ```bash
-$ xccode service unset hostname
+$ xiaochuan service unset hostname
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode service --help
+$ xiaochuan service --help
 ```
 
 ## reload
@@ -499,7 +499,7 @@ $ xccode service --help
 Reloads configuration without restarting the server. Running sessions continue with fresh services at the next step boundary.
 
 ```bash
-$ xccode reload
+$ xiaochuan reload
 ```
 
 ## api
@@ -507,31 +507,31 @@ $ xccode reload
 Makes a request to the running server.
 
 ```bash
-$ xccode api GET /api/session
+$ xiaochuan api GET /api/session
 ```
 
 Call an operation ID with a query parameter.
 
 ```bash
-$ xccode api session.list --param limit=10
+$ xiaochuan api session.list --param limit=10
 ```
 
 Send a JSON body.
 
 ```bash
-$ xccode api session.create --data '{"title": "New session"}'
+$ xiaochuan api session.create --data '{"title": "New session"}'
 ```
 
 Add a request header.
 
 ```bash
-$ xccode api GET /api/session -H "accept: application/json"
+$ xiaochuan api GET /api/session -H "accept: application/json"
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode api --help
+$ xiaochuan api --help
 ```
 
 ## acp
@@ -539,13 +539,13 @@ $ xccode api --help
 Starts an Agent Client Protocol server over stdin and stdout for editor integrations. It runs until the client closes the connection.
 
 ```bash
-$ xccode acp
+$ xiaochuan acp
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode acp --help
+$ xiaochuan acp --help
 ```
 
 ## debug
@@ -553,82 +553,82 @@ $ xccode acp --help
 Provides debugging and troubleshooting tools.
 
 ```bash
-$ xccode debug agents
+$ xiaochuan debug agents
 ```
 
 List configuration sources.
 
 ```bash
-$ xccode debug config
+$ xiaochuan debug config
 ```
 
 Write a heap snapshot of the running background server and print its path.
 
 ```bash
-$ xccode debug heap-dump
+$ xiaochuan debug heap-dump
 ```
 
 Write the snapshot into a directory of your choice.
 
 ```bash
-$ xccode debug heap-dump --directory ./snapshots
+$ xiaochuan debug heap-dump --directory ./snapshots
 ```
 
 Show global paths.
 
 ```bash
-$ xccode debug paths
+$ xiaochuan debug paths
 ```
 
 Print a single path.
 
 ```bash
-$ xccode debug paths db
+$ xiaochuan debug paths db
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode debug --help
+$ xiaochuan debug --help
 ```
 
 ## upgrade
 
-Upgrades Xccode to the latest or a specific version. Alias: `update`.
+Upgrades Xiaochuan to the latest or a specific version. Alias: `update`.
 
 ```bash
-$ xccode upgrade
+$ xiaochuan upgrade
 ```
 
 Upgrade to a specific version with a specific package manager.
 
 ```bash
-$ xccode upgrade 2.0.21 --method bun
+$ xiaochuan upgrade 2.0.21 --method bun
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode upgrade --help
+$ xiaochuan upgrade --help
 ```
 
 ## uninstall
 
-Stops background services, removes the global cache, and uninstalls Xccode. Session data, configuration, and
+Stops background services, removes the global cache, and uninstalls Xiaochuan. Session data, configuration, and
 state are not removed.
 
 ```bash
-$ xccode uninstall
+$ xiaochuan uninstall
 ```
 
 Preview what would be removed.
 
 ```bash
-$ xccode uninstall --dry-run
+$ xiaochuan uninstall --dry-run
 ```
 
 View all subcommands and flags.
 
 ```bash
-$ xccode uninstall --help
+$ xiaochuan uninstall --help
 ```

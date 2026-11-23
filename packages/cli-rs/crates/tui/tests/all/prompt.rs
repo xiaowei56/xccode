@@ -6,9 +6,9 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use xccode_api::generated::SessionID;
-use xccode_api::transport::{BoxFuture, Request, Response, Transport};
-use xccode_tui::{Deps, Route};
+use xiaochuan_api::generated::SessionID;
+use xiaochuan_api::transport::{BoxFuture, Request, Response, Transport};
+use xiaochuan_tui::{Deps, Route};
 use opentui::prelude::*;
 use serde_json::{Value, json};
 
@@ -124,38 +124,38 @@ pub(crate) struct Setup {
     seen: Seen,
     catalog: Arc<AtomicBool>,
     reject: Arc<AtomicBool>,
-    _home: xccode_util::temp::TempDir,
+    _home: xiaochuan_util::temp::TempDir,
 }
 
 deref_harness!(Setup);
 
 impl Setup {
     pub(crate) fn new(route: Route) -> Self {
-        let home = xccode_util::temp::tempdir().unwrap();
+        let home = xiaochuan_util::temp::tempdir().unwrap();
         Self::with_home(route, home)
     }
 
     /// The agent and model reads wait for `catalog` to be set.
     fn held(route: Route) -> Self {
-        Self::build(route, xccode_util::temp::tempdir().unwrap(), false)
+        Self::build(route, xiaochuan_util::temp::tempdir().unwrap(), false)
     }
 
-    fn with_home(route: Route, home: xccode_util::temp::TempDir) -> Self {
+    fn with_home(route: Route, home: xiaochuan_util::temp::TempDir) -> Self {
         Self::build(route, home, true)
     }
 
     pub(crate) fn serving(route: Route, reads: Vec<(&str, Value)>, width: u16) -> Self {
         let reads = reads.into_iter().map(|(path, value)| (path.to_owned(), value)).collect();
-        Self::build_with(route, xccode_util::temp::tempdir().unwrap(), true, reads, width)
+        Self::build_with(route, xiaochuan_util::temp::tempdir().unwrap(), true, reads, width)
     }
 
-    fn build(route: Route, home: xccode_util::temp::TempDir, catalog: bool) -> Self {
+    fn build(route: Route, home: xiaochuan_util::temp::TempDir, catalog: bool) -> Self {
         Self::build_with(route, home, catalog, Vec::new(), 90)
     }
 
     fn build_with(
         route: Route,
-        home: xccode_util::temp::TempDir,
+        home: xiaochuan_util::temp::TempDir,
         catalog: bool,
         reads: Vec<(String, Value)>,
         width: u16,
@@ -443,7 +443,7 @@ fn drafts_survive_route_changes() {
 fn escape_twice_interrupts_a_running_session() {
     let setup = Setup::new(session_route());
     setup.ready();
-    setup.tui.data.set_status(&SessionID("ses_a".into()), xccode_store::SessionStatus::Running);
+    setup.tui.data.set_status(&SessionID("ses_a".into()), xiaochuan_store::SessionStatus::Running);
     setup.wait_for("esc interrupt");
     setup.app.press("escape");
     setup.wait_for("esc again to interrupt");
@@ -607,7 +607,7 @@ fn history_file_is_shared_with_typescript() {
     let typescript = std::fs::read_to_string(state.join("prompt-history.jsonl")).unwrap();
     assert_eq!(typescript, format!("{rust}{}\n", entry));
 
-    let home = xccode_util::temp::TempDir::new().unwrap();
+    let home = xiaochuan_util::temp::TempDir::new().unwrap();
     std::fs::create_dir_all(home.path().join("state")).unwrap();
     std::fs::copy(state.join("prompt-history.jsonl"), home.path().join("state/prompt-history.jsonl")).unwrap();
     let again = Setup::with_home(session_route(), home);

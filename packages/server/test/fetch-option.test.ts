@@ -1,7 +1,7 @@
 import { expect } from "bun:test"
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { Mcp } from "@xccode/core/mcp/index"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { Mcp } from "@xiaochuan/core/mcp/index"
 import { Context, Effect, Layer } from "effect"
 import { HttpEffect, HttpRouter, HttpServer } from "effect/http"
 import { echoMcpHandler } from "../../core/test/fixture/mcp-echo"
@@ -16,7 +16,7 @@ const mcpServer = "https://mcp.invalid/mcp"
 
 it.live("sends Console config and remote MCP requests through the embedder's fetch", () =>
   Effect.gen(function* () {
-    const tmp = yield* tmpdirScoped("xccode-fetch-option-")
+    const tmp = yield* tmpdirScoped("xiaochuan-fetch-option-")
     const requested: string[] = []
     const methods: string[] = []
     const mcp = echoMcpHandler()
@@ -51,13 +51,13 @@ it.live("sends Console config and remote MCP requests through the embedder's fet
       .pipe(HttpEffect.toWebHandlerWith(context))
     const request = (method: "GET" | "POST", route: string, body?: unknown) =>
       Effect.promise(async (signal) => {
-        const url = new URL(route, "http://xccode.local")
+        const url = new URL(route, "http://xiaochuan.local")
         url.searchParams.set("location[directory]", tmp.path)
         const response = await handler(
           new Request(url, {
             method,
             headers: {
-              authorization: `Basic ${btoa("xccode:secret")}`,
+              authorization: `Basic ${btoa("xiaochuan:secret")}`,
               ...(body === undefined ? {} : { "content-type": "application/json" }),
             },
             body: body === undefined ? undefined : JSON.stringify(body),
@@ -78,7 +78,7 @@ it.live("sends Console config and remote MCP requests through the embedder's fet
 
     expect(
       yield* request("POST", "/api/credential", {
-        integrationID: "xccode",
+        integrationID: "xiaochuan",
         value: { type: "key", key: "secret", metadata: { server: consoleServer } },
       }),
     ).toBe(200)

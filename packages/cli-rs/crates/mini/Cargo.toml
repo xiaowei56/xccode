@@ -1,5 +1,5 @@
 [package]
-name = "xccode-mini"
+name = "xiaochuan-mini"
 description = "mini: the split-footer interface (M.1 to M.4)."
 version.workspace = true
 edition.workspace = true
@@ -11,11 +11,11 @@ workspace = true
 
 [dependencies]
 opentui.workspace = true
-xccode-api.workspace = true
-xccode-ui.workspace = true
-xccode-store.workspace = true
-xccode-local.workspace = true
-xccode-util.workspace = true
+xiaochuan-api.workspace = true
+xiaochuan-ui.workspace = true
+xiaochuan-store.workspace = true
+xiaochuan-local.workspace = true
+xiaochuan-util.workspace = true
 futures-util.workspace = true
 indexmap.workspace = true
 log.workspace = true

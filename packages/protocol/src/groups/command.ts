@@ -1,5 +1,5 @@
-import { Command } from "@xccode/schema/command"
-import { Location } from "@xccode/schema/location"
+import { Command } from "@xiaochuan/schema/command"
+import { Location } from "@xiaochuan/schema/location"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { LocationQuery, locationQueryOpenApi } from "./location.js"

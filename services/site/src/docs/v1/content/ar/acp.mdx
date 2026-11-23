@@ -1,9 +1,9 @@
 ---
 title: دعم ACP
-description: استخدم Xccode في أي محرر متوافق مع ACP.
+description: استخدم Xiaochuan في أي محرر متوافق مع ACP.
 ---
 
-يدعم Xccode بروتوكول [Agent Client Protocol](https://agentclientprotocol.com) أو (ACP)، مما يتيح لك استخدامه مباشرة في المحررات وبيئات التطوير المتكاملة (IDEs) المتوافقة.
+يدعم Xiaochuan بروتوكول [Agent Client Protocol](https://agentclientprotocol.com) أو (ACP)، مما يتيح لك استخدامه مباشرة في المحررات وبيئات التطوير المتكاملة (IDEs) المتوافقة.
 
 :::tip
 للاطلاع على قائمة بالمحررات والأدوات التي تدعم ACP، راجع [ACP progress report](https://zed.dev/blog/acp-progress-report#available-now).
@@ -15,9 +15,9 @@ ACP بروتوكول مفتوح يوحّد آلية التواصل بين محر
 
 ## الإعداد
 
-لاستخدام Xccode عبر ACP، اضبط محررك ليشغّل الأمر `xccode acp`.
+لاستخدام Xiaochuan عبر ACP، اضبط محررك ليشغّل الأمر `xiaochuan acp`.
 
-يشغّل هذا الأمر Xccode كعملية فرعية متوافقة مع ACP تتواصل مع محررك عبر JSON-RPC باستخدام stdio.
+يشغّل هذا الأمر Xiaochuan كعملية فرعية متوافقة مع ACP تتواصل مع محررك عبر JSON-RPC باستخدام stdio.
 
 فيما يلي أمثلة لمحررات شائعة تدعم ACP.
 
@@ -25,16 +25,16 @@ ACP بروتوكول مفتوح يوحّد آلية التواصل بين محر
 
 ### Zed
 
-ثبّت Xccode من [سجل ACP في Zed](https://zed.dev/docs/ai/external-agents#registry) عبر تشغيل `zed: acp registry` من لوحة الأوامر.
+ثبّت Xiaochuan من [سجل ACP في Zed](https://zed.dev/docs/ai/external-agents#registry) عبر تشغيل `zed: acp registry` من لوحة الأوامر.
 
-لاستخدام ملف Xccode تنفيذي مخصص بدلاً من ذلك، أضفه إلى إعدادات [Zed](https://zed.dev) (`~/.config/zed/settings.json`):
+لاستخدام ملف Xiaochuan تنفيذي مخصص بدلاً من ذلك، أضفه إلى إعدادات [Zed](https://zed.dev) (`~/.config/zed/settings.json`):
 
 ```json title="~/.config/zed/settings.json"
 {
   "agent_servers": {
-    "Xccode": {
+    "Xiaochuan": {
       "type": "custom",
-      "command": "xccode",
+      "command": "xiaochuan",
       "args": ["acp"]
     }
   }
@@ -54,9 +54,9 @@ ACP بروتوكول مفتوح يوحّد آلية التواصل بين محر
         {
           "agent": {
             "custom": {
-              "name": "Xccode",
+              "name": "Xiaochuan",
               "command": {
-                "command": "xccode",
+                "command": "xiaochuan",
                 "args": ["acp"]
               }
             }
@@ -77,15 +77,15 @@ ACP بروتوكول مفتوح يوحّد آلية التواصل بين محر
 ```json title="acp.json"
 {
   "agent_servers": {
-    "Xccode": {
-      "command": "/absolute/path/bin/xccode",
+    "Xiaochuan": {
+      "command": "/absolute/path/bin/xiaochuan",
       "args": ["acp"]
     }
   }
 }
 ```
 
-لفتحه، اختر الوكيل الجديد 'Xccode' من محدد الوكلاء في AI Chat.
+لفتحه، اختر الوكيل الجديد 'Xiaochuan' من محدد الوكلاء في AI Chat.
 
 ---
 
@@ -96,8 +96,8 @@ ACP بروتوكول مفتوح يوحّد آلية التواصل بين محر
 ```lua
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" }
     }
   }
@@ -109,11 +109,11 @@ ACP بروتوكول مفتوح يوحّد آلية التواصل بين محر
 ```lua {6-8}
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" },
       env = {
-        XCCODE_API_KEY = os.getenv("XCCODE_API_KEY")
+        XIAOCHUAN_API_KEY = os.getenv("XIAOCHUAN_API_KEY")
       }
     }
   }
@@ -124,14 +124,14 @@ ACP بروتوكول مفتوح يوحّد آلية التواصل بين محر
 
 ### CodeCompanion.nvim
 
-لاستخدام Xccode كوكيل ACP في [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim)، أضف التالي إلى إعدادات Neovim:
+لاستخدام Xiaochuan كوكيل ACP في [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim)، أضف التالي إلى إعدادات Neovim:
 
 ```lua
 require("codecompanion").setup({
   interactions = {
     chat = {
       adapter = {
-        name = "xccode",
+        name = "xiaochuan",
         model = "claude-sonnet-5-5",
       },
     },
@@ -139,13 +139,13 @@ require("codecompanion").setup({
 })
 ```
 
-يضبط هذا الإعداد CodeCompanion لاستخدام Xccode كوكيل ACP للدردشة.
+يضبط هذا الإعداد CodeCompanion لاستخدام Xiaochuan كوكيل ACP للدردشة.
 
-إذا احتجت إلى تمرير متغيرات البيئة (مثل `XCCODE_API_KEY`)، فارجع إلى [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) ضمن توثيق CodeCompanion.nvim للاطلاع على التفاصيل كاملة.
+إذا احتجت إلى تمرير متغيرات البيئة (مثل `XIAOCHUAN_API_KEY`)، فارجع إلى [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) ضمن توثيق CodeCompanion.nvim للاطلاع على التفاصيل كاملة.
 
 ## الدعم
 
-يعمل Xccode عبر ACP بالطريقة نفسها التي يعمل بها في terminal. جميع الميزات مدعومة:
+يعمل Xiaochuan عبر ACP بالطريقة نفسها التي يعمل بها في terminal. جميع الميزات مدعومة:
 
 :::note
 بعض أوامر الشرطة المائلة المضمنة مثل `/undo` و`/redo` غير مدعومة حاليا.
@@ -153,7 +153,7 @@ require("codecompanion").setup({
 
 - الأدوات المضمنة (عمليات الملفات، أوامر terminal، إلخ.)
 - الأدوات المخصصة وأوامر الشرطة المائلة
-- خوادم MCP المضبوطة في إعدادات Xccode
+- خوادم MCP المضبوطة في إعدادات Xiaochuan
 - قواعد خاصة بالمشروع من `AGENTS.md`
 - المنسقات (formatters) والمدققات (linters) المخصصة
 - نظام الوكلاء والأذونات

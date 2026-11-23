@@ -1,6 +1,6 @@
 import { NodeRuntime } from "@effect/platform-node"
-import { CrossSpawnSpawner } from "@xccode/util/cross-spawn-spawner"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { CrossSpawnSpawner } from "@xiaochuan/util/cross-spawn-spawner"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { Context, Effect, Layer } from "effect"
 import { ChildProcess } from "effect/process"
 import { ShutdownDeadline } from "../../src/shutdown-deadline"

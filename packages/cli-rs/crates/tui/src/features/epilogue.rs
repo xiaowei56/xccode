@@ -34,14 +34,14 @@ pub fn text(tui: &Tui) -> Option<String> {
                     .filter(|title| !title.is_empty())
                     .unwrap_or_else(|| crate::features::session_links::display_label(None, child))
             });
-            Some((xccode_ui::select::truncate(&title, 50), id))
+            Some((xiaochuan_ui::select::truncate(&title, 50), id))
         }
         _ => None,
     };
     let session = session.as_ref().map(|(title, id)| (title.as_str(), id.0.as_str()));
     let updated = tui.epilogue.updated_version.borrow().clone();
     // Use this client's executable name so the hint reopens it.
-    let cli_name = std::env::var("XCCODE_CLI_NAME").unwrap_or_else(|_| "xccode-native".to_owned());
+    let cli_name = std::env::var("XIAOCHUAN_CLI_NAME").unwrap_or_else(|_| "xiaochuan-native".to_owned());
     render(session, updated.as_deref(), &cli_name)
 }
 
@@ -75,7 +75,7 @@ impl Console for Stdout {
     fn escapes_on(&mut self) {
         #[cfg(windows)]
         {
-            use xccode_util::win;
+            use xiaochuan_util::win;
             self.saved = win::console_mode(std::io::stdout());
             if let Some(mode) = self.saved {
                 let _ = win::set_console_mode(std::io::stdout(), win::vt_output_mode(mode));
@@ -86,7 +86,7 @@ impl Console for Stdout {
     fn restore(&mut self) {
         #[cfg(windows)]
         if let Some(mode) = self.saved.take() {
-            let _ = xccode_util::win::set_console_mode(std::io::stdout(), mode);
+            let _ = xiaochuan_util::win::set_console_mode(std::io::stdout(), mode);
         }
     }
 }
@@ -103,7 +103,7 @@ fn render(session: Option<(&str, &str)>, updated: Option<&str>, cli: &str) -> Op
         lines.push(String::new());
     }
     if let Some((title, id)) = session {
-        lines.push(row("Session", &xccode_ui::terminal_text(title)));
+        lines.push(row("Session", &xiaochuan_ui::terminal_text(title)));
         lines.push(row("Continue", &format!("{cli} -s {id}")));
         lines.push(String::new());
     }
@@ -139,7 +139,7 @@ mod tests {
 
     #[test]
     fn the_session_title_cannot_write_escape_sequences() {
-        let text = render(Some(("x\x1b]52;c;cHduZWQ=\x07y\u{9b}", "ses_b")), None, "xccode").unwrap();
+        let text = render(Some(("x\x1b]52;c;cHduZWQ=\x07y\u{9b}", "ses_b")), None, "xiaochuan").unwrap();
         assert!(text.contains("\x1b[1mxy\x1b[0m"), "{text:?}");
     }
 

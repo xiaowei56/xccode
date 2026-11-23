@@ -1,28 +1,28 @@
 import "@pierre/trees/web-components"
 import { FileTree } from "@pierre/trees"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@xccode/ui/dialog"
-import { Button } from "@xccode/ui/button"
-import { Divider } from "@xccode/ui/divider"
-import { Icon } from "@xccode/ui/icon"
-import { Menu } from "@xccode/ui/menu"
-import { MenuScroll } from "@xccode/ui/menu-scroll"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@xiaochuan/ui/dialog"
+import { Button } from "@xiaochuan/ui/button"
+import { Divider } from "@xiaochuan/ui/divider"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Menu } from "@xiaochuan/ui/menu"
+import { MenuScroll } from "@xiaochuan/ui/menu-scroll"
 import {
   displayName,
   getProjectAvatarGenerated,
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@xccode/ui/project-avatar"
-import { TextInput } from "@xccode/ui/text-input"
-import { Tooltip } from "@xccode/ui/tooltip"
-import { useDialog } from "@xccode/ui/context/dialog"
+} from "@xiaochuan/ui/project-avatar"
+import { TextInput } from "@xiaochuan/ui/text-input"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
 import { createEffect, createMemo, createSignal, For, on, onCleanup, onMount, Show, untrack } from "solid-js"
 import { useServer } from "@/runtime/server/current"
 import { inferHomeDirectory } from "@/runtime/server/global-sync/bootstrap"
 import { useLanguage } from "@/runtime/i18n/language"
 import { ServerConnection, serverName, useServers } from "@/runtime/server/registry"
 import { pathKey } from "@/workspaces/path-key"
-import type { LocationRef } from "@xccode/client/promise"
+import type { LocationRef } from "@xiaochuan/client/promise"
 import {
   absoluteTreePath,
   canonicalPickerPath,

@@ -8,12 +8,12 @@ import { route, type Locale } from "../lib/language"
 export type HeaderLink = { href: string; label: string }
 
 export const githubLink = {
-  href: "https://github.com/xiaowei56/xccode",
-  apiHref: "https://api.github.com/repos/xiaowei56/xccode",
+  href: "https://github.com/xiaowei56/xiaochuan",
+  apiHref: "https://api.github.com/repos/xiaowei56/xiaochuan",
   fallbackStars: "220K",
 }
 export const themePreferences = ["dark", "light", "system"] as const
-export const themeStorageKey = "xccode:stats-theme"
+export const themeStorageKey = "xiaochuan:stats-theme"
 export type ThemePreference = (typeof themePreferences)[number]
 
 const compactNumberFormatter = new Intl.NumberFormat("en", {
@@ -28,7 +28,7 @@ export const getGitHubStars = query(async () => {
     headers: {
       Accept: "application/vnd.github+json",
       "X-GitHub-Api-Version": "2022-11-28",
-      "User-Agent": "xccode-stats",
+      "User-Agent": "xiaochuan-stats",
     },
   })
     .then((response) => (response.ok ? response.json() : undefined))
@@ -125,11 +125,11 @@ export function Header(props: { githubStars: string; links?: readonly HeaderLink
           <a
             data-slot="header-button"
             data-variant="contrast"
-            href="https://xccode.ai/"
-            aria-label={i18n.t("header.tryXccode")}
+            href="https://xiaochuan.ai/"
+            aria-label={i18n.t("header.tryXiaochuan")}
           >
-            <strong data-slot="label">{i18n.t("header.tryXccode")}</strong>
-            <strong data-slot="label-short">{i18n.t("header.tryXccodeShort")}</strong>
+            <strong data-slot="label">{i18n.t("header.tryXiaochuan")}</strong>
+            <strong data-slot="label-short">{i18n.t("header.tryXiaochuanShort")}</strong>
           </a>
           <a
             data-slot="github-mark"
@@ -173,9 +173,9 @@ export function Header(props: { githubStars: string; links?: readonly HeaderLink
   )
 }
 
-function XccodeMark() {
+function XiaochuanMark() {
   return (
-    <svg data-slot="xccode-mark" width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+    <svg data-slot="xiaochuan-mark" width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
       <path d="M40 40H0V0H40V40Z" fill="var(--stats-logo-bg)" />
       <path d="M26 29H14V17H26V29Z" fill="var(--stats-logo-fill)" />
       <path d="M26 11H14V29H26V11ZM32 35H8V5H32V35Z" fill="var(--stats-logo-stroke)" />
@@ -203,13 +203,13 @@ export function Footer(props: {
     { href: "#methodology", label: i18n.t("methodology.title") },
   ]
   const legal = [
-    { href: "https://xccode.ai/legal/terms-of-service", label: i18n.t("footer.terms") },
-    { href: "https://xccode.ai/legal/privacy-policy", label: i18n.t("footer.privacy") },
+    { href: "https://xiaochuan.ai/legal/terms-of-service", label: i18n.t("footer.terms") },
+    { href: "https://xiaochuan.ai/legal/privacy-policy", label: i18n.t("footer.privacy") },
   ]
   const connect = [
-    { href: "mailto:hello@xccode.ai", label: i18n.t("footer.contact") },
-    { href: "https://xccode.ai/discord", label: i18n.t("footer.community") },
-    { href: "https://x.com/xccode", label: "X" },
+    { href: "mailto:hello@xiaochuan.ai", label: i18n.t("footer.contact") },
+    { href: "https://xiaochuan.ai/discord", label: i18n.t("footer.community") },
+    { href: "https://x.com/xiaochuan", label: "X" },
     { href: githubLink.href, label: i18n.t("header.github") },
     { href: "https://www.youtube.com/@anomalyco", label: i18n.t("footer.youtube") },
   ]
@@ -222,8 +222,8 @@ export function Footer(props: {
     <footer data-component="footer">
       <Show when={bridge()}>{(link) => <SectionBridge label={link().label} href={link().href} />}</Show>
       <div data-slot="footer-grid">
-        <a data-slot="footer-mark" href="https://xccode.ai" aria-label={i18n.t("footer.homeAria")}>
-          <XccodeMark />
+        <a data-slot="footer-mark" href="https://xiaochuan.ai" aria-label={i18n.t("footer.homeAria")}>
+          <XiaochuanMark />
         </a>
         <FooterColumn title={i18n.t("footer.modelData")} links={modelStats} localHref={localHref} />
         <FooterColumn title={i18n.t("footer.legal")} links={legal} localHref={localHref} />

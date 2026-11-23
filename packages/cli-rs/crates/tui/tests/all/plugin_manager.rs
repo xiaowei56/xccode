@@ -5,10 +5,10 @@ use std::collections::BTreeSet;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_plugin::abi::{self, Command};
-use xccode_tui::plugins::host::host;
-use xccode_tui::plugins::manager::ID;
-use xccode_tui::{Deps, Route};
+use xiaochuan_plugin::abi::{self, Command};
+use xiaochuan_tui::plugins::host::host;
+use xiaochuan_tui::plugins::manager::ID;
+use xiaochuan_tui::{Deps, Route};
 
 use crate::support::{self, Fake, Harness, Log};
 
@@ -17,7 +17,7 @@ fn open(plugins: &[&str]) -> (Harness, Log) {
 }
 
 /// Home with `config` beside `animations: false` and the built-ins with `extra`.
-fn open_with(config: serde_json::Value, extra: Vec<xccode_plugin::Builtin>) -> (Harness, Log) {
+fn open_with(config: serde_json::Value, extra: Vec<xiaochuan_plugin::Builtin>) -> (Harness, Log) {
     let fake = Fake::new(|seen| match seen.path.as_str() {
         "/api/plugin" => (200, serde_json::json!({ "location": support::location("/tmp/app"), "data": [] })),
         _ => support::base(seen, "/tmp/app"),
@@ -83,10 +83,10 @@ fn a_disabled_manager_holds_nothing_and_matches_one_never_enabled() {
     // from once it is in (preview 44324450162, Windows).
     harness.wait("the list's read", || reads(&log) > before);
     let (with, read) = (commands(&harness), reads(&log));
-    assert!(with.contains("plugins.list") && with.contains("xccode.plugins.check"), "{with:?}");
+    assert!(with.contains("plugins.list") && with.contains("xiaochuan.plugins.check"), "{with:?}");
     toggle(&harness, ID, false);
     assert!(!harness.tui.dialogs.is_open(), "the manager's list stayed:\n{}", screen(&harness));
-    let (twin, _) = open(&["-xccode.plugins"]);
+    let (twin, _) = open(&["-xiaochuan.plugins"]);
     assert_eq!(commands(&harness), commands(&twin));
     assert_eq!(screen(&harness), screen(&twin));
     harness.tui.plugins.tell_plugins();
@@ -103,19 +103,19 @@ fn a_disabled_manager_holds_nothing_and_matches_one_never_enabled() {
 /// opened.
 #[test]
 fn a_native_library_is_listed_as_skipped() {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let library = root.path().join(format!("probe.{}", std::env::consts::DLL_EXTENSION));
     std::fs::write(&library, b"never opened").unwrap();
     let target = library.to_string_lossy().into_owned();
     let (harness, _) = open(&[&target]);
-    let external = xccode_tui::plugins::host::External {
+    let external = xiaochuan_tui::plugins::host::External {
         config_dir: root.path().join("config"),
         cwd: root.path().to_path_buf(),
     };
-    xccode_tui::plugins::host::external(&harness.tui, external);
+    xiaochuan_tui::plugins::host::external(&harness.tui, external);
     settle(&harness);
     let entry = harness.tui.plugins.entries().into_iter().find(|entry| entry.target.as_deref() == Some(&*target));
-    let skipped = xccode_plugin::Status::Skipped(xccode_plugin::SKIPPED_NATIVE.to_owned());
+    let skipped = xiaochuan_plugin::Status::Skipped(xiaochuan_plugin::SKIPPED_NATIVE.to_owned());
     assert_eq!(entry.map(|entry| entry.status), Some(skipped));
     let toast = harness.wait_for("1 plugin not loaded");
     assert!(!toast.contains("TypeScript"), "{toast}");
@@ -136,7 +136,7 @@ fn the_manager_shows_the_plugins_only_while_its_list_shows() {
     harness.wait_for("skipped, local");
     harness.wait("the manager's read", || reads(&log) == read + 1);
     assert!(!harness.app.text().contains("check for updates"), "{}", harness.app.text());
-    xccode_tui::plugins::host::add(&harness.tui, watcher().into());
+    xiaochuan_tui::plugins::host::add(&harness.tui, watcher().into());
     harness.wait_for("test.watch");
     harness.app.press("enter");
     harness.wait_for("TUI plugin error");
@@ -194,12 +194,12 @@ fn registry(harness: &Harness) -> Vec<String> {
         .iter()
         .map(|entry| {
             let status = match entry.status {
-                xccode_plugin::Status::Active => abi::PluginStatus::Active,
-                xccode_plugin::Status::Inactive => abi::PluginStatus::Inactive,
-                xccode_plugin::Status::Skipped(_) => abi::PluginStatus::Skipped,
-                xccode_plugin::Status::Failed(_) => abi::PluginStatus::Failed,
-                xccode_plugin::Status::Pending => abi::PluginStatus::Pending,
-                xccode_plugin::Status::Declined => abi::PluginStatus::Declined,
+                xiaochuan_plugin::Status::Active => abi::PluginStatus::Active,
+                xiaochuan_plugin::Status::Inactive => abi::PluginStatus::Inactive,
+                xiaochuan_plugin::Status::Skipped(_) => abi::PluginStatus::Skipped,
+                xiaochuan_plugin::Status::Failed(_) => abi::PluginStatus::Failed,
+                xiaochuan_plugin::Status::Pending => abi::PluginStatus::Pending,
+                xiaochuan_plugin::Status::Declined => abi::PluginStatus::Declined,
             };
             format!("{} {status:?} {}{}", entry.id, entry.active, slow(entry.slow.is_some()))
         })
@@ -210,7 +210,7 @@ fn registry(harness: &Harness) -> Vec<String> {
 fn a_plugin_hears_each_change_of_the_plugin_list_once() {
     for seed in 0..6u32 {
         let (harness, _) = open(&[]);
-        xccode_tui::plugins::host::add(&harness.tui, watcher().into());
+        xiaochuan_tui::plugins::host::add(&harness.tui, watcher().into());
         settle(&harness);
         HEARD.take();
         let (mut n, mut added, mut expected) = (seed, false, Vec::new());
@@ -222,7 +222,7 @@ fn a_plugin_hears_each_change_of_the_plugin_list_once() {
                 0 => {
                     harness.dispatch("plugins.list");
                     harness.wait_for("show internal");
-                    harness.app.type_text("xccode.home.footer");
+                    harness.app.type_text("xiaochuan.home.footer");
                     harness.app.press("ctrl+a");
                     harness.wait_for("hide internal");
                     harness.app.press("enter");
@@ -230,12 +230,12 @@ fn a_plugin_hears_each_change_of_the_plugin_list_once() {
                     harness.app.press("escape");
                 }
                 1 => {
-                    let active = harness.tui.plugins.entries().iter().any(|e| e.id == "xccode.stats" && e.active);
-                    toggle(&harness, "xccode.stats", !active);
+                    let active = harness.tui.plugins.entries().iter().any(|e| e.id == "xiaochuan.stats" && e.active);
+                    toggle(&harness, "xiaochuan.stats", !active);
                 }
                 2 if !added => {
                     added = true;
-                    xccode_tui::plugins::host::add(&harness.tui, boom().into());
+                    xiaochuan_tui::plugins::host::add(&harness.tui, boom().into());
                 }
                 2 | 3 => harness.dispatch("boom.boom"),
                 4 => {
@@ -244,9 +244,9 @@ fn a_plugin_hears_each_change_of_the_plugin_list_once() {
                     harness.app.press("escape");
                 }
                 _ => {
-                    xccode_tui::plugins::host::tell_plugins(&harness.tui);
+                    xiaochuan_tui::plugins::host::tell_plugins(&harness.tui);
                     settle(&harness);
-                    xccode_tui::plugins::host::tell_plugins(&harness.tui);
+                    xiaochuan_tui::plugins::host::tell_plugins(&harness.tui);
                 }
             }
             settle(&harness);
@@ -265,7 +265,7 @@ thread_local! {
     static SHADOW_FAILS: Cell<bool> = const { Cell::new(false) };
 }
 
-fn status_of(harness: &Harness, key: &str) -> Option<(xccode_plugin::Status, bool)> {
+fn status_of(harness: &Harness, key: &str) -> Option<(xiaochuan_plugin::Status, bool)> {
     let entries = harness.tui.plugins.entries();
     entries.into_iter().find(|entry| entry.key == key).map(|entry| (entry.status, entry.active))
 }
@@ -277,15 +277,15 @@ thread_local! {
 /// A transport that holds each read of the server plugins at `/tmp/other`, where the manager opens, until the test answers
 /// it, and sends the rest to `inner`, the host's own reads of its default location included.
 struct Gated {
-    inner: xccode_api::memory::Memory,
-    held: std::sync::Mutex<Vec<tokio::sync::oneshot::Sender<xccode_api::transport::Response>>>,
+    inner: xiaochuan_api::memory::Memory,
+    held: std::sync::Mutex<Vec<tokio::sync::oneshot::Sender<xiaochuan_api::transport::Response>>>,
 }
 
-impl xccode_api::transport::Transport for Gated {
+impl xiaochuan_api::transport::Transport for Gated {
     fn send(
         &self,
-        request: xccode_api::transport::Request,
-    ) -> xccode_api::transport::BoxFuture<'_, Result<xccode_api::transport::Response, String>> {
+        request: xiaochuan_api::transport::Request,
+    ) -> xiaochuan_api::transport::BoxFuture<'_, Result<xiaochuan_api::transport::Response, String>> {
         let other = request.url.query().is_some_and(|query| query.contains("%2Ftmp%2Fother"));
         if request.method != "GET" || request.url.path() != "/api/plugin" || !other {
             return self.inner.send(request);
@@ -315,7 +315,7 @@ impl Gated {
 
 #[test]
 fn the_newest_server_list_shows_whatever_order_the_replies_come_in() {
-    use xccode_api::memory::{Memory, Route as MemoryRoute};
+    use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
     let memory = Memory::new(vec![
         MemoryRoute::json("GET", "/api/location", 200, &support::location("/tmp/app")),
         MemoryRoute::json("GET", "/api/session", 200, &serde_json::json!({ "data": [], "cursor": {} })),
@@ -323,7 +323,7 @@ fn the_newest_server_list_shows_whatever_order_the_replies_come_in() {
     let gated = Arc::new(Gated { inner: memory.clone(), held: Default::default() });
     let deps = Deps { route: Route::Home, events: true, ..support::deps(gated.clone()) };
     let harness = support::mount(100, 30, deps);
-    xccode_tui::features::location::navigate_home(&harness.tui, Some(xccode_store::Location::new("/tmp/other")));
+    xiaochuan_tui::features::location::navigate_home(&harness.tui, Some(xiaochuan_store::Location::new("/tmp/other")));
     settle(&harness);
     harness.dispatch("plugins.list");
     harness.wait_for("show internal");
@@ -360,9 +360,9 @@ fn toggles_in_one_filtered_open_reach_the_selected_plugin_alone() {
     let deps = Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) };
     let harness = support::mount(100, 30, deps);
     for id in ["test.a", "test.b"] {
-        xccode_tui::plugins::host::add(&harness.tui, quiet(id).into());
+        xiaochuan_tui::plugins::host::add(&harness.tui, quiet(id).into());
     }
-    xccode_tui::plugins::host::add(&harness.tui, boom().into());
+    xiaochuan_tui::plugins::host::add(&harness.tui, boom().into());
     settle(&harness);
     harness.dispatch("plugins.list");
     harness.wait_for("show internal");
@@ -372,7 +372,7 @@ fn toggles_in_one_filtered_open_reach_the_selected_plugin_alone() {
         ["test.a", "test.b", "test.boom"]
             .iter()
             .map(|id| {
-                let (status, active) = status_of(harness, &xccode_plugin::Entry::plugin_key(id)).unwrap();
+                let (status, active) = status_of(harness, &xiaochuan_plugin::Entry::plugin_key(id)).unwrap();
                 (format!("{id} {status:?}"), active)
             })
             .collect()
@@ -419,7 +419,7 @@ fn the_managers_own_commands_open_nothing() {
     let (harness, log) = open(&[]);
     let read = reads(&log);
     for name in ["internal", "check", "update", "error", "back", "asked"] {
-        harness.tui.keymap.dispatch(&format!("xccode.plugins.{name}"), Some("tui:plugin:xccode.stats"));
+        harness.tui.keymap.dispatch(&format!("xiaochuan.plugins.{name}"), Some("tui:plugin:xiaochuan.stats"));
         settle(&harness);
         assert!(!harness.tui.dialogs.is_open(), "{name}: {}", harness.app.text());
     }
@@ -432,28 +432,28 @@ fn the_slow_manager_cannot_be_disabled_from_its_toast() {
     while harness.tui.toasts.current().is_some() {
         harness.tui.toasts.dismiss();
     }
-    xccode_plugin::Host::slow(&*harness.tui, ID, "2.0 ms a frame");
+    xiaochuan_plugin::Host::slow(&*harness.tui, ID, "2.0 ms a frame");
     assert!(harness.tui.toasts.current().is_some_and(|toast| toast.action.is_none()));
     harness.tui.toasts.dismiss();
-    xccode_plugin::Host::slow(&*harness.tui, "xccode.stats", "2.0 ms a frame");
+    xiaochuan_plugin::Host::slow(&*harness.tui, "xiaochuan.stats", "2.0 ms a frame");
     assert!(harness.tui.toasts.current().is_some_and(|toast| toast.action.is_some()));
 }
 
 #[test]
 fn a_skipped_entry_added_to_the_config_is_heard() {
     let (harness, _) = open(&[]);
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     std::fs::create_dir(root.path().join(".git")).unwrap();
-    let external = xccode_tui::plugins::host::External {
+    let external = xiaochuan_tui::plugins::host::External {
         config_dir: root.path().join("config"),
         cwd: root.path().to_path_buf(),
     };
-    xccode_tui::plugins::host::external(&harness.tui, external);
-    xccode_tui::plugins::host::add(&harness.tui, watcher().into());
+    xiaochuan_tui::plugins::host::external(&harness.tui, external);
+    xiaochuan_tui::plugins::host::add(&harness.tui, watcher().into());
     settle(&harness);
     HEARD.take();
-    xccode_tui::dialogs::settings::update(&harness.tui, |draft| {
-        xccode_tui::dialogs::settings::set_path(draft, &["plugins"], serde_json::json!(["./added.ts"]));
+    xiaochuan_tui::dialogs::settings::update(&harness.tui, |draft| {
+        xiaochuan_tui::dialogs::settings::set_path(draft, &["plugins"], serde_json::json!(["./added.ts"]));
     });
     settle(&harness);
     let heard = HEARD.take();
@@ -465,14 +465,14 @@ fn typescript_plugins_not_loaded_are_told_once_and_listed() {
     let fake = Fake::new(|seen| match seen.path.as_str() {
         "/api/plugin" => {
             let energy = serde_json::json!({
-                "id": "energy", "source": { "type": "package", "target": "xccode-energy@1.0.0" },
+                "id": "energy", "source": { "type": "package", "target": "xiaochuan-energy@1.0.0" },
                 "features": { "server": true, "tui": true }, "state": { "status": "active" },
             });
             (200, serde_json::json!({ "location": support::location("/tmp/app"), "data": [energy] }))
         }
         _ => support::base(seen, "/tmp/app"),
     });
-    let config = serde_json::json!({ "animations": false, "plugins": ["xccode-tokens@0.1.3"] });
+    let config = serde_json::json!({ "animations": false, "plugins": ["xiaochuan-tokens@0.1.3"] });
     let deps = Deps {
         route: Route::Home,
         config: support::config(support::decode(&config.to_string())),
@@ -480,16 +480,16 @@ fn typescript_plugins_not_loaded_are_told_once_and_listed() {
     };
     let harness = support::mount(120, 30, deps);
     settle(&harness);
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     std::fs::create_dir(root.path().join(".git")).unwrap();
     let pulse = root.path().join("config").join("plugins").join("pulse");
     std::fs::create_dir_all(&pulse).unwrap();
-    std::fs::write(pulse.join("package.json"), r#"{ "name": "xccode-pulse-ticker" }"#).unwrap();
-    let external = xccode_tui::plugins::host::External {
+    std::fs::write(pulse.join("package.json"), r#"{ "name": "xiaochuan-pulse-ticker" }"#).unwrap();
+    let external = xiaochuan_tui::plugins::host::External {
         config_dir: root.path().join("config"),
         cwd: root.path().to_path_buf(),
     };
-    xccode_tui::plugins::host::external_with(&harness.tui, external, None);
+    xiaochuan_tui::plugins::host::external_with(&harness.tui, external, None);
     harness.wait("the notice", || {
         settle(&harness);
         harness.tui.toasts.current().is_some()
@@ -497,23 +497,23 @@ fn typescript_plugins_not_loaded_are_told_once_and_listed() {
     let toast = harness.tui.toasts.current().expect("the notice");
     assert_eq!(toast.title.as_deref(), Some("3 TypeScript plugins not loaded"));
     // A package named by npm, a directory and a server plugin's TUI part all wait for the JS host (js-npm): one reason.
-    let reason = format!(": {}.", xccode_plugin::SKIPPED_OFF);
+    let reason = format!(": {}.", xiaochuan_plugin::SKIPPED_OFF);
     let line = toast.message.lines().find(|line| line.ends_with(&reason)).unwrap_or_default();
-    for name in ["xccode-tokens@0.1.3", "xccode-pulse-ticker", "xccode-energy@1.0.0"] {
+    for name in ["xiaochuan-tokens@0.1.3", "xiaochuan-pulse-ticker", "xiaochuan-energy@1.0.0"] {
         assert!(line.contains(name), "{name} in {:?}", toast.message);
     }
     assert!(toast.message.lines().any(|known| known == "Run /plugins to view details."), "{:?}", toast.message);
     harness.tui.toasts.dismiss();
-    xccode_tui::plugins::host::reconcile(&harness.tui);
+    xiaochuan_tui::plugins::host::reconcile(&harness.tui);
     settle(&harness);
     assert!(harness.tui.toasts.current().is_none(), "told again");
     harness.tui.keymap.dispatch("plugins.list", None);
     harness.wait("the list", || {
         settle(&harness);
-        screen(&harness).contains("xccode-energy@1.0.0")
+        screen(&harness).contains("xiaochuan-energy@1.0.0")
     });
     let screen = screen(&harness);
-    for row in ["xccode-pulse-ticker", "xccode-tokens@0.1.3", "xccode-energy@1.0.0", "energy"] {
+    for row in ["xiaochuan-pulse-ticker", "xiaochuan-tokens@0.1.3", "xiaochuan-energy@1.0.0", "energy"] {
         assert!(screen.contains(row), "{row}: {screen}");
     }
     assert!(!screen.contains(&*pulse.to_string_lossy()), "{screen}");
@@ -621,12 +621,12 @@ fn panicky() -> abi::Plugin {
 #[test]
 fn a_panicking_plugin_list_handler_fails_its_plugin() {
     let (harness, _) = open(&[]);
-    let plugin = xccode_plugin::Builtin::Plugin(panicky());
-    xccode_tui::plugins::host::add(&harness.tui, plugin.into());
-    xccode_tui::plugins::host::add(&harness.tui, quiet("test.a").into());
+    let plugin = xiaochuan_plugin::Builtin::Plugin(panicky());
+    xiaochuan_tui::plugins::host::add(&harness.tui, plugin.into());
+    xiaochuan_tui::plugins::host::add(&harness.tui, quiet("test.a").into());
     settle(&harness);
     let status = status_of(&harness, "plugin:test.panicky").unwrap().0;
-    let xccode_plugin::Status::Failed(error) = status else { panic!("{status:?}") };
+    let xiaochuan_plugin::Status::Failed(error) = status else { panic!("{status:?}") };
     assert!(error.contains("on-plugins"), "{error}");
 }
 
@@ -648,13 +648,13 @@ fn slowly() -> abi::Plugin {
 #[test]
 fn a_plugin_hears_when_a_plugin_becomes_slow_and_stops() {
     let (harness, _) = open(&[]);
-    xccode_tui::plugins::host::add(&harness.tui, watcher().into());
-    xccode_tui::plugins::host::add(&harness.tui, slowly().into());
+    xiaochuan_tui::plugins::host::add(&harness.tui, watcher().into());
+    xiaochuan_tui::plugins::host::add(&harness.tui, slowly().into());
     let monitor = harness.tui.plugins.monitor();
     let base = std::time::Instant::now();
     monitor.set_clock(move || base + CLOCK.get());
     let limits = monitor.limits();
-    monitor.set_limits(xccode_plugin::contain::Limits {
+    monitor.set_limits(xiaochuan_plugin::contain::Limits {
         frame: Duration::from_millis(1),
         window: 4,
         slow: 1,
@@ -677,7 +677,7 @@ fn a_plugin_hears_when_a_plugin_becomes_slow_and_stops() {
     assert!(slowly(), "{:?}", HEARD.with_borrow(Clone::clone));
     let heard = HEARD.with_borrow(Vec::len);
     frames(3000, 2);
-    xccode_tui::plugins::host::tell_plugins(&harness.tui);
+    xiaochuan_tui::plugins::host::tell_plugins(&harness.tui);
     settle(&harness);
     assert_eq!(HEARD.with_borrow(Vec::len), heard, "the cost alone was told");
     frames(0, 6);
@@ -704,7 +704,7 @@ fn titled() -> abi::Plugin {
 #[test]
 fn a_keyed_select_shown_again_takes_its_new_title() {
     let (harness, _) = open(&[]);
-    xccode_tui::plugins::host::add(&harness.tui, titled().into());
+    xiaochuan_tui::plugins::host::add(&harness.tui, titled().into());
     harness.tui.keymap.dispatch("titled.show", Some("First title"));
     harness.wait_for("First title");
     harness.tui.keymap.dispatch("titled.show", Some("Second title"));
@@ -738,7 +738,7 @@ fn presented() -> abi::Plugin {
 fn a_dialog_takes_its_size_and_centering() {
     let (harness, _) = open(&[]);
     let tui = &harness.tui;
-    xccode_tui::plugins::host::add(tui, presented().into());
+    xiaochuan_tui::plugins::host::add(tui, presented().into());
     let row = |text: &str| support::at(&harness.app.render().text(), text).map(|(_, y)| y);
     tui.keymap.dispatch("presented.select", Some("off"));
     harness.wait_for("Presented");
@@ -752,11 +752,11 @@ fn a_dialog_takes_its_size_and_centering() {
     assert!(row("beta").is_some() && row("alpha").is_none(), "the filter went:\n{}", harness.app.text());
     tui.keymap.dispatch("presented.alert", None);
     harness.wait_for("Told");
-    assert_eq!((tui.dialogs.size(), tui.dialogs.centered()), (xccode_ui::dialog::DialogSize::XLarge, true));
+    assert_eq!((tui.dialogs.size(), tui.dialogs.centered()), (xiaochuan_ui::dialog::DialogSize::XLarge, true));
     tui.keymap.dispatch("presented.confirm", None);
     harness.wait_for("Asked");
-    assert_eq!((tui.dialogs.size(), tui.dialogs.centered()), (xccode_ui::dialog::DialogSize::Large, true));
+    assert_eq!((tui.dialogs.size(), tui.dialogs.centered()), (xiaochuan_ui::dialog::DialogSize::Large, true));
     tui.keymap.dispatch("presented.select", Some("off"));
     harness.wait_for("Presented");
-    assert_eq!((tui.dialogs.size(), tui.dialogs.centered()), (xccode_ui::dialog::DialogSize::Medium, false));
+    assert_eq!((tui.dialogs.size(), tui.dialogs.centered()), (xiaochuan_ui::dialog::DialogSize::Medium, false));
 }

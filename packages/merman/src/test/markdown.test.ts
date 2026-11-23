@@ -92,8 +92,8 @@ flowchart TD
   repo[Organization profile repo] --> build[Build]
   build --> worker[Isolated organization Worker]
   worker --> sessions[SessionDOs]
-  sessions --> xccode[Xccode + native plugins]
-  xccode --> modal[Modal workspaces]
+  sessions --> xiaochuan[Xiaochuan + native plugins]
+  xiaochuan --> modal[Modal workspaces]
 \`\`\``,
     syntaxStyle,
     renderBlock: createMermaidMarkdownRenderer(renderer),

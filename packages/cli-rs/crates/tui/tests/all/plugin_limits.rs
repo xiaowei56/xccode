@@ -8,10 +8,10 @@ use std::rc::Rc;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_plugin::abi::{self, v2};
-use xccode_plugin::limits::{self, Limits};
-use xccode_plugin::reconcile;
-use xccode_tui::{Deps, Route};
+use xiaochuan_plugin::abi::{self, v2};
+use xiaochuan_plugin::limits::{self, Limits};
+use xiaochuan_plugin::reconcile;
+use xiaochuan_tui::{Deps, Route};
 
 const ID: &str = "test.limits";
 const SIBLING: &str = "test.sibling";
@@ -700,7 +700,7 @@ fn images_decode_on_a_worker_within_their_limits() {
     ];
     for (name, subject, decodes, case) in cases {
         // A job holds what it reserved until it ends: the case before gives it back first.
-        let ended = harness.app.wait_until(Duration::from_secs(10), || xccode_plugin::image::jobs(ID) == 0);
+        let ended = harness.app.wait_until(Duration::from_secs(10), || xiaochuan_plugin::image::jobs(ID) == 0);
         assert!(ended, "{name}: a job of the case before never ended");
         let _limits = limits::set(case);
         let before = reconcile::work();
@@ -726,7 +726,7 @@ fn images_decode_on_a_worker_within_their_limits() {
     harness.tui.navigate(Route::Home);
     settle(&harness);
     // A job holds what it reserved until it ends.
-    assert!(harness.app.wait_until(Duration::from_secs(10), || xccode_plugin::image::jobs(ID) == 0));
+    assert!(harness.app.wait_until(Duration::from_secs(10), || xiaochuan_plugin::image::jobs(ID) == 0));
     assert_eq!(limits::held(ID).images, 0, "decoded bytes held after the route closed");
 }
 
@@ -964,18 +964,18 @@ fn an_image_job_holds_its_bytes_until_it_is_done() {
     let gradient = |x: u32, y: u32| [(x * 15) as u8, (y * 15) as u8, ((x + y) * 7) as u8, 255];
     let harness = open();
     let _limits = limits::set(Limits { plugin_content: 1 << 20, all_content: 1 << 20, ..small() });
-    let hold = xccode_plugin::image::hold(ID);
+    let hold = xiaochuan_plugin::image::hold(ID);
     show(&harness, picture(png(16, 16, gradient)));
-    assert_eq!((xccode_plugin::image::jobs(ID), limits::held(ID).images), (1, 1024), "a job");
+    assert_eq!((xiaochuan_plugin::image::jobs(ID), limits::held(ID).images), (1, 1024), "a job");
     harness.tui.navigate(Route::Home);
     settle(&harness);
-    assert_eq!((xccode_plugin::image::jobs(ID), limits::held(ID).images), (1, 1024), "closed");
+    assert_eq!((xiaochuan_plugin::image::jobs(ID), limits::held(ID).images), (1, 1024), "closed");
     let before = reconcile::work();
     let frame = show(&harness, picture(png(16, 16, |x, y| gradient(y, x))));
     assert!(frame.text().contains("⋯ image too large"), "another image had room\n{}", frame.text());
     assert_eq!(reconcile::work().since(before).parses, 0, "another decode");
     drop(hold);
-    let done = harness.app.wait_until(Duration::from_secs(10), || xccode_plugin::image::jobs(ID) == 0);
+    let done = harness.app.wait_until(Duration::from_secs(10), || xiaochuan_plugin::image::jobs(ID) == 0);
     assert!(done, "the job never ended");
     harness.tui.navigate(Route::Home);
     settle(&harness);
@@ -993,7 +993,7 @@ fn an_image_job_holds_its_bytes_until_it_is_done() {
             v2::Node::column(vec![image(v2::Source::Content(cx.content((*bytes).clone()))), text("foot")])
         }),
     );
-    let failed = harness.app.wait_until(Duration::from_secs(10), || xccode_plugin::image::jobs(ID) == 0);
+    let failed = harness.app.wait_until(Duration::from_secs(10), || xiaochuan_plugin::image::jobs(ID) == 0);
     assert!(failed && limits::held(ID).images == 0, "a failed decode kept its bytes");
     next_phase(&harness);
     let shown = harness.app.wait_until(Duration::from_secs(10), || corner(&harness.app.render()) == expected);
@@ -1155,7 +1155,7 @@ fn two_plugins_share_the_rows_of_a_frame() {
         assert_eq!(deferred, 1, "revisions left for the next frame");
         // Before the next paint, storage changes, which draws the sibling in the next frame's rows; then the
         // terminal resizes, which finds none left: its cause joins the revision that waits.
-        xccode_tui::plugins::host::host(&harness.tui).storage_changed();
+        xiaochuan_tui::plugins::host::host(&harness.tui).storage_changed();
         harness.app.advance(Duration::ZERO);
         harness.app.resize(81, 30);
         let second = caught_up(&harness);
@@ -1296,7 +1296,7 @@ fn images_are_given_back_and_decode_two_at_a_time() {
         ..small()
     });
     let done = |harness: &Harness| {
-        let ended = harness.app.wait_until(Duration::from_secs(10), || xccode_plugin::image::jobs(ID) == 0);
+        let ended = harness.app.wait_until(Duration::from_secs(10), || xiaochuan_plugin::image::jobs(ID) == 0);
         assert!(ended, "a job never ended");
     };
     // Past the bytes, whatever they are.
@@ -1332,7 +1332,7 @@ fn images_are_given_back_and_decode_two_at_a_time() {
     settle(&harness);
     assert_eq!(limits::held(ID).images, 4, "held after the inline image changed");
     // Six images held at the workers: two are taken, the others wait.
-    let hold = xccode_plugin::image::hold(ID);
+    let hold = xiaochuan_plugin::image::hold(ID);
     let six = picture.clone();
     show(
         &harness,
@@ -1341,9 +1341,9 @@ fn images_are_given_back_and_decode_two_at_a_time() {
             v2::Node::column(images)
         }),
     );
-    let taken = harness.app.wait_until(Duration::from_secs(10), || xccode_plugin::image::taken(ID) == 2);
+    let taken = harness.app.wait_until(Duration::from_secs(10), || xiaochuan_plugin::image::taken(ID) == 2);
     std::thread::sleep(Duration::from_millis(20));
-    let (jobs, taken_now) = (xccode_plugin::image::jobs(ID), xccode_plugin::image::taken(ID));
+    let (jobs, taken_now) = (xiaochuan_plugin::image::jobs(ID), xiaochuan_plugin::image::taken(ID));
     drop(hold);
     assert!(taken, "the workers never took two");
     assert!(jobs >= 6 && taken_now == 2, "{jobs} jobs, {taken_now} a worker took");
@@ -1359,11 +1359,11 @@ fn what_a_mount_holds_goes_and_its_host_work_is_timed() {
     harness.tui.plugins.monitor().set_clock(std::time::Instant::now);
     let monitor = harness.tui.plugins.monitor().clone();
     let decoded = |harness: &Harness| {
-        let done = harness.app.wait_until(Duration::from_secs(10), || xccode_plugin::image::jobs(ID) == 0);
+        let done = harness.app.wait_until(Duration::from_secs(10), || xiaochuan_plugin::image::jobs(ID) == 0);
         assert!(done, "a job never ended");
         settle(harness);
     };
-    let hold = xccode_plugin::image::hold(ID);
+    let hold = xiaochuan_plugin::image::hold(ID);
     show(&harness, picture(png(16, 16, gradient)));
     let before = monitor.host_time(ID);
     drop(hold);
@@ -1397,8 +1397,8 @@ fn what_a_mount_holds_goes_and_its_host_work_is_timed() {
     WAKE_ROUTE.with(|waker| waker.borrow().as_ref().unwrap().wake());
     settle(&harness);
     assert_eq!(limits::held(ID).images, 0, "held after the plugin failed");
-    harness.tui.plugins.toggle(&xccode_tui::plugins::host::host(&harness.tui), ID, false);
-    harness.tui.plugins.toggle(&xccode_tui::plugins::host::host(&harness.tui), ID, true);
+    harness.tui.plugins.toggle(&xiaochuan_tui::plugins::host::host(&harness.tui), ID, false);
+    harness.tui.plugins.toggle(&xiaochuan_tui::plugins::host::host(&harness.tui), ID, true);
     settle(&harness);
     let items = || {
         let items = (0..100)

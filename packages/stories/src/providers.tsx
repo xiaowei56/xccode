@@ -1,8 +1,8 @@
 import { createEffect, onCleanup, onMount, type ParentProps } from "solid-js"
 import { MetaProvider } from "@solidjs/meta"
-import { DialogProvider } from "@xccode/ui/context/dialog"
-import { Font } from "@xccode/ui/font"
-import { ThemeProvider, useTheme, type ColorScheme } from "@xccode/ui/theme"
+import { DialogProvider } from "@xiaochuan/ui/context/dialog"
+import { Font } from "@xiaochuan/ui/font"
+import { ThemeProvider, useTheme, type ColorScheme } from "@xiaochuan/ui/theme"
 import { LanguageProvider, UiI18nBridge, useLanguage } from "@/runtime/i18n/language"
 import { SettingsProvider } from "@/settings/model"
 

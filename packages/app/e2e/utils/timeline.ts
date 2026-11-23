@@ -1,24 +1,24 @@
 import type {
   JsonValue,
-  XccodeEvent,
+  XiaochuanEvent,
   SessionInfo,
   SessionMessageAssistant,
   SessionMessageInfo,
   SessionMessageUser,
   SessionStatus,
   SessionStructuredError,
-} from "@xccode/client/promise"
-import { EventManifest } from "@xccode/schema/event-manifest"
-import { SessionMessage } from "@xccode/schema/session-message"
-import type { TimelineDetail } from "@xccode/session-ui/timeline/detail"
+} from "@xiaochuan/client/promise"
+import { EventManifest } from "@xiaochuan/schema/event-manifest"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
+import type { TimelineDetail } from "@xiaochuan/session-ui/timeline/detail"
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test"
 import { Schema } from "effect"
 import { SERVER, seed, sessionHref } from "./app"
-import { mockXccodeServer, type MockServerConfig } from "./mock-server"
+import { mockXiaochuanServer, type MockServerConfig } from "./mock-server"
 import { installSseTransport } from "./sse-transport"
 import { expectSessionReady } from "./waits"
 
-export const directory = "C:/Xccode/TimelineStability"
+export const directory = "C:/Xiaochuan/TimelineStability"
 
 export const projectID = "proj_timeline_stability"
 
@@ -30,7 +30,7 @@ export const assistantID = "msg_1001_timeline_assistant"
 
 export const title = "Timeline visual stability"
 
-export const model = { providerID: "xccode", modelID: "claude-opus-4-6", variant: "max" }
+export const model = { providerID: "xiaochuan", modelID: "claude-opus-4-6", variant: "max" }
 
 const tokens = { input: 100, output: 200, reasoning: 0, cache: { read: 0, write: 0 } }
 
@@ -134,9 +134,9 @@ type TimelineServerInput = Partial<
 
 export type TimelineMessage = SessionMessageUser | SessionMessageAssistant
 
-export type TimelineEvent = XccodeEvent | readonly XccodeEvent[]
+export type TimelineEvent = XiaochuanEvent | readonly XiaochuanEvent[]
 
-export type EventPayload = XccodeEvent
+export type EventPayload = XiaochuanEvent
 
 export type ToolStatus = ToolSeed["state"]["status"]
 
@@ -249,7 +249,7 @@ export async function setupTimeline(
     keepalive: input.keepalive,
   })
 
-  const mock = await mockXccodeServer(page, {
+  const mock = await mockXiaochuanServer(page, {
     ...input,
     directory,
     project: project(),
@@ -277,7 +277,7 @@ export async function setupTimeline(
 
   if (input.locale) {
     await page.addInitScript((locale) => {
-      localStorage.setItem("xccode.global.dat:language", JSON.stringify({ locale }))
+      localStorage.setItem("xiaochuan.global.dat:language", JSON.stringify({ locale }))
     }, input.locale)
   }
 
@@ -338,7 +338,7 @@ function timelineEvents(input: TimelineEvent) {
   return (Array.isArray(input) ? input : [input]).map(validateTimelineEvent)
 }
 
-function describeEvent(event: XccodeEvent) {
+function describeEvent(event: XiaochuanEvent) {
   if (event.type.startsWith("session.tool.")) {
     return [event.type, "id" in event.data ? event.data.id : undefined].filter(Boolean).join(":")
   }
@@ -348,55 +348,55 @@ function describeEvent(event: XccodeEvent) {
 
 export function event(
   type: "session.status",
-  data: Extract<XccodeEvent, { type: "session.status" }>["data"],
-): XccodeEvent {
+  data: Extract<XiaochuanEvent, { type: "session.status" }>["data"],
+): XiaochuanEvent {
   return makeEvent(type, data)
 }
 
-export function inboxEnqueued(data: Extract<XccodeEvent, { type: "session.inbox.enqueued" }>["data"]) {
+export function inboxEnqueued(data: Extract<XiaochuanEvent, { type: "session.inbox.enqueued" }>["data"]) {
   return makeEvent("session.inbox.enqueued", data)
 }
 
-export function inboxDelivered(data: Extract<XccodeEvent, { type: "session.inbox.delivered" }>["data"]) {
+export function inboxDelivered(data: Extract<XiaochuanEvent, { type: "session.inbox.delivered" }>["data"]) {
   return makeEvent("session.inbox.delivered", data)
 }
 
-export function compactionStarted(data: Extract<XccodeEvent, { type: "session.compaction.started" }>["data"]) {
+export function compactionStarted(data: Extract<XiaochuanEvent, { type: "session.compaction.started" }>["data"]) {
   return makeEvent("session.compaction.started", data)
 }
 
-export function compactionDelta(data: Extract<XccodeEvent, { type: "session.compaction.delta" }>["data"]) {
+export function compactionDelta(data: Extract<XiaochuanEvent, { type: "session.compaction.delta" }>["data"]) {
   return makeEvent("session.compaction.delta", data)
 }
 
-export function compactionEnded(data: Extract<XccodeEvent, { type: "session.compaction.ended" }>["data"]) {
+export function compactionEnded(data: Extract<XiaochuanEvent, { type: "session.compaction.ended" }>["data"]) {
   return makeEvent("session.compaction.ended", data)
 }
 
-export function compactionFailed(data: Extract<XccodeEvent, { type: "session.compaction.failed" }>["data"]) {
+export function compactionFailed(data: Extract<XiaochuanEvent, { type: "session.compaction.failed" }>["data"]) {
   return makeEvent("session.compaction.failed", data)
 }
 
-export function toolInputStarted(data: Extract<XccodeEvent, { type: "session.tool.input.started" }>["data"]) {
+export function toolInputStarted(data: Extract<XiaochuanEvent, { type: "session.tool.input.started" }>["data"]) {
   return makeEvent("session.tool.input.started", data)
 }
 
-export function toolInputEnded(data: Extract<XccodeEvent, { type: "session.tool.input.ended" }>["data"]) {
+export function toolInputEnded(data: Extract<XiaochuanEvent, { type: "session.tool.input.ended" }>["data"]) {
   return makeEvent("session.tool.input.ended", data)
 }
 
-export function toolCalled(data: Extract<XccodeEvent, { type: "session.tool.called" }>["data"]) {
+export function toolCalled(data: Extract<XiaochuanEvent, { type: "session.tool.called" }>["data"]) {
   return makeEvent("session.tool.called", data)
 }
 
-export function validateTimelineEvent(input: XccodeEvent | JsonValue): XccodeEvent {
+export function validateTimelineEvent(input: XiaochuanEvent | JsonValue): XiaochuanEvent {
   const header = Schema.decodeUnknownSync(Schema.Struct({ type: Schema.String }))(input)
   const definition = EventManifest.ServerDefinitions.find((definition) => definition.type === header.type)
 
   if (!definition) throw new Error(`Unknown timeline event: ${header.type}`)
 
-  // SAFETY: the matching canonical event schema validates the payload; XccodeEvent is generated from those schemas.
-  return Schema.decodeUnknownSync(definition)(input) as XccodeEvent
+  // SAFETY: the matching canonical event schema validates the payload; XiaochuanEvent is generated from those schemas.
+  return Schema.decodeUnknownSync(definition)(input) as XiaochuanEvent
 }
 
 export function validateTimelineMessages(input: readonly TimelineMessage[]): TimelineMessage[] {
@@ -501,7 +501,7 @@ export function historyMessages(count: number): TimelineMessage[] {
   }).flat()
 }
 
-export function partUpdated(part: PartSeed<"assistant">): readonly XccodeEvent[] {
+export function partUpdated(part: PartSeed<"assistant">): readonly XiaochuanEvent[] {
   const messageID = part.messageID ?? assistantID
   const startedParts = scenario().startedParts
   const started = startedParts.has(part.id)
@@ -937,13 +937,13 @@ function messageContent(
   }
 }
 
-function toolEvents(part: ToolSeed, messageID: string): readonly XccodeEvent[] {
+function toolEvents(part: ToolSeed, messageID: string): readonly XiaochuanEvent[] {
   const toolStates = scenario().toolStates
   const previous = toolStates.get(part.id)
 
   if (previous === "completed" || previous === "error") return []
 
-  const events: XccodeEvent[] = []
+  const events: XiaochuanEvent[] = []
 
   if (!previous) {
     events.push(
@@ -1054,10 +1054,10 @@ function partRef(id: string, messageID: string, type: PartRef["type"]): PartRef 
   return ref
 }
 
-function makeEvent<Type extends XccodeEvent["type"]>(
+function makeEvent<Type extends XiaochuanEvent["type"]>(
   type: Type,
-  data: Extract<XccodeEvent, { type: Type }>["data"],
-): XccodeEvent {
+  data: Extract<XiaochuanEvent, { type: Type }>["data"],
+): XiaochuanEvent {
   const state = scenario()
   const sequence = ++state.eventSequence
   const id = `evt_timeline_${String(sequence).padStart(4, "0")}`
@@ -1074,8 +1074,8 @@ function makeEvent<Type extends XccodeEvent["type"]>(
         }
       : base
 
-  // SAFETY: the matching canonical event schema validates the payload; XccodeEvent is generated from those schemas.
-  return Schema.decodeUnknownSync(definition)(input) as XccodeEvent
+  // SAFETY: the matching canonical event schema validates the payload; XiaochuanEvent is generated from those schemas.
+  return Schema.decodeUnknownSync(definition)(input) as XiaochuanEvent
 }
 
 const decodeJsonRecord = Schema.decodeUnknownSync(Schema.fromJsonString(Schema.Record(Schema.String, Schema.MutableJson)))
@@ -1090,8 +1090,8 @@ function provider() {
   return {
     all: [
       {
-        id: "xccode",
-        name: "Xccode",
+        id: "xiaochuan",
+        name: "Xiaochuan",
         models: { "claude-opus-4-6": { id: "claude-opus-4-6", name: "Claude Opus 4.6", limit: { context: 200_000 } } },
       },
       {
@@ -1113,8 +1113,8 @@ function provider() {
         },
       },
     ],
-    connected: ["xccode", "company-gateway"],
-    default: { providerID: "xccode", modelID: "claude-opus-4-6" },
+    connected: ["xiaochuan", "company-gateway"],
+    default: { providerID: "xiaochuan", modelID: "claude-opus-4-6" },
   }
 }
 

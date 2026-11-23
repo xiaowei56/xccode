@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { SessionMessageAssistantTool } from "@xccode/client/promise"
+import type { SessionMessageAssistantTool } from "@xiaochuan/client/promise"
 import { currentToolError, currentToolInput, currentToolMetadata, currentToolOutput } from "./current-tool-state"
 
 const time = { created: 1 }

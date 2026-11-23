@@ -2,8 +2,8 @@
 
 Springs, a shared frame loop and DOM animation controllers for the UI packages.
 
-- `@xccode/ui/motion`: physics and DOM controllers. No Solid imports.
-- `@xccode/ui/motion/solid`: Solid primitives (`springStyle`, `slidingHighlight`, `widthMorph`, `numberTween`).
+- `@xiaochuan/ui/motion`: physics and DOM controllers. No Solid imports.
+- `@xiaochuan/ui/motion/solid`: Solid primitives (`springStyle`, `slidingHighlight`, `widthMorph`, `numberTween`).
 
 ## Provenance
 

@@ -37,7 +37,7 @@ export default definePty({
   }),
   setup: async (root) => {
     await Bun.write(
-      `${root}/home/.config/xccode/cli.json`,
+      `${root}/home/.config/xiaochuan/cli.json`,
       JSON.stringify({ theme: { name: "system", mode: "system" }, mini: { splash: "hide" } }),
     )
   },

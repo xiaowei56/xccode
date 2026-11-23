@@ -2,7 +2,7 @@
 #
 # These scripts run in sign and publish jobs that hold secrets. They must never execute repository code
 # or artifact contents: artifacts are data, and every value that names a destination comes from the
-# environment the workflow sets (XCCODE_VERSION, XCCODE_CHANNEL, XCCODE_DRY_RUN, ...).
+# environment the workflow sets (XIAOCHUAN_VERSION, XIAOCHUAN_CHANNEL, XIAOCHUAN_DRY_RUN, ...).
 
 set -euo pipefail
 # Without this, set -e does not apply inside $(...), so a failing command in a function called as
@@ -20,7 +20,7 @@ die() {
 }
 
 dry_run() {
-  [ "${XCCODE_DRY_RUN:-false}" = true ]
+  [ "${XIAOCHUAN_DRY_RUN:-false}" = true ]
 }
 
 stage_account() {
@@ -44,7 +44,7 @@ size() {
   wc -c < "$1" | tr -d ' '
 }
 
-# Uploads files to xccode.ai/files/bin/<version>/ and prints the update-server file map.
+# Uploads files to xiaochuan.ai/files/bin/<version>/ and prints the update-server file map.
 upload_files() {
   local credentials=false
   for file in "$@"; do
@@ -57,7 +57,7 @@ upload_files() {
       *) type=application/octet-stream ;;
     esac
     if dry_run; then
-      echo "dry-run upload: bin/$XCCODE_VERSION/$name" >&2
+      echo "dry-run upload: bin/$XIAOCHUAN_VERSION/$name" >&2
     else
       if [ "$credentials" = false ]; then
         r2_credentials
@@ -65,7 +65,7 @@ upload_files() {
       fi
       upload_file "$file" "$name" "$type" || die "Upload failed: $name"
     fi
-    jq -n --arg name "$name" --arg url "https://xccode.ai/files/bin/$XCCODE_VERSION/$name" \
+    jq -n --arg name "$name" --arg url "https://xiaochuan.ai/files/bin/$XIAOCHUAN_VERSION/$name" \
       --arg sha256 "$(sha256 "$file" | cut -c1-64)" --argjson size "$(size "$file")" \
       '{($name): {url: $url, sha256: $sha256, size: $size}}'
   done | jq -s 'add'
@@ -74,12 +74,12 @@ upload_files() {
 # Uploads one file to R2 and confirms the stored object has the local size: upload_file <file> <name> <type>.
 # R2 intermittently rejects CompleteMultipartUpload with InvalidPart, so failed uploads are retried.
 upload_file() {
-  local key="bin/$XCCODE_VERSION/$2" endpoint="https://$CLOUDFLARE_ACCOUNT_ID.r2.cloudflarestorage.com" attempt
+  local key="bin/$XIAOCHUAN_VERSION/$2" endpoint="https://$CLOUDFLARE_ACCOUNT_ID.r2.cloudflarestorage.com" attempt
   for attempt in 1 2 3; do
-    if aws s3 cp "$1" "s3://xccode-production-files/$key" --only-show-errors --endpoint-url "$endpoint" \
+    if aws s3 cp "$1" "s3://xiaochuan-production-files/$key" --only-show-errors --endpoint-url "$endpoint" \
       --content-type "$3" --content-disposition "attachment; filename=\"$2\"" \
       --cache-control "public, max-age=31536000, immutable" >&2 &&
-      [ "$(aws s3api head-object --bucket xccode-production-files --key "$key" --endpoint-url "$endpoint" \
+      [ "$(aws s3api head-object --bucket xiaochuan-production-files --key "$key" --endpoint-url "$endpoint" \
         --query ContentLength --output text)" = "$(size "$1")" ]; then
       return
     fi
@@ -110,14 +110,14 @@ r2_credentials() {
 # Registers one artifact with the update server: publish_update <name> <distribution> <metadata json>.
 publish_update() {
   local body status token attempt
-  body=$(jq -n --arg channel "$XCCODE_CHANNEL" --arg version "$XCCODE_VERSION" --arg name "$1" --arg distribution "$2" \
+  body=$(jq -n --arg channel "$XIAOCHUAN_CHANNEL" --arg version "$XIAOCHUAN_VERSION" --arg name "$1" --arg distribution "$2" \
     --argjson metadata "$3" '{channel: $channel, name: $name, distribution: $distribution, version: $version, metadata: $metadata}')
   echo "$body" | jq .
   if dry_run; then return; fi
   token=$(curl -fsS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-    "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://update.xccode.ai" | jq -er .value)
+    "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://update.xiaochuan.ai" | jq -er .value)
   for attempt in 1 2 3; do
-    status=$(curl -sS -o "$RUNNER_TEMP/update-response" -w '%{http_code}' -X POST https://xccode.ai/update/api/publish \
+    status=$(curl -sS -o "$RUNNER_TEMP/update-response" -w '%{http_code}' -X POST https://xiaochuan.ai/update/api/publish \
       -H "Authorization: Bearer $token" -H "Content-Type: application/json" --data "$body")
     if [ "$status" -lt 300 ]; then return; fi
     cat "$RUNNER_TEMP/update-response"

@@ -1,6 +1,6 @@
 import { EmbeddedTerminalRenderable, type RGBA } from "@opentui/core"
-import { decodePersistentPtyMessage, persistentPtyFrame } from "@xccode/client/solid"
-import { rgbToOklch, type ResolvedThemeTokens } from "@xccode/theme/tui"
+import { decodePersistentPtyMessage, persistentPtyFrame } from "@xiaochuan/client/solid"
+import { rgbToOklch, type ResolvedThemeTokens } from "@xiaochuan/theme/tui"
 import { extend, useRenderer } from "@opentui/solid"
 import { Option } from "effect"
 import { createEffect, createSignal, onCleanup, onMount, Show } from "solid-js"
@@ -235,7 +235,7 @@ export function TerminalPane(props: {
       }
       if (message.type !== "attached") return
       if (message.inputProtocol !== 1) {
-        setFailure("Persistent terminal server is out of date; restart Xccode")
+        setFailure("Persistent terminal server is out of date; restart Xiaochuan")
         next.close()
         return
       }

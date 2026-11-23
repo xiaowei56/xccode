@@ -1,5 +1,5 @@
-import { Config } from "@xccode/core/config"
-import { ShellSelect } from "@xccode/core/shell/select"
+import { Config } from "@xiaochuan/core/config"
+import { ShellSelect } from "@xiaochuan/core/shell/select"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"

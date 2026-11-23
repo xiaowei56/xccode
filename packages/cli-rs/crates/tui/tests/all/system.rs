@@ -4,19 +4,19 @@ use std::rc::Rc;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_local::cli_config::Info;
-use xccode_parity::{Fixture, fixtures_dir};
-use xccode_plugin::abi;
-use xccode_tui::dialogs::highlights::Highlight;
-use xccode_tui::dialogs::{pair, settings, status, theme_list};
-use xccode_tui::features::{highlights, update_notification};
-use xccode_tui::{Deps, Route, Tui};
+use xiaochuan_local::cli_config::Info;
+use xiaochuan_parity::{Fixture, fixtures_dir};
+use xiaochuan_plugin::abi;
+use xiaochuan_tui::dialogs::highlights::Highlight;
+use xiaochuan_tui::dialogs::{pair, settings, status, theme_list};
+use xiaochuan_tui::features::{highlights, update_notification};
+use xiaochuan_tui::{Deps, Route, Tui};
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
 
 use crate::support::{self, Fake, Log, WAIT, wait_for};
 
-const DIRECTORY: &str = "/tmp/xccode/app";
+const DIRECTORY: &str = "/tmp/xiaochuan/app";
 
 type Answer = Box<dyn Fn(&str, &str, &Value) -> Option<(u16, Value)> + Send + Sync>;
 
@@ -53,7 +53,7 @@ fn mount_with(app: &TestApp, info: Info, answer: Answer) -> Mounted {
         route: Route::Home,
         ..support::deps(Arc::new(fake))
     };
-    Mounted { tui: xccode_tui::mount(app, deps), log }
+    Mounted { tui: xiaochuan_tui::mount(app, deps), log }
 }
 
 fn mount(app: &TestApp, info: Info) -> Rc<Tui> {
@@ -98,15 +98,15 @@ fn theme_list_matches_typescript_and_previews_in_the_dialog() {
     assert_dialog(&app, "E.18b/themes", "Search themes");
 
     app.press("down");
-    app.wait_until(WAIT, || theme(&tui) == "xccode-classic");
+    app.wait_until(WAIT, || theme(&tui) == "xiaochuan-classic");
     app.render();
     assert_dialog(&app, "E.18b/themes-down", "Search themes");
 
     // Escape restores the opening theme and writes nothing.
     app.press("escape");
     assert!(!app.text().contains("Search themes"), "{}", app.text());
-    assert_eq!(theme(&tui), "xccode");
-    assert_eq!(configured_theme(&tui).as_deref(), Some("xccode"));
+    assert_eq!(theme(&tui), "xiaochuan");
+    assert_eq!(configured_theme(&tui).as_deref(), Some("xiaochuan"));
 
     // A filter previews its first match; Enter keeps it and writes `theme.name`.
     theme_list::show(&tui, None);
@@ -132,8 +132,8 @@ fn clearing_the_filter_previews_the_opening_theme_again() {
     for _ in 0.."nord".len() {
         app.press("backspace");
     }
-    app.wait_until(WAIT, || theme(&tui) == "xccode");
-    assert_eq!(theme(&tui), "xccode");
+    app.wait_until(WAIT, || theme(&tui) == "xiaochuan");
+    assert_eq!(theme(&tui), "xiaochuan");
     wait_for(&app, "Search themes");
 }
 
@@ -142,25 +142,25 @@ fn settings_theme_opens_the_list_and_comes_back() {
     let app = TestApp::new(80, 30);
     let tui = mount(&app, support::component_info(json!({})));
     settings::show(&tui, Some("theme.name"));
-    wait_for(&app, "xccode ↵");
+    wait_for(&app, "xiaochuan ↵");
     app.press("enter");
     wait_for(&app, "Search themes");
 
     app.press("down");
-    app.wait_until(WAIT, || theme(&tui) == "xccode-classic");
+    app.wait_until(WAIT, || theme(&tui) == "xiaochuan-classic");
     app.press("escape");
     wait_for(&app, "Search settings");
-    assert_eq!(theme(&tui), "xccode");
-    wait_for(&app, "xccode ↵");
+    assert_eq!(theme(&tui), "xiaochuan");
+    wait_for(&app, "xiaochuan ↵");
 
     app.press("enter");
     wait_for(&app, "Search themes");
     app.press("down");
-    app.wait_until(WAIT, || theme(&tui) == "xccode-classic");
+    app.wait_until(WAIT, || theme(&tui) == "xiaochuan-classic");
     app.press("enter");
-    wait_for(&app, "xccode-classic ↵");
-    assert_eq!(configured_theme(&tui).as_deref(), Some("xccode-classic"));
-    assert_eq!(theme(&tui), "xccode-classic");
+    wait_for(&app, "xiaochuan-classic ↵");
+    assert_eq!(configured_theme(&tui).as_deref(), Some("xiaochuan-classic"));
+    assert_eq!(theme(&tui), "xiaochuan-classic");
 }
 
 fn location() -> Value {
@@ -179,7 +179,7 @@ fn mcp(list: Value) -> Answer {
 fn status_matches_typescript() {
     let app = TestApp::new(80, 30);
     let mounted = mount_with(&app, support::component_info(json!({})), mcp(crate::mcp::servers()));
-    mounted.tui.keymap.dispatch("xccode.status", None);
+    mounted.tui.keymap.dispatch("xiaochuan.status", None);
     wait_for(&app, "5 MCP servers");
     assert_dialog(&app, "E.18b/status", "Status");
     assert_eq!(mounted.requests("/api/mcp").len(), 1);
@@ -201,11 +201,11 @@ fn server_plugins() -> Value {
         },
         {
             "id": "audit",
-            "source": { "type": "local", "path": format!("{DIRECTORY}/.xccode/plugins/audit.ts") },
+            "source": { "type": "local", "path": format!("{DIRECTORY}/.xiaochuan/plugins/audit.ts") },
             "features": { "server": true },
             "state": { "status": "failed", "error": "Cannot find module 'zod' from audit.ts", "ref": "err_audit" },
         },
-        { "id": "xccode.core", "source": { "type": "builtin" }, "features": { "server": true }, "state": { "status": "active" } },
+        { "id": "xiaochuan.core", "source": { "type": "builtin" }, "features": { "server": true }, "state": { "status": "active" } },
         { "id": "theme.pack", "source": { "type": "package", "target": "theme-pack" }, "features": { "tui": true }, "state": { "status": "active" } },
     ])
 }
@@ -240,12 +240,12 @@ fn team_plugin() -> abi::Plugin {
 fn plugin_manager(app: &TestApp, extra: Value) -> (Mounted, fn() -> u32) {
     let mounted = mount_with(app, support::component_info(extra), plugin_server());
     ACTIVATIONS.set(0);
-    xccode_tui::plugins::host::add(&mounted.tui, team_plugin().into());
+    xiaochuan_tui::plugins::host::add(&mounted.tui, team_plugin().into());
     (mounted, || ACTIVATIONS.get())
 }
 
 fn active(tui: &Tui, id: &str) -> bool {
-    tui.plugins.entries().iter().any(|entry| entry.id == id && entry.status == xccode_plugin::Status::Active)
+    tui.plugins.entries().iter().any(|entry| entry.id == id && entry.status == xiaochuan_plugin::Status::Active)
 }
 
 #[test]
@@ -258,8 +258,8 @@ fn plugin_manager_matches_typescript() {
     assert_eq!(
         mounted.requests("/api/plugin"),
         [
-            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp",
-            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp"
+            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp",
+            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp"
         ]
     );
 
@@ -287,7 +287,7 @@ fn plugin_manager_matches_typescript() {
 
 #[test]
 fn plugin_manager_follows_plugin_updated_under_its_error_view() {
-    use xccode_api::memory::{Memory, Route as MemoryRoute};
+    use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
     let failed = json!([{
         "id": "audit", "source": { "type": "local", "path": format!("{DIRECTORY}/audit.ts") },
         "features": { "server": true }, "state": { "status": "failed", "error": "Cannot find module" },
@@ -305,8 +305,8 @@ fn plugin_manager_follows_plugin_updated_under_its_error_view() {
         events: true,
         ..support::deps(Arc::new(memory.clone()))
     };
-    let tui = xccode_tui::mount(&app, deps);
-    xccode_tui::features::location::navigate_home(&tui, Some(xccode_store::Location::new("/tmp/other")));
+    let tui = xiaochuan_tui::mount(&app, deps);
+    xiaochuan_tui::features::location::navigate_home(&tui, Some(xiaochuan_store::Location::new("/tmp/other")));
     let reads = || {
         let other = Some(vec!["/tmp/other".to_owned()]);
         memory
@@ -337,7 +337,7 @@ fn plugin_manager_reads_the_active_location() {
 }
 
 fn plugin_manager_reads_the_active_location_on(app: &TestApp, mounted: &Mounted) {
-    xccode_tui::features::location::navigate_home(&mounted.tui, Some(xccode_store::Location::new("/tmp/other")));
+    xiaochuan_tui::features::location::navigate_home(&mounted.tui, Some(xiaochuan_store::Location::new("/tmp/other")));
     mounted.tui.keymap.dispatch("plugins.list", None);
     app.wait_until(WAIT, || mounted.requests("/api/plugin").len() == 2);
     assert_eq!(mounted.requests("/api/plugin")[1], "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fother");
@@ -352,21 +352,21 @@ fn the_host_entries_list_and_toggle_like_plugins() {
         .plugins
         .entries()
         .into_iter()
-        .filter(|entry| entry.source == xccode_plugin::Source::Builtin)
+        .filter(|entry| entry.source == xiaochuan_plugin::Source::Builtin)
         .map(|entry| entry.id)
         .collect();
     let at = |id: &str| builtins.iter().position(|known| known == id).unwrap();
-    assert!(at("xccode.notifications") < at("xccode.plugins") && at("xccode.plugins") < at("xccode.stats"));
-    assert_eq!(builtins.last().map(String::as_str), Some("xccode.diffs"));
+    assert!(at("xiaochuan.notifications") < at("xiaochuan.plugins") && at("xiaochuan.plugins") < at("xiaochuan.stats"));
+    assert_eq!(builtins.last().map(String::as_str), Some("xiaochuan.diffs"));
 
-    let host = xccode_tui::plugins::host::host(tui);
-    assert!(tui.plugins.set_active(&host, "xccode.diffs", false));
-    assert!(!active(tui, "xccode.diffs"));
+    let host = xiaochuan_tui::plugins::host::host(tui);
+    assert!(tui.plugins.set_active(&host, "xiaochuan.diffs", false));
+    assert!(!active(tui, "xiaochuan.diffs"));
     assert!(!matches!(tui.keymap.dispatch("diff.open", None), opentui::keymap::RunResult::Ok));
-    assert!(tui.plugins.set_active(&host, "xccode.diffs", true));
+    assert!(tui.plugins.set_active(&host, "xiaochuan.diffs", true));
     assert!(matches!(tui.keymap.dispatch("diff.open", None), opentui::keymap::RunResult::Ok));
     // The viewer is a plugin, whose navigation is an effect after its command.
-    let route = Route::Plugin { id: "xccode.diffs".to_owned(), name: "diff".to_owned() };
+    let route = Route::Plugin { id: "xiaochuan.diffs".to_owned(), name: "diff".to_owned() };
     assert!(app.wait_until(WAIT, || tui.route() == route), "{:?}", tui.route());
     app.render();
     assert!(!app.text().contains("Unknown plugin route"), "{}", app.text());
@@ -411,11 +411,11 @@ fn plugin_manager_toggles_checks_and_updates() {
     assert_eq!(
         mounted.requests("/api/plugin"),
         [
-            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp",
-            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp",
-            "POST /api/plugin/update?location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp",
-            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp",
-            "POST /api/plugin/check?location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp",
+            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp",
+            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp",
+            "POST /api/plugin/update?location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp",
+            "GET /api/plugin?location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp",
+            "POST /api/plugin/check?location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp",
         ]
     );
 }
@@ -430,7 +430,7 @@ fn a_configured_typescript_plugin_is_listed_as_skipped_with_its_reason() {
     assert!(screen.contains("view error enter"), "{screen}");
     app.press("enter");
     let screen = wait_for(&app, "TUI plugin error");
-    assert!(screen.contains(xccode_plugin::SKIPPED), "{screen}");
+    assert!(screen.contains(xiaochuan_plugin::SKIPPED), "{screen}");
 }
 
 fn pair_server(fails: bool) -> Answer {
@@ -452,7 +452,7 @@ fn pair_server(fails: bool) -> Answer {
 /// A running data migration shows its label and progress in a corner overlay once the server is up.
 #[test]
 fn a_running_migration_shows_its_progress() {
-    use xccode_api::memory::{Memory, Route as MemoryRoute};
+    use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
     let progress =
         json!({ "status": "running", "progress": { "label": "Sessions", "numerator": 3, "denominator": 9 } });
     let memory = Memory::new(vec![
@@ -498,7 +498,7 @@ fn a_pair_link_opens_on_click() {
     let tui = mount_with(&app, support::component_info(json!({})), pair_server(false)).tui;
     pair::show(&tui);
     let screen = wait_for(&app, "expire in");
-    let capture = xccode_tui::features::links::testing::capture();
+    let capture = xiaochuan_tui::features::links::testing::capture();
     let (x, y) = support::at(&screen, "http://localhost:4096").unwrap();
     app.click(x + 2, y);
     assert_eq!(*capture.0.opened.borrow(), ["http://localhost:4096/auth/connect/XK7Q2M"]);
@@ -521,7 +521,7 @@ fn pair_links_follow_the_server_urls() {
 #[test]
 fn pair_links_skip_server_urls_with_non_ascii_hosts() {
     let url = "https://Bücher.example";
-    assert!(matches!(xccode_api::js::parse_url(url), Err(xccode_api::js::UrlError::NonAsciiHost(_))));
+    assert!(matches!(xiaochuan_api::js::parse_url(url), Err(xiaochuan_api::js::UrlError::NonAsciiHost(_))));
     let server = serde_json::from_value(json!({
         "version": "1", "pid": 1, "urls": [url, "https://box.example/"], "paths": { "tmp": "/tmp" },
     }))
@@ -538,7 +538,7 @@ fn closing_export_frees_its_select_and_callbacks() {
     let tui = support::mount_empty(&app, Info::default(), None);
     let marker = Rc::new(());
     let held = marker.clone();
-    xccode_tui::dialogs::export::options(&tui, false, Rc::new(move |_, _| drop(held.clone())));
+    xiaochuan_tui::dialogs::export::options(&tui, false, Rc::new(move |_, _| drop(held.clone())));
     wait_for(&app, "Export session");
     tui.dialogs.clear();
     app.render();
@@ -549,7 +549,7 @@ fn closing_export_frees_its_select_and_callbacks() {
 fn integration_links_open_only_on_the_web() {
     let app = TestApp::new(80, 24);
     let tui = support::mount_empty(&app, Info::default(), None);
-    let capture = xccode_tui::features::links::testing::capture();
+    let capture = xiaochuan_tui::features::links::testing::capture();
     let open = tui.local.open_url.borrow().clone();
     assert!(open("file:///etc/passwd").is_err());
     assert!(open("-a Calculator").is_err());
@@ -572,7 +572,7 @@ fn highlights_match_typescript() {
     let tui = mount(&app, support::component_info(json!({})));
     let release = highlights::Release { version: "2.0.27".to_owned(), items: release_highlights() };
     highlights::install_with(&tui, release, false);
-    tui.keymap.dispatch("xccode.highlights", None);
+    tui.keymap.dispatch("xiaochuan.highlights", None);
     wait_for(&app, "What's new in 2.0.27");
     assert_dialog(&app, "E.18b/highlights", "What's new");
     app.press("enter");
@@ -584,7 +584,7 @@ fn highlights_match_typescript() {
     items.extend(
         release_highlights().into_iter().map(|item| Highlight { title: format!("{} again", item.title), ..item }),
     );
-    xccode_tui::dialogs::highlights::show(&tui, "2.0.27", &items);
+    xiaochuan_tui::dialogs::highlights::show(&tui, "2.0.27", &items);
     wait_for(&app, "What's new in 2.0.27");
     app.press("down");
     app.press("down");
@@ -600,12 +600,12 @@ fn mount_rooted(app: &TestApp, home: &std::path::Path, extra: Value) -> Rc<Tui> 
         route: Route::Home,
         ..support::deps(Arc::new(fake(Box::new(|_, _, _| None))))
     };
-    xccode_tui::mount(app, deps)
+    xiaochuan_tui::mount(app, deps)
 }
 
 #[test]
 fn highlights_open_once_after_an_update_into_an_idle_home() {
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let release = highlights::Release { version: "2.0.27".to_owned(), items: release_highlights() };
 
     let app = TestApp::new(80, 30);
@@ -720,12 +720,12 @@ fn update_dialog_matches_typescript_through_an_install() {
     assert!(updater.checks.borrow().is_empty());
 
     app.press("enter");
-    wait_for(&app, "Installing Xccode 2.0.28");
-    assert_dialog(&app, "E.18b/update-installing", "Updating Xccode");
+    wait_for(&app, "Installing Xiaochuan 2.0.28");
+    assert_dialog(&app, "E.18b/update-installing", "Updating Xiaochuan");
     assert_eq!(updater.finish_apply(Ok(())), "2.0.28");
     wait_for(&app, "Update successful");
     assert_dialog(&app, "E.18b/update-installed", "Update");
-    let epilogue = xccode_tui::features::epilogue::text(&tui).unwrap_or_default();
+    let epilogue = xiaochuan_tui::features::epilogue::text(&tui).unwrap_or_default();
     assert!(epilogue.contains("2.0.28"), "{epilogue}");
 
     let app = TestApp::new(80, 30);
@@ -767,7 +767,7 @@ fn update_choices_are_keyboard_navigable_buttons() {
 fn update_checks_show_their_result_as_typescript() {
     let app = TestApp::new(80, 30);
     let (tui, updater) = with_updater(&app, None);
-    tui.keymap.dispatch("xccode.update", None);
+    tui.keymap.dispatch("xiaochuan.update", None);
     wait_for(&app, "Checking for updates");
     assert_dialog(&app, "E.18b/update-checking", "Update");
     updater.finish_check(Ok(None));
@@ -777,7 +777,7 @@ fn update_checks_show_their_result_as_typescript() {
     update_notification::open(&tui, update_notification::Origin::Manual);
     wait_for(&app, "Checking");
     updater.finish_check(Ok(Some(update_notification::Check::Unavailable(
-        "Xccode was installed with Homebrew. Run `brew upgrade xccode` to update.".to_owned(),
+        "Xiaochuan was installed with Homebrew. Run `brew upgrade xiaochuan` to update.".to_owned(),
     ))));
     wait_for(&app, "Homebrew");
     assert_dialog(&app, "E.18b/update-unavailable", "Update");
@@ -801,7 +801,7 @@ fn update_checks_show_their_result_as_typescript() {
 
 #[test]
 fn the_home_notice_opens_the_dialog_and_skip_hides_it_for_good() {
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let app = TestApp::new(80, 30);
     let (tui, _updater) = with_updater(&app, Some(mount_rooted(&app, home.path(), json!({}))));
     // Without an updater there is no notice and no `/update`; with one, the client's notice shows.
@@ -851,7 +851,7 @@ fn without_an_updater_there_is_no_update_command_or_notice() {
     let app = TestApp::new(80, 30);
     let tui = mount(&app, support::component_info(json!({})));
     update_notification::client_notice(&tui, available("2.0.28"));
-    tui.keymap.dispatch("xccode.update", None);
+    tui.keymap.dispatch("xiaochuan.update", None);
     app.wait_until(Duration::from_millis(300), || app.text().contains("Update"));
     assert!(!app.text().contains("Update"), "{}", app.text());
     assert!(!app.text().contains("2.0.28"), "{}", app.text());
@@ -893,7 +893,7 @@ fn the_plugin_manager_search_finds_built_ins_once_they_show() {
     h.app.press("ctrl+a");
     h.wait_for("hide internal");
     h.app.type_text("btw");
-    h.wait_for("xccode.btw");
+    h.wait_for("xiaochuan.btw");
     assert!(!h.app.text().contains("No results found"), "{}", h.app.text());
 }
 

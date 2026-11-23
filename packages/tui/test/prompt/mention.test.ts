@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test"
 import { measureEditText } from "@opentui/core"
-import type { PromptInput } from "@xccode/schema"
+import type { PromptInput } from "@xiaochuan/schema"
 import {
   expandPromptInputPastedText,
   promptMentionsToCells,

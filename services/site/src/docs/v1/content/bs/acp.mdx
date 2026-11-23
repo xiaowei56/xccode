@@ -1,9 +1,9 @@
 ---
 title: ACP podrška
-description: Koristite Xccode u bilo kojem uređivaču kompatibilnom sa ACP.
+description: Koristite Xiaochuan u bilo kojem uređivaču kompatibilnom sa ACP.
 ---
 
-Xccode podržava [Agent Client Protocol](https://agentclientprotocol.com) (ACP), što vam omogućava da ga koristite direktno u kompatibilnim uređivačima i IDE-ovima.
+Xiaochuan podržava [Agent Client Protocol](https://agentclientprotocol.com) (ACP), što vam omogućava da ga koristite direktno u kompatibilnim uređivačima i IDE-ovima.
 
 :::tip
 Za listu uređivača i alata koji podržavaju ACP, pogledajte [ACP izvještaj o napretku](https://zed.dev/blog/acp-progress-report#available-now).
@@ -15,9 +15,9 @@ ACP je otvoreni protokol koji standardizira komunikaciju između uređivača kod
 
 ## Konfiguracija
 
-Da biste koristili Xccode putem ACP-a, konfigurirajte svoj uređivač da pokrene naredbu `xccode acp`.
+Da biste koristili Xiaochuan putem ACP-a, konfigurirajte svoj uređivač da pokrene naredbu `xiaochuan acp`.
 
-Naredba pokreće Xccode kao ACP-kompatibilan podproces koji komunicira sa vašim uređivačem preko JSON-RPC-a kroz stdio.
+Naredba pokreće Xiaochuan kao ACP-kompatibilan podproces koji komunicira sa vašim uređivačem preko JSON-RPC-a kroz stdio.
 
 Ispod su primjeri za popularne uređivače koji podržavaju ACP.
 
@@ -25,16 +25,16 @@ Ispod su primjeri za popularne uređivače koji podržavaju ACP.
 
 ### Zed
 
-Instalirajte Xccode iz [Zed ACP registra](https://zed.dev/docs/ai/external-agents#registry) pokretanjem naredbe `zed: acp registry` u komandnoj paleti.
+Instalirajte Xiaochuan iz [Zed ACP registra](https://zed.dev/docs/ai/external-agents#registry) pokretanjem naredbe `zed: acp registry` u komandnoj paleti.
 
-Ako umjesto toga želite koristiti prilagođenu Xccode izvršnu datoteku, dodajte je u svoju [Zed](https://zed.dev) konfiguraciju (`~/.config/zed/settings.json`):
+Ako umjesto toga želite koristiti prilagođenu Xiaochuan izvršnu datoteku, dodajte je u svoju [Zed](https://zed.dev) konfiguraciju (`~/.config/zed/settings.json`):
 
 ```json title="~/.config/zed/settings.json"
 {
   "agent_servers": {
-    "Xccode": {
+    "Xiaochuan": {
       "type": "custom",
-      "command": "xccode",
+      "command": "xiaochuan",
       "args": ["acp"]
     }
   }
@@ -54,9 +54,9 @@ Također možete vezati prečicu na tastaturi uređivanjem vašeg `keymap.json`:
         {
           "agent": {
             "custom": {
-              "name": "Xccode",
+              "name": "Xiaochuan",
               "command": {
-                "command": "xccode",
+                "command": "xiaochuan",
                 "args": ["acp"]
               }
             }
@@ -77,15 +77,15 @@ Dodajte u svoj [JetBrains IDE](https://www.jetbrains.com/) `acp.json` prema [dok
 ```json title="acp.json"
 {
   "agent_servers": {
-    "Xccode": {
-      "command": "/absolute/path/bin/xccode",
+    "Xiaochuan": {
+      "command": "/absolute/path/bin/xiaochuan",
       "args": ["acp"]
     }
   }
 }
 ```
 
-Da biste ga otvorili, koristite novog "Xccode" agenta u AI Chat agent selektoru.
+Da biste ga otvorili, koristite novog "Xiaochuan" agenta u AI Chat agent selektoru.
 
 ---
 
@@ -96,8 +96,8 @@ Dodajte u svoju [Avante.nvim](https://github.com/yetone/avante.nvim) konfiguraci
 ```lua
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" }
     }
   }
@@ -109,11 +109,11 @@ Ako trebate proslijediti varijable okruženja:
 ```lua {6-8}
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" },
       env = {
-        XCCODE_API_KEY = os.getenv("XCCODE_API_KEY")
+        XIAOCHUAN_API_KEY = os.getenv("XIAOCHUAN_API_KEY")
       }
     }
   }
@@ -124,14 +124,14 @@ Ako trebate proslijediti varijable okruženja:
 
 ### CodeCompanion.nvim
 
-Da koristite Xccode kao ACP agenta u [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim), dodajte sljedeće u svoju Neovim konfiguraciju:
+Da koristite Xiaochuan kao ACP agenta u [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim), dodajte sljedeće u svoju Neovim konfiguraciju:
 
 ```lua
 require("codecompanion").setup({
   interactions = {
     chat = {
       adapter = {
-        name = "xccode",
+        name = "xiaochuan",
         model = "claude-sonnet-5-5",
       },
     },
@@ -139,13 +139,13 @@ require("codecompanion").setup({
 })
 ```
 
-Ova konfiguracija postavlja CodeCompanion da koristi Xccode kao ACP chat agenta.
+Ova konfiguracija postavlja CodeCompanion da koristi Xiaochuan kao ACP chat agenta.
 
-Ako trebate proslijediti varijable okruženja (kao što je `XCCODE_API_KEY`), pogledajte [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) u dokumentaciji CodeCompanion.nvim.
+Ako trebate proslijediti varijable okruženja (kao što je `XIAOCHUAN_API_KEY`), pogledajte [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) u dokumentaciji CodeCompanion.nvim.
 
 ## Podržane funkcije
 
-Xccode radi isto kroz ACP kao i u terminalu. Podržane su sve funkcije:
+Xiaochuan radi isto kroz ACP kao i u terminalu. Podržane su sve funkcije:
 
 :::note
 Neke ugrađene komande kao što su `/undo` i `/redo` trenutno nisu podržane.
@@ -153,7 +153,7 @@ Neke ugrađene komande kao što su `/undo` i `/redo` trenutno nisu podržane.
 
 - Ugrađeni alati (operacije sa datotekama, naredbe terminala, itd.)
 - Prilagođeni alati i slash komande
-- MCP serveri konfigurisani u vašoj Xccode konfiguraciji
+- MCP serveri konfigurisani u vašoj Xiaochuan konfiguraciji
 - Pravila specifična za projekat `AGENTS.md`
 - Prilagođeni formateri i linteri
 - Agenti i sistem dozvola

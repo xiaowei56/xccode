@@ -1,11 +1,11 @@
 import { createMemo, createSignal, For, onCleanup, Show, type JSX, type ParentProps } from "solid-js"
-import { AppIcon } from "@xccode/ui/app-icon"
-import { Icon } from "@xccode/ui/icon"
-import { Menu } from "@xccode/ui/menu"
-import { Loader } from "@xccode/ui/loader"
-import { SplitButton, SplitButtonAction, SplitButtonMenuTrigger } from "@xccode/ui/split-button"
-import { showToast } from "@xccode/ui/toast"
-import { Tooltip } from "@xccode/ui/tooltip"
+import { AppIcon } from "@xiaochuan/ui/app-icon"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Menu } from "@xiaochuan/ui/menu"
+import { Loader } from "@xiaochuan/ui/loader"
+import { SplitButton, SplitButtonAction, SplitButtonMenuTrigger } from "@xiaochuan/ui/split-button"
+import { showToast } from "@xiaochuan/ui/toast"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import {
   createKeyed,
   usePlugin,
@@ -13,7 +13,7 @@ import {
   type OS,
   type MountedSession,
   type SessionScreen,
-} from "@xccode/plugin/gui"
+} from "@xiaochuan/plugin/gui"
 import type { OpenApp } from "./apps"
 import { useShared } from "./context"
 

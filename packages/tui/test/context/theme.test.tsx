@@ -2,10 +2,10 @@
 import { CliRenderEvents, RGBA, type TerminalColors } from "@opentui/core"
 import { testRender } from "@opentui/solid"
 import { expect, test } from "bun:test"
-import { resolveThemeDocument } from "@xccode/theme/tui"
+import { resolveThemeDocument } from "@xiaochuan/theme/tui"
 import { ConfigProvider, useConfig, type Info } from "../../src/config"
 import { ThemeProvider, useTheme, useThemes } from "../../src/context/theme"
-import { getXccodeTheme, getXccodeClassicTheme } from "../../src/theme"
+import { getXiaochuanTheme, getXiaochuanClassicTheme } from "../../src/theme"
 import { emptyThemeSource, tmpdir } from "../fixture/fixture"
 import { TestTuiContexts } from "../fixture/tui-environment"
 import { createTuiResolvedConfig } from "../fixture/tui-runtime"
@@ -58,9 +58,9 @@ test("the system theme follows a palette reply that arrives after the query", as
   }
 })
 
-test("names the new theme xccode and the previous one xccode-classic", async () => {
+test("names the new theme xiaochuan and the previous one xiaochuan-classic", async () => {
   await using temporary = await tmpdir()
-  const settings: Info = { theme: { name: "xccode" } }
+  const settings: Info = { theme: { name: "xiaochuan" } }
   let config!: ReturnType<typeof useConfig>
   let themes!: ReturnType<typeof useThemes>
   let theme!: ReturnType<typeof useTheme>
@@ -92,12 +92,12 @@ test("names the new theme xccode and the previous one xccode-classic", async () 
   try {
     app.renderer.start()
     await app.waitForFrame(() => themes !== undefined)
-    const newTheme = resolveThemeDocument(getXccodeTheme(), "dark").background.base
-    const classic = resolveThemeDocument(getXccodeClassicTheme(), "dark").background.base
+    const newTheme = resolveThemeDocument(getXiaochuanTheme(), "dark").background.base
+    const classic = resolveThemeDocument(getXiaochuanClassicTheme(), "dark").background.base
     expect(theme.background.base.equals(newTheme)).toBeTrue()
-    expect(themes.set("xccode-classic")).toBeTrue()
+    expect(themes.set("xiaochuan-classic")).toBeTrue()
     expect(theme.background.base.equals(classic)).toBeTrue()
-    expect(themes.set("xccode2")).toBeTrue()
+    expect(themes.set("xiaochuan2")).toBeTrue()
     expect(theme.background.base.equals(newTheme)).toBeTrue()
 
     // The names do not depend on the new designs experiment.
@@ -105,7 +105,7 @@ test("names the new theme xccode and the previous one xccode-classic", async () 
       draft.experimental = { "new-designs": false }
     })
     expect(theme.background.base.equals(newTheme)).toBeTrue()
-    expect(themes.has("xccode-classic")).toBeTrue()
+    expect(themes.has("xiaochuan-classic")).toBeTrue()
   } finally {
     app.renderer.destroy()
   }

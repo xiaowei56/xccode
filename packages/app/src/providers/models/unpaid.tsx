@@ -1,11 +1,11 @@
-import { DialogBody, DialogHeader, DialogTitle, Dialog } from "@xccode/ui/dialog"
-import { Badge } from "@xccode/ui/badge"
-import { Icon } from "@xccode/ui/icon"
-import { MenuScroll } from "@xccode/ui/menu-scroll"
+import { DialogBody, DialogHeader, DialogTitle, Dialog } from "@xiaochuan/ui/dialog"
+import { Badge } from "@xiaochuan/ui/badge"
+import { Icon } from "@xiaochuan/ui/icon"
+import { MenuScroll } from "@xiaochuan/ui/menu-scroll"
 import { ProviderModelIcon } from "@/providers/models/provider-group"
-import { Tooltip } from "@xccode/ui/tooltip"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { useTheme } from "@xccode/ui/theme"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { useTheme } from "@xiaochuan/ui/theme"
 import { createMemo, onCleanup, onMount, type Component, For, Show } from "solid-js"
 import { useLocal, type ModelSelection } from "@/providers/models/selection"
 import { isFreeModel } from "@/providers/models/models"
@@ -16,7 +16,7 @@ import { ModelTooltip } from "./tooltip"
 
 type ModelState = ModelSelection
 
-const featuredProviders = ["xccode", "openai", "anthropic", "google", "github-copilot"]
+const featuredProviders = ["xiaochuan", "openai", "anthropic", "google", "github-copilot"]
 
 const displayModelName = (name: string) => name.replace(/\s+(?:\(free\)|free)$/i, "")
 
@@ -37,7 +37,7 @@ export const DialogSelectModelUnpaid: Component<{ model?: ModelState }> = (props
   })
 
   const providerName = (provider: { id: string; name: string }) =>
-    provider.id === "xccode" ? language.t("provider.connect.xccode.name") : provider.name
+    provider.id === "xiaochuan" ? language.t("provider.connect.xiaochuan.name") : provider.name
 
   const freeModels = createMemo(() => model.list().filter(isFreeModel))
 
@@ -172,9 +172,9 @@ export const DialogSelectModelUnpaid: Component<{ model?: ModelState }> = (props
                         />
                         <span class="flex min-w-0 flex-col">
                           <span class="truncate">{providerName(provider)}</span>
-                          <Show when={provider.id === "xccode"}>
+                          <Show when={provider.id === "xiaochuan"}>
                             <span class="truncate font-[440] text-v2-text-text-muted">
-                              {language.t("dialog.provider.xccode.note")}
+                              {language.t("dialog.provider.xiaochuan.note")}
                             </span>
                           </Show>
                         </span>

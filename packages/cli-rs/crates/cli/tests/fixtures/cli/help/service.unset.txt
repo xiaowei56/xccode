@@ -2,7 +2,7 @@
   Unset service configuration
 
 [1mUSAGE[0m
-  [36mxccode service unset [flags] <key> [<name>][0m
+  [36mxiaochuan service unset [flags] <key> [<name>][0m
 
 [1mARGUMENTS[0m
   [32mkey[0m [2mstring[0m     Service setting or env

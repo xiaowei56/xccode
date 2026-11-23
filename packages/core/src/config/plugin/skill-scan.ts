@@ -1,6 +1,6 @@
 export * as SkillScan from "./skill-scan.js"
 
-import { FSUtil } from "@xccode/util/fs-util"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import path from "path"
 import { Effect } from "effect"
 

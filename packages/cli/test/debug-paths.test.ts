@@ -11,11 +11,11 @@ describe("debug paths command", () => {
     expect(debug.stdout).toContain("paths")
     expect(debug.stdout).toContain("Show global paths (data, config, cache, state)")
     expect(paths.exitCode).toBe(0)
-    expect(paths.stdout).toContain("xccode debug paths [flags]")
+    expect(paths.stdout).toContain("xiaochuan debug paths [flags]")
   })
 
   test("prints resolved global paths without starting a server", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "xccode-debug-paths-"))
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "xiaochuan-debug-paths-"))
 
     try {
       const result = await cli(["debug", "paths"], {
@@ -34,16 +34,16 @@ describe("debug paths command", () => {
       expect({ exitCode: result.exitCode, stderr: result.stderr }).toEqual({ exitCode: 0, stderr: "" })
       expect(paths).toMatchObject({
         home: os.homedir(),
-        data: path.join(root, "data", "xccode"),
-        config: path.join(root, "config", "xccode"),
-        cache: path.join(root, "cache", "xccode"),
-        state: path.join(root, "state", "xccode"),
-        bin: path.join(root, "cache", "xccode", "bin"),
-        log: path.join(root, "data", "xccode", "log"),
-        repos: path.join(root, "data", "xccode", "repos"),
+        data: path.join(root, "data", "xiaochuan"),
+        config: path.join(root, "config", "xiaochuan"),
+        cache: path.join(root, "cache", "xiaochuan"),
+        state: path.join(root, "state", "xiaochuan"),
+        bin: path.join(root, "cache", "xiaochuan", "bin"),
+        log: path.join(root, "data", "xiaochuan", "log"),
+        repos: path.join(root, "data", "xiaochuan", "repos"),
       })
       expect(paths.tmp).toBeTruthy()
-      expect(await Bun.file(path.join(root, "state", "xccode", "service-local.json")).exists()).toBe(false)
+      expect(await Bun.file(path.join(root, "state", "xiaochuan", "service-local.json")).exists()).toBe(false)
     } finally {
       await fs.rm(root, { recursive: true, force: true })
     }

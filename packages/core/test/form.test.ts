@@ -1,10 +1,10 @@
 import { describe, expect } from "bun:test"
 import { Deferred, Effect, Exit, Fiber } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { Form } from "@xccode/core/form"
-import { SessionSchema } from "@xccode/core/session/schema"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { Form } from "@xiaochuan/core/form"
+import { SessionSchema } from "@xiaochuan/core/session/schema"
 import { testEffect } from "./lib/effect"
 
 const forms = AppNodeBuilder.build(LayerNode.group([Bus.node, Form.node]))

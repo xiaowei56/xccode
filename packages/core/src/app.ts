@@ -1,7 +1,7 @@
 export * as App from "./app.js"
 
 import { Context, Layer } from "effect"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 
 export interface Info {
   readonly name: string
@@ -9,18 +9,18 @@ export interface Info {
   readonly channel: string
 }
 
-export class Service extends Context.Service<Service, Info>()("@xccode/App") {}
+export class Service extends Context.Service<Service, Info>()("@xiaochuan/App") {}
 
 export function make(input: Partial<Info> = {}): Info {
   return {
-    name: input.name ?? "xccode",
+    name: input.name ?? "xiaochuan",
     version: input.version ?? "unknown",
     channel: input.channel ?? "unknown",
   }
 }
 
 export function useragent(app: Info) {
-  return `xccode/${app.channel}/${app.version}/${app.name}`
+  return `xiaochuan/${app.channel}/${app.version}/${app.name}`
 }
 
 export const layer = (input?: Partial<Info>) => Layer.succeed(Service, make(input))

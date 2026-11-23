@@ -1,6 +1,6 @@
-import { usePlugin } from "@xccode/plugin/gui"
-import { Button } from "@xccode/ui/button"
-import { Menu } from "@xccode/ui/menu"
+import { usePlugin } from "@xiaochuan/plugin/gui"
+import { Button } from "@xiaochuan/ui/button"
+import { Menu } from "@xiaochuan/ui/menu"
 import { For, Show } from "solid-js"
 import { moreDevices, quickPresets, type Device } from "./viewport-presets"
 

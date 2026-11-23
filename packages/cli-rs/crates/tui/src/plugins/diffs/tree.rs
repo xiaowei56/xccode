@@ -2,9 +2,9 @@
 
 use std::collections::BTreeSet;
 
-use xccode_plugin::abi::interact::Interact;
-use xccode_plugin::abi::v2;
-use xccode_plugin::abi::{Click, Edges, Layout, Rgba, Span, Width, Wrap};
+use xiaochuan_plugin::abi::interact::Interact;
+use xiaochuan_plugin::abi::v2;
+use xiaochuan_plugin::abi::{Click, Edges, Layout, Rgba, Span, Width, Wrap};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Kind {

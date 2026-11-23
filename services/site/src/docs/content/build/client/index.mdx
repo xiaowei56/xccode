@@ -1,17 +1,17 @@
 ---
 title: "JavaScript"
-description: "Connect your application to an Xccode server with @xccode/client, the TypeScript client for the Xccode HTTP API."
+description: "Connect your application to an Xiaochuan server with @xiaochuan/client, the TypeScript client for the Xiaochuan HTTP API."
 ---
 
-`@xccode/client` is the TypeScript client for the Xccode HTTP
-API. Use it when your application connects to an Xccode server over the
+`@xiaochuan/client` is the TypeScript client for the Xiaochuan HTTP
+API. Use it when your application connects to an Xiaochuan server over the
 network. Its native types and methods are generated from the same contract as the
 [API reference](/api). Plugin RPC types come from imported RPC definitions.
 
 ## Install
 
 ```sh
-bun add @xccode/client
+bun add @xiaochuan/client
 ```
 
 ## Create a client
@@ -19,9 +19,9 @@ bun add @xccode/client
 Create a client with the server URL, then call methods grouped by API resource:
 
 ```ts
-import { Xccode } from "@xccode/client"
+import { Xiaochuan } from "@xiaochuan/client"
 
-const client = Xccode.make({
+const client = Xiaochuan.make({
   baseUrl: "http://localhost:4096",
 })
 
@@ -37,17 +37,17 @@ await client.session.prompt({
 
 ## Headers and requests
 
-Pass default authentication or application headers to `Xccode.make` with
+Pass default authentication or application headers to `Xiaochuan.make` with
 `headers`. You can also supply a custom `fetch` implementation. Each operation
 accepts request options as its final argument for an `AbortSignal` or
 per-request headers. Event subscriptions are the exception: they accept only
 subscriber-local cancellation and use the base client's headers.
 
 ```ts
-const client = Xccode.make({
-  baseUrl: "https://xccode.example.com",
+const client = Xiaochuan.make({
+  baseUrl: "https://xiaochuan.example.com",
   headers: {
-    authorization: `Bearer ${process.env.XCCODE_TOKEN}`,
+    authorization: `Bearer ${process.env.XIAOCHUAN_TOKEN}`,
   },
 })
 
@@ -91,8 +91,8 @@ for await (const event of client.event.subscribe({ types: ["config.updated"] }))
 Import a plugin's shared contract and pass it to `client.rpc`:
 
 ```ts
-import { Xccode } from "@xccode/client"
-import { Acme } from "xccode-acme-plugin/rpc"
+import { Xiaochuan } from "@xiaochuan/client"
+import { Acme } from "xiaochuan-acme-plugin/rpc"
 
 const acme = client.rpc(Acme)
 const result = await acme.search(
@@ -149,7 +149,7 @@ definition and registration API. Any HTTP client can also invoke the generic
 
 The main client entrypoints are browser-compatible and do not include local
 process management. In a Node application, import the native Promise service
-API from `@xccode/client/service`.
+API from `@xiaochuan/client/service`.
 
 - `Service.discover()` returns a healthy registered endpoint without starting
   a process.
@@ -158,11 +158,11 @@ API from `@xccode/client/service`.
 - `Service.headers(endpoint)` creates the authentication headers for a client.
 
 ```ts
-import { Xccode } from "@xccode/client"
-import { Service } from "@xccode/client/service"
+import { Xiaochuan } from "@xiaochuan/client"
+import { Service } from "@xiaochuan/client/service"
 
 const endpoint = await Service.ensure()
-const client = Xccode.make({
+const client = Xiaochuan.make({
   baseUrl: endpoint.url,
   headers: Service.headers(endpoint),
 })
@@ -176,9 +176,9 @@ compatibility predicate:
 
 ```ts
 const endpoint = await Service.ensure({
-  file: "/var/run/xccode/service.json",
+  file: "/var/run/xiaochuan/service.json",
   version: (version) => version.startsWith("2."),
-  command: ["xccode", "serve", "--service"],
+  command: ["xiaochuan", "serve", "--service"],
   onStart(reason, previousVersion) {
     console.log(reason, previousVersion)
   },
@@ -186,4 +186,4 @@ const endpoint = await Service.ensure({
 ```
 
 Omit these options to use the standard registration path and
-`xccode serve --service` command.
+`xiaochuan serve --service` command.

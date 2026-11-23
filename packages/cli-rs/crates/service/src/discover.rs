@@ -1,15 +1,15 @@
-//! Looks first in `XCCODE_CHANNEL`, then the client's default channel, then other registrations. Among scanned
-//! services, prefer one owned by the resolved `xccode` binary; otherwise prefer the newest. Discovery never
+//! Looks first in `XIAOCHUAN_CHANNEL`, then the client's default channel, then other registrations. Among scanned
+//! services, prefer one owned by the resolved `xiaochuan` binary; otherwise prefer the newest. Discovery never
 //! modifies a registration or stops a service.
 
 use std::path::{Path, PathBuf};
 
 use futures_util::future::join_all;
-use xccode_api::transport::Transport;
-use xccode_local::channel;
-use xccode_local::paths::Paths;
-use xccode_local::registration;
-use xccode_util::path::realpath;
+use xiaochuan_api::transport::Transport;
+use xiaochuan_local::channel;
+use xiaochuan_local::paths::Paths;
+use xiaochuan_local::registration;
+use xiaochuan_util::path::realpath;
 
 use crate::probe::{self, Decision, LocalService, REQUEST_TIMEOUT};
 use crate::ts_command::TsCommand;
@@ -36,7 +36,7 @@ pub struct Missing {
     pub pending: Option<PathBuf>,
 }
 
-/// Discovers a ready, compatible service. `env_channel` is `XCCODE_CHANNEL`. Among the scanned
+/// Discovers a ready, compatible service. `env_channel` is `XIAOCHUAN_CHANNEL`. Among the scanned
 /// registrations it prefers the service of the TypeScript binary [`TsCommand::from_env`] resolves.
 pub async fn discover(transport: &dyn Transport, paths: &Paths, env_channel: Option<&str>) -> Result<Found, Missing> {
     discover_with(transport, paths, env_channel, &Owner::new(TsCommand::from_env())).await
@@ -121,7 +121,7 @@ pub fn runs(command: &TsCommand, pid: u32) -> bool {
         && resolve(&command.program).is_some_and(|executable| process_executable(pid) == Some(executable))
 }
 
-/// The version `<binary> --version` prints: `xccode v1.2.3` gives `1.2.3`, as Desktop's `parseCliVersion` reads it,
+/// The version `<binary> --version` prints: `xiaochuan v1.2.3` gives `1.2.3`, as Desktop's `parseCliVersion` reads it,
 /// and a bare version stays. `None` when it does not run or print within the probe timeout.
 pub async fn binary_version(ts: &TsCommand) -> Option<String> {
     let mut command = tokio::process::Command::new(&ts.program);
@@ -142,7 +142,7 @@ pub async fn binary_version(ts: &TsCommand) -> Option<String> {
 /// canonicalized. `None` when the process cannot be opened.
 #[cfg(windows)]
 pub fn process_executable(pid: u32) -> Option<PathBuf> {
-    let image = xccode_util::win::process_image(pid).ok()?;
+    let image = xiaochuan_util::win::process_image(pid).ok()?;
     Some(realpath(&image).unwrap_or(image))
 }
 
@@ -184,7 +184,7 @@ impl Missing {
     }
 }
 
-/// The registration files of `XCCODE_CHANNEL` and of the default channel, without duplicates.
+/// The registration files of `XIAOCHUAN_CHANNEL` and of the default channel, without duplicates.
 pub fn preferred(paths: &Paths, env_channel: Option<&str>) -> Vec<PathBuf> {
     let mut files: Vec<PathBuf> = env_channel
         .filter(|channel| !channel.is_empty())
@@ -301,14 +301,14 @@ mod tests {
 
     // No TypeScript binary: the newest answering registration wins.
     async fn found(server: &Server, paths: &Paths, env: Option<&str>) -> Result<String, Missing> {
-        let owner = Owner::new(TsCommand::new("/nonexistent/xccode"));
+        let owner = Owner::new(TsCommand::new("/nonexistent/xiaochuan"));
         discover_with(server, paths, env, &owner).await.map(|found| found.channel)
     }
 
     // Every process runs some other binary.
     #[cfg(unix)]
     fn fake_proc(_: u32) -> Option<PathBuf> {
-        Some(PathBuf::from("/other/xccode2"))
+        Some(PathBuf::from("/other/xiaochuan2"))
     }
 
     #[cfg(unix)]
@@ -320,19 +320,19 @@ mod tests {
     #[cfg(unix)]
     #[tokio::test]
     async fn prefers_the_service_the_typescript_binary_runs() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let paths = paths(dir.path());
-        // The TS binary is reached through a symlink, as `~/.local/bin/xccode` may be.
+        // The TS binary is reached through a symlink, as `~/.local/bin/xiaochuan` may be.
         let ts = dir.path().join("ts-real");
         std::fs::write(&ts, "").unwrap();
-        std::os::unix::fs::symlink(&ts, dir.path().join("xccode")).unwrap();
+        std::os::unix::fs::symlink(&ts, dir.path().join("xiaochuan")).unwrap();
         register(&paths, "service-v2.json", 1001, 0);
         register(&paths, "service-oc-next.json", 2002, 100);
         register(&paths, "service-oc-old.json", 2003, 200);
         let live = server([ready(1001), ready(2002), ready(2003)]);
         let real = std::fs::canonicalize(&ts).unwrap();
         let lookup = move |pid| (pid >= 2000).then(|| real.clone());
-        let owner = Owner::with_lookup(TsCommand::new(dir.path().join("xccode")), lookup);
+        let owner = Owner::with_lookup(TsCommand::new(dir.path().join("xiaochuan")), lookup);
         let found = discover_with(&live, &paths, None, &owner).await.unwrap();
         assert_eq!(found.channel, "oc-next");
         // A preferred channel still wins over the TS binary's service.
@@ -344,7 +344,7 @@ mod tests {
     #[cfg(unix)]
     #[tokio::test]
     async fn no_match_takes_the_newest_and_a_version_match_decides_without_an_executable() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let paths = paths(dir.path());
         register(&paths, "service-v2.json", 1001, 0);
         register(&paths, "service-oc-next.json", 1002, 100);
@@ -360,7 +360,7 @@ mod tests {
         let owner = Owner::with_lookup(printing("1.2.3"), fake_proc);
         assert_eq!(discover_with(&live, &paths, None, &owner).await.unwrap().channel, "oc-next");
         // As the TS binary prints it (the bundled binary on macOS, whose executable is unknown).
-        let owner = Owner::with_lookup(printing("xccode v1.2.3"), fake_proc);
+        let owner = Owner::with_lookup(printing("xiaochuan v1.2.3"), fake_proc);
         assert_eq!(discover_with(&live, &paths, None, &owner).await.unwrap().channel, "oc-next");
         // One answering registration is taken without asking the binary.
         let owner = Owner::with_lookup(TsCommand::new("sh"), |_| panic!("looked up"));
@@ -370,7 +370,7 @@ mod tests {
 
     #[tokio::test]
     async fn prefers_the_env_channel_then_the_default_channel() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let paths = paths(dir.path());
         register(&paths, "service.json", 1001, 50);
         register(&paths, "service-oc-x.json", 1002, 100);
@@ -384,7 +384,7 @@ mod tests {
 
     #[tokio::test]
     async fn falls_back_to_the_newest_answering_registration() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let paths = paths(dir.path());
         register(&paths, "service.json", 1001, 0);
         register(&paths, "service-oc-old.json", 1002, 200);
@@ -401,7 +401,7 @@ mod tests {
 
     #[tokio::test]
     async fn reports_why_an_answering_service_was_not_used() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let paths = paths(dir.path());
         assert_eq!(found(&Server::default(), &paths, None).await, Err(Missing { reason: None, pending: None }));
         register(&paths, "service.json", 1001, 0);
@@ -418,7 +418,7 @@ mod tests {
     // Paused time: the hanging probe times out without waiting.
     #[tokio::test(start_paused = true)]
     async fn a_starting_or_unresponsive_registration_is_pending() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let paths = paths(dir.path());
         register(&paths, "service-oc-x.json", 1002, 0);
         let starting = server([(

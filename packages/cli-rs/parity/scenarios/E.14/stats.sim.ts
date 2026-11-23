@@ -21,6 +21,6 @@ export default defineSim({
     { type: "/stats" },
     { until: "/stats" },
     { enter: true },
-    { checkpoint: "poster", until: "xccode / stats" },
+    { checkpoint: "poster", until: "xiaochuan / stats" },
   ],
 })

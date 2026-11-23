@@ -1,5 +1,5 @@
-import type { JobInfo, ModelInfo, SessionMessageInfo } from "@xccode/client"
-import { lastAssistantWithUsage } from "@xccode/client/solid"
+import type { JobInfo, ModelInfo, SessionMessageInfo } from "@xiaochuan/client"
+import { lastAssistantWithUsage } from "@xiaochuan/client/solid"
 import { Locale } from "./locale"
 
 type SessionNode = {

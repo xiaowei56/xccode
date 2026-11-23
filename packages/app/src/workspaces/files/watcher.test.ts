@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test"
-import type { XccodeEvent } from "@xccode/client/promise"
+import type { XiaochuanEvent } from "@xiaochuan/client/promise"
 import { invalidateFromWatcher } from "./watcher"
 
-type FilesystemEvent = Extract<XccodeEvent, { type: "filesystem.changed" }>
+type FilesystemEvent = Extract<XiaochuanEvent, { type: "filesystem.changed" }>
 
 const filesystemEvent = (file: string, event: FilesystemEvent["data"]["event"]): FilesystemEvent => ({
   id: `evt_${file}`,

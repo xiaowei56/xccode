@@ -1,4 +1,4 @@
-import { base64Decode } from "@xccode/util/encode"
+import { base64Decode } from "@xiaochuan/util/encode"
 
 export function decode64(value: string | undefined) {
   if (value === undefined) return

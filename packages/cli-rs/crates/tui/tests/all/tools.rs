@@ -5,9 +5,9 @@ use crate::support::{self, Fake, Harness, Log, WAIT, deref_harness};
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_api::generated::SessionID;
-use xccode_local::cli_config::{Grouping, Info, Session, Verbosity};
-use xccode_tui::{Deps, Route};
+use xiaochuan_api::generated::SessionID;
+use xiaochuan_local::cli_config::{Grouping, Info, Session, Verbosity};
+use xiaochuan_tui::{Deps, Route};
 use opentui::prelude::Color;
 use serde_json::{Value, json};
 
@@ -364,8 +364,8 @@ fn the_edit_diff_splits_in_a_session_pane_above_120_columns() {
     let (_, removed) = h.find("old();");
     let (_, added) = h.find("new();");
     assert_ne!(added, removed, "{screen}");
-    xccode_tui::dialogs::settings::update(&h.tui, |draft| {
-        xccode_tui::dialogs::settings::set_path(draft, &["session", "sidebar"], json!("hide"))
+    xiaochuan_tui::dialogs::settings::update(&h.tui, |draft| {
+        xiaochuan_tui::dialogs::settings::set_path(draft, &["session", "sidebar"], json!("hide"))
     });
     let split = h.app.wait_until(WAIT, || {
         h.app.render();
@@ -515,7 +515,7 @@ fn a_running_shell_the_store_lists_reads_its_output_every_second() {
             "id": format!("evt_{kind}"), "created": 1, "type": kind,
             "location": { "directory": "/project" }, "data": data,
         });
-        serde_json::from_value::<xccode_api::generated::V2Event>(event).unwrap()
+        serde_json::from_value::<xiaochuan_api::generated::V2Event>(event).unwrap()
     };
     h.tui.data.apply(&[event(
         "shell.created",
@@ -564,7 +564,7 @@ fn a_theme_switch_restyles_these_rows_in_place() {
         { "tool": "grep", "status": "error", "input": { "pattern": "TODO" } },
     ]);
     let messages = turn(vec![
-        timed("c1", "webfetch", completed(json!({ "url": "https://xccode.ai/docs" }), "# Docs", json!({}))),
+        timed("c1", "webfetch", completed(json!({ "url": "https://xiaochuan.ai/docs" }), "# Docs", json!({}))),
         timed("c2", "websearch", completed(json!({ "query": "rust tui" }), "results", json!({ "provider": "exa" }))),
         timed("c3", "skill", completed(json!({ "id": "x" }), "loaded", json!({ "name": "writing-doc" }))),
         timed(
@@ -681,9 +681,9 @@ fn a_subagent_row_follows_its_child_status() {
     let child = support::merge(session("ses_child", "Child work"), json!({ "parentID": "ses_t" }));
     h.tui.data.remember(serde_json::from_value(child).unwrap());
     let child = SessionID("ses_child".into());
-    h.tui.data.set_status(&child, xccode_store::SessionStatus::Running);
+    h.tui.data.set_status(&child, xiaochuan_store::SessionStatus::Running);
     h.wait_for("   ⋯ General Subagent — Check the docs\n");
-    h.tui.data.set_status(&child, xccode_store::SessionStatus::Idle);
+    h.tui.data.set_status(&child, xiaochuan_store::SessionStatus::Idle);
     h.wait_for("   ✓ General Subagent — Check the docs\n");
 }
 

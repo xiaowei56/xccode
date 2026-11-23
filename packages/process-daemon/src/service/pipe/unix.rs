@@ -247,7 +247,7 @@ impl Process {
 fn escalate(pgid: libc::pid_t, pending: WaitGroup) {
     let deadline = Instant::now() + Duration::from_secs(3);
     if let Err(error) = std::thread::Builder::new()
-        .name(format!("xccode-pty-escalate-{pgid}"))
+        .name(format!("xiaochuan-pty-escalate-{pgid}"))
         .spawn(move || {
             std::thread::sleep(deadline.saturating_duration_since(Instant::now()));
             unsafe { libc::killpg(pgid, libc::SIGKILL) };

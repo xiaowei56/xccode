@@ -143,7 +143,7 @@ pub fn realign_mentions(
     }
     let units = |text: &str| text.encode_utf16().count();
     groups.sort_by(|(left, _), (right, _)| {
-        units(right).cmp(&units(left)).then_with(|| xccode_api_types::js::locale_compare(left, right))
+        units(right).cmp(&units(left)).then_with(|| xiaochuan_api_types::js::locale_compare(left, right))
     });
     let mut protected: Vec<Candidate> = Vec::new();
     for (text, items) in groups {
@@ -261,7 +261,7 @@ mod tests {
     #[cfg(windows)]
     #[test]
     fn the_editor_runs_through_cmd() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         // A batch file runs only through cmd; it rewrites the file at its quoted path, which has a space and an `&`.
         let script = dir.path().join("edit & go.cmd");
         std::fs::write(&script, "@echo edited> %1\r\n").unwrap();
@@ -276,7 +276,7 @@ mod tests {
     #[test]
     fn the_editor_file_is_private_to_its_owner() {
         use std::os::unix::fs::PermissionsExt;
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let script = dir.path().join("editor");
         std::fs::write(&script, "#!/bin/sh\nmode=$(stat -c %a \"$1\")\necho \"$mode $(cat \"$1\")\" > \"$1\"\n")
             .unwrap();

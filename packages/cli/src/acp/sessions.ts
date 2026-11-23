@@ -1,8 +1,8 @@
 import { isDeepStrictEqual } from "node:util"
 import type { McpServer, SessionConfigOption } from "@agentclientprotocol/sdk"
-import type { XccodeClient, XccodeEvent } from "@xccode/client/effect"
-import { Mcp } from "@xccode/schema/mcp"
-import type { Session } from "@xccode/schema/session"
+import type { XiaochuanClient, XiaochuanEvent } from "@xiaochuan/client/effect"
+import { Mcp } from "@xiaochuan/schema/mcp"
+import type { Session } from "@xiaochuan/schema/session"
 import { Cause, Deferred, Effect, Exit, Queue, Ref, Scope, Stream } from "effect"
 import type { ACPCatalog, Catalog } from "./catalog"
 import { ACPClient } from "./client"
@@ -37,10 +37,10 @@ type Entry = {
   readonly selected: Queue.Queue<Change>
 }
 
-type SelectedEvent = Extract<XccodeEvent, { type: "session.model.selected" | "session.agent.selected" }>
+type SelectedEvent = Extract<XiaochuanEvent, { type: "session.model.selected" | "session.agent.selected" }>
 
 export const make = Effect.fnUntraced(function* (input: {
-  readonly client: XccodeClient
+  readonly client: XiaochuanClient
   readonly connection: ACPConnection.Interface
   readonly catalog: ACPCatalog.Interface
 }) {

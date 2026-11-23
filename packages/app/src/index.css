@@ -1,6 +1,6 @@
-@import "@xccode/ui/styles/tailwind";
-@import "@xccode/session-ui/styles";
-@import "@xccode/ui/styles/tokens";
+@import "@xiaochuan/ui/styles/tailwind";
+@import "@xiaochuan/session-ui/styles";
+@import "@xiaochuan/ui/styles/tokens";
 @import "tw-animate-css";
 
 /* Set on the timeline viewport and changed on every frame while the composer region grows. Neither inherits, so a change

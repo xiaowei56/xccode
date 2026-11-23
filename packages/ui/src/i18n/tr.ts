@@ -81,7 +81,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "Ücretsiz sınıra ulaşıldı",
   "dialog.usageExceeded.freeTier.description":
-    "En iyi açık kaynaklı modellere güvenilir erişim için aylık $10 karşılığında Xccode Go'ya abone olun.",
+    "En iyi açık kaynaklı modellere güvenilir erişim için aylık $10 karşılığında Xiaochuan Go'ya abone olun.",
   "dialog.usageExceeded.freeTier.actionLabel": "Abone ol",
 
   "ui.sessionTurn.status.delegating": "Görev devrediliyor",
@@ -292,8 +292,8 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "Model bütçesine ulaşıldı · bu model sıfırlanana kadar duraklatıldı",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Ücretsiz bir model kullan",
   "ui.sessionTurn.budgetLimit.switchModel": "Model değiştir",
-  "ui.sessionTurn.goLimit.title": "Xccode Go kullanım sınırınıza ulaştınız.",
-  "ui.sessionTurn.goLimit.lineReset": "Xccode Go kullanım sınırınıza ulaştınız. {{time}} itibarıyla sıfırlanır.",
+  "ui.sessionTurn.goLimit.title": "Xiaochuan Go kullanım sınırınıza ulaştınız.",
+  "ui.sessionTurn.goLimit.lineReset": "Xiaochuan Go kullanım sınırınıza ulaştınız. {{time}} itibarıyla sıfırlanır.",
   "dialog.usageExceeded.freeTier.reset": "Ücretsiz mesajlarınız {{time}} itibarıyla sıfırlanır.",
   "ui.messagePart.compaction.queued": "Oturum sıkıştırması sıraya alındı",
   "ui.messagePart.compaction.done": "Sıkıştırıldı",

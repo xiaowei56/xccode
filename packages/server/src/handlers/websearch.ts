@@ -1,5 +1,5 @@
-import { WebSearch } from "@xccode/core/websearch"
-import { InvalidRequestError, ServiceUnavailableError } from "@xccode/protocol/errors"
+import { WebSearch } from "@xiaochuan/core/websearch"
+import { InvalidRequestError, ServiceUnavailableError } from "@xiaochuan/protocol/errors"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"

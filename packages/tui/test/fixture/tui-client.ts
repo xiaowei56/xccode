@@ -1,6 +1,6 @@
-import { Xccode, type XccodeEvent } from "@xccode/client"
+import { Xiaochuan, type XiaochuanEvent } from "@xiaochuan/client"
 
-export const worktree = "/tmp/xccode"
+export const worktree = "/tmp/xiaochuan"
 export const directory = `${worktree}/packages/tui`
 
 export function json(data: unknown, init?: ResponseInit) {
@@ -51,7 +51,7 @@ export function createEventStream() {
   }
 
   return {
-    emit(event: XccodeEvent) {
+    emit(event: XiaochuanEvent) {
       send(v2, pending, event)
     },
     v2() {
@@ -174,7 +174,7 @@ export function createFetch(override?: FetchHandler, events?: ReturnType<typeof 
     if (url.pathname === "/api/experimental/job") return json({ data: [] })
     if (url.pathname === "/api/experimental/migration/v1") return json({ status: "completed" })
     // The prompt footer reads the routed session's goal from the goal plugin's RPC; no fixture sets one.
-    if (url.pathname === "/api/rpc/xccode.goal/get") return json({ output: null })
+    if (url.pathname === "/api/rpc/xiaochuan.goal/get") return json({ output: null })
     throw new Error(`unexpected request: ${url.pathname}`)
   }
   fetch.preconnect = () => {}
@@ -182,5 +182,5 @@ export function createFetch(override?: FetchHandler, events?: ReturnType<typeof 
 }
 
 export function createApi(fetch: typeof globalThis.fetch) {
-  return Xccode.make({ baseUrl: "http://test", fetch })
+  return Xiaochuan.make({ baseUrl: "http://test", fetch })
 }

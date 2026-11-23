@@ -36,15 +36,15 @@ export default {
   "move.recovery.remove": "Izbriši delovno drevo",
   "mcp.manage": "Upravljaj MCP strežnike",
   timedOut: "Strežnik se je predolgo odzival",
-  "setup.mcp": "Dodaj strežnik z Xccode",
+  "setup.mcp": "Dodaj strežnik z Xiaochuan",
   "setup.mcp.prompt":
-    "Pomagaj mi dodati MCP strežnik v mojo globalno konfiguracijo Xccode. Vprašaj me, katero storitev želim povezati, nato jo nastavi in preveri, ali se poveže.",
-  "setup.plugins": "Dodaj vtičnik z Xccode",
+    "Pomagaj mi dodati MCP strežnik v mojo globalno konfiguracijo Xiaochuan. Vprašaj me, katero storitev želim povezati, nato jo nastavi in preveri, ali se poveže.",
+  "setup.plugins": "Dodaj vtičnik z Xiaochuan",
   "setup.plugins.prompt":
-    "Pomagaj mi dodati vtičnik v mojo globalno konfiguracijo Xccode. Vprašaj me, kaj naj počne, predlagaj vtičnik in ga nato dodaj.",
-  "setup.skills": "Nova veščina z Xccode",
+    "Pomagaj mi dodati vtičnik v mojo globalno konfiguracijo Xiaochuan. Vprašaj me, kaj naj počne, predlagaj vtičnik in ga nato dodaj.",
+  "setup.skills": "Nova veščina z Xiaochuan",
   "setup.skills.prompt":
-    "Pomagaj mi napisati novo veščino Xccode v moji globalni konfiguraciji. Vprašaj me, česa naj te nauči, nato napiši njen SKILL.md.",
+    "Pomagaj mi napisati novo veščino Xiaochuan v moji globalni konfiguraciji. Vprašaj me, česa naj te nauči, nato napiši njen SKILL.md.",
   changesFailed: "Sprememb ni bilo mogoče naložiti",
   changesOffline: "Strežnik ni dosegljiv",
   "mcp.signIn": "Prijava",
@@ -56,7 +56,7 @@ export default {
   "mcp.error.actionLabel": "Podrobnosti za {{name}}",
   "mcp.signIn.open": "Prijava v {{name}}",
   "mcp.signIn.description":
-    "Odprl se bo brskalnik, da se lahko prijavite v {{name}}. Če ne more doseči računalnika, na katerem teče Xccode, spodaj prilepite URL, na katerega je bil preusmerjen.",
+    "Odprl se bo brskalnik, da se lahko prijavite v {{name}}. Če ne more doseči računalnika, na katerem teče Xiaochuan, spodaj prilepite URL, na katerega je bil preusmerjen.",
   "mcp.signIn.waiting": "Čakanje na avtorizacijo …",
   "mcp.signIn.failed": "Avtorizacija ni uspela: {{error}}",
   "mcp.signIn.expired": "Avtorizacija je potekla",

@@ -1,9 +1,9 @@
 //! Catalog display names and per-model variant selection.
 
 use indexmap::IndexMap;
-use xccode_api::client::Client;
-use xccode_api::generated::{LocationQueryInput, ModelInfoStatus, ModelListInput, ProviderListInput};
-use xccode_local::model_pref::{self, ModelPreferences};
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{LocationQueryInput, ModelInfoStatus, ModelListInput, ProviderListInput};
+use xiaochuan_local::model_pref::{self, ModelPreferences};
 
 /// A model selection (`{ providerID, modelID }`).
 #[derive(Clone, Debug, PartialEq, Eq)]

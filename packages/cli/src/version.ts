@@ -1,28 +1,28 @@
 import { Option, Schema } from "effect"
 
-declare const XCCODE_VERSION: string
-declare const XCCODE_CHANNEL: string
-declare const XCCODE_ARTIFACT: string
-declare const XCCODE_RELEASE_HIGHLIGHTS: string
+declare const XIAOCHUAN_VERSION: string
+declare const XIAOCHUAN_CHANNEL: string
+declare const XIAOCHUAN_ARTIFACT: string
+declare const XIAOCHUAN_RELEASE_HIGHLIGHTS: string
 
-const version = typeof XCCODE_VERSION === "string" ? XCCODE_VERSION : "local"
-const channel = typeof XCCODE_CHANNEL === "string" ? XCCODE_CHANNEL : "local"
-const artifact = typeof XCCODE_ARTIFACT === "string" ? XCCODE_ARTIFACT : "cli"
+const version = typeof XIAOCHUAN_VERSION === "string" ? XIAOCHUAN_VERSION : "local"
+const channel = typeof XIAOCHUAN_CHANNEL === "string" ? XIAOCHUAN_CHANNEL : "local"
+const artifact = typeof XIAOCHUAN_ARTIFACT === "string" ? XIAOCHUAN_ARTIFACT : "cli"
 // Stable release builds embed the release notes' Highlights; every other build has none.
 const highlights =
-  typeof XCCODE_RELEASE_HIGHLIGHTS === "string"
+  typeof XIAOCHUAN_RELEASE_HIGHLIGHTS === "string"
     ? Option.getOrElse(
         Schema.decodeUnknownOption(
           Schema.fromJsonString(Schema.Array(Schema.Struct({ title: Schema.String, body: Schema.String }))),
-        )(XCCODE_RELEASE_HIGHLIGHTS),
+        )(XIAOCHUAN_RELEASE_HIGHLIGHTS),
         () => [],
       )
     : []
 
 export {
-  version as XCCODE_VERSION,
-  channel as XCCODE_CHANNEL,
-  artifact as XCCODE_ARTIFACT,
-  highlights as XCCODE_HIGHLIGHTS,
+  version as XIAOCHUAN_VERSION,
+  channel as XIAOCHUAN_CHANNEL,
+  artifact as XIAOCHUAN_ARTIFACT,
+  highlights as XIAOCHUAN_HIGHLIGHTS,
 }
-export const XCCODE_LOCAL = channel === "local"
+export const XIAOCHUAN_LOCAL = channel === "local"

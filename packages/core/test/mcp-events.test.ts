@@ -1,6 +1,6 @@
 import { describe, expect } from "bun:test"
 import { InMemoryTransport, type JSONRPCMessage } from "@modelcontextprotocol/client"
-import { McpClient } from "@xccode/core/mcp/client"
+import { McpClient } from "@xiaochuan/core/mcp/client"
 import { Cause, Effect, Exit, Fiber, Stream } from "effect"
 import { TestClock } from "effect/testing"
 import { hostEnvironmentLayer } from "./fixture/environment"

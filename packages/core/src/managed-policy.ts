@@ -1,9 +1,9 @@
 export * as ManagedPolicy from "./managed-policy.js"
 
-import { Document, type Entry } from "@xccode/schema/config"
+import { Document, type Entry } from "@xiaochuan/schema/config"
 import { ConfigIntegration } from "./config/integration.js"
 import { Wildcard } from "./util/wildcard.js"
-import { ConfigPolicy } from "@xccode/schema/config/policy"
+import { ConfigPolicy } from "@xiaochuan/schema/config/policy"
 import type { Credential } from "./credential.js"
 
 /** Every policy statement in config, earliest-loaded first so it wins, each with the message a denial shows. */
@@ -41,7 +41,7 @@ export function decision(policies: readonly ConfigPolicy.Info[], action: ConfigP
 /**
  * The `integration.use` resource for what an integration supplies: `<integration>#<account>` when a connection with
  * a known account backs it, otherwise the bare integration ID (env keys, local config, the signed-out free tier).
- * A bare-ID pattern such as `xccode` therefore matches only connectionless use, never an org account. `#`
+ * A bare-ID pattern such as `xiaochuan` therefore matches only connectionless use, never an org account. `#`
  * separates the two because integration IDs can be URLs.
  */
 export function integrationResource(integrationID: string, account?: string) {

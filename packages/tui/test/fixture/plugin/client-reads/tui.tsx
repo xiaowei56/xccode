@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 
 // Reads messages through the plugin client, whose files must stay inline bytes.
 export default Plugin.define({

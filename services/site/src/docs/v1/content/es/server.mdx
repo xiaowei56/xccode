@@ -1,19 +1,19 @@
 ---
 title: Servidor
-description: Interactuar con el servidor xccode a través de HTTP.
+description: Interactuar con el servidor xiaochuan a través de HTTP.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-El comando `xccode serve` ejecuta un servidor HTTP sin cabeza que expone un punto final OpenAPI que un cliente xccode puede usar.
+El comando `xiaochuan serve` ejecuta un servidor HTTP sin cabeza que expone un punto final OpenAPI que un cliente xiaochuan puede usar.
 
 ---
 
 ### Uso
 
 ```bash
-xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+xiaochuan serve [--port <number>] [--hostname <string>] [--cors <origin>]
 ```
 
 #### Opciones
@@ -23,41 +23,41 @@ xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
 | `--port`        | Puerto para escuchar                                  | `4096`           |
 | `--hostname`    | Nombre de host para escuchar                          | `127.0.0.1`      |
 | `--mdns`        | Habilitar el descubrimiento de mDNS                   | `false`          |
-| `--mdns-domain` | Nombre de dominio personalizado para el servicio mDNS | `xccode.local` |
+| `--mdns-domain` | Nombre de dominio personalizado para el servicio mDNS | `xiaochuan.local` |
 | `--cors`        | Orígenes de navegador adicionales para permitir       | `[]`             |
 
 `--cors` se puede pasar varias veces:
 
 ```bash
-xccode serve --cors http://localhost:5173 --cors https://app.example.com
+xiaochuan serve --cors http://localhost:5173 --cors https://app.example.com
 ```
 
 ---
 
 ### Autenticación
 
-Configure `XCCODE_SERVER_PASSWORD` para proteger el servidor con autenticación básica HTTP. El nombre de usuario predeterminado es `xccode`, o configure `XCCODE_SERVER_USERNAME` para anularlo. Esto se aplica tanto a `xccode serve` como a `xccode web`.
+Configure `XIAOCHUAN_SERVER_PASSWORD` para proteger el servidor con autenticación básica HTTP. El nombre de usuario predeterminado es `xiaochuan`, o configure `XIAOCHUAN_SERVER_USERNAME` para anularlo. Esto se aplica tanto a `xiaochuan serve` como a `xiaochuan web`.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve
 ```
 
 ---
 
 ### Cómo funciona
 
-Cuando ejecuta `xccode`, inicia un TUI y un servidor. Donde el TUI es el
+Cuando ejecuta `xiaochuan`, inicia un TUI y un servidor. Donde el TUI es el
 Cliente que habla con el servidor. El servidor expone una especificación OpenAPI 3.1
 punto final. Este punto final también se utiliza para generar un [SDK](/docs/sdk).
 
 :::tip
-Utilice el servidor xccode para interactuar con xccode mediante programación.
+Utilice el servidor xiaochuan para interactuar con xiaochuan mediante programación.
 :::
 
-Esta arquitectura permite que xccode admita múltiples clientes y le permite interactuar con xccode mediante programación.
+Esta arquitectura permite que xiaochuan admita múltiples clientes y le permite interactuar con xiaochuan mediante programación.
 
-Puede ejecutar `xccode serve` para iniciar un servidor independiente. Si tienes el
-xccode TUI ejecutándose, `xccode serve` iniciará un nuevo servidor.
+Puede ejecutar `xiaochuan serve` para iniciar un servidor independiente. Si tienes el
+xiaochuan TUI ejecutándose, `xiaochuan serve` iniciará un nuevo servidor.
 
 ---
 
@@ -65,7 +65,7 @@ xccode TUI ejecutándose, `xccode serve` iniciará un nuevo servidor.
 
 Cuando inicia el TUI, asigna aleatoriamente un puerto y un nombre de host. En su lugar, puede pasar `--hostname` y `--port` [banderas](/docs/cli). Luego use esto para conectarse a su servidor.
 
-El punto final [`/tui`](#tui) se puede utilizar para conducir el TUI a través del servidor. Por ejemplo, puede completar previamente o ejecutar un mensaje. Esta configuración es utilizada por los complementos Xccode [IDE](/docs/ide).
+El punto final [`/tui`](#tui) se puede utilizar para conducir el TUI a través del servidor. Por ejemplo, puede completar previamente o ejecutar un mensaje. Esta configuración es utilizada por los complementos Xiaochuan [IDE](/docs/ide).
 
 ---
 
@@ -83,7 +83,7 @@ Por ejemplo, `http://localhost:4096/doc`. Utilice la especificación para genera
 
 ## API
 
-El servidor xccode expone las siguientes API.
+El servidor xiaochuan expone las siguientes API.
 
 ---
 

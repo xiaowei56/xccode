@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import {
   createProfilingState,
   isTraceStoppingAttempt,

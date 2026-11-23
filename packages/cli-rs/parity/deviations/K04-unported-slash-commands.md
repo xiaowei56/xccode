@@ -15,4 +15,4 @@ ported; `E.3/complete` matches TS at every checkpoint. `service.restart` is not 
 ## Reason
 
 Restarting stops the shared background service, which this client never does.
-`xccode-native service restart` restarts it as an explicit command.
+`xiaochuan-native service restart` restarts it as an explicit command.

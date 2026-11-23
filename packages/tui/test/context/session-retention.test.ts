@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test"
-import type { XccodeEvent } from "@xccode/client"
-import { createData, createSessionRetention } from "@xccode/client/solid"
+import type { XiaochuanEvent } from "@xiaochuan/client"
+import { createData, createSessionRetention } from "@xiaochuan/client/solid"
 import { createGlobalEmitter } from "@solid-primitives/event-bus"
 import { createRoot, createSignal } from "solid-js"
 import { createApi, createFetch, directory, json } from "../fixture/tui-client"
@@ -8,7 +8,7 @@ import { createApi, createFetch, directory, json } from "../fixture/tui-client"
 function setup(options: { keep?: string[]; current?: string; limit?: number } = {}) {
   return createRoot((dispose) => {
     const events = createGlobalEmitter<{
-      [Type in XccodeEvent["type"]]: Extract<XccodeEvent, { type: Type }>
+      [Type in XiaochuanEvent["type"]]: Extract<XiaochuanEvent, { type: Type }>
     }>()
     const api = createApi(
       createFetch((url) => {

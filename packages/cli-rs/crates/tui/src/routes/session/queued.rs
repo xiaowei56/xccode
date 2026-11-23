@@ -1,10 +1,10 @@
 //! Session inbox dock and actions on queued prompts.
 
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     SessionInboxCancelInput, SessionInboxDelivery, SessionInboxInfo, SessionInboxUpdateInput, SessionInboxUser,
     SessionMessageID,
 };
-use xccode_store::State;
+use xiaochuan_store::State;
 
 use crate::prelude::*;
 use crate::prompt::editor::{Inner as PromptInner, Mode};

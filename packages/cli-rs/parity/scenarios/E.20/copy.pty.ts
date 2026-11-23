@@ -14,7 +14,7 @@ export default definePty({
   args: [],
   cols: 100,
   rows: 30,
-  env: { XCCODE_CLI_CONFIG_CONTENT: config },
+  env: { XIAOCHUAN_CLI_CONFIG_CONTENT: config },
   server: { fallback: "tui" },
   steps: [
     { until: { screen: "█▀▀█" }, settle: 500, timeout: 30_000 },

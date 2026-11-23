@@ -1,14 +1,14 @@
 import { expect } from "bun:test"
 import { NodeHttpServer } from "@effect/platform-node"
 import { NodeWS } from "@effect/platform-node-shared"
-import { Environment } from "@xccode/core/environment/index"
-import { Frames } from "@xccode/core/machine/frames"
-import { Identity } from "@xccode/core/machine/identity"
-import { Join } from "@xccode/core/machine/join"
-import { Link } from "@xccode/core/machine/link"
-import { Machines } from "@xccode/core/machine/machines"
-import { MACHINE_LINK_PATH } from "@xccode/protocol/groups/machine"
-import { Global } from "@xccode/util/global"
+import { Environment } from "@xiaochuan/core/environment/index"
+import { Frames } from "@xiaochuan/core/machine/frames"
+import { Identity } from "@xiaochuan/core/machine/identity"
+import { Join } from "@xiaochuan/core/machine/join"
+import { Link } from "@xiaochuan/core/machine/link"
+import { Machines } from "@xiaochuan/core/machine/machines"
+import { MACHINE_LINK_PATH } from "@xiaochuan/protocol/groups/machine"
+import { Global } from "@xiaochuan/util/global"
 import {
   Cause,
   Clock,
@@ -55,7 +55,7 @@ import { createEmbeddedRoutes, createRoutes } from "../src/routes"
 //
 // A test that moves no time runs on the real clock (`it.live`).
 
-const authorization = `Basic ${btoa("xccode:secret")}`
+const authorization = `Basic ${btoa("xiaochuan:secret")}`
 /** The close every connection the home ends carries. */
 const CLOSED = { code: 1008, reason: "" }
 /** The close the WebSocket layer gives a message over 65,535 bytes, which it takes none of. */
@@ -88,7 +88,7 @@ const options = (directory: string, machines: boolean) => ({
 const home = Effect.fnUntraced(function* (
   input: { readonly machines?: boolean; readonly password?: boolean; readonly upgrades?: boolean } = {},
 ) {
-  const directory = (yield* tmpdirScoped("xccode-machine-link-")).path
+  const directory = (yield* tmpdirScoped("xiaochuan-machine-link-")).path
   const server = createServer()
   const http = yield* NodeHttpServer.make(() => server, { port: 0, host: "127.0.0.1" })
   yield* Effect.addFinalizer(() => Effect.sync(() => server.closeAllConnections()))
@@ -474,7 +474,7 @@ const impostors: ReadonlyArray<{
 
 it.live("takes no server password for a GET WebSocket upgrade to exactly its path, and for nothing else", () =>
   Effect.gen(function* () {
-    const directory = (yield* tmpdirScoped("xccode-machine-link-")).path
+    const directory = (yield* tmpdirScoped("xiaochuan-machine-link-")).path
     const started = yield* ServerProcess.start<never, never>({
       ...options(directory, true),
       hostname: "127.0.0.1",
@@ -556,7 +556,7 @@ it.live("logs no response for a request that became a WebSocket, and still logs 
   Effect.gen(function* () {
     // The status of each line the server's own response log writes for the link's path.
     const logged: Array<unknown> = []
-    const directory = (yield* tmpdirScoped("xccode-machine-link-")).path
+    const directory = (yield* tmpdirScoped("xiaochuan-machine-link-")).path
     const started = yield* ServerProcess.start<never, never>({
       ...options(directory, true),
       hostname: "127.0.0.1",
@@ -604,7 +604,7 @@ it.live("makes its WebSocket server for the first link, not with the routes", ()
 
 it.live("answers as an unknown route does while machines are off", () =>
   Effect.gen(function* () {
-    const directory = (yield* tmpdirScoped("xccode-machine-link-")).path
+    const directory = (yield* tmpdirScoped("xiaochuan-machine-link-")).path
     const started = yield* ServerProcess.start<never, never>({
       ...options(directory, false),
       hostname: "127.0.0.1",
@@ -896,7 +896,7 @@ it.effect("closes every link as the server begins to stop, without waiting out w
     // The whole server, with a peer that has only connected. Nothing here moves the clock, so neither its ten seconds
     // nor the server's twenty can pass.
     const process = yield* Scope.fork(yield* Effect.scope)
-    const directory = (yield* tmpdirScoped("xccode-machine-link-")).path
+    const directory = (yield* tmpdirScoped("xiaochuan-machine-link-")).path
     const started = yield* ServerProcess.start<never, never>({
       ...options(directory, true),
       hostname: "127.0.0.1",

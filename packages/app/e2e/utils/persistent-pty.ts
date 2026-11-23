@@ -1,10 +1,10 @@
 import type { WebSocketRoute } from "@playwright/test"
-import type { XccodeEvent } from "@xccode/client/promise"
-import type { PersistentPty } from "@xccode/schema/persistent-pty"
+import type { XiaochuanEvent } from "@xiaochuan/client/promise"
+import type { PersistentPty } from "@xiaochuan/schema/persistent-pty"
 import { Predicate } from "effect"
 
 // Serves the session-scoped persistent PTY routes (`/api/experimental/.../terminal`, `/api/experimental/persistent-pty`)
-// and their connect WebSockets, like a server backed by the xccode-pty daemon.
+// and their connect WebSockets, like a server backed by the xiaochuan-pty daemon.
 export type MockPersistentPtyConfig = {
   // `server.info().capabilities.persistentPty`; omitted by default, like a server that predates the field. `false`
   // also makes the routes answer 503 like a server without the daemon.
@@ -57,7 +57,7 @@ export type MockPersistentPtyUpdate = {
   title?: string | null
 }
 
-// Published on rename; not yet part of `XccodeEvent`.
+// Published on rename; not yet part of `XiaochuanEvent`.
 export type MockPersistentPtyUpdated = {
   id: string
   created: number
@@ -65,7 +65,7 @@ export type MockPersistentPtyUpdated = {
   data: { sessionID: string; terminal: MockPersistentPtyInfo }
 }
 
-export type MockServerEvent = XccodeEvent | MockPersistentPtyUpdated
+export type MockServerEvent = XiaochuanEvent | MockPersistentPtyUpdated
 
 // The JSON text frames the server sends; output travels as binary frames.
 export type MockPersistentPtyMessage =

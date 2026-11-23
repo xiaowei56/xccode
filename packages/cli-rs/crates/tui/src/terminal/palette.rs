@@ -1,6 +1,6 @@
 //! Derive the terminal ANSI palette and default colors from the session theme.
 
-use xccode_ui::theme::{Theme, ThemeMode};
+use xiaochuan_ui::theme::{Theme, ThemeMode};
 use opentui::style::Color;
 
 pub fn osc(theme: &Theme, mode: ThemeMode, background: Color) -> Vec<u8> {

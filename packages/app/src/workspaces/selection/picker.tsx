@@ -1,11 +1,11 @@
-import { useDialog } from "@xccode/ui/context/dialog"
-import { uuid } from "@xccode/util/uuid"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { uuid } from "@xiaochuan/util/uuid"
 import { ServerConnection, useServers } from "@/runtime/server/registry"
 import { ServerProvider } from "@/runtime/server/current"
 import { useGlobal } from "@/runtime/server/runtime"
 import { usePlatform } from "@/runtime/platform/platform"
 import { createEffect, lazy, Suspense } from "solid-js"
-import type { LocationRef } from "@xccode/client/promise"
+import type { LocationRef } from "@xiaochuan/client/promise"
 import { directoryPickerKind } from "./policy"
 
 const DirectoryPickerDialog = lazy(() =>

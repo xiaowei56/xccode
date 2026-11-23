@@ -24,7 +24,7 @@ export function layer(
   },
 ) {
   const app = {
-    client: options.client ?? "xccode",
+    client: options.client ?? "xiaochuan",
     version: options.version ?? "unknown",
     channel: options.channel ?? "local",
   }

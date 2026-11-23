@@ -25,11 +25,11 @@ const pages = "virtual:docs-pages"
 // The V1 docs' MDX imports their old app's config (config.mjs) for a few URLs, as production had them.
 const v1Config = "\0docs-v1-config"
 const v1ConfigValues = {
-  url: "https://xccode.ai",
-  console: "https://xccode.ai/auth",
+  url: "https://xiaochuan.ai",
+  console: "https://xiaochuan.ai/auth",
   email: "help@anoma.ly",
-  github: "https://github.com/xiaowei56/xccode",
-  discord: "https://xccode.ai/discord",
+  github: "https://github.com/xiaowei56/xiaochuan",
+  discord: "https://xiaochuan.ai/discord",
 }
 
 /**
@@ -39,7 +39,7 @@ const v1ConfigValues = {
  */
 export function docs(): Plugin {
   return {
-    name: "xccode-docs",
+    name: "xiaochuan-docs",
     enforce: "pre",
     resolveId(id, importer) {
       if (id === pages) return `\0${pages}`

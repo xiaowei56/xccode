@@ -45,7 +45,7 @@ function providerIconsPlugin() {
 }
 
 async function fetchProviderIcons() {
-  const url = process.env.XCCODE_MODELS_URL || "https://models.xccode.ai"
+  const url = process.env.XIAOCHUAN_MODELS_URL || "https://models.xiaochuan.ai"
 
   const providers = await fetch(`${url}/api.json`)
     .then((res) => res.json())

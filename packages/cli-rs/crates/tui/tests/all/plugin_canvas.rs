@@ -8,10 +8,10 @@ use std::cell::RefCell;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_plugin::abi::canvas::{self as list, List};
-use xccode_plugin::abi::{self, v2};
-use xccode_plugin::canvas::{self as host, Ledger};
-use xccode_tui::{Deps, Route};
+use xiaochuan_plugin::abi::canvas::{self as list, List};
+use xiaochuan_plugin::abi::{self, v2};
+use xiaochuan_plugin::canvas::{self as host, Ledger};
+use xiaochuan_tui::{Deps, Route};
 use opentui::native::BoxSpec;
 use opentui::prelude::{Component, Container, Custom, Length, Painter, View, Widget};
 use opentui::testing::{Capture, TestApp};
@@ -289,7 +289,7 @@ fn held_for(shapes: &[Shape]) -> i64 {
             })
             .sum()
     }
-    (encode(shapes).as_bytes().len() + cells(shapes) * xccode_plugin::canvas::CELL) as i64
+    (encode(shapes).as_bytes().len() + cells(shapes) * xiaochuan_plugin::canvas::CELL) as i64
 }
 
 fn encode(shapes: &[Shape]) -> List {
@@ -461,7 +461,7 @@ fn differs(frame: &Capture, held: Option<&Held>, (width, height): (u16, u16)) ->
     None
 }
 
-fn open_tui(width: u16, height: u16, plugins: Vec<xccode_plugin::Builtin>) -> Harness {
+fn open_tui(width: u16, height: u16, plugins: Vec<xiaochuan_plugin::Builtin>) -> Harness {
     let deps = Deps { route: Route::Home, builtins: plugins, ..support::deps(Arc::new(support::empty())) };
     let harness = support::mount(width, height, deps);
     // The budget is not what these rows check. On the wall clock a loaded machine's stall in a plugin call (memory
@@ -475,7 +475,7 @@ fn open_tui(width: u16, height: u16, plugins: Vec<xccode_plugin::Builtin>) -> Ha
     harness
 }
 
-fn status(harness: &Harness, id: &str) -> xccode_plugin::Status {
+fn status(harness: &Harness, id: &str) -> xiaochuan_plugin::Status {
     harness.tui.plugins.entries().into_iter().find(|entry| entry.id == id).unwrap().status
 }
 
@@ -493,7 +493,7 @@ fn wanting(harness: &Harness) -> String {
         .plugins
         .entries()
         .into_iter()
-        .filter(|entry| entry.slow.is_some() || entry.status != xccode_plugin::Status::Active)
+        .filter(|entry| entry.slow.is_some() || entry.status != xiaochuan_plugin::Status::Active)
         .map(|entry| format!("{} {:?}", entry.id, entry.status))
         .collect();
     let synced = harness.tui.synced();
@@ -519,8 +519,8 @@ enum Command {
     Theme(usize),
 }
 
-const MODES: [xccode_ui::theme::ThemeMode; 2] =
-    [xccode_ui::theme::ThemeMode::Dark, xccode_ui::theme::ThemeMode::Light];
+const MODES: [xiaochuan_ui::theme::ThemeMode; 2] =
+    [xiaochuan_ui::theme::ThemeMode::Dark, xiaochuan_ui::theme::ThemeMode::Light];
 
 fn apply(harness: &Harness, command: &Command) {
     let tui = &harness.tui;
@@ -537,7 +537,7 @@ fn apply(harness: &Harness, command: &Command) {
         Command::Version => set("version=".into()),
         Command::Animate(on) => set(format!("animate={}", u8::from(*on))),
         Command::Next(next) => pad(|pad| pad.next = *next),
-        Command::Motion(on) => xccode_ui::motion::set_running(&harness.app, *on),
+        Command::Motion(on) => xiaochuan_ui::motion::set_running(&harness.app, *on),
         Command::Resize(width, height) => harness.app.resize(*width, *height),
         Command::Theme(index) => {
             tui.theme.borrow_mut().set_mode(Some(MODES[index % MODES.len()]), false);
@@ -651,7 +651,7 @@ impl Model for Canvases {
 
     fn run(&self, commands: &[Command]) -> Option<Failure> {
         PAD.with(|cell| *cell.borrow_mut() = Pad::default());
-        xccode_ui::motion::set_running(&TestApp::new(1, 1), true);
+        xiaochuan_ui::motion::set_running(&TestApp::new(1, 1), true);
         let baseline = host::ledger();
         let harness = open_tui(80, 24, vec![abi::Plugin { id: ID, setup }.into()]);
         let mut reference = Reference { shown: true, size: (12, 4), motion: true, ..Reference::default() };
@@ -726,7 +726,7 @@ impl Model for Canvases {
             }
             if reference.dead {
                 reference.mounted = None;
-                if !matches!(status(&harness, ID), xccode_plugin::Status::Failed(_)) {
+                if !matches!(status(&harness, ID), xiaochuan_plugin::Status::Failed(_)) {
                     return fail(
                         "lifecycle",
                         "failed",
@@ -956,7 +956,7 @@ fn a_canvas_without_an_id_is_refused() {
     apply(&harness, &Command::Open);
     let _ = frame(&harness, Duration::from_millis(1));
     assert!(
-        matches!(status(&harness, ID), xccode_plugin::Status::Failed(ref error) if error.contains("a node with state has no id")),
+        matches!(status(&harness, ID), xiaochuan_plugin::Status::Failed(ref error) if error.contains("a node with state has no id")),
         "{:?}",
         status(&harness, ID)
     );
@@ -1175,7 +1175,7 @@ fn a_draw_that_fails_is_reported_by_its_call() {
         let _ = frame(&harness, Duration::from_millis(1));
         let _ = frame(&harness, Duration::from_millis(16));
         let status = status(&harness, ID);
-        assert!(matches!(status, xccode_plugin::Status::Failed(ref error) if error.contains(says)), "{status:?}");
+        assert!(matches!(status, xiaochuan_plugin::Status::Failed(ref error) if error.contains(says)), "{status:?}");
         assert_eq!(pad(|pad| pad.draws.len()), 1);
         assert_eq!(host::ledger(), Ledger::default());
     }
@@ -1334,7 +1334,7 @@ fn paint_setup(setup: &mut abi::Setup) -> Result<(), String> {
         })])
     };
     setup.surface(v2::Surface::new("paint", v2::Place::Route("paint".into()), view).draw(|_| {
-        PAINT_SEEN.with_borrow_mut(|seen| seen.push(xccode_plugin::contain::catching()));
+        PAINT_SEEN.with_borrow_mut(|seen| seen.push(xiaochuan_plugin::contain::catching()));
         match PAINT_FAULT.take() {
             Some(Fault::Panic) => panic!("the canvas's draw panics"),
             Some(Fault::Overrun) => PAINT_CLOCK.set(PAINT_CLOCK.get() + Duration::from_millis(150)),
@@ -1370,7 +1370,7 @@ fn a_canvas_draw_is_contained() {
 
     PAINT_FAULT.set(Some(Fault::Overrun));
     let _ = frame(&harness, Duration::from_millis(16));
-    assert_eq!((tui.plugins.monitor().host_overruns(), status()), (1, xccode_plugin::Status::Active));
+    assert_eq!((tui.plugins.monitor().host_overruns(), status()), (1, xiaochuan_plugin::Status::Active));
     let seen = PAINT_SEEN.take();
     assert!(seen.len() >= 4 && seen.iter().all(|caught| *caught), "{seen:?}");
 
@@ -1379,7 +1379,7 @@ fn a_canvas_draw_is_contained() {
     let _ = frame(&harness, Duration::from_millis(16));
     let status = status();
     assert!(
-        matches!(status, xccode_plugin::Status::Failed(ref error) if error.contains("draw panicked: the canvas's draw panics")),
+        matches!(status, xiaochuan_plugin::Status::Failed(ref error) if error.contains("draw panicked: the canvas's draw panics")),
         "{status:?}"
     );
     let drawn = PAINT_SEEN.with_borrow(Vec::len);
@@ -1437,7 +1437,7 @@ fn a_text_the_renderer_cannot_record_is_over_the_limit() {
         let rows = canvas_rows(&frame, 12, 1);
         assert!(rows[0].starts_with(shown), "{bytes} bytes: {rows:?}");
         assert!(frame.text().contains(MARK));
-        assert_eq!(status(&harness, "test.cells"), xccode_plugin::Status::Active);
+        assert_eq!(status(&harness, "test.cells"), xiaochuan_plugin::Status::Active);
     }
 }
 
@@ -1451,11 +1451,11 @@ fn clips_past_the_bound_show_the_placeholder() {
     let frame = harness.app.render();
     assert!(canvas_rows(&frame, 12, 1)[0].starts_with("canvas over"));
     assert!(frame.text().contains(MARK));
-    assert_eq!(status(&harness, "test.cells"), xccode_plugin::Status::Active);
+    assert_eq!(status(&harness, "test.cells"), xiaochuan_plugin::Status::Active);
     let harness = cells_tui(List::new().pop().clone());
     harness.app.render();
     let _ = frame_after_one(&harness);
-    assert!(matches!(status(&harness, "test.cells"), xccode_plugin::Status::Failed(_)));
+    assert!(matches!(status(&harness, "test.cells"), xiaochuan_plugin::Status::Failed(_)));
 }
 
 fn frame_after_one(harness: &Harness) -> Capture {
@@ -1726,31 +1726,31 @@ fn one_plugin_holds_at_most_its_bytes() {
     let bytes = texts_bytes();
     let harness = load_tui(1, 5, Load::Texts(14));
     let owner = LOADS[0];
-    assert_eq!((xccode_plugin::canvas::held(owner), host::ledger().lists), (4 * bytes, 4));
+    assert_eq!((xiaochuan_plugin::canvas::held(owner), host::ledger().lists), (4 * bytes, 4));
     let row = |frame: &Capture| (0..frame.height).map(|y| frame.row(y)).find(|row| row.contains("xxxcan"));
     assert!(row(&harness.app.render()).is_some_and(|row| row.contains("xxxxxxxxxxxxcan")), "the fifth is over");
     LOAD_DRAWS.take();
     let _ = harness.tui.keymap.dispatch(&format!("{owner}.bump"), None);
     let _ = frame(&harness, Duration::from_millis(16));
     assert_eq!(LOAD_DRAWS.take(), [v2::Cause::Version; 5], "each canvas drew its new version in place");
-    assert_eq!((xccode_plugin::canvas::held(owner), host::ledger().lists), (4 * bytes, 4));
+    assert_eq!((xiaochuan_plugin::canvas::held(owner), host::ledger().lists), (4 * bytes, 4));
     assert_eq!(host::ledger().canvases, 5);
     let shown = harness.app.render();
     assert!(row(&shown).is_some_and(|row| row.contains("xxxxxxxxxxxxcan")), "the four keep their places");
-    assert_eq!(status(&harness, owner), xccode_plugin::Status::Active);
+    assert_eq!(status(&harness, owner), xiaochuan_plugin::Status::Active);
     harness.tui.navigate(Route::Plugin { id: "test.chart".to_owned(), name: "none".to_owned() });
     let _ = frame(&harness, Duration::from_millis(16));
-    assert_eq!((xccode_plugin::canvas::held(owner), host::ledger()), (0, Ledger::default()));
+    assert_eq!((xiaochuan_plugin::canvas::held(owner), host::ledger()), (0, Ledger::default()));
 }
 
 #[test]
 fn all_canvases_hold_at_most_the_total() {
     let bytes = texts_bytes();
     let _harness = load_tui(5, 4, Load::Texts(14));
-    let fit = xccode_plugin::canvas::TOTAL_BYTES / bytes;
+    let fit = xiaochuan_plugin::canvas::TOTAL_BYTES / bytes;
     assert_eq!(host::ledger().lists, fit);
     assert_eq!(host::ledger().bytes, fit * bytes);
-    assert!(LOADS.iter().all(|owner| xccode_plugin::canvas::held(owner) <= xccode_plugin::canvas::PLUGIN_BYTES));
+    assert!(LOADS.iter().all(|owner| xiaochuan_plugin::canvas::held(owner) <= xiaochuan_plugin::canvas::PLUGIN_BYTES));
 }
 
 #[test]
@@ -1769,7 +1769,7 @@ fn a_frame_records_at_most_its_bound() {
 #[test]
 fn a_list_is_charged_by_the_cells_it_touches() {
     let per = 12 * 3;
-    let fit = xccode_plugin::canvas::LIST_CELLS / per;
+    let fit = xiaochuan_plugin::canvas::LIST_CELLS / per;
     for (fills, over) in [(fit, false), (fit + 1, true)] {
         let mut list = List::new();
         for _ in 0..fills {
@@ -1779,7 +1779,7 @@ fn a_list_is_charged_by_the_cells_it_touches() {
         let shown = canvas_rows(&harness.app.render(), 12, 1)[0].starts_with("canvas over");
         assert_eq!(shown, over, "{fills} fills");
     }
-    let fit = xccode_plugin::canvas::LIST_RECORDING / xccode_plugin::canvas::RECORD;
+    let fit = xiaochuan_plugin::canvas::LIST_RECORDING / xiaochuan_plugin::canvas::RECORD;
     for (fills, over) in [(fit, false), (fit + 1, true)] {
         let mut list = List::new();
         for _ in 0..fills {
@@ -1819,7 +1819,7 @@ fn a_kept_list_is_charged_at_its_new_size() {
         host::work().since(work).recorded
     };
     // One record of the cells the row shows.
-    let (record, cell) = (xccode_plugin::canvas::RECORD as u64, xccode_plugin::canvas::CELL as u64);
+    let (record, cell) = (xiaochuan_plugin::canvas::RECORD as u64, xiaochuan_plugin::canvas::CELL as u64);
     assert_eq!(recorded(), record + 12 * cell);
     apply(&harness, &Command::Next(Next::Keep));
     apply(&harness, &Command::Size(20, 4));
@@ -1914,7 +1914,7 @@ fn a_draw_the_plugin_did_not_make_is_not_counted() {
     harness.tui.navigate(Route::Plugin { id: "test.pair".to_owned(), name: "pair".to_owned() });
     let _ = frame(&harness, Duration::from_millis(16));
     let done = host::work().since(work);
-    assert!(matches!(status(&harness, "test.pair"), xccode_plugin::Status::Failed(_)));
+    assert!(matches!(status(&harness, "test.pair"), xiaochuan_plugin::Status::Failed(_)));
     assert_eq!((PAIR_CALLS.get(), done.draws, done.refused), (1, 1, 1), "{done:?}");
 }
 
@@ -1960,7 +1960,7 @@ thread_local! {
 
 #[test]
 fn a_canvas_counts_in_the_trees_bounds() {
-    use xccode_plugin::reconcile;
+    use xiaochuan_plugin::reconcile;
     let open = |depth: usize, width: f32| {
         DEEP.set((depth, width, 0));
         let harness = open_tui(80, 24, vec![abi::Plugin { id: "test.deep", setup: deep_setup }.into()]);
@@ -1968,7 +1968,7 @@ fn a_canvas_counts_in_the_trees_bounds() {
         let _ = frame(&harness, Duration::from_millis(16));
         harness
     };
-    let failed = |harness: &Harness| matches!(status(harness, "test.deep"), xccode_plugin::Status::Failed(_));
+    let failed = |harness: &Harness| matches!(status(harness, "test.deep"), xiaochuan_plugin::Status::Failed(_));
     assert!(!failed(&open(reconcile::MAX_DEPTH as usize - 1, 50.0)), "63 boxes and a canvas");
     assert!(failed(&open(reconcile::MAX_DEPTH as usize, 50.0)), "64 boxes and a canvas");
     assert!(failed(&open(1, f32::NAN)), "a width that is not a number");
@@ -2015,7 +2015,7 @@ fn a_run_is_a_record_a_row() {
     list.cells(5, 1, 10, (0..30).map(|index| (char::from(b'a' + index as u8 % 26), list::Style::new())));
     list.cell(0, 0, 'z', list::Style::new());
     let harness = cells_tui(list);
-    let (record, cell) = (xccode_plugin::canvas::RECORD as u64, xccode_plugin::canvas::CELL as u64);
+    let (record, cell) = (xiaochuan_plugin::canvas::RECORD as u64, xiaochuan_plugin::canvas::CELL as u64);
     for step in ["drawn", "replayed"] {
         let work = host::work();
         let frame = frame_after_one(&harness);

@@ -1,7 +1,7 @@
 use opentui::native::ImageFit;
 use opentui::widget::ImageView;
 
-pub use xccode_ui::prompt_input::attach::*;
+pub use xiaochuan_ui::prompt_input::attach::*;
 
 use super::editor::Inner;
 

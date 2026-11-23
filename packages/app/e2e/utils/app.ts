@@ -1,6 +1,6 @@
 import { expect, type Page, type Request } from "@playwright/test"
-import type { SessionMessageInfo } from "@xccode/client/promise"
-import { base64Encode, checksum } from "@xccode/util/encode"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
+import { base64Encode, checksum } from "@xiaochuan/util/encode"
 
 // The mocked default server. Production builds connect to their own origin, so CI points this at the app.
 export const SERVER = `http://${process.env.PLAYWRIGHT_SERVER_HOST ?? "127.0.0.1"}:${process.env.PLAYWRIGHT_SERVER_PORT ?? "4096"}`
@@ -17,7 +17,7 @@ export function draftHref(draftID: string) {
   return `/new-session?draftId=${encodeURIComponent(draftID)}`
 }
 
-// Key of `xccode.window.browser.dat:tabs.panes` entries.
+// Key of `xiaochuan.window.browser.dat:tabs.panes` entries.
 export function tabKey(sessionID: string, server = SERVER) {
   return `${server}\n${sessionHref(sessionID, server)}`
 }
@@ -26,7 +26,7 @@ export function tabKey(sessionID: string, server = SERVER) {
 export function workspaceKey(directory: string, key: string) {
   const head = directory.slice(0, 12).replace(/[^a-zA-Z0-9._-]/g, "-")
 
-  return `xccode.workspace.${head}.${checksum(directory) ?? "0"}.dat:workspace:${key}`
+  return `xiaochuan.workspace.${head}.${checksum(directory) ?? "0"}.dat:workspace:${key}`
 }
 
 export async function expectPath(page: Page, href: string) {
@@ -86,7 +86,7 @@ export async function seed(page: Page, input: SeedInput) {
         localStorage.setItem(key, JSON.stringify(Object.fromEntries(merged)))
       })
     },
-    { marker: `xccode.e2e.seed.${seeds.next++}`, entries: storageEntries(input) },
+    { marker: `xiaochuan.e2e.seed.${seeds.next++}`, entries: storageEntries(input) },
   )
 }
 
@@ -104,18 +104,18 @@ function storageEntries(input: SeedInput): [string, string, boolean][] {
   }
 
   const values: Record<string, unknown> = {
-    ...(Object.keys(server).length ? { "xccode.global.dat:server": server } : {}),
-    ...(input.tabs ? { "xccode.window.browser.dat:tabs": input.tabs.map(tabEntry) } : {}),
+    ...(Object.keys(server).length ? { "xiaochuan.global.dat:server": server } : {}),
+    ...(input.tabs ? { "xiaochuan.window.browser.dat:tabs": input.tabs.map(tabEntry) } : {}),
     ...(input.panes
       ? {
-          "xccode.window.browser.dat:tabs.panes": Object.fromEntries(
+          "xiaochuan.window.browser.dat:tabs.panes": Object.fromEntries(
             Object.entries(input.panes).map(([sessionID, pane]) => [tabKey(sessionID), pane]),
           ),
         }
       : {}),
     ...(input.settings ? { "settings.v3": input.settings } : {}),
-    ...(input.locale ? { "xccode.global.dat:language": { locale: input.locale } } : {}),
-    ...(input.theme ? { "xccode-theme-id": input.theme.id, "xccode-color-scheme": input.theme.scheme } : {}),
+    ...(input.locale ? { "xiaochuan.global.dat:language": { locale: input.locale } } : {}),
+    ...(input.theme ? { "xiaochuan-theme-id": input.theme.id, "xiaochuan-color-scheme": input.theme.scheme } : {}),
     ...input.storage,
   }
 
@@ -167,20 +167,20 @@ export function session(
 
 export type ModelSeed = { id: string; name: string } & Record<string, unknown>
 
-// A connected `xccode` provider whose first model is the default.
+// A connected `xiaochuan` provider whose first model is the default.
 export function provider(...models: ModelSeed[]) {
   const all = models.length ? models : [{ id: "test", name: "Test" }]
 
   return {
     all: [
       {
-        id: "xccode",
-        name: "Xccode",
+        id: "xiaochuan",
+        name: "Xiaochuan",
         models: Object.fromEntries(all.map((model) => [model.id, { limit: { context: 200_000 }, ...model }])),
       },
     ],
-    connected: ["xccode"],
-    default: { providerID: "xccode", modelID: all[0]!.id },
+    connected: ["xiaochuan"],
+    default: { providerID: "xiaochuan", modelID: all[0]!.id },
   }
 }
 

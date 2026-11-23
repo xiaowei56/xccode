@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, mock, spyOn, test } from "bun:test"
-import { Xccode } from "@xccode/client/promise"
+import { Xiaochuan } from "@xiaochuan/client/promise"
 import { loadRunReferences, runProviders } from "../../src/mini/catalog.shared"
 import { catalogModel, catalogProvider } from "./fixture/catalog"
 
@@ -9,7 +9,7 @@ afterEach(() => {
 
 describe("run catalog shared", () => {
   test("loads visible project references from the current reference catalog", async () => {
-    const client = Xccode.make({ baseUrl: "https://xccode.test" })
+    const client = Xiaochuan.make({ baseUrl: "https://xiaochuan.test" })
     const list = spyOn(client.reference, "list").mockImplementation(
       () =>
         Promise.resolve({

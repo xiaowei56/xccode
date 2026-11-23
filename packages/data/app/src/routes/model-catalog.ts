@@ -1,9 +1,9 @@
-import { STEALTH_MODELS, statModel } from "@xccode/data-core/domain/model-normalization"
+import { STEALTH_MODELS, statModel } from "@xiaochuan/data-core/domain/model-normalization"
 import { query } from "@solidjs/router"
 
-export const modelCatalogSourceUrl = "https://models.xccode.ai/catalog.json"
-export const modelCatalogPricingUrl = "https://models.xccode.ai/api.json"
-export const modelCatalogLabSourceUrl = "https://models.xccode.ai/labs"
+export const modelCatalogSourceUrl = "https://models.xiaochuan.ai/catalog.json"
+export const modelCatalogPricingUrl = "https://models.xiaochuan.ai/api.json"
+export const modelCatalogLabSourceUrl = "https://models.xiaochuan.ai/labs"
 
 export type ModelCatalogCost = {
   input: number
@@ -58,7 +58,7 @@ export type ModelCatalog = {
   models: ModelCatalogEntry[]
   aliases?: ModelCatalogEntry[]
   labs: ModelCatalogLab[]
-  // Stealth models stay out of the lab catalog, but their Xccode listings publish limits and modalities.
+  // Stealth models stay out of the lab catalog, but their Xiaochuan listings publish limits and modalities.
   stealthSpecs: Record<string, ModelCatalogSpecs>
 }
 
@@ -205,7 +205,7 @@ export function buildModelCatalog(payload: unknown, pricingPayload?: unknown, la
       cost:
         costs.get(catalogIdKey(model.id)) ??
         costs.get(`${model.lab}/${model.slug}`) ??
-        costs.get(`xccode-go/${model.slug}`) ??
+        costs.get(`xiaochuan-go/${model.slug}`) ??
         costs.get(model.slug) ??
         model.cost,
     }))
@@ -249,8 +249,8 @@ export function buildModelCatalog(payload: unknown, pricingPayload?: unknown, la
 function readStealthModelSpecs(payload: unknown): Record<string, ModelCatalogSpecs> {
   if (!isRecord(payload)) return {}
   return Object.fromEntries(
-    // Later entries win, so the xccode listing takes precedence over xccode-go.
-    ["xccode-go", "xccode"]
+    // Later entries win, so the xiaochuan listing takes precedence over xiaochuan-go.
+    ["xiaochuan-go", "xiaochuan"]
       .map((provider) => payload[provider])
       .flatMap((provider) => (isRecord(provider) && isRecord(provider.models) ? Object.entries(provider.models) : []))
       .flatMap(([id, value]) => {

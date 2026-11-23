@@ -1,6 +1,6 @@
 //! Error details with copy and investigation actions.
 
-use xccode_ui::dialog::{DialogCx, FooterAction, FooterProps, footer};
+use xiaochuan_ui::dialog::{DialogCx, FooterAction, FooterProps, footer};
 
 use crate::prelude::*;
 
@@ -52,7 +52,7 @@ pub fn view(tui: &Tui, cx: &Rc<DialogCx>, props: Props) -> View {
                 crate::features::location::navigate_home(&tui, location);
                 let composer = tui.prompt.current.borrow().upgrade();
                 if let Some(composer) = composer {
-                    let mut value = xccode_local::jsonl::empty_prompt();
+                    let mut value = xiaochuan_local::jsonl::empty_prompt();
                     value["text"] = serde_json::Value::String(prompt);
                     composer.history.reset();
                     composer.restore(value);
@@ -146,7 +146,7 @@ pub fn view(tui: &Tui, cx: &Rc<DialogCx>, props: Props) -> View {
             .size()
             .width()
             .min(u32::from(cx.width()).saturating_sub(2))
-            .saturating_sub(2 * xccode_ui::dialog::DIALOG_INSET);
+            .saturating_sub(2 * xiaochuan_ui::dialog::DIALOG_INSET);
         head.add(
             &Text::new(app, super::open::truncate_file_path(source, i64::from(width)))
                 .fg(theme.text.muted)
@@ -154,7 +154,7 @@ pub fn view(tui: &Tui, cx: &Rc<DialogCx>, props: Props) -> View {
                 .truncate(true),
         );
     }
-    xccode_ui::dialog::layout_view(cx, &head, &body, Some(&slot), xccode_ui::dialog::DIALOG_INSET, 1)
+    xiaochuan_ui::dialog::layout_view(cx, &head, &body, Some(&slot), xiaochuan_ui::dialog::DIALOG_INSET, 1)
 }
 
 pub struct Details {
@@ -169,12 +169,12 @@ pub fn details(props: &Props) -> Details {
     lines.extend(props.diagnostic_ref.as_ref().map(|reference| format!("Reference: {reference}")));
     let text = lines.join("\n");
     let mut prompt =
-        vec!["Investigate why this Xccode component failed in the current project.".to_owned(), text.clone()];
+        vec!["Investigate why this Xiaochuan component failed in the current project.".to_owned(), text.clone()];
     prompt.extend(props.diagnostic_ref.as_ref().map(|reference| {
         format!(
             "Find the server log entry matching reference {reference} and inspect its original cause. If the server logs are not accessible from this session, say so and ask for the matching log entry; do not infer the cause from the reference alone."
         )
     }));
-    prompt.push("Inspect the relevant project and global Xccode configuration, startup or loading behavior, required environment variables or credentials, dependencies, and logs. Identify the root cause and recommend a fix. Do not expose credentials.".to_owned());
+    prompt.push("Inspect the relevant project and global Xiaochuan configuration, startup or loading behavior, required environment variables or credentials, dependencies, and logs. Identify the root cause and recommend a fix. Do not expose credentials.".to_owned());
     Details { text, prompt: prompt.join("\n\n") }
 }

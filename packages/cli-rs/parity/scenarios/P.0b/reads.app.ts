@@ -1,11 +1,11 @@
 // The small reads of ABI 1.6 (P0b): the test plugin's line in the `app` slot shows its own width, the session tabs,
 // the palette's keys, the model's variants and the pending keys, as each client answers them. TS loads the plugin from
-// parity/plugins/p0b as a local plugin; Rust registers its twin when XCCODE_PARITY_PLUGIN is `p0b`.
+// parity/plugins/p0b as a local plugin; Rust registers its twin when XIAOCHUAN_PARITY_PLUGIN is `p0b`.
 import { defineApp, HOME_PLACEHOLDER } from "../../lib/app"
 
 export default defineApp({
   config: { plugins: ["./plugins/p0b"] },
-  env: { XCCODE_PARITY_PLUGIN: "p0b" },
+  env: { XIAOCHUAN_PARITY_PLUGIN: "p0b" },
   steps: [
     {
       checkpoint: "home",

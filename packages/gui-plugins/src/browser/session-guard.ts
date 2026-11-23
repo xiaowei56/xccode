@@ -1,6 +1,6 @@
 import { app, type WebContents } from "electron"
 import { Option, Schema } from "effect"
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import type { PagePermissions } from "./page-prompts"
 import { pagePermission } from "./policy"
 

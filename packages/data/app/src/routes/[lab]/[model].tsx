@@ -1,9 +1,9 @@
 import { Meta, Title } from "@solidjs/meta"
-import { ProviderIcon } from "@xccode/ui/provider-icon"
+import { ProviderIcon } from "@xiaochuan/ui/provider-icon"
 import { scaleSqrt } from "d3-scale"
 import countryCodesSource from "i18n-iso-countries/codes.json?raw"
-import { type CountryEntry, type ModelUsagePoint } from "@xccode/data-core/domain/home"
-import { statModel } from "@xccode/data-core/domain/model-normalization"
+import { type CountryEntry, type ModelUsagePoint } from "@xiaochuan/data-core/domain/home"
+import { statModel } from "@xiaochuan/data-core/domain/model-normalization"
 import { createAsync, query, useParams } from "@solidjs/router"
 import { createMemo, createSignal, createUniqueId, For, onMount, Show, type JSX } from "solid-js"
 import { getRequestEvent } from "solid-js/web"
@@ -149,7 +149,7 @@ export default function StatsModel() {
           <FormatLinks path={modelPath()} />
           <LastModified value={stats()?.updatedAt} />
           <Meta property="og:type" content="website" />
-          <Meta property="og:site_name" content="Xccode" />
+          <Meta property="og:site_name" content="Xiaochuan" />
           <Meta property="og:title" content={modelTitle()} />
           <Meta property="og:description" content={modelDescription()} />
           <Meta property="og:url" content={modelUrl()} />
@@ -401,7 +401,7 @@ function ModelHero(props: {
               <ModelHeroSparkline data={data()} />
             </span>
             <span>across last week's</span>
-            <span data-slot="model-hero-pill">Xccode</span>
+            <span data-slot="model-hero-pill">Xiaochuan</span>
             <span>usage with</span>
             <span data-slot="model-hero-pill">{formatPercent(data().tokenShare)}</span>
             <span>of observed</span>

@@ -1,5 +1,5 @@
-import { motionGlobals, motionPresets, motionTuning, type MotionKnob } from "@xccode/ui/motion-tuning"
-import { applyMotion, motionField } from "@xccode/ui/motion-tuning-fields"
+import { motionGlobals, motionPresets, motionTuning, type MotionKnob } from "@xiaochuan/ui/motion-tuning"
+import { applyMotion, motionField } from "@xiaochuan/ui/motion-tuning-fields"
 import { action, type Field, type Values } from "knobs"
 
 /**

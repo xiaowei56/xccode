@@ -7,8 +7,8 @@ use std::time::Duration;
 
 use bytes::Bytes;
 use futures_util::future::BoxFuture;
-use xccode_api::client::Client;
-use xccode_api::transport::{Request, Response, Transport};
+use xiaochuan_api::client::Client;
+use xiaochuan_api::transport::{Request, Response, Transport};
 use serde_json::{Value, json};
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::sync::{Notify, mpsc, oneshot};
@@ -379,7 +379,7 @@ impl Server {
                 agents: vec![agent("build", "Build", None), agent("plan", "Plan", Some("Plan first"))],
                 commands: vec![review_command()],
                 plugins: vec![json!({
-                    "id": "xccode.models.dev", "source": { "type": "builtin" },
+                    "id": "xiaochuan.models.dev", "source": { "type": "builtin" },
                     "features": { "server": true }, "state": { "status": "active" },
                 })],
                 ..State::default()
@@ -760,7 +760,7 @@ pub struct Wire {
     pub elicitations: Arc<Mutex<Vec<Value>>>,
     next_id: AtomicU64,
     changed: Arc<Notify>,
-    agent: tokio::task::JoinHandle<xccode_acp::Closed>,
+    agent: tokio::task::JoinHandle<xiaochuan_acp::Closed>,
     pub session_id: String,
 }
 
@@ -776,11 +776,11 @@ pub async fn start_wire(options: WireOptions) -> Wire {
     let client = Client::with_transport("http://fake.test", Arc::new(FakeTransport(server.clone()))).expect("client");
     let (client_end, agent_end) = tokio::io::duplex(1 << 22);
     let (agent_read, agent_write) = tokio::io::split(agent_end);
-    let mut acp_options = xccode_acp::Options::new("test");
+    let mut acp_options = xiaochuan_acp::Options::new("test");
     if let Some(timeout) = options.drain_timeout {
         acp_options.drain_timeout = timeout;
     }
-    let agent = tokio::spawn(xccode_acp::serve(client, agent_read, agent_write, acp_options));
+    let agent = tokio::spawn(xiaochuan_acp::serve(client, agent_read, agent_write, acp_options));
     let (client_read, mut client_write) = tokio::io::split(client_end);
     let (outbox, mut outgoing) = mpsc::unbounded_channel::<Value>();
     tokio::spawn(async move {
@@ -870,7 +870,7 @@ impl Reader {
         let params = message.get("params").cloned().unwrap_or(Value::Null);
         match (message.get("method").and_then(Value::as_str), message.get("id")) {
             (Some("session/update"), None) => lock(&self.updates).push(params),
-            (Some("xccode/session/child_update"), None) => lock(&self.child_updates).push(params),
+            (Some("xiaochuan/session/child_update"), None) => lock(&self.child_updates).push(params),
             (Some("session/request_permission"), Some(id)) => {
                 lock(&self.permissions).push(params.clone());
                 let reply = self.permission.as_ref().map_or_else(

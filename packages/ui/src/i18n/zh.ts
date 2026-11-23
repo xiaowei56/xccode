@@ -78,7 +78,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "充值",
 
   "dialog.usageExceeded.freeTier.title": "免费额度已用完",
-  "dialog.usageExceeded.freeTier.description": "每月 $10 订阅 Xccode Go，可靠地使用最佳开源模型。",
+  "dialog.usageExceeded.freeTier.description": "每月 $10 订阅 Xiaochuan Go，可靠地使用最佳开源模型。",
   "dialog.usageExceeded.freeTier.actionLabel": "订阅",
 
   "ui.sessionTurn.status.delegating": "正在委派工作",
@@ -288,8 +288,8 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "已达模型预算上限 · 此模型暂停至预算重置",
   "ui.sessionTurn.budgetLimit.useFreeModel": "使用免费模型",
   "ui.sessionTurn.budgetLimit.switchModel": "切换模型",
-  "ui.sessionTurn.goLimit.title": "你已达到 Xccode Go 用量上限。",
-  "ui.sessionTurn.goLimit.lineReset": "你已达到 Xccode Go 用量上限，将于 {{time}} 重置。",
+  "ui.sessionTurn.goLimit.title": "你已达到 Xiaochuan Go 用量上限。",
+  "ui.sessionTurn.goLimit.lineReset": "你已达到 Xiaochuan Go 用量上限，将于 {{time}} 重置。",
   "dialog.usageExceeded.freeTier.reset": "你的免费消息将于 {{time}} 重置。",
   "ui.messagePart.compaction.queued": "会话压缩已排队",
   "ui.messagePart.compaction.done": "已压缩",

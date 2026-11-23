@@ -6,9 +6,9 @@ use std::ops::ControlFlow;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_plugin::abi;
-use xccode_plugin::abi::v2;
-use xccode_tui::{Deps, Route};
+use xiaochuan_plugin::abi;
+use xiaochuan_plugin::abi::v2;
+use xiaochuan_tui::{Deps, Route};
 
 use crate::support;
 
@@ -32,7 +32,7 @@ fn ticking(setup: &mut abi::Setup) -> Result<(), String> {
 }
 
 #[cfg(luau)]
-const TICKING: &str = r#"local plugin = require("@xccode/plugin")
+const TICKING: &str = r#"local plugin = require("@xiaochuan/plugin")
 return plugin.define(function(setup)
     plugin.every(1000, function() end)
     setup:surface({ name = "tick", place = { type = "route", name = "tick" } }, function(view)
@@ -65,19 +65,19 @@ fn a_ticking_plugin_that_changes_nothing_makes_no_frame() {
 fn ticks_without_frames(carrier: Carrier) {
     TICKS.set(0);
     let h = support::mount(80, 24, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    let host = xccode_tui::plugins::host::host(&h.tui);
+    let host = xiaochuan_tui::plugins::host::host(&h.tui);
     let definition = match carrier {
         #[cfg(luau)]
         Carrier::Luau => {
-            let sources = xccode_plugin::luau::Sources::from_files([
+            let sources = xiaochuan_plugin::luau::Sources::from_files([
                 ("plugin.toml", "id = \"test.tick\""),
                 ("init.luau", TICKING),
             ]);
-            xccode_plugin::luau::define(&sources, None).unwrap().0
+            xiaochuan_plugin::luau::define(&sources, None).unwrap().0
         }
         Carrier::InProcess => abi::Plugin { id: "test.tick", setup: ticking }.into(),
     };
-    xccode_tui::plugins::host::add(&h.tui, definition);
+    xiaochuan_tui::plugins::host::add(&h.tui, definition);
     h.tui.navigate(Route::Plugin { id: "test.tick".into(), name: "tick".into() });
     h.wait_for("ticking");
     // The startup polls end, and the route's first frames are painted.
@@ -105,14 +105,14 @@ fn ticks_without_frames(carrier: Carrier) {
 #[test]
 fn the_pipe_refuses_a_timer_without_giving_it_an_id() {
     let Some(config) = crate::plugin_pipe::config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let log = root.path().join("log");
     let plugin = root.path().join("config").join("plugins").join("timer");
     std::fs::create_dir_all(&plugin).unwrap();
     let script = format!(
         r#"import {{ appendFileSync }} from "node:fs"
 export default {{ id: "example.timer", setup(api) {{
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   carrier.command({{ name: "timer.go", title: "timer.go" }}, () => {{
     carrier.effect({{ type: "timer", ms: 20 }}).then(
       (result) => appendFileSync({log:?}, "result " + JSON.stringify(result) + "\n"),
@@ -124,12 +124,12 @@ export default {{ id: "example.timer", setup(api) {{
     );
     std::fs::write(plugin.join("tui.ts"), script).unwrap();
     let harness = support::mount(80, 24, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    let external = xccode_tui::plugins::host::External {
+    let external = xiaochuan_tui::plugins::host::External {
         config_dir: root.path().join("config"),
         cwd: root.path().to_path_buf(),
     };
-    xccode_tui::plugins::host::external_with(&harness.tui, external, Some(config));
-    let pipe = crate::plugin_pipe::Pipe { harness, root: xccode_util::temp::tempdir().unwrap() };
+    xiaochuan_tui::plugins::host::external_with(&harness.tui, external, Some(config));
+    let pipe = crate::plugin_pipe::Pipe { harness, root: xiaochuan_util::temp::tempdir().unwrap() };
     pipe.active("example.timer");
     pipe.harness.tui.keymap.dispatch("timer.go", None);
     let read = || std::fs::read_to_string(&log).unwrap_or_default();
@@ -165,7 +165,7 @@ fn every_of_a_mount(setup: &mut abi::Setup) -> Result<(), String> {
 }
 
 #[cfg(luau)]
-const EVERY_OF_A_MOUNT: &str = r#"local plugin = require("@xccode/plugin")
+const EVERY_OF_A_MOUNT: &str = r#"local plugin = require("@xiaochuan/plugin")
 return plugin.define(function(setup)
     setup:storageKey("ticks")
     local layer = { scope = "global", keys = { { key = "x", name = "tick" } } }
@@ -199,14 +199,14 @@ fn an_every_a_mount_started_ends_with_that_mount() {
             #[cfg(luau)]
             Carrier::Luau => {
                 let files = [("plugin.toml", "id = \"test.tick\""), ("init.luau", EVERY_OF_A_MOUNT)];
-                xccode_plugin::luau::define(&xccode_plugin::luau::Sources::from_files(files), None).unwrap().0
+                xiaochuan_plugin::luau::define(&xiaochuan_plugin::luau::Sources::from_files(files), None).unwrap().0
             }
             Carrier::InProcess => abi::Plugin { id: "test.tick", setup: every_of_a_mount }.into(),
         };
-        xccode_tui::plugins::host::add(&h.tui, definition);
+        xiaochuan_tui::plugins::host::add(&h.tui, definition);
         let ticks = || match carrier {
             #[cfg(luau)]
-            Carrier::Luau => xccode_plugin::Host::storage_read(&*h.tui, "plugin.test.tick.ticks")
+            Carrier::Luau => xiaochuan_plugin::Host::storage_read(&*h.tui, "plugin.test.tick.ticks")
                 .and_then(|json| serde_json::from_str::<serde_json::Value>(&json).ok())
                 .and_then(|ticks| ticks["n"].as_u64())
                 .map_or(0, |ticks| ticks as u32),
@@ -259,7 +259,7 @@ fn budgeted() -> support::Harness {
 #[test]
 fn a_fast_timer_with_cheap_ticks_is_not_slow() {
     let h = budgeted();
-    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "test.cheap", setup: cheap_ticks }.into());
+    xiaochuan_tui::plugins::host::add(&h.tui, abi::Plugin { id: "test.cheap", setup: cheap_ticks }.into());
     h.app.idle(Duration::from_secs(3));
     assert!(BUDGET.get() >= Duration::from_millis(60), "it did not tick: {:?}", BUDGET.get());
     assert!(!h.tui.plugins.monitor().is_slow("test.cheap"), "500 µs ticks every 20 ms were slow");
@@ -285,8 +285,8 @@ fn two_timers(setup: &mut abi::Setup) -> Result<(), String> {
 #[test]
 fn a_tick_after_a_paint_leaves_no_frame_open_for_good() {
     let h = budgeted();
-    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "test.strand", setup: two_timers }.into());
-    let slot = h.tui.plugins.monitor().slot(&xccode_plugin::contain::Artifact::builtin("test.strand"));
+    xiaochuan_tui::plugins::host::add(&h.tui, abi::Plugin { id: "test.strand", setup: two_timers }.into());
+    let slot = h.tui.plugins.monitor().slot(&xiaochuan_plugin::contain::Artifact::builtin("test.strand"));
     // A paint ends what the plugin's arrival opened. Then the first timer ticks at 20 ms, which arms its idle close
     // (37 ms); a paint at 25 ms; the second timer ticks at 30 ms in the frame after it, which arms none, as one is
     // armed. At 37 ms the idle close finds that frame open.
@@ -322,7 +322,7 @@ fn dropped_sleeps_hold_no_timer() {
     let h = support::mount(80, 24, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
     h.app.idle(Duration::from_secs(3));
     let quiet = h.app.idle(Duration::from_secs(61));
-    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "test.dropped", setup: dropped_sleeps }.into());
+    xiaochuan_tui::plugins::host::add(&h.tui, abi::Plugin { id: "test.dropped", setup: dropped_sleeps }.into());
     h.app.idle(Duration::from_millis(100));
     assert_eq!(SLEPT.with_borrow(Vec::clone), [Ok(())], "the dropped sleeps kept their timers");
     let after = h.app.idle(Duration::from_secs(61));

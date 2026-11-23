@@ -1,4 +1,4 @@
-import type { ExperimentalMigrationV1StatusOutput } from "@xccode/client/promise"
+import type { ExperimentalMigrationV1StatusOutput } from "@xiaochuan/client/promise"
 
 export const MIGRATION_POLL_MS = 1_000
 

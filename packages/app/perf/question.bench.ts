@@ -2,7 +2,7 @@
 // moving, so the frame loop steps the switch, the dock's heights and the footer every frame. At 1440×900.
 import { bench, web } from "@hona/strobe"
 import { sessionHref } from "../e2e/utils/app"
-import { mockXccodeServer } from "../e2e/utils/mock-server"
+import { mockXiaochuanServer } from "../e2e/utils/mock-server"
 import { fixture } from "../e2e/utils/session-fixture"
 import { cached } from "./fixtures/mock"
 
@@ -15,14 +15,14 @@ const title = `${question} [data-slot="question-header-title"]`
 export default bench({
   targets: {
     web: web({
-      expect: { title: "Xccode" },
+      expect: { title: "Xiaochuan" },
       viewport: { width: 1440, height: 900 },
       async prepare(ctx) {
         const { url } = ctx
         const server = new URL(url).origin
         const page = cached(ctx)
 
-        await mockXccodeServer(page, {
+        await mockXiaochuanServer(page, {
           server,
           directory: fixture.directory,
           project: fixture.project,
@@ -52,7 +52,7 @@ export default bench({
         })
         await page.addInitScript(() => {
           localStorage.setItem("settings.v3", JSON.stringify({ general: { newQuestionUI: true } }))
-          localStorage.setItem("xccode.motion.v2", JSON.stringify({ "question.motion": 1 }))
+          localStorage.setItem("xiaochuan.motion.v2", JSON.stringify({ "question.motion": 1 }))
         })
 
         return { path: sessionHref(sessionID, server) }

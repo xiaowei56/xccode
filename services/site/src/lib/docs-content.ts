@@ -4,7 +4,7 @@ import { docsInstalls } from "~/lib/install-commands"
 import { blocks, codeFence, link, richToMarkdown, type RichText } from "~/lib/markdown"
 
 // The docs mock in the new site layout, shared by the page and its Markdown version. Content mirrors
-// https://xccode.ai/docs/ (the Intro page).
+// https://xiaochuan.ai/docs/ (the Intro page).
 
 export const docsProducts = [
   { label: "Docs", href: docsUrl() },
@@ -51,7 +51,7 @@ export const docsConfigure = [
 
 export { docsInstalls }
 
-const update = "https://xccode.ai/update/api/latest"
+const update = "https://xiaochuan.ai/update/api/latest"
 
 export type DownloadGroup = { platform: string; links: string[][] }
 
@@ -59,33 +59,33 @@ export const cliDownloads: DownloadGroup[] = [
   {
     platform: "macOS",
     links: [
-      ["Apple silicon", `${update}/cli/xccode/xccode-darwin-arm64.zip`],
-      ["Intel", `${update}/cli/xccode/xccode-darwin-x64.zip`],
-      ["Intel (baseline)", `${update}/cli/xccode/xccode-darwin-x64-baseline.zip`],
+      ["Apple silicon", `${update}/cli/xiaochuan/xiaochuan-darwin-arm64.zip`],
+      ["Intel", `${update}/cli/xiaochuan/xiaochuan-darwin-x64.zip`],
+      ["Intel (baseline)", `${update}/cli/xiaochuan/xiaochuan-darwin-x64-baseline.zip`],
     ],
   },
   {
     platform: "Windows",
     links: [
-      ["ARM64", `${update}/cli/xccode/xccode-windows-arm64.zip`],
-      ["x64", `${update}/cli/xccode/xccode-windows-x64.zip`],
-      ["x64 (baseline)", `${update}/cli/xccode/xccode-windows-x64-baseline.zip`],
+      ["ARM64", `${update}/cli/xiaochuan/xiaochuan-windows-arm64.zip`],
+      ["x64", `${update}/cli/xiaochuan/xiaochuan-windows-x64.zip`],
+      ["x64 (baseline)", `${update}/cli/xiaochuan/xiaochuan-windows-x64-baseline.zip`],
     ],
   },
   {
     platform: "Linux (glibc)",
     links: [
-      ["ARM64", `${update}/cli/xccode/xccode-linux-arm64.tar.gz`],
-      ["x64", `${update}/cli/xccode/xccode-linux-x64.tar.gz`],
-      ["x64 (baseline)", `${update}/cli/xccode/xccode-linux-x64-baseline.tar.gz`],
+      ["ARM64", `${update}/cli/xiaochuan/xiaochuan-linux-arm64.tar.gz`],
+      ["x64", `${update}/cli/xiaochuan/xiaochuan-linux-x64.tar.gz`],
+      ["x64 (baseline)", `${update}/cli/xiaochuan/xiaochuan-linux-x64-baseline.tar.gz`],
     ],
   },
   {
     platform: "Linux (musl)",
     links: [
-      ["ARM64", `${update}/cli/xccode/xccode-linux-arm64-musl.tar.gz`],
-      ["x64", `${update}/cli/xccode/xccode-linux-x64-musl.tar.gz`],
-      ["x64 (baseline)", `${update}/cli/xccode/xccode-linux-x64-baseline-musl.tar.gz`],
+      ["ARM64", `${update}/cli/xiaochuan/xiaochuan-linux-arm64-musl.tar.gz`],
+      ["x64", `${update}/cli/xiaochuan/xiaochuan-linux-x64-musl.tar.gz`],
+      ["x64 (baseline)", `${update}/cli/xiaochuan/xiaochuan-linux-x64-baseline-musl.tar.gz`],
     ],
   },
 ]
@@ -94,36 +94,36 @@ export const desktopDownloads: DownloadGroup[] = [
   {
     platform: "macOS",
     links: [
-      ["Apple silicon", `${update}/desktop/xccode/xccode-desktop-mac-arm64.dmg`],
-      ["Intel", `${update}/desktop/xccode/xccode-desktop-mac-x64.dmg`],
+      ["Apple silicon", `${update}/desktop/xiaochuan/xiaochuan-desktop-mac-arm64.dmg`],
+      ["Intel", `${update}/desktop/xiaochuan/xiaochuan-desktop-mac-x64.dmg`],
     ],
   },
   {
     platform: "Windows",
     links: [
-      ["x64", `${update}/desktop/xccode/xccode-desktop-win-x64.exe`],
-      ["ARM64", `${update}/desktop/xccode/xccode-desktop-win-arm64.exe`],
+      ["x64", `${update}/desktop/xiaochuan/xiaochuan-desktop-win-x64.exe`],
+      ["ARM64", `${update}/desktop/xiaochuan/xiaochuan-desktop-win-arm64.exe`],
     ],
   },
   {
     platform: "Linux (.deb)",
     links: [
-      ["x64", `${update}/desktop/xccode/xccode-desktop-linux-amd64.deb`],
-      ["ARM64", `${update}/desktop/xccode/xccode-desktop-linux-arm64.deb`],
+      ["x64", `${update}/desktop/xiaochuan/xiaochuan-desktop-linux-amd64.deb`],
+      ["ARM64", `${update}/desktop/xiaochuan/xiaochuan-desktop-linux-arm64.deb`],
     ],
   },
   {
     platform: "Linux (.rpm)",
     links: [
-      ["x64", `${update}/desktop/xccode/xccode-desktop-linux-x86_64.rpm`],
-      ["ARM64", `${update}/desktop/xccode/xccode-desktop-linux-aarch64.rpm`],
+      ["x64", `${update}/desktop/xiaochuan/xiaochuan-desktop-linux-x86_64.rpm`],
+      ["ARM64", `${update}/desktop/xiaochuan/xiaochuan-desktop-linux-aarch64.rpm`],
     ],
   },
   {
     platform: "Linux (AppImage)",
     links: [
-      ["x64", `${update}/desktop/xccode/xccode-desktop-linux-x86_64.AppImage`],
-      ["ARM64", `${update}/desktop/xccode/xccode-desktop-linux-arm64.AppImage`],
+      ["x64", `${update}/desktop/xiaochuan/xiaochuan-desktop-linux-x86_64.AppImage`],
+      ["ARM64", `${update}/desktop/xiaochuan/xiaochuan-desktop-linux-arm64.AppImage`],
     ],
   },
 ]
@@ -142,34 +142,34 @@ export const docsToc = [
 export const docsIntro = {
   title: "Intro",
   /** The page's `<title>`, 50–60 characters. */
-  metaTitle: "Xccode | Install Xccode and connect a provider",
+  metaTitle: "Xiaochuan | Install Xiaochuan and connect a provider",
   description:
-    "Get started with Xccode. Install the CLI, desktop app, web or Docker version, connect a model provider, and find your way around the rest of the docs.",
-  lead: "Xccode is an open source coding agent. It's available as a desktop app, a terminal interface, a mobile app and an SDK.",
+    "Get started with Xiaochuan. Install the CLI, desktop app, web or Docker version, connect a model provider, and find your way around the rest of the docs.",
+  lead: "Xiaochuan is an open source coding agent. It's available as a desktop app, a terminal interface, a mobile app and an SDK.",
   cli: [
     [
       "The npm package uses a postinstall script to select the native ",
-      { code: "xccode" },
-      " binary for your platform. The Bun and pnpm commands explicitly allow the required script; Vite+ requires no additional flag. The mise command requires mise 2026.10.9 or later; older versions install Xccode 1.",
+      { code: "xiaochuan" },
+      " binary for your platform. The Bun and pnpm commands explicitly allow the required script; Vite+ requires no additional flag. The mise command requires mise 2026.10.9 or later; older versions install Xiaochuan 1.",
     ],
     ["Windows package managers are not supported."],
     ["Download a standalone CLI binary for your platform."],
   ] satisfies RichText[],
-  desktop: "Download the latest Xccode Desktop build for your platform.",
+  desktop: "Download the latest Xiaochuan Desktop build for your platform.",
   web: {
-    lead: ["Access the Xccode web interface with the ", { code: "xccode pair" }, " command."] satisfies RichText,
-    command: "xccode pair",
+    lead: ["Access the Xiaochuan web interface with the ", { code: "xiaochuan pair" }, " command."] satisfies RichText,
+    command: "xiaochuan pair",
     output: "  Open a link to connect. Links work once and expire in 5 minutes.",
     url: "http://127.0.0.1:49374/auth/connect/...",
   },
   docker: [
     "Docker images use versioned tags, for example ",
-    { code: "ghcr.io/xiaowei56/xccode:2.0.0" },
+    { code: "ghcr.io/xiaowei56/xiaochuan:2.0.0" },
     ".",
   ] satisfies RichText,
   connect: [
     [
-      "Xccode has built-in support for many LLM providers. You can connect to them directly ",
+      "Xiaochuan has built-in support for many LLM providers. You can connect to them directly ",
       { text: "in the TUI", href: docsUrl("/cli/providers") },
       " with ",
       { code: "/connect" },
@@ -178,18 +178,18 @@ export const docsIntro = {
     ["See ", { text: "Providers", href: docsUrl("/providers") }, " to configure custom providers."],
     [
       "If you'd like easy access to the best coding models, you can try out ",
-      { text: "Xccode Console", href: docsUrl("/console") },
+      { text: "Xiaochuan Console", href: docsUrl("/console") },
       ".",
     ],
     [
       "You can also try ",
-      { text: "Xccode Go", href: docsUrl("/console/go") },
+      { text: "Xiaochuan Go", href: docsUrl("/console/go") },
       ", a subscription plan from $10/month that grants you access to the best coding models.",
     ],
   ] satisfies RichText[],
   customize: [
-    "Make Xccode your own by editing the ",
-    { text: "Xccode config", href: docsUrl("/config") },
+    "Make Xiaochuan your own by editing the ",
+    { text: "Xiaochuan config", href: docsUrl("/config") },
     ", ",
     { text: "loading plugins", href: docsUrl("/plugins") },
     ", ",
@@ -201,8 +201,8 @@ export const docsIntro = {
     ".",
   ] satisfies RichText,
   learn: [
-    "If you are interested in an in-depth course on Xccode, Boot.dev has created an excellent ",
-    { text: "AI Coding with Xccode", href: "https://www.boot.dev/courses/learn-ai-coding", external: true },
+    "If you are interested in an in-depth course on Xiaochuan, Boot.dev has created an excellent ",
+    { text: "AI Coding with Xiaochuan", href: "https://www.boot.dev/courses/learn-ai-coding", external: true },
     " course in consultation with our team. All the information in the course is free to read and watch, though some interactive features may require payment.",
   ] satisfies RichText,
 }
@@ -249,5 +249,5 @@ export function docsMarkdown() {
   )
 }
 
-/** The docs' own llms.txt, which the docs serve under /docs on xccode.ai. */
+/** The docs' own llms.txt, which the docs serve under /docs on xiaochuan.ai. */
 export const docsLlms = "/docs/llms.txt"

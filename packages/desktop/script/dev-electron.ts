@@ -15,8 +15,8 @@ export async function prepareDevElectron() {
     .digest("hex")
     .slice(0, 16)
 
-  const root = join(import.meta.dirname, "../node_modules/.cache/xccode-dev", hash)
-  const bundle = join(root, "Xccode Dev.app")
+  const root = join(import.meta.dirname, "../node_modules/.cache/xiaochuan-dev", hash)
+  const bundle = join(root, "Xiaochuan Dev.app")
   // Electron uses the executable's name to distinguish development from packaged apps.
   const executable = join(bundle, "Contents/MacOS/Electron")
 
@@ -28,10 +28,10 @@ export async function prepareDevElectron() {
   const plist = join(bundle, "Contents/Info.plist")
 
   for (const key of ["CFBundleName", "CFBundleDisplayName"]) {
-    await $`plutil -replace ${key} -string ${"Xccode Dev"} ${plist}`
+    await $`plutil -replace ${key} -string ${"Xiaochuan Dev"} ${plist}`
   }
 
-  await $`plutil -replace CFBundleIdentifier -string ai.xccode.desktop.dev ${plist}`
+  await $`plutil -replace CFBundleIdentifier -string ai.xiaochuan.desktop.dev ${plist}`
   await $`plutil -insert NSAutoFillRequiresTextContentTypeForOneTimeCodeOnMac -bool true ${plist}`
   await Bun.write(join(bundle, "Contents/Resources/electron.icns"), icon)
   // Changing the bundle resources invalidates Electron's signature.

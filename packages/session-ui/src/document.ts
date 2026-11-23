@@ -1,4 +1,4 @@
-import type { FileDiffInfo, SessionMessageInfo, SessionStatus } from "@xccode/client/promise"
+import type { FileDiffInfo, SessionMessageInfo, SessionStatus } from "@xiaochuan/client/promise"
 
 export type SessionDocument = {
   sessionID: string

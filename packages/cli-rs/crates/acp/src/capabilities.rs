@@ -1,6 +1,6 @@
 use serde_json::Value;
 
-pub const CHILD_SESSION_UPDATES: &str = "xccode/child-session-updates";
+pub const CHILD_SESSION_UPDATES: &str = "xiaochuan/child-session-updates";
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct Capabilities {

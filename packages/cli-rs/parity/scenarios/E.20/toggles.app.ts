@@ -17,7 +17,7 @@ export default defineApp({
       "app.toggle.file_context": "f7",
       "app.toggle.paste_summary": "f8",
       "terminal.title.toggle": "f9",
-      "xccode.settings": "f10",
+      "xiaochuan.settings": "f10",
     },
   },
   steps: [

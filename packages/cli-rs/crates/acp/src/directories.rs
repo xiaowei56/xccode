@@ -1,15 +1,15 @@
 //! Additional directory grants are recorded in session metadata.
 
-use xccode_api::client::Client;
-use xccode_api::generated::{PermissionEffect, PermissionRule, SessionInfo, SessionMetadata, SessionUpdateInput};
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{PermissionEffect, PermissionRule, SessionInfo, SessionMetadata, SessionUpdateInput};
 use serde_json::{Value, json};
 
 use crate::client::check;
 use crate::error::Failure;
 use crate::paths::{fs_resolve, is_absolute, resolve_lexical, windows_path};
-use xccode_util::path::Flavor;
+use xiaochuan_util::path::Flavor;
 
-const KEY: &str = "xccode.acp.additionalDirectories";
+const KEY: &str = "xiaochuan.acp.additionalDirectories";
 
 // Permission resources treat `*` and `?` as wildcards.
 pub fn parse(cwd: &str, directories: &[String]) -> Result<Vec<String>, Failure> {

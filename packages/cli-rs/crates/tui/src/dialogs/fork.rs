@@ -1,8 +1,8 @@
 //! Fork a session in full or before a selected prompt.
 
-use xccode_api::generated::{SessionForkInput, SessionMessageID};
-use xccode_ui::dialog::{DIALOG_LIST_INSET, layout_with};
-use xccode_ui::motion::Spinner;
+use xiaochuan_api::generated::{SessionForkInput, SessionMessageID};
+use xiaochuan_ui::dialog::{DIALOG_LIST_INSET, layout_with};
+use xiaochuan_ui::motion::Spinner;
 
 use crate::dialogs::timeline::{prompts, time};
 use crate::prelude::*;
@@ -18,7 +18,7 @@ pub fn show(tui: &Tui, session: SessionID, message: Option<String>, on_move: OnM
     }
     let pick = |message: Option<String>| {
         let session = session.clone();
-        bind!(tui, |tui, _: &xccode_ui::dialog::Dialogs| fork(&tui, session.clone(), message.clone()))
+        bind!(tui, |tui, _: &xiaochuan_ui::dialog::Dialogs| fork(&tui, session.clone(), message.clone()))
     };
     let options: Vec<_> = std::iter::once(SelectOption::new("Full session", None).on_select(pick(None)))
         .chain(tui.data.read(|state| prompts(state.messages(&session))).into_iter().rev().map(

@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant } from "@xccode/client/promise"
+import type { SessionMessageAssistant } from "@xiaochuan/client/promise"
 
 type Content = SessionMessageAssistant["content"][number]
 

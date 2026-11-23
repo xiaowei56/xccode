@@ -17,9 +17,9 @@ Custom commands are in addition to the built-in commands like `/init`, `/undo`, 
 
 Create markdown files in the `commands/` directory to define custom commands.
 
-Create `.xccode/commands/test.md`:
+Create `.xiaochuan/commands/test.md`:
 
-```md title=".xccode/commands/test.md"
+```md title=".xiaochuan/commands/test.md"
 ---
 description: Run tests with coverage
 agent: build
@@ -42,17 +42,17 @@ Use the command by typing `/` followed by the command name.
 
 ## Configure
 
-You can add custom commands through the Xccode config or by creating markdown files in the `commands/` directory.
+You can add custom commands through the Xiaochuan config or by creating markdown files in the `commands/` directory.
 
 ---
 
 ### JSON
 
-Use the `command` option in your Xccode [config](/docs/config):
+Use the `command` option in your Xiaochuan [config](/docs/config):
 
-```json title="xccode.jsonc" {4-12}
+```json title="xiaochuan.jsonc" {4-12}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "command": {
     // This becomes the name of the command
     "test": {
@@ -79,10 +79,10 @@ Now you can run this command in the TUI:
 
 You can also define commands using markdown files. Place them in:
 
-- Global: `~/.config/xccode/commands/`
-- Per-project: `.xccode/commands/`
+- Global: `~/.config/xiaochuan/commands/`
+- Per-project: `.xiaochuan/commands/`
 
-```markdown title="~/.config/xccode/commands/test.md"
+```markdown title="~/.config/xiaochuan/commands/test.md"
 ---
 description: Run tests with coverage
 agent: build
@@ -112,7 +112,7 @@ The prompts for the custom commands support several special placeholders and syn
 
 Pass arguments to commands using the `$ARGUMENTS` placeholder.
 
-```md title=".xccode/commands/component.md"
+```md title=".xiaochuan/commands/component.md"
 ---
 description: Create a new component
 ---
@@ -138,7 +138,7 @@ You can also access individual arguments using positional parameters:
 
 For example:
 
-```md title=".xccode/commands/create-file.md"
+```md title=".xiaochuan/commands/create-file.md"
 ---
 description: Create a new file with content
 ---
@@ -167,7 +167,7 @@ Use _!`command`_ to inject [shell command](/docs/tui#shell-commands) output into
 
 For example, to create a custom command that analyzes test coverage:
 
-```md title=".xccode/commands/analyze-coverage.md"
+```md title=".xiaochuan/commands/analyze-coverage.md"
 ---
 description: Analyze test coverage
 ---
@@ -180,7 +180,7 @@ Based on these results, suggest improvements to increase coverage.
 
 Or to review recent changes:
 
-```md title=".xccode/commands/review-changes.md"
+```md title=".xiaochuan/commands/review-changes.md"
 ---
 description: Review recent changes
 ---
@@ -199,7 +199,7 @@ Commands run in your project's root directory and their output becomes part of t
 
 Include files in your command using `@` followed by the filename.
 
-```md title=".xccode/commands/review-component.md"
+```md title=".xiaochuan/commands/review-component.md"
 ---
 description: Review component
 ---
@@ -222,7 +222,7 @@ Let's look at the configuration options in detail.
 
 The `template` option defines the prompt that will be sent to the LLM when the command is executed.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "command": {
     "test": {
@@ -240,7 +240,7 @@ This is a **required** config option.
 
 Use the `description` option to provide a brief description of what the command does.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "command": {
     "test": {
@@ -260,7 +260,7 @@ Use the `agent` config to optionally specify which [agent](/docs/agents) should 
 If this is a [subagent](/docs/agents/#subagents) the command will trigger a subagent invocation by default.
 To disable this behavior, set `subtask` to `false`.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "command": {
     "review": {
@@ -280,7 +280,7 @@ Use the `subtask` boolean to force the command to trigger a [subagent](/docs/age
 This is useful if you want the command to not pollute your primary context and will **force** the agent to act as a subagent,
 even if `mode` is set to `primary` on the [agent](/docs/agents) configuration.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "command": {
     "analyze": {
@@ -298,7 +298,7 @@ This is an **optional** config option.
 
 Use the `model` config to override the default model for this command.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "command": {
     "analyze": {
@@ -314,7 +314,7 @@ This is an **optional** config option.
 
 ## Built-in
 
-xccode includes several built-in commands like `/init`, `/undo`, `/redo`, `/help`; [learn more](/docs/tui#commands).
+xiaochuan includes several built-in commands like `/init`, `/undo`, `/redo`, `/help`; [learn more](/docs/tui#commands).
 
 :::note
 Custom commands can override built-in commands.

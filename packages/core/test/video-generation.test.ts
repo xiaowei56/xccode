@@ -2,21 +2,21 @@ import path from "node:path"
 import { expect } from "bun:test"
 import { Effect, Fiber, Layer, Stream } from "effect"
 import { TestClock } from "effect/testing"
-import type { VideoStatus } from "@xccode/ai/effect"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Watcher } from "@xccode/core/filesystem/watcher"
-import { Generate } from "@xccode/core/generate"
-import { BlobStore } from "@xccode/core/blob-store"
-import { KV } from "@xccode/core/kv"
-import { VideoGeneration } from "@xccode/core/video-generation"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { VideoID, type VideoJob } from "@xccode/schema/generate"
-import { Model } from "@xccode/schema/model"
-import { Provider } from "@xccode/schema/provider"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
+import type { VideoStatus } from "@xiaochuan/ai/effect"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
+import { Generate } from "@xiaochuan/core/generate"
+import { BlobStore } from "@xiaochuan/core/blob-store"
+import { KV } from "@xiaochuan/core/kv"
+import { VideoGeneration } from "@xiaochuan/core/video-generation"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { VideoID, type VideoJob } from "@xiaochuan/schema/generate"
+import { Model } from "@xiaochuan/schema/model"
+import { Provider } from "@xiaochuan/schema/provider"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
 import { offlineModels } from "./fixture/models"
 import { tmpdirScoped } from "./fixture/tmpdir"
 import { advance } from "./lib/clock"
@@ -41,7 +41,7 @@ const app = (dir: string, state: State) =>
     LayerNode.group([VideoGeneration.node, BlobStore.node, Database.node, KV.node, LocationServiceMap.node]),
     [
       Global.node.replace(Global.layerWith({ data: path.join(dir, "data"), config: path.join(dir, "config") })),
-      Database.node.replace(Database.configured({ path: "xccode.db" })),
+      Database.node.replace(Database.configured({ path: "xiaochuan.db" })),
       offlineModels,
       Watcher.node.replace(Watcher.configured({ enabled: false })),
       Generate.node.replace(
@@ -84,7 +84,7 @@ const records = KV.Service.pipe(Effect.flatMap((kv) => kv.scan({ prefix: "video:
 
 it.effect("keeps video jobs across restarts and forgets them a day after they finish", () =>
   Effect.gen(function* () {
-    const dir = (yield* tmpdirScoped("xccode-generation-")).path
+    const dir = (yield* tmpdirScoped("xiaochuan-generation-")).path
     const state = provider()
     const first = yield* Effect.gen(function* () {
       const generations = yield* VideoGeneration.Service
@@ -123,7 +123,7 @@ it.effect("keeps video jobs across restarts and forgets them a day after they fi
 
 it.effect("waits for a job to finish and cancels a running one", () =>
   Effect.gen(function* () {
-    const dir = (yield* tmpdirScoped("xccode-generation-")).path
+    const dir = (yield* tmpdirScoped("xiaochuan-generation-")).path
     const state = provider()
     yield* Effect.gen(function* () {
       const generations = yield* VideoGeneration.Service

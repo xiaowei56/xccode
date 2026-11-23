@@ -1,15 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/stories",
+  "name": "@xiaochuan/stories",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --port 6006"
   },
   "devDependencies": {
-    "@xccode/client": "workspace:*",
-    "@xccode/session-ui": "workspace:*",
-    "@xccode/ui": "workspace:*",
+    "@xiaochuan/client": "workspace:*",
+    "@xiaochuan/session-ui": "workspace:*",
+    "@xiaochuan/ui": "workspace:*",
     "@playwright/test": "catalog:",
     "@solidjs/meta": "catalog:",
     "@tailwindcss/vite": "catalog:",

@@ -3,15 +3,15 @@ export function deactivate() {}
 
 import * as vscode from "vscode"
 
-const TERMINAL_NAME = "xccode"
+const TERMINAL_NAME = "xiaochuan"
 
 export function activate(context: vscode.ExtensionContext) {
-  const openNewTerminalDisposable = vscode.commands.registerCommand("xccode.openNewTerminal", async () => {
+  const openNewTerminalDisposable = vscode.commands.registerCommand("xiaochuan.openNewTerminal", async () => {
     await openTerminal()
   })
 
-  const openTerminalDisposable = vscode.commands.registerCommand("xccode.openTerminal", async () => {
-    // An xccode terminal already exists => focus it
+  const openTerminalDisposable = vscode.commands.registerCommand("xiaochuan.openTerminal", async () => {
+    // An xiaochuan terminal already exists => focus it
     const existingTerminal = vscode.window.terminals.find((t) => t.name === TERMINAL_NAME)
     if (existingTerminal) {
       existingTerminal.show()
@@ -21,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
     await openTerminal()
   })
 
-  let addFilepathDisposable = vscode.commands.registerCommand("xccode.addFilepathToTerminal", async () => {
+  let addFilepathDisposable = vscode.commands.registerCommand("xiaochuan.addFilepathToTerminal", async () => {
     const fileRef = getActiveFile()
     if (!fileRef) {
       return
@@ -53,12 +53,12 @@ export function activate(context: vscode.ExtensionContext) {
         preserveFocus: false,
       },
       env: {
-        XCCODE_CALLER: "vscode",
+        XIAOCHUAN_CALLER: "vscode",
       },
     })
 
     terminal.show()
-    terminal.sendText("xccode")
+    terminal.sendText("xiaochuan")
   }
 
   function getActiveFile() {

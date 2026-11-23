@@ -1,4 +1,4 @@
-import type { SessionApi, SessionInfo, SessionListInput } from "@xccode/client/promise"
+import type { SessionApi, SessionInfo, SessionListInput } from "@xiaochuan/client/promise"
 
 export async function listAllSessions(
   api: Pick<SessionApi, "list">,

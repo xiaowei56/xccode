@@ -1,4 +1,4 @@
-import { isFallbackTitle } from "@xccode/util/session-title-fallback"
+import { isFallbackTitle } from "@xiaochuan/util/session-title-fallback"
 import { isSessionNotFoundError } from "@/runtime/server/errors"
 import type { ServerHealth } from "@/runtime/server/health-machine"
 

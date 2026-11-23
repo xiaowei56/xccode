@@ -1,6 +1,6 @@
 import { For, Show, createEffect, createMemo, on, onCleanup } from "solid-js"
 import { createStore } from "solid-js/store"
-import { TextShimmer } from "@xccode/ui/text-shimmer"
+import { TextShimmer } from "@xiaochuan/ui/text-shimmer"
 import { CurrentSessionProviders } from "../../storybook/current-session-story"
 import { timelinePresets } from "../../timeline/detail"
 import { SessionTimeline } from "../../timeline/session-timeline"
@@ -12,7 +12,7 @@ import { replayScript, scenarios, ticks, type ScenarioName } from "./session-rep
 import { NextSessionTimeline } from "./session-timeline"
 
 export default {
-  title: "Xccode/Timeline/Playground",
+  title: "Xiaochuan/Timeline/Playground",
   id: "timeline-playground",
   component: SessionTimeline,
   parameters: { layout: "fullscreen" },

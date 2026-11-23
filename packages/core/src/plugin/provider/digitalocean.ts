@@ -1,5 +1,5 @@
-import type { IntegrationOAuthMethodRegistration } from "@xccode/plugin/effect/integration"
-import { define } from "@xccode/plugin/effect/plugin"
+import type { IntegrationOAuthMethodRegistration } from "@xiaochuan/plugin/effect/integration"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 import { Clock, Deferred, Effect, Option, Schema } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import type { Server } from "node:http"
@@ -116,7 +116,7 @@ const oauth = {
 } satisfies IntegrationOAuthMethodRegistration
 
 export const DigitalOceanPlugin = define({
-  id: "xccode.provider.digitalocean",
+  id: "xiaochuan.provider.digitalocean",
   effect: Effect.fn(function* (ctx) {
     const cache = yield* SharedCache.Service
     const http = HttpClient.filterStatusOk(yield* HttpClient.HttpClient)

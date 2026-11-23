@@ -11,7 +11,7 @@ suspend at once.
 ## Rust
 
 A plugin asks with `Host::try_foreground(program)` and gets the exit in a reply. The host runs the program
-once the plugin's call is done (`xccode_util::job`, `features::foreground`):
+once the plugin's call is done (`xiaochuan_util::job`, `features::foreground`):
 
 - Unix: in a process group of its own, made the terminal's foreground group while it runs. Ctrl+C and Ctrl+\ end
   the program and not the TUI. Ctrl+Z stops it, and the host continues it at once, as it holds the job and has no

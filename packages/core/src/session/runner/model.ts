@@ -1,11 +1,11 @@
 export * as SessionRunnerModel from "./model.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { LanguageModel } from "@xccode/ai/effect"
-import { Model } from "@xccode/schema/model"
-import { Provider } from "@xccode/schema/provider"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { LanguageModel } from "@xiaochuan/ai/effect"
+import { Model } from "@xiaochuan/schema/model"
+import { Provider } from "@xiaochuan/schema/provider"
 import { Context, Effect, Layer, Schema } from "effect"
-import type { SessionRequestKind } from "@xccode/plugin/effect/session"
+import type { SessionRequestKind } from "@xiaochuan/plugin/effect/session"
 import { Agent } from "../../agent.js"
 import { ModelResolver } from "../../model-resolver.js"
 import { PluginHooks } from "../../plugin/hooks.js"
@@ -51,7 +51,7 @@ export interface Interface {
   ) => Effect.Effect<Resolved, Error>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionRunnerModel") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionRunnerModel") {}
 
 /** Builds a Resolved whose catalog identity mirrors the route model. Test or embedding seam. */
 export const resolved = (

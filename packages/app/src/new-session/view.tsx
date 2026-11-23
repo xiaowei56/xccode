@@ -1,6 +1,6 @@
-import { Tooltip } from "@xccode/ui/tooltip"
-import { Icon } from "@xccode/ui/icon"
-import { Keybind } from "@xccode/ui/keybind"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Keybind } from "@xiaochuan/ui/keybind"
 import { useCommand } from "@/shell/commands/command"
 import { Match, Show, Switch, createComputed, createMemo, createSignal, onCleanup, untrack } from "solid-js"
 import { createStore } from "solid-js/store"
@@ -11,7 +11,7 @@ import {
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@xccode/ui/project-avatar"
+} from "@xiaochuan/ui/project-avatar"
 import { Schema } from "effect"
 import { Composer } from "@/composer/composer"
 import { ComposerDropzone } from "@/composer/dropzone"

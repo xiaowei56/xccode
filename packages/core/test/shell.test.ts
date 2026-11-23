@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test"
 import path from "path"
-import { ShellSelect } from "@xccode/core/shell/select"
-import { FSUtil } from "@xccode/util/fs-util"
-import { which } from "@xccode/core/util/which"
+import { ShellSelect } from "@xiaochuan/core/shell/select"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { which } from "@xiaochuan/core/util/which"
 import fs from "node:fs/promises"
 import { appExecutionAlias } from "./fixture/app-execution-alias"
 import { tmpdir } from "./fixture/tmpdir"
@@ -41,8 +41,8 @@ describe("shell", () => {
     await withShell(undefined, async () => {
       const configured = ShellSelect.resolve({ priority: "config" })
       const compatible = ShellSelect.resolve({ priority: "compat" })
-      expect(ShellSelect.resolve({ priority: "config" }, "xccode-missing-shell")).toBe(configured)
-      expect(ShellSelect.resolve({ priority: "compat" }, "xccode-missing-shell")).toBe(compatible)
+      expect(ShellSelect.resolve({ priority: "config" }, "xiaochuan-missing-shell")).toBe(configured)
+      expect(ShellSelect.resolve({ priority: "compat" }, "xiaochuan-missing-shell")).toBe(compatible)
     })
   })
 
@@ -68,8 +68,8 @@ describe("shell", () => {
   const zsh = which("zsh")
   test.skipIf(!zsh || process.platform === "win32")("passes an unmatched zsh glob through to the command", () => {
     if (!zsh) return
-    const result = Bun.spawnSync([zsh, ...ShellSelect.args(zsh, "echo xccode-missing-*.nope; echo after")])
-    expect(result.stdout.toString()).toBe("xccode-missing-*.nope\nafter\n")
+    const result = Bun.spawnSync([zsh, ...ShellSelect.args(zsh, "echo xiaochuan-missing-*.nope; echo after")])
+    expect(result.stdout.toString()).toBe("xiaochuan-missing-*.nope\nafter\n")
     expect(result.exitCode).toBe(0)
   })
 

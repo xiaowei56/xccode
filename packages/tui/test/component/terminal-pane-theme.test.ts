@@ -1,10 +1,10 @@
 import { expect, test } from "bun:test"
-import { resolveThemeDocument, type HueScale, type ResolvedTheme } from "@xccode/theme/tui"
+import { resolveThemeDocument, type HueScale, type ResolvedTheme } from "@xiaochuan/theme/tui"
 import { terminalPalette } from "../../src/component/terminal-pane"
-import { getXccodeClassicTheme } from "../../src/theme"
+import { getXiaochuanClassicTheme } from "../../src/theme"
 
 test.each(["light", "dark"] as const)("builds the %s ANSI palette from semantic colors", (mode) => {
-  const theme = resolveThemeDocument(getXccodeClassicTheme(), mode)
+  const theme = resolveThemeDocument(getXiaochuanClassicTheme(), mode)
   const hues = allHues(theme)
   const black = theme.hue.neutral[mode === "dark" ? 800 : 200]
   const white = theme.hue.neutral[mode === "dark" ? 200 : 800]
@@ -38,7 +38,7 @@ test.each(["light", "dark"] as const)("builds the %s ANSI palette from semantic 
 })
 
 test("falls back to accent when no hue is confidently blue or magenta", () => {
-  const resolved = resolveThemeDocument(getXccodeClassicTheme(), "dark")
+  const resolved = resolveThemeDocument(getXiaochuanClassicTheme(), "dark")
   const hues = allHues(resolved)
   const hue = {
     ...Object.fromEntries(Object.keys(hues).map((name) => [name, hues.red])),

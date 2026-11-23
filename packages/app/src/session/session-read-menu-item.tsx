@@ -1,6 +1,6 @@
 import { createMemo, Show } from "solid-js"
-import type { SessionInfo } from "@xccode/client/promise"
-import { Menu } from "@xccode/ui/menu"
+import type { SessionInfo } from "@xiaochuan/client/promise"
+import { Menu } from "@xiaochuan/ui/menu"
 import { useLanguage } from "@/runtime/i18n/language"
 import { ServerConnection } from "@/runtime/server/registry"
 import { useGlobal } from "@/runtime/server/runtime"

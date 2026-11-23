@@ -8,7 +8,7 @@ export default definePty({
   args: [],
   cols: 120,
   rows: 30,
-  env: { XCCODE_CLI_CONFIG_CONTENT: config },
+  env: { XIAOCHUAN_CLI_CONFIG_CONTENT: config },
   server: server(),
   steps: [
     { until: { screen: "Demo Model" }, settle: 500, timeout: 30_000 },
@@ -26,7 +26,7 @@ export default definePty({
       timeout: 10_000,
     },
   ],
-  // TS sets "Xccode" again as the session opens; Rust sends only a change (title-renamed).
+  // TS sets "Xiaochuan" again as the session opens; Rust sends only a change (title-renamed).
   osc: [],
   masks,
   exits: true,

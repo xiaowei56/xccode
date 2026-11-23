@@ -1,5 +1,5 @@
-import { Button } from "@xccode/ui/button"
-import { Menu } from "@xccode/ui/menu"
+import { Button } from "@xiaochuan/ui/button"
+import { Menu } from "@xiaochuan/ui/menu"
 import { createEffect, For, on, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { useLanguage } from "@/runtime/i18n/language"
@@ -62,10 +62,10 @@ function SessionCardStory(props: {
           <InboxSessionCard
             project={
               props.projectKnown
-                ? { id: "lab-xccode", name: props.project, worktree: "/workspace/xccode", icon: { color: "blue" } }
+                ? { id: "lab-xiaochuan", name: props.project, worktree: "/workspace/xiaochuan", icon: { color: "blue" } }
                 : undefined
             }
-            directory={props.worktree ? "/workspace/xccode/worktrees/tooltip-status" : "/workspace/xccode"}
+            directory={props.worktree ? "/workspace/xiaochuan/worktrees/tooltip-status" : "/workspace/xiaochuan"}
             title={props.title}
             status={state.status}
             selected={state.selected}
@@ -116,7 +116,7 @@ export default {
     remote: false,
     branch: "dev",
     title: "Tooltip status on latest dev",
-    project: "xccode",
+    project: "xiaochuan",
     projectKnown: true,
     ageMinutes: 41,
     ageSeconds: 0,

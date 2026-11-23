@@ -218,7 +218,7 @@ test.each([true, false])("code spans link only when they are exactly an ID, conc
         ref={useSessionLinks()}
         conceal={conceal}
         syntaxStyle={syntaxStyle}
-        content={`Run \`xccode --session ${known.id}\` or open \`${known.id}\`.`}
+        content={`Run \`xiaochuan --session ${known.id}\` or open \`${known.id}\`.`}
       />
     )
   }
@@ -234,7 +234,7 @@ test.each([true, false])("code spans link only when they are exactly an ID, conc
   try {
     await waitForHighlightedFrame(app, () => linked().length > 0)
     expect(linked()).toEqual([conceal ? `@${known.title}` : known.id])
-    expect(app.captureCharFrame()).toContain(`xccode --session ${known.id}`)
+    expect(app.captureCharFrame()).toContain(`xiaochuan --session ${known.id}`)
   } finally {
     app.renderer.destroy()
   }

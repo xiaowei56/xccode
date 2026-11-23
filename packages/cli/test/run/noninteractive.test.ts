@@ -1,14 +1,14 @@
 import { afterEach, describe, expect, mock, spyOn, test } from "bun:test"
 import {
   ClientError,
-  Xccode,
+  Xiaochuan,
   type EventSubscribeOutput,
   type ExperimentalJobListOutput,
   type SessionActiveOutput,
   type SessionInboxListOutput,
   type SessionMessageAssistantTool,
   type SessionMessageInfo,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import { runNonInteractivePrompt } from "../../src/run/noninteractive"
 
 type V2Event = EventSubscribeOutput
@@ -270,7 +270,7 @@ async function run(input: {
   terminalDelay?: number
   signal?: AbortSignal
 }) {
-  const sdk = Xccode.make({ baseUrl: "https://xccode.test" })
+  const sdk = Xiaochuan.make({ baseUrl: "https://xiaochuan.test" })
   const values: V2Event[] = [{ id: "evt_connected", type: "server.connected", data: {} }]
   let wake: (() => void) | undefined
   const wait = Promise.withResolvers<void>()

@@ -2,8 +2,8 @@
 
 mod unified;
 
-use xccode_api::client::Client;
-use xccode_api::generated::{PermissionID, PermissionReply, PermissionReplyInput, SessionID};
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{PermissionID, PermissionReply, PermissionReplyInput, SessionID};
 use serde_json::{Value, json};
 
 use crate::child;

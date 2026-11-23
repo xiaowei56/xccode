@@ -1,6 +1,6 @@
 import type { CancelNotification, PromptRequest, PromptResponse, RequestError } from "@agentclientprotocol/sdk"
-import type { XccodeClient, XccodeEvent } from "@xccode/client/effect"
-import { TokenUsage } from "@xccode/schema/token-usage"
+import type { XiaochuanClient, XiaochuanEvent } from "@xiaochuan/client/effect"
+import { TokenUsage } from "@xiaochuan/schema/token-usage"
 import {
   Cause,
   Context,
@@ -44,13 +44,13 @@ export interface Interface {
 }
 
 /** Core acknowledges an interrupt before its cleanup settles, and its shell tool waits 3s before SIGKILL. */
-export const CancelDrainTimeout = Context.Reference<Duration.Input>("@xccode/cli/acp/Turn/CancelDrainTimeout", {
+export const CancelDrainTimeout = Context.Reference<Duration.Input>("@xiaochuan/cli/acp/Turn/CancelDrainTimeout", {
   defaultValue: () => "5 seconds",
 })
 
 type Subscription = {
   readonly scope: Scope.Closeable
-  readonly events: Queue.Dequeue<XccodeEvent, unknown>
+  readonly events: Queue.Dequeue<XiaochuanEvent, unknown>
   readonly askQueue: Queue.Queue<Effect.Effect<void, ACPError.Error | RequestError>>
   readonly settled: Map<string, Deferred.Deferred<void>>
 }
@@ -68,7 +68,7 @@ type Background = {
 }
 
 export const make = Effect.fnUntraced(function* (input: {
-  readonly client: XccodeClient
+  readonly client: XiaochuanClient
   readonly connection: ACPConnection.Interface
   readonly sessions: ACPSessions.Interface
   readonly catalog: ACPCatalog.Interface

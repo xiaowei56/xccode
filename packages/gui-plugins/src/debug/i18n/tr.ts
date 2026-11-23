@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Bellek tanılama: uygulama belleğini 30 saniyede bir masaüstü günlüklerine kaydeder. Kapatılana kadar yeniden başlatmalarda açık kalır; çalışırken çubuk açık kalır.",
-  "memory.tipEnv": "Bellek tanılama bu başlatma için açık: XCCODE_DESKTOP_MEMORY_LOG ayarlı.",
+  "memory.tipEnv": "Bellek tanılama bu başlatma için açık: XIAOCHUAN_DESKTOP_MEMORY_LOG ayarlı.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

@@ -75,7 +75,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "ถึงขีดจำกัดฟรีแล้ว",
   "dialog.usageExceeded.freeTier.description":
-    "สมัครสมาชิก Xccode Go ในราคา $10/เดือน เพื่อการเข้าถึงโมเดลโอเพนซอร์สที่ดีที่สุดอย่างเชื่อถือได้",
+    "สมัครสมาชิก Xiaochuan Go ในราคา $10/เดือน เพื่อการเข้าถึงโมเดลโอเพนซอร์สที่ดีที่สุดอย่างเชื่อถือได้",
   "dialog.usageExceeded.freeTier.actionLabel": "สมัครสมาชิก",
 
   "ui.sessionTurn.status.delegating": "กำลังมอบหมายงาน",
@@ -287,8 +287,8 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "ถึงงบประมาณโมเดลแล้ว · โมเดลนี้หยุดชั่วคราวจนกว่าจะรีเซ็ต",
   "ui.sessionTurn.budgetLimit.useFreeModel": "ใช้โมเดลฟรี",
   "ui.sessionTurn.budgetLimit.switchModel": "เปลี่ยนโมเดล",
-  "ui.sessionTurn.goLimit.title": "คุณใช้งาน Xccode Go ถึงขีดจำกัดแล้ว",
-  "ui.sessionTurn.goLimit.lineReset": "คุณใช้งาน Xccode Go ถึงขีดจำกัดแล้ว จะรีเซ็ตเวลา {{time}}",
+  "ui.sessionTurn.goLimit.title": "คุณใช้งาน Xiaochuan Go ถึงขีดจำกัดแล้ว",
+  "ui.sessionTurn.goLimit.lineReset": "คุณใช้งาน Xiaochuan Go ถึงขีดจำกัดแล้ว จะรีเซ็ตเวลา {{time}}",
   "dialog.usageExceeded.freeTier.reset": "ข้อความฟรีของคุณจะรีเซ็ตเวลา {{time}}",
   "ui.messagePart.compaction.queued": "การบีบอัดเซสชันอยู่ในคิว",
   "ui.messagePart.compaction.done": "บีบอัดแล้ว",

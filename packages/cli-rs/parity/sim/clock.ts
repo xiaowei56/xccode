@@ -1,7 +1,7 @@
 // P-TUI fixed clock, preloaded into the TS server and client of a scenario that sets `now`: with
-// XCCODE_DRIVE_NOW (milliseconds since the epoch), `Date` starts at that instant and runs on, so dates the screen
-// shows do not follow the day of the run. The Rust client reads the same variable in `xccode_util::time::now_ms`.
-const start = Number(process.env.XCCODE_DRIVE_NOW)
+// XIAOCHUAN_DRIVE_NOW (milliseconds since the epoch), `Date` starts at that instant and runs on, so dates the screen
+// shows do not follow the day of the run. The Rust client reads the same variable in `xiaochuan_util::time::now_ms`.
+const start = Number(process.env.XIAOCHUAN_DRIVE_NOW)
 if (start) {
   const real = Date
   const offset = start - real.now()

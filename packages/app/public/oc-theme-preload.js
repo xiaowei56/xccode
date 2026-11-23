@@ -1,8 +1,8 @@
 ;(function () {
-  var key = "xccode-theme-id"
+  var key = "xiaochuan-theme-id"
   var themeId = localStorage.getItem(key) || "oc-2"
 
-  var scheme = localStorage.getItem("xccode-color-scheme") || "system"
+  var scheme = localStorage.getItem("xiaochuan-color-scheme") || "system"
   var isDark = scheme === "dark" || (scheme === "system" && matchMedia("(prefers-color-scheme: dark)").matches)
   var mode = isDark ? "dark" : "light"
 
@@ -16,7 +16,7 @@
 
   if (themeId === "oc-2") return
 
-  var css = localStorage.getItem("xccode-theme-css-" + mode)
+  var css = localStorage.getItem("xiaochuan-theme-css-" + mode)
   if (css) {
     var style = document.createElement("style")
     style.id = "oc-theme-preload"

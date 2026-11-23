@@ -5,7 +5,7 @@ import {
   getProjectAvatarVariant,
   ProjectAvatar,
   type ProjectAvatarProps,
-} from "@xccode/ui/project-avatar"
+} from "@xiaochuan/ui/project-avatar"
 import { splitProps } from "solid-js"
 import type { LocalProject } from "@/shell/state/layout"
 

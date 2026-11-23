@@ -1,5 +1,5 @@
-import { base64ToBytes } from "@xccode/util/base64"
-import type { FileContent } from "@xccode/plugin/gui"
+import { base64ToBytes } from "@xiaochuan/util/base64"
+import type { FileContent } from "@xiaochuan/plugin/gui"
 
 /** Approximate on-disk size of loaded content. */
 export function contentBytes(content: FileContent) {

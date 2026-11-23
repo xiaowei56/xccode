@@ -1,6 +1,6 @@
 --!strict
 -- The `shout` fence: each line of the block in capitals, bold. A module of its own, which `init.luau` requires.
-local plugin = require("@xccode/plugin")
+local plugin = require("@xiaochuan/plugin")
 
 return function(_read: plugin.Read, fence: plugin.Fence): plugin.Fenced
     local lines = {}

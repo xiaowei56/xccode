@@ -21,7 +21,7 @@ import { createTuiResolvedConfig } from "../../../tui/test/fixture/tui-runtime"
 import { withNewDesigns } from "../lib/app"
 import { renderComponent } from "../lib/component"
 
-const directory = "/tmp/xccode/app"
+const directory = "/tmp/xiaochuan/app"
 const location = { directory, project: { id: "proj_app", directory, canonical: directory } }
 
 const credential = (id: string, label: string, status?: unknown) => ({
@@ -34,17 +34,17 @@ const credential = (id: string, label: string, status?: unknown) => ({
 
 const INTEGRATIONS = [
   {
-    id: "xccode",
-    name: "Xccode Console",
-    methods: [{ type: "oauth", id: "device", label: "Sign in with Xccode" }],
+    id: "xiaochuan",
+    name: "Xiaochuan Console",
+    methods: [{ type: "oauth", id: "device", label: "Sign in with Xiaochuan" }],
     connections: [credential("cred_work", "work"), credential("cred_home", "home")],
   },
-  // Hidden: Xccode Go is listed only once a Go key is saved.
+  // Hidden: Xiaochuan Go is listed only once a Go key is saved.
   {
-    id: "xccode-go",
-    name: "Xccode Go",
+    id: "xiaochuan-go",
+    name: "Xiaochuan Go",
     methods: [{ type: "key" }],
-    connections: [{ type: "env", name: "XCCODE_API_KEY" }],
+    connections: [{ type: "env", name: "XIAOCHUAN_API_KEY" }],
   },
   {
     id: "openai",
@@ -170,7 +170,7 @@ async function render(fixture: string, ready: (frame: string) => boolean, act?: 
   })
 }
 
-// Sorted: Xccode Console, OpenAI, GitHub Copilot, Anthropic (Popular); Acme, Zed (Services).
+// Sorted: Xiaochuan Console, OpenAI, GitHub Copilot, Anthropic (Popular); Acme, Zed (Services).
 // The ready check also matches the list, which shows before `act` runs.
 const listed = (frame: string) => frame.includes("Connect an integration")
 const down = async (setup: Parameters<NonNullable<Act>>[0], count: number) => {

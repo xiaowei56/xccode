@@ -1,13 +1,13 @@
 ---
 title: SDK
-description: Typesikker JS-klient for Xccode-server.
+description: Typesikker JS-klient for Xiaochuan-server.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-Xccode JS/TS SDK gir en typesikker klient for samhandling med serveren.
-Bruk den til å bygge integrasjoner og kontrollere Xccode programmatisk.
+Xiaochuan JS/TS SDK gir en typesikker klient for samhandling med serveren.
+Bruk den til å bygge integrasjoner og kontrollere Xiaochuan programmatisk.
 
 [Finn ut mer](/docs/server) om hvordan serveren fungerer. For eksempler, sjekk ut [prosjektene](/docs/ecosystem#projects) bygget av fellesskapet.
 
@@ -18,19 +18,19 @@ Bruk den til å bygge integrasjoner og kontrollere Xccode programmatisk.
 Installer SDK fra npm:
 
 ```bash
-npm install @xccode-ai/sdk
+npm install @xiaochuan-ai/sdk
 ```
 
 ---
 
 ## Opprette klient
 
-Opprett en forekomst av Xccode:
+Opprett en forekomst av Xiaochuan:
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const { client } = await createXccode()
+const { client } = await createXiaochuan()
 ```
 
 Dette starter både en server og en klient
@@ -49,12 +49,12 @@ Dette starter både en server og en klient
 
 ## Konfigurasjon
 
-Du kan sende et konfigurasjonsobjekt for å tilpasse virkemåten. Forekomsten henter fortsatt din `xccode.json`, men du kan overstyre eller legge til konfigurasjon inline:
+Du kan sende et konfigurasjonsobjekt for å tilpasse virkemåten. Forekomsten henter fortsatt din `xiaochuan.json`, men du kan overstyre eller legge til konfigurasjon inline:
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const xccode = await createXccode({
+const xiaochuan = await createXiaochuan({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -62,19 +62,19 @@ const xccode = await createXccode({
   },
 })
 
-console.log(`Server running at ${xccode.server.url}`)
+console.log(`Server running at ${xiaochuan.server.url}`)
 
-xccode.server.close()
+xiaochuan.server.close()
 ```
 
 ## Kun klient
 
-Hvis du allerede har en kjørende forekomst av Xccode, kan du opprette en klientforekomst for å koble til den:
+Hvis du allerede har en kjørende forekomst av Xiaochuan, kan du opprette en klientforekomst for å koble til den:
 
 ```javascript
-import { createXccodeClient } from "@xccode-ai/sdk"
+import { createXiaochuanClient } from "@xiaochuan-ai/sdk"
 
-const client = createXccodeClient({
+const client = createXiaochuanClient({
   baseUrl: "http://localhost:4096",
 })
 ```
@@ -96,7 +96,7 @@ const client = createXccodeClient({
 SDK inkluderer TypeScript-definisjoner for alle API-typer. Importer dem direkte:
 
 ```typescript
-import type { Session, Message, Part } from "@xccode-ai/sdk"
+import type { Session, Message, Part } from "@xiaochuan-ai/sdk"
 ```
 
 Alle typer er generert fra serverens OpenAPI-spesifikasjon og tilgjengelig i <a href={typesUrl}>type-filen</a>.
@@ -373,7 +373,7 @@ await client.session.prompt({
 ```javascript
 // Search and read files
 const textResults = await client.find.text({
-  query: { pattern: "function.*xccode" },
+  query: { pattern: "function.*xiaochuan" },
 })
 
 const files = await client.find.files({

@@ -1,13 +1,13 @@
 ---
 title: SDK
-description: Type-safe JS klijent za xccode server.
+description: Type-safe JS klijent za xiaochuan server.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-xccode JS/TS SDK pruza type-safe klijent za interakciju sa serverom.
-Koristite ga za izradu integracija i programsko upravljanje xccode-om.
+xiaochuan JS/TS SDK pruza type-safe klijent za interakciju sa serverom.
+Koristite ga za izradu integracija i programsko upravljanje xiaochuan-om.
 
 [Saznajte vise](/docs/server) kako server radi. Za primjere pogledajte [projects](/docs/ecosystem#projects) koje je napravila zajednica.
 
@@ -18,19 +18,19 @@ Koristite ga za izradu integracija i programsko upravljanje xccode-om.
 Instalirajte SDK sa npm-a:
 
 ```bash
-npm install @xccode-ai/sdk
+npm install @xiaochuan-ai/sdk
 ```
 
 ---
 
 ## Kreiranje klijenta
 
-Kreirajte instancu xccode:
+Kreirajte instancu xiaochuan:
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const { client } = await createXccode()
+const { client } = await createXiaochuan()
 ```
 
 Ovo pokrece i server i klijent
@@ -49,12 +49,12 @@ Ovo pokrece i server i klijent
 
 ## Konfiguracija
 
-Mozete proslijediti konfiguracijski objekat za prilagodavanje ponasanja. Instanca i dalje ucitava `xccode.json`, ali konfiguraciju mozete nadjacati ili dodati inline:
+Mozete proslijediti konfiguracijski objekat za prilagodavanje ponasanja. Instanca i dalje ucitava `xiaochuan.json`, ali konfiguraciju mozete nadjacati ili dodati inline:
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const xccode = await createXccode({
+const xiaochuan = await createXiaochuan({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -62,19 +62,19 @@ const xccode = await createXccode({
   },
 })
 
-console.log(`Server running at ${xccode.server.url}`)
+console.log(`Server running at ${xiaochuan.server.url}`)
 
-xccode.server.close()
+xiaochuan.server.close()
 ```
 
 ## Samo klijent
 
-Ako vec imate pokrenutu xccode instancu, mozete napraviti klijentsku instancu i povezati se na nju:
+Ako vec imate pokrenutu xiaochuan instancu, mozete napraviti klijentsku instancu i povezati se na nju:
 
 ```javascript
-import { createXccodeClient } from "@xccode-ai/sdk"
+import { createXiaochuanClient } from "@xiaochuan-ai/sdk"
 
-const client = createXccodeClient({
+const client = createXiaochuanClient({
   baseUrl: "http://localhost:4096",
 })
 ```
@@ -96,7 +96,7 @@ const client = createXccodeClient({
 SDK ukljucuje TypeScript definicije za sve API tipove. Uvezite ih direktno:
 
 ```typescript
-import type { Session, Message, Part } from "@xccode-ai/sdk"
+import type { Session, Message, Part } from "@xiaochuan-ai/sdk"
 ```
 
 Svi tipovi su generisani iz OpenAPI specifikacije servera i dostupni u <a href={typesUrl}>types datoteci</a>.
@@ -373,7 +373,7 @@ await client.session.prompt({
 ```javascript
 // Search and read files
 const textResults = await client.find.text({
-  query: { pattern: "function.*xccode" },
+  query: { pattern: "function.*xiaochuan" },
 })
 
 const files = await client.find.files({

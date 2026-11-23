@@ -1,4 +1,4 @@
-import type { BuiltinMainStorage, MainStoreFrom } from "@xccode/plugin/gui/builtin"
+import type { BuiltinMainStorage, MainStoreFrom } from "@xiaochuan/plugin/gui/builtin"
 import { History } from "./visits"
 
 /**
@@ -6,8 +6,8 @@ import { History } from "./visits"
  * of `index.ts`), and where builds before the plugin rename kept it.
  */
 const WINDOW_LISTS: readonly MainStoreFrom[] = [
-  { state: ["xccode.global.dat", "plugin.browser.history"] },
-  { state: ["xccode.global.dat", "extension.browser.history"] },
+  { state: ["xiaochuan.global.dat", "plugin.browser.history"] },
+  { state: ["xiaochuan.global.dat", "extension.browser.history"] },
 ]
 
 /**

@@ -1,6 +1,6 @@
-use xccode_api::client::Auth;
-use xccode_api::transport::{Request, Reqwest, Transport};
-use xccode_util::{bail, error};
+use xiaochuan_api::client::Auth;
+use xiaochuan_api::transport::{Request, Reqwest, Transport};
+use xiaochuan_util::{bail, error};
 use serde_json::Value;
 
 use super::Context;
@@ -37,7 +37,7 @@ pub fn run(context: &Context, args: &ApiArgs) -> error::Result<()> {
                 let response = transport
                     .send(Request {
                         method: "GET",
-                        url: xccode_api::js::join_url(&xccode_api::js::parse_url(&endpoint.url)?, "/openapi.json")?,
+                        url: xiaochuan_api::js::join_url(&xiaochuan_api::js::parse_url(&endpoint.url)?, "/openapi.json")?,
                         headers: auth.clone(),
                         body: None,
                     })
@@ -66,7 +66,7 @@ pub fn run(context: &Context, args: &ApiArgs) -> error::Result<()> {
         let response = transport
             .send(Request {
                 method,
-                url: xccode_api::js::join_url(&xccode_api::js::parse_url(&endpoint.url)?, &path)?,
+                url: xiaochuan_api::js::join_url(&xiaochuan_api::js::parse_url(&endpoint.url)?, &path)?,
                 headers,
                 body: args.data.clone().map(Into::into),
             })
@@ -158,7 +158,7 @@ fn interpolate(path: &str, params: &[(String, String)]) -> error::Result<String>
         };
         used.push(key);
         pathname.push_str(&rest[..open]);
-        pathname.push_str(&xccode_api::js::encode_component(value));
+        pathname.push_str(&xiaochuan_api::js::encode_component(value));
         rest = &rest[open + close + 2..];
     }
     pathname.push_str(rest);

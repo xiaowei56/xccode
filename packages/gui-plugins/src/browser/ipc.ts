@@ -1,6 +1,6 @@
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import { Schema } from "effect"
-import { Ipc } from "@xccode/plugin/gui"
+import { Ipc } from "@xiaochuan/plugin/gui"
 import { devices, previewScales } from "./viewport-presets"
 
 const text = (maximum: number) => Schema.String.check(Schema.isMinLength(1), Schema.isMaxLength(maximum))

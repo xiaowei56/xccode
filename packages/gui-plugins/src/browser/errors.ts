@@ -1,4 +1,4 @@
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import { CAPTURE_DEADLINE_MS, FULL_PAGE_DEADLINE_MS } from "./capture"
 import { FileVerificationError } from "./file-verification"
 import { NavigationDeadlineError } from "./navigation-deadline"

@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Atmiņas diagnostika: reģistrē lietotnes atmiņu darbvirsmas žurnālos ik pēc 30 sekundēm. Paliek ieslēgta arī pēc restartēšanas, līdz to izslēdz; kamēr tā darbojas, josla paliek atvērta.",
-  "memory.tipEnv": "Atmiņas diagnostika ir ieslēgta šai palaišanai: iestatīts XCCODE_DESKTOP_MEMORY_LOG.",
+  "memory.tipEnv": "Atmiņas diagnostika ir ieslēgta šai palaišanai: iestatīts XIAOCHUAN_DESKTOP_MEMORY_LOG.",
   "memory.env": "ENV",
   "motion.label": "REGULATORI",
   "motion.title": "Regulatori",

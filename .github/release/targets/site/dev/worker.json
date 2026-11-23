@@ -1,5 +1,5 @@
 {
-  "name": "xccode-site-dev",
+  "name": "xiaochuan-site-dev",
   "compatibilityDate": "2026-07-25",
   "compatibilityFlags": ["nodejs_compat"],
   "assets": {
@@ -22,10 +22,10 @@
       "!/v1/docs/theme.json"
     ]
   },
-  "domains": ["dev.xccode.ai", "docs.dev.xccode.ai"],
+  "domains": ["dev.xiaochuan.ai", "docs.dev.xiaochuan.ai"],
   "triggers": [
-    { "type": "fetch", "pattern": "dev.xccode.ai", "zone": "dev.xccode.ai" },
-    { "type": "fetch", "pattern": "dev.xccode.ai/*", "zone": "dev.xccode.ai" }
+    { "type": "fetch", "pattern": "dev.xiaochuan.ai", "zone": "dev.xiaochuan.ai" },
+    { "type": "fetch", "pattern": "dev.xiaochuan.ai/*", "zone": "dev.xiaochuan.ai" }
   ],
   "observability": { "enabled": true },
   "workersDev": false,

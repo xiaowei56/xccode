@@ -10,8 +10,8 @@ import {
   Suspense,
   untrack,
 } from "solid-js"
-import { Icon } from "@xccode/ui/icon"
-import type { FileDiffInfo } from "@xccode/client/promise"
+import { Icon } from "@xiaochuan/ui/icon"
+import type { FileDiffInfo } from "@xiaochuan/client/promise"
 import {
   Command,
   createKeyed,
@@ -24,9 +24,9 @@ import {
   type MountedSession,
   type Plugin,
   type ClosedPanelTab,
-} from "@xccode/plugin/gui"
-import { BuiltinPanel, onIdle, type BuiltinPanelTab } from "@xccode/plugin/gui/builtin"
-import { Changes, type ChangeKind } from "@xccode/plugin/gui/review"
+} from "@xiaochuan/plugin/gui"
+import { BuiltinPanel, onIdle, type BuiltinPanelTab } from "@xiaochuan/plugin/gui/builtin"
+import { Changes, type ChangeKind } from "@xiaochuan/plugin/gui/review"
 import type Review from "./index"
 import { ReviewDetails, type ReviewDetailsView } from "./contract"
 import { createReviewModel, type Demand, type ReviewModel } from "./model"

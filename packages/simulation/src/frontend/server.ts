@@ -10,7 +10,7 @@ function handle(harness: Harness, request: SimulationProtocol.Frontend.Request, 
       return SimulationProtocol.Handshake.dispatch(
         {
           role: "ui",
-          server: { name: "xccode", version },
+          server: { name: "xiaochuan", version },
           capabilities: SimulationProtocol.Frontend.Capabilities,
         },
         request.params,
@@ -65,7 +65,7 @@ export const start = Effect.fn("SimulationServer.start")(function* (
 ) {
   return yield* SimulationControlServer.start({
     endpoint,
-    label: "xccode drive ui websocket",
+    label: "xiaochuan drive ui websocket",
     data: () => ({ drive: true as const }),
     decode: SimulationProtocol.Frontend.decodeRequestEffect,
     handle: (_socket, request) => handle(harness, request, version),

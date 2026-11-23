@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "میموری تشخیص: ہر 30 سیکنڈ بعد ایپ دی میموری ڈیسک ٹاپ لاگ وچ لکھو۔ بند کرن تک ری سٹارٹ پچھوں وی چالو رہندی اے؛ جدوں تک ایہہ چلدی اے، بار کھلی رہندی اے۔",
-  "memory.tipEnv": "ایس لانچ لئی میموری تشخیص چالو اے: XCCODE_DESKTOP_MEMORY_LOG سیٹ اے۔",
+  "memory.tipEnv": "ایس لانچ لئی میموری تشخیص چالو اے: XIAOCHUAN_DESKTOP_MEMORY_LOG سیٹ اے۔",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "نوبز",

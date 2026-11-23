@@ -4,10 +4,10 @@ use std::sync::atomic::Ordering;
 
 use futures_util::StreamExt;
 use futures_util::stream::BoxStream;
-use xccode_api::client::Client;
-use xccode_api::events::{self, Activity, Connection, Source, Status};
-use xccode_api::generated::*;
-use xccode_api::transport::BoxFuture;
+use xiaochuan_api::client::Client;
+use xiaochuan_api::events::{self, Activity, Connection, Source, Status};
+use xiaochuan_api::generated::*;
+use xiaochuan_api::transport::BoxFuture;
 use tokio::sync::{mpsc, watch};
 use tokio::task::JoinHandle;
 
@@ -63,7 +63,7 @@ impl Data {
             if is_delta(event) {
                 continue;
             }
-            let listened = listened.get_or_insert_with(|| xccode_util::lock(&self.inner.listened));
+            let listened = listened.get_or_insert_with(|| xiaochuan_util::lock(&self.inner.listened));
             if listened.contains_key(event.tag()) {
                 // No receiver is not an error: views subscribe when they need to.
                 let _ = self.inner.signals.send(std::sync::Arc::new(event.clone()));

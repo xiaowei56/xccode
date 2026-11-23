@@ -4,9 +4,9 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 use common::*;
-use xccode_api::events::{self, Status};
-use xccode_api::generated::*;
-use xccode_store::{Catalog, CreateSession, Data, LoadMore, Options};
+use xiaochuan_api::events::{self, Status};
+use xiaochuan_api::generated::*;
+use xiaochuan_store::{Catalog, CreateSession, Data, LoadMore, Options};
 use serde_json::{Value, json};
 use tokio::sync::{mpsc, watch};
 
@@ -84,7 +84,7 @@ async fn a_coalesced_reconnect_invalidates_reads_and_flushes_everything() {
     let (data, paths) = counting();
     let (status, watcher) = watch::channel(state(Status::Connected));
     let (batches, receiver) = mpsc::channel(8);
-    let driver = tokio::spawn(xccode_store::connection::run(data.clone(), watcher, receiver));
+    let driver = tokio::spawn(xiaochuan_store::connection::run(data.clone(), watcher, receiver));
     batches.send(vec![connected()]).await.unwrap();
     settle().await;
     let path = "/api/session/ses_a/message";
@@ -109,7 +109,7 @@ async fn the_connection_records_a_declared_error_by_its_message() {
     let declared = json!({ "_tag": "Unauthorized", "message": "no" });
     let data =
         data(handler(move |_req: Req| std::future::ready(Reply::Json(401, declared.clone()))), Options::default());
-    let (connection, _task) = xccode_store::connection::connect(&data, events::Options::default());
+    let (connection, _task) = xiaochuan_store::connection::connect(&data, events::Options::default());
     wait(|| connection.history().len() > 1).await;
     assert_eq!(connection.history()[1].error.as_deref(), Some("no"));
 }
@@ -121,7 +121,7 @@ async fn the_dying_streams_tail_batch_applies_before_the_disconnect() {
     let (data, paths) = counting();
     let (status, watcher) = watch::channel(state(Status::Connected));
     let (batches, receiver) = mpsc::channel(8);
-    let driver = tokio::spawn(xccode_store::connection::run(data.clone(), watcher, receiver));
+    let driver = tokio::spawn(xiaochuan_store::connection::run(data.clone(), watcher, receiver));
     batches.send(vec![connected()]).await.unwrap();
     settle().await;
 
@@ -337,7 +337,7 @@ fn connect_works_from_a_thread_outside_the_runtime() {
     let data = Data::with_runtime(client, Options::default(), runtime.handle().clone());
     // The UI thread has no runtime context.
     let (connection, _task) =
-        std::thread::spawn(move || xccode_store::connection::connect(&data, events::Options::default()))
+        std::thread::spawn(move || xiaochuan_store::connection::connect(&data, events::Options::default()))
             .join()
             .expect("connect does not panic outside the runtime");
     runtime.block_on(async {
@@ -394,7 +394,7 @@ async fn a_budget_refusal_refreshes_usage_limits() {
         }),
         Options::default(),
     );
-    let location = xccode_store::Location::new("/project");
+    let location = xiaochuan_store::Location::new("/project");
     data.catalog_sync(Catalog::UsageLimits, Some(&location)).await.unwrap();
     let failed = |event: &str, error: &str| {
         let mut value = durable(

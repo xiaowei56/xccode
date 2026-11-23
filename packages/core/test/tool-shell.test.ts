@@ -5,46 +5,46 @@ import path from "path"
 import { describe, expect } from "bun:test"
 import { Cause, Deferred, Duration, Effect, Exit, Fiber, Layer, Queue, Scope, Stream, Tracer } from "effect"
 import { TestClock } from "effect/testing"
-import { Money } from "@xccode/schema/money"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { makeGlobalNode, makeLocationNode } from "@xccode/util/effect/app-node"
-import { filesystem } from "@xccode/util/effect/app-node-platform"
-import { Database } from "@xccode/core/database/database"
-import { Bus } from "@xccode/core/bus"
-import { CodeModeCatalog } from "@xccode/core/codemode/catalog"
-import { Config } from "@xccode/core/config"
-import { Environment } from "@xccode/core/environment/index"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
-import { Location } from "@xccode/core/location"
-import { FileAccess } from "@xccode/core/file-access"
-import { Flag } from "@xccode/core/flag"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Agent } from "@xccode/core/agent"
-import { Job } from "@xccode/core/job"
-import { Session } from "@xccode/core/session"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { SessionMessage } from "@xccode/core/session/message"
-import { SessionStore } from "@xccode/core/session/store"
-import { Permission } from "@xccode/core/permission"
-import { PermissionSaved } from "@xccode/core/permission/saved"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginSupervisor } from "@xccode/core/plugin/supervisor"
-import { Shell } from "@xccode/core/shell"
-import { ShellSelect } from "@xccode/core/shell/select"
-import { ShellResult } from "@xccode/core/shell/result"
-import { ID } from "@xccode/schema/shell"
-import { ShellTool } from "@xccode/core/tool/plugin/shell"
-import { ToolOutput } from "@xccode/core/tool-output"
-import { Tool } from "@xccode/core/tool"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { SessionStep } from "@xccode/core/session/runner/step"
-import { PersistentPty } from "@xccode/core/persistent-pty"
+import { Money } from "@xiaochuan/schema/money"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { makeGlobalNode, makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { filesystem } from "@xiaochuan/util/effect/app-node-platform"
+import { Database } from "@xiaochuan/core/database/database"
+import { Bus } from "@xiaochuan/core/bus"
+import { CodeModeCatalog } from "@xiaochuan/core/codemode/catalog"
+import { Config } from "@xiaochuan/core/config"
+import { Environment } from "@xiaochuan/core/environment/index"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
+import { Location } from "@xiaochuan/core/location"
+import { FileAccess } from "@xiaochuan/core/file-access"
+import { Flag } from "@xiaochuan/core/flag"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Agent } from "@xiaochuan/core/agent"
+import { Job } from "@xiaochuan/core/job"
+import { Session } from "@xiaochuan/core/session"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { SessionStore } from "@xiaochuan/core/session/store"
+import { Permission } from "@xiaochuan/core/permission"
+import { PermissionSaved } from "@xiaochuan/core/permission/saved"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginSupervisor } from "@xiaochuan/core/plugin/supervisor"
+import { Shell } from "@xiaochuan/core/shell"
+import { ShellSelect } from "@xiaochuan/core/shell/select"
+import { ShellResult } from "@xiaochuan/core/shell/result"
+import { ID } from "@xiaochuan/schema/shell"
+import { ShellTool } from "@xiaochuan/core/tool/plugin/shell"
+import { ToolOutput } from "@xiaochuan/core/tool-output"
+import { Tool } from "@xiaochuan/core/tool"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { SessionStep } from "@xiaochuan/core/session/runner/step"
+import { PersistentPty } from "@xiaochuan/core/persistent-pty"
 import { disabledPersistentPtyLayer } from "./fixture/persistent-pty"
 import { fakeDaemon } from "./fixture/persistent-pty-daemon"
 import { tmpdir, tmpdirScoped, withTempDir } from "./fixture/tmpdir"
@@ -1145,11 +1145,11 @@ describe("ShellTool", () => {
             const sessions = yield* Session.Service
             yield* sessions.environment({
               sessionID,
-              variables: { XCCODE_SESSION_ENV_TEST: "from-session" },
+              variables: { XIAOCHUAN_SESSION_ENV_TEST: "from-session" },
             })
             const command = isWindows
-              ? "[Console]::Out.Write($env:XCCODE_SESSION_ENV_TEST)"
-              : 'printf %s "$XCCODE_SESSION_ENV_TEST"'
+              ? "[Console]::Out.Write($env:XIAOCHUAN_SESSION_ENV_TEST)"
+              : 'printf %s "$XIAOCHUAN_SESSION_ENV_TEST"'
 
             const settled = yield* executeTool(registry, call({ command }))
 
@@ -1171,15 +1171,15 @@ describe("ShellTool", () => {
             const sessions = yield* Session.Service
             yield* sessions.environment({
               sessionID,
-              variables: { AGENT: "0", XCCODE: "0", AI_AGENT: "", XCCODE_SESSION_ID: "stale" },
+              variables: { AGENT: "0", XIAOCHUAN: "0", AI_AGENT: "", XIAOCHUAN_SESSION_ID: "stale" },
             })
             const command = isWindows
-              ? '[Console]::Out.Write("$env:AGENT|$env:XCCODE|$env:AI_AGENT|$env:XCCODE_SESSION_ID")'
-              : 'printf %s "$AGENT|$XCCODE|$AI_AGENT|$XCCODE_SESSION_ID"'
+              ? '[Console]::Out.Write("$env:AGENT|$env:XIAOCHUAN|$env:AI_AGENT|$env:XIAOCHUAN_SESSION_ID")'
+              : 'printf %s "$AGENT|$XIAOCHUAN|$AI_AGENT|$XIAOCHUAN_SESSION_ID"'
             const settled = yield* executeTool(registry, call({ command }))
 
             expect(settled.status).toBe("completed")
-            expect(settled.content?.[0]).toEqual({ type: "text", text: `1|1|xccode|${sessionID}` })
+            expect(settled.content?.[0]).toEqual({ type: "text", text: `1|1|xiaochuan|${sessionID}` })
           }),
         )
       }),
@@ -1429,7 +1429,7 @@ describe("ShellTool", () => {
           name: `test/shell-plugins-${channel}`,
           layer: Layer.effectDiscard(
             registerToolPlugin(ShellTool.Plugin, {
-              app: { name: "xccode", version: "test", channel },
+              app: { name: "xiaochuan", version: "test", channel },
             }),
           ),
           deps: [
@@ -1782,7 +1782,7 @@ describe("ShellTool", () => {
       return Effect.gen(function* () {
         yield* Effect.promise(() =>
           Bun.write(
-            path.join(tmp.path, "xccode.json"),
+            path.join(tmp.path, "xiaochuan.json"),
             JSON.stringify({ tool_output: { max_lines: 2, max_bytes: 1_000 } }),
           ),
         )
@@ -1945,14 +1945,14 @@ describe("ShellTool", () => {
                 .filter((span) => span.name === name && span.attributes.get("gen_ai.tool.call.id") === callID)
                 .map((span) => Object.fromEntries(span.attributes))
             expect(attributes("Shell.create", "call-traced")).toEqual([
-              expect.objectContaining({ "session.id": sessionID, "xccode.shell.command": bodyExitCommand }),
+              expect.objectContaining({ "session.id": sessionID, "xiaochuan.shell.command": bodyExitCommand }),
             ])
-            expect(attributes("Shell.create", "call-traced")[0]).not.toHaveProperty("xccode.shell.background")
+            expect(attributes("Shell.create", "call-traced")[0]).not.toHaveProperty("xiaochuan.shell.background")
             expect(attributes("Shell.result", "call-traced")).toEqual([
               expect.objectContaining({ "session.id": sessionID, "process.exit.code": 7 }),
             ])
             expect(attributes("Shell.create", "call-traced-background")).toEqual([
-              expect.objectContaining({ "session.id": sessionID, "xccode.shell.background": true }),
+              expect.objectContaining({ "session.id": sessionID, "xiaochuan.shell.background": true }),
             ])
           }),
         ),

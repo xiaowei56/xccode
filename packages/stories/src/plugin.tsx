@@ -1,9 +1,9 @@
 import { createResource, onCleanup, type JSX } from "solid-js"
-import { pluginIconName, type Entry } from "@xccode/plugin/gui/host"
-import { pluralCategory } from "@xccode/ui/context/i18n"
-import { registerIcons } from "@xccode/ui/icons/registry"
-import { useTheme } from "@xccode/ui/theme/context"
-import { toaster } from "@xccode/ui/toast"
+import { pluginIconName, type Entry } from "@xiaochuan/plugin/gui/host"
+import { pluralCategory } from "@xiaochuan/ui/context/i18n"
+import { registerIcons } from "@xiaochuan/ui/icons/registry"
+import { useTheme } from "@xiaochuan/ui/theme/context"
+import { toaster } from "@xiaochuan/ui/toast"
 import { useLanguage } from "@/runtime/i18n/language"
 import { ui } from "@/runtime/plugin/ui"
 import { showToast } from "@/shell/notifications/toast"
@@ -109,7 +109,7 @@ function createStoryContext(id: string, definition: Entry) {
  */
 export function createStoryHostApis(platform: App["platform"]) {
   const language = useLanguage()
-  const app: App = { name: "xccode", version: "", channel: "dev", platform, packaged: false }
+  const app: App = { name: "xiaochuan", version: "", channel: "dev", platform, packaged: false }
   // Built-ins such as the debug bar also override the direction.
   const locale: BuiltinLocale = {
     locale: language.intl,

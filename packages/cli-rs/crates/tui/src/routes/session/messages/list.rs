@@ -4,17 +4,17 @@
 use std::collections::HashSet;
 use std::hash::{DefaultHasher, Hash, Hasher};
 
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     AgentInfo, ModelInfo, ModelRef, SessionInboxInfo, SessionInfo, SessionMessageAssistant,
     SessionMessageAssistantContentItem, SessionMessageAssistantFinish, SessionMessageCompaction, SessionMessageID,
     SessionStructuredError,
 };
-use xccode_local::cli_config::{Markdown as MarkdownMode, Resolved, TurnTokens, Visibility};
-use xccode_plugin::claim::ToolClaims;
-use xccode_store::location::{Catalog, Location};
-use xccode_store::{LoadMore, State};
-use xccode_ui::markdown::CodeBlockRenderers;
-use xccode_ui::theme::ThemeMode;
+use xiaochuan_local::cli_config::{Markdown as MarkdownMode, Resolved, TurnTokens, Visibility};
+use xiaochuan_plugin::claim::ToolClaims;
+use xiaochuan_store::location::{Catalog, Location};
+use xiaochuan_store::{LoadMore, State};
+use xiaochuan_ui::markdown::CodeBlockRenderers;
+use xiaochuan_ui::theme::ThemeMode;
 use opentui::input::MouseEventKind;
 use opentui::syntax::SyntaxTheme;
 use opentui::widget::ScrollEdge;
@@ -114,7 +114,7 @@ struct Inner {
     settings: RefCell<Option<Disposer>>,
     width: Cell<Option<u16>>,
     /// Plugin viewport published for the lifetime of the transcript.
-    published: RefCell<Option<xccode_plugin::behave::Publication>>,
+    published: RefCell<Option<xiaochuan_plugin::behave::Publication>>,
     specs_revision: Cell<u64>,
     /// Number of preceding messages at this window start and revision.
     above: RefCell<Option<(u64, Start, u32)>>,
@@ -147,7 +147,7 @@ struct Paint {
 
 impl Paint {
     fn new(theme: Theme) -> Self {
-        let syntax = xccode_ui::code::syntax_theme(&theme);
+        let syntax = xiaochuan_ui::code::syntax_theme(&theme);
         Self { thinking_syntax: thinking_syntax(&syntax, theme.text.muted), syntax, theme }
     }
 }
@@ -300,7 +300,7 @@ impl Transcript {
         self.0.reveal_older(tui)
     }
 
-    pub fn publish(&self, tui: &Tui, scroll: Rc<dyn Fn(&xccode_plugin::abi::v2::Scroll)>) {
+    pub fn publish(&self, tui: &Tui, scroll: Rc<dyn Fn(&xiaochuan_plugin::abi::v2::Scroll)>) {
         self.0.publish(tui, scroll);
     }
 
@@ -610,22 +610,22 @@ impl Inner {
 
     /// Publishes the transcript with `scroll` as its mover. Its moves, whatever moved it, and its resizes run the
     /// host's behaviors; a pointer that only moves over it does not.
-    fn publish(&self, tui: &Tui, scroll: Rc<dyn Fn(&xccode_plugin::abi::v2::Scroll)>) {
+    fn publish(&self, tui: &Tui, scroll: Rc<dyn Fn(&xiaochuan_plugin::abi::v2::Scroll)>) {
         let read = bind!(self.this.clone(), |inner| inner.viewport());
-        let published = xccode_plugin::behave::Published { read: Rc::new(read), scroll };
-        *self.published.borrow_mut() = Some(xccode_plugin::behave::publish_transcript(&tui.app, published));
+        let published = xiaochuan_plugin::behave::Published { read: Rc::new(read), scroll };
+        *self.published.borrow_mut() = Some(xiaochuan_plugin::behave::publish_transcript(&tui.app, published));
         let app = tui.app.clone();
-        self.scroll.on_scroll(move |_, _| xccode_plugin::behave::transcript_moved(&app));
+        self.scroll.on_scroll(move |_, _| xiaochuan_plugin::behave::transcript_moved(&app));
         for resized in [self.scroll.as_any(), self.scroll.content_view().as_any()] {
             let app = tui.app.clone();
-            resized.on_resize(move |_, _| xccode_plugin::behave::transcript_moved(&app));
+            resized.on_resize(move |_, _| xiaochuan_plugin::behave::transcript_moved(&app));
         }
     }
 
-    fn viewport(&self) -> xccode_plugin::abi::v2::TranscriptView {
+    fn viewport(&self) -> xiaochuan_plugin::abi::v2::TranscriptView {
         let origin = self.scroll.content_view().rect().screen_y;
         let rows = self.rows.borrow();
-        let published: Vec<xccode_plugin::abi::v2::TranscriptRow> = self
+        let published: Vec<xiaochuan_plugin::abi::v2::TranscriptRow> = self
             .mounted
             .borrow()
             .iter()
@@ -649,7 +649,7 @@ impl Inner {
                     | RowKey::Group(id)
                     | RowKey::CompactionQueued(id) => (id.clone(), None),
                 };
-                (rect.height > 0.0).then(|| xccode_plugin::abi::v2::TranscriptRow {
+                (rect.height > 0.0).then(|| xiaochuan_plugin::abi::v2::TranscriptRow {
                     kind: kind.to_owned(),
                     message,
                     part,
@@ -682,7 +682,7 @@ impl Inner {
         });
         let mut revision = DefaultHasher::new();
         published.hash(&mut revision);
-        xccode_plugin::abi::v2::TranscriptView {
+        xiaochuan_plugin::abi::v2::TranscriptView {
             offset: self.scroll.scroll_position().1.round() as i32,
             viewport: self.scroll.rect().height as i32,
             extent: self.scroll.content_view().rect().height as i32,

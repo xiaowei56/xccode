@@ -1,19 +1,19 @@
-# `@xccode/plugin`
+# `@xiaochuan/plugin`
 
-Authoring interfaces and runtime loader support for Xccode V2 plugins:
+Authoring interfaces and runtime loader support for Xiaochuan V2 plugins:
 
-- `@xccode/plugin` — [Promise plugin API](./src/README.md)
-- `@xccode/plugin/effect` — [Effect plugin API](./src/effect/README.md)
-- `@xccode/plugin/rpc` — portable RPC contract definitions
-- `@xccode/plugin/tui` - terminal UI plugin API
-- `@xccode/plugin/gui/browser` - desktop pane contract, including experimental scoped tab handles
+- `@xiaochuan/plugin` — [Promise plugin API](./src/README.md)
+- `@xiaochuan/plugin/effect` — [Effect plugin API](./src/effect/README.md)
+- `@xiaochuan/plugin/rpc` — portable RPC contract definitions
+- `@xiaochuan/plugin/tui` - terminal UI plugin API
+- `@xiaochuan/plugin/gui/browser` - desktop pane contract, including experimental scoped tab handles
 
 ## Packaging And Runtime `effect`
 
-When the Xccode CLI loads server or TUI plugins, it resolves imports of `effect`, exported `effect/*` subpaths, and `@xccode/plugin` entrypoints (including imports from dependencies inside a plugin's `node_modules`) to the host's runtime module instances so fibers, loggers, and `Schema` parsers share one copy.
+When the Xiaochuan CLI loads server or TUI plugins, it resolves imports of `effect`, exported `effect/*` subpaths, and `@xiaochuan/plugin` entrypoints (including imports from dependencies inside a plugin's `node_modules`) to the host's runtime module instances so fibers, loggers, and `Schema` parsers share one copy.
 
 - Declare `"effect": "^4.0.0"` as a `peerDependency` (and `devDependency` for local type-checking and testing) rather than a bundled runtime dependency.
 - Do not bundle `effect` into published plugin files; if you build with a bundler, keep `effect` and `effect/*` external. Two copies of `effect` do not share fiber, logger, or `Schema` internals.
-- Plugins and their `node_modules` dependencies always receive Xccode's host `effect` instance. Use `effect` APIs and module paths compatible with the Xccode release you target; dependencies built on another `effect` major (such as Effect 3) are not supported.
+- Plugins and their `node_modules` dependencies always receive Xiaochuan's host `effect` instance. Use `effect` APIs and module paths compatible with the Xiaochuan release you target; dependencies built on another `effect` major (such as Effect 3) are not supported.
 - Only public `effect` subpaths are provided. A plugin that imports one of Effect's private `internal` modules fails to load with an error naming the path.
-- The compiled Xccode binary does not include the Scalar and Swagger UI assets used by Effect's HTTP API docs pages; serving those pages from a plugin shows a notice instead.
+- The compiled Xiaochuan binary does not include the Scalar and Swagger UI assets used by Effect's HTTP API docs pages; serving those pages from a plugin shows a notice instead.

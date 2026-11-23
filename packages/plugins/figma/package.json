@@ -1,13 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/plugin-figma",
+  "name": "@xiaochuan/plugin-figma",
   "version": "2.3.0",
-  "description": "Figma MCP integration and official Figma skills for Xccode",
+  "description": "Figma MCP integration and official Figma skills for Xiaochuan",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaowei56/xccode.git",
+    "url": "git+https://github.com/xiaowei56/xiaochuan.git",
     "directory": "packages/plugins/figma"
   },
   "publishConfig": {
@@ -31,7 +31,7 @@
     "gray-matter": "4.0.3"
   },
   "peerDependencies": {
-    "@xccode/plugin": "^2.0.27 || ^0.0.0-dev"
+    "@xiaochuan/plugin": "^2.0.27 || ^0.0.0-dev"
   },
   "devDependencies": {
     "@tsconfig/bun": "1.0.9",

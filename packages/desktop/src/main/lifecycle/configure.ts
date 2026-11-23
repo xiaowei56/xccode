@@ -4,11 +4,11 @@ import { enableCompileCache } from "node:module"
 import { homedir, tmpdir } from "node:os"
 import path from "node:path"
 import { app } from "electron"
-import { debugBuild, memoryLogInterval } from "@xccode/gui-plugins/debug/options"
+import { debugBuild, memoryLogInterval } from "@xiaochuan/gui-plugins/debug/options"
 import { APP_ID, APP_NAME, CHANNEL } from "../constants"
 import { debuggingSwitches } from "../diagnostics/options"
 
-const testOnboarding = process.env.XCCODE_TEST_ONBOARDING === "1"
+const testOnboarding = process.env.XIAOCHUAN_TEST_ONBOARDING === "1"
 
 const jsCallStackFeature = "DocumentPolicyIncludeJSCallStacksInCrashReports"
 
@@ -20,7 +20,7 @@ export function configureApplication() {
     process.chdir(homedir())
   } catch {}
 
-  process.env.XCCODE_DISABLE_EMBEDDED_WEB_UI = "true"
+  process.env.XIAOCHUAN_DISABLE_EMBEDDED_WEB_UI = "true"
 
   app.setName(APP_NAME)
   app.setAppUserModelId(APP_ID)
@@ -33,7 +33,7 @@ export function configureApplication() {
 
   const build = { packaged: app.isPackaged, channel: CHANNEL }
 
-  const debug = debuggingSwitches(build, process.env.XCCODE_DESKTOP_REMOTE_DEBUGGING_PORT,
+  const debug = debuggingSwitches(build, process.env.XIAOCHUAN_DESKTOP_REMOTE_DEBUGGING_PORT,
     app.commandLine.hasSwitch("remote-debugging-port") ? app.commandLine.getSwitchValue("remote-debugging-port") : undefined,
     app.commandLine.hasSwitch("remote-debugging-pipe"))
 
@@ -47,11 +47,11 @@ export function configureApplication() {
   }
 
   // Precise heap sizes need a launch switch. The debug bar's toggle starts the log without one.
-  if (debugBuild(build) && memoryLogInterval(process.env.XCCODE_DESKTOP_MEMORY_LOG) !== undefined)
+  if (debugBuild(build) && memoryLogInterval(process.env.XIAOCHUAN_DESKTOP_MEMORY_LOG) !== undefined)
     app.commandLine.appendSwitch("enable-precise-memory-info")
 
   const testRoot = createTestRoot()
-  const customUserData = debugBuild(build) && !testRoot ? process.env.XCCODE_DESKTOP_USER_DATA : undefined
+  const customUserData = debugBuild(build) && !testRoot ? process.env.XIAOCHUAN_DESKTOP_USER_DATA : undefined
   app.setPath(
     "userData",
     customUserData ?? (testRoot ? path.join(testRoot, "desktop") : path.join(app.getPath("appData"), APP_ID)),
@@ -80,8 +80,8 @@ export function acquireApplicationLock() {
 
 function createTestRoot() {
   const root = testOnboarding
-    ? path.join(tmpdir(), `xccode-onboarding-${randomUUID()}`)
-    : process.env.XCCODE_DESKTOP_TEST_ROOT
+    ? path.join(tmpdir(), `xiaochuan-onboarding-${randomUUID()}`)
+    : process.env.XIAOCHUAN_DESKTOP_TEST_ROOT
 
   if (!root) return undefined
 
@@ -90,7 +90,7 @@ function createTestRoot() {
   for (const dir of ["data", "config", "cache", "state", "desktop", "session", "documents"])
     mkdirSync(path.join(root, dir), { recursive: true })
 
-  if (testOnboarding) process.env.XCCODE_DB = ":memory:"
+  if (testOnboarding) process.env.XIAOCHUAN_DB = ":memory:"
 
   process.env.XDG_DATA_HOME = path.join(root, "data")
   process.env.XDG_CONFIG_HOME = path.join(root, "config")

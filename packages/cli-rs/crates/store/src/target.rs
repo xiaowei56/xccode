@@ -3,8 +3,8 @@
 use std::future::Future;
 
 use indexmap::IndexMap;
-use xccode_api::client::Client;
-use xccode_api::generated::*;
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::*;
 
 /// Sessions per page while looking for the latest session of a directory.
 const SESSION_PAGE_LIMIT: i64 = 50;
@@ -60,9 +60,9 @@ pub enum TargetError {
     SessionNotFound,
     /// A create, fork, or environment upload failed. The server may have applied it, so callers
     /// must not retry (`SessionTargetMutationError`).
-    Mutation(xccode_api::error::Error),
+    Mutation(xiaochuan_api::error::Error),
     /// A read failed.
-    Request(xccode_api::error::Error),
+    Request(xiaochuan_api::error::Error),
     /// `prepare` failed.
     Prepare(String),
 }
@@ -164,7 +164,7 @@ async fn fork_if(client: &Client, session: SessionInfo, fork: bool) -> Result<Se
 }
 
 /// A session, or `None` when the server does not know it (`findSession`).
-pub async fn find_session(client: &Client, id: &SessionID) -> Result<Option<SessionInfo>, xccode_api::error::Error> {
+pub async fn find_session(client: &Client, id: &SessionID) -> Result<Option<SessionInfo>, xiaochuan_api::error::Error> {
     match client.session_get(&SessionGetInput { session_id: id.clone() }).await {
         Ok(session) => Ok(Some(session)),
         Err(error)
@@ -181,7 +181,7 @@ pub async fn find_session(client: &Client, id: &SessionID) -> Result<Option<Sess
 async fn latest_session(
     client: &Client,
     location: &LocationPublicInfo,
-) -> Result<Option<SessionInfo>, xccode_api::error::Error> {
+) -> Result<Option<SessionInfo>, xiaochuan_api::error::Error> {
     let mut cursor = None;
     loop {
         let page = client
@@ -210,7 +210,7 @@ async fn latest_session(
 async fn resolve_location(
     client: &Client,
     directory: Option<String>,
-) -> Result<LocationPublicInfo, xccode_api::error::Error> {
+) -> Result<LocationPublicInfo, xiaochuan_api::error::Error> {
     client
         .location_get(&LocationGetInput {
             location: directory.map(|directory| LocationQueryInput { directory: Some(directory) }),

@@ -1,11 +1,11 @@
 export * as ShellTool from "./shell.js"
 
-import { ToolFailure } from "@xccode/ai/effect"
-import type { Context } from "@xccode/plugin/effect/plugin"
-import type { SessionHooks } from "@xccode/plugin/effect/session"
-import type { ShellCreateBefore } from "@xccode/plugin/effect/shell"
-import type { Shell as ShellSchema } from "@xccode/schema/shell"
-import type { Tool } from "@xccode/schema/tool"
+import { ToolFailure } from "@xiaochuan/ai/effect"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
+import type { SessionHooks } from "@xiaochuan/plugin/effect/session"
+import type { ShellCreateBefore } from "@xiaochuan/plugin/effect/shell"
+import type { Shell as ShellSchema } from "@xiaochuan/schema/shell"
+import type { Tool } from "@xiaochuan/schema/tool"
 import { Clock, Deferred, Effect, Fiber, Option, Schema, Struct } from "effect"
 import { Agent } from "../../agent.js"
 import { Config } from "../../config.js"
@@ -52,7 +52,7 @@ const description = (shell?: string, codeMode = false) =>
     "Commands still running after their timeout move to the background.",
     // Code Mode has no background parameter.
     ...(codeMode ? [] : ["Background commands return immediately, and you will be notified when they complete."]),
-    "The current session ID is available in the XCCODE_SESSION_ID environment variable.",
+    "The current session ID is available in the XIAOCHUAN_SESSION_ID environment variable.",
   ].join(" ")
 
 const timeoutInput = (foreground: number) =>
@@ -301,7 +301,7 @@ export const reattach = Effect.fnUntraced(function* (input: {
 })
 
 export const Plugin = {
-  id: "xccode.tool.shell",
+  id: "xiaochuan.tool.shell",
   effect: Effect.fn("ShellTool.Plugin")(function* (ctx: Context) {
     const sessions = yield* Session.Service
     const agents = yield* Agent.Service
@@ -469,9 +469,9 @@ export const Plugin = {
                     (invocation) =>
                       Effect.gen(function* () {
                         invocation.env.AGENT = "1"
-                        invocation.env.XCCODE = "1"
-                        invocation.env.AI_AGENT ||= "xccode"
-                        invocation.env.XCCODE_SESSION_ID = context.sessionID
+                        invocation.env.XIAOCHUAN = "1"
+                        invocation.env.AI_AGENT ||= "xiaochuan"
+                        invocation.env.XIAOCHUAN_SESSION_ID = context.sessionID
                         // Asking for permission can take a while; a stop then ends the call before any command starts.
                         finalTimeout = yield* restore(
                           Effect.raceFirst(prepare(invocation, context, { cwd, target }), stoppedBeforeStart),
@@ -547,7 +547,7 @@ export const Plugin = {
               // Shell spans, including the job that waits for a backgrounded command, name the call that started them.
               Effect.annotateSpans({
                 "gen_ai.tool.call.id": context.id,
-                ...(background ? { "xccode.shell.background": true } : {}),
+                ...(background ? { "xiaochuan.shell.background": true } : {}),
               }),
               Effect.map((output) => toolResult(output, finalTimeout)),
               Effect.mapError(toolFailure(`Unable to execute command: ${input.command}`)),

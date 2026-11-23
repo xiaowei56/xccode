@@ -1,19 +1,19 @@
 import { NodeHttpServerRequest } from "@effect/platform-node"
 import { type WebSocket, WebSocketServer } from "@effect/platform-node-shared/NodeWS"
-import { Environment } from "@xccode/core/environment/index"
-import { Flag } from "@xccode/core/flag"
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { Frames } from "@xccode/core/machine/frames"
-import { Identity } from "@xccode/core/machine/identity"
-import { Iroh } from "@xccode/core/machine/iroh"
-import { Join } from "@xccode/core/machine/join"
-import { Link } from "@xccode/core/machine/link"
-import { Machines } from "@xccode/core/machine/machines"
-import { AbsolutePath } from "@xccode/core/schema"
-import { ConflictError, ForbiddenError, InvalidRequestError, MachineNotFoundError } from "@xccode/protocol/errors"
-import { isWebSocketUpgrade, type MachineAddPayload } from "@xccode/protocol/groups/machine"
-import { Global } from "@xccode/util/global"
+import { Environment } from "@xiaochuan/core/environment/index"
+import { Flag } from "@xiaochuan/core/flag"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { Frames } from "@xiaochuan/core/machine/frames"
+import { Identity } from "@xiaochuan/core/machine/identity"
+import { Iroh } from "@xiaochuan/core/machine/iroh"
+import { Join } from "@xiaochuan/core/machine/join"
+import { Link } from "@xiaochuan/core/machine/link"
+import { Machines } from "@xiaochuan/core/machine/machines"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { ConflictError, ForbiddenError, InvalidRequestError, MachineNotFoundError } from "@xiaochuan/protocol/errors"
+import { isWebSocketUpgrade, type MachineAddPayload } from "@xiaochuan/protocol/groups/machine"
+import { Global } from "@xiaochuan/util/global"
 import { Context, Effect, Latch, Option, Scope, Semaphore } from "effect"
 import { HttpMiddleware, type HttpServerRequest, HttpServerResponse } from "effect/http"
 import { HttpApiSchema } from "effect/http-api"
@@ -49,7 +49,7 @@ const CLOSE = 1008
  * Only for tests, as `Link.Fixed` is: called with the endpoint's `ws` server when it is made, so a test can count its
  * clients and watch a socket from the home's side. Production never sets it.
  */
-export const Watch = Context.Reference<(sockets: WebSocketServer) => void>("@xccode/MachineLink/Watch", {
+export const Watch = Context.Reference<(sockets: WebSocketServer) => void>("@xiaochuan/MachineLink/Watch", {
   defaultValue: () => () => {},
 })
 

@@ -1,13 +1,13 @@
 ---
 title: SDK
-description: Xccode サーバー用の型安全な JS クライアント。
+description: Xiaochuan サーバー用の型安全な JS クライアント。
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-Xccode JS/TS SDK は、サーバーと対話するための型安全なクライアントを提供します。
-これを使用して、統合を構築し、Xccode をプログラムで制御します。
+Xiaochuan JS/TS SDK は、サーバーと対話するための型安全なクライアントを提供します。
+これを使用して、統合を構築し、Xiaochuan をプログラムで制御します。
 
 [サーバーの仕組みについての詳細](/docs/server) をご覧ください。たとえば、コミュニティによって構築された [projects](/docs/ecosystem#projects) をチェックしてください。
 
@@ -18,19 +18,19 @@ Xccode JS/TS SDK は、サーバーと対話するための型安全なクライ
 npm から SDK をインストールします。
 
 ```bash
-npm install @xccode-ai/sdk
+npm install @xiaochuan-ai/sdk
 ```
 
 ---
 
 ## クライアントの作成
 
-Xccode のインスタンスを作成します。
+Xiaochuan のインスタンスを作成します。
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const { client } = await createXccode()
+const { client } = await createXiaochuan()
 ```
 
 これにより、サーバーとクライアントの両方が起動します
@@ -49,12 +49,12 @@ const { client } = await createXccode()
 
 ## 設定
 
-設定オブジェクトを渡して動作をカスタマイズできます。インスタンスは引き続き `xccode.json` を取得しますが、設定をインラインでオーバーライドまたは追加することができます。
+設定オブジェクトを渡して動作をカスタマイズできます。インスタンスは引き続き `xiaochuan.json` を取得しますが、設定をインラインでオーバーライドまたは追加することができます。
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const xccode = await createXccode({
+const xiaochuan = await createXiaochuan({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -62,19 +62,19 @@ const xccode = await createXccode({
   },
 })
 
-console.log(`Server running at ${xccode.server.url}`)
+console.log(`Server running at ${xiaochuan.server.url}`)
 
-xccode.server.close()
+xiaochuan.server.close()
 ```
 
 ## クライアントのみ
 
-すでに実行中の Xccode のインスタンスがある場合は、それに接続するためのクライアントインスタンスを作成できます。
+すでに実行中の Xiaochuan のインスタンスがある場合は、それに接続するためのクライアントインスタンスを作成できます。
 
 ```javascript
-import { createXccodeClient } from "@xccode-ai/sdk"
+import { createXiaochuanClient } from "@xiaochuan-ai/sdk"
 
-const client = createXccodeClient({
+const client = createXiaochuanClient({
   baseUrl: "http://localhost:4096",
 })
 ```
@@ -96,7 +96,7 @@ const client = createXccodeClient({
 SDK には、すべての API タイプの TypeScript 定義が含まれています。それらを直接インポートします。
 
 ```typescript
-import type { Session, Message, Part } from "@xccode-ai/sdk"
+import type { Session, Message, Part } from "@xiaochuan-ai/sdk"
 ```
 
 すべてのタイプはサーバーの OpenAPI 仕様から生成され、<a href={typesUrl}>タイプファイル</a> で使用できます。
@@ -373,7 +373,7 @@ await client.session.prompt({
 ```javascript
 // Search and read files
 const textResults = await client.find.text({
-  query: { pattern: "function.*xccode" },
+  query: { pattern: "function.*xiaochuan" },
 })
 
 const files = await client.find.files({

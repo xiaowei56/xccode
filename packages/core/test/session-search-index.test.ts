@@ -2,28 +2,28 @@ import { describe, expect } from "bun:test"
 import { SqliteClient } from "@effect/sql-sqlite-bun"
 import { DateTime, Effect, Exit, Layer, Schema, SchemaAST } from "effect"
 import { and, eq, sql } from "drizzle-orm"
-import { Agent } from "@xccode/core/agent"
-import { DatabaseMigration } from "@xccode/core/database/migration"
-import { migrations } from "@xccode/core/database/migration.gen"
-import { EffectDrizzleSqlite } from "@xccode/core/database/drizzle"
-import { KVTable } from "@xccode/core/kv/sql"
-import { Model } from "@xccode/core/model"
-import { Project } from "@xccode/core/project"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { SessionMessage } from "@xccode/core/session/message"
-import { SessionSearchIndex } from "@xccode/core/session/search-index"
-import { SessionMessageTable, SessionPartTable, SessionTable } from "@xccode/core/session/sql"
-import { SessionID } from "@xccode/schema/session-id"
-import { Skill } from "@xccode/schema/skill"
-import { Global } from "@xccode/util/global"
+import { Agent } from "@xiaochuan/core/agent"
+import { DatabaseMigration } from "@xiaochuan/core/database/migration"
+import { migrations } from "@xiaochuan/core/database/migration.gen"
+import { EffectDrizzleSqlite } from "@xiaochuan/core/database/drizzle"
+import { KVTable } from "@xiaochuan/core/kv/sql"
+import { Model } from "@xiaochuan/core/model"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { SessionSearchIndex } from "@xiaochuan/core/session/search-index"
+import { SessionMessageTable, SessionPartTable, SessionTable } from "@xiaochuan/core/session/sql"
+import { SessionID } from "@xiaochuan/schema/session-id"
+import { Skill } from "@xiaochuan/schema/skill"
+import { Global } from "@xiaochuan/util/global"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(
   Layer.mergeAll(
     SqliteClient.layer({ filename: ":memory:", disableWAL: true }),
-    Layer.succeed(Global.Service, Global.make({ data: "/nonexistent/xccode-session-search" })),
+    Layer.succeed(Global.Service, Global.make({ data: "/nonexistent/xiaochuan-session-search" })),
   ),
 )
 

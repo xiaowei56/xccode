@@ -4,10 +4,10 @@
 
 use std::collections::{BTreeSet, HashMap};
 
-use xccode_api::generated::{FileDiffInfo, FileDiffInfoStatus};
-use xccode_plugin::abi::interact::{Handled, OpenPanel, PanelInput};
-use xccode_plugin::abi::v2::{ContentRef, DiffView, Scroll, ScrollAlign, Target};
-use xccode_plugin::abi::{self, Host, Read};
+use xiaochuan_api::generated::{FileDiffInfo, FileDiffInfoStatus};
+use xiaochuan_plugin::abi::interact::{Handled, OpenPanel, PanelInput};
+use xiaochuan_plugin::abi::v2::{ContentRef, DiffView, Scroll, ScrollAlign, Target};
+use xiaochuan_plugin::abi::{self, Host, Read};
 
 use super::keys::Action;
 use super::tree::{self, Expanded, Tree};
@@ -66,8 +66,8 @@ impl Mode {
         [Mode::Branch, Mode::Committed, Mode::Working, Mode::Turn].into_iter().find(|mode| mode.key() == key)
     }
 
-    pub fn vcs(self) -> xccode_api::generated::VcsMode {
-        use xccode_api::generated::VcsMode;
+    pub fn vcs(self) -> xiaochuan_api::generated::VcsMode {
+        use xiaochuan_api::generated::VcsMode;
         match self {
             Mode::Committed => VcsMode::Committed,
             Mode::Working => VcsMode::Working,
@@ -398,8 +398,8 @@ impl Viewer {
             .or_else(|| self.reported.get(&self.base_key).cloned().flatten())
     }
 
-    pub fn location_query(&self) -> Option<xccode_api::generated::LocationQueryInput> {
-        Some(xccode_api::generated::LocationQueryInput { directory: Some(self.location.directory.clone()) })
+    pub fn location_query(&self) -> Option<xiaochuan_api::generated::LocationQueryInput> {
+        Some(xiaochuan_api::generated::LocationQueryInput { directory: Some(self.location.directory.clone()) })
     }
 
     pub fn run(&mut self, host: &dyn Host, diffs: &Diffs, action: Action) -> Handled {

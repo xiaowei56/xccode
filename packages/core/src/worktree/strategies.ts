@@ -2,15 +2,15 @@ export * as WorktreeStrategies from "./strategies.js"
 
 import { Context, Effect, Layer } from "effect"
 import path from "path"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { Global } from "@xccode/util/global"
-import { Worktree } from "@xccode/schema/worktree"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { Global } from "@xiaochuan/util/global"
+import { Worktree } from "@xiaochuan/schema/worktree"
 import { AbsolutePath } from "../schema.js"
 import { Git } from "../git.js"
 import { Location } from "../location.js"
 import { State } from "../state.js"
 import { WorktreeGit } from "./git.js"
-import { FSUtil } from "@xccode/util/fs-util"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 
 export interface Strategy {
   readonly id: Worktree.StrategyID
@@ -37,7 +37,7 @@ export interface Interface extends State.Transformable<Editor> {
   }
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/WorktreeStrategies") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/WorktreeStrategies") {}
 
 const layer = Layer.effect(
   Service,

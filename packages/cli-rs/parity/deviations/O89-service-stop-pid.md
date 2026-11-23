@@ -9,7 +9,7 @@ A registration left behind by a crash or reboot names a pid that another process
 must have started no later than the registration file was last written (one second of slack for `/proc` clock
 ticks). Elsewhere, or when `/proc` cannot be read, the URL must answer `/api/info` with the registered pid, or accept
 the connection and not answer in time (a hung service). Otherwise the command fails with "Process N is not the
-Xccode server registered in FILE, so it was not stopped. Remove that file if the server is gone." and leaves the
+Xiaochuan server registered in FILE, so it was not stopped. Remove that file if the server is gone." and leaves the
 file. A dead pid is handled as before: the stale file is removed. `ensure` still stops only a process it started
 itself, which it holds a handle to.
 

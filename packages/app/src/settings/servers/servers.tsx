@@ -1,5 +1,5 @@
-import { Button } from "@xccode/ui/button"
-import { useDialog } from "@xccode/ui/context/dialog"
+import { Button } from "@xiaochuan/ui/button"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
 import { createMemo, For, Show, type Component } from "solid-js"
 import { ServerRowMenu } from "@/servers/registry/row-menu"
 import { ServerHealthIndicator } from "@/servers/registry/row"

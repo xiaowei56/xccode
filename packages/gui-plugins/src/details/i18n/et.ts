@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Kustuta tööpuu",
   "mcp.manage": "Halda MCP-servereid",
   timedOut: "Server ei vastanud piisavalt kiiresti",
-  "setup.mcp": "Lisa server Xccode'iga",
+  "setup.mcp": "Lisa server Xiaochuan'iga",
   "setup.mcp.prompt":
-    "Aita mul lisada MCP-server minu globaalsesse Xccode'i konfiguratsiooni. Küsi, millist teenust tahan ühendada, seejärel seadista see ja kontrolli, et ühendus töötab.",
-  "setup.plugins": "Lisa plugin Xccode'iga",
+    "Aita mul lisada MCP-server minu globaalsesse Xiaochuan'i konfiguratsiooni. Küsi, millist teenust tahan ühendada, seejärel seadista see ja kontrolli, et ühendus töötab.",
+  "setup.plugins": "Lisa plugin Xiaochuan'iga",
   "setup.plugins.prompt":
-    "Aita mul lisada plugin minu globaalsesse Xccode'i konfiguratsiooni. Küsi, mida see peaks tegema, soovita pluginat ja lisa see.",
-  "setup.skills": "Uus oskus Xccode'iga",
+    "Aita mul lisada plugin minu globaalsesse Xiaochuan'i konfiguratsiooni. Küsi, mida see peaks tegema, soovita pluginat ja lisa see.",
+  "setup.skills": "Uus oskus Xiaochuan'iga",
   "setup.skills.prompt":
-    "Aita mul kirjutada uus Xccode'i oskus minu globaalsesse konfiguratsiooni. Küsi, mida see peaks sulle õpetama, ja kirjuta selle SKILL.md.",
+    "Aita mul kirjutada uus Xiaochuan'i oskus minu globaalsesse konfiguratsiooni. Küsi, mida see peaks sulle õpetama, ja kirjuta selle SKILL.md.",
   changesFailed: "Muudatusi ei õnnestunud laadida",
   changesOffline: "Serverini ei pääse",
   "mcp.signIn": "Logi sisse",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Serveri {{name}} üksikasjad",
   "mcp.signIn.open": "Logi sisse: {{name}}",
   "mcp.signIn.description":
-    "Avaneb brauser, et saaksid teenusesse {{name}} sisse logida. Kui see ei pääse Xccode'i käitavasse masinasse, kleebi allpool URL, kuhu sind suunati.",
+    "Avaneb brauser, et saaksid teenusesse {{name}} sisse logida. Kui see ei pääse Xiaochuan'i käitavasse masinasse, kleebi allpool URL, kuhu sind suunati.",
   "mcp.signIn.waiting": "Autoriseerimise ootamine…",
   "mcp.signIn.failed": "Autoriseerimine ebaõnnestus: {{error}}",
   "mcp.signIn.expired": "Autoriseerimine aegus",

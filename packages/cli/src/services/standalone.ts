@@ -1,5 +1,5 @@
-import { CrossSpawnSpawner } from "@xccode/util/cross-spawn-spawner"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { CrossSpawnSpawner } from "@xiaochuan/util/cross-spawn-spawner"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { Deferred, Effect, Schema, Stream } from "effect"
 import { ChildProcess, ChildProcessSpawner } from "effect/process"
 import { randomBytes } from "node:crypto"
@@ -20,13 +20,13 @@ function command(password: string, options: Options) {
   return ChildProcess.make(executable, [...args, "--stdio", "--port", "0"], {
     cwd: startupDirectory,
     // Explicit entry wins over anything inherited, so a user-exported
-    // XCCODE_PASSWORD cannot shadow the child's lease credential.
-    env: { XCCODE_PASSWORD: password },
+    // XIAOCHUAN_PASSWORD cannot shadow the child's lease credential.
+    env: { XIAOCHUAN_PASSWORD: password },
     extendEnv: true,
     // The server treats EOF on this pipe as the end of its ownership lease.
     // The OS closes it even when the TUI is killed before Effect finalizers run.
     stdin: "pipe",
-    stderr: process.env.XCCODE_PRINT_LOGS === "1" ? "inherit" : "ignore",
+    stderr: process.env.XIAOCHUAN_PRINT_LOGS === "1" ? "inherit" : "ignore",
     killSignal: "SIGTERM",
     forceKillAfter: "3 seconds",
   })
@@ -50,7 +50,7 @@ const makeEndpoint = Effect.fn("cli.standalone.endpoint")(
     const ready = yield* Effect.tryPromise(() => decodeReady(output))
     return {
       url: ready.url,
-      auth: { type: "basic" as const, username: "xccode", password },
+      auth: { type: "basic" as const, username: "xiaochuan", password },
       pid: proc.pid,
       exited: proc.exitCode,
     }

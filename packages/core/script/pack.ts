@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
 import path from "node:path"
-import { pack } from "@xccode/script/pack"
+import { pack } from "@xiaochuan/script/pack"
 
 await pack(path.resolve(import.meta.dir, ".."), { types: "./dist/types/" })

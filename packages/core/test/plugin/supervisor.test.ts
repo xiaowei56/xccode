@@ -2,23 +2,23 @@ import { describe, expect } from "bun:test"
 import { Clock, Deferred, Duration, Effect, Layer, LayerMap, Stream } from "effect"
 import { TestClock } from "effect/testing"
 import type { LanguageModelV3 } from "@ai-sdk/provider"
-import { define } from "@xccode/plugin/effect/plugin"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
-import { Npm } from "@xccode/util/npm"
-import { AISDK } from "@xccode/core/aisdk"
-import { Command } from "@xccode/core/command"
-import { ConfigPluginSource } from "@xccode/core/config/plugin/source"
-import { Instance } from "@xccode/core/instance"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { Plugin } from "@xccode/core/plugin"
-import { Provider } from "@xccode/core/provider"
-import { SdkPlugins } from "@xccode/core/plugin/sdk"
-import { PluginUpdate } from "@xccode/core/plugin/update"
-import { AbsolutePath } from "@xccode/core/schema"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
+import { Npm } from "@xiaochuan/util/npm"
+import { AISDK } from "@xiaochuan/core/aisdk"
+import { Command } from "@xiaochuan/core/command"
+import { ConfigPluginSource } from "@xiaochuan/core/config/plugin/source"
+import { Instance } from "@xiaochuan/core/instance"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { Provider } from "@xiaochuan/core/provider"
+import { SdkPlugins } from "@xiaochuan/core/plugin/sdk"
+import { PluginUpdate } from "@xiaochuan/core/plugin/update"
+import { AbsolutePath } from "@xiaochuan/core/schema"
 import { Database } from "../../src/database/database"
 import { Bus } from "../../src/bus"
 import { tempGlobalLayer } from "../fixture/global"
@@ -158,7 +158,7 @@ describe("PluginSupervisor", () => {
       expect(state.instance).toBeUndefined()
       // Builtins stay active: the duplicate is a plugin failure, not a generation defect.
       expect(
-        state.inventory.some((plugin) => plugin.id?.startsWith("xccode.") && plugin.state.status === "active"),
+        state.inventory.some((plugin) => plugin.id?.startsWith("xiaochuan.") && plugin.state.status === "active"),
       ).toBe(true)
     }),
   )
@@ -336,7 +336,7 @@ describe("PluginSupervisor", () => {
     }),
   )
 
-  for (const targets of [["xccode.config.policy", "xccode.provider.xccode", "xccode.config.agent"], ["*"]]) {
+  for (const targets of [["xiaochuan.config.policy", "xiaochuan.provider.xiaochuan", "xiaochuan.config.agent"], ["*"]]) {
     it.effect(`keeps policy enforcement and the Console connection through plugin removals: ${targets}`, () =>
       Effect.gen(function* () {
         source.operations = targets.map((target) => ({ type: "remove", target }))
@@ -351,10 +351,10 @@ describe("PluginSupervisor", () => {
           Effect.provide(locations.get(Location.Ref.make({ directory: AbsolutePath.make(directory.path) }))),
         )
         const status = (id: string) => inventory.find((plugin) => plugin.id === id)?.state.status
-        expect(status("xccode.config.policy")).toBe("active")
-        expect(status("xccode.provider.xccode")).toBe("active")
+        expect(status("xiaochuan.config.policy")).toBe("active")
+        expect(status("xiaochuan.provider.xiaochuan")).toBe("active")
         // Removals still apply to everything else, including instance and builtin plugins.
-        expect(status("xccode.config.agent")).toBeUndefined()
+        expect(status("xiaochuan.config.agent")).toBeUndefined()
         expect(inventory.some((plugin) => plugin.id === id)).toBe(targets[0] !== "*")
       }).pipe(
         Effect.ensuring(
@@ -453,7 +453,7 @@ describe("PluginSupervisor", () => {
               .hook(
                 "sdk",
                 (evt) => {
-                  if (evt.package !== "agents/models/xccode") return Effect.void
+                  if (evt.package !== "agents/models/xiaochuan") return Effect.void
                   evt.sdk = { languageModel: () => fakeLanguageModel }
                   return Effect.void
                 },
@@ -472,7 +472,7 @@ describe("PluginSupervisor", () => {
           Model.Info.make({
             ...Model.Info.default(providerID, Model.ID.make("workers-ai")),
             modelID: Model.ID.make("workers-ai"),
-            package: "aisdk:agents/models/xccode",
+            package: "aisdk:agents/models/xiaochuan",
           }),
         )
       }).pipe(

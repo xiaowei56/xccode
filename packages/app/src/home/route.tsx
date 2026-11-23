@@ -1,4 +1,4 @@
-import { ScrollView } from "@xccode/ui/scroll-view"
+import { ScrollView } from "@xiaochuan/ui/scroll-view"
 import { createMediaQuery } from "@solid-primitives/media"
 import { createMemo, onMount, Show } from "solid-js"
 import { useLayout } from "@/shell/state/layout"

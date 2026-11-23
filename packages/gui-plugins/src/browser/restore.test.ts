@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test"
-import { Browser } from "@xccode/plugin-browser/rpc"
-import type { BuiltinMainStorage } from "@xccode/plugin/gui/builtin"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
+import type { BuiltinMainStorage } from "@xiaochuan/plugin/gui/builtin"
 import { activityOwner, agentDriven } from "./policy"
 import { createBrowserRestoreStore, restoredActivity } from "./restore"
 

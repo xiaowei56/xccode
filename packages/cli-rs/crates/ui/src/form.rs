@@ -3,11 +3,11 @@
 use std::collections::HashMap;
 
 use indexmap::IndexMap;
-use xccode_api_types::js::number_to_string;
-use xccode_api_types::{
+use xiaochuan_api_types::js::number_to_string;
+use xiaochuan_api_types::{
     FormField, FormOption, FormValue, FormWhen, FormWhenOp, FormWhenValue, SessionMessageShellExit,
 };
-use xccode_util::time::{self, Date};
+use xiaochuan_util::time::{self, Date};
 /// A choice row: an option, or Yes and No for a boolean (`FormRow`).
 #[derive(Clone, Debug, PartialEq)]
 pub struct Row {
@@ -180,11 +180,11 @@ pub fn validate(field: &FormField, value: Option<&FormValue>) -> Option<String> 
                     Err(_) => return Some(format!("Invalid pattern: {pattern}")),
                 }
             }
-            use xccode_api_types::FormStringFieldFormat as Format;
+            use xiaochuan_api_types::FormStringFieldFormat as Format;
             let format = match &field.format {
                 Some(Format::Email) if !email(text) => Some("Expected an email address".to_owned()),
-                Some(Format::Uri) => match xccode_api_types::js::parse_url(text) {
-                    Err(error @ xccode_api_types::js::UrlError::NonAsciiHost(_)) => Some(error.to_string()),
+                Some(Format::Uri) => match xiaochuan_api_types::js::parse_url(text) {
+                    Err(error @ xiaochuan_api_types::js::UrlError::NonAsciiHost(_)) => Some(error.to_string()),
                     Err(_) => Some("Expected a URL".to_owned()),
                     Ok(_) => None,
                 },

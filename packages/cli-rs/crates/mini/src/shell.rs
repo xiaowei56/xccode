@@ -3,13 +3,13 @@
 
 use std::time::Instant;
 
-use xccode_local::cli_config::{CliConfig, MiniWorkSpinner, NewLocation, ThemeMode as ConfigMode, Visibility};
-use xccode_local::model_pref::ModelPreferences;
-use xccode_store::target::{self, Prepared, SessionTarget, TargetError};
-use xccode_ui::motion::{Spinner, SpinnerColor};
-use xccode_ui::theme::ThemeMode;
-use xccode_util::error::{self, Context as _};
-use xccode_util::path::Flavor;
+use xiaochuan_local::cli_config::{CliConfig, MiniWorkSpinner, NewLocation, ThemeMode as ConfigMode, Visibility};
+use xiaochuan_local::model_pref::ModelPreferences;
+use xiaochuan_store::target::{self, Prepared, SessionTarget, TargetError};
+use xiaochuan_ui::motion::{Spinner, SpinnerColor};
+use xiaochuan_ui::theme::ThemeMode;
+use xiaochuan_util::error::{self, Context as _};
+use xiaochuan_util::path::Flavor;
 use opentui::native::{Control, KittyKeyboard, MouseTracking};
 use opentui::split::{Scrollback, SplitFooter};
 
@@ -68,7 +68,7 @@ pub fn run(input: Input) -> error::Result<()> {
     writer.set_shell_output(settings.shell_output == Visibility::Show);
     writer.set_image_preview(input.config.session.as_ref().and_then(|session| session.image_preview).unwrap_or(false));
     let markdown_source = input.config.session.as_ref().and_then(|session| session.markdown)
-        == Some(xccode_local::cli_config::Markdown::Source);
+        == Some(xiaochuan_local::cli_config::Markdown::Source);
     writer.set_markdown_source(markdown_source);
     let prompt = Prompt::new(&app, &theme, settings.mono, &input.config);
     let footers = Footers::new(&app, &prompt, &theme, settings.mono);
@@ -638,16 +638,16 @@ impl Mini {
             return;
         }
         let motion = if settings.mono {
-            xccode_ui::motion::seed_mono()
+            xiaochuan_ui::motion::seed_mono()
         } else {
-            xccode_ui::motion::work_spinner(settings.work_spinner.as_str())
-                .unwrap_or_else(xccode_ui::motion::seed_mono)
+            xiaochuan_ui::motion::work_spinner(settings.work_spinner.as_str())
+                .unwrap_or_else(xiaochuan_ui::motion::seed_mono)
         };
         // `glow={!mono}`: mono draws every frame in the plain color.
         let paint = if settings.mono {
             SpinnerColor::Solid(color)
         } else {
-            xccode_ui::motion::one_cell_color(&motion, color)
+            xiaochuan_ui::motion::one_cell_color(&motion, color)
         };
         if let Some(work) = current.as_mut()
             && (work.motion, work.mono) == (settings.work_spinner, settings.mono)
@@ -910,7 +910,7 @@ impl Mini {
     }
 
     /// The pending prompts a hydration listed (`syncPending`).
-    fn queued(self: &Rc<Self>, inbox: &[xccode_api::generated::SessionInboxUser]) {
+    fn queued(self: &Rc<Self>, inbox: &[xiaochuan_api::generated::SessionInboxUser]) {
         self.prompt.set_queued(inbox);
         self.footers.queue_changed();
         self.schedule_height();
@@ -1110,7 +1110,7 @@ impl Mini {
         let client = self.client.clone();
         let mini = self.clone();
         if prompt.shell {
-            let id = xccode_api::id::message();
+            let id = xiaochuan_api::id::message();
             self.sending("running shell");
             self.trace("send.shell", json!({ "sessionID": session.id, "id": id, "command": prompt.text }));
             let command = prompt.text.clone();
@@ -1137,7 +1137,7 @@ impl Mini {
                 Some(ShellWait { message_id, shell_id: None, ended: false, task: Some(task), grace: None });
             return;
         }
-        let id = prompt.message_id.clone().unwrap_or_else(xccode_api::id::message);
+        let id = prompt.message_id.clone().unwrap_or_else(xiaochuan_api::id::message);
         let delivery = prompt.delivery.unwrap_or(Delivery::Steer);
         self.sending("sending prompt");
         let started = std::time::Instant::now();
@@ -1353,7 +1353,7 @@ impl Mini {
         let mini = self.clone();
         self.app.spawn(async move { crate::prompt::api::compact(&client, &session.id).await }, move |cx, result| {
             if let Err(error) = result {
-                let id = xccode_api::id::message();
+                let id = xiaochuan_api::id::message();
                 mini.prompt_error(cx, &id, error);
             }
             mini.finish(cx);
@@ -1367,8 +1367,8 @@ impl Mini {
         let client = self.client.clone();
         let mini = self.clone();
         let model = session.model.as_ref().and_then(|model| {
-            Some(xccode_api::generated::ModelRef {
-                provider_id: xccode_api::generated::ProviderID(model["providerID"].as_str()?.to_owned()),
+            Some(xiaochuan_api::generated::ModelRef {
+                provider_id: xiaochuan_api::generated::ProviderID(model["providerID"].as_str()?.to_owned()),
                 id: model["id"].as_str()?.to_owned(),
                 variant: model["variant"].as_str().map(str::to_owned),
             })
@@ -1406,7 +1406,7 @@ impl Mini {
                     }
                     Err(error) => {
                         mini.patch(|state| state.status = "failed to start new session".into());
-                        let id = xccode_api::id::message();
+                        let id = xiaochuan_api::id::message();
                         mini.prompt_error(cx, &id, error.to_string());
                     }
                 }
@@ -1467,7 +1467,7 @@ impl Mini {
         let summary = crate::scrollback::TurnSummary {
             agent: self.agent_label(&self.state.borrow().agent),
             model,
-            duration: xccode_ui::locale::duration(started.elapsed().as_millis() as f64),
+            duration: xiaochuan_ui::locale::duration(started.elapsed().as_millis() as f64),
         };
         let mut commit = Commit::system(format!("{} · {} · {}", summary.agent, summary.model, summary.duration));
         commit.summary = Some(summary);
@@ -1977,20 +1977,20 @@ impl Mini {
         self.prompt.agent_name(agent).unwrap_or_else(|| capitalize(agent))
     }
 
-    /// The terminal title on Linux (`setTitle`): `OC | <title>`, or `Xccode` without a real title.
+    /// The terminal title on Linux (`setTitle`): `OC | <title>`, or `Xiaochuan` without a real title.
     fn set_title(&self, title: Option<&str>) {
         if !cfg!(target_os = "linux") {
             return;
         }
         match title.filter(|title| !title.is_empty() && !is_fallback_title(title)) {
-            None => self.app.set_title("Xccode"),
+            None => self.app.set_title("Xiaochuan"),
             Some(title) => {
                 let short = if title.encode_utf16().count() > 40 {
                     format!("{}…", title.chars().take(37).collect::<String>())
                 } else {
                     title.to_owned()
                 };
-                self.app.set_title(&xccode_ui::terminal_title(&format!("OC | {short}")));
+                self.app.set_title(&xiaochuan_ui::terminal_title(&format!("OC | {short}")));
             }
         }
     }
@@ -2084,7 +2084,7 @@ mod tests {
                 "tokens": { "input": 0, "output": 0, "reasoning": 0, "cache": { "read": 0, "write": 0 } },
                 "time": { "created": 1, "updated": 1 }, "location": { "directory": "/tmp" } });
             SessionTarget {
-                session: xccode_api::generated::SessionInfo::deserialize(&session).unwrap(),
+                session: xiaochuan_api::generated::SessionInfo::deserialize(&session).unwrap(),
                 location: Default::default(),
                 model: Some(target::parse_model(Some(model)).unwrap().unwrap()),
                 agent: None,

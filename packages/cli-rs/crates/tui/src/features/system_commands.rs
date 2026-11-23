@@ -1,12 +1,12 @@
 //! System commands and settings toggles. Restart is unavailable because the client shares its background service.
 
-use xccode_local::cli_config::{CursorStyle, DiffWrap, Info, PromptPaste, Resolved};
+use xiaochuan_local::cli_config::{CursorStyle, DiffWrap, Info, PromptPaste, Resolved};
 use opentui::native::{Control, MouseTracking};
 
 use crate::dialogs::settings::{set_path, update};
 use crate::prelude::*;
 
-const DOCS: &str = "https://xccode.ai/docs";
+const DOCS: &str = "https://xiaochuan.ai/docs";
 
 pub fn install(tui: &Rc<Tui>) -> Vec<Disposer> {
     let info = tui.settings.info();
@@ -30,7 +30,7 @@ pub fn install(tui: &Rc<Tui>) -> Vec<Disposer> {
         })
         .palette(),
         command("terminal.suspend", "Suspend terminal", |tui| {
-            xccode_plugin::canvas::handover(&tui.app);
+            xiaochuan_plugin::canvas::handover(&tui.app);
             tui.app.suspend();
         })
         .enabled(if cfg!(windows) { Condition::Never } else { Condition::Always }),

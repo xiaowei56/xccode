@@ -13,12 +13,12 @@ import {
 } from "solid-js"
 import { createStore, produce, type Store } from "solid-js/store"
 import type { Schema } from "effect"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { useTheme } from "@xccode/ui/theme/context"
-import { toaster } from "@xccode/ui/toast"
-import { writeClipboard } from "@xccode/session-ui/copy"
-import { base64Encode } from "@xccode/util/encode"
-import { uuid } from "@xccode/util/uuid"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { useTheme } from "@xiaochuan/ui/theme/context"
+import { toaster } from "@xiaochuan/ui/toast"
+import { writeClipboard } from "@xiaochuan/session-ui/copy"
+import { base64Encode } from "@xiaochuan/util/encode"
+import { uuid } from "@xiaochuan/util/uuid"
 import {
   type App,
   type Layout,
@@ -34,8 +34,8 @@ import {
   type Storage,
   type StorageScope,
   type Tabs,
-} from "@xccode/plugin/gui"
-import { BuiltinPanel, BuiltinPromptGate, type BuiltinOpenOptions, type BuiltinStoreFrom, type BuiltinStoreOptions } from "@xccode/plugin/gui/builtin"
+} from "@xiaochuan/plugin/gui"
+import { BuiltinPanel, BuiltinPromptGate, type BuiltinOpenOptions, type BuiltinStoreFrom, type BuiltinStoreOptions } from "@xiaochuan/plugin/gui/builtin"
 import { usePlatform } from "@/runtime/platform/platform"
 import { startDragOut } from "@/runtime/platform/drag-out"
 import { same } from "@/runtime/persistence/equality"
@@ -352,10 +352,10 @@ export function createHostApis() {
           }
         : undefined,
     app: () => ({
-      name: "xccode",
+      name: "xiaochuan",
       version: platform.version ?? "",
-      // SAFETY: the build sets VITE_XCCODE_CHANNEL to one of the release channels, or leaves it unset locally.
-      channel: (import.meta.env.VITE_XCCODE_CHANNEL ?? "local") as App["channel"],
+      // SAFETY: the build sets VITE_XIAOCHUAN_CHANNEL to one of the release channels, or leaves it unset locally.
+      channel: (import.meta.env.VITE_XIAOCHUAN_CHANNEL ?? "local") as App["channel"],
       platform: platform.platform,
       packaged: platform.plugins?.packaged ?? false,
     }),

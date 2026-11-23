@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, jest, test } from "bun:test"
-import type { SessionRef } from "@xccode/plugin/gui"
+import type { SessionRef } from "@xiaochuan/plugin/gui"
 import type { ModelSelection } from "@/providers/models/selection"
 import { PROMPT_GATE_TIMEOUT_MS, settlePromptGates } from "@/runtime/plugin/prompt-gate"
 import type { SessionMessageHandoff } from "@/session/handoff"
-import { Skill } from "@xccode/schema/skill"
+import { Skill } from "@xiaochuan/schema/skill"
 import { createRoot } from "solid-js"
 import type {
   ActiveComposerAdapter,

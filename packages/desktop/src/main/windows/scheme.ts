@@ -1,5 +1,5 @@
 import electron, { type BrowserWindow } from "electron"
-import { schemes } from "@xccode/gui-plugins/schemes"
+import { schemes } from "@xiaochuan/gui-plugins/schemes"
 
 export const rendererProtocol = "oc"
 

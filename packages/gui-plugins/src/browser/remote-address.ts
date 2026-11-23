@@ -1,1 +1,1 @@
-export { remotePath, workspacePrefix } from "@xccode/plugin-browser/preview-path"
+export { remotePath, workspacePrefix } from "@xiaochuan/plugin-browser/preview-path"

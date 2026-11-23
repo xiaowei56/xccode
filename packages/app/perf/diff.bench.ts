@@ -36,7 +36,7 @@ export default bench({
 
   targets: {
     web: web({
-      expect: { title: "Xccode" },
+      expect: { title: "Xiaochuan" },
       viewport: { width: 1366, height: 768 },
       async prepare(ctx) {
         const { setupKey, url } = ctx

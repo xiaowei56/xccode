@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { IntegrationInfo } from "@xccode/client"
+import type { IntegrationInfo } from "@xiaochuan/client"
 import {
   connectionSummary,
   connectMethods,
@@ -21,27 +21,27 @@ describe("integrationOptions", () => {
         integration({ id: "openai", name: "OpenAI" }),
         integration({ id: "custom-z", name: "Zebra" }),
         integration({ id: "anthropic", name: "Anthropic" }),
-        integration({ id: "xccode", name: "Xccode Zen" }),
+        integration({ id: "xiaochuan", name: "Xiaochuan Zen" }),
         integration({
-          id: "xccode-go",
-          name: "Xccode Go",
+          id: "xiaochuan-go",
+          name: "Xiaochuan Go",
           connections: [{ type: "credential", id: "go", label: "Go", method: "key" }],
         }),
       ]).map((item) => item.id),
-    ).toEqual(["xccode", "xccode-go", "openai", "anthropic", "mistral", "custom-z"])
+    ).toEqual(["xiaochuan", "xiaochuan-go", "openai", "anthropic", "mistral", "custom-z"])
   })
 
-  test("hides Xccode Go until a Go key is saved", () => {
+  test("hides Xiaochuan Go until a Go key is saved", () => {
     expect(
       integrationOptions([
-        integration({ id: "xccode", name: "Xccode Zen" }),
+        integration({ id: "xiaochuan", name: "Xiaochuan Zen" }),
         integration({
-          id: "xccode-go",
-          name: "Xccode Go",
-          connections: [{ type: "env", name: "XCCODE_API_KEY" }],
+          id: "xiaochuan-go",
+          name: "Xiaochuan Go",
+          connections: [{ type: "env", name: "XIAOCHUAN_API_KEY" }],
         }),
       ]).map((item) => item.id),
-    ).toEqual(["xccode"])
+    ).toEqual(["xiaochuan"])
   })
 })
 

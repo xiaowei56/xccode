@@ -8,16 +8,16 @@ import { freeModels } from "~/lib/get-started"
 import { sdkInstalls } from "~/lib/install-commands"
 import { liteQuitKey } from "~/lib/console-stub"
 
-// window.xccode: a small console API for developers who open DevTools on the site. The page's
+// window.xiaochuan: a small console API for developers who open DevTools on the site. The page's
 // stub (console-stub.ts, Settings › Other › Console API) loads this module when someone types
-// `xccode`. xccode.try() and xccode.install.pick() load Text.js console apps from /textjs/
+// `xiaochuan`. xiaochuan.try() and xiaochuan.install.pick() load Text.js console apps from /textjs/
 // (services/site/textjs) on demand, so React and Text.js never enter the site's own bundles.
 //
-// Xccode Lite also starts on its own once a visitor shows they want the console: DevTools docks,
+// Xiaochuan Lite also starts on its own once a visitor shows they want the console: DevTools docks,
 // they press a DevTools shortcut on the page, or it already started in this tab. Text.js's
 // onConsoleIntent (in the stub) watches for that; its ~2 kB chunk is all a desktop visitor
 // downloads until then, and touch screens skip it. Quitting Lite turns this off for the browser
-// until xccode.try().
+// until xiaochuan.try().
 
 const brand = {
   light: { open: "#626262", code: "#1f1f1f", inner: "#d2d2d2", text: "#333333", dim: "#737373", link: "#3b5cf6" },
@@ -72,7 +72,7 @@ export function install() {
 
   const manifest = {
     site: location.origin,
-    about: "Xccode, the open source coding agent",
+    about: "Xiaochuan, the open source coding agent",
     pages: {
       product: url("/product"),
       docs: url(docsTopics[0].href),
@@ -105,14 +105,14 @@ export function install() {
       say(["› ", dim], [found, strong])
       return found
     }
-    say([`Install Xccode${os ? ` on ${os}` : ""}:`, dim])
+    say([`Install Xiaochuan${os ? ` on ${os}` : ""}:`, dim])
     forThisComputer.forEach((id) => say(["› ", dim], [command(id) ?? "", strong], [`   # ${id}`, dim]))
-    say(["Others: xccode.install('npm' | 'bun' | 'brew' | 'paru' | 'curl'). Pick one: xccode.install.pick()", dim])
+    say(["Others: xiaochuan.install('npm' | 'bun' | 'brew' | 'paru' | 'curl'). Pick one: xiaochuan.install.pick()", dim])
     return command(forThisComputer[0])
   }
 
-  // One Xccode Lite at a time. Quitting it brings the greeting back, and stops it from starting on
-  // its own in this browser (people who debug the site open DevTools all day) until xccode.try().
+  // One Xiaochuan Lite at a time. Quitting it brings the greeting back, and stops it from starting on
+  // its own in this browser (people who debug the site open DevTools all day) until xiaochuan.try().
   let lite: Promise<{ stop: () => void }> | undefined
   const startLite = (reason?: string) => {
     if (lite) return lite
@@ -135,7 +135,7 @@ export function install() {
           )
           greet(colors, say)
           say([
-            "Xccode Lite won't start on its own in this browser again. Type xccode.try() to bring it back.",
+            "Xiaochuan Lite won't start on its own in this browser again. Type xiaochuan.try() to bring it back.",
             dim,
           ])
         },
@@ -146,7 +146,7 @@ export function install() {
   }
 
   const pick = async () => {
-    // Two apps can't share the console: the picker takes it from Xccode Lite.
+    // Two apps can't share the console: the picker takes it from Xiaochuan Lite.
     await lite?.then((app) => app.stop()).catch(() => undefined)
     lite = undefined
     say(["Click an empty part of the page, then use ↑ ↓ and Enter: keys reach the console app through the page.", dim])
@@ -175,20 +175,20 @@ export function install() {
   const api = {
     help() {
       console.table({
-        "xccode.install()": "the install command for this computer",
-        "xccode.install('brew')": "or one of: curl, npm, bun, brew, paru",
-        "xccode.install.pick()": "choose one with the arrow keys and copy it",
-        "xccode.download()": "desktop builds; download('mac-arm') starts one",
-        "xccode.mobile()": androidSoon
+        "xiaochuan.install()": "the install command for this computer",
+        "xiaochuan.install('brew')": "or one of: curl, npm, bun, brew, paru",
+        "xiaochuan.install.pick()": "choose one with the arrow keys and copy it",
+        "xiaochuan.download()": "desktop builds; download('mac-arm') starts one",
+        "xiaochuan.mobile()": androidSoon
           ? "the iPhone beta on TestFlight, Android coming soon"
           : "the iPhone beta and the Android app",
-        "xccode.sdk()": "the TypeScript SDK",
-        "xccode.models()": "the free models, live from models.dev",
-        "xccode.docs('agents')": "open a docs page; docs() lists them",
-        "xccode.agents()": "this site, for agents",
-        "xccode.contribute()": "help build Xccode",
-        "xccode.manifest": "all of the above, as one object",
-        "xccode.try()": "Xccode Lite in this console: a sandbox, nothing to install",
+        "xiaochuan.sdk()": "the TypeScript SDK",
+        "xiaochuan.models()": "the free models, live from models.dev",
+        "xiaochuan.docs('agents')": "open a docs page; docs() lists them",
+        "xiaochuan.agents()": "this site, for agents",
+        "xiaochuan.contribute()": "help build Xiaochuan",
+        "xiaochuan.manifest": "all of the above, as one object",
+        "xiaochuan.try()": "Xiaochuan Lite in this console: a sandbox, nothing to install",
       })
     },
     install: Object.assign(
@@ -212,16 +212,16 @@ export function install() {
     mobile() {
       const devices = (soon: boolean) =>
         mobileStores.filter((store) => store.soon === soon).map((store) => store.device)
-      say([`Xccode Mobile for ${devices(false).join(" and ")}: ${url("/mobile")}`])
+      say([`Xiaochuan Mobile for ${devices(false).join(" and ")}: ${url("/mobile")}`])
       for (const store of mobileStores.filter((item) => item.beta))
         say([`The ${store.device} app is a public beta on TestFlight: ${store.href}`, dim])
       if (devices(true).length > 0) say([`Coming soon to ${devices(true).join(" and ")}.`, dim])
-      say(["Pair it with your computer: run xccode pair in a terminal.", dim])
+      say(["Pair it with your computer: run xiaochuan pair in a terminal.", dim])
       return url("/mobile")
     },
     sdk() {
       say(["› ", dim], [manifest.sdk.install, strong])
-      say(['import { Xccode } from "@xccode/sdk"'])
+      say(['import { Xiaochuan } from "@xiaochuan/sdk"'])
       say([`Docs: ${manifest.sdk.docs}`, dim])
       return manifest.sdk.install
     },
@@ -229,7 +229,7 @@ export function install() {
       const live = await fetch("https://models.dev/api.json")
         .then((response) => response.json() as Promise<ModelsDev>)
         .then((data) =>
-          Object.values(data.xccode?.models ?? {}).filter(
+          Object.values(data.xiaochuan?.models ?? {}).filter(
             (model) => model.cost?.input === 0 && model.cost?.output === 0 && model.status !== "deprecated",
           ),
         )
@@ -238,9 +238,9 @@ export function install() {
         say([`Free models include ${freeModels.join(", ")}. No account needed.`])
         return freeModels
       }
-      console.table(Object.fromEntries(live.map((model) => [model.name, { id: `xccode/${model.id}` }])))
-      say([`No account needed. Try one: xccode run -m xccode/${live[0].id} "hello"`, dim])
-      return live.map((model) => `xccode/${model.id}`)
+      console.table(Object.fromEntries(live.map((model) => [model.name, { id: `xiaochuan/${model.id}` }])))
+      say([`No account needed. Try one: xiaochuan run -m xiaochuan/${live[0].id} "hello"`, dim])
+      return live.map((model) => `xiaochuan/${model.id}`)
     },
     docs(topic?: string) {
       if (!topic) {
@@ -260,12 +260,12 @@ export function install() {
         "One page as Markdown": `${url("/desktop.md")} (or send Accept: text/markdown)`,
         Sitemap: manifest.agents.sitemap,
         Releases: `${manifest.agents.releases.rss}  ${manifest.agents.releases.json}`,
-        "Xccode server API": manifest.agents.openapi,
+        "Xiaochuan server API": manifest.agents.openapi,
       })
       return manifest.agents.llms
     },
     contribute() {
-      say(["Xccode is open source (MIT). Come build it with us:"])
+      say(["Xiaochuan is open source (MIT). Come build it with us:"])
       say([`  Good first issues  ${config.github.repoUrl}/contribute`, dim])
       say([`  Contributing       ${config.github.repoUrl}/blob/dev/CONTRIBUTING.md`, dim])
       say([`  Discord            ${config.social.discord}`, dim])
@@ -274,10 +274,10 @@ export function install() {
     manifest,
     async try() {
       localStorage.removeItem(liteQuitKey)
-      if (lite) return say(["Xccode Lite is already running. Click an empty part of the page, then type.", dim])
+      if (lite) return say(["Xiaochuan Lite is already running. Click an empty part of the page, then type.", dim])
       say(["Click an empty part of the page, then type: keys reach the console app through the page.", dim])
       if (["ios", "android"].includes(detectPlatform() ?? ""))
-        return say(["Xccode Lite needs a desktop browser with DevTools. Try https://textjs.org/xccode", dim])
+        return say(["Xiaochuan Lite needs a desktop browser with DevTools. Try https://textjs.org/xiaochuan", dim])
       if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent))
         say(["In Safari, turn on Settings › Advanced › Show features for web developers.", dim])
       const started = await startLite().then(
@@ -286,13 +286,13 @@ export function install() {
       )
       if (!started)
         return say([
-          "Xccode Lite couldn't load here. Try it at https://textjs.org/xccode, or install Xccode: xccode.install()",
+          "Xiaochuan Lite couldn't load here. Try it at https://textjs.org/xiaochuan, or install Xiaochuan: xiaochuan.install()",
           dim,
         ])
     },
-    toString: () => "xccode: type xccode.help()",
+    toString: () => "xiaochuan: type xiaochuan.help()",
   }
-  Object.defineProperty(window, "xccode", { value: api, configurable: true, writable: true })
+  Object.defineProperty(window, "xiaochuan", { value: api, configurable: true, writable: true })
   return { api, startLite, greet: () => greet(colors, say) }
 }
 
@@ -309,7 +309,7 @@ async function textjs<T>(name: "lite" | "picker") {
 
 /** The view-source logo (the wordmark with a ░ drop shadow) in colour, then three lines. */
 function greet(colors: typeof brand.light, say: (...parts: [string, string?][]) => void) {
-  const word = [..."xccode"] as Letter[]
+  const word = [..."xiaochuan"] as Letter[]
   const ink = (x: number, y: number) => {
     const letter = word[Math.floor(x / 10)]
     const column = Math.floor((x % 10) / 2)
@@ -336,13 +336,13 @@ function greet(colors: typeof brand.light, say: (...parts: [string, string?][]) 
     text += "\n"
   })
   console.log(text, ...styles)
-  say(["Xccode, the open source coding agent.", `font-weight:bold;color:${colors.code}`])
+  say(["Xiaochuan, the open source coding agent.", `font-weight:bold;color:${colors.code}`])
   say(
     ["Type ", `color:${colors.dim}`],
-    ["xccode.help()", `color:${colors.link}`],
+    ["xiaochuan.help()", `color:${colors.link}`],
     [" to install, download or read the docs from here.", `color:${colors.dim}`],
   )
-  say(["Or try Xccode right in this console: ", `color:${colors.dim}`], ["xccode.try()", `color:${colors.link}`])
+  say(["Or try Xiaochuan right in this console: ", `color:${colors.dim}`], ["xiaochuan.try()", `color:${colors.link}`])
   const links = [
     ["Contribute", config.github.repoUrl],
     ["Good first issues", `${config.github.repoUrl}/labels/good%20first%20issue`],

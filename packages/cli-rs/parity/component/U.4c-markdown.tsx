@@ -2,7 +2,7 @@
 // P-COMP fixtures of `TextPart`'s <markdown> options (routes/session/message-parts.tsx) beyond U.4a's rendered
 // prose: U.4a's prose with markers shown (`session.markdown` is `raw`), a grid table with `cellPaddingX: 1`, and
 // thematic breaks.
-// crates/ui/tests/all/content.rs compares xccode_ui::markdown with them.
+// crates/ui/tests/all/content.rs compares xiaochuan_ui::markdown with them.
 import { useTheme, useThemes } from "../../../tui/src/context/theme"
 import { renderComponent } from "../lib/component"
 

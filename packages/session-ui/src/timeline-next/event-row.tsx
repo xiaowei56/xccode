@@ -1,5 +1,5 @@
-import { Badge } from "@xccode/ui/badge"
-import { useI18n } from "@xccode/ui/context/i18n"
+import { Badge } from "@xiaochuan/ui/badge"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
 import { For, Show, createMemo } from "solid-js"
 import { BasicTool } from "../components/basic-tool"
 import { useData } from "../context/data"

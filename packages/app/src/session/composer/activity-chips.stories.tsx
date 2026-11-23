@@ -1,5 +1,5 @@
-import type { SessionMessageAssistantTool, SessionMessageInfo } from "@xccode/client/promise"
-import type { SessionDocument } from "@xccode/session-ui/document"
+import type { SessionMessageAssistantTool, SessionMessageInfo } from "@xiaochuan/client/promise"
+import type { SessionDocument } from "@xiaochuan/session-ui/document"
 import {
   CURRENT_SESSION_ID,
   STORY_MODEL,
@@ -7,8 +7,8 @@ import {
   editThenTestDocument,
   largeCompletedDocument,
   subagentReport,
-} from "@xccode/session-ui/storybook"
-import { timelinePresets } from "@xccode/session-ui/timeline/detail"
+} from "@xiaochuan/session-ui/storybook"
+import { timelinePresets } from "@xiaochuan/session-ui/timeline/detail"
 import { createEffect, createMemo, createSignal, on, onCleanup, onMount } from "solid-js"
 import { SessionPreview } from "@/session/story-model"
 import type { SessionActivityItem } from "./activity-chips"
@@ -77,7 +77,7 @@ function Preview(props: PreviewArgs) {
   return (
     <SessionPreview
       title="Run background work"
-      description="xccode · activity chips"
+      description="xiaochuan · activity chips"
       document={value()}
       timelineDetail={timelineDetail}
       activity={activity()}
@@ -218,7 +218,7 @@ function LiveActivity(props: PreviewArgs) {
   return (
     <SessionPreview
       title="Audit the activity chips"
-      description="xccode · activity chips"
+      description="xiaochuan · activity chips"
       document={value()}
       timelineDetail={timelineDetail}
       activity={{
@@ -245,7 +245,7 @@ function LiveActivity(props: PreviewArgs) {
 }
 
 export default {
-  title: "Xccode/Session/Activity chips",
+  title: "Xiaochuan/Session/Activity chips",
   id: "session-activity-chips",
   render: (args: PreviewArgs) => <Preview {...args} />,
   args: { stage: 0, subagents: 0, shells: 0 },

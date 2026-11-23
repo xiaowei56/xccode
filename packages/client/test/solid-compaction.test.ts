@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
 import { createRoot } from "solid-js"
 import { createData, type CreateDataInput } from "../src/solid"
-import { Xccode, type XccodeEvent, type SessionInboxCompaction, type SessionInboxInfo } from "../src/promise"
+import { Xiaochuan, type XiaochuanEvent, type SessionInboxCompaction, type SessionInboxInfo } from "../src/promise"
 
 test("admits compaction before model setup and serializes the following prompt", async () => {
   using fixture = setup()
@@ -346,8 +346,8 @@ function setup(override?: (request: Request) => Promise<Response | undefined>) {
   const proposals: string[] = []
   const pending: SessionInboxInfo[] = []
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
-  const api = Xccode.make({
-    baseUrl: "http://xccode.local",
+  const api = Xiaochuan.make({
+    baseUrl: "http://xiaochuan.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const overridden = await override?.(request)
@@ -387,7 +387,7 @@ function setup(override?: (request: Request) => Promise<Response | undefined>) {
     }),
     dispose,
   }))
-  const emit = (details: XccodeEvent) => listeners.forEach((listener) => listener({ name: details.type, details }))
+  const emit = (details: XiaochuanEvent) => listeners.forEach((listener) => listener({ name: details.type, details }))
   return {
     data: root.data,
     api,

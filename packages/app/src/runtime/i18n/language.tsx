@@ -1,8 +1,8 @@
 import { batch, createEffect, createMemo, createSignal, on, onCleanup, untrack, type JSX } from "solid-js"
 import { createStore } from "solid-js/store"
 import { Option, Schema, SchemaGetter } from "effect"
-import { createSimpleContext } from "@xccode/ui/context"
-import { showToast } from "@xccode/ui/toast"
+import { createSimpleContext } from "@xiaochuan/ui/context"
+import { showToast } from "@xiaochuan/ui/toast"
 import {
   I18nProvider,
   type UiI18n,
@@ -11,11 +11,11 @@ import {
   type UiI18nPluralLookupKey,
   type UiI18nPluralKey,
   type UiPluralCategory,
-} from "@xccode/ui/context/i18n"
+} from "@xiaochuan/ui/context/i18n"
 import { Persist, persisted } from "@/runtime/persistence/storage"
 import { Persistence } from "@/runtime/persistence/schema"
 import en from "@/runtime/i18n/en"
-import { dict } from "@xccode/ui/i18n/en"
+import { dict } from "@xiaochuan/ui/i18n/en"
 import {
   createDesktopNativeBundle,
   detectDesktopNativeLocale,
@@ -114,68 +114,68 @@ const merge = (app: Promise<Source>, ui: Promise<Source>) =>
   Promise.all([app, ui]).then(([a, b]) => ({ ...base, ...a.dict, ...b.dict }) as Dictionary)
 
 const loaders: Record<Exclude<Locale, "en">, () => Promise<Dictionary>> = {
-  zh: () => merge(import("@/runtime/i18n/zh"), import("@xccode/ui/i18n/zh")),
-  zht: () => merge(import("@/runtime/i18n/zht"), import("@xccode/ui/i18n/zht")),
-  ko: () => merge(import("@/runtime/i18n/ko"), import("@xccode/ui/i18n/ko")),
-  de: () => merge(import("@/runtime/i18n/de"), import("@xccode/ui/i18n/de")),
-  es: () => merge(import("@/runtime/i18n/es"), import("@xccode/ui/i18n/es")),
-  fr: () => merge(import("@/runtime/i18n/fr"), import("@xccode/ui/i18n/fr")),
-  da: () => merge(import("@/runtime/i18n/da"), import("@xccode/ui/i18n/da")),
-  ja: () => merge(import("@/runtime/i18n/ja"), import("@xccode/ui/i18n/ja")),
-  pl: () => merge(import("@/runtime/i18n/pl"), import("@xccode/ui/i18n/pl")),
-  ru: () => merge(import("@/runtime/i18n/ru"), import("@xccode/ui/i18n/ru")),
-  uk: () => merge(import("@/runtime/i18n/uk"), import("@xccode/ui/i18n/uk")),
-  ar: () => merge(import("@/runtime/i18n/ar"), import("@xccode/ui/i18n/ar")),
-  he: () => merge(import("@/runtime/i18n/he"), import("@xccode/ui/i18n/he")),
-  no: () => merge(import("@/runtime/i18n/no"), import("@xccode/ui/i18n/no")),
-  br: () => merge(import("@/runtime/i18n/br"), import("@xccode/ui/i18n/br")),
-  th: () => merge(import("@/runtime/i18n/th"), import("@xccode/ui/i18n/th")),
-  bs: () => merge(import("@/runtime/i18n/bs"), import("@xccode/ui/i18n/bs")),
-  tr: () => merge(import("@/runtime/i18n/tr"), import("@xccode/ui/i18n/tr")),
-  hi: () => merge(import("@/runtime/i18n/hi"), import("@xccode/ui/i18n/hi")),
-  nl: () => merge(import("@/runtime/i18n/nl"), import("@xccode/ui/i18n/nl")),
-  id: () => merge(import("@/runtime/i18n/id"), import("@xccode/ui/i18n/id")),
-  vi: () => merge(import("@/runtime/i18n/vi"), import("@xccode/ui/i18n/vi")),
-  it: () => merge(import("@/runtime/i18n/it"), import("@xccode/ui/i18n/it")),
-  ur: () => merge(import("@/runtime/i18n/ur"), import("@xccode/ui/i18n/ur")),
-  pa: () => merge(import("@/runtime/i18n/pa"), import("@xccode/ui/i18n/pa")),
-  az: () => merge(import("@/runtime/i18n/az"), import("@xccode/ui/i18n/az")),
-  fi: () => merge(import("@/runtime/i18n/fi"), import("@xccode/ui/i18n/fi")),
-  sv: () => merge(import("@/runtime/i18n/sv"), import("@xccode/ui/i18n/sv")),
-  am: () => merge(import("@/runtime/i18n/am"), import("@xccode/ui/i18n/am")),
-  bg: () => merge(import("@/runtime/i18n/bg"), import("@xccode/ui/i18n/bg")),
-  bn: () => merge(import("@/runtime/i18n/bn"), import("@xccode/ui/i18n/bn")),
-  ca: () => merge(import("@/runtime/i18n/ca"), import("@xccode/ui/i18n/ca")),
-  cs: () => merge(import("@/runtime/i18n/cs"), import("@xccode/ui/i18n/cs")),
-  dv: () => merge(import("@/runtime/i18n/dv"), import("@xccode/ui/i18n/dv")),
-  dz: () => merge(import("@/runtime/i18n/dz"), import("@xccode/ui/i18n/dz")),
-  el: () => merge(import("@/runtime/i18n/el"), import("@xccode/ui/i18n/el")),
-  et: () => merge(import("@/runtime/i18n/et"), import("@xccode/ui/i18n/et")),
-  fa: () => merge(import("@/runtime/i18n/fa"), import("@xccode/ui/i18n/fa")),
-  fo: () => merge(import("@/runtime/i18n/fo"), import("@xccode/ui/i18n/fo")),
-  hr: () => merge(import("@/runtime/i18n/hr"), import("@xccode/ui/i18n/hr")),
-  hu: () => merge(import("@/runtime/i18n/hu"), import("@xccode/ui/i18n/hu")),
-  hy: () => merge(import("@/runtime/i18n/hy"), import("@xccode/ui/i18n/hy")),
-  is: () => merge(import("@/runtime/i18n/is"), import("@xccode/ui/i18n/is")),
-  ka: () => merge(import("@/runtime/i18n/ka"), import("@xccode/ui/i18n/ka")),
-  km: () => merge(import("@/runtime/i18n/km"), import("@xccode/ui/i18n/km")),
-  lo: () => merge(import("@/runtime/i18n/lo"), import("@xccode/ui/i18n/lo")),
-  lt: () => merge(import("@/runtime/i18n/lt"), import("@xccode/ui/i18n/lt")),
-  lv: () => merge(import("@/runtime/i18n/lv"), import("@xccode/ui/i18n/lv")),
-  mk: () => merge(import("@/runtime/i18n/mk"), import("@xccode/ui/i18n/mk")),
-  mn: () => merge(import("@/runtime/i18n/mn"), import("@xccode/ui/i18n/mn")),
-  ms: () => merge(import("@/runtime/i18n/ms"), import("@xccode/ui/i18n/ms")),
-  my: () => merge(import("@/runtime/i18n/my"), import("@xccode/ui/i18n/my")),
-  ne: () => merge(import("@/runtime/i18n/ne"), import("@xccode/ui/i18n/ne")),
-  ro: () => merge(import("@/runtime/i18n/ro"), import("@xccode/ui/i18n/ro")),
-  si: () => merge(import("@/runtime/i18n/si"), import("@xccode/ui/i18n/si")),
-  sk: () => merge(import("@/runtime/i18n/sk"), import("@xccode/ui/i18n/sk")),
-  sl: () => merge(import("@/runtime/i18n/sl"), import("@xccode/ui/i18n/sl")),
-  sq: () => merge(import("@/runtime/i18n/sq"), import("@xccode/ui/i18n/sq")),
-  sr: () => merge(import("@/runtime/i18n/sr"), import("@xccode/ui/i18n/sr")),
-  tg: () => merge(import("@/runtime/i18n/tg"), import("@xccode/ui/i18n/tg")),
-  tk: () => merge(import("@/runtime/i18n/tk"), import("@xccode/ui/i18n/tk")),
-  uz: () => merge(import("@/runtime/i18n/uz"), import("@xccode/ui/i18n/uz")),
+  zh: () => merge(import("@/runtime/i18n/zh"), import("@xiaochuan/ui/i18n/zh")),
+  zht: () => merge(import("@/runtime/i18n/zht"), import("@xiaochuan/ui/i18n/zht")),
+  ko: () => merge(import("@/runtime/i18n/ko"), import("@xiaochuan/ui/i18n/ko")),
+  de: () => merge(import("@/runtime/i18n/de"), import("@xiaochuan/ui/i18n/de")),
+  es: () => merge(import("@/runtime/i18n/es"), import("@xiaochuan/ui/i18n/es")),
+  fr: () => merge(import("@/runtime/i18n/fr"), import("@xiaochuan/ui/i18n/fr")),
+  da: () => merge(import("@/runtime/i18n/da"), import("@xiaochuan/ui/i18n/da")),
+  ja: () => merge(import("@/runtime/i18n/ja"), import("@xiaochuan/ui/i18n/ja")),
+  pl: () => merge(import("@/runtime/i18n/pl"), import("@xiaochuan/ui/i18n/pl")),
+  ru: () => merge(import("@/runtime/i18n/ru"), import("@xiaochuan/ui/i18n/ru")),
+  uk: () => merge(import("@/runtime/i18n/uk"), import("@xiaochuan/ui/i18n/uk")),
+  ar: () => merge(import("@/runtime/i18n/ar"), import("@xiaochuan/ui/i18n/ar")),
+  he: () => merge(import("@/runtime/i18n/he"), import("@xiaochuan/ui/i18n/he")),
+  no: () => merge(import("@/runtime/i18n/no"), import("@xiaochuan/ui/i18n/no")),
+  br: () => merge(import("@/runtime/i18n/br"), import("@xiaochuan/ui/i18n/br")),
+  th: () => merge(import("@/runtime/i18n/th"), import("@xiaochuan/ui/i18n/th")),
+  bs: () => merge(import("@/runtime/i18n/bs"), import("@xiaochuan/ui/i18n/bs")),
+  tr: () => merge(import("@/runtime/i18n/tr"), import("@xiaochuan/ui/i18n/tr")),
+  hi: () => merge(import("@/runtime/i18n/hi"), import("@xiaochuan/ui/i18n/hi")),
+  nl: () => merge(import("@/runtime/i18n/nl"), import("@xiaochuan/ui/i18n/nl")),
+  id: () => merge(import("@/runtime/i18n/id"), import("@xiaochuan/ui/i18n/id")),
+  vi: () => merge(import("@/runtime/i18n/vi"), import("@xiaochuan/ui/i18n/vi")),
+  it: () => merge(import("@/runtime/i18n/it"), import("@xiaochuan/ui/i18n/it")),
+  ur: () => merge(import("@/runtime/i18n/ur"), import("@xiaochuan/ui/i18n/ur")),
+  pa: () => merge(import("@/runtime/i18n/pa"), import("@xiaochuan/ui/i18n/pa")),
+  az: () => merge(import("@/runtime/i18n/az"), import("@xiaochuan/ui/i18n/az")),
+  fi: () => merge(import("@/runtime/i18n/fi"), import("@xiaochuan/ui/i18n/fi")),
+  sv: () => merge(import("@/runtime/i18n/sv"), import("@xiaochuan/ui/i18n/sv")),
+  am: () => merge(import("@/runtime/i18n/am"), import("@xiaochuan/ui/i18n/am")),
+  bg: () => merge(import("@/runtime/i18n/bg"), import("@xiaochuan/ui/i18n/bg")),
+  bn: () => merge(import("@/runtime/i18n/bn"), import("@xiaochuan/ui/i18n/bn")),
+  ca: () => merge(import("@/runtime/i18n/ca"), import("@xiaochuan/ui/i18n/ca")),
+  cs: () => merge(import("@/runtime/i18n/cs"), import("@xiaochuan/ui/i18n/cs")),
+  dv: () => merge(import("@/runtime/i18n/dv"), import("@xiaochuan/ui/i18n/dv")),
+  dz: () => merge(import("@/runtime/i18n/dz"), import("@xiaochuan/ui/i18n/dz")),
+  el: () => merge(import("@/runtime/i18n/el"), import("@xiaochuan/ui/i18n/el")),
+  et: () => merge(import("@/runtime/i18n/et"), import("@xiaochuan/ui/i18n/et")),
+  fa: () => merge(import("@/runtime/i18n/fa"), import("@xiaochuan/ui/i18n/fa")),
+  fo: () => merge(import("@/runtime/i18n/fo"), import("@xiaochuan/ui/i18n/fo")),
+  hr: () => merge(import("@/runtime/i18n/hr"), import("@xiaochuan/ui/i18n/hr")),
+  hu: () => merge(import("@/runtime/i18n/hu"), import("@xiaochuan/ui/i18n/hu")),
+  hy: () => merge(import("@/runtime/i18n/hy"), import("@xiaochuan/ui/i18n/hy")),
+  is: () => merge(import("@/runtime/i18n/is"), import("@xiaochuan/ui/i18n/is")),
+  ka: () => merge(import("@/runtime/i18n/ka"), import("@xiaochuan/ui/i18n/ka")),
+  km: () => merge(import("@/runtime/i18n/km"), import("@xiaochuan/ui/i18n/km")),
+  lo: () => merge(import("@/runtime/i18n/lo"), import("@xiaochuan/ui/i18n/lo")),
+  lt: () => merge(import("@/runtime/i18n/lt"), import("@xiaochuan/ui/i18n/lt")),
+  lv: () => merge(import("@/runtime/i18n/lv"), import("@xiaochuan/ui/i18n/lv")),
+  mk: () => merge(import("@/runtime/i18n/mk"), import("@xiaochuan/ui/i18n/mk")),
+  mn: () => merge(import("@/runtime/i18n/mn"), import("@xiaochuan/ui/i18n/mn")),
+  ms: () => merge(import("@/runtime/i18n/ms"), import("@xiaochuan/ui/i18n/ms")),
+  my: () => merge(import("@/runtime/i18n/my"), import("@xiaochuan/ui/i18n/my")),
+  ne: () => merge(import("@/runtime/i18n/ne"), import("@xiaochuan/ui/i18n/ne")),
+  ro: () => merge(import("@/runtime/i18n/ro"), import("@xiaochuan/ui/i18n/ro")),
+  si: () => merge(import("@/runtime/i18n/si"), import("@xiaochuan/ui/i18n/si")),
+  sk: () => merge(import("@/runtime/i18n/sk"), import("@xiaochuan/ui/i18n/sk")),
+  sl: () => merge(import("@/runtime/i18n/sl"), import("@xiaochuan/ui/i18n/sl")),
+  sq: () => merge(import("@/runtime/i18n/sq"), import("@xiaochuan/ui/i18n/sq")),
+  sr: () => merge(import("@/runtime/i18n/sr"), import("@xiaochuan/ui/i18n/sr")),
+  tg: () => merge(import("@/runtime/i18n/tg"), import("@xiaochuan/ui/i18n/tg")),
+  tk: () => merge(import("@/runtime/i18n/tk"), import("@xiaochuan/ui/i18n/tk")),
+  uz: () => merge(import("@/runtime/i18n/uz"), import("@xiaochuan/ui/i18n/uz")),
 }
 
 function loadDict(locale: Locale) {
@@ -217,7 +217,7 @@ function readStoredLocale() {
   if (typeof localStorage !== "object") return
 
   try {
-    const raw = localStorage.getItem("xccode.global.dat:language")
+    const raw = localStorage.getItem("xiaochuan.global.dat:language")
 
     if (!raw) return
     const next = Schema.decodeUnknownOption(Schema.fromJsonString(StoredLocaleSchema))(raw)

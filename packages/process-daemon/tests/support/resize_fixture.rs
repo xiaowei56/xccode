@@ -5,9 +5,9 @@ use std::thread;
 use std::time::{Duration, Instant};
 
 use nix::sys::termios::{SetArg, cfmakeraw, tcgetattr, tcsetattr};
-use xccode_pty::service::{CreatePty, TerminalId, TerminalService};
+use xiaochuan_pty::service::{CreatePty, TerminalId, TerminalService};
 
-const CHILD: &str = "XCCODE_PTY_RESIZE_TEST_CHILD";
+const CHILD: &str = "XIAOCHUAN_PTY_RESIZE_TEST_CHILD";
 
 pub struct ResizeFixture {
     pub service: TerminalService,

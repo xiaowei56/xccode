@@ -1,14 +1,14 @@
-import { ai } from "@xccode/ai/effect"
-import { LLMClient, RequestExecutor } from "@xccode/ai/route"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { Model } from "@xccode/core/model"
-import { ModelResolver } from "@xccode/core/model-resolver"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { ProviderPlugins } from "@xccode/core/plugin/provider"
-import { PoePlugin } from "@xccode/core/plugin/provider/poe"
-import { Provider } from "@xccode/core/provider"
+import { ai } from "@xiaochuan/ai/effect"
+import { LLMClient, RequestExecutor } from "@xiaochuan/ai/route"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { Model } from "@xiaochuan/core/model"
+import { ModelResolver } from "@xiaochuan/core/model-resolver"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { ProviderPlugins } from "@xiaochuan/core/plugin/provider"
+import { PoePlugin } from "@xiaochuan/core/plugin/provider/poe"
+import { Provider } from "@xiaochuan/core/provider"
 import { expect } from "bun:test"
 import { Clock, Deferred, Effect, Fiber, Layer, Schedule, Stream } from "effect"
 import { TestClock } from "effect/testing"
@@ -42,7 +42,7 @@ const fixture = Effect.gen(function* () {
   })
   yield* providers.transform((editor) => {
     editor.update(providerID, (provider) => {
-      provider.package = "@xccode/ai/providers/openai-compatible"
+      provider.package = "@xiaochuan/ai/providers/openai-compatible"
       provider.settings = { baseURL: "https://api.poe.com/v1" }
     })
     editor.models.update(providerID, modelID, () => {})

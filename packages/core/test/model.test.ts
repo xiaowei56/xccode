@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import { Schema } from "effect"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
 
 const decode = Schema.decodeUnknownSync(Model.Ref)
 

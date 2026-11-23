@@ -1,7 +1,7 @@
 import { For, type JSX } from "solid-js"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Menu } from "@xccode/ui/menu"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Menu } from "@xiaochuan/ui/menu"
 import { useLanguage } from "@/runtime/i18n/language"
 import {
   DEFAULT_RECENT_VIEW,

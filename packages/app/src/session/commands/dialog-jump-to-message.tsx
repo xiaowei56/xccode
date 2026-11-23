@@ -1,5 +1,5 @@
-import type { SessionMessageUser } from "@xccode/client/promise"
-import { useDialog } from "@xccode/ui/context/dialog"
+import type { SessionMessageUser } from "@xiaochuan/client/promise"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
 import { createEffect, createMemo, createSignal, onCleanup } from "solid-js"
 import { readPromptPresentation } from "@/composer/comment-note"
 import { useLanguage } from "@/runtime/i18n/language"

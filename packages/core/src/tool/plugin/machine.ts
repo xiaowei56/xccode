@@ -1,6 +1,6 @@
 export * as MachineTools from "./machine.js"
 
-import type { Context } from "@xccode/plugin/effect/plugin"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
 import { Effect, Schema } from "effect"
 import { Flag } from "../../flag.js"
 import { Machines } from "../../machine/machines.js"
@@ -8,7 +8,7 @@ import { Machines } from "../../machine/machines.js"
 const ListOutput = Schema.Struct({ machines: Schema.Array(Machines.Info) })
 
 export const Plugin = {
-  id: "xccode.tool.machine",
+  id: "xiaochuan.tool.machine",
   effect: Effect.fn("MachineTools.Plugin")(function* (ctx: Context) {
     const machines = yield* Machines.Service
     if (!(yield* Flag.enabled("machines"))) return

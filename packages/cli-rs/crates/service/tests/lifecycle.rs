@@ -1,14 +1,14 @@
 //! Service lifecycle tests share the TypeScript client's fake service and accelerated clock.
 #![cfg(unix)]
 
-use xccode_api::transport::{Reqwest, Transport};
-use xccode_local::paths::Paths;
-use xccode_service::connect::{self, Connection, Env};
-use xccode_service::contender::Delays;
-use xccode_service::ensure::{self, Ensured, Options, Timing};
-use xccode_service::stop::{self, Poll, Pty};
-use xccode_service::ts_command::{TsCommand, write_script};
-use xccode_service::{handoff, standalone};
+use xiaochuan_api::transport::{Reqwest, Transport};
+use xiaochuan_local::paths::Paths;
+use xiaochuan_service::connect::{self, Connection, Env};
+use xiaochuan_service::contender::Delays;
+use xiaochuan_service::ensure::{self, Ensured, Options, Timing};
+use xiaochuan_service::stop::{self, Poll, Pty};
+use xiaochuan_service::ts_command::{TsCommand, write_script};
+use xiaochuan_service::{handoff, standalone};
 use rustix::process::{Pid, Signal, kill_process, test_kill_process};
 use std::ffi::OsString;
 use std::path::{Path, PathBuf};
@@ -25,8 +25,8 @@ fn bun() -> bool {
         Command::new("bun").arg("--version").stdout(Stdio::null()).status().is_ok_and(|status| status.success());
     if !found {
         assert!(
-            std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(),
-            "XCCODE_RS_REQUIRE_TS is set, but skipped: bun is not on PATH"
+            std::env::var_os("XIAOCHUAN_RS_REQUIRE_TS").is_none(),
+            "XIAOCHUAN_RS_REQUIRE_TS is set, but skipped: bun is not on PATH"
         );
         eprintln!("skipped: bun is not on PATH");
     }
@@ -47,7 +47,7 @@ fn fast() -> Timing {
 type Exit = Arc<Mutex<Option<Option<i32>>>>;
 
 struct Fixture {
-    dir: xccode_util::temp::TempDir,
+    dir: xiaochuan_util::temp::TempDir,
     registration: PathBuf,
     // Reaped by a thread each, as Bun reaps its children: the exit code once it exited.
     children: Vec<(u32, Exit)>,
@@ -56,7 +56,7 @@ struct Fixture {
 
 impl Fixture {
     fn new() -> Self {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let registration = dir.path().join("service.json");
         Self { dir, registration, children: Vec::new(), pids: Vec::new() }
     }
@@ -249,11 +249,11 @@ async fn run_reasons(options: &Options) -> (Result<Ensured, ensure::Error>, Vec<
 }
 
 async fn status(url: &str) -> serde_json::Value {
-    let request = xccode_api::transport::http_client()
+    let request = xiaochuan_api::transport::http_client()
         .get(format!("{}/api/info", url.trim_end_matches('/')))
-        .basic_auth("xccode", Some("private"))
+        .basic_auth("xiaochuan", Some("private"))
         .timeout(Duration::from_secs(1));
-    xccode_api::transport::fetch(request).await.unwrap().json().await.unwrap()
+    xiaochuan_api::transport::fetch(request).await.unwrap().json().await.unwrap()
 }
 
 macro_rules! needs_bun {
@@ -354,7 +354,7 @@ async fn adds_configured_environment_variables_when_starting_a_service() {
     needs_bun!();
     let mut fixture = Fixture::new();
     let mut options = fixture.options(fixture.command("environment", &[]));
-    options.env = vec![("XCCODE_SERVICE_ENV_TEST".to_owned(), "configured".to_owned())];
+    options.env = vec![("XIAOCHUAN_SERVICE_ENV_TEST".to_owned(), "configured".to_owned())];
     let ensured = run(&options).await.unwrap();
     fixture.pids.push(fixture.pid());
     assert_eq!(ensured.service.endpoint.url, fixture.info()["url"]);
@@ -514,7 +514,7 @@ async fn stop_refuses_a_registered_pid_that_another_process_reused() {
     file.set_modified(std::time::SystemTime::now() - Duration::from_secs(3600)).unwrap();
     let error = stop::stop(transport(), &fixture.registration, Pty::Clear, fast().stop).await.unwrap_err();
     assert!(other.try_wait().unwrap().is_none(), "the other process was signalled");
-    assert!(error.to_string().contains("is not the Xccode server"), "{error}");
+    assert!(error.to_string().contains("is not the Xiaochuan server"), "{error}");
     assert!(fixture.registration.exists());
     other.kill().unwrap();
     other.wait().unwrap();
@@ -550,9 +550,9 @@ async fn reports_a_contender_that_fails_to_start() {
 #[tokio::test(flavor = "multi_thread")]
 async fn reports_a_missing_typescript_binary_at_once() {
     let fixture = Fixture::new();
-    let error = run(&fixture.options(vec!["/nonexistent/xccode".into()])).await.unwrap_err().to_string();
-    assert!(error.starts_with("Failed to start server: /nonexistent/xccode: "), "{error}");
-    assert!(error.contains("XCCODE_TS_BIN"), "{error}");
+    let error = run(&fixture.options(vec!["/nonexistent/xiaochuan".into()])).await.unwrap_err().to_string();
+    assert!(error.starts_with("Failed to start server: /nonexistent/xiaochuan: "), "{error}");
+    assert!(error.contains("XIAOCHUAN_TS_BIN"), "{error}");
 }
 
 #[tokio::test(flavor = "multi_thread")]
@@ -693,7 +693,7 @@ fn channel_build(fixture: &Fixture, mode: &str) -> (Options, PathBuf, PathBuf) {
     let root = fixture.dir.path();
     let other = root.join("service-oc-y.json");
     let spawns = root.join("spawns");
-    let program = root.join("xccode-ts");
+    let program = root.join("xiaochuan-ts");
     write_script(
         &program,
         &format!(
@@ -777,7 +777,7 @@ async fn a_restart_hands_persistent_terminals_to_the_next_service() {
 
 const STANDALONE: &str = r#"
 const server = Bun.serve({ port: 0, fetch: () => new Response("ok") })
-await Bun.write(process.argv[1], process.env.XCCODE_PASSWORD ?? "")
+await Bun.write(process.argv[1], process.env.XIAOCHUAN_PASSWORD ?? "")
 console.log(JSON.stringify({ url: server.url.toString() }))
 for await (const _ of process.stdin.stream()) {}
 process.exit(0)
@@ -786,14 +786,14 @@ process.exit(0)
 #[tokio::test(flavor = "multi_thread")]
 async fn a_standalone_server_reports_its_url_and_ends_with_its_lease() {
     needs_bun!();
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     let record = dir.path().join("password");
     let command: Vec<OsString> = vec!["bun".into(), "-e".into(), STANDALONE.into(), record.clone().into()];
     let server = standalone::start(&command, dir.path(), false).await.unwrap();
     assert!(server.endpoint.url.starts_with("http://"), "{:?}", server.endpoint);
     let password = std::fs::read_to_string(&record).unwrap();
     assert_eq!(password.len(), 43);
-    assert_eq!(server.endpoint.auth, Some(xccode_api::client::Auth::password(password)));
+    assert_eq!(server.endpoint.auth, Some(xiaochuan_api::client::Auth::password(password)));
     let pid = server.pid;
     drop(server);
     until(|| !alive(pid), "standalone exit").await;
@@ -801,7 +801,7 @@ async fn a_standalone_server_reports_its_url_and_ends_with_its_lease() {
 
 #[tokio::test(flavor = "multi_thread")]
 async fn a_standalone_server_that_exits_early_is_an_error() {
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     let error = standalone::start(&["true".into()], dir.path(), false).await.unwrap_err();
     assert_eq!(error.to_string(), "Standalone server exited before reporting readiness");
 }
@@ -835,11 +835,11 @@ impl Channel {
 fn restarting(channel: &Channel, binary: &str, mode: &str) -> (Env, PathBuf) {
     let root = channel.fixture.dir.path();
     let spawns = root.join("spawns");
-    let program = root.join("xccode-bundled");
+    let program = root.join("xiaochuan-bundled");
     write_script(
         &program,
         &format!(
-            "#!/bin/sh\nif [ \"$1\" = --version ]; then echo xccode v{binary}; exit 0; fi\necho $$ >> {}\nexec bun {} {} {mode}\n",
+            "#!/bin/sh\nif [ \"$1\" = --version ]; then echo xiaochuan v{binary}; exit 0; fi\necho $$ >> {}\nexec bun {} {} {mode}\n",
             spawns.display(),
             fixture_script().display(),
             channel.fixture.registration.display()
@@ -906,13 +906,13 @@ async fn connect_never_restarts_through_the_binary_the_service_runs() {
     needs_bun!();
     let mut channel = Channel::new();
     let root = channel.fixture.dir.path().to_owned();
-    let wrapper = root.join("xccode.ts");
+    let wrapper = root.join("xiaochuan.ts");
     let script = format!(
         "if (process.argv[2] === \"--version\") await new Promise(() => {{}})\nawait import({:?})\n",
         fixture_script()
     );
     std::fs::write(&wrapper, script).unwrap();
-    let binary = root.join("xccode-ts");
+    let binary = root.join("xiaochuan-ts");
     let mut build = Command::new("bun");
     build.arg("build").arg("--compile").arg(&wrapper).arg("--outfile").arg(&binary).stdout(Stdio::null());
     assert!(build.status().unwrap().success());

@@ -2,12 +2,12 @@
 
 use futures_util::FutureExt;
 use futures_util::future::BoxFuture;
-use xccode_api::generated::{SessionBackgroundInput, SessionInboxDelivery, SessionInfo, SessionInterruptInput};
-use xccode_local::cli_config::Permissions;
-use xccode_local::jsonl::empty_prompt;
-use xccode_store::SessionStatus;
-use xccode_store::location::Location;
-use xccode_ui::motion::{ScannerOptions, ScannerStyle, Spinner, SpinnerColor, scanner_colors, scanner_frames};
+use xiaochuan_api::generated::{SessionBackgroundInput, SessionInboxDelivery, SessionInfo, SessionInterruptInput};
+use xiaochuan_local::cli_config::Permissions;
+use xiaochuan_local::jsonl::empty_prompt;
+use xiaochuan_store::SessionStatus;
+use xiaochuan_store::location::Location;
+use xiaochuan_ui::motion::{ScannerOptions, ScannerStyle, Spinner, SpinnerColor, scanner_colors, scanner_frames};
 use opentui::input::Keymap;
 use std::cell::OnceCell;
 use std::path::PathBuf;
@@ -148,7 +148,7 @@ pub struct Inner {
     footer_row: View,
     location_box: View,
     location_width: Cell<u16>,
-    footer_slots: RefCell<(Option<xccode_plugin::SlotInput>, Vec<xccode_plugin::SlotMount>)>,
+    footer_slots: RefCell<(Option<xiaochuan_plugin::SlotInput>, Vec<xiaochuan_plugin::SlotMount>)>,
     hovered: Cell<bool>,
     running: View,
     /// The session ran at the last refresh; the keymap conditions read it, as they must not lock the store.
@@ -333,7 +333,7 @@ pub fn mount(tui: &Tui, session: Option<&SessionID>) -> Prompt {
         .child(&edge);
     let running = View::new(app).margin_edge(Edge::Left, 1).shrink(0.0).visible(false);
     let footer = Text::new(app, "").truncate(true).wrap(WrapMode::None);
-    let staging = super::r#move::Move::new(app, xccode_ui::motion::enabled(tui.config().info.animations));
+    let staging = super::r#move::Move::new(app, xiaochuan_ui::motion::enabled(tui.config().info.animations));
     let editor_file = Text::new(app, "").truncate(true).wrap(WrapMode::None).shrink(1.0);
     let location_box = View::new(app)
         .row()
@@ -440,7 +440,7 @@ pub fn mount(tui: &Tui, session: Option<&SessionID>) -> Prompt {
     let settings = tui.settings.subscribe(bind!(inner, |inner, tui| {
         let cursor = crate::features::system_commands::cursor(&tui.config());
         inner.textarea.cursor_style(cursor.0, cursor.1);
-        inner.staging.set_animations(xccode_ui::motion::enabled(tui.config().info.animations));
+        inner.staging.set_animations(xiaochuan_ui::motion::enabled(tui.config().info.animations));
         inner.relayout(tui);
     }));
     inner.layers.borrow_mut().push(settings);
@@ -533,7 +533,7 @@ impl Inner {
     }
 
     pub(crate) fn text_end(&self) -> u32 {
-        xccode_ui::prompt_input::end(&self.textarea)
+        xiaochuan_ui::prompt_input::end(&self.textarea)
     }
 
     pub(crate) fn shown(&self) -> bool {
@@ -651,7 +651,7 @@ impl Inner {
             (Some(catalog), Some(selection)) => {
                 let (model, provider) = catalog.labels(selection.model.as_ref());
                 Display {
-                    agent: Some(xccode_ui::tool_info::titlecase(selection.agent.id.as_str())),
+                    agent: Some(xiaochuan_ui::tool_info::titlecase(selection.agent.id.as_str())),
                     auto: tui.config().permissions == Permissions::Autoaccept,
                     model,
                     provider,
@@ -667,7 +667,7 @@ impl Inner {
         };
         // Tinting produces an opaque border, even when the source token has alpha.
         let border =
-            xccode_ui::theme::tint(theme.border.base, highlight, if display.agent.is_some() { 1.0 } else { 0.0 });
+            xiaochuan_ui::theme::tint(theme.border.base, highlight, if display.agent.is_some() { 1.0 } else { 0.0 });
         self.frame.border_color(border);
         self.bottom.border_color(border);
         self.metadata.set(&theme, mode, &display, highlight, self.app.size().0);
@@ -690,8 +690,8 @@ impl Inner {
             };
             vec!["esc ".fg(key), (if armed { "again to interrupt" } else { "interrupt" }).fg(label)]
         } else {
-            let home = xccode_local::paths::home();
-            let directory = xccode_ui::path::abbreviate_home(&self.location(tui).directory, &home);
+            let home = xiaochuan_local::paths::home();
+            let directory = xiaochuan_ui::path::abbreviate_home(&self.location(tui).directory, &home);
             let branch = catalog.as_ref().and_then(|catalog| catalog.branch.as_ref());
             let label = match branch {
                 Some(branch) => format!("{directory}:{branch}"),
@@ -709,7 +709,7 @@ impl Inner {
             .filter(|_| state != LabelState::None)
             .map(|selection| {
                 let width = (self.app.size().0 / 3).clamp(12, 48) as usize;
-                xccode_ui::select::truncate_middle(&selection.label(), width)
+                xiaochuan_ui::select::truncate_middle(&selection.label(), width)
             })
             .unwrap_or_default();
         let color = if state == LabelState::Pending { theme.accent().step(500) } else { theme.text.muted };
@@ -749,7 +749,7 @@ impl Inner {
             }
             return;
         }
-        let animations = xccode_ui::motion::enabled(tui.config().info.animations);
+        let animations = xiaochuan_ui::motion::enabled(tui.config().info.animations);
         let color = if animations { scanner_colors(&scanner(color)) } else { SpinnerColor::from(theme.text.muted) };
         if let Some(spinner) = spinner.as_ref() {
             spinner.set_animations(animations);
@@ -775,13 +775,13 @@ impl Inner {
     }
 
     fn mount_footer(&self, tui: &Tui) {
-        let input = xccode_plugin::SlotInput {
+        let input = xiaochuan_plugin::SlotInput {
             session_id: self.session.as_ref().map(|session| session.0.clone()),
-            prompt: Some(xccode_plugin::slot::PromptFooter {
+            prompt: Some(xiaochuan_plugin::slot::PromptFooter {
                 shell: self.mode.get() == Mode::Shell,
                 show_details: self.interrupt.get() == 0 || self.app.size().0 >= 80,
             }),
-            ..xccode_plugin::SlotInput::default()
+            ..xiaochuan_plugin::SlotInput::default()
         };
         let mut slots = self.footer_slots.borrow_mut();
         if slots.0.as_ref() == Some(&input) {
@@ -792,12 +792,12 @@ impl Inner {
         self.footer_row.clear();
         let row = &self.footer_row;
         let mut mounts = Vec::new();
-        let footer = crate::plugins::host::slot(tui, row, xccode_plugin::slot::PROMPT_FOOTER, &input, |row| {
+        let footer = crate::plugins::host::slot(tui, row, xiaochuan_plugin::slot::PROMPT_FOOTER, &input, |row| {
             let status =
-                crate::plugins::host::slot(tui, row, xccode_plugin::slot::PROMPT_FOOTER_STATUS, &input, |row| {
+                crate::plugins::host::slot(tui, row, xiaochuan_plugin::slot::PROMPT_FOOTER_STATUS, &input, |row| {
                     row.add(&self.location_box);
                 });
-            let file = crate::plugins::host::slot(tui, row, xccode_plugin::slot::PROMPT_FOOTER_FILE, &input, |row| {
+            let file = crate::plugins::host::slot(tui, row, xiaochuan_plugin::slot::PROMPT_FOOTER_FILE, &input, |row| {
                 row.add(&self.editor_file);
             });
             mounts.push(status);
@@ -879,7 +879,7 @@ fn connect_location(inner: &Rc<Inner>) {
     inner.footer.on_hover(bind!(inner, |prompt, _, hovered| {
         prompt.hovered.set(hovered);
         if let Some(tui) = prompt.tui.upgrade() {
-            prompt.footer.mouse_pointer(xccode_ui::click_pointer(!prompt.running(&tui)));
+            prompt.footer.mouse_pointer(xiaochuan_ui::click_pointer(!prompt.running(&tui)));
             prompt.refresh(&tui);
         }
     }));

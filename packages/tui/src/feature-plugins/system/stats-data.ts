@@ -1,5 +1,5 @@
-import type { SessionStatsInfo } from "@xccode/client"
-import { TokenUsage } from "@xccode/schema/token-usage"
+import type { SessionStatsInfo } from "@xiaochuan/client"
+import { TokenUsage } from "@xiaochuan/schema/token-usage"
 
 export function statsMetrics(stats: SessionStatsInfo) {
   return [

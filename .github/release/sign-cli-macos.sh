@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # sign-cli-macos.sh <build-npm dir> <out dir>: signs the three macOS CLI binaries inside their npm tarballs with
-# the Developer ID in build.keychain, then writes the re-packed tarballs and the xccode-<target>.zip archives.
+# the Developer ID in build.keychain, then writes the re-packed tarballs and the xiaochuan-<target>.zip archives.
 # Dry runs sign ad-hoc.
 . "$(dirname "$0")/lib.sh"
 
@@ -16,13 +16,13 @@ fi
 export COPYFILE_DISABLE=1
 for target in darwin-arm64 darwin-x64 darwin-x64-baseline; do
   work=$(mktemp -d)
-  tar -xzf "$in/xccode-cli-$target-$XCCODE_VERSION.tgz" -C "$work"
-  bin="$work/package/bin/xccode"
+  tar -xzf "$in/xiaochuan-cli-$target-$XIAOCHUAN_VERSION.tgz" -C "$work"
+  bin="$work/package/bin/xiaochuan"
   file -b "$bin" | grep -q '^Mach-O' || die "$target is not a Mach-O binary"
   chmod 755 "$bin"
   codesign --force "$timestamp" --options runtime --entitlements "$release_dir/entitlements/cli.plist" --sign "$identity" "$bin"
   codesign --verify --strict --verbose=2 "$bin"
-  tar --no-mac-metadata -czf "$out/xccode-cli-$target-$XCCODE_VERSION.tgz" -C "$work" package
+  tar --no-mac-metadata -czf "$out/xiaochuan-cli-$target-$XIAOCHUAN_VERSION.tgz" -C "$work" package
   touch -t 198001010000 "$bin"
-  (cd "$work/package/bin" && zip -X -q "$out/xccode-$target.zip" xccode)
+  (cd "$work/package/bin" && zip -X -q "$out/xiaochuan-$target.zip" xiaochuan)
 done

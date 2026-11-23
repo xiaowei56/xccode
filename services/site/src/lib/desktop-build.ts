@@ -16,30 +16,30 @@ export function desktopOS(platform: Platform | undefined): OS {
 
 /** Each desktop build's file in the update API's release metadata. */
 export const desktopAssets = {
-  "darwin-aarch64-dmg": "xccode-desktop-mac-arm64.dmg",
-  "darwin-x64-dmg": "xccode-desktop-mac-x64.dmg",
-  "windows-aarch64-nsis": "xccode-desktop-win-arm64.exe",
-  "windows-x64-nsis": "xccode-desktop-win-x64.exe",
-  "linux-x64-deb": "xccode-desktop-linux-amd64.deb",
-  "linux-aarch64-deb": "xccode-desktop-linux-arm64.deb",
-  "linux-x64-rpm": "xccode-desktop-linux-x86_64.rpm",
-  "linux-aarch64-rpm": "xccode-desktop-linux-aarch64.rpm",
-  "linux-x64-appimage": "xccode-desktop-linux-x86_64.AppImage",
-  "linux-aarch64-appimage": "xccode-desktop-linux-arm64.AppImage",
+  "darwin-aarch64-dmg": "xiaochuan-desktop-mac-arm64.dmg",
+  "darwin-x64-dmg": "xiaochuan-desktop-mac-x64.dmg",
+  "windows-aarch64-nsis": "xiaochuan-desktop-win-arm64.exe",
+  "windows-x64-nsis": "xiaochuan-desktop-win-x64.exe",
+  "linux-x64-deb": "xiaochuan-desktop-linux-amd64.deb",
+  "linux-aarch64-deb": "xiaochuan-desktop-linux-arm64.deb",
+  "linux-x64-rpm": "xiaochuan-desktop-linux-x86_64.rpm",
+  "linux-aarch64-rpm": "xiaochuan-desktop-linux-aarch64.rpm",
+  "linux-x64-appimage": "xiaochuan-desktop-linux-x86_64.AppImage",
+  "linux-aarch64-appimage": "xiaochuan-desktop-linux-arm64.AppImage",
 } as const satisfies Record<DownloadPlatform, string>
 
 /**
  * The update API (services/update). Always production's: there is one release service, and it has
- * no route on dev.xccode.ai.
+ * no route on dev.xiaochuan.ai.
  */
-export const updateApi = "https://xccode.ai/update/api"
+export const updateApi = "https://xiaochuan.ai/update/api"
 
 /**
  * A desktop build's download: the update API answers it with a 302 to the file in the files bucket.
  * Absolute, so never pass it through `route()`.
  */
 export function getDownloadHref(platform: DownloadPlatform, channel: "latest" | "beta" = "latest") {
-  return `${updateApi}/${channel}/desktop/xccode/${desktopAssets[platform]}`
+  return `${updateApi}/${channel}/desktop/xiaochuan/${desktopAssets[platform]}`
 }
 
 /**

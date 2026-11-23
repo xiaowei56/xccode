@@ -1,4 +1,4 @@
-import { base64Encode } from "@xccode/util/encode"
+import { base64Encode } from "@xiaochuan/util/encode"
 import type { Page } from "@playwright/test"
 
 /**
@@ -14,7 +14,7 @@ export function installTabs(
       const tabs: object[] = sessions.map((sessionId) => ({ type: "session", server, dirBase64, sessionId }))
 
       if (draft) tabs.push({ type: "draft", draftID: draft, server, directory })
-      localStorage.setItem("xccode.window.browser.dat:tabs", JSON.stringify(tabs))
+      localStorage.setItem("xiaochuan.window.browser.dat:tabs", JSON.stringify(tabs))
     },
     { ...input, dirBase64: base64Encode(input.directory) },
   )

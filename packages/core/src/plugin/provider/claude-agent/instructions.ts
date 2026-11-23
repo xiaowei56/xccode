@@ -1,7 +1,7 @@
 export * as ClaudeInstructions from "./instructions.js"
 
-import type { SystemPart } from "@xccode/ai/effect"
-import type { Context } from "@xccode/plugin/effect/plugin"
+import type { SystemPart } from "@xiaochuan/ai/effect"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
 import { Effect, Option, Schema } from "effect"
 import { ClaudeSystemPrompt } from "./language-model/system-prompt.js"
 import { ClaudeProvider } from "./provider.js"
@@ -14,7 +14,7 @@ const InstructionsMetadata = Schema.Struct({
   }),
 })
 
-// Claude Code writes its own date and environment, so Xccode's would repeat them.
+// Claude Code writes its own date and environment, so Xiaochuan's would repeat them.
 const SUPPLIED_BY_CLAUDE = new Set(["core/date", "core/environment"])
 
 export const register = Effect.fn("ClaudeInstructions.register")(function* (ctx: Context) {
@@ -36,7 +36,7 @@ export const register = Effect.fn("ClaudeInstructions.register")(function* (ctx:
   )
 })
 
-// The first part is Xccode's own prompt, which Claude Code's prompt replaces.
+// The first part is Xiaochuan's own prompt, which Claude Code's prompt replaces.
 function instructions(system: ReadonlyArray<SystemPart>) {
   const texts: string[] = []
   for (const part of system.slice(1)) {

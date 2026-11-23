@@ -3,7 +3,7 @@ import { evaluatePluginBundle, inertModule, pluginIdAvailable, type InertModule 
 import { Contract } from "../src/gui/core"
 import { define } from "../src/gui/plugin"
 
-const modules = new Map<string, object>([["@xccode/plugin/gui", { Contract, Plugin: { define } }]])
+const modules = new Map<string, object>([["@xiaochuan/plugin/gui", { Contract, Plugin: { define } }]])
 
 const evaluate = (code: string, process: "window" | "main" = "window") =>
   evaluatePluginBundle(code, {
@@ -13,7 +13,7 @@ const evaluate = (code: string, process: "window" | "main" = "window") =>
 
       if (module) return module
 
-      if (name === "@xccode/plugin/gui/review") return inertModule(name)
+      if (name === "@xiaochuan/plugin/gui/review") return inertModule(name)
 
       throw new Error(`not shared: ${name}`)
     },
@@ -22,7 +22,7 @@ const evaluate = (code: string, process: "window" | "main" = "window") =>
 describe("plugin GUI bundles", () => {
   test("read the default export's declarations and setups", () => {
     const bundle = evaluate(`
-      const sdk = require("@xccode/plugin/gui")
+      const sdk = require("@xiaochuan/plugin/gui")
       exports.default = sdk.Plugin.define({
         os: ["macos"],
         i18n: { fr: { title: "Notes" } },
@@ -40,7 +40,7 @@ describe("plugin GUI bundles", () => {
 
   test("load in main when they import a window-only module, which main gets as a placeholder", () => {
     const code = `
-      const review = require("@xccode/plugin/gui/review")
+      const review = require("@xiaochuan/plugin/gui/review")
       exports.default = { setup: () => void review.Changes, main() {} }
     `
 
@@ -108,9 +108,9 @@ test.each([
   ["file", false],
   ["file.extra", false],
   ["tools", false],
-  ["xccode", false],
-  ["xccode.acme", false],
-  ["xccode-acme", true],
+  ["xiaochuan", false],
+  ["xiaochuan.acme", false],
+  ["xiaochuan-acme", true],
 ])("a plugin GUI may take the id %s: %s", (id, available) => {
   const builtins = [{ id: "file" }, { id: "tools.git" }]
 

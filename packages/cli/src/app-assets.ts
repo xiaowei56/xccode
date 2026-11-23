@@ -3,23 +3,23 @@ import { readFileSync } from "node:fs"
 import path from "node:path"
 import { brotliDecompressSync } from "node:zlib"
 import { AppArchive } from "./app-archive"
-import { XCCODE_LOCAL } from "./version"
+import { XIAOCHUAN_LOCAL } from "./version"
 
 export type AssetMap = Readonly<Record<string, string | Uint8Array>>
 /** Each asset's brotli-compressed bytes, when the build embedded them. */
 export type BrotliMap = Readonly<Record<string, Uint8Array>>
 
 export const load = Effect.fn("cli.app-assets.load")(function* () {
-  const embedded = yield* Effect.tryPromise(() => import("virtual:xccode-app-assets")).pipe(
+  const embedded = yield* Effect.tryPromise(() => import("virtual:xiaochuan-app-assets")).pipe(
     Effect.map((module) => AppArchive.decode(module.default())),
     Effect.option,
   )
-  if (Option.isSome(embedded) && (Object.keys(embedded.value).length > 0 || !XCCODE_LOCAL))
+  if (Option.isSome(embedded) && (Object.keys(embedded.value).length > 0 || !XIAOCHUAN_LOCAL))
     return {
       files: lazy(embedded.value, (key) => brotliDecompressSync(embedded.value[key]!)),
       brotli: embedded.value,
     }
-  if (!XCCODE_LOCAL) return yield* Effect.fail(new Error("Web UI assets are missing from the CLI build"))
+  if (!XIAOCHUAN_LOCAL) return yield* Effect.fail(new Error("Web UI assets are missing from the CLI build"))
   return { files: yield* sourceAssets(), brotli: undefined }
 })
 

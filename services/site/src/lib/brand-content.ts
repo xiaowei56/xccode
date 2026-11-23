@@ -4,36 +4,36 @@ import { absoluteUrl, blocks, link, type MarkdownContext } from "~/lib/markdown"
 import { brandAssets, mediaUrl } from "~/lib/media"
 // Brand files at stable public URLs (public/brand/files), so links in /brand.md and the page never
 // change between builds. The sources stay in src/asset/brand.
-const logoLightPng = "/brand/files/xccode-logo-light.png"
-const logoDarkPng = "/brand/files/xccode-logo-dark.png"
-const logoLightSquarePng = "/brand/files/xccode-logo-light-square.png"
-const logoDarkSquarePng = "/brand/files/xccode-logo-dark-square.png"
-const wordmarkLightPng = "/brand/files/xccode-wordmark-light.png"
-const wordmarkDarkPng = "/brand/files/xccode-wordmark-dark.png"
-const wordmarkSimpleLightPng = "/brand/files/xccode-wordmark-simple-light.png"
-const wordmarkSimpleDarkPng = "/brand/files/xccode-wordmark-simple-dark.png"
-const logoLightSvg = "/brand/files/xccode-logo-light.svg"
-const logoDarkSvg = "/brand/files/xccode-logo-dark.svg"
-const logoLightSquareSvg = "/brand/files/xccode-logo-light-square.svg"
-const logoDarkSquareSvg = "/brand/files/xccode-logo-dark-square.svg"
-const wordmarkLightSvg = "/brand/files/xccode-wordmark-light.svg"
-const wordmarkDarkSvg = "/brand/files/xccode-wordmark-dark.svg"
-const wordmarkSimpleLightSvg = "/brand/files/xccode-wordmark-simple-light.svg"
-const wordmarkSimpleDarkSvg = "/brand/files/xccode-wordmark-simple-dark.svg"
-const logoTransparentLightPng = "/brand/files/xccode-logo-transparent-light.png"
-const logoTransparentDarkPng = "/brand/files/xccode-logo-transparent-dark.png"
-const wordmarkTransparentLightPng = "/brand/files/xccode-wordmark-transparent-light.png"
-const wordmarkTransparentDarkPng = "/brand/files/xccode-wordmark-transparent-dark.png"
-const wordmarkSolidLightPng = "/brand/files/xccode-wordmark-solid-light.png"
-const wordmarkSolidDarkPng = "/brand/files/xccode-wordmark-solid-dark.png"
-const logoTransparentLightSvg = "/brand/files/xccode-logo-transparent-light.svg"
-const logoTransparentDarkSvg = "/brand/files/xccode-logo-transparent-dark.svg"
-const wordmarkTransparentLightSvg = "/brand/files/xccode-wordmark-transparent-light.svg"
-const wordmarkTransparentDarkSvg = "/brand/files/xccode-wordmark-transparent-dark.svg"
-const wordmarkSolidLightSvg = "/brand/files/xccode-wordmark-solid-light.svg"
-const wordmarkSolidDarkSvg = "/brand/files/xccode-wordmark-solid-dark.svg"
-const avatarDark1024Png = "/brand/files/xccode-avatar-dark-1024.png"
-const avatarLight1024Png = "/brand/files/xccode-avatar-light-1024.png"
+const logoLightPng = "/brand/files/xiaochuan-logo-light.png"
+const logoDarkPng = "/brand/files/xiaochuan-logo-dark.png"
+const logoLightSquarePng = "/brand/files/xiaochuan-logo-light-square.png"
+const logoDarkSquarePng = "/brand/files/xiaochuan-logo-dark-square.png"
+const wordmarkLightPng = "/brand/files/xiaochuan-wordmark-light.png"
+const wordmarkDarkPng = "/brand/files/xiaochuan-wordmark-dark.png"
+const wordmarkSimpleLightPng = "/brand/files/xiaochuan-wordmark-simple-light.png"
+const wordmarkSimpleDarkPng = "/brand/files/xiaochuan-wordmark-simple-dark.png"
+const logoLightSvg = "/brand/files/xiaochuan-logo-light.svg"
+const logoDarkSvg = "/brand/files/xiaochuan-logo-dark.svg"
+const logoLightSquareSvg = "/brand/files/xiaochuan-logo-light-square.svg"
+const logoDarkSquareSvg = "/brand/files/xiaochuan-logo-dark-square.svg"
+const wordmarkLightSvg = "/brand/files/xiaochuan-wordmark-light.svg"
+const wordmarkDarkSvg = "/brand/files/xiaochuan-wordmark-dark.svg"
+const wordmarkSimpleLightSvg = "/brand/files/xiaochuan-wordmark-simple-light.svg"
+const wordmarkSimpleDarkSvg = "/brand/files/xiaochuan-wordmark-simple-dark.svg"
+const logoTransparentLightPng = "/brand/files/xiaochuan-logo-transparent-light.png"
+const logoTransparentDarkPng = "/brand/files/xiaochuan-logo-transparent-dark.png"
+const wordmarkTransparentLightPng = "/brand/files/xiaochuan-wordmark-transparent-light.png"
+const wordmarkTransparentDarkPng = "/brand/files/xiaochuan-wordmark-transparent-dark.png"
+const wordmarkSolidLightPng = "/brand/files/xiaochuan-wordmark-solid-light.png"
+const wordmarkSolidDarkPng = "/brand/files/xiaochuan-wordmark-solid-dark.png"
+const logoTransparentLightSvg = "/brand/files/xiaochuan-logo-transparent-light.svg"
+const logoTransparentDarkSvg = "/brand/files/xiaochuan-logo-transparent-dark.svg"
+const wordmarkTransparentLightSvg = "/brand/files/xiaochuan-wordmark-transparent-light.svg"
+const wordmarkTransparentDarkSvg = "/brand/files/xiaochuan-wordmark-transparent-dark.svg"
+const wordmarkSolidLightSvg = "/brand/files/xiaochuan-wordmark-solid-light.svg"
+const wordmarkSolidDarkSvg = "/brand/files/xiaochuan-wordmark-solid-dark.svg"
+const avatarDark1024Png = "/brand/files/xiaochuan-avatar-dark-1024.png"
+const avatarLight1024Png = "/brand/files/xiaochuan-avatar-light-1024.png"
 
 /** The brand page copy, shared by the page and its Markdown version. */
 export function brandContent(t: Translate) {
@@ -52,9 +52,9 @@ export function brandContent(t: Translate) {
     },
     naming: {
       title: "Naming",
-      body: "Write Xccode as one word, with a capital O and a capital C. Do not write Xccode, Open Code, Xccode AI or Open-Code.",
+      body: "Write Xiaochuan as one word, with a capital O and a capital C. Do not write Xiaochuan, Open Code, Xiaochuan AI or Open-Code.",
       // Names between backticks show as code.
-      code: "Use the lowercase `xccode` only in code and package names, such as `xccode-figma` or `@acme/xccode-plugin`.",
+      code: "Use the lowercase `xiaochuan` only in code and package names, such as `xiaochuan-figma` or `@acme/xiaochuan-plugin`.",
     },
     families: [
       {
@@ -62,18 +62,18 @@ export function brandContent(t: Translate) {
         body: "The logo on its own, for app icons, avatars and other small spaces. The square versions add padding for places that crop to a square.",
         kind: "logo",
         assets: [
-          { name: "Light", file: "xccode-logo-light", tone: "light", png: logoLightPng, svg: logoLightSvg },
-          { name: "Dark", file: "xccode-logo-dark", tone: "dark", png: logoDarkPng, svg: logoDarkSvg },
+          { name: "Light", file: "xiaochuan-logo-light", tone: "light", png: logoLightPng, svg: logoLightSvg },
+          { name: "Dark", file: "xiaochuan-logo-dark", tone: "dark", png: logoDarkPng, svg: logoDarkSvg },
           {
             name: "Square, light",
-            file: "xccode-logo-light-square",
+            file: "xiaochuan-logo-light-square",
             tone: "light",
             png: logoLightSquarePng,
             svg: logoLightSquareSvg,
           },
           {
             name: "Square, dark",
-            file: "xccode-logo-dark-square",
+            file: "xiaochuan-logo-dark-square",
             tone: "dark",
             png: logoDarkSquarePng,
             svg: logoDarkSquareSvg,
@@ -82,17 +82,17 @@ export function brandContent(t: Translate) {
       },
       {
         title: "Wordmark",
-        body: "The full name in the Xccode letterforms. Use it wherever there is room to spell out the name.",
+        body: "The full name in the Xiaochuan letterforms. Use it wherever there is room to spell out the name.",
         kind: "wordmark",
         assets: [
           {
             name: "Light",
-            file: "xccode-wordmark-light",
+            file: "xiaochuan-wordmark-light",
             tone: "light",
             png: wordmarkLightPng,
             svg: wordmarkLightSvg,
           },
-          { name: "Dark", file: "xccode-wordmark-dark", tone: "dark", png: wordmarkDarkPng, svg: wordmarkDarkSvg },
+          { name: "Dark", file: "xiaochuan-wordmark-dark", tone: "dark", png: wordmarkDarkPng, svg: wordmarkDarkSvg },
         ],
       },
       {
@@ -102,14 +102,14 @@ export function brandContent(t: Translate) {
         assets: [
           {
             name: "Light",
-            file: "xccode-wordmark-simple-light",
+            file: "xiaochuan-wordmark-simple-light",
             tone: "light",
             png: wordmarkSimpleLightPng,
             svg: wordmarkSimpleLightSvg,
           },
           {
             name: "Dark",
-            file: "xccode-wordmark-simple-dark",
+            file: "xiaochuan-wordmark-simple-dark",
             tone: "dark",
             png: wordmarkSimpleDarkPng,
             svg: wordmarkSimpleDarkSvg,
@@ -124,14 +124,14 @@ export function brandContent(t: Translate) {
         {
           name: "Dark",
           tone: "light",
-          file: "xccode-avatar-dark",
+          file: "xiaochuan-avatar-dark",
           png: avatarDark1024Png,
           kind: "avatar",
         },
         {
           name: "Light",
           tone: "dark",
-          file: "xccode-avatar-light",
+          file: "xiaochuan-avatar-light",
           png: avatarLight1024Png,
           kind: "avatar",
         },
@@ -177,11 +177,11 @@ export function brandContent(t: Translate) {
                 tile(
                   "Dark",
                   "light",
-                  "xccode-logo-transparent-light",
+                  "xiaochuan-logo-transparent-light",
                   logoTransparentLightPng,
                   logoTransparentLightSvg,
                 ),
-                tile("Light", "dark", "xccode-logo-transparent-dark", logoTransparentDarkPng, logoTransparentDarkSvg),
+                tile("Light", "dark", "xiaochuan-logo-transparent-dark", logoTransparentDarkPng, logoTransparentDarkSvg),
               ],
             },
             {
@@ -190,14 +190,14 @@ export function brandContent(t: Translate) {
                 tile(
                   "Dark",
                   "light",
-                  "xccode-wordmark-transparent-light",
+                  "xiaochuan-wordmark-transparent-light",
                   wordmarkTransparentLightPng,
                   wordmarkTransparentLightSvg,
                 ),
                 tile(
                   "Light",
                   "dark",
-                  "xccode-wordmark-transparent-dark",
+                  "xiaochuan-wordmark-transparent-dark",
                   wordmarkTransparentDarkPng,
                   wordmarkTransparentDarkSvg,
                 ),
@@ -213,8 +213,8 @@ export function brandContent(t: Translate) {
             {
               title: "Wordmark",
               tiles: [
-                tile("Dark", "light", "xccode-wordmark-solid-light", wordmarkSolidLightPng, wordmarkSolidLightSvg),
-                tile("Light", "dark", "xccode-wordmark-solid-dark", wordmarkSolidDarkPng, wordmarkSolidDarkSvg),
+                tile("Dark", "light", "xiaochuan-wordmark-solid-light", wordmarkSolidLightPng, wordmarkSolidLightSvg),
+                tile("Light", "dark", "xiaochuan-wordmark-solid-dark", wordmarkSolidDarkPng, wordmarkSolidDarkSvg),
               ],
             },
           ],
@@ -300,23 +300,23 @@ export function brandContent(t: Translate) {
     },
     integrations: {
       title: "Integrations",
-      body: "Plugins, providers and tools that work with Xccode, and projects built with it, can say so. Use a badge or a partner lockup, and name your project so it is clear that it is yours.",
+      body: "Plugins, providers and tools that work with Xiaochuan, and projects built with it, can say so. Use a badge or a partner lockup, and name your project so it is clear that it is yours.",
       badges: {
-        body: "Put a badge in your README, docs or website and link it to xccode.ai. Pick the light or dark file for your background (the HTML switches by itself), and do not change the colors or the text.",
+        body: "Put a badge in your README, docs or website and link it to xiaochuan.ai. Pick the light or dark file for your background (the HTML switches by itself), and do not change the colors or the text.",
         sizes: "Every style comes in 20, 32 and 44px (Shields only in 20px), as SVG and as PNG at 2×.",
-        mono: "Each file also comes with OpenTUI Mono text. Add -mono before the extension, as in xccode-works-with-a-light-20-mono.svg, or -mono-caps for uppercase OpenTUI Mono.",
+        mono: "Each file also comes with OpenTUI Mono text. Add -mono before the extension, as in xiaochuan-works-with-a-light-20-mono.svg, or -mono-caps for uppercase OpenTUI Mono.",
         groups: [
           {
             label: "works-with",
             title: "Works with",
-            alt: "Works with Xccode",
-            body: "For plugins, providers and tools that run with Xccode.",
+            alt: "Works with Xiaochuan",
+            body: "For plugins, providers and tools that run with Xiaochuan.",
           },
           {
             label: "built-with",
             title: "Built with",
-            alt: "Built with Xccode",
-            body: "For projects made with Xccode.",
+            alt: "Built with Xiaochuan",
+            body: "For projects made with Xiaochuan.",
           },
         ],
         // The styles David picked from the badge options (A, C, F, G); G is shields.io "flat", 20px only.
@@ -329,19 +329,19 @@ export function brandContent(t: Translate) {
       },
       lockup: {
         title: "Partner lockup",
-        body: "Put the Xccode logo and the partner logo side by side, with a × between them. Leave 3 strokes of space on each side of the ×, size the partner logo to look as tall as the Xccode logo, and keep clear space around the whole lockup.",
+        body: "Put the Xiaochuan logo and the partner logo side by side, with a × between them. Leave 3 strokes of space on each side of the ×, size the partner logo to look as tall as the Xiaochuan logo, and keep clear space around the whole lockup.",
         partners: [{ name: "GitHub", tones: ["light", "dark"] }],
       },
       naming: {
         title: "Naming your project",
         body: "Lead with your own name, so it is clear that the project is yours.",
         // Names between backticks show as code.
-        rule: "Write `Linear for Xccode` or name the package `xccode-linear`. Do not write `Xccode Linear` or `Linear by Xccode`.",
+        rule: "Write `Linear for Xiaochuan` or name the package `xiaochuan-linear`. Do not write `Xiaochuan Linear` or `Linear by Xiaochuan`.",
       },
     },
     trademarks: {
       title: "Trademarks",
-      body: "Xccode and the Xccode logo are trademarks of Anomaly. Do not use them to suggest that Anomaly endorses or sponsors you, in your product or company name, or on merchandise without permission.",
+      body: "Xiaochuan and the Xiaochuan logo are trademarks of Anomaly. Do not use them to suggest that Anomaly endorses or sponsors you, in your product or company name, or on merchandise without permission.",
       contact: { before: "For questions, email ", email: pressEmail, after: "." },
     },
   }
@@ -384,7 +384,7 @@ export function badgeFile(
   extension: "svg" | "png",
   font: BadgeFont = "sans",
 ) {
-  return `/brand/badges/xccode-${label}-${style}-${theme}-${size}${fontSuffix(font)}.${extension}`
+  return `/brand/badges/xiaochuan-${label}-${style}-${theme}-${size}${fontSuffix(font)}.${extension}`
 }
 
 /**
@@ -393,11 +393,11 @@ export function badgeFile(
  */
 export function badgeZip(label: string, style?: string, font: BadgeFont = "sans", theme?: string) {
   return mediaUrl(
-    `/brand/badges/xccode-${label}${style ? `-${style}` : ""}${theme ? `-${theme}` : ""}${fontSuffix(font)}.zip`,
+    `/brand/badges/xiaochuan-${label}${style ? `-${style}` : ""}${theme ? `-${theme}` : ""}${fontSuffix(font)}.zip`,
   )
 }
 
-/** The Markdown for a README: one badge (light by default), linked to xccode.ai. */
+/** The Markdown for a README: one badge (light by default), linked to xiaochuan.ai. */
 export function badgeMarkdown(
   label: string,
   alt: string,
@@ -406,13 +406,13 @@ export function badgeMarkdown(
   font: BadgeFont = "sans",
   theme = "light",
 ) {
-  return `[![${alt}](${absoluteUrl(badgeFile(label, style, theme, size, "svg", font))})](https://xccode.ai)`
+  return `[![${alt}](${absoluteUrl(badgeFile(label, style, theme, size, "svg", font))})](https://xiaochuan.ai)`
 }
 
 /** The HTML for GitHub and websites: the dark file where the reader's color scheme is dark. */
 export function badgeHtml(label: string, alt: string, style: string, size: number, font: BadgeFont = "sans") {
   return [
-    `<a href="https://xccode.ai">`,
+    `<a href="https://xiaochuan.ai">`,
     `  <picture>`,
     `    <source media="(prefers-color-scheme: dark)" srcset="${absoluteUrl(badgeFile(label, style, "dark", size, "svg", font))}">`,
     `    <img alt="${alt}" src="${absoluteUrl(badgeFile(label, style, "light", size, "svg", font))}" height="${size}">`,
@@ -539,9 +539,9 @@ export function brandMarkdown(context: MarkdownContext) {
 // For agents only: the "Rules for agent" copy and /brand.md end with it, and the page doesn't show it.
 // The values are the shared interface scale in site.css (--grey-1 to --grey-11), kept in step by
 // script/check-greys.ts, and the type tokens there (--fs-*). Change them together.
-const brandAgentStyle = `## Making it look like Xccode
+const brandAgentStyle = `## Making it look like Xiaochuan
 
-For agents that make a page, a slide, a document or an interface that should look like Xccode. Partners who only use the logo can skip it.
+For agents that make a page, a slide, a document or an interface that should look like Xiaochuan. Partners who only use the logo can skip it.
 
 ### Color
 
@@ -586,6 +586,6 @@ Use one grey scale. Each step has one job, the same in light and dark. Use no ot
 
 ### Writing
 
-- Write Xccode as one word with a capital O and C. Call it an "open source coding agent".
+- Write Xiaochuan as one word with a capital O and C. Call it an "open source coding agent".
 - Write statements, not rhetorical questions, and use no colons in headings, buttons or captions.
 - Write short, plain sentences.`

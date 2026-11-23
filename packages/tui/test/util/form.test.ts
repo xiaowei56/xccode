@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { FormField, FormValue } from "@xccode/client"
+import type { FormField, FormValue } from "@xiaochuan/client"
 import {
   formCustom,
   formDisplayValue,

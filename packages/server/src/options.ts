@@ -1,8 +1,8 @@
-import { Database } from "@xccode/core/database/database"
-import { ModelsDev } from "@xccode/core/models-dev"
-import { PersistentPty } from "@xccode/core/persistent-pty"
+import { Database } from "@xiaochuan/core/database/database"
+import { ModelsDev } from "@xiaochuan/core/models-dev"
+import { PersistentPty } from "@xiaochuan/core/persistent-pty"
 import { Schema } from "effect"
-import type { LayerNodePlatform } from "@xccode/util/effect/app-node-platform"
+import type { LayerNodePlatform } from "@xiaochuan/util/effect/app-node-platform"
 
 export const ServerOptions = Schema.Struct({
   app: Schema.optional(
@@ -26,7 +26,7 @@ export const ServerOptions = Schema.Struct({
   ),
   models: Schema.optional(ModelsDev.Options),
   /**
-   * Replaces `globalThis.fetch` for Xccode's own HTTP requests: Xccode Console config, model requests, web fetch
+   * Replaces `globalThis.fetch` for Xiaochuan's own HTTP requests: Xiaochuan Console config, model requests, web fetch
    * and search, well-known config, and remote MCP servers. Agent code in Code Mode keeps `globalThis.fetch`. For
    * example, a Cloudflare Worker can route requests through a Service Binding.
    */

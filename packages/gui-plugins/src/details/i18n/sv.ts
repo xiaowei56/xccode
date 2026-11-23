@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Ta bort worktree",
   "mcp.manage": "Hantera MCP-servrar",
   timedOut: "Servern tog för lång tid att svara",
-  "setup.mcp": "Lägg till en server med Xccode",
+  "setup.mcp": "Lägg till en server med Xiaochuan",
   "setup.mcp.prompt":
-    "Hjälp mig att lägga till en MCP-server i min globala Xccode-konfiguration. Fråga mig vilken tjänst jag vill ansluta, konfigurera den sedan och kontrollera att den ansluter.",
-  "setup.plugins": "Lägg till ett plugin med Xccode",
+    "Hjälp mig att lägga till en MCP-server i min globala Xiaochuan-konfiguration. Fråga mig vilken tjänst jag vill ansluta, konfigurera den sedan och kontrollera att den ansluter.",
+  "setup.plugins": "Lägg till ett plugin med Xiaochuan",
   "setup.plugins.prompt":
-    "Hjälp mig att lägga till ett plugin i min globala Xccode-konfiguration. Fråga mig vad det ska göra, föreslå ett plugin och lägg sedan till det.",
-  "setup.skills": "Ny färdighet med Xccode",
+    "Hjälp mig att lägga till ett plugin i min globala Xiaochuan-konfiguration. Fråga mig vad det ska göra, föreslå ett plugin och lägg sedan till det.",
+  "setup.skills": "Ny färdighet med Xiaochuan",
   "setup.skills.prompt":
-    "Hjälp mig att skriva en ny Xccode-färdighet i min globala konfiguration. Fråga mig vad den ska lära dig och skriv sedan dess SKILL.md.",
+    "Hjälp mig att skriva en ny Xiaochuan-färdighet i min globala konfiguration. Fråga mig vad den ska lära dig och skriv sedan dess SKILL.md.",
   changesFailed: "Det gick inte att läsa in ändringar",
   changesOffline: "Det går inte att nå den här servern",
   "mcp.signIn": "Logga in",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Detaljer för {{name}}",
   "mcp.signIn.open": "Logga in på {{name}}",
   "mcp.signIn.description":
-    "Webbläsaren öppnas så att du kan logga in på {{name}}. Om den inte når datorn som kör Xccode klistrar du in URL:en den omdirigerades till nedan.",
+    "Webbläsaren öppnas så att du kan logga in på {{name}}. Om den inte når datorn som kör Xiaochuan klistrar du in URL:en den omdirigerades till nedan.",
   "mcp.signIn.waiting": "Väntar på auktorisering…",
   "mcp.signIn.failed": "Auktoriseringen misslyckades: {{error}}",
   "mcp.signIn.expired": "Auktoriseringen har gått ut",

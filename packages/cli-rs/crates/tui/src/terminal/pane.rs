@@ -3,8 +3,8 @@
 use std::collections::VecDeque;
 
 use base64::Engine;
-use xccode_api::generated::{ExperimentalPersistentPtySnapshotInput, PtyID};
-use xccode_api::pty::{self, ConnectInput, Incoming, Message, Role, Size};
+use xiaochuan_api::generated::{ExperimentalPersistentPtySnapshotInput, PtyID};
+use xiaochuan_api::pty::{self, ConnectInput, Incoming, Message, Role, Size};
 use opentui::input::{KeyEvent, MouseEventKind};
 use opentui::widget::{TerminalData, TerminalView};
 use tokio::sync::mpsc;
@@ -82,7 +82,7 @@ impl Pane {
             socket: RefCell::default(),
             state: RefCell::new(State { terminal_size: Some(Size { cols: 80, rows: 24 }), ..State::default() }),
             disposed: Cell::new(false),
-            attachment: xccode_local::id::v4(),
+            attachment: xiaochuan_local::id::v4(),
             theme: RefCell::new(super::palette::osc(&page, mode, background)),
             tui: tui.weak(),
         });
@@ -412,7 +412,7 @@ impl Pane {
             }
             Message::Attached { input_protocol, size, role } => {
                 if input_protocol != Some(1.0) {
-                    self.fail("Persistent terminal server is out of date; restart Xccode");
+                    self.fail("Persistent terminal server is out of date; restart Xiaochuan");
                     self.socket.borrow_mut().take();
                     return false;
                 }

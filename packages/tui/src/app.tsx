@@ -3,10 +3,10 @@ import path from "path"
 import { render, useRenderer, useTerminalDimensions } from "@opentui/solid"
 import "./component/spinner-renderable"
 import { Effect, Latch } from "effect"
-import { Service, type Endpoint } from "@xccode/client/effect/service"
-import { Xccode, type SessionInfo } from "@xccode/client"
-import { Global } from "@xccode/util/global"
-import { noTimeoutFetch } from "@xccode/util/no-timeout-fetch"
+import { Service, type Endpoint } from "@xiaochuan/client/effect/service"
+import { Xiaochuan, type SessionInfo } from "@xiaochuan/client"
+import { Global } from "@xiaochuan/util/global"
+import { noTimeoutFetch } from "@xiaochuan/util/no-timeout-fetch"
 import { ClipboardProvider, useClipboard } from "./context/clipboard"
 import { LogProvider, type LogSink } from "./context/log"
 import { ExitProvider, useExit } from "./context/exit"
@@ -90,10 +90,10 @@ import { PromptHistoryProvider } from "./prompt/history"
 import { FrecencyProvider } from "./prompt/frecency"
 import { PromptStashProvider } from "./prompt/stash"
 import { Toast, ToastProvider, useToast } from "./ui/toast"
-import { isFallbackTitle } from "@xccode/util/session-title-fallback"
+import { isFallbackTitle } from "@xiaochuan/util/session-title-fallback"
 import * as Model from "./util/model"
 import { ArgsProvider, useArgs, type Args } from "./context/args"
-import { openUrl } from "@xccode/util/open"
+import { openUrl } from "@xiaochuan/util/open"
 import { PromptRefProvider, usePromptRef } from "./context/prompt"
 import { Config, ConfigProvider, useConfig } from "./config"
 import { newSessionLocation } from "./config/new-session-location"
@@ -163,13 +163,13 @@ const appBindingCommands = [
   "variant.cycle",
   "variant.list",
   "provider.connect",
-  "xccode.settings",
-  "xccode.status",
-  "xccode.update",
+  "xiaochuan.settings",
+  "xiaochuan.status",
+  "xiaochuan.update",
   "server.pair",
   "service.restart",
   "location.reload",
-  "xccode.debug",
+  "xiaochuan.debug",
   "theme.switch",
   "theme.switch_mode",
   "theme.mode.lock",
@@ -223,7 +223,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
     headers,
     fetch: noTimeoutFetch,
   }
-  const api = Xccode.make(options)
+  const api = Xiaochuan.make(options)
   const location = yield* Effect.tryPromise(() => api.file.list({ location: { directory: process.cwd() } })).pipe(
     Effect.map((response) => response.location),
     Effect.catch(() => Effect.tryPromise(() => api.location.get())),
@@ -237,7 +237,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
         reconnect: async (signal: AbortSignal) => {
           const endpoint = await managed.reconnect(signal)
           const next = { baseUrl: endpoint.url, headers: Service.headers(endpoint), fetch: noTimeoutFetch }
-          return { api: Xccode.make(next), url: endpoint.url, headers: next.headers }
+          return { api: Xiaochuan.make(next), url: endpoint.url, headers: next.headers }
         },
         restart: managed.restart,
       }
@@ -273,8 +273,8 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
             }),
           )
         }
-        if (process.env.XCCODE_DRIVE) {
-          const { Drive } = yield* Effect.promise(() => import("@xccode/simulation/frontend"))
+        if (process.env.XIAOCHUAN_DRIVE) {
+          const { Drive } = yield* Effect.promise(() => import("@xiaochuan/simulation/frontend"))
           return yield* Drive.create(options, input.app.version)
         }
         return yield* Effect.acquireRelease(
@@ -367,21 +367,21 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                             >
                               <TuiStartupProvider
                                 value={{
-                                  initialRoute: process.env.XCCODE_STORY
+                                  initialRoute: process.env.XIAOCHUAN_STORY
                                     ? {
                                         type: "plugin",
-                                        id: "xccode.storybook",
+                                        id: "xiaochuan.storybook",
                                         name: "storybook",
-                                        // XCCODE_STORY=1 opens the index; any other value opens that story.
+                                        // XIAOCHUAN_STORY=1 opens the index; any other value opens that story.
                                         data:
-                                          process.env.XCCODE_STORY === "1"
+                                          process.env.XIAOCHUAN_STORY === "1"
                                             ? undefined
-                                            : { story: process.env.XCCODE_STORY },
+                                            : { story: process.env.XIAOCHUAN_STORY },
                                       }
-                                    : process.env.XCCODE_ROUTE
-                                      ? JSON.parse(process.env.XCCODE_ROUTE)
+                                    : process.env.XIAOCHUAN_ROUTE
+                                      ? JSON.parse(process.env.XIAOCHUAN_ROUTE)
                                       : undefined,
-                                  skipInitialLoading: Boolean(process.env.XCCODE_FAST_BOOT),
+                                  skipInitialLoading: Boolean(process.env.XIAOCHUAN_FAST_BOOT),
                                 }}
                               >
                                 <ClipboardProvider value={clipboard}>
@@ -657,14 +657,14 @@ function App() {
     if (!terminalTitleEnabled()) return
 
     if (route.data.type === "home") {
-      setTerminalTitle(renderer, "Xccode")
+      setTerminalTitle(renderer, "Xiaochuan")
       return
     }
 
     if (route.data.type === "session") {
       const title = session?.title
       if (!title || isFallbackTitle(title)) {
-        setTerminalTitle(renderer, "Xccode")
+        setTerminalTitle(renderer, "Xiaochuan")
         return
       }
 
@@ -752,7 +752,7 @@ function App() {
     if (config.data.highlights === false) return
     if (route.data.type !== "home" || dialog.stack.length > 0 || promptRef.current?.current.text) return
     if (args.prompt || args.continue || args.sessionID || args.newSessionID) return
-    if (process.env.XCCODE_DRIVE || process.env.XCCODE_STORY || process.env.XCCODE_ROUTE) return
+    if (process.env.XIAOCHUAN_DRIVE || process.env.XIAOCHUAN_STORY || process.env.XIAOCHUAN_ROUTE) return
     void claim(storage, {
       version: app.version,
       count: items.length,
@@ -1049,7 +1049,7 @@ function App() {
       ...(app.highlights?.length
         ? [
             {
-              name: "xccode.highlights",
+              name: "xiaochuan.highlights",
               title: "Show release highlights",
               slash: { name: "highlights" },
               run: () => dialog.replace(() => <DialogHighlights version={app.version} items={app.highlights ?? []} />),
@@ -1058,7 +1058,7 @@ function App() {
           ]
         : []),
       {
-        name: "xccode.settings",
+        name: "xiaochuan.settings",
         title: "Open settings",
         suggested: true,
         slash: { name: "settings" },
@@ -1068,7 +1068,7 @@ function App() {
         category: "System",
       },
       {
-        name: "xccode.status",
+        name: "xiaochuan.status",
         title: "View status",
         slash: { name: "status" },
         run: () => {
@@ -1079,8 +1079,8 @@ function App() {
       ...(updater.open
         ? [
             {
-              name: "xccode.update",
-              title: "Update Xccode",
+              name: "xiaochuan.update",
+              title: "Update Xiaochuan",
               slash: { name: "update" },
               run: () => updater.open?.("manual"),
               category: "System",
@@ -1134,7 +1134,7 @@ function App() {
         category: "System",
       },
       {
-        name: "xccode.debug",
+        name: "xiaochuan.debug",
         title: "View debug info",
         slash: { name: "debug" },
         run: () => {
@@ -1186,7 +1186,7 @@ function App() {
         name: "docs.open",
         title: "Open docs",
         run: () => {
-          openUrl("https://xccode.ai/docs").catch(() => {})
+          openUrl("https://xiaochuan.ai/docs").catch(() => {})
           dialog.clear()
         },
         category: "System",
@@ -1486,7 +1486,7 @@ function App() {
           <PaneResizeHandle resize={tabsResize} left={tabsResize.size() - 1} />
         </Show>
       </box>
-      <Show when={devtools() && !(route.data.type === "plugin" && route.data.id === "xccode.stats")}>
+      <Show when={devtools() && !(route.data.type === "plugin" && route.data.id === "xiaochuan.stats")}>
         <DevToolsBar />
       </Show>
       <Show when={!startup.skipInitialLoading}>

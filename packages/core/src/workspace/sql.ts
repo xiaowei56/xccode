@@ -1,4 +1,4 @@
-import { Workspace } from "@xccode/schema/workspace"
+import { Workspace } from "@xiaochuan/schema/workspace"
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import type { WorkspaceDriver } from "./driver.js"
 

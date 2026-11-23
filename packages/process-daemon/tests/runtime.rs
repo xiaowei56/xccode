@@ -6,8 +6,8 @@ mod terminal_fixture;
 use std::thread;
 use std::time::{Duration, Instant};
 
-use xccode_pty::protocol::AttachmentRole;
-use xccode_pty::service::{
+use xiaochuan_pty::protocol::AttachmentRole;
+use xiaochuan_pty::service::{
     ProcessMode, StreamEvent, TerminalId, TerminalLifecycle, TerminalService, TerminalSnapshot,
 };
 use terminal_fixture::{Command, Deadline, Fixture, TempDir};

@@ -72,7 +72,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "ခရက်ဒစ်များထည့်ပါ။",
   "dialog.usageExceeded.freeTier.title": "အခမဲ့ကန့်သတ်ချက် ပြည့်သွားပါပြီ။",
   "dialog.usageExceeded.freeTier.description":
-    "တစ်လလျှင် $10 ဖြင့် အကောင်းဆုံးသော open-source မော်ဒယ်များသို့ ယုံကြည်စိတ်ချရသောဝင်ရောက်ခွင့်အတွက် Xccode Go ကို စာရင်းသွင်းပါ။",
+    "တစ်လလျှင် $10 ဖြင့် အကောင်းဆုံးသော open-source မော်ဒယ်များသို့ ယုံကြည်စိတ်ချရသောဝင်ရောက်ခွင့်အတွက် Xiaochuan Go ကို စာရင်းသွင်းပါ။",
   "dialog.usageExceeded.freeTier.actionLabel": "စာရင်းသွင်းပါ။",
   "ui.sessionTurn.status.delegating": "အလုပ်လွှဲအပ်ခြင်း။",
   "ui.sessionTurn.status.planning": "နောက်အဆင့်များကို စီစဉ်ခြင်း။",
@@ -268,9 +268,9 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "မော်ဒယ်ဘတ်ဂျက် ပြည့်သွားပါပြီ · ပြန်စသည်အထိ ဤမော်ဒယ်ကို ခဏရပ်ထားသည်",
   "ui.sessionTurn.budgetLimit.useFreeModel": "အခမဲ့မော်ဒယ် အသုံးပြုရန်",
   "ui.sessionTurn.budgetLimit.switchModel": "မော်ဒယ် ပြောင်းရန်",
-  "ui.sessionTurn.goLimit.title": "သင်၏ Xccode Go အသုံးပြုမှု ကန့်သတ်ချက် ပြည့်သွားပါပြီ။",
+  "ui.sessionTurn.goLimit.title": "သင်၏ Xiaochuan Go အသုံးပြုမှု ကန့်သတ်ချက် ပြည့်သွားပါပြီ။",
   "ui.sessionTurn.goLimit.lineReset":
-    "သင်၏ Xccode Go အသုံးပြုမှု ကန့်သတ်ချက် ပြည့်သွားပါပြီ။ {{time}} တွင် ပြန်စမည်။",
+    "သင်၏ Xiaochuan Go အသုံးပြုမှု ကန့်သတ်ချက် ပြည့်သွားပါပြီ။ {{time}} တွင် ပြန်စမည်။",
   "dialog.usageExceeded.freeTier.reset": "သင်၏ အခမဲ့မက်ဆေ့ချ်များ {{time}} တွင် ပြန်စမည်။",
   "ui.messagePart.compaction.queued": "စက်ရှင် ချုံ့ခြင်းကို တန်းစီထားသည်",
   "ui.messagePart.compaction.done": "ချုံ့ပြီးပါပြီ",

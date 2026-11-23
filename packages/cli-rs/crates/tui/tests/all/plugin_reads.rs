@@ -6,10 +6,10 @@ use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 use std::sync::Arc;
 
-use xccode_api::generated::SessionID;
-use xccode_api::memory::{Memory, Route as MemoryRoute};
-use xccode_plugin::abi;
-use xccode_tui::{Deps, Route};
+use xiaochuan_api::generated::SessionID;
+use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
+use xiaochuan_plugin::abi;
+use xiaochuan_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 thread_local! {
@@ -135,7 +135,7 @@ fn reader(setup: &mut abi::Setup) -> Result<(), String> {
             *told.borrow_mut() = result.map_or_else(|error| error, |value| value["code"].to_string());
         }
     });
-    let link = Rc::new(RefCell::new("https://xccode.ai/p0b".to_owned()));
+    let link = Rc::new(RefCell::new("https://xiaochuan.ai/p0b".to_owned()));
     let linked = link.clone();
     setup.command(command("p0b.link"), move |_, input| *linked.borrow_mut() = input.unwrap_or_default().to_owned());
     let deltas = Rc::new(RefCell::new(String::new()));
@@ -189,12 +189,12 @@ fn reader(setup: &mut abi::Setup) -> Result<(), String> {
 
 /// The TUI's home with `reader` active, on a server of two sessions and a child
 /// `ses_c` of `ses_a`, with `config`; and the server.
-fn home(width: u16, config: Value) -> (Harness, Memory, xccode_util::temp::TempDir) {
+fn home(width: u16, config: Value) -> (Harness, Memory, xiaochuan_util::temp::TempDir) {
     home_on(width, config, Vec::new())
 }
 
-fn home_on(width: u16, config: Value, mut routes: Vec<MemoryRoute>) -> (Harness, Memory, xccode_util::temp::TempDir) {
-    let root = xccode_util::temp::tempdir().unwrap();
+fn home_on(width: u16, config: Value, mut routes: Vec<MemoryRoute>) -> (Harness, Memory, xiaochuan_util::temp::TempDir) {
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let paths = support::home_paths(root.path());
     std::fs::create_dir_all(&paths.state).unwrap();
     let child = support::merge(support::test_session("ses_c", "A child"), json!({ "parentID": "ses_a" }));
@@ -218,18 +218,18 @@ fn home_on(width: u16, config: Value, mut routes: Vec<MemoryRoute>) -> (Harness,
     let now = std::time::Instant::now();
     h.tui.plugins.monitor().set_clock(move || now);
     let definition = abi::Plugin { id: "p0b", setup: reader }.into();
-    xccode_tui::plugins::host::add(&h.tui, definition);
+    xiaochuan_tui::plugins::host::add(&h.tui, definition);
     (h, memory, root)
 }
 
 #[test]
 fn a_claim_reads_its_width_the_theme_and_the_keymap() {
     let (h, _memory, _root) = home(100, json!({}));
-    let screen = h.wait_for("p0b w100 xccode [] ctrl+p true  0 d: x:-");
+    let screen = h.wait_for("p0b w100 xiaochuan [] ctrl+p true  0 d: x:-");
     let row = screen.lines().position(|line| line.contains("p0b w100")).unwrap();
     let column = screen.lines().nth(row).unwrap().find("p0b").unwrap();
-    let link = xccode_tui::features::links::link_at(h.app.app(), column as u16, row as u16);
-    assert_eq!(link.as_deref(), Some("https://xccode.ai/p0b"));
+    let link = xiaochuan_tui::features::links::link_at(h.app.app(), column as u16, row as u16);
+    assert_eq!(link.as_deref(), Some("https://xiaochuan.ai/p0b"));
     h.app.resize(90, 30);
     let first = h.app.render().text();
     assert!(first.contains("p0b w90 "), "{first}");
@@ -244,7 +244,7 @@ fn a_link_with_a_control_character_is_dropped() {
     let screen = h.wait_for("p0b w140 ");
     let row = screen.lines().position(|line| line.contains("p0b w140")).unwrap();
     let column = screen.lines().nth(row).unwrap().find("p0b").unwrap() as u16;
-    let link = || xccode_tui::features::links::link_at(h.app.app(), column, row as u16);
+    let link = || xiaochuan_tui::features::links::link_at(h.app.app(), column, row as u16);
     for (url, kept) in [
         ("https://x.test/\x1b]52;c;cHduZWQ=\x07", false),
         ("https://x.test/\u{9c}", false),
@@ -280,7 +280,7 @@ fn tabs_open_move_and_close_as_ts_does() {
     assert!(matches!(h.tui.route(), Route::Home), "open showed the tab");
     h.tui.keymap.dispatch("p0b.open", Some("ses_b"));
     h.wait_for("[ses_a,ses_b]");
-    xccode_tui::tabs::reorder(&h.tui, "ses_b", 0);
+    xiaochuan_tui::tabs::reorder(&h.tui, "ses_b", 0);
     h.wait_for("[ses_b,ses_a]");
     h.tui.keymap.dispatch("p0b.move", Some("ses_a"));
     h.wait_for("[ses_a,ses_b]");
@@ -349,7 +349,7 @@ fn close_takes_the_tab_id_and_move_a_child() {
 #[test]
 fn a_plugin_selects_a_theme_it_knows() {
     let (h, _memory, _root) = home(120, json!({}));
-    h.wait_for("p0b w120 xccode");
+    h.wait_for("p0b w120 xiaochuan");
     h.tui.keymap.dispatch("p0b.theme", Some("nord"));
     h.wait_for("p0b theme true");
     h.wait_for("p0b w120 nord");
@@ -361,11 +361,11 @@ fn a_plugin_selects_a_theme_it_knows() {
 #[test]
 fn a_plugin_installs_a_theme() {
     let (h, _memory, root) = home(140, json!({}));
-    h.wait_for("p0b w140 xccode");
+    h.wait_for("p0b w140 xiaochuan");
     h.tui.keymap.dispatch("p0b.install", Some("../p0b-theme"));
     h.tui.keymap.dispatch("p0b.install", Some("p0b-theme"));
     h.wait_for(" i:true");
-    assert_eq!(h.tui.theme.borrow().selected(), "xccode");
+    assert_eq!(h.tui.theme.borrow().selected(), "xiaochuan");
     // Listed at once and written after, on the themes' worker in the order asked: by then a write of the refused
     // name, asked first, would be on disk too.
     let written = || walk(root.path()).into_iter().filter(|path| path.ends_with("p0b-theme.json")).collect::<Vec<_>>();
@@ -378,14 +378,14 @@ fn a_plugin_installs_a_theme() {
 #[test]
 fn installs_land_in_order_and_select_at_once() {
     let (h, _memory, _root) = home(140, json!({}));
-    h.wait_for("p0b w140 xccode");
+    h.wait_for("p0b w140 xiaochuan");
     h.tui.keymap.dispatch("p0b.script", Some("install p0b-new;theme p0b-new;installbad p0b-bad;theme p0b-bad"));
     h.wait_for("p0b script1 -,true,-,false");
     h.wait_for("p0b w140 p0b-new");
     assert_eq!(h.tui.theme.borrow().selected(), "p0b-new");
     let (h, _memory, root) = home(140, json!({}));
-    h.wait_for("p0b w140 xccode");
-    let install = |name: &str, theme: Value| xccode_plugin::Host::install_theme(&*h.tui, name, theme);
+    h.wait_for("p0b w140 xiaochuan");
+    let install = |name: &str, theme: Value| xiaochuan_plugin::Host::install_theme(&*h.tui, name, theme);
     install("p0b-x", json!({ "theme": { "n": 1 } }));
     install("p0b-x", json!({ "theme": { "n": 2 } }));
     install("p0b-y", json!({ "theme": {} }));
@@ -406,8 +406,8 @@ fn installs_land_in_order_and_select_at_once() {
 
     // Listed and selectable as it is installed, before any scan: here there is none, without config files.
     let h = support::mount(100, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    xccode_plugin::Host::install_theme(&*h.tui, "p0b-mem", aura());
-    xccode_plugin::Host::set_theme(&*h.tui, "p0b-mem");
+    xiaochuan_plugin::Host::install_theme(&*h.tui, "p0b-mem", aura());
+    xiaochuan_plugin::Host::set_theme(&*h.tui, "p0b-mem");
     assert!(h.tui.theme.borrow().names().iter().any(|name| name == "p0b-mem"));
     assert_eq!(h.tui.theme.borrow().selected(), "p0b-mem");
     assert!(h.tui.theme.borrow_mut().take_error().is_none(), "the theme does not load");
@@ -457,7 +457,7 @@ fn a_call_reads_one_snapshot() {
     h.tui.keymap.dispatch("p0b.script", Some("open ses_a;open ses_b"));
     let loaded = |id: &str| h.tui.data.read(|state| state.session(&SessionID(id.to_owned())).is_some());
     assert!(h.app.wait_until(WAIT, || loaded("ses_a") && loaded("ses_b")));
-    let usage = |id: &str| -> xccode_api::generated::V2Event {
+    let usage = |id: &str| -> xiaochuan_api::generated::V2Event {
         serde_json::from_value(json!({
             "id": format!("evt_usage_{id}"), "created": 2, "type": "session.usage.updated",
             "durable": { "aggregateID": id, "seq": 100, "version": 1 },
@@ -619,7 +619,7 @@ fn deltas_reach_the_plugin() {
         }));
     }
     h.wait_for("d:hello ");
-    xccode_tui::features::events::deltas(&h.tui);
+    xiaochuan_tui::features::events::deltas(&h.tui);
     h.app.wait_until(std::time::Duration::from_millis(50), || false);
     assert!(h.app.text().contains("d:hello "), "{}", h.app.text());
 }
@@ -628,7 +628,7 @@ fn deltas_reach_the_plugin() {
 fn deltas_reach_the_plugin_once_a_frame() {
     let (h, _memory, _root) = home(120, json!({}));
     h.wait_for("p0b w120 ");
-    let delta = |ordinal: usize, delta: &str| -> xccode_api::generated::V2Event {
+    let delta = |ordinal: usize, delta: &str| -> xiaochuan_api::generated::V2Event {
         serde_json::from_value(json!({
             "id": format!("evt_{ordinal}"), "created": 1, "type": "session.text.delta",
             "location": { "directory": support::DIRECTORY },
@@ -637,9 +637,9 @@ fn deltas_reach_the_plugin_once_a_frame() {
         .unwrap()
     };
     h.tui.data.apply(&[delta(0, "a")]);
-    xccode_tui::features::events::deltas(&h.tui);
+    xiaochuan_tui::features::events::deltas(&h.tui);
     h.tui.data.apply(&[delta(1, "b"), delta(2, "c")]);
-    xccode_tui::features::events::deltas(&h.tui);
+    xiaochuan_tui::features::events::deltas(&h.tui);
     let first = h.app.render().text();
     assert!(first.contains("d:abc ") && first.contains(" n:1"), "{first}");
 }
@@ -663,7 +663,7 @@ fn an_xlarge_panel_opens_xlarge() {
     h.wait_for("p0b w140 ");
     h.tui.keymap.dispatch("p0b.wide", None);
     h.wait_for("p0b wide body");
-    assert_eq!(h.tui.dialogs.size(), xccode_ui::dialog::DialogSize::XLarge);
+    assert_eq!(h.tui.dialogs.size(), xiaochuan_ui::dialog::DialogSize::XLarge);
 }
 
 #[cfg(unix)]

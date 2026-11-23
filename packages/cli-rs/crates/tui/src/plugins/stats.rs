@@ -1,20 +1,20 @@
 //! Session statistics poster.
 
-use xccode_api::client::Client;
-use xccode_api::generated::{ExperimentalSessionStatsInput, ExperimentalSessionStatsInputTools, SessionStatsInfo};
-use xccode_plugin::abi::interact::{Event, Handled};
-use xccode_plugin::abi::v2::{Node, Place, Surface};
-use xccode_plugin::abi::{self, Align, Command, Justify, Layout, Read, RequestId, Rgba, Scope, Span, Width, Wrap};
-use xccode_ui::activity_calendar::{activity_calendar, time_zone};
-use xccode_ui::theme::tint;
-use xccode_util::time::{self, Date, Zone};
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{ExperimentalSessionStatsInput, ExperimentalSessionStatsInputTools, SessionStatsInfo};
+use xiaochuan_plugin::abi::interact::{Event, Handled};
+use xiaochuan_plugin::abi::v2::{Node, Place, Surface};
+use xiaochuan_plugin::abi::{self, Align, Command, Justify, Layout, Read, RequestId, Rgba, Scope, Span, Width, Wrap};
+use xiaochuan_ui::activity_calendar::{activity_calendar, time_zone};
+use xiaochuan_ui::theme::tint;
+use xiaochuan_util::time::{self, Date, Zone};
 use opentui::style::Color;
 
 use super::fetch::{data, fetch_of};
 
 use crate::prelude::*;
 
-const ID: &str = "xccode.stats";
+const ID: &str = "xiaochuan.stats";
 const ROUTE: &str = "stats";
 
 pub fn plugin() -> abi::Plugin {
@@ -156,7 +156,7 @@ fn poster(read: &dyn Read, stats: &SessionStatsInfo) -> Node {
     let total = number(tokens);
     let mut children = Vec::new();
     let title =
-        vec![bold("xccode / stats", "text.base"), text(dates(stats.range.from, stats.range.to), "text.muted")];
+        vec![bold("xiaochuan / stats", "text.base"), text(dates(stats.range.from, stats.range.to), "text.muted")];
     let title = if width < 44 { Node::column(title) } else { Node::row(title) };
     children.push(title.justify(Justify::SpaceBetween).layout(full()));
     if !compact {
@@ -190,7 +190,7 @@ fn poster(read: &dyn Read, stats: &SessionStatsInfo) -> Node {
         })
         .collect();
     children.push(Node::row(metrics).justify(Justify::SpaceAround).layout(full()));
-    children.push(Node::row(vec![text("xccode.ai", "text.base")]).justify(Justify::End).layout(full()));
+    children.push(Node::row(vec![text("xiaochuan.ai", "text.base")]).justify(Justify::End).layout(full()));
     Node::column(children)
         .align(Align::Center)
         .gap(if compact { 1 } else { 2 })

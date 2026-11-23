@@ -1,8 +1,8 @@
-import type { SessionInfo } from "@xccode/client/promise"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Button } from "@xccode/ui/button"
-import { DialogFooter, DialogHeader, DialogTitleGroup, Dialog } from "@xccode/ui/dialog"
-import { prefersReducedMotion } from "@xccode/ui/motion"
+import type { SessionInfo } from "@xiaochuan/client/promise"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Button } from "@xiaochuan/ui/button"
+import { DialogFooter, DialogHeader, DialogTitleGroup, Dialog } from "@xiaochuan/ui/dialog"
+import { prefersReducedMotion } from "@xiaochuan/ui/motion"
 import { hashKey, onlineManager, useQuery, useQueryClient } from "@tanstack/solid-query"
 import {
   type Accessor,

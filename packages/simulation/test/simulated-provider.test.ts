@@ -2,21 +2,21 @@ import { expect, test } from "bun:test"
 import { mkdir, mkdtemp, rm } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
-import { Agent } from "@xccode/core/agent"
-import { Config } from "@xccode/core/config"
-import { Database } from "@xccode/core/database/database"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { Plugin } from "@xccode/core/plugin"
-import { SdkPlugins } from "@xccode/core/plugin/sdk"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { SessionMessage } from "@xccode/core/session/message"
-import { Tool } from "@xccode/core/tool"
+import { Agent } from "@xiaochuan/core/agent"
+import { Config } from "@xiaochuan/core/config"
+import { Database } from "@xiaochuan/core/database/database"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { SdkPlugins } from "@xiaochuan/core/plugin/sdk"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { Tool } from "@xiaochuan/core/tool"
 import { Deferred, Effect, Fiber, Layer, Queue, Stream } from "effect"
 import type { Scope } from "effect/Scope"
 import { SimulatedProvider } from "../src/backend/simulated-provider"
@@ -44,7 +44,7 @@ test("streams a Drive-controlled provider response and removes the finished invo
         result: {
           protocolVersion: 1,
           role: "backend",
-          server: { name: "xccode", version: expect.any(String) },
+          server: { name: "xiaochuan", version: expect.any(String) },
           capabilities: expect.arrayContaining(["llm.attach", "llm.request"]),
         },
       })
@@ -214,7 +214,7 @@ test("fails the provider stream when Drive disconnects the invocation", async ()
 
 test("controls arbitrary tools through scoped SDK overlays", async () => {
   const endpoint = availableEndpoint()
-  const directory = await mkdtemp(join(tmpdir(), "xccode-simulated-tools-"))
+  const directory = await mkdtemp(join(tmpdir(), "xiaochuan-simulated-tools-"))
   const secondDirectory = join(directory, "second")
   await mkdir(secondDirectory)
   try {

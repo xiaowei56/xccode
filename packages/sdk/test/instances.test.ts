@@ -3,30 +3,30 @@ import { mkdir } from "node:fs/promises"
 import { join } from "node:path"
 import { Schema } from "effect"
 import { tmpdir } from "../../core/test/fixture/tmpdir"
-import { Xccode, Session, SessionMessage } from "../src"
+import { Xiaochuan, Session, SessionMessage } from "../src"
 
 const metadata = Schema.decodeUnknownSync(Schema.Struct({ account: Schema.String }))
 const hostOptions = (directory: string) => ({
-  database: { path: join(directory, "xccode.sqlite") },
+  database: { path: join(directory, "xiaochuan.sqlite") },
   config: { directory, project: false, content: "{}" },
   models: { fetch: false },
   fs: { filewatcher: false },
 })
 
 test("Promise instances are lazy, share by key and Location, and stay isolated between hosts", async () => {
-  await using directory = await tmpdir("xccode-promise-instances-")
+  await using directory = await tmpdir("xiaochuan-promise-instances-")
   const otherDirectory = join(directory.path, "other")
   await mkdir(otherDirectory)
   const configured: string[] = []
   const setups: string[] = []
   const cleanups: string[] = []
   const createHost = (name: string) => {
-    const instances: Xccode.InstanceOptions = {
+    const instances: Xiaochuan.InstanceOptions = {
       key(session) {
         expect(typeof session.time.created).toBe("number")
         return metadata(session.metadata).account
       },
-      configure(key): Xccode.InstanceConfiguration {
+      configure(key): Xiaochuan.InstanceConfiguration {
         configured.push(`${name}:${key}`)
         return {
           plugins: [
@@ -47,7 +47,7 @@ test("Promise instances are lazy, share by key and Location, and stay isolated b
         }
       },
     }
-    return Xccode.create({
+    return Xiaochuan.create({
       ...hostOptions(directory.path),
       database: { path: join(directory.path, `${name}.sqlite`) },
       instances,
@@ -146,9 +146,9 @@ test("Promise instances are lazy, share by key and Location, and stay isolated b
 }, 20_000)
 
 test("a throwing fork hook still returns the saved fork", async () => {
-  await using directory = await tmpdir("xccode-fork-hook-")
+  await using directory = await tmpdir("xiaochuan-fork-hook-")
   const seen: string[] = []
-  await using host = await Xccode.create({
+  await using host = await Xiaochuan.create({
     ...hostOptions(directory.path),
     plugins: [
       {
@@ -172,11 +172,11 @@ test("a throwing fork hook still returns the saved fork", async () => {
 test.each(["configuration", "plugin setup"])(
   "Promise instance %s failure admits nothing, preserves healthy instances, and can be retried",
   async (failure) => {
-    await using directory = await tmpdir("xccode-promise-instance-failure-")
+    await using directory = await tmpdir("xiaochuan-promise-instance-failure-")
     const configured: string[] = []
     const setups: string[] = []
     const cleanups: string[] = []
-    await using xccode = await Xccode.create({
+    await using xiaochuan = await Xiaochuan.create({
       ...hostOptions(directory.path),
       instances: {
         key: (session) => metadata(session.metadata).account,
@@ -209,51 +209,51 @@ test.each(["configuration", "plugin setup"])(
         },
       },
     })
-    const healthy = await xccode.sessions.create({
+    const healthy = await xiaochuan.sessions.create({
       location: { directory: directory.path },
       metadata: { account: "healthy" },
     })
-    const retry = await xccode.sessions.create({
+    const retry = await xiaochuan.sessions.create({
       location: { directory: directory.path },
       metadata: { account: "retry" },
     })
-    const before = await xccode.sessions.prompt({ sessionID: healthy.id, text: "Before failure", resume: false })
+    const before = await xiaochuan.sessions.prompt({ sessionID: healthy.id, text: "Before failure", resume: false })
     expect(before.payload.text).toBe("healthy: Before failure")
     const input = { sessionID: retry.id, id: SessionMessage.ID.create(), text: "Retry this input", resume: false }
 
-    expect(await xccode.sessions.prompt(input).catch((error: unknown) => error)).toMatchObject({
+    expect(await xiaochuan.sessions.prompt(input).catch((error: unknown) => error)).toMatchObject({
       name: "ClientError",
       reason: "UnexpectedStatus",
     })
-    expect(await xccode.sessions.inbox.list({ sessionID: retry.id })).toEqual([])
-    expect((await xccode.message.list({ sessionID: retry.id })).data).toEqual([])
-    expect(await xccode.sessions.get({ sessionID: retry.id })).toEqual(retry)
+    expect(await xiaochuan.sessions.inbox.list({ sessionID: retry.id })).toEqual([])
+    expect((await xiaochuan.message.list({ sessionID: retry.id })).data).toEqual([])
+    expect(await xiaochuan.sessions.get({ sessionID: retry.id })).toEqual(retry)
     expect(configured).toEqual(["healthy", "retry"])
     expect(cleanups).toEqual([])
 
-    const after = await xccode.sessions.prompt({ sessionID: healthy.id, text: "After failure", resume: false })
+    const after = await xiaochuan.sessions.prompt({ sessionID: healthy.id, text: "After failure", resume: false })
     expect(after.payload.text).toBe("healthy: After failure")
-    expect(await xccode.sessions.inbox.list({ sessionID: healthy.id })).toEqual([before, after])
-    const admitted = await xccode.sessions.prompt(input)
+    expect(await xiaochuan.sessions.inbox.list({ sessionID: healthy.id })).toEqual([before, after])
+    const admitted = await xiaochuan.sessions.prompt(input)
     expect(admitted.id).toBe(input.id)
     expect(admitted.payload.text).toBe("retry: Retry this input")
-    expect(await xccode.sessions.inbox.list({ sessionID: retry.id })).toEqual([admitted])
+    expect(await xiaochuan.sessions.inbox.list({ sessionID: retry.id })).toEqual([admitted])
     expect(configured).toEqual(["healthy", "retry", "retry"])
     expect(setups).toEqual(failure === "configuration" ? ["healthy", "retry"] : ["healthy", "retry", "retry"])
     expect(cleanups).toEqual([])
-    await xccode.close()
+    await xiaochuan.close()
     expect(cleanups.toSorted()).toEqual(["healthy", "retry"])
   },
   20_000,
 )
 
 test("Promise instances reconstruct callbacks for persisted Sessions only on a cold prompt", async () => {
-  await using directory = await tmpdir("xccode-promise-instance-restart-")
+  await using directory = await tmpdir("xiaochuan-promise-instance-restart-")
   const sessionID = Session.ID.create()
   const configured: string[] = []
   const setups: number[] = []
   const cleanups: number[] = []
-  const options: Xccode.CreateOptions = {
+  const options: Xiaochuan.CreateOptions = {
     ...hostOptions(directory.path),
     instances: {
       key: (session) => metadata(session.metadata).account,
@@ -279,7 +279,7 @@ test("Promise instances reconstruct callbacks for persisted Sessions only on a c
       },
     },
   }
-  await using first = await Xccode.create(options)
+  await using first = await Xiaochuan.create(options)
   const created = await first.sessions.create({
     id: sessionID,
     location: { directory: directory.path },
@@ -290,7 +290,7 @@ test("Promise instances reconstruct callbacks for persisted Sessions only on a c
   await first.close()
   expect(cleanups).toEqual([1])
 
-  await using second = await Xccode.create(options)
+  await using second = await Xiaochuan.create(options)
   expect(await second.sessions.get({ sessionID })).toMatchObject({
     id: sessionID,
     location: created.location,
@@ -322,11 +322,11 @@ test("Promise instances reconstruct callbacks for persisted Sessions only on a c
 }, 20_000)
 
 test("Promise instance plugin ID collisions reject admission and reconstruct on retry", async () => {
-  await using directory = await tmpdir("xccode-promise-instance-collision-")
+  await using directory = await tmpdir("xiaochuan-promise-instance-collision-")
   const configured: string[] = []
   const setups: string[] = []
   const cleanups: string[] = []
-  await using xccode = await Xccode.create({
+  await using xiaochuan = await Xiaochuan.create({
     ...hostOptions(directory.path),
     plugins: [
       {
@@ -359,29 +359,29 @@ test("Promise instance plugin ID collisions reject admission and reconstruct on 
       },
     },
   })
-  const session = await xccode.sessions.create({
+  const session = await xiaochuan.sessions.create({
     location: { directory: directory.path },
     metadata: { account: "alpha" },
   })
   const input = { sessionID: session.id, id: SessionMessage.ID.create(), text: "Retry this input", resume: false }
   expect(configured).toEqual([])
 
-  expect(await xccode.sessions.prompt(input).catch((error: unknown) => error)).toMatchObject({
+  expect(await xiaochuan.sessions.prompt(input).catch((error: unknown) => error)).toMatchObject({
     name: "ClientError",
     reason: "UnexpectedStatus",
   })
-  expect(await xccode.sessions.inbox.list({ sessionID: session.id })).toEqual([])
-  expect((await xccode.message.list({ sessionID: session.id })).data).toEqual([])
+  expect(await xiaochuan.sessions.inbox.list({ sessionID: session.id })).toEqual([])
+  expect((await xiaochuan.message.list({ sessionID: session.id })).data).toEqual([])
   expect(configured).toEqual(["alpha"])
   // The host plugin wins the ID and activates inside the instance before the colliding instance plugin
   // is reported failed; rejecting the instance tears that generation down again.
   expect(setups).toEqual(["host"])
   expect(cleanups).toEqual(["host"])
 
-  const admitted = await xccode.sessions.prompt(input)
+  const admitted = await xiaochuan.sessions.prompt(input)
   expect(admitted.id).toBe(input.id)
   expect(admitted.payload.text).toBe("alpha: Retry this input")
-  expect(await xccode.sessions.inbox.list({ sessionID: session.id })).toEqual([admitted])
+  expect(await xiaochuan.sessions.inbox.list({ sessionID: session.id })).toEqual([admitted])
   expect(configured).toEqual(["alpha", "alpha"])
   // The reconstructed instance runs a fresh generation: host plugin again, then the renamed instance plugin.
   expect(setups).toEqual(["host", "host", "alpha"])

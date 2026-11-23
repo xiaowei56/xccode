@@ -3,11 +3,11 @@ title: キーバインド
 description: キーバインドをカスタマイズします。
 ---
 
-Xccode には、`tui.json` を通じてカスタマイズできるキーバインドのリストがあります。
+Xiaochuan には、`tui.json` を通じてカスタマイズできるキーバインドのリストがあります。
 
 ```json title="tui.json"
 {
-  "$schema": "https://xccode.ai/tui.json",
+  "$schema": "https://xiaochuan.ai/tui.json",
   "keybinds": {
     "leader": "ctrl+x",
     "app_exit": "ctrl+c,ctrl+d,<leader>q",
@@ -106,7 +106,7 @@ Xccode には、`tui.json` を通じてカスタマイズできるキーバイ�
 
 ## リーダーキー
 
-Xccode は、ほとんどのキーバインドに `leader` キーを使用します。これにより、ターミナルでの競合が回避されます。
+Xiaochuan は、ほとんどのキーバインドに `leader` キーを使用します。これにより、ターミナルでの競合が回避されます。
 
 デフォルトでは、`ctrl+x` がリーダーキーであり、ほとんどの操作では、最初にリーダーキーを押してからショートカットを押す必要があります。たとえば、新しいセッションを開始するには、まず `ctrl+x` を押してから、`n` を押します。
 
@@ -120,7 +120,7 @@ Xccode は、ほとんどのキーバインドに `leader` キーを使用しま
 
 ```json title="tui.json"
 {
-  "$schema": "https://xccode.ai/tui.json",
+  "$schema": "https://xiaochuan.ai/tui.json",
   "keybinds": {
     "session_compact": "none"
   }
@@ -131,7 +131,7 @@ Xccode は、ほとんどのキーバインドに `leader` キーを使用しま
 
 ## デスクトッププロンプトのショートカット
 
-Xccode デスクトップアプリのプロンプト入力は、テキストを編集するための一般的な Readline/Emacs スタイルのショートカットをサポートしています。これらは組み込みであり、現在 `xccode.json` を介して構成することはできません。
+Xiaochuan デスクトップアプリのプロンプト入力は、テキストを編集するための一般的な Readline/Emacs スタイルのショートカットをサポートしています。これらは組み込みであり、現在 `xiaochuan.json` を介して構成することはできません。
 
 | ショートカット | アクション                                        |
 | -------------- | ------------------------------------------------- |

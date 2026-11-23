@@ -1,9 +1,9 @@
 export * as ConfigInstructionPlugin from "./instruction.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
-import { sameDirectory } from "@xccode/util/path"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
+import { sameDirectory } from "@xiaochuan/util/path"
 import path, { dirname, join } from "path"
 import { Effect, FiberMap, PubSub, Semaphore, Stream } from "effect"
 import { HttpClient, HttpClientRequest } from "effect/http"
@@ -18,7 +18,7 @@ type Loaded =
   | { readonly type: "unavailable" }
 
 export const Plugin = define({
-  id: "xccode.config.instruction",
+  id: "xiaochuan.config.instruction",
   effect: Effect.fn(function* (ctx) {
     const discovery = yield* InstructionDiscovery.Service
     // Activate even when both discovery scopes are disabled: configured `instructions`

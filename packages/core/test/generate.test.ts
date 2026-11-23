@@ -10,22 +10,22 @@ import {
   QuotaExceededError,
   RateLimitError,
   TransportError,
-} from "@xccode/ai/effect"
-import { RequestExecutor } from "@xccode/ai/route"
-import { OpenAIChat } from "@xccode/ai/protocols"
-import { TestLLM } from "@xccode/ai/testing"
-import { AISDK } from "@xccode/core/aisdk"
-import { Credential } from "@xccode/core/credential"
-import { Generate } from "@xccode/core/generate"
-import { Integration } from "@xccode/core/integration"
-import { IntegrationConnection } from "@xccode/core/integration/connection"
-import { ModelResolver } from "@xccode/core/model-resolver"
-import { ModelsDev } from "@xccode/core/models-dev"
-import { ID, Info, Model, Ref, VariantID } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { Variant } from "@xccode/core/variant"
-import { Money } from "@xccode/schema/money"
-import { Npm } from "@xccode/util/npm"
+} from "@xiaochuan/ai/effect"
+import { RequestExecutor } from "@xiaochuan/ai/route"
+import { OpenAIChat } from "@xiaochuan/ai/protocols"
+import { TestLLM } from "@xiaochuan/ai/testing"
+import { AISDK } from "@xiaochuan/core/aisdk"
+import { Credential } from "@xiaochuan/core/credential"
+import { Generate } from "@xiaochuan/core/generate"
+import { Integration } from "@xiaochuan/core/integration"
+import { IntegrationConnection } from "@xiaochuan/core/integration/connection"
+import { ModelResolver } from "@xiaochuan/core/model-resolver"
+import { ModelsDev } from "@xiaochuan/core/models-dev"
+import { ID, Info, Model, Ref, VariantID } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { Variant } from "@xiaochuan/core/variant"
+import { Money } from "@xiaochuan/schema/money"
+import { Npm } from "@xiaochuan/util/npm"
 import { Effect, Exit, Fiber, Layer } from "effect"
 import { TestClock } from "effect/testing"
 import { HttpClient, HttpClientResponse } from "effect/http"
@@ -228,7 +228,7 @@ testEffect(Layer.empty).effect("attributes each stateless completion without cre
       HttpClient.HttpClient,
       HttpClient.make((request) =>
         Effect.sync(() => {
-          const session = request.headers["x-xccode-session"]
+          const session = request.headers["x-xiaochuan-session"]
           if (!session)
             return HttpClientResponse.fromWeb(
               request,
@@ -280,31 +280,31 @@ describe("image and decision generation", () => {
     Info.make({
       ...Info.default(Provider.ID.openai, ID.make("gpt-image-1-mini")),
       type: "image",
-      package: "@xccode/ai/providers/openai/images",
+      package: "@xiaochuan/ai/providers/openai/images",
     }),
     Info.make({
-      ...Info.default(Provider.ID.xccode, ID.make("gpt-image-2.5-sunburst")),
+      ...Info.default(Provider.ID.xiaochuan, ID.make("gpt-image-2.5-sunburst")),
       type: "image",
-      package: "@xccode/ai/providers/openai/images",
+      package: "@xiaochuan/ai/providers/openai/images",
     }),
     Info.make({
       ...Info.default(Provider.ID.make("zai"), ID.make("glm-image")),
       type: "image",
-      package: "@xccode/ai/providers/zai/images",
+      package: "@xiaochuan/ai/providers/zai/images",
     }),
     Info.make({
       ...Info.default(Provider.ID.openai, ID.make("gpt-5")),
-      package: "@xccode/ai/providers/openai/responses",
+      package: "@xiaochuan/ai/providers/openai/responses",
     }),
     Info.make({
       ...Info.default(Provider.ID.make("openrouter"), ID.make("typesafe/jev-1.13")),
       type: "decision",
-      package: "@xccode/ai/providers/openrouter/decisions",
+      package: "@xiaochuan/ai/providers/openrouter/decisions",
     }),
     Info.make({
       ...Info.default(Provider.ID.make("lmstudio"), ID.make("openjev")),
       type: "decision",
-      package: "@xccode/ai/providers/openai-compatible/decisions",
+      package: "@xiaochuan/ai/providers/openai-compatible/decisions",
     }),
   ].concat(
     decisionCatalog(),
@@ -312,7 +312,7 @@ describe("image and decision generation", () => {
       const gemini = Info.make({
         ...Info.default(Provider.ID.make("google"), ID.make("gemini-3.1-flash-image")),
         type: "image",
-        package: "@xccode/ai/providers/google/images",
+        package: "@xiaochuan/ai/providers/google/images",
       })
       return [{ ...gemini, variants: Variant.resolve(gemini, Variant.supports({ supported: true, effort: ["high"] })) }]
     })(),
@@ -340,13 +340,13 @@ describe("image and decision generation", () => {
       ),
     available: (types) => Effect.succeed(catalog.filter((model) => (types ?? ["chat"]).includes(model.type ?? "chat"))),
   })
-  // An Xccode Console login keeps its server and organization as credential metadata.
+  // An Xiaochuan Console login keeps its server and organization as credential metadata.
   const mediaIntegrations = Layer.mock(Integration.Service, {
     revision: () => 0,
     connection: {
       active: (id) =>
         Effect.succeed(
-          id === Integration.ID.make("xccode")
+          id === Integration.ID.make("xiaochuan")
             ? IntegrationConnection.CredentialInfo.make({
                 type: "credential",
                 id: Credential.ID.make("console"),
@@ -474,7 +474,7 @@ describe("image and decision generation", () => {
     Effect.gen(function* () {
       requests.length = 0
       const generate = yield* Generate.Service
-      yield* generate.image({ model: ref("xccode", "gpt-image-2.5-sunburst"), prompt: "A black circle" })
+      yield* generate.image({ model: ref("xiaochuan", "gpt-image-2.5-sunburst"), prompt: "A black circle" })
       expect(requests[0]).toMatchObject({
         url: "https://api.openai.com/v1/images/generations",
         headers: { authorization: "Bearer console-token" },
@@ -702,7 +702,7 @@ function decisionCatalog() {
     api: {
       systemone: {
         base_url: "https://api.typesafe.ai/v1",
-        sdk: { xccodeai: "@xccode/ai/providers/typesafe-ai/decisions" },
+        sdk: { xiaochuanai: "@xiaochuan/ai/providers/typesafe-ai/decisions" },
         ...(compatibility ? { compatibility } : {}),
       },
     },
@@ -725,7 +725,7 @@ function decisionCatalog() {
               api: {
                 "gemini-decisions": {
                   base_url: "https://gemini.test/v1beta",
-                  sdk: { xccodeai: "@xccode/ai/providers/google/decisions" },
+                  sdk: { xiaochuanai: "@xiaochuan/ai/providers/google/decisions" },
                 },
               },
             },

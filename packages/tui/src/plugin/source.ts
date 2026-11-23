@@ -1,1 +1,1 @@
-export { createPluginSources } from "@xccode/plugin/source"
+export { createPluginSources } from "@xiaochuan/plugin/source"

@@ -1,17 +1,17 @@
 import { describe, expect, setDefaultTimeout } from "bun:test"
 import { Effect } from "effect"
 import path from "path"
-import { Bus } from "@xccode/core/bus"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Watcher } from "@xccode/core/filesystem/watcher"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
+import { Bus } from "@xiaochuan/core/bus"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
 import { tempGlobalLayer } from "./fixture/global"
 import { offlineModels } from "./fixture/models"
 import { tmpdirScoped } from "./fixture/tmpdir"
@@ -36,7 +36,7 @@ const project = Effect.gen(function* () {
   const tmp = yield* tmpdirScoped()
   yield* Effect.promise(() =>
     Bun.write(
-      path.join(tmp.path, ".xccode/plugins/prompt.ts"),
+      path.join(tmp.path, ".xiaochuan/plugins/prompt.ts"),
       `export default {
         id: "prompt-readiness",
         async setup(ctx) {

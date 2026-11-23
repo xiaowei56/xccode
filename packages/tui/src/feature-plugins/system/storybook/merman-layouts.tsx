@@ -1,4 +1,4 @@
-import type { Plugin } from "@xccode/plugin/tui"
+import type { Plugin } from "@xiaochuan/plugin/tui"
 import { useTerminalDimensions } from "@opentui/solid"
 import { createMemo, createSignal, Show } from "solid-js"
 import { useTheme, useThemes } from "../../../context/theme"
@@ -11,10 +11,10 @@ const fixtures = [
     id: "deployment",
     title: "Deployment architecture",
     source: `flowchart LR
-  Client[Xccode client]
+  Client[Xiaochuan client]
 
   subgraph CF[Cloudflare]
-    DNS[xccode.ai]
+    DNS[xiaochuan.ai]
     Web[Console frontend Worker]
     Proxy[Console API proxy Worker]
     Infer[inference-next Worker]

@@ -14,7 +14,7 @@ const saved = { PATH: process.env.PATH, LOCALAPPDATA: process.env.LOCALAPPDATA, 
 let root = ""
 
 beforeEach(() => {
-  root = mkdtempSync(path.join(tmpdir(), "xccode-apps-"))
+  root = mkdtempSync(path.join(tmpdir(), "xiaochuan-apps-"))
   // Nothing on the PATH, so `where` finds nothing and only the installers' own folders can answer.
   process.env.PATH = ""
   process.env.LOCALAPPDATA = path.join(root, "local")

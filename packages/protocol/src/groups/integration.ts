@@ -1,6 +1,6 @@
-import { Integration } from "@xccode/schema/integration"
-import { Location } from "@xccode/schema/location"
-import { Form } from "@xccode/schema/form"
+import { Integration } from "@xiaochuan/schema/integration"
+import { Location } from "@xiaochuan/schema/location"
+import { Form } from "@xiaochuan/schema/form"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiSchema, OpenApi } from "effect/http-api"
 import {

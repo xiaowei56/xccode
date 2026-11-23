@@ -1,19 +1,19 @@
 ---
 title: Сервер
-description: Взаимодействуйте с сервером xccode через HTTP.
+description: Взаимодействуйте с сервером xiaochuan через HTTP.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-Команда `xccode serve` запускает автономный HTTP-сервер, который предоставляет конечную точку OpenAPI, которую может использовать клиент с открытым кодом.
+Команда `xiaochuan serve` запускает автономный HTTP-сервер, который предоставляет конечную точку OpenAPI, которую может использовать клиент с открытым кодом.
 
 ---
 
 ### Использование
 
 ```bash
-xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+xiaochuan serve [--port <number>] [--hostname <string>] [--cors <origin>]
 ```
 
 #### Параметры
@@ -23,41 +23,41 @@ xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
 | `--port`        | Порт для прослушивания                      | `4096`           |
 | `--hostname`    | Имя хоста для прослушивания                 | `127.0.0.1`      |
 | `--mdns`        | Включить обнаружение mDNS                   | `false`          |
-| `--mdns-domain` | Пользовательское доменное имя для mDNS      | `xccode.local` |
+| `--mdns-domain` | Пользовательское доменное имя для mDNS      | `xiaochuan.local` |
 | `--cors`        | Разрешенные дополнительные источники (CORS) | `[]`             |
 
 `--cors` можно передать несколько раз:
 
 ```bash
-xccode serve --cors http://localhost:5173 --cors https://app.example.com
+xiaochuan serve --cors http://localhost:5173 --cors https://app.example.com
 ```
 
 ---
 
 ### Аутентификация
 
-Установите `XCCODE_SERVER_PASSWORD`, чтобы защитить сервер с помощью базовой аутентификации HTTP. Имя пользователя по умолчанию — `xccode` или установите `XCCODE_SERVER_USERNAME`, чтобы переопределить его. Это относится как к `xccode serve`, так и к `xccode web`.
+Установите `XIAOCHUAN_SERVER_PASSWORD`, чтобы защитить сервер с помощью базовой аутентификации HTTP. Имя пользователя по умолчанию — `xiaochuan` или установите `XIAOCHUAN_SERVER_USERNAME`, чтобы переопределить его. Это относится как к `xiaochuan serve`, так и к `xiaochuan web`.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve
 ```
 
 ---
 
 ### Как это работает
 
-Когда вы запускаете `xccode`, он запускает TUI и сервер. Где находится TUI
+Когда вы запускаете `xiaochuan`, он запускает TUI и сервер. Где находится TUI
 клиент, который общается с сервером. Сервер предоставляет спецификацию OpenAPI 3.1.
 конечная точка. Эта конечная точка также используется для создания файла [SDK](/docs/sdk).
 
 :::tip
-Используйте сервер xccode для программного взаимодействия с открытым кодом.
+Используйте сервер xiaochuan для программного взаимодействия с открытым кодом.
 :::
 
 Эта архитектура позволяет открытому коду поддерживать несколько клиентов и позволяет программно взаимодействовать с открытым кодом.
 
-Вы можете запустить `xccode serve`, чтобы запустить автономный сервер. Если у вас есть
-TUI с открытым кодом запущен, `xccode serve` запустит новый сервер.
+Вы можете запустить `xiaochuan serve`, чтобы запустить автономный сервер. Если у вас есть
+TUI с открытым кодом запущен, `xiaochuan serve` запустит новый сервер.
 
 ---
 
@@ -65,7 +65,7 @@ TUI с открытым кодом запущен, `xccode serve` запусти
 
 Когда вы запускаете TUI, он случайным образом назначает порт и имя хоста. Вместо этого вы можете передать `--hostname` и `--port` [flags](/docs/cli). Затем используйте это для подключения к его серверу.
 
-Конечную точку [`/tui`](#tui) можно использовать для управления TUI через сервер. Например, вы можете предварительно заполнить или запустить подсказку. Эта настройка используется плагинами xccode [IDE](/docs/ide).
+Конечную точку [`/tui`](#tui) можно использовать для управления TUI через сервер. Например, вы можете предварительно заполнить или запустить подсказку. Эта настройка используется плагинами xiaochuan [IDE](/docs/ide).
 
 ---
 
@@ -83,7 +83,7 @@ For example, `http://localhost:4096/doc`. Use the spec to generate clients or in
 
 ## API
 
-Сервер xccode предоставляет следующие API.
+Сервер xiaochuan предоставляет следующие API.
 
 ---
 

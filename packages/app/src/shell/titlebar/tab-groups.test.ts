@@ -49,7 +49,7 @@ function meta(
     serverLabel: tab.server === SERVER_A ? "local" : tab.server === SERVER_B ? "blade" : "vps",
     title: tab.type === "session" ? tab.sessionId : tab.draftID,
     projectID: tab.server === SERVER_A ? "proj_a" : tab.server === SERVER_B ? "proj_b" : "proj_c",
-    projectName: tab.server === SERVER_A ? "xccode" : tab.server === SERVER_B ? "blade-repo" : "vps-repo",
+    projectName: tab.server === SERVER_A ? "xiaochuan" : tab.server === SERVER_B ? "blade-repo" : "vps-repo",
     directory: "/work/app",
     active: false,
     ...overrides,

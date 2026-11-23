@@ -3,25 +3,25 @@ import fs from "fs/promises"
 import path from "path"
 import { Deferred, Duration, Effect, Fiber, Layer, LayerMap, Schedule } from "effect"
 import { TestClock } from "effect/testing"
-import { define } from "@xccode/plugin/effect/plugin"
-import { Event } from "@xccode/schema/config"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Config } from "@xccode/core/config"
-import { Integration } from "@xccode/core/integration"
-import { Global } from "@xccode/util/global"
-import { Npm } from "@xccode/util/npm"
-import { Bus } from "@xccode/core/bus"
-import { Command } from "@xccode/core/command"
-import { Database } from "@xccode/core/database/database"
-import { Watcher } from "@xccode/core/filesystem/watcher"
-import { Instance } from "@xccode/core/instance"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { Location } from "@xccode/core/location"
-import { Plugin } from "@xccode/core/plugin"
-import { Rpc } from "@xccode/core/rpc"
-import { SdkPlugins } from "@xccode/core/plugin/sdk"
-import { AbsolutePath } from "@xccode/core/schema"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { Event } from "@xiaochuan/schema/config"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Config } from "@xiaochuan/core/config"
+import { Integration } from "@xiaochuan/core/integration"
+import { Global } from "@xiaochuan/util/global"
+import { Npm } from "@xiaochuan/util/npm"
+import { Bus } from "@xiaochuan/core/bus"
+import { Command } from "@xiaochuan/core/command"
+import { Database } from "@xiaochuan/core/database/database"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
+import { Instance } from "@xiaochuan/core/instance"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { Location } from "@xiaochuan/core/location"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { Rpc } from "@xiaochuan/core/rpc"
+import { SdkPlugins } from "@xiaochuan/core/plugin/sdk"
+import { AbsolutePath } from "@xiaochuan/core/schema"
 import { tempGlobalLayer } from "../fixture/global"
 import { organizationPolicy } from "../fixture/policy"
 import { offlineModels } from "../fixture/models"
@@ -147,7 +147,7 @@ describe("PluginSupervisor reload", () => {
         yield* Effect.promise(async () => {
           await Bun.write(file, entry)
           await Bun.write(helper, source(1))
-          await Bun.write(path.join(directory.path, ".xccode/xccode.json"), JSON.stringify({ plugins: [root] }))
+          await Bun.write(path.join(directory.path, ".xiaochuan/xiaochuan.json"), JSON.stringify({ plugins: [root] }))
         })
         const watcher = yield* Watcher.Test
         const locations = yield* LocationServiceMap.Service
@@ -202,14 +202,14 @@ describe("PluginSupervisor reload", () => {
         const directory = yield* tmpdirScoped()
         const file = path.join(
           directory.path,
-          mode === "discovered" ? ".xccode/plugins/greeter.ts" : "external/greeter/index.ts",
+          mode === "discovered" ? ".xiaochuan/plugins/greeter.ts" : "external/greeter/index.ts",
         )
         yield* Effect.promise(async () => {
           await Bun.write(file, greeter("greet-v1"))
           await fs.utimes(file, new Date(0), new Date(0))
           if (mode === "configured") {
             await Bun.write(
-              path.join(directory.path, ".xccode/xccode.json"),
+              path.join(directory.path, ".xiaochuan/xiaochuan.json"),
               JSON.stringify({ plugins: [path.dirname(file)] }),
             )
           }
@@ -254,7 +254,7 @@ describe("PluginSupervisor reload", () => {
   it.live("keeps the running generation when an updated local plugin fails to import", () =>
     Effect.gen(function* () {
       const directory = yield* tmpdirScoped()
-      const file = path.join(directory.path, ".xccode/plugins/greeter.ts")
+      const file = path.join(directory.path, ".xiaochuan/plugins/greeter.ts")
       // Local plugin revisions key on mtime, so give each rewrite a distinct timestamp.
       const write = (content: string, mtime: Date) =>
         Effect.promise(async () => {
@@ -305,7 +305,7 @@ describe("PluginSupervisor reload", () => {
       )
       yield* Effect.promise(() => Bun.write(path.join(npm.directory, "server.ts"), greeter("greet-pkg")))
       yield* Effect.promise(() =>
-        Bun.write(path.join(directory.path, ".xccode/xccode.json"), JSON.stringify({ plugins: ["fixture-pkg"] })),
+        Bun.write(path.join(directory.path, ".xiaochuan/xiaochuan.json"), JSON.stringify({ plugins: ["fixture-pkg"] })),
       )
       const bus = yield* Bus.Service
       const locations = yield* LocationServiceMap.Service
@@ -348,7 +348,7 @@ it.live("applies organization integration changes to running external plugins", 
     const directory = yield* tmpdirScoped()
     const root = path.join(directory.path, "external/policy-fixture")
     const entered = path.join(directory.path, "entered")
-    const configuration = path.join(directory.path, ".xccode/xccode.json")
+    const configuration = path.join(directory.path, ".xiaochuan/xiaochuan.json")
     yield* Effect.promise(async () => {
       await Bun.write(
         path.join(root, "index.ts"),
@@ -379,7 +379,7 @@ it.live("applies organization integration changes to running external plugins", 
       )
       expect(yield* Effect.promise(() => Bun.file(entered).exists())).toBe(true)
       yield* config.integration?.(
-        Integration.ID.make("xccode"),
+        Integration.ID.make("xiaochuan"),
         organizationPolicy([{ action: "plugin.use", resource: root, effect: "deny" }]),
       ) ?? Effect.void
       yield* commands.get("policy-greet").pipe(
@@ -388,7 +388,7 @@ it.live("applies organization integration changes to running external plugins", 
       )
       yield* plugins.awaitActivation
       expect((yield* plugins.list()).some((plugin) => plugin.id === "greeter")).toBe(false)
-      yield* config.integration?.(Integration.ID.make("xccode"), undefined) ?? Effect.void
+      yield* config.integration?.(Integration.ID.make("xiaochuan"), undefined) ?? Effect.void
       yield* commands.get("policy-greet").pipe(
         Effect.flatMap((command) => (command ? Effect.void : Effect.fail("pending"))),
         Effect.retry({ times: 200, schedule: Schedule.spaced("10 millis") }),

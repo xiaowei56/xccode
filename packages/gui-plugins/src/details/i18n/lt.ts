@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Ištrinti darbo medį",
   "mcp.manage": "Tvarkyti MCP serverius",
   timedOut: "Serveris per ilgai neatsakė",
-  "setup.mcp": "Pridėti serverį su Xccode",
+  "setup.mcp": "Pridėti serverį su Xiaochuan",
   "setup.mcp.prompt":
-    "Padėk man pridėti MCP serverį į mano globalią Xccode konfigūraciją. Paklausk, kurią paslaugą noriu prijungti, tada ją sukonfigūruok ir patikrink, ar ji prisijungia.",
-  "setup.plugins": "Pridėti papildinį su Xccode",
+    "Padėk man pridėti MCP serverį į mano globalią Xiaochuan konfigūraciją. Paklausk, kurią paslaugą noriu prijungti, tada ją sukonfigūruok ir patikrink, ar ji prisijungia.",
+  "setup.plugins": "Pridėti papildinį su Xiaochuan",
   "setup.plugins.prompt":
-    "Padėk man pridėti papildinį į mano globalią Xccode konfigūraciją. Paklausk, ką jis turėtų daryti, pasiūlyk papildinį, tada jį pridėk.",
-  "setup.skills": "Naujas įgūdis su Xccode",
+    "Padėk man pridėti papildinį į mano globalią Xiaochuan konfigūraciją. Paklausk, ką jis turėtų daryti, pasiūlyk papildinį, tada jį pridėk.",
+  "setup.skills": "Naujas įgūdis su Xiaochuan",
   "setup.skills.prompt":
-    "Padėk man parašyti naują Xccode įgūdį mano globalioje konfigūracijoje. Paklausk, ko jis turėtų tave išmokyti, tada parašyk jo SKILL.md.",
+    "Padėk man parašyti naują Xiaochuan įgūdį mano globalioje konfigūracijoje. Paklausk, ko jis turėtų tave išmokyti, tada parašyk jo SKILL.md.",
   changesFailed: "Nepavyko įkelti pakeitimų",
   changesOffline: "Nepavyksta pasiekti šio serverio",
   "mcp.signIn": "Prisijungti",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "{{name}} išsami informacija",
   "mcp.signIn.open": "Prisijungti prie {{name}}",
   "mcp.signIn.description":
-    "Atsivers naršyklė, kad galėtumėte prisijungti prie {{name}}. Jei ji negali pasiekti kompiuterio, kuriame veikia Xccode, žemiau įklijuokite URL, į kurį buvote nukreipti.",
+    "Atsivers naršyklė, kad galėtumėte prisijungti prie {{name}}. Jei ji negali pasiekti kompiuterio, kuriame veikia Xiaochuan, žemiau įklijuokite URL, į kurį buvote nukreipti.",
   "mcp.signIn.waiting": "Laukiama įgaliojimo…",
   "mcp.signIn.failed": "Autorizacija nepavyko: {{error}}",
   "mcp.signIn.expired": "Autorizacija nebegalioja",

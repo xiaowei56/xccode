@@ -1,27 +1,27 @@
 ---
 title: "Formatters"
-description: "Format files after Xccode edits them, with built-in formatters such as Prettier, Biome, gofmt, and Ruff, or your own commands."
+description: "Format files after Xiaochuan edits them, with built-in formatters such as Prettier, Biome, gofmt, and Ruff, or your own commands."
 ---
 
-Xccode can format files after its `write`, `edit`, or `patch` tools change
+Xiaochuan can format files after its `write`, `edit`, or `patch` tools change
 them. Formatters are disabled by default, so enable them in your configuration:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": true,
 }
 ```
 
 ## Enable
 
-Set `formatter` to `true` to enable every built-in formatter. Xccode runs a
+Set `formatter` to `true` to enable every built-in formatter. Xiaochuan runs a
 built-in only when its executable and any project-specific requirements are
 available.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": true,
 }
 ```
@@ -30,16 +30,16 @@ An object also enables the built-ins and lets you override them or add custom
 formatters. An empty object preserves inherited formatter settings, while `true`
 resets them to the built-ins.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": {},
 }
 ```
 
 ## Built-ins
 
-Xccode includes these formatter definitions. Most require the named command
+Xiaochuan includes these formatter definitions. Most require the named command
 to be available; definitions with extra detection rules list them below.
 
 | Formatter | Extensions | Requirement |
@@ -71,10 +71,10 @@ to be available; definitions with extra detection rules list them below.
 | `cljfmt` | `.clj`, `.cljs`, `.cljc`, `.edn` | `cljfmt` command |
 | `dfmt` | `.d` | `dfmt` command |
 
-For example, enabling built-ins lets Xccode discover and run a project-local
+For example, enabling built-ins lets Xiaochuan discover and run a project-local
 Prettier dependency for matching files:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "formatter": true,
 }
@@ -85,9 +85,9 @@ Prettier dependency for matching files:
 Add a named entry to change a built-in or define a custom formatter. A custom
 formatter needs both `command` and `extensions` to run.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": {
     "prettier": {
       "environment": {
@@ -113,7 +113,7 @@ formatter needs both `command` and `extensions` to run.
 All fields are optional. A built-in entry inherits omitted values, while a new
 entry without a command or extensions cannot run.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "formatter": {
     "prettier": {
@@ -125,11 +125,11 @@ entry without a command or extensions cannot run.
 
 ## Commands
 
-`command` is an argument array, not a shell command string. Xccode replaces
+`command` is an argument array, not a shell command string. Xiaochuan replaces
 `$FILE` with the file's absolute path and runs the command from the active
 project directory.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "formatter": {
     "custom": {
@@ -142,11 +142,11 @@ project directory.
 
 ## Matching
 
-Xccode compares the file's final extension with `extensions`. Matching is
+Xiaochuan compares the file's final extension with `extensions`. Matching is
 case-sensitive, and compound entries such as `.part.md` do not match
 `notes.part.md` because its final extension is `.md`.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "formatter": {
     "markdown": {
@@ -157,12 +157,12 @@ case-sensitive, and compound entries such as `.part.md` do not match
 }
 ```
 
-When several formatters match, Xccode tries them in registered order and
+When several formatters match, Xiaochuan tries them in registered order and
 stops after the first successful command. Built-ins retain their built-in
 order; custom entries follow in object order. If one exits unsuccessfully,
-Xccode logs the failure and tries the next match.
+Xiaochuan logs the failure and tries the next match.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "formatter": {
     "preferred": {
@@ -182,9 +182,9 @@ Xccode logs the failure and tries the next match.
 Formatting is disabled when no config file sets `formatter`. To disable
 formatting that a lower-priority file enabled, set it to `false`.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": false,
 }
 ```
@@ -192,7 +192,7 @@ formatting that a lower-priority file enabled, set it to `false`.
 To disable one built-in while leaving the others enabled, mark its named entry
 as disabled.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "formatter": {
     "prettier": {

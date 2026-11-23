@@ -1,8 +1,8 @@
 import { TextAttributes, type MarkdownInlineHook, type MarkdownRenderable } from "@opentui/core"
 import { useRenderer } from "@opentui/solid"
 import { createEffect, createSignal, untrack } from "solid-js"
-import { parseSessionMention, sessionMentions } from "@xccode/util/session-mention"
-import { displayLabel } from "@xccode/util/session-title-fallback"
+import { parseSessionMention, sessionMentions } from "@xiaochuan/util/session-mention"
+import { displayLabel } from "@xiaochuan/util/session-title-fallback"
 import { useData } from "../context/data"
 import { useRoute } from "../context/route"
 import { useDialog } from "./dialog"
@@ -37,7 +37,7 @@ export function useSessionLinks() {
     const style = context.syntaxStyle.mergeStyles("markup.link.url")
     return spans.flatMap((span) => {
       // Like the web app, a code span links only when it is exactly a session ID, so a command such
-      // as `xccode --session ses_…` stays copyable.
+      // as `xiaochuan --session ses_…` stays copyable.
       if (span.link || (span.code && !parseSessionMention(span.text.replace(/^`+\s?|\s?`+$/g, "")))) return [span]
       const mentions = sessionMentions(span.text)
       if (mentions.length === 0) return [span]

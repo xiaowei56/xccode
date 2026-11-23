@@ -1,4 +1,4 @@
-import type { Plugin } from "@xccode/plugin/tui"
+import type { Plugin } from "@xiaochuan/plugin/tui"
 import { useTerminalDimensions } from "@opentui/solid"
 import { TextAttributes } from "@opentui/core"
 import { createSignal } from "solid-js"
@@ -7,7 +7,7 @@ import { SessionLocationUnavailable } from "../../../routes/session/location-mis
 import type { Story } from "./index"
 import { StoryFooter } from "./footer"
 
-const directory = "/Users/kit/code/open-source/xccode-workerd-profile"
+const directory = "/Users/kit/code/open-source/xiaochuan-workerd-profile"
 
 function SessionLocationMissingStory(props: { context: Plugin.Context }) {
   const dimensions = useTerminalDimensions()
@@ -18,9 +18,9 @@ function SessionLocationMissingStory(props: { context: Plugin.Context }) {
       <DialogWorkspaces
         projectID="fixture-project"
         initialDirectories={[
-          { directory: "/Users/kit/code/open-source/xccode" },
+          { directory: "/Users/kit/code/open-source/xiaochuan" },
           {
-            directory: "/Users/kit/code/open-source/xccode-instruction-rename",
+            directory: "/Users/kit/code/open-source/xiaochuan-instruction-rename",
             strategy: "git_worktree",
           },
         ]}

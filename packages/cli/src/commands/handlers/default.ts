@@ -1,6 +1,6 @@
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
-import { run } from "@xccode/tui"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
+import { run } from "@xiaochuan/tui"
 import { Commands } from "../commands"
 import { Runtime } from "../../framework/runtime"
 import { Config } from "../../config"
@@ -9,11 +9,11 @@ import { CliError } from "effect/cli"
 import { ServerConnection } from "../../services/server-connection"
 import { Updater } from "../../services/updater"
 import { UpdatePreflight } from "../../services/update-preflight"
-import { Npm } from "@xccode/util/npm"
-import { XCCODE_ARTIFACT, XCCODE_CHANNEL, XCCODE_HIGHLIGHTS, XCCODE_VERSION } from "../../version"
+import { Npm } from "@xiaochuan/util/npm"
+import { XIAOCHUAN_ARTIFACT, XIAOCHUAN_CHANNEL, XIAOCHUAN_HIGHLIGHTS, XIAOCHUAN_VERSION } from "../../version"
 import { Env } from "../../env"
-import { Service } from "@xccode/client/effect/service"
-import { Xccode } from "@xccode/client/promise"
+import { Service } from "@xiaochuan/client/effect/service"
+import { Xiaochuan } from "@xiaochuan/client/promise"
 import { findSession } from "../../session-target"
 import { errorMessage } from "../../util/error"
 
@@ -27,7 +27,7 @@ export default Runtime.handler(Commands, (input) =>
         Effect.map((info) => info.type === "Directory"),
         Effect.orElseSucceed(() => false),
       )
-      // `xccode login` reads as a mistyped command more often than a directory, so answer with help, not ENOENT.
+      // `xiaochuan login` reads as a mistyped command more often than a directory, so answer with help, not ENOENT.
       if (!isDirectory)
         return yield* new CliError.ShowHelp({
           commandPath: [Commands.name],
@@ -61,7 +61,7 @@ export default Runtime.handler(Commands, (input) =>
       },
     }).pipe(
       Effect.tapError(() =>
-        Effect.promise(() => preflight.fail("Xccode update could not start the new background service")),
+        Effect.promise(() => preflight.fail("Xiaochuan update could not start the new background service")),
       ),
     )
     const session = Option.getOrUndefined(input.session)
@@ -70,7 +70,7 @@ export default Runtime.handler(Commands, (input) =>
       session !== undefined &&
       (yield* Effect.tryPromise({
         try: () =>
-          findSession(Xccode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) }), session),
+          findSession(Xiaochuan.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) }), session),
         catch: (cause) => new Error(errorMessage(cause)),
       })) !== undefined
     const updater = yield* Updater.Service
@@ -109,10 +109,10 @@ export default Runtime.handler(Commands, (input) =>
     const service = server.service
     yield* run({
       app: {
-        name: process.env.XCCODE_CLIENT ?? XCCODE_ARTIFACT,
-        version: XCCODE_VERSION,
-        channel: process.env.XCCODE_TUI_CHANNEL ?? XCCODE_CHANNEL,
-        highlights: XCCODE_HIGHLIGHTS,
+        name: process.env.XIAOCHUAN_CLIENT ?? XIAOCHUAN_ARTIFACT,
+        version: XIAOCHUAN_VERSION,
+        channel: process.env.XIAOCHUAN_TUI_CHANNEL ?? XIAOCHUAN_CHANNEL,
+        highlights: XIAOCHUAN_HIGHLIGHTS,
       },
       server: {
         endpoint: server.endpoint,

@@ -22,27 +22,27 @@ describe("acp session lifecycle over the wire", () => {
         mcpCapabilities: { http: true, sse: false },
         promptCapabilities: { embeddedContext: true, image: true },
         sessionCapabilities: { additionalDirectories: {}, close: {}, delete: {}, fork: {}, list: {}, resume: {} },
-        _meta: { "xccode/child-session-updates": true },
+        _meta: { "xiaochuan/child-session-updates": true },
       },
-      agentInfo: { name: "Xccode" },
+      agentInfo: { name: "Xiaochuan" },
       _meta: { steering: { supported: true } },
     })
     expect(plain.authMethods).toEqual([
-      { id: "xccode-login", name: "Login with xccode", description: "Run `xccode auth login` in the terminal" },
+      { id: "xiaochuan-login", name: "Login with xiaochuan", description: "Run `xiaochuan auth login` in the terminal" },
     ])
     expect(terminal.authMethods?.[0]?._meta).toEqual({
-      "terminal-auth": { command: "xccode", args: ["auth", "login"], label: "Xccode Login" },
+      "terminal-auth": { command: "xiaochuan", args: ["auth", "login"], label: "Xiaochuan Login" },
     })
     expect(standard.authMethods).toEqual([
       {
-        id: "xccode-login",
-        name: "Login with xccode",
-        description: "Run `xccode auth login` in the terminal",
+        id: "xiaochuan-login",
+        name: "Login with xiaochuan",
+        description: "Run `xiaochuan auth login` in the terminal",
         type: "terminal",
         args: ["--login"],
       },
     ])
-    expect(await acp.request("authenticate", { methodId: "xccode-login" })).toEqual({})
+    expect(await acp.request("authenticate", { methodId: "xiaochuan-login" })).toEqual({})
     expect(await rpcError(acp.request("authenticate", { methodId: "missing" }))).toMatchObject({
       code: -32602,
       data: { methodId: "missing" },

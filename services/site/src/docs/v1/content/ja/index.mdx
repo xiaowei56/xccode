@@ -1,15 +1,15 @@
 ---
 title: はじめに
-description: Xccode を始めましょう。
+description: Xiaochuan を始めましょう。
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 import config from "../../../../config.mjs"
 export const console = config.console
 
-[**Xccode**](/) は、オープンソースの AI コーディングエージェントです。これは、ターミナルベースのインターフェイス、デスクトップアプリ、または IDE 拡張機能として利用できます。
+[**Xiaochuan**](/) は、オープンソースの AI コーディングエージェントです。これは、ターミナルベースのインターフェイス、デスクトップアプリ、または IDE 拡張機能として利用できます。
 
-![xccodeテーマ](../../../assets/lander/screenshot.png)を使用したXccode TUI
+![xiaochuanテーマ](../../../assets/lander/screenshot.png)を使用したXiaochuan TUI
 
 始めましょう。
 
@@ -17,7 +17,7 @@ export const console = config.console
 
 #### 前提条件
 
-ターミナルで Xccode を使用するには、次のものが必要です。
+ターミナルで Xiaochuan を使用するには、次のものが必要です。
 
 1. 次のような最新のターミナルエミュレータ:
    - [WezTerm](https://wezterm.org)、クロスプラットフォーム
@@ -31,10 +31,10 @@ export const console = config.console
 
 ## インストール
 
-Xccode をインストールする最も簡単な方法は、インストールスクリプトを使用することです。
+Xiaochuan をインストールする最も簡単な方法は、インストールスクリプトを使用することです。
 
 ```bash
-curl -fsSL https://xccode.ai/install | bash
+curl -fsSL https://xiaochuan.ai/install | bash
 ```
 
 次のコマンドを使用してインストールすることもできます。
@@ -45,28 +45,28 @@ curl -fsSL https://xccode.ai/install | bash
 
       <TabItem label="npm">
       ```bash
-      npm install -g xccode-ai
+      npm install -g xiaochuan-ai
       ```
 
           </TabItem>
 
         <TabItem label="Bun">
         ```bash
-        bun install -g xccode-ai
+        bun install -g xiaochuan-ai
         ```
 
           </TabItem>
 
         <TabItem label="pnpm">
         ```bash
-        pnpm install -g xccode-ai
+        pnpm install -g xiaochuan-ai
         ```
 
           </TabItem>
 
         <TabItem label="Yarn">
         ```bash
-        yarn global add xccode-ai
+        yarn global add xiaochuan-ai
         ```
 
       </TabItem>
@@ -76,68 +76,68 @@ curl -fsSL https://xccode.ai/install | bash
 - **macOS および Linux での Homebrew の使用**
 
   ```bash
-  brew install anomalyco/tap/xccode
+  brew install anomalyco/tap/xiaochuan
   ```
 
-  > 最新のリリースには Xccode タップを使用することをお勧めします。公式の `brew install xccode` 式は Homebrew チームによって維持されており、更新頻度は低くなります。
+  > 最新のリリースには Xiaochuan タップを使用することをお勧めします。公式の `brew install xiaochuan` 式は Homebrew チームによって維持されており、更新頻度は低くなります。
 
 - **Arch Linux での Paru の使用**
 
   ```bash
-  sudo pacman -S xccode           # Arch Linux (Stable)
-  paru -S xccode-bin              # Arch Linux (Latest from AUR)
+  sudo pacman -S xiaochuan           # Arch Linux (Stable)
+  paru -S xiaochuan-bin              # Arch Linux (Latest from AUR)
   ```
 
 #### Windows
 
 :::tip[推奨: WSL を使用する]
-Windows で最高のエクスペリエンスを得るには、[Windows Subsystem for Linux (WSL)](/docs/windows-wsl) を使用することをお勧めします。これにより、パフォーマンスが向上し、Xccode の機能との完全な互換性が提供されます。
+Windows で最高のエクスペリエンスを得るには、[Windows Subsystem for Linux (WSL)](/docs/windows-wsl) を使用することをお勧めします。これにより、パフォーマンスが向上し、Xiaochuan の機能との完全な互換性が提供されます。
 :::
 
 - **Chocolatey の使用**
 
   ```bash
-  choco install xccode
+  choco install xiaochuan
   ```
 
 - **Scoop の使用**
 
   ```bash
-  scoop install xccode
+  scoop install xiaochuan
   ```
 
 - **npm の使用**
 
   ```bash
-  npm install -g xccode-ai
+  npm install -g xiaochuan-ai
   ```
 
 - **Mise の使用**
 
   ```bash
-  mise use -g github:xiaowei56/xccode
+  mise use -g github:xiaowei56/xiaochuan
   ```
 
 - **Docker の使用**
 
   ```bash
-  docker run -it --rm ghcr.io/xiaowei56/xccode
+  docker run -it --rm ghcr.io/xiaowei56/xiaochuan
   ```
 
-Bun を使用して Windows に Xccode をインストールするためのサポートは現在進行中です。
+Bun を使用して Windows に Xiaochuan をインストールするためのサポートは現在進行中です。
 
-[Releases](https://github.com/xiaowei56/xccode/releases).
+[Releases](https://github.com/xiaowei56/xiaochuan/releases).
 
 ---
 
 ## 設定
 
-Xccode を使用すると、API キーを構成することで任意の LLM プロバイダーを使用できます。
+Xiaochuan を使用すると、API キーを構成することで任意の LLM プロバイダーを使用できます。
 
-LLM プロバイダーを初めて使用する場合は、[Xccode Models](https://xccode.ai/docs/console/) をお勧めします。
-これは、Xccode チームによってテストおよび検証されたモデルの厳選されたリストです。
+LLM プロバイダーを初めて使用する場合は、[Xiaochuan Models](https://xiaochuan.ai/docs/console/) をお勧めします。
+これは、Xiaochuan チームによってテストおよび検証されたモデルの厳選されたリストです。
 
-1. TUI で `/connect` コマンドを実行し、xccode を選択して、[xccode.ai/auth](https://xccode.ai/auth) で認証します。
+1. TUI で `/connect` コマンドを実行し、xiaochuan を選択して、[xiaochuan.ai/auth](https://xiaochuan.ai/auth) で認証します。
 
    ```txt
    /connect
@@ -166,31 +166,31 @@ LLM プロバイダーを初めて使用する場合は、[Xccode Models](https:
 cd /path/to/project
 ```
 
-そしてXccodeを実行します。
+そしてXiaochuanを実行します。
 
 ```bash
-xccode
+xiaochuan
 ```
 
-次に、次のコマンドを実行して、プロジェクトの Xccode を初期化します。
+次に、次のコマンドを実行して、プロジェクトの Xiaochuan を初期化します。
 
 ```bash frame="none"
 /init
 ```
 
-これにより、Xccode がプロジェクトを分析し、プロジェクトのルートに `AGENTS.md` ファイルを作成します。
+これにより、Xiaochuan がプロジェクトを分析し、プロジェクトのルートに `AGENTS.md` ファイルを作成します。
 
 :::tip
 プロジェクトの `AGENTS.md` ファイルを Git にコミットする必要があります。
 :::
 
-これは、Xccode がプロジェクトの構造と使用されているコーディングパターンを理解するのに役立ちます。
+これは、Xiaochuan がプロジェクトの構造と使用されているコーディングパターンを理解するのに役立ちます。
 
 ---
 
 ## 使用法
 
-これで、Xccode を使用してプロジェクトに取り組む準備が整いました。何でもお気軽にお尋ねください！
+これで、Xiaochuan を使用してプロジェクトに取り組む準備が整いました。何でもお気軽にお尋ねください！
 
 AI コーディングエージェントを初めて使用する場合は、次の例を参考にしてください。
 
@@ -198,7 +198,7 @@ AI コーディングエージェントを初めて使用する場合は、次�
 
 ### 質問する
 
-Xccode にコードベースの説明を依頼できます。
+Xiaochuan にコードベースの説明を依頼できます。
 
 :::tip
 プロジェクト内のファイルをあいまい検索するには、`@` キーを使用します。
@@ -214,11 +214,11 @@ How is authentication handled in @packages/functions/src/api/index.ts
 
 ### 機能を追加する
 
-Xccode に新しい機能をプロジェクトに追加するよう依頼できます。ただし、最初は計画の作成を依頼することをお勧めします。
+Xiaochuan に新しい機能をプロジェクトに追加するよう依頼できます。ただし、最初は計画の作成を依頼することをお勧めします。
 
 1. **計画を作成する**
 
-Xccode には、変更を加える機能を無効にする _Plan mode_ があり、
+Xiaochuan には、変更を加える機能を無効にする _Plan mode_ があり、
 代わりに、その機能を*どのように*実装するかを提案します。
 
 **Tab** キーを使用してそれに切り替えます。右下隅にこれを示すインジケーターが表示されます。
@@ -235,11 +235,11 @@ Xccode には、変更を加える機能を無効にする _Plan mode_ があり
    From this screen, the user can undelete a note or permanently delete it.
 ```
 
-自分が何を望んでいるのかを理解するために、Xccode に十分な詳細を提供したいと考えています。
+自分が何を望んでいるのかを理解するために、Xiaochuan に十分な詳細を提供したいと考えています。
 チームの若手開発者と話しているように話すと良いでしょう。
 
 :::tip
-Xccode に多くのコンテキストと例を提供して、意図する内容を理解できるようにします。
+Xiaochuan に多くのコンテキストと例を提供して、意図する内容を理解できるようにします。
 :::
 
 2. **計画を反復する**
@@ -255,7 +255,7 @@ Xccode に多くのコンテキストと例を提供して、意図する内容�
 画像をターミナルにドラッグアンドドロップして、プロンプトに追加します。
 :::
 
-Xccode は、指定された画像をスキャンしてプロンプトに追加できます。
+Xiaochuan は、指定された画像をスキャンしてプロンプトに追加できます。
 画像をターミナルにドラッグアンドドロップしてこれを行うことができます。
 
 3. **機能を構築する**
@@ -277,7 +277,7 @@ Xccode は、指定された画像をスキャンしてプロンプトに追加�
 
 ### 変更を加える
 
-より単純な変更については、Xccode に直接ビルドするよう依頼できます。
+より単純な変更については、Xiaochuan に直接ビルドするよう依頼できます。
 最初に計画を見直す必要はありません。
 
 ```txt frame="none" "@packages/functions/src/settings.ts" "@packages/functions/src/notes.ts"
@@ -286,13 +286,13 @@ handled in the /notes route in @packages/functions/src/notes.ts and implement
 the same logic in @packages/functions/src/settings.ts
 ```
 
-Xccode が適切な変更を行えるように、十分な量の詳細を確実に提供する必要があります。
+Xiaochuan が適切な変更を行えるように、十分な量の詳細を確実に提供する必要があります。
 
 ---
 
 ### 変更を元に戻す
 
-Xccode にいくつかの変更を依頼するとします。
+Xiaochuan にいくつかの変更を依頼するとします。
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
@@ -305,13 +305,13 @@ Can you refactor the function in @packages/functions/src/api/index.ts?
 /undo
 ```
 
-Xccode は加えた変更を元に戻し、元のメッセージを再度表示します。
+Xiaochuan は加えた変更を元に戻し、元のメッセージを再度表示します。
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
 ```
 
-ここからプロンプトを調整し、Xccode に再試行を依頼できます。
+ここからプロンプトを調整し、Xiaochuan に再試行を依頼できます。
 
 :::tip
 `/undo` を複数回実行すると、複数の変更を元に戻すことができます。
@@ -327,6 +327,6 @@ Can you refactor the function in @packages/functions/src/api/index.ts?
 
 ## カスタマイズ
 
-それで終わりです！これであなたは Xccode の使い方のプロになりました。
+それで終わりです！これであなたは Xiaochuan の使い方のプロになりました。
 
-独自のものにするには、[テーマ](/docs/themes) を選択する、[キーバインドをカスタマイズする](/docs/keybinds)、[コードフォーマッタ](/docs/formatters) を設定する、[カスタムコマンド](/docs/commands) を作成する、または [Xccode設定](/docs/config) を試してみることをお勧めします。
+独自のものにするには、[テーマ](/docs/themes) を選択する、[キーバインドをカスタマイズする](/docs/keybinds)、[コードフォーマッタ](/docs/formatters) を設定する、[カスタムコマンド](/docs/commands) を作成する、または [Xiaochuan設定](/docs/config) を試してみることをお勧めします。

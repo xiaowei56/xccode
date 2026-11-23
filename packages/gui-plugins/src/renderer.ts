@@ -1,4 +1,4 @@
-import { compose, type Entry } from "@xccode/plugin/gui/host"
+import { compose, type Entry } from "@xiaochuan/plugin/gui/host"
 import context from "./context"
 import contextRenderer from "./context/renderer"
 import btw from "./btw"

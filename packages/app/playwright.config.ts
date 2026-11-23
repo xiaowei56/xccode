@@ -50,9 +50,9 @@ export default defineConfig({
         reuseExistingServer: !built,
         timeout: 120_000,
         env: {
-          VITE_XCCODE_TEST_FIXTURES: "1",
-          VITE_XCCODE_SERVER_HOST: serverHost,
-          VITE_XCCODE_SERVER_PORT: serverPort,
+          VITE_XIAOCHUAN_TEST_FIXTURES: "1",
+          VITE_XIAOCHUAN_SERVER_HOST: serverHost,
+          VITE_XIAOCHUAN_SERVER_PORT: serverPort,
         },
       },
   use: {

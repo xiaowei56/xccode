@@ -2,7 +2,7 @@
   Show shareable usage statistics
 
 [1mUSAGE[0m
-  [36mxccode stats [flags][0m
+  [36mxiaochuan stats [flags][0m
 
 [1mFLAGS[0m
   [32m--days[0m [2minteger[0m      Show the last N days; 0 means today

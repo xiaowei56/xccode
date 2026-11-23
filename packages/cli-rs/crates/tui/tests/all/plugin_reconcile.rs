@@ -7,13 +7,13 @@ use std::cell::RefCell;
 use std::collections::HashSet;
 use std::rc::Rc;
 
-use xccode_plugin::abi::{self, v2};
-use xccode_plugin::node::{self, Act};
-use xccode_plugin::reconcile::{self, Env, Refused, Tree, Work};
-use xccode_plugin::{Host, SlotMount};
-use xccode_ui::dialog::DialogKeymap;
-use xccode_ui::keymap::{Keybinds, Options};
-use xccode_ui::theme::{Catalog, Theme, ThemeMode};
+use xiaochuan_plugin::abi::{self, v2};
+use xiaochuan_plugin::node::{self, Act};
+use xiaochuan_plugin::reconcile::{self, Env, Refused, Tree, Work};
+use xiaochuan_plugin::{Host, SlotMount};
+use xiaochuan_ui::dialog::DialogKeymap;
+use xiaochuan_ui::keymap::{Keybinds, Options};
+use xiaochuan_ui::theme::{Catalog, Theme, ThemeMode};
 use opentui::prelude::*;
 use opentui::testing::{Capture, TestApp};
 
@@ -44,7 +44,7 @@ impl Host for TestHost {
 
 fn theme(index: usize) -> Theme {
     let (name, mode) =
-        [("xccode", ThemeMode::Dark), ("xccode", ThemeMode::Light), ("tokyonight", ThemeMode::Dark)][index % 3];
+        [("xiaochuan", ThemeMode::Dark), ("xiaochuan", ThemeMode::Light), ("tokyonight", ThemeMode::Dark)][index % 3];
     Catalog::default().load(name, mode).unwrap().theme
 }
 
@@ -107,12 +107,12 @@ fn apply_in(
         slot: &slot,
         source: &source,
         measure: &|source| match source {
-            v2::Source::Text(text) => xccode_plugin::reconcile::measure(text),
-            _ => xccode_plugin::reconcile::Measure::default(),
+            v2::Source::Text(text) => xiaochuan_plugin::reconcile::measure(text),
+            _ => xiaochuan_plugin::reconcile::Measure::default(),
         },
         content: &|_| false,
         dropped: &|_| false,
-        image: &|_| xccode_plugin::image::Picture::Pending,
+        image: &|_| xiaochuan_plugin::image::Picture::Pending,
         full: false,
         draw: None,
         owner: None,
@@ -239,12 +239,12 @@ impl Twin<'_> {
                 Some(view.as_any())
             }
             v2::Node::Diff { content: v2::Source::Text(patch), view, filetype, .. } => {
-                let syntax = xccode_ui::code::syntax_theme(&self.theme);
+                let syntax = xiaochuan_ui::code::syntax_theme(&self.theme);
                 let view = match view {
                     v2::DiffView::Unified => opentui::widget::DiffView::Unified,
                     v2::DiffView::Split => opentui::widget::DiffView::Split,
                 };
-                let patch = xccode_ui::diff::view(
+                let patch = xiaochuan_ui::diff::view(
                     app,
                     &self.theme,
                     &syntax,

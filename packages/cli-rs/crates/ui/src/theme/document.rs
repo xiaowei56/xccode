@@ -1,7 +1,7 @@
 //! Validates, expands and selects a mode from V2 theme documents.
 
-use xccode_api_types::js::truthy;
-use xccode_util::json_object;
+use xiaochuan_api_types::js::truthy;
+use xiaochuan_util::json_object;
 use serde_json::{Map, Value};
 
 use super::color::is_hex;

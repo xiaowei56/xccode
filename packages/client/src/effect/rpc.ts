@@ -1,14 +1,14 @@
 export * as RpcClientRuntime from "./rpc.js"
 
-import type { Rpc } from "@xccode/schema/rpc"
-import type { RpcError, RpcInternalError } from "@xccode/protocol/errors"
-import type { XccodeEvent } from "@xccode/protocol/groups/event"
+import type { Rpc } from "@xiaochuan/schema/rpc"
+import type { RpcError, RpcInternalError } from "@xiaochuan/protocol/errors"
+import type { XiaochuanEvent } from "@xiaochuan/protocol/groups/event"
 import { Effect, Schema, Stream } from "effect"
 import type { RpcArguments, RpcCallOptions } from "../promise/rpc.js"
 import { RpcRuntime } from "../rpc-runtime.js"
 import type { RpcCallInput, RpcCallOutput } from "./api/api.js"
 
-type RpcEvent = Extract<XccodeEvent, { type: `rpc.${string}` }>
+type RpcEvent = Extract<XiaochuanEvent, { type: `rpc.${string}` }>
 type DecodeError<S> = S extends Schema.Top ? Schema.SchemaError : never
 
 export type RpcClient<
@@ -37,7 +37,7 @@ export interface RpcApi<E = never, Options = RpcCallOptions, EventError = E> {
 
 export function make<CallError, EventError>(
   call: (input: RpcCallInput, options?: RpcCallOptions) => Effect.Effect<RpcCallOutput, CallError>,
-  subscribe: () => Stream.Stream<XccodeEvent, EventError>,
+  subscribe: () => Stream.Stream<XiaochuanEvent, EventError>,
 ): RpcApi<Exclude<CallError, RpcError | RpcInternalError> | Rpc.SystemError, RpcCallOptions, EventError> {
   return <D extends Rpc.Definition>(definition: D) => {
     const methods = Object.fromEntries(

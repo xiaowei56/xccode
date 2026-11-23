@@ -15,10 +15,10 @@ const listing = (overrides: Record<string, unknown> = {}) => ({
 })
 
 describe("stealth model specs", () => {
-  test("reads public specs for stealth models from Xccode provider listings", () => {
+  test("reads public specs for stealth models from Xiaochuan provider listings", () => {
     const catalog = buildModelCatalog([], {
-      xccode: {
-        id: "xccode",
+      xiaochuan: {
+        id: "xiaochuan",
         models: { "exo-free": listing(), "gpt-5-nano": listing({ id: "gpt-5-nano" }) },
       },
       "nano-gpt": { id: "nano-gpt", models: { "stealth/exo-alpha": listing({ limit: { context: 1 } }) } },
@@ -34,17 +34,17 @@ describe("stealth model specs", () => {
     })
   })
 
-  test("prefers the xccode listing over xccode-go", () => {
+  test("prefers the xiaochuan listing over xiaochuan-go", () => {
     const catalog = buildModelCatalog([], {
-      xccode: { models: { "exo-free": listing() } },
-      "xccode-go": { models: { "exo-free": listing({ release_date: "2026-01-01" }) } },
+      xiaochuan: { models: { "exo-free": listing() } },
+      "xiaochuan-go": { models: { "exo-free": listing({ release_date: "2026-01-01" }) } },
     })
 
     expect(catalog.stealthSpecs["exo"]?.releaseDate).toBe("2026-09-23")
   })
 
   test("leaves stealth models out of the lab catalog", () => {
-    const catalog = buildModelCatalog([], { xccode: { models: { "exo-free": listing() } } })
+    const catalog = buildModelCatalog([], { xiaochuan: { models: { "exo-free": listing() } } })
 
     expect(catalog.models).toEqual([])
     expect(catalog.labs).toEqual([])

@@ -1,6 +1,6 @@
 [package]
-name = "xccode-service"
-description = "Finding, probing, and starting the Xccode server."
+name = "xiaochuan-service"
+description = "Finding, probing, and starting the Xiaochuan server."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -10,12 +10,12 @@ publish.workspace = true
 workspace = true
 
 [dependencies]
-xccode-api.workspace = true
-xccode-local.workspace = true
+xiaochuan-api.workspace = true
+xiaochuan-local.workspace = true
 base64.workspace = true
 futures-util.workspace = true
 log.workspace = true
-xccode-util.workspace = true
+xiaochuan-util.workspace = true
 rand.workspace = true
 serde_json.workspace = true
 thiserror.workspace = true

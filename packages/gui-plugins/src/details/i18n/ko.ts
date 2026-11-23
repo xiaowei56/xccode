@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "작업 트리 삭제",
   "mcp.manage": "MCP 서버 관리",
   timedOut: "서버 응답 시간이 너무 오래 걸렸습니다",
-  "setup.mcp": "Xccode로 서버 추가",
+  "setup.mcp": "Xiaochuan로 서버 추가",
   "setup.mcp.prompt":
-    "전역 Xccode 구성에 MCP 서버를 추가하도록 도와줘. 어떤 서비스를 연결할지 물어본 다음, 설정하고 연결되는지 확인해 줘.",
-  "setup.plugins": "Xccode로 플러그인 추가",
+    "전역 Xiaochuan 구성에 MCP 서버를 추가하도록 도와줘. 어떤 서비스를 연결할지 물어본 다음, 설정하고 연결되는지 확인해 줘.",
+  "setup.plugins": "Xiaochuan로 플러그인 추가",
   "setup.plugins.prompt":
-    "전역 Xccode 구성에 플러그인을 추가하도록 도와줘. 어떤 기능을 원하는지 물어보고, 플러그인을 추천한 다음 추가해 줘.",
-  "setup.skills": "Xccode로 새 스킬 만들기",
+    "전역 Xiaochuan 구성에 플러그인을 추가하도록 도와줘. 어떤 기능을 원하는지 물어보고, 플러그인을 추천한 다음 추가해 줘.",
+  "setup.skills": "Xiaochuan로 새 스킬 만들기",
   "setup.skills.prompt":
-    "전역 구성에 새 Xccode 스킬을 작성하도록 도와줘. 그 스킬이 너에게 무엇을 가르쳐야 하는지 물어본 다음 SKILL.md를 작성해 줘.",
+    "전역 구성에 새 Xiaochuan 스킬을 작성하도록 도와줘. 그 스킬이 너에게 무엇을 가르쳐야 하는지 물어본 다음 SKILL.md를 작성해 줘.",
   changesFailed: "변경 사항을 불러올 수 없습니다",
   changesOffline: "이 서버에 연결할 수 없습니다",
   "mcp.signIn": "로그인",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "{{name}} 세부 정보",
   "mcp.signIn.open": "{{name}}에 로그인",
   "mcp.signIn.description":
-    "{{name}}에 로그인할 수 있도록 브라우저가 열립니다. 브라우저가 Xccode를 실행 중인 컴퓨터에 접근할 수 없다면 리디렉션된 URL을 아래에 붙여넣으세요.",
+    "{{name}}에 로그인할 수 있도록 브라우저가 열립니다. 브라우저가 Xiaochuan를 실행 중인 컴퓨터에 접근할 수 없다면 리디렉션된 URL을 아래에 붙여넣으세요.",
   "mcp.signIn.waiting": "인증 대기 중…",
   "mcp.signIn.failed": "인증 실패: {{error}}",
   "mcp.signIn.expired": "인증이 만료되었습니다",

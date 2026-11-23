@@ -1,7 +1,7 @@
 export * as CodeModeFetch from "./fetch.js"
 
-import { Extension } from "@xccode/codemode"
-import { isRecord } from "@xccode/util/record"
+import { Extension } from "@xiaochuan/codemode"
+import { isRecord } from "@xiaochuan/util/record"
 import { Effect } from "effect"
 import { Permission } from "../permission.js"
 import { CodeModeExecution } from "./execution.js"

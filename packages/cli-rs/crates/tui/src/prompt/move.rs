@@ -1,8 +1,8 @@
 //! Move the current session to a worktree or stage one for the next session.
 
-use xccode_api::generated::{LocationGetInput, LocationQueryInput, ProjectID, SessionInfo, WorktreeCreateInput};
-use xccode_store::Location;
-use xccode_ui::motion::Spinner;
+use xiaochuan_api::generated::{LocationGetInput, LocationQueryInput, ProjectID, SessionInfo, WorktreeCreateInput};
+use xiaochuan_store::Location;
+use xiaochuan_ui::motion::Spinner;
 
 use super::editor::Inner;
 use crate::dialogs::worktrees::{self, Selection};

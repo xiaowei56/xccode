@@ -1,21 +1,21 @@
 import { describe, expect } from "bun:test"
-import { Message, ToolFailure } from "@xccode/ai/effect"
+import { Message, ToolFailure } from "@xiaochuan/ai/effect"
 import { DateTime, Effect, Option, Stream, Types } from "effect"
-import type { SessionContext } from "@xccode/plugin/effect/session"
-import type { ToolHooks } from "@xccode/plugin/effect/tool"
-import { Agent } from "@xccode/core/agent"
-import { Environment } from "@xccode/core/environment/index"
-import { Event } from "@xccode/schema/event"
-import { Model } from "@xccode/core/model"
-import { PlanPlugin } from "@xccode/core/plugin/plan"
-import { Permission } from "@xccode/core/permission"
-import { Provider } from "@xccode/core/provider"
-import { Session } from "@xccode/core/session"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionInbox } from "@xccode/core/session/inbox"
-import { SessionMessage } from "@xccode/core/session/message"
-import { Tool } from "@xccode/schema/tool"
-import { Global } from "@xccode/util/global"
+import type { SessionContext } from "@xiaochuan/plugin/effect/session"
+import type { ToolHooks } from "@xiaochuan/plugin/effect/tool"
+import { Agent } from "@xiaochuan/core/agent"
+import { Environment } from "@xiaochuan/core/environment/index"
+import { Event } from "@xiaochuan/schema/event"
+import { Model } from "@xiaochuan/core/model"
+import { PlanPlugin } from "@xiaochuan/core/plugin/plan"
+import { Permission } from "@xiaochuan/core/permission"
+import { Provider } from "@xiaochuan/core/provider"
+import { Session } from "@xiaochuan/core/session"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionInbox } from "@xiaochuan/core/session/inbox"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { Tool } from "@xiaochuan/schema/tool"
+import { Global } from "@xiaochuan/util/global"
 import path from "path"
 import { it } from "../lib/effect"
 import { host } from "./host"
@@ -24,7 +24,7 @@ const sessionID = Session.ID.make("ses_plan_test")
 const plan = Agent.ID.make("plan")
 const build = Agent.ID.make("build")
 const home = "/home/plan-test"
-const planDirectory = path.join(home, ".xccode", "plan")
+const planDirectory = path.join(home, ".xiaochuan", "plan")
 
 const agentSelected = (agent: Agent.ID, previous: Agent.ID): SessionEvent.AgentSelected => ({
   id: Event.ID.create(),

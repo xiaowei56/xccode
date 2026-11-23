@@ -1,4 +1,4 @@
-import { Integration } from "@xccode/core/integration"
+import { Integration } from "@xiaochuan/core/integration"
 import { Effect } from "effect"
 import { HttpApiBuilder, HttpApiSchema } from "effect/http-api"
 import { Api } from "../api"
@@ -7,11 +7,11 @@ import {
   IntegrationMethodNotFoundError,
   IntegrationNotFoundError,
   InvalidRequestError,
-} from "@xccode/protocol/errors"
+} from "@xiaochuan/protocol/errors"
 import { response } from "../location"
-import { WellKnown } from "@xccode/core/wellknown"
-import { Config } from "@xccode/core/config"
-import { ManagedPolicy } from "@xccode/core/managed-policy"
+import { WellKnown } from "@xiaochuan/core/wellknown"
+import { Config } from "@xiaochuan/core/config"
+import { ManagedPolicy } from "@xiaochuan/core/managed-policy"
 
 const statements = Effect.fnUntraced(function* () {
   const config = yield* Config.Service

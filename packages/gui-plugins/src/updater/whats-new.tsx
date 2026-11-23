@@ -1,11 +1,11 @@
 import { createSignal, Index, Show } from "solid-js"
 import { Effect, Option, Predicate, Schema } from "effect"
-import { Button } from "@xccode/ui/button"
-import { Dialog } from "@xccode/ui/dialog"
-import { usePlugin, type DialogHandle, type SetupContext } from "@xccode/plugin/gui"
+import { Button } from "@xiaochuan/ui/button"
+import { Dialog } from "@xiaochuan/ui/dialog"
+import { usePlugin, type DialogHandle, type SetupContext } from "@xiaochuan/plugin/gui"
 import type definition from "./index"
 
-const CHANGELOG_URL = "https://xccode.ai/changelog.json"
+const CHANGELOG_URL = "https://xiaochuan.ai/changelog.json"
 
 export type Highlight = {
   title: string

@@ -1,7 +1,7 @@
 use indexmap::IndexMap;
-use xccode_parity::{Fixture, compare, fixtures_dir};
-use xccode_ui::theme::{Catalog, TerminalColors, Theme, ThemeMode, from_hex, generate_system};
-use xccode_ui::{code, diff, markdown};
+use xiaochuan_parity::{Fixture, compare, fixtures_dir};
+use xiaochuan_ui::theme::{Catalog, TerminalColors, Theme, ThemeMode, from_hex, generate_system};
+use xiaochuan_ui::{code, diff, markdown};
 use opentui::native::Capture;
 use opentui::prelude::*;
 use opentui::style::Attributes;
@@ -85,17 +85,17 @@ fn assert_parity(capture: &Capture, name: &str) {
     let actual = Fixture::from_capture(capture);
     let comparison = compare(&expected, &actual);
     if !comparison.is_equal() {
-        let path = std::env::temp_dir().join("xccode-parity").join(format!("{name}.json"));
+        let path = std::env::temp_dir().join("xiaochuan-parity").join(format!("{name}.json"));
         std::fs::create_dir_all(path.parent().unwrap()).unwrap();
         std::fs::write(&path, actual.to_json()).unwrap();
         panic!("P-COMP {name}: {comparison}\nactual cells: {}", path.display());
     }
 }
 
-/// A test app in dark `xccode`, with the screen cleared as the TypeScript screen is: the page background and white
+/// A test app in dark `xiaochuan`, with the screen cleared as the TypeScript screen is: the page background and white
 /// text.
 fn app(width: u16, height: u16) -> (TestApp, Theme) {
-    let theme = theme("xccode", ThemeMode::Dark);
+    let theme = theme("xiaochuan", ThemeMode::Dark);
     let options = AppOptions {
         theme: opentui::theme::Theme {
             background: theme.background.base,
@@ -211,7 +211,7 @@ fn numbered_code_matches_typescript() {
 /// before and after a theme switch, the same as a view that keeps its tree because its text was set after it was built.
 #[test]
 fn a_finished_code_view_paints_and_restyles_as_a_kept_one() {
-    let (old, new) = (theme("xccode", ThemeMode::Dark), theme("tokyonight", ThemeMode::Dark));
+    let (old, new) = (theme("xiaochuan", ThemeMode::Dark), theme("tokyonight", ThemeMode::Dark));
     let source = corpus("code");
     let built = |theme: &Theme| {
         let (app, _) = app(60, 10);
@@ -282,7 +282,7 @@ fn large_added_patch() -> String {
 #[test]
 fn a_large_added_file_mounts_only_the_chunks_in_view() {
     let app = TestApp::new(80, 24);
-    let theme = theme("xccode", ThemeMode::Dark);
+    let theme = theme("xiaochuan", ThemeMode::Dark);
     let syntax = code::syntax_theme(&theme);
     let patch = large_added_patch();
     assert!(diff::split_added("@@ -1 +1 @@\n-a\n+b", 128).is_none());

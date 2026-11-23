@@ -96,7 +96,7 @@ async fn treats_a_null_compaction_capability_as_unsupported() {
     let marker = |status: &str| {
         json!({ "sessionId": acp.session_id, "update": {
             "sessionUpdate": "session_info_update",
-            "_meta": { "xccode/compaction": { "status": status, "messageId": id, "reason": "manual" } },
+            "_meta": { "xiaochuan/compaction": { "status": status, "messageId": id, "reason": "manual" } },
         } })
     };
     assert_eq!(acp.turn_updates(), vec![marker("started"), marker("completed")]);

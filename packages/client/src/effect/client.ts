@@ -1,22 +1,22 @@
-export * as Xccode from "./client.js"
+export * as Xiaochuan from "./client.js"
 
 import { Cause, Context, Effect, Stream } from "effect"
 import { HttpClient, HttpClientRequest } from "effect/http"
 import { SharedEvents } from "../shared-events.js"
-import { ClientError, Xccode } from "./generated/index.js"
+import { ClientError, Xiaochuan } from "./generated/index.js"
 import type { EventSubscribeInput } from "./api.js"
 import { RpcClientRuntime } from "./rpc.js"
 import type { RpcCallOptions } from "../promise/rpc.js"
 
 type EventType = NonNullable<EventSubscribeInput["types"]>[number]
 
-const CurrentHeaders = Context.Reference<RpcCallOptions["headers"]>("@xccode/client/effect/rpc/headers", {
+const CurrentHeaders = Context.Reference<RpcCallOptions["headers"]>("@xiaochuan/client/effect/rpc/headers", {
   defaultValue: () => undefined,
 })
 
-export const make = Effect.fn("Xccode.make")(function* (options?: { readonly baseUrl?: URL | string }) {
+export const make = Effect.fn("Xiaochuan.make")(function* (options?: { readonly baseUrl?: URL | string }) {
   const httpClient = yield* HttpClient.HttpClient
-  const raw = yield* Xccode.make(options).pipe(
+  const raw = yield* Xiaochuan.make(options).pipe(
     Effect.provideService(
       HttpClient.HttpClient,
       HttpClient.mapRequestEffect(httpClient, (request) =>

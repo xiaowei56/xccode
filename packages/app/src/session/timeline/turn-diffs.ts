@@ -1,5 +1,5 @@
-import type { FileDiffInfo } from "@xccode/client/promise"
-import type { TurnDiffInput } from "@xccode/session-ui/context"
+import type { FileDiffInfo } from "@xiaochuan/client/promise"
+import type { TurnDiffInput } from "@xiaochuan/session-ui/context"
 import { createSignal, onCleanup, untrack } from "solid-js"
 import {
   createTurnDiffCacheState,

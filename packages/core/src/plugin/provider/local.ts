@@ -1,5 +1,5 @@
-import { define } from "@xccode/plugin/effect/plugin"
-import type { Entry } from "@xccode/schema/config"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import type { Entry } from "@xiaochuan/schema/config"
 import { Duration, Effect, FiberSet, Option, Schedule, type Schema, Semaphore, Stream } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import photonWasm from "#photon-wasm"
@@ -76,7 +76,7 @@ export function createLocalProviderPlugin<Discovered>(input: {
           providers.update(input.providerID, (provider) => {
             provider.name = input.name
             provider.activation = "enabled"
-            provider.package = "@xccode/ai/providers/openai-compatible"
+            provider.package = "@xiaochuan/ai/providers/openai-compatible"
             provider.settings = {
               baseURL: source.current.baseURL,
               provider: input.providerID,
@@ -98,7 +98,7 @@ export function createLocalProviderPlugin<Discovered>(input: {
               if (typeof spec.context === "number" && spec.context > 0) model.limit.context = spec.context
               if (spec.type !== "decision") return
               model.type = "decision"
-              model.package = "@xccode/ai/providers/openai-compatible/decisions"
+              model.package = "@xiaochuan/ai/providers/openai-compatible/decisions"
               model.capabilities.output = ["decision"]
             })
           }

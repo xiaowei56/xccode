@@ -1,8 +1,8 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { createLatexCodeBlockRenderer } from "./markdown"
 
 export default Plugin.define({
-  id: "xccode.latex",
+  id: "xiaochuan.latex",
   setup(context) {
     const render = createLatexCodeBlockRenderer(context.renderer, () => ({
       text: context.theme.text.base,

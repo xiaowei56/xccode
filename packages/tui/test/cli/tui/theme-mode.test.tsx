@@ -3,9 +3,9 @@ import { testRender } from "@opentui/solid"
 import { expect, test } from "bun:test"
 import { RGBA } from "@opentui/core"
 import { createTuiResolvedConfig } from "../../fixture/tui-runtime"
-import { getXccodeClassicTheme } from "../../../src/theme"
-import xccodeSource from "../../../src/theme/assets/xccode.json" with { type: "json" }
-import type { ThemeV1Json } from "@xccode/theme/tui/v1"
+import { getXiaochuanClassicTheme } from "../../../src/theme"
+import xiaochuanSource from "../../../src/theme/assets/xiaochuan.json" with { type: "json" }
+import type { ThemeV1Json } from "@xiaochuan/theme/tui/v1"
 import { ConfigProvider } from "../../../src/config"
 import { ThemeContextProvider, ThemeProvider, type ThemeError, useTheme, useThemes } from "../../../src/context/theme"
 
@@ -18,19 +18,19 @@ async function wait(fn: () => boolean) {
 }
 
 test("uses an available mode while retaining the pinned preference", async () => {
-  const xccodeV1 = xccodeSource as ThemeV1Json
-  const lightOnly = structuredClone(xccodeV1)
+  const xiaochuanV1 = xiaochuanSource as ThemeV1Json
+  const lightOnly = structuredClone(xiaochuanV1)
   lightOnly.theme.background = "#eeeeee"
   lightOnly.theme.text = "#111111"
-  const dual = structuredClone(xccodeV1)
+  const dual = structuredClone(xiaochuanV1)
   dual.theme.background = { light: "#eeeeee", dark: "#111111" }
   dual.theme.text = { light: "#111111", dark: "#eeeeee" }
-  const darkOnly = structuredClone(xccodeV1)
+  const darkOnly = structuredClone(xiaochuanV1)
   darkOnly.theme.background = "#111111"
   darkOnly.theme.text = "#eeeeee"
   const native = {
-    base: { ...getXccodeClassicTheme().base, text: { ...getXccodeClassicTheme().base.text, base: "#abcdef" } },
-    dark: { hue: getXccodeClassicTheme().dark.hue },
+    base: { ...getXiaochuanClassicTheme().base, text: { ...getXiaochuanClassicTheme().base.text, base: "#abcdef" } },
+    dark: { hue: getXiaochuanClassicTheme().dark.hue },
   } as const
   let themes: ReturnType<typeof useThemes> | undefined
 
@@ -89,11 +89,11 @@ test.each([
   [
     "token reference",
     {
-      base: { ...getXccodeClassicTheme().base, text: { ...getXccodeClassicTheme().base.text, base: "$missing" } },
-      light: getXccodeClassicTheme().light,
+      base: { ...getXiaochuanClassicTheme().base, text: { ...getXiaochuanClassicTheme().base.text, base: "$missing" } },
+      light: getXiaochuanClassicTheme().light,
     },
   ],
-] as const)("falls back to Xccode when configured V2 theme %s is invalid", async (_label, source) => {
+] as const)("falls back to Xiaochuan when configured V2 theme %s is invalid", async (_label, source) => {
   let themes: ReturnType<typeof useThemes> | undefined
   let failure: ThemeError | undefined
   let unsubscribe: (() => void) | undefined
@@ -121,7 +121,7 @@ test.each([
 
   try {
     await wait(() => themes?.ready === true)
-    expect(themes?.selected).toBe("xccode")
+    expect(themes?.selected).toBe("xiaochuan")
     expect(failure?.name).toBe("invalid")
     expect(failure?.error).toBeInstanceOf(Error)
     expect(failure?.error.message.length).toBeGreaterThan(0)
@@ -153,7 +153,7 @@ test("dialog surfaces are absolute and can be inherited through the theme contex
 
   const app = await testRender(
     () => (
-      <ConfigProvider config={createTuiResolvedConfig({ theme: { name: "xccode", mode: "dark" } })}>
+      <ConfigProvider config={createTuiResolvedConfig({ theme: { name: "xiaochuan", mode: "dark" } })}>
         <ThemeProvider mode="dark" source={{ discover: async () => ({}) }}>
           <Probe />
         </ThemeProvider>

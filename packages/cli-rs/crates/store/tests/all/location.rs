@@ -3,8 +3,8 @@ use crate::common;
 use std::sync::{Arc, Mutex};
 
 use common::*;
-use xccode_api::generated::*;
-use xccode_store::{Catalog, CreateSession, Location, Options};
+use xiaochuan_api::generated::*;
+use xiaochuan_store::{Catalog, CreateSession, Location, Options};
 use serde_json::{Value, json};
 
 fn at(directory: &str) -> Location {
@@ -640,7 +640,7 @@ async fn keeps_global_forms_per_location_and_settles_them_with_the_location_head
     let log = requests.clone();
     let data = data(
         handler(move |req: Req| {
-            log.push((req.path.clone(), req.header("x-xccode-directory").map(str::to_owned)));
+            log.push((req.path.clone(), req.header("x-xiaochuan-directory").map(str::to_owned)));
             async move {
                 if req.method != "GET" {
                     return Reply::Json(

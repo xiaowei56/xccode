@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { createMemo, Show } from "solid-js"
 import { useUsageLimits } from "../../component/usage"
 import { useLocal } from "../../context/local"
@@ -37,7 +37,7 @@ export function SidebarLimit(props: { context: Plugin.Context }) {
 }
 
 export default Plugin.define({
-  id: "xccode.sidebar.limit",
+  id: "xiaochuan.sidebar.limit",
   setup(context) {
     context.ui.slot({
       append: "sidebar.content",

@@ -1,7 +1,7 @@
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { KV } from "@xccode/core/kv"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { KV } from "@xiaochuan/core/kv"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(LayerNode.compile(KV.node))

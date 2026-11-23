@@ -1,10 +1,10 @@
 //! MCP server status and actions.
 
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     ExperimentalMcpConnectInput, ExperimentalMcpDisconnectInput, LocationQueryInput, McpServer, McpServerStatus,
 };
-use xccode_store::{Catalog, Location};
-use xccode_ui::select::{FooterHint, Group, Select, SelectAction};
+use xiaochuan_store::{Catalog, Location};
+use xiaochuan_ui::select::{FooterHint, Group, Select, SelectAction};
 use std::collections::HashSet;
 
 use super::error_details;

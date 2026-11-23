@@ -4,7 +4,7 @@ import fs from "fs/promises"
 import path from "path"
 import { promisify } from "util"
 import { pathToFileURL } from "url"
-import { Repository } from "@xccode/core/repository"
+import { Repository } from "@xiaochuan/core/repository"
 import { Effect } from "effect"
 import { tmpdir } from "./tmpdir"
 
@@ -17,7 +17,7 @@ const repositoryConfig = `[core]
 [commit]
 	gpgsign = false
 [user]
-	email = test@xccode.test
+	email = test@xiaochuan.test
 	name = Test
 `
 

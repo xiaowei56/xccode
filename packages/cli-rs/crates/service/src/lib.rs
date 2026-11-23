@@ -1,4 +1,4 @@
-//! Finding, probing, and starting the Xccode server.
+//! Finding, probing, and starting the Xiaochuan server.
 
 pub mod connect;
 pub mod contender;

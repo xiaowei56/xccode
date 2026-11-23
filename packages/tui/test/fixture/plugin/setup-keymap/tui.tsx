@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { batch, createSignal } from "solid-js"
 
 const generation = "generation 1"

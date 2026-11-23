@@ -16,8 +16,8 @@ import {
   ToolMessage,
   type ToolResultPart,
   UserMessage,
-} from "@xccode/ai/effect"
-import type { StreamOptions } from "@xccode/ai/route"
+} from "@xiaochuan/ai/effect"
+import type { StreamOptions } from "@xiaochuan/ai/route"
 import type {
   SessionCompaction,
   SessionContext,
@@ -26,13 +26,13 @@ import type {
   SessionRequestKind,
   SessionRequestMessage,
   SessionTitle,
-} from "@xccode/plugin/effect/session"
-import type { Agent } from "@xccode/schema/agent"
-import type { Model } from "@xccode/schema/model"
-import type { Content } from "@xccode/schema/tool"
+} from "@xiaochuan/plugin/effect/session"
+import type { Agent } from "@xiaochuan/schema/agent"
+import type { Model } from "@xiaochuan/schema/model"
+import type { Content } from "@xiaochuan/schema/tool"
 import { Cause, Context, Effect, Layer, Result, Stream } from "effect"
 import { HttpClientRequest, HttpClientResponse } from "effect/http"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { App } from "../app.js"
 import { Instructions } from "../instructions/index.js"
 import { Permission } from "../permission.js"
@@ -265,7 +265,7 @@ export interface Interface {
   readonly title: (input: Input) => Effect.Effect<Prepared<SessionTitle>>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionModelRequest") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionModelRequest") {}
 
 export const layer = Layer.effect(
   Service,
@@ -325,15 +325,15 @@ export const layer = Layer.effect(
       const base = ai.request({
         model: model.model,
         headers: {
-          "x-xccode-session-id": session.id,
-          ...(session.parentID ? { "x-xccode-parent-session-id": session.parentID } : {}),
+          "x-xiaochuan-session-id": session.id,
+          ...(session.parentID ? { "x-xiaochuan-parent-session-id": session.parentID } : {}),
           "x-session-affinity": affinity,
           "X-Session-Id": affinity,
           ...(session.parentID ? { "x-parent-session-id": session.parentID } : {}),
           "User-Agent": App.useragent(app),
-          "x-xccode-project": session.projectID,
-          "x-xccode-session": affinity,
-          "x-xccode-client": app.name,
+          "x-xiaochuan-project": session.projectID,
+          "x-xiaochuan-session": affinity,
+          "x-xiaochuan-client": app.name,
         },
         // TODO: Persist cache lineage so nested forks reuse the root session's cache key.
         promptCacheKey: /^ses_[0-9a-f]{64}$/.test(affinity) ? affinity.slice(4) : affinity,

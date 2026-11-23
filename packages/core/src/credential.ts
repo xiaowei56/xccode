@@ -2,13 +2,13 @@ export * as Credential from "./credential.js"
 
 import { asc, desc, eq, type SQL } from "drizzle-orm"
 import { Cause, Clock, Context, Duration, Effect, Fiber, Layer, Schema } from "effect"
-import { Credential } from "@xccode/schema/credential"
-import { CredentialLegacy } from "@xccode/schema/credential-legacy"
-import { Integration } from "@xccode/schema/integration"
+import { Credential } from "@xiaochuan/schema/credential"
+import { CredentialLegacy } from "@xiaochuan/schema/credential-legacy"
+import { Integration } from "@xiaochuan/schema/integration"
 import { Database } from "./database/database.js"
 import { Bus } from "./bus.js"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { EffectFlock } from "@xccode/util/effect-flock"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { EffectFlock } from "@xiaochuan/util/effect-flock"
 import { CredentialTable } from "./credential/sql.js"
 import { ErrorSummary } from "./util/error-summary.js"
 
@@ -80,7 +80,7 @@ export interface Interface {
   readonly remove: (id: ID) => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Credential") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Credential") {}
 
 const layer = Layer.effect(
   Service,

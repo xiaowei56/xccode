@@ -1,15 +1,15 @@
 ---
 title: 소개
-description: Xccode를 시작해 보세요.
+description: Xiaochuan를 시작해 보세요.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 import config from "../../../../config.mjs"
 export const console = config.console
 
-[**Xccode**](/)는 오픈 소스 AI coding agent입니다. 터미널 기반 인터페이스, 데스크톱 앱, IDE 확장으로 사용할 수 있습니다.
+[**Xiaochuan**](/)는 오픈 소스 AI coding agent입니다. 터미널 기반 인터페이스, 데스크톱 앱, IDE 확장으로 사용할 수 있습니다.
 
-![xccode TUI with the xccode theme](../../../assets/lander/screenshot.png)
+![xiaochuan TUI with the xiaochuan theme](../../../assets/lander/screenshot.png)
 
 바로 시작해 보겠습니다.
 
@@ -17,7 +17,7 @@ export const console = config.console
 
 #### 사전 준비
 
-터미널에서 Xccode를 사용하려면 다음이 필요합니다.
+터미널에서 Xiaochuan를 사용하려면 다음이 필요합니다.
 
 1. 다음과 같은 최신 터미널 에뮬레이터
    - [WezTerm](https://wezterm.org), 크로스 플랫폼
@@ -31,10 +31,10 @@ export const console = config.console
 
 ## 설치
 
-Xccode를 설치하는 가장 쉬운 방법은 설치 스크립트를 사용하는 것입니다.
+Xiaochuan를 설치하는 가장 쉬운 방법은 설치 스크립트를 사용하는 것입니다.
 
 ```bash
-curl -fsSL https://xccode.ai/install | bash
+curl -fsSL https://xiaochuan.ai/install | bash
 ```
 
 다음 명령으로도 설치할 수 있습니다.
@@ -45,28 +45,28 @@ curl -fsSL https://xccode.ai/install | bash
 
       <TabItem label="npm">
       ```bash
-      npm install -g xccode-ai
+      npm install -g xiaochuan-ai
       ```
 
           </TabItem>
 
         <TabItem label="Bun">
         ```bash
-        bun install -g xccode-ai
+        bun install -g xiaochuan-ai
         ```
 
           </TabItem>
 
         <TabItem label="pnpm">
         ```bash
-        pnpm install -g xccode-ai
+        pnpm install -g xiaochuan-ai
         ```
 
           </TabItem>
 
         <TabItem label="Yarn">
         ```bash
-        yarn global add xccode-ai
+        yarn global add xiaochuan-ai
         ```
 
       </TabItem>
@@ -76,68 +76,68 @@ curl -fsSL https://xccode.ai/install | bash
 - **macOS/Linux에서 Homebrew 사용**
 
   ```bash
-  brew install anomalyco/tap/xccode
+  brew install anomalyco/tap/xiaochuan
   ```
 
-  > 최신 릴리스를 사용하려면 Xccode tap 사용을 권장합니다. 공식 `brew install xccode` formula는 Homebrew 팀이 관리하며 업데이트 주기가 더 깁니다.
+  > 최신 릴리스를 사용하려면 Xiaochuan tap 사용을 권장합니다. 공식 `brew install xiaochuan` formula는 Homebrew 팀이 관리하며 업데이트 주기가 더 깁니다.
 
 - **Arch Linux에 설치**
 
   ```bash
-  sudo pacman -S xccode           # Arch Linux (Stable)
-  paru -S xccode-bin              # Arch Linux (Latest from AUR)
+  sudo pacman -S xiaochuan           # Arch Linux (Stable)
+  paru -S xiaochuan-bin              # Arch Linux (Latest from AUR)
   ```
 
 #### Windows
 
 :::tip[권장: WSL 사용]
-Windows에서는 [Windows Subsystem for Linux (WSL)](/docs/windows-wsl) 사용을 권장합니다. 성능이 더 좋고 Xccode 기능과의 완전한 호환성을 제공합니다.
+Windows에서는 [Windows Subsystem for Linux (WSL)](/docs/windows-wsl) 사용을 권장합니다. 성능이 더 좋고 Xiaochuan 기능과의 완전한 호환성을 제공합니다.
 :::
 
 - **Chocolatey 사용**
 
   ```bash
-  choco install xccode
+  choco install xiaochuan
   ```
 
 - **Scoop 사용**
 
   ```bash
-  scoop install xccode
+  scoop install xiaochuan
   ```
 
 - **NPM 사용**
 
   ```bash
-  npm install -g xccode-ai
+  npm install -g xiaochuan-ai
   ```
 
 - **Mise 사용**
 
   ```bash
-  mise use -g github:xiaowei56/xccode
+  mise use -g github:xiaowei56/xiaochuan
   ```
 
 - **Docker 사용**
 
   ```bash
-  docker run -it --rm ghcr.io/xiaowei56/xccode
+  docker run -it --rm ghcr.io/xiaowei56/xiaochuan
   ```
 
-현재 Windows에서 Bun을 사용한 Xccode 설치 지원은 준비 중입니다.
+현재 Windows에서 Bun을 사용한 Xiaochuan 설치 지원은 준비 중입니다.
 
-[Releases](https://github.com/xiaowei56/xccode/releases)에서 바이너리를 직접 받아 설치할 수도 있습니다.
+[Releases](https://github.com/xiaowei56/xiaochuan/releases)에서 바이너리를 직접 받아 설치할 수도 있습니다.
 
 ---
 
 ## 구성
 
-Xccode는 API 키를 설정하면 원하는 LLM 제공자를 사용할 수 있습니다.
+Xiaochuan는 API 키를 설정하면 원하는 LLM 제공자를 사용할 수 있습니다.
 
-LLM 제공자를 처음 사용한다면 [Xccode Models](https://xccode.ai/docs/console/) 사용을 권장합니다.
-Xccode 팀이 테스트하고 검증한 모델 목록입니다.
+LLM 제공자를 처음 사용한다면 [Xiaochuan Models](https://xiaochuan.ai/docs/console/) 사용을 권장합니다.
+Xiaochuan 팀이 테스트하고 검증한 모델 목록입니다.
 
-1. TUI에서 `/connect` 명령을 실행하고 `xccode`를 선택한 다음 [xccode.ai/auth](https://xccode.ai/auth)로 이동합니다.
+1. TUI에서 `/connect` 명령을 실행하고 `xiaochuan`를 선택한 다음 [xiaochuan.ai/auth](https://xiaochuan.ai/auth)로 이동합니다.
 
    ```txt
    /connect
@@ -166,31 +166,31 @@ Xccode 팀이 테스트하고 검증한 모델 목록입니다.
 cd /path/to/project
 ```
 
-그리고 Xccode를 실행합니다.
+그리고 Xiaochuan를 실행합니다.
 
 ```bash
-xccode
+xiaochuan
 ```
 
-다음 명령을 실행해 프로젝트에서 Xccode를 초기화합니다.
+다음 명령을 실행해 프로젝트에서 Xiaochuan를 초기화합니다.
 
 ```bash frame="none"
 /init
 ```
 
-이 명령을 실행하면 Xccode가 프로젝트를 분석하고 프로젝트 루트에 `AGENTS.md` 파일을 생성합니다.
+이 명령을 실행하면 Xiaochuan가 프로젝트를 분석하고 프로젝트 루트에 `AGENTS.md` 파일을 생성합니다.
 
 :::tip
 프로젝트의 `AGENTS.md` 파일은 Git에 커밋하는 것을 권장합니다.
 :::
 
-이렇게 하면 Xccode가 프로젝트 구조와 사용 중인 코딩 패턴을 더 잘 이해할 수 있습니다.
+이렇게 하면 Xiaochuan가 프로젝트 구조와 사용 중인 코딩 패턴을 더 잘 이해할 수 있습니다.
 
 ---
 
 ## 사용법
 
-이제 Xccode로 프로젝트 작업을 시작할 준비가 되었습니다. 무엇이든 물어보세요.
+이제 Xiaochuan로 프로젝트 작업을 시작할 준비가 되었습니다. 무엇이든 물어보세요.
 
 AI coding agent를 처음 사용한다면 도움이 될 수 있는 예시를 소개합니다.
 
@@ -198,7 +198,7 @@ AI coding agent를 처음 사용한다면 도움이 될 수 있는 예시를 소
 
 ### 질문하기
 
-Xccode에 코드베이스 설명을 요청할 수 있습니다.
+Xiaochuan에 코드베이스 설명을 요청할 수 있습니다.
 
 :::tip
 프로젝트 파일은 `@` 키로 퍼지 검색할 수 있습니다.
@@ -214,11 +214,11 @@ How is authentication handled in @packages/functions/src/api/index.ts
 
 ### 기능 추가
 
-Xccode에 프로젝트의 새 기능 추가를 요청할 수 있습니다. 다만 먼저 계획을 만들도록 요청하는 것을 권장합니다.
+Xiaochuan에 프로젝트의 새 기능 추가를 요청할 수 있습니다. 다만 먼저 계획을 만들도록 요청하는 것을 권장합니다.
 
 1. **계획 만들기**
 
-   Xccode에는 변경 작업 기능을 비활성화하고 기능을 구현할 방법만 제안하는 *Plan mode*가 있습니다.
+   Xiaochuan에는 변경 작업 기능을 비활성화하고 기능을 구현할 방법만 제안하는 *Plan mode*가 있습니다.
 
    **Tab** 키를 눌러 전환하세요. 화면 오른쪽 아래에서 모드 표시를 확인할 수 있습니다.
 
@@ -234,10 +234,10 @@ Xccode에 프로젝트의 새 기능 추가를 요청할 수 있습니다. 다�
    From this screen, the user can undelete a note or permanently delete it.
    ```
 
-   Xccode가 원하는 작업을 이해할 수 있도록 충분한 세부 정보를 제공해야 합니다. 팀의 주니어 개발자에게 말하듯이 설명하면 도움이 됩니다.
+   Xiaochuan가 원하는 작업을 이해할 수 있도록 충분한 세부 정보를 제공해야 합니다. 팀의 주니어 개발자에게 말하듯이 설명하면 도움이 됩니다.
 
    :::tip
-   Xccode가 원하는 작업을 이해하도록 충분한 맥락과 예시를 제공하세요.
+   Xiaochuan가 원하는 작업을 이해하도록 충분한 맥락과 예시를 제공하세요.
    :::
 
 2. **계획 다듬기**
@@ -253,7 +253,7 @@ Xccode에 프로젝트의 새 기능 추가를 요청할 수 있습니다. 다�
    이미지를 터미널에 드래그 앤 드롭해 prompt에 추가하세요.
    :::
 
-   Xccode는 제공한 이미지를 스캔해 prompt에 추가할 수 있습니다. 이미지를 터미널에 드래그 앤 드롭하면 됩니다.
+   Xiaochuan는 제공한 이미지를 스캔해 prompt에 추가할 수 있습니다. 이미지를 터미널에 드래그 앤 드롭하면 됩니다.
 
 3. **기능 구현**
 
@@ -281,13 +281,13 @@ handled in the /notes route in @packages/functions/src/notes.ts and implement
 the same logic in @packages/functions/src/settings.ts
 ```
 
-Xccode가 올바른 변경을 하도록 충분한 세부 정보를 제공해야 합니다.
+Xiaochuan가 올바른 변경을 하도록 충분한 세부 정보를 제공해야 합니다.
 
 ---
 
 ### 변경 되돌리기
 
-예를 들어 Xccode에 변경을 요청했다고 해보겠습니다.
+예를 들어 Xiaochuan에 변경을 요청했다고 해보겠습니다.
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
@@ -299,7 +299,7 @@ Can you refactor the function in @packages/functions/src/api/index.ts?
 /undo
 ```
 
-Xccode가 방금 적용한 변경을 되돌리고 원래 메시지를 다시 보여줍니다.
+Xiaochuan가 방금 적용한 변경을 되돌리고 원래 메시지를 다시 보여줍니다.
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
@@ -321,6 +321,6 @@ Can you refactor the function in @packages/functions/src/api/index.ts?
 
 ## 사용자 지정
 
-이제 Xccode 사용법을 익혔습니다.
+이제 Xiaochuan 사용법을 익혔습니다.
 
-원하는 방식에 맞추려면 [테마 선택](/docs/themes), [키바인드 사용자 지정](/docs/keybinds), [코드 formatter 설정](/docs/formatters), [custom command 만들기](/docs/commands), [Xccode config 설정](/docs/config)을 권장합니다.
+원하는 방식에 맞추려면 [테마 선택](/docs/themes), [키바인드 사용자 지정](/docs/keybinds), [코드 formatter 설정](/docs/formatters), [custom command 만들기](/docs/commands), [Xiaochuan config 설정](/docs/config)을 권장합니다.

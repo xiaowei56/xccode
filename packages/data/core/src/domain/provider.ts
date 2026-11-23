@@ -46,7 +46,7 @@ export declare namespace ProviderStatRepo {
 }
 
 export class ProviderStatRepo extends Context.Service<ProviderStatRepo, ProviderStatRepo.Service>()(
-  "@xccode/data/ProviderStatRepo",
+  "@xiaochuan/data/ProviderStatRepo",
 ) {
   static readonly layer: Layer.Layer<ProviderStatRepo, never, DrizzleClient> = Layer.effect(
     ProviderStatRepo,

@@ -1,5 +1,5 @@
-import { Location } from "@xccode/schema/location"
-import { WebSearch } from "@xccode/schema/websearch"
+import { Location } from "@xiaochuan/schema/location"
+import { WebSearch } from "@xiaochuan/schema/websearch"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { InvalidRequestError, ServiceUnavailableError } from "../errors.js"

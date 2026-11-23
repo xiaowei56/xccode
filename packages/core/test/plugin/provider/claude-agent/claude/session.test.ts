@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { ClaudeQueryOptions } from "@xccode/core/plugin/provider/claude-agent/claude/query-options"
-import { ClaudeSession } from "@xccode/core/plugin/provider/claude-agent/claude/session"
+import { ClaudeQueryOptions } from "@xiaochuan/core/plugin/provider/claude-agent/claude/query-options"
+import { ClaudeSession } from "@xiaochuan/core/plugin/provider/claude-agent/claude/session"
 import { FakeClaude } from "../lib/fake-claude"
 import { FakeIO } from "../lib/fake-io"
 

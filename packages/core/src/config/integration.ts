@@ -1,12 +1,12 @@
 export * as ConfigIntegration from "./integration.js"
 
 import { Option, Schema, SchemaGetter } from "effect"
-import { Config, type Entry } from "@xccode/schema/config"
-import { ConfigMCP } from "@xccode/schema/config/mcp"
-import { ConfigPolicy } from "@xccode/schema/config/policy"
-import { ConfigProvider } from "@xccode/schema/config/provider"
-import { Connection } from "@xccode/schema/connection"
-import { IntegrationID } from "@xccode/schema/integration-id"
+import { Config, type Entry } from "@xiaochuan/schema/config"
+import { ConfigMCP } from "@xiaochuan/schema/config/mcp"
+import { ConfigPolicy } from "@xiaochuan/schema/config/policy"
+import { ConfigProvider } from "@xiaochuan/schema/config/provider"
+import { Connection } from "@xiaochuan/schema/connection"
+import { IntegrationID } from "@xiaochuan/schema/integration-id"
 
 // Drop statements whose action or effect is a value this version does not know, so a newer remote source can
 // extend either enum. Malformed statements still fail validation.
@@ -38,7 +38,7 @@ export const Remote = Schema.Struct({
 export type Remote = typeof Remote.Type
 
 /**
- * A config document delivered by an integration connection, such as the Xccode Console's config. Config loads it
+ * A config document delivered by an integration connection, such as the Xiaochuan Console's config. Config loads it
  * right after managed policies, so user and project config override its settings while its policies outrank theirs.
  * Its providers authenticate with, and only exist for, that connection.
  */

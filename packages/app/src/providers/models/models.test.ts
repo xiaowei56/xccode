@@ -30,12 +30,12 @@ test("a tie in release date keeps the first model listed", () => {
 })
 
 test("groups free models apart from their paid twin", () => {
-  const free = { ...model("xccode", "x-free", "2026-01-01", "x"), cost: { input: 0 } }
-  const paid = { ...model("xccode", "x", "2026-01-01", "x"), cost: { input: 1 } }
+  const free = { ...model("xiaochuan", "x-free", "2026-01-01", "x"), cost: { input: 0 } }
+  const paid = { ...model("xiaochuan", "x", "2026-01-01", "x"), cost: { input: 1 } }
 
   expect(latestModels([free, paid])).toEqual([
-    { providerID: "xccode", modelID: "x-free" },
-    { providerID: "xccode", modelID: "x" },
+    { providerID: "xiaochuan", modelID: "x-free" },
+    { providerID: "xiaochuan", modelID: "x" },
   ])
 })
 

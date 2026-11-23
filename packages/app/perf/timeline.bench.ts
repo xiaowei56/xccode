@@ -30,7 +30,7 @@ export default bench({
 
   targets: {
     web: web({
-      expect: { title: "Xccode" },
+      expect: { title: "Xiaochuan" },
       viewport: { width: 1366, height: 768 },
       prepare: async (ctx) =>
         mockTimelineSession(cached(ctx), {

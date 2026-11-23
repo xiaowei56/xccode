@@ -1,5 +1,5 @@
-import { Location } from "@xccode/schema/location"
-import { Reference } from "@xccode/schema/reference"
+import { Location } from "@xiaochuan/schema/location"
+import { Reference } from "@xiaochuan/schema/reference"
 import { Schema, Struct } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { LocationQuery, locationQueryOpenApi } from "./location.js"

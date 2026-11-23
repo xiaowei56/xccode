@@ -11,12 +11,12 @@ export default defineCli({
   args: [],
   env: {
     PATH: `${path.join(import.meta.dir, "bin")}:${process.env.PATH ?? "/usr/bin:/bin"}`,
-    XCCODE_CHANNEL: "local",
+    XIAOCHUAN_CHANNEL: "local",
   },
   timeout: 30_000,
   stderrLines: 1,
   setup: async (root) => {
-    const state = path.join(root, "home/.local/state/xccode")
+    const state = path.join(root, "home/.local/state/xiaochuan")
     await mkdir(state, { recursive: true })
     const file = path.join(state, "service-local.json")
     Bun.spawn(["bun", path.join(import.meta.dir, "old-service.ts"), file], { stdio: ["ignore", "ignore", "inherit"] })

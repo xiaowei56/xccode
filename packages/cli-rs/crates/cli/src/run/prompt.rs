@@ -9,14 +9,14 @@ use std::rc::Rc;
 use futures_util::StreamExt;
 use futures_util::future::join_all;
 use futures_util::stream::LocalBoxStream;
-use xccode_api::client::{Call, Client};
-use xccode_api::error::Error as ApiError;
-use xccode_api::generated::*;
-use xccode_api::js::{is_whitespace, truthy};
-use xccode_api::transport::SseResponse;
-use xccode_ui::terminal_text;
-use xccode_ui::tool_info::{tool_inline_info, tool_output_text};
-use xccode_util::json_object;
+use xiaochuan_api::client::{Call, Client};
+use xiaochuan_api::error::Error as ApiError;
+use xiaochuan_api::generated::*;
+use xiaochuan_api::js::{is_whitespace, truthy};
+use xiaochuan_api::transport::SseResponse;
+use xiaochuan_ui::terminal_text;
+use xiaochuan_ui::tool_info::{tool_inline_info, tool_output_text};
+use xiaochuan_util::json_object;
 use serde_json::value::RawValue;
 use serde_json::{Value, json};
 use tokio::sync::watch;
@@ -121,7 +121,7 @@ pub async fn run(input: Input) -> Result<(), String> {
     };
     let run = Rc::new(Run {
         input,
-        message_id: xccode_api::id::message(),
+        message_id: xiaochuan_api::id::message(),
         phase: Cell::new(Phase::Running),
         promoted: Cell::new(false),
         admission: watch::channel(Admission::NotSent).0,
@@ -579,7 +579,7 @@ impl Run {
             })?;
             // A global form is found through its location.
             if session == "global" {
-                call.header("x-xccode-directory", &xccode_api::js::encode_component(&self.input.directory))?;
+                call.header("x-xiaochuan-directory", &xiaochuan_api::js::encode_component(&self.input.directory))?;
             }
             self.input.client.empty(call).await
         };
@@ -676,7 +676,7 @@ fn final_error(run: &Settled, failure: Option<Value>, outcomes: &[Outcome]) -> O
 }
 
 async fn interrupt(client: &Client, session: &str) {
-    let _ = xccode_mini::replay::interrupt(client, session, None).await;
+    let _ = xiaochuan_mini::replay::interrupt(client, session, None).await;
 }
 
 fn terminal_outcome(event: &Value) -> Option<Outcome> {
@@ -1043,7 +1043,7 @@ impl Renderer {
 
 /// `toolInlineInfo` over the JSON part, its text without control characters. The generated type needs `metadata`
 /// and `content`, which the TS summary reads as optional.
-fn inline(part: &Value, directory: &str) -> Option<xccode_ui::tool_info::ToolInline> {
+fn inline(part: &Value, directory: &str) -> Option<xiaochuan_ui::tool_info::ToolInline> {
     let mut part = part.clone();
     if let Some(state) = part["state"].as_object_mut() {
         state.entry("metadata").or_insert_with(|| json!({}));

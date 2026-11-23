@@ -4,19 +4,19 @@ import { tmpdir } from "node:os"
 import path from "path"
 import { Clock, Deferred, Effect, Fiber, Logger, Stream } from "effect"
 import { TestClock } from "effect/testing"
-import { Command } from "@xccode/core/command"
-import { Bus } from "@xccode/core/bus"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { Rpc } from "@xccode/core/rpc"
-import { Event } from "@xccode/schema/config"
-import { PluginModule } from "@xccode/core/plugin/module"
-import { Session } from "@xccode/core/session"
-import { SessionSchema } from "@xccode/core/session/schema"
-import { Watcher } from "@xccode/core/filesystem/watcher"
-import { fromPromise } from "@xccode/plugin/promise/adapter"
+import { Command } from "@xiaochuan/core/command"
+import { Bus } from "@xiaochuan/core/bus"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { Rpc } from "@xiaochuan/core/rpc"
+import { Event } from "@xiaochuan/schema/config"
+import { PluginModule } from "@xiaochuan/core/plugin/module"
+import { Session } from "@xiaochuan/core/session"
+import { SessionSchema } from "@xiaochuan/core/session/schema"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
+import { fromPromise } from "@xiaochuan/plugin/promise/adapter"
 import { testEffect } from "./lib/effect"
 import { PluginTestLayer } from "./plugin/fixture"
 
@@ -116,7 +116,7 @@ it.live("serves a local plugin's GUI bundle, and reloads it alone when only the 
     const bus = yield* Bus.Service
     yield* plugins.awaitActivation
     const directory = yield* Effect.acquireRelease(
-      Effect.promise(() => mkdtemp(path.join(tmpdir(), "xccode-plugin-gui-"))),
+      Effect.promise(() => mkdtemp(path.join(tmpdir(), "xiaochuan-plugin-gui-"))),
       (directory) => Effect.promise(() => rm(directory, { recursive: true, force: true })),
     )
     const starts = path.join(directory, "starts")

@@ -1,30 +1,30 @@
 ---
 title: Provajderi
-description: Korištenje bilo kojeg LLM provajdera u Xccode.
+description: Korištenje bilo kojeg LLM provajdera u Xiaochuan.
 ---
 
 import config from "../../../../config.mjs"
 export const console = config.console
 
-Xccode koristi [AI SDK](https://ai-sdk.dev/) i [Models.dev](https://models.dev) za podršku **75+ LLM provajdera** i podržava pokretanje lokalnih modela.
+Xiaochuan koristi [AI SDK](https://ai-sdk.dev/) i [Models.dev](https://models.dev) za podršku **75+ LLM provajdera** i podržava pokretanje lokalnih modela.
 
 Za dodavanje provajdera potrebno je:
 
 1. Dodajte API ključeve za provajdera koristeći naredbu `/connect`.
-2. Konfigurirajte dobavljača u vašoj Xccode konfiguraciji.
+2. Konfigurirajte dobavljača u vašoj Xiaochuan konfiguraciji.
 
 ---
 
 ### Vjerodajnice
 
 Kada dodate API ključeve dobavljača sa naredbom `/connect`, oni se pohranjuju
-u `~/.local/share/xccode/auth.json`.
+u `~/.local/share/xiaochuan/auth.json`.
 
 ---
 
 ### Konfiguracija
 
-Možete prilagoditi dobavljače putem odjeljka `provider` u vašem Xccode
+Možete prilagoditi dobavljače putem odjeljka `provider` u vašem Xiaochuan
 config.
 
 ---
@@ -33,9 +33,9 @@ config.
 
 Možete prilagoditi osnovni URL za bilo kojeg provajdera postavljanjem opcije `baseURL`. Ovo je korisno kada koristite proxy usluge ili prilagođene krajnje tačke.
 
-```json title="xccode.json" {6}
+```json title="xiaochuan.json" {6}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "anthropic": {
       "options": {
@@ -48,18 +48,18 @@ Možete prilagoditi osnovni URL za bilo kojeg provajdera postavljanjem opcije `b
 
 ---
 
-<a id="xccode-zen"></a>
+<a id="xiaochuan-zen"></a>
 
-## Xccode Models
+## Xiaochuan Models
 
-Xccode Models je lista modela koje je obezbedio Xccode tim koji su bili
-testirano i potvrđeno da dobro radi sa Xccode. [Saznajte više](https://xccode.ai/docs/console/).
+Xiaochuan Models je lista modela koje je obezbedio Xiaochuan tim koji su bili
+testirano i potvrđeno da dobro radi sa Xiaochuan. [Saznajte više](https://xiaochuan.ai/docs/console/).
 
 :::tip
-Ako ste novi, preporučujemo da počnete sa Xccode Models.
+Ako ste novi, preporučujemo da počnete sa Xiaochuan Models.
 :::
 
-1. Pokrenite naredbu `/connect` u TUI-u, odaberite xccode i idite na [xccode.ai/auth](https://xccode.ai/auth).
+1. Pokrenite naredbu `/connect` u TUI-u, odaberite xiaochuan i idite na [xiaochuan.ai/auth](https://xiaochuan.ai/auth).
 
 ```txt
    /connect
@@ -82,15 +82,15 @@ Ako ste novi, preporučujemo da počnete sa Xccode Models.
    /models
 ```
 
-Radi kao i svaki drugi provajder u Xccode i potpuno je opcionalan za korištenje.
+Radi kao i svaki drugi provajder u Xiaochuan i potpuno je opcionalan za korištenje.
 
 ---
 
-## Xccode Go
+## Xiaochuan Go
 
-Xccode Go je jeftin plan pretplate koji pruža pouzdan pristup popularnim modelima otvorenog kodiranja koje pruža Xccode tim i koji su testirani i verificirani da dobro rade s Xccode-om.
+Xiaochuan Go je jeftin plan pretplate koji pruža pouzdan pristup popularnim modelima otvorenog kodiranja koje pruža Xiaochuan tim i koji su testirani i verificirani da dobro rade s Xiaochuan-om.
 
-1. Pokrenite naredbu `/connect` u TUI-u, odaberite `Xccode Go` i idite na [xccode.ai/auth](https://xccode.ai/auth).
+1. Pokrenite naredbu `/connect` u TUI-u, odaberite `Xiaochuan Go` i idite na [xiaochuan.ai/auth](https://xiaochuan.ai/auth).
 
    ```txt
    /connect
@@ -113,7 +113,7 @@ Xccode Go je jeftin plan pretplate koji pruža pouzdan pristup popularnim modeli
    /models
    ```
 
-Radi kao i svaki drugi provajder u Xccode i potpuno je opcionalan za korištenje.
+Radi kao i svaki drugi provajder u Xiaochuan i potpuno je opcionalan za korištenje.
 
 ---
 
@@ -157,7 +157,7 @@ Ne vidite provajdera ovdje? Pošaljite PR.
 
 ### Amazon Bedrock
 
-Da biste koristili Amazon Bedrock s Xccode:
+Da biste koristili Amazon Bedrock s Xiaochuan:
 
 1. Idite na **Katalog modela** na Amazon Bedrock konzoli i zatražite
    pristup modelima koje želite.
@@ -170,17 +170,17 @@ Da biste koristili Amazon Bedrock s Xccode:
 
    #### Varijable okruženja (Brzi početak)
 
-   Postavite jednu od ovih varijabli okruženja dok pokrećete xccode:
+   Postavite jednu od ovih varijabli okruženja dok pokrećete xiaochuan:
 
 ```bash
    # Option 1: Using AWS access keys
-   AWS_ACCESS_KEY_ID=XXX AWS_SECRET_ACCESS_KEY=YYY xccode
+   AWS_ACCESS_KEY_ID=XXX AWS_SECRET_ACCESS_KEY=YYY xiaochuan
 
    # Option 2: Using named AWS profile
-   AWS_PROFILE=my-profile xccode
+   AWS_PROFILE=my-profile xiaochuan
 
    # Option 3: Using Bedrock bearer token
-   AWS_BEARER_TOKEN_BEDROCK=XXX xccode
+   AWS_BEARER_TOKEN_BEDROCK=XXX xiaochuan
 ```
 
 Ili ih dodajte na svoj bash profil:
@@ -192,11 +192,11 @@ Ili ih dodajte na svoj bash profil:
 
 #### Konfiguracijski fajl (Preporučeno)
 
-Za konfiguraciju specifičnu za projekat ili trajnu konfiguraciju, koristite `xccode.json`:
+Za konfiguraciju specifičnu za projekat ili trajnu konfiguraciju, koristite `xiaochuan.json`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "amazon-bedrock": {
       "options": {
@@ -222,9 +222,9 @@ Opcije konfiguracijske datoteke imaju prednost nad varijablama okruženja.
 
 Ako koristite VPC krajnje tačke za Bedrock:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "amazon-bedrock": {
       "options": {
@@ -268,9 +268,9 @@ Kada se postavi token nosioca (putem `/connect` ili `AWS_BEARER_TOKEN_BEDROCK`),
 :::note
 Za prilagođene profile zaključivanja, koristite ime modela i dobavljača u ključu i postavite svojstvo `id` na arn. Ovo osigurava ispravno keširanje:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "amazon-bedrock": {
       // ...
@@ -315,7 +315,7 @@ Za prilagođene profile zaključivanja, koristite ime modela i dobavljača u klj
 ```
 
 :::info
-[Anthropic] (https://anthropic.com) službeno ne podržava korištenje vaše Claude Pro/Max pretplate u Xccode.
+[Anthropic] (https://anthropic.com) službeno ne podržava korištenje vaše Claude Pro/Max pretplate u Xiaochuan.
 :::
 
 ##### Korištenje API ključeva
@@ -328,11 +328,11 @@ Ili ako već imate API ključ, možete odabrati **Ručno unesite API ključ** i 
 
 ### Atomic Chat
 
-Možete konfigurirati xccode za korištenje lokalnih modela preko [Atomic Chata](https://atomic.chat) — desktop aplikacije koja pokreće lokalne LLM-ove iza OpenAI-kompatibilnog API servera (zadana krajnja tačka `http://127.0.0.1:1337/v1`).
+Možete konfigurirati xiaochuan za korištenje lokalnih modela preko [Atomic Chata](https://atomic.chat) — desktop aplikacije koja pokreće lokalne LLM-ove iza OpenAI-kompatibilnog API servera (zadana krajnja tačka `http://127.0.0.1:1337/v1`).
 
-```json title="xccode.json" "atomic-chat" {5, 6, 8, 10-14}
+```json title="xiaochuan.json" "atomic-chat" {5, 6, 8, 10-14}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "atomic-chat": {
       "npm": "@ai-sdk/openai-compatible",
@@ -377,7 +377,7 @@ Ako naiđete na greške "Žao mi je, ali ne mogu pomoći s tim zahtjevom", poku�
 2. Idite na [Azure AI Foundry](https://ai.azure.com/) i implementirajte model.
 
    :::note
-   Ime implementacije mora odgovarati imenu modela da bi xccode ispravno radio.
+   Ime implementacije mora odgovarati imenu modela da bi xiaochuan ispravno radio.
    :::
 
 3. Pokrenite naredbu `/connect` i potražite **Azure**.
@@ -398,7 +398,7 @@ Ako naiđete na greške "Žao mi je, ali ne mogu pomoći s tim zahtjevom", poku�
 5. Postavite ime vašeg resursa kao varijablu okruženja:
 
 ```bash
-   AZURE_RESOURCE_NAME=XXX xccode
+   AZURE_RESOURCE_NAME=XXX xiaochuan
 ```
 
 Ili ga dodajte na svoj bash profil:
@@ -424,7 +424,7 @@ Ili ga dodajte na svoj bash profil:
 2. Idite na [Azure AI Foundry](https://ai.azure.com/) i implementirajte model.
 
    :::note
-   Ime implementacije mora odgovarati imenu modela da bi xccode ispravno radio.
+   Ime implementacije mora odgovarati imenu modela da bi xiaochuan ispravno radio.
    :::
 
 3. Pokrenite naredbu `/connect` i potražite **Azure kognitivne usluge**.
@@ -445,7 +445,7 @@ Ili ga dodajte na svoj bash profil:
 5. Postavite ime vašeg resursa kao varijablu okruženja:
 
 ```bash
-   AZURE_COGNITIVE_SERVICES_RESOURCE_NAME=XXX xccode
+   AZURE_COGNITIVE_SERVICES_RESOURCE_NAME=XXX xiaochuan
 ```
 
 Ili ga dodajte na svoj bash profil:
@@ -556,11 +556,11 @@ Ili ga postavite kao varijablu okruženja.
    /models
 ```
 
-Također možete dodati modele kroz svoju xccode konfiguraciju.
+Također možete dodati modele kroz svoju xiaochuan konfiguraciju.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "cloudflare-ai-gateway": {
       "models": {
@@ -737,7 +737,7 @@ Odaberite **OAuth** i vaš pretraživač će se otvoriti za autorizaciju.
 
 1.  Idite na [GitLab korisničke postavke > Pristupni tokeni](https://gitlab.com/-/user_settings/personal_access_tokens)
 2.  Kliknite **Dodaj novi token**
-3.  Naziv: `Xccode`, opseg: `api`
+3.  Naziv: `Xiaochuan`, opseg: `api`
 4.  Kopirajte token (počinje sa `glpat-`)
 5.  Unesite ga u terminal
 
@@ -755,20 +755,20 @@ Dostupna su tri modela bazirana na Claudeu:
 
 :::note
 Također možete odrediti 'GITLAB_TOKEN' varijablu okruženja ako ne želite
-da pohrani token u xccode auth memoriju.
+da pohrani token u xiaochuan auth memoriju.
 :::
 
 ##### Samostalni GitLab
 
 :::note[Napomena o usklađenosti]
-Xccode koristi mali model za neke AI zadatke kao što je generiranje naslova sesije.
-Podrazumevano je konfigurisan da koristi gpt-5-nano, a hostuje ga Xccode. Da zaključate Xccode
+Xiaochuan koristi mali model za neke AI zadatke kao što je generiranje naslova sesije.
+Podrazumevano je konfigurisan da koristi gpt-5-nano, a hostuje ga Xiaochuan. Da zaključate Xiaochuan
 da biste koristili samo svoju vlastitu instancu koju hostuje GitLab, dodajte sljedeće u svoju
-`xccode.json` fajl.
+`xiaochuan.json` fajl.
 
 ```json
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "small_model": "gitlab/duo-chat-haiku-4-5"
 }
 ```
@@ -821,15 +821,15 @@ Zatim izložite ID aplikacije kao varijablu okruženja:
 export GITLAB_OAUTH_CLIENT_ID=your_application_id_here
 ```
 
-Više dokumentacije na početnoj stranici [xccode-gitlab-auth](https://www.npmjs.com/package/xccode-gitlab-auth).
+Više dokumentacije na početnoj stranici [xiaochuan-gitlab-auth](https://www.npmjs.com/package/xiaochuan-gitlab-auth).
 
 ##### Konfiguracija
 
-Prilagodite putem `xccode.json`:
+Prilagodite putem `xiaochuan.json`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "gitlab": {
       "options": {
@@ -844,10 +844,10 @@ Prilagodite putem `xccode.json`:
 
 Za pristup GitLab alatima (zahtjevi za spajanje, problemi, cjevovodi, CI/CD, itd.):
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
-  "plugin": ["xccode-gitlab-plugin"]
+  "$schema": "https://xiaochuan.ai/config.json",
+  "plugin": ["xiaochuan-gitlab-plugin"]
 }
 ```
 
@@ -857,7 +857,7 @@ Ovaj dodatak pruža sveobuhvatne mogućnosti upravljanja GitLab repozitorijumom,
 
 ### GitHub Copilot
 
-Da biste koristili svoju GitHub Copilot pretplatu s xccode:
+Da biste koristili svoju GitHub Copilot pretplatu s xiaochuan:
 
 :::note
 Neki modeli će možda trebati [Pro+
@@ -894,7 +894,7 @@ Neki modeli moraju biti ručno omogućeni u vašim [postavkama GitHub Copilot](h
 
 ### Google Vertex AI
 
-Za korištenje Google Vertex AI s Xccode:
+Za korištenje Google Vertex AI s Xiaochuan:
 
 1. Idite do **Model Garden** u Google Cloud Console i provjerite
    modeli dostupni u vašoj regiji.
@@ -910,10 +910,10 @@ Za korištenje Google Vertex AI s Xccode:
      - `GOOGLE_APPLICATION_CREDENTIALS`: Put do JSON ključnog fajla vašeg naloga usluge
      - Autentifikacija koristeći gcloud CLI: `gcloud auth application-default login`
 
-   Postavite ih dok se pokreće xccode.
+   Postavite ih dok se pokreće xiaochuan.
 
 ```bash
-   GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json GOOGLE_CLOUD_PROJECT=your-project-id xccode
+   GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json GOOGLE_CLOUD_PROJECT=your-project-id xiaochuan
 ```
 
 Ili ih dodajte svom bash profilu.
@@ -1023,13 +1023,13 @@ Za više provajdera i napredne funkcije kao što su keširanje i ograničavanje 
 
 #### Opcione konfiguracije
 
-U slučaju da vidite funkciju ili model iz Helicone-a koji nije automatski konfiguriran putem xccodea, uvijek ga možete sami konfigurirati.
+U slučaju da vidite funkciju ili model iz Helicone-a koji nije automatski konfiguriran putem xiaochuana, uvijek ga možete sami konfigurirati.
 
 Evo [Heliconeov katalog modela](https://helicone.ai/models), ovo će vam trebati da preuzmete ID-ove modela koje želite dodati.
 
-```jsonc title="~/.config/xccode/xccode.jsonc"
+```jsonc title="~/.config/xiaochuan/xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1055,9 +1055,9 @@ Evo [Heliconeov katalog modela](https://helicone.ai/models), ovo će vam trebati
 
 Helicone podržava prilagođena zaglavlja za funkcije kao što su keširanje, praćenje korisnika i upravljanje sesijom. Dodajte ih u konfiguraciju svog provajdera koristeći `options.headers`:
 
-```jsonc title="~/.config/xccode/xccode.jsonc"
+```jsonc title="~/.config/xiaochuan/xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1066,7 +1066,7 @@ Helicone podržava prilagođena zaglavlja za funkcije kao što su keširanje, pr
         "baseURL": "https://ai-gateway.helicone.ai",
         "headers": {
           "Helicone-Cache-Enabled": "true",
-          "Helicone-User-Id": "xccode",
+          "Helicone-User-Id": "xiaochuan",
         },
       },
     },
@@ -1076,21 +1076,21 @@ Helicone podržava prilagođena zaglavlja za funkcije kao što su keširanje, pr
 
 ##### Praćenje sesije
 
-Heliconeova funkcija [Sessions](https://docs.helicone.ai/features/sessions) vam omogućava da grupišete povezane LLM zahtjeve zajedno. Koristite dodatak [xccode-helicone-session](https://github.com/H2Shami/xccode-helicone-session) da automatski prijavite svaki Xccode razgovor kao sesiju u Helicone-u.
+Heliconeova funkcija [Sessions](https://docs.helicone.ai/features/sessions) vam omogućava da grupišete povezane LLM zahtjeve zajedno. Koristite dodatak [xiaochuan-helicone-session](https://github.com/H2Shami/xiaochuan-helicone-session) da automatski prijavite svaki Xiaochuan razgovor kao sesiju u Helicone-u.
 
 ```bash
-npm install -g xccode-helicone-session
+npm install -g xiaochuan-helicone-session
 ```
 
 Dodajte ga u svoju konfiguraciju.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "plugin": ["xccode-helicone-session"]
+  "plugin": ["xiaochuan-helicone-session"]
 }
 ```
 
-Dodatak ubacuje zaglavlja `Helicone-Session-Id` i `Helicone-Session-Name` u vaše zahtjeve. Na stranici Helicone Sessions, vidjet ćete svaki Xccode razgovor naveden kao zasebna sesija.
+Dodatak ubacuje zaglavlja `Helicone-Session-Id` i `Helicone-Session-Name` u vaše zahtjeve. Na stranici Helicone Sessions, vidjet ćete svaki Xiaochuan razgovor naveden kao zasebna sesija.
 
 ##### Uobičajena Helicone zaglavlja
 
@@ -1107,11 +1107,11 @@ Pogledajte [Helicone Header Directory](https://docs.helicone.ai/helicone-headers
 
 ### llama.cpp
 
-Možete konfigurirati xccode za korištenje lokalnih modela putem [llama.cpp's](https://github.com/ggml-org/llama.cpp) uslužnog programa llama-server
+Možete konfigurirati xiaochuan za korištenje lokalnih modela putem [llama.cpp's](https://github.com/ggml-org/llama.cpp) uslužnog programa llama-server
 
-```json title="xccode.json" "llama.cpp" {5, 6, 8, 10-15}
+```json title="xiaochuan.json" "llama.cpp" {5, 6, 8, 10-15}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1174,11 +1174,11 @@ IO.NET nudi 17 modela optimiziranih za različite slučajeve upotrebe:
 
 ### LM Studio
 
-Možete konfigurirati xccode za korištenje lokalnih modela preko LM Studio.
+Možete konfigurirati xiaochuan za korištenje lokalnih modela preko LM Studio.
 
-```json title="xccode.json" "lmstudio" {5, 6, 8, 10-14}
+```json title="xiaochuan.json" "lmstudio" {5, 6, 8, 10-14}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "lmstudio": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1291,15 +1291,15 @@ Da biste koristili Kimi K2 iz Moonshot AI:
 
 ### Ollama
 
-Možete konfigurirati xccode za korištenje lokalnih modela putem Ollame.
+Možete konfigurirati xiaochuan za korištenje lokalnih modela putem Ollame.
 
 :::tip
-Ollama se može automatski konfigurirati za Xccode. Pogledajte [Ollama integracijske dokumente](https://docs.ollama.com/integrations/xccode) za detalje.
+Ollama se može automatski konfigurirati za Xiaochuan. Pogledajte [Ollama integracijske dokumente](https://docs.ollama.com/integrations/xiaochuan) za detalje.
 :::
 
-```json title="xccode.json" "ollama" {5, 6, 8, 10-14}
+```json title="xiaochuan.json" "ollama" {5, 6, 8, 10-14}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1333,13 +1333,13 @@ Ako pozivi alata ne rade, pokušajte povećati `num_ctx` u Ollama. Počnite oko 
 
 ### Ollama Cloud
 
-Da biste koristili Ollama Cloud s Xccode:
+Da biste koristili Ollama Cloud s Xiaochuan:
 
 1. Idite na [https://ollama.com/](https://ollama.com/) i prijavite se ili kreirajte račun.
 
 2. Idite na **Postavke** > **Ključevi** i kliknite na **Dodaj API ključ** da generišete novi API ključ.
 
-3. Kopirajte API ključ za korištenje u Xccode.
+3. Kopirajte API ključ za korištenje u Xiaochuan.
 
 4. Pokrenite naredbu `/connect` i potražite **Ollama Cloud**.
 
@@ -1356,7 +1356,7 @@ Da biste koristili Ollama Cloud s Xccode:
    └ enter
 ```
 
-6. **Važno**: Prije upotrebe modela oblaka u Xccode, morate lokalno povući informacije o modelu:
+6. **Važno**: Prije upotrebe modela oblaka u Xiaochuan, morate lokalno povući informacije o modelu:
 
 ```bash
    ollama pull gpt-oss:20b-cloud
@@ -1403,21 +1403,21 @@ Ako već imate API ključ, možete odabrati **Ručno unesite API ključ** i zali
 
 ---
 
-<a id="xccode-zen-1"></a>
+<a id="xiaochuan-zen-1"></a>
 
-### Xccode Models
+### Xiaochuan Models
 
-Xccode Models je lista testiranih i verifikovanih modela koju je obezbedio Xccode tim. [Saznajte više](https://xccode.ai/docs/console/).
+Xiaochuan Models je lista testiranih i verifikovanih modela koju je obezbedio Xiaochuan tim. [Saznajte više](https://xiaochuan.ai/docs/console/).
 
-1. Prijavite se na **<a href={console}>Xccode Console</a>** i kliknite na **Kreiraj API ključ**.
+1. Prijavite se na **<a href={console}>Xiaochuan Console</a>** i kliknite na **Kreiraj API ključ**.
 
-2. Pokrenite naredbu `/connect` i potražite **Xccode**.
+2. Pokrenite naredbu `/connect` i potražite **Xiaochuan**.
 
 ```txt
    /connect
 ```
 
-3. Unesite svoj Xccode API ključ.
+3. Unesite svoj Xiaochuan API ključ.
 
 ```txt
    ┌ API key
@@ -1459,11 +1459,11 @@ Xccode Models je lista testiranih i verifikovanih modela koju je obezbedio Xccod
    /models
 ```
 
-Također možete dodati dodatne modele putem vaše xccode konfiguracije.
+Također možete dodati dodatne modele putem vaše xiaochuan konfiguracije.
 
-```json title="xccode.json" {6}
+```json title="xiaochuan.json" {6}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "openrouter": {
       "models": {
@@ -1474,11 +1474,11 @@ Također možete dodati dodatne modele putem vaše xccode konfiguracije.
 }
 ```
 
-5. Također ih možete prilagoditi putem vaše xccode konfiguracije. Evo primjera navođenja provajdera
+5. Također ih možete prilagoditi putem vaše xiaochuan konfiguracije. Evo primjera navođenja provajdera
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "openrouter": {
       "models": {
@@ -1526,7 +1526,7 @@ SAP AI Core omogućava pristup preko 40+ modela iz OpenAI, Anthropic, Google, Am
 Ili postavite varijablu okruženja `AICORE_SERVICE_KEY`:
 
 ```bash
-   AICORE_SERVICE_KEY='{"clientid":"...","clientsecret":"...","url":"...","serviceurls":{"AI_API_URL":"..."}}' xccode
+   AICORE_SERVICE_KEY='{"clientid":"...","clientsecret":"...","url":"...","serviceurls":{"AI_API_URL":"..."}}' xiaochuan
 ```
 
 Ili ga dodajte na svoj bash profil:
@@ -1538,7 +1538,7 @@ Ili ga dodajte na svoj bash profil:
 4. Opciono postavite ID implementacije i grupu resursa:
 
 ```bash
-   AICORE_DEPLOYMENT_ID=your-deployment-id AICORE_RESOURCE_GROUP=your-resource-group xccode
+   AICORE_DEPLOYMENT_ID=your-deployment-id AICORE_RESOURCE_GROUP=your-resource-group xiaochuan
 ```
 
 :::note
@@ -1615,7 +1615,7 @@ STACKIT AI Model Serving pruža potpuno upravljano suvereno hosting okruženje z
 
 ### Scaleway
 
-Da biste koristili [Scaleway Generative APIs](https://www.scaleway.com/en/docs/generative-apis/) sa Xccodeom:
+Da biste koristili [Scaleway Generative APIs](https://www.scaleway.com/en/docs/generative-apis/) sa Xiaochuanom:
 
 1. Prijeđite na [Scaleway Console IAM postavke](https://console.scaleway.com/iam/api-keys) da generišete novi API ključ.
 
@@ -1723,11 +1723,11 @@ Vercel AI Gateway vam omogućava da pristupite modelima iz OpenAI, Anthropic, Go
    /models
 ```
 
-Također možete prilagoditi modele kroz svoju xccode konfiguraciju. Evo primjera specificiranja redoslijeda usmjeravanja dobavljača.
+Također možete prilagoditi modele kroz svoju xiaochuan konfiguraciju. Evo primjera specificiranja redoslijeda usmjeravanja dobavljača.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "vercel": {
       "models": {
@@ -1833,11 +1833,11 @@ Ako ste pretplaćeni na **GLM plan kodiranja**, odaberite **Z.AI plan kodiranja*
    /models
 ```
 
-Također možete dodati dodatne modele putem vaše xccode konfiguracije.
+Također možete dodati dodatne modele putem vaše xiaochuan konfiguracije.
 
-```json title="xccode.json" {6}
+```json title="xiaochuan.json" {6}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "zenmux": {
       "models": {
@@ -1855,7 +1855,7 @@ Također možete dodati dodatne modele putem vaše xccode konfiguracije.
 Da biste dodali bilo kojeg **OpenAI-kompatibilnog** provajdera koji nije naveden u naredbi `/connect`:
 
 :::tip
-Možete koristiti bilo kojeg OpenAI kompatibilnog provajdera s xccode-om. Većina modernih AI provajdera nudi API-je kompatibilne sa OpenAI.
+Možete koristiti bilo kojeg OpenAI kompatibilnog provajdera s xiaochuan-om. Većina modernih AI provajdera nudi API-je kompatibilne sa OpenAI.
 :::
 
 1. Pokrenite naredbu `/connect` i pomaknite se prema dolje do **Ostalo**.
@@ -1894,18 +1894,18 @@ Odaberite ID koji se pamti, to ćete koristiti u svom konfiguracijskom fajlu.
 
    ┌  Add credential
    │
-   ▲  This only stores a credential for myprovider - you will need to configure it in xccode.json, check the docs for examples.
+   ▲  This only stores a credential for myprovider - you will need to configure it in xiaochuan.json, check the docs for examples.
    │
    ◇  Enter your API key
    │  sk-...
    └
 ```
 
-4. Kreirajte ili ažurirajte svoju `xccode.json` datoteku u direktoriju projekta:
+4. Kreirajte ili ažurirajte svoju `xiaochuan.json` datoteku u direktoriju projekta:
 
-```json title="xccode.json" ""myprovider"" {5-15}
+```json title="xiaochuan.json" ""myprovider"" {5-15}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "myprovider": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1942,9 +1942,9 @@ Više o naprednim opcijama u primjeru ispod.
 
 Evo primjera postavljanja opcija `apiKey`, `headers` i modela `limit`.
 
-```json title="xccode.json" {9,11,17-20}
+```json title="xiaochuan.json" {9,11,17-20}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "myprovider": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1977,7 +1977,7 @@ Detalji konfiguracije:
 - **limit.context**: Maksimalni ulazni tokeni koje model prihvata.
 - **limit.output**: Maksimalni tokeni koje model može generirati.
 
-Polja `limit` omogućavaju Xccode da shvati koliko vam je konteksta ostalo. Standardni dobavljači ih automatski preuzimaju sa models.dev.
+Polja `limit` omogućavaju Xiaochuan da shvati koliko vam je konteksta ostalo. Standardni dobavljači ih automatski preuzimaju sa models.dev.
 
 ---
 
@@ -1985,12 +1985,12 @@ Polja `limit` omogućavaju Xccode da shvati koliko vam je konteksta ostalo. Stan
 
 Ako imate problema s konfiguracijom provajdera, provjerite sljedeće:
 
-1. **Provjerite postavke autentifikacije**: Pokrenite `xccode auth list` da vidite da li su vjerodajnice
+1. **Provjerite postavke autentifikacije**: Pokrenite `xiaochuan auth list` da vidite da li su vjerodajnice
    za provajdera se dodaju u vašu konfiguraciju.
 
    Ovo se ne odnosi na dobavljače kao što je Amazon Bedrock, koji se oslanjaju na varijable okruženja za svoju autentifikaciju.
 
-2. Za prilagođene provajdere, provjerite Xccode konfiguraciju i:
-   - Uvjerite se da ID provajdera korišten u naredbi `/connect` odgovara ID-u u vašoj xccode konfiguraciji.
+2. Za prilagođene provajdere, provjerite Xiaochuan konfiguraciju i:
+   - Uvjerite se da ID provajdera korišten u naredbi `/connect` odgovara ID-u u vašoj xiaochuan konfiguraciji.
    - Za provajdera se koristi pravi npm paket. Na primjer, koristite `@ai-sdk/cerebras` za Cerebras. A za sve ostale OpenAI kompatibilne provajdere, koristite `@ai-sdk/openai-compatible`.
    - Provjerite da li se ispravna krajnja tačka API-ja koristi u polju `options.baseURL`.

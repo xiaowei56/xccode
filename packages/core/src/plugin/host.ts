@@ -1,10 +1,10 @@
 export * as PluginHost from "./host.js"
 
-import { Plugin } from "@xccode/plugin/effect"
-import type { IntegrationMethodRegistration } from "@xccode/plugin/effect/integration"
-import { EventManifest } from "@xccode/schema/event-manifest"
-import type { Event } from "@xccode/schema/event"
-import { ServerConfig } from "@xccode/schema/mcp"
+import { Plugin } from "@xiaochuan/plugin/effect"
+import type { IntegrationMethodRegistration } from "@xiaochuan/plugin/effect/integration"
+import { EventManifest } from "@xiaochuan/schema/event-manifest"
+import type { Event } from "@xiaochuan/schema/event"
+import { ServerConfig } from "@xiaochuan/schema/mcp"
 import { App } from "../app.js"
 import { Effect, Schema, Stream } from "effect"
 import { Agent } from "../agent.js"
@@ -38,7 +38,7 @@ import { Generate } from "../generate.js"
 import { Permission } from "../permission.js"
 import { PluginHooks } from "./hooks.js"
 import type { Interface } from "../plugin.js"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 
 const mutable = <T>(value: T) => value as DeepMutable<T>
 type RpcEvent = Event.Payload & {

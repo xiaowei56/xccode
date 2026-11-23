@@ -9,14 +9,14 @@ export const content = {
     },
     mobile: { name: "Mobile", body: "ابدأ الجلسات ووجّهها ووافق عليها من هاتفك أينما كنت.", action: "تنزيل" },
     terminal: { name: "Terminal", body: "واجهة طرفية سريعة تعمل في أي صدفة أو محرر أو خادم بعيد.", action: "تثبيت" },
-    sdk: { body: "تحكّم في Xccode من سكربتاتك ومهام CI وأدواتك.", action: "الوثائق" },
+    sdk: { body: "تحكّم في Xiaochuan من سكربتاتك ومهام CI وأدواتك.", action: "الوثائق" },
     mini: { body: "واجهة طرفية بسيطة. تُطبع الردود في سجل التمرير، ويبقى سطر إدخال واحد في الأسفل.", action: "تثبيت" },
   },
   productDetails: {
     desktop: {
-      title: "Xccode | تطبيق سطح المكتب لأنظمة macOS وWindows وLinux",
+      title: "Xiaochuan | تطبيق سطح المكتب لأنظمة macOS وWindows وLinux",
       description:
-        "شغّل عدد وكلاء Xccode الذي تريده بالتوازي، وشاهد كل تغيير في متصفح بجانبهم، وتابعهم من أي جهاز. لأنظمة macOS وWindows وLinux.",
+        "شغّل عدد وكلاء Xiaochuan الذي تريده بالتوازي، وشاهد كل تغيير في متصفح بجانبهم، وتابعهم من أي جهاز. لأنظمة macOS وWindows وLinux.",
       intro:
         "شغّل عدة وكلاء معًا، وكل جلسة في علامة تبويب خاصة. راجع كل تغيير كفرق، وعلّق على أي سطر، وتحقق من النتيجة في المتصفح المدمج. متاح لأنظمة macOS وWindows وLinux.",
       showcase: {
@@ -34,23 +34,23 @@ export const content = {
         },
         "extend-it": {
           title: "وسّعه",
-          body: "اربط أدواتك وخدماتك ليتمكن الوكيل من العمل مع أي شيء. أو دع Xccode يبني إضافات لنفسه، بواجهتها الخاصة في الشريط الجانبي.",
+          body: "اربط أدواتك وخدماتك ليتمكن الوكيل من العمل مع أي شيء. أو دع Xiaochuan يبني إضافات لنفسه، بواجهتها الخاصة في الشريط الجانبي.",
         },
       },
     },
     mobile: {
-      title: "Xccode | Mobile، جلسات البرمجة على هاتفك",
+      title: "Xiaochuan | Mobile، جلسات البرمجة على هاتفك",
       description:
-        "ابدأ جلسات Xccode وقُدها من هاتفك. تحدّث إلى الوكيل أثناء عمله على حاسوبك.",
+        "ابدأ جلسات Xiaochuan وقُدها من هاتفك. تحدّث إلى الوكيل أثناء عمله على حاسوبك.",
       intro:
-        "ابدأ الجلسات وقُدها من هاتفك أينما كنت. اتصل بجلسة وتحدّث إلى الوكيل، أو افتح أي جلسة وتابع من حيث توقفت، كل ذلك في Xccode على حاسوبك.",
+        "ابدأ الجلسات وقُدها من هاتفك أينما كنت. اتصل بجلسة وتحدّث إلى الوكيل، أو افتح أي جلسة وتابع من حيث توقفت، كل ذلك في Xiaochuan على حاسوبك.",
       features: {
         "notify-when-done": { title: "إشعار عند الانتهاء", body: "احصل على ملخص قصير عند انتهاء جلسة بدأتها." },
-        "pair-from-anywhere": { title: "اربط من أي مكان", body: "اتصل من أي شبكة عبر xccode pair --remote." },
+        "pair-from-anywhere": { title: "اربط من أي مكان", body: "اتصل من أي شبكة عبر xiaochuan pair --remote." },
         "every-computer": { title: "كل حواسيبك", body: "تنقّل بين الحواسيب التي ربطتها بلمسة واحدة." },
         "siri-and-shortcuts": { title: "Siri والاختصارات", body: "ابدأ مكالمة أو جلسة من Siri أو مركز التحكم." },
         "follow-along": { title: "تابع العمل", body: "شاهد الخط الزمني يتحدّث أثناء عمل الوكيل." },
-        "your-computer": { title: "حاسوبك", body: "يتصل بـ Xccode الذي يعمل على جهازك الخاص." },
+        "your-computer": { title: "حاسوبك", body: "يتصل بـ Xiaochuan الذي يعمل على جهازك الخاص." },
         "share-sheet": { title: "قائمة المشاركة", body: "شارك أي شيء مع جلسة دون فتح التطبيق." },
         "mute-sessions": { title: "كتم الجلسات", body: "أبقِ الجلسة في قائمتك دون تلقي إشعاراتها." },
       },
@@ -62,9 +62,9 @@ export const content = {
       },
     },
     terminal: {
-      title: "Xccode | واجهة طرفية لوكيل البرمجة مفتوح المصدر",
+      title: "Xiaochuan | واجهة طرفية لوكيل البرمجة مفتوح المصدر",
       description:
-        "واجهة طرفية سريعة لـ Xccode تعمل في أي صدفة أو محرر أو خادم بعيد. صِف ما تريد، وشاهد كل تعديل كفرق، ووافق على الأوامر.",
+        "واجهة طرفية سريعة لـ Xiaochuan تعمل في أي صدفة أو محرر أو خادم بعيد. صِف ما تريد، وشاهد كل تعديل كفرق، ووافق على الأوامر.",
       intro:
         "واجهة طرفية سريعة تعمل في أي صدفة أو محرر أو خادم بعيد. صِف ما تريد بكلمات بسيطة، وشاهد كل تعديل يصل كفرق، واختر الأوامر التي تعمل تلقائيًا.",
       features: {
@@ -74,45 +74,45 @@ export const content = {
           body: "شاهد كل تعديل كفرق في الخط الزمني لحظة إجرائه.",
         },
         "pick-up-later": { title: "أكمل لاحقًا", body: "أكمل آخر جلسة عبر -c، أو أي جلسة عبر -s." },
-        "one-off-runs": { title: "تشغيل لمرة واحدة", body: "يرسل xccode run رسالة واحدة ويطبع الرد." },
+        "one-off-runs": { title: "تشغيل لمرة واحدة", body: "يرسل xiaochuan run رسالة واحدة ويطبع الرد." },
         "agents-and-commands": {
           title: "وكلاء وأوامر",
           body: "بدّل الوكلاء عبر shift+tab وافتح كل الأوامر عبر ctrl+p.",
         },
         "auto-approve": { title: "موافقة تلقائية", body: "شغّل مع --auto للسماح بكل إجراء لم ترفضه." },
-        "any-server": { title: "أي خادم", body: "اتصل بخادم Xccode عبر عنوان URL مع --server." },
-        "usage-stats": { title: "إحصاءات الاستخدام", body: "يعرض xccode stats إحصاءات استخدام قابلة للمشاركة." },
+        "any-server": { title: "أي خادم", body: "اتصل بخادم Xiaochuan عبر عنوان URL مع --server." },
+        "usage-stats": { title: "إحصاءات الاستخدام", body: "يعرض xiaochuan stats إحصاءات استخدام قابلة للمشاركة." },
       },
       showcase: {
         "ask-in-plain-words": { title: "اطلب بكلمات بسيطة", body: "اكتب ما تريد، ويعرض الوكيل خطته أثناء العمل." },
         "approve-what-runs": { title: "وافق على ما يعمل", body: "تظهر التعديلات كفروقات، وتنتظر الأوامر إذنك." },
         "make-it-yours": { title: "اجعله لك", body: "بدّل السمات بضغطة مفتاح، من الافتراضية إلى tokyonight وغيرها." },
-        mini: { title: "Mini", body: "شغّل xccode mini فتُطبع الردود في سجل التمرير الخاص بك." },
+        mini: { title: "Mini", body: "شغّل xiaochuan mini فتُطبع الردود في سجل التمرير الخاص بك." },
       },
     },
     sdk: {
-      title: "Xccode | TypeScript SDK للسكربتات ومهام CI والأدوات",
+      title: "Xiaochuan | TypeScript SDK للسكربتات ومهام CI والأدوات",
       description:
-        "تحكّم في Xccode من سكربتاتك ومهام CI وأدواتك. ينشئ عميل TypeScript المُنمّط الجلسات ويرسل المطالبات ويبث كل حدث لحظة وقوعه.",
+        "تحكّم في Xiaochuan من سكربتاتك ومهام CI وأدواتك. ينشئ عميل TypeScript المُنمّط الجلسات ويرسل المطالبات ويبث كل حدث لحظة وقوعه.",
       intro:
-        "تحكّم في Xccode من سكربتاتك ومهام CI وأدواتك. يشغّل SDK Xccode داخل عمليتك، بإعداداتك ونماذجك، وينشئ عميله المُنمّط الجلسات ويرسل المطالبات ويبث كل حدث.",
+        "تحكّم في Xiaochuan من سكربتاتك ومهام CI وأدواتك. يشغّل SDK Xiaochuan داخل عمليتك، بإعداداتك ونماذجك، وينشئ عميله المُنمّط الجلسات ويرسل المطالبات ويبث كل حدث.",
       features: {
-        "typescript-client": { title: "عميل TypeScript", body: "طلبات وأحداث مُنمّطة، بنفس قيم @xccode/client." },
+        "typescript-client": { title: "عميل TypeScript", body: "طلبات وأحداث مُنمّطة، بنفس قيم @xiaochuan/client." },
         "sessions-from-code": { title: "جلسات من الكود", body: "أنشئ الجلسات وأرسل المطالبات من أي سكربت." },
-        "any-model": { title: "أي نموذج", body: "يستخدم النماذج المضبوطة في إعداد Xccode لديك." },
-        "npm-or-bun": { title: "npm أو bun", body: "ثبّته عبر npm i @xccode/sdk أو bun add @xccode/sdk." },
-        "in-process-host": { title: "مضيف داخل العملية", body: "يشغّل Xccode في الذاكرة، دون المرور بالشبكة." },
+        "any-model": { title: "أي نموذج", body: "يستخدم النماذج المضبوطة في إعداد Xiaochuan لديك." },
+        "npm-or-bun": { title: "npm أو bun", body: "ثبّته عبر npm i @xiaochuan/sdk أو bun add @xiaochuan/sdk." },
+        "in-process-host": { title: "مضيف داخل العملية", body: "يشغّل Xiaochuan في الذاكرة، دون المرور بالشبكة." },
         "your-plugins": { title: "ملحقاتك", body: "مرّر ملحقاتك عند إنشاء المضيف داخل العملية." },
         "promise-or-effect": { title: "Promise أو Effect", body: "واجهة Promise API وواجهة Effect API بنفس القيم." },
         "cloudflare-workers": {
           title: "Cloudflare Workers",
-          body: "شغّل Xccode داخل Cloudflare Durable Object على Workers.",
+          body: "شغّل Xiaochuan داخل Cloudflare Durable Object على Workers.",
         },
       },
       showcase: {
         "fix-ci-from-code": {
           title: "أصلح CI من الكود",
-          body: "سكربت قصير يطلب من Xccode إصلاح الاختبارات الفاشلة، ثم يشغّلها من جديد.",
+          body: "سكربت قصير يطلب من Xiaochuan إصلاح الاختبارات الفاشلة، ثم يشغّلها من جديد.",
         },
         "follow-every-step": {
           title: "تابع كل خطوة",
@@ -120,24 +120,24 @@ export const content = {
         },
         "build-your-own-tools": {
           title: "ابنِ أدواتك",
-          body: "اربط Xccode بالروبوتات ولوحات المعلومات وسير العمل ببضعة أسطر.",
+          body: "اربط Xiaochuan بالروبوتات ولوحات المعلومات وسير العمل ببضعة أسطر.",
         },
-        "in-your-process": { title: "داخل عمليتك", body: "يشغّل Xccode داخل عمليتك، بإعداداتك ونماذجك." },
+        "in-your-process": { title: "داخل عمليتك", body: "يشغّل Xiaochuan داخل عمليتك، بإعداداتك ونماذجك." },
       },
     },
     mini: {
-      title: "Xccode | Mini، واجهة طرفية بسيطة للوكيل",
+      title: "Xiaochuan | Mini، واجهة طرفية بسيطة للوكيل",
       description:
-        "يشغّل Mini Xccode في واجهة طرفية بسيطة. تُطبع الردود في سجل التمرير الخاص بطرفيتك، ولا يبقى في الأسفل إلا سطر الإدخال وسطر الحالة.",
+        "يشغّل Mini Xiaochuan في واجهة طرفية بسيطة. تُطبع الردود في سجل التمرير الخاص بطرفيتك، ولا يبقى في الأسفل إلا سطر الإدخال وسطر الحالة.",
       intro:
-        "واجهة طرفية بسيطة لـ Xccode. شغّل xccode mini فتُطبع الردود مباشرة في سجل التمرير الخاص بطرفيتك، فتتصفحها وتبحث فيها وتنسخها كأي مخرجات أخرى. لا يبقى في الأسفل إلا سطر الإدخال وسطر الحالة.",
+        "واجهة طرفية بسيطة لـ Xiaochuan. شغّل xiaochuan mini فتُطبع الردود مباشرة في سجل التمرير الخاص بطرفيتك، فتتصفحها وتبحث فيها وتنسخها كأي مخرجات أخرى. لا يبقى في الأسفل إلا سطر الإدخال وسطر الحالة.",
       features: {
         "your-scrollback": { title: "سجل التمرير", body: "تصبح الردود جزءًا عاديًا من سجل الطرفية." },
         "one-prompt": { title: "سطر واحد", body: "الوكيل والنموذج والسياق والتكلفة في سطر حالة واحد." },
         permissions: { title: "الأذونات", body: "اسمح بالتعديلات والأوامر من منطقة الإدخال." },
         "how-much-shows": { title: "مقدار العرض", body: "هادئ أو افتراضي أو كل شيء، للتفكير ومخرجات الأدوات." },
         "pick-up-later": { title: "أكمل لاحقًا", body: "أكمل آخر جلسة عبر -c، أو أي جلسة عبر -s." },
-        "same-xccode": { title: "نفس Xccode", body: "نفس الخادم والوكلاء والنماذج كالتطبيقات الأخرى." },
+        "same-xiaochuan": { title: "نفس Xiaochuan", body: "نفس الخادم والوكلاء والنماذج كالتطبيقات الأخرى." },
         agents: { title: "الوكلاء", body: "بدّل الوكلاء من سطر الإدخال مباشرة." },
         compact: { title: "الضغط", body: "قلّص جلسة طويلة عبر /compact." },
       },
@@ -145,15 +145,15 @@ export const content = {
   },
   extensionCard: {
     name: "الإضافات",
-    body: "استخدم Xccode داخل VS Code، أو في Zed ومحررات أخرى عبر ACP.",
+    body: "استخدم Xiaochuan داخل VS Code، أو في Zed ومحررات أخرى عبر ACP.",
     action: "تثبيت",
   },
   extensions: {
     browse: {
       body: "دع الوكلاء يستخدمون متصفحك الحقيقي.",
-      title: "Xccode | Browse، متصفحك الحقيقي لوكلاء البرمجة",
+      title: "Xiaochuan | Browse، متصفحك الحقيقي لوكلاء البرمجة",
       description:
-        "يتيح Browse لـ Xccode وعملاء MCP الآخرين استخدام متصفحك الحقيقي. يقرأ الوكلاء الصفحات وينقرون ويكتبون ويلتقطون الصور ويسجّلون علامات التبويب، ويعيدون إليك تسجيل الدخول و2FA.",
+        "يتيح Browse لـ Xiaochuan وعملاء MCP الآخرين استخدام متصفحك الحقيقي. يقرأ الوكلاء الصفحات وينقرون ويكتبون ويلتقطون الصور ويسجّلون علامات التبويب، ويعيدون إليك تسجيل الدخول و2FA.",
       intro:
         "خادم MCP وإضافة Chromium يتيحان لوكلائك استخدام متصفحك الحقيقي، بعلامات تبويبك وتسجيلات دخولك وإضافاتك. يفتحون علامات التبويب في الخلفية، مجمّعة بعيدًا عن طريقك، ويقرؤون الصفحات وينقرون ويكتبون ويلتقطون الصور ويسجّلون علامات التبويب. وعندما يحين دورك، لتسجيل دخول أو طلب 2FA أو دفع، يعيدون إليك علامة التبويب ويكملون بمجرد أن تنقر Continue.",
       features: {
@@ -168,7 +168,7 @@ export const content = {
         handoffs: { title: "التسليم", body: "نفّذ خطوة تسجيل الدخول أو 2FA بنفسك، ثم انقر Continue." },
         "lend-a-tab": { title: "أعِر علامة تبويب", body: "انقر زر شريط الأدوات لتسليم الوكيل علامة تبويب مفتوحة." },
         "record-and-capture": { title: "تسجيل والتقاط", body: "لقطات شاشة وتسجيلات لعلامات التبويب وحركة الشبكة." },
-        "any-mcp-client": { title: "أي عميل MCP", body: "Xccode وClaude Code وCursor وCodex وZed وغيرها الكثير." },
+        "any-mcp-client": { title: "أي عميل MCP", body: "Xiaochuan وClaude Code وCursor وCodex وZed وغيرها الكثير." },
         "all-your-logins": {
           title: "كل تسجيلات دخولك",
           body: "يستخدم الوكلاء المواقع التي سجّلت الدخول إليها بالفعل. بلا مفاتيح ولا إعداد.",
@@ -190,42 +190,42 @@ export const content = {
   },
   getStarted: {
     title: "ابدأ الآن",
-    lead: "أسهل طريقة للبدء هي أن تنزّل Xccode وتستخدم النماذج المجانية. لا حاجة إلى حساب. وللمزيد، استخدم اشتراكك الخاص أو Xccode Go.",
+    lead: "أسهل طريقة للبدء هي أن تنزّل Xiaochuan وتستخدم النماذج المجانية. لا حاجة إلى حساب. وللمزيد، استخدم اشتراكك الخاص أو Xiaochuan Go.",
     phrases: {
-      "download-xccode": { text: "تنزّل Xccode" },
+      "download-xiaochuan": { text: "تنزّل Xiaochuan" },
       "free-models": { text: "النماذج المجانية" },
       "your-own-subscription": { text: "اشتراكك الخاص" },
       "a-subscription-you-already-have": { text: "اشتراك لديك بالفعل" },
-      "xccode-go": { text: "Xccode Go" },
+      "xiaochuan-go": { text: "Xiaochuan Go" },
     },
     subscriptions: { "chatgpt-plus-pro": { name: "ChatGPT Plus/Pro" } },
     steps: {
       download: { title: "نزّل", line: "Desktop أو Terminal أو Mobile." },
       "use-free-models": {
         title: "نماذج مجانية",
-        line: "يأتي Xccode مع مجموعة من النماذج المجانية. لا حاجة إلى حساب.",
+        line: "يأتي Xiaochuan مع مجموعة من النماذج المجانية. لا حاجة إلى حساب.",
       },
       "add-more-models": {
         title: "نماذج أكثر",
-        line: "استخدم اشتراكك الخاص، أو نماذج Xccode Go المختارة بدءًا من 10$ شهريًا.",
+        line: "استخدم اشتراكك الخاص، أو نماذج Xiaochuan Go المختارة بدءًا من 10$ شهريًا.",
       },
     },
-    sentence: "نزّل Xccode، وابدأ بالنماذج المجانية، واستخدم اشتراكك الخاص أو Xccode Go عندما تريد المزيد.",
+    sentence: "نزّل Xiaochuan، وابدأ بالنماذج المجانية، واستخدم اشتراكك الخاص أو Xiaochuan Go عندما تريد المزيد.",
   },
   byos: {
     title: "اشتراكك الخاص",
     headline: "استخدم الاشتراكات التي لديك بالفعل.",
-    line: "سجّل الدخول عبر ChatGPT Plus أو Pro، أو GitHub Copilot. أو استخدم اشتراك Xccode.",
+    line: "سجّل الدخول عبر ChatGPT Plus أو Pro، أو GitHub Copilot. أو استخدم اشتراك Xiaochuan.",
     yours: { label: "اشتراكك", items: { "chatgpt-plus-pro": { name: "ChatGPT Plus/Pro" } } },
-    planLinks: ["اشتراك Xccode", "Xccode Go"],
-    ours: { label: "خطط Xccode" },
+    planLinks: ["اشتراك Xiaochuan", "Xiaochuan Go"],
+    ours: { label: "خطط Xiaochuan" },
   },
   brand: {
     hero: { copy: { text: "قواعد للوكيل", copied: "نُسخت القواعد" } },
     naming: {
       title: "التسمية",
-      body: "اكتب Xccode كلمة واحدة، بحرف O كبير وحرف C كبير. لا تكتب Xccode أو Open Code أو Xccode AI أو Open-Code.",
-      code: "استخدم `xccode` بالأحرف الصغيرة فقط في الكود وأسماء الحزم، مثل `xccode-figma` أو `@acme/xccode-plugin`.",
+      body: "اكتب Xiaochuan كلمة واحدة، بحرف O كبير وحرف C كبير. لا تكتب Xiaochuan أو Open Code أو Xiaochuan AI أو Open-Code.",
+      code: "استخدم `xiaochuan` بالأحرف الصغيرة فقط في الكود وأسماء الحزم، مثل `xiaochuan-figma` أو `@acme/xiaochuan-plugin`.",
     },
     families: {
       logo: {
@@ -240,7 +240,7 @@ export const content = {
       },
       wordmark: {
         title: "الشعار النصي",
-        body: "الاسم الكامل بحروف Xccode. استخدمه حيثما توفرت مساحة لكتابة الاسم كاملًا.",
+        body: "الاسم الكامل بحروف Xiaochuan. استخدمه حيثما توفرت مساحة لكتابة الاسم كاملًا.",
         assets: { light: { name: "فاتح" }, dark: { name: "داكن" } },
       },
       "simple-wordmark": {
@@ -337,49 +337,49 @@ export const content = {
     },
     integrations: {
       title: "التكاملات",
-      body: "يمكن للملحقات والمزوّدين والأدوات التي تعمل مع Xccode، والمشاريع المبنية به، أن تذكر ذلك. استخدم شارة أو شعارًا مشتركًا، وسمِّ مشروعك بحيث يتضح أنه لك.",
+      body: "يمكن للملحقات والمزوّدين والأدوات التي تعمل مع Xiaochuan، والمشاريع المبنية به، أن تذكر ذلك. استخدم شارة أو شعارًا مشتركًا، وسمِّ مشروعك بحيث يتضح أنه لك.",
       badges: {
-        body: "ضع شارة في ملف README أو الوثائق أو موقعك واربطها بـ xccode.ai. اختر الملف الفاتح أو الداكن حسب خلفيتك (تتبدّل نسخة HTML تلقائيًا)، ولا تغيّر الألوان أو النص.",
+        body: "ضع شارة في ملف README أو الوثائق أو موقعك واربطها بـ xiaochuan.ai. اختر الملف الفاتح أو الداكن حسب خلفيتك (تتبدّل نسخة HTML تلقائيًا)، ولا تغيّر الألوان أو النص.",
         sizes: "يتوفر كل نمط بأحجام 20 و32 و44px (Shields بحجم 20px فقط)، بصيغة SVG وبصيغة PNG بدقة 2×.",
-        mono: "لكل ملف أيضًا نسخة بخط OpenTUI Mono. أضف -mono قبل الامتداد، كما في xccode-works-with-a-light-20-mono.svg، أو -mono-caps لخط OpenTUI Mono بالأحرف الكبيرة.",
+        mono: "لكل ملف أيضًا نسخة بخط OpenTUI Mono. أضف -mono قبل الامتداد، كما في xiaochuan-works-with-a-light-20-mono.svg، أو -mono-caps لخط OpenTUI Mono بالأحرف الكبيرة.",
         groups: {
           "works-with": {
             title: "يعمل مع",
-            alt: "يعمل مع Xccode",
-            body: "للملحقات والمزوّدين والأدوات التي تعمل مع Xccode.",
+            alt: "يعمل مع Xiaochuan",
+            body: "للملحقات والمزوّدين والأدوات التي تعمل مع Xiaochuan.",
           },
-          "built-with": { title: "مبني بـ", alt: "مبني بـ Xccode", body: "للمشاريع المصنوعة بـ Xccode." },
+          "built-with": { title: "مبني بـ", alt: "مبني بـ Xiaochuan", body: "للمشاريع المصنوعة بـ Xiaochuan." },
         },
         styles: { a: { name: "إطار" }, c: { name: "خلايا" }, f: { name: "مصمت" }, g: { name: "Shields" } },
       },
       lockup: {
         title: "الشعار المشترك",
-        body: "ضع شعار Xccode وشعار الشريك جنبًا إلى جنب، وبينهما ×. اترك مسافة 3 خطوط على كل جانب من ×، واجعل شعار الشريك يبدو بطول شعار Xccode، وحافظ على مساحة فارغة حول الشعار المشترك كله.",
+        body: "ضع شعار Xiaochuan وشعار الشريك جنبًا إلى جنب، وبينهما ×. اترك مسافة 3 خطوط على كل جانب من ×، واجعل شعار الشريك يبدو بطول شعار Xiaochuan، وحافظ على مساحة فارغة حول الشعار المشترك كله.",
       },
       naming: {
         title: "تسمية مشروعك",
         body: "ابدأ باسمك أنت، حتى يتضح أن المشروع لك.",
-        rule: "اكتب `Linear for Xccode` أو سمِّ الحزمة `xccode-linear`. لا تكتب `Xccode Linear` أو `Linear by Xccode`.",
+        rule: "اكتب `Linear for Xiaochuan` أو سمِّ الحزمة `xiaochuan-linear`. لا تكتب `Xiaochuan Linear` أو `Linear by Xiaochuan`.",
       },
     },
     trademarks: {
       title: "العلامات التجارية",
-      body: "Xccode وشعار Xccode علامتان تجاريتان لـ Anomaly. لا تستخدمهما للإيحاء بأن Anomaly تؤيدك أو ترعاك، ولا في اسم منتجك أو شركتك، ولا على البضائع دون إذن.",
+      body: "Xiaochuan وشعار Xiaochuan علامتان تجاريتان لـ Anomaly. لا تستخدمهما للإيحاء بأن Anomaly تؤيدك أو ترعاك، ولا في اسم منتجك أو شركتك، ولا على البضائع دون إذن.",
       contact: { before: "للأسئلة، راسلنا على ", after: "." },
     },
   },
   press: {
-    title: "Xccode | الملف الصحفي مع حقائق الشركة وأصول العلامة",
+    title: "Xiaochuan | الملف الصحفي مع حقائق الشركة وأصول العلامة",
     description:
-      "الملف الصحفي لـ Xccode، مع حقائق عن Xccode وعن Anomaly، الشركة التي تقف وراءه، إضافة إلى شعارات للتنزيل وجهة اتصال لأسئلة الصحافة.",
-    hero: { title: "الصحافة", body: "حقائق وأصول العلامة وجهات اتصال للكتابة عن Xccode وAnomaly." },
+      "الملف الصحفي لـ Xiaochuan، مع حقائق عن Xiaochuan وعن Anomaly، الشركة التي تقف وراءه، إضافة إلى شعارات للتنزيل وجهة اتصال لأسئلة الصحافة.",
+    hero: { title: "الصحافة", body: "حقائق وأصول العلامة وجهات اتصال للكتابة عن Xiaochuan وAnomaly." },
     company: {
       title: "عن Anomaly",
-      lead: "Anomaly هي الشركة التي تقف وراء Xccode. تبني أدوات مفتوحة المصدر للمطورين.",
+      lead: "Anomaly هي الشركة التي تقف وراء Xiaochuan. تبني أدوات مفتوحة المصدر للمطورين.",
       more: "من مشاريعها الأخرى SST وOpenTUI، وكلها مفتوحة المصدر على [GitHub](github).",
       learnMore: "لمعرفة المزيد، زُر [anoma.ly](site).",
       projects: {
-        xccode: {
+        xiaochuan: {
           body: "وكيل البرمجة مفتوح المصدر، مع تطبيقات لسطح المكتب والطرفية والهاتف، وSDK. مرخّص بـ MIT، وأكثر من 220,000 نجمة على GitHub.",
         },
         sst: {
@@ -387,7 +387,7 @@ export const content = {
         },
         opentui: {
           name: "OpenTUI",
-          body: "مكتبة لواجهات الطرفية بـ TypeScript أو React أو Solid، بنواة مكتوبة بـ Zig. يستخدمها Xccode في الإنتاج. أكثر من 13,000 نجمة على GitHub.",
+          body: "مكتبة لواجهات الطرفية بـ TypeScript أو React أو Solid، بنواة مكتوبة بـ Zig. يستخدمها Xiaochuan في الإنتاج. أكثر من 13,000 نجمة على GitHub.",
         },
         "models-dev": {
           body: "قاعدة بيانات مفتوحة المصدر لمواصفات نماذج AI وأسعارها وقدراتها، مع API عامة. تضم أكثر من 8,900 نموذج من أكثر من 200 مزوّد.",
@@ -401,29 +401,29 @@ export const content = {
       },
     },
     about: {
-      title: "عن Xccode",
-      body: "أوصاف Xccode ومنتجاته بنسختين طويلة وقصيرة، جاهزة للنسخ.",
+      title: "عن Xiaochuan",
+      body: "أوصاف Xiaochuan ومنتجاته بنسختين طويلة وقصيرة، جاهزة للنسخ.",
       boilerplate: {
-        long: "Xccode وكيل برمجة مفتوح المصدر. يتوفر كتطبيق لسطح المكتب وواجهة طرفية وتطبيق للهاتف وSDK، ويعمل مع نماذج من أي مزوّد، منها Claude وGPT وGemini. Xccode مرخّص بـ MIT ومن صنع Anomaly. لديه أكثر من 220,000 نجمة على GitHub وأكثر من 1,000 مساهم، ويستخدمه أكثر من 22 مليون مطوّر كل شهر.",
-        short: "Xccode وكيل برمجة مفتوح المصدر من Anomaly، مع تطبيقات لسطح المكتب والطرفية والهاتف، وSDK.",
+        long: "Xiaochuan وكيل برمجة مفتوح المصدر. يتوفر كتطبيق لسطح المكتب وواجهة طرفية وتطبيق للهاتف وSDK، ويعمل مع نماذج من أي مزوّد، منها Claude وGPT وGemini. Xiaochuan مرخّص بـ MIT ومن صنع Anomaly. لديه أكثر من 220,000 نجمة على GitHub وأكثر من 1,000 مساهم، ويستخدمه أكثر من 22 مليون مطوّر كل شهر.",
+        short: "Xiaochuan وكيل برمجة مفتوح المصدر من Anomaly، مع تطبيقات لسطح المكتب والطرفية والهاتف، وSDK.",
       },
       products: {
-        "xccode-console": {
-          name: "Xccode Console",
-          long: "Xccode Console هو تطبيق الويب الذي يشتري فيه المطورون والفرق الوصول إلى نماذج AI ويديرونه لـ Xccode ووكلاء البرمجة الآخرين. يقدّم استدلالًا بالدفع حسب الاستخدام للنماذج المتقدمة ومفتوحة الأوزان، يُحتسب لكل طلب من رصيد مدفوع مسبقًا، إضافة إلى اشتراكات Xccode Go. تحصل الفرق على مساحات عمل بأدوار Member وAdmin وOwner، وحدود إنفاق لمساحة العمل ولكل مستخدم، وتسجيل دخول موحّد عبر Okta أو Microsoft Entra ID أو Google Workspace، وSCIM. يدعم Console أكثر من 30 مزوّدًا، فتستطيع الفرق ربط حسابات المزوّدين التي لديها، والاستدلال الخاص به اختياري. عنوانه xccode.ai/console.",
+        "xiaochuan-console": {
+          name: "Xiaochuan Console",
+          long: "Xiaochuan Console هو تطبيق الويب الذي يشتري فيه المطورون والفرق الوصول إلى نماذج AI ويديرونه لـ Xiaochuan ووكلاء البرمجة الآخرين. يقدّم استدلالًا بالدفع حسب الاستخدام للنماذج المتقدمة ومفتوحة الأوزان، يُحتسب لكل طلب من رصيد مدفوع مسبقًا، إضافة إلى اشتراكات Xiaochuan Go. تحصل الفرق على مساحات عمل بأدوار Member وAdmin وOwner، وحدود إنفاق لمساحة العمل ولكل مستخدم، وتسجيل دخول موحّد عبر Okta أو Microsoft Entra ID أو Google Workspace، وSCIM. يدعم Console أكثر من 30 مزوّدًا، فتستطيع الفرق ربط حسابات المزوّدين التي لديها، والاستدلال الخاص به اختياري. عنوانه xiaochuan.ai/console.",
           short:
-            "Xccode Console هو تطبيق الويب من Anomaly للوصول إلى نماذج AI بالدفع حسب الاستخدام، واشتراكات Xccode Go، وضوابط الفرق مثل الميزانيات وتسجيل الدخول الموحّد.",
+            "Xiaochuan Console هو تطبيق الويب من Anomaly للوصول إلى نماذج AI بالدفع حسب الاستخدام، واشتراكات Xiaochuan Go، وضوابط الفرق مثل الميزانيات وتسجيل الدخول الموحّد.",
         },
-        "xccode-go": {
-          long: "Xccode Go اشتراك للمطورين الذين يريدون سعرًا شهريًا ثابتًا لنماذج البرمجة. تكلّف Go 10$ شهريًا، وGo Plus 40$ شهريًا بحدود أعلى، وGo Teams 20$ شهريًا لكل عضو. تتضمن كل خطة مجموعة مختارة من النماذج المختبرة للبرمجة بالوكلاء. حدود الاستخدام مبالغ شهرية بالدولار لكل نموذج، مع حصص متجددة كل 5 ساعات وأسبوعيًا تبلغ 20% و50% من الحد الشهري. يمكن للمشتركين شحن الرصيد، والرجوع إلى رصيد الدفع حسب الاستخدام، والإلغاء في أي وقت. يعمل Go مع Xccode ووكلاء آخرين. عنوانه xccode.ai/console/go.",
+        "xiaochuan-go": {
+          long: "Xiaochuan Go اشتراك للمطورين الذين يريدون سعرًا شهريًا ثابتًا لنماذج البرمجة. تكلّف Go 10$ شهريًا، وGo Plus 40$ شهريًا بحدود أعلى، وGo Teams 20$ شهريًا لكل عضو. تتضمن كل خطة مجموعة مختارة من النماذج المختبرة للبرمجة بالوكلاء. حدود الاستخدام مبالغ شهرية بالدولار لكل نموذج، مع حصص متجددة كل 5 ساعات وأسبوعيًا تبلغ 20% و50% من الحد الشهري. يمكن للمشتركين شحن الرصيد، والرجوع إلى رصيد الدفع حسب الاستخدام، والإلغاء في أي وقت. يعمل Go مع Xiaochuan ووكلاء آخرين. عنوانه xiaochuan.ai/console/go.",
           short:
-            "Xccode Go اشتراك شهري من Anomaly يمنح المطورين حدود استخدام شهرية على مجموعة مختارة من نماذج البرمجة، بدءًا من 10$ شهريًا.",
+            "Xiaochuan Go اشتراك شهري من Anomaly يمنح المطورين حدود استخدام شهرية على مجموعة مختارة من نماذج البرمجة، بدءًا من 10$ شهريًا.",
         },
-        "xccode-data": {
-          name: "Xccode Data",
-          long: "Xccode Data لوحة معلومات عامة تعرض نماذج AI التي يستخدمها المطورون في Xccode وكيف يتغير هذا المزيج بمرور الوقت. تنشر ترتيبًا لأفضل النماذج، واستهلاك الرموز، وتكاليف الجلسات والرموز، ونسب التخزين المؤقت، والحصة السوقية، وتوزيعًا حسب الدولة. تُجمَّع الأرقام كل ساعة، والأيام والأسابيع بتوقيت UTC. أعداد المستخدمين والجلسات تقريبية، والتكاليف مبنية على أسعار القائمة من كتالوج نماذج Xccode. يمكن للصحفيين الاستشهاد بها باسم Xccode Data (xccode.ai/data) مع وقت التحديث المعروض في الصفحة.",
+        "xiaochuan-data": {
+          name: "Xiaochuan Data",
+          long: "Xiaochuan Data لوحة معلومات عامة تعرض نماذج AI التي يستخدمها المطورون في Xiaochuan وكيف يتغير هذا المزيج بمرور الوقت. تنشر ترتيبًا لأفضل النماذج، واستهلاك الرموز، وتكاليف الجلسات والرموز، ونسب التخزين المؤقت، والحصة السوقية، وتوزيعًا حسب الدولة. تُجمَّع الأرقام كل ساعة، والأيام والأسابيع بتوقيت UTC. أعداد المستخدمين والجلسات تقريبية، والتكاليف مبنية على أسعار القائمة من كتالوج نماذج Xiaochuan. يمكن للصحفيين الاستشهاد بها باسم Xiaochuan Data (xiaochuan.ai/data) مع وقت التحديث المعروض في الصفحة.",
           short:
-            "Xccode Data لوحة معلومات عامة على xccode.ai/data ترتّب نماذج AI حسب الاستخدام الفعلي في Xccode، مع الرموز والتكاليف والحصة السوقية المحدّثة كل ساعة.",
+            "Xiaochuan Data لوحة معلومات عامة على xiaochuan.ai/data ترتّب نماذج AI حسب الاستخدام الفعلي في Xiaochuan، مع الرموز والتكاليف والحصة السوقية المحدّثة كل ساعة.",
         },
       },
     },
@@ -440,22 +440,22 @@ export const content = {
       items: {
         "first-release-v0-0-1": { date: "أبريل 2025", text: "الإصدار الأول، v0.0.1" },
         "1-million-downloads": { date: "أكتوبر 2025", text: "أكثر من مليون تنزيل" },
-        "xccode-1-0": { date: "أكتوبر 2025", text: "Xccode 1.0" },
+        "xiaochuan-1-0": { date: "أكتوبر 2025", text: "Xiaochuan 1.0" },
         "desktop-app-ships": { date: "ديسمبر 2025", text: "إطلاق تطبيق Desktop" },
         "10-million-downloads": { date: "يناير 2026", text: "أكثر من 10 ملايين تنزيل" },
-        "xccode-2-0": { date: "سبتمبر 2026", text: "Xccode 2.0" },
+        "xiaochuan-2-0": { date: "سبتمبر 2026", text: "Xiaochuan 2.0" },
         "220-000-github-stars": { date: "نوفمبر 2026", text: "220,000+ نجمة على GitHub" },
       },
     },
     news: {
       title: "أحدث الإصدارات",
-      intro: "يصدر Xccode كثيرًا. هذه أحدث الإصدارات ذات الميزات الجديدة.",
+      intro: "يصدر Xiaochuan كثيرًا. هذه أحدث الإصدارات ذات الميزات الجديدة.",
       changelog: { text: "كل التغييرات" },
       feed: { text: "موجز RSS" },
     },
     media: {
       title: "الوسائط",
-      intro: "صور ثابتة ومقاطع قصيرة لكل تطبيق، مسجّلة من المنتج الحقيقي. يمكنك استخدامها للكتابة عن Xccode.",
+      intro: "صور ثابتة ومقاطع قصيرة لكل تطبيق، مسجّلة من المنتج الحقيقي. يمكنك استخدامها للكتابة عن Xiaochuan.",
       note: "كل اللقطات بالسمة الداكنة. الصور الثابتة والملصقات بصيغة JPG حتى 1920 × 1080، أو 1080 × 1350 بالوضع العمودي. المقاطع بصيغة MP4 دون صوت.",
       products: {
         desktop: {
@@ -530,10 +530,10 @@ export const content = {
     brand: {
       title: "العلامة",
       before:
-        "نزّل شعارات Xccode وشعاراته النصية في ملف ZIP واحد. للملفات المنفردة والنسخ وقواعد الاستخدام، انتقل إلى ",
+        "نزّل شعارات Xiaochuan وشعاراته النصية في ملف ZIP واحد. للملفات المنفردة والنسخ وقواعد الاستخدام، انتقل إلى ",
       link: { text: "صفحة العلامة" },
       after: ".",
-      usage: "يمكنك استخدام هذه الملفات للكتابة عن Xccode. لا تغيّرها، ولا توحِ بأن Xccode يؤيد عملك.",
+      usage: "يمكنك استخدام هذه الملفات للكتابة عن Xiaochuan. لا تغيّرها، ولا توحِ بأن Xiaochuan يؤيد عملك.",
     },
     product: {
       title: "المنتج",
@@ -544,7 +544,7 @@ export const content = {
         },
         mobile: {
           name: "Mobile",
-          body: "أحدث تطبيقات Xccode. اتصل بجلسة لتتحدث مع الوكيل، ثم راجع تغييراته ووافق عليها من هاتفك، أينما كنت.",
+          body: "أحدث تطبيقات Xiaochuan. اتصل بجلسة لتتحدث مع الوكيل، ثم راجع تغييراته ووافق عليها من هاتفك، أينما كنت.",
         },
         terminal: {
           name: "Terminal",
@@ -561,7 +561,7 @@ export const content = {
         press: { title: "الصحافة", body: "للصحفيين والمحللين. نردّ على طلبات وسائل الإعلام فقط." },
         support: {
           title: "الدعم",
-          body: "للمساعدة في Xccode، افتح issue أو اسأل المجتمع. لأسئلة الحساب والفوترة، راسلنا.",
+          body: "للمساعدة في Xiaochuan، افتح issue أو اسأل المجتمع. لأسئلة الحساب والفوترة، راسلنا.",
           links: { "github-issues": { text: "مشكلات GitHub" }, "help-anoma-ly": { text: "help@anoma.ly" } },
         },
         security: {
@@ -593,7 +593,7 @@ export const content = {
     terminal: { commands: { curl: { name: "سكربت" } } },
     sdk: { more: { label: "اقرأ وثائق SDK" } },
     mini: {
-      lead: "يأتي Mini مع Xccode CLI. ثبّته بأي من هذه الطرق، ثم شغّل xccode mini.",
+      lead: "يأتي Mini مع Xiaochuan CLI. ثبّته بأي من هذه الطرق، ثم شغّل xiaochuan mini.",
       commands: { curl: { name: "سكربت" } },
     },
   },
@@ -601,11 +601,11 @@ export const content = {
     title: "اربط هاتفك",
     cardTitle: "اربط هاتفك بأمر واحد",
     intro:
-      "Xccode Mobile جهاز تحكم عن بُعد لـ Xccode على حاسوبك. تظل جلساتك تعمل هناك، ويعرضها التطبيق ويتيح لك توجيهها.",
+      "Xiaochuan Mobile جهاز تحكم عن بُعد لـ Xiaochuan على حاسوبك. تظل جلساتك تعمل هناك، ويعرضها التطبيق ويتيح لك توجيهها.",
     steps: {
       "get-the-app": {
         title: "احصل على التطبيق",
-        body: "ثبّت النسخة التجريبية من Xccode على iPhone عبر TestFlight. تطبيق Android قادم قريبًا.",
+        body: "ثبّت النسخة التجريبية من Xiaochuan على iPhone عبر TestFlight. تطبيق Android قادم قريبًا.",
       },
       "run-this-on-your-computer": {
         title: "شغّل هذا على حاسوبك",
@@ -616,12 +616,12 @@ export const content = {
         body: "امسح رمز QR بالتطبيق، أو الصق الرابط. تُفتح جلسات حاسوبك الأخيرة على هاتفك.",
       },
     },
-    note: "يتصل --remote عبر عنوان OpenTunnel، فيعمل من أي شبكة. على شبكة Wi-Fi نفسها، شغّل xccode service set hostname 0.0.0.0 مرة واحدة، ثم xccode pair.",
+    note: "يتصل --remote عبر عنوان OpenTunnel، فيعمل من أي شبكة. على شبكة Wi-Fi نفسها، شغّل xiaochuan service set hostname 0.0.0.0 مرة واحدة، ثم xiaochuan pair.",
     facts: [
       "يعمل الربط من أي شبكة، لأن --remote يتصل عبر عنوان OpenTunnel.",
       "يعمل الرابط والرمز مرة واحدة وتنتهي صلاحيتهما خلال 5 دقائق.",
       "أبقِ الحاسوب قيد التشغيل، لأن الوكيل يعمل عليه لا على الهاتف.",
-      "على شبكة Wi-Fi نفسها، شغّل xccode service set hostname 0.0.0.0 مرة واحدة، ثم xccode pair.",
+      "على شبكة Wi-Fi نفسها، شغّل xiaochuan service set hostname 0.0.0.0 مرة واحدة، ثم xiaochuan pair.",
     ],
   },
   announcements: {
@@ -634,7 +634,7 @@ export const content = {
       link: "شاهد v2.2.4",
     },
     "agents-can-now-generate-images": { text: "يستطيع الوكلاء الآن توليد الصور.", link: "شاهد v2.2.1" },
-    "steer-your-sessions-from-your-phone": { text: "وجّه جلساتك من هاتفك.", link: "تعرّف على Xccode Mobile" },
+    "steer-your-sessions-from-your-phone": { text: "وجّه جلساتك من هاتفك.", link: "تعرّف على Xiaochuan Mobile" },
     "a-refreshed-desktop-app": { text: "تطبيق سطح مكتب بحلّة جديدة.", link: "اكتشف جديد 2.2" },
   },
 } satisfies ContentOverlay

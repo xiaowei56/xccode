@@ -1,5 +1,5 @@
-import { abort } from "@xccode/util/abort"
-import { isLineRangeHash, parsePathLineSuffix } from "@xccode/util/path"
+import { abort } from "@xiaochuan/util/abort"
+import { isLineRangeHash, parsePathLineSuffix } from "@xiaochuan/util/path"
 import type { ReadMarkdownImage } from "../context/markdown"
 import {
   INITIAL_MARKDOWN_IMAGES_STATE,

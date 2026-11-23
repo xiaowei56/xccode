@@ -1,7 +1,7 @@
 //! H.1 proofs: the fixtures the TypeScript scripts write parse and reformat byte for byte, an injected one-cell
 //! change is reported, and an opentui-rust widget matches the TypeScript render of the same OpenTUI elements.
 
-use xccode_parity::{Fixture, assert_fixture, compare, fixtures_dir};
+use xiaochuan_parity::{Fixture, assert_fixture, compare, fixtures_dir};
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 

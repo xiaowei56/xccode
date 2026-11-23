@@ -1,4 +1,4 @@
-import { LocationLifecycle } from "@xccode/core/location-lifecycle"
+import { LocationLifecycle } from "@xiaochuan/core/location-lifecycle"
 import { Effect, Queue } from "effect"
 import { Socket } from "effect/socket"
 

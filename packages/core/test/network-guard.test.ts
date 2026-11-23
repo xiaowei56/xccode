@@ -1,16 +1,16 @@
 import { describe, expect, test } from "bun:test"
 import { Effect, Layer } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientResponse } from "effect/http"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@xccode/util/effect/app-node-platform"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@xiaochuan/util/effect/app-node-platform"
 import { it, refuseNetwork } from "./lib/effect"
 
 describe("test harness network guard", () => {
   test("refuses requests to hosts other than loopback", async () => {
     const violations: string[] = []
     const refused = refuseNetwork(violations)
-    await expect(refused("https://models.xccode.ai/api.json")).rejects.toThrow(
-      "test attempted network request: GET https://models.xccode.ai/api.json — provide an explicit HttpClient or disable the fetch",
+    await expect(refused("https://models.xiaochuan.ai/api.json")).rejects.toThrow(
+      "test attempted network request: GET https://models.xiaochuan.ai/api.json — provide an explicit HttpClient or disable the fetch",
     )
     await expect(refused(new Request("https://example.invalid/", { method: "POST" }))).rejects.toThrow(
       "test attempted network request: POST https://example.invalid/",

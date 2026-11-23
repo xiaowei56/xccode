@@ -1,5 +1,5 @@
-import type { BuiltinMainStorage, MainStoreFrom } from "@xccode/plugin/gui/builtin"
-import type { Mutable } from "@xccode/plugin/gui/main"
+import type { BuiltinMainStorage, MainStoreFrom } from "@xiaochuan/plugin/gui/builtin"
+import type { Mutable } from "@xiaochuan/plugin/gui/main"
 import { Option, Schema } from "effect"
 import type { StateStore } from "../storage/state"
 import type { SettingsStore } from "../storage/store"

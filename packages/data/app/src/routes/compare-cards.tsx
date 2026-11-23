@@ -1,4 +1,4 @@
-import { ProviderIcon } from "@xccode/ui/provider-icon"
+import { ProviderIcon } from "@xiaochuan/ui/provider-icon"
 import { For, Show } from "solid-js"
 import { providerIconId } from "../lib/provider-icon"
 import { catalogSlug, formatCatalogLabName, type ModelCatalogEntry } from "./model-catalog"

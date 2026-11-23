@@ -1,27 +1,27 @@
 import { describe, expect } from "bun:test"
 import { asc, eq } from "drizzle-orm"
 import { Effect } from "effect"
-import { Bus } from "@xccode/core/bus"
-import { Config } from "@xccode/core/config"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { SessionHistory } from "@xccode/core/session/history"
-import { SessionMessageTable, SessionPartTable } from "@xccode/core/session/sql"
-import { SessionStore } from "@xccode/core/session/store"
-import { Agent } from "@xccode/schema/agent"
-import { Document, Info } from "@xccode/schema/config"
-import { ConfigExperimental } from "@xccode/schema/config/experimental"
-import { Event } from "@xccode/schema/event"
-import { Model } from "@xccode/schema/model"
-import { Project } from "@xccode/schema/project"
-import { Provider } from "@xccode/schema/provider"
-import { AbsolutePath } from "@xccode/schema/schema"
-import { Session } from "@xccode/schema/session"
-import { SessionEvent } from "@xccode/schema/session-event"
-import { SessionMessage } from "@xccode/schema/session-message"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { Config } from "@xiaochuan/core/config"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { SessionHistory } from "@xiaochuan/core/session/history"
+import { SessionMessageTable, SessionPartTable } from "@xiaochuan/core/session/sql"
+import { SessionStore } from "@xiaochuan/core/session/store"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Document, Info } from "@xiaochuan/schema/config"
+import { ConfigExperimental } from "@xiaochuan/schema/config/experimental"
+import { Event } from "@xiaochuan/schema/event"
+import { Model } from "@xiaochuan/schema/model"
+import { Project } from "@xiaochuan/schema/project"
+import { Provider } from "@xiaochuan/schema/provider"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
+import { Session } from "@xiaochuan/schema/session"
+import { SessionEvent } from "@xiaochuan/schema/session-event"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(
@@ -170,7 +170,7 @@ describe("SessionStore", () => {
     Effect.gen(function* () {
       yield* seedSessions([
         { id: "ses_cyrillic", updated: 10, title: "Тестова сесия" },
-        { id: "ses_ascii", updated: 20, title: "Xccode notes" },
+        { id: "ses_ascii", updated: 20, title: "Xiaochuan notes" },
         { id: "ses_percent", updated: 30, title: "100% done" },
         { id: "ses_underscore", updated: 40, title: "file_name [draft]" },
       ])
@@ -180,8 +180,8 @@ describe("SessionStore", () => {
 
       expect(yield* search("тестова")).toEqual(["ses_cyrillic"])
       expect(yield* search("ТЕСТОВА СЕСИЯ")).toEqual(["ses_cyrillic"])
-      expect(yield* search("xccode")).toEqual(["ses_ascii"])
-      expect(yield* search("XCCODE")).toEqual(["ses_ascii"])
+      expect(yield* search("xiaochuan")).toEqual(["ses_ascii"])
+      expect(yield* search("XIAOCHUAN")).toEqual(["ses_ascii"])
       expect(yield* search("тест%сия")).toEqual(["ses_cyrillic"])
       expect(yield* search("OP_NCODE")).toEqual(["ses_ascii"])
       expect(yield* search("100%")).toEqual(["ses_percent"])

@@ -1,8 +1,8 @@
 [1mDESCRIPTION[0m
-  Upgrade Xccode to the latest or a specific version
+  Upgrade Xiaochuan to the latest or a specific version
 
 [1mUSAGE[0m
-  [36mxccode upgrade [flags] [<target>][0m
+  [36mxiaochuan upgrade [flags] [<target>][0m
 
 [1mARGUMENTS[0m
   [32mtarget[0m [2mstring[0m    Version to upgrade to (with or without a leading v)[2m (optional)[0m

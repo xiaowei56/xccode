@@ -1,5 +1,5 @@
 import type { Component, JSX } from "solid-js"
-import type { ArtifactKind } from "@xccode/util/artifact"
+import type { ArtifactKind } from "@xiaochuan/util/artifact"
 import type { ChangeKind } from "./review.js"
 import { Contract, Registry } from "./core.js"
 import type { MountedSession, SessionScreen } from "./host-apis.js"

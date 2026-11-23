@@ -1,6 +1,6 @@
 export function hasExistingAppState(entries: Array<{ name: string; directory: boolean }>) {
   return entries.some((entry) => {
-    if (entry.name === "xccode.settings") return true
+    if (entry.name === "xiaochuan.settings") return true
 
     if (entry.name.endsWith(".dat")) return true
 
@@ -8,6 +8,6 @@ export function hasExistingAppState(entries: Array<{ name: string; directory: bo
 
     if (/^window-state-.+\.json$/.test(entry.name)) return true
 
-    return entry.directory && entry.name === "xccode"
+    return entry.directory && entry.name === "xiaochuan"
   })
 }

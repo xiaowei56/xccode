@@ -1,5 +1,5 @@
-import { useDialog } from "@xccode/ui/context/dialog"
-import { showToast } from "@xccode/ui/toast"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { showToast } from "@xiaochuan/ui/toast"
 import { createContext, createEffect, createSignal, For, onCleanup, Show, untrack, useContext } from "solid-js"
 import type { ParentProps } from "solid-js"
 import { HomeProjectsView, type HomeProjectsViewProps } from "@/home/projects/view"

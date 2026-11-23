@@ -17,11 +17,11 @@ describe("highlights", () => {
       "Automatic Project Cleanup",
     ])
     expect(result.items[0].body).toBe(
-      "Ask Xccode to use `worktree_create`, `worktree_list`, and `worktree_remove` in Code Mode. You can create " +
+      "Ask Xiaochuan to use `worktree_create`, `worktree_list`, and `worktree_remove` in Code Mode. You can create " +
         "isolated worktrees, move sessions into them, and remove them with normal edit approval.",
     )
     expect(result.items[2].body).toBe(
-      "Use Chrome or Edge’s Install button to install the Xccode web app, including when it runs behind an " +
+      "Use Chrome or Edge’s Install button to install the Xiaochuan web app, including when it runs behind an " +
         "authenticating proxy.",
     )
     expect(result.items.some((item) => item.body.includes("github.com") || item.body.includes("(["))).toBe(false)
@@ -33,7 +33,7 @@ describe("highlights", () => {
         "### Highlights",
         "",
         "- **Reopen Closed Tabs:** Right-click the new-session button to bring back a session you closed by",
-        "  mistake. ([#123](https://github.com/xiaowei56/xccode/pull/123), [#124](https://github.com/xiaowei56/xccode/pull/124))",
+        "  mistake. ([#123](https://github.com/xiaowei56/xiaochuan/pull/123), [#124](https://github.com/xiaowei56/xiaochuan/pull/124))",
         "* **Faster [Search](https://example.com)**: Results now stream in.",
         "",
         "### Core",

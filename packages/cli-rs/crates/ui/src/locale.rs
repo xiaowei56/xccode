@@ -3,7 +3,7 @@ pub use crate::tool_info::titlecase;
 /// `Locale.duration`: `850ms`, `12.4s`, `3m 5s`, `2h 10m`, `1d 4h`.
 pub fn duration(input: f64) -> String {
     if input < 1000.0 {
-        return format!("{}ms", xccode_api_types::js::number_to_string(input));
+        return format!("{}ms", xiaochuan_api_types::js::number_to_string(input));
     }
     if input < 60_000.0 {
         return format!("{}s", to_fixed_1(input / 1000.0));

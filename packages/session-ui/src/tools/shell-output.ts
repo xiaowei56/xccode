@@ -1,4 +1,4 @@
-import { isShellNotFoundError, type ShellOutputInput, type ShellOutputOutput } from "@xccode/client/promise"
+import { isShellNotFoundError, type ShellOutputInput, type ShellOutputOutput } from "@xiaochuan/client/promise"
 import {
   createShellFollowerState,
   SHELL_READ_TIMEOUT_MS,

@@ -1,11 +1,11 @@
 //! Collect integration credentials one field at a time.
 
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     FormAnswer, FormBooleanField, FormExternalField, FormField, FormMultiselectField, FormStringField, FormValue,
     FormWhenOp, FormWhenValue,
 };
-use xccode_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
-use xccode_ui::prompt::{PromptProps, prompt};
+use xiaochuan_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
+use xiaochuan_ui::prompt::{PromptProps, prompt};
 
 use crate::local::Local;
 use crate::prelude::*;

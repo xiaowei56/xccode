@@ -120,7 +120,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "Limite gratuite atteinte",
   "dialog.usageExceeded.freeTier.description":
-    "Abonnez-vous à Xccode Go pour 10 $ US par mois et accédez de manière fiable aux meilleurs modèles à code source ouvert.",
+    "Abonnez-vous à Xiaochuan Go pour 10 $ US par mois et accédez de manière fiable aux meilleurs modèles à code source ouvert.",
   "dialog.usageExceeded.freeTier.actionLabel": "S'abonner",
 
   "ui.sessionTurn.status.delegating": "Délégation du travail",
@@ -305,9 +305,9 @@ export const dict = {
     "Budget du modèle atteint · ce modèle est en pause jusqu’à la réinitialisation",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Utiliser un modèle gratuit",
   "ui.sessionTurn.budgetLimit.switchModel": "Changer de modèle",
-  "ui.sessionTurn.goLimit.title": "Vous avez atteint votre limite d’utilisation d’Xccode Go.",
+  "ui.sessionTurn.goLimit.title": "Vous avez atteint votre limite d’utilisation d’Xiaochuan Go.",
   "ui.sessionTurn.goLimit.lineReset":
-    "Vous avez atteint votre limite d’utilisation d’Xccode Go. Elle sera réinitialisée à {{time}}.",
+    "Vous avez atteint votre limite d’utilisation d’Xiaochuan Go. Elle sera réinitialisée à {{time}}.",
   "dialog.usageExceeded.freeTier.reset": "Vos messages gratuits seront réinitialisés à {{time}}.",
   "ui.messagePart.compaction.queued": "Compactage de la session en attente",
   "ui.messagePart.compaction.done": "Compactée",

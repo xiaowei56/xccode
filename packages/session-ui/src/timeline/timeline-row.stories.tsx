@@ -3,7 +3,7 @@ import type {
   SessionMessageAssistant,
   SessionMessageInfo,
   SessionMessageUser,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import { createEffect, createMemo, For, onCleanup, onMount } from "solid-js"
 import { Dynamic } from "solid-js/web"
 import { createStore } from "solid-js/store"
@@ -35,7 +35,7 @@ import {
 } from "../storybook/current-session-fixtures"
 
 export default {
-  title: "Xccode/Conversation/Message states",
+  title: "Xiaochuan/Conversation/Message states",
   id: "current-session-timeline-rows",
   component: SessionTimeline,
   parameters: {
@@ -718,7 +718,7 @@ const MovedLocation = {
           {
             id: "msg_story_location",
             type: "location-switched",
-            location: { directory: `/Users/usrnk1/Developer/xccode/${"nested-directory/".repeat(24)}session` },
+            location: { directory: `/Users/usrnk1/Developer/xiaochuan/${"nested-directory/".repeat(24)}session` },
             time: { created: 1_735_689_633_000 },
           },
         ],
@@ -857,7 +857,7 @@ const UserMessageLinks = {
           {
             id: "msg_story_user_links",
             type: "user",
-            text: "set it up on this pc https://github.com/Hona/mesh, then compare @src/a.ts with (https://xccode.ai/docs).",
+            text: "set it up on this pc https://github.com/Hona/mesh, then compare @src/a.ts with (https://xiaochuan.ai/docs).",
             agents: [],
             files: [
               {

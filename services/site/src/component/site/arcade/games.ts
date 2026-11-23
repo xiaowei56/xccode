@@ -74,7 +74,7 @@ export const games: Game[] = [
  * the same-origin frame.
  * TODO(arcade-input-bridge): production cannot reach into the cross-origin frame. It needs the
  * arcade's embed mode: an allowlisted `postMessage` bridge (`arcade-input` key and pointer
- * messages fed into each game's input) plus `frame-ancestors https://xccode.ai`.
+ * messages fed into each game's input) plus `frame-ancestors https://xiaochuan.ai`.
  */
 export const gameUrl = (game: Game) =>
   `${import.meta.env.DEV ? `/arcade-proxy/${game.id}/` : `https://anoma.ly/arcade/${game.id}/`}${game.launch}`

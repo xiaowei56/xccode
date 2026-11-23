@@ -21,7 +21,7 @@ const names = [
   "server",
   "sdk",
 ]
-const temporary = await mkdtemp(join(tmpdir(), "xccode-sdk-package-"))
+const temporary = await mkdtemp(join(tmpdir(), "xiaochuan-sdk-package-"))
 const archives = new Map<string, string>()
 
 try {
@@ -85,29 +85,29 @@ try {
   const consumer = join(temporary, "consumer")
   await Bun.write(
     join(consumer, "package.json"),
-    JSON.stringify({ name: "xccode-sdk-consumer", private: true, type: "module" }),
+    JSON.stringify({ name: "xiaochuan-sdk-consumer", private: true, type: "module" }),
   )
   await Promise.all([
     Bun.write(
       join(consumer, "wrangler.jsonc"),
       JSON.stringify({
-        name: "xccode-sdk-packed-consumer",
+        name: "xiaochuan-sdk-packed-consumer",
         main: "worker.js",
         compatibility_date: "2026-07-15",
         compatibility_flags: ["nodejs_compat"],
-        durable_objects: { bindings: [{ name: "XCCODE", class_name: "XccodeDO" }] },
-        migrations: [{ tag: "v1", new_sqlite_classes: ["XccodeDO"] }],
+        durable_objects: { bindings: [{ name: "XIAOCHUAN", class_name: "XiaochuanDO" }] },
+        migrations: [{ tag: "v1", new_sqlite_classes: ["XiaochuanDO"] }],
       }),
     ),
     Bun.write(
       join(consumer, "worker.js"),
-      `import { bodyDigest } from "@xccode/core/models-dev"
-import { XccodeWorkerd } from "@xccode/sdk/workerd"
+      `import { bodyDigest } from "@xiaochuan/core/models-dev"
+import { XiaochuanWorkerd } from "@xiaochuan/sdk/workerd"
 
-export class XccodeDO {
+export class XiaochuanDO {
   constructor(state) {
     this.configurations = 0
-    this.xccode = state.blockConcurrencyWhile(() => XccodeWorkerd.create({
+    this.xiaochuan = state.blockConcurrencyWhile(() => XiaochuanWorkerd.create({
       storage: state.storage,
       app: { version: "packed-workerd" },
       models: { fetch: false },
@@ -137,12 +137,12 @@ export class XccodeDO {
     if (bodyDigest("packed-workerd") !== "5fc174bf63e8dd108ebb6c53d85e7bbc4525b2f4c1c43280364cdbfd9b37aaf5") {
       throw new Error("Packed workerd SHA-256 mismatch")
     }
-    const xccode = await this.xccode
-    const sessions = await Promise.all([1, 2].map(() => xccode.sessions.create({
+    const xiaochuan = await this.xiaochuan
+    const sessions = await Promise.all([1, 2].map(() => xiaochuan.sessions.create({
       location: { directory: "/workspace" },
       metadata: { thread: "packed-thread" },
     })))
-    const admitted = await Promise.all(sessions.map(session => xccode.sessions.prompt({
+    const admitted = await Promise.all(sessions.map(session => xiaochuan.sessions.prompt({
       sessionID: session.id,
       text: "Packed prompt",
       resume: false,
@@ -150,13 +150,13 @@ export class XccodeDO {
     if (this.configurations !== 1 || admitted.some(item => item.payload.text !== "Packed prompt:packed-thread")) {
       throw new Error("Packed instance configuration did not share or prepare prompts correctly")
     }
-    return Response.json(await xccode.server.info())
+    return Response.json(await xiaochuan.server.info())
   }
 }
 
 export default {
   fetch(request, env) {
-    return env.XCCODE.get(env.XCCODE.idFromName("packed-consumer")).fetch(request)
+    return env.XIAOCHUAN.get(env.XIAOCHUAN.idFromName("packed-consumer")).fetch(request)
   },
 }
 `,
@@ -171,11 +171,11 @@ const miniflare = new Miniflare({
   compatibilityFlags: ["nodejs_compat"],
   modules: true,
   scriptPath: fileURLToPath(new URL("./dist/worker.js", import.meta.url)),
-  durableObjects: { XCCODE: { className: "XccodeDO", useSQLite: true } },
+  durableObjects: { XIAOCHUAN: { className: "XiaochuanDO", useSQLite: true } },
 })
 
 try {
-  const response = await miniflare.dispatchFetch("http://xccode.local/health")
+  const response = await miniflare.dispatchFetch("http://xiaochuan.local/health")
   if (response.status !== 200) throw new Error(
     "Packed workerd health returned " + response.status + ": " + await response.text(),
   )
@@ -191,21 +191,21 @@ try {
     Bun.write(
       join(consumer, "imports.mjs"),
       `const modules = await Promise.all([
-  import("@xccode/sdk"),
-  import("@xccode/sdk/effect"),
-  import("@xccode/sdk/workerd"),
-  import("@xccode/sdk/workerd/effect"),
+  import("@xiaochuan/sdk"),
+  import("@xiaochuan/sdk/effect"),
+  import("@xiaochuan/sdk/workerd"),
+  import("@xiaochuan/sdk/workerd/effect"),
 ])
 
 for (const module of modules) {
-  const api = module.Xccode ?? module.XccodeWorkerd
+  const api = module.Xiaochuan ?? module.XiaochuanWorkerd
   if (typeof api?.create !== "function") throw new Error("Packed SDK entrypoint is missing create()")
 }
 `,
     ),
   ])
 
-  const sdk = archives.get("@xccode/sdk")
+  const sdk = archives.get("@xiaochuan/sdk")
   if (!sdk) throw new Error("Packed SDK archive was not created")
   await $`npm install --ignore-scripts --no-audit --no-fund --package-lock=false ${sdk} wrangler@4.110.0`.cwd(consumer)
   const runtimes = (await $`npm ls effect --all --parseable`.cwd(consumer).text()).trim().split("\n")

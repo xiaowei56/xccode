@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "মেমরি ডায়াগনস্টিক: প্রতি 30 সেকেন্ডে অ্যাপের মেমরি ডেস্কটপ লগে লিখুন। বন্ধ না করা পর্যন্ত রিস্টার্টের পরেও চালু থাকে; চলাকালীন বারটি খোলা থাকে।",
-  "memory.tipEnv": "এই লঞ্চে মেমরি ডায়াগনস্টিক চালু আছে: XCCODE_DESKTOP_MEMORY_LOG সেট করা আছে।",
+  "memory.tipEnv": "এই লঞ্চে মেমরি ডায়াগনস্টিক চালু আছে: XIAOCHUAN_DESKTOP_MEMORY_LOG সেট করা আছে।",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

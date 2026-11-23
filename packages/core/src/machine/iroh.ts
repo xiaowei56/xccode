@@ -13,7 +13,7 @@ import { Machines } from "./machines.js"
 // keep-alive (every 5 s) and idle timeout (30 s) take the place of the route's ping: a dead peer is noticed within
 // 30 s, where the route takes 30 to 60.
 
-const ALPN = Array.from(new TextEncoder().encode("xccode-link/1"))
+const ALPN = Array.from(new TextEncoder().encode("xiaochuan-link/1"))
 /** How much one read asks the binding for: it copies every byte through a JavaScript array, so reads stay this size. */
 const CHUNK = 64 * 1024
 /** As on the WebSocket route: handshakes in progress at once, and how long a stranger may take to open its stream. */
@@ -32,7 +32,7 @@ export const Testing = Context.Reference<{
   readonly offline: boolean
   readonly load: typeof loadBinding
   readonly watch: (endpoint: Endpoint) => void
-}>("@xccode/MachineIroh/Testing", { defaultValue: () => ({ offline: false, load: loadBinding, watch: () => {} }) })
+}>("@xiaochuan/MachineIroh/Testing", { defaultValue: () => ({ offline: false, load: loadBinding, watch: () => {} }) })
 
 /**
  * Binds the home's endpoint with the home key and serves every link that arrives on it, each as the WebSocket route

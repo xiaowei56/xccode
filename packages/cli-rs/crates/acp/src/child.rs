@@ -1,7 +1,7 @@
-use xccode_util::json_object;
+use xiaochuan_util::json_object;
 use serde_json::{Value, json};
 
-pub const UPDATE_METHOD: &str = "xccode/session/child_update";
+pub const UPDATE_METHOD: &str = "xiaochuan/session/child_update";
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Session {
@@ -30,7 +30,7 @@ pub fn update_event(update: Value) -> Value {
     json!({ "type": "update", "update": update })
 }
 
-/// The `xccode/session/child_update` params for `event`.
+/// The `xiaochuan/session/child_update` params for `event`.
 pub fn update(root_session_id: &str, child: &Session, event: Value) -> Value {
     json_object! {
         "rootSessionId": root_session_id,
@@ -67,7 +67,7 @@ pub fn project(mut update: Value, child: &Session) -> Value {
 pub fn meta(child: &Session) -> Value {
     let session =
         json_object! { "id": child.id, "parentID": child.parent_id, "depth": child.depth, "title"?: child.title() };
-    json!({ "xccode/child-session": session })
+    json!({ "xiaochuan/child-session": session })
 }
 
 pub fn tool_call_id(child: Option<&Session>, id: &str) -> String {

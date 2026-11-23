@@ -1,7 +1,7 @@
-import { Tool } from "@xccode/schema/tool"
-import type { Rpc } from "@xccode/schema/rpc"
-import type { XccodeEvent } from "@xccode/client"
-import type { RpcCallOptions, RpcEventPayload, SelectedEvent, SubscribeOptions } from "@xccode/client/promise/api"
+import { Tool } from "@xiaochuan/schema/tool"
+import type { Rpc } from "@xiaochuan/schema/rpc"
+import type { XiaochuanEvent } from "@xiaochuan/client"
+import type { RpcCallOptions, RpcEventPayload, SelectedEvent, SubscribeOptions } from "@xiaochuan/client/promise/api"
 import { Effect, Schema, SchemaAST, Stream } from "effect"
 import type { Scope } from "effect"
 import { HttpApiEndpoint, HttpApiSchema } from "effect/http-api"
@@ -219,10 +219,10 @@ export function fromPromise(plugin: Plugin) {
     id: plugin.id,
     effect: (host) =>
       Effect.gen(function* () {
-        const [{ ClientApi }, { XccodeEvent }] = yield* Effect.promise(() =>
-          Promise.all([import("@xccode/protocol/client"), import("@xccode/protocol/groups/event")]),
+        const [{ ClientApi }, { XiaochuanEvent }] = yield* Effect.promise(() =>
+          Promise.all([import("@xiaochuan/protocol/client"), import("@xiaochuan/protocol/groups/event")]),
         )
-        const encodeXccodeEvent = Schema.encodeUnknownEffect(XccodeEvent)
+        const encodeXiaochuanEvent = Schema.encodeUnknownEffect(XiaochuanEvent)
         const AgentEndpoints = ClientApi.groups["server.agent"].endpoints
         const CommandEndpoints = ClientApi.groups["server.command"].endpoints
         const CredentialEndpoints = ClientApi.groups["server.credential"].endpoints
@@ -362,13 +362,13 @@ export function fromPromise(plugin: Plugin) {
             activate: adaptApiMethod(CredentialEndpoints["credential.activate"], host.credential.activate),
           },
           event: {
-            subscribe: <Type extends Exclude<XccodeEvent["type"], "server.connected">>(
+            subscribe: <Type extends Exclude<XiaochuanEvent["type"], "server.connected">>(
               options?: SubscribeOptions<Type>,
             ) =>
               streams(
                 host.event.subscribe({ types: options?.types }).pipe(
-                  Stream.mapEffect((event) => encodeXccodeEvent(event)),
-                  Stream.map((event) => event as SelectedEvent<XccodeEvent, Type>),
+                  Stream.mapEffect((event) => encodeXiaochuanEvent(event)),
+                  Stream.map((event) => event as SelectedEvent<XiaochuanEvent, Type>),
                 ),
                 options,
               ),

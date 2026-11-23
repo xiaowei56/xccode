@@ -1,21 +1,21 @@
 import { describe, expect } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
-import type { Media } from "@xccode/ai/effect"
-import { Bus } from "@xccode/core/bus"
-import { Flag } from "@xccode/core/flag"
-import { Generate } from "@xccode/core/generate"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { Permission } from "@xccode/core/permission"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { Provider } from "@xccode/core/provider"
-import { Session } from "@xccode/core/session"
-import { SessionEvent } from "@xccode/core/session/event"
-import { Tool } from "@xccode/core/tool"
-import { XccodeTools } from "@xccode/core/tool/plugin/xccode"
-import { VideoGenerateTool } from "@xccode/core/tool/plugin/video-generate"
+import type { Media } from "@xiaochuan/ai/effect"
+import { Bus } from "@xiaochuan/core/bus"
+import { Flag } from "@xiaochuan/core/flag"
+import { Generate } from "@xiaochuan/core/generate"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { Permission } from "@xiaochuan/core/permission"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { Provider } from "@xiaochuan/core/provider"
+import { Session } from "@xiaochuan/core/session"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { Tool } from "@xiaochuan/core/tool"
+import { XiaochuanTools } from "@xiaochuan/core/tool/plugin/xiaochuan"
+import { VideoGenerateTool } from "@xiaochuan/core/tool/plugin/video-generate"
 import { Effect, Layer, Stream } from "effect"
 import { advance } from "./lib/clock"
 import { testEffect } from "./lib/effect"
@@ -92,7 +92,7 @@ const setup = (providerID = "test") =>
     const location = yield* Location.Service
     const host = yield* PluginHost.make(plugins, "test")
     yield* VideoGenerateTool.Plugin.effect(host)
-    yield* XccodeTools.Plugin.effect(host)
+    yield* XiaochuanTools.Plugin.effect(host)
     const session = yield* sessions.create({
       location: Location.Ref.make({ directory: location.directory }),
       model: Model.Ref.make({ providerID: Provider.ID.make(providerID), id: Model.ID.make("chat") }),

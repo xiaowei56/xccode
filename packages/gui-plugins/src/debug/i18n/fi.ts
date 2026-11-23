@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Muistidiagnostiikka: kirjaa sovelluksen muistinkäyttö työpöytäsovelluksen lokeihin 30 sekunnin välein. Pysyy päällä uudelleenkäynnistysten yli, kunnes se poistetaan käytöstä; palkki pysyy auki sen ollessa käynnissä.",
-  "memory.tipEnv": "Muistidiagnostiikka on päällä tällä käynnistyskerralla: XCCODE_DESKTOP_MEMORY_LOG on asetettu.",
+  "memory.tipEnv": "Muistidiagnostiikka on päällä tällä käynnistyskerralla: XIAOCHUAN_DESKTOP_MEMORY_LOG on asetettu.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Säätimet",

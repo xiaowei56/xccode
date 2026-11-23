@@ -1,4 +1,4 @@
-# @xccode/codemode
+# @xiaochuan/codemode
 
 This is our take on code mode: a lightweight, pure interpreter for a JavaScript-like language built around calling
 tools. The language itself is [psychoscript](https://github.com/anomalyco/psychoscript); see its interpreter support
@@ -34,7 +34,7 @@ and Extension.make.
 ## Quick Start
 
 ```ts
-import { CodeMode, Namespace, Tool } from "@xccode/codemode"
+import { CodeMode, Namespace, Tool } from "@xiaochuan/codemode"
 import { Effect, Schema } from "effect"
 
 const lookupOrder = Tool.make({
@@ -321,7 +321,7 @@ create namespaces:
 
 ```ts
 const api = OpenAPI.fromSpec({ spec, auth: { resolve } })
-const runtime = CodeMode.make({ tools: { xccode: api.tools } })
+const runtime = CodeMode.make({ tools: { xiaochuan: api.tools } })
 ```
 
 The synchronous result is `{ tools, skipped }`. Operations with unsupported parameter encodings, request bodies

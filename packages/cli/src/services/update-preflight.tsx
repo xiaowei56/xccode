@@ -3,10 +3,10 @@
 // version-mismatched background service before the TUI attaches.
 import { createCliRenderer, RGBA, TextAttributes, type CliRenderer } from "@opentui/core"
 import { render, useTerminalDimensions } from "@opentui/solid"
-import { XCCODE_VERSION } from "../version"
-import "@xccode/tui/component/spinner-renderable"
-import { SPINNER_FRAMES } from "@xccode/tui/component/spinner"
-import { go } from "@xccode/tui/logo"
+import { XIAOCHUAN_VERSION } from "../version"
+import "@xiaochuan/tui/component/spinner-renderable"
+import { SPINNER_FRAMES } from "@xiaochuan/tui/component/spinner"
+import { go } from "@xiaochuan/tui/logo"
 import { setTimeout } from "node:timers/promises"
 import {
   batch,
@@ -22,7 +22,7 @@ import {
   untrack,
 } from "solid-js"
 
-const stages = ["Keeping your session safe", "Starting the new background service", "Loading Xccode"] as const
+const stages = ["Keeping your session safe", "Starting the new background service", "Loading Xiaochuan"] as const
 const stageFloor = 480
 const transitionDuration = 420
 const completionHold = 650
@@ -327,7 +327,7 @@ function UpdateFooter(props: {
   const statusSweep = createSweep()
   const runningHeader = () =>
     phrase(
-      ["Xccode", colors.muted, true],
+      ["Xiaochuan", colors.muted, true],
       ["is updating", colors.muted],
       ...(props.from
         ? ([
@@ -336,14 +336,14 @@ function UpdateFooter(props: {
           ] as const)
         : []),
       ["to", colors.muted],
-      [XCCODE_VERSION, colors.accent],
+      [XIAOCHUAN_VERSION, colors.accent],
     )
   const completedHeader = phrase(
-    ["Xccode", colors.muted, true],
+    ["Xiaochuan", colors.muted, true],
     ["updated to", colors.muted],
-    [XCCODE_VERSION, colors.accent],
+    [XIAOCHUAN_VERSION, colors.accent],
   )
-  const pausedHeader = phrase(["Xccode", colors.muted, true], ["update paused", colors.muted])
+  const pausedHeader = phrase(["Xiaochuan", colors.muted, true], ["update paused", colors.muted])
   const outcomeStatus = () =>
     props.outcome() === "success"
       ? [...styled("✓", colors.success), ...styled(" Ready", colors.text)]

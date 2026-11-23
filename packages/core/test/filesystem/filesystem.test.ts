@@ -1,8 +1,8 @@
 import { describe, test, expect } from "bun:test"
 import { Effect, FileSystem, Layer } from "effect"
-import { LayerNodePlatform } from "@xccode/util/effect/app-node-platform"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { FSUtil } from "@xccode/util/fs-util"
+import { LayerNodePlatform } from "@xiaochuan/util/effect/app-node-platform"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { testEffect } from "../lib/effect"
 import path from "path"
 

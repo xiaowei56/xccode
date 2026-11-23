@@ -1,8 +1,8 @@
 /** @jsxImportSource @opentui/solid */
-import type { FileDiffInfo, LocationRef } from "@xccode/client"
-import type { Vcs } from "@xccode/schema/vcs"
-import { Plugin } from "@xccode/plugin/tui"
-import type { KeymapCommand, PanelInput, Route } from "@xccode/plugin/tui/context"
+import type { FileDiffInfo, LocationRef } from "@xiaochuan/client"
+import type { Vcs } from "@xiaochuan/schema/vcs"
+import { Plugin } from "@xiaochuan/plugin/tui"
+import type { KeymapCommand, PanelInput, Route } from "@xiaochuan/plugin/tui/context"
 import {
   MouseButton,
   TextAttributes,
@@ -1361,7 +1361,7 @@ function Commands(props: { context: Plugin.Context }) {
 }
 
 export default Plugin.define({
-  id: "xccode.diffs",
+  id: "xiaochuan.diffs",
   setup(context) {
     context.ui.slot({
       append: "session.panel",

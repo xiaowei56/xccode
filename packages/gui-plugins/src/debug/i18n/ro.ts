@@ -32,7 +32,7 @@ export default {
   "memory.tip":
     "Diagnosticare memorie: înregistrează memoria aplicației în jurnalele desktop la fiecare 30 de secunde. Rămâne activă după reporniri până când o dezactivezi; bara rămâne deschisă cât timp rulează.",
   "memory.tipEnv":
-    "Diagnosticarea memoriei este activă pentru această lansare: XCCODE_DESKTOP_MEMORY_LOG este setat.",
+    "Diagnosticarea memoriei este activă pentru această lansare: XIAOCHUAN_DESKTOP_MEMORY_LOG este setat.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

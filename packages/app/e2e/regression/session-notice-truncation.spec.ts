@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test"
-import { timelinePresets } from "@xccode/session-ui/timeline/detail"
+import { timelinePresets } from "@xiaochuan/session-ui/timeline/detail"
 import { setupTimeline } from "../utils/timeline"
 
 for (const { width, ...profile } of [

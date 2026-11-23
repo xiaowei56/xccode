@@ -2,18 +2,18 @@ import { describe, expect, setDefaultTimeout } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
 import { Cause, Context, Deferred, Effect, Exit, Fiber, Layer, Option, Schedule, Stream, Tracer } from "effect"
-import { Bus } from "@xccode/core/bus"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { Plugin } from "@xccode/core/plugin"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { SessionRunCoordinator } from "@xccode/core/session/run-coordinator"
-import { Shell } from "@xccode/core/shell"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { SessionRunCoordinator } from "@xiaochuan/core/session/run-coordinator"
+import { Shell } from "@xiaochuan/core/shell"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { location } from "./fixture/location"
 import { offlineModels } from "./fixture/models"
 import { tmpdirScoped } from "./fixture/tmpdir"
@@ -356,21 +356,21 @@ describe("Session.shell", () => {
 
       const create = spans.find((span) => span.name === "Shell.create")
       const result = spans.find((span) => span.name === "Shell.result")
-      const shellID = create?.attributes.get("xccode.shell.id")
+      const shellID = create?.attributes.get("xiaochuan.shell.id")
       expect(shellID).toBeString()
       expect(truncated.isWellFormed()).toBe(true)
       expect(Object.fromEntries(create?.attributes ?? [])).toEqual({
-        "xccode.shell.id": shellID,
-        "xccode.shell.command": truncated,
+        "xiaochuan.shell.id": shellID,
+        "xiaochuan.shell.command": truncated,
         "session.id": fixture.created.id,
-        "xccode.shell.background": true,
+        "xiaochuan.shell.background": true,
       })
       expect(Object.fromEntries(result?.attributes ?? [])).toEqual({
-        "xccode.shell.id": shellID,
-        "xccode.shell.command": truncated,
+        "xiaochuan.shell.id": shellID,
+        "xiaochuan.shell.command": truncated,
         "session.id": fixture.created.id,
-        "xccode.shell.background": true,
-        "xccode.shell.status": "exited",
+        "xiaochuan.shell.background": true,
+        "xiaochuan.shell.status": "exited",
         "process.exit.code": 3,
       })
     }),

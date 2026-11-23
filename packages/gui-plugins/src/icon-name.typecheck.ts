@@ -1,8 +1,8 @@
 // Fails the typecheck when the GUI SDK's names of the app's icons drift from the app's icon catalog. Nothing imports
 // this file. Run `bun run generate` in packages/plugin to update them.
 
-import type { AppIconName } from "@xccode/plugin/gui"
-import type { iconNames } from "@xccode/ui/icons/catalog"
+import type { AppIconName } from "@xiaochuan/plugin/gui"
+import type { iconNames } from "@xiaochuan/ui/icons/catalog"
 
 type Same<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false
 

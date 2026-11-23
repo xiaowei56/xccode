@@ -10,8 +10,8 @@ import type {
   McpResource,
   McpServer,
   ModelInfo,
-  XccodeClient,
-  XccodeEvent,
+  XiaochuanClient,
+  XiaochuanEvent,
   PermissionSavedInfo,
   PermissionRequest,
   Project,
@@ -23,8 +23,8 @@ import type {
   ShellInfo,
   SkillInfo,
   VcsInfo,
-} from "@xccode/client"
-import type { ResolvedTheme } from "@xccode/theme/tui"
+} from "@xiaochuan/client"
+import type { ResolvedTheme } from "@xiaochuan/theme/tui"
 import type { CliRenderer, KeyEvent, MarkdownCodeBlockRenderer, Renderable } from "@opentui/core"
 import type { JSX } from "@opentui/solid"
 import type { Store } from "solid-js/store"
@@ -59,14 +59,14 @@ interface LocationCollection<Value> {
   invalidate(location?: LocationRef): void
 }
 
-type XccodeEventMap = { [Type in XccodeEvent["type"]]: Extract<XccodeEvent, { type: Type }> }
+type XiaochuanEventMap = { [Type in XiaochuanEvent["type"]]: Extract<XiaochuanEvent, { type: Type }> }
 
 export interface Data {
-  readonly on: <Type extends XccodeEvent["type"]>(
+  readonly on: <Type extends XiaochuanEvent["type"]>(
     type: Type,
-    handler: (event: XccodeEventMap[Type]) => void,
+    handler: (event: XiaochuanEventMap[Type]) => void,
   ) => () => void
-  readonly listen: (handler: (event: { details: XccodeEvent }) => void) => () => void
+  readonly listen: (handler: (event: { details: XiaochuanEvent }) => void) => () => void
   readonly session: {
     list(): SessionInfo[]
     get(sessionID: string): SessionInfo | undefined
@@ -438,7 +438,7 @@ export interface KeymapCommand {
 }
 
 export interface KeymapLayer {
-  /** Limits the layer to one Xccode input mode. Use global to opt out; defaults to base. */
+  /** Limits the layer to one Xiaochuan input mode. Use global to opt out; defaults to base. */
   readonly mode?: string
   /** Enables or disables the complete layer. */
   readonly enabled?: boolean | (() => boolean)
@@ -483,7 +483,7 @@ export interface Keymap {
   pending(): readonly KeymapPending[]
   /** Returns bindings reachable from the pending key sequence. Reactive when read in a Solid computation. */
   active(): readonly KeymapActive[]
-  /** Controls mutually exclusive Xccode input modes. */
+  /** Controls mutually exclusive Xiaochuan input modes. */
   readonly mode: {
     /** Returns the active mode. */
     current(): string
@@ -551,7 +551,7 @@ export interface Context {
   readonly location: LocationRef | undefined
   readonly app: App
   readonly renderer: CliRenderer
-  readonly client: XccodeClient
+  readonly client: XiaochuanClient
   readonly data: Data
   readonly attention: Attention
   readonly theme: ResolvedTheme

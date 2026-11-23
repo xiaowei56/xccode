@@ -1,6 +1,6 @@
-import { useI18n } from "@xccode/ui/context/i18n"
-import { abort } from "@xccode/util/abort"
-import { checksum } from "@xccode/util/encode"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { abort } from "@xiaochuan/util/abort"
+import { checksum } from "@xiaochuan/util/encode"
 import {
   type ComponentProps,
   createComputed,
@@ -16,9 +16,9 @@ import {
   untrack,
 } from "solid-js"
 import { isServer, render } from "solid-js/web"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Tooltip } from "@xccode/ui/tooltip"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import { canReusePendingBlock, completedProjection } from "./markdown-projection"
 import type { Block, Projection } from "./markdown-stream"
 import {

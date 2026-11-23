@@ -2,7 +2,7 @@
   Write a heap snapshot of the running server and print its path
 
 [1mUSAGE[0m
-  [36mxccode debug heap-dump [flags][0m
+  [36mxiaochuan debug heap-dump [flags][0m
 
 [1mFLAGS[0m
   [32m--directory[0m [2mstring[0m    Directory to write the snapshot into instead of the server's log directory

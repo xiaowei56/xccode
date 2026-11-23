@@ -1,7 +1,7 @@
 # O89: mini writes stderr lines into the scrollback
 
 **TypeScript.** Mini's renderer captures only stdout (`externalOutputMode: "capture-stdout"`,
-`runtime.lifecycle.ts:174`). With `xccode mini --print-logs`, each log record goes to stderr as it is and draws
+`runtime.lifecycle.ts:174`). With `xiaochuan mini --print-logs`, each log record goes to stderr as it is and draws
 over the split footer: the composer and the status row show the record until the next repaint.
 
 **Rust.** While the footer is up, `crates/mini/src/stderr.rs` puts a pipe on fd 2. Each line written to it becomes a

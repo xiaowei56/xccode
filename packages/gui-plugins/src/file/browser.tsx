@@ -11,13 +11,13 @@ import {
   type Accessor,
 } from "solid-js"
 import { createStore } from "solid-js/store"
-import { Button } from "@xccode/ui/button"
-import { Icon } from "@xccode/ui/icon"
-import { SessionFilePanelV2, SessionFilePanelV2Empty } from "@xccode/session-ui/v2/session-file-panel-v2"
-import { SessionReviewV2Sidebar, SessionReviewV2SidebarToggle } from "@xccode/session-ui/v2/session-review-v2"
-import { getFilename } from "@xccode/util/path"
-import { artifactKind } from "@xccode/util/artifact"
-import type { ChangeKind } from "@xccode/plugin/gui/review"
+import { Button } from "@xiaochuan/ui/button"
+import { Icon } from "@xiaochuan/ui/icon"
+import { SessionFilePanelV2, SessionFilePanelV2Empty } from "@xiaochuan/session-ui/v2/session-file-panel-v2"
+import { SessionReviewV2Sidebar, SessionReviewV2SidebarToggle } from "@xiaochuan/session-ui/v2/session-review-v2"
+import { getFilename } from "@xiaochuan/util/path"
+import { artifactKind } from "@xiaochuan/util/artifact"
+import type { ChangeKind } from "@xiaochuan/plugin/gui/review"
 import {
   createKeyed,
   usePlugin,
@@ -26,7 +26,7 @@ import {
   type PanelSidebar,
   type PanelTab,
   type SessionScreen,
-} from "@xccode/plugin/gui"
+} from "@xiaochuan/plugin/gui"
 import { current, useShared } from "./context"
 import SessionFileList, { applyFileListKeyDown } from "./list"
 import OpenInAppButton, { useOpenInApp } from "./open-in-app"

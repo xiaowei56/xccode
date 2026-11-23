@@ -1,19 +1,19 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import { expect } from "bun:test"
-import { Config } from "@xccode/schema/config"
+import { Config } from "@xiaochuan/schema/config"
 import { Effect, Schema } from "effect"
 import { tmpdir } from "../../core/test/fixture/tmpdir"
 import { it } from "../../core/test/lib/effect"
 import { startServer } from "./fixture/server"
-import { AbsolutePath } from "@xccode/schema/schema"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
 
 it.live("returns ordered config entries for the requested directory", () =>
   Effect.gen(function* () {
-    const tmp = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("xccode-config-endpoint-")))
+    const tmp = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("xiaochuan-config-endpoint-")))
     const global = path.join(tmp.path, "global")
     const project = path.join(tmp.path, "project")
-    const config = path.join(project, "xccode.json")
+    const config = path.join(project, "xiaochuan.json")
     yield* Effect.promise(() =>
       Promise.all([fs.mkdir(global, { recursive: true }), fs.mkdir(project, { recursive: true })]),
     )
@@ -61,9 +61,9 @@ it.live("returns ordered config entries for the requested directory", () =>
 
 it.live("updates the global shell without replacing unrelated JSONC", () =>
   Effect.gen(function* () {
-    const tmp = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("xccode-config-shells-")))
+    const tmp = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("xiaochuan-config-shells-")))
     const global = path.join(tmp.path, "global")
-    const config = path.join(global, "xccode.jsonc")
+    const config = path.join(global, "xiaochuan.jsonc")
     yield* Effect.promise(() => fs.mkdir(global, { recursive: true }))
     yield* Effect.promise(() =>
       fs.writeFile(

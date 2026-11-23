@@ -1,5 +1,5 @@
-import type { PluginInfo } from "@xccode/client"
-import type { Plugin } from "@xccode/plugin/tui"
+import type { PluginInfo } from "@xiaochuan/client"
+import type { Plugin } from "@xiaochuan/plugin/tui"
 import type { MarkdownCodeBlockRenderer, MarkdownOptions } from "@opentui/core"
 import {
   batch,
@@ -16,8 +16,8 @@ import {
 import path from "path"
 import { stat } from "fs/promises"
 import { fileURLToPath } from "url"
-import type { Page } from "@xccode/plugin/tui/context"
-import { Host } from "@xccode/plugin/host"
+import type { Page } from "@xiaochuan/plugin/tui/context"
+import { Host } from "@xiaochuan/plugin/host"
 import { resolveSlots, type Claim } from "./structure"
 import { createStore, produce, reconcile as reconcileStore, unwrap } from "solid-js/store"
 import { isDeepEqual } from "remeda"
@@ -324,7 +324,7 @@ export function PluginProvider(props: ParentProps<{ packages: PackageSource; dir
       }
 
       const selected = [...desired.values()].filter((item) => matches(target, item.plugin.id))
-      if (selected.length || target === "*" || target.endsWith(".*") || target.startsWith("xccode.")) {
+      if (selected.length || target === "*" || target.endsWith(".*") || target.startsWith("xiaochuan.")) {
         for (const item of selected) item.enabled = true
         continue
       }

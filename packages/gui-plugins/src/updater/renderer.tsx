@@ -1,8 +1,8 @@
-import { showToast } from "@xccode/ui/toast"
+import { showToast } from "@xiaochuan/ui/toast"
 import { createSignal, lazy, onCleanup, Suspense, untrack } from "solid-js"
-import { Command, createKeyed, SettingsPage, TitlebarItem, type SetupContext, type Plugin } from "@xccode/plugin/gui"
-import { onIdle } from "@xccode/plugin/gui/builtin"
-import { Updater } from "@xccode/plugin/gui/updater"
+import { Command, createKeyed, SettingsPage, TitlebarItem, type SetupContext, type Plugin } from "@xiaochuan/plugin/gui"
+import { onIdle } from "@xiaochuan/plugin/gui/builtin"
+import { Updater } from "@xiaochuan/plugin/gui/updater"
 import { updaterAction } from "./action"
 import {
   ACTION_CHUNK_TIMEOUT_MS,

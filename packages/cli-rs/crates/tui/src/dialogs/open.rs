@@ -1,14 +1,14 @@
 //! Open a recent session or worktree.
 
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     ProjectID, SessionGetInput, SessionInfo, SessionListInput, SessionListInputOrder, WorktreeCreateInput,
     WorktreeListInput, WorktreeRefreshInput,
 };
-use xccode_ui::dialog::DIALOG_LIST_INSET;
-use xccode_ui::motion::Spinner;
-use xccode_ui::path::abbreviate_home;
-use xccode_ui::prompt::{Prompt, PromptProps, prompt};
-use xccode_ui::select::{FooterHint, Gutter, Select};
+use xiaochuan_ui::dialog::DIALOG_LIST_INSET;
+use xiaochuan_ui::motion::Spinner;
+use xiaochuan_ui::path::abbreviate_home;
+use xiaochuan_ui::prompt::{Prompt, PromptProps, prompt};
+use xiaochuan_ui::select::{FooterHint, Gutter, Select};
 use std::collections::HashSet;
 use unicode_width::UnicodeWidthStr;
 
@@ -730,7 +730,7 @@ impl Open {
                         tui.dialogs.clear();
                         crate::features::location::navigate_home(
                             &tui,
-                            Some(xccode_store::Location::new(created.directory.0)),
+                            Some(xiaochuan_store::Location::new(created.directory.0)),
                         );
                     }
                     Err(error) => {
@@ -751,7 +751,7 @@ impl Open {
             match target {
                 Target::Session(id) => tui.show_session(id),
                 Target::Project { directory, .. } => {
-                    crate::features::location::navigate_home(&tui, Some(xccode_store::Location::new(directory)))
+                    crate::features::location::navigate_home(&tui, Some(xiaochuan_store::Location::new(directory)))
                 }
             }
         }));
@@ -770,7 +770,7 @@ fn selected_mark(color: Color) -> Gutter {
 }
 
 fn home() -> String {
-    xccode_local::paths::home()
+    xiaochuan_local::paths::home()
 }
 
 fn time_ago(now: f64, timestamp: f64) -> String {

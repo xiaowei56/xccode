@@ -3,9 +3,9 @@ import type {
   SessionMessageInfo,
   SessionMessageUser,
   SessionStatus,
-} from "@xccode/client/promise"
-import { useI18n } from "@xccode/ui/context/i18n"
-import { SessionTurn } from "@xccode/util/session-turn"
+} from "@xiaochuan/client/promise"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { SessionTurn } from "@xiaochuan/util/session-turn"
 import { Predicate } from "effect"
 import {
   For,
@@ -21,10 +21,10 @@ import {
   type Accessor,
   type JSX,
 } from "solid-js"
-import { DiffChanges } from "@xccode/ui/diff-changes"
-import { Icon } from "@xccode/ui/icon"
-import { Spring, frameLoop, prefersReducedMotion } from "@xccode/ui/motion"
-import { springStyle } from "@xccode/ui/motion/solid"
+import { DiffChanges } from "@xiaochuan/ui/diff-changes"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Spring, frameLoop, prefersReducedMotion } from "@xiaochuan/ui/motion"
+import { springStyle } from "@xiaochuan/ui/motion/solid"
 import { Dynamic } from "solid-js/web"
 import type { SessionUserActions, SessionUserAttachmentReference, SessionUserComment } from "../actions"
 import { useData } from "../context"
@@ -45,7 +45,7 @@ import {
   shouldSnapUserRun,
   transitionSteerArrival,
 } from "../timeline/steer-arrival-machine"
-import { Badge } from "@xccode/ui/badge"
+import { Badge } from "@xiaochuan/ui/badge"
 import { attached } from "../components/message-file"
 import { CompactionMessage, CompactionQueued } from "./compaction"
 import { unwrapErrorMessage } from "./errors"

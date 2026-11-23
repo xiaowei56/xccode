@@ -1,15 +1,15 @@
 export * as TestSessions from "./sessions"
 
 import type { LanguageModelV3Prompt, LanguageModelV3StreamPart } from "@ai-sdk/provider"
-import type { SessionRequestKind } from "@xccode/plugin/effect/session"
+import type { SessionRequestKind } from "@xiaochuan/plugin/effect/session"
 import { Effect } from "effect"
-import { ClaudeAccounts } from "@xccode/core/plugin/provider/claude-agent/claude/accounts"
-import { ClaudeQueryOptions } from "@xccode/core/plugin/provider/claude-agent/claude/query-options"
-import { ClaudeSessions } from "@xccode/core/plugin/provider/claude-agent/claude/sessions"
-import { ClaudeStatus } from "@xccode/core/plugin/provider/claude-agent/claude/status"
-import { ClaudeAgentLanguageModel } from "@xccode/core/plugin/provider/claude-agent/language-model/claude-agent-language-model"
-import { RequestKind } from "@xccode/core/plugin/provider/claude-agent/language-model/request-kind"
-import type { SessionRecord } from "@xccode/core/plugin/provider/claude-agent/sync/record"
+import { ClaudeAccounts } from "@xiaochuan/core/plugin/provider/claude-agent/claude/accounts"
+import { ClaudeQueryOptions } from "@xiaochuan/core/plugin/provider/claude-agent/claude/query-options"
+import { ClaudeSessions } from "@xiaochuan/core/plugin/provider/claude-agent/claude/sessions"
+import { ClaudeStatus } from "@xiaochuan/core/plugin/provider/claude-agent/claude/status"
+import { ClaudeAgentLanguageModel } from "@xiaochuan/core/plugin/provider/claude-agent/language-model/claude-agent-language-model"
+import { RequestKind } from "@xiaochuan/core/plugin/provider/claude-agent/language-model/request-kind"
+import type { SessionRecord } from "@xiaochuan/core/plugin/provider/claude-agent/sync/record"
 import { FakeClaude } from "./fake-claude"
 import { FakeIO } from "./fake-io"
 
@@ -84,7 +84,7 @@ export const start = Effect.fn(function* (
       () => Effect.succeed(ClaudeQueryOptions.configDirs(settings?.configDir)),
     ),
     storage: saved,
-    directory: "/tmp/xccode",
+    directory: "/tmp/xiaochuan",
   }
   const sessions = yield* registry.attach(input)
   const accounts = ClaudeAccounts.make({ sessions, storage: saved })

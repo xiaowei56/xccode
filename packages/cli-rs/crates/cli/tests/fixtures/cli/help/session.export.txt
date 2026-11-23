@@ -2,7 +2,7 @@
   Export session data as JSON
 
 [1mUSAGE[0m
-  [36mxccode session export [flags] [<session>][0m
+  [36mxiaochuan session export [flags] [<session>][0m
 
 [1mARGUMENTS[0m
   [32msession[0m [2mstring[0m    Session ID to export[2m (optional)[0m

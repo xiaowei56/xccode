@@ -19,7 +19,7 @@ function wsl(fields: Partial<typeof WslServersState.Encoded>) {
     installed: [],
     online: [],
     distroProbes: {},
-    xccodeChecks: {},
+    xiaochuanChecks: {},
     pendingRestart: false,
     servers: [],
     hostJob: "idle",
@@ -32,7 +32,7 @@ const probe = (name: string) => ({ name, canExecute: true, hasBash: true, hasCur
 
 const check = (distro: string, version: string | null) => ({
   distro,
-  resolvedPath: "/usr/bin/xccode",
+  resolvedPath: "/usr/bin/xiaochuan",
   version,
   expectedVersion: "1.0",
   matchesDesktop: version === "1.0",
@@ -50,11 +50,11 @@ const distros = {
   ],
 }
 
-// Ubuntu is ready to add; Debian needs Xccode; Fedora can be installed from the catalog. Main runs no job.
+// Ubuntu is ready to add; Debian needs Xiaochuan; Fedora can be installed from the catalog. Main runs no job.
 const idle = wsl({
   ...distros,
   distroProbes: { Ubuntu: probe("Ubuntu"), Debian: probe("Debian") },
-  xccodeChecks: { Ubuntu: check("Ubuntu", "1.0"), Debian: check("Debian", "0.9") },
+  xiaochuanChecks: { Ubuntu: check("Ubuntu", "1.0"), Debian: check("Debian", "0.9") },
 })
 
 // The same distros before any probe, so the main view wants to probe them.
@@ -137,16 +137,16 @@ describe("wsl add-server dialog", () => {
 
   test("each action in the main view claims the dialog before its call leaves", () => {
     const main = createWslDialogState()
-    const xccode = transitionWslDialog(picked("Debian"), primary("Debian"))
+    const xiaochuan = transitionWslDialog(picked("Debian"), primary("Debian"))
     const add = transitionWslDialog(main, primary("Ubuntu"))
     const refresh = transitionWslDialog(main, { type: "distros.refresh.requested", busy: false })
     const install = transitionWslDialog(main, { type: "wsl.install.requested", busy: false })
 
-    expect(xccode.effects).toEqual([
+    expect(xiaochuan.effects).toEqual([
       {
         type: "action.run",
         attempt: 1,
-        action: { kind: "install-xccode", distro: "Debian" },
+        action: { kind: "install-xiaochuan", distro: "Debian" },
         timeoutMs: WSL_INSTALL_TIMEOUT_MS,
       },
     ])
@@ -166,13 +166,13 @@ describe("wsl add-server dialog", () => {
       { type: "action.run", attempt: 1, action: { kind: "install-wsl" }, timeoutMs: WSL_INSTALL_TIMEOUT_MS },
     ])
 
-    // Install Xccode spins at once; before, it waited for main's "updating" with every control still enabled.
-    expect(view(xccode.state).primaryButton).toMatchObject({
-      action: "install-xccode",
+    // Install Xiaochuan spins at once; before, it waited for main's "updating" with every control still enabled.
+    expect(view(xiaochuan.state).primaryButton).toMatchObject({
+      action: "install-xiaochuan",
       loading: true,
     })
     expect(view(add.state)).toMatchObject({ adding: true, primaryButton: { action: "add", loading: true } })
-    ;[xccode, add, refresh, install].forEach((running) => {
+    ;[xiaochuan, add, refresh, install].forEach((running) => {
       expect(running.state.status).toBe("main-running")
       expect(view(running.state).busy).toBe(true)
       ;(

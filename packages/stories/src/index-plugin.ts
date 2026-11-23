@@ -10,7 +10,7 @@ const id = "virtual:story-index"
  */
 export function storyIndex(roots: string[]): Plugin {
   return {
-    name: "xccode:story-index",
+    name: "xiaochuan:story-index",
     resolveId: (source) => (source === id ? `\0${id}` : undefined),
     hotUpdate({ file }) {
       if (!file.endsWith(".stories.tsx")) return

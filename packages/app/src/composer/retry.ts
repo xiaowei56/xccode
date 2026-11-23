@@ -1,5 +1,5 @@
-import { checksum } from "@xccode/util/encode"
-import type { SessionMessage } from "@xccode/schema/session-message"
+import { checksum } from "@xiaochuan/util/encode"
+import type { SessionMessage } from "@xiaochuan/schema/session-message"
 import type { ComposerDelivery, ComposerSelection } from "./adapter"
 import { buildPromptRequest } from "./request"
 import type { ContextItem, Prompt } from "./schema"

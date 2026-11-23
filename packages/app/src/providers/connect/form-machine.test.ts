@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { FormField } from "@xccode/client/promise"
+import type { FormField } from "@xiaochuan/client/promise"
 import {
   createProviderFormState,
   FORM_BROWSER_OPEN_TIMEOUT_MS,

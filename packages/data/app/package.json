@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/data-app",
+  "name": "@xiaochuan/data-app",
   "version": "2.3.0",
   "private": true,
   "type": "module",
@@ -22,9 +22,9 @@
   },
   "dependencies": {
     "@kobalte/core": "catalog:",
-    "@xccode/nav-menus": "workspace:*",
-    "@xccode/data-core": "workspace:*",
-    "@xccode/ui": "workspace:*",
+    "@xiaochuan/nav-menus": "workspace:*",
+    "@xiaochuan/data-core": "workspace:*",
+    "@xiaochuan/ui": "workspace:*",
     "@resvg/resvg-wasm": "2.6.2",
     "@solidjs/meta": "catalog:",
     "@solidjs/router": "catalog:",

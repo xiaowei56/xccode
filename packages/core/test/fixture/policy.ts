@@ -1,23 +1,23 @@
-import { Config } from "@xccode/core/config"
-import { ConfigIntegration } from "@xccode/core/config/integration"
-import { ConfigPolicyPlugin } from "@xccode/core/config/plugin/policy"
-import { Integration } from "@xccode/core/integration"
-import { Mcp } from "@xccode/core/mcp/index"
-import { Skill } from "@xccode/core/skill"
-import { Info } from "@xccode/schema/config"
-import { ConfigPolicy } from "@xccode/schema/config/policy"
-import { ID } from "@xccode/schema/event"
-import { Credential } from "@xccode/core/credential"
-import { WebSearch } from "@xccode/core/websearch"
+import { Config } from "@xiaochuan/core/config"
+import { ConfigIntegration } from "@xiaochuan/core/config/integration"
+import { ConfigPolicyPlugin } from "@xiaochuan/core/config/plugin/policy"
+import { Integration } from "@xiaochuan/core/integration"
+import { Mcp } from "@xiaochuan/core/mcp/index"
+import { Skill } from "@xiaochuan/core/skill"
+import { Info } from "@xiaochuan/schema/config"
+import { ConfigPolicy } from "@xiaochuan/schema/config/policy"
+import { ID } from "@xiaochuan/schema/event"
+import { Credential } from "@xiaochuan/core/credential"
+import { WebSearch } from "@xiaochuan/core/websearch"
 import { Effect, Schema, Stream } from "effect"
 import { host } from "../plugin/host"
 
-/** A connected organization's policy as the Xccode Console delivers it: an integration config document. */
+/** A connected organization's policy as the Xiaochuan Console delivers it: an integration config document. */
 export function organizationPolicy(policies: ConfigPolicy.Info[], organization?: string) {
   return new ConfigIntegration.Document({
     type: "document",
-    integrationID: Integration.ID.make("xccode"),
-    connection: { type: "env", name: "XCCODE_API_KEY" },
+    integrationID: Integration.ID.make("xiaochuan"),
+    connection: { type: "env", name: "XIAOCHUAN_API_KEY" },
     organization,
     info: Schema.decodeUnknownSync(Info)({ policies }),
   })
@@ -26,7 +26,7 @@ export function organizationPolicy(policies: ConfigPolicy.Info[], organization?:
 /** Replaces the connected organization's policy, or removes it; publish `Event.Updated` to make plugins reload. */
 export const setOrganizationPolicy = Effect.fn(function* (policies: ConfigPolicy.Info[] | undefined) {
   const config = yield* Config.Service
-  yield* config.integration?.(Integration.ID.make("xccode"), policies && organizationPolicy(policies)) ?? Effect.void
+  yield* config.integration?.(Integration.ID.make("xiaochuan"), policies && organizationPolicy(policies)) ?? Effect.void
 })
 
 // Exercise the real policy plugin against supplied catalogs without unrelated provider/permission setup.

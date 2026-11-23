@@ -2,11 +2,11 @@ export * as SessionSearch from "./search.js"
 
 import { and, asc, desc, eq, gt, inArray, isNull, lt, sql, type SQL } from "drizzle-orm"
 import { Context, DateTime, Effect, Layer, Schema } from "effect"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { optional } from "@xccode/schema/schema"
-import { Project } from "@xccode/schema/project"
-import { Session } from "@xccode/schema/session"
-import type { Tool } from "@xccode/schema/tool"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { optional } from "@xiaochuan/schema/schema"
+import { Project } from "@xiaochuan/schema/project"
+import { Session } from "@xiaochuan/schema/session"
+import type { Tool } from "@xiaochuan/schema/tool"
 import { Database } from "../database/database.js"
 import { SessionHistory } from "./history.js"
 import { SessionMessage } from "./message.js"
@@ -147,7 +147,7 @@ export interface Interface {
   readonly read: (input: ReadInput) => Effect.Effect<ReadOutput, SessionNotFoundError | MessageNotFoundError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionSearch") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionSearch") {}
 
 export const layer = Layer.effect(
   Service,

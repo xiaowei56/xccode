@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: Xccode CLI opcije i naredbe.
+description: Xiaochuan CLI opcije i naredbe.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-Xccode CLI po defaultu pokreće [TUI](/docs/tui) kada se pokrene bez ikakvih argumenata.
+Xiaochuan CLI po defaultu pokreće [TUI](/docs/tui) kada se pokrene bez ikakvih argumenata.
 
 ```bash
-xccode
+xiaochuan
 ```
 
-Ali takođe prihvata naredbe kao što je dokumentovano na ovoj stranici. Ovo vam omogućava programsku interakciju sa Xccode.
+Ali takođe prihvata naredbe kao što je dokumentovano na ovoj stranici. Ovo vam omogućava programsku interakciju sa Xiaochuan.
 
 ```bash
-xccode run "Explain how closures work in JavaScript"
+xiaochuan run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-Pokrenite Xccode terminalski korisnički interfejs.
+Pokrenite Xiaochuan terminalski korisnički interfejs.
 
 ```bash
-xccode [project]
+xiaochuan [project]
 ```
 
 #### Opcije
@@ -44,26 +44,26 @@ xccode [project]
 
 ## Naredbe
 
-Xccode CLI takođe ima sljedeće naredbe.
+Xiaochuan CLI takođe ima sljedeće naredbe.
 
 ---
 
 ### attach
 
-Priključite terminal na već pokrenut Xccode backend server pokrenut putem `serve` ili `web` naredbi.
+Priključite terminal na već pokrenut Xiaochuan backend server pokrenut putem `serve` ili `web` naredbi.
 
 ```bash
-xccode attach [url]
+xiaochuan attach [url]
 ```
 
-Ovo omogućava korištenje TUI-ja sa udaljenim Xccode backend-om. Na primjer:
+Ovo omogućava korištenje TUI-ja sa udaljenim Xiaochuan backend-om. Na primjer:
 
 ```bash
 # Start the backend server for web/mobile access
-xccode web --port 4096 --hostname 0.0.0.0
+xiaochuan web --port 4096 --hostname 0.0.0.0
 
 # In another terminal, attach the TUI to the running backend
-xccode attach http://10.20.30.40:4096
+xiaochuan attach http://10.20.30.40:4096
 ```
 
 #### Opcije
@@ -74,8 +74,8 @@ xccode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c`   | Nastavi posljednju sesiju                                                                     |
 | <nobr><code>{"--session"}</code></nobr>  | `-s`   | ID sesije za nastavak                                                                         |
 | <nobr><code>{"--fork"}</code></nobr>     |        | Forkuj sesiju prilikom nastavka (koristite sa `--continue` ili `--session`)                   |
-| <nobr><code>{"--password"}</code></nobr> | `-p`   | Lozinka za osnovnu autentifikaciju (zadano: `XCCODE_SERVER_PASSWORD`)                       |
-| <nobr><code>{"--username"}</code></nobr> | `-u`   | Korisničko ime za osnovnu autentifikaciju (zadano: `XCCODE_SERVER_USERNAME` ili `xccode`) |
+| <nobr><code>{"--password"}</code></nobr> | `-p`   | Lozinka za osnovnu autentifikaciju (zadano: `XIAOCHUAN_SERVER_PASSWORD`)                       |
+| <nobr><code>{"--username"}</code></nobr> | `-u`   | Korisničko ime za osnovnu autentifikaciju (zadano: `XIAOCHUAN_SERVER_USERNAME` ili `xiaochuan`) |
 
 ---
 
@@ -84,20 +84,20 @@ xccode attach http://10.20.30.40:4096
 Naredba za upravljanje vjerodajnicama i prijavom za provajdere.
 
 ```bash
-xccode auth [command]
+xiaochuan auth [command]
 ```
 
 ---
 
 #### login
 
-Xccode pokreće lista provajdera na [Models.dev](https://models.dev), tako da možete koristiti `xccode auth login` da konfigurirate API ključeve za bilo kojeg provajdera kojeg želite koristiti. Ovo je pohranjeno u `~/.local/share/xccode/auth.json`.
+Xiaochuan pokreće lista provajdera na [Models.dev](https://models.dev), tako da možete koristiti `xiaochuan auth login` da konfigurirate API ključeve za bilo kojeg provajdera kojeg želite koristiti. Ovo je pohranjeno u `~/.local/share/xiaochuan/auth.json`.
 
 ```bash
-xccode auth login
+xiaochuan auth login
 ```
 
-Kada se Xccode pokrene, učitava dobavljače iz datoteke vjerodajnica. I ako postoje neki ključevi definirani u vašim okruženjima ili `.env` fajl u vašem projektu.
+Kada se Xiaochuan pokrene, učitava dobavljače iz datoteke vjerodajnica. I ako postoje neki ključevi definirani u vašim okruženjima ili `.env` fajl u vašem projektu.
 
 ---
 
@@ -106,13 +106,13 @@ Kada se Xccode pokrene, učitava dobavljače iz datoteke vjerodajnica. I ako pos
 Navodi sve autentifikovane dobavljače pohranjene u datoteci vjerodajnica.
 
 ```bash
-xccode auth list
+xiaochuan auth list
 ```
 
 Ili kratka verzija.
 
 ```bash
-xccode auth ls
+xiaochuan auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ xccode auth ls
 Odjavljuje vas s provajdera tako što ga briše iz datoteke vjerodajnica.
 
 ```bash
-xccode auth logout
+xiaochuan auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ xccode auth logout
 Upravljajte GitHub agentom za automatizaciju repozitorija.
 
 ```bash
-xccode github [command]
+xiaochuan github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ xccode github [command]
 Instalirajte GitHub agenta u svoj repozitorij.
 
 ```bash
-xccode github install
+xiaochuan github install
 ```
 
 Ovo postavlja neophodni tok rada GitHub Actions i vodi vas kroz proces konfiguracije. [Saznajte više](/docs/github).
@@ -154,7 +154,7 @@ Ovo postavlja neophodni tok rada GitHub Actions i vodi vas kroz proces konfigura
 Pokrenite GitHub agent. Ovo se obično koristi u GitHub Actions.
 
 ```bash
-xccode github run
+xiaochuan github run
 ```
 
 ##### Opcije
@@ -171,7 +171,7 @@ xccode github run
 Upravljajte Model Context Protocol (MCP) serverima.
 
 ```bash
-xccode mcp [command]
+xiaochuan mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ xccode mcp [command]
 Dodajte MCP server svojoj konfiguraciji.
 
 ```bash
-xccode mcp add
+xiaochuan mcp add
 ```
 
 Ova naredba će vas voditi kroz dodavanje lokalnog ili udaljenog MCP servera.
@@ -193,13 +193,13 @@ Ova naredba će vas voditi kroz dodavanje lokalnog ili udaljenog MCP servera.
 Navedite sve konfigurirane MCP servere i njihov status veze.
 
 ```bash
-xccode mcp list
+xiaochuan mcp list
 ```
 
 Ili koristite kratku verziju.
 
 ```bash
-xccode mcp ls
+xiaochuan mcp ls
 ```
 
 ---
@@ -209,20 +209,20 @@ xccode mcp ls
 Autentifikujte se sa MCP serverom koji je omogućen za OAuth.
 
 ```bash
-xccode mcp auth [name]
+xiaochuan mcp auth [name]
 ```
 
 Ako ne navedete ime servera, od vas će biti zatraženo da izaberete neki od dostupnih servera koji podržavaju OAuth.
 Također možete navesti servere koji podržavaju OAuth i njihov status autentifikacije.
 
 ```bash
-xccode mcp auth list
+xiaochuan mcp auth list
 ```
 
 Ili koristite kratku verziju.
 
 ```bash
-xccode mcp auth ls
+xiaochuan mcp auth ls
 ```
 
 ---
@@ -232,7 +232,7 @@ xccode mcp auth ls
 Uklonite OAuth vjerodajnice za MCP server.
 
 ```bash
-xccode mcp logout [name]
+xiaochuan mcp logout [name]
 ```
 
 ---
@@ -242,7 +242,7 @@ xccode mcp logout [name]
 Otklanjanje grešaka (debug) OAuth veze sa MCP serverom.
 
 ```bash
-xccode mcp debug <name>
+xiaochuan mcp debug <name>
 ```
 
 ---
@@ -252,7 +252,7 @@ xccode mcp debug <name>
 Navedite sve dostupne modele konfiguriranih provajdera.
 
 ```bash
-xccode models [provider]
+xiaochuan models [provider]
 ```
 
 Ova naredba prikazuje sve modele dostupne kod vaših konfiguriranih provajdera u formatu `provider/model`.
@@ -260,7 +260,7 @@ Ovo je korisno za pronalaženje tačnog naziva modela za korištenje u [vašoj k
 Opciono možete proslijediti ID provajdera za filtriranje modela po tom dobavljaču.
 
 ```bash
-xccode models anthropic
+xiaochuan models anthropic
 ```
 
 #### Opcije
@@ -270,36 +270,36 @@ xccode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | Osvježite keš modela sa models.dev                                       |
 | <nobr><code>{"--verbose"}</code></nobr> | Koristite detaljniji izlaz modela (uključuje metapodatke poput troškova) |
 
-Koristite `--refresh` zastavicu da ažurirate keširanu listu modela. Ovo je korisno kada su novi modeli dodani provajderu i želite da ih vidite u Xccode.
+Koristite `--refresh` zastavicu da ažurirate keširanu listu modela. Ovo je korisno kada su novi modeli dodani provajderu i želite da ih vidite u Xiaochuan.
 
 ```bash
-xccode models --refresh
+xiaochuan models --refresh
 ```
 
 ---
 
 ### run
 
-Pokrenite Xccode u neinteraktivnom modu tako što ćete direktno proslijediti prompt.
+Pokrenite Xiaochuan u neinteraktivnom modu tako što ćete direktno proslijediti prompt.
 
 ```bash
-xccode run [message..]
+xiaochuan run [message..]
 ```
 
 Ovo je korisno za skriptiranje, automatizaciju ili kada želite brz odgovor bez pokretanja punog TUI-ja. Na primjer:
 
-```bash "xccode run"
-xccode run Explain the use of context in Go
+```bash "xiaochuan run"
+xiaochuan run Explain the use of context in Go
 ```
 
-Također možete priključiti pokrenutu `xccode serve` instancu kako biste izbjegli vrijeme hladnog pokretanja MCP servera pri svakom pokretanju:
+Također možete priključiti pokrenutu `xiaochuan serve` instancu kako biste izbjegli vrijeme hladnog pokretanja MCP servera pri svakom pokretanju:
 
 ```bash
 # Start a headless server in one terminal
-xccode serve
+xiaochuan serve
 
 # In another terminal, run commands that attach to it
-xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+xiaochuan run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### Opcije
@@ -315,9 +315,9 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f`   | Fajlovi koje treba priložiti poruci                                                           |
 | <nobr><code>{"--format"}</code></nobr>   |        | Format: default (formatiran) ili json (sirovi JSON događaji)                                  |
 | <nobr><code>{"--title"}</code></nobr>    |        | Naslov sesije (koristi skraćeni prompt ako nije navedena vrijednost)                          |
-| <nobr><code>{"--attach"}</code></nobr>   |        | Priključite na pokrenuti Xccode server (npr. http://localhost:4096)                         |
-| <nobr><code>{"--password"}</code></nobr> | `-p`   | Lozinka za osnovnu autentifikaciju (zadano: `XCCODE_SERVER_PASSWORD`)                       |
-| <nobr><code>{"--username"}</code></nobr> | `-u`   | Korisničko ime za osnovnu autentifikaciju (zadano: `XCCODE_SERVER_USERNAME` ili `xccode`) |
+| <nobr><code>{"--attach"}</code></nobr>   |        | Priključite na pokrenuti Xiaochuan server (npr. http://localhost:4096)                         |
+| <nobr><code>{"--password"}</code></nobr> | `-p`   | Lozinka za osnovnu autentifikaciju (zadano: `XIAOCHUAN_SERVER_PASSWORD`)                       |
+| <nobr><code>{"--username"}</code></nobr> | `-u`   | Korisničko ime za osnovnu autentifikaciju (zadano: `XIAOCHUAN_SERVER_USERNAME` ili `xiaochuan`) |
 | <nobr><code>{"--dir"}</code></nobr>      |        | Direktorij za pokretanje, ili putanja na udaljenom serveru pri spajanju                       |
 | <nobr><code>{"--variant"}</code></nobr>  |        | Varijanta modela (napor zaključivanja specifičan za provajdera)                               |
 | <nobr><code>{"--thinking"}</code></nobr> |        | Prikaži blokove razmišljanja                                                                  |
@@ -327,13 +327,13 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-Pokrenite Xccode headless server za API pristup. Pogledajte [server docs](/docs/server) za kompletan HTTP interfejs.
+Pokrenite Xiaochuan headless server za API pristup. Pogledajte [server docs](/docs/server) za kompletan HTTP interfejs.
 
 ```bash
-xccode serve
+xiaochuan serve
 ```
 
-Ovo pokreće HTTP server koji pruža API pristup funkcionalnosti Xccode-a bez TUI interfejsa. Postavite `XCCODE_SERVER_PASSWORD` da omogućite HTTP osnovnu auth (korisničko ime je zadano na `xccode`).
+Ovo pokreće HTTP server koji pruža API pristup funkcionalnosti Xiaochuan-a bez TUI interfejsa. Postavite `XIAOCHUAN_SERVER_PASSWORD` da omogućite HTTP osnovnu auth (korisničko ime je zadano na `xiaochuan`).
 
 #### Opcije
 
@@ -348,20 +348,20 @@ Ovo pokreće HTTP server koji pruža API pristup funkcionalnosti Xccode-a bez TU
 
 ### session
 
-Upravljajte Xccode sesijama.
+Upravljajte Xiaochuan sesijama.
 
 ```bash
-xccode session [command]
+xiaochuan session [command]
 ```
 
 ---
 
 #### list
 
-Navedite sve Xccode sesije.
+Navedite sve Xiaochuan sesije.
 
 ```bash
-xccode session list
+xiaochuan session list
 ```
 
 ##### Opcije
@@ -375,10 +375,10 @@ xccode session list
 
 ### stats
 
-Prikaži statistiku upotrebe tokena i troškova za vaše Xccode sesije.
+Prikaži statistiku upotrebe tokena i troškova za vaše Xiaochuan sesije.
 
 ```bash
-xccode stats
+xiaochuan stats
 ```
 
 #### Opcije
@@ -397,7 +397,7 @@ xccode stats
 Izvezite podatke sesije kao JSON.
 
 ```bash
-xccode export [sessionID]
+xiaochuan export [sessionID]
 ```
 
 Ako ne unesete ID sesije, od vas će biti zatraženo da odaberete neku od dostupnih sesija.
@@ -409,24 +409,24 @@ Ako ne unesete ID sesije, od vas će biti zatraženo da odaberete neku od dostup
 Uvezite podatke sesije iz JSON datoteke.
 
 ```bash
-xccode import <file>
+xiaochuan import <file>
 ```
 
 ```bash
-xccode import session.json
+xiaochuan import session.json
 ```
 
 ---
 
 ### web
 
-Pokrenite Xccode headless server sa web interfejsom.
+Pokrenite Xiaochuan headless server sa web interfejsom.
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-Ovo pokreće HTTP server i otvara web pretraživač za pristup Xccode-u preko web interfejsa. Postavite `XCCODE_SERVER_PASSWORD` da omogućite HTTP osnovnu auth (korisničko ime je zadano na `xccode`).
+Ovo pokreće HTTP server i otvara web pretraživač za pristup Xiaochuan-u preko web interfejsa. Postavite `XIAOCHUAN_SERVER_PASSWORD` da omogućite HTTP osnovnu auth (korisničko ime je zadano na `xiaochuan`).
 
 #### Opcije
 
@@ -444,7 +444,7 @@ Ovo pokreće HTTP server i otvara web pretraživač za pristup Xccode-u preko we
 Pokrenite ACP (Agent Client Protocol) server.
 
 ```bash
-xccode acp
+xiaochuan acp
 ```
 
 Ova naredba pokreće ACP server koji komunicira preko stdin/stdout koristeći nd-JSON.
@@ -461,10 +461,10 @@ Ova naredba pokreće ACP server koji komunicira preko stdin/stdout koristeći nd
 
 ### uninstall
 
-Deinstalirajte Xccode i uklonite sve povezane datoteke.
+Deinstalirajte Xiaochuan i uklonite sve povezane datoteke.
 
 ```bash
-xccode uninstall
+xiaochuan uninstall
 ```
 
 #### Opcije
@@ -480,22 +480,22 @@ xccode uninstall
 
 ### upgrade
 
-Ažurira Xccode na najnoviju verziju ili određenu verziju.
+Ažurira Xiaochuan na najnoviju verziju ili određenu verziju.
 
 ```bash
-xccode upgrade [target]
+xiaochuan upgrade [target]
 ```
 
 Za nadogradnju na najnoviju verziju.
 
 ```bash
-xccode upgrade
+xiaochuan upgrade
 ```
 
 Za nadogradnju na određenu verziju.
 
 ```bash
-xccode upgrade v0.1.48
+xiaochuan upgrade v0.1.48
 ```
 
 #### Opcije
@@ -508,7 +508,7 @@ xccode upgrade v0.1.48
 
 ## Globalne opcije
 
-Xccode CLI prihvata sljedeće globalne zastavice.
+Xiaochuan CLI prihvata sljedeće globalne zastavice.
 
 | Opcija                                     | Kratko | Opis                                      |
 | ------------------------------------------ | ------ | ----------------------------------------- |
@@ -521,33 +521,33 @@ Xccode CLI prihvata sljedeće globalne zastavice.
 
 ## Varijable okruženja
 
-Xccode se može konfigurirati pomoću varijabli okruženja.
+Xiaochuan se može konfigurirati pomoću varijabli okruženja.
 
 | Varijabla                             | Tip     | Opis                                                               |
 | ------------------------------------- | ------- | ------------------------------------------------------------------ |
-| `XCCODE_GIT_BASH_PATH`              | string  | Putanja do Git Bash izvršne datoteke na Windows-u                  |
-| `XCCODE_CONFIG`                     | string  | Putanja do konfiguracijskog fajla                                  |
-| `XCCODE_TUI_CONFIG`                 | string  | Putanja do TUI konfiguracijskog fajla                              |
-| `XCCODE_CONFIG_DIR`                 | string  | Putanja do konfiguracijskog direktorija                            |
-| `XCCODE_CONFIG_CONTENT`             | string  | Inline json konfiguracijski sadržaj                                |
-| `XCCODE_DISABLE_AUTOUPDATE`         | boolean | Onemogući automatske provjere ažuriranja                           |
-| `XCCODE_DISABLE_PRUNE`              | boolean | Onemogući brisanje (pruning) starih podataka                       |
-| `XCCODE_DISABLE_TERMINAL_TITLE`     | boolean | Onemogući automatsko ažuriranje naslova terminala                  |
-| `XCCODE_PERMISSION`                 | string  | Inline json konfiguracija dozvola                                  |
-| `XCCODE_DISABLE_DEFAULT_PLUGINS`    | boolean | Onemogući podrazumijevane dodatke (plugins)                        |
-| `XCCODE_DISABLE_LSP_DOWNLOAD`       | boolean | Onemogući automatsko preuzimanje LSP servera                       |
-| `XCCODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Omogući eksperimentalne modele                                     |
-| `XCCODE_DISABLE_AUTOCOMPACT`        | boolean | Onemogući automatsko sažimanje konteksta                           |
-| `XCCODE_DISABLE_CLAUDE_CODE`        | boolean | Onemogući čitanje iz `.claude` (prompt + vještine)                 |
-| `XCCODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Onemogući čitanje `~/.claude/CLAUDE.md`                            |
-| `XCCODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Onemogući učitavanje `.claude/skills`                              |
-| `XCCODE_DISABLE_MODELS_FETCH`       | boolean | Onemogući dohvaćanje modela iz udaljenih izvora                    |
-| `XCCODE_FAKE_VCS`                   | string  | Lažni VCS provajder za potrebe testiranja                          |
-| `XCCODE_CLIENT`                     | string  | Identifikator klijenta (zadano na `cli`)                           |
-| `XCCODE_ENABLE_EXA`                 | boolean | Omogući Exa alate za web pretraživanje                             |
-| `XCCODE_SERVER_PASSWORD`            | string  | Omogući osnovnu autentifikaciju za `serve`/`web`                   |
-| `XCCODE_SERVER_USERNAME`            | string  | Poništi osnovno korisničko ime autentifikacije (zadano `xccode`) |
-| `XCCODE_MODELS_URL`                 | string  | Prilagođeni URL za dohvaćanje konfiguracije modela                 |
+| `XIAOCHUAN_GIT_BASH_PATH`              | string  | Putanja do Git Bash izvršne datoteke na Windows-u                  |
+| `XIAOCHUAN_CONFIG`                     | string  | Putanja do konfiguracijskog fajla                                  |
+| `XIAOCHUAN_TUI_CONFIG`                 | string  | Putanja do TUI konfiguracijskog fajla                              |
+| `XIAOCHUAN_CONFIG_DIR`                 | string  | Putanja do konfiguracijskog direktorija                            |
+| `XIAOCHUAN_CONFIG_CONTENT`             | string  | Inline json konfiguracijski sadržaj                                |
+| `XIAOCHUAN_DISABLE_AUTOUPDATE`         | boolean | Onemogući automatske provjere ažuriranja                           |
+| `XIAOCHUAN_DISABLE_PRUNE`              | boolean | Onemogući brisanje (pruning) starih podataka                       |
+| `XIAOCHUAN_DISABLE_TERMINAL_TITLE`     | boolean | Onemogući automatsko ažuriranje naslova terminala                  |
+| `XIAOCHUAN_PERMISSION`                 | string  | Inline json konfiguracija dozvola                                  |
+| `XIAOCHUAN_DISABLE_DEFAULT_PLUGINS`    | boolean | Onemogući podrazumijevane dodatke (plugins)                        |
+| `XIAOCHUAN_DISABLE_LSP_DOWNLOAD`       | boolean | Onemogući automatsko preuzimanje LSP servera                       |
+| `XIAOCHUAN_ENABLE_EXPERIMENTAL_MODELS` | boolean | Omogući eksperimentalne modele                                     |
+| `XIAOCHUAN_DISABLE_AUTOCOMPACT`        | boolean | Onemogući automatsko sažimanje konteksta                           |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE`        | boolean | Onemogući čitanje iz `.claude` (prompt + vještine)                 |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Onemogući čitanje `~/.claude/CLAUDE.md`                            |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Onemogući učitavanje `.claude/skills`                              |
+| `XIAOCHUAN_DISABLE_MODELS_FETCH`       | boolean | Onemogući dohvaćanje modela iz udaljenih izvora                    |
+| `XIAOCHUAN_FAKE_VCS`                   | string  | Lažni VCS provajder za potrebe testiranja                          |
+| `XIAOCHUAN_CLIENT`                     | string  | Identifikator klijenta (zadano na `cli`)                           |
+| `XIAOCHUAN_ENABLE_EXA`                 | boolean | Omogući Exa alate za web pretraživanje                             |
+| `XIAOCHUAN_SERVER_PASSWORD`            | string  | Omogući osnovnu autentifikaciju za `serve`/`web`                   |
+| `XIAOCHUAN_SERVER_USERNAME`            | string  | Poništi osnovno korisničko ime autentifikacije (zadano `xiaochuan`) |
+| `XIAOCHUAN_MODELS_URL`                 | string  | Prilagođeni URL za dohvaćanje konfiguracije modela                 |
 
 ---
 
@@ -557,20 +557,20 @@ Ove varijable okruženja omogućavaju eksperimentalne karakteristike koje se mog
 
 | Varijabla                                       | Tip     | Opis                                                    |
 | ----------------------------------------------- | ------- | ------------------------------------------------------- |
-| `XCCODE_EXPERIMENTAL`                         | boolean | Omogući eksperimentalne funkcije pod zbirnom zastavicom |
-| `XCCODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Omogući otkrivanje ikona                                |
-| `XCCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Onemogući kopiranje pri odabiru u TUI                   |
-| `XCCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | Zadano vremensko ograničenje za bash naredbe u ms       |
-| `XCCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | Maksimalni izlazni tokeni za LLM odgovore               |
-| `XCCODE_EXPERIMENTAL_FILEWATCHER`             | boolean | Omogući praćenje datoteka za cijeli direktorij          |
-| `XCCODE_EXPERIMENTAL_OXFMT`                   | boolean | Omogući oxfmt formatter                                 |
-| `XCCODE_EXPERIMENTAL_LSP_TOOL`                | boolean | Omogući eksperimentalni LSP alat                        |
-| `XCCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Onemogući praćenje datoteka                             |
-| `XCCODE_EXPERIMENTAL_EXA`                     | boolean | Omogući eksperimentalne Exa funkcije                    |
-| `XCCODE_EXPERIMENTAL_LSP_TY`                  | boolean | Omogući TY LSP za python datoteke                       |
-| `XCCODE_EXPERIMENTAL_PLAN_MODE`               | boolean | Omogući Plan mod                                        |
-| `XCCODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Omogući eksperimentalni sistem događaja                 |
-| `XCCODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | Omogući nativnu putanju LLM zahtjeva                    |
-| `XCCODE_EXPERIMENTAL_PARALLEL`                | boolean | Omogući paralelno izvršavanje web pretrage              |
-| `XCCODE_EXPERIMENTAL_SCOUT`                   | boolean | Omogući Scout subagenta                                 |
-| `XCCODE_EXPERIMENTAL_WORKSPACES`              | boolean | Omogući podršku za radne prostore                       |
+| `XIAOCHUAN_EXPERIMENTAL`                         | boolean | Omogući eksperimentalne funkcije pod zbirnom zastavicom |
+| `XIAOCHUAN_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Omogući otkrivanje ikona                                |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Onemogući kopiranje pri odabiru u TUI                   |
+| `XIAOCHUAN_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | Zadano vremensko ograničenje za bash naredbe u ms       |
+| `XIAOCHUAN_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | Maksimalni izlazni tokeni za LLM odgovore               |
+| `XIAOCHUAN_EXPERIMENTAL_FILEWATCHER`             | boolean | Omogući praćenje datoteka za cijeli direktorij          |
+| `XIAOCHUAN_EXPERIMENTAL_OXFMT`                   | boolean | Omogući oxfmt formatter                                 |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TOOL`                | boolean | Omogući eksperimentalni LSP alat                        |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Onemogući praćenje datoteka                             |
+| `XIAOCHUAN_EXPERIMENTAL_EXA`                     | boolean | Omogući eksperimentalne Exa funkcije                    |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TY`                  | boolean | Omogući TY LSP za python datoteke                       |
+| `XIAOCHUAN_EXPERIMENTAL_PLAN_MODE`               | boolean | Omogući Plan mod                                        |
+| `XIAOCHUAN_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Omogući eksperimentalni sistem događaja                 |
+| `XIAOCHUAN_EXPERIMENTAL_NATIVE_LLM`              | boolean | Omogući nativnu putanju LLM zahtjeva                    |
+| `XIAOCHUAN_EXPERIMENTAL_PARALLEL`                | boolean | Omogući paralelno izvršavanje web pretrage              |
+| `XIAOCHUAN_EXPERIMENTAL_SCOUT`                   | boolean | Omogući Scout subagenta                                 |
+| `XIAOCHUAN_EXPERIMENTAL_WORKSPACES`              | boolean | Omogući podršku za radne prostore                       |

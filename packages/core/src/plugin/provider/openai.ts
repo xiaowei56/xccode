@@ -1,6 +1,6 @@
-import type { IntegrationOAuthMethodRegistration } from "@xccode/plugin/effect/integration"
-import { define } from "@xccode/plugin/effect/plugin"
-import type { SessionRequest } from "@xccode/plugin/effect/session"
+import type { IntegrationOAuthMethodRegistration } from "@xiaochuan/plugin/effect/integration"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import type { SessionRequest } from "@xiaochuan/plugin/effect/session"
 import { Deferred, Effect, Option, Schema, Semaphore } from "effect"
 import type { Server } from "node:http"
 import { App } from "../../app.js"
@@ -235,7 +235,7 @@ const headless = (app: App.Info) =>
   }) satisfies IntegrationOAuthMethodRegistration
 
 export const OpenAIPlugin = define({
-  id: "xccode.provider.openai",
+  id: "xiaochuan.provider.openai",
   effect: Effect.fn(function* (ctx) {
     const loading = Semaphore.makeUnsafe(1)
     let chatgpt: Credential.OAuth | undefined
@@ -274,7 +274,7 @@ export const OpenAIPlugin = define({
         })
         if (!chatgpt) return
         provider.headers = Provider.mergeHeaders(provider.headers, {
-          originator: "xccode",
+          originator: "xiaochuan",
           "x-codex-beta-features": "remote_compaction_v2",
           ...(typeof account === "string" ? { "chatgpt-account-id": account } : {}),
         })
@@ -317,7 +317,7 @@ export const OpenAIPlugin = define({
           const session = yield* ctx.session
             .get({ sessionID: evt.sessionID })
             .pipe(Effect.orElseSucceed(() => undefined))
-          evt.headers.originator = "xccode"
+          evt.headers.originator = "xiaochuan"
           // ChatGPT routes its prompt cache on this header, so children share the parent's.
           evt.headers["session-id"] = session ? SessionAffinity.get(session) : evt.sessionID
         }),
@@ -417,7 +417,7 @@ function authorizeURL(redirect: string, pkce: Pkce, state: string) {
     id_token_add_organizations: "true",
     codex_cli_simplified_flow: "true",
     state,
-    originator: "xccode",
+    originator: "xiaochuan",
   })}`
 }
 

@@ -1,15 +1,15 @@
 import { describe, expect, test } from "bun:test"
-import { Message, Media } from "@xccode/ai/effect"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { SessionMessage } from "@xccode/core/session/message"
-import { AgentAttachment, Base64, FileAttachment, SkillAttachment } from "@xccode/schema/prompt"
-import { Skill } from "@xccode/schema/skill"
-import { toLLMMessages } from "@xccode/core/session/runner/to-llm-message"
-import { Agent } from "@xccode/core/agent"
-import { Shell } from "@xccode/schema/shell"
-import { Location } from "@xccode/schema/location"
-import { AbsolutePath } from "@xccode/schema/schema"
+import { Message, Media } from "@xiaochuan/ai/effect"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { AgentAttachment, Base64, FileAttachment, SkillAttachment } from "@xiaochuan/schema/prompt"
+import { Skill } from "@xiaochuan/schema/skill"
+import { toLLMMessages } from "@xiaochuan/core/session/runner/to-llm-message"
+import { Agent } from "@xiaochuan/core/agent"
+import { Shell } from "@xiaochuan/schema/shell"
+import { Location } from "@xiaochuan/schema/location"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
 import { DateTime } from "effect"
 import path from "path"
 import { pathToFileURL } from "url"
@@ -897,15 +897,15 @@ Earlier work
     ])
   })
 
-  test("replays flat state under an Xccode hosted model's route key", () => {
-    const xccode = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.xccode })
+  test("replays flat state under an Xiaochuan hosted model's route key", () => {
+    const xiaochuan = Model.Ref.make({ id: Model.ID.make("claude-fable-5"), providerID: Provider.ID.xiaochuan })
     const messages = toLLMMessages(
       [
         SessionMessage.Assistant.make({
-          id: id("assistant-xccode-reasoning"),
+          id: id("assistant-xiaochuan-reasoning"),
           type: "assistant",
           agent: build,
-          model: xccode,
+          model: xiaochuan,
           content: [
             SessionMessage.AssistantReasoning.make({
               type: "reasoning",
@@ -917,7 +917,7 @@ Earlier work
           time: { created, completed: created },
         }),
       ],
-      xccode,
+      xiaochuan,
       "anthropic",
     )
 

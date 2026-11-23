@@ -1,8 +1,8 @@
 //! Pair a device with the active server.
 
-use xccode_api::generated::{PairingCode, ServerInfo};
-use xccode_ui::dialog::{DialogCx, layout};
-use xccode_ui::keymap::Slash;
+use xiaochuan_api::generated::{PairingCode, ServerInfo};
+use xiaochuan_ui::dialog::{DialogCx, layout};
+use xiaochuan_ui::keymap::Slash;
 
 use crate::prelude::*;
 
@@ -48,16 +48,16 @@ pub struct Pairing {
 
 pub fn pairing(server: &ServerInfo, pairing: &PairingCode) -> Pairing {
     let link = |base: &url::Url| {
-        xccode_api::js::join_url(base, &format!("/auth/connect/{}", pairing.code))
+        xiaochuan_api::js::join_url(base, &format!("/auth/connect/{}", pairing.code))
             .map(String::from)
             .unwrap_or_default()
     };
-    let urls: Vec<url::Url> = server.urls.iter().filter_map(|url| xccode_api::js::parse_url(url).ok()).collect();
+    let urls: Vec<url::Url> = server.urls.iter().filter_map(|url| xiaochuan_api::js::parse_url(url).ok()).collect();
     let localhost = server
         .urls
         .first()
-        .and_then(|url| xccode_api::js::parse_url(url).ok())
-        .and_then(|mut local| xccode_api::js::set_host(&mut local, Some("localhost")).ok().map(|()| local))
+        .and_then(|url| xiaochuan_api::js::parse_url(url).ok())
+        .and_then(|mut local| xiaochuan_api::js::set_host(&mut local, Some("localhost")).ok().map(|()| local))
         .map(|local| link(&local));
     Pairing {
         links: urls.iter().map(link).collect(),
@@ -72,7 +72,7 @@ fn load(tui: &Tui, loaded: Loaded, shown: Shown) {
     tui.app.spawn(
         async move {
             let (server, code) = futures_util::future::join(client.server_info(), client.server_pair()).await;
-            Ok::<_, xccode_api::error::Error>(pairing(&server?, &code?))
+            Ok::<_, xiaochuan_api::error::Error>(pairing(&server?, &code?))
         },
         move |_, result| {
             *loaded.borrow_mut() = Some(result.map_err(|error| error.to_string()));
@@ -136,7 +136,7 @@ fn content(cx: &DialogCx, value: &Pairing) -> View {
     side.add(&links);
     if value.loopback {
         side.add(
-            &Text::new(app, "Run `xccode service set hostname 0.0.0.0` to access the service remotely.")
+            &Text::new(app, "Run `xiaochuan service set hostname 0.0.0.0` to access the service remotely.")
                 .fg(theme.text.muted)
                 .wrap(WrapMode::Word),
         );
@@ -149,7 +149,7 @@ fn content(cx: &DialogCx, value: &Pairing) -> View {
         code.width(Length::Percent(100.0)).align_items(Align::Center);
     }
     if let Some(url) = value.links.first() {
-        code.add(&Text::new(app, xccode_ui::qr::render_unicode_compact(url, 1)).fg(theme.text.base));
+        code.add(&Text::new(app, xiaochuan_ui::qr::render_unicode_compact(url, 1)).fg(theme.text.base));
     }
 
     let row = View::new(app).gap(2).child(&side).child(&code);

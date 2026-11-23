@@ -1,4 +1,4 @@
-import { ProviderIcon } from "@xccode/ui/provider-icon"
+import { ProviderIcon } from "@xiaochuan/ui/provider-icon"
 import { createMemo, createSignal, For, Show } from "solid-js"
 import { ChartDataTable } from "../component/chart-data-table"
 import { useLanguage } from "../context/language"

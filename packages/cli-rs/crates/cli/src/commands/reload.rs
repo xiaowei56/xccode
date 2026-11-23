@@ -1,6 +1,6 @@
 use super::Context;
 use super::client::{block_on, connect};
-use xccode_util::error;
+use xiaochuan_util::error;
 
 pub fn run(context: &Context) -> error::Result<()> {
     block_on(async {

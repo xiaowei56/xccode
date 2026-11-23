@@ -1,7 +1,7 @@
 //! Route built-in plugin requests through the same fetch interface as external plugins.
 
-use xccode_api::client::{Body, Call};
-use xccode_plugin::abi;
+use xiaochuan_api::client::{Body, Call};
+use xiaochuan_plugin::abi;
 use serde::de::DeserializeOwned;
 use serde_json::Value;
 
@@ -43,8 +43,8 @@ pub(crate) fn call_of(fetch: abi::Fetch) -> Result<Call, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use xccode_api::client::{Auth, Client};
-    use xccode_api::generated::{
+    use xiaochuan_api::client::{Auth, Client};
+    use xiaochuan_api::generated::{
         ExperimentalSessionStatsInput, ExperimentalSessionStatsInputTools, SessionGenerateInput, SessionID,
     };
 

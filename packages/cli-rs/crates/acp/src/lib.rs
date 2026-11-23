@@ -1,4 +1,4 @@
-//! `xccode acp` serves the Agent Client Protocol over stdio and starts a private HTTP server for the session.
+//! `xiaochuan acp` serves the Agent Client Protocol over stdio and starts a private HTTP server for the session.
 
 pub mod agent;
 pub mod capabilities;
@@ -27,8 +27,8 @@ use std::path::Path;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use xccode_api::client::Client;
-use xccode_api::transport::Reqwest;
+use xiaochuan_api::client::Client;
+use xiaochuan_api::transport::Reqwest;
 use tokio::io::{AsyncRead, AsyncWrite};
 use tokio_util::sync::CancellationToken;
 
@@ -82,13 +82,13 @@ where
     connection::run(connection, writer, input, output, Arc::new(agent::Agent { service })).await
 }
 
-/// `xccode acp`: starts the private server with `server_command` (`TsCommand::standalone`), serves
+/// `xiaochuan acp`: starts the private server with `server_command` (`TsCommand::standalone`), serves
 /// stdio, and returns the failure to report, if any. The caller exits 1 when there is one.
 pub fn run(
     server_command: &[OsString],
     print_logs: bool,
     version: &str,
-) -> xccode_util::error::Result<Option<String>> {
+) -> xiaochuan_util::error::Result<Option<String>> {
     let runtime = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build()?;
     let cwd = std::env::current_dir()?;
     let result = runtime.block_on(serve_stdio(server_command, &cwd, print_logs, version));
@@ -102,8 +102,8 @@ async fn serve_stdio(
     cwd: &Path,
     print_logs: bool,
     version: &str,
-) -> xccode_util::error::Result<Option<String>> {
-    let mut server = xccode_service::standalone::start(server_command, cwd, print_logs).await?;
+) -> xiaochuan_util::error::Result<Option<String>> {
+    let mut server = xiaochuan_service::standalone::start(server_command, cwd, print_logs).await?;
     let client = server.endpoint.client(Arc::new(Reqwest::default()))?;
     let served = serve(client, tokio::io::stdin(), tokio::io::stdout(), Options::new(version));
     tokio::select! {

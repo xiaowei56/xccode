@@ -703,7 +703,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
 
 [[package]]
-name = "xccode-acp"
+name = "xiaochuan-acp"
 version = "0.1.0"
 dependencies = [
  "base64",
@@ -711,9 +711,9 @@ dependencies = [
  "futures-util",
  "indexmap",
  "log",
- "xccode-api",
- "xccode-service",
- "xccode-util",
+ "xiaochuan-api",
+ "xiaochuan-service",
+ "xiaochuan-util",
  "percent-encoding",
  "regex",
  "serde_json",
@@ -723,7 +723,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-api"
+name = "xiaochuan-api"
 version = "0.1.0"
 dependencies = [
  "base64",
@@ -733,8 +733,8 @@ dependencies = [
  "indexmap",
  "log",
  "memchr",
- "xccode-api-types",
- "xccode-util",
+ "xiaochuan-api-types",
+ "xiaochuan-util",
  "percent-encoding",
  "rand",
  "reqwest",
@@ -750,7 +750,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-api-types"
+name = "xiaochuan-api-types"
 version = "0.1.0"
 dependencies = [
  "bytes",
@@ -762,7 +762,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-cli"
+name = "xiaochuan-cli"
 version = "0.1.0"
 dependencies = [
  "base64",
@@ -770,18 +770,18 @@ dependencies = [
  "indexmap",
  "libc",
  "log",
- "xccode-acp",
- "xccode-api",
- "xccode-latex",
- "xccode-local",
- "xccode-mermaid",
- "xccode-mini",
- "xccode-plugin",
- "xccode-service",
- "xccode-store",
- "xccode-tui",
- "xccode-ui",
- "xccode-util",
+ "xiaochuan-acp",
+ "xiaochuan-api",
+ "xiaochuan-latex",
+ "xiaochuan-local",
+ "xiaochuan-mermaid",
+ "xiaochuan-mini",
+ "xiaochuan-plugin",
+ "xiaochuan-service",
+ "xiaochuan-store",
+ "xiaochuan-tui",
+ "xiaochuan-ui",
+ "xiaochuan-util",
  "opentui",
  "regex",
  "reqwest",
@@ -794,12 +794,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-drive"
+name = "xiaochuan-drive"
 version = "0.1.0"
 dependencies = [
  "log",
- "xccode-api-types",
- "xccode-util",
+ "xiaochuan-api-types",
+ "xiaochuan-util",
  "opentui",
  "serde",
  "serde_json",
@@ -807,13 +807,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-latex"
+name = "xiaochuan-latex"
 version = "0.1.0"
 dependencies = [
- "xccode-parity",
- "xccode-plugin",
- "xccode-plugin-abi",
- "xccode-ui",
+ "xiaochuan-parity",
+ "xiaochuan-plugin",
+ "xiaochuan-plugin-abi",
+ "xiaochuan-ui",
  "opentui",
  "serde_json",
  "unicode-segmentation",
@@ -821,15 +821,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-local"
+name = "xiaochuan-local"
 version = "0.1.0"
 dependencies = [
  "base64",
  "indexmap",
  "log",
  "notify",
- "xccode-api-types",
- "xccode-util",
+ "xiaochuan-api-types",
+ "xiaochuan-util",
  "rand",
  "rustix",
  "serde",
@@ -839,14 +839,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-mermaid"
+name = "xiaochuan-mermaid"
 version = "0.1.0"
 dependencies = [
  "indexmap",
- "xccode-parity",
- "xccode-plugin",
- "xccode-plugin-abi",
- "xccode-ui",
+ "xiaochuan-parity",
+ "xiaochuan-plugin",
+ "xiaochuan-plugin-abi",
+ "xiaochuan-ui",
  "opentui",
  "regex",
  "serde_json",
@@ -854,17 +854,17 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-mini"
+name = "xiaochuan-mini"
 version = "0.1.0"
 dependencies = [
  "futures-util",
  "indexmap",
  "log",
- "xccode-api",
- "xccode-local",
- "xccode-store",
- "xccode-ui",
- "xccode-util",
+ "xiaochuan-api",
+ "xiaochuan-local",
+ "xiaochuan-store",
+ "xiaochuan-ui",
+ "xiaochuan-util",
  "opentui",
  "rustix",
  "serde",
@@ -874,7 +874,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-parity"
+name = "xiaochuan-parity"
 version = "0.1.0"
 dependencies = [
  "opentui",
@@ -884,16 +884,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-plugin"
+name = "xiaochuan-plugin"
 version = "0.1.0"
 dependencies = [
  "libc",
  "log",
  "mlua",
- "xccode-api-types",
- "xccode-plugin-abi",
- "xccode-ui",
- "xccode-util",
+ "xiaochuan-api-types",
+ "xiaochuan-plugin-abi",
+ "xiaochuan-ui",
+ "xiaochuan-util",
  "opentui",
  "ring",
  "serde",
@@ -904,25 +904,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-plugin-abi"
+name = "xiaochuan-plugin-abi"
 version = "0.1.0"
 dependencies = [
- "xccode-api-types",
+ "xiaochuan-api-types",
  "serde",
  "serde_json",
 ]
 
 [[package]]
-name = "xccode-service"
+name = "xiaochuan-service"
 version = "0.1.0"
 dependencies = [
  "base64",
  "bytes",
  "futures-util",
  "log",
- "xccode-api",
- "xccode-local",
- "xccode-util",
+ "xiaochuan-api",
+ "xiaochuan-local",
+ "xiaochuan-util",
  "rand",
  "reqwest",
  "rustix",
@@ -933,17 +933,17 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-store"
+name = "xiaochuan-store"
 version = "0.1.0"
 dependencies = [
  "bytes",
  "futures-util",
  "indexmap",
  "log",
- "xccode-api",
- "xccode-local",
- "xccode-service",
- "xccode-util",
+ "xiaochuan-api",
+ "xiaochuan-local",
+ "xiaochuan-service",
+ "xiaochuan-util",
  "serde",
  "serde_json",
  "tokio",
@@ -951,7 +951,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-tui"
+name = "xiaochuan-tui"
 version = "0.1.0"
 dependencies = [
  "base64",
@@ -959,17 +959,17 @@ dependencies = [
  "futures-util",
  "indexmap",
  "log",
- "xccode-api",
- "xccode-drive",
- "xccode-latex",
- "xccode-local",
- "xccode-mermaid",
- "xccode-parity",
- "xccode-plugin",
- "xccode-plugin-abi",
- "xccode-store",
- "xccode-ui",
- "xccode-util",
+ "xiaochuan-api",
+ "xiaochuan-drive",
+ "xiaochuan-latex",
+ "xiaochuan-local",
+ "xiaochuan-mermaid",
+ "xiaochuan-parity",
+ "xiaochuan-plugin",
+ "xiaochuan-plugin-abi",
+ "xiaochuan-store",
+ "xiaochuan-ui",
+ "xiaochuan-util",
  "opentui",
  "rand",
  "regex",
@@ -982,15 +982,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-ui"
+name = "xiaochuan-ui"
 version = "0.1.0"
 dependencies = [
  "base64",
  "indexmap",
  "log",
- "xccode-api-types",
- "xccode-parity",
- "xccode-util",
+ "xiaochuan-api-types",
+ "xiaochuan-parity",
+ "xiaochuan-util",
  "opentui",
  "regex",
  "serde",
@@ -1034,7 +1034,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-util"
+name = "xiaochuan-util"
 version = "0.1.0"
 dependencies = [
  "libc",

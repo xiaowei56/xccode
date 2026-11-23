@@ -83,20 +83,20 @@ test("results of an earlier search never open the list for later input", () => {
 
 test.each([
   ["~/op", 0],
-  ["~/xccode/", -1],
+  ["~/xiaochuan/", -1],
   ["C:\\Users\\luke\\", -1],
   ["~", -1],
   ["~/", -1],
   ["/", -1],
 ])("%p highlights suggestion %p until the user steps", (input, active) => {
-  const items = [directory("/home/luke/xccode"), directory("/home/luke/opera")]
+  const items = [directory("/home/luke/xiaochuan"), directory("/home/luke/opera")]
   const state = opened(input, items)
   const entered = run([key("Enter")], state)
 
   expect(pickerComboboxView(state).active).toBe(active)
   expect(entered.effects.at(-1)).toEqual({
     type: "choose.directory",
-    path: active === 0 ? "/home/luke/xccode" : input,
+    path: active === 0 ? "/home/luke/xiaochuan" : input,
   })
   expect(pickerComboboxView(run([key("ArrowDown")], state).state).active).toBe(active === 0 ? 1 : 0)
 })
@@ -160,16 +160,16 @@ test("hovering the active item again keeps the same state", () => {
 
 test("Tab completes a folder and searches inside it, and chooses a file", () => {
   const files = { ...context, policy: pickerMode("file", "/projects") }
-  const state = opened("~/op", [directory("/home/luke/xccode")])
+  const state = opened("~/op", [directory("/home/luke/xiaochuan")])
   const folder = run([key("Tab")], state)
   const file = { absolute: "/projects/src/index.ts", type: "file" as const }
   const typed = run([{ type: "input.changed", value: "src/in" }], createPickerComboboxState(), files)
   const listed = run([{ type: "search.resolved", attempt: attempt(typed.state), items: [file] }], typed.state, files)
 
   expect(folder.preventDefault).toBeTrue()
-  expect(folder.state).toMatchObject({ status: "loading", input: "~/xccode/" })
+  expect(folder.state).toMatchObject({ status: "loading", input: "~/xiaochuan/" })
   expect(folder.effects).toEqual([
-    { type: "search.start", attempt: attempt(state) + 1, query: "~/xccode/", timeoutMs: 10_000 },
+    { type: "search.start", attempt: attempt(state) + 1, query: "~/xiaochuan/", timeoutMs: 10_000 },
   ])
 
   for (const event of [key("Tab"), { type: "item.clicked", index: 0 } as const]) {
@@ -181,11 +181,11 @@ test("Tab completes a folder and searches inside it, and chooses a file", () => 
 })
 
 test("clicking a folder suggestion chooses it and shows it as the input", () => {
-  const state = opened("~/op", [directory("/home/luke/xccode")])
+  const state = opened("~/op", [directory("/home/luke/xiaochuan")])
   const clicked = run([{ type: "item.clicked", index: 0 }], state)
 
-  expect(clicked.state).toMatchObject({ status: "closed", input: "~/xccode/" })
-  expect(clicked.effects).toEqual([{ type: "choose.directory", path: "/home/luke/xccode" }])
+  expect(clicked.state).toMatchObject({ status: "closed", input: "~/xiaochuan/" })
+  expect(clicked.effects).toEqual([{ type: "choose.directory", path: "/home/luke/xiaochuan" }])
 })
 
 test("input typed before the location resolves searches once the location arrives", () => {

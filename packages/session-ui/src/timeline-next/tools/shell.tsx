@@ -1,8 +1,8 @@
-import type { SessionMessageShell } from "@xccode/client/promise"
+import type { SessionMessageShell } from "@xiaochuan/client/promise"
 import { Predicate } from "effect"
-import { type UiI18n, useI18n } from "@xccode/ui/context/i18n"
-import { Badge } from "@xccode/ui/badge"
-import { TextShimmer } from "@xccode/ui/text-shimmer"
+import { type UiI18n, useI18n } from "@xiaochuan/ui/context/i18n"
+import { Badge } from "@xiaochuan/ui/badge"
+import { TextShimmer } from "@xiaochuan/ui/text-shimmer"
 import { createComputed, createEffect, createMemo, createSignal, on, onCleanup, Show, untrack } from "solid-js"
 import { useData } from "../../context"
 import {

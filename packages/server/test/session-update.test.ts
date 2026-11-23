@@ -1,5 +1,5 @@
 import { expect } from "bun:test"
-import { Session } from "@xccode/schema/session"
+import { Session } from "@xiaochuan/schema/session"
 import { Effect, Schema } from "effect"
 import { it } from "../../core/test/lib/effect"
 import { ServerFetch } from "../src/fetch"
@@ -17,7 +17,7 @@ const makeRequest = Effect.fn(function* () {
   return (path: string, method: string, body?: unknown) =>
     Effect.promise(async () => {
       const response = await handler(
-        new Request(`http://xccode.local${path}`, {
+        new Request(`http://xiaochuan.local${path}`, {
           method,
           headers: { "content-type": "application/json" },
           body: body === undefined ? undefined : JSON.stringify(body),

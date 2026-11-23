@@ -1,4 +1,4 @@
-import type { SessionInfo } from "@xccode/client/promise"
+import type { SessionInfo } from "@xiaochuan/client/promise"
 
 export const VIEW_RETRY_DELAY = 250
 

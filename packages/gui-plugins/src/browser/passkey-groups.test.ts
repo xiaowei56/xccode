@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import { createPasskeyGroups } from "./passkey-groups"
 
 const tab = (n: number) => Browser.TabID.make(`tab_${String(n).repeat(8)}-${String(n).repeat(4)}-${String(n).repeat(4)}-${String(n).repeat(4)}-${String(n).repeat(12)}`)

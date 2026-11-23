@@ -59,8 +59,8 @@ export namespace TimelineRow {
   }> {}
 
   /**
-   * `free-limit` marks Xccode Zen's daily free allowance running out and `go-limit` an Xccode Go subscription's
-   * usage limit. `budget-limit` marks an Xccode Console budget
+   * `free-limit` marks Xiaochuan Zen's daily free allowance running out and `go-limit` an Xiaochuan Go subscription's
+   * usage limit. `budget-limit` marks an Xiaochuan Console budget
    * on all spend pausing paid models, and `model-budget-limit` one pausing only the models it covers. `resetAt` is when
    * the allowance or budget comes back, if known.
    */

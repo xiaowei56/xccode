@@ -1,12 +1,12 @@
 import { initYoga } from "@textjs/core"
 import { createHostInput } from "@textjs/app/experimental"
 import { renderToConsole } from "@textjs/react"
-import { EmbeddedXccode } from "../.upstream/xccode-console/embed"
-import { createDemoClient } from "../.upstream/xccode-console/lib/demo"
+import { EmbeddedXiaochuan } from "../.upstream/xiaochuan-console/embed"
+import { createDemoClient } from "../.upstream/xiaochuan-console/lib/demo"
 
-// xccode.try(): Xccode Lite, the Xccode TUI built with Text.js, in sandbox mode. Its
+// xiaochuan.try(): Xiaochuan Lite, the Xiaochuan TUI built with Text.js, in sandbox mode. Its
 // in-memory backend scripts the agent, so nothing runs and nothing is installed. The source comes
-// from anomalyco/textjs (apps/xccode-console) at the commit script/build.ts pins. The site also
+// from anomalyco/textjs (apps/xiaochuan-console) at the commit script/build.ts pins. The site also
 // starts it on its own when a visitor opens DevTools (src/lib/console-api.ts).
 
 // Text.js 1.6 fetches Yoga's WebAssembly instead of carrying it inline. The build names the file
@@ -29,8 +29,8 @@ export async function start(options: { away?: () => boolean; onExit?: () => void
     stop()
     options.onExit?.()
   }
-  // The app sets its own theme (Xccode dark), like the native TUI.
-  const root = await renderToConsole(<EmbeddedXccode client={createDemoClient()} onExit={exit} />, {
+  // The app sets its own theme (Xiaochuan dark), like the native TUI.
+  const root = await renderToConsole(<EmbeddedXiaochuan client={createDemoClient()} onExit={exit} />, {
     responsive: true,
     input: input.engine,
   })

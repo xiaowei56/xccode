@@ -20,7 +20,7 @@ describe("Z.ai Images recorded", () => {
         model,
         prompt: "A simple flat red circle centered on a plain white background.",
         aspect: "1:1",
-        providerOptions: { quality: "standard", userID: "xccode-image-test" },
+        providerOptions: { quality: "standard", userID: "xiaochuan-image-test" },
       })
 
       expect(response.images).toHaveLength(1)

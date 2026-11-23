@@ -18,12 +18,12 @@ if (!semver.satisfies(process.versions.bun, expectedBunVersionRange)) {
 }
 
 const env = {
-  XCCODE_CHANNEL: process.env["XCCODE_CHANNEL"],
-  XCCODE_VERSION: process.env["XCCODE_VERSION"],
+  XIAOCHUAN_CHANNEL: process.env["XIAOCHUAN_CHANNEL"],
+  XIAOCHUAN_VERSION: process.env["XIAOCHUAN_VERSION"],
 }
 const CHANNEL = await (async () => {
-  if (env.XCCODE_CHANNEL) return env.XCCODE_CHANNEL
-  if (env.XCCODE_VERSION && !env.XCCODE_VERSION.startsWith("0.0.0-")) return "latest"
+  if (env.XIAOCHUAN_CHANNEL) return env.XIAOCHUAN_CHANNEL
+  if (env.XIAOCHUAN_VERSION && !env.XIAOCHUAN_VERSION.startsWith("0.0.0-")) return "latest"
   const branch = await $`git branch --show-current`.text().then((x) => x.trim())
   if (!branch) return "detached"
   const channel = branch.replace(/[^a-zA-Z0-9._-]/g, "-")
@@ -34,8 +34,8 @@ const IS_PREVIEW = CHANNEL !== "latest"
 
 // The release workflow's plan job owns release versions; builds only read them.
 const VERSION = (() => {
-  if (env.XCCODE_VERSION) return env.XCCODE_VERSION
-  if (!IS_PREVIEW) throw new Error("XCCODE_VERSION is required for latest-channel builds")
+  if (env.XIAOCHUAN_VERSION) return env.XIAOCHUAN_VERSION
+  if (!IS_PREVIEW) throw new Error("XIAOCHUAN_VERSION is required for latest-channel builds")
   return `0.0.0-${CHANNEL}-${previewBuildNumber()}`
 })()
 
@@ -47,7 +47,7 @@ function previewBuildNumber() {
   return runNumber
 }
 
-const bot = ["actions-user", "xccode", "xccode-agent[bot]"]
+const bot = ["actions-user", "xiaochuan", "xiaochuan-agent[bot]"]
 const teamPath = path.resolve(import.meta.dir, "../../../.github/TEAM_MEMBERS")
 const team = [
   ...(await Bun.file(teamPath)
@@ -71,4 +71,4 @@ export const Script = {
     return team
   },
 }
-console.log(`xccode script`, JSON.stringify(Script, null, 2))
+console.log(`xiaochuan script`, JSON.stringify(Script, null, 2))

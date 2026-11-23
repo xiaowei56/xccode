@@ -1,9 +1,9 @@
-import { Button } from "@xccode/ui/button"
-import { Dialog, DialogFooter, DialogHeader, DialogTitleGroup } from "@xccode/ui/dialog"
-import { Icon } from "@xccode/ui/icon"
-import { showToast, toaster } from "@xccode/ui/toast"
-import type { DialogHandle, IpcClient, SetupContext } from "@xccode/plugin/gui"
-import type { Updater } from "@xccode/plugin/gui/updater"
+import { Button } from "@xiaochuan/ui/button"
+import { Dialog, DialogFooter, DialogHeader, DialogTitleGroup } from "@xiaochuan/ui/dialog"
+import { Icon } from "@xiaochuan/ui/icon"
+import { showToast, toaster } from "@xiaochuan/ui/toast"
+import type { DialogHandle, IpcClient, SetupContext } from "@xiaochuan/plugin/gui"
+import type { Updater } from "@xiaochuan/plugin/gui/updater"
 import type definition from "./index"
 
 type Client = IpcClient<typeof Updater.spec>

@@ -25,7 +25,7 @@ import { Cause, Clock, Data, Deferred, Duration, Effect, Option, Schema } from "
 import { FetchHttpClient } from "effect/http"
 import type { ServerResponse } from "node:http"
 import type { AddressInfo } from "node:net"
-import { ConfigMCP } from "@xccode/schema/config/mcp"
+import { ConfigMCP } from "@xiaochuan/schema/config/mcp"
 import { Credential } from "../credential.js"
 import { OauthCallbackPage } from "../oauth/page.js"
 import { OauthRedirect } from "../oauth/redirect.js"
@@ -33,7 +33,7 @@ import type { Integration } from "../integration.js"
 import { ErrorSummary } from "../util/error-summary.js"
 
 /** Client ID Metadata Document: servers that support CIMD accept this URL as the client_id without registration. */
-export const CLIENT_METADATA_URL = "https://xccode.ai/oauth/xccode/client.json"
+export const CLIENT_METADATA_URL = "https://xiaochuan.ai/oauth/xiaochuan/client.json"
 
 // The authorization server refused the refresh token or the client: only a new login helps.
 class RefreshRejected extends Data.TaggedError("McpOAuth.RefreshRejected")<{ readonly message: string }> {}
@@ -164,9 +164,9 @@ const provider = (options: Options): OAuthClientProvider => {
     state: () => redirect.state,
     clientMetadata: {
       redirect_uris: redirect.registered,
-      client_name: "xccode",
-      client_uri: "https://xccode.ai",
-      logo_uri: "https://xccode.ai/web-app-manifest-512x512.png",
+      client_name: "xiaochuan",
+      client_uri: "https://xiaochuan.ai",
+      logo_uri: "https://xiaochuan.ai/web-app-manifest-512x512.png",
       grant_types: ["authorization_code", "refresh_token"],
       response_types: ["code"],
       token_endpoint_auth_method: client?.client_secret ? "client_secret_post" : "none",
@@ -513,7 +513,7 @@ export const authorize = (input: {
           jsonrpc: "2.0",
           id: 0,
           method: "initialize",
-          params: { protocolVersion: LATEST_PROTOCOL_VERSION, capabilities: {}, clientInfo: { name: "xccode" } },
+          params: { protocolVersion: LATEST_PROTOCOL_VERSION, capabilities: {}, clientInfo: { name: "xiaochuan" } },
         }),
         signal,
       }),

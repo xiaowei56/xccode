@@ -4,10 +4,10 @@ use std::collections::BTreeMap;
 use std::sync::{Arc, Mutex};
 
 use base64::Engine;
-use xccode_api::client::{Auth, Client};
-use xccode_api::generated::*;
-use xccode_api::query;
-use xccode_api::transport::{BoxFuture, Request, Response, Transport};
+use xiaochuan_api::client::{Auth, Client};
+use xiaochuan_api::generated::*;
+use xiaochuan_api::query;
+use xiaochuan_api::transport::{BoxFuture, Request, Response, Transport};
 use serde_json::{Value, json};
 
 /// Records every request and fails it, as the TypeScript oracle's fetch does.
@@ -30,7 +30,7 @@ async fn requests_match_the_typescript_client() {
     let record = Arc::new(Record::default());
     let client = Client::with_transport("http://127.0.0.1:4096/prefix", record.clone())
         .unwrap()
-        .auth(Auth::Basic { username: "xccode".to_owned(), password: "secret".to_owned() });
+        .auth(Auth::Basic { username: "xiaochuan".to_owned(), password: "secret".to_owned() });
     let location = |directory: &str| Some(LocationQueryInput { directory: Some(directory.to_owned()) });
     let _ = client.config_get(&ConfigGetInput { location: location("/tmp/a b&c=d") }).await;
     let _ = client
@@ -44,7 +44,7 @@ async fn requests_match_the_typescript_client() {
         })
         .await;
     let _ = client
-        .with_header("X-Xccode-Directory", "/override")
+        .with_header("X-Xiaochuan-Directory", "/override")
         .session_get(&SessionGetInput { session_id: "ses_1 /?#%".into() })
         .await;
     let _ = client.file_read(&FileReadInput { location: location("/w"), path: "dir/a b/c#?.txt".to_owned() }).await;

@@ -1,4 +1,4 @@
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import { Option, Schema } from "effect"
 
 /** Do not echo schema diagnostics: they can contain page text and file contents. A command may already have run. */

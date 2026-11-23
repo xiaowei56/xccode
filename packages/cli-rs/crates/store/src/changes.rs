@@ -3,7 +3,7 @@
 
 use std::collections::{HashMap, HashSet, VecDeque};
 
-use xccode_api::generated::{AgentID, ModelRef, SessionID, SessionMessageID};
+use xiaochuan_api::generated::{AgentID, ModelRef, SessionID, SessionMessageID};
 
 use crate::location::Location;
 

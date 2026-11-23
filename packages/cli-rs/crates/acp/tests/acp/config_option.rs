@@ -1,6 +1,6 @@
-use xccode_acp::catalog::{Catalog, Mode};
-use xccode_acp::config_option::{Selection, config_options, parse_model_selection};
-use xccode_api::generated::{ModelInfo, ModelRef, ProviderID};
+use xiaochuan_acp::catalog::{Catalog, Mode};
+use xiaochuan_acp::config_option::{Selection, config_options, parse_model_selection};
+use xiaochuan_api::generated::{ModelInfo, ModelRef, ProviderID};
 use serde_json::json;
 
 fn model(provider: &str, id: &str, name: &str, variants: &[&str]) -> ModelInfo {

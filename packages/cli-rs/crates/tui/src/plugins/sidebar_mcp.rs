@@ -1,15 +1,15 @@
 //! Foldable MCP status list for the session's location.
 
-use xccode_api::generated::McpServer;
-use xccode_plugin::abi::v2::{Node, Place, Surface};
-use xccode_plugin::abi::{self, Click, Command, Layout, Placement, Span, Wrap};
-use xccode_plugin::slot;
+use xiaochuan_api::generated::McpServer;
+use xiaochuan_plugin::abi::v2::{Node, Place, Surface};
+use xiaochuan_plugin::abi::{self, Click, Command, Layout, Placement, Span, Wrap};
+use xiaochuan_plugin::slot;
 use serde_json::json;
 
 use super::{hidden, kept};
 
 pub fn plugin() -> abi::Plugin {
-    abi::Plugin { id: "xccode.sidebar.mcp", setup }
+    abi::Plugin { id: "xiaochuan.sidebar.mcp", setup }
 }
 
 const FOLD: &str = "sidebar.mcp.fold";

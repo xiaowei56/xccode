@@ -2,9 +2,9 @@ import { TextField as Kobalte } from "@kobalte/core/text-field"
 import { createSignal, onCleanup, Show, splitProps, untrack } from "solid-js"
 import type { ComponentProps } from "solid-js"
 import { useI18n } from "../context/i18n"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Icon } from "@xccode/ui/icon"
-import { Tooltip } from "@xccode/ui/tooltip"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import {
   INITIAL_TEXT_FIELD_COPY_STATE,
   selectTextFieldCopied,

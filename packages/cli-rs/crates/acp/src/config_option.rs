@@ -1,6 +1,6 @@
-use xccode_api::generated::{ModelInfo, ModelRef, ProviderID};
-use xccode_api::js::locale_compare;
-use xccode_util::json_object;
+use xiaochuan_api::generated::{ModelInfo, ModelRef, ProviderID};
+use xiaochuan_api::js::locale_compare;
+use xiaochuan_util::json_object;
 use serde_json::{Value, json};
 
 use crate::catalog::{BUILTIN_COMMANDS, Catalog, find_model};

@@ -21,14 +21,14 @@ export function renderLlmsTxt(site: URL, set: DocsSet = latestDocs, navigation: 
   return [
     ...(set.id === "latest"
       ? [
-          "# Xccode V2 Documentation",
+          "# Xiaochuan V2 Documentation",
           "",
-          "> Official documentation for using, configuring, and building with Xccode V2.",
+          "> Official documentation for using, configuring, and building with Xiaochuan V2.",
         ]
       : [
-          "# Xccode V1 Documentation",
+          "# Xiaochuan V1 Documentation",
           "",
-          "> Documentation for Xccode V1. The latest docs, for Xccode V2, are at https://xccode.ai/docs/llms.txt.",
+          "> Documentation for Xiaochuan V1. The latest docs, for Xiaochuan V2, are at https://xiaochuan.ai/docs/llms.txt.",
         ]),
     "",
     ...sections,

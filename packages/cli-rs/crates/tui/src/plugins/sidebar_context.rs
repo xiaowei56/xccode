@@ -2,15 +2,15 @@
 
 use std::cell::RefCell;
 
-use xccode_api::generated::{ModelInfo, SessionMessageCompaction, SessionMessageInfo};
-use xccode_plugin::abi::v2::{Node, Place, Surface};
-use xccode_plugin::abi::{self, Changed, Placement, Span};
-use xccode_plugin::slot;
+use xiaochuan_api::generated::{ModelInfo, SessionMessageCompaction, SessionMessageInfo};
+use xiaochuan_plugin::abi::v2::{Node, Place, Surface};
+use xiaochuan_plugin::abi::{self, Changed, Placement, Span};
+use xiaochuan_plugin::slot;
 
 use super::{hidden, kept};
 
 pub fn plugin() -> abi::Plugin {
-    abi::Plugin { id: "xccode.sidebar.context", setup }
+    abi::Plugin { id: "xiaochuan.sidebar.context", setup }
 }
 
 const ROOT: &str = "context";

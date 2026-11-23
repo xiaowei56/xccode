@@ -1,4 +1,4 @@
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import type { Protocol } from "devtools-protocol"
 import type { Cdp } from "./cdp"
 import {

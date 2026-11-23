@@ -1,5 +1,5 @@
 import { createMemo, createSignal, onCleanup, untrack } from "solid-js"
-import { createKeyed } from "@xccode/plugin/gui"
+import { createKeyed } from "@xiaochuan/plugin/gui"
 import {
   transitionWorker,
   workerLoading,

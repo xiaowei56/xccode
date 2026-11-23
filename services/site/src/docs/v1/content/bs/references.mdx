@@ -3,20 +3,20 @@ title: Reference
 description: Dodajte lokalne direktorije i Git repozitorije kao reference projekta.
 ---
 
-Reference daju Xccode pristup direktorijima izvan trenutnog projekta. Koristite ih da dokumentaciju, dijeljene biblioteke, primjere ili drugi repozitorij učinite dostupnim dok radite.
+Reference daju Xiaochuan pristup direktorijima izvan trenutnog projekta. Koristite ih da dokumentaciju, dijeljene biblioteke, primjere ili drugi repozitorij učinite dostupnim dok radite.
 
-Reference se konfigurišu po aliasu u `xccode.json` ili `xccode.jsonc`.
+Reference se konfigurišu po aliasu u `xiaochuan.json` ili `xiaochuan.jsonc`.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "references": {
     "docs": {
       "path": "../product-docs",
       "description": "Use for product behavior and documentation conventions",
     },
     "sdk": {
-      "repository": "xiaowei56/xccode-sdk-js",
+      "repository": "xiaowei56/xiaochuan-sdk-js",
       "branch": "main",
       "description": "Use for JavaScript SDK implementation details",
     },
@@ -30,7 +30,7 @@ Reference se konfigurišu po aliasu u `xccode.json` ili `xccode.jsonc`.
 
 Koristite `path` da referencirate lokalni direktorij.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "docs": {
@@ -48,7 +48,7 @@ Putanje mogu biti:
 
 Možete koristiti i skraćeni zapis u obliku stringa:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "docs": "../docs",
@@ -60,9 +60,9 @@ Možete koristiti i skraćeni zapis u obliku stringa:
 
 ## Git repozitoriji
 
-Koristite `repository` da referencirate Git repozitorij. Xccode materijalizira repozitorij u svom lokalnom kešu repozitorija i čini preuzeti izvorni kod dostupnim kao direktorij reference.
+Koristite `repository` da referencirate Git repozitorij. Xiaochuan materijalizira repozitorij u svom lokalnom kešu repozitorija i čini preuzeti izvorni kod dostupnim kao direktorij reference.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "effect": {
@@ -73,11 +73,11 @@ Koristite `repository` da referencirate Git repozitorij. Xccode materijalizira r
 }
 ```
 
-`repository` prihvata Git URL-ove, host/path reference i GitHub skraćenicu `owner/repo`. Opcionalno polje `branch` bira granu ili ref. Bez `branch`, Xccode koristi zadanu granu repozitorija.
+`repository` prihvata Git URL-ove, host/path reference i GitHub skraćenicu `owner/repo`. Opcionalno polje `branch` bira granu ili ref. Bez `branch`, Xiaochuan koristi zadanu granu repozitorija.
 
 Skraćeni zapis u obliku stringa možete koristiti kada vam ne trebaju grana, opis ili druge opcije:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "effect": "Effect-TS/effect",
@@ -95,7 +95,7 @@ Git reference se osvježavaju asinhrono. Novokonfigurisanom repozitoriju može t
 
 Dodajte `description` da objasnite kada agent treba koristiti referencu.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "design-system": {
@@ -106,7 +106,7 @@ Dodajte `description` da objasnite kada agent treba koristiti referencu.
 }
 ```
 
-Xccode uključuje reference s opisima u kontekst agenta. Opisi trebaju biti kratki i dovoljno konkretni da razlikuju reference sa sličnim sadržajem. Reference bez opisa ostaju dostupne putem automatskog dovršavanja i direktne upotrebe, ali se ne predstavljaju agentima.
+Xiaochuan uključuje reference s opisima u kontekst agenta. Opisi trebaju biti kratki i dovoljno konkretni da razlikuju reference sa sličnim sadržajem. Reference bez opisa ostaju dostupne putem automatskog dovršavanja i direktne upotrebe, ali se ne predstavljaju agentima.
 
 ---
 
@@ -114,7 +114,7 @@ Xccode uključuje reference s opisima u kontekst agenta. Opisi trebaju biti krat
 
 Postavite `hidden` na `true` da izostavite referencu iz `@` automatskog dovršavanja u TUI.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "internal": {
@@ -140,7 +140,7 @@ Compare this implementation with @sdk/src/client.ts
 
 Agenti u svom sistemskom kontekstu također dobijaju razriješene putanje i opise konfigurisanih referenci koje imaju opise, tako da mogu pregledati referencu kada je relevantna, bez da je vi ručno prilažete.
 
-Xccode automatski dozvoljava direktorije referenci kroz svoju granicu dozvola za vanjske direktorije. Uobičajene dozvole alata i dalje važe; na primjer, agent koji ne može uređivati datoteke ne dobija pravo uređivanja samo zato što je direktorij konfigurisan kao referenca.
+Xiaochuan automatski dozvoljava direktorije referenci kroz svoju granicu dozvola za vanjske direktorije. Uobičajene dozvole alata i dalje važe; na primjer, agent koji ne može uređivati datoteke ne dobija pravo uređivanja samo zato što je direktorij konfigurisan kao referenca.
 
 ---
 

@@ -3,7 +3,7 @@
 // with a long file path, at a narrow width.
 import { defineApp, session, user } from "../../lib/app"
 
-const directory = "/tmp/xccode/packages/tui"
+const directory = "/tmp/xiaochuan/packages/tui"
 const long = "src/components/navigation/sidebar/sections/project-tree/expanded-folder-row.tsx"
 
 const tool = (id: string, name: string, state: Record<string, unknown>) => ({

@@ -4,15 +4,15 @@ import path from "path"
 import { pathToFileURL } from "node:url"
 import {
   ClientError,
-  Xccode,
+  Xiaochuan,
   type EventSubscribeOutput,
   type FormInfo,
   type MessageListOutput,
-  type XccodeClient,
+  type XiaochuanClient,
   type PermissionRequest,
   type SessionInboxInfo,
   type ToolContent,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import { createSessionTransport } from "../../src/mini/stream-v2.transport"
 import { runPromptQueue } from "../../src/mini/runtime.queue"
 import { entryBody } from "../../src/mini/entry.body"
@@ -80,7 +80,7 @@ function durable(sessionID: string, seq = 0, version: 1 | 2 = 1) {
   return { aggregateID: sessionID, seq, version }
 }
 
-function promptAdmission(input: Parameters<XccodeClient["session"]["prompt"]>[0], sessionID = "ses_1") {
+function promptAdmission(input: Parameters<XiaochuanClient["session"]["prompt"]>[0], sessionID = "ses_1") {
   return {
     id: input.id ?? "msg_prompt",
     sessionID,
@@ -152,13 +152,13 @@ function sdk(input: {
   globals?: FormInfo[]
   globalLocation?: { directory: string; workspaceID?: string }
   permissions?: Record<string, PermissionRequest[]>
-  pending?: Record<string, Awaited<ReturnType<XccodeClient["session"]["inbox"]["list"]>>>
+  pending?: Record<string, Awaited<ReturnType<XiaochuanClient["session"]["inbox"]["list"]>>>
   wait?: () => Promise<void>
 }) {
-  const client = Xccode.make({ baseUrl: "https://xccode.test" })
+  const client = Xiaochuan.make({ baseUrl: "https://xiaochuan.test" })
   let subscription = 0
   spyOn(client.event, "subscribe").mockImplementation(
-    (() => input.streams[subscription++]?.stream ?? feed().stream) as XccodeClient["event"]["subscribe"],
+    (() => input.streams[subscription++]?.stream ?? feed().stream) as XiaochuanClient["event"]["subscribe"],
   )
   spyOn(client.message, "list").mockImplementation((request) =>
     ok({
@@ -1360,7 +1360,7 @@ describe("V2 mini transport", () => {
       thinking: false,
       footer: ui.api,
     })
-    let request: Parameters<XccodeClient["session"]["prompt"]>[0] | undefined
+    let request: Parameters<XiaochuanClient["session"]["prompt"]>[0] | undefined
     spyOn(client.session, "prompt").mockImplementation((input) => {
       request = input
       queueMicrotask(() => {
@@ -1447,7 +1447,7 @@ describe("V2 mini transport", () => {
       thinking: false,
       footer: ui.api,
     })
-    let request: Parameters<XccodeClient["session"]["prompt"]>[0] | undefined
+    let request: Parameters<XiaochuanClient["session"]["prompt"]>[0] | undefined
     // The generated method has conditional return types for throwOnError; this mock represents the successful branch.
     // @ts-expect-error successful SDK response is valid for both modes at runtime
     spyOn(client.session, "prompt").mockImplementation((input) => {
@@ -1535,7 +1535,7 @@ describe("V2 mini transport", () => {
       thinking: false,
       footer: ui.api,
     })
-    let request: Parameters<XccodeClient["session"]["prompt"]>[0] | undefined
+    let request: Parameters<XiaochuanClient["session"]["prompt"]>[0] | undefined
     // The generated method has conditional return types for throwOnError; this mock represents the successful branch.
     // @ts-expect-error successful SDK response is valid for both modes at runtime
     spyOn(client.session, "prompt").mockImplementation((input) => {
@@ -1871,7 +1871,7 @@ describe("V2 mini transport", () => {
         cursor: {},
       })
     })
-    const current: XccodeClient[] = []
+    const current: XiaochuanClient[] = []
     const ui = footer()
     const transport = await createSessionTransport({
       sdk: first,
@@ -3036,7 +3036,7 @@ describe("V2 mini transport", () => {
       thinking: false,
       footer: ui.api,
     })
-    let request: Parameters<XccodeClient["session"]["shell"]>[0] | undefined
+    let request: Parameters<XiaochuanClient["session"]["shell"]>[0] | undefined
     spyOn(client.session, "shell").mockImplementation((input) => {
       request = input
       queueMicrotask(() => {
@@ -3053,7 +3053,7 @@ describe("V2 mini transport", () => {
               command: "ls",
               cwd: "/tmp",
               shell: "/bin/sh",
-              file: "/tmp/xccode-shell",
+              file: "/tmp/xiaochuan-shell",
               metadata: {},
               time: { started: 0 },
             },
@@ -3072,7 +3072,7 @@ describe("V2 mini transport", () => {
               command: "ls",
               cwd: "/tmp",
               shell: "/bin/sh",
-              file: "/tmp/xccode-shell",
+              file: "/tmp/xiaochuan-shell",
               exit: 0,
               metadata: {},
               time: { started: 0, completed: 1 },
@@ -3161,7 +3161,7 @@ describe("V2 mini transport", () => {
       thinking: false,
       footer: ui.api,
     })
-    let request: Parameters<XccodeClient["session"]["shell"]>[0] | undefined
+    let request: Parameters<XiaochuanClient["session"]["shell"]>[0] | undefined
     let complete!: () => void
     spyOn(client.session, "shell").mockImplementation((input) => {
       request = input
@@ -3317,7 +3317,7 @@ describe("V2 mini transport", () => {
           command: "ls",
           cwd: "/tmp",
           shell: "/bin/sh",
-          file: "/tmp/xccode-shell",
+          file: "/tmp/xiaochuan-shell",
           exit: 0,
           metadata: {},
           time: { started: 0, completed: 1 },
@@ -3423,7 +3423,7 @@ describe("V2 mini transport", () => {
       thinking: false,
       footer: ui.api,
     })
-    let request: Parameters<XccodeClient["session"]["command"]>[0] | undefined
+    let request: Parameters<XiaochuanClient["session"]["command"]>[0] | undefined
     spyOn(client.session, "command").mockImplementation((input) => {
       request = input
       queueMicrotask(() => {
@@ -3505,7 +3505,7 @@ describe("V2 mini transport", () => {
       thinking: false,
       footer: ui.api,
     })
-    let request: Parameters<XccodeClient["session"]["prompt"]>[0] | undefined
+    let request: Parameters<XiaochuanClient["session"]["prompt"]>[0] | undefined
     spyOn(client.session, "prompt").mockImplementation((input) => {
       request = input
       queueMicrotask(() => {

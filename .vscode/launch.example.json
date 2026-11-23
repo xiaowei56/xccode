@@ -4,7 +4,7 @@
     {
       "type": "bun",
       "request": "attach",
-      "name": "xccode (attach)",
+      "name": "xiaochuan (attach)",
       "url": "ws://localhost:6499/"
     }
   ]

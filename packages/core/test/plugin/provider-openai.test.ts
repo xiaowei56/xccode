@@ -1,24 +1,24 @@
-import { Money } from "@xccode/schema/money"
-import { Agent } from "@xccode/schema/agent"
-import { Session } from "@xccode/core/session"
-import { OpenAIResponses } from "@xccode/ai/protocols/openai-responses"
+import { Money } from "@xiaochuan/schema/money"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Session } from "@xiaochuan/core/session"
+import { OpenAIResponses } from "@xiaochuan/ai/protocols/openai-responses"
 import { describe, expect } from "bun:test"
 import { DateTime, Effect } from "effect"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { GithubCopilotPlugin } from "@xccode/core/plugin/provider/github-copilot"
-import { OpenAIPlugin } from "@xccode/core/plugin/provider/openai"
-import { Project } from "@xccode/core/project"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { SessionModelRequest } from "@xccode/core/session/model-request"
-import { SessionModelTransport } from "@xccode/core/session/model-transport"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { GithubCopilotPlugin } from "@xiaochuan/core/plugin/provider/github-copilot"
+import { OpenAIPlugin } from "@xiaochuan/core/plugin/provider/openai"
+import { Project } from "@xiaochuan/core/project"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { SessionModelRequest } from "@xiaochuan/core/session/model-request"
+import { SessionModelTransport } from "@xiaochuan/core/session/model-transport"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
 import { drain } from "../lib/clock"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
@@ -92,7 +92,7 @@ describe("OpenAIPlugin", () => {
       const credentials = yield* Credential.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.openai, (draft) => {
-          draft.package = "@xccode/ai/providers/openai"
+          draft.package = "@xiaochuan/ai/providers/openai"
         })
         catalog.models.update(Provider.ID.openai, Model.ID.make("gpt-5.5"), () => {})
         catalog.models.update(Provider.ID.openai, Model.ID.make("gpt-5.3-codex-spark"), () => {})
@@ -160,20 +160,20 @@ describe("OpenAIPlugin", () => {
       const proxy = yield* request(Provider.ID.openai, "https://proxy.example/v1?region=us")
 
       const provider = required(yield* catalog.get(Provider.ID.openai))
-      expect(provider.package).toBe("@xccode/ai/providers/openai")
+      expect(provider.package).toBe("@xiaochuan/ai/providers/openai")
       expect(provider.settings).toMatchObject({ baseURL: "https://chatgpt.com/backend-api/codex" })
       expect(provider.settings?.encoding).toBe("zstd")
       expect(provider.headers).toMatchObject({
-        originator: "xccode",
+        originator: "xiaochuan",
         "chatgpt-account-id": "acct_123",
         "x-codex-beta-features": "remote_compaction_v2",
       })
       expect(direct.baseURL).toBe("https://chatgpt.com/backend-api/codex")
-      expect(direct.headers).toMatchObject({ originator: "xccode", "session-id": "ses_test" })
+      expect(direct.headers).toMatchObject({ originator: "xiaochuan", "session-id": "ses_test" })
       expect(direct.hasHttpHooks).toBe(false)
       expect(custom.headers).not.toHaveProperty("originator")
       expect(proxy.baseURL).toBe("https://proxy.example/v1?region=us")
-      expect(proxy.headers).toMatchObject({ originator: "xccode", "session-id": "ses_test" })
+      expect(proxy.headers).toMatchObject({ originator: "xiaochuan", "session-id": "ses_test" })
       const sessions = yield* Session.Service
       const location = yield* Location.Service
       const parent = yield* sessions.create({ location: { directory: location.directory } })
@@ -181,8 +181,8 @@ describe("OpenAIPlugin", () => {
       const childRequest = yield* request(Provider.ID.openai, "https://api.openai.com/v1", child.id)
       expect(childRequest.headers).toMatchObject({ "session-id": parent.id })
       const eligible = required(yield* models.get(Provider.ID.openai, Model.ID.make("gpt-5.6-sol")))
-      expect(eligible.package).toBe("@xccode/ai/providers/openai")
-      expect(eligible.headers).toMatchObject({ originator: "xccode", "chatgpt-account-id": "acct_123" })
+      expect(eligible.package).toBe("@xiaochuan/ai/providers/openai")
+      expect(eligible.headers).toMatchObject({ originator: "xiaochuan", "chatgpt-account-id": "acct_123" })
       expect(eligible.cost).toEqual([])
       expect(eligible.limit).toEqual({ context: 1_050_000, input: 922_000, output: 128_000 })
       expect(eligible.enabled).toBe(true)
@@ -212,7 +212,7 @@ describe("OpenAIPlugin", () => {
       const credentials = yield* Credential.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.openai, (draft) => {
-          draft.package = "@xccode/ai/providers/openai"
+          draft.package = "@xiaochuan/ai/providers/openai"
         })
         catalog.models.update(Provider.ID.openai, Model.ID.make("gpt-5.5"), (model) => {
           model.limit = { context: 1_050_000, input: 922_000, output: 128_000 }
@@ -229,7 +229,7 @@ describe("OpenAIPlugin", () => {
 
       const provider = required(yield* catalog.get(Provider.ID.openai))
       const model = required(yield* models.get(Provider.ID.openai, Model.ID.make("gpt-5.5")))
-      expect(model.package).toBe("@xccode/ai/providers/openai")
+      expect(model.package).toBe("@xiaochuan/ai/providers/openai")
       expect(model.enabled).toBe(true)
       expect(model.limit).toEqual({ context: 1_050_000, input: 922_000, output: 128_000 })
       expect(provider.settings?.transport).toBe("websocket")

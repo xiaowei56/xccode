@@ -1,6 +1,6 @@
 export * as ConfigPolicyPlugin from "./policy.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 import { Effect, Stream } from "effect"
 import { Bus } from "../../bus.js"
 import { Config } from "../../config.js"
@@ -14,7 +14,7 @@ import { ConfigIntegration } from "../integration.js"
 import { ConfigEntryObserver } from "./entry-observer.js"
 
 export const Plugin = define({
-  id: "xccode.config.policy",
+  id: "xiaochuan.config.policy",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const credentials = yield* Credential.Service

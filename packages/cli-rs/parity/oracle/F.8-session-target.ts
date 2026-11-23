@@ -3,7 +3,7 @@
 // scripted server. Each case records the requests the client sent, what `prepare` saw, and the result or error.
 // Writes parity/fixtures/F.8/session-target.json; crates/store/tests/all/target_oracle.rs serves the same routes to the
 // Rust port and compares.
-import { Xccode } from "@xccode/client/promise"
+import { Xiaochuan } from "@xiaochuan/client/promise"
 import { records } from "../lib/records"
 import {
   createWorktreeLocation,
@@ -254,8 +254,8 @@ const models = ["openai/gpt-5", "openai/gpt-5#high", "", "gpt-5", "/gpt-5", "ope
 
 function serve(routes: Route[], recorded: Recorded[]) {
   const used = new Map<Route, number>()
-  return Xccode.make({
-    baseUrl: "http://xccode.local",
+  return Xiaochuan.make({
+    baseUrl: "http://xiaochuan.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       const url = new URL(request.url)

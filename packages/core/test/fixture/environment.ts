@@ -1,6 +1,6 @@
-import { Environment } from "@xccode/core/environment/index"
-import { CrossSpawnSpawner } from "@xccode/util/cross-spawn-spawner"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Environment } from "@xiaochuan/core/environment/index"
+import { CrossSpawnSpawner } from "@xiaochuan/util/cross-spawn-spawner"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { Effect, Layer } from "effect"
 import { ChildProcess, ChildProcessSpawner } from "effect/process"
 

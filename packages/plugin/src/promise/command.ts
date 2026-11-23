@@ -1,7 +1,7 @@
-import type { CommandApi } from "@xccode/client/promise/api"
-import type { PromptInput } from "@xccode/schema/prompt-input"
-import type { Session } from "@xccode/schema/session"
-import type { SessionInbox } from "@xccode/schema/session-inbox"
+import type { CommandApi } from "@xiaochuan/client/promise/api"
+import type { PromptInput } from "@xiaochuan/schema/prompt-input"
+import type { Session } from "@xiaochuan/schema/session"
+import type { SessionInbox } from "@xiaochuan/schema/session-inbox"
 import type { Transform } from "./registration.js"
 
 export interface CommandInvocation {

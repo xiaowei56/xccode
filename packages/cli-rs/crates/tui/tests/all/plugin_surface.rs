@@ -8,10 +8,10 @@ use std::rc::Rc;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_plugin::abi::{self, v2};
-use xccode_plugin::reconcile;
-use xccode_plugin::surface::{self, Ledger};
-use xccode_tui::{Deps, Route};
+use xiaochuan_plugin::abi::{self, v2};
+use xiaochuan_plugin::reconcile;
+use xiaochuan_plugin::surface::{self, Ledger};
+use xiaochuan_tui::{Deps, Route};
 use opentui::widget::Widget;
 
 const ID: &str = "test.board";
@@ -127,7 +127,7 @@ fn route() -> Route {
     Route::Plugin { id: ID.to_owned(), name: "board".to_owned() }
 }
 
-fn status(harness: &Harness) -> xccode_plugin::Status {
+fn status(harness: &Harness) -> xiaochuan_plugin::Status {
     harness.tui.plugins.entries().into_iter().find(|entry| entry.id == ID).unwrap().status
 }
 
@@ -143,8 +143,8 @@ enum Command {
 }
 
 /// The theme's modes a theme change switches between; the theme's name stays, so only its palette changes.
-const MODES: [xccode_ui::theme::ThemeMode; 2] =
-    [xccode_ui::theme::ThemeMode::Dark, xccode_ui::theme::ThemeMode::Light];
+const MODES: [xiaochuan_ui::theme::ThemeMode; 2] =
+    [xiaochuan_ui::theme::ThemeMode::Dark, xiaochuan_ui::theme::ThemeMode::Light];
 
 fn apply(harness: &Harness, command: Command) {
     let tui = &harness.tui;
@@ -243,7 +243,7 @@ impl Model for Surfaces {
                     return fail("keep-full", format!("a refused tree was not followed by a whole one: {calls:?}"));
                 }
             }
-            if status(&harness) != xccode_plugin::Status::Active {
+            if status(&harness) != xiaochuan_plugin::Status::Active {
                 return fail("keep-full", "one refusal failed the plugin".into());
             }
             let ledger = surface::ledger_of(ID);
@@ -318,7 +318,7 @@ fn a_second_refusal_in_a_row_fails_the_plugin() {
     board(|board| board.bad = 2);
     apply(&harness, Command::Bump(0));
     let failed =
-        matches!(status(&harness), xccode_plugin::Status::Failed(ref error) if error.contains("refused twice"));
+        matches!(status(&harness), xiaochuan_plugin::Status::Failed(ref error) if error.contains("refused twice"));
     assert!(failed);
     let calls = board(|board| board.calls.len());
     apply(&harness, Command::Bump(1));
@@ -503,9 +503,9 @@ fn parts_harness() -> Harness {
 
 #[test]
 fn a_kept_output_is_admitted_as_one_written_out() {
-    let _limits = xccode_plugin::limits::set(xccode_plugin::limits::Limits {
+    let _limits = xiaochuan_plugin::limits::set(xiaochuan_plugin::limits::Limits {
         text: 64,
-        ..xccode_plugin::limits::Limits::default()
+        ..xiaochuan_plugin::limits::Limits::default()
     });
     let run = |keeps: bool, root: bool| {
         PART_KEEPS.set(keeps);
@@ -703,7 +703,7 @@ fn late_reply() {
     let (fake, gate, served, _) = held();
     let harness = support::mount_still(80, 24, Deps { route: Route::Home, ..support::deps(Arc::new(fake)) });
     let definition = abi::Plugin { id: "test.owned", setup: owned }.into();
-    xccode_tui::plugins::host::add(&harness.tui, definition);
+    xiaochuan_tui::plugins::host::add(&harness.tui, definition);
     let route = Route::Plugin { id: "test.owned".into(), name: "owned".into() };
     harness.tui.navigate(route.clone());
     harness.wait_for("owned route");
@@ -829,7 +829,7 @@ fn a_whole_tree_after_a_refusal_takes_nothing_from_before() {
         settle(&harness);
         let entry = harness.tui.plugins.entries().into_iter().find(|entry| entry.id == "test.retry").unwrap();
         assert!(
-            matches!(&entry.status, xccode_plugin::Status::Failed(error)
+            matches!(&entry.status, xiaochuan_plugin::Status::Failed(error)
                 if error.contains(if mode == 3 { "panics" } else { "refused twice" })),
             "mode {mode}: {:?}",
             entry.status
@@ -923,7 +923,7 @@ fn a_theme_change_keeps_every_surface_mounted() {
         harness.tui.hold_sync(true);
         let seen = RESTYLE.with(|log| log.borrow().clone());
         let work = reconcile::work();
-        assert!(harness.tui.theme.borrow_mut().set_mode(Some(xccode_ui::theme::ThemeMode::Light), false));
+        assert!(harness.tui.theme.borrow_mut().set_mode(Some(xiaochuan_ui::theme::ThemeMode::Light), false));
         harness.tui.theme_changed();
         settle(&harness);
         let done = reconcile::work().since(work);
@@ -985,7 +985,7 @@ fn a_failed_surface_gives_its_slot_back() {
     let _ = harness.tui.keymap.dispatch("replacing.break", None);
     settle(&harness);
     let entry = harness.tui.plugins.entries().into_iter().find(|entry| entry.id == "test.replacing").unwrap();
-    assert!(matches!(entry.status, xccode_plugin::Status::Failed(_)), "{:?}", entry.status);
+    assert!(matches!(entry.status, xiaochuan_plugin::Status::Failed(_)), "{:?}", entry.status);
     let screen = harness.app.render().text();
     assert!(!screen.contains("replaced version") && screen.contains("1 plugin failed"), "{screen}");
     assert_eq!(surface::ledger_of("test.replacing"), Ledger::default());
@@ -1024,7 +1024,7 @@ fn a_reload_drops_the_replies_of_the_activation_before() {
     let _ = harness.tui.keymap.dispatch("owned.route", None);
     let _ = harness.tui.keymap.dispatch("owned.global", None);
     settle(&harness);
-    let host: Rc<dyn xccode_plugin::Host> = harness.tui.clone();
+    let host: Rc<dyn xiaochuan_plugin::Host> = harness.tui.clone();
     assert!(harness.tui.plugins.set_active(&host, "test.owned", false));
     settle(&harness);
     assert!(harness.tui.plugins.set_active(&host, "test.owned", true));
@@ -1068,7 +1068,7 @@ fn a_mounts_widgets_are_freed_with_it() {
     let marker = marked(&harness);
     board(|board| board.bad = 2);
     apply(&harness, Command::Bump(2));
-    assert!(matches!(status(&harness), xccode_plugin::Status::Failed(_)));
+    assert!(matches!(status(&harness), xiaochuan_plugin::Status::Failed(_)));
     assert_eq!(Rc::strong_count(&marker), 1, "a failed plugin's mount kept its widgets");
 }
 
@@ -1161,7 +1161,7 @@ fn a_duplicate_id_fails_the_plugin_without_a_retry() {
     let views = DUP.with(|dup| dup.borrow().1[before..].to_vec());
     assert_eq!(views, [false], "a whole tree was asked for after a duplicate id");
     let status = harness.tui.plugins.entries().into_iter().find(|entry| entry.id == "test.dup").unwrap().status;
-    let broke = matches!(&status, xccode_plugin::Status::Failed(error) if error.contains("broke the contract"));
+    let broke = matches!(&status, xiaochuan_plugin::Status::Failed(error) if error.contains("broke the contract"));
     assert!(broke, "{status:?}");
 }
 
@@ -1290,13 +1290,13 @@ fn each_change_of_the_hosts_state_after_a_view_calls_one() {
     settle(&harness);
     let views = || board(|board| board.calls.len());
     let before = views();
-    xccode_tui::dialogs::settings::update(&harness.tui, |value| {
-        xccode_tui::dialogs::settings::set_path(value, &["animations"], serde_json::json!(false));
+    xiaochuan_tui::dialogs::settings::update(&harness.tui, |value| {
+        xiaochuan_tui::dialogs::settings::set_path(value, &["animations"], serde_json::json!(false));
     });
     settle(&harness);
     assert_eq!(views() - before, 1, "a settings write");
     let before = views();
-    harness.tui.local.sync(&xccode_store::Changes::everything());
+    harness.tui.local.sync(&xiaochuan_store::Changes::everything());
     settle(&harness);
     assert_eq!(views() - before, 1, "a local change");
 }
@@ -1333,7 +1333,7 @@ fn a_kept_memo_that_holds_a_memo_keeps_a_library_active() {
     settle(&harness);
     let screen = harness.app.text();
     assert!(screen.contains("bumped 1") && screen.contains("kept"), "{screen}");
-    assert_eq!(xccode_plugin::surface::ledger_of("test.nest").memo_entries, 2);
+    assert_eq!(xiaochuan_plugin::surface::ledger_of("test.nest").memo_entries, 2);
 }
 
 // The route and dialog each expose a field; the probe records which mount receives input.
@@ -1431,7 +1431,7 @@ fn dialog_probe(setup: &mut abi::Setup) -> Result<(), String> {
 
 /// [`dialog_probe`] in Luau, which records in its storage.
 #[cfg(luau)]
-const DIALOG_LUAU: &str = r#"local plugin = require("@xccode/plugin")
+const DIALOG_LUAU: &str = r#"local plugin = require("@xiaochuan/plugin")
 local function text(text) return { type = "text", spans = { { text = text } } } end
 local function record(host, line)
     local seen = host:storageGet("seen") or {}
@@ -1468,14 +1468,14 @@ fn dialog_open(carrier: DialogCarrier) -> Harness {
         DialogCarrier::Linked => abi::Plugin { id: "test.dlg", setup: dialog_probe }.into(),
         #[cfg(luau)]
         DialogCarrier::Luau => {
-            let sources = xccode_plugin::luau::Sources::from_files([
+            let sources = xiaochuan_plugin::luau::Sources::from_files([
                 ("plugin.toml", "id = \"test.dlg\""),
                 ("init.luau", DIALOG_LUAU),
             ]);
-            xccode_plugin::luau::define(&sources, None).unwrap().0
+            xiaochuan_plugin::luau::define(&sources, None).unwrap().0
         }
     };
-    xccode_tui::plugins::host::add(&harness.tui, definition);
+    xiaochuan_tui::plugins::host::add(&harness.tui, definition);
     harness.tui.navigate(Route::Plugin { id: "test.dlg".into(), name: "pg".into() });
     harness.wait_for("dialog page");
     dialog_turns(&harness);
@@ -1496,7 +1496,7 @@ fn dialog_seen(harness: &Harness, carrier: DialogCarrier) -> Vec<String> {
         DialogCarrier::Linked => DIALOG_SEEN.with_borrow(Vec::clone),
         #[cfg(luau)]
         DialogCarrier::Luau => {
-            let stored = xccode_plugin::Host::storage_read(&*harness.tui, "plugin.test.dlg.seen");
+            let stored = xiaochuan_plugin::Host::storage_read(&*harness.tui, "plugin.test.dlg.seen");
             stored.and_then(|json| serde_json::from_str(&json).ok()).unwrap_or_default()
         }
     }
@@ -1504,7 +1504,7 @@ fn dialog_seen(harness: &Harness, carrier: DialogCarrier) -> Vec<String> {
 
 /// The node of `surface`'s newest mount that has the focus, and how many mounts it has.
 fn dialog_focus(harness: &Harness, surface: &str) -> (Option<String>, usize) {
-    let mut mounts = xccode_plugin::behave::mounts(harness.app.app(), "test.dlg", surface);
+    let mut mounts = xiaochuan_plugin::behave::mounts(harness.app.app(), "test.dlg", surface);
     let count = mounts.len();
     (mounts.pop().and_then(|mount| mount.focused), count)
 }
@@ -1606,7 +1606,7 @@ fn a_focused_field_of_a_dialog_below_a_scroll_shows() {
     _ = h.tui.keymap.dispatch("dlg.tall", None);
     h.wait_for("tall body");
     dialog_turns(&h);
-    let offset = xccode_plugin::behave::mounts(h.app.app(), "test.dlg", "tall")
+    let offset = xiaochuan_plugin::behave::mounts(h.app.app(), "test.dlg", "tall")
         .pop()
         .and_then(|mount| mount.offsets.into_iter().find(|(id, _)| id == "sc"))
         .map(|(_, offset)| offset);
@@ -1628,9 +1628,9 @@ fn a_focused_field_of_a_dialog_taller_than_the_screen_shows() {
 fn dialog_changed_in_place(h: &Harness, change: impl FnOnce(abi::Dialog) -> abi::Dialog) -> u64 {
     let generation = dialog_generation(h);
     let shown = || abi::Dialog::Surface(abi::DialogSurface::new("same"));
-    xccode_tui::plugins::panel::show(&h.tui, "test.dlg", generation + 1000, shown());
+    xiaochuan_tui::plugins::panel::show(&h.tui, "test.dlg", generation + 1000, shown());
     h.wait_for("same body");
-    xccode_tui::plugins::panel::show(&h.tui, "test.dlg", generation, change(shown()));
+    xiaochuan_tui::plugins::panel::show(&h.tui, "test.dlg", generation, change(shown()));
     dialog_turns(h);
     generation
 }
@@ -1661,7 +1661,7 @@ fn a_dialog_changed_in_place_by_a_later_activation_leaves_no_owner() {
     assert!(!h.app.text().contains("same body"), "escape left the dialog open");
     h.tui.dialogs.replace(|cx| opentui::prelude::View::new(&cx.app), None, Default::default());
     let close = abi::Dialog::Close { key: String::new() };
-    xccode_tui::plugins::panel::show(&h.tui, "test.dlg", generation, close);
+    xiaochuan_tui::plugins::panel::show(&h.tui, "test.dlg", generation, close);
     assert!(h.tui.dialogs.is_open(), "the plugin closed the host's dialog");
     h.tui.dialogs.clear();
 }
@@ -1670,14 +1670,14 @@ fn a_dialog_changed_in_place_by_a_later_activation_leaves_no_owner() {
 #[test]
 fn a_dialog_shown_and_focused_over_the_pipe_takes_the_typing() {
     let Some(config) = crate::plugin_pipe::config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let log = root.path().join("changes");
     let plugin = root.path().join("config").join("plugins").join("dlgraw");
     std::fs::create_dir_all(&plugin).unwrap();
     let script = format!(
         r#"import {{ appendFileSync }} from "node:fs"
 export default {{ id: "example.dlgraw", setup(api) {{
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   const field = {{ type: "box", children: [{{ type: "text", spans: [{{ text: "raw body" }}] }}, {{ type: "input", id: "f" }}] }}
   carrier.surface("ask", {{ type: "dialog", name: "ask" }}, () => field, {{
     on: (event) => {{ if (event.type === "change") appendFileSync({log:?}, event.text + "\n") }},
@@ -1692,12 +1692,12 @@ export default {{ id: "example.dlgraw", setup(api) {{
     std::fs::write(plugin.join("tui.ts"), script).unwrap();
     let harness =
         support::mount_still(80, 24, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    let external = xccode_tui::plugins::host::External {
+    let external = xiaochuan_tui::plugins::host::External {
         config_dir: root.path().join("config"),
         cwd: root.path().to_path_buf(),
     };
-    xccode_tui::plugins::host::external_with(&harness.tui, external, Some(config));
-    let pipe = crate::plugin_pipe::Pipe { harness, root: xccode_util::temp::tempdir().unwrap() };
+    xiaochuan_tui::plugins::host::external_with(&harness.tui, external, Some(config));
+    let pipe = crate::plugin_pipe::Pipe { harness, root: xiaochuan_util::temp::tempdir().unwrap() };
     pipe.active("example.dlgraw");
     pipe.settle();
     pipe.harness.tui.keymap.dispatch("dlgraw.open", None);

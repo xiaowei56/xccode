@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "xccode",
+  "name": "xiaochuan",
   "description": "AI-powered development tool",
   "version": "2.3.0",
   "private": true,
@@ -8,9 +8,9 @@
   "packageManager": "bun@1.4.4",
   "scripts": {
     "dev": "bun run --cwd packages/cli src/index.ts",
-    "dev:live": "sh -c 'XCCODE_TUI_CHANNEL=dev XCCODE_PASSWORD=\"$(xccode service get password)\" exec bun run dev \"$@\" --server \"$(xccode service status)\"' --",
+    "dev:live": "sh -c 'XIAOCHUAN_TUI_CHANNEL=dev XIAOCHUAN_PASSWORD=\"$(xiaochuan service get password)\" exec bun run dev \"$@\" --server \"$(xiaochuan service status)\"' --",
     "dev:vite": "bun run --cwd packages/cli --conditions=browser dev/vite.ts",
-    "dev:vite:live": "sh -c 'XCCODE_TUI_CHANNEL=dev XCCODE_PASSWORD=\"$(xccode service get password)\" exec bun run dev:vite \"$@\" --server \"$(xccode service status)\"' --",
+    "dev:vite:live": "sh -c 'XIAOCHUAN_TUI_CHANNEL=dev XIAOCHUAN_PASSWORD=\"$(xiaochuan service get password)\" exec bun run dev:vite \"$@\" --server \"$(xiaochuan service status)\"' --",
     "dev:desktop": "bun --cwd packages/desktop dev",
     "dev:web": "bun --cwd packages/app dev",
     "dev:site": "bun run --cwd services/site dev",
@@ -30,7 +30,7 @@
     "postinstall": "bun run --cwd packages/core fix-node-pty",
     "prepare": "husky",
     "random": "echo 'Random script'",
-    "sso": "aws sso login --sso-session=xccode --no-browser",
+    "sso": "aws sso login --sso-session=xiaochuan --no-browser",
     "test": "echo 'do not run tests from root' && exit 1"
   },
   "workspaces": {
@@ -109,7 +109,7 @@
   "devDependencies": {
     "@ast-grep/cli": "0.44.0",
     "@hona/strobe": "catalog:",
-    "@xccode/client": "workspace:*",
+    "@xiaochuan/client": "workspace:*",
     "@oxlint/plugins": "1.93.0",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
@@ -124,13 +124,13 @@
     "turbo": "2.10.2"
   },
   "dependencies": {
-    "@xccode/plugin": "workspace:*",
-    "@xccode/script": "workspace:*",
+    "@xiaochuan/plugin": "workspace:*",
+    "@xiaochuan/script": "workspace:*",
     "typescript": "catalog:"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xiaowei56/xccode"
+    "url": "https://github.com/xiaowei56/xiaochuan"
   },
   "license": "MIT",
   "prettier": {
@@ -173,7 +173,7 @@
     "app-builder-lib@26.15.7": "patches/app-builder-lib@26.15.7.patch",
     "electron-updater@6.8.9": "patches/electron-updater@6.8.9.patch",
     "@pierre/trees@1.0.0-beta.6": "patches/@pierre%2Ftrees@1.0.0-beta.6.patch",
-    "@brendonovich/vite-plugin-xccode@0.1.3": "patches/@brendonovich%2Fvite-plugin-xccode@0.1.3.patch",
+    "@brendonovich/vite-plugin-xiaochuan@0.1.3": "patches/@brendonovich%2Fvite-plugin-xiaochuan@0.1.3.patch",
     "@modelcontextprotocol/client@2.4.0": "patches/@modelcontextprotocol%2Fclient@2.4.0.patch",
     "@kobalte/core@0.13.13": "patches/@kobalte%2Fcore@0.13.13.patch"
   }

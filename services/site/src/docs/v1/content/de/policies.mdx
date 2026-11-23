@@ -1,15 +1,15 @@
 ---
 title: Richtlinien
-description: Steuern Sie, welche konfigurierten Ressourcen Xccode verwenden darf.
+description: Steuern Sie, welche konfigurierten Ressourcen Xiaochuan verwenden darf.
 ---
 
-:::caution[Erfordert Xccode 2]
-Richtlinien werden in Xccode 1 nicht durchgesetzt. Die Beispiele auf dieser Seite erfordern Xccode 2. Verwenden Sie in Xccode 1 [`disabled_providers`](/docs/config#disabled-providers) oder [`enabled_providers`](/docs/config#enabled-providers), um die Verfügbarkeit von Anbietern zu steuern. Die aktuelle Verwendung finden Sie in der [Dokumentation zu Richtlinien in Xccode 2](https://xccode.ai/docs/policies/).
+:::caution[Erfordert Xiaochuan 2]
+Richtlinien werden in Xiaochuan 1 nicht durchgesetzt. Die Beispiele auf dieser Seite erfordern Xiaochuan 2. Verwenden Sie in Xiaochuan 1 [`disabled_providers`](/docs/config#disabled-providers) oder [`enabled_providers`](/docs/config#enabled-providers), um die Verfügbarkeit von Anbietern zu steuern. Die aktuelle Verwendung finden Sie in der [Dokumentation zu Richtlinien in Xiaochuan 2](https://xiaochuan.ai/docs/policies/).
 :::
 
-Richtlinien legen fest, ob Xccode eine Aktion auf einer benannten Ressource ausführen darf. Diese Funktion von Xccode 2 ist experimentell und wird über das Array `experimental.policies` in `xccode.json` konfiguriert.
+Richtlinien legen fest, ob Xiaochuan eine Aktion auf einer benannten Ressource ausführen darf. Diese Funktion von Xiaochuan 2 ist experimentell und wird über das Array `experimental.policies` in `xiaochuan.json` konfiguriert.
 
-Richtlinien sind von [Berechtigungen](/docs/permissions) getrennt. Berechtigungen steuern, was Tools während einer Sitzung tun dürfen, während Richtlinien steuern, ob Xccode eine Ressource wie einen LLM-Anbieter verwenden darf.
+Richtlinien sind von [Berechtigungen](/docs/permissions) getrennt. Berechtigungen steuern, was Tools während einer Sitzung tun dürfen, während Richtlinien steuern, ob Xiaochuan eine Ressource wie einen LLM-Anbieter verwenden darf.
 
 ---
 
@@ -23,9 +23,9 @@ Jede Richtlinienanweisung hat drei Felder:
 
 Verweigern Sie beispielsweise die Verwendung des Anbieters `openai`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ Ein durch eine Richtlinie verweigerter Anbieter steht weder für die Modellauswa
 
 ## Verfügbare Richtlinien
 
-Xccode unterstützt derzeit eine Richtlinienaktion:
+Xiaochuan unterstützt derzeit eine Richtlinienaktion:
 
 | Aktion         | Ressource                   | Beschreibung                                                 |
 | -------------- | --------------------------- | ------------------------------------------------------------ |
@@ -58,9 +58,9 @@ Weitere Richtlinienaktionen können künftig hinzukommen.
 
 Das Feld `resource` unterstützt Platzhalterabgleich. Verwenden Sie `*` für null oder mehr beliebige Zeichen und `?` für genau ein Zeichen.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ Wenn mehrere Anweisungen übereinstimmen, gewinnt die letzte übereinstimmende A
 
 Erlauben Sie beispielsweise nur Anthropic:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ Richtlinien können sowohl in Ihrer globalen Konfiguration als auch in der Proje
 
 ## Anbieterlisten
 
-Verwenden Sie in Xccode 2 Richtlinien statt der älteren Einstellungen `disabled_providers` und `enabled_providers`, um den Zugriff auf Anbieter zu steuern. In Xccode 1 verwenden Sie weiterhin diese Anbieterlisten.
+Verwenden Sie in Xiaochuan 2 Richtlinien statt der älteren Einstellungen `disabled_providers` und `enabled_providers`, um den Zugriff auf Anbieter zu steuern. In Xiaochuan 1 verwenden Sie weiterhin diese Anbieterlisten.
 
 So ersetzen Sie `disabled_providers`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ So ersetzen Sie `disabled_providers`:
 
 Um `enabled_providers` zu ersetzen, verweigern Sie zuerst alle Anbieter und erlauben danach die ausgewählten Anbieter:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [

@@ -1,5 +1,5 @@
 // The app slot (P.1) in a session: the test plugin's line shows under the session route, below the prompt. TS
-// loads the plugin from parity/plugins/app as a local plugin; Rust registers its twin when XCCODE_PARITY_PLUGIN
+// loads the plugin from parity/plugins/app as a local plugin; Rust registers its twin when XIAOCHUAN_PARITY_PLUGIN
 // is `app`.
 import { assistant, defineApp, session, user } from "../../lib/app"
 
@@ -7,7 +7,7 @@ const id = "ses_a"
 
 export default defineApp({
   config: { plugins: ["./plugins/app"] },
-  env: { XCCODE_PARITY_PLUGIN: "app" },
+  env: { XIAOCHUAN_PARITY_PLUGIN: "app" },
   args: { sessionID: id },
   routes: [
     { path: `/api/session/${id}`, json: { data: session(id, "Plan the release", { updated: 2 }) } },

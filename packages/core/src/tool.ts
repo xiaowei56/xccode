@@ -1,13 +1,13 @@
 export * as Tool from "./tool.js"
-export { CallID, Content, Error, FileContent, TextContent } from "@xccode/schema/tool"
-export type { Context, Info, Metadata, Namespace, Options, Result } from "@xccode/schema/tool"
+export { CallID, Content, Error, FileContent, TextContent } from "@xiaochuan/schema/tool"
+export type { Context, Info, Metadata, Namespace, Options, Result } from "@xiaochuan/schema/tool"
 
-import { ToolDefinition, type ToolCall } from "@xccode/ai/effect"
-import { toolExpression, type CodeMode } from "@xccode/codemode"
-import { Tool } from "@xccode/schema/tool"
-import { isRecord } from "@xccode/util/record"
+import { ToolDefinition, type ToolCall } from "@xiaochuan/ai/effect"
+import { toolExpression, type CodeMode } from "@xiaochuan/codemode"
+import { Tool } from "@xiaochuan/schema/tool"
+import { isRecord } from "@xiaochuan/util/record"
 import { Context, Effect, Layer, Ref, Result, Schema, SchemaIssue, Types } from "effect"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import type { Agent } from "./agent.js"
 import { CodeModeCatalog } from "./codemode/catalog.js"
 import { CodeModeJob } from "./codemode/job.js"
@@ -115,13 +115,13 @@ export interface Snapshot {
     readonly definitions?: ReadonlyMap<string, ToolDefinition>
   }) => Effect.Effect<NormalizedResult, Tool.Error>
   /**
-   * The expression a Code Mode program calls a tool by (`tools.xccode.session.search`), when `name` is the path or
+   * The expression a Code Mode program calls a tool by (`tools.xiaochuan.session.search`), when `name` is the path or
    * registry ID of one of this snapshot's Code Mode tools.
    */
   readonly codeModeExpression?: (name: string) => string | undefined
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Tool") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Tool") {}
 
 const layer = Layer.effect(
   Service,

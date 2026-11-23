@@ -10,7 +10,7 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use futures_util::StreamExt;
 use futures_util::future::BoxFuture;
 use futures_util::stream::BoxStream;
-use xccode_util::lock;
+use xiaochuan_util::lock;
 use tokio::sync::{Notify, mpsc, watch};
 use tokio::time::Instant;
 use tokio_util::sync::CancellationToken;
@@ -725,17 +725,17 @@ mod tests {
         assert_eq!(batches.recv().await.unwrap(), vec![ev(CONNECTED, 0)]);
     }
 
-    /// Opt-in live check (`XCCODE_LIVE=1`): subscribes to the running service's event stream through
+    /// Opt-in live check (`XIAOCHUAN_LIVE=1`): subscribes to the running service's event stream through
     /// the SSE reader and the connection loop, and prints the first event types. The URL and password
-    /// come from `xccode service status` and `xccode service get password`, as `script/live.sh` does.
+    /// come from `xiaochuan service status` and `xiaochuan service get password`, as `script/live.sh` does.
     #[tokio::test]
     async fn live_event_stream() {
-        if std::env::var("XCCODE_LIVE").as_deref() != Ok("1") {
+        if std::env::var("XIAOCHUAN_LIVE").as_deref() != Ok("1") {
             return;
         }
         let command = |args: &[&str]| {
-            let output = std::process::Command::new("xccode").args(args).output().expect("xccode runs");
-            assert!(output.status.success(), "xccode {args:?} failed");
+            let output = std::process::Command::new("xiaochuan").args(args).output().expect("xiaochuan runs");
+            assert!(output.status.success(), "xiaochuan {args:?} failed");
             String::from_utf8(output.stdout).unwrap().trim().to_owned()
         };
         let server = command(&["service", "status"]);
@@ -750,7 +750,7 @@ mod tests {
             type Error = crate::sse::Error;
             fn open(&mut self, activity: Activity) -> BoxStream<'static, Result<serde_json::Value, Self::Error>> {
                 let request =
-                    crate::transport::fetch(self.client.get(&self.url).basic_auth("xccode", Some(&self.password)));
+                    crate::transport::fetch(self.client.get(&self.url).basic_auth("xiaochuan", Some(&self.password)));
                 futures_util::stream::once(async move {
                     let response = request.await.map_err(|error| error.to_string());
                     match response.and_then(|response| response.error_for_status().map_err(|error| error.to_string())) {

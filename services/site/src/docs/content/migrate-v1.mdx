@@ -1,9 +1,9 @@
 ---
 title: "Migrate from V1"
-description: "Upgrade from Xccode 1 to Xccode 2, which has breaking changes to plugins, the server API, and terminal client configuration."
+description: "Upgrade from Xiaochuan 1 to Xiaochuan 2, which has breaking changes to plugins, the server API, and terminal client configuration."
 ---
 
-Xccode 1 and Xccode 2 both use the `xccode` command and are no longer installed side by side by default. Remove a
+Xiaochuan 1 and Xiaochuan 2 both use the `xiaochuan` command and are no longer installed side by side by default. Remove a
 package-managed V1 installation before installing V2; the V2 curl installer replaces the V1 binary.
 
 ## Breaking changes
@@ -19,7 +19,7 @@ Supported V1 functionality outside those areas is intended to remain compatible 
 schema never had a V2 equivalent and are intentionally ignored; these are listed under
 [Accepted but unsupported fields](#accepted-but-unsupported-fields).
 
-Existing supported server config fields, agent definitions, command definitions, skills, and other files in `.xccode/`
+Existing supported server config fields, agent definitions, command definitions, skills, and other files in `.xiaochuan/`
 should continue to work without changes. If supported behavior described in this guide stops working in V2, treat it as a
 compatibility bug rather than an expected migration requirement.
 
@@ -45,21 +45,21 @@ point V1 at files after converting them to native V2-only shapes.
 
 ## Configuration
 
-This section covers both JSON/JSONC configuration and file-based definitions under `.xccode/`.
+This section covers both JSON/JSONC configuration and file-based definitions under `.xiaochuan/`.
 
 ### Use your existing configuration
 
 V2 reads existing system, global, and project configuration from the same locations as V1:
 
 ```text
-/Library/Application Support/xccode/xccode.json(c)
-/etc/xccode/xccode.json(c)
-%ProgramData%\xccode\xccode.json(c)
-/Library/Managed Preferences/<user>/ai.xccode.managed.plist
-/Library/Managed Preferences/ai.xccode.managed.plist
-~/.config/xccode/xccode.json(c)
-<project>/xccode.json(c)
-<project>/.xccode/xccode.json(c)
+/Library/Application Support/xiaochuan/xiaochuan.json(c)
+/etc/xiaochuan/xiaochuan.json(c)
+%ProgramData%\xiaochuan\xiaochuan.json(c)
+/Library/Managed Preferences/<user>/ai.xiaochuan.managed.plist
+/Library/Managed Preferences/ai.xiaochuan.managed.plist
+~/.config/xiaochuan/xiaochuan.json(c)
+<project>/xiaochuan.json(c)
+<project>/.xiaochuan/xiaochuan.json(c)
 ```
 
 V2 normalizes supported V1 and native V2 fields in memory without rewriting the source
@@ -72,23 +72,23 @@ global and project files. Their [policies](/policies#precedence), including migr
 providers, MCP servers, agents, or plugins, so express admin-enforced restrictions as `policies` rather
 than ordinary settings such as `permissions`.
 
-### Ask Xccode to migrate
+### Ask Xiaochuan to migrate
 
 The V1 config format remains supported. The native V2 format is optional and makes several settings more explicit and
 ergonomic.
 
-The recommended migration path is to ask Xccode to update the configuration for you:
+The recommended migration path is to ask Xiaochuan to update the configuration for you:
 
 ```text
-Migrate my Xccode configuration, including file-based definitions, from the V1 format to the native V2 format.
+Migrate my Xiaochuan configuration, including file-based definitions, from the V1 format to the native V2 format.
 Preserve its behavior and all unrelated settings.
 ```
 
-Xccode can inspect the complete file, apply the relevant changes below, and avoid rewriting settings that do not need to
+Xiaochuan can inspect the complete file, apply the relevant changes below, and avoid rewriting settings that do not need to
 change. Conversion does not need to happen all at once: supported V1 and native V2 fields may coexist at the top level.
 When both forms set the same canonical value, a valid native V2 value takes precedence regardless of JSON key order.
 
-Nested mixing is intentionally bounded. Xccode recognizes mixed V1 and V2 members within `mcp`, `compaction`, and
+Nested mixing is intentionally bounded. Xiaochuan recognizes mixed V1 and V2 members within `mcp`, `compaction`, and
 `experimental`, but it does not recursively infer formats inside individual agents, providers, commands, or models. Keep
 each of those nested entries entirely in one format. Supported V1 syntax remains quiet by itself; malformed values,
 unsupported legacy fields, and conflicting V1/V2 values produce warnings while unrelated valid settings continue to load.
@@ -183,10 +183,10 @@ Agent [`request.body`](/agents#request) is kept but not sent to the model, so V1
 have no effect there. Set them on a model variant instead. DeepSeek only applies `temperature` with thinking off, so
 this variant turns thinking off too:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "providers": {
-    "xccode": {
+    "xiaochuan": {
       "models": {
         "deepseek-v4.1-flash": {
           "variants": [{ "id": "review", "body": { "thinking": { "type": "disabled" }, "temperature": 0.2 } }],
@@ -195,7 +195,7 @@ this variant turns thinking off too:
     },
   },
   "agents": {
-    "reviewer": { "model": "xccode/deepseek-v4.1-flash#review" },
+    "reviewer": { "model": "xiaochuan/deepseek-v4.1-flash#review" },
   },
 }
 ```
@@ -314,7 +314,7 @@ V1 separates extra skill paths and URLs. V2 combines both into one ordered array
 }
 ```
 
-Existing skill files and automatic `.xccode/skills/` discovery do not change. See [Skills](/skills).
+Existing skill files and automatic `.xiaochuan/skills/` discovery do not change. See [Skills](/skills).
 
 ### Commands
 
@@ -464,14 +464,14 @@ The V1 provider filters do not have one-to-one native V2 config fields, but thei
 - `small_model` becomes the `model` selection for the built-in `title` agent. Native V2 configuration should use
   `agents.title.model` instead.
 
-You may keep these fields in V1 syntax. Xccode normalizes them without warning.
+You may keep these fields in V1 syntax. Xiaochuan normalizes them without warning.
 
 ### Accepted but unsupported fields
 
 The V1 schema also accepted fields that have no supported V2 behavior. V2 ignores these values and emits a warning so
 they are not mistaken for active configuration:
 
-- `logLevel`: use `XCCODE_LOG_LEVEL` when starting Xccode.
+- `logLevel`: use `XIAOCHUAN_LOG_LEVEL` when starting Xiaochuan.
 - `server`: use the V2 service and explicit server options; the server API is an intentional breaking change.
 - Top-level `subagent_depth`: use `experimental.subagent_depth` instead.
 - `compaction.tail_turns` and `compaction.prune`: V2 uses `compaction.keep.tokens` and checkpoint-based compaction instead.
@@ -491,7 +491,7 @@ V1 agent files may use `agent/`, `agents/`, `mode/`, or `modes/`. V2 still disco
 V2 location is:
 
 ```text
-.xccode/agents/<name>.md
+.xiaochuan/agents/<name>.md
 ```
 
 Files under a V1 `mode/` or `modes/` directory represent primary agents. When moving one into `agents/`, add
@@ -515,7 +515,7 @@ as V1. Convert a file's frontmatter all at once rather than mixing the two forma
 V1 command files may use `command/` or `commands/`. V2 discovers both. The preferred location is:
 
 ```text
-.xccode/commands/<name>.md
+.xiaochuan/commands/<name>.md
 ```
 
 Move files from `command/` to the same relative path under `commands/` to preserve command names. The Markdown body remains
@@ -538,10 +538,10 @@ See [Commands](/commands).
 
 ### Skill files
 
-V2 discovers skills from both `.xccode/skill/` and `.xccode/skills/`. The preferred layout is:
+V2 discovers skills from both `.xiaochuan/skill/` and `.xiaochuan/skills/`. The preferred layout is:
 
 ```text
-.xccode/skills/<skill-id>/SKILL.md
+.xiaochuan/skills/<skill-id>/SKILL.md
 ```
 
 Move the complete skill directory, not only `SKILL.md`, so relative scripts, references, and other supporting files remain
@@ -550,12 +550,12 @@ require a V2 rewrite. See [Skills](/skills).
 
 ### Instruction files
 
-Existing `AGENTS.md` files stay in place. V2 discovers the global `~/.config/xccode/AGENTS.md` and ambient `AGENTS.md`
+Existing `AGENTS.md` files stay in place. V2 discovers the global `~/.config/xiaochuan/AGENTS.md` and ambient `AGENTS.md`
 files from the current directory up to home. For projects outside home, discovery stops at the project root.
 
 V2 keeps the V1 `CLAUDE.md` fallback: a directory without `AGENTS.md` uses its `CLAUDE.md`, and `~/.claude/CLAUDE.md`
-stands in for a missing global `AGENTS.md`. `XCCODE_DISABLE_CLAUDE_CODE` skips every `CLAUDE.md`, and so does
-`XCCODE_DISABLE_CLAUDE_CODE_PROMPT`, which in V1 skipped only `~/.claude/CLAUDE.md`. Unlike V1, which stopped at the
+stands in for a missing global `AGENTS.md`. `XIAOCHUAN_DISABLE_CLAUDE_CODE` skips every `CLAUDE.md`, and so does
+`XIAOCHUAN_DISABLE_CLAUDE_CODE_PROMPT`, which in V1 skipped only `~/.claude/CLAUDE.md`. Unlike V1, which stopped at the
 first file name found anywhere up the tree, V2 picks per directory, so an `AGENTS.md` at the root no longer hides a
 nested `CLAUDE.md`. See [Instructions](/instructions).
 
@@ -564,7 +564,7 @@ nested `CLAUDE.md`. See [Instructions](/instructions).
 V2 replaces layered V1 `tui.json(c)` files with one global terminal client configuration file:
 
 ```text
-~/.config/xccode/cli.json
+~/.config/xiaochuan/cli.json
 ```
 
 The terminal client owns this file; the background service does not load it. When `cli.json` is absent, the first V2
@@ -579,13 +579,13 @@ Rename `plugin` to `plugins`. Replace a package-and-options tuple with an object
 ```jsonc
 // V1
 {
-  "plugin": ["xccode-example-plugin", ["./plugin/local.ts", { "enabled": true }]]
+  "plugin": ["xiaochuan-example-plugin", ["./plugin/local.ts", { "enabled": true }]]
 }
 
 // V2
 {
   "plugins": [
-    "xccode-example-plugin",
+    "xiaochuan-example-plugin",
     {
       "package": "./plugin/local",
       "options": { "enabled": true }
@@ -594,7 +594,7 @@ Rename `plugin` to `plugins`. Replace a package-and-options tuple with an object
 }
 ```
 
-V2 discovers local plugins from both `.xccode/plugin/` and `.xccode/plugins/`; use `.xccode/plugins/` for V2 files.
+V2 discovers local plugins from both `.xiaochuan/plugin/` and `.xiaochuan/plugins/`; use `.xiaochuan/plugins/` for V2 files.
 Configured local paths must be directories, so move the ported plugin to `./plugin/local/index.ts`.
 
 <Callout type="warning">
@@ -606,25 +606,25 @@ Port entrypoints, hooks, tools, events, and package exports with the dedicated
 
 ## Server API and clients
 
-Xccode 2 has a revised, more ergonomic server API and a new set of clients. Integrations that call the V1 server API
+Xiaochuan 2 has a revised, more ergonomic server API and a new set of clients. Integrations that call the V1 server API
 must migrate to the V2 API.
 
-Use the `@xccode/client` package to access the released V2 API. See the generated [API reference](/api) for its
+Use the `@xiaochuan/client` package to access the released V2 API. See the generated [API reference](/api) for its
 endpoints, request types, and responses.
 
 ### Server authentication
 
 V2 servers still use HTTP Basic auth, with these changes:
 
-- `XCCODE_PASSWORD` sets the password. `XCCODE_SERVER_PASSWORD` still works.
-- `XCCODE_SERVER_USERNAME` is no longer supported. The username is always `xccode`.
+- `XIAOCHUAN_PASSWORD` sets the password. `XIAOCHUAN_SERVER_PASSWORD` still works.
+- `XIAOCHUAN_SERVER_USERNAME` is no longer supported. The username is always `xiaochuan`.
 
 ```bash
 # V1
-XCCODE_SERVER_USERNAME=alice XCCODE_SERVER_PASSWORD=secret xccode serve
+XIAOCHUAN_SERVER_USERNAME=alice XIAOCHUAN_SERVER_PASSWORD=secret xiaochuan serve
 
 # V2
-XCCODE_PASSWORD=secret xccode serve
+XIAOCHUAN_PASSWORD=secret xiaochuan serve
 ```
 
 See [Web](/cli/web#authentication).

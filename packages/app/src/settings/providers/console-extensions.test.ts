@@ -1,12 +1,12 @@
 import { expect, test } from "bun:test"
-import type { ConfigEntry } from "@xccode/client/promise"
+import type { ConfigEntry } from "@xiaochuan/client/promise"
 import { consoleMcpLinks, consoleMcps, consoleSkillLink, consoleWorkspace } from "./console-extensions"
 
 type ServerConfig = NonNullable<
   NonNullable<Extract<ConfigEntry, { type: "document" }>["info"]["mcp"]>["servers"]
 >[string]
 
-const consoleUrl = "https://xccode.ai/console"
+const consoleUrl = "https://xiaochuan.ai/console"
 
 const token = (claims: { u: string; w?: string; d?: number }) =>
   `Bearer ocgw_${Buffer.from(JSON.stringify(claims)).toString("base64url")}.signature`

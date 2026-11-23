@@ -1,7 +1,7 @@
 import { app } from "electron"
 import type { Event } from "electron"
 
-// The `xccode://` links the app was started with, held until the deep-link router takes them. Windows and Linux
+// The `xiaochuan://` links the app was started with, held until the deep-link router takes them. Windows and Linux
 // pass a link on the command line; macOS sends `open-url` while the app finishes launching, before the router's own
 // listener exists.
 const pending: string[] = []
@@ -24,5 +24,5 @@ export function takeLaunchLinks() {
 }
 
 export function deepLinkArguments(argv: readonly string[]) {
-  return argv.filter((arg) => arg.startsWith("xccode://"))
+  return argv.filter((arg) => arg.startsWith("xiaochuan://"))
 }

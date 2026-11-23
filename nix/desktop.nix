@@ -10,7 +10,7 @@
   autoPatchelfHook,
   copyDesktopItems,
   makeDesktopItem,
-  xccode,
+  xiaochuan,
 }:
 let
   electronPin =
@@ -21,8 +21,8 @@ let
   electron = callPackage ./electron.nix { inherit electronPin; };
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "xccode-desktop";
-  inherit (xccode)
+  pname = "xiaochuan-desktop";
+  inherit (xiaochuan)
     version
     src
     node_modules
@@ -51,16 +51,16 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   desktopItems = lib.optional stdenv.hostPlatform.isLinux (makeDesktopItem {
-    name = "ai.xccode.desktop";
-    desktopName = "Xccode";
-    exec = "xccode-desktop %U";
-    icon = "ai.xccode.desktop";
+    name = "ai.xiaochuan.desktop";
+    desktopName = "Xiaochuan";
+    exec = "xiaochuan-desktop %U";
+    icon = "ai.xiaochuan.desktop";
     # Electron derives X11 WM_CLASS from app.name.
-    startupWMClass = "Xccode";
+    startupWMClass = "Xiaochuan";
     categories = [ "Development" ];
   });
 
-  env = xccode.env // {
+  env = xiaochuan.env // {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
   };
 
@@ -77,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
       substituteInPlace \
         packages/desktop/src/main/windows/appearance.ts \
         packages/desktop/src/main/service/desktop-cli.ts \
-        --replace-fail "process.resourcesPath" "'$out/opt/xccode-desktop/resources'"
+        --replace-fail "process.resourcesPath" "'$out/opt/xiaochuan-desktop/resources'"
     '';
 
   preBuild = ''
@@ -95,17 +95,17 @@ stdenv.mkDerivation (finalAttrs: {
 
     cd packages/desktop
 
-    export XCCODE_CLI_DIST="$TMPDIR/desktop-cli"
-    cli_package=$(bun -e 'import { getCurrentCli } from "./script/utils.ts"; console.log(getCurrentCli().package.replace("@xccode/", ""))')
+    export XIAOCHUAN_CLI_DIST="$TMPDIR/desktop-cli"
+    cli_package=$(bun -e 'import { getCurrentCli } from "./script/utils.ts"; console.log(getCurrentCli().package.replace("@xiaochuan/", ""))')
     # copyBuiltCliToResources joins this dist with the npm package name getCurrentCli()
     # reports, not the Nix build's name. It reads only .version from the manifest and
-    # writes it as xccode-cli.version beside the binary.
-    mkdir -p "$XCCODE_CLI_DIST/$cli_package/bin"
-    cp ${lib.getExe xccode} "$XCCODE_CLI_DIST/$cli_package/bin/xccode"
-    # XCCODE_VERSION is what the bundled CLI prints for --version, so the manifest
+    # writes it as xiaochuan-cli.version beside the binary.
+    mkdir -p "$XIAOCHUAN_CLI_DIST/$cli_package/bin"
+    cp ${lib.getExe xiaochuan} "$XIAOCHUAN_CLI_DIST/$cli_package/bin/xiaochuan"
+    # XIAOCHUAN_VERSION is what the bundled CLI prints for --version, so the manifest
     # and the executable cannot drift.
-    bun -e 'await Bun.write(process.argv[1], JSON.stringify({ version: process.env.XCCODE_VERSION }) + "\n")' \
-      "$XCCODE_CLI_DIST/$cli_package/package.json"
+    bun -e 'await Bun.write(process.argv[1], JSON.stringify({ version: process.env.XIAOCHUAN_VERSION }) + "\n")' \
+      "$XIAOCHUAN_CLI_DIST/$cli_package/package.json"
 
     bun run build
     npx electron-builder --dir \
@@ -122,27 +122,27 @@ stdenv.mkDerivation (finalAttrs: {
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/Applications
     mv dist/mac*/*.app $out/Applications
-    makeWrapper "$out/Applications/Xccode.app/Contents/MacOS/Xccode" $out/bin/xccode-desktop
+    makeWrapper "$out/Applications/Xiaochuan.app/Contents/MacOS/Xiaochuan" $out/bin/xiaochuan-desktop
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
-    mkdir -p $out/opt/xccode-desktop
-    cp -r dist/linux*-unpacked/{resources,LICENSE*} $out/opt/xccode-desktop
+    mkdir -p $out/opt/xiaochuan-desktop
+    cp -r dist/linux*-unpacked/{resources,LICENSE*} $out/opt/xiaochuan-desktop
     install -Dm644 resources/icons/32x32.png \
-      "$out/share/icons/hicolor/32x32/apps/ai.xccode.desktop.png"
+      "$out/share/icons/hicolor/32x32/apps/ai.xiaochuan.desktop.png"
     install -Dm644 resources/icons/64x64.png \
-      "$out/share/icons/hicolor/64x64/apps/ai.xccode.desktop.png"
+      "$out/share/icons/hicolor/64x64/apps/ai.xiaochuan.desktop.png"
     install -Dm644 resources/icons/128x128.png \
-      "$out/share/icons/hicolor/128x128/apps/ai.xccode.desktop.png"
+      "$out/share/icons/hicolor/128x128/apps/ai.xiaochuan.desktop.png"
     install -Dm644 resources/icons/128x128@2x.png \
-      "$out/share/icons/hicolor/256x256/apps/ai.xccode.desktop.png"
+      "$out/share/icons/hicolor/256x256/apps/ai.xiaochuan.desktop.png"
     install -Dm644 resources/icons/icon.png \
-      "$out/share/icons/hicolor/512x512/apps/ai.xccode.desktop.png"
-    install -Dm644 resources/ai.xccode.desktop.metainfo.xml \
-      "$out/share/metainfo/ai.xccode.desktop.metainfo.xml"
-    makeWrapper ${lib.getExe electron} $out/bin/xccode-desktop \
+      "$out/share/icons/hicolor/512x512/apps/ai.xiaochuan.desktop.png"
+    install -Dm644 resources/ai.xiaochuan.desktop.metainfo.xml \
+      "$out/share/metainfo/ai.xiaochuan.desktop.metainfo.xml"
+    makeWrapper ${lib.getExe electron} $out/bin/xiaochuan-desktop \
      --inherit-argv0 \
      --set ELECTRON_FORCE_IS_PACKAGED 1 \
-     --add-flags $out/opt/xccode-desktop/resources/app.asar \
+     --add-flags $out/opt/xiaochuan-desktop/resources/app.asar \
      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
   ''
   + ''
@@ -161,8 +161,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Xccode Desktop App";
-    mainProgram = "xccode-desktop";
-    inherit (xccode.meta) homepage license platforms;
+    description = "Xiaochuan Desktop App";
+    mainProgram = "xiaochuan-desktop";
+    inherit (xiaochuan.meta) homepage license platforms;
   };
 })

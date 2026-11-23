@@ -1,6 +1,6 @@
 //! Select the diff source for a location.
 
-use xccode_plugin::abi::{Action, Dialog, Host, Select, SelectOption};
+use xiaochuan_plugin::abi::{Action, Dialog, Host, Select, SelectOption};
 
 use super::PICK_SOURCE;
 use super::viewer::{Memory, Viewer};

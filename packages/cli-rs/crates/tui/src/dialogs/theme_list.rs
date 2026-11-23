@@ -1,6 +1,6 @@
 //! Preview themes while browsing; persist the choice only on Enter.
 
-use xccode_ui::select::{Select, select};
+use xiaochuan_ui::select::{Select, select};
 
 use crate::dialogs::settings::{set_path, update};
 use crate::prelude::*;

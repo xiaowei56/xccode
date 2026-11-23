@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package",
-  "name": "@xccode/script",
+  "name": "@xiaochuan/script",
   "type": "module",
   "license": "MIT",
   "scripts": {

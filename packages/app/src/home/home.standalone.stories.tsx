@@ -1,4 +1,4 @@
-import type { SessionInfo } from "@xccode/client/promise"
+import type { SessionInfo } from "@xiaochuan/client/promise"
 import { createEffect, createMemo, on, onCleanup, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { DialogStoryRuntime, STORY_PROJECTS, STORY_SERVER } from "@/components-lab/dialog-story-runtime"

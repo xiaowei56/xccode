@@ -1,8 +1,8 @@
-import type { ConnectionInfo } from "@xccode/client"
-import type { IntegrationApi } from "@xccode/client/promise/api"
-import { Connection } from "@xccode/schema/connection"
-import { Credential } from "@xccode/schema/credential"
-import { Form } from "@xccode/schema/form"
+import type { ConnectionInfo } from "@xiaochuan/client"
+import type { IntegrationApi } from "@xiaochuan/client/promise/api"
+import { Connection } from "@xiaochuan/schema/connection"
+import { Credential } from "@xiaochuan/schema/credential"
+import { Form } from "@xiaochuan/schema/form"
 import type { Transform } from "./registration.js"
 
 type IntegrationRef = { id: string; name: string }

@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Worktree-i poz",
   "mcp.manage": "MCP serwerlerini dolandyryň",
   timedOut: "Serwer jogap bermek üçin gaty köp wagt aldy",
-  "setup.mcp": "Xccode bilen serwer goşuň",
+  "setup.mcp": "Xiaochuan bilen serwer goşuň",
   "setup.mcp.prompt":
-    "Global Xccode konfigurasiýama MCP serweri goşmaga kömek et. Haýsy hyzmaty birikdirmek isleýändigimi sora, soňra ony sazla we birikýändigini barla.",
-  "setup.plugins": "Xccode bilen plugin goşuň",
+    "Global Xiaochuan konfigurasiýama MCP serweri goşmaga kömek et. Haýsy hyzmaty birikdirmek isleýändigimi sora, soňra ony sazla we birikýändigini barla.",
+  "setup.plugins": "Xiaochuan bilen plugin goşuň",
   "setup.plugins.prompt":
-    "Global Xccode konfigurasiýama plugin goşmaga kömek et. Onuň näme etmelidigini sora, plugin teklip et, soňra ony goş.",
-  "setup.skills": "Xccode bilen täze başarnyk",
+    "Global Xiaochuan konfigurasiýama plugin goşmaga kömek et. Onuň näme etmelidigini sora, plugin teklip et, soňra ony goş.",
+  "setup.skills": "Xiaochuan bilen täze başarnyk",
   "setup.skills.prompt":
-    "Global konfigurasiýamda täze Xccode başarnygyny ýazmaga kömek et. Onuň saňa näme öwretmelidigini sora, soňra onuň SKILL.md faýlyny ýaz.",
+    "Global konfigurasiýamda täze Xiaochuan başarnygyny ýazmaga kömek et. Onuň saňa näme öwretmelidigini sora, soňra onuň SKILL.md faýlyny ýaz.",
   changesFailed: "Üýtgeşmeleri ýükläp bolmady",
   changesOffline: "Bu serwere ýetip bolmaýar",
   "mcp.signIn": "Giriň",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "{{name}} üçin jikme-jiklikler",
   "mcp.signIn.open": "{{name}} ulgamyna giriň",
   "mcp.signIn.description":
-    "{{name}} ulgamyna girmegiňiz üçin brauzeriňiz açylýar. Eger ol Xccode işleýän kompýutere ýetip bilmese, gönükdirilen URL-i aşakda ýelmäň.",
+    "{{name}} ulgamyna girmegiňiz üçin brauzeriňiz açylýar. Eger ol Xiaochuan işleýän kompýutere ýetip bilmese, gönükdirilen URL-i aşakda ýelmäň.",
   "mcp.signIn.waiting": "Ygtyýarlandyrma garaşylýar…",
   "mcp.signIn.failed": "Ygtyýarlandyrma şowsuz: {{error}}",
   "mcp.signIn.expired": "Ygtyýarlandyrmanyň möhleti geçdi",

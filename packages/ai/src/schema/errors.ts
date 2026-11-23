@@ -1,6 +1,6 @@
 import { Schema } from "effect"
-import { NonNegativeInt } from "@xccode/schema"
-import { Tool } from "@xccode/schema/tool"
+import { NonNegativeInt } from "@xiaochuan/schema"
+import { Tool } from "@xiaochuan/schema/tool"
 import { ProviderID, RouteID } from "./ids.js"
 import type { LLMResponse } from "./events.js"
 import { awsErrorType, providerCodes } from "../utils/provider-codes.js"

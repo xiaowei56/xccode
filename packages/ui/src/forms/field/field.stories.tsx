@@ -1,8 +1,8 @@
 import { createSignal, Show, type ParentProps } from "solid-js"
 import { Field } from "./field"
-import { InlineInput } from "@xccode/ui/inline-input"
-import { TextInput } from "@xccode/ui/text-input"
-import { Textarea } from "@xccode/ui/textarea"
+import { InlineInput } from "@xiaochuan/ui/inline-input"
+import { TextInput } from "@xiaochuan/ui/text-input"
+import { Textarea } from "@xiaochuan/ui/textarea"
 
 const docs = `### Overview
 Composable field layout for TextInput, Textarea, and InlineInput.

@@ -4,13 +4,13 @@
 //! every tree; a layout epoch, the count of inputs the tree saw; and snapshots the host pushes for the reads the
 //! plugin watches, in order before the event that may read them.
 
-use xccode_plugin_abi::{Blob, HostRequest, Level, Manifest, Request, v2};
+use xiaochuan_plugin_abi::{Blob, HostRequest, Level, Manifest, Request, v2};
 use serde::{Deserialize, Serialize};
 
 /// The protocol's version, in both hellos.
 pub const VERSION: u32 = 1;
 /// Handshake marker distinguishing protocol traffic from stray process output.
-pub const MAGIC: &str = "xccode-js-host";
+pub const MAGIC: &str = "xiaochuan-js-host";
 
 /// From the host to the JS host. Each message with a `seq` is acknowledged on receipt ([`Up::Ack`]).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -84,7 +84,7 @@ pub enum Down {
     },
     /// A piece of the JSON of the result of a reply to `request` of activation `activation`, in base64, which is too
     /// large for one frame: its call follows the pieces, in order, and says it is [`Down::Call::parted`].
-    Part { activation: u64, request: xccode_plugin_abi::RequestId, data: String },
+    Part { activation: u64, request: xiaochuan_plugin_abi::RequestId, data: String },
     /// A surface of plugin `id` mounted, with its first input. Answered with [`Up::Done`] once its view was sent.
     Mount {
         seq: u64,
@@ -128,7 +128,7 @@ pub enum Down {
         activation: u64,
         claim: usize,
         mount: v2::MountId,
-        part: xccode_plugin_abi::claim::Part,
+        part: xiaochuan_plugin_abi::claim::Part,
     },
     /// The host adopted revision `rev` of `mount`: the next one builds on it.
     Adopted { id: String, mount: v2::MountId, rev: u64 },
@@ -175,7 +175,7 @@ pub enum Down {
     AnsweredPart { id: String, activation: u64, key: String, data: String },
     /// The host cancelled `request` of activation `activation`, as the mount that owns it closed: no reply comes, and
     /// the fetch that waits for it rejects with an `AbortError`.
-    Cancelled { activation: u64, request: xccode_plugin_abi::RequestId },
+    Cancelled { activation: u64, request: xiaochuan_plugin_abi::RequestId },
     /// Answered with [`Up::Pong`] once everything before it was handled.
     Ping { seq: u64 },
     /// The message of `seq` was over the queue and is not sent; its sequence goes, so the stream has no gap.
@@ -314,7 +314,7 @@ pub enum Up {
         /// The mount they are of, which the JS host knows and the call that ran does not: a field's focus is the
         /// mount's whose tree holds the field. They apply to that mount or, once it closed, nowhere.
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        mount: Option<xccode_plugin_abi::v2::MountId>,
+        mount: Option<xiaochuan_plugin_abi::v2::MountId>,
     },
     /// A revision of a mount's tree, in a frame of its own kind.
     Tree(Box<Revision>),

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import { Effect } from "effect"
-import { Failed, NotFound, WrongKind, type Files } from "@xccode/core/environment/index"
+import { Failed, NotFound, WrongKind, type Files } from "@xiaochuan/core/environment/index"
 
 export interface EnvironmentHarness {
   readonly files: Files

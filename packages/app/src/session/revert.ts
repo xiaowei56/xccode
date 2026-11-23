@@ -1,5 +1,5 @@
-import type { SessionMessageUser } from "@xccode/client/promise"
-import { toaster } from "@xccode/ui/toast"
+import type { SessionMessageUser } from "@xiaochuan/client/promise"
+import { toaster } from "@xiaochuan/ui/toast"
 import { createMemo, createSignal, onCleanup, untrack } from "solid-js"
 import { useComposerState } from "@/composer/persistence"
 import { useData } from "@/runtime/server/current"

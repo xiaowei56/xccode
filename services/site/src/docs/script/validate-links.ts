@@ -36,13 +36,13 @@ const failures = (
   await Promise.all(
     files.flatMap(async (file) => {
       const html = await Bun.file(file).text()
-      const page = `https://xccode.local/${path.relative(root, file).replace(/index\.html$/, "")}`
+      const page = `https://xiaochuan.local/${path.relative(root, file).replace(/index\.html$/, "")}`
       return Promise.all(
         Array.from(html.matchAll(/href="([^"]+)"/g), async (match) => {
           // Not a link on this site: an autolinked URL a translation ran into (`http://localhost:4096）`).
           if (!URL.canParse(match[1], page)) return
           const url = new URL(match[1], page)
-          if (url.origin !== "https://xccode.local") return
+          if (url.origin !== "https://xiaochuan.local") return
           if (externalRoutes.test(url.pathname)) return
           const docs = docsSets.some((set) => `${url.pathname}/`.startsWith(set.base))
           if (!docs && !url.hash && (await sitePage(url.pathname))) return

@@ -1,5 +1,5 @@
-import { Button } from "@xccode/ui/button"
-import { useDialog } from "@xccode/ui/context/dialog"
+import { Button } from "@xiaochuan/ui/button"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
 import { createEffect, createSignal, onMount, Show, type ComponentProps } from "solid-js"
 import type { ServerConnection } from "@/runtime/server/registry"
 import { createServerConnectController, type ServerConnectControllerOptions } from "./controller"

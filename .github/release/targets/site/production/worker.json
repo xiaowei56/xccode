@@ -1,5 +1,5 @@
 {
-  "name": "xccode-site-production",
+  "name": "xiaochuan-site-production",
   "compatibilityDate": "2026-07-25",
   "compatibilityFlags": ["nodejs_compat"],
   "assets": {
@@ -22,10 +22,10 @@
       "!/v1/docs/theme.json"
     ]
   },
-  "domains": ["xccode.ai", "docs.xccode.ai"],
+  "domains": ["xiaochuan.ai", "docs.xiaochuan.ai"],
   "triggers": [
-    { "type": "fetch", "pattern": "xccode.ai", "zone": "xccode.ai" },
-    { "type": "fetch", "pattern": "xccode.ai/*", "zone": "xccode.ai" }
+    { "type": "fetch", "pattern": "xiaochuan.ai", "zone": "xiaochuan.ai" },
+    { "type": "fetch", "pattern": "xiaochuan.ai/*", "zone": "xiaochuan.ai" }
   ],
   "observability": { "enabled": true },
   "workersDev": false,

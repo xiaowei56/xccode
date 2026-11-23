@@ -1,6 +1,6 @@
-import type { UsageLimitsBudget, UsageLimitsInfo } from "@xccode/client/promise"
-import { Button } from "@xccode/ui/button"
-import { useDialog } from "@xccode/ui/context/dialog"
+import type { UsageLimitsBudget, UsageLimitsInfo } from "@xiaochuan/client/promise"
+import { Button } from "@xiaochuan/ui/button"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
 import { onMount } from "solid-js"
 import { DialogStoryRuntime, STORY_DIRECTORY, STORY_LOCKED_SERVER } from "@/components-lab/dialog-story-runtime"
 import { DialogUsage, UsageDialogContent } from "./dialog"
@@ -12,9 +12,9 @@ const resetsAt = Date.UTC(today.getUTCFullYear(), today.getUTCMonth() + 1, 1)
 
 const hour = 3_600_000
 
-const opus = { providerID: "xccode", modelID: "claude-opus-5", name: "Claude Opus 5" }
+const opus = { providerID: "xiaochuan", modelID: "claude-opus-5", name: "Claude Opus 5" }
 
-const sonnet = { providerID: "xccode", modelID: "claude-sonnet-5", name: "Claude Sonnet 5" }
+const sonnet = { providerID: "xiaochuan", modelID: "claude-sonnet-5", name: "Claude Sonnet 5" }
 
 const budget = (input: Partial<UsageLimitsBudget> & Pick<UsageLimitsBudget, "id">): UsageLimitsBudget => ({
   limit: 150,
@@ -36,7 +36,7 @@ const anthropic = (spent: number) =>
 const pool = (spent: number) => budget({ id: "pool", scope: "combined", shared: true, limit: 1_000, spent })
 
 const info = (budgets: UsageLimitsBudget[], go?: "available" | "limited"): UsageLimitsInfo => ({
-  workspace: { id: "wrk_1", name: "Acme", usageURL: "https://xccode.ai/wrk_1/activity/overview" },
+  workspace: { id: "wrk_1", name: "Acme", usageURL: "https://xiaochuan.ai/wrk_1/activity/overview" },
   go: go
     ? {
         rolling: { percent: go === "limited" ? 100 : 42, limited: go === "limited", resetsAt: Date.now() + 3 * hour },

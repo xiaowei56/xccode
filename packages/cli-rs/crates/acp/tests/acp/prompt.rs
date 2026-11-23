@@ -1,7 +1,7 @@
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_acp::paths::resolve_from;
+use xiaochuan_acp::paths::resolve_from;
 use serde_json::{Value, json};
 use tokio_util::sync::CancellationToken;
 
@@ -226,7 +226,7 @@ fn file_url(path: &std::path::Path) -> String {
 
 #[tokio::test]
 async fn attaches_readable_file_links_and_references_unreadable_ones_in_place() {
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     let file = file_url(&dir.path().join("notes.md"));
     let folder = file_url(&dir.path().join("src"));
     let missing = file_url(&dir.path().join("missing.md"));
@@ -367,7 +367,7 @@ async fn maps_failures_to_acp_errors() {
 
 #[tokio::test]
 async fn session_cancel_during_setup_or_before_admission_returns_cancelled() {
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     std::fs::write(dir.path().join("notes.md"), "# notes\n").unwrap();
     let aborted = CancellationToken::new();
     let seen = aborted.clone();
@@ -550,7 +550,7 @@ async fn stops_waiting_for_a_wind_down_that_never_ends_and_fails_the_tools_left_
 
 #[tokio::test]
 async fn reports_full_file_diffs_for_a_completed_edit_and_patch() {
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     let root = dir.path().to_str().unwrap().to_owned();
     let file = |name: &str| resolve_from(&root, name);
     let edited = "one\r\nthree\r\n";
@@ -740,6 +740,6 @@ async fn rejects_a_second_prompt_while_one_is_active() {
     acp.notify("session/cancel", json!({ "sessionId": acp.session_id }));
     assert_matches(
         &prompt.await.unwrap().unwrap(),
-        &json!({ "stopReason": "cancelled", "_meta": { "xccode/retry": { "attempt": 1, "nextRetryAt": "1970-01-01T00:00:00.000Z" } } }),
+        &json!({ "stopReason": "cancelled", "_meta": { "xiaochuan/retry": { "attempt": 1, "nextRetryAt": "1970-01-01T00:00:00.000Z" } } }),
     );
 }

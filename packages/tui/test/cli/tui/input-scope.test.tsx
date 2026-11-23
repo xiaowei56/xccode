@@ -1,5 +1,5 @@
 /** @jsxImportSource @opentui/solid */
-import type { PermissionRequest } from "@xccode/client"
+import type { PermissionRequest } from "@xiaochuan/client"
 import type { TextareaRenderable } from "@opentui/core"
 import { testRender, type JSX } from "@opentui/solid"
 import { expect, test } from "bun:test"

@@ -1,8 +1,8 @@
-import { Project } from "@xccode/core/project"
+import { Project } from "@xiaochuan/core/project"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"
-import { ProjectNotFoundError } from "@xccode/protocol/errors"
+import { ProjectNotFoundError } from "@xiaochuan/protocol/errors"
 
 export const ProjectHandler = HttpApiBuilder.group(Api, "server.project", (handlers) =>
   handlers

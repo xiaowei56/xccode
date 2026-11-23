@@ -35,7 +35,7 @@ export default bench({
     desktop: web({ url: "/", viewport: desktop }),
     phone: web({ url: "/", emulate: "mobile" }),
     // The live site, for reference only: `--target production --blocks 5 --head .` (nothing to build).
-    production: url("https://xccode.ai/", { viewport: desktop }),
+    production: url("https://xiaochuan.ai/", { viewport: desktop }),
   },
   setup: ({ page }) => page.idle(),
   cases: {

@@ -1,14 +1,14 @@
 import { expect } from "bun:test"
 import { Effect } from "effect"
-import { Agent } from "@xccode/core/agent"
-import { Model } from "@xccode/core/model"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { VerbosityPlugin } from "@xccode/core/plugin/verbosity"
-import { Provider } from "@xccode/core/provider"
-import { Session } from "@xccode/core/session"
-import type { SessionHooks } from "@xccode/plugin/effect/session"
+import { Agent } from "@xiaochuan/core/agent"
+import { Model } from "@xiaochuan/core/model"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { VerbosityPlugin } from "@xiaochuan/core/plugin/verbosity"
+import { Provider } from "@xiaochuan/core/provider"
+import { Session } from "@xiaochuan/core/session"
+import type { SessionHooks } from "@xiaochuan/plugin/effect/session"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -36,7 +36,7 @@ it.effect("sets known OpenAI Responses defaults without overriding configured or
     const hooks = yield* PluginHooks.Service
     yield* providers.transform((editor) => {
       editor.add({
-        info: { ...Provider.Info.empty(Provider.ID.make("openai")), package: "@xccode/ai/providers/openai" },
+        info: { ...Provider.Info.empty(Provider.ID.make("openai")), package: "@xiaochuan/ai/providers/openai" },
         models: [
           { ...Model.Info.default(Provider.ID.make("openai"), Model.ID.make("gpt-5.5")) },
           { ...Model.Info.default(Provider.ID.make("openai"), Model.ID.make("gpt-5.6-luna-fast")) },
@@ -55,50 +55,50 @@ it.effect("sets known OpenAI Responses defaults without overriding configured or
           {
             ...Model.Info.default(Provider.ID.make("openai"), Model.ID.make("chat")),
             modelID: Model.ID.make("gpt-5.5"),
-            package: "@xccode/ai/providers/openai/chat",
+            package: "@xiaochuan/ai/providers/openai/chat",
           },
         ],
       })
       editor.add({
         info: {
-          ...Provider.Info.empty(Provider.ID.make("xccode")),
-          package: "@xccode/ai/providers/openai-compatible",
+          ...Provider.Info.empty(Provider.ID.make("xiaochuan")),
+          package: "@xiaochuan/ai/providers/openai-compatible",
         },
         models: [
           {
-            ...Model.Info.default(Provider.ID.make("xccode"), Model.ID.make("astra-alias")),
+            ...Model.Info.default(Provider.ID.make("xiaochuan"), Model.ID.make("astra-alias")),
             modelID: Model.ID.make("gpt-6-astra"),
-            package: "@xccode/ai/providers/openai/responses",
+            package: "@xiaochuan/ai/providers/openai/responses",
           },
           {
-            ...Model.Info.default(Provider.ID.make("xccode"), Model.ID.make("no-default")),
+            ...Model.Info.default(Provider.ID.make("xiaochuan"), Model.ID.make("no-default")),
             modelID: Model.ID.make("gpt-6-astra"),
-            package: "@xccode/ai/providers/openai/responses",
+            package: "@xiaochuan/ai/providers/openai/responses",
             settings: { textVerbosity: null },
           },
         ],
       })
       editor.add({
-        info: { ...Provider.Info.empty(Provider.ID.make("openrouter")), package: "@xccode/ai/providers/openrouter" },
+        info: { ...Provider.Info.empty(Provider.ID.make("openrouter")), package: "@xiaochuan/ai/providers/openrouter" },
         models: [Model.Info.default(Provider.ID.make("openrouter"), Model.ID.make("gpt-5.5"))],
       })
       editor.add({
         info: {
           ...Provider.Info.empty(Provider.ID.make("configured")),
-          package: "@xccode/ai/providers/openai",
+          package: "@xiaochuan/ai/providers/openai",
           settings: { textVerbosity: "medium" },
         },
         models: [Model.Info.default(Provider.ID.make("configured"), Model.ID.make("gpt-5.5"))],
       })
       for (const [providerID, packageName, modelID] of [
-        ["azure", "@xccode/ai/providers/azure/responses", "gpt-5.5"],
-        ["bedrock-mantle", "@xccode/ai/providers/amazon-bedrock/mantle/responses", "openai.gpt-6-sol"],
-        ["cloudflare", "@xccode/ai/providers/cloudflare-ai-gateway", "openai/gpt-5.6-sol"],
-        ["vercel", "@xccode/ai/providers/vercel-ai-gateway", "openai/gpt-6-astra-fast"],
-        ["azure-chat", "@xccode/ai/providers/azure/chat", "gpt-5.5"],
-        ["bedrock-converse", "@xccode/ai/providers/amazon-bedrock", "global.openai.gpt-6-sol"],
-        ["cloudflare-chat", "@xccode/ai/providers/cloudflare-ai-gateway", "workers-ai/gpt-5.5"],
-        ["vercel-other", "@xccode/ai/providers/vercel-ai-gateway", "anthropic/gpt-5.5"],
+        ["azure", "@xiaochuan/ai/providers/azure/responses", "gpt-5.5"],
+        ["bedrock-mantle", "@xiaochuan/ai/providers/amazon-bedrock/mantle/responses", "openai.gpt-6-sol"],
+        ["cloudflare", "@xiaochuan/ai/providers/cloudflare-ai-gateway", "openai/gpt-5.6-sol"],
+        ["vercel", "@xiaochuan/ai/providers/vercel-ai-gateway", "openai/gpt-6-astra-fast"],
+        ["azure-chat", "@xiaochuan/ai/providers/azure/chat", "gpt-5.5"],
+        ["bedrock-converse", "@xiaochuan/ai/providers/amazon-bedrock", "global.openai.gpt-6-sol"],
+        ["cloudflare-chat", "@xiaochuan/ai/providers/cloudflare-ai-gateway", "workers-ai/gpt-5.5"],
+        ["vercel-other", "@xiaochuan/ai/providers/vercel-ai-gateway", "anthropic/gpt-5.5"],
       ] as const) {
         editor.add({
           info: { ...Provider.Info.empty(Provider.ID.make(providerID)), package: packageName },
@@ -139,14 +139,14 @@ it.effect("sets known OpenAI Responses defaults without overriding configured or
       ref("cloudflare-chat", "selected"),
       ref("vercel-other", "selected"),
       ref("openai", "gpt-6-astra", "quiet"),
-      ref("xccode", "no-default"),
+      ref("xiaochuan", "no-default"),
     ]) {
       const event = request(model)
       yield* hooks.trigger("session", "context", event)
       expect(event.options.textVerbosity).toBeUndefined()
     }
 
-    const alias = request(ref("xccode", "astra-alias"))
+    const alias = request(ref("xiaochuan", "astra-alias"))
     yield* hooks.trigger("session", "context", alias)
     expect(alias.options.textVerbosity).toBe("low")
 

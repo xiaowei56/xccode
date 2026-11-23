@@ -1,9 +1,9 @@
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { CerebrasPlugin } from "@xccode/core/plugin/provider/cerebras"
-import { Provider } from "@xccode/core/provider"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { CerebrasPlugin } from "@xiaochuan/core/plugin/provider/cerebras"
+import { Provider } from "@xiaochuan/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -21,14 +21,14 @@ describe("CerebrasPlugin", () => {
       const catalog = yield* Provider.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("cerebras"), (item) => {
-          item.package = "@xccode/ai/providers/cerebras"
+          item.package = "@xiaochuan/ai/providers/cerebras"
           item.headers = { ...item.headers, Existing: "1" }
         })
       })
       yield* addPlugin()
       expect((yield* catalog.get(Provider.ID.make("cerebras")))?.headers).toEqual({
         Existing: "1",
-        "X-Cerebras-3rd-Party-Integration": "xccode",
+        "X-Cerebras-3rd-Party-Integration": "xiaochuan",
       })
     }),
   )
@@ -48,14 +48,14 @@ describe("CerebrasPlugin", () => {
       const providerID = Provider.ID.make("custom-cerebras")
       yield* catalog.transform((catalog) => {
         catalog.update(providerID, (item) => {
-          item.package = "@xccode/ai/providers/cerebras"
+          item.package = "@xiaochuan/ai/providers/cerebras"
           item.headers = { Existing: "1" }
         })
       })
       yield* addPlugin()
       expect((yield* catalog.get(providerID))?.headers).toEqual({
         Existing: "1",
-        "X-Cerebras-3rd-Party-Integration": "xccode",
+        "X-Cerebras-3rd-Party-Integration": "xiaochuan",
       })
     }),
   )

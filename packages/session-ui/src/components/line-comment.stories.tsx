@@ -27,7 +27,7 @@ Pair with \`Diff\` or \`Code\` to align comments to lines.
 `
 
 export default {
-  title: "Xccode/Review/Line comments",
+  title: "Xiaochuan/Review/Line comments",
   id: "components-line-comment",
   component: LineComment,
   args: { inline: false },

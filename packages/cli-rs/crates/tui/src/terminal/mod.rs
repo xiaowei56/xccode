@@ -6,11 +6,11 @@ pub mod pane;
 use std::sync::{Arc, OnceLock};
 
 use indexmap::IndexMap;
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     ExperimentalPersistentPtyCreateInput, ExperimentalPersistentPtyListInput, PersistentPtyInfo,
 };
-use xccode_api::pty::{Connector, Tungstenite};
-use xccode_local::serial::Serial;
+use xiaochuan_api::pty::{Connector, Tungstenite};
+use xiaochuan_local::serial::Serial;
 
 use crate::features::events::Handled;
 use crate::prelude::*;

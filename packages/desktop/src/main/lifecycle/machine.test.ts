@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { Scope } from "@xccode/plugin/gui/host"
+import { Scope } from "@xiaochuan/plugin/gui/host"
 import {
   initialState,
   isQuitting,

@@ -6,12 +6,12 @@ import { SimulationRenderer } from "../src/frontend/renderer"
 import { SimulationSemantics } from "../src/frontend/semantics"
 
 test("matches literal screen text", () => {
-  const harness = { screen: () => "Xccode [ready].*" }
+  const harness = { screen: () => "Xiaochuan [ready].*" }
 
-  expect(matches(harness, "Xccode")).toBe(true)
+  expect(matches(harness, "Xiaochuan")).toBe(true)
   expect(matches(harness, "[ready].*")).toBe(true)
-  expect(matches(harness, "Xccode.*ready")).toBe(false)
-  expect(matches(harness, "xccode")).toBe(false)
+  expect(matches(harness, "Xiaochuan.*ready")).toBe(false)
+  expect(matches(harness, "xiaochuan")).toBe(false)
 })
 
 test("omits an absent focused renderable from state", () => {
@@ -265,7 +265,7 @@ test("snapshots lazy semantic hierarchy and interaction state", async () => {
         actions.add(once)
 
         expect(snapshot(createHarness(renderer))).toEqual({
-          format: "xccode-ui-snapshot-v1",
+          format: "xiaochuan-ui-snapshot-v1",
           nodes: [
             {
               id: "session.permission",

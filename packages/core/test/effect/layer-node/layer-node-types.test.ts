@@ -1,7 +1,7 @@
 import { test } from "bun:test"
 import { Context, Effect, Layer } from "effect"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { makeGlobalNode, makeLocationNode } from "@xccode/util/effect/app-node"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { makeGlobalNode, makeLocationNode } from "@xiaochuan/util/effect/app-node"
 
 class A extends Context.Service<A, {}>()("test/LayerNodeA") {}
 class B extends Context.Service<B, {}>()("test/LayerNodeB") {}

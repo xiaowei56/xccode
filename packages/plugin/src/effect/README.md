@@ -1,14 +1,14 @@
-# Xccode V2 Effect Plugin API
+# Xiaochuan V2 Effect Plugin API
 
 The Effect plugin API grants plugins two in-process capabilities:
 
-- `hook` installs behavior at an Xccode extension point.
+- `hook` installs behavior at an Xiaochuan extension point.
 - `reload` reruns every transform hook for a stateful domain.
 
 ## Defining A Plugin
 
 ```ts
-import { Plugin } from "@xccode/plugin/effect"
+import { Plugin } from "@xiaochuan/plugin/effect"
 import { Effect } from "effect"
 
 export default Plugin.define({

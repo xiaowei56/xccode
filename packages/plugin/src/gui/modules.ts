@@ -2,19 +2,19 @@
 
 /**
  * The modules a plugin's `./gui-experimental` bundle may require that both processes provide, each its own instance.
- * Main maps `@xccode/plugin/gui` to the main SDK and a window maps `@xccode/plugin/gui/main` to the window SDK:
+ * Main maps `@xiaochuan/plugin/gui` to the main SDK and a window maps `@xiaochuan/plugin/gui/main` to the window SDK:
  * both export the same `Plugin`, `Store`, `Ipc`, `Contract` and `Registry`, so one definition and contract serve both
- * processes. `@xccode/plugin/rpc` is here because a plugin's `./rpc` contract imports it, and its GUI imports that
+ * processes. `@xiaochuan/plugin/rpc` is here because a plugin's `./rpc` contract imports it, and its GUI imports that
  * contract.
  */
 export const pluginSharedModules = [
   "effect",
-  "@xccode/plugin/gui",
-  "@xccode/plugin/gui/main",
-  "@xccode/plugin/rpc",
-  "@xccode/schema/rpc",
-  "@xccode/client",
-  "@xccode/client/effect",
+  "@xiaochuan/plugin/gui",
+  "@xiaochuan/plugin/gui/main",
+  "@xiaochuan/plugin/rpc",
+  "@xiaochuan/schema/rpc",
+  "@xiaochuan/client",
+  "@xiaochuan/client/effect",
 ] as const
 
 /**
@@ -25,10 +25,10 @@ export const pluginWindowModules = [
   "solid-js",
   "solid-js/web",
   "solid-js/store",
-  "@xccode/plugin/gui/file",
-  "@xccode/plugin/gui/review",
-  "@xccode/plugin/gui/browser",
-  "@xccode/client/solid",
+  "@xiaochuan/plugin/gui/file",
+  "@xiaochuan/plugin/gui/review",
+  "@xiaochuan/plugin/gui/browser",
+  "@xiaochuan/client/solid",
 ] as const
 
 /** A module name in `pluginSharedModules` or `pluginWindowModules`. */

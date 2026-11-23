@@ -1,6 +1,6 @@
 [package]
-name = "xccode-drive"
-description = "The simulation UI endpoint, XCCODE_DRIVE (H.4)."
+name = "xiaochuan-drive"
+description = "The simulation UI endpoint, XIAOCHUAN_DRIVE (H.4)."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -11,8 +11,8 @@ workspace = true
 
 [dependencies]
 log.workspace = true
-xccode-api-types.workspace = true
-xccode-util.workspace = true
+xiaochuan-api-types.workspace = true
+xiaochuan-util.workspace = true
 opentui.workspace = true
 serde.workspace = true
 serde_json.workspace = true

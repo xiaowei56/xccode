@@ -215,7 +215,7 @@ mod tests {
 
     #[test]
     fn an_empty_variant_is_dropped_as_typescript_drops_it() {
-        let state = xccode_util::temp::tempdir().unwrap();
+        let state = xiaochuan_util::temp::tempdir().unwrap();
         let prefs = ModelPreferences::new(state.path());
         prefs.save_variant(&Model::new("p", "a"), Some("high")).unwrap();
         prefs.save_variant(&Model::new("p", "a"), Some("")).unwrap();

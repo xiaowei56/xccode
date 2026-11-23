@@ -2,32 +2,32 @@
   "build": { "command": "bun run build", "cwd": "packages/app", "output": "packages/app/dist" },
   "serve": { "command": "bun e2e/utils/serve.ts --host 127.0.0.1 --port {port}", "cwd": "packages/app" },
   "apps": {
-    "xccode": {
+    "xiaochuan": {
       "exe": {
-        "windows": "%LOCALAPPDATA%/Programs/ai.xccode.desktop/Xccode.exe",
-        "macos": "/Applications/Xccode.app/Contents/MacOS/Xccode"
+        "windows": "%LOCALAPPDATA%/Programs/ai.xiaochuan.desktop/Xiaochuan.exe",
+        "macos": "/Applications/Xiaochuan.app/Contents/MacOS/Xiaochuan"
       },
-      "unset": ["XCCODE_*", "OTEL_*", "SENTRY_*"],
+      "unset": ["XIAOCHUAN_*", "OTEL_*", "SENTRY_*"],
       "env": {
-        "XCCODE_DB": "{home}/.local/share/xccode/xccode.db",
-        "XCCODE_CONFIG_DIR": "{home}/.config/xccode",
+        "XIAOCHUAN_DB": "{home}/.local/share/xiaochuan/xiaochuan.db",
+        "XIAOCHUAN_CONFIG_DIR": "{home}/.config/xiaochuan",
         "HTTP_PROXY": "http://127.0.0.1:9",
         "HTTPS_PROXY": "http://127.0.0.1:9",
         "NO_PROXY": "localhost,127.0.0.1,::1"
       },
-      "dirs": [".local/share/xccode"],
+      "dirs": [".local/share/xiaochuan"],
       "files": {
-        ".config/xccode/service.json": { "port": "{port}" },
-        "AppData/Local/@xccodedesktop-updater": "a file, not a folder: the updater cannot stage a download while strobe measures"
+        ".config/xiaochuan/service.json": { "port": "{port}" },
+        "AppData/Local/@xiaochuandesktop-updater": "a file, not a folder: the updater cannot stage a download while strobe measures"
       },
-      "guard": [{ "file": "~/.local/state/xccode/service.json", "pid": "pid", "url": "url" }],
-      "protocols": ["xccode"]
+      "guard": [{ "file": "~/.local/state/xiaochuan/service.json", "pid": "pid", "url": "url" }],
+      "protocols": ["xiaochuan"]
     },
-    "xccode-beta": {
-      "extends": "xccode",
+    "xiaochuan-beta": {
+      "extends": "xiaochuan",
       "exe": {
-        "windows": "%LOCALAPPDATA%/Programs/ai.xccode.desktop.beta/Xccode Beta.exe",
-        "macos": "/Applications/Xccode Beta.app/Contents/MacOS/Xccode Beta"
+        "windows": "%LOCALAPPDATA%/Programs/ai.xiaochuan.desktop.beta/Xiaochuan Beta.exe",
+        "macos": "/Applications/Xiaochuan Beta.app/Contents/MacOS/Xiaochuan Beta"
       }
     }
   }

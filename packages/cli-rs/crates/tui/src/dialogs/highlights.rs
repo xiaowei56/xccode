@@ -1,6 +1,6 @@
 //! Release highlights dialog.
 
-use xccode_ui::dialog::{DIALOG_INSET, FooterAction, FooterProps, layout};
+use xiaochuan_ui::dialog::{DIALOG_INSET, FooterAction, FooterProps, layout};
 use serde::Deserialize;
 
 use crate::prelude::*;

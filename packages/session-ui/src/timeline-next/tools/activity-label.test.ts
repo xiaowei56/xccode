@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { useI18n } from "@xccode/ui/context/i18n"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
 import { summarize } from "../../timeline/facts"
 import { labelGroups } from "../../timeline/group-label-fixtures"
 import { activityFacts, activityLabel, activityText, usedLabel } from "./activity-label"

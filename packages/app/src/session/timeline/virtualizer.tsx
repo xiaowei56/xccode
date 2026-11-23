@@ -6,9 +6,9 @@ import {
   type Range,
   type VirtualItem,
 } from "@tanstack/solid-virtual"
-import { isScrollKeyTarget, scrollKey, scrollKeyOwner, ScrollView } from "@xccode/ui/scroll-view"
+import { isScrollKeyTarget, scrollKey, scrollKeyOwner, ScrollView } from "@xiaochuan/ui/scroll-view"
 import { Predicate } from "effect"
-import { Timeline, TimelineRow } from "@xccode/session-ui/timeline/projection"
+import { Timeline, TimelineRow } from "@xiaochuan/session-ui/timeline/projection"
 import { useLanguage } from "@/runtime/i18n/language"
 import {
   batch,
@@ -46,7 +46,7 @@ import {
   type ColdMountEvent,
   type ColdMountSample,
 } from "./cold-mount"
-import { prefersReducedMotion } from "@xccode/ui/motion"
+import { prefersReducedMotion } from "@xiaochuan/ui/motion"
 import { holdLandingWidth } from "@/shell/panel-motion"
 import type { TimelineFollow } from "./follow"
 import {

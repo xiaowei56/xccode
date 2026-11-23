@@ -1,12 +1,12 @@
 //! Connects the way the CLI does and prints the server version from `/api/info`.
 //!
-//! `cargo run -p xccode-service --example connect [-- --print-logs] [--server URL]
+//! `cargo run -p xiaochuan-service --example connect [-- --print-logs] [--server URL]
 //! [--standalone] [--no-autostart]`. Without a running service it starts the TypeScript one
-//! (`XCCODE_TS_BIN`, else `xccode`).
+//! (`XIAOCHUAN_TS_BIN`, else `xiaochuan`).
 
-use xccode_api::transport::Reqwest;
-use xccode_local::paths::Paths;
-use xccode_service::connect::{self, Env, Options};
+use xiaochuan_api::transport::Reqwest;
+use xiaochuan_local::paths::Paths;
+use xiaochuan_service::connect::{self, Env, Options};
 use std::sync::Arc;
 
 #[tokio::main]

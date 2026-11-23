@@ -1,10 +1,10 @@
 import { describe, expect, test } from "bun:test"
 import { Effect } from "effect"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { ProviderPlugins } from "@xccode/core/plugin/provider"
-import { ZenmuxPlugin } from "@xccode/core/plugin/provider/zenmux"
-import { Provider } from "@xccode/core/provider"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { ProviderPlugins } from "@xiaochuan/core/plugin/provider"
+import { ZenmuxPlugin } from "@xiaochuan/core/plugin/provider/zenmux"
+import { Provider } from "@xiaochuan/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -23,7 +23,7 @@ function required<T>(value: T | undefined): T {
 
 describe("ZenmuxPlugin", () => {
   test("is registered so legacy referer headers can be applied", () => {
-    expect(ProviderPlugins.map((item) => item.id)).toContain("xccode.provider.zenmux")
+    expect(ProviderPlugins.map((item) => item.id)).toContain("xiaochuan.provider.zenmux")
   })
 
   it.effect("applies the exact legacy Zenmux headers", () =>
@@ -31,13 +31,13 @@ describe("ZenmuxPlugin", () => {
       const catalog = yield* Provider.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("zenmux"), (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.settings = { ...provider.settings, baseURL: "https://zenmux.ai/api/v1" }
         })
       })
       yield* addPlugin()
       const result = required(yield* catalog.get(Provider.ID.make("zenmux")))
-      expect(result.headers).toEqual({ "HTTP-Referer": "https://xccode.ai/", "X-Title": "xccode" })
+      expect(result.headers).toEqual({ "HTTP-Referer": "https://xiaochuan.ai/", "X-Title": "xiaochuan" })
       expect(Object.keys(required(result.headers)).sort()).toEqual(["HTTP-Referer", "X-Title"])
     }),
   )
@@ -47,7 +47,7 @@ describe("ZenmuxPlugin", () => {
       const catalog = yield* Provider.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("zenmux"), (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.settings = { ...provider.settings, baseURL: "https://zenmux.ai/api/v1" }
           provider.headers = { ...provider.headers, Existing: "value" }
         })
@@ -56,8 +56,8 @@ describe("ZenmuxPlugin", () => {
 
       expect(required(yield* catalog.get(Provider.ID.make("zenmux"))).headers).toEqual({
         Existing: "value",
-        "HTTP-Referer": "https://xccode.ai/",
-        "X-Title": "xccode",
+        "HTTP-Referer": "https://xiaochuan.ai/",
+        "X-Title": "xiaochuan",
       })
     }),
   )
@@ -67,7 +67,7 @@ describe("ZenmuxPlugin", () => {
       const catalog = yield* Provider.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("zenmux"), (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.settings = { ...provider.settings, baseURL: "https://zenmux.ai/api/v1" }
           provider.headers = { "HTTP-Referer": "https://example.com/", "X-Title": "custom-title" }
         })

@@ -31,7 +31,7 @@ import { createTuiResolvedConfig } from "../../../tui/test/fixture/tui-runtime"
 import { withNewDesigns } from "../lib/app"
 import { renderComponent } from "../lib/component"
 
-const directory = "/tmp/xccode/app"
+const directory = "/tmp/xiaochuan/app"
 const noon = (day: number) => Date.UTC(2026, 2, day, 12)
 const session = (id: string, title: string | undefined, updated: number, extra: Record<string, unknown> = {}) => ({
   id,
@@ -46,7 +46,7 @@ const session = (id: string, title: string | undefined, updated: number, extra: 
 const scoped = [
   session("ses_b", "Write docs", noon(3) - 3_600_000),
   session("ses_a", "Fix the parser", noon(3)),
-  session("ses_c", undefined, noon(1), { location: { directory: "/tmp/xccode/app-feature" } }),
+  session("ses_c", undefined, noon(1), { location: { directory: "/tmp/xiaochuan/app-feature" } }),
 ]
 const other = session("ses_d", "Other project", noon(2), {
   projectID: "proj_other",
@@ -58,7 +58,7 @@ const recent = [
   session("ses_r1", "Review the plan", now - 5 * 60_000),
   session("ses_r2", "Fix the parser", now - 3 * 3_600_000),
   session("ses_r3", "Explore the worktree", now - 2 * 86_400_000, {
-    location: { directory: "/tmp/xccode/app-feature" },
+    location: { directory: "/tmp/xiaochuan/app-feature" },
   }),
 ]
 const recentOther = session("ses_r4", "Other project", now - 40 * 86_400_000, {
@@ -83,7 +83,7 @@ const calls = createFetch((url) => {
   if (url.pathname === "/api/location")
     return json({ directory, project: { id: "proj_app", directory, canonical: directory } })
   if (url.pathname === "/api/project") return json(projects)
-  if (url.pathname === "/api/worktree") return json([{ directory: "/tmp/xccode/app-feature" }])
+  if (url.pathname === "/api/worktree") return json([{ directory: "/tmp/xiaochuan/app-feature" }])
   if (url.pathname !== "/api/session") return undefined
   const search = url.searchParams.get("search")
   const all = url.searchParams.get("project") === null && url.searchParams.get("directory") === null
@@ -111,7 +111,7 @@ type Act = Parameters<typeof renderComponent>[0]["act"]
 
 // `ready` must hold before and after `act`: renderComponent waits for it on both sides.
 async function render(fixture: string, open: () => JSX.Element, ready: (frame: string) => boolean, act?: Act) {
-  const state = await mkdtemp(path.join(os.tmpdir(), "xccode-e11a-"))
+  const state = await mkdtemp(path.join(os.tmpdir(), "xiaochuan-e11a-"))
   await Bun.write(path.join(state, "session.json"), JSON.stringify({ pinned: ["ses_b"] }))
   try {
     await renderComponent({
@@ -119,7 +119,7 @@ async function render(fixture: string, open: () => JSX.Element, ready: (frame: s
       width: 100,
       height: 34,
       bare: () => (
-        <TestTuiContexts paths={{ state, home: "/tmp/xccode/home" }} directory={directory}>
+        <TestTuiContexts paths={{ state, home: "/tmp/xiaochuan/home" }} directory={directory}>
           <TuiAppProvider value={{ name: "test", version: "test", channel: "test" }}>
             <StorageProvider>
               <ArgsProvider>

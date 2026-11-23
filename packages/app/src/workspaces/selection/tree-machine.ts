@@ -1,4 +1,4 @@
-import { getFilename } from "@xccode/util/path"
+import { getFilename } from "@xiaochuan/util/path"
 import {
   pickerFileSearchQuery,
   pickerParent,

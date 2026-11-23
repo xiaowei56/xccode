@@ -1,7 +1,7 @@
 import { createMemo, createSignal, For, Match, Show, Switch } from "solid-js"
 import { RGBA, type Renderable } from "@opentui/core"
 import { useRenderer, type JSX } from "@opentui/solid"
-import type { SessionMessageAssistantTool, SessionMessageInfo } from "@xccode/client"
+import type { SessionMessageAssistantTool, SessionMessageInfo } from "@xiaochuan/client"
 import { useTheme } from "../../context/theme"
 import { reasoningSummary } from "../../context/thinking"
 import { SplitBorder } from "../../ui/border"

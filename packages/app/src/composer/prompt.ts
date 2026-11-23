@@ -1,13 +1,13 @@
 import type { FileAttachmentPart, ImageAttachmentPart, PathAttachmentPart, Prompt } from "@/composer/state"
 import { createLegacyBlobReference } from "@/runtime/persistence/drafts"
-import type { PromptAttachment, SessionMessageUser } from "@xccode/client/promise"
+import type { PromptAttachment, SessionMessageUser } from "@xiaochuan/client/promise"
 import { commentContextItem, readPromptPresentation } from "./comment-note"
 import { buildPromptRequest } from "./request"
 import { contextItemKey, type FileContextItem } from "./schema"
 import { createPathHelpers, decodeFilePath, stripFileProtocol, stripQueryAndHash } from "@/workspaces/files/path"
-import { Skill } from "@xccode/schema/skill"
-import { Session } from "@xccode/schema/session"
-import { sessionMentions } from "@xccode/util/session-mention"
+import { Skill } from "@xiaochuan/schema/skill"
+import { Session } from "@xiaochuan/schema/session"
+import { sessionMentions } from "@xiaochuan/util/session-mention"
 
 type Inline =
   | { type: "session"; start: number; end: number; value: string; id: Session.ID; title?: string }

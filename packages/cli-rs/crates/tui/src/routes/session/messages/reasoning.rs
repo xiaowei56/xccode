@@ -1,11 +1,11 @@
 //! Expandable assistant reasoning.
 
-use xccode_api::generated::{SessionMessageAssistant, SessionMessageAssistantReasoning};
-use xccode_ui::motion::Spinner;
+use xiaochuan_api::generated::{SessionMessageAssistant, SessionMessageAssistantReasoning};
+use xiaochuan_ui::motion::Spinner;
 use opentui::widget::Markdown;
 
 use super::list::Context;
-use xccode_ui::locale::duration;
+use xiaochuan_ui::locale::duration;
 
 use crate::prelude::*;
 
@@ -53,7 +53,7 @@ impl Reasoning {
         let border = border(cx.theme);
         let header = View::new(cx.app).border(BorderStyle::Heavy).border_sides(Sides::NONE).border_color(border);
         let markdown =
-            xccode_ui::markdown::view(cx.app, cx.theme, cx.thinking_syntax, cx.renderers, cx.conceal, true)
+            xiaochuan_ui::markdown::view(cx.app, cx.theme, cx.thinking_syntax, cx.renderers, cx.conceal, true)
                 .colors(colors(cx.theme));
         let body = View::new(cx.app)
             .margin_edge(Edge::Top, 1)
@@ -82,7 +82,7 @@ impl Reasoning {
             inner.layout();
         }));
         inner.header.on_hover(bind!(inner, |inner, _, hovered| {
-            inner.header.mouse_pointer(xccode_ui::click_pointer(inner.state.borrow().hide));
+            inner.header.mouse_pointer(xiaochuan_ui::click_pointer(inner.state.borrow().hide));
             inner.hover.set(hovered);
             inner.layout();
         }));
@@ -99,7 +99,7 @@ impl Reasoning {
         let border = border(cx.theme);
         inner.header.border_color(border);
         inner.body.border_color(border);
-        xccode_ui::markdown::restyle(&inner.markdown, colors(cx.theme), cx.thinking_syntax);
+        xiaochuan_ui::markdown::restyle(&inner.markdown, colors(cx.theme), cx.thinking_syntax);
         // The header recolors as on a hover, so a running spinner keeps its frame.
         inner.layout();
     }
@@ -209,7 +209,7 @@ fn border(theme: &Theme) -> Color {
 }
 
 fn colors(theme: &Theme) -> opentui::widget::MarkdownColors {
-    opentui::widget::MarkdownColors { text: theme.text.muted, ..xccode_ui::markdown::colors(theme) }
+    opentui::widget::MarkdownColors { text: theme.text.muted, ..xiaochuan_ui::markdown::colors(theme) }
 }
 
 /// `reasoningContent`: the text without OpenRouter's first `[REDACTED]` placeholder, trimmed.

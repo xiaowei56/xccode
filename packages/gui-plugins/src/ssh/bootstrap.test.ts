@@ -4,12 +4,12 @@ import { RemoteCli } from "./remote-cli"
 
 test("ignores stopped services and registrations that do not match the healthy endpoint", () => {
   const registration = { url: "http://127.0.0.1:1234", password: "secret", version: "2.0.0", pid: 42 }
-  const frame = `XCCODE_SSH_REGISTRATION_BEGIN\n${JSON.stringify(registration)}\nXCCODE_SSH_REGISTRATION_END\n`
-  expect(parseRegistration(`XCCODE_SSH_STATUS=stopped\n${frame}`)).toBeUndefined()
-  expect(parseRegistration(`XCCODE_SSH_STATUS=http://127.0.0.1:9999\n${frame}`)).toBeUndefined()
+  const frame = `XIAOCHUAN_SSH_REGISTRATION_BEGIN\n${JSON.stringify(registration)}\nXIAOCHUAN_SSH_REGISTRATION_END\n`
+  expect(parseRegistration(`XIAOCHUAN_SSH_STATUS=stopped\n${frame}`)).toBeUndefined()
+  expect(parseRegistration(`XIAOCHUAN_SSH_STATUS=http://127.0.0.1:9999\n${frame}`)).toBeUndefined()
   expect(
     parseRegistration(
-      `XCCODE_SSH_STATUS=${registration.url}\nXCCODE_SSH_REGISTRATION_BEGIN\ninvalid\nXCCODE_SSH_REGISTRATION_END\n`,
+      `XIAOCHUAN_SSH_STATUS=${registration.url}\nXIAOCHUAN_SSH_REGISTRATION_BEGIN\ninvalid\nXIAOCHUAN_SSH_REGISTRATION_END\n`,
     ),
   ).toBeUndefined()
 })
@@ -17,7 +17,7 @@ test("ignores stopped services and registrations that do not match the healthy e
 test("rejects unsafe versions and platforms in remote installation paths", () => {
   expect(() => binaryPath('2.0.0"; whoami')).toThrow()
   expect(RemoteCli.archiveUrl("linux-x64-baseline-musl", "2.0.0-beta.1")).toBe(
-    "https://registry.npmjs.org/@xccode/cli-linux-x64-baseline-musl/-/cli-linux-x64-baseline-musl-2.0.0-beta.1.tgz",
+    "https://registry.npmjs.org/@xiaochuan/cli-linux-x64-baseline-musl/-/cli-linux-x64-baseline-musl-2.0.0-beta.1.tgz",
   )
   expect(() => RemoteCli.installScript({ version: '2.0.0"; whoami', source: { type: "installer" } })).toThrow()
   expect(() => RemoteCli.archiveUrl("linux-x64;whoami", "2.0.0")).toThrow()

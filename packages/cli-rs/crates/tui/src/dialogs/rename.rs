@@ -1,7 +1,7 @@
 //! Rename a session or generate its title.
 
-use xccode_api::generated::SessionUpdateInput;
-use xccode_ui::prompt::{PromptProps, prompt};
+use xiaochuan_api::generated::SessionUpdateInput;
+use xiaochuan_ui::prompt::{PromptProps, prompt};
 
 use crate::prelude::*;
 

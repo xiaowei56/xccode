@@ -5,7 +5,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 
 use bytes::Bytes;
 use futures_util::StreamExt;
-use xccode_api::sse::{Error, events};
+use xiaochuan_api::sse::{Error, events};
 use serde_json::{Value, json};
 
 /// The events of a body and how many times it signaled activity.

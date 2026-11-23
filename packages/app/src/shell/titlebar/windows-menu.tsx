@@ -1,8 +1,8 @@
 import { makeEventListener } from "@solid-primitives/event-listener"
 import { For, onMount, type JSX } from "solid-js"
-import { Menu } from "@xccode/ui/menu"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
+import { Menu } from "@xiaochuan/ui/menu"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
 
 import { matchKeybind, parseKeybind, useCommand } from "@/shell/commands/command"
 import {
@@ -124,7 +124,7 @@ export function WindowsAppMenu(props: {
       <Menu.Portal>
         <Menu.Content class="desktop-app-menu">
           <Menu.Group>
-            <Menu.GroupLabel class="desktop-app-menu-heading">Xccode</Menu.GroupLabel>
+            <Menu.GroupLabel class="desktop-app-menu-heading">Xiaochuan</Menu.GroupLabel>
             <For each={DESKTOP_MENU.filter((menu) => desktopMenuVisible(menu, "windows"))}>
               {(menu) => (
                 <DesktopMenuSubmenu label={language.t(menu.labelKey)}>

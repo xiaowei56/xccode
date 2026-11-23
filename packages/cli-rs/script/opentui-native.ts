@@ -9,7 +9,7 @@
 //   (`version = "=X.Y.Z"`). Without `--target` it installs the
 //   host's library into the directory `.cargo/config.toml` names (`.opentui/<tag>/host`); with `--target` into
 //   `.opentui/<tag>/<target>`, unless `--dest` names another. It prints the directory, for `OPENTUI_LIB_DIR`.
-//   Downloaded zips are kept in `$XDG_CACHE_HOME/xccode/opentui-native`, so a new worktree needs no network.
+//   Downloaded zips are kept in `$XDG_CACHE_HOME/xiaochuan/opentui-native`, so a new worktree needs no network.
 //   `--quiet` is the check `bun run cargo` runs first: silent when the directory is current, when `OPENTUI_LIB_DIR`
 //   is set in the shell, or when the pin is no release (a `git` or `path` spec, which brings its own directory).
 //
@@ -117,7 +117,7 @@ async function install() {
 
 /** The zip, from the cache or the release, checked against the table. */
 async function download() {
-  const cache = path.join(process.env.XDG_CACHE_HOME || path.join(homedir(), ".cache"), "xccode", "opentui-native")
+  const cache = path.join(process.env.XDG_CACHE_HOME || path.join(homedir(), ".cache"), "xiaochuan", "opentui-native")
   const cached = Bun.file(path.join(cache, zip))
   if ((await cached.exists()) && digest(await cached.bytes()) === sha256) return cached.bytes()
   const url = `https://github.com/anomalyco/opentui/releases/download/${tag}/${zip}`

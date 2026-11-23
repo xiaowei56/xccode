@@ -10,10 +10,10 @@ use std::rc::Rc;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use xccode_plugin::abi;
-use xccode_plugin::pipe::{self, Config, Scripts};
-use xccode_tui::plugins::host::{External, external_with};
-use xccode_tui::{Deps, Route, Tui};
+use xiaochuan_plugin::abi;
+use xiaochuan_plugin::pipe::{self, Config, Scripts};
+use xiaochuan_tui::plugins::host::{External, external_with};
+use xiaochuan_tui::{Deps, Route, Tui};
 use opentui::testing::TestApp;
 
 use crate::support::{self, Harness};
@@ -22,16 +22,16 @@ pub(crate) const EXAMPLES: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/../plugi
 
 /// Bun, or `None` to skip.
 pub fn bun() -> Option<PathBuf> {
-    let found = std::env::var_os("XCCODE_BUN").map(PathBuf::from).or_else(|| pipe::find("bun"));
-    if found.is_none() && std::env::var("XCCODE_RS_REQUIRE_TS").as_deref() == Ok("1") {
-        panic!("bun is required (XCCODE_RS_REQUIRE_TS=1) and was not found");
+    let found = std::env::var_os("XIAOCHUAN_BUN").map(PathBuf::from).or_else(|| pipe::find("bun"));
+    if found.is_none() && std::env::var("XIAOCHUAN_RS_REQUIRE_TS").as_deref() == Ok("1") {
+        panic!("bun is required (XIAOCHUAN_RS_REQUIRE_TS=1) and was not found");
     }
     found
 }
 
 pub struct Pipe {
     pub harness: Harness,
-    pub root: xccode_util::temp::TempDir,
+    pub root: xiaochuan_util::temp::TempDir,
 }
 
 impl Pipe {
@@ -44,7 +44,7 @@ impl Pipe {
         settle(&self.harness, &self.scripts());
     }
 
-    pub fn status(&self, id: &str) -> Option<xccode_plugin::Status> {
+    pub fn status(&self, id: &str) -> Option<xiaochuan_plugin::Status> {
         self.harness.tui.plugins.entries().into_iter().find(|entry| entry.id == id).map(|entry| entry.status)
     }
 
@@ -74,9 +74,9 @@ impl Pipe {
             entries.collect::<Vec<_>>().join("\n")
         };
         self.until(&format!("{id} is active"), || {
-            let failed = matches!(self.status(id), Some(xccode_plugin::Status::Failed(_)));
+            let failed = matches!(self.status(id), Some(xiaochuan_plugin::Status::Failed(_)));
             assert!(!failed, "{id} failed:\n{}", entries());
-            self.status(id) == Some(xccode_plugin::Status::Active)
+            self.status(id) == Some(xiaochuan_plugin::Status::Active)
         });
     }
 }
@@ -92,7 +92,7 @@ pub fn open_with(
     plugins: &[(&str, Option<serde_json::Value>)],
     config: Config,
     size: (u16, u16),
-    builtins: Vec<xccode_plugin::Builtin>,
+    builtins: Vec<xiaochuan_plugin::Builtin>,
 ) -> Pipe {
     open_on(plugins, config, size, builtins, Arc::new(support::empty()))
 }
@@ -102,10 +102,10 @@ pub fn open_on(
     plugins: &[(&str, Option<serde_json::Value>)],
     config: Config,
     size: (u16, u16),
-    builtins: Vec<xccode_plugin::Builtin>,
-    server: Arc<dyn xccode_api::transport::Transport>,
+    builtins: Vec<xiaochuan_plugin::Builtin>,
+    server: Arc<dyn xiaochuan_api::transport::Transport>,
 ) -> Pipe {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let config_dir = root.path().join("config");
     let mut entries = Vec::new();
     for (name, options) in plugins {
@@ -127,15 +127,15 @@ pub fn open_on(
     Pipe { harness, root }
 }
 
-fn plugin_files(name: &str, log: &str) -> (xccode_util::temp::TempDir, PathBuf, PathBuf) {
-    let root = xccode_util::temp::tempdir().unwrap();
+fn plugin_files(name: &str, log: &str) -> (xiaochuan_util::temp::TempDir, PathBuf, PathBuf) {
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let plugin = root.path().join("config/plugins").join(name);
     std::fs::create_dir_all(&plugin).unwrap();
     let log = root.path().join(log);
     (root, plugin, log)
 }
 
-fn mount_server(root: xccode_util::temp::TempDir, config: Config, server: support::Fake) -> Pipe {
+fn mount_server(root: xiaochuan_util::temp::TempDir, config: Config, server: support::Fake) -> Pipe {
     let harness = support::mount(80, 30, Deps { route: Route::Home, ..support::deps(Arc::new(server)) });
     let external = External { config_dir: root.path().join("config"), cwd: root.path().to_path_buf() };
     external_with(&harness.tui, external, Some(config));
@@ -254,12 +254,12 @@ fn walked_app(app: &TestApp, scripts: &Scripts) {
 pub fn decide(
     harness: &Harness,
     target: &str,
-    artifact: &xccode_plugin::loader::approval::Artifact,
-    decision: xccode_plugin::loader::approval::Decision,
+    artifact: &xiaochuan_plugin::loader::approval::Artifact,
+    decision: xiaochuan_plugin::loader::approval::Decision,
 ) -> Result<bool, String> {
     let recorded = Rc::new(std::cell::RefCell::new(None));
     let answer = recorded.clone();
-    xccode_tui::plugins::host::decide(&harness.tui, target, artifact, decision, move |_, recorded| {
+    xiaochuan_tui::plugins::host::decide(&harness.tui, target, artifact, decision, move |_, recorded| {
         answer.replace(Some(recorded));
     });
     harness.wait("the decision was recorded", || {
@@ -423,7 +423,7 @@ fn the_kept_twin_is_equal_linked_and_on_the_pipe() {
             checkpoint("bumped");
             tui.keymap.dispatch("kept.same", None);
             settle();
-            assert_eq!(xccode_plugin::surface::ledger_of(kept::ID).memo_entries, 1, "the kept root lost its memo");
+            assert_eq!(xiaochuan_plugin::surface::ledger_of(kept::ID).memo_entries, 1, "the kept root lost its memo");
             tui.keymap.dispatch("kept.hide", None);
             settle();
             checkpoint("hidden");
@@ -447,8 +447,8 @@ fn the_kept_twin_is_equal_linked_and_on_the_pipe() {
     assert!(!hidden.contains("extra") && hidden.contains("below"), "{hidden}");
 }
 
-use xccode_plugin::Status;
-use xccode_plugin::pipe::Fault;
+use xiaochuan_plugin::Status;
+use xiaochuan_plugin::pipe::Fault;
 use opentui::input::{Event, KeyCode, KeyEvent, Modifiers, MouseButton, MouseEventKind};
 
 use crate::support::model::{self, Failure, Model, Rng};
@@ -489,7 +489,7 @@ thread_local! {
     static FRAMES_OF: std::cell::RefCell<Option<opentui::prelude::App>> = const { std::cell::RefCell::new(None) };
 }
 
-fn recorder() -> xccode_plugin::Builtin {
+fn recorder() -> xiaochuan_plugin::Builtin {
     fn setup(setup: &mut abi::Setup) -> Result<(), String> {
         let command = abi::Command::new("recorder.note").title("note");
         setup.command(command, |_, input| {
@@ -500,7 +500,7 @@ fn recorder() -> xccode_plugin::Builtin {
         });
         Ok(())
     }
-    xccode_plugin::Builtin::Plugin(abi::Plugin { id: "test.recorder", setup })
+    xiaochuan_plugin::Builtin::Plugin(abi::Plugin { id: "test.recorder", setup })
 }
 
 fn failed(pipe: &Pipe, id: &str) -> Option<String> {
@@ -570,7 +570,7 @@ fn many_effects_of_one_answer_wait_for_the_next_paint() {
     NOTED_FRAMES.with(|noted| noted.borrow().iter().for_each(|frame| *frames.entry(*frame).or_default() += 1));
     FRAMES_OF.with_borrow_mut(|app| *app = None);
     let most = frames.values().copied().max().unwrap_or_default();
-    assert!(most <= xccode_plugin::FRAME_EFFECTS, "{most} ran in one frame");
+    assert!(most <= xiaochuan_plugin::FRAME_EFFECTS, "{most} ran in one frame");
     assert_eq!(pipe.status(PROBE), Some(Status::Active));
 }
 
@@ -1109,7 +1109,7 @@ fn a_changed_module_reloads_and_the_running_one_stays_meanwhile() {
 #[test]
 fn prints_of_a_plugin_and_its_dependencies_never_reach_the_protocol() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let config_dir = root.path().join("config");
     let printer = config_dir.join("plugins/printer");
     copy(&Path::new(EXAMPLES).join("printer"), &printer);
@@ -1149,7 +1149,7 @@ fn prints_of_a_plugin_and_its_dependencies_never_reach_the_protocol() {
 
 // Project-plugin approval over the pipe.
 
-/// A client in project `work` whose `.xccode/plugins/probe` is the probe at build `build`, with the JS host.
+/// A client in project `work` whose `.xiaochuan/plugins/probe` is the probe at build `build`, with the JS host.
 struct Project {
     pipe: Pipe,
     dir: PathBuf,
@@ -1157,10 +1157,10 @@ struct Project {
 
 impl Project {
     fn open(config: Config) -> Self {
-        let root = xccode_util::temp::tempdir().unwrap();
+        let root = xiaochuan_util::temp::tempdir().unwrap();
         let work = root.path().join("work");
         std::fs::create_dir_all(work.join(".git")).unwrap();
-        let dir = work.join(".xccode").join("plugins").join("probe");
+        let dir = work.join(".xiaochuan").join("plugins").join("probe");
         copy(&Path::new(EXAMPLES).join("probe"), &dir);
         // It runs from a copy of its files: it logs beside this directory all the same.
         std::fs::write(dir.join("log.txt"), dir.with_file_name(".probe.log.jsonl").to_string_lossy().as_bytes())
@@ -1189,9 +1189,9 @@ impl Project {
     }
 
     /// The user answers about the build held back, as the manager's question does.
-    fn answer(&self, decision: xccode_plugin::loader::approval::Decision) -> bool {
+    fn answer(&self, decision: xiaochuan_plugin::loader::approval::Decision) -> bool {
         let tui = &self.pipe.harness.tui;
-        let Some((Ok(artifact), _)) = xccode_tui::plugins::host::held(tui, &self.target()) else { return false };
+        let Some((Ok(artifact), _)) = xiaochuan_tui::plugins::host::held(tui, &self.target()) else { return false };
         let recorded = decide(&self.pipe.harness, &self.target(), &artifact, decision).unwrap();
         self.settle();
         recorded
@@ -1203,7 +1203,7 @@ impl Project {
         let source = std::fs::read_to_string(&file).unwrap();
         let source = source.split("\n// build").next().unwrap().to_owned();
         std::fs::write(&file, format!("{source}\n// build {build}\n")).unwrap();
-        xccode_tui::plugins::host::reconcile(&self.pipe.harness.tui);
+        xiaochuan_tui::plugins::host::reconcile(&self.pipe.harness.tui);
         self.settle();
     }
 
@@ -1241,20 +1241,20 @@ enum Ask {
 #[derive(Clone, Copy, Debug, Default)]
 struct Asked {
     build: u8,
-    decision: Option<(u8, xccode_plugin::loader::approval::Decision)>,
+    decision: Option<(u8, xiaochuan_plugin::loader::approval::Decision)>,
     setups: usize,
     cleanups: usize,
 }
 
 impl Asked {
     fn approved(&self) -> bool {
-        self.decision == Some((self.build, xccode_plugin::loader::approval::Decision::Approved))
+        self.decision == Some((self.build, xiaochuan_plugin::loader::approval::Decision::Approved))
     }
 
     fn listed(&self) -> Status {
         match self.decision {
             _ if self.approved() => Status::Active,
-            Some((build, xccode_plugin::loader::approval::Decision::Declined)) if build == self.build => {
+            Some((build, xiaochuan_plugin::loader::approval::Decision::Declined)) if build == self.build => {
                 Status::Declined
             }
             _ => Status::Pending,
@@ -1262,7 +1262,7 @@ impl Asked {
     }
 
     fn step(&mut self, ask: Ask) {
-        use xccode_plugin::loader::approval::Decision;
+        use xiaochuan_plugin::loader::approval::Decision;
         let running = self.approved();
         match ask {
             // An answer names the build held back, which is the one in the directory.
@@ -1299,7 +1299,7 @@ impl Model for PendingModel {
     }
 
     fn run(&self, asks: &[Ask]) -> Option<Failure> {
-        use xccode_plugin::loader::approval::Decision;
+        use xiaochuan_plugin::loader::approval::Decision;
         let config = config()?;
         let project = Project::open(config.clone());
         let twin = support::mount(80, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
@@ -1393,7 +1393,7 @@ fn the_fixed_typescript_approval_rows_pass() {
 
 #[test]
 fn a_later_answer_supersedes_one_still_hashed() {
-    use xccode_plugin::loader::approval::Decision;
+    use xiaochuan_plugin::loader::approval::Decision;
     let Some(config) = config() else { return };
     for (answers, listed, setups) in [
         ([Decision::Approved, Decision::Declined], Status::Declined, 0),
@@ -1401,13 +1401,13 @@ fn a_later_answer_supersedes_one_still_hashed() {
     ] {
         let project = Project::open(config.clone());
         let tui = &project.pipe.harness.tui;
-        let Some((Ok(artifact), _)) = xccode_tui::plugins::host::held(tui, &project.target()) else {
+        let Some((Ok(artifact), _)) = xiaochuan_tui::plugins::host::held(tui, &project.target()) else {
             panic!("nothing is held")
         };
         let told = Rc::new(std::cell::RefCell::new(Vec::new()));
         for decision in answers {
             let told = told.clone();
-            xccode_tui::plugins::host::decide(tui, &project.target(), &artifact, decision, move |_, recorded| {
+            xiaochuan_tui::plugins::host::decide(tui, &project.target(), &artifact, decision, move |_, recorded| {
                 told.borrow_mut().push((decision, recorded));
             });
         }
@@ -1425,10 +1425,10 @@ fn a_later_answer_supersedes_one_still_hashed() {
 #[test]
 fn the_manager_asks_before_a_project_typescript_plugin_runs() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let work = root.path().join("work");
     std::fs::create_dir_all(work.join(".git")).unwrap();
-    let dir = work.join(".xccode").join("plugins").join("probe");
+    let dir = work.join(".xiaochuan").join("plugins").join("probe");
     copy(&Path::new(EXAMPLES).join("probe"), &dir);
     let harness = support::mount(100, 40, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
     let external = External { config_dir: root.path().join("config"), cwd: work };
@@ -1438,7 +1438,7 @@ fn the_manager_asks_before_a_project_typescript_plugin_runs() {
     walked(&harness, &tui.plugins.scripts.borrow().clone().unwrap());
     let toast = tui.toasts.current().unwrap();
     assert_eq!(toast.title.as_deref(), Some(&*format!("Plugin needs approval: {}", dir.display())));
-    assert!(toast.message.contains("TypeScript code in xccode's JS host"), "{}", toast.message);
+    assert!(toast.message.contains("TypeScript code in xiaochuan's JS host"), "{}", toast.message);
     tui.toasts.dismiss();
     tui.keymap.dispatch("plugins.list", None);
     app.advance(Duration::from_millis(16));
@@ -1525,7 +1525,7 @@ fn a_cut_runs_what_never_started_once_and_what_ran_never_again() {
 
 /// `count` copies of the probe, as `example.probe<n>` with commands `probe<n>.…`, on one JS host with `config`.
 fn probes(count: usize, config: Config) -> Pipe {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let config_dir = root.path().join("config");
     let source = std::fs::read_to_string(Path::new(EXAMPLES).join("probe/tui.ts")).unwrap();
     for index in 0..count {
@@ -1662,7 +1662,7 @@ fn a_reload_is_fresh_and_a_candidate_never_answers_for_the_running_one() {
         toasts(&pipe.harness)
     };
     let reload = || {
-        xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+        xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
         pipe.settle();
     };
     assert_eq!(say(), vec!["v1".to_owned()]);
@@ -1683,7 +1683,7 @@ fn a_reload_is_fresh_and_a_candidate_never_answers_for_the_running_one() {
     );
     std::fs::write(dir.join("label.ts"), "export function label() {\n  return \"v3\"\n}\n").unwrap();
     std::fs::write(dir.join("tui.ts"), slow).unwrap();
-    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
     pipe.harness.tui.keymap.dispatch("reloader.say", None);
     quietly(&pipe, "the command was answered", || pipe.harness.tui.toasts.current().is_some());
     assert_eq!(toasts(&pipe.harness), vec!["v2".to_owned()], "the candidate answered for the running activation");
@@ -1732,7 +1732,7 @@ const KEYS: &str = "example.keys";
 
 /// The keys example on the JS host, on a session (a panel docks beside one), and the file it logs to.
 fn keys(config: Config) -> (Pipe, PathBuf) {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let config_dir = root.path().join("config");
     copy(&Path::new(EXAMPLES).join("keys"), &config_dir.join("plugins/keys"));
     let server = support::Fake::new(|seen| support::base(seen, support::DIRECTORY));
@@ -1798,7 +1798,7 @@ fn a_panel_and_its_overlay_take_keys_and_focus_over_the_pipe() {
     let Some(config) = config() else { return };
     let (pipe, log) = keys(config);
     let tui = &pipe.harness.tui;
-    let before = xccode_plugin::interact::ledger(&**tui);
+    let before = xiaochuan_plugin::interact::ledger(&**tui);
     tui.keymap.dispatch("keys.panel", None);
     pipe.settle();
     shows(&pipe, "SIDE mode=- node=-");
@@ -1811,7 +1811,7 @@ fn a_panel_and_its_overlay_take_keys_and_focus_over_the_pipe() {
     let (x, y) = support::at(&pipe.harness.app.text(), "node a").map(|(x, y)| (x + 1, y)).unwrap();
     pipe.harness.app.mouse(MouseEventKind::Down(MouseButton::Left), x, y);
     pipe.settle();
-    assert!(xccode_plugin::interact::ledger(&**tui).capture, "a consumed press captured nothing");
+    assert!(xiaochuan_plugin::interact::ledger(&**tui).capture, "a consumed press captured nothing");
     pipe.harness.app.mouse(MouseEventKind::Up(MouseButton::Left), x, y);
     pipe.settle();
     burst(&pipe, &plain("o"));
@@ -1825,22 +1825,22 @@ fn a_panel_and_its_overlay_take_keys_and_focus_over_the_pipe() {
     tui.keymap.dispatch("keys.close", None);
     pipe.settle();
     assert!(!pipe.harness.app.text().contains("SIDE"), "{}", pipe.harness.app.text());
-    assert_eq!(xccode_plugin::interact::ledger(&**tui), before);
+    assert_eq!(xiaochuan_plugin::interact::ledger(&**tui), before);
 }
 
 #[test]
 fn a_mode_ends_with_the_js_host_that_set_it() {
     let Some(config) = config() else { return };
     let (pipe, log) = keys(config);
-    let base = xccode_plugin::interact::ledger(&*pipe.harness.tui);
+    let base = xiaochuan_plugin::interact::ledger(&*pipe.harness.tui);
     burst(&pipe, &[('n', Modifiers::CTRL)]);
-    assert_eq!(xccode_plugin::interact::ledger(&*pipe.harness.tui).modes, base.modes + 1);
+    assert_eq!(xiaochuan_plugin::interact::ledger(&*pipe.harness.tui).modes, base.modes + 1);
     let pid = pipe.scripts().pid().unwrap();
     pipe.scripts().kill();
     quietly(&pipe, "the end was noticed", || pipe.scripts().pid().is_some_and(|now| now != pid));
     pipe.settle();
     assert_eq!(pipe.status(KEYS), Some(Status::Active));
-    assert_eq!(xccode_plugin::interact::ledger(&*pipe.harness.tui), base);
+    assert_eq!(xiaochuan_plugin::interact::ledger(&*pipe.harness.tui), base);
     heard(&log);
     burst(&pipe, &plain("dx"));
     assert_eq!(pipe.harness.text(), "X:");
@@ -1968,12 +1968,12 @@ fn released_content_and_a_restarted_hosts_content_go() {
     config.ends = 10;
     let pipe = lab(config);
     let tui = &pipe.harness.tui;
-    let held = xccode_plugin::surface::ledger().content;
+    let held = xiaochuan_plugin::surface::ledger().content;
     for round in 1..=4 {
         tui.keymap.dispatch("lab.c", None);
         shows(&pipe, &format!("lab c={round}"));
     }
-    assert_eq!(xccode_plugin::surface::ledger().content, held, "a released handle was kept");
+    assert_eq!(xiaochuan_plugin::surface::ledger().content, held, "a released handle was kept");
     for _ in 0..2 {
         let pid = pipe.scripts().pid().unwrap();
         pipe.scripts().kill();
@@ -1981,7 +1981,7 @@ fn released_content_and_a_restarted_hosts_content_go() {
         shows(&pipe, "lab c=0");
         pipe.settle();
     }
-    assert_eq!(xccode_plugin::surface::ledger().content, held, "an ended JS host's content was kept");
+    assert_eq!(xiaochuan_plugin::surface::ledger().content, held, "an ended JS host's content was kept");
 }
 
 #[test]
@@ -2011,7 +2011,7 @@ fn a_new_version_that_ends_the_js_host_starts_it_once() {
     let file = pipe.root.path().join("config/plugins/reloader/tui.ts");
     let source = std::fs::read_to_string(&file).unwrap();
     std::fs::write(&file, format!("process.exit(7)\n{source}")).unwrap();
-    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
     quietly(&pipe, "the reloader failed", || failed(&pipe, "example.reloader").is_some());
     pipe.settle();
     assert_eq!(pipe::crossed().started, started + 1);
@@ -2028,7 +2028,7 @@ fn a_save_behind_the_one_that_ended_the_js_host_starts_it_once() {
         r#"import {{ existsSync, writeFileSync }} from "node:fs"
 const [STALLED, GATE] = {paths}
 export default {{ id: "example.saved", setup(api) {{
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   carrier.command({{ name: "saved.stall", title: "saved.stall" }}, () => setTimeout(() => {{
     writeFileSync(STALLED, "")
     while (!existsSync(GATE)) {{}}
@@ -2049,7 +2049,7 @@ export default {{ id: "example.saved", setup(api) {{
     for build in 0..2 {
         std::fs::write(plugin.join("tui.ts"), format!("process.exit({build})\n{module}")).unwrap();
         let sent = pipe::crossed().sent;
-        xccode_tui::plugins::host::reconcile(&h.tui);
+        xiaochuan_tui::plugins::host::reconcile(&h.tui);
         walked(h, &scripts);
         until(h, "the save was sent", || pipe::crossed().sent > sent);
     }
@@ -2072,7 +2072,7 @@ fn a_moved_plugin_loads_from_its_new_directory() {
     pipe.active("example.reloader");
     let plugins = pipe.root.path().join("config/plugins");
     std::fs::rename(plugins.join("reloader"), plugins.join("moved")).unwrap();
-    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
     pipe.settle();
     pipe.active("example.reloader");
     toasts(&pipe.harness);
@@ -2085,7 +2085,7 @@ fn a_plugin_whose_path_holds_url_characters_loads() {
     let Some(config) = config() else { return };
     let pipe = open(&[], config, (80, 30));
     copy(&Path::new(EXAMPLES).join("reloader"), &pipe.root.path().join("config/plugins/re#loader%20"));
-    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
     pipe.active("example.reloader");
 }
 
@@ -2114,7 +2114,7 @@ fn a_disabled_plugin_is_not_set_up_until_enabled() {
     let log =
         std::env::temp_dir().join(format!("disabled-{}-{:?}.log", std::process::id(), std::thread::current().id()));
     let _ = std::fs::remove_file(&log);
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let config_dir = root.path().join("config");
     let dir = config_dir.join("plugins").join("probe");
     copy(&Path::new(EXAMPLES).join("probe"), &dir);
@@ -2134,7 +2134,7 @@ fn a_disabled_plugin_is_not_set_up_until_enabled() {
     pipe.settle();
     assert_eq!(pipe.status(PROBE), Some(Status::Inactive));
     assert_eq!(setups(&log), 0, "a disabled plugin's setup ran");
-    let host = xccode_tui::plugins::host::host(&pipe.harness.tui);
+    let host = xiaochuan_tui::plugins::host::host(&pipe.harness.tui);
     assert!(pipe.harness.tui.plugins.set_active(&host, PROBE, true));
     pipe.active(PROBE);
     quietly(&pipe, "probe.step was registered", || registered(&pipe, "probe.step"));
@@ -2195,7 +2195,7 @@ fn a_directory_without_a_tui_module_is_skipped() {
     let dir = pipe.root.path().join("config").join("plugins").join("server-only");
     std::fs::create_dir_all(&dir).unwrap();
     std::fs::write(dir.join("server.ts"), "export default {}\n").unwrap();
-    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
     let target = dir.to_string_lossy().into_owned();
     let skipped = || {
         // Skipped for good, not while it starts.
@@ -2203,7 +2203,7 @@ fn a_directory_without_a_tui_module_is_skipped() {
         entries.into_iter().any(|entry| {
             entry.target.as_deref() == Some(target.as_str())
                 && matches!(&entry.status, Status::Skipped(reason)
-                    if reason.starts_with(&format!("{}: ", xccode_plugin::NO_TUI_MODULE))
+                    if reason.starts_with(&format!("{}: ", xiaochuan_plugin::NO_TUI_MODULE))
                         && reason.contains("tui"))
         })
     };
@@ -2214,7 +2214,7 @@ fn a_directory_without_a_tui_module_is_skipped() {
 #[test]
 fn a_directory_named_by_its_verbatim_path_loads() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().canonicalize().unwrap().join("elsewhere").join("twin");
     copy(&Path::new(EXAMPLES).join("twin"), &dir);
     let verbatim = dir.to_string_lossy().into_owned();
@@ -2332,10 +2332,10 @@ fn a_read_over_its_bound_fails_alone() {
     let pipe = lab(config);
     let tui = &pipe.harness.tui;
     // Written by the host: the plugin's own write of it would be over the stored value's bound.
-    let host = xccode_tui::plugins::host::host(tui);
+    let host = xiaochuan_tui::plugins::host::host(tui);
     let big = serde_json::json!({ "text": "x".repeat(300 << 10) }).to_string();
-    xccode_plugin::Host::storage_write(&*host, "plugin.example.lab.note", &big).unwrap();
-    xccode_plugin::Host::storage_changed(&*host);
+    xiaochuan_plugin::Host::storage_write(&*host, "plugin.example.lab.note", &big).unwrap();
+    xiaochuan_plugin::Host::storage_changed(&*host);
     pipe.settle();
     shows(&pipe, "note=null");
     tui.keymap.dispatch("lab.readerror", None);
@@ -2355,10 +2355,10 @@ fn a_read_past_the_frame_comes_in_parts() {
     let tui = &pipe.harness.tui;
     tui.keymap.dispatch("lab.store", Some("previous"));
     shows(&pipe, r#"note={"text":"previous"}"#);
-    let host = xccode_tui::plugins::host::host(tui);
+    let host = xiaochuan_tui::plugins::host::host(tui);
     let near = serde_json::json!({ "text": "x".repeat(300 << 10) }).to_string();
-    xccode_plugin::Host::storage_write(&*host, "plugin.example.lab.note", &near).unwrap();
-    xccode_plugin::Host::storage_changed(&*host);
+    xiaochuan_plugin::Host::storage_write(&*host, "plugin.example.lab.note", &near).unwrap();
+    xiaochuan_plugin::Host::storage_changed(&*host);
     pipe.settle();
     tui.keymap.dispatch("lab.notelength", None);
     assert_eq!(toasted(&pipe, "note length"), format!("note length {}", near.len()));
@@ -2370,14 +2370,14 @@ fn a_read_past_the_frame_comes_in_parts() {
 #[test]
 fn a_snapshot_after_its_unwatch_sets_nothing() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let log = root.path().join("report");
     let plugin = root.path().join("config").join("plugins").join("late");
     std::fs::create_dir_all(&plugin).unwrap();
     let module = format!(
         r#"import {{ writeFileSync }} from "node:fs"
 export default {{ id: "example.late", setup(api) {{
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   const command = (name, run) => carrier.command({{ name, title: name }}, run)
   carrier.storage(["a"])
   command("late.go", () => {{
@@ -2391,9 +2391,9 @@ export default {{ id: "example.late", setup(api) {{
     );
     std::fs::write(plugin.join("tui.ts"), module).unwrap();
     let harness = support::mount(80, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    let host = xccode_tui::plugins::host::host(&harness.tui);
+    let host = xiaochuan_tui::plugins::host::host(&harness.tui);
     let value = serde_json::json!({ "t": "x".repeat(300 << 10) }).to_string();
-    xccode_plugin::Host::storage_write(&*host, "plugin.example.late.a", &value).unwrap();
+    xiaochuan_plugin::Host::storage_write(&*host, "plugin.example.late.a", &value).unwrap();
     let external = External { config_dir: root.path().join("config"), cwd: root.path().to_path_buf() };
     external_with(&harness.tui, external, Some(config));
     let pipe = Pipe { harness, root };
@@ -2410,14 +2410,14 @@ export default {{ id: "example.late", setup(api) {{
 fn a_stored_values_snapshot_is_not_escaped_twice() {
     let Some(config) = config() else { return };
     let pipe = lab(config);
-    let host = xccode_tui::plugins::host::host(&pipe.harness.tui);
+    let host = xiaochuan_tui::plugins::host::host(&pipe.harness.tui);
     let slashes = serde_json::json!({ "text": "\\".repeat(100 << 10) }).to_string();
     assert!(slashes.len() > 200 << 10);
-    let before = xccode_plugin::pipe::crossed().sent_bytes;
-    xccode_plugin::Host::storage_write(&*host, "plugin.example.lab.note", &slashes).unwrap();
-    xccode_plugin::Host::storage_changed(&*host);
+    let before = xiaochuan_plugin::pipe::crossed().sent_bytes;
+    xiaochuan_plugin::Host::storage_write(&*host, "plugin.example.lab.note", &slashes).unwrap();
+    xiaochuan_plugin::Host::storage_changed(&*host);
     pipe.settle();
-    let sent = xccode_plugin::pipe::crossed().sent_bytes - before;
+    let sent = xiaochuan_plugin::pipe::crossed().sent_bytes - before;
     pipe.harness.tui.keymap.dispatch("lab.notelength", None);
     assert_eq!(toasted(&pipe, "note length"), format!("note length {}", slashes.len()));
     assert!(sent < (slashes.len() as u64) * 5 / 4, "{sent} bytes sent for a value of {}", slashes.len());
@@ -2427,7 +2427,7 @@ fn a_stored_values_snapshot_is_not_escaped_twice() {
 fn a_deactivation_past_a_full_overflow_settles_what_it_awaits() {
     let Some(mut config) = config() else { return };
     (config.limits.queued, config.limits.inbox, config.limits.ordered) = (40 << 10, 64 << 10, 1 << 16);
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let (log, stalled, gate) = (root.path().join("settled"), root.path().join("stalled"), root.path().join("gate"));
     let plugin = root.path().join("config").join("plugins").join("ending");
     std::fs::create_dir_all(&plugin).unwrap();
@@ -2435,7 +2435,7 @@ fn a_deactivation_past_a_full_overflow_settles_what_it_awaits() {
         r#"import {{ appendFileSync, existsSync, writeFileSync }} from "node:fs"
 const [LOG, STALLED, GATE] = {paths}
 export default {{ id: "example.ending", setup(api) {{
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   const command = (name, run) => carrier.command({{ name, title: name }}, run)
   command("ending.fetch", () => {{
     carrier.fetch({{ method: "GET", path: "/api/held" }}).then((result) => appendFileSync(LOG, "settled " + Object.keys(result ?? {{}}).join(",") + "\n"))
@@ -2492,7 +2492,7 @@ export default {{ id: "example.ending", setup(api) {{
         scripts.ping();
     }
     assert!(pipe::crossed().refused_sends > refused, "a ping still had room");
-    h.tui.plugins.set_active(&xccode_tui::plugins::host::host(&h.tui), "example.ending", false);
+    h.tui.plugins.set_active(&xiaochuan_tui::plugins::host::host(&h.tui), "example.ending", false);
     for _ in 0..20 {
         h.app.advance(Duration::from_millis(1));
     }
@@ -2511,11 +2511,11 @@ export default {{ id: "example.ending", setup(api) {{
 
 #[test]
 fn a_read_the_overflow_refuses_holds_no_content() {
-    use xccode_plugin::limits::{self, Limits};
+    use xiaochuan_plugin::limits::{self, Limits};
     let Some(mut config) = config() else { return };
     // A frame takes the read; the overflow takes the backlog and not the read beside it.
     (config.limits.queued, config.limits.inbox, config.limits.ordered) = (40 << 10, 64 << 10, 1 << 16);
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let (log, stalled, gate) = (root.path().join("report"), root.path().join("stalled"), root.path().join("gate"));
     let plugin = root.path().join("config").join("plugins").join("quota");
     std::fs::create_dir_all(&plugin).unwrap();
@@ -2523,7 +2523,7 @@ fn a_read_the_overflow_refuses_holds_no_content() {
         r#"import {{ appendFileSync, existsSync, writeFileSync }} from "node:fs"
 const [LOG, STALLED, GATE] = {paths}
 export default {{ id: "example.quota", setup(api) {{
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   const command = (name, run) => carrier.command({{ name, title: name }}, run)
   carrier.storage(["a", "b"])
   carrier.watch("a", {{ type: "storage-get", key: "a" }})
@@ -2568,20 +2568,20 @@ export default {{ id: "example.quota", setup(api) {{
     }
     assert!(scripts.overflow_bytes() > (64 << 10) - bytes / 2, "no backlog");
     let refused = pipe::crossed().refused_sends;
-    let host = xccode_tui::plugins::host::host(&h.tui);
-    xccode_plugin::Host::storage_write(&*host, "plugin.example.quota.a", &value).unwrap();
-    xccode_plugin::Host::storage_changed(&*host);
+    let host = xiaochuan_tui::plugins::host::host(&h.tui);
+    xiaochuan_plugin::Host::storage_write(&*host, "plugin.example.quota.a", &value).unwrap();
+    xiaochuan_plugin::Host::storage_changed(&*host);
     until(h, "the read was refused", || pipe::crossed().refused_sends > refused);
     // A failed read holds nothing, as one past the frame: what is left is the neighbour's.
     assert_eq!(limits::held(id).content, null, "the refused read is still charged");
     std::fs::write(&gate, "").unwrap();
     pipe.settle();
     // The queue drained: the read goes again, and holds its room.
-    xccode_plugin::Host::storage_changed(&*host);
+    xiaochuan_plugin::Host::storage_changed(&*host);
     pipe.settle();
     assert_eq!(limits::held(id).content, null + bytes as u64, "the refused read was not pushed again");
-    xccode_plugin::Host::storage_write(&*host, "plugin.example.quota.b", &value).unwrap();
-    xccode_plugin::Host::storage_changed(&*host);
+    xiaochuan_plugin::Host::storage_write(&*host, "plugin.example.quota.b", &value).unwrap();
+    xiaochuan_plugin::Host::storage_changed(&*host);
     pipe.settle();
     h.tui.keymap.dispatch("quota.report", None);
     until(h, "the report", || std::fs::read_to_string(&log).is_ok_and(|text| text.ends_with('\n')));
@@ -2631,7 +2631,7 @@ fn the_tui_ending_leaves_nothing_its_plugins_started() {
 
 #[test]
 fn a_js_plugins_trees_content_and_reads_are_held_to_the_limits() {
-    use xccode_plugin::limits::{self, Limits};
+    use xiaochuan_plugin::limits::{self, Limits};
     let Some(config) = config() else { return };
     let pipe = lab(config);
     let held = limits::held(LAB);
@@ -2667,14 +2667,14 @@ fn a_js_plugins_trees_content_and_reads_are_held_to_the_limits() {
     pipe.settle();
     shows(&pipe, "⋯ its content is past what the plugin may hold");
     // Disabled, it holds nothing: its mounts' content and its reads.
-    pipe.harness.tui.plugins.toggle(&xccode_tui::plugins::host::host(&pipe.harness.tui), LAB, false);
+    pipe.harness.tui.plugins.toggle(&xiaochuan_tui::plugins::host::host(&pipe.harness.tui), LAB, false);
     pipe.settle();
     assert_eq!(limits::held(LAB), limits::Held::default(), "held once disabled");
 }
 
 #[test]
 fn a_failed_js_plugin_holds_nothing() {
-    use xccode_plugin::limits;
+    use xiaochuan_plugin::limits;
     let Some(config) = config() else { return };
     let pipe = lab(config);
     pipe.harness.tui.keymap.dispatch("lab.store", Some(&"z".repeat(2000)));
@@ -2690,7 +2690,7 @@ fn a_failed_js_plugin_holds_nothing() {
 fn the_js_hosts_answers_hash_no_plugin_again() {
     let Some(config) = config() else { return };
     let names = ["probe", "twin", "lab", "v2probe"];
-    let before = xccode_plugin::loader::approval::hashed();
+    let before = xiaochuan_plugin::loader::approval::hashed();
     let pipe = open(&names.map(|name| (name, None)), config, (80, 30));
     for id in ["example.probe", "example.twin", "example.lab", "example.v2probe"] {
         pipe.active(id);
@@ -2698,22 +2698,22 @@ fn the_js_hosts_answers_hash_no_plugin_again() {
     pipe.settle();
     // A file changed within the last 2 s is read again at each walk, as its next change may keep its size and time.
     std::thread::sleep(Duration::from_millis(2100));
-    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
     pipe.settle();
     let walked = pipe.scripts().hashed();
     assert!(walked > 0, "no walk read the plugins");
     for _ in 0..5 {
-        xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+        xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
         pipe.settle();
     }
     assert_eq!(pipe.scripts().hashed(), walked, "a reconcile that changed nothing hashed");
-    assert_eq!(xccode_plugin::loader::approval::hashed(), before, "the UI thread hashed a plugin's files");
+    assert_eq!(xiaochuan_plugin::loader::approval::hashed(), before, "the UI thread hashed a plugin's files");
 }
 
 #[test]
 fn the_first_frame_does_not_wait_on_a_plugins_files() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().join("config/plugins/heavy");
     let lib = dir.join("node_modules/dep/lib");
     std::fs::create_dir_all(&lib).unwrap();
@@ -2723,26 +2723,26 @@ fn the_first_frame_does_not_wait_on_a_plugins_files() {
         std::fs::write(lib.join(format!("{index}.js")), &chunk).unwrap();
     }
     std::fs::write(dir.join("tui.ts"), "export default { id: \"example.heavy\", setup() {} }\n").unwrap();
-    let before = xccode_plugin::loader::approval::hashed();
+    let before = xiaochuan_plugin::loader::approval::hashed();
     let harness = support::mount(80, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
     let external = External { config_dir: root.path().join("config"), cwd: root.path().to_path_buf() };
     external_with(&harness.tui, external, Some(config));
     harness.app.render();
-    assert_eq!(xccode_plugin::loader::approval::hashed(), before, "the UI thread read the plugin's files");
+    assert_eq!(xiaochuan_plugin::loader::approval::hashed(), before, "the UI thread read the plugin's files");
     let pipe = Pipe { harness, root };
     pipe.active("example.heavy");
     let walked = pipe.scripts().hashed();
     assert!(walked > 0 && walked < 64 << 10, "the walk read {walked} bytes");
-    assert_eq!(xccode_plugin::loader::approval::hashed(), before, "the UI thread read the plugin's files");
+    assert_eq!(xiaochuan_plugin::loader::approval::hashed(), before, "the UI thread read the plugin's files");
 }
 
 #[test]
 fn an_approval_does_not_wait_on_a_plugins_files() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let work = root.path().join("work");
     std::fs::create_dir_all(work.join(".git")).unwrap();
-    let dir = work.join(".xccode").join("plugins").join("heavy");
+    let dir = work.join(".xiaochuan").join("plugins").join("heavy");
     let lib = dir.join("node_modules/dep/lib");
     std::fs::create_dir_all(&lib).unwrap();
     std::fs::write(dir.join("node_modules/dep/package.json"), r#"{ "name": "dep", "version": "1.0.0" }"#).unwrap();
@@ -2757,14 +2757,14 @@ fn an_approval_does_not_wait_on_a_plugins_files() {
     let pipe = Pipe { harness, root };
     walked(&pipe.harness, &pipe.scripts());
     let target = dir.to_string_lossy().into_owned();
-    let Some((Ok(artifact), _)) = xccode_tui::plugins::host::held(&pipe.harness.tui, &target) else {
+    let Some((Ok(artifact), _)) = xiaochuan_tui::plugins::host::held(&pipe.harness.tui, &target) else {
         panic!("nothing is held")
     };
-    let before = xccode_plugin::loader::approval::hashed();
+    let before = xiaochuan_plugin::loader::approval::hashed();
     let recorded = Rc::new(std::cell::RefCell::new(None));
     let answer = recorded.clone();
-    let decision = xccode_plugin::loader::approval::Decision::Approved;
-    xccode_tui::plugins::host::decide(&pipe.harness.tui, &target, &artifact, decision, move |_, recorded| {
+    let decision = xiaochuan_plugin::loader::approval::Decision::Approved;
+    xiaochuan_tui::plugins::host::decide(&pipe.harness.tui, &target, &artifact, decision, move |_, recorded| {
         answer.replace(Some(recorded));
     });
     assert!(recorded.borrow().is_none(), "the approval waited on the plugin's tree");
@@ -2774,17 +2774,17 @@ fn an_approval_does_not_wait_on_a_plugins_files() {
     });
     assert_eq!(recorded.take(), Some(Ok(true)));
     pipe.active("example.heavy");
-    assert_eq!(xccode_plugin::loader::approval::hashed(), before, "the UI thread read the plugin's files");
+    assert_eq!(xiaochuan_plugin::loader::approval::hashed(), before, "the UI thread read the plugin's files");
 }
 
 // Preserve file size and timestamps when replacing the contents so metadata alone cannot detect the edit.
 #[test]
 fn a_stage_that_finds_other_bytes_hashes_off_the_ui_thread() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let work = root.path().join("work");
     std::fs::create_dir_all(work.join(".git")).unwrap();
-    let dir = work.join(".xccode").join("plugins").join("staged");
+    let dir = work.join(".xiaochuan").join("plugins").join("staged");
     std::fs::create_dir_all(&dir).unwrap();
     let (marker, data) = (root.path().join("staged.ran"), dir.join("data.js"));
     std::fs::write(&data, "export const made = \"approved\"\n").unwrap();
@@ -2798,10 +2798,10 @@ fn a_stage_that_finds_other_bytes_hashes_off_the_ui_thread() {
     let pipe = Pipe { harness, root };
     pipe.settle();
     let target = dir.to_string_lossy().into_owned();
-    let Some((Ok(artifact), _)) = xccode_tui::plugins::host::held(&pipe.harness.tui, &target) else {
+    let Some((Ok(artifact), _)) = xiaochuan_tui::plugins::host::held(&pipe.harness.tui, &target) else {
         panic!("nothing is held")
     };
-    let approved = xccode_plugin::loader::approval::Decision::Approved;
+    let approved = xiaochuan_plugin::loader::approval::Decision::Approved;
     assert_eq!(decide(&pipe.harness, &target, &artifact, approved), Ok(true));
     pipe.active("example.staged");
     let ran = std::fs::read_to_string(&marker).unwrap();
@@ -2812,19 +2812,19 @@ fn a_stage_that_finds_other_bytes_hashes_off_the_ui_thread() {
     std::fs::write(&data, "export const made = \"replaced\"\n").unwrap();
     std::fs::File::options().write(true).open(&data).unwrap().set_modified(modified).unwrap();
     std::fs::remove_dir_all(&staged).unwrap();
-    let before = xccode_plugin::loader::approval::hashed();
-    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    let before = xiaochuan_plugin::loader::approval::hashed();
+    xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
     let listed =
         || pipe.harness.tui.plugins.entries().into_iter().find(|entry| entry.target.as_deref() == Some(&target));
     // The walk that hashes the new build runs off the UI thread and may begin after a settle saw none running
     // (ownership-harness): the row waits for its result, the build asked about.
     pipe.until("the new build is asked about", || listed().is_some_and(|entry| entry.status == Status::Pending));
     pipe.settle();
-    let Some((Ok(held), _)) = xccode_tui::plugins::host::held(&pipe.harness.tui, &target) else {
+    let Some((Ok(held), _)) = xiaochuan_tui::plugins::host::held(&pipe.harness.tui, &target) else {
         panic!("the new build is not asked about")
     };
     assert_ne!(held.sha256, artifact.sha256);
-    assert_eq!(xccode_plugin::loader::approval::hashed(), before, "the UI thread read the plugin's files");
+    assert_eq!(xiaochuan_plugin::loader::approval::hashed(), before, "the UI thread read the plugin's files");
     assert_eq!(std::fs::read_to_string(&marker).unwrap(), ran, "what changed ran");
 }
 
@@ -2834,7 +2834,7 @@ fn a_hostile_project_loads_nothing_into_the_js_host() {
 }
 
 #[test]
-fn a_hostile_project_loads_nothing_into_the_js_host_on_xccodes_bun() {
+fn a_hostile_project_loads_nothing_into_the_js_host_on_xiaochuans_bun() {
     hostile(|project| {
         let path = std::env::var_os("PATH").unwrap_or_default();
         let path = std::env::join_paths(
@@ -2842,19 +2842,19 @@ fn a_hostile_project_loads_nothing_into_the_js_host_on_xccodes_bun() {
         )
         .unwrap();
         let var = |name: &str| match name {
-            "XCCODE_PLUGIN_JS" => Some("1".into()),
-            "XCCODE_BUN" => None,
+            "XIAOCHUAN_PLUGIN_JS" => Some("1".into()),
+            "XIAOCHUAN_BUN" => None,
             "PATH" => Some(path.clone()),
             _ => std::env::var_os(name),
         };
         let found =
-            Config::from_vars(var, project.to_path_buf(), &pipe::Server::Local(None)).filter(|found| found.xccode);
+            Config::from_vars(var, project.to_path_buf(), &pipe::Server::Local(None)).filter(|found| found.xiaochuan);
         let Some(mut found) = found else {
-            assert_ne!(std::env::var("XCCODE_RS_REQUIRE_TS").as_deref(), Ok("1"), "no xccode binary runs as Bun");
+            assert_ne!(std::env::var("XIAOCHUAN_RS_REQUIRE_TS").as_deref(), Ok("1"), "no xiaochuan binary runs as Bun");
             return None;
         };
-        let version = found.bun_version.clone().expect("xccode's Bun says its version");
-        eprintln!("the JS host runs on {} (xccode's Bun {version})", found.bun.display());
+        let version = found.bun_version.clone().expect("xiaochuan's Bun says its version");
+        eprintln!("the JS host runs on {} (xiaochuan's Bun {version})", found.bun.display());
         let numbers: Vec<u64> =
             version.split(['-', '+']).next().unwrap().split('.').map(|n| n.parse().unwrap()).collect();
         assert!((numbers[0], numbers[1], numbers[2]) >= pipe::OLDEST_BUN, "{version}");
@@ -2865,14 +2865,14 @@ fn a_hostile_project_loads_nothing_into_the_js_host_on_xccodes_bun() {
 
 /// Opens a project that tries to load code into the JS host, on the JS host `runtime` makes for it.
 fn hostile(runtime: impl FnOnce(&Path) -> Option<Config>) {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let (project, ran) = (root.path().join("work"), root.path().join("ran"));
     std::fs::create_dir_all(project.join("bin")).unwrap();
     let write = |name: &str, text: String| std::fs::write(project.join(name), text).unwrap();
     write("bunfig.toml", "preload = [\"./pwn.ts\"]\n".to_owned());
     write("pwn.ts", format!("require(\"node:fs\").appendFileSync({:?}, \"preload\\n\")\n", ran));
     write(".env", "PWN_FROM_ENV=1\n".to_owned());
-    for name in ["bun", "xccode"] {
+    for name in ["bun", "xiaochuan"] {
         write(&format!("bin/{name}"), format!("#!/bin/sh\necho {name} >> {ran:?}\necho 1.4.4\n"));
         #[cfg(unix)]
         {
@@ -2887,7 +2887,7 @@ fn hostile(runtime: impl FnOnce(&Path) -> Option<Config>) {
     let plugin = config_dir.join("plugins/seen");
     std::fs::create_dir_all(&plugin).unwrap();
     let seen = format!(
-        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.seen\", setup() {{ appendFileSync({log:?}, JSON.stringify({{ env: process.env.PWN_FROM_ENV ?? null, cwd: process.cwd(), directory: process.env.XCCODE_DIRECTORY }}) + \"\\n\") }} }}\n"
+        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.seen\", setup() {{ appendFileSync({log:?}, JSON.stringify({{ env: process.env.PWN_FROM_ENV ?? null, cwd: process.cwd(), directory: process.env.XIAOCHUAN_DIRECTORY }}) + \"\\n\") }} }}\n"
     );
     std::fs::write(plugin.join("tui.ts"), seen).unwrap();
     config.directory = project.clone();
@@ -2906,7 +2906,7 @@ fn hostile(runtime: impl FnOnce(&Path) -> Option<Config>) {
     // The project's `bin/bun` behind a relative or empty `PATH` entry is never the Bun found, also when the project is
     // the home directory, which the check against a project's own files leaves out.
     let path = std::env::join_paths([Path::new("bin"), Path::new("")]).unwrap();
-    assert_eq!(xccode_plugin::pipe::find_in("bun", &path, &project, Some(&project)), None);
+    assert_eq!(xiaochuan_plugin::pipe::find_in("bun", &path, &project, Some(&project)), None);
 }
 
 #[test]
@@ -2914,7 +2914,7 @@ fn a_fetch_reply_of_a_mebibyte_arrives_whole() {
     let Some(config) = config() else { return };
     let (root, plugin, log) = plugin_files("large", "fetched");
     let module = format!(
-        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.large\", setup(api) {{\n  const carrier = api[Symbol.for(\"xccode.carrier\")]\n  carrier.command({{ name: \"large.fetch\", title: \"large.fetch\" }}, async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/large\" }})\n    const data = result?.Ok?.data ?? \"\"\n    appendFileSync({log:?}, `${{data.length}} ${{data.slice(0, 3)}} ${{data.slice(-3)}} ${{result?.Ok?.after}}\\n`)\n  }})\n}} }}\n"
+        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.large\", setup(api) {{\n  const carrier = api[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.command({{ name: \"large.fetch\", title: \"large.fetch\" }}, async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/large\" }})\n    const data = result?.Ok?.data ?? \"\"\n    appendFileSync({log:?}, `${{data.length}} ${{data.slice(0, 3)}} ${{data.slice(-3)}} ${{result?.Ok?.after}}\\n`)\n  }})\n}} }}\n"
     );
     std::fs::write(plugin.join("tui.ts"), module).unwrap();
     // Not one byte repeated: a part out of place or lost would show. Quotes and a multibyte character cross JSON's
@@ -2933,7 +2933,7 @@ fn a_fetch_reply_of_a_mebibyte_arrives_whole() {
     pipe.harness.tui.keymap.dispatch("large.fetch", None);
     until(&pipe.harness, "the fetch ended", || std::fs::read_to_string(&log).is_ok_and(|text| text.ends_with('\n')));
     assert_eq!(std::fs::read_to_string(&log).unwrap(), format!("{length} {first} {last} true\n"));
-    assert_eq!(pipe.status("example.large"), Some(xccode_plugin::Status::Active));
+    assert_eq!(pipe.status("example.large"), Some(xiaochuan_plugin::Status::Active));
 }
 
 #[test]
@@ -2941,7 +2941,7 @@ fn a_repeated_reply_in_parts_leaves_nothing_kept() {
     let Some(config) = config() else { return };
     let (root, plugin, log) = plugin_files("twice", "fetched");
     let module = format!(
-        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.twice\", setup(api) {{\n  const carrier = api[Symbol.for(\"xccode.carrier\")]\n  carrier.command({{ name: \"twice.fetch\", title: \"twice.fetch\" }}, async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/large\" }})\n    await new Promise((resolve) => setTimeout(resolve, 300))\n    appendFileSync({log:?}, `${{result?.Ok?.data?.length}} ${{carrier.pendingFetches()}}\\n`)\n  }})\n}} }}\n"
+        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.twice\", setup(api) {{\n  const carrier = api[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.command({{ name: \"twice.fetch\", title: \"twice.fetch\" }}, async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/large\" }})\n    await new Promise((resolve) => setTimeout(resolve, 300))\n    appendFileSync({log:?}, `${{result?.Ok?.data?.length}} ${{carrier.pendingFetches()}}\\n`)\n  }})\n}} }}\n"
     );
     std::fs::write(plugin.join("tui.ts"), module).unwrap();
     let open = Arc::new(std::sync::atomic::AtomicBool::new(false));
@@ -2975,7 +2975,7 @@ fn a_fetch_reply_too_large_for_the_js_host_fails() {
     let Some(config) = config() else { return };
     let (root, plugin, log) = plugin_files("huge", "fetched");
     let module = format!(
-        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.huge\", setup(api) {{\n  const carrier = api[Symbol.for(\"xccode.carrier\")]\n  carrier.command({{ name: \"huge.fetch\", title: \"huge.fetch\" }}, async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/huge\" }})\n    appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \"\\n\")\n  }})\n}} }}\n"
+        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.huge\", setup(api) {{\n  const carrier = api[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.command({{ name: \"huge.fetch\", title: \"huge.fetch\" }}, async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/huge\" }})\n    appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \"\\n\")\n  }})\n}} }}\n"
     );
     std::fs::write(plugin.join("tui.ts"), module).unwrap();
     // The payload exceeds the entire overflow, not just one frame.
@@ -2997,7 +2997,7 @@ fn a_fetch_across_a_reload_of_the_registrations_settles() {
     let Some(config) = config() else { return };
     let (root, plugin, log) = plugin_files("gated", "fetched");
     let module = format!(
-        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.gated\", setup(api) {{\n  const carrier = api[Symbol.for(\"xccode.carrier\")]\n  carrier.command({{ name: \"gated.fetch\", title: \"gated.fetch\" }}, async () => {{\n    const pending = carrier.fetch({{ method: \"GET\", path: \"/api/gated\" }})\n    carrier.command({{ name: \"gated.late\", title: \"gated.late\" }}, () => {{}})\n    const result = await pending\n    appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \"\\n\")\n  }})\n}} }}\n"
+        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.gated\", setup(api) {{\n  const carrier = api[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.command({{ name: \"gated.fetch\", title: \"gated.fetch\" }}, async () => {{\n    const pending = carrier.fetch({{ method: \"GET\", path: \"/api/gated\" }})\n    carrier.command({{ name: \"gated.late\", title: \"gated.late\" }}, () => {{}})\n    const result = await pending\n    appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \"\\n\")\n  }})\n}} }}\n"
     );
     std::fs::write(plugin.join("tui.ts"), module).unwrap();
     let open = Arc::new(std::sync::atomic::AtomicBool::new(false));
@@ -3023,7 +3023,7 @@ fn a_fetch_across_a_reload_of_the_registrations_settles() {
     open.store(true, std::sync::atomic::Ordering::SeqCst);
     until(h, "the fetch ended", || std::fs::read_to_string(&log).is_ok_and(|text| text.ends_with('\n')));
     assert_eq!(std::fs::read_to_string(&log).unwrap(), "Ok\n");
-    assert_eq!(pipe.status("example.gated"), Some(xccode_plugin::Status::Active));
+    assert_eq!(pipe.status("example.gated"), Some(xiaochuan_plugin::Status::Active));
 }
 
 #[test]
@@ -3043,12 +3043,12 @@ fn fetch_across_a_reload_with_a_changed_view(slow: bool) {
     let Some(config) = config() else { return };
     let (root, plugin, log) = plugin_files("viewed", "fetched");
     let module = format!(
-        "import {{ Plugin }} from \"@xccode/plugin/tui\"\n\
+        "import {{ Plugin }} from \"@xiaochuan/plugin/tui\"\n\
          import {{ createSignal }} from \"solid-js\"\n\
          import {{ jsx }} from \"@opentui/solid/jsx-runtime\"\n\
          import {{ appendFileSync }} from \"node:fs\"\n\
          export default Plugin.define({{ id: \"example.viewed\", setup(context) {{\n\
-         const carrier = context[Symbol.for(\"xccode.carrier\")]\n\
+         const carrier = context[Symbol.for(\"xiaochuan.carrier\")]\n\
          const [text, setText] = createSignal(\"before\")\n\
          context.ui.slot({{ append: \"home.footer\", render: () => jsx(\"text\", {{ get children() {{ return `viewed ${{text()}}` }} }}) }})\n\
          if ({slow}) context.ui.slot({{ append: \"home.footer\", render: () => jsx(\"box\", {{ get children() {{\n\
@@ -3122,7 +3122,7 @@ fn new_build_registers_and_fetches(early: bool, notices: usize, manifest_first: 
     let (root, plugin, log) = plugin_files("build", "built");
     let module = |build: &str| {
         format!(
-            "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.build\", setup(api) {{\n  const carrier = api[Symbol.for(\"xccode.carrier\")]\n  carrier.command({{ name: \"build.{build}\", title: \"build.{build}\" }}, () => {{}})\n  if ({build:?} === \"one\") return\n  carrier.storage([\"kept\"])\n  void carrier.effect({{ type: \"storage-set\", key: \"kept\", value: JSON.stringify({{ build: \"two\" }}) }}).then(() => appendFileSync({log:?}, \"setup settled\\n\"))\n  const notices = () => {{ for (let index = 0; index < {notices}; index++) carrier.unwatch(`notice${{index}}`) }}\n  const command = () => carrier.command({{ name: \"build.late\", title: \"build.late\" }}, () => appendFileSync({log:?}, \"late\\n\"))\n  const fetched = () => carrier.fetch({{ method: \"GET\", path: \"/api/build\" }}).then((result) => appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \" \" + carrier.pendingFetches() + \"\\n\"))\n  const late = () => {{\n    if ({manifest_first}) {{ command(); setTimeout(() => {{ notices(); fetched() }}, 20); return }}\n    notices(); command(); fetched()\n  }}\n  if ({early}) setTimeout(late, 0)\n  else carrier.command({{ name: \"build.go\", title: \"build.go\" }}, late)\n}} }}\n"
+            "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.build\", setup(api) {{\n  const carrier = api[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.command({{ name: \"build.{build}\", title: \"build.{build}\" }}, () => {{}})\n  if ({build:?} === \"one\") return\n  carrier.storage([\"kept\"])\n  void carrier.effect({{ type: \"storage-set\", key: \"kept\", value: JSON.stringify({{ build: \"two\" }}) }}).then(() => appendFileSync({log:?}, \"setup settled\\n\"))\n  const notices = () => {{ for (let index = 0; index < {notices}; index++) carrier.unwatch(`notice${{index}}`) }}\n  const command = () => carrier.command({{ name: \"build.late\", title: \"build.late\" }}, () => appendFileSync({log:?}, \"late\\n\"))\n  const fetched = () => carrier.fetch({{ method: \"GET\", path: \"/api/build\" }}).then((result) => appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \" \" + carrier.pendingFetches() + \"\\n\"))\n  const late = () => {{\n    if ({manifest_first}) {{ command(); setTimeout(() => {{ notices(); fetched() }}, 20); return }}\n    notices(); command(); fetched()\n  }}\n  if ({early}) setTimeout(late, 0)\n  else carrier.command({{ name: \"build.go\", title: \"build.go\" }}, late)\n}} }}\n"
         )
     };
     std::fs::write(plugin.join("tui.ts"), module("one")).unwrap();
@@ -3146,7 +3146,7 @@ fn new_build_registers_and_fetches(early: bool, notices: usize, manifest_first: 
         scripts.hold_answers(true);
     }
     std::fs::write(plugin.join("tui.ts"), module("two")).unwrap();
-    xccode_tui::plugins::host::reconcile(&h.tui);
+    xiaochuan_tui::plugins::host::reconcile(&h.tui);
     if early {
         // The loader sets the build up once it read what the load described: that goes on, what follows is held.
         until(h, "the load described or set up", || {
@@ -3171,17 +3171,17 @@ fn new_build_registers_and_fetches(early: bool, notices: usize, manifest_first: 
     let fetch = || lines().into_iter().filter(|line| line != "setup settled" && line != "late").collect::<Vec<_>>();
     assert_eq!(lines().iter().filter(|line| *line == "setup settled").count(), 1, "{:?}", lines());
     let fetched = || requests.lock().unwrap().iter().filter(|seen| seen.path == "/api/build").count();
-    let host = xccode_tui::plugins::host::host(&h.tui);
-    let stored = || xccode_plugin::Host::storage_read(&*host, "plugin.example.build.kept");
+    let host = xiaochuan_tui::plugins::host::host(&h.tui);
+    let stored = || xiaochuan_plugin::Host::storage_read(&*host, "plugin.example.build.kept");
     if notices + 2 > 256 {
         let case = format!("{notices} notices, manifest first {manifest_first}");
         // Refused at once, while the setup's write may still wait to be refused as the activation ends.
         let fetch = fetch();
         assert!(fetch.len() == 1 && fetch[0].starts_with("Err "), "{case}: {fetch:?}");
         until(h, "the build failed", || {
-            matches!(pipe.status("example.build"), Some(xccode_plugin::Status::Failed(_)))
+            matches!(pipe.status("example.build"), Some(xiaochuan_plugin::Status::Failed(_)))
         });
-        let Some(xccode_plugin::Status::Failed(error)) = pipe.status("example.build") else { unreachable!() };
+        let Some(xiaochuan_plugin::Status::Failed(error)) = pipe.status("example.build") else { unreachable!() };
         assert!(error.contains("more than 256 messages"), "{case}: {error}");
         assert!(!runs("build.late"), "{case}: the late command of the build that failed is there");
         assert_eq!(fetched(), 0, "{case}: a fetch of the build that failed left");
@@ -3193,7 +3193,7 @@ fn new_build_registers_and_fetches(early: bool, notices: usize, manifest_first: 
     until(h, "the late command is registered", || runs("build.late"));
     until(h, "the late command ran", || std::fs::read_to_string(&log).is_ok_and(|text| text.ends_with("late\n")));
     assert_eq!(fetched(), 1, "one request for the one fetch");
-    assert_eq!(pipe.status("example.build"), Some(xccode_plugin::Status::Active));
+    assert_eq!(pipe.status("example.build"), Some(xiaochuan_plugin::Status::Active));
 }
 
 #[test]
@@ -3201,7 +3201,7 @@ fn a_fetch_of_an_activation_that_ends_settles_once() {
     let Some(config) = config() else { return };
     let (root, plugin, log) = plugin_files("ending", "ended");
     let module = format!(
-        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.ending\", setup(api) {{\n  const carrier = api[Symbol.for(\"xccode.carrier\")]\n  carrier.command({{ name: \"ending.fetch\", title: \"ending.fetch\" }}, async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/held\" }})\n    appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \"\\n\")\n  }})\n}} }}\n"
+        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.ending\", setup(api) {{\n  const carrier = api[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.command({{ name: \"ending.fetch\", title: \"ending.fetch\" }}, async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/held\" }})\n    appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \"\\n\")\n  }})\n}} }}\n"
     );
     std::fs::write(plugin.join("tui.ts"), module).unwrap();
     let open = Arc::new(std::sync::atomic::AtomicBool::new(false));
@@ -3224,7 +3224,7 @@ fn a_fetch_of_an_activation_that_ends_settles_once() {
     let h = &pipe.harness;
     h.tui.keymap.dispatch("ending.fetch", None);
     until(h, "the server has the request", || asked.load(std::sync::atomic::Ordering::SeqCst));
-    h.tui.plugins.set_active(&xccode_tui::plugins::host::host(&h.tui), "example.ending", false);
+    h.tui.plugins.set_active(&xiaochuan_tui::plugins::host::host(&h.tui), "example.ending", false);
     until(h, "the fetch ended", || std::fs::read_to_string(&log).is_ok_and(|text| text.ends_with('\n')));
     open.store(true, std::sync::atomic::Ordering::SeqCst);
     for _ in 0..200 {
@@ -3252,7 +3252,7 @@ fn snapshot_across_a_new_build(held: bool) {
     let (root, plugin, log) = plugin_files("snap", "snapshots");
     let first = "export default { id: \"example.snap\", setup(context) {\n  context.storage.store(\"old\", { initial: { n: 0 } })\n} }\n";
     let second = format!(
-        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.snap\", setup(context) {{\n  const carrier = context[Symbol.for(\"xccode.carrier\")]\n  carrier.listen((key) => {{ if (key === \"storage:old\") appendFileSync({log:?}, \"heard\\n\") }})\n  context.keymap.layer(() => ({{ mode: \"global\", commands: [{{ id: \"snap.read\", run: () => appendFileSync({log:?}, `read ${{carrier.read(\"storage:old\")}}\\n`) }}] }}))\n}} }}\n"
+        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.snap\", setup(context) {{\n  const carrier = context[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.listen((key) => {{ if (key === \"storage:old\") appendFileSync({log:?}, \"heard\\n\") }})\n  context.keymap.layer(() => ({{ mode: \"global\", commands: [{{ id: \"snap.read\", run: () => appendFileSync({log:?}, `read ${{carrier.read(\"storage:old\")}}\\n`) }}] }}))\n}} }}\n"
     );
     std::fs::write(plugin.join("tui.ts"), first).unwrap();
     let harness = support::mount(80, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
@@ -3262,10 +3262,10 @@ fn snapshot_across_a_new_build(held: bool) {
     pipe.active("example.snap");
     pipe.settle();
     let (h, scripts) = (&pipe.harness, pipe.scripts());
-    let host = xccode_tui::plugins::host::host(&h.tui);
+    let host = xiaochuan_tui::plugins::host::host(&h.tui);
     let change = |n: u32| {
-        xccode_plugin::Host::storage_write(&*host, "plugin.example.snap.old", &format!("{{\"n\":{n}}}")).unwrap();
-        xccode_plugin::Host::storage_changed(&*host);
+        xiaochuan_plugin::Host::storage_write(&*host, "plugin.example.snap.old", &format!("{{\"n\":{n}}}")).unwrap();
+        xiaochuan_plugin::Host::storage_changed(&*host);
         for _ in 0..100 {
             h.app.advance(Duration::from_millis(2));
             std::thread::sleep(Duration::from_millis(2));
@@ -3276,7 +3276,7 @@ fn snapshot_across_a_new_build(held: bool) {
         scripts.hold_answers(true);
     }
     std::fs::write(plugin.join("tui.ts"), second).unwrap();
-    xccode_tui::plugins::host::reconcile(&h.tui);
+    xiaochuan_tui::plugins::host::reconcile(&h.tui);
     if held {
         until(h, "the load described or set up", || {
             scripts.held_types().iter().any(|kind| kind == "described" || kind == "loaded")
@@ -3310,7 +3310,7 @@ fn a_fetch_the_host_does_not_take_fails_over_the_pipe() {
     // room for the call's own: the queue sits exactly at its bound, a fetch alone can find the last place, and the
     // call's margin keeps the answer the same wherever in a frame the queue stands.
     let module = format!(
-        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.refused\", setup(api) {{\n  const carrier = api[Symbol.for(\"xccode.carrier\")]\n  carrier.command({{ name: \"refused.fetch\", title: \"refused.fetch\" }}, async () => {{\n    for (let i = 0; i < 128; i++) api.ui.toast.show({{ message: \"staged\" }})\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/session\" }})\n    appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \"\\n\")\n  }})\n}} }}\n"
+        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.refused\", setup(api) {{\n  const carrier = api[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.command({{ name: \"refused.fetch\", title: \"refused.fetch\" }}, async () => {{\n    for (let i = 0; i < 128; i++) api.ui.toast.show({{ message: \"staged\" }})\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/session\" }})\n    appendFileSync({log:?}, Object.keys(result ?? {{}}).join(\",\") + \"\\n\")\n  }})\n}} }}\n"
     );
     std::fs::write(plugin.join("tui.ts"), module).unwrap();
     let server = support::Fake::new(|seen| match seen.path.as_str() {
@@ -3320,35 +3320,35 @@ fn a_fetch_the_host_does_not_take_fails_over_the_pipe() {
     let pipe = mount_server(root, config, server);
     pipe.active("example.refused");
     let h = &pipe.harness;
-    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "probe", setup: crate::plugins::chain }.into());
+    xiaochuan_tui::plugins::host::add(&h.tui, abi::Plugin { id: "probe", setup: crate::plugins::chain }.into());
     h.wait_for("chain ready");
     let lines = || std::fs::read_to_string(&log).unwrap_or_default();
     h.tui.keymap.dispatch("chain.fan", None);
     // The fan fills the queue of effects to its bound, where a fetch finds no room: wait for the bound itself, not for
     // a number of frames (a frame runs a budget, and the chain adds a little back as it runs).
     let begun = Instant::now();
-    while xccode_plugin::effects_waiting() < xccode_plugin::EFFECTS_BOUND {
+    while xiaochuan_plugin::effects_waiting() < xiaochuan_plugin::EFFECTS_BOUND {
         assert!(
             begun.elapsed() < Duration::from_secs(30),
             "{} effects wait, under the queue's bound of {}",
-            xccode_plugin::effects_waiting(),
-            xccode_plugin::EFFECTS_BOUND
+            xiaochuan_plugin::effects_waiting(),
+            xiaochuan_plugin::EFFECTS_BOUND
         );
         h.app.render();
     }
     h.tui.keymap.dispatch("refused.fetch", None);
     until(h, "the refused fetch ended", || lines().ends_with('\n'));
     assert_eq!(lines(), "Err\n");
-    h.tui.plugins.set_active(&xccode_tui::plugins::host::host(&h.tui), "probe", false);
+    h.tui.plugins.set_active(&xiaochuan_tui::plugins::host::host(&h.tui), "probe", false);
     // A frame runs its budget of what waits: the drain is so many frames, however long each takes under load
     // (pipe-flakes: 65 frames of the full queue took 5 s alone, past the 30 s of a wait under the lane's load).
-    let waiting = xccode_plugin::effects_waiting();
+    let waiting = xiaochuan_plugin::effects_waiting();
     // Each paint runs nothing past its budget; the rest comes due just after it.
-    for _ in 0..waiting.div_ceil(xccode_plugin::FRAME_EFFECTS) {
+    for _ in 0..waiting.div_ceil(xiaochuan_plugin::FRAME_EFFECTS) {
         h.app.render();
         h.app.advance(Duration::ZERO);
     }
-    assert_eq!(xccode_plugin::effects_waiting(), 0, "the queue drained within a frame for each budget of {waiting}");
+    assert_eq!(xiaochuan_plugin::effects_waiting(), 0, "the queue drained within a frame for each budget of {waiting}");
     h.tui.keymap.dispatch("refused.fetch", None);
     until(h, "the fetch ended", || lines().lines().count() == 2);
     assert_eq!(lines(), "Err\nOk\n");
@@ -3359,7 +3359,7 @@ fn a_late_reply_does_not_reach_a_mount_opened_again_over_the_pipe() {
     let Some(config) = config() else { return };
     let (root, plugin, log) = plugin_files("owned", "replied");
     let module = format!(
-        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.owned\", setup(api) {{\n  const carrier = api[Symbol.for(\"xccode.carrier\")]\n  carrier.surface(\"owned\", {{ type: \"route\", name: \"owned\" }}, () => ({{ type: \"text\", spans: [{{ text: \"owned route\" }}] }}))\n  const fetch = (name) => async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/hold\" }}).catch((error) => ({{ [error.name]: error.message }}))\n    appendFileSync({log:?}, name + \" \" + Object.keys(result ?? {{}}).join(\",\") + \" \" + carrier.pendingFetches() + \"\\n\")\n  }}\n  carrier.command({{ name: \"owned.route\", title: \"owned.route\", scope: {{ route: \"owned\" }} }}, fetch(\"route\"))\n  carrier.command({{ name: \"owned.global\", title: \"owned.global\" }}, fetch(\"global\"))\n}} }}\n"
+        "import {{ appendFileSync }} from \"node:fs\"\nexport default {{ id: \"example.owned\", setup(api) {{\n  const carrier = api[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.surface(\"owned\", {{ type: \"route\", name: \"owned\" }}, () => ({{ type: \"text\", spans: [{{ text: \"owned route\" }}] }}))\n  const fetch = (name) => async () => {{\n    const result = await carrier.fetch({{ method: \"GET\", path: \"/api/hold\" }}).catch((error) => ({{ [error.name]: error.message }}))\n    appendFileSync({log:?}, name + \" \" + Object.keys(result ?? {{}}).join(\",\") + \" \" + carrier.pendingFetches() + \"\\n\")\n  }}\n  carrier.command({{ name: \"owned.route\", title: \"owned.route\", scope: {{ route: \"owned\" }} }}, fetch(\"route\"))\n  carrier.command({{ name: \"owned.global\", title: \"owned.global\" }}, fetch(\"global\"))\n}} }}\n"
     );
     std::fs::write(plugin.join("tui.ts"), module).unwrap();
     let (fake, gate, served, asked) = crate::plugin_surface::held();
@@ -3395,7 +3395,7 @@ fn a_fetch_answered_past_a_full_overflow_settles() {
     let Some(mut config) = config() else { return };
     // What the JS host answers as it reads again is no flood here: the row is about what the host sends it.
     (config.limits.queued, config.limits.inbox, config.limits.ordered) = (1 << 10, 256 << 10, 1 << 16);
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let (log, stalled, gate) = (root.path().join("settled"), root.path().join("stalled"), root.path().join("gate"));
     let plugin = root.path().join("config").join("plugins").join("flooded");
     std::fs::create_dir_all(&plugin).unwrap();
@@ -3405,7 +3405,7 @@ const [LOG, STALLED, GATE] = {paths}
 const settled = (how) => appendFileSync(LOG, "settled " + how + " " + carrier.pendingFetches() + "\n")
 let carrier
 export default {{ id: "example.flooded", setup(api) {{
-  carrier = api[Symbol.for("xccode.carrier")]
+  carrier = api[Symbol.for("xiaochuan.carrier")]
   carrier.command({{ name: "flooded.go", title: "flooded.go" }}, () => {{
     carrier.fetch({{ method: "GET", path: "/api/session" }}).then(
       (result) => settled(Object.keys(result ?? {{}}).join(",")),
@@ -3474,7 +3474,7 @@ fn queued_behind(behind: Behind) {
     let Some(mut config) = config() else { return };
     // A queue smaller than the fetch's admission answer, which its reads make about 30 KiB; room for the backlog.
     (config.limits.queued, config.limits.inbox) = (4 << 10, 1 << 20);
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let (log, stalled, gate) = (root.path().join("settled"), root.path().join("stalled"), root.path().join("gate"));
     let plugin = root.path().join("config").join("plugins").join("queued");
     std::fs::create_dir_all(&plugin).unwrap();
@@ -3496,7 +3496,7 @@ const go = () => {{
   }}, 0)
 }}
 export default {{ id: "example.queued", setup(api) {{
-  carrier = api[Symbol.for("xccode.carrier")]
+  carrier = api[Symbol.for("xiaochuan.carrier")]
   carrier.surface("queued", {{ type: "route", name: "queued" }}, () => ({{ type: "text", spans: [{{ text: "queued route" }}] }}))
   carrier.command({{ name: "queued.route", title: "queued.route", scope: {{ route: "queued" }} }}, go)
   carrier.command({{ name: "queued.global", title: "queued.global" }}, go)
@@ -3596,14 +3596,14 @@ fn a_v2_plugin_reads_a_sessions_pending_inbox() {
 #[test]
 fn a_tree_past_the_frame_cap_fails_its_plugin_alone() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     // Nine texts within a node's text bound, past a tree frame's together.
     let big = "{ type: \"box\", children: Array.from({ length: 9 }, () => ({ type: \"text\", spans: [{ text: \"x\".repeat(1e6) }] })) }";
     for (name, view) in [("big", big), ("calm", "{ type: \"text\", spans: [{ text: \"calm route\" }] }")] {
         let dir = root.path().join("config/plugins").join(name);
         std::fs::create_dir_all(&dir).unwrap();
         let module = format!(
-            "export default {{ id: \"example.{name}\", setup(api) {{\n  const carrier = api[Symbol.for(\"xccode.carrier\")]\n  carrier.surface(\"{name}\", {{ type: \"route\", name: \"{name}\" }}, () => ({view}))\n}} }}\n"
+            "export default {{ id: \"example.{name}\", setup(api) {{\n  const carrier = api[Symbol.for(\"xiaochuan.carrier\")]\n  carrier.surface(\"{name}\", {{ type: \"route\", name: \"{name}\" }}, () => ({view}))\n}} }}\n"
         );
         std::fs::write(dir.join("tui.ts"), module).unwrap();
     }

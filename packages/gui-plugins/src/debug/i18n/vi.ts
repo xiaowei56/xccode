@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Chẩn đoán bộ nhớ: ghi bộ nhớ ứng dụng vào nhật ký desktop mỗi 30 giây. Vẫn bật qua các lần khởi động lại cho đến khi tắt; thanh vẫn mở trong khi chạy.",
-  "memory.tipEnv": "Chẩn đoán bộ nhớ đang bật cho lần khởi chạy này: XCCODE_DESKTOP_MEMORY_LOG đã được đặt.",
+  "memory.tipEnv": "Chẩn đoán bộ nhớ đang bật cho lần khởi chạy này: XIAOCHUAN_DESKTOP_MEMORY_LOG đã được đặt.",
   "memory.env": "ENV",
   "motion.label": "NÚM CHỈNH",
   "motion.title": "Núm chỉnh",

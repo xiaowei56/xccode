@@ -1,6 +1,6 @@
 interface ImportMetaEnv {
-  readonly XCCODE_CHANNEL: string
-  readonly XCCODE_VERSION?: string
+  readonly XIAOCHUAN_CHANNEL: string
+  readonly XIAOCHUAN_VERSION?: string
 }
 
 interface ImportMeta {

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test"
-import { timelinePresets } from "@xccode/session-ui/timeline/detail"
+import { timelinePresets } from "@xiaochuan/session-ui/timeline/detail"
 import { createTwoFilesPatch } from "diff"
 import { assistantMessage, setupTimeline, textPart, toolPart, userMessage } from "../utils/timeline"
 

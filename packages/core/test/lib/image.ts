@@ -1,4 +1,4 @@
-import { Image } from "@xccode/core/image"
+import { Image } from "@xiaochuan/core/image"
 import { Effect, Layer } from "effect"
 
 /** Passthrough resizer for tests that build Tool.node without a Location. */

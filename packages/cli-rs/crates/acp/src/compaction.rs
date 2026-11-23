@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 
-use xccode_util::json_object;
+use xiaochuan_util::json_object;
 use serde_json::{Value, json};
 
-const MARKER_META: &str = "xccode/compaction";
+const MARKER_META: &str = "xiaochuan/compaction";
 
 /// A compaction that started and has not ended.
 #[derive(Debug, Clone, PartialEq)]

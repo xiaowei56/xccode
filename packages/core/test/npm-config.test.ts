@@ -1,7 +1,7 @@
 import path from "path"
 import { describe, expect, test } from "bun:test"
 import { Effect } from "effect"
-import { NpmConfig } from "@xccode/util/npm-config"
+import { NpmConfig } from "@xiaochuan/util/npm-config"
 import { tmpdir } from "./fixture/tmpdir"
 
 describe("NpmConfig.load", () => {

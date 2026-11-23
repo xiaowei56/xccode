@@ -5,10 +5,10 @@ use crate::support;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_api::memory::{Memory, Route as MemoryRoute};
-use xccode_tui::Deps;
-use xccode_tui::dialogs::settings;
-use xccode_ui::motion::{SPINNER_FRAMES, SPINNER_INTERVAL};
+use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
+use xiaochuan_tui::Deps;
+use xiaochuan_tui::dialogs::settings;
+use xiaochuan_ui::motion::{SPINNER_FRAMES, SPINNER_INTERVAL};
 use opentui::prelude::Color;
 use serde_json::{Value, json};
 

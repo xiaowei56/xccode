@@ -3,7 +3,7 @@
 use std::collections::HashSet;
 
 use indexmap::IndexMap;
-use xccode_api::generated::*;
+use xiaochuan_api::generated::*;
 
 use crate::state::{Data, Error, Overlay, State, Task, evict_missing};
 

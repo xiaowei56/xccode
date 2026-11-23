@@ -1,21 +1,21 @@
-# xccode VS Code Extension
+# xiaochuan VS Code Extension
 
-A Visual Studio Code extension that integrates [xccode](https://xccode.ai) directly into your development workflow.
+A Visual Studio Code extension that integrates [xiaochuan](https://xiaochuan.ai) directly into your development workflow.
 
 ## Prerequisites
 
-This extension requires the [xccode CLI](https://xccode.ai) to be installed on your system. Visit [xccode.ai](https://xccode.ai) for installation instructions.
+This extension requires the [xiaochuan CLI](https://xiaochuan.ai) to be installed on your system. Visit [xiaochuan.ai](https://xiaochuan.ai) for installation instructions.
 
 ## Features
 
-- **Quick Launch**: Use `Cmd+Esc` (Mac) or `Ctrl+Esc` (Windows/Linux) to open xccode in a split terminal view, or focus an existing terminal session if one is already running.
-- **New Session**: Use `Cmd+Shift+Esc` (Mac) or `Ctrl+Shift+Esc` (Windows/Linux) to start a new xccode terminal session, even if one is already open. You can also click the xccode button in the UI.
-- **Context Awareness**: Automatically share your current selection or tab with xccode.
+- **Quick Launch**: Use `Cmd+Esc` (Mac) or `Ctrl+Esc` (Windows/Linux) to open xiaochuan in a split terminal view, or focus an existing terminal session if one is already running.
+- **New Session**: Use `Cmd+Shift+Esc` (Mac) or `Ctrl+Shift+Esc` (Windows/Linux) to start a new xiaochuan terminal session, even if one is already open. You can also click the xiaochuan button in the UI.
+- **Context Awareness**: Automatically share your current selection or tab with xiaochuan.
 - **File Reference Shortcuts**: Use `Cmd+Option+K` (Mac) or `Alt+Ctrl+K` (Linux/Windows) to insert file references. For example, `@File#37-42`.
 
 ## Support
 
-This is an early release. If you encounter issues or have feedback, please create an issue at https://github.com/xiaowei56/xccode/issues.
+This is an early release. If you encounter issues or have feedback, please create an issue at https://github.com/xiaowei56/xiaochuan/issues.
 
 ## Development
 

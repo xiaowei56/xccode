@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Minniskanning: skriva minnisnýtslu hjá forritinum í skriviborðsloggarnar hvørt 30. sekund. Verður verandi tendrað eftir endurbyrjanir, til tað verður sløkt; linjan verður verandi opin, meðan tað koyrir.",
-  "memory.tipEnv": "Minniskanning er tendrað fyri hesa byrjanina: XCCODE_DESKTOP_MEMORY_LOG er sett.",
+  "memory.tipEnv": "Minniskanning er tendrað fyri hesa byrjanina: XIAOCHUAN_DESKTOP_MEMORY_LOG er sett.",
   "memory.env": "ENV",
   "motion.label": "STILLARAR",
   "motion.title": "Stillarar",

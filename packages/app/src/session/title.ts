@@ -1,5 +1,5 @@
-import type { SessionInfo } from "@xccode/client/promise"
-import { displayLabel } from "@xccode/util/session-title-fallback"
+import type { SessionInfo } from "@xiaochuan/client/promise"
+import { displayLabel } from "@xiaochuan/util/session-title-fallback"
 
 const pattern = /^(New session|Child session) - \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
 

@@ -1,6 +1,6 @@
-import type { IntegrationOAuthMethodRegistration } from "@xccode/plugin/effect/integration"
-import type { Context } from "@xccode/plugin/effect/plugin"
-import { define } from "@xccode/plugin/effect/plugin"
+import type { IntegrationOAuthMethodRegistration } from "@xiaochuan/plugin/effect/integration"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 // import { Deferred, Duration, Effect, Option, Schema, Semaphore, Stream } from "effect"
 import { Deferred, Effect, Equal, Option, Schema, Semaphore } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
@@ -21,7 +21,7 @@ import { ProviderRefresh } from "./refresh.js"
 
 // First-time sign-in registers a user-owned client; OpenAI returns its issued client ID on the callback.
 const registrationClientID = "dynamic_agent_client"
-const agentName = "Xccode"
+const agentName = "Xiaochuan"
 const issuer = "https://auth.openai.com"
 const tokenURL = `${issuer}/api/accounts/oauth/token`
 const revokeURL = `${issuer}/api/accounts/oauth/revoke`
@@ -226,7 +226,7 @@ function listen(server: Server) {
 }
 
 export const ChatGPTPlugin = define({
-  id: "xccode.provider.chatgpt",
+  id: "xiaochuan.provider.chatgpt",
   effect: Effect.fn(function* (ctx) {
     const credentials = yield* Credential.Service
     const loading = Semaphore.makeUnsafe(1)
@@ -486,7 +486,7 @@ function deriveModel(remote: RemoteModel, previous: Model.Info): Model.Info {
   return {
     ...previous,
     name: previous.id === previous.modelID ? remote.display_name : previous.name,
-    package: previous.package ?? "@xccode/ai/providers/openai",
+    package: previous.package ?? "@xiaochuan/ai/providers/openai",
     capabilities: {
       ...previous.capabilities,
       input: remote.input_modalities.filter((modality) => modality === "text" || modality === "image"),

@@ -1,19 +1,19 @@
 ---
 title: "Web search"
-description: "Let Xccode search the web with Exa, Firecrawl, Parallel, Tavily, or TinyFish, and choose the provider and permissions for searches."
+description: "Let Xiaochuan search the web with Exa, Firecrawl, Parallel, Tavily, or TinyFish, and choose the provider and permissions for searches."
 ---
 
-Ask Xccode for current information and it can search the web, read the results, and include source links in its response.
+Ask Xiaochuan for current information and it can search the web, read the results, and include source links in its response.
 
 ```text
 Find the latest Bun release and summarize the changes.
 ```
 
-The first search asks you to allow web search and select a provider. Xccode remembers your choice for later sessions.
+The first search asks you to allow web search and select a provider. Xiaochuan remembers your choice for later sessions.
 
 ## Providers
 
-Xccode includes five search providers:
+Xiaochuan includes five search providers:
 
 | Provider | ID | Environment variable |
 | --- | --- | --- |
@@ -23,19 +23,19 @@ Xccode includes five search providers:
 | Tavily | `tavily` | `TAVILY_API_KEY` |
 | TinyFish | `tinyfish` | `TINYFISH_API_KEY` (optional) |
 
-Connect an account from the TUI with `/connect`, or set the provider's environment variable before starting Xccode.
+Connect an account from the TUI with `/connect`, or set the provider's environment variable before starting Xiaochuan.
 
 ```bash
-$ TAVILY_API_KEY=your-key xccode
+$ TAVILY_API_KEY=your-key xiaochuan
 ```
 
 ## Selection
 
-Set a provider in `xccode.jsonc` to skip the selection prompt.
+Set a provider in `xiaochuan.jsonc` to skip the selection prompt.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "websearch": {
     "provider": "tavily",
   },
@@ -44,9 +44,9 @@ Set a provider in `xccode.jsonc` to skip the selection prompt.
 
 Use `"random"` to choose an available provider automatically. Each session keeps using its selected provider until that provider is rate limited.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "websearch": {
     "provider": "random",
   },
@@ -60,7 +60,7 @@ When a provider returns HTTP 429, random selection retries the search with anoth
 ```text
 Exa returns HTTP 429
 → Exa enters cooldown
-→ Xccode retries with another provider
+→ Xiaochuan retries with another provider
 ```
 
 If every provider is cooling down, the search fails immediately. Moving a session or restarting its server clears its remembered provider; cooldowns are shared by sessions in the same workspace.
@@ -69,9 +69,9 @@ If every provider is cooling down, the search fails immediately. Moving a sessio
 
 Web searches use the `websearch` permission action and the search query as the resource. Ask before searches that are not explicitly allowed.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "permissions": [
     {
       "action": "websearch",
@@ -88,9 +88,9 @@ See [Permissions](/permissions) for rule order and matching.
 
 Set `websearch` to `false` to remove the web search tool from model requests.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "websearch": false,
 }
 ```

@@ -1,10 +1,10 @@
-// P-CLI: runs one command with the TS CLI and with `xccode-native`, each against its own fake
+// P-CLI: runs one command with the TS CLI and with `xiaochuan-native`, each against its own fake
 // server, and compares exit code, stdout, stderr, and the requests after normalization.
 //
 //   bun run parity/cli/run.ts [--sides ts,rs] [scenario.cli.ts ...]
 //
 // Without files it runs every `parity/scenarios/**/*.cli.ts`. `--sides ts,ts` checks that a case is
-// deterministic. Each side's record goes to `$TMPDIR/xccode-parity/cli/<name>.<n>-<side>.json`. Cases run
+// deterministic. Each side's record goes to `$TMPDIR/xiaochuan-parity/cli/<name>.<n>-<side>.json`. Cases run
 // one per core at a time; PARITY_CLI_JOBS changes that number.
 
 import { parseArgs } from "node:util"
@@ -168,7 +168,7 @@ if (import.meta.main) {
     await Promise.all(
       records.map((record, index) =>
         Bun.write(
-          path.join(tmpdir(), "xccode-parity/cli", `${name}.${index}-${sides[index]}.json`),
+          path.join(tmpdir(), "xiaochuan-parity/cli", `${name}.${index}-${sides[index]}.json`),
           JSON.stringify(record, null, 2) + "\n",
         ),
       ),

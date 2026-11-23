@@ -1,6 +1,6 @@
 export * as Voice from "./voice.js"
 
-import { type AIError } from "@xccode/ai/effect"
+import { type AIError } from "@xiaochuan/ai/effect"
 import {
   Realtime,
   type RealtimeEngine,
@@ -8,9 +8,9 @@ import {
   type RealtimeTransport,
   type RealtimeTransportInput,
   type RealtimeTransportType,
-} from "@xccode/ai/experimental"
-import { RequestExecutor } from "@xccode/ai/route"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+} from "@xiaochuan/ai/experimental"
+import { RequestExecutor } from "@xiaochuan/ai/route"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Context, Effect, Layer, Redacted, Schema } from "effect"
 import { Credential } from "./credential.js"
 import { requestExecutor } from "./effect/app-node-platform.js"
@@ -53,7 +53,7 @@ export interface Interface {
   readonly session: (input: SessionInput) => Effect.Effect<RealtimeTransport, Error>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Voice") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Voice") {}
 
 export const layer = Layer.effect(
   Service,
@@ -71,13 +71,13 @@ export const layer = Layer.effect(
         )
 
     // Where an engine's sessions start: its provider with the server's key or, for GPT-Live without an OpenAI key,
-    // Xccode's hosted GPT-Live with the server's Xccode Console connection, whose sign-in works as well as a key.
+    // Xiaochuan's hosted GPT-Live with the server's Xiaochuan Console connection, whose sign-in works as well as a key.
     const source = Effect.fnUntraced(function* (engine: RealtimeEngine) {
       const connection = yield* findConnection(engine.provider)
       if (connection) return { provider: engine.provider, connection }
       if (engine.id !== "openai-live") return undefined
-      const hosted = yield* findConnection(xccodeLive.provider, ["key", "oauth"])
-      return hosted && { provider: xccodeLive.provider, connection: hosted }
+      const hosted = yield* findConnection(xiaochuanLive.provider, ["key", "oauth"])
+      return hosted && { provider: xiaochuanLive.provider, connection: hosted }
     })
 
     // Each engine's models.dev voice models from the provider that would start them, newest first.
@@ -163,27 +163,27 @@ export const node = makeLocationNode({
   deps: [Integration.node, ModelsDev.node, requestExecutor],
 })
 
-/** Xccode hosts GPT-Live on its OpenAI account, billed to the workspace whose credential starts a session. */
-const xccodeLive = { provider: "xccode", baseURL: "https://xccode.ai/inference/openai/v1" } as const
+/** Xiaochuan hosts GPT-Live on its OpenAI account, billed to the workspace whose credential starts a session. */
+const xiaochuanLive = { provider: "xiaochuan", baseURL: "https://xiaochuan.ai/inference/openai/v1" } as const
 
 /**
- * What a credential starts a session with: a provider's API key on its own API, or an Xccode Console API key or
- * account sign-in on Xccode's hosted GPT-Live, for the workspace the sign-in chose.
+ * What a credential starts a session with: a provider's API key on its own API, or an Xiaochuan Console API key or
+ * account sign-in on Xiaochuan's hosted GPT-Live, for the workspace the sign-in chose.
  */
 const sessionAccess = (provider: string, credential: Credential.Value) => {
-  if (provider !== xccodeLive.provider)
+  if (provider !== xiaochuanLive.provider)
     return credential.type === "key" ? { apiKey: Redacted.make(credential.key) } : undefined
   if (credential.type === "external") return undefined
   const orgID = credential.metadata?.orgID
   return {
     apiKey: Redacted.make(credential.type === "oauth" ? credential.access : credential.key),
-    baseURL: xccodeLive.baseURL,
-    ...(typeof orgID === "string" ? { headers: { "x-xccode-org-id": orgID } } : {}),
+    baseURL: xiaochuanLive.baseURL,
+    ...(typeof orgID === "string" ? { headers: { "x-xiaochuan-org-id": orgID } } : {}),
   }
 }
 
 const missingLiveKeyMessage =
-  "GPT-Live needs an OpenAI API key (a stored key or OPENAI_API_KEY) or an Xccode Console connection on the server. ChatGPT sign-in can't start voice sessions."
+  "GPT-Live needs an OpenAI API key (a stored key or OPENAI_API_KEY) or an Xiaochuan Console connection on the server. ChatGPT sign-in can't start voice sessions."
 
 const missingKeyMessage = {
   openai:

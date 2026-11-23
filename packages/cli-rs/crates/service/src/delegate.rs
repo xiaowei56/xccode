@@ -1,4 +1,4 @@
-//! Commands delegated to `xccode` inherit the arguments, stdio and exit status. Remote access uses the TypeScript
+//! Commands delegated to `xiaochuan` inherit the arguments, stdio and exit status. Remote access uses the TypeScript
 //! command because it owns the OpenTunnel SDK.
 
 use std::ffi::OsString;
@@ -6,14 +6,14 @@ use std::io;
 use std::path::Path;
 use std::process::{Child, Command, ExitStatus};
 
-use xccode_local::paths::Paths;
+use xiaochuan_local::paths::Paths;
 
 use crate::ts_command::TsCommand;
 
 /// The TypeScript binary could not be started.
 #[derive(Debug, thiserror::Error)]
 #[error(
-    "Failed to start {program}: {source}. Install xccode or set {var} to the TypeScript xccode binary.",
+    "Failed to start {program}: {source}. Install xiaochuan or set {var} to the TypeScript xiaochuan binary.",
     var = TsCommand::VAR
 )]
 pub struct StartError {
@@ -38,7 +38,7 @@ pub fn exec(command: &TsCommand, args: impl IntoIterator<Item = OsString>) -> St
     #[cfg(windows)]
     {
         // Children do not inherit the handler, so it can go first and leave no gap before the wait.
-        let _ = xccode_util::win::ignore_interrupts();
+        let _ = xiaochuan_util::win::ignore_interrupts();
         match process.status() {
             Ok(status) => std::process::exit(exit_code(status)),
             Err(source) => start_error(command, source),
@@ -58,7 +58,7 @@ pub fn spawn(command: &TsCommand, args: impl IntoIterator<Item = OsString>) -> R
     build(command, args).spawn().map_err(|source| start_error(command, source))
 }
 
-/// Starts `xccode service set remote true` in the foreground. The child creates the tunnel, stops the service and
+/// Starts `xiaochuan service set remote true` in the foreground. The child creates the tunnel, stops the service and
 /// saves the route.
 pub fn enable_remote(command: &TsCommand) -> Result<Child, StartError> {
     spawn(command, ["service", "set", "remote", "true"].map(OsString::from))
@@ -119,14 +119,14 @@ mod tests {
     use super::*;
 
     fn script(dir: &Path, body: &str) -> TsCommand {
-        let path = dir.join("xccode");
+        let path = dir.join("xiaochuan");
         crate::ts_command::write_script(&path, &format!("#!/bin/sh\n{body}\n"));
         TsCommand::new(path)
     }
 
     #[test]
     fn the_child_gets_the_arguments_and_reports_its_exit_code() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let log = dir.path().join("args");
         let command = script(dir.path(), &format!("printf '%s\\n' \"$@\" > '{}'\nexit 3", log.display()));
         let status = enable_remote(&command).unwrap().wait().unwrap();
@@ -139,21 +139,21 @@ mod tests {
 
     #[test]
     fn a_missing_binary_names_the_variable() {
-        let error = spawn(&TsCommand::new("/nonexistent/xccode"), []).unwrap_err();
+        let error = spawn(&TsCommand::new("/nonexistent/xiaochuan"), []).unwrap_err();
         assert!(
-            error.to_string().starts_with("Failed to start /nonexistent/xccode: No such file or directory"),
+            error.to_string().starts_with("Failed to start /nonexistent/xiaochuan: No such file or directory"),
             "{error}"
         );
         assert!(
-            error.to_string().ends_with("Install xccode or set XCCODE_TS_BIN to the TypeScript xccode binary.")
+            error.to_string().ends_with("Install xiaochuan or set XIAOCHUAN_TS_BIN to the TypeScript xiaochuan binary.")
         );
-        let error = exec(&TsCommand::new("/nonexistent/xccode"), []);
+        let error = exec(&TsCommand::new("/nonexistent/xiaochuan"), []);
         assert!(error.to_string().starts_with("Failed to start"));
     }
 
     #[test]
     fn the_tunnel_hostname_needs_a_complete_identity() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let paths = Paths::from_vars(|name| match name {
             "HOME" => Some(dir.path().into()),
             _ => None,

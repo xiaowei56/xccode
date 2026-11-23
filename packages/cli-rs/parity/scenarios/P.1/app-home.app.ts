@@ -1,10 +1,10 @@
 // The app slot (P.1) on home: the test plugin's line shows under the route, below the home footer. TS loads the
-// plugin from parity/plugins/app as a local plugin; Rust registers its twin when XCCODE_PARITY_PLUGIN is `app`.
+// plugin from parity/plugins/app as a local plugin; Rust registers its twin when XIAOCHUAN_PARITY_PLUGIN is `app`.
 import { defineApp, HOME_PLACEHOLDER } from "../../lib/app"
 
 export default defineApp({
   config: { plugins: ["./plugins/app"] },
-  env: { XCCODE_PARITY_PLUGIN: "app" },
+  env: { XIAOCHUAN_PARITY_PLUGIN: "app" },
   steps: [
     {
       checkpoint: "home",

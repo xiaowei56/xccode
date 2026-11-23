@@ -6,8 +6,8 @@ import {
   isPtyFeatureUnsupportedError,
   isPtyNotFoundError,
   isServiceUnavailableError,
-} from "@xccode/client"
-import type { Layout, Persisted, ServerRef, SessionRef, Storage, Toasts } from "@xccode/plugin/gui"
+} from "@xiaochuan/client"
+import type { Layout, Persisted, ServerRef, SessionRef, Storage, Toasts } from "@xiaochuan/plugin/gui"
 import { createDispatch } from "./dispatch"
 import { defaultTitle, titleNumber } from "./title"
 import {

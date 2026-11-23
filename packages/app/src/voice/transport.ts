@@ -1,5 +1,5 @@
-import type { XccodeClient } from "@xccode/client/promise"
-import { uuid } from "@xccode/util/uuid"
+import type { XiaochuanClient } from "@xiaochuan/client/promise"
+import { uuid } from "@xiaochuan/util/uuid"
 import { decodeEvent, type VoiceEvent } from "./protocol"
 import { delegatorInstructions, liveInstructions, tools } from "./spec"
 import {
@@ -53,7 +53,7 @@ export class VoiceTransport {
 
   constructor(
     private readonly inputOptions: {
-      voice: XccodeClient["experimental"]["voice"]
+      voice: XiaochuanClient["experimental"]["voice"]
       event: (event: VoiceEvent) => void
       levels: (input: number, output: number) => void
       dropped: () => void

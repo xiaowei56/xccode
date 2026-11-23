@@ -2,24 +2,24 @@ import fs from "fs/promises"
 import path from "path"
 import { describe, expect, test } from "bun:test"
 import { Deferred, Effect, Fiber, Layer, Schema, Stream } from "effect"
-import { Config } from "@xccode/core/config"
-import { Directory, Document, type Entry, Info } from "@xccode/schema/config"
-import { ConfigSkillPlugin } from "@xccode/core/config/plugin/skill"
-import { ConfigCompatibilityPlugin } from "@xccode/core/config/plugin/compatibility"
-import { SkillFile } from "@xccode/core/config/plugin/skill-file"
-import { SkillScan } from "@xccode/core/config/plugin/skill-scan"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Watcher } from "@xccode/core/filesystem/watcher"
-import { Bus } from "@xccode/core/bus"
-import { Credential } from "@xccode/core/credential"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Location } from "@xccode/core/location"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Skill } from "@xccode/core/skill"
-import { SkillDiscovery } from "@xccode/core/skill/discovery"
-import { WellKnown } from "@xccode/core/wellknown"
+import { Config } from "@xiaochuan/core/config"
+import { Directory, Document, type Entry, Info } from "@xiaochuan/schema/config"
+import { ConfigSkillPlugin } from "@xiaochuan/core/config/plugin/skill"
+import { ConfigCompatibilityPlugin } from "@xiaochuan/core/config/plugin/compatibility"
+import { SkillFile } from "@xiaochuan/core/config/plugin/skill-file"
+import { SkillScan } from "@xiaochuan/core/config/plugin/skill-scan"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
+import { Bus } from "@xiaochuan/core/bus"
+import { Credential } from "@xiaochuan/core/credential"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Location } from "@xiaochuan/core/location"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Skill } from "@xiaochuan/core/skill"
+import { SkillDiscovery } from "@xiaochuan/core/skill/discovery"
+import { WellKnown } from "@xiaochuan/core/wellknown"
 import { emptyCredentialNode, emptyWellknownNode } from "../fixture/config-nodes"
 import { advance, drain } from "../lib/clock"
 import { tmpdir } from "../fixture/tmpdir"
@@ -133,7 +133,7 @@ describe("SkillFile.parse", () => {
     expect(parse("disable-model-invocation: false")).not.toMatchObject({ skill: { autoinvoke: expect.anything() } })
     expect(parse("disable-model-invocation: maybe")).not.toMatchObject({ skill: { autoinvoke: expect.anything() } })
     expect(
-      parse("disable-model-invocation: true\nmetadata:\n  xccode/autoinvoke: true"),
+      parse("disable-model-invocation: true\nmetadata:\n  xiaochuan/autoinvoke: true"),
     ).toMatchObject({ skill: { autoinvoke: true } })
   })
 
@@ -147,7 +147,7 @@ describe("SkillFile.parse", () => {
 name: Manual
 description: Manual only
 metadata:
-  xccode/autoinvoke: false
+  xiaochuan/autoinvoke: false
 ---
 # manual`,
       ),
@@ -183,14 +183,14 @@ describe("ConfigSkillPlugin.Plugin", () => {
         Effect.gen(function* () {
           const claude = path.join(tmp.path, "claude")
           const agents = path.join(tmp.path, "agents")
-          const xccode = path.join(tmp.path, "xccode")
+          const xiaochuan = path.join(tmp.path, "xiaochuan")
           const home = path.join(tmp.path, "home")
           const directory = path.join(tmp.path, "project")
           const expected = [
             path.join(claude, "skills"),
             path.join(agents, "skills"),
-            path.join(xccode, "skill"),
-            path.join(xccode, "skills"),
+            path.join(xiaochuan, "skill"),
+            path.join(xiaochuan, "skills"),
             path.join(home, "shared"),
             path.join(directory, "relative"),
           ]
@@ -198,7 +198,7 @@ describe("ConfigSkillPlugin.Plugin", () => {
 
           yield* startEntries(
             [
-              new Directory({ type: "directory", path: AbsolutePath.make(xccode) }),
+              new Directory({ type: "directory", path: AbsolutePath.make(xiaochuan) }),
               new Document({ type: "document", info: decode({ skills: ["~/shared", "./relative"] }) }),
             ],
             directory,
@@ -449,7 +449,7 @@ describe("ConfigSkillPlugin.Plugin", () => {
           )
           yield* Effect.yieldNow
 
-          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "xccode.json") })
+          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "xiaochuan.json") })
           yield* configTest.emitChange({ type: "create", path: path.join(tmp.path, "commands", "review.md") })
           yield* configTest.emitChange({ type: "create", path: path.join(tmp.path, "agents", "reviewer.md") })
           yield* drain

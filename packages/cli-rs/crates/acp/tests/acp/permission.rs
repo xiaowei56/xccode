@@ -1,7 +1,7 @@
 use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use xccode_acp::paths::resolve_from;
+use xiaochuan_acp::paths::resolve_from;
 use serde_json::{Value, json};
 
 use crate::wire::{
@@ -261,7 +261,7 @@ fn patch(lines: &[&str]) -> String {
 
 #[tokio::test]
 async fn previews_added_files_as_new_and_deleted_files_as_empty() {
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     let root = dir.path().to_str().unwrap().to_owned();
     for (name, content) in [
         ("file.ts", "one\r\ntwo\r\n"),
@@ -391,10 +391,10 @@ async fn previews_added_files_as_new_and_deleted_files_as_empty() {
 // completed-diffs.test.ts
 #[tokio::test]
 async fn leaves_a_scripts_changes_alone_some_have_no_diff_and_a_file_can_change_more_than_once() {
-    let dir = xccode_util::temp::tempdir().unwrap();
+    let dir = xiaochuan_util::temp::tempdir().unwrap();
     std::fs::write(dir.path().join("a.txt"), "a\nb\nc\n").unwrap();
     let update = json!({ "sessionUpdate": "tool_call_update", "toolCallId": "call_1", "status": "completed" });
-    let source = xccode_acp::tools::DiffSource {
+    let source = xiaochuan_acp::tools::DiffSource {
         tool_name: "execute".to_owned(),
         input: json!({ "code": "1" }),
         metadata: Some(json!({ "files": [
@@ -403,6 +403,6 @@ async fn leaves_a_scripts_changes_alone_some_have_no_diff_and_a_file_can_change_
         ] })),
     };
     let cwd = dir.path().to_string_lossy();
-    let result = xccode_acp::permission::with_completed_diffs(update.clone(), Some(&source), &cwd).await;
+    let result = xiaochuan_acp::permission::with_completed_diffs(update.clone(), Some(&source), &cwd).await;
     assert_eq!(result, update);
 }

@@ -15,7 +15,7 @@ export function composerModelLabelKey(providerID: string, modelID: string) {
 }
 
 // Native Console models need no provider. A managed provider drops its workspace, and says it routes through
-// Xccode only when the same provider is also connected directly.
+// Xiaochuan only when the same provider is also connected directly.
 export function composerProviderName(
   providerID: string,
   catalog: ReadonlyMap<string, Provider>,
@@ -30,20 +30,20 @@ export function composerProviderName(
   const group = consoleProviderGroup(all)
 
   const name =
-    provider.integrationID === "xccode" && group ? consoleProviderName(group, provider.name) : provider.name
+    provider.integrationID === "xiaochuan" && group ? consoleProviderName(group, provider.name) : provider.name
 
-  if (provider.integrationID !== "xccode" || !provider.canonical) return name
+  if (provider.integrationID !== "xiaochuan" || !provider.canonical) return name
   const active = connected && new Set(connected)
 
   const direct = all.some(
     (item) =>
       !native(item) &&
-      item.integrationID !== "xccode" &&
+      item.integrationID !== "xiaochuan" &&
       (!active || active.has(item.id)) &&
       (item.integrationID ?? item.id) === provider.canonical,
   )
 
-  return direct ? `Xccode / ${name}` : name
+  return direct ? `Xiaochuan / ${name}` : name
 }
 
 export function composerModelLabels(
@@ -101,5 +101,5 @@ function sharedPrefix(ids: string[]) {
 }
 
 function native(provider: Provider) {
-  return provider.id === "xccode" && (!provider.integrationID || provider.integrationID === "xccode")
+  return provider.id === "xiaochuan" && (!provider.integrationID || provider.integrationID === "xiaochuan")
 }

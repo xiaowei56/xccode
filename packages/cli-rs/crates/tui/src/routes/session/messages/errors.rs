@@ -2,8 +2,8 @@
 
 use std::collections::HashSet;
 
-use xccode_api::generated::{SessionMessageAssistant, SessionMessageAssistantRetry, SessionStructuredError};
-use xccode_util::time::{self, Zone};
+use xiaochuan_api::generated::{SessionMessageAssistant, SessionMessageAssistantRetry, SessionStructuredError};
+use xiaochuan_util::time::{self, Zone};
 
 use super::list::Context;
 use crate::dialogs::{go_upsell, usage};
@@ -132,7 +132,7 @@ impl StepError {
                     None => "You've used today's free messages.".to_owned(),
                 };
                 let second = vec![
-                    Span::styled("Upgrade to Xccode Go → ", Style::new().fg(muted)),
+                    Span::styled("Upgrade to Xiaochuan Go → ", Style::new().fg(muted)),
                     Span::styled("/connect", Style::new().fg(base)),
                     Span::styled(" · Switch model → ", Style::new().fg(muted)),
                     Span::styled("/models", Style::new().fg(base)),
@@ -275,16 +275,16 @@ fn limit_notice(
     match error.r#type.as_str() {
         "provider.go-limit" => {
             let title = match body.and_then(|body| json_string(body, "limitName")) {
-                Some(limit) => format!("Xccode Go {limit} usage limit reached"),
-                None => "Xccode Go usage limit reached".to_owned(),
+                Some(limit) => format!("Xiaochuan Go {limit} usage limit reached"),
+                None => "Xiaochuan Go usage limit reached".to_owned(),
             };
             let link = match body.and_then(|body| json_string(body, "workspace")).filter(|id| {
                 (id.starts_with("org_") || id.starts_with("wrk_"))
                     && id[4..].chars().all(|c| c.is_alphanumeric() || c == '_' || c == '-')
                     && id.len() > 4
             }) {
-                Some(workspace) => format!("https://xccode.ai/console/{workspace}/go"),
-                None => "https://xccode.ai/console".to_owned(),
+                Some(workspace) => format!("https://xiaochuan.ai/console/{workspace}/go"),
+                None => "https://xiaochuan.ai/console".to_owned(),
             };
             Some(LimitNotice {
                 title,
@@ -311,7 +311,7 @@ fn limit_notice(
             let workspace = local.usage().flatten().and_then(|info| info.workspace.name.clone());
             Some(LimitNotice {
                 title: format!("{} is out of credits", workspace.as_deref().unwrap_or("Your workspace")),
-                body: "Paid models are paused until an admin adds credits in Xccode Console.".to_owned(),
+                body: "Paid models are paused until an admin adds credits in Xiaochuan Console.".to_owned(),
                 key: None,
                 link: None,
             })
@@ -365,7 +365,7 @@ pub fn now() -> f64 {
 }
 
 /// The free-limit and Go-limit stops (`session.step.failed`): restore the stopped prompt when the prompt is empty, and
-/// offer Xccode Go on the first free-limit stop of a day. Only stops seen live count: an error that is already
+/// offer Xiaochuan Go on the first free-limit stop of a day. Only stops seen live count: an error that is already
 /// there when a message first shows is history.
 #[derive(Default)]
 pub struct LimitWatch {
@@ -467,15 +467,15 @@ mod tests {
         assert!(far.contains(" AM") || far.contains(" PM"), "{far:?}");
     }
 
-    /// The simulation clock reads `XCCODE_DRIVE_NOW` once per process; set it in a child.
+    /// The simulation clock reads `XIAOCHUAN_DRIVE_NOW` once per process; set it in a child.
     #[test]
     fn screens_read_the_sim_clock() {
         const FIXED: f64 = 1_600_000_000_000.0;
-        if std::env::var_os("XCCODE_RS_CLOCK_CHILD").is_none() {
+        if std::env::var_os("XIAOCHUAN_RS_CLOCK_CHILD").is_none() {
             let output = std::process::Command::new(std::env::current_exe().unwrap())
                 .args(["--exact", "routes::session::messages::errors::tests::screens_read_the_sim_clock"])
-                .env("XCCODE_RS_CLOCK_CHILD", "1")
-                .env("XCCODE_DRIVE_NOW", (FIXED as i64).to_string())
+                .env("XIAOCHUAN_RS_CLOCK_CHILD", "1")
+                .env("XIAOCHUAN_DRIVE_NOW", (FIXED as i64).to_string())
                 .env("TZ", "UTC")
                 .output()
                 .unwrap();

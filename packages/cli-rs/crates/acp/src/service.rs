@@ -2,12 +2,12 @@ use std::collections::HashSet;
 use std::sync::{Arc, Mutex};
 
 use futures_util::future::BoxFuture;
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     AbsolutePath, LocationPublicRef, MessageListInput, SessionCreateInput, SessionForkInput, SessionGetInput,
     SessionID, SessionInfo, SessionListInput, SessionListInputOrder, SessionRemoveInput, SessionsCursor,
 };
-use xccode_util::{json_object, lock};
+use xiaochuan_util::{json_object, lock};
 use serde_json::{Value, json};
 
 use crate::capabilities::{self, CHILD_SESSION_UPDATES, Capabilities};
@@ -22,7 +22,7 @@ use crate::replay;
 use crate::sessions::{Attached, Sessions};
 use crate::turn::Turns;
 
-const AUTH_METHOD_ID: &str = "xccode-login";
+const AUTH_METHOD_ID: &str = "xiaochuan-login";
 
 /// `cwd`, the session, additional directories, and MCP servers of `session/new`, `load`, `resume`,
 /// and `fork`.
@@ -59,13 +59,13 @@ impl Service {
         let terminal_auth = client.and_then(|client| client.get("_meta")).and_then(|meta| meta.get("terminal-auth"))
             == Some(&Value::Bool(true));
         let auth = json_object! {
-            "description": "Run `xccode auth login` in the terminal",
-            "name": "Login with xccode",
+            "description": "Run `xiaochuan auth login` in the terminal",
+            "name": "Login with xiaochuan",
             "id": AUTH_METHOD_ID,
             "type"?: terminal.then_some("terminal"),
             "args"?: terminal.then_some(["--login"]),
             "_meta"?: terminal_auth.then(|| json!({
-                "terminal-auth": { "command": "xccode", "args": ["auth", "login"], "label": "Xccode Login" },
+                "terminal-auth": { "command": "xiaochuan", "args": ["auth", "login"], "label": "Xiaochuan Login" },
             })),
         };
         json!({
@@ -86,7 +86,7 @@ impl Service {
             },
             "authMethods": [auth],
             "_meta": { "steering": { "supported": true } },
-            "agentInfo": { "name": "Xccode", "version": self.version },
+            "agentInfo": { "name": "Xiaochuan", "version": self.version },
         })
     }
 
@@ -338,5 +338,5 @@ fn title(session: &SessionInfo) -> String {
 /// `Date.prototype.toISOString`.
 fn iso(millis: f64) -> String {
     #[allow(clippy::cast_possible_truncation)]
-    xccode_util::time::iso(millis as i64).unwrap_or_default()
+    xiaochuan_util::time::iso(millis as i64).unwrap_or_default()
 }

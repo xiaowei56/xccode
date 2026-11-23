@@ -1,5 +1,5 @@
-import type { ProjectUpdateInput } from "@xccode/client/promise"
-import { getFilename } from "@xccode/util/path"
+import type { ProjectUpdateInput } from "@xiaochuan/client/promise"
+import { getFilename } from "@xiaochuan/util/path"
 
 /** How long one save may take before its request is aborted and the queue moves on. */
 export const PROJECT_SAVE_TIMEOUT_MS = 15_000

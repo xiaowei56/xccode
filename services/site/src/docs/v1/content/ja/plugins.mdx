@@ -1,9 +1,9 @@
 ---
 title: プラグイン
-description: Xccode を拡張する独自のプラグインを作成します。
+description: Xiaochuan を拡張する独自のプラグインを作成します。
 ---
 
-プラグインを使用すると、さまざまなイベントにフックして動作をカスタマイズすることで Xccode を拡張できます。プラグインを作成して、新しい機能を追加したり、外部サービスと統合したり、Xccode のデフォルトの動作を変更したりできます。
+プラグインを使用すると、さまざまなイベントにフックして動作をカスタマイズすることで Xiaochuan を拡張できます。プラグインを作成して、新しい機能を追加したり、外部サービスと統合したり、Xiaochuan のデフォルトの動作を変更したりできます。
 
 たとえば、コミュニティによって作成された [plugins](/docs/ecosystem#plugins) をチェックしてください。
 
@@ -19,8 +19,8 @@ description: Xccode を拡張する独自のプラグインを作成します。
 
 JavaScript または TypeScript ファイルをプラグインディレクトリに配置します。
 
-- `.xccode/plugins/` - プロジェクトレベルのプラグイン
-- `~/.config/xccode/plugins/` - グローバルプラグイン
+- `.xiaochuan/plugins/` - プロジェクトレベルのプラグイン
+- `~/.config/xiaochuan/plugins/` - グローバルプラグイン
 
 これらのディレクトリ内のファイルは起動時に自動的にロードされます。
 
@@ -30,10 +30,10 @@ JavaScript または TypeScript ファイルをプラグインディレクトリ
 
 設定ファイルで npm パッケージを指定します。
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
-  "plugin": ["xccode-helicone-session", "xccode-wakatime", "@my-org/custom-plugin"]
+  "$schema": "https://xiaochuan.ai/config.json",
+  "plugin": ["xiaochuan-helicone-session", "xiaochuan-wakatime", "@my-org/custom-plugin"]
 }
 ```
 
@@ -45,7 +45,7 @@ JavaScript または TypeScript ファイルをプラグインディレクトリ
 
 ### プラグインのインストール
 
-**npm プラグイン** は、起動時に Bun を使用して自動的にインストールされます。パッケージとその依存関係は `~/.cache/xccode/node_modules/` にキャッシュされます。
+**npm プラグイン** は、起動時に Bun を使用して自動的にインストールされます。パッケージとその依存関係は `~/.cache/xiaochuan/node_modules/` にキャッシュされます。
 
 **ローカルプラグイン**は、プラグインディレクトリから直接ロードされます。外部パッケージを使用するには、config ディレクトリ内に `package.json` を作成するか ([Dependency](#dependencies) を参照)、プラグインを npm に公開して [config](/docs/config#plugins) に追加する必要があります。
 
@@ -55,10 +55,10 @@ JavaScript または TypeScript ファイルをプラグインディレクトリ
 
 プラグインはすべてのソースからロードされ、すべてのフックが順番に実行されます。ロード順序は次のとおりです。
 
-1. グローバル設定 (`~/.config/xccode/xccode.json`)
-2. プロジェクト設定 (`xccode.json`)
-3. グローバルプラグインディレクトリ (`~/.config/xccode/plugins/`)
-4. プロジェクトプラグインディレクトリ (`.xccode/plugins/`)
+1. グローバル設定 (`~/.config/xiaochuan/xiaochuan.json`)
+2. プロジェクト設定 (`xiaochuan.json`)
+3. グローバルプラグインディレクトリ (`~/.config/xiaochuan/plugins/`)
+4. プロジェクトプラグインディレクトリ (`.xiaochuan/plugins/`)
 
 同じ名前とバージョンを持つ重複した npm パッケージは 1 回ロードされます。ただし、似た名前のローカルプラグインと npm プラグインは両方とも別々にロードされます。
 
@@ -75,7 +75,7 @@ JavaScript または TypeScript ファイルをプラグインディレクトリ
 
 ローカルプラグインとカスタムツールは外部の npm パッケージを使用できます。必要な依存関係を含む `package.json` を config ディレクトリに追加します。
 
-```json title=".xccode/package.json"
+```json title=".xiaochuan/package.json"
 {
   "dependencies": {
     "shescape": "^2.1.0"
@@ -83,9 +83,9 @@ JavaScript または TypeScript ファイルをプラグインディレクトリ
 }
 ```
 
-Xccode は起動時に `bun install` を実行してこれらをインストールします。プラグインとツールはそれらをインポートできるようになります。
+Xiaochuan は起動時に `bun install` を実行してこれらをインストールします。プラグインとツールはそれらをインポートできるようになります。
 
-```ts title=".xccode/plugins/my-plugin.ts"
+```ts title=".xiaochuan/plugins/my-plugin.ts"
 import { escape } from "shescape"
 
 export const MyPlugin = async (ctx) => {
@@ -103,7 +103,7 @@ export const MyPlugin = async (ctx) => {
 
 ### 基本構造
 
-```js title=".xccode/plugins/example.js"
+```js title=".xiaochuan/plugins/example.js"
 export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
   console.log("Plugin initialized!")
 
@@ -118,7 +118,7 @@ export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
 - `project`: 現在のプロジェクト情報。
 - `directory`: 現在の作業ディレクトリ。
 - `worktree`: git ワークツリーのパス。
-- `client`: AI と対話するための Xccode SDK クライアント。
+- `client`: AI と対話するための Xiaochuan SDK クライアント。
 - `$`: Bun の [コマンドを実行するためのシェル API](https://bun.com/docs/runtime/shell)。
 
 ---
@@ -128,7 +128,7 @@ export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
 TypeScript プラグインの場合、プラグインパッケージから型をインポートできます。
 
 ```ts title="my-plugin.ts" {1}
-import type { Plugin } from "@xccode-ai/plugin"
+import type { Plugin } from "@xiaochuan-ai/plugin"
 
 export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree }) => {
   return {
@@ -207,7 +207,7 @@ export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree
 
 ## 例
 
-ここでは、Xccode を拡張するために使用できるプラグインの例をいくつか示します。
+ここでは、Xiaochuan を拡張するために使用できるプラグインの例をいくつか示します。
 
 ---
 
@@ -215,13 +215,13 @@ export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree
 
 特定のイベントが発生したときに通知を送信します。
 
-```js title=".xccode/plugins/notification.js"
+```js title=".xiaochuan/plugins/notification.js"
 export const NotificationPlugin = async ({ project, client, $, directory, worktree }) => {
   return {
     event: async ({ event }) => {
       // Send notification on session completion
       if (event.type === "session.idle") {
-        await $`osascript -e 'display notification "Session completed!" with title "xccode"'`
+        await $`osascript -e 'display notification "Session completed!" with title "xiaochuan"'`
       }
     },
   }
@@ -234,9 +234,9 @@ macOS 上で AppleScript を実行するために `osascript` を使用してい
 
 ### .env の保護
 
-Xccode が `.env` ファイルを読み取らないようにします。
+Xiaochuan が `.env` ファイルを読み取らないようにします。
 
-```javascript title=".xccode/plugins/env-protection.js"
+```javascript title=".xiaochuan/plugins/env-protection.js"
 export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
   return {
     "tool.execute.before": async (input, output) => {
@@ -254,7 +254,7 @@ export const EnvProtection = async ({ project, client, $, directory, worktree })
 
 すべてのシェル実行 (AI ツールとユーザーターミナル) に環境変数を挿入します。
 
-```javascript title=".xccode/plugins/inject-env.js"
+```javascript title=".xiaochuan/plugins/inject-env.js"
 export const InjectEnvPlugin = async () => {
   return {
     "shell.env": async (input, output) => {
@@ -269,10 +269,10 @@ export const InjectEnvPlugin = async () => {
 
 ### カスタムツール
 
-プラグインは Xccode にカスタムツールを追加することもできます。
+プラグインは Xiaochuan にカスタムツールを追加することもできます。
 
-```ts title=".xccode/plugins/custom-tools.ts"
-import { type Plugin, tool } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/plugins/custom-tools.ts"
+import { type Plugin, tool } from "@xiaochuan-ai/plugin"
 
 export const CustomToolsPlugin: Plugin = async (ctx) => {
   return {
@@ -292,13 +292,13 @@ export const CustomToolsPlugin: Plugin = async (ctx) => {
 }
 ```
 
-`tool` ヘルパーは、Xccode が呼び出すことができるカスタムツールを作成します。 Zod スキーマ関数を受け取り、次のようなツール定義を返します。
+`tool` ヘルパーは、Xiaochuan が呼び出すことができるカスタムツールを作成します。 Zod スキーマ関数を受け取り、次のようなツール定義を返します。
 
 - `description`: ツールの機能
 - `args`: ツールの引数の Zod スキーマ
 - `execute`: ツールが呼び出されたときに実行される関数
 
-カスタムツールは、組み込みツールと並行して Xccode で使用できます。
+カスタムツールは、組み込みツールと並行して Xiaochuan で使用できます。
 
 :::note
 組み込みツールと同じ名前のプラグインツールを使用すると、プラグインツールが優先されます。
@@ -310,7 +310,7 @@ export const CustomToolsPlugin: Plugin = async (ctx) => {
 
 構造化ログには `console.log` の代わりに `client.app.log()` を使用します。
 
-```ts title=".xccode/plugins/my-plugin.ts"
+```ts title=".xiaochuan/plugins/my-plugin.ts"
 export const MyPlugin = async ({ client }) => {
   await client.app.log({
     body: {
@@ -331,8 +331,8 @@ export const MyPlugin = async ({ client }) => {
 
 セッションが圧縮されたときに含まれるコンテキストをカスタマイズします。
 
-```ts title=".xccode/plugins/compaction.ts"
-import type { Plugin } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/plugins/compaction.ts"
+import type { Plugin } from "@xiaochuan-ai/plugin"
 
 export const CompactionPlugin: Plugin = async (ctx) => {
   return {
@@ -355,8 +355,8 @@ Include any state that should persist across compaction:
 
 `output.prompt` を設定することで、圧縮プロンプトを完全に置き換えることもできます。
 
-```ts title=".xccode/plugins/custom-compaction.ts"
-import type { Plugin } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/plugins/custom-compaction.ts"
+import type { Plugin } from "@xiaochuan-ai/plugin"
 
 export const CustomCompactionPlugin: Plugin = async (ctx) => {
   return {

@@ -10,7 +10,7 @@ console.log("the printer's module prints as it loads")
 export default {
   id: "example.printer",
   setup(api: any) {
-    const carrier = api[Symbol.for("xccode.carrier")]
+    const carrier = api[Symbol.for("xiaochuan.carrier")]
     const log = (entry: unknown) => appendFileSync(path.join(import.meta.dir, "..", ".printer.log.jsonl"), JSON.stringify(entry) + "\n")
     shout("setup")
     chatty("setup")

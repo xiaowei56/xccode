@@ -1,11 +1,11 @@
 import { Meta, Title } from "@solidjs/meta"
-import { ProviderIcon } from "@xccode/ui/provider-icon"
+import { ProviderIcon } from "@xiaochuan/ui/provider-icon"
 import {
   type LabUsageModelEntry,
   type MarketDay,
   type ModelUsagePoint,
   type StatsLabData,
-} from "@xccode/data-core/domain/home"
+} from "@xiaochuan/data-core/domain/home"
 import { createAsync, query, useParams } from "@solidjs/router"
 import { createMemo, createSignal, createUniqueId, For, onMount, Show, type JSX } from "solid-js"
 import { getRequestEvent } from "solid-js/web"
@@ -126,7 +126,7 @@ export default function StatsLab() {
               <FormatLinks path={labPath()} />
               <LastModified value={stats()?.updatedAt} />
               <Meta property="og:type" content="website" />
-              <Meta property="og:site_name" content="Xccode" />
+              <Meta property="og:site_name" content="Xiaochuan" />
               <Meta property="og:title" content={labTitle()} />
               <Meta property="og:description" content={labDescription()} />
               <Meta property="og:url" content={labUrl()} />
@@ -722,7 +722,7 @@ function LabModelTooltip(props: { state: LabModelTooltipState }) {
           </span>
           <strong>{props.state.model.name}</strong>
         </div>
-        <p>{props.state.model.description ?? "Recent Xccode usage, share, context, and output limits."}</p>
+        <p>{props.state.model.description ?? "Recent Xiaochuan usage, share, context, and output limits."}</p>
       </div>
       <div data-slot="tooltip-divider" />
       <div data-slot="lab-model-tooltip-metrics">

@@ -1,26 +1,26 @@
 export * as ServerWorkerd from "./workerd"
 
 import { Effect, Layer } from "effect"
-import { ConfigPluginSource } from "@xccode/core/config/plugin/source"
-import { Database } from "@xccode/core/database/database"
-import { sqliteLayer } from "@xccode/core/database/sqlite.workerd"
-import type { DurableObjectStorage } from "@xccode/core/database/sqlite.workerd"
-import { EnvironmentUnavailable } from "@xccode/core/environment/unavailable"
-import { FileSystem } from "@xccode/core/filesystem"
-import { FileSystemSearch } from "@xccode/core/filesystem/search"
-import { BlobStore } from "@xccode/core/blob-store"
-import { VideoGeneration } from "@xccode/core/video-generation"
-import { Pty } from "@xccode/core/pty"
-import { Snapshot } from "@xccode/core/snapshot"
-import { Vcs } from "@xccode/core/vcs"
-import { CrossSpawnSpawner } from "@xccode/util/cross-spawn-spawner"
-import type { LayerNode } from "@xccode/util/effect/layer-node"
-import { Npm } from "@xccode/util/npm"
+import { ConfigPluginSource } from "@xiaochuan/core/config/plugin/source"
+import { Database } from "@xiaochuan/core/database/database"
+import { sqliteLayer } from "@xiaochuan/core/database/sqlite.workerd"
+import type { DurableObjectStorage } from "@xiaochuan/core/database/sqlite.workerd"
+import { EnvironmentUnavailable } from "@xiaochuan/core/environment/unavailable"
+import { FileSystem } from "@xiaochuan/core/filesystem"
+import { FileSystemSearch } from "@xiaochuan/core/filesystem/search"
+import { BlobStore } from "@xiaochuan/core/blob-store"
+import { VideoGeneration } from "@xiaochuan/core/video-generation"
+import { Pty } from "@xiaochuan/core/pty"
+import { Snapshot } from "@xiaochuan/core/snapshot"
+import { Vcs } from "@xiaochuan/core/vcs"
+import { CrossSpawnSpawner } from "@xiaochuan/util/cross-spawn-spawner"
+import type { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Npm } from "@xiaochuan/util/npm"
 import { ServerFetch } from "./fetch"
 import type { ServerOptions } from "./options"
 
 /**
- * The workerd runtime profile: boots xccode core and server inside a
+ * The workerd runtime profile: boots xiaochuan core and server inside a
  * Cloudflare Durable Object, with every intentionally-local service replaced
  * or disabled.
  *
@@ -41,15 +41,15 @@ import type { ServerOptions } from "./options"
  * (see `script/workerd-probe.ts`).
  */
 export interface Options {
-  /** Durable Object storage whose SQLite database backs the xccode database. */
+  /** Durable Object storage whose SQLite database backs the xiaochuan database. */
   readonly storage: DurableObjectStorage
   readonly app?: ServerOptions["app"]
   readonly password?: string
-  /** Inline xccode config content (JSON), same as `ServerOptions.config.content`. */
+  /** Inline xiaochuan config content (JSON), same as `ServerOptions.config.content`. */
   readonly config?: { readonly content?: string }
   /** models.dev catalog options; the bundled snapshot is the boot-time floor either way. */
   readonly models?: ServerOptions["models"]
-  /** Replaces `globalThis.fetch` for Xccode's own HTTP requests, e.g. to route them through a Service Binding. */
+  /** Replaces `globalThis.fetch` for Xiaochuan's own HTTP requests, e.g. to route them through a Service Binding. */
   readonly fetch?: ServerOptions["fetch"]
 }
 

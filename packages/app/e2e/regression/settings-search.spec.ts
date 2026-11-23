@@ -2,14 +2,14 @@ import { expect, test, type Page } from "@playwright/test"
 import en from "../../src/runtime/i18n/en"
 import { clientSettings } from "../../src/settings/search-catalog"
 import { NO_PROVIDER, REMOTE_SERVER, holdRoute, project, type SeedInput } from "../utils/app"
-import { mockXccodeServer } from "../utils/mock-server"
+import { mockXiaochuanServer } from "../utils/mock-server"
 import { openSettings } from "../utils/workspace"
 
-const directory = "/projects/xccode"
+const directory = "/projects/xiaochuan"
 
 test.use({ viewport: { width: 1280, height: 900 }, serviceWorkers: "block" })
 
-// `count` replaces the single "Xccode" project with "Xccode 00".."Xccode NN".
+// `count` replaces the single "Xiaochuan" project with "Xiaochuan 00".."Xiaochuan NN".
 async function open(page: Page, input: { count?: number; seed?: SeedInput } = {}) {
   const projects =
     input.count === undefined
@@ -18,14 +18,14 @@ async function open(page: Page, input: { count?: number; seed?: SeedInput } = {}
           project({
             id: `proj_search_${index}`,
             directory: `${directory}-${index}`,
-            name: `Xccode ${String(index).padStart(2, "0")}`,
+            name: `Xiaochuan ${String(index).padStart(2, "0")}`,
           }),
         )
 
   await page.route("https://api.github.com/**", (route) => route.fulfill({ json: [] }))
 
   const { settings } = await openSettings(page, {
-    name: "Xccode",
+    name: "Xiaochuan",
     directory,
     project: { icon: { color: "orange" } },
     provider: NO_PROVIDER,
@@ -42,7 +42,7 @@ async function open(page: Page, input: { count?: number; seed?: SeedInput } = {}
 
   // Readiness includes the server-backed project inventory, not just the settings shell.
   if (input.count === 0) return view
-  await view.search.fill("Xccode")
+  await view.search.fill("Xiaochuan")
   // Only the selected server's projects are indexed.
   await expect(view.results.getByRole("option")).toHaveCount(input.count ?? 1)
   await view.search.clear()
@@ -151,10 +151,10 @@ test("the narrow layout floats the results in the shared search list popover", a
 })
 
 test("a category's results stay under one run of headers when its groups interleave by rank", async ({ page }) => {
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     server: REMOTE_SERVER,
-    directory: "/remote/xccode",
-    project: project({ id: "proj_search_remote", directory: "/remote/xccode", name: "Remote app" }),
+    directory: "/remote/xiaochuan",
+    project: project({ id: "proj_search_remote", directory: "/remote/xiaochuan", name: "Remote app" }),
     provider: NO_PROVIDER,
     sessions: [],
     pageMessages: () => ({ items: [] }),
@@ -319,7 +319,7 @@ for (const count of [0, 7, 8]) {
 
     await view.settings.getByRole("tab", { name: "Projects", exact: true }).click()
     const search = view.settings.getByRole("searchbox", { name: "Search projects", exact: true })
-    const projects = view.settings.getByRole("button", { name: /^Xccode / })
+    const projects = view.settings.getByRole("button", { name: /^Xiaochuan / })
 
     if (count === 0) {
       await expect(view.settings.getByText("No projects yet", { exact: true })).toBeVisible()
@@ -342,14 +342,14 @@ for (const count of [0, 7, 8]) {
 
     await search.fill("  CODE 06  ")
     await expect(projects).toHaveCount(1)
-    await expect(projects).toHaveAccessibleName("Xccode 06")
+    await expect(projects).toHaveAccessibleName("Xiaochuan 06")
     await search.fill("missing-project")
     await expect(projects).toHaveCount(0)
     await view.settings.getByRole("button", { name: "Clear", exact: true }).click()
     await expect(projects).toHaveCount(count)
-    await search.fill("Xccode 06")
+    await search.fill("Xiaochuan 06")
     await projects.click()
-    await expect(view.settings.getByRole("heading", { name: "Xccode 06", exact: true })).toBeVisible()
+    await expect(view.settings.getByRole("heading", { name: "Xiaochuan 06", exact: true })).toBeVisible()
   })
 }
 
@@ -368,25 +368,25 @@ test("all indexed client controls resolve to visible production controls", async
 
 test("project results keep the query, selection, and scroll position on return", async ({ page }) => {
   const view = await open(page, { count: 30 })
-  await view.search.fill("Xccode 25 name")
+  await view.search.fill("Xiaochuan 25 name")
   const name = view.results.getByRole("option")
   await expect(name).toHaveText("Project nameGeneral")
   await name.click()
   await expect(view.search).toHaveCount(0)
-  await expect(view.settings.getByRole("textbox", { name: "Project name", exact: true })).toHaveValue("Xccode 25")
+  await expect(view.settings.getByRole("textbox", { name: "Project name", exact: true })).toHaveValue("Xiaochuan 25")
   await page.keyboard.press("Escape")
   await expect(view.search).toBeFocused()
-  await expect(view.search).toHaveValue("Xccode 25 name")
+  await expect(view.search).toHaveValue("Xiaochuan 25 name")
   await expect(name).toHaveAttribute("aria-selected", "true")
 
-  await view.search.fill("Xccode")
+  await view.search.fill("Xiaochuan")
   await expect(view.results.getByRole("option")).toHaveCount(30)
-  const target = view.results.getByRole("option", { name: /^Xccode 25,/ })
+  const target = view.results.getByRole("option", { name: /^Xiaochuan 25,/ })
   await target.scrollIntoViewIfNeeded()
   await expect.poll(() => view.viewport.evaluate((list) => list.scrollTop)).toBeGreaterThan(0)
   const scroll = await view.viewport.evaluate((list) => list.scrollTop)
   await target.click()
-  await expect(view.settings.getByRole("heading", { name: "Xccode 25", exact: true })).toBeVisible()
+  await expect(view.settings.getByRole("heading", { name: "Xiaochuan 25", exact: true })).toBeVisible()
   await view.settings.getByRole("button", { name: "Back to settings", exact: true }).click()
   await expect(view.search).toBeFocused()
   await expect(target).toHaveAttribute("aria-selected", "true")
@@ -398,8 +398,8 @@ test("a page reached through an opened result keeps its own way back", async ({ 
   await view.search.fill("Projects")
   await view.results.getByRole("option", { name: "Projects, This computer", exact: true }).click()
   await expect(view.settings.getByRole("heading", { name: "Projects", exact: true })).toBeVisible()
-  await view.settings.getByRole("button", { name: "Xccode", exact: true }).click()
-  await expect(view.settings.getByRole("heading", { name: "Xccode", exact: true })).toBeVisible()
+  await view.settings.getByRole("button", { name: "Xiaochuan", exact: true }).click()
+  await expect(view.settings.getByRole("heading", { name: "Xiaochuan", exact: true })).toBeVisible()
   await expect(view.settings.getByRole("button", { name: "Back to projects", exact: true })).toBeVisible()
   // Escape leaves the project for its own parent, not for the page the search started on.
   await page.keyboard.press("Escape")
@@ -413,19 +413,19 @@ test("a page reached through an opened result keeps its own way back", async ({ 
 
   await page.keyboard.press(key)
   const palette = page.getByRole("dialog")
-  await palette.getByRole("combobox").fill("Xccode name")
+  await palette.getByRole("combobox").fill("Xiaochuan name")
   await palette.getByRole("option", { name: /^Project name/ }).click()
-  await expect(view.settings.getByRole("textbox", { name: "Project name", exact: true })).toHaveValue("Xccode")
+  await expect(view.settings.getByRole("textbox", { name: "Project name", exact: true })).toHaveValue("Xiaochuan")
   await expect(view.settings.locator('[data-search-target="row"]')).toContainText("Project name")
   await expect(view.settings.getByRole("button", { name: "Back to projects", exact: true })).toBeVisible()
 })
 
 test("project edits queued behind a save reach their project in order across jumps away and back", async ({ page }) => {
   const view = await open(page, { count: 2 })
-  await view.search.fill("Xccode 00 name")
+  await view.search.fill("Xiaochuan 00 name")
   await view.results.getByRole("option").click()
   const name = view.settings.getByRole("textbox", { name: "Project name", exact: true })
-  await expect(name).toHaveValue("Xccode 00")
+  await expect(name).toHaveValue("Xiaochuan 00")
   const hold = await holdRoute(page, /\/api\/project\/proj_search_\d+(\?|$)/, { method: "PATCH" })
 
   await name.fill("Renamed")
@@ -452,7 +452,7 @@ test("project edits queued behind a save reach their project in order across jum
       .filter((request) => new URL(request.url()).pathname === `/api/project/${projectID}`)
       .map((request) => request.postDataJSON())
 
-  await jump("Xccode 01 name", "Xccode 01")
+  await jump("Xiaochuan 01 name", "Xiaochuan 01")
 
   // Another project's save does not wait behind the first project's held one.
   await name.fill("Bravo")
@@ -460,7 +460,7 @@ test("project edits queued behind a save reach their project in order across jum
   await expect.poll(() => sent("proj_search_1")).toEqual([{ name: "Bravo" }])
 
   // Back on the first project before its queued edit went out, a new save must not overtake it.
-  await jump("Xccode 00 name", "Xccode 00")
+  await jump("Xiaochuan 00 name", "Xiaochuan 00")
   await startup.fill("bun start")
   await startup.blur()
   hold.release()
@@ -481,10 +481,10 @@ test("IME confirmation does not activate a search result", async ({ page }) => {
 })
 
 test("multi-server results follow the selected server and keep the query on return", async ({ page }) => {
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     server: REMOTE_SERVER,
-    directory: "/remote/xccode",
-    project: project({ id: "proj_search_remote", directory: "/remote/xccode", name: "Remote app" }),
+    directory: "/remote/xiaochuan",
+    project: project({ id: "proj_search_remote", directory: "/remote/xiaochuan", name: "Remote app" }),
     provider: NO_PROVIDER,
     sessions: [],
     pageMessages: () => ({ items: [] }),

@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test"
-import type { ConfigEntry, XccodeEvent, SessionMessageInfo, WorktreeDirectory } from "@xccode/client/promise"
+import type { ConfigEntry, XiaochuanEvent, SessionMessageInfo, WorktreeDirectory } from "@xiaochuan/client/promise"
 import { NO_PROVIDER, REMOTE_SERVER, SERVER, holdRoute, project, seed, session } from "../utils/app"
-import { mockMissingLocation, mockXccodeServer } from "../utils/mock-server"
+import { mockMissingLocation, mockXiaochuanServer } from "../utils/mock-server"
 import { mockRemoteServer, mockWorkspace, openSession, openSettings, type WorkspaceInput } from "../utils/workspace"
 import { CONSOLE_URL, consoleGateway, consoleSignIn } from "../utils/console"
 import { recordNotifications } from "../utils/notifications"
@@ -18,7 +18,7 @@ const sandboxes = Array.from({ length: 12 }, (_, index) => `${directory}/workspa
 const override =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='red'/%3E%3C/svg%3E"
 
-const contributors = "https://api.github.com/repos/xiaowei56/xccode/contributors?anon=1&per_page=1"
+const contributors = "https://api.github.com/repos/xiaowei56/xiaochuan/contributors?anon=1&per_page=1"
 
 test.use({ serviceWorkers: "block" })
 
@@ -30,8 +30,8 @@ function open(page: Page, input: Partial<WorkspaceInput> = {}) {
     project: { icon: { color: "orange", override }, commands: { start: "echo setup" }, sandboxes },
     provider: NO_PROVIDER,
     configEntries: [
-      { type: "document", path: "/home/test/.config/xccode/xccode.jsonc", info: { shell: "/bin/zsh" } },
-      { type: "directory", path: "/home/test/.config/xccode" },
+      { type: "document", path: "/home/test/.config/xiaochuan/xiaochuan.jsonc", info: { shell: "/bin/zsh" } },
+      { type: "directory", path: "/home/test/.config/xiaochuan" },
     ],
     shells: [
       { path: "/bin/zsh", name: "zsh", acceptable: true },
@@ -229,7 +229,7 @@ test("request events use real Questions settings without disabling Permissions a
   const event = (
     kind: "question" | "mcp-elicitation" | "websearch.provider" | "permission",
     index: number,
-  ): XccodeEvent => {
+  ): XiaochuanEvent => {
     const base = {
       id: `evt_request_${index}`,
       created: 1700000001000 + index,
@@ -365,7 +365,7 @@ for (const [locale, dict] of [
           id: "shell_activity_settings",
           status: "running",
           command: "sleep 120",
-          cwd: "C:/Xccode/Activity settings",
+          cwd: "C:/Xiaochuan/Activity settings",
           shell: "bash",
           file: "/tmp/activity.out",
           metadata: { sessionID: id },
@@ -570,7 +570,7 @@ for (const server of [
 }
 
 test("project list menus rename, edit, add, and stay inside the scrollport", async ({ page }) => {
-  const projects = ["rebase", "dinocms", "xccode", "Playground"].map((name, index) =>
+  const projects = ["rebase", "dinocms", "xiaochuan", "Playground"].map((name, index) =>
     project({ id: `project-${index}`, directory: `/projects/${name}`, name }),
   )
 
@@ -816,7 +816,7 @@ test("project extensions link Console MCPs and skills and offer sign-in as the s
   context,
 }) => {
   const consoleUrl = CONSOLE_URL
-  await context.route("https://xccode.ai/console/**", (route) => route.fulfill({ body: "Console" }))
+  await context.route("https://xiaochuan.ai/console/**", (route) => route.fulfill({ body: "Console" }))
 
   const { settings } = await open(page, {
     configEntries: [
@@ -847,7 +847,7 @@ test("project extensions link Console MCPs and skills and offer sign-in as the s
       },
     ],
     skills: [
-      { id: "review", name: "Code review", path: "/home/test/.config/xccode/skills/review/SKILL.md", content: "x" },
+      { id: "review", name: "Code review", path: "/home/test/.config/xiaochuan/skills/review/SKILL.md", content: "x" },
       { id: "funnel", name: "Funnel analytics", path: "skill://funnel/SKILL.md", content: "x" },
     ],
   })
@@ -1188,7 +1188,7 @@ test.describe("pages open before slow data", () => {
     const { settings } = await open(page, {
       mcp: [{ name: "demo-mcp", status: { status: "connected" } }],
       skills: [
-        { id: "xccode", name: "Xccode", path: "skill://xccode/SKILL.md", content: "Xccode help" },
+        { id: "xiaochuan", name: "Xiaochuan", path: "skill://xiaochuan/SKILL.md", content: "Xiaochuan help" },
         { id: "plugin-skill", name: "Plugin skill", path: "skill://plugin-skill/SKILL.md", content: "Plugin help" },
       ],
     })
@@ -1203,7 +1203,7 @@ test.describe("pages open before slow data", () => {
     await expect(settings.getByRole("switch", { name: "demo-mcp" })).toBeChecked()
     // Without a Console sign-in, a virtual skill is never linked to Console.
     await settings.getByRole("tab", { name: "Skills", exact: true }).click()
-    await expect(settings.getByText("Xccode", { exact: true })).toBeVisible()
+    await expect(settings.getByText("Xiaochuan", { exact: true })).toBeVisible()
     await expect(settings.getByText("Plugin skill", { exact: true })).toBeVisible()
     await expect(settings.getByRole("button", { name: /in Console$/ })).toHaveCount(0)
   })
@@ -1263,7 +1263,7 @@ test.describe("pages open before slow data", () => {
   })
 
   test("extensions list Console MCPs and skills with local ones", async ({ page, context }) => {
-    await context.route("https://xccode.ai/console/**", (route) => route.fulfill({ body: "Console" }))
+    await context.route("https://xiaochuan.ai/console/**", (route) => route.fulfill({ body: "Console" }))
     const consoleUrl = CONSOLE_URL
 
     const actions: string[] = []
@@ -1284,7 +1284,7 @@ test.describe("pages open before slow data", () => {
         },
         {
           type: "document",
-          path: "/home/test/.config/xccode/xccode.json",
+          path: "/home/test/.config/xiaochuan/xiaochuan.json",
           info: { mcp: { servers: { linear: { type: "remote", url: "https://mcp.linear.app/mcp" } } } },
         },
       ],
@@ -1294,10 +1294,10 @@ test.describe("pages open before slow data", () => {
         {
           id: "review",
           name: "Code review",
-          path: "/home/test/.config/xccode/skills/review/SKILL.md",
+          path: "/home/test/.config/xiaochuan/skills/review/SKILL.md",
           content: "Review code",
         },
-        { id: "xccode", name: "Xccode", path: "skill://xccode/SKILL.md", content: "Xccode help" },
+        { id: "xiaochuan", name: "Xiaochuan", path: "skill://xiaochuan/SKILL.md", content: "Xiaochuan help" },
         { id: "report", name: "Report", path: "skill://report/SKILL.md", content: "Report bugs" },
         { id: "browser", name: "Browser", path: "skill://browser/SKILL.md", content: "Browser help" },
         { id: "funnel", name: "Funnel analytics", path: "skill://funnel/SKILL.md", content: "Analyze the funnel" },
@@ -1316,11 +1316,11 @@ test.describe("pages open before slow data", () => {
     await expect(settings.getByRole("switch", { name: "figma", exact: true })).toBeChecked()
     await expect(settings.getByRole("switch", { name: "github", exact: true })).toHaveCount(0)
     await expect(settings.getByRole("button", { name: "Manage linear in Console" })).toHaveText(
-      "Replaces Xccode Console",
+      "Replaces Xiaochuan Console",
     )
     await expect(settings.getByRole("button", { name: "Manage github in Console" })).toHaveText("github")
     await expect(settings.getByRole("button", { name: "Manage clickhouse in Console" })).toHaveText("clickhouse")
-    await expect(settings.getByText("Xccode Console", { exact: true })).toHaveCount(0)
+    await expect(settings.getByText("Xiaochuan Console", { exact: true })).toHaveCount(0)
     await expect(settings.getByRole("button", { name: "Manage figma in Console" })).toHaveCount(0)
 
     const connection = page.waitForEvent("popup")
@@ -1346,7 +1346,7 @@ test.describe("pages open before slow data", () => {
       "Browser",
       "Code review",
       "Funnel analytics",
-      "Xccode",
+      "Xiaochuan",
       "Report",
     ])
     await expect(settings.getByRole("button", { name: /in Console$/ })).toHaveCount(1)
@@ -1382,7 +1382,7 @@ test.describe("pages open before slow data", () => {
       await expect(settings.getByRole("link", { name: "935 others", exact: true })).toBeVisible()
       await expect(settings.getByRole("button", { name: "Back to app" })).toBeVisible()
 
-      const website = settings.getByRole("link", { name: "www.xccode.ai", exact: true })
+      const website = settings.getByRole("link", { name: "www.xiaochuan.ai", exact: true })
       await website.focus()
 
       const settled = fails
@@ -1464,7 +1464,7 @@ test("worktrees follow inventory events, wait for session counts, and delete by 
   // SAFETY: a worktree.updated event carries only the project ID, which is all the app reads from it.
   await view.push([
     { id: "evt_settings_worktree_updated", created: Date.now(), type: "worktree.updated", data: { projectID } },
-  ] as XccodeEvent[])
+  ] as XiaochuanEvent[])
   expect((await listed).ok()).toBe(true)
   await expect(settings.getByText(discovered, { exact: true })).toBeVisible()
   expect((await read).ok()).toBe(true)
@@ -1690,12 +1690,12 @@ test.describe("worktrees prefetch", () => {
 const lsp: ConfigEntry[] = [
   {
     type: "document",
-    path: "/config/xccode.json",
+    path: "/config/xiaochuan.json",
     info: { lsp: { typescript: { command: ["typescript-language-server", "--stdio"], extensions: [".ts", ".tsx"] } } },
   },
   {
     type: "document",
-    path: `${directory}/xccode.jsonc`,
+    path: `${directory}/xiaochuan.jsonc`,
     info: { lsp: { typescript: { disabled: true }, rust: { command: ["rust-analyzer"], extensions: [".rs"] } } },
   },
 ]
@@ -1744,7 +1744,7 @@ for (const row of ["configured", "disabled", "failure"] as const) {
   })
 }
 
-// Zen and the Console account share the id `xccode`: the provider comes from models.dev, the
+// Zen and the Console account share the id `xiaochuan`: the provider comes from models.dev, the
 // integration carries the account sign-in.
 for (const row of [
   { name: "a fresh install offers the Console sign-in", paid: false, connections: [], console: true },
@@ -1766,8 +1766,8 @@ for (const row of [
       provider: {
         all: [
           {
-            id: "xccode",
-            name: "Xccode Zen",
+            id: "xiaochuan",
+            name: "Xiaochuan Zen",
             models: {
               "claude-sonnet-4-6": {
                 id: "claude-sonnet-4-6",
@@ -1777,20 +1777,20 @@ for (const row of [
             },
           },
         ],
-        connected: ["xccode"],
+        connected: ["xiaochuan"],
         default: {},
       },
       integrations: [
         {
-          id: "xccode",
-          name: "Xccode Console",
+          id: "xiaochuan",
+          name: "Xiaochuan Console",
           methods: [
-            { id: "device", type: "oauth", label: "Xccode Console account" },
+            { id: "device", type: "oauth", label: "Xiaochuan Console account" },
             { type: "key", label: "API key (service account)" },
           ],
           connections: row.connections,
         },
-        { id: "xccode-go", name: "Xccode Go", methods: [{ type: "key" }], connections: [] },
+        { id: "xiaochuan-go", name: "Xiaochuan Go", methods: [{ type: "key" }], connections: [] },
         { id: "anthropic", name: "Anthropic", methods: [{ type: "key" }], connections: [] },
       ],
     })
@@ -1799,12 +1799,12 @@ for (const row of [
     await expect(settings.getByRole("heading", { name: "Popular providers" })).toBeVisible()
     const connected = settings.locator('[data-component="connected-providers-section"]')
 
-    if (row.paid) await expect(connected.getByText("Xccode Zen", { exact: true })).toBeVisible()
+    if (row.paid) await expect(connected.getByText("Xiaochuan Zen", { exact: true })).toBeVisible()
 
     if (!row.paid) await expect(settings.getByText("No connected providers")).toBeVisible()
     // Anthropic only exists in the integration fixture, so its row proves the integration list has loaded.
     await expect(settings.getByText("Anthropic", { exact: true })).toBeVisible()
-    await expect(settings.getByText("Xccode Console", { exact: true })).toHaveCount(row.console ? 1 : 0)
+    await expect(settings.getByText("Xiaochuan Console", { exact: true })).toHaveCount(row.console ? 1 : 0)
   })
 }
 
@@ -1813,18 +1813,18 @@ const connectDialog = (page: Page) =>
 
 const consoleIntegrations = [
   {
-    id: "xccode",
-    name: "Xccode",
+    id: "xiaochuan",
+    name: "Xiaochuan",
     methods: [
-      { id: "device", type: "oauth", label: "Xccode account" },
+      { id: "device", type: "oauth", label: "Xiaochuan account" },
       { type: "key", label: "API key (service account)" },
     ],
     connections: [],
   },
-  { id: "xccode-go", name: "Xccode Go", methods: [{ type: "key" }], connections: [] },
+  { id: "xiaochuan-go", name: "Xiaochuan Go", methods: [{ type: "key" }], connections: [] },
 ]
 
-test("providers: Xccode Console signs in from its method list", async ({ page, context }) => {
+test("providers: Xiaochuan Console signs in from its method list", async ({ page, context }) => {
   const url = "https://auth.example.test/device?user_code=ABCD-EFGH"
   await context.route("https://auth.example.test/**", (route) => route.fulfill({ body: "Sign in" }))
   const { settings } = await open(page, { integrations: consoleIntegrations, onIntegrationOAuth: () => ({ url }) })
@@ -1832,26 +1832,26 @@ test("providers: Xccode Console signs in from its method list", async ({ page, c
   await settings.getByRole("tab", { name: "Providers", exact: true }).click()
   await settings
     .locator(".settings-provider-row")
-    .filter({ has: page.locator(".settings-provider-name", { hasText: /^Xccode$/ }) })
+    .filter({ has: page.locator(".settings-provider-name", { hasText: /^Xiaochuan$/ }) })
     .getByRole("button", { name: "Connect", exact: true })
     .click()
-  const methods = page.getByRole("dialog", { name: "Connect Xccode", exact: true })
+  const methods = page.getByRole("dialog", { name: "Connect Xiaochuan", exact: true })
   // The methods come from the integration in the TUI's order: sign-ins first, API keys last.
   await expect(methods.locator('[data-action="provider-connect-method"]')).toHaveText([
-    "Xccode account",
+    "Xiaochuan account",
     "API key (service account)",
   ])
 
   const popup = page.waitForEvent("popup")
-  await methods.getByRole("button", { name: "Xccode account", exact: true }).click()
+  await methods.getByRole("button", { name: "Xiaochuan account", exact: true }).click()
   await expect(await popup).toHaveURL(url)
 
-  const signIn = page.getByRole("dialog", { name: "Connect Xccode", exact: true })
+  const signIn = page.getByRole("dialog", { name: "Connect Xiaochuan", exact: true })
   await expect(signIn.getByRole("group", { name: "Device code: ABCD-EFGH", exact: true })).toBeVisible()
   await expect(signIn.getByRole("button", { name: "Copy sign-in link", exact: true })).toBeVisible()
 })
 
-test("providers: Xccode Go connects with its own methods, not the Console sign-in", async ({ page }) => {
+test("providers: Xiaochuan Go connects with its own methods, not the Console sign-in", async ({ page }) => {
   const attempts: string[] = []
 
   const { settings } = await open(page, {
@@ -1865,10 +1865,10 @@ test("providers: Xccode Go connects with its own methods, not the Console sign-i
 
   await settings.getByRole("tab", { name: "Providers", exact: true }).click()
   await settings
-    .locator(".settings-provider-row", { hasText: "Xccode Go" })
+    .locator(".settings-provider-row", { hasText: "Xiaochuan Go" })
     .getByRole("button", { name: "Connect", exact: true })
     .click()
-  const dialog = page.getByRole("dialog", { name: "Connect Xccode Go", exact: true })
+  const dialog = page.getByRole("dialog", { name: "Connect Xiaochuan Go", exact: true })
   await expect(dialog.getByPlaceholder("API key")).toBeVisible()
 
   const connect = dialog.getByRole("navigation").getByRole("button", { name: "Connect", exact: true })
@@ -1953,7 +1953,7 @@ test("providers: Back during a pending API key request does not report the provi
   await expect(dialog.getByPlaceholder("API key")).toHaveValue("")
 })
 
-test("providers: the free tier upsell opens Xccode on its own, sized to its content", async ({ page }) => {
+test("providers: the free tier upsell opens Xiaochuan on its own, sized to its content", async ({ page }) => {
   const view = await openSession(page, { name: "FreeTier", integrations: consoleIntegrations })
   await view.push([
     {
@@ -1974,14 +1974,14 @@ test("providers: the free tier upsell opens Xccode on its own, sized to its cont
     .getByRole("button", { name: "Subscribe", exact: true })
     .click()
 
-  // Go connects through the Xccode connection, so the upsell opens its sign-in methods.
-  const dialog = page.getByRole("dialog", { name: "Connect Xccode", exact: true })
+  // Go connects through the Xiaochuan connection, so the upsell opens its sign-in methods.
+  const dialog = page.getByRole("dialog", { name: "Connect Xiaochuan", exact: true })
   const container = page.locator('[data-slot="dialog-container"]')
   await expect(dialog.locator('[data-action="provider-connect-method"]')).toHaveText([
-    "Xccode account",
+    "Xiaochuan account",
     "API key (service account)",
   ])
-  // Nothing to go back to: the upsell opened the dialog straight on Xccode.
+  // Nothing to go back to: the upsell opened the dialog straight on Xiaochuan.
   await expect(dialog.getByRole("navigation").getByRole("button")).toHaveCount(0)
   await expect.poll(async () => (await container.boundingBox())?.height).toBeLessThan(368)
 })
@@ -2093,10 +2093,10 @@ test("providers: adding an account starts a lone method once", async ({ page, co
 
   const { settings } = await open(page, {
     integrations: [
-      ...consoleIntegrations.filter((integration) => integration.id !== "xccode-go"),
+      ...consoleIntegrations.filter((integration) => integration.id !== "xiaochuan-go"),
       {
-        id: "xccode-go",
-        name: "Xccode Go",
+        id: "xiaochuan-go",
+        name: "Xiaochuan Go",
         methods: [{ type: "key" }],
         connections: [{ type: "credential", id: "cred_go", label: "Go key", method: "key" }],
       },
@@ -2117,12 +2117,12 @@ test("providers: adding an account starts a lone method once", async ({ page, co
   await settings.getByRole("tab", { name: "Providers", exact: true }).click()
   await settings.getByRole("button", { name: "Show more providers", exact: true }).click()
   const dialog = page.getByRole("dialog")
-  await dialog.locator('[data-provider-id="xccode-go"]').click()
+  await dialog.locator('[data-provider-id="xiaochuan-go"]').click()
   await dialog.getByRole("button", { name: "Add account", exact: true }).click()
   await expect(dialog.getByPlaceholder("API key")).toBeVisible()
   expect(attempts).toEqual([])
 
-  await dialog.getByRole("navigation").getByRole("button", { name: "Xccode Go", exact: true }).click()
+  await dialog.getByRole("navigation").getByRole("button", { name: "Xiaochuan Go", exact: true }).click()
   await expect(dialog.getByRole("radio", { name: "Go key", exact: true })).toBeVisible()
   await dialog.getByRole("navigation").getByRole("button", { name: "Connect", exact: true }).click()
   await dialog.locator('[data-provider-id="github-copilot"]').click()
@@ -2210,10 +2210,10 @@ test("providers: Back from a Console connection without models returns to its si
       state.authorized
         ? {
             all: [
-              { id: "xccode", integrationID: "xccode", name: "Anomaly / Xccode", models: {} },
-              { id: "console-google", integrationID: "xccode", name: "Anomaly / Google", models: {} },
+              { id: "xiaochuan", integrationID: "xiaochuan", name: "Anomaly / Xiaochuan", models: {} },
+              { id: "console-google", integrationID: "xiaochuan", name: "Anomaly / Google", models: {} },
             ],
-            connected: ["xccode", "console-google"],
+            connected: ["xiaochuan", "console-google"],
             default: {},
           }
         : NO_PROVIDER,
@@ -2229,18 +2229,18 @@ test("providers: Back from a Console connection without models returns to its si
   await settings.getByRole("tab", { name: "Providers", exact: true }).click()
   await settings
     .locator(".settings-provider-row")
-    .filter({ has: page.locator(".settings-provider-name", { hasText: /^Xccode$/ }) })
+    .filter({ has: page.locator(".settings-provider-name", { hasText: /^Xiaochuan$/ }) })
     .getByRole("button", { name: "Connect", exact: true })
     .click()
   const dialog = connectDialog(page)
   const popup = page.waitForEvent("popup")
-  await dialog.getByRole("button", { name: "Xccode account", exact: true }).click()
+  await dialog.getByRole("button", { name: "Xiaochuan account", exact: true }).click()
   await popup
-  await expect(page.getByRole("dialog").getByText("Xccode connected", { exact: true })).toBeVisible()
+  await expect(page.getByRole("dialog").getByText("Xiaochuan connected", { exact: true })).toBeVisible()
 
-  await dialog.getByRole("navigation").getByRole("button", { name: "Xccode", exact: true }).click()
+  await dialog.getByRole("navigation").getByRole("button", { name: "Xiaochuan", exact: true }).click()
   await expect(dialog.locator('[data-action="provider-connect-method"]')).toHaveText([
-    "Xccode account",
+    "Xiaochuan account",
     "API key (service account)",
   ])
 })
@@ -2355,28 +2355,28 @@ test("providers: switching to a Zen API key does not wait for a Console workspac
       state.active === "cred_console"
         ? {
             all: [
-              { id: "xccode", integrationID: "xccode", name: "Anomaly / Xccode", models: {} },
-              { id: "console-google", integrationID: "xccode", name: "Anomaly / Google", models: {} },
+              { id: "xiaochuan", integrationID: "xiaochuan", name: "Anomaly / Xiaochuan", models: {} },
+              { id: "console-google", integrationID: "xiaochuan", name: "Anomaly / Google", models: {} },
             ],
-            connected: ["xccode", "console-google"],
+            connected: ["xiaochuan", "console-google"],
             default: {},
           }
         : {
             all: [
               {
-                id: "xccode",
-                name: "Xccode Zen",
+                id: "xiaochuan",
+                name: "Xiaochuan Zen",
                 models: { paid: { id: "paid", name: "Paid", cost: { input: 3 } } },
               },
             ],
-            connected: ["xccode"],
+            connected: ["xiaochuan"],
             default: {},
           },
     integrations: () => [
       {
-        id: "xccode",
-        name: "Xccode",
-        methods: [{ id: "device", type: "oauth", label: "Xccode account" }],
+        id: "xiaochuan",
+        name: "Xiaochuan",
+        methods: [{ id: "device", type: "oauth", label: "Xiaochuan account" }],
         connections: accounts.toSorted((a, b) => Number(b.id === state.active) - Number(a.id === state.active)),
       },
     ],
@@ -2386,7 +2386,7 @@ test("providers: switching to a Zen API key does not wait for a Console workspac
   })
 
   await settings.getByRole("tab", { name: "Providers", exact: true }).click()
-  const trigger = settings.getByRole("button", { name: "Manage Xccode accounts", exact: true })
+  const trigger = settings.getByRole("button", { name: "Manage Xiaochuan accounts", exact: true })
   await expect(trigger).toHaveText("Anomaly")
   await trigger.click()
 
@@ -2397,7 +2397,7 @@ test("providers: switching to a Zen API key does not wait for a Console workspac
       catalogReads.push(request.url())
   })
   await page.getByRole("menuitemradio", { name: "Zen key", exact: true }).click()
-  await expect(page.getByText("Xccode account switched")).toBeVisible()
+  await expect(page.getByText("Xiaochuan account switched")).toBeVisible()
   // One refresh after the switch; a Console workspace poll would keep reading the catalog.
   expect(catalogReads).toHaveLength(1)
 })
@@ -2410,10 +2410,10 @@ test("providers: adding a Console account keeps the Console row in place", async
 
   const workspace = {
     all: [
-      { id: "xccode", integrationID: "xccode", name: "Anomaly / Xccode", models: {} },
-      { id: "console-google", integrationID: "xccode", name: "Anomaly / Google", models: {} },
+      { id: "xiaochuan", integrationID: "xiaochuan", name: "Anomaly / Xiaochuan", models: {} },
+      { id: "console-google", integrationID: "xiaochuan", name: "Anomaly / Google", models: {} },
     ],
-    connected: ["xccode", "console-google"],
+    connected: ["xiaochuan", "console-google"],
     default: {},
   }
 
@@ -2421,7 +2421,7 @@ test("providers: adding a Console account keeps the Console row in place", async
     if (state.pendingReads > 0) {
       state.pendingReads--
 
-      return { all: [{ id: "xccode", name: "Xccode", models: {} }], connected: ["xccode"], default: {} }
+      return { all: [{ id: "xiaochuan", name: "Xiaochuan", models: {} }], connected: ["xiaochuan"], default: {} }
     }
 
     return workspace
@@ -2431,15 +2431,15 @@ test("providers: adding a Console account keeps the Console row in place", async
     provider: catalog,
     integrations: () => [
       {
-        id: "xccode",
-        name: "Xccode",
-        methods: [{ id: "device", type: "oauth", label: "Xccode account" }],
+        id: "xiaochuan",
+        name: "Xiaochuan",
+        methods: [{ id: "device", type: "oauth", label: "Xiaochuan account" }],
         connections: [
           { type: "credential", id: "cred_console", label: "Anomaly", method: "oauth" },
           ...(state.authorized ? [{ type: "credential", id: "cred_clara", label: "Clara", method: "oauth" }] : []),
         ],
       },
-      { id: "xccode-go", name: "Xccode Go", methods: [{ type: "key" }], connections: [] },
+      { id: "xiaochuan-go", name: "Xiaochuan Go", methods: [{ type: "key" }], connections: [] },
     ],
     onIntegrationOAuth: () => ({ url: "https://auth.example.test/device?user_code=GOGO-1234" }),
     onIntegrationOAuthStatus: () => {
@@ -2455,7 +2455,7 @@ test("providers: adding a Console account keeps the Console row in place", async
   await settings.getByRole("tab", { name: "Providers", exact: true }).click()
   const connected = settings.locator('[data-component="connected-providers-section"]')
   const consoleRow = connected.locator(".settings-provider-console")
-  await expect(consoleRow.getByText("Xccode", { exact: true })).toBeVisible()
+  await expect(consoleRow.getByText("Xiaochuan", { exact: true })).toBeVisible()
   await connected.evaluate((element) => {
     new MutationObserver(() => {
       if (!element.querySelector(".settings-provider-console")) element.dataset.flashed = ""
@@ -2464,15 +2464,15 @@ test("providers: adding a Console account keeps the Console row in place", async
 
   await settings.getByRole("button", { name: "Show more providers", exact: true }).click()
   const dialog = page.getByRole("dialog")
-  await dialog.locator('[data-provider-id="xccode"]').click()
+  await dialog.locator('[data-provider-id="xiaochuan"]').click()
   const popup = page.waitForEvent("popup")
   await dialog.getByRole("button", { name: "Add account", exact: true }).click()
   await popup
   await expect(
-    page.getByRole("region", { name: /^Notifications/ }).getByText("Xccode connected", { exact: true }),
+    page.getByRole("region", { name: /^Notifications/ }).getByText("Xiaochuan connected", { exact: true }),
   ).toBeVisible()
 
-  await expect(consoleRow.getByText("Xccode", { exact: true })).toBeVisible()
+  await expect(consoleRow.getByText("Xiaochuan", { exact: true })).toBeVisible()
   await expect(connected).not.toHaveAttribute("data-flashed")
 })
 
@@ -2491,18 +2491,18 @@ test("providers: switching Console accounts keeps the list until the new workspa
       state.pendingReads--
 
       return {
-        all: [{ id: "xccode", name: "Xccode", models: { free: { id: "free", name: "Free", cost: { input: 0 } } } }],
-        connected: ["xccode"],
+        all: [{ id: "xiaochuan", name: "Xiaochuan", models: { free: { id: "free", name: "Free", cost: { input: 0 } } } }],
+        connected: ["xiaochuan"],
         default: {},
       }
     }
 
     return {
       all: [
-        { id: "xccode", integrationID: "xccode", name: `${workspace()} / Xccode`, models: {} },
-        { id: "console-google", integrationID: "xccode", name: `${workspace()} / Google`, models: {} },
+        { id: "xiaochuan", integrationID: "xiaochuan", name: `${workspace()} / Xiaochuan`, models: {} },
+        { id: "console-google", integrationID: "xiaochuan", name: `${workspace()} / Google`, models: {} },
       ],
-      connected: ["xccode", "console-google"],
+      connected: ["xiaochuan", "console-google"],
       default: {},
     }
   }
@@ -2511,9 +2511,9 @@ test("providers: switching Console accounts keeps the list until the new workspa
     provider: catalog,
     integrations: () => [
       {
-        id: "xccode",
-        name: "Xccode",
-        methods: [{ id: "device", type: "oauth", label: "Xccode account" }],
+        id: "xiaochuan",
+        name: "Xiaochuan",
+        methods: [{ id: "device", type: "oauth", label: "Xiaochuan account" }],
         connections: accounts.toSorted((a, b) => Number(b.id === state.active) - Number(a.id === state.active)),
       },
     ],
@@ -2525,7 +2525,7 @@ test("providers: switching Console accounts keeps the list until the new workspa
 
   await settings.getByRole("tab", { name: "Providers", exact: true }).click()
   const connected = settings.locator('[data-component="connected-providers-section"]')
-  const trigger = connected.getByRole("button", { name: "Manage Xccode accounts", exact: true })
+  const trigger = connected.getByRole("button", { name: "Manage Xiaochuan accounts", exact: true })
   await expect(trigger).toHaveText("Clara")
   await connected.evaluate((element) => {
     new MutationObserver(() => {
@@ -2535,7 +2535,7 @@ test("providers: switching Console accounts keeps the list until the new workspa
 
   await trigger.click()
   await page.getByRole("menuitemradio", { name: "Anomaly", exact: true }).click()
-  await expect(page.getByText("Xccode account switched")).toBeVisible()
+  await expect(page.getByText("Xiaochuan account switched")).toBeVisible()
   await expect(trigger).toHaveText("Anomaly")
   await expect(connected).not.toHaveAttribute("data-flashed")
 })
@@ -2549,27 +2549,27 @@ test("models: a Console provider picked on Providers opens its collapsed group, 
     provider: {
       all: [
         {
-          id: "xccode",
-          integrationID: "xccode",
-          name: "Anomaly / Xccode",
+          id: "xiaochuan",
+          integrationID: "xiaochuan",
+          name: "Anomaly / Xiaochuan",
           models: model("console-model", "Console Model"),
         },
         {
           id: "console-google",
           canonical: "google",
-          integrationID: "xccode",
+          integrationID: "xiaochuan",
           name: "Anomaly / Google",
           models: model("managed-gemini", "Managed Gemini"),
         },
       ],
-      connected: ["xccode", "console-google"],
+      connected: ["xiaochuan", "console-google"],
       default: {},
     },
     integrations: [
       {
-        id: "xccode",
-        name: "Xccode",
-        methods: [{ id: "device", type: "oauth", label: "Xccode account" }],
+        id: "xiaochuan",
+        name: "Xiaochuan",
+        methods: [{ id: "device", type: "oauth", label: "Xiaochuan account" }],
         connections: [{ type: "credential", id: "cred_anomaly", label: "Anomaly", method: "oauth" }],
       },
     ],
@@ -2577,7 +2577,7 @@ test("models: a Console provider picked on Providers opens its collapsed group, 
 
   const group = settings
     .locator('[data-component="settings-models-console"]')
-    .getByRole("button", { name: "Xccode Anomaly", exact: true })
+    .getByRole("button", { name: "Xiaochuan Anomaly", exact: true })
 
   await settings.getByRole("tab", { name: "Models", exact: true }).click()
   await group.click()
@@ -2624,7 +2624,7 @@ test("the add server dialog keeps focus above fullscreen settings", async ({ pag
 test("the add server dialog pairs from a one-time link and explains a spent one", async ({ page }) => {
   const paired = "http://127.0.0.1:4098"
   await mockRemoteServer(page, { directory: "/remote/settings-demo" })
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     server: paired,
     directory: "/remote/paired",
     project: project({ id: "proj_paired", directory: "/remote/paired" }),
@@ -2653,7 +2653,7 @@ test("the add server dialog pairs from a one-time link and explains a spent one"
 
   const spent = await addServer()
   await expect(spent.getByRole("alert")).toHaveText(
-    "This pairing link expired or was already used. Run xccode pair to get a new one.",
+    "This pairing link expired or was already used. Run xiaochuan pair to get a new one.",
   )
 })
 
@@ -2662,7 +2662,7 @@ test("a server check that answers after its dialog closed saves nothing and leav
 }) => {
   const late = "http://127.0.0.1:4098"
   await mockRemoteServer(page, { directory: "/remote/settings-demo" })
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     server: late,
     directory: "/remote/late",
     project: project({ id: "proj_late", directory: "/remote/late" }),
@@ -2706,7 +2706,7 @@ test("a pairing code with several addresses keeps the first one that works with 
     [first, { code: "spent-by-the-other-address", token: "session-token" }],
     [second, { code: "one-time-code", token: "session-token" }],
   ] as const) {
-    await mockXccodeServer(page, {
+    await mockXiaochuanServer(page, {
       server,
       directory: "/remote/paired",
       project: project({ id: "proj_paired", directory: "/remote/paired" }),
@@ -2752,7 +2752,7 @@ for (const viewport of [
   { name: "mobile", width: 390, height: 844, bottom: true },
 ]) {
   test(`settings layout (${viewport.name}): every page scrolls inside settings with room below`, async ({ page }) => {
-    await page.route("https://api.github.com/repos/xiaowei56/xccode/contributors?*", (route) =>
+    await page.route("https://api.github.com/repos/xiaowei56/xiaochuan/contributors?*", (route) =>
       route.fulfill({ json: [] }),
     )
     const { settings } = await open(page)

@@ -1,7 +1,7 @@
 //! Running shell commands by location. Exit and deletion both remove a shell from the list.
 
 use indexmap::IndexMap;
-use xccode_api::generated::*;
+use xiaochuan_api::generated::*;
 
 use crate::location::{Catalog, Location};
 use crate::state::{Data, Error, Overlay, State, Task};

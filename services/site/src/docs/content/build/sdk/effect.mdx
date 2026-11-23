@@ -1,13 +1,13 @@
 ---
 title: "Effect SDK"
-description: "Host Xccode in an Effect program with @xccode/sdk/effect, the Effect-native embedded SDK."
+description: "Host Xiaochuan in an Effect program with @xiaochuan/sdk/effect, the Effect-native embedded SDK."
 ---
 
-`@xccode/sdk/effect` is the Effect-native embedded SDK. Operations return typed Effects and Streams, and closing
+`@xiaochuan/sdk/effect` is the Effect-native embedded SDK. Operations return typed Effects and Streams, and closing
 the owning Scope releases the router, Location services, fibers, and plugin registrations.
 
 ```sh
-bun add @xccode/sdk effect@4.0.1
+bun add @xiaochuan/sdk effect@4.0.1
 ```
 
 ## Create a host
@@ -15,16 +15,16 @@ bun add @xccode/sdk effect@4.0.1
 Create the host inside `Effect.scoped`, then use its generated API groups or the `sessions` alias.
 
 ```ts
-import { AbsolutePath, Location, Xccode } from "@xccode/sdk/effect"
+import { AbsolutePath, Location, Xiaochuan } from "@xiaochuan/sdk/effect"
 import { Effect } from "effect"
 
 const program = Effect.scoped(
   Effect.gen(function* () {
-    const xccode = yield* Xccode.create()
-    const session = yield* xccode.sessions.create({
+    const xiaochuan = yield* Xiaochuan.create()
+    const session = yield* xiaochuan.sessions.create({
       location: Location.Ref.make({ directory: AbsolutePath.make("/workspace") }),
     })
-    yield* xccode.sessions.prompt({
+    yield* xiaochuan.sessions.prompt({
       sessionID: session.id,
       text: "Review the current changes",
     })
@@ -36,11 +36,11 @@ const session = await Effect.runPromise(program)
 ```
 
 The embedded host uses the same schema values, declared errors, request options, and Streams as
-`@xccode/client/effect`.
+`@xiaochuan/client/effect`.
 
 ```ts
-const info = yield* xccode.server.info()
-const sessions = yield* xccode.sessions.list()
+const info = yield* xiaochuan.server.info()
+const sessions = yield* xiaochuan.sessions.list()
 ```
 
 ## Stream events
@@ -51,19 +51,19 @@ background.
 ```ts
 import { Effect, Stream } from "effect"
 
-yield* xccode.events.subscribe().pipe(
-  Stream.runForEach((event) => Effect.logInfo("Xccode event", { type: event.type })),
+yield* xiaochuan.events.subscribe().pipe(
+  Stream.runForEach((event) => Effect.logInfo("Xiaochuan event", { type: event.type })),
   Effect.forkScoped,
 )
 ```
 
 ## Customize
 
-Customize your Xccode instance by registering Effect plugins. Use the embedded
+Customize your Xiaochuan instance by registering Effect plugins. Use the embedded
 host to customize agents, models, tools, and other behavior:
 
 ```ts
-import { Plugin } from "@xccode/plugin/effect"
+import { Plugin } from "@xiaochuan/plugin/effect"
 import { Effect } from "effect"
 
 const plugin = Plugin.define({
@@ -79,7 +79,7 @@ const plugin = Plugin.define({
     }),
 })
 
-yield* xccode.plugin(plugin)
+yield* xiaochuan.plugin(plugin)
 ```
 
 See the [full Effect plugins documentation](/build/plugins/effect) for plugin
@@ -87,16 +87,16 @@ hooks, transforms, tools, and the complete plugin context.
 
 ## Layer
 
-Use `Xccode.layer()` when the embedded host should be an application service.
+Use `Xiaochuan.layer()` when the embedded host should be an application service.
 
 ```ts
-import { Xccode } from "@xccode/sdk/effect"
+import { Xiaochuan } from "@xiaochuan/sdk/effect"
 import { Effect } from "effect"
 
 const program = Effect.gen(function* () {
-  const xccode = yield* Xccode.Service
-  return yield* xccode.server.info()
+  const xiaochuan = yield* Xiaochuan.Service
+  return yield* xiaochuan.server.info()
 })
 
-const health = await Effect.runPromise(program.pipe(Effect.provide(Xccode.layer())))
+const health = await Effect.runPromise(program.pipe(Effect.provide(Xiaochuan.layer())))
 ```

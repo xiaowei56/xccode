@@ -1,5 +1,5 @@
-import { Agent } from "@xccode/schema/agent"
-import { Permission } from "@xccode/schema/permission"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Permission } from "@xiaochuan/schema/permission"
 import { Schema } from "effect"
 
 export const AssertInput = Schema.Struct({

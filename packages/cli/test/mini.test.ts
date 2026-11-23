@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { ClientError, Xccode } from "@xccode/client/promise"
-import { XCCODE_VERSION } from "../src/version"
+import { ClientError, Xiaochuan } from "@xiaochuan/client/promise"
+import { XIAOCHUAN_VERSION } from "../src/version"
 import path from "node:path"
 import { createMiniConnection, mergeInput as mergeInteractiveInput, resolveMiniTarget } from "../src/mini"
 import { mergeInput as mergeNonInteractiveInput, parseRunModel } from "../src/run/run"
@@ -32,10 +32,10 @@ describe("mini command", () => {
       port: 0,
       fetch() {
         return Response.json({
-          version: XCCODE_VERSION,
+          version: XIAOCHUAN_VERSION,
           pid: process.pid,
           urls: [],
-          paths: { tmp: "/tmp/xccode" },
+          paths: { tmp: "/tmp/xiaochuan" },
         })
       },
     })
@@ -44,10 +44,10 @@ describe("mini command", () => {
       fetch(request) {
         authorization.push(request.headers.get("authorization"))
         return Response.json({
-          version: XCCODE_VERSION,
+          version: XIAOCHUAN_VERSION,
           pid: process.pid,
           urls: [],
-          paths: { tmp: "/tmp/xccode" },
+          paths: { tmp: "/tmp/xiaochuan" },
         })
       },
     })
@@ -80,8 +80,8 @@ describe("mini command", () => {
   })
 
   test("re-resolves a managed target when the endpoint moves before transport construction", async () => {
-    const initial = Xccode.make({ baseUrl: "https://initial.xccode.test" })
-    const replacement = Xccode.make({ baseUrl: "https://replacement.xccode.test" })
+    const initial = Xiaochuan.make({ baseUrl: "https://initial.xiaochuan.test" })
+    const replacement = Xiaochuan.make({ baseUrl: "https://replacement.xiaochuan.test" })
     const controller = new AbortController()
     const seen: (typeof initial)[] = []
     let reconnects = 0
@@ -128,7 +128,7 @@ describe("mini command", () => {
 
     expect(result.exitCode).toBe(0)
     expect(result.stdout).toMatch(/^  mini[ \t]+Start the minimal interactive interface\r?$/m)
-    expect(result.stdout).toMatch(/^  run[ \t]+Run Xccode with a message\r?$/m)
+    expect(result.stdout).toMatch(/^  run[ \t]+Run Xiaochuan with a message\r?$/m)
   })
 
   test("exposes run without legacy interactive, attach, or command modes", async () => {
@@ -159,10 +159,10 @@ describe("mini command", () => {
         requests.push(url.pathname)
         if (url.pathname === "/api/info")
           return Response.json({
-            version: XCCODE_VERSION,
+            version: XIAOCHUAN_VERSION,
             pid: process.pid,
             urls: [],
-            paths: { tmp: "/tmp/xccode" },
+            paths: { tmp: "/tmp/xiaochuan" },
           })
         if (url.pathname === "/api/location")
           return Response.json({ directory: process.cwd(), project: { id: "global", directory: process.cwd() } })
@@ -209,7 +209,7 @@ describe("mini command", () => {
           version: "incompatible",
           pid: process.pid,
           urls: [],
-          paths: { tmp: "/tmp/xccode" },
+          paths: { tmp: "/tmp/xiaochuan" },
         })
       },
     })
@@ -260,7 +260,7 @@ describe("mini command", () => {
       const result = await cli(args)
 
       expect(result.exitCode).toBe(1)
-      expect(result.stderr).toContain("xccode mini requires a TTY stdout")
+      expect(result.stderr).toContain("xiaochuan mini requires a TTY stdout")
     }
   })
 })

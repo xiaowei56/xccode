@@ -1,11 +1,11 @@
-import logoTransparentLight from "../../asset/brand/xccode-logo-transparent-light.svg?no-inline"
-import logoTransparentDark from "../../asset/brand/xccode-logo-transparent-dark.svg?no-inline"
-import logoSolidLight from "../../asset/brand/xccode-logo-solid-light.svg?no-inline"
-import logoSolidDark from "../../asset/brand/xccode-logo-solid-dark.svg?no-inline"
-import wordmarkTransparentLight from "../../asset/brand/xccode-wordmark-transparent-light.svg?no-inline"
-import wordmarkTransparentDark from "../../asset/brand/xccode-wordmark-transparent-dark.svg?no-inline"
-import wordmarkSolidLight from "../../asset/brand/xccode-wordmark-solid-light.svg?no-inline"
-import wordmarkSolidDark from "../../asset/brand/xccode-wordmark-solid-dark.svg?no-inline"
+import logoTransparentLight from "../../asset/brand/xiaochuan-logo-transparent-light.svg?no-inline"
+import logoTransparentDark from "../../asset/brand/xiaochuan-logo-transparent-dark.svg?no-inline"
+import logoSolidLight from "../../asset/brand/xiaochuan-logo-solid-light.svg?no-inline"
+import logoSolidDark from "../../asset/brand/xiaochuan-logo-solid-dark.svg?no-inline"
+import wordmarkTransparentLight from "../../asset/brand/xiaochuan-wordmark-transparent-light.svg?no-inline"
+import wordmarkTransparentDark from "../../asset/brand/xiaochuan-wordmark-transparent-dark.svg?no-inline"
+import wordmarkSolidLight from "../../asset/brand/xiaochuan-wordmark-solid-light.svg?no-inline"
+import wordmarkSolidDark from "../../asset/brand/xiaochuan-wordmark-solid-dark.svg?no-inline"
 
 /**
  * The extra logo files for the logo menus, by style, logo or wordmark, and tone. "transparent" lets the

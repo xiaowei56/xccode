@@ -9,21 +9,21 @@ import {
   type Mode,
   type ResolvedTheme,
   type ThemeDefinition,
-} from "@xccode/theme/tui"
-import { getXccodeTheme, getXccodeClassicTheme, parseTheme, type ThemeDocumentSource } from "../../../src/theme"
+} from "@xiaochuan/theme/tui"
+import { getXiaochuanTheme, getXiaochuanClassicTheme, parseTheme, type ThemeDocumentSource } from "../../../src/theme"
 
-const xccodeLight = selectTheme(getXccodeClassicTheme(), "light")
-const xccodeDark = selectTheme(getXccodeClassicTheme(), "dark")
+const xiaochuanLight = selectTheme(getXiaochuanClassicTheme(), "light")
+const xiaochuanDark = selectTheme(getXiaochuanClassicTheme(), "dark")
 const chromaticHues = ["gray", "red", "orange", "green", "cyan", "blue", "purple"] as const
 const light: ThemeDefinition = {
-  ...xccodeLight,
+  ...xiaochuanLight,
   categorical: ["blue", "purple"],
-  hue: { ...xccodeLight.hue, accent: "$hue.blue", interactive: "$hue.blue", neutral: "$hue.gray" },
+  hue: { ...xiaochuanLight.hue, accent: "$hue.blue", interactive: "$hue.blue", neutral: "$hue.gray" },
 }
 const dark: ThemeDefinition = {
-  ...xccodeDark,
+  ...xiaochuanDark,
   categorical: ["blue", "purple"],
-  hue: { ...xccodeDark.hue, accent: "$hue.blue", interactive: "$hue.blue", neutral: "$hue.gray" },
+  hue: { ...xiaochuanDark.hue, accent: "$hue.blue", interactive: "$hue.blue", neutral: "$hue.gray" },
 }
 
 test("orders light hues dark-to-light and dark hues light-to-dark", () => {
@@ -95,10 +95,10 @@ test("resolves arbitrary hue names across aliases, categorical colors, and token
 })
 
 test("validates hue relationships in every provided mode while parsing", () => {
-  const source = structuredClone(getXccodeClassicTheme()) as ThemeDocumentSource
+  const source = structuredClone(getXiaochuanClassicTheme()) as ThemeDocumentSource
   const darkMode = source.dark as Record<string, unknown>
   darkMode.hue = { ...(darkMode.hue as Record<string, unknown>), accent: "$hue.missing" }
-  const missingSemantic = structuredClone(getXccodeClassicTheme()) as ThemeDocumentSource
+  const missingSemantic = structuredClone(getXiaochuanClassicTheme()) as ThemeDocumentSource
   const lightMode = missingSemantic.light as Record<string, unknown>
   const lightHues = lightMode.hue as Record<string, unknown>
   delete lightHues.neutral
@@ -122,7 +122,7 @@ test("generates syntax with one categorical hue", () => {
 
 test("draws paste chip text dark in dark mode and light in light mode", () => {
   for (const mode of ["dark", "light"] as const) {
-    const theme = resolveThemeDocument(getXccodeTheme(), mode)
+    const theme = resolveThemeDocument(getXiaochuanTheme(), mode)
     const owner = new ResourceContext({ objectCapacity: 1, renderCellsMax: 1 })
     const syntax = generateSyntax(theme, owner)
     try {

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { SessionInfo } from "@xccode/client/promise"
+import type { SessionInfo } from "@xiaochuan/client/promise"
 import {
   createSessionForkState,
   FORK_TIMEOUT_MS,

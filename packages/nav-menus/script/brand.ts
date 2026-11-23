@@ -5,7 +5,7 @@ const files = await Promise.all(
   (["transparent", "solid"] as const).flatMap((style) =>
     (["logo", "wordmark"] as const).flatMap((kind) =>
       (["light", "dark"] as const).map(async (tone) => {
-        const svg = await Bun.file(new URL(`xccode-${kind}-${style}-${tone}.svg`, source)).text()
+        const svg = await Bun.file(new URL(`xiaochuan-${kind}-${style}-${tone}.svg`, source)).text()
         return `  "${kind}-${style}-${tone}": ${JSON.stringify(svg.replace(/\n/g, "").trim())},`
       }),
     ),

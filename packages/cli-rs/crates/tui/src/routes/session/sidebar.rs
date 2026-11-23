@@ -1,7 +1,7 @@
 //! Sidebar content and footer slots for the current session.
 
-use xccode_local::cli_config::Sidebar as SidebarSetting;
-use xccode_plugin::{SlotInput, SlotMount, slot};
+use xiaochuan_local::cli_config::Sidebar as SidebarSetting;
+use xiaochuan_plugin::{SlotInput, SlotMount, slot};
 
 use crate::frame::layout::SESSION_SIDEBAR_WIDTH;
 use crate::prelude::*;

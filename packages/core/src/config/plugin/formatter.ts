@@ -1,12 +1,12 @@
 export * as ConfigFormatterPlugin from "./formatter.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
-import type { Entry } from "@xccode/schema/config"
-import type { ConfigFormatter } from "@xccode/schema/config/formatter"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
-import { Npm } from "@xccode/util/npm"
-import { AppProcess } from "@xccode/util/process"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import type { Entry } from "@xiaochuan/schema/config"
+import type { ConfigFormatter } from "@xiaochuan/schema/config/formatter"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
+import { Npm } from "@xiaochuan/util/npm"
+import { AppProcess } from "@xiaochuan/util/process"
 import { Effect } from "effect"
 import { Config } from "../../config.js"
 import { Formatter } from "../../formatter.js"
@@ -15,7 +15,7 @@ import { Location } from "../../location.js"
 import { ConfigEntryObserver } from "./entry-observer.js"
 
 export const Plugin = define({
-  id: "xccode.config.formatter",
+  id: "xiaochuan.config.formatter",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const formatter = yield* Formatter.Service

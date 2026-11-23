@@ -1,26 +1,26 @@
 import { describe, expect } from "bun:test"
 import { and, asc, eq } from "drizzle-orm"
 import { Effect, Schema } from "effect"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { Event } from "@xccode/schema/event"
-import { EventTable } from "@xccode/core/event/sql"
-import { InstructionDiscovery } from "@xccode/core/instruction-discovery"
-import { Instructions } from "@xccode/core/instructions/index"
-import { Project } from "@xccode/core/project"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { AbsolutePath } from "@xccode/core/schema"
-import { InstructionState } from "@xccode/core/session/instruction-state"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { SessionSchema } from "@xccode/core/session/schema"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { Event } from "@xiaochuan/schema/event"
+import { EventTable } from "@xiaochuan/core/event/sql"
+import { InstructionDiscovery } from "@xiaochuan/core/instruction-discovery"
+import { Instructions } from "@xiaochuan/core/instructions/index"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { InstructionState } from "@xiaochuan/core/session/instruction-state"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { SessionSchema } from "@xiaochuan/core/session/schema"
 import {
   InstructionBlobTable,
   InstructionStateTable,
   SessionMessageTable,
   SessionTable,
-} from "@xccode/core/session/sql"
+} from "@xiaochuan/core/session/sql"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(

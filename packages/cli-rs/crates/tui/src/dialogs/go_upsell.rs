@@ -1,19 +1,19 @@
-//! Xccode Go subscription offer and device sign-in.
+//! Xiaochuan Go subscription offer and device sign-in.
 
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     ConnectionInfo, IntegrationAttempt, IntegrationAttemptID, IntegrationID, IntegrationMethod, IntegrationMethodID,
     IntegrationOauthCancelInput, IntegrationOauthConnectInput, IntegrationOauthStatusInput, LocationQueryInput,
     ModelInfoStatus,
 };
-use xccode_local::model_pref::Model;
-use xccode_store::Catalog;
-use xccode_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
+use xiaochuan_local::model_pref::Model;
+use xiaochuan_store::Catalog;
+use xiaochuan_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
 
 use super::{go_upsell_art, integration};
 use crate::local::Local;
 use crate::prelude::*;
 
-pub const GO_URL: &str = "https://xccode.ai/go";
+pub const GO_URL: &str = "https://xiaochuan.ai/go";
 const ACTIONS: [&str; 3] = ["don't show again", "dismiss", "subscribe"];
 const DAY_MS: f64 = 86_400_000.0;
 
@@ -266,7 +266,7 @@ fn build(cx: &Rc<DialogCx>, local: &Rc<Local>, offer: Offer) -> View {
         .fg(theme.text.muted)
         .bg(text_bg)
         .wrap(WrapMode::Word);
-    let pitch = Text::new(app, "Xccode Go gives you reliable access to the best open-source models for $10/month.")
+    let pitch = Text::new(app, "Xiaochuan Go gives you reliable access to the best open-source models for $10/month.")
         .fg(theme.text.muted)
         .bg(text_bg)
         .wrap(WrapMode::Word);
@@ -298,7 +298,7 @@ fn build(cx: &Rc<DialogCx>, local: &Rc<Local>, offer: Offer) -> View {
         let colors = go_upsell_art::Colors {
             background: base,
             primary,
-            logo_base: xccode_ui::theme::tint(base, theme.text.base, 0.62),
+            logo_base: xiaochuan_ui::theme::tint(base, theme.text.base, 0.62),
         };
         art = Some(go_upsell_art::new(app, colors, &anchor));
     }
@@ -451,9 +451,9 @@ impl Connect {
         app.request_redraw();
     }
 
-    // The `xccode` integration and its device OAuth method, once the integrations have loaded.
+    // The `xiaochuan` integration and its device OAuth method, once the integrations have loaded.
     fn method(&self) -> Option<(String, Vec<Value>)> {
-        let integration = self.local.integration("xccode")?;
+        let integration = self.local.integration("xiaochuan")?;
         integration.methods.into_iter().find_map(|method| match method {
             // The fields as JSON: only `type`, `key`, and `default` matter for the answer.
             IntegrationMethod::Oauth(method) if method.id.0 == "device" => Some((
@@ -466,7 +466,7 @@ impl Connect {
 
     // The first credential connection has no error status.
     fn valid(&self) -> bool {
-        let Some(integration) = self.local.integration("xccode") else { return false };
+        let Some(integration) = self.local.integration("xiaochuan") else { return false };
         integration
             .connections
             .iter()
@@ -516,7 +516,7 @@ impl Connect {
             .filter_map(|field| Some((field["key"].as_str()?.to_owned(), field["default"].clone())))
             .collect();
         let input = IntegrationOauthConnectInput {
-            integration_id: IntegrationID("xccode".into()),
+            integration_id: IntegrationID("xiaochuan".into()),
             location: self.location(),
             method_id: IntegrationMethodID("device".into()),
             answer: (!answer.is_empty()).then(|| serde_json::from_value(Value::Object(answer)).ok()).flatten(),
@@ -542,7 +542,7 @@ impl Connect {
 
     fn poll(self: &Rc<Self>, attempt: IntegrationAttemptID) {
         let input = IntegrationOauthStatusInput {
-            integration_id: IntegrationID("xccode".into()),
+            integration_id: IntegrationID("xiaochuan".into()),
             attempt_id: attempt.clone(),
             location: self.location(),
         };
@@ -598,7 +598,7 @@ impl Connect {
                 }
                 if announce {
                     let name =
-                        state.local.integration("xccode").map_or("Xccode Console".to_owned(), |item| item.name);
+                        state.local.integration("xiaochuan").map_or("Xiaochuan Console".to_owned(), |item| item.name);
                     state.local.toasts.show(ToastOptions::new(Variant::Success, format!("Connected {name}")));
                 }
                 state.finish();
@@ -616,7 +616,7 @@ impl Connect {
         let go = local.models(|models| {
             models
                 .iter()
-                .find(|item| item.provider_id.0 == "xccode-go" && !matches!(item.status, ModelInfoStatus::Deprecated))
+                .find(|item| item.provider_id.0 == "xiaochuan-go" && !matches!(item.status, ModelInfoStatus::Deprecated))
                 .map(|item| Model::new(&item.provider_id.0, &item.id))
         });
         match go {
@@ -636,7 +636,7 @@ impl Connect {
 
     fn cancel(&self, attempt: IntegrationAttemptID) {
         let input = IntegrationOauthCancelInput {
-            integration_id: IntegrationID("xccode".into()),
+            integration_id: IntegrationID("xiaochuan".into()),
             attempt_id: attempt,
             location: self.location(),
         };

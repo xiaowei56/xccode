@@ -1,6 +1,6 @@
-import { mediaHashFromUri, type PromptAttachment } from "@xccode/client"
-import type { Prompt, PromptInput } from "@xccode/schema"
-import { Skill } from "@xccode/schema/skill"
+import { mediaHashFromUri, type PromptAttachment } from "@xiaochuan/client"
+import type { Prompt, PromptInput } from "@xiaochuan/schema"
+import { Skill } from "@xiaochuan/schema/skill"
 import type { Types } from "effect"
 
 export type EditablePromptInput = Types.DeepMutable<PromptInput.Prompt>

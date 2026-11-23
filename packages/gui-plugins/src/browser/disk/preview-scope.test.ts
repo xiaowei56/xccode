@@ -41,7 +41,7 @@ test("an existing grant cannot follow a replaced root; a fresh grant may use a r
 test.each([
   ["/home/u/repo", "/home/u", "/"],
   ["C:\\Users\\U\\repo", "C:\\Users\\U", "\\"],
-  ["/home/u/.local/share/xccode/worktree/credentials", "/home/u", "/"],
+  ["/home/u/.local/share/xiaochuan/worktree/credentials", "/home/u", "/"],
   ["C:\\Users\\U\\.config\\secrets.json\\", "C:\\Users\\U", "\\"],
 ])("document scope on %s", (root, home, sep) => {
   const allowed = (doc: string, path: string, entry = false) =>

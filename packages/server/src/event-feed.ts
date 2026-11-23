@@ -1,8 +1,8 @@
 export * as EventFeed from "./event-feed"
 
-import { Bus } from "@xccode/core/bus"
-import { Event } from "@xccode/schema/event"
-import { isXccodeEvent, type XccodeEvent } from "@xccode/protocol/groups/event"
+import { Bus } from "@xiaochuan/core/bus"
+import { Event } from "@xiaochuan/schema/event"
+import { isXiaochuanEvent, type XiaochuanEvent } from "@xiaochuan/protocol/groups/event"
 import { Cause, Context, Effect, Layer, Queue, Schema, Scope, Stream } from "effect"
 
 export const SubscriberCapacity = 4_096
@@ -24,15 +24,15 @@ export interface Interface {
   readonly subscribe: (types?: ReadonlyArray<string>) => Effect.Effect<Stream.Stream<string, Error>, never, Scope.Scope>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/server/EventFeed") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/server/EventFeed") {}
 
-export function frame(event: XccodeEvent) {
+export function frame(event: XiaochuanEvent) {
   return `data: ${JSON.stringify(event)}\n\n`
 }
 
 export const make = Effect.fn("EventFeed.make")(function* (
   observe: (subscriber: Bus.Subscriber) => Effect.Effect<Bus.Unsubscribe>,
-  options?: { readonly capacity?: number; readonly encode?: (event: XccodeEvent) => string },
+  options?: { readonly capacity?: number; readonly encode?: (event: XiaochuanEvent) => string },
 ) {
   const capacity = options?.capacity ?? SubscriberCapacity
   const render = options?.encode ?? frame
@@ -46,7 +46,7 @@ export const make = Effect.fn("EventFeed.make")(function* (
     })
 
   const publish = Effect.fnUntraced(function* (event: Event.Payload) {
-    if (!isXccodeEvent(event)) return
+    if (!isXiaochuanEvent(event)) return
     let encoded: string | undefined
     for (const [subscriber, types] of subscribers) {
       if (types && !types.has(event.type)) continue

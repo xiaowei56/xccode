@@ -1,5 +1,5 @@
-import { Button } from "@xccode/ui/button"
-import { useDialog } from "@xccode/ui/context/dialog"
+import { Button } from "@xiaochuan/ui/button"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
 import { onMount } from "solid-js"
 import { createStore } from "solid-js/store"
 import { DialogStoryRuntime, STORY_DIRECTORY, STORY_SERVER } from "@/components-lab/dialog-story-runtime"

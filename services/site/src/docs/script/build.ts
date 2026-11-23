@@ -35,8 +35,8 @@ const output = path.resolve(root, args.values.out ?? ".output/public")
 const cache = path.join(root, "node_modules/.cache/docs")
 const alias = { "~": path.join(root, "src") }
 const inputs = { stylesheet: "src/docs/styles/docs.css", script: "src/docs/client.ts" }
-// llms.txt and the sitemap list xccode.ai's URLs on dev.xccode.ai too, as the pages' canonical links do:
-// search engines must not take dev.xccode.ai's for the real ones (src/lib/noindex.ts).
+// llms.txt and the sitemap list xiaochuan.ai's URLs on dev.xiaochuan.ai too, as the pages' canonical links do:
+// search engines must not take dev.xiaochuan.ai's for the real ones (src/lib/noindex.ts).
 const site = new URL(config.baseUrl)
 // Every set's pages load the latest docs' stylesheet, script and fonts.
 const base = latestDocs.base
@@ -180,7 +180,7 @@ function checkFileNames() {
 
 /** Fails when a docs page, or a stylesheet it links, loads a file from outside the docs' sets. */
 async function checkAssetPrefix() {
-  const origin = "https://xccode.local"
+  const origin = "https://xiaochuan.local"
   const pages = (
     await Promise.all(
       docsSets.map((set) => Array.fromAsync(new Bun.Glob(`${set.base.slice(1)}**/*.html`).scan({ cwd: output }))),

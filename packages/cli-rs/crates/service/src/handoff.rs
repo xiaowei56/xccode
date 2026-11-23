@@ -1,8 +1,8 @@
 //! Before restart, persistent terminals are published in `<registration>.pty-handoff` for adoption with
-//! `XCCODE_PTY_HANDOFF`. A failed handoff does not prevent shutdown.
+//! `XIAOCHUAN_PTY_HANDOFF`. A failed handoff does not prevent shutdown.
 
-use xccode_api::transport::Transport;
-use xccode_local::registration::Registration;
+use xiaochuan_api::transport::Transport;
+use xiaochuan_local::registration::Registration;
 use serde_json::{Value, json};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
@@ -59,7 +59,7 @@ pub async fn prepare(transport: Arc<dyn Transport>, file: &Path, info: &Registra
     }
 }
 
-/// `XCCODE_PTY_HANDOFF` for a new service: the published handoff when it is current and belongs
+/// `XIAOCHUAN_PTY_HANDOFF` for a new service: the published handoff when it is current and belongs
 /// to the registered service (or none is registered), else unset.
 pub fn environment(file: &Path) -> (String, Option<String>) {
     let current: Option<Value> = std::fs::read_to_string(file).ok().and_then(|text| serde_json::from_str(&text).ok());
@@ -69,7 +69,7 @@ pub fn environment(file: &Path) -> (String, Option<String>) {
         .map(|record| record.handoff)
         .filter(|handoff| !handoff.is_null())
         .map(|handoff| handoff.to_string());
-    ("XCCODE_PTY_HANDOFF".to_owned(), handoff)
+    ("XIAOCHUAN_PTY_HANDOFF".to_owned(), handoff)
 }
 
 /// Clears a sidecar that belongs to another service than `info`, once `info` is in use.
@@ -143,13 +143,13 @@ fn publish(file: &Path, info: &Registration, handoff: Value) -> std::io::Result<
     source.insert("url".to_owned(), json!(info.url));
     let text = json!({ "source": source, "handoff": handoff, "expiresAt": number(expires_at) }).to_string();
     let mut temporary = sidecar(file).into_os_string();
-    temporary.push(format!(".{}.tmp", xccode_local::id::v4()));
+    temporary.push(format!(".{}.tmp", xiaochuan_local::id::v4()));
     let temporary = PathBuf::from(temporary);
     let mut options = std::fs::OpenOptions::new();
     options.write(true).create_new(true);
     #[cfg(unix)]
     std::os::unix::fs::OpenOptionsExt::mode(&mut options, 0o600);
-    xccode_util::busy::replace(&sidecar(file), &temporary, &options, text.as_bytes())
+    xiaochuan_util::busy::replace(&sidecar(file), &temporary, &options, text.as_bytes())
 }
 
 // A whole number as JSON.stringify writes it, without `.0`.
@@ -192,7 +192,7 @@ mod tests {
 
     #[tokio::test]
     async fn a_prepared_handoff_reaches_the_next_service_and_is_cleared_after_it() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let file = dir.path().join("service.json");
         std::fs::write(&file, serde_json::to_string(&info(9)).unwrap()).unwrap();
         let server = Arc::new(Server::default().reply(HANDOFF_URL, Reply::json(200, handoff_body())));
@@ -200,7 +200,7 @@ mod tests {
         assert!(server.requests()[0].1.is_some(), "Basic auth sent");
         // The old service is still registered: the handoff is for its successor.
         let (name, value) = environment(&file);
-        assert_eq!(name, "XCCODE_PTY_HANDOFF");
+        assert_eq!(name, "XIAOCHUAN_PTY_HANDOFF");
         let value: Value = serde_json::from_str(&value.unwrap()).unwrap();
         assert_eq!(value["ticket"], "t");
         assert_eq!(value["instanceID"], "i");
@@ -218,7 +218,7 @@ mod tests {
 
     #[tokio::test]
     async fn a_failed_handoff_shuts_terminals_down_and_publishes_none() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let file = dir.path().join("service.json");
         let server = Arc::new(
             Server::default().reply(HANDOFF_URL, Reply::json(500, "{}")).reply(SHUTDOWN_URL, Reply::json(200, "{}")),
@@ -237,7 +237,7 @@ mod tests {
 
     #[test]
     fn expired_and_malformed_sidecars_are_ignored() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let file = dir.path().join("service.json");
         let write = |text: &str| std::fs::write(sidecar(&file), text).unwrap();
         let handoff = r#"{"directory":"/d","instanceID":"i","ticket":"t","expiresAt":1}"#;

@@ -6,8 +6,8 @@ use crate::common;
 use std::collections::{BTreeMap, BTreeSet};
 
 use common::*;
-use xccode_api::generated::{SessionID, V2Event};
-use xccode_store::{Catalog, Data, Location, Options, Shell, State};
+use xiaochuan_api::generated::{SessionID, V2Event};
+use xiaochuan_store::{Catalog, Data, Location, Options, Shell, State};
 use serde_json::{Map, Value, json};
 
 const FIXTURE: &str = include_str!("../../../../parity/fixtures/F.7/folds.json");
@@ -148,7 +148,7 @@ fn observe(state: &State) -> Value {
     let mut forms = each(&|id| {
         state.forms(&id.0, None).map(|forms| json!(forms.iter().map(|form| form_json(form)).collect::<Vec<_>>()))
     });
-    if let Some(global) = state.forms(xccode_store::forms::GLOBAL, Some(&location)) {
+    if let Some(global) = state.forms(xiaochuan_store::forms::GLOBAL, Some(&location)) {
         forms["global"] = json!(global.iter().map(|form| form_json(form)).collect::<Vec<_>>());
     }
     json!({
@@ -156,8 +156,8 @@ fn observe(state: &State) -> Value {
         "missing": SESSIONS.iter().filter(|id| state.is_missing(&SessionID((**id).into()))).collect::<Vec<_>>(),
         "family": each(&|id| Some(json!(state.family(id)))),
         "status": each(&|id| Some(json!(match state.status(id) {
-            xccode_store::SessionStatus::Idle => "idle",
-            xccode_store::SessionStatus::Running => "running",
+            xiaochuan_store::SessionStatus::Idle => "idle",
+            xiaochuan_store::SessionStatus::Running => "running",
         }))),
         "messages": each(&|id| Some(json!(state.messages(id)))),
         "more": each(&|id| Some(json!(state.has_more_messages(id)))),
@@ -210,7 +210,7 @@ fn shell_json(shell: &Shell) -> Value {
     with_location(json!(shell.info), &shell.location)
 }
 
-fn form_json(form: &xccode_store::Form) -> Value {
+fn form_json(form: &xiaochuan_store::Form) -> Value {
     match &form.location {
         Some(location) => with_location(json!(form.info), location),
         None => json!(form.info),

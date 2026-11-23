@@ -3,9 +3,9 @@ title: Themes
 description: Waehle ein eingebautes Theme oder erstelle eins.
 ---
 
-Mit Xccode kannst du ein eingebautes Theme waehlen, ein an dein Terminal angepasstes Theme nutzen oder ein eigenes Theme definieren.
+Mit Xiaochuan kannst du ein eingebautes Theme waehlen, ein an dein Terminal angepasstes Theme nutzen oder ein eigenes Theme definieren.
 
-Standardmaessig verwendet Xccode das `xccode`-Theme.
+Standardmaessig verwendet Xiaochuan das `xiaochuan`-Theme.
 
 ---
 
@@ -24,7 +24,7 @@ Ohne truecolor werden Farben weniger exakt dargestellt oder auf eine 256-Farben-
 
 ## Eingebaute Themes
 
-Xccode liefert mehrere eingebaute Themes mit.
+Xiaochuan liefert mehrere eingebaute Themes mit.
 
 | Name                   | Description                                                                  |
 | ---------------------- | ---------------------------------------------------------------------------- |
@@ -55,7 +55,7 @@ Im Gegensatz zu Themes mit festen Farben gilt beim _system_-Theme:
 
 Das System-Theme ist ideal fuer Nutzer, die:
 
-- Xccode optisch ans Terminal anpassen wollen
+- Xiaochuan optisch ans Terminal anpassen wollen
 - eigene Terminal-Farbschemata nutzen
 - ein konsistentes Erscheinungsbild in Terminal-Apps bevorzugen
 
@@ -65,9 +65,9 @@ Das System-Theme ist ideal fuer Nutzer, die:
 
 Du kannst ein Theme ueber `/theme` auswaehlen oder direkt in der [Konfiguration](/docs/config) setzen.
 
-```json title="xccode.json" {3}
+```json title="xiaochuan.json" {3}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "theme": "tokyonight"
 }
 ```
@@ -76,7 +76,7 @@ Du kannst ein Theme ueber `/theme` auswaehlen oder direkt in der [Konfiguration]
 
 ## Eigene Themes
 
-Xccode unterstuetzt ein flexibles JSON-basiertes Theme-System.
+Xiaochuan unterstuetzt ein flexibles JSON-basiertes Theme-System.
 Damit lassen sich Themes einfach erstellen und anpassen.
 
 ---
@@ -86,9 +86,9 @@ Damit lassen sich Themes einfach erstellen und anpassen.
 Themes werden aus mehreren Verzeichnissen in folgender Reihenfolge geladen, wobei spaetere Verzeichnisse fruehere ueberschreiben:
 
 1. **Eingebaute Themes** - Diese sind im Binary eingebettet
-2. **Benutzer-Config-Verzeichnis** - Definiert in `~/.config/xccode/themes/*.json` oder `$XDG_CONFIG_HOME/xccode/themes/*.json`
-3. **Projekt-Root-Verzeichnis** - Definiert in `<project-root>/.xccode/themes/*.json`
-4. **Aktuelles Arbeitsverzeichnis** - Definiert in `./.xccode/themes/*.json`
+2. **Benutzer-Config-Verzeichnis** - Definiert in `~/.config/xiaochuan/themes/*.json` oder `$XDG_CONFIG_HOME/xiaochuan/themes/*.json`
+3. **Projekt-Root-Verzeichnis** - Definiert in `<project-root>/.xiaochuan/themes/*.json`
+4. **Aktuelles Arbeitsverzeichnis** - Definiert in `./.xiaochuan/themes/*.json`
 
 Wenn mehrere Verzeichnisse ein Theme mit demselben Namen enthalten, wird das Theme aus dem Verzeichnis mit der hoeheren Prioritaet verwendet.
 
@@ -101,15 +101,15 @@ Um ein eigenes Theme zu erstellen, lege eine JSON-Datei in einem der Theme-Verze
 Fuer benutzerweite Themes:
 
 ```bash no-frame
-mkdir -p ~/.config/xccode/themes
-vim ~/.config/xccode/themes/my-theme.json
+mkdir -p ~/.config/xiaochuan/themes
+vim ~/.config/xiaochuan/themes/my-theme.json
 ```
 
 Und fuer projektspezifische Themes:
 
 ```bash no-frame
-mkdir -p .xccode/themes
-vim .xccode/themes/my-theme.json
+mkdir -p .xiaochuan/themes
+vim .xiaochuan/themes/my-theme.json
 ```
 
 ---
@@ -147,7 +147,7 @@ Hier ist ein Beispiel fuer ein eigenes Theme:
 
 ```json title="my-theme.json"
 {
-  "$schema": "https://xccode.ai/theme.json",
+  "$schema": "https://xiaochuan.ai/theme.json",
   "defs": {
     "nord0": "#2E3440",
     "nord1": "#3B4252",

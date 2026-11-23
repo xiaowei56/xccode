@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { Integration } from "@xccode/core/integration"
-import { WebSearch } from "@xccode/core/websearch"
-import { WebSearchExa } from "@xccode/core/plugin/websearch/exa"
-import { WebSearchFirecrawl } from "@xccode/core/plugin/websearch/firecrawl"
-import { WebSearchParallel } from "@xccode/core/plugin/websearch/parallel"
-import { WebSearchTavily } from "@xccode/core/plugin/websearch/tavily"
-import { WebSearchTinyFish } from "@xccode/core/plugin/websearch/tinyfish"
+import { Integration } from "@xiaochuan/core/integration"
+import { WebSearch } from "@xiaochuan/core/websearch"
+import { WebSearchExa } from "@xiaochuan/core/plugin/websearch/exa"
+import { WebSearchFirecrawl } from "@xiaochuan/core/plugin/websearch/firecrawl"
+import { WebSearchParallel } from "@xiaochuan/core/plugin/websearch/parallel"
+import { WebSearchTavily } from "@xiaochuan/core/plugin/websearch/tavily"
+import { WebSearchTinyFish } from "@xiaochuan/core/plugin/websearch/tinyfish"
 import { host, integrationHost, webSearchHost } from "./host"
 import {
   requests,
@@ -265,7 +265,7 @@ describe("built-in web search providers", () => {
       )
       expect(requests[0]).toMatchObject({
         url: WebSearchTavily.endpoint,
-        headers: { "x-client-name": "xccode2", "x-tavily-access-mode": "keyless" },
+        headers: { "x-client-name": "xiaochuan2", "x-tavily-access-mode": "keyless" },
         body: {
           query: "effect typescript",
           search_depth: "basic",
@@ -281,7 +281,7 @@ describe("built-in web search providers", () => {
       })
       yield* websearch.query(query)
       expect(requests[1]).toMatchObject({
-        headers: { authorization: "Bearer tavily-secret", "x-client-name": "xccode2" },
+        headers: { authorization: "Bearer tavily-secret", "x-client-name": "xiaochuan2" },
       })
       expect(requests[1]?.headers["x-tavily-access-mode"]).toBeUndefined()
     }),

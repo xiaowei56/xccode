@@ -1,28 +1,28 @@
 ---
 title: Web
-description: Tarayıcınızda xccode'u kullanma.
+description: Tarayıcınızda xiaochuan'u kullanma.
 ---
 
-xccode, tarayıcınızda bir web uygulaması olarak çalışabilir ve bir terminale ihtiyaç duymadan aynı güçlü AI kodlama deneyimini sağlayabilir.
+xiaochuan, tarayıcınızda bir web uygulaması olarak çalışabilir ve bir terminale ihtiyaç duymadan aynı güçlü AI kodlama deneyimini sağlayabilir.
 
-![xccode Web - Yeni Oturum](../../../assets/web/web-homepage-new-session.png)
+![xiaochuan Web - Yeni Oturum](../../../assets/web/web-homepage-new-session.png)
 
 ## Başlarken
 
 Aşağıdakileri çalıştırarak web arayüzünü başlatın:
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-Bu, `127.0.0.1` üzerinde rastgele kullanılabilir bir bağlantı noktasına sahip yerel bir sunucuyu başlatır ve xccode'u varsayılan tarayıcınızda otomatik olarak açar.
+Bu, `127.0.0.1` üzerinde rastgele kullanılabilir bir bağlantı noktasına sahip yerel bir sunucuyu başlatır ve xiaochuan'u varsayılan tarayıcınızda otomatik olarak açar.
 
 :::caution
-`XCCODE_SERVER_PASSWORD` ayarlanmadıysa sunucunun güvenliği kaldırılacaktır. Bu, yerel kullanım için iyidir ancak ağ erişimi için ayarlanmalıdır.
+`XIAOCHUAN_SERVER_PASSWORD` ayarlanmadıysa sunucunun güvenliği kaldırılacaktır. Bu, yerel kullanım için iyidir ancak ağ erişimi için ayarlanmalıdır.
 :::
 
 :::tip[Windows Kullanıcıları]
-En iyi deneyim için PowerShell yerine `xccode web`'yi [WSL](/docs/windows-wsl)'den çalıştırın. Bu, uygun dosya sistemi erişimini ve terminal entegrasyonunu sağlar.
+En iyi deneyim için PowerShell yerine `xiaochuan web`'yi [WSL](/docs/windows-wsl)'den çalıştırın. Bu, uygun dosya sistemi erişimini ve terminal entegrasyonunu sağlar.
 :::
 
 ---
@@ -33,21 +33,21 @@ Web sunucusunu komut satırı bayraklarıyla veya [config dosyanızda](/docs/con
 
 ### Port
 
-xccode varsayılan olarak kullanılabilir bir bağlantı noktasını seçer. Bir bağlantı noktası belirtebilirsiniz:
+xiaochuan varsayılan olarak kullanılabilir bir bağlantı noktasını seçer. Bir bağlantı noktası belirtebilirsiniz:
 
 ```bash
-xccode web --port 4096
+xiaochuan web --port 4096
 ```
 
 ### Ana makine adı
 
-Varsayılan olarak sunucu `127.0.0.1` (yalnızca localhost) öğesine bağlanır. xccode'u ağınızda erişilebilir kılmak için:
+Varsayılan olarak sunucu `127.0.0.1` (yalnızca localhost) öğesine bağlanır. xiaochuan'u ağınızda erişilebilir kılmak için:
 
 ```bash
-xccode web --hostname 0.0.0.0
+xiaochuan web --hostname 0.0.0.0
 ```
 
-`0.0.0.0` kullanıldığında, xccode hem yerel hem de ağ adreslerini gösterecektir:
+`0.0.0.0` kullanıldığında, xiaochuan hem yerel hem de ağ adreslerini gösterecektir:
 
 ```
   Local access:       http://localhost:4096
@@ -59,15 +59,15 @@ xccode web --hostname 0.0.0.0
 Sunucunuzun yerel ağda bulunabilir olmasını sağlamak için mDNS'yi etkinleştirin:
 
 ```bash
-xccode web --mdns
+xiaochuan web --mdns
 ```
 
-Bu, ana bilgisayar adını otomatik olarak `0.0.0.0` olarak ayarlar ve sunucuyu `xccode.local` olarak tanıtır.
+Bu, ana bilgisayar adını otomatik olarak `0.0.0.0` olarak ayarlar ve sunucuyu `xiaochuan.local` olarak tanıtır.
 
 Aynı ağ üzerinde birden fazla örneği çalıştıracak şekilde mDNS alan adını özelleştirebilirsiniz:
 
 ```bash
-xccode web --mdns --mdns-domain myproject.local
+xiaochuan web --mdns --mdns-domain myproject.local
 ```
 
 ### CORS
@@ -75,36 +75,36 @@ xccode web --mdns --mdns-domain myproject.local
 CORS'a yönelik ek alan adlarına izin vermek için (özel ön uçlar için kullanışlıdır):
 
 ```bash
-xccode web --cors https://example.com
+xiaochuan web --cors https://example.com
 ```
 
 ### Kimlik Doğrulaması
 
-Erişimi korumak için `XCCODE_SERVER_PASSWORD` ortam değişkenini kullanarak bir parola ayarlayın:
+Erişimi korumak için `XIAOCHUAN_SERVER_PASSWORD` ortam değişkenini kullanarak bir parola ayarlayın:
 
 ```bash
-XCCODE_SERVER_PASSWORD=secret xccode web
+XIAOCHUAN_SERVER_PASSWORD=secret xiaochuan web
 ```
 
-Kullanıcı adı varsayılan olarak `xccode` şeklindedir ancak `XCCODE_SERVER_USERNAME` ile değiştirilebilir.
+Kullanıcı adı varsayılan olarak `xiaochuan` şeklindedir ancak `XIAOCHUAN_SERVER_USERNAME` ile değiştirilebilir.
 
 ---
 
 ## Web Arayüzünü Kullanma
 
-Web arayüzü başlatıldığında xccode oturumlarınıza erişim sağlar.
+Web arayüzü başlatıldığında xiaochuan oturumlarınıza erişim sağlar.
 
 ### Oturum
 
 Oturumlarınızı ana sayfadan görüntüleyin ve yönetin. Aktif oturumları görebilir ve yenilerini başlatabilirsiniz.
 
-![xccode Web - Etkin Oturum](../../../assets/web/web-homepage-active-session.png)
+![xiaochuan Web - Etkin Oturum](../../../assets/web/web-homepage-active-session.png)
 
 ### Sunucu Durumu
 
 Bağlı sunucuları ve durumlarını görüntülemek için "Sunucuları Gör" seçeneğini tıklayın.
 
-![xccode Web - Sunuculara bakın](../../../assets/web/web-homepage-see-servers.png)
+![xiaochuan Web - Sunuculara bakın](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 
@@ -114,10 +114,10 @@ Bağlı sunucuları ve durumlarını görüntülemek için "Sunucuları Gör" se
 
 ```bash
 # Start the web server
-xccode web --port 4096
+xiaochuan web --port 4096
 
 # In another terminal, attach the TUI
-xccode attach http://localhost:4096
+xiaochuan attach http://localhost:4096
 ```
 
 Bu, aynı oturumları ve durumu paylaşarak hem web arayüzünü hem de terminali aynı anda kullanmanıza olanak tanır.
@@ -126,7 +126,7 @@ Bu, aynı oturumları ve durumu paylaşarak hem web arayüzünü hem de terminal
 
 ## Yapılandırma Dosyası
 
-Sunucu ayarlarını `xccode.json` yapılandırma dosyanızda da yapılandırabilirsiniz:
+Sunucu ayarlarını `xiaochuan.json` yapılandırma dosyanızda da yapılandırabilirsiniz:
 
 ```json
 {

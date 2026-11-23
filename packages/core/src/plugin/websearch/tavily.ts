@@ -1,6 +1,6 @@
 export * as WebSearchTavily from "./tavily.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 import { Duration, Effect, Schema, Scope } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { App } from "../../app.js"
@@ -26,7 +26,7 @@ const SearchResponse = Schema.Struct({
 })
 
 export const Plugin = define<HttpClient.HttpClient | Scope.Scope>({
-  id: "xccode.websearch.tavily",
+  id: "xiaochuan.websearch.tavily",
   effect: Effect.fn("WebSearchTavily.Plugin")(function* (ctx) {
     const http = yield* HttpClient.HttpClient
     yield* WebSearchProvider.register(ctx, {
@@ -39,7 +39,7 @@ export const Plugin = define<HttpClient.HttpClient | Scope.Scope>({
             HttpClientRequest.acceptJson,
             HttpClientRequest.setHeaders({
               "User-Agent": App.useragent(ctx.app),
-              "X-Client-Name": "xccode2",
+              "X-Client-Name": "xiaochuan2",
               ...(credential?.type === "key"
                 ? { Authorization: `Bearer ${credential.key}` }
                 : { "X-Tavily-Access-Mode": "keyless" }),

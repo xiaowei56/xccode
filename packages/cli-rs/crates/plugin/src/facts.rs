@@ -1,6 +1,6 @@
 //! Plugin reads backed by the local host: locale, UTC offset and terminal text measurements.
 
-use xccode_plugin_abi as abi;
+use xiaochuan_plugin_abi as abi;
 use opentui::prelude::*;
 use unicode_segmentation::UnicodeSegmentation;
 
@@ -13,7 +13,7 @@ pub fn locale() -> Option<String> {
 
 #[cfg(windows)]
 fn system_locale() -> Option<String> {
-    xccode_util::win::user_locale()
+    xiaochuan_util::win::user_locale()
 }
 
 #[cfg(not(windows))]
@@ -34,7 +34,7 @@ pub fn locale_of(var: impl Fn(&str) -> Option<String>) -> Option<String> {
 
 /// The seconds local time is east of UTC at `at`, in milliseconds since the epoch, in the process's zone.
 pub fn utc_offset(at: i64) -> i32 {
-    xccode_util::time::Zone::Local.offset(at)
+    xiaochuan_util::time::Zone::Local.offset(at)
 }
 
 /// The cells `text` takes in a row as OpenTUI draws it in `app`, and its graphemes; a line break (`\n` or `\r\n`) takes
@@ -80,7 +80,7 @@ mod tests {
     #[cfg(windows)]
     #[test]
     fn a_posix_locale_wins_over_the_windows_one() {
-        let user = xccode_util::win::user_locale().unwrap();
+        let user = xiaochuan_util::win::user_locale().unwrap();
         for (lang, expected) in [(None, user.as_str()), (Some("de_DE.UTF-8"), "de-DE")] {
             let mut command = std::process::Command::new(std::env::current_exe().unwrap());
             command.args(["--exact", "facts::tests::the_locale_here", "--test-threads=1"]);

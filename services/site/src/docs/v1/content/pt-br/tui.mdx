@@ -1,22 +1,22 @@
 ---
 title: TUI
-description: Usando a interface de usuário de terminal xccode.
+description: Usando a interface de usuário de terminal xiaochuan.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-O xccode fornece uma interface de terminal interativa ou TUI para trabalhar em seus projetos com um LLM.
+O xiaochuan fornece uma interface de terminal interativa ou TUI para trabalhar em seus projetos com um LLM.
 
-Executar xccode inicia o TUI para o diretório atual.
+Executar xiaochuan inicia o TUI para o diretório atual.
 
 ```bash
-xccode
+xiaochuan
 ```
 
 Ou você pode iniciá-lo para um diretório de trabalho específico.
 
 ```bash
-xccode /path/to/project
+xiaochuan /path/to/project
 ```
 
 Uma vez que você esteja no TUI, você pode solicitar com uma mensagem.
@@ -57,7 +57,7 @@ A saída do comando é adicionada à conversa como um resultado de ferramenta.
 
 ## Comandos
 
-Ao usar o TUI do xccode, você pode digitar `/` seguido pelo nome de um comando para executar ações rapidamente. Por exemplo:
+Ao usar o TUI do xiaochuan, você pode digitar `/` seguido pelo nome de um comando para executar ações rapidamente. Por exemplo:
 
 ```bash frame="none"
 /help
@@ -71,7 +71,7 @@ Aqui estão todos os comandos de barra disponíveis:
 
 ### connect
 
-Adicione um provedor ao xccode. Permite que você selecione entre os provedores disponíveis e adicione suas chaves de API.
+Adicione um provedor ao xiaochuan. Permite que você selecione entre os provedores disponíveis e adicione suas chaves de API.
 
 ```bash frame="none"
 /connect
@@ -105,7 +105,7 @@ Abra um editor externo para compor mensagens. Usa o editor definido na sua vari�
 
 ### exit
 
-Saia do xccode. _Aliases_: `/quit`, `/q`
+Saia do xiaochuan. _Aliases_: `/quit`, `/q`
 
 ```bash frame="none"
 /exit
@@ -322,8 +322,8 @@ Você pode personalizar o comportamento do TUI através de `tui.json` (ou `tui.j
 
 ```json title="tui.json"
 {
-  "$schema": "https://xccode.ai/tui.json",
-  "theme": "xccode",
+  "$schema": "https://xiaochuan.ai/tui.json",
+  "theme": "xiaochuan",
   "leader_timeout": 2000,
   "keybinds": {
     "leader": "ctrl+x",
@@ -340,7 +340,7 @@ Você pode personalizar o comportamento do TUI através de `tui.json` (ou `tui.j
     "notifications": true,
     "sound": true,
     "volume": 0.4,
-    "sound_pack": "xccode.default",
+    "sound_pack": "xiaochuan.default",
     "sounds": {
       "error": "./sounds/error.mp3"
     }
@@ -348,7 +348,7 @@ Você pode personalizar o comportamento do TUI através de `tui.json` (ou `tui.j
 }
 ```
 
-Isso é separado do `xccode.json`, que configura o comportamento do servidor/runtime.
+Isso é separado do `xiaochuan.json`, que configura o comportamento do servidor/runtime.
 
 `keybinds` é combinado com os padrões internos, então você só precisa configurar os atalhos que deseja alterar.
 
@@ -356,24 +356,24 @@ Isso é separado do `xccode.json`, que configura o comportamento do servidor/run
 
 - `theme` - Define o tema da sua interface. [Saiba mais](/docs/themes).
 - `keybinds` - Personaliza atalhos de teclado. [Saiba mais](/docs/keybinds).
-- `leader_timeout` - Controla por quanto tempo o Xccode espera depois da leader key. O padrão é `2000`.
+- `leader_timeout` - Controla por quanto tempo o Xiaochuan espera depois da leader key. O padrão é `2000`.
 - `scroll_acceleration.enabled` - Ative a aceleração de rolagem no estilo macOS para uma rolagem suave e natural. Quando ativado, a velocidade de rolagem aumenta com gestos de rolagem rápidos e permanece precisa para movimentos mais lentos. **Esta configuração tem precedência sobre `scroll_speed` e a substitui quando ativada.**
 - `scroll_speed` - Controla quão rápido o TUI rola ao usar comandos de rolagem (mínimo: `0.001`, suporta valores decimais). O padrão é `3`. **Nota: Isso é ignorado se `scroll_acceleration.enabled` estiver definido como `true`.**
 - `diff_style` - Controla a renderização de diffs. `"auto"` se adapta à largura do terminal, `"stacked"` sempre mostra um layout de coluna única.
 - `mouse` - Ativa ou desativa a captura do mouse no TUI (padrão: `true`). Quando desativado, o comportamento nativo do terminal para seleção e rolagem com o mouse é preservado.
 - `attention` - Configura notificações de desktop e sons do TUI. Desativado por padrão.
 
-Use `XCCODE_TUI_CONFIG` para carregar um caminho de configuração TUI personalizado.
+Use `XIAOCHUAN_TUI_CONFIG` para carregar um caminho de configuração TUI personalizado.
 
 ### Attention
 
-Attention permite que o TUI avise você quando o Xccode espera uma resposta, precisa da aprovação de uma permissão, encontra um erro de sessão ou conclui uma sessão. Ative com `attention.enabled`; eventos integrados reproduzem sons quando acontecem. As notificações de desktop só são enviadas quando a janela do terminal não está em foco e não são usadas para eventos de subagent.
+Attention permite que o TUI avise você quando o Xiaochuan espera uma resposta, precisa da aprovação de uma permissão, encontra um erro de sessão ou conclui uma sessão. Ative com `attention.enabled`; eventos integrados reproduzem sons quando acontecem. As notificações de desktop só são enviadas quando a janela do terminal não está em foco e não são usadas para eventos de subagent.
 
 - `enabled` - Ativa todas as notificações e sons de Attention. O padrão é `false`.
 - `notifications` - Quando Attention está ativo, permite que o TUI envie notificações de desktop pelo terminal. O padrão é `true`.
 - `sound` - Quando Attention está ativo, permite reproduzir sons de aviso. O padrão é `true`.
 - `volume` - Volume padrão dos sons, de `0` a `1`. O padrão é `0.4`.
-- `sound_pack` - ID do sound pack a ser usado. O padrão é `xccode.default`.
+- `sound_pack` - ID do sound pack a ser usado. O padrão é `xiaochuan.default`.
 - `sounds` - Define arquivos de som personalizados para `default`, `question`, `permission`, `error`, `done` ou `subagent_done`. Os caminhos podem ser absolutos, URLs `file://` ou relativos a `tui.json`.
 
 ---

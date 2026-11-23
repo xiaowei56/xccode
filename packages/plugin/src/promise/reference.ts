@@ -1,5 +1,5 @@
-import type { ReferenceApi } from "@xccode/client/promise/api"
-import type { ReferenceGitSource, ReferenceLocalSource } from "@xccode/client"
+import type { ReferenceApi } from "@xiaochuan/client/promise/api"
+import type { ReferenceGitSource, ReferenceLocalSource } from "@xiaochuan/client"
 import type { Transform } from "./registration.js"
 
 export interface ReferenceEditor {

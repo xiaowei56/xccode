@@ -1,7 +1,7 @@
 //! Transcript rows for running, queued, and completed compactions.
 
-use xccode_api::generated::{SessionMessageCompaction, TokenUsageInfo};
-use xccode_ui::motion::Spinner;
+use xiaochuan_api::generated::{SessionMessageCompaction, TokenUsageInfo};
+use xiaochuan_ui::motion::Spinner;
 use opentui::widget::Markdown;
 
 use super::list::Context;
@@ -39,7 +39,7 @@ enum Status {
 impl Compaction {
     pub fn new(cx: &Context<'_>) -> Self {
         let (left, label, right) = rule(cx);
-        let markdown = xccode_ui::markdown::view(cx.app, cx.theme, cx.syntax, cx.renderers, cx.conceal, true);
+        let markdown = xiaochuan_ui::markdown::view(cx.app, cx.theme, cx.syntax, cx.renderers, cx.conceal, true);
         let links = session_links::attach(cx.tui, &markdown, cx.renderers);
         let body =
             View::new(cx.app).padding_edge(Edge::Top, 1).padding_edge(Edge::Left, 3).visible(false).child(&markdown);
@@ -63,8 +63,8 @@ impl Compaction {
     }
 
     pub fn restyle(&self, cx: &Context<'_>) {
-        let colors = xccode_ui::markdown::view_colors(cx.theme, cx.syntax);
-        xccode_ui::markdown::restyle(&self.markdown, colors, cx.syntax);
+        let colors = xiaochuan_ui::markdown::view_colors(cx.theme, cx.syntax);
+        xiaochuan_ui::markdown::restyle(&self.markdown, colors, cx.syntax);
         self.stale.set(true);
     }
 

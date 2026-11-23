@@ -3,7 +3,7 @@ title: Solução de Problemas
 description: Problemas comuns e como resolvê-los.
 ---
 
-Para depurar problemas com o xccode, comece verificando os logs e os dados locais que ele armazena no disco.
+Para depurar problemas com o xiaochuan, comece verificando os logs e os dados locais que ele armazena no disco.
 
 ---
 
@@ -11,21 +11,21 @@ Para depurar problemas com o xccode, comece verificando os logs e os dados locai
 
 Os arquivos de log são gravados em:
 
-- **macOS/Linux**: `~/.local/share/xccode/log/`
-- **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.local\share\xccode\log`
+- **macOS/Linux**: `~/.local/share/xiaochuan/log/`
+- **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.local\share\xiaochuan\log`
 
 Os arquivos de log são nomeados com timestamps (por exemplo, `2025-01-09T123456.log`) e os 10 arquivos de log mais recentes são mantidos.
 
-Você pode definir o nível de log com a opção de linha de comando `--log-level` para obter informações de depuração mais detalhadas. Por exemplo, `xccode --log-level DEBUG`.
+Você pode definir o nível de log com a opção de linha de comando `--log-level` para obter informações de depuração mais detalhadas. Por exemplo, `xiaochuan --log-level DEBUG`.
 
 ---
 
 ## Armazenamento
 
-O xccode armazena dados de sessão e outros dados do aplicativo no disco em:
+O xiaochuan armazena dados de sessão e outros dados do aplicativo no disco em:
 
-- **macOS/Linux**: `~/.local/share/xccode/`
-- **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.local\share\xccode`
+- **macOS/Linux**: `~/.local/share/xiaochuan/`
+- **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.local\share\xiaochuan`
 
 Este diretório contém:
 
@@ -39,13 +39,13 @@ Este diretório contém:
 
 ## Aplicativo de Desktop
 
-O xccode Desktop executa um servidor xccode local (o sidecar `xccode-cli`) em segundo plano. A maioria dos problemas é causada por um plugin com mau funcionamento, um cache corrompido ou uma configuração de servidor incorreta.
+O xiaochuan Desktop executa um servidor xiaochuan local (o sidecar `xiaochuan-cli`) em segundo plano. A maioria dos problemas é causada por um plugin com mau funcionamento, um cache corrompido ou uma configuração de servidor incorreta.
 
 ### Verificações rápidas
 
 - Saia completamente do aplicativo e reinicie-o.
 - Se o aplicativo mostrar uma tela de erro, clique em **Reiniciar** e copie os detalhes do erro.
-- Apenas macOS: menu `Xccode` -> **Recarregar Webview** (ajuda se a interface estiver em branco/congelada).
+- Apenas macOS: menu `Xiaochuan` -> **Recarregar Webview** (ajuda se a interface estiver em branco/congelada).
 
 ---
 
@@ -57,28 +57,28 @@ Se o aplicativo de desktop estiver travando ao iniciar, pendurado ou se comporta
 
 Abra seu arquivo de configuração global e procure uma chave `plugin`.
 
-- **macOS/Linux**: `~/.config/xccode/xccode.jsonc` (ou `~/.config/xccode/xccode.json`)
-- **macOS/Linux** (instalações mais antigas): `~/.local/share/xccode/xccode.jsonc`
-- **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.config\xccode\xccode.jsonc`
+- **macOS/Linux**: `~/.config/xiaochuan/xiaochuan.jsonc` (ou `~/.config/xiaochuan/xiaochuan.json`)
+- **macOS/Linux** (instalações mais antigas): `~/.local/share/xiaochuan/xiaochuan.jsonc`
+- **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.config\xiaochuan\xiaochuan.jsonc`
 
 Se você tiver plugins configurados, desative-os temporariamente removendo a chave ou definindo-a como um array vazio:
 
 ```jsonc
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "plugin": [],
 }
 ```
 
 #### Verificando os diretórios de plugins
 
-O xccode também pode carregar plugins locais do disco. Mova-os temporariamente para fora do caminho (ou renomeie a pasta) e reinicie o aplicativo de desktop:
+O xiaochuan também pode carregar plugins locais do disco. Mova-os temporariamente para fora do caminho (ou renomeie a pasta) e reinicie o aplicativo de desktop:
 
 - **Plugins globais**
-  - **macOS/Linux**: `~/.config/xccode/plugins/`
-  - **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.config\xccode\plugins`
+  - **macOS/Linux**: `~/.config/xiaochuan/plugins/`
+  - **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.config\xiaochuan\plugins`
 - **Plugins de projeto** (apenas se você usar configuração por projeto)
-  - `<your-project>/.xccode/plugins/`
+  - `<your-project>/.xiaochuan/plugins/`
 
 Se o aplicativo voltar a funcionar, reative os plugins um por um para descobrir qual está causando o problema.
 
@@ -86,22 +86,22 @@ Se o aplicativo voltar a funcionar, reative os plugins um por um para descobrir 
 
 ### Limpando o cache
 
-Se desativar plugins não ajudar (ou se a instalação de um plugin estiver travada), limpe o cache para que o xccode possa reconstruí-lo.
+Se desativar plugins não ajudar (ou se a instalação de um plugin estiver travada), limpe o cache para que o xiaochuan possa reconstruí-lo.
 
-1. Saia completamente do xccode Desktop.
+1. Saia completamente do xiaochuan Desktop.
 2. Exclua o diretório de cache:
 
-- **macOS**: Finder -> `Cmd+Shift+G` -> cole `~/.cache/xccode`
-- **Linux**: exclua `~/.cache/xccode` (ou execute `rm -rf ~/.cache/xccode`)
-- **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.cache\xccode`
+- **macOS**: Finder -> `Cmd+Shift+G` -> cole `~/.cache/xiaochuan`
+- **Linux**: exclua `~/.cache/xiaochuan` (ou execute `rm -rf ~/.cache/xiaochuan`)
+- **Windows**: Pressione `WIN+R` e cole `%USERPROFILE%\.cache\xiaochuan`
 
-3. Reinicie o xccode Desktop.
+3. Reinicie o xiaochuan Desktop.
 
 ---
 
 ### Corrigindo problemas de conexão com o servidor
 
-O xccode Desktop pode iniciar seu próprio servidor local (padrão) ou conectar-se a uma URL de servidor que você configurou.
+O xiaochuan Desktop pode iniciar seu próprio servidor local (padrão) ou conectar-se a uma URL de servidor que você configurou.
 
 Se você ver um diálogo **"Conexão Falhou"** (ou o aplicativo nunca passa da tela de inicialização), verifique se há uma URL de servidor personalizada.
 
@@ -111,13 +111,13 @@ Na tela inicial, clique no nome do servidor (com o ponto de status) para abrir o
 
 #### Removendo `server.port` / `server.hostname` da sua configuração
 
-Se seu `xccode.json(c)` contiver uma seção `server`, remova-a temporariamente e reinicie o aplicativo de desktop.
+Se seu `xiaochuan.json(c)` contiver uma seção `server`, remova-a temporariamente e reinicie o aplicativo de desktop.
 
 #### Verificando as variáveis de ambiente
 
-Se você tiver `XCCODE_PORT` definido em seu ambiente, o aplicativo de desktop tentará usar essa porta para o servidor local.
+Se você tiver `XIAOCHUAN_PORT` definido em seu ambiente, o aplicativo de desktop tentará usar essa porta para o servidor local.
 
-- Desfaça `XCCODE_PORT` (ou escolha uma porta livre) e reinicie.
+- Desfaça `XIAOCHUAN_PORT` (ou escolha uma porta livre) e reinicie.
 
 ---
 
@@ -132,21 +132,21 @@ No Linux, algumas configurações do Wayland podem causar janelas em branco ou e
 
 ### Windows: Runtime do WebView2
 
-No Windows, o xccode Desktop requer o **WebView2 Runtime** do Microsoft Edge. Se o aplicativo abrir em uma janela em branco ou não iniciar, instale/atualize o WebView2 e tente novamente.
+No Windows, o xiaochuan Desktop requer o **WebView2 Runtime** do Microsoft Edge. Se o aplicativo abrir em uma janela em branco ou não iniciar, instale/atualize o WebView2 e tente novamente.
 
 ---
 
 ### Windows: Problemas gerais de desempenho
 
-Se você estiver enfrentando desempenho lento, problemas de acesso a arquivos ou problemas no terminal no Windows, tente usar [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). O WSL fornece um ambiente Linux que funciona de forma mais integrada com os recursos do xccode.
+Se você estiver enfrentando desempenho lento, problemas de acesso a arquivos ou problemas no terminal no Windows, tente usar [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). O WSL fornece um ambiente Linux que funciona de forma mais integrada com os recursos do xiaochuan.
 
 ---
 
 ### Notificações não aparecendo
 
-O xccode Desktop só mostra notificações do sistema quando:
+O xiaochuan Desktop só mostra notificações do sistema quando:
 
-- as notificações estão habilitadas para o xccode nas configurações do seu sistema operacional, e
+- as notificações estão habilitadas para o xiaochuan nas configurações do seu sistema operacional, e
 - a janela do aplicativo não está focada.
 
 ---
@@ -155,11 +155,11 @@ O xccode Desktop só mostra notificações do sistema quando:
 
 Se o aplicativo não iniciar e você não conseguir limpar as configurações pela interface, redefina o estado salvo do aplicativo de desktop.
 
-1. Saia do xccode Desktop.
-2. Encontre e exclua estes arquivos (eles estão no diretório de dados do aplicativo xccode Desktop):
+1. Saia do xiaochuan Desktop.
+2. Encontre e exclua estes arquivos (eles estão no diretório de dados do aplicativo xiaochuan Desktop):
 
-- `xccode.settings.dat` (URL do servidor padrão do desktop)
-- `xccode.global.dat` e `xccode.workspace.*.dat` (estado da interface como servidores/projetos recentes)
+- `xiaochuan.settings.dat` (URL do servidor padrão do desktop)
+- `xiaochuan.global.dat` e `xiaochuan.workspace.*.dat` (estado da interface como servidores/projetos recentes)
 
 Para encontrar o diretório rapidamente:
 
@@ -171,13 +171,13 @@ Para encontrar o diretório rapidamente:
 
 ## Obtendo ajuda
 
-Se você estiver enfrentando problemas com o xccode:
+Se você estiver enfrentando problemas com o xiaochuan:
 
 1. **Relatar problemas no GitHub**
 
    A melhor maneira de relatar bugs ou solicitar recursos é através do nosso repositório no GitHub:
 
-   [**github.com/xiaowei56/xccode/issues**](https://github.com/xiaowei56/xccode/issues)
+   [**github.com/xiaowei56/xiaochuan/issues**](https://github.com/xiaowei56/xiaochuan/issues)
 
    Antes de criar um novo problema, pesquise problemas existentes para ver se seu problema já foi relatado.
 
@@ -185,7 +185,7 @@ Se você estiver enfrentando problemas com o xccode:
 
    Para ajuda em tempo real e discussão da comunidade, junte-se ao nosso servidor Discord:
 
-   [**xccode.ai/discord**](https://xccode.ai/discord)
+   [**xiaochuan.ai/discord**](https://xiaochuan.ai/discord)
 
 ---
 
@@ -195,11 +195,11 @@ Aqui estão alguns problemas comuns e como resolvê-los.
 
 ---
 
-### O xccode não inicia
+### O xiaochuan não inicia
 
 1. Verifique os logs em busca de mensagens de erro
 2. Tente executar com `--print-logs` para ver a saída no terminal
-3. Certifique-se de que você tem a versão mais recente com `xccode upgrade`
+3. Certifique-se de que você tem a versão mais recente com `xiaochuan upgrade`
 
 ---
 
@@ -224,9 +224,9 @@ Exemplos:
 
 - `openai/gpt-6.1-sol`
 - `openrouter/google/gemini-3.8-flash`
-- `xccode/kimi-k2`
+- `xiaochuan/kimi-k2`
 
-Para descobrir quais modelos você tem acesso, execute `xccode models`
+Para descobrir quais modelos você tem acesso, execute `xiaochuan models`
 
 ---
 
@@ -240,10 +240,10 @@ Para resolver isso:
 2. Se o problema persistir, tente limpar sua configuração armazenada:
 
    ```bash
-   rm -rf ~/.local/share/xccode
+   rm -rf ~/.local/share/xiaochuan
    ```
 
-   No Windows, pressione `WIN+R` e exclua: `%USERPROFILE%\.local\share\xccode`
+   No Windows, pressione `WIN+R` e exclua: `%USERPROFILE%\.local\share\xiaochuan`
 
 3. Reautentique-se com seu provedor usando o comando `/connect` na TUI.
 
@@ -251,21 +251,21 @@ Para resolver isso:
 
 ### AI_APICallError e problemas com pacotes de provedores
 
-Se você encontrar erros de chamada de API, isso pode ser devido a pacotes de provedores desatualizados. O xccode instala dinamicamente pacotes de provedores (OpenAI, Anthropic, Google, etc.) conforme necessário e os armazena em cache localmente.
+Se você encontrar erros de chamada de API, isso pode ser devido a pacotes de provedores desatualizados. O xiaochuan instala dinamicamente pacotes de provedores (OpenAI, Anthropic, Google, etc.) conforme necessário e os armazena em cache localmente.
 
 Para resolver problemas com pacotes de provedores:
 
 1. Limpe o cache do pacote de provedores:
 
    ```bash
-   rm -rf ~/.cache/xccode
+   rm -rf ~/.cache/xiaochuan
    ```
 
-   No Windows, pressione `WIN+R` e exclua: `%USERPROFILE%\.cache\xccode`
+   No Windows, pressione `WIN+R` e exclua: `%USERPROFILE%\.cache\xiaochuan`
 
-2. Reinicie o xccode para reinstalar os pacotes de provedores mais recentes
+2. Reinicie o xiaochuan para reinstalar os pacotes de provedores mais recentes
 
-Isso forçará o xccode a baixar as versões mais recentes dos pacotes de provedores, o que muitas vezes resolve problemas de compatibilidade com parâmetros de modelo e alterações na API.
+Isso forçará o xiaochuan a baixar as versões mais recentes dos pacotes de provedores, o que muitas vezes resolve problemas de compatibilidade com parâmetros de modelo e alterações na API.
 
 ---
 
@@ -296,4 +296,4 @@ Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 export DISPLAY=:99.0
 ```
 
-O xccode detectará se você está usando Wayland e preferirá `wl-clipboard`, caso contrário, tentará encontrar ferramentas de área de transferência na ordem: `xclip` e `xsel`.
+O xiaochuan detectará se você está usando Wayland e preferirá `wl-clipboard`, caso contrário, tentará encontrar ferramentas de área de transferência na ordem: `xclip` e `xsel`.

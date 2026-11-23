@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { IntegrationInfo } from "@xccode/client/promise"
+import type { IntegrationInfo } from "@xiaochuan/client/promise"
 import { activeProviderAccount, providerAccounts } from "./accounts"
 
 const integration = (connections: IntegrationInfo["connections"]): IntegrationInfo => ({

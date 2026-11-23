@@ -3,9 +3,9 @@ title: Temaer
 description: Velg et innebygd tema eller definer ditt eget.
 ---
 
-Med Xccode kan du velge fra ett av flere innebygde temaer, bruge et tema som tilpasser seg terminaltemaet ditt, eller definere ditt eget tilpassede tema.
+Med Xiaochuan kan du velge fra ett av flere innebygde temaer, bruge et tema som tilpasser seg terminaltemaet ditt, eller definere ditt eget tilpassede tema.
 
-Som standard bruger Xccode vårt eget `xccode`-tema.
+Som standard bruger Xiaochuan vårt eget `xiaochuan`-tema.
 
 ---
 
@@ -23,7 +23,7 @@ Uden truecolor-støtte kan temaer vises med redusert farvenøjagtighed eller fal
 
 ## Indbyggede temaer
 
-Xccode kommer med flere innebygde temaer.
+Xiaochuan kommer med flere innebygde temaer.
 
 | Navn                   | Beskrivelse                                                               |
 | ---------------------- | ------------------------------------------------------------------------- |
@@ -53,7 +53,7 @@ Og mer, vi tilføjer stadig til nye temaer.
 
 Systemtemaet er for brugere som:
 
-- Vil at Xccode skal matche terminalens utseende
+- Vil at Xiaochuan skal matche terminalens utseende
 - Brug tilpassede terminalfarveskjemaer
 - Foretrekker et konsistent utseende på tvers av alle terminalapplikasjoner
 
@@ -65,7 +65,7 @@ Du kan velge et tema ved at hente frem temavalg med kommandoen `/theme`. Eller d
 
 ```json title="tui.json" {3}
 {
-  "$schema": "https://xccode.ai/tui.json",
+  "$schema": "https://xiaochuan.ai/tui.json",
   "theme": "tokyonight"
 }
 ```
@@ -74,7 +74,7 @@ Du kan velge et tema ved at hente frem temavalg med kommandoen `/theme`. Eller d
 
 ## Brugerdefinerede temaer
 
-Xccode støtter et fleksibelt JSON-basert temasystem som lar brugere enkelt lage og tilpasse temaer.
+Xiaochuan støtter et fleksibelt JSON-basert temasystem som lar brugere enkelt lage og tilpasse temaer.
 
 ---
 
@@ -83,9 +83,9 @@ Xccode støtter et fleksibelt JSON-basert temasystem som lar brugere enkelt lage
 Temaer lastes inn fra flere kataloger i følgende rekkefølge der senere kataloger overstyrer tidligere:
 
 1. **Innebygde temaer** - Disse er innebygd i binæren
-2. **Brugerkonfigurasjonskatalog** - Definert i `~/.config/xccode/themes/*.json` eller `$XDG_CONFIG_HOME/xccode/themes/*.json`
-3. **Prosjektrotkatalog** - Definert i `<project-root>/.xccode/themes/*.json`
-4. **Nuværende arbejdskatalog** - Definert i `./.xccode/themes/*.json`
+2. **Brugerkonfigurasjonskatalog** - Definert i `~/.config/xiaochuan/themes/*.json` eller `$XDG_CONFIG_HOME/xiaochuan/themes/*.json`
+3. **Prosjektrotkatalog** - Definert i `<project-root>/.xiaochuan/themes/*.json`
+4. **Nuværende arbejdskatalog** - Definert i `./.xiaochuan/themes/*.json`
 
 Hvis flere kataloger inneholder et tema med samme navn, vil temaet fra katalogen med høyere prioritet bli brugt.
 
@@ -98,15 +98,15 @@ For at lage et brugerdefineret tema, lag en JSON-fil i en av temakatalogene.
 For brugeromfattende temaer:
 
 ```bash no-frame
-mkdir -p ~/.config/xccode/themes
-vim ~/.config/xccode/themes/my-theme.json
+mkdir -p ~/.config/xiaochuan/themes
+vim ~/.config/xiaochuan/themes/my-theme.json
 ```
 
 Og for prosjektspesifikke temaer.
 
 ```bash no-frame
-mkdir -p .xccode/themes
-vim .xccode/themes/my-theme.json
+mkdir -p .xiaochuan/themes
+vim .xiaochuan/themes/my-theme.json
 ```
 
 ---
@@ -144,7 +144,7 @@ Her er et eksempel på et brugerdefineret tema:
 
 ```json title="my-theme.json"
 {
-  "$schema": "https://xccode.ai/theme.json",
+  "$schema": "https://xiaochuan.ai/theme.json",
   "defs": {
     "nord0": "#2E3440",
     "nord1": "#3B4252",

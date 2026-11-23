@@ -8,12 +8,12 @@ use std::time::Duration;
 
 use futures_util::StreamExt;
 use futures_util::future::BoxFuture;
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     PromptInputFileAttachment, SessionCommandInput, SessionCompactInput, SessionGetInput, SessionID,
     SessionInboxDelivery, SessionInterruptInput, SessionMessageID, SessionPromptInput, SessionSyntheticInput,
 };
-use xccode_util::lock;
+use xiaochuan_util::lock;
 use serde_json::{Value, json};
 use tokio::sync::{mpsc, oneshot, watch};
 use tokio_util::sync::CancellationToken;
@@ -34,7 +34,7 @@ use crate::translate::{self, Output, StartKind, Terminal, TurnContext, TurnState
 /// Core acknowledges an interrupt before its cleanup settles, and its shell tool waits 3 s before SIGKILL.
 pub const CANCEL_DRAIN_TIMEOUT: Duration = Duration::from_secs(5);
 
-type Event = Result<Value, xccode_api::error::Error>;
+type Event = Result<Value, xiaochuan_api::error::Error>;
 type Job = BoxFuture<'static, ()>;
 
 struct Subscription {

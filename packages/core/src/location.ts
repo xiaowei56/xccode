@@ -1,9 +1,9 @@
 import { Context, Effect, Layer } from "effect"
-import { Info, Ref, response } from "@xccode/schema/location"
-import { FSUtil } from "@xccode/util/fs-util"
+import { Info, Ref, response } from "@xiaochuan/schema/location"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { Project } from "./project.js"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { makeLocationNode, tags } from "@xccode/util/effect/app-node"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { makeLocationNode, tags } from "@xiaochuan/util/effect/app-node"
 
 export * as Location from "./location.js"
 
@@ -13,7 +13,7 @@ export interface Interface extends Info {
   readonly vcs?: Project.Vcs
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Location") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Location") {}
 
 export const node = LayerNode.unbound(Service, tags.values.location)
 

@@ -1,4 +1,4 @@
-import { base64Encode } from "@xccode/util/encode"
+import { base64Encode } from "@xiaochuan/util/encode"
 import { ServerConnection } from "@/runtime/server/registry"
 import { decode64 } from "@/runtime/persistence/base64"
 

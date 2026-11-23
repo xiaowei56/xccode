@@ -21,7 +21,7 @@ import type {
   ServerRef,
   MountedSession,
   SessionScreen,
-} from "@xccode/plugin/gui"
+} from "@xiaochuan/plugin/gui"
 import { useComments } from "@/composer/comments"
 import { createComposerEditorActions } from "@/composer/editor/actions"
 import { useComposerState } from "@/composer/persistence"

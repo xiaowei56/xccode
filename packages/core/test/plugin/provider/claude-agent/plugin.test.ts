@@ -1,31 +1,31 @@
-import { Message, SystemPart } from "@xccode/ai/effect"
+import { Message, SystemPart } from "@xiaochuan/ai/effect"
 import type { LanguageModelV3 } from "@ai-sdk/provider"
 import type { AccountInfo } from "@anthropic-ai/claude-agent-sdk"
-import { AISDK } from "@xccode/core/aisdk"
-import { Agent } from "@xccode/core/agent"
-import { Bus } from "@xccode/core/bus"
-import type { ClaudeIO } from "@xccode/core/plugin/provider/claude-agent/claude/io"
-import { ClaudeSessions } from "@xccode/core/plugin/provider/claude-agent/claude/sessions"
-import { RequestKind } from "@xccode/core/plugin/provider/claude-agent/language-model/request-kind"
-import { ClaudeSystemPrompt } from "@xccode/core/plugin/provider/claude-agent/language-model/system-prompt"
-import { ClaudeIntegration } from "@xccode/core/plugin/provider/claude-agent/integration"
-import { ClaudeProvider } from "@xccode/core/plugin/provider/claude-agent/provider"
-import { Credential } from "@xccode/core/credential"
-import { Database } from "@xccode/core/database/database"
-import { Environment, makeFiles } from "@xccode/core/environment/index"
-import { EnvironmentUnavailable } from "@xccode/core/environment/unavailable"
-import { Integration } from "@xccode/core/integration"
-import { KV } from "@xccode/core/kv"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { Money } from "@xccode/schema/money"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { ID, make } from "@xccode/core/plugin/provider/claude-agent/index"
-import { Provider } from "@xccode/core/provider"
-import { Session } from "@xccode/core/session"
-import { SessionInbox } from "@xccode/core/session/inbox"
+import { AISDK } from "@xiaochuan/core/aisdk"
+import { Agent } from "@xiaochuan/core/agent"
+import { Bus } from "@xiaochuan/core/bus"
+import type { ClaudeIO } from "@xiaochuan/core/plugin/provider/claude-agent/claude/io"
+import { ClaudeSessions } from "@xiaochuan/core/plugin/provider/claude-agent/claude/sessions"
+import { RequestKind } from "@xiaochuan/core/plugin/provider/claude-agent/language-model/request-kind"
+import { ClaudeSystemPrompt } from "@xiaochuan/core/plugin/provider/claude-agent/language-model/system-prompt"
+import { ClaudeIntegration } from "@xiaochuan/core/plugin/provider/claude-agent/integration"
+import { ClaudeProvider } from "@xiaochuan/core/plugin/provider/claude-agent/provider"
+import { Credential } from "@xiaochuan/core/credential"
+import { Database } from "@xiaochuan/core/database/database"
+import { Environment, makeFiles } from "@xiaochuan/core/environment/index"
+import { EnvironmentUnavailable } from "@xiaochuan/core/environment/unavailable"
+import { Integration } from "@xiaochuan/core/integration"
+import { KV } from "@xiaochuan/core/kv"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { Money } from "@xiaochuan/schema/money"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { ID, make } from "@xiaochuan/core/plugin/provider/claude-agent/index"
+import { Provider } from "@xiaochuan/core/provider"
+import { Session } from "@xiaochuan/core/session"
+import { SessionInbox } from "@xiaochuan/core/session/inbox"
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
 import os from "node:os"
@@ -41,7 +41,7 @@ const it = testEffect(PluginTestLayer)
 const integrationID = Integration.ID.make(ClaudeProvider.ID)
 const haiku = Model.Ref.make({ providerID: ClaudeProvider.ID, id: Model.ID.make("haiku") })
 
-// The registry outlives the plugin's scope in xccode, so each test closes its own, as an exiting xccode would.
+// The registry outlives the plugin's scope in xiaochuan, so each test closes its own, as an exiting xiaochuan would.
 const addPlugin = Effect.fn(function* (io: ClaudeIO.Interface) {
   const registry = ClaudeSessions.registry()
   yield* Effect.addFinalizer(() => registry.close())
@@ -119,7 +119,7 @@ const sonnetCost = Effect.fn(function* (account: AccountInfo, env?: Record<strin
 })
 
 describe("ClaudeAgentPlugin", () => {
-  it.live("skips where xccode cannot start local processes", () =>
+  it.live("skips where xiaochuan cannot start local processes", () =>
     Effect.gen(function* () {
       const claude = FakeClaude.make([])
       yield* addPlugin(FakeIO.make({ claude })).pipe(
@@ -469,7 +469,7 @@ describe("ClaudeAgentPlugin session hooks", () => {
         undefined,
       ])
 
-      // Compaction keeps Xccode's summary budget.
+      // Compaction keeps Xiaochuan's summary budget.
       const compaction = yield* hooks.trigger("session", "compaction", hookEvent(session.id))
       expect(compaction.options.maxTokens).toBe(32_000)
     }),
@@ -490,14 +490,14 @@ describe("ClaudeAgentPlugin session hooks", () => {
     }),
   )
 
-  it.live("passes xccode's instructions to Claude, except the date and environment Claude Code writes itself", () =>
+  it.live("passes xiaochuan's instructions to Claude, except the date and environment Claude Code writes itself", () =>
     Effect.gen(function* () {
       yield* addPlugin(FakeIO.make({ claude: FakeClaude.make([]) }))
       yield* addAgents
       const hooks = yield* PluginHooks.Service
       const event = hookEvent((yield* newSession).id)
       event.system = [
-        SystemPart.make("XCCODE-PROMPT"),
+        SystemPart.make("XIAOCHUAN-PROMPT"),
         {
           ...SystemPart.make("JOINED-INSTRUCTIONS"),
           metadata: {
@@ -588,7 +588,7 @@ describe("ClaudeAgentPlugin provider config", () => {
       )
       expect(TestSessions.text(yield* Effect.promise(() => TestSessions.collect(result.stream)))).toBe("COPPER-OTTER")
 
-      // Model settings override the provider's, and only configured headers are sent, not xccode's own
+      // Model settings override the provider's, and only configured headers are sent, not xiaochuan's own
       const chat = claude.runs.find((run) => run.args.includes("--include-partial-messages"))!.env
       expect(chat.ANTHROPIC_BASE_URL).toBe("https://haiku-gateway.example")
       expect(chat.CLAUDE_CONFIG_DIR).toBe(path.join(os.homedir(), ".claude-work"))

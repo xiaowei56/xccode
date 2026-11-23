@@ -3,8 +3,8 @@ import { createHash } from "node:crypto"
 import fs from "node:fs/promises"
 import path from "node:path"
 import { expect } from "bun:test"
-import { Xccode, type SessionMessageInfo } from "@xccode/client"
-import { Session } from "@xccode/schema/session"
+import { Xiaochuan, type SessionMessageInfo } from "@xiaochuan/client"
+import { Session } from "@xiaochuan/schema/session"
 import { Effect } from "effect"
 import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
 import { it } from "../../core/test/lib/effect"
@@ -74,23 +74,23 @@ const serve = (database: string, mediaBlob: boolean) =>
   })
 
 const client = (handler: (request: Request) => Promise<Response>, capabilities?: string) =>
-  Xccode.make({
-    baseUrl: "http://xccode.local",
-    ...(capabilities === undefined ? {} : { headers: { "X-Xccode-Capabilities": capabilities } }),
+  Xiaochuan.make({
+    baseUrl: "http://xiaochuan.local",
+    ...(capabilities === undefined ? {} : { headers: { "X-Xiaochuan-Capabilities": capabilities } }),
     fetch: Object.assign((input: string | URL | Request, init?: RequestInit) => handler(new Request(input, init)), {
       preconnect: fetch.preconnect,
     }),
   })
 
 const media = (base64: string) => `media:${hash(base64)}`
-const route = (base64: string) => `http://xccode.local/api/experimental/media/${hash(base64)}`
+const route = (base64: string) => `http://xiaochuan.local/api/experimental/media/${hash(base64)}`
 
 it.live("serves stored media as refs only to clients that opt in while experimental.media_blob is on", () =>
   Effect.gen(function* () {
     // Acquired first so it is removed after the servers below are released; Windows can't delete an open db.
-    const dir = (yield* tmpdirScoped("xccode-media-wire-")).path
+    const dir = (yield* tmpdirScoped("xiaochuan-media-wire-")).path
     yield* Effect.gen(function* () {
-      const database = path.join(dir, "xccode.db")
+      const database = path.join(dir, "xiaochuan.db")
       const handler = yield* serve(database, true)
       const plain = client(handler)
       const opted = client(handler, "other, Experimental-Media-URI")
@@ -184,11 +184,11 @@ it.live("serves stored media as refs only to clients that opt in while experimen
         expect(cached.headers.get("etag")).toBe(`"${hash(png)}"`)
         expect((await cached.arrayBuffer()).byteLength).toBe(0)
         for (const invalid of ["deadbeef", "A".repeat(64), "g".repeat(64)])
-          expect((await handler(new Request(`http://xccode.local/api/experimental/media/${invalid}`))).status).toBe(
+          expect((await handler(new Request(`http://xiaochuan.local/api/experimental/media/${invalid}`))).status).toBe(
             400,
           )
         expect(
-          (await handler(new Request(`http://xccode.local/api/experimental/media/${"0".repeat(64)}`))).status,
+          (await handler(new Request(`http://xiaochuan.local/api/experimental/media/${"0".repeat(64)}`))).status,
         ).toBe(404)
         expect(Buffer.from(await opted.experimental.media.get({ hash: hash(png) })).toString("base64")).toBe(png)
 
@@ -282,15 +282,15 @@ it.live("serves stored media as refs only to clients that opt in while experimen
 
 it.live("follows experimental.media_blob from the session's project config and serves only referenced blobs", () =>
   Effect.gen(function* () {
-    const dir = (yield* tmpdirScoped("xccode-media-project-")).path
+    const dir = (yield* tmpdirScoped("xiaochuan-media-project-")).path
     yield* Effect.gen(function* () {
-      const database = path.join(dir, "xccode.db")
+      const database = path.join(dir, "xiaochuan.db")
       const global = path.join(dir, "global")
       const project = path.join(dir, "project")
       yield* Effect.promise(async () => {
         await fs.mkdir(global, { recursive: true })
         await fs.mkdir(project, { recursive: true })
-        await fs.writeFile(path.join(project, "xccode.json"), JSON.stringify({ experimental: { media_blob: true } }))
+        await fs.writeFile(path.join(project, "xiaochuan.json"), JSON.stringify({ experimental: { media_blob: true } }))
       })
       // The flag lives only in the project's config; the server's cwd and global config leave it off.
       const handler = yield* ServerFetch.make({

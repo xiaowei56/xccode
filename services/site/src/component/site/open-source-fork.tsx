@@ -13,11 +13,11 @@ import { siteSettings } from "./settings"
 // after `gh repo fork --clone`. Output lines are what gh and git print (gh's "✓" marks left out: OpenTUI
 // Mono has no check mark); comments explain.
 const transcript = [
-  { kind: "command", text: "gh repo fork xiaowei56/xccode --clone" },
-  { kind: "output", text: "Created fork you/xccode" },
-  { kind: "output", text: "Cloning into 'xccode'..." },
+  { kind: "command", text: "gh repo fork xiaowei56/xiaochuan --clone" },
+  { kind: "output", text: "Created fork you/xiaochuan" },
+  { kind: "output", text: "Cloning into 'xiaochuan'..." },
   { kind: "output", text: "Cloned fork" },
-  { kind: "command", text: "cd xccode" },
+  { kind: "command", text: "cd xiaochuan" },
   { kind: "command", text: "bun install" },
   { kind: "comment", text: "# Bun 1.3 or newer" },
   { kind: "command", text: "bun dev ." },
@@ -26,7 +26,7 @@ const transcript = [
 
 /**
  * Settings › Open source variant "fork": a "fork it" block under the open source proof. A short
- * terminal transcript of forking and running Xccode types in, line by line, the first time it
+ * terminal transcript of forking and running Xiaochuan types in, line by line, the first time it
  * scrolls into view (the shared entrance, reveal.ts, in its "type" style; static with reduced
  * motion), beside three things a fork lets you do. In development it always renders and the
  * section's data-oss-variant (set before first paint from Settings) shows it; production renders it
@@ -115,7 +115,7 @@ export function OpenSourceFork() {
           <h4>{i18n.t("home.fork.agents.title")}</h4>
           <p>
             <Rich
-              value={rich(i18n.t("home.fork.agents.body"), { plugins: `https://xccode.ai${docsUrl("/plugins/")}` })}
+              value={rich(i18n.t("home.fork.agents.body"), { plugins: `https://xiaochuan.ai${docsUrl("/plugins/")}` })}
             />
           </p>
         </li>

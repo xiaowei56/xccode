@@ -1,1 +1,1 @@
-export { Rpc } from "@xccode/schema/rpc"
+export { Rpc } from "@xiaochuan/schema/rpc"

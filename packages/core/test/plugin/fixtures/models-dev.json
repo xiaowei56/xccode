@@ -31,13 +31,13 @@
           "generate-content": {
             "base_url": "https://api.acme.test/v1",
             "sdk": {
-              "xccodeai": "@xccode/ai/providers/google"
+              "xiaochuanai": "@xiaochuan/ai/providers/google"
             }
           },
           "interactions": {
             "base_url": "https://api.acme.test/v1beta",
             "sdk": {
-              "xccodeai": "@xccode/ai/providers/google/interactions"
+              "xiaochuanai": "@xiaochuan/ai/providers/google/interactions"
             }
           }
         }
@@ -50,9 +50,9 @@
     "env": [],
     "models": {}
   },
-  "xccode": {
-    "id": "xccode",
-    "name": "Xccode",
+  "xiaochuan": {
+    "id": "xiaochuan",
+    "name": "Xiaochuan",
     "env": [],
     "models": {
       "gpt-5.5": {
@@ -80,7 +80,7 @@
         },
         "api": {
           "responses": {
-            "base_url": "https://console.xccode.ai/inference/openai/v1",
+            "base_url": "https://console.xiaochuan.ai/inference/openai/v1",
             "sdk": {
               "aisdk": "@ai-sdk/openai"
             }

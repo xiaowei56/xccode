@@ -243,10 +243,10 @@
       }
     }
   },
-  "xccode-go": {
-    "id": "xccode-go",
-    "name": "Xccode Go",
-    "env": ["XCCODE_API_KEY"],
+  "xiaochuan-go": {
+    "id": "xiaochuan-go",
+    "name": "Xiaochuan Go",
+    "env": ["XIAOCHUAN_API_KEY"],
     "models": {
       "minimax-m3": {
         "id": "minimax-m3",

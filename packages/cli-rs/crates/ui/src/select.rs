@@ -47,7 +47,7 @@ pub enum Detail {
 }
 
 /// `DialogSelectChoice`: the trailing value of a row that can be changed. The selected row shows how: `‹ dark ›`
-/// cycles with ←/→, `xccode ↵` opens a picker. Other rows pad the value to the same width so it does not shift
+/// cycles with ←/→, `xiaochuan ↵` opens a picker. Other rows pad the value to the same width so it does not shift
 /// as the selection moves. The value extends two cells into the row's right padding, so it ends where plain
 /// footers do.
 #[derive(Clone, Debug, PartialEq)]

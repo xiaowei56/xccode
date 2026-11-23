@@ -2,13 +2,13 @@ import fs from "fs/promises"
 import path from "path"
 import { describe, expect, test } from "bun:test"
 import { Effect, Layer, Schema } from "effect"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Environment } from "@xccode/core/environment/index"
-import { Location } from "@xccode/core/location"
-import { FileAccess } from "@xccode/core/file-access"
-import { Permission } from "@xccode/core/permission"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Global } from "@xccode/util/global"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Environment } from "@xiaochuan/core/environment/index"
+import { Location } from "@xiaochuan/core/location"
+import { FileAccess } from "@xiaochuan/core/file-access"
+import { Permission } from "@xiaochuan/core/permission"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Global } from "@xiaochuan/util/global"
 import { tmpdirScoped, withTempDir } from "./fixture/tmpdir"
 import { location } from "./fixture/location"
 import { it } from "./lib/effect"
@@ -95,7 +95,7 @@ describe("FileAccess.resolve", () => {
   it.live("allows a relative path outside the Location but inside the project worktree", () =>
     withTempDir(({ path: directory }) =>
       Effect.gen(function* () {
-        const active = path.join(directory, "packages", "xccode")
+        const active = path.join(directory, "packages", "xiaochuan")
         yield* Effect.promise(() => fs.mkdir(active, { recursive: true }))
         const access = yield* FileAccess.Service
         const target = yield* access.resolve({ path: "../../README.md" })
@@ -104,7 +104,7 @@ describe("FileAccess.resolve", () => {
           resource: "../../README.md",
         })
         expect(target.externalDirectory).toBeUndefined()
-      }).pipe(provide(path.join(directory, "packages", "xccode"), directory)),
+      }).pipe(provide(path.join(directory, "packages", "xiaochuan"), directory)),
     ),
   )
 

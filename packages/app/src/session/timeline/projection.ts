@@ -1,6 +1,6 @@
-import { createReactiveTimelineProjection } from "@xccode/session-ui/timeline/projection"
+import { createReactiveTimelineProjection } from "@xiaochuan/session-ui/timeline/projection"
 
-export { reuseTimelineRows } from "@xccode/session-ui/timeline/projection"
+export { reuseTimelineRows } from "@xiaochuan/session-ui/timeline/projection"
 
 export function createTimelineProjection(input: Parameters<typeof createReactiveTimelineProjection>[0]) {
   return createReactiveTimelineProjection(input)

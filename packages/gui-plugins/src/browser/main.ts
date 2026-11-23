@@ -1,6 +1,6 @@
 import path from "node:path"
-import { builtinMainContext } from "@xccode/plugin/gui/builtin"
-import { MenubarItem, type Plugin } from "@xccode/plugin/gui/main"
+import { builtinMainContext } from "@xiaochuan/plugin/gui/builtin"
+import { MenubarItem, type Plugin } from "@xiaochuan/plugin/gui/main"
 import { BrowserHistory } from "./history/ipc"
 import type { HistoryStore } from "./history/store"
 import type { Pane } from "./pane"

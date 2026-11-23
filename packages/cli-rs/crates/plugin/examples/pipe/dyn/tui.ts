@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs"
 export default {
   id: "example.dyn",
   setup(api: any) {
-    const carrier = api[Symbol.for("xccode.carrier")]
+    const carrier = api[Symbol.for("xiaochuan.carrier")]
     const count = Number(readFileSync(api.options.file, "utf8")) || 0
     for (let index = 1; index <= count; index++) {
       const name = `dyn.c${index}`

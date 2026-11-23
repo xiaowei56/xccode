@@ -5,7 +5,7 @@ use std::path::{Component, Path, PathBuf};
 
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
-use xccode_util::path::Flavor;
+use xiaochuan_util::path::Flavor;
 
 const ATTACH_FILE_MAX_BYTES: u64 = 10 * 1024 * 1024;
 
@@ -152,7 +152,7 @@ mod tests {
     fn a_non_utf8_directory_reads_its_own_file() {
         use std::os::unix::ffi::OsStrExt;
         // A lossy directory name would be the second one, which holds another `notes.txt`.
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let selected = dir.path().join(std::ffi::OsStr::from_bytes(b"sample-\xff"));
         let other = dir.path().join("sample-\u{fffd}");
         for (directory, text) in [(&selected, "selected"), (&other, "other")] {
@@ -166,7 +166,7 @@ mod tests {
     #[cfg(unix)]
     #[test]
     fn a_fifo_fails_without_a_writer_and_a_symlink_attaches() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let root = dir.path().to_owned();
         assert!(std::process::Command::new("mkfifo").arg(root.join("attachment.txt")).status().unwrap().success());
         std::fs::write(root.join("context.txt"), "attached context").unwrap();

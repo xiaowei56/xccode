@@ -4,28 +4,28 @@ import fs from "fs/promises"
 import path from "path"
 import { and, eq, isNull } from "drizzle-orm"
 import { Context, Effect, Exit, Fiber, Layer, Queue, Scope, Stream } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Git } from "@xccode/core/git"
-import { Database } from "@xccode/core/database/database"
-import { Bus } from "@xccode/core/bus"
-import { Project } from "@xccode/core/project"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { Worktree } from "@xccode/core/worktree"
-import { WorktreeStrategies } from "@xccode/core/worktree/strategies"
-import { WorktreeDirectory } from "@xccode/core/worktree/directory"
-import { WorktreeTable } from "@xccode/core/worktree/sql"
-import { WorktreeGit } from "@xccode/core/worktree/git"
-import { Location } from "@xccode/core/location"
-import { Global } from "@xccode/util/global"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Config } from "@xccode/core/config"
-import { ConfigWorktreePlugin } from "@xccode/core/config/plugin/worktree"
-import { ConfigNormalize } from "@xccode/core/config/normalize"
-import { Document, Event, Info } from "@xccode/schema/config"
-import { EventManifest } from "@xccode/schema/event-manifest"
-import { Workspace } from "@xccode/schema/workspace"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Git } from "@xiaochuan/core/git"
+import { Database } from "@xiaochuan/core/database/database"
+import { Bus } from "@xiaochuan/core/bus"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { Worktree } from "@xiaochuan/core/worktree"
+import { WorktreeStrategies } from "@xiaochuan/core/worktree/strategies"
+import { WorktreeDirectory } from "@xiaochuan/core/worktree/directory"
+import { WorktreeTable } from "@xiaochuan/core/worktree/sql"
+import { WorktreeGit } from "@xiaochuan/core/worktree/git"
+import { Location } from "@xiaochuan/core/location"
+import { Global } from "@xiaochuan/util/global"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Config } from "@xiaochuan/core/config"
+import { ConfigWorktreePlugin } from "@xiaochuan/core/config/plugin/worktree"
+import { ConfigNormalize } from "@xiaochuan/core/config/normalize"
+import { Document, Event, Info } from "@xiaochuan/schema/config"
+import { EventManifest } from "@xiaochuan/schema/event-manifest"
+import { Workspace } from "@xiaochuan/schema/workspace"
 import { host } from "./plugin/host"
 import { initRepo } from "./fixture/git"
 import { tmpdir, tmpdirScoped } from "./fixture/tmpdir"
@@ -280,7 +280,7 @@ describe("Worktree", () => {
         .set({
           commands: {
             start:
-              "bun -e \"await Bun.write('setup.json', JSON.stringify([process.env.XCCODE_WORKTREE_BASE, process.env.XCCODE_WORKTREE_PATH, process.cwd()]))\"",
+              "bun -e \"await Bun.write('setup.json', JSON.stringify([process.env.XIAOCHUAN_WORKTREE_BASE, process.env.XIAOCHUAN_WORKTREE_PATH, process.cwd()]))\"",
           },
         })
         .where(eq(ProjectTable.id, input.projectID))
@@ -311,7 +311,7 @@ describe("Worktree", () => {
         await $`git remote add origin git@github.com:owner/repo.git`.cwd(main).quiet()
         await $`git clone --no-hardlinks ${main} ${clone}`.quiet()
         await $`git remote set-url origin https://github.com/owner/repo.git`.cwd(clone).quiet()
-        await $`git -c user.name=Test -c user.email=test@xccode.test -c commit.gpgsign=false commit --allow-empty -m clone`
+        await $`git -c user.name=Test -c user.email=test@xiaochuan.test -c commit.gpgsign=false commit --allow-empty -m clone`
           .cwd(clone)
           .quiet()
       })
@@ -326,7 +326,7 @@ describe("Worktree", () => {
       yield* config.setEntries([
         new Document({
           type: "document",
-          path: abs(path.join(root.path, "global/xccode.json")),
+          path: abs(path.join(root.path, "global/xiaochuan.json")),
           info: new Info({ worktree: { directory: ".lane/trees" } }),
         }),
       ])
@@ -335,7 +335,7 @@ describe("Worktree", () => {
         projectID: initial.id,
         commands: {
           start:
-            "bun -e \"await Bun.write('setup.json', JSON.stringify([process.env.XCCODE_WORKTREE_BASE, process.env.XCCODE_WORKTREE_PATH, process.cwd()]))\"",
+            "bun -e \"await Bun.write('setup.json', JSON.stringify([process.env.XIAOCHUAN_WORKTREE_BASE, process.env.XIAOCHUAN_WORKTREE_PATH, process.cwd()]))\"",
         },
       })
 
@@ -896,12 +896,12 @@ describe("Worktree", () => {
       const documents = [
         new Document({
           type: "document",
-          path: abs(path.join(input.root.path, "xccode.json")),
+          path: abs(path.join(input.root.path, "xiaochuan.json")),
           info: new Info({ worktree: { directory: "outer" } }),
         }),
         new Document({
           type: "document",
-          path: abs(path.join(input.root.path, "nested/xccode.json")),
+          path: abs(path.join(input.root.path, "nested/xiaochuan.json")),
           info: new Info({ worktree: { directory: "copies" } }),
         }),
       ]
@@ -952,7 +952,7 @@ describe("Worktree", () => {
         yield* config.setEntries([
           new Document({
             type: "document",
-            path: abs(path.join(home, ".config/xccode/xccode.json")),
+            path: abs(path.join(home, ".config/xiaochuan/xiaochuan.json")),
             info: new Info({ worktree: { directory } }),
           }),
         ])

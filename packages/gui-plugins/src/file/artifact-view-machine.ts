@@ -1,5 +1,5 @@
-import type { FileContent } from "@xccode/plugin/gui"
-import { artifactKind, type ArtifactKind } from "@xccode/util/artifact"
+import type { FileContent } from "@xiaochuan/plugin/gui"
+import { artifactKind, type ArtifactKind } from "@xiaochuan/util/artifact"
 
 export type ArtifactMode = "preview" | "source"
 

@@ -1,18 +1,18 @@
 ---
 title: "CLI intro"
-description: "Start the Xccode terminal interface, run prompts from scripts and CI, and manage the shared background service."
+description: "Start the Xiaochuan terminal interface, run prompts from scripts and CI, and manage the shared background service."
 ---
 
 Run the CLI in a project to open the full-screen terminal interface:
 
 ```bash
-xccode
+xiaochuan
 ```
 
 Pass a directory to work in a different project:
 
 ```bash
-xccode ~/code/my-project
+xiaochuan ~/code/my-project
 ```
 
 Suggested terminals:
@@ -27,44 +27,44 @@ palette.
 
 ## Automation
 
-Use `xccode run` to submit a prompt without opening the interactive interface. It is designed for scripts, CI jobs, and
+Use `xiaochuan run` to submit a prompt without opening the interactive interface. It is designed for scripts, CI jobs, and
 other workflows that need model output directly in the terminal.
 
 ```bash
-xccode run "Explain this repository"
+xiaochuan run "Explain this repository"
 ```
 
 ## Mini
 
-Use `xccode mini` to start Xccode's minimal interactive interface instead of the full-screen TUI.
+Use `xiaochuan mini` to start Xiaochuan's minimal interactive interface instead of the full-screen TUI.
 
 ```bash
-xccode mini
+xiaochuan mini
 ```
 
-Run `xccode mini --help` to see its session, model, agent, prompt, and replay options.
+Run `xiaochuan mini --help` to see its session, model, agent, prompt, and replay options.
 
 ## Background service
 
-By default, Xccode discovers or starts one shared background server for your user account. Every local Xccode client
+By default, Xiaochuan discovers or starts one shared background server for your user account. Every local Xiaochuan client
 connects to that server, which owns sessions, configuration, integrations, permissions, and tool execution.
 
 Use `--standalone` to run with a private server, or `--server` to connect to a specific server URL:
 
 ```bash
-xccode --standalone
-xccode --server http://localhost:4096
+xiaochuan --standalone
+xiaochuan --server http://localhost:4096
 ```
 
 To make private servers the default for CLI commands instead of starting the shared service, disable it:
 
 ```bash
-xccode service set disabled true
-xccode
+xiaochuan service set disabled true
+xiaochuan
 ```
 
-This stops the running background service. `--server` still connects to an explicitly selected server; `xccode service start`
-can still start the shared service explicitly. To return to automatic service use, run `xccode service unset disabled`.
+This stops the running background service. `--server` still connects to an explicitly selected server; `xiaochuan service start`
+can still start the shared service explicitly. To return to automatic service use, run `xiaochuan service unset disabled`.
 Pairing requires the shared service and is unavailable while it is disabled.
 
 See [Troubleshooting](/troubleshooting) for shared service diagnostics and the [API reference](/api) for server endpoints.
@@ -74,18 +74,18 @@ See [Troubleshooting](/troubleshooting) for shared service diagnostics and the [
 Print a specific local path for use with other tools:
 
 ```bash
-xccode debug paths db
-sqlite3 "$(xccode debug paths db)"
+xiaochuan debug paths db
+sqlite3 "$(xiaochuan debug paths db)"
 ```
 
 The optional selector accepts `db`, `home`, `data`, `config`, `cache`, `state`, `tmp`, `bin`, `log`, or `repos` and prints
-only the path and a newline. The database path respects the release channel and `XCCODE_DB`; relative database overrides
+only the path and a newline. The database path respects the release channel and `XIAOCHUAN_DB`; relative database overrides
 resolve under the data directory, and `:memory:` is printed as-is. This command does not start a server or open the database.
 
 Omit the selector to show all paths with labels:
 
 ```bash
-xccode debug paths
+xiaochuan debug paths
 ```
 
 ## Uninstall
@@ -93,11 +93,11 @@ xccode debug paths
 Preview the files and installation that will be removed:
 
 ```bash
-xccode uninstall --dry-run
+xiaochuan uninstall --dry-run
 ```
 
-Run `xccode uninstall` to confirm removal. Xccode stops registered background services and persistent terminals before
-removing the global cache directory, which is shared by Xccode versions and channels. Session data, configuration, and
+Run `xiaochuan uninstall` to confirm removal. Xiaochuan stops registered background services and persistent terminals before
+removing the global cache directory, which is shared by Xiaochuan versions and channels. Session data, configuration, and
 state are never removed.
 
 - `--force` (`-f`) skips confirmation; use it for noninteractive removal.

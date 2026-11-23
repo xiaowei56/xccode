@@ -1,8 +1,8 @@
 use std::cell::Cell;
 use std::rc::Rc;
 
-use xccode_ui::keymap::{Keybinds, Options};
-use xccode_ui::theme::{Catalog, ThemeMode};
+use xiaochuan_ui::keymap::{Keybinds, Options};
+use xiaochuan_ui::theme::{Catalog, ThemeMode};
 use opentui::testing::TestApp;
 
 use super::slot::{self, Placed, Placement, Resolution};
@@ -23,7 +23,7 @@ impl Host for TestHost {
     }
 
     fn theme(&self) -> Theme {
-        Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme
+        Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme
     }
 
     fn keymap(&self) -> &DialogKeymap {
@@ -121,12 +121,12 @@ fn resolve_degrades_missing_targets_to_the_nearest_ancestor() {
 #[test]
 fn selectors_match_as_in_ts() {
     let cases = [
-        ("*", "xccode.stats", true),
-        ("xccode.stats", "xccode.stats", true),
-        ("xccode.sidebar.*", "xccode.sidebar.todo", true),
-        ("xccode.sidebar.*", "xccode.stats", false),
-        ("xccode.side*", "xccode.sidebar.todo", false),
-        ("xccode.stat", "xccode.stats", false),
+        ("*", "xiaochuan.stats", true),
+        ("xiaochuan.stats", "xiaochuan.stats", true),
+        ("xiaochuan.sidebar.*", "xiaochuan.sidebar.todo", true),
+        ("xiaochuan.sidebar.*", "xiaochuan.stats", false),
+        ("xiaochuan.side*", "xiaochuan.sidebar.todo", false),
+        ("xiaochuan.stat", "xiaochuan.stats", false),
     ];
     for (selector, id, expected) in cases {
         assert_eq!(matches(selector, id), expected, "{selector} {id}");

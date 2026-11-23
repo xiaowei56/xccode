@@ -3,10 +3,10 @@ import { Portal } from "solid-js/web"
 import { Option, Schema } from "effect"
 import { createRemoteControls, type ControlDescriptor, type State, type Value } from "knobs"
 import { KnobsPanel } from "knobs/solid"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { springStyle } from "@xccode/ui/motion/solid"
-import { motionPresets, motionTuning, type MotionKnob } from "@xccode/ui/motion-tuning"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { springStyle } from "@xiaochuan/ui/motion/solid"
+import { motionPresets, motionTuning, type MotionKnob } from "@xiaochuan/ui/motion-tuning"
 import {
   activeFeaturePreset,
   applyFeaturePreset,
@@ -17,9 +17,9 @@ import {
   reset,
   resetFeature,
   type MotionFeature,
-} from "@xccode/ui/motion-tuning-features"
-import { applyMotion } from "@xccode/ui/motion-tuning-fields"
-import { usePlugin } from "@xccode/plugin/gui"
+} from "@xiaochuan/ui/motion-tuning-features"
+import { applyMotion } from "@xiaochuan/ui/motion-tuning-fields"
+import { usePlugin } from "@xiaochuan/plugin/gui"
 import {
   createMotionState,
   MOTION_WIDE_AT,
@@ -37,7 +37,7 @@ import {
 
 // Where the panel was dragged to, as an offset from its bottom-right home, its width, and the feature it last showed;
 // kept per device.
-const key = "xccode.motion.panel"
+const key = "xiaochuan.motion.panel"
 
 const SavedPanel = Schema.fromJsonString(
   Schema.Struct({
@@ -516,7 +516,7 @@ function FeatureKnobs(props: {
     applyMotion(item, value as MotionKnob["value"])
   }
 
-  const controls = createRemoteControls(`xccode-motion-${group}`, descriptors, {
+  const controls = createRemoteControls(`xiaochuan-motion-${group}`, descriptors, {
     values: values(),
     // Beta is a production build, where knobs resolves its production entry: the panel mounts only when shipped.
     ship: () => import("knobs/panel"),

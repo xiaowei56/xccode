@@ -2,8 +2,8 @@ import { describe, expect, test } from "bun:test"
 import { chmod, stat, writeFile } from "node:fs/promises"
 import path from "path"
 import { Effect, Layer } from "effect"
-import { Database } from "@xccode/core/database/database"
-import { Global } from "@xccode/util/global"
+import { Database } from "@xiaochuan/core/database/database"
+import { Global } from "@xiaochuan/util/global"
 import { tmpdir } from "./fixture/tmpdir"
 
 // Read while the connection is open: SQLite may remove the sidecars on close.
@@ -21,12 +21,12 @@ describe.skipIf(process.platform === "win32")("Database file permissions", () =>
   test("creates the database and sidecars readable only by the owner", async () => {
     await using tmp = await tmpdir()
 
-    expect(await openModes(path.join(tmp.path, "xccode.db"))).toEqual([0o600, 0o600, 0o600])
+    expect(await openModes(path.join(tmp.path, "xiaochuan.db"))).toEqual([0o600, 0o600, 0o600])
   })
 
   test("tightens an existing database and sidecars", async () => {
     await using tmp = await tmpdir()
-    const filename = path.join(tmp.path, "xccode.db")
+    const filename = path.join(tmp.path, "xiaochuan.db")
     await Promise.all(
       ["", "-wal", "-shm"].map(async (suffix) => {
         await writeFile(filename + suffix, "")

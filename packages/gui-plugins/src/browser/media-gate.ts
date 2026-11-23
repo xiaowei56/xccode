@@ -4,11 +4,11 @@ import { originOf, type PermissionKind } from "./site-permissions"
 
 // Holds a page's getUserMedia until the pane decided it. Blink reads the capabilities of every microphone before it
 // asks the browser for permission (UserMediaProcessor::SetupAudioInput), and on macOS reading them opens the device,
-// which makes the system ask whether Xccode may use it: the system's prompt would come before the site's bar. The
+// which makes the system ask whether Xiaochuan may use it: the system's prompt would come before the site's bar. The
 // page's call therefore asks the pane first, through a CDP binding, and reaches Blink only once the pane lets it.
 // A page that works around the wrapper only gets the old order: the site's own request still needs the user's Allow.
 
-const BINDING = "xccodeMediaGate"
+const BINDING = "xiaochuanMediaGate"
 
 const Ask = Schema.fromJsonString(
   Schema.Struct({ id: Schema.Int.check(Schema.isGreaterThan(0)), audio: Schema.Boolean, video: Schema.Boolean }),
@@ -70,7 +70,7 @@ export function mediaGateScript(answer: string) {
  * own session or in an out-of-process frame's.
  */
 export function guardMediaRequests(cdp: Cdp, decide: (ask: MediaAsk) => Promise<boolean>) {
-  const answer = `xccodeMediaAnswer${crypto.randomUUID().replaceAll("-", "")}`
+  const answer = `xiaochuanMediaAnswer${crypto.randomUUID().replaceAll("-", "")}`
   // Each execution context's origin and frame, by session and id, so a held call is decided for its real document.
   const contexts = new Map<string, { readonly origin: string; readonly frameId?: string }>()
   const key = (sessionID: string | undefined, id: number) => `${sessionID ?? ""}\n${id}`

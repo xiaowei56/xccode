@@ -1,14 +1,14 @@
 //! Headless simulation endpoint.
 
 use crate::app::{Launch, Tui};
-use xccode_drive::Manifest;
+use xiaochuan_drive::Manifest;
 use opentui::app::HeadlessOptions;
 use opentui::{App, AppOptions};
 use std::net::SocketAddr;
 use std::rc::Rc;
 
 pub fn manifest() -> Option<opentui::Result<Manifest>> {
-    xccode_drive::manifest::resolve(|name| std::env::var(name).ok())
+    xiaochuan_drive::manifest::resolve(|name| std::env::var(name).ok())
         .map(|manifest| manifest.map_err(opentui::Error::other))
 }
 
@@ -24,11 +24,11 @@ pub fn run(manifest: Manifest, options: AppOptions, launch: Launch) -> opentui::
     let version = launch.args.version.clone();
     crate::app::run_on(app, launch, |tui| {
         let server = start(tui, manifest.ui_addr(), version)?;
-        eprintln!("xccode drive ui websocket: {}", server.url());
+        eprintln!("xiaochuan drive ui websocket: {}", server.url());
         Ok(())
     })
 }
 
-pub fn start(tui: &Rc<Tui>, addr: SocketAddr, version: String) -> std::io::Result<xccode_drive::Server> {
-    xccode_drive::start(&tui.app, addr, version)
+pub fn start(tui: &Rc<Tui>, addr: SocketAddr, version: String) -> std::io::Result<xiaochuan_drive::Server> {
+    xiaochuan_drive::start(&tui.app, addr, version)
 }

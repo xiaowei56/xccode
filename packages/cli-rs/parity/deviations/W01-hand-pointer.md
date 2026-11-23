@@ -19,7 +19,7 @@ A tool row, a reasoning header, or a dialog action that is not clickable in its 
 The pane resize handle shows the resize shape (`OSC 22;ew-resize`). Text, the transcript around these elements,
 the prompt and other inputs, the terminal pane, and dialog backdrops keep the default pointer.
 
-`xccode_ui::click_pointer` picks the shape; the shared helpers (select rows, dialog footer actions and close,
+`xiaochuan_ui::click_pointer` picks the shape; the shared helpers (select rows, dialog footer actions and close,
 toasts, `sidebar::on_click`, the inline and block tool rows) set it, so new elements built on them get it too.
 
 Reason: a hand over tabs and every other clickable element, as a deliberate

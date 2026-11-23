@@ -1,8 +1,8 @@
-import type { Data } from "@xccode/client/solid"
-import { isSessionNotFoundError, type XccodeEvent, type SessionInfo } from "@xccode/client/promise"
+import type { Data } from "@xiaochuan/client/solid"
+import { isSessionNotFoundError, type XiaochuanEvent, type SessionInfo } from "@xiaochuan/client/promise"
 import { onCleanup } from "solid-js"
 import { createStore } from "solid-js/store"
-import { uuid } from "@xccode/util/uuid"
+import { uuid } from "@xiaochuan/util/uuid"
 
 type SessionMutation = { readonly id: string; readonly type: "remove"; readonly sessionID: string }
 
@@ -21,7 +21,7 @@ const SESSION_EXECUTION_ENDED = [
   "session.execution.succeeded",
   "session.execution.failed",
   "session.execution.interrupted",
-] satisfies XccodeEvent["type"][]
+] satisfies XiaochuanEvent["type"][]
 
 export function createDesktopData(input: { data: Data; remove: (sessionID: string) => Promise<void> }) {
   const mutation = createSessionMutations(input.remove)

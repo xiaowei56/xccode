@@ -1,7 +1,7 @@
 import { expect } from "bun:test"
-import { SdkPlugins } from "@xccode/core/plugin/sdk"
-import { define } from "@xccode/plugin/effect/plugin"
-import { Rpc } from "@xccode/schema/rpc"
+import { SdkPlugins } from "@xiaochuan/core/plugin/sdk"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { Rpc } from "@xiaochuan/schema/rpc"
 import { Context, Effect, Layer, Schema } from "effect"
 import { HttpEffect, HttpRouter, HttpServer } from "effect/http"
 import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
@@ -54,7 +54,7 @@ for (const method of ["handler", "schema"] as const) {
         .asHttpEffect()
         .pipe(HttpEffect.toWebHandlerWith(context))
       yield* pluginsLoaded(context, directory.path)
-      const url = new URL(`/api/rpc/broken/${method}`, "http://xccode.local")
+      const url = new URL(`/api/rpc/broken/${method}`, "http://xiaochuan.local")
       url.searchParams.set("location[directory]", directory.path)
       const response = yield* Effect.promise(() =>
         handler(

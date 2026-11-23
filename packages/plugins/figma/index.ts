@@ -1,11 +1,11 @@
-import { Plugin, Skill } from "@xccode/plugin"
+import { Plugin, Skill } from "@xiaochuan/plugin"
 import { readFile } from "node:fs/promises"
 import { fileURLToPath } from "node:url"
 import matter from "gray-matter"
 import source from "./skills-source.json" with { type: "json" }
 
 export default Plugin.define({
-  id: "xccode.figma",
+  id: "xiaochuan.figma",
   async setup(ctx) {
     await ctx.mcp.transform((editor) => {
       if (editor.get("figma")) return

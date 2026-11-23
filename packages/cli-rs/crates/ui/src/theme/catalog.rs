@@ -90,12 +90,12 @@ impl Catalog {
         }
     }
 
-    /// The generated `system` theme, or `None` to fall back to a custom `system` theme or `xccode`.
+    /// The generated `system` theme, or `None` to fall back to a custom `system` theme or `xiaochuan`.
     pub fn set_system(&mut self, source: Option<Value>) {
         self.system = source;
     }
 
-    /// Theme names in list order: the built-ins (`xccode` and `xccode-classic` after the V1 defaults), custom themes
+    /// Theme names in list order: the built-ins (`xiaochuan` and `xiaochuan-classic` after the V1 defaults), custom themes
     /// not named like a built-in, then `system`.
     pub fn names(&self) -> Vec<String> {
         let mut names = IndexSet::new();
@@ -112,7 +112,7 @@ impl Catalog {
     pub fn source(&self, name: &str) -> Option<ThemeSource<'_>> {
         if name == "system" {
             let system = self.system.as_ref().or_else(|| self.custom.get("system"));
-            return system.map(ThemeSource::Custom).or_else(|| self.source("xccode"));
+            return system.map(ThemeSource::Custom).or_else(|| self.source("xiaochuan"));
         }
         if let Some(custom) = self.custom.get(name) {
             return Some(ThemeSource::Custom(custom));

@@ -4,8 +4,8 @@ use std::sync::atomic::{AtomicU64, Ordering};
 
 use common::*;
 use futures_util::FutureExt;
-use xccode_api::generated::*;
-use xccode_store::{Data, Options, PendingStatus, Prompt, SessionStatus};
+use xiaochuan_api::generated::*;
+use xiaochuan_store::{Data, Options, PendingStatus, Prompt, SessionStatus};
 use serde_json::{Value, json};
 
 const SESSION: &str = "ses_pending";

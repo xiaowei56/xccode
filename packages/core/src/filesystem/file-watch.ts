@@ -1,9 +1,9 @@
 export * as FileWatch from "./file-watch.js"
 
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { FSUtil } from "@xccode/util/fs-util"
-import { FileSystem } from "@xccode/schema/filesystem"
-import type { Location } from "@xccode/schema/location"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { FileSystem } from "@xiaochuan/schema/filesystem"
+import type { Location } from "@xiaochuan/schema/location"
 import {
   Cause,
   Clock,
@@ -43,7 +43,7 @@ export interface Interface {
   readonly unwatch: (input: Input) => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/FileWatch") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/FileWatch") {}
 
 export const Options = Schema.Struct({
   enabled: Schema.optional(Schema.Boolean),

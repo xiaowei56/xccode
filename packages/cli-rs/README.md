@@ -1,23 +1,23 @@
-# Xccode native CLI
+# Xiaochuan native CLI
 
-The Xccode CLI and TUI in Rust, built on OpenTUI's Rust crates. It is a client of the TypeScript `xccode`
-server and talks to it over HTTP. Its binary is `xccode-native`, and it does not ship yet.
+The Xiaochuan CLI and TUI in Rust, built on OpenTUI's Rust crates. It is a client of the TypeScript `xiaochuan`
+server and talks to it over HTTP. Its binary is `xiaochuan-native`, and it does not ship yet.
 
 ## Build and run
 
 ```sh
-bun run --cwd packages/cli-rs cargo build --release --bin xccode-native
+bun run --cwd packages/cli-rs cargo build --release --bin xiaochuan-native
 ```
 
 Always run cargo through `bun run cargo`: it installs OpenTUI's native library first, and cargo reads
 `.cargo/config.toml` only inside `packages/cli-rs`.
 
-Run `target/release/xccode-native` in a project directory to open the TUI, or add `-c` to continue the last
+Run `target/release/xiaochuan-native` in a project directory to open the TUI, or add `-c` to continue the last
 session there.
 
 ## Server
 
-The client runs the server from `XCCODE_TS_BIN`, else the `xccode` beside its own executable, else `xccode` on
+The client runs the server from `XIAOCHUAN_TS_BIN`, else the `xiaochuan` beside its own executable, else `xiaochuan` on
 `PATH`. It shares sessions, the background service, and `cli.json` with the TypeScript client.
 
 ## Editor

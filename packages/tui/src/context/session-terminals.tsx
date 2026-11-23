@@ -1,4 +1,4 @@
-import type { PersistentPtyInfo } from "@xccode/client"
+import type { PersistentPtyInfo } from "@xiaochuan/client"
 import { createSignal, onCleanup } from "solid-js"
 import { createSimpleContext } from "./helper"
 import { useClient } from "./client"

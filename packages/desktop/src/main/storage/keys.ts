@@ -1,4 +1,4 @@
-export const SETTINGS_STORE = "xccode.settings"
+export const SETTINGS_STORE = "xiaochuan.settings"
 
 export const FIRST_LAUNCH_ONBOARDING_COMPLETE_KEY = "firstLaunchOnboardingComplete"
 

@@ -1,4 +1,4 @@
-import type { SessionMessageInfo } from "@xccode/client"
+import type { SessionMessageInfo } from "@xiaochuan/client"
 
 type MessageChild = {
   readonly id?: string

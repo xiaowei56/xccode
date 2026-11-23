@@ -9,7 +9,7 @@ export default definePty({
   rows: 16,
   server: server(),
   setup: (root) => config(root),
-  preface: "$ ls\r\nalpha  beta  gamma\r\n$ xccode mini\r\n",
+  preface: "$ ls\r\nalpha  beta  gamma\r\n$ xiaochuan mini\r\n",
   terminal: "kitty",
   steps: [
     { until: { screen: "Ask anything" }, settle: 800, timeout: 30_000, checkpoint: "started" },

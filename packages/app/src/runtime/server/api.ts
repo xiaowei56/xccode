@@ -1,9 +1,9 @@
-import { Xccode, withMediaRefs, type MediaRequestOptions } from "@xccode/client/promise"
+import { Xiaochuan, withMediaRefs, type MediaRequestOptions } from "@xiaochuan/client/promise"
 import type { ServerConnection } from "@/runtime/server/registry"
 import { decode64 } from "@/runtime/persistence/base64"
 
 export function authTokenFromCredentials(input: { password: string }) {
-  return btoa(`xccode:${input.password}`)
+  return btoa(`xiaochuan:${input.password}`)
 }
 
 export function authFromToken(token: string | null) {
@@ -24,7 +24,7 @@ export type ServerRequestOptions = MediaRequestOptions
 
 export function createApiForServer(input: { server: ServerConnection.HttpBase; fetch?: typeof globalThis.fetch }) {
   return withMediaRefs(
-    Xccode.make({
+    Xiaochuan.make({
       baseUrl: input.server.url,
       fetch: input.fetch,
       headers: input.server.password

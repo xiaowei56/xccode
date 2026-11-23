@@ -1,11 +1,11 @@
 export * as UsageLimits from "./usage-limits.js"
 
-import { Model } from "@xccode/schema/model"
-import { Money } from "@xccode/schema/money"
-import { Provider } from "@xccode/schema/provider"
-import { UsageLimits } from "@xccode/schema/usage-limits"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { httpClient } from "@xccode/util/effect/app-node-platform"
+import { Model } from "@xiaochuan/schema/model"
+import { Money } from "@xiaochuan/schema/money"
+import { Provider } from "@xiaochuan/schema/provider"
+import { UsageLimits } from "@xiaochuan/schema/usage-limits"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { httpClient } from "@xiaochuan/util/effect/app-node-platform"
 import { Context, Duration, Effect, Layer, Schema } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { ConsoleAccess } from "./console-access.js"
@@ -20,11 +20,11 @@ export class UnavailableError extends Schema.TaggedError<UnavailableError>()("Us
 }) {}
 
 export interface Interface {
-  /** The usage limits of the Xccode Console workspace this location is signed in to, if it is. */
+  /** The usage limits of the Xiaochuan Console workspace this location is signed in to, if it is. */
   readonly get: () => Effect.Effect<Info | undefined, UnavailableError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/UsageLimits") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/UsageLimits") {}
 
 export const layer = Layer.effect(
   Service,
@@ -33,7 +33,7 @@ export const layer = Layer.effect(
     const http = yield* HttpClient.HttpClient
 
     const get = Effect.fn("UsageLimits.get")(function* () {
-      const connection = yield* integrations.connection.active(Integration.ID.make("xccode"))
+      const connection = yield* integrations.connection.active(Integration.ID.make("xiaochuan"))
       if (!connection) return undefined
       const credential = yield* integrations.connection
         .resolve(connection)
@@ -48,7 +48,7 @@ export const layer = Layer.effect(
       ).pipe(
         Effect.timeoutOrElse({
           duration: Duration.seconds(15),
-          orElse: () => Effect.fail(new UnavailableError({ message: "Xccode Console usage limits timed out" })),
+          orElse: () => Effect.fail(new UnavailableError({ message: "Xiaochuan Console usage limits timed out" })),
         }),
       )
       return {
@@ -144,7 +144,7 @@ function readBudgets(http: HttpClient.HttpClient, server: string, credential: Cr
       ),
       Effect.scoped,
       Effect.mapError(
-        (error) => new UnavailableError({ message: `Xccode Console budgets are unavailable: ${error.message}` }),
+        (error) => new UnavailableError({ message: `Xiaochuan Console budgets are unavailable: ${error.message}` }),
       ),
     )
 }
@@ -164,7 +164,7 @@ function readGo(
       HttpClientRequest.get(`${new URL(server).origin}/zen/go/v1/usage`).pipe(
         HttpClientRequest.acceptJson,
         HttpClientRequest.bearerToken(credential.type === "oauth" ? credential.access : credential.key),
-        HttpClientRequest.setHeader("x-xccode-org-id", workspaceID),
+        HttpClientRequest.setHeader("x-xiaochuan-org-id", workspaceID),
       ),
     )
     .pipe(
@@ -182,7 +182,7 @@ function readGo(
       ),
       Effect.scoped,
       Effect.mapError(
-        (error) => new UnavailableError({ message: `Xccode Go usage is unavailable: ${error.message}` }),
+        (error) => new UnavailableError({ message: `Xiaochuan Go usage is unavailable: ${error.message}` }),
       ),
     )
 }

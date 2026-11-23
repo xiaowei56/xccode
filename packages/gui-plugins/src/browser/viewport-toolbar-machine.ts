@@ -1,5 +1,5 @@
-import type { App } from "@xccode/plugin/gui"
-import type { Browser } from "@xccode/plugin-browser/rpc"
+import type { App } from "@xiaochuan/plugin/gui"
+import type { Browser } from "@xiaochuan/plugin-browser/rpc"
 import type { PageEvent } from "./connection"
 
 type Target = { sessionKey: string; tabID: Browser.TabID }

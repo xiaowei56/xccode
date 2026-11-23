@@ -1,7 +1,7 @@
-import { Service, type Endpoint } from "@xccode/client/effect/service"
-import { ClientError, Xccode, type XccodeClient } from "@xccode/client/promise"
-import type { MiniFrontendInput } from "@xccode/tui/mini"
-import { noTimeoutFetch } from "@xccode/util/no-timeout-fetch"
+import { Service, type Endpoint } from "@xiaochuan/client/effect/service"
+import { ClientError, Xiaochuan, type XiaochuanClient } from "@xiaochuan/client/promise"
+import type { MiniFrontendInput } from "@xiaochuan/tui/mini"
+import { noTimeoutFetch } from "@xiaochuan/util/no-timeout-fetch"
 import { setTimeout } from "node:timers/promises"
 import { readStdin } from "./util/io"
 import { createMiniHost, INTERACTIVE_INPUT_ERROR, usingInteractiveStdin } from "./mini-host"
@@ -36,7 +36,7 @@ export async function runMini(input: MiniCommandInput) {
     validate(input)
     await usingInteractiveStdin(async (terminal) => {
       const initialInput = mergeInput(process.stdin.isTTY ? undefined : await readStdin(), input.prompt)
-      const frontendTask = import("@xccode/tui/mini")
+      const frontendTask = import("@xiaochuan/tui/mini")
       const directory = localDirectory()
       const connection = createMiniConnection(input.server)
       const sdk = connection.sdk
@@ -44,7 +44,7 @@ export async function runMini(input: MiniCommandInput) {
       const requested = parseModel(input.model)
       const model = requested ? { providerID: requested.providerID, modelID: requested.id } : undefined
       const prepare = prepareTarget(input.agent)
-      const resolveTarget = async (initial: XccodeClient, signal: AbortSignal) => {
+      const resolveTarget = async (initial: XiaochuanClient, signal: AbortSignal) => {
         const resolved = await resolveMiniTarget({
           sdk: initial,
           reconnect: connection.reconnect,
@@ -80,7 +80,7 @@ export async function runMini(input: MiniCommandInput) {
         }
       }
       const create = (
-        client: XccodeClient,
+        client: XiaochuanClient,
         next: {
           location: { directory: string }
           agent: string | undefined
@@ -138,7 +138,7 @@ export async function runMini(input: MiniCommandInput) {
 /** @internal Exported for CLI boundary tests. */
 export function createMiniConnection(input: MiniCommandInput["server"]) {
   const make = (endpoint: Endpoint) =>
-    Xccode.make({
+    Xiaochuan.make({
       baseUrl: endpoint.url,
       headers: Service.headers(endpoint),
       // Session waits can remain idle until background work finishes.
@@ -158,10 +158,10 @@ export function createMiniConnection(input: MiniCommandInput["server"]) {
 
 /** @internal Exported for reconnect lifecycle tests. */
 export async function resolveMiniTarget<A>(input: {
-  sdk: XccodeClient
-  reconnect?: (signal: AbortSignal) => Promise<XccodeClient>
+  sdk: XiaochuanClient
+  reconnect?: (signal: AbortSignal) => Promise<XiaochuanClient>
   signal: AbortSignal
-  resolve: (sdk: XccodeClient) => Promise<A>
+  resolve: (sdk: XiaochuanClient) => Promise<A>
 }) {
   let sdk = input.sdk
   while (true) {
@@ -183,7 +183,7 @@ export async function resolveMiniTarget<A>(input: {
 }
 
 export function validateMiniTerminal() {
-  if (!process.stdout.isTTY) fail("xccode mini requires a TTY stdout")
+  if (!process.stdout.isTTY) fail("xiaochuan mini requires a TTY stdout")
 }
 
 /** @internal Exported for testing. */

@@ -1,4 +1,4 @@
-import { Menu } from "@xccode/ui/menu"
+import { Menu } from "@xiaochuan/ui/menu"
 import { For } from "solid-js"
 import { useServerRowItems } from "@/runtime/plugin/servers"
 

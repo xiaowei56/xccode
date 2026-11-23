@@ -1,7 +1,7 @@
 //! Jump to, revert, copy, or fork from a user message.
 
-use xccode_api::generated::{SessionMessageAssistantContentItem, SessionMessageID, SessionRevertStageInput};
-use xccode_ui::dialog::Dialogs;
+use xiaochuan_api::generated::{SessionMessageAssistantContentItem, SessionMessageID, SessionRevertStageInput};
+use xiaochuan_ui::dialog::Dialogs;
 
 use crate::prelude::*;
 

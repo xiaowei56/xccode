@@ -1,6 +1,6 @@
 import { Option, Schema } from "effect"
-import { withStatics } from "@xccode/schema/schema"
-import { Tool } from "@xccode/schema/tool"
+import { withStatics } from "@xiaochuan/schema/schema"
+import { Tool } from "@xiaochuan/schema/tool"
 import {
   type BaseRequest,
   CacheHint,

@@ -1,5 +1,5 @@
-import { base64Encode } from "@xccode/util/encode"
-import { createSimpleContext } from "@xccode/ui/context"
+import { base64Encode } from "@xiaochuan/util/encode"
+import { createSimpleContext } from "@xiaochuan/ui/context"
 import { useParams, useSearchParams } from "@solidjs/router"
 import { createMemo, createResource, createRoot, getOwner, onCleanup } from "solid-js"
 import { requireServerKey } from "@/shell/routes/session"

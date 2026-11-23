@@ -1,9 +1,9 @@
 import { describe, expect } from "bun:test"
 import { Effect, Layer } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Reference } from "@xccode/core/reference"
-import { ReferenceInstructions } from "@xccode/core/reference/instructions"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Reference } from "@xiaochuan/core/reference"
+import { ReferenceInstructions } from "@xiaochuan/core/reference/instructions"
 import { it } from "./lib/effect"
 import { readInitial, readUpdate } from "./lib/instructions"
 

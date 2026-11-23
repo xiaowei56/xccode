@@ -1,4 +1,4 @@
-import { TextShimmer } from "@xccode/ui/text-shimmer"
+import { TextShimmer } from "@xiaochuan/ui/text-shimmer"
 import { Show, type JSX } from "solid-js"
 import type { TimelineGap } from "./spacing"
 

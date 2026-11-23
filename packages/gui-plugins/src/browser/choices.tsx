@@ -1,5 +1,5 @@
 import { Show } from "solid-js"
-import { usePlugin, type IconName } from "@xccode/plugin/gui"
+import { usePlugin, type IconName } from "@xiaochuan/plugin/gui"
 import type { ProfileSource } from "./profile/ipc"
 
 /** One profile of an installed browser, as a row or a choice. */

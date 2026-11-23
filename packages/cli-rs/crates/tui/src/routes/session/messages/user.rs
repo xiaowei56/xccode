@@ -1,7 +1,7 @@
 //! User prompts, attachments, and mention chips.
 
-use xccode_api::generated::{PromptFileSource, SessionInboxDelivery, SessionMessageUser};
-use xccode_ui::theme::ThemeMode;
+use xiaochuan_api::generated::{PromptFileSource, SessionInboxDelivery, SessionMessageUser};
+use xiaochuan_ui::theme::ThemeMode;
 
 use super::images::{self, Images};
 use super::list::Context;

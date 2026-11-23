@@ -1,6 +1,6 @@
 # T14a: the Rust drive endpoint offers fewer capabilities
 
-TypeScript: the `XCCODE_DRIVE` endpoint (`packages/simulation/src/frontend/server.ts`) offers every capability in
+TypeScript: the `XIAOCHUAN_DRIVE` endpoint (`packages/simulation/src/frontend/server.ts`) offers every capability in
 `Frontend.Capabilities`. Action results list the renderables (`Frontend.State.elements`, with renderable numbers), and
 `ui.state`, `ui.snapshot`, `ui.focus`, `ui.click`, and `ui.recording.finish` work.
 

@@ -2,7 +2,7 @@
   Connect an integration (alias for auth login)
 
 [1mUSAGE[0m
-  [36mxccode login [flags] [<target>][0m
+  [36mxiaochuan login [flags] [<target>][0m
 
 [1mARGUMENTS[0m
   [32mtarget[0m [2mstring[0m    Integration ID, name, or well-known provider URL[2m (optional)[0m

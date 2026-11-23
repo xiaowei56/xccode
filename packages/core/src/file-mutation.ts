@@ -1,11 +1,11 @@
 export * as FileMutation from "./file-mutation.js"
 
 import { isUtf8 } from "node:buffer"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Context, Effect, Layer, Schema } from "effect"
 import { KeyedMutex } from "./effect/keyed-mutex.js"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Bom } from "@xccode/util/bom"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Bom } from "@xiaochuan/util/bom"
 import { Environment } from "./environment/index.js"
 import type { Files } from "./environment/index.js"
 import { FileAccess } from "./file-access.js"
@@ -51,7 +51,7 @@ export interface Interface {
   ) => Effect.Effect<TextWriteResult, Environment.WrongKind | Environment.Failed>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/FileMutation") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/FileMutation") {}
 
 export class InvalidUtf8Error extends Schema.TaggedError<InvalidUtf8Error>()("FileMutation.InvalidUtf8Error", {
   path: Schema.String,
@@ -91,7 +91,7 @@ export const syncTextBom = Effect.fn("FileMutation.syncTextBom")(function* (
 const transactionLocks = KeyedMutex.makeUnsafe<string>()
 
 /**
- * Mutation locking is process-local and serializes cooperating Xccode
+ * Mutation locking is process-local and serializes cooperating Xiaochuan
  * changes; external writes can still race.
  */
 const layer = Layer.effect(

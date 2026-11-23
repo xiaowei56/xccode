@@ -1,10 +1,10 @@
 export * as ConfigPluginSource from "./source.js"
 
-import { Directory, Document, type Entry } from "@xccode/schema/config"
-import { ConfigPlugin } from "@xccode/schema/config/plugin"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Host } from "@xccode/plugin/host"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { Directory, Document, type Entry } from "@xiaochuan/schema/config"
+import { ConfigPlugin } from "@xiaochuan/schema/config/plugin"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Host } from "@xiaochuan/plugin/host"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Context, Effect, Layer, Option, PubSub, Scope, Stream } from "effect"
 import path from "path"
 import { fileURLToPath, pathToFileURL } from "url"
@@ -31,7 +31,7 @@ export interface Interface {
   readonly changes: () => Stream.Stream<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/ConfigPluginSource") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/ConfigPluginSource") {}
 
 export const layer = Layer.effect(
   Service,

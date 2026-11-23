@@ -1,10 +1,10 @@
 //! Slash completion combines built-ins and server commands. Mentions list agents, files and references; files keep
 //! the server's ranking.
 
-use xccode_api::js::locale_compare;
-use xccode_ui::fuzzy;
-use xccode_ui::path::Flavor;
-use xccode_ui::prompt_input::parse::{self, LineRange};
+use xiaochuan_api::js::locale_compare;
+use xiaochuan_ui::fuzzy;
+use xiaochuan_ui::path::Flavor;
+use xiaochuan_ui::prompt_input::parse::{self, LineRange};
 use unicode_width::UnicodeWidthStr;
 
 use super::menu::Item;
@@ -94,7 +94,7 @@ pub fn slash(catalog: &Catalog) -> Vec<Choice> {
         builtin("new", "start a new session", None),
         builtin("compact", "compact older session context to free space", None),
     ];
-    builtins.extend(EXIT_COMMANDS.iter().map(|name| builtin(name, "close Xccode", None)));
+    builtins.extend(EXIT_COMMANDS.iter().map(|name| builtin(name, "close Xiaochuan", None)));
     let hidden =
         |name: &str| builtins.iter().any(|item| matches!(item, Choice::Slash { name: other, .. } if other == name));
     let mut all: Vec<Choice> = catalog

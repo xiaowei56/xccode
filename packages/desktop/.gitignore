@@ -24,6 +24,6 @@ dist-ssr
 *.sw?
 out/
 
-resources/xccode-cli*
+resources/xiaochuan-cli*
 resources/icons
 resources/*.metainfo.xml

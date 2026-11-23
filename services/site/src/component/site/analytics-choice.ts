@@ -56,7 +56,7 @@ function setAnalytics(on: boolean) {
     document.cookie = cookie
   })
   try {
-    localStorage.removeItem("xccode-console.funnel.seen")
+    localStorage.removeItem("xiaochuan-console.funnel.seen")
   } catch {
     // Storage the browser refuses holds nothing to clear.
   }

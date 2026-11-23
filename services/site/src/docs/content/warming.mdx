@@ -7,16 +7,16 @@ Session warming sends periodic model requests to preserve provider-side prompt
 caches or other short-lived state while you pause between prompts. It is
 disabled by default.
 
-Enable warming in any [Xccode configuration file](/config):
+Enable warming in any [Xiaochuan configuration file](/config):
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "warming": true,
 }
 ```
 
-With this configuration, Xccode warms a recently active session just before
+With this configuration, Xiaochuan warms a recently active session just before
 its prompt cache expires: at 90% of the model's
 [`cache.ttl`](/models#cache-lifetime), or every four minutes when the model
 has none. It continues until 30 minutes have passed since the latest
@@ -27,9 +27,9 @@ non-warming request.
 Use the object form to change the warming prompt, idle interval, or active
 window:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "warming": {
     "prompt": "Do not perform any work. Reply with exactly: OK",
     "interval": "5 minutes",
@@ -47,7 +47,7 @@ window:
 Omitted object fields keep their defaults. For example, this changes only the
 interval:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "warming": {
     "interval": "2 minutes",
@@ -58,11 +58,11 @@ interval:
 ## Automatic interval
 
 By default, `interval` is `"auto"`, which warms just before each model's
-prompt cache expires. Xccode uses 90% of the model's
+prompt cache expires. Xiaochuan uses 90% of the model's
 [`cache.ttl`](/models#cache-lifetime) setting, so a `"5m"` cache is warmed
 every 4.5 minutes. Models without a `cache.ttl` are warmed every four minutes.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "warming": { "duration": "2 hours" },
   "providers": {
@@ -72,7 +72,7 @@ every 4.5 minutes. Models without a `cache.ttl` are warmed every four minutes.
 ```
 
 A cache that lasts longer than `duration`, such as `"1h"` with the 30-minute
-default, is not warmed, since it outlives the warming window anyway. Xccode
+default, is not warmed, since it outlives the warming window anyway. Xiaochuan
 logs this once per session. Raise `duration` to warm it.
 
 ## Per provider and model
@@ -82,7 +82,7 @@ or to give them their own timing. It takes the same values as the top-level
 `warming`, except `prompt`, and overrides it. A model setting overrides the
 provider setting.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "providers": {
     "anthropic": {
@@ -104,9 +104,9 @@ warning and falls back to the top-level `warming`.
 
 `interval` and `duration` accept duration strings. Both must resolve to finite
 values greater than zero, and `interval` must be shorter than `duration`;
-otherwise Xccode skips warming and logs a warning.
+otherwise Xiaochuan skips warming and logs a warning.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "warming": {
     "interval": "30 seconds",
@@ -143,7 +143,7 @@ outlives the window.
 00:50  warming stops
 ```
 
-Xccode never sends a warming request while a model request, including a
+Xiaochuan never sends a warming request while a model request, including a
 compaction, is running. If one is still running when the interval comes due,
 warming waits for it to finish and then sends right away, as long as the cache
 from that request hasn't expired. If it has, warming stops until the next
@@ -159,7 +159,7 @@ normal request.
 ## Requests
 
 A warming request uses the session's current model, agent, instructions, and
-conversation context. Xccode appends the configured prompt transiently,
+conversation context. Xiaochuan appends the configured prompt transiently,
 makes one model call, and discards the response.
 
 ```text
@@ -169,12 +169,12 @@ makes one model call, and discards the response.
 ```
 
 The request does not admit input, add messages to history, or mutate durable
-session state. Xccode does not dispatch local tool calls or continue a tool
+session state. Xiaochuan does not dispatch local tool calls or continue a tool
 loop; the default prompt also tells the model not to use tools.
 
 ## Failures
 
-Warming failures are logged without failing or changing the session. Xccode
+Warming failures are logged without failing or changing the session. Xiaochuan
 waits until the next interval before trying again, while the original active
 window continues to count down.
 
@@ -211,7 +211,7 @@ warming attempts during one uninterrupted 30-minute window: at minutes 4, 8,
 Set `warming` to `false` to disable it explicitly. Omitting the field also
 leaves warming disabled.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "warming": false,
 }

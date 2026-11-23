@@ -1,8 +1,8 @@
 use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use xccode_acp::capabilities::Capabilities;
-use xccode_acp::elicitation::requested_schema;
+use xiaochuan_acp::capabilities::Capabilities;
+use xiaochuan_acp::elicitation::requested_schema;
 use serde_json::{Value, json};
 
 use crate::wire::{

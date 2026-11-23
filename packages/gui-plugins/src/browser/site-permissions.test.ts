@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { Storage } from "@xccode/plugin/gui/main"
+import type { Storage } from "@xiaochuan/plugin/gui/main"
 import {
   clipboardWrite,
   createSitePermissions,
@@ -104,8 +104,8 @@ describe("what a page's permission request gets before anyone is asked", () => {
 describe("whose decisions apply to a request", () => {
   const meet = { origin: "https://meet.example", top: "https://meet.example", mainFrame: true, kinds: ["microphone"] as const }
   const profile = { kind: "profile" } as const
-  const server = { kind: "server", partition: "xccode-remote-a" } as const
-  const other = { kind: "server", partition: "xccode-remote-b" } as const
+  const server = { kind: "server", partition: "xiaochuan-remote-a" } as const
+  const other = { kind: "server", partition: "xiaochuan-remote-b" } as const
 
   // A store keyed only by decisionKey, as createSitePermissions keys a server's decisions.
   const store = (decisions: [DecisionScope, string, PermissionKind, "allow" | "block"][]) => {
@@ -176,7 +176,7 @@ describe("the decisions the user kept", () => {
 
     const sites = createSitePermissions(storage, () => changes++)
     const profile = { kind: "profile" } as const
-    const server = { kind: "server", partition: "xccode-remote-a" } as const
+    const server = { kind: "server", partition: "xiaochuan-remote-a" } as const
 
     sites.keep(profile, { origin: "https://meet.example", permission: "camera", setting: "allow" })
     sites.keep(profile, { origin: "https://meet.example", permission: "camera", setting: "block" })

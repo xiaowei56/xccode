@@ -1,24 +1,24 @@
-# @xccode/sdk
+# @xiaochuan/sdk
 
-In-process Xccode host for Promise and Effect applications. The SDK executes Server's assembled HTTP router in memory, opening no listener and adding no network hop.
+In-process Xiaochuan host for Promise and Effect applications. The SDK executes Server's assembled HTTP router in memory, opening no listener and adding no network hop.
 
 ```ts
-import { Xccode } from "@xccode/sdk"
+import { Xiaochuan } from "@xiaochuan/sdk"
 
-await using xccode = await Xccode.create()
-const session = await xccode.sessions.create({
+await using xiaochuan = await Xiaochuan.create()
+const session = await xiaochuan.sessions.create({
   location: { directory: "/workspace" },
 })
 ```
 
-Pass imported Promise plugins in `plugins`, or register one later with `await xccode.plugin(plugin)`.
+Pass imported Promise plugins in `plugins`, or register one later with `await xiaochuan.plugin(plugin)`.
 
-The Promise API uses the same values, errors, request options, and `AsyncIterable` streams as `@xccode/client`.
+The Promise API uses the same values, errors, request options, and `AsyncIterable` streams as `@xiaochuan/client`.
 
 Embedded hosts are silent by default. Set `log` to receive structured log entries:
 
 ```ts
-await using xccode = await Xccode.create({
+await using xiaochuan = await Xiaochuan.create({
   log: {
     level: "warn",
     emit: (entry) => console.error(entry.message, entry.attributes, entry.cause),
@@ -33,11 +33,11 @@ await using xccode = await Xccode.create({
 Use `instances` when Sessions in the same directory need different application plugins. The application selects a stable key from Session metadata; the SDK constructs and caches an instance for that key and the Session's current Location.
 
 ```ts
-import { Xccode } from "@xccode/sdk"
+import { Xiaochuan } from "@xiaochuan/sdk"
 import { threads } from "./threads"
 import { slackPlugin } from "./slack-plugin"
 
-await using xccode = await Xccode.create({
+await using xiaochuan = await Xiaochuan.create({
   database: { path: "./sessions.db" },
   instances: {
     key(session) {
@@ -51,11 +51,11 @@ await using xccode = await Xccode.create({
   },
 })
 
-const session = await xccode.sessions.create({
+const session = await xiaochuan.sessions.create({
   location: { directory: "/workspace" },
   metadata: { threadID: "thread-42" },
 })
-await xccode.sessions.prompt({ sessionID: session.id, text: "Review the changes" })
+await xiaochuan.sessions.prompt({ sessionID: session.id, text: "Review the changes" })
 ```
 
 `threads` and `slackPlugin` are application-owned modules. `key` is synchronous and should only select identity, not initialize plugins. `configure` returns plugin definitions; their setup receives the selected instance's `ctx.location`.
@@ -69,7 +69,7 @@ await xccode.sessions.prompt({ sessionID: session.id, text: "Review the changes"
 
 ### Restart and Lifetime
 
-The selector is installed before automatic recovery starts. Its callbacks must be able to load application data without depending on the returned `xccode` handle or a later registration call. Functions are reconstructed, not serialized.
+The selector is installed before automatic recovery starts. Its callbacks must be able to load application data without depending on the returned `xiaochuan` handle or a later registration call. Functions are reconstructed, not serialized.
 
 Use a persistent `database.path` to recover Sessions after restart; the default database is in memory. Workerd uses its injected Durable Object storage. After restart, the next capability-dependent operation or recovery drain rebuilds the selected instance from saved Session metadata and application data.
 
@@ -80,15 +80,15 @@ Promise plugin resources should be acquired in `setup` and released by its clean
 Use the Workerd entrypoint inside a Cloudflare Durable Object. Hold one host for the lifetime of the object instance rather than creating one per request.
 
 ```ts
-import { XccodeWorkerd } from "@xccode/sdk/workerd"
+import { XiaochuanWorkerd } from "@xiaochuan/sdk/workerd"
 import myPlugin from "./my-plugin"
 
-export class XccodeDO {
-  private readonly xccode: Promise<XccodeWorkerd.Interface>
+export class XiaochuanDO {
+  private readonly xiaochuan: Promise<XiaochuanWorkerd.Interface>
 
   constructor(state: DurableObjectState) {
-    this.xccode = state.blockConcurrencyWhile(() =>
-      XccodeWorkerd.create({
+    this.xiaochuan = state.blockConcurrencyWhile(() =>
+      XiaochuanWorkerd.create({
         storage: state.storage,
         config: { default_agent: "build" },
         plugins: [myPlugin],
@@ -97,8 +97,8 @@ export class XccodeDO {
   }
 
   async fetch() {
-    const xccode = await this.xccode
-    return Response.json(await xccode.server.info())
+    const xiaochuan = await this.xiaochuan
+    return Response.json(await xiaochuan.server.info())
   }
 }
 ```
@@ -107,27 +107,27 @@ export class XccodeDO {
 
 ## Effect
 
-The Effect-native API remains available from `@xccode/sdk/effect`:
+The Effect-native API remains available from `@xiaochuan/sdk/effect`:
 
 ```ts
-import { Xccode } from "@xccode/sdk/effect"
+import { Xiaochuan } from "@xiaochuan/sdk/effect"
 
-const xccode = yield * Xccode.create()
-const session = yield * xccode.sessions.get({ sessionID })
+const xiaochuan = yield * Xiaochuan.create()
+const session = yield * xiaochuan.sessions.get({ sessionID })
 ```
 
-The Effect Workerd entrypoint is `@xccode/sdk/workerd/effect`.
+The Effect Workerd entrypoint is `@xiaochuan/sdk/workerd/effect`.
 
-Effect configuration uses the same keys and lifetime rules, with canonical `Session.Info` values and an Effect-returning factory. `configure` may require services; `Xccode.create` and `Xccode.layer` carry those requirements, so the application satisfies them where it builds the SDK, as with any other Effect callback:
+Effect configuration uses the same keys and lifetime rules, with canonical `Session.Info` values and an Effect-returning factory. `configure` may require services; `Xiaochuan.create` and `Xiaochuan.layer` carry those requirements, so the application satisfies them where it builds the SDK, as with any other Effect callback:
 
 ```ts
-import { Xccode } from "@xccode/sdk/effect"
+import { Xiaochuan } from "@xiaochuan/sdk/effect"
 import { Effect, Layer, Schema } from "effect"
 import { Threads } from "./threads-effect"
 import { slackPlugin } from "./slack-plugin-effect"
 
 const threadMetadata = Schema.decodeUnknownSync(Schema.Struct({ threadID: Schema.String }))
-const xccode = Xccode.layer({
+const xiaochuan = Xiaochuan.layer({
   database: { path: "./sessions.db" },
   instances: {
     key: (session) => threadMetadata(session.metadata).threadID,
@@ -140,4 +140,4 @@ const xccode = Xccode.layer({
 }).pipe(Layer.provide(Threads.layer))
 ```
 
-Resources acquired in `configure` still belong to the instance, not to the Scope the SDK was built in. Both Workerd entrypoints also accept `instances`. The public `Xccode.InstanceOptions` and `Xccode.InstanceConfiguration` types describe the corresponding Promise or Effect callbacks.
+Resources acquired in `configure` still belong to the instance, not to the Scope the SDK was built in. Both Workerd entrypoints also accept `instances`. The public `Xiaochuan.InstanceOptions` and `Xiaochuan.InstanceConfiguration` types describe the corresponding Promise or Effect callbacks.

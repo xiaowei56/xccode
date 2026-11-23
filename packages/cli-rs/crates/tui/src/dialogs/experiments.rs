@@ -1,6 +1,6 @@
 //! Opt-in feature settings.
 
-use xccode_ui::select::select;
+use xiaochuan_ui::select::select;
 
 use super::settings::{self, set_path};
 

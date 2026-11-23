@@ -1,10 +1,10 @@
 import { createEffect, createMemo, createSignal, on, onCleanup, Show } from "solid-js"
-import type { SessionStatus } from "@xccode/client/promise"
-import { useI18n } from "@xccode/ui/context/i18n"
-import { Card } from "@xccode/ui/card"
-import { Icon } from "@xccode/ui/icon"
-import { TextShimmer } from "@xccode/ui/text-shimmer"
-import { Tooltip } from "@xccode/ui/tooltip"
+import type { SessionStatus } from "@xiaochuan/client/promise"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { Card } from "@xiaochuan/ui/card"
+import { Icon } from "@xiaochuan/ui/icon"
+import { TextShimmer } from "@xiaochuan/ui/text-shimmer"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import { SessionErrorMessage } from "./session-error"
 
 export function SessionRetry(props: { status: SessionStatus; show?: boolean }) {

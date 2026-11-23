@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { ConfigMarkdown } from "@xccode/core/config/markdown"
+import { ConfigMarkdown } from "@xiaochuan/core/config/markdown"
 
 const invalidYaml = `---
 description: Use when the user needs to crawl pages. Keywords: crawl, scrape
@@ -24,14 +24,14 @@ describe("ConfigMarkdown.parse", () => {
 description: Review changes. Keywords: review, audit
 model: { providerID: example, model: chat, variant: high }
 tools: { edit: false }
-metadata: { "xccode/autoinvoke": false }
+metadata: { "xiaochuan/autoinvoke": false }
 permissions: [{ action: edit, resource: "*", effect: deny }]
 ---
 body`)
     expect(parsed.data.description).toBe("Review changes. Keywords: review, audit")
     expect(parsed.data.model).toEqual({ providerID: "example", model: "chat", variant: "high" })
     expect(parsed.data.tools).toEqual({ edit: false })
-    expect(parsed.data.metadata).toEqual({ "xccode/autoinvoke": false })
+    expect(parsed.data.metadata).toEqual({ "xiaochuan/autoinvoke": false })
     expect(parsed.data.permissions).toEqual([{ action: "edit", resource: "*", effect: "deny" }])
     expect(parsed.content.trim()).toBe("body")
   })

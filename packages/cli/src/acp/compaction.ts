@@ -1,9 +1,9 @@
 import type { SessionUpdate } from "@agentclientprotocol/sdk"
-import type { XccodeEvent } from "@xccode/client/effect"
-import type { SessionError } from "@xccode/schema/session-error"
-import { SessionMessage } from "@xccode/schema/session-message"
+import type { XiaochuanEvent } from "@xiaochuan/client/effect"
+import type { SessionError } from "@xiaochuan/schema/session-error"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
 
-const MarkerMeta = "xccode/compaction"
+const MarkerMeta = "xiaochuan/compaction"
 
 type Started = { readonly status: "started"; readonly messageId: string; readonly reason: "auto" | "manual" }
 
@@ -25,7 +25,7 @@ type Compaction =
 export type Tracked = ReadonlyMap<string, Started>
 
 type LifecycleEvent = Extract<
-  XccodeEvent,
+  XiaochuanEvent,
   { readonly type: "session.compaction.started" | "session.compaction.ended" | "session.compaction.failed" }
 >
 type OpeningEvent = Extract<

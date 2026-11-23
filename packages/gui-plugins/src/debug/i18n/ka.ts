@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "მეხსიერების დიაგნოსტიკა: აპის მეხსიერების ჩაწერა დესკტოპის ჟურნალებში ყოველ 30 წამში. ჩართული რჩება გადატვირთვების შემდეგაც, სანამ არ გამორთავთ; მუშაობისას ზოლი ღია რჩება.",
-  "memory.tipEnv": "მეხსიერების დიაგნოსტიკა ჩართულია ამ გაშვებისთვის: დაყენებულია XCCODE_DESKTOP_MEMORY_LOG.",
+  "memory.tipEnv": "მეხსიერების დიაგნოსტიკა ჩართულია ამ გაშვებისთვის: დაყენებულია XIAOCHUAN_DESKTOP_MEMORY_LOG.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

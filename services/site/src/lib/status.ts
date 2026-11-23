@@ -14,7 +14,7 @@ export const bars = staleValue<ServiceStatus[]>({
   freshFor: 60_000,
   wait: 300,
   load: async () => {
-    const response = await fetch("https://status.xccode.ai/api/status", {
+    const response = await fetch("https://status.xiaochuan.ai/api/status", {
       signal: AbortSignal.timeout(8000),
     }).catch(() => undefined)
     if (!response?.ok) return

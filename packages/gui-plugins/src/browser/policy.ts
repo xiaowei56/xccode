@@ -1,10 +1,10 @@
 // URL policy shared by the pane and page. Electron-free so it stays unit-testable under Bun.
 
-import { Browser } from "@xccode/plugin-browser/rpc"
-import { encodeFilePath } from "@xccode/util/path"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
+import { encodeFilePath } from "@xiaochuan/util/path"
 import { remotePath } from "./remote-address"
 import { artifactAddress } from "./artifact-link"
-import { windowsPreviewSegment } from "@xccode/plugin-browser/preview-path"
+import { windowsPreviewSegment } from "@xiaochuan/plugin-browser/preview-path"
 
 export function destinationOrigin(input: string) {
   if (!URL.canParse(input)) return

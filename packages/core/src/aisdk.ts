@@ -1,7 +1,7 @@
 export * as AISDK from "./aisdk.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { httpFetch } from "@xccode/util/effect/app-node-platform"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { httpFetch } from "@xiaochuan/util/effect/app-node-platform"
 import { APICallError } from "@ai-sdk/provider"
 import { ClientTls } from "#client-tls"
 import type {
@@ -32,9 +32,9 @@ import {
   type ToolDefinition,
   type ToolMessage,
   type UsageInput,
-} from "@xccode/ai/effect"
-import { Auth, Endpoint, ProviderShared, RequestExecutor, type AnyRoute, type HttpMiddleware } from "@xccode/ai/route"
-import { isRecord } from "@xccode/util/record"
+} from "@xiaochuan/ai/effect"
+import { Auth, Endpoint, ProviderShared, RequestExecutor, type AnyRoute, type HttpMiddleware } from "@xiaochuan/ai/route"
+import { isRecord } from "@xiaochuan/util/record"
 import { Cause, Context, Effect, Layer, Option, Schema, Scope, Stream, Struct } from "effect"
 import { makeParser } from "effect/encoding/Sse"
 import { FetchHttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
@@ -259,7 +259,7 @@ export interface Interface {
   readonly model: (model: RuntimeInfo) => Effect.Effect<LanguageModel, InitError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/AISDK") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/AISDK") {}
 
 export const locationLayer = Layer.effect(
   Service,

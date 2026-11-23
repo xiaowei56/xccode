@@ -7,7 +7,7 @@ export default definePty({
   args: [],
   cols: 120,
   rows: 30,
-  env: { XCCODE_CLI_CONFIG_CONTENT: config },
+  env: { XIAOCHUAN_CLI_CONFIG_CONTENT: config },
   server: server("README.md onboarding token"),
   steps: [
     { until: { screen: "Demo Model" }, settle: 500, timeout: 30_000 },

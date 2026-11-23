@@ -1,4 +1,4 @@
-import { observeReducedMotion, prefersReducedMotion } from "@xccode/ui/motion"
+import { observeReducedMotion, prefersReducedMotion } from "@xiaochuan/ui/motion"
 import { createEffect, createSignal, onCleanup, untrack, type Accessor } from "solid-js"
 import {
   createPresenceState,

@@ -14,7 +14,7 @@ export interface Interface
   readonly cancel: (model: ImageModel, id: string) => Effect.Effect<void, AIError>
 }
 
-export class ImageClientService extends Context.Service<ImageClientService, Interface>()("@xccode/ImageClient") {}
+export class ImageClientService extends Context.Service<ImageClientService, Interface>()("@xiaochuan/ImageClient") {}
 export const Service = ImageClientService
 export type Service = ImageClientService
 

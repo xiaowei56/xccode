@@ -1,5 +1,5 @@
 [package]
-name = "xccode-local"
+name = "xiaochuan-local"
 description = "Client-local files shared with the TypeScript client: paths, locks, config, and state."
 version.workspace = true
 edition.workspace = true
@@ -15,8 +15,8 @@ workspace = true
 base64.workspace = true
 indexmap.workspace = true
 log.workspace = true
-xccode-api-types.workspace = true
-xccode-util.workspace = true
+xiaochuan-api-types.workspace = true
+xiaochuan-util.workspace = true
 rand.workspace = true
 serde.workspace = true
 serde_json.workspace = true

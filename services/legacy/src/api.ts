@@ -16,10 +16,10 @@ export default new Hono<{ Bindings: Env }>()
    */
   .post("/exchange_github_app_token", async (c) => {
     if (!c.env.GITHUB_APP_ID || !c.env.GITHUB_APP_PRIVATE_KEY) {
-      const dev = new URL(c.req.url).hostname === "api.dev.xccode.ai"
+      const dev = new URL(c.req.url).hostname === "api.dev.xiaochuan.ai"
       return c.json({ error: dev ? "not configured on dev" : "GitHub App not configured" }, 503)
     }
-    const EXPECTED_AUDIENCE = "xccode-github-action"
+    const EXPECTED_AUDIENCE = "xiaochuan-github-action"
     const GITHUB_ISSUER = "https://token.actions.githubusercontent.com"
     const JWKS_URL = `${GITHUB_ISSUER}/.well-known/jwks`
 

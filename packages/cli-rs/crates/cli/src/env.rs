@@ -31,9 +31,9 @@ pub fn no_proxy(upper: Option<&str>, lower: Option<&str>) -> String {
     entries.join(",")
 }
 
-/// `XCCODE_CLIENT` defaults to `xccode-native`. An explicitly empty value is retained.
+/// `XIAOCHUAN_CLIENT` defaults to `xiaochuan-native`. An explicitly empty value is retained.
 pub fn client() -> String {
-    std::env::var("XCCODE_CLIENT").unwrap_or_else(|_| "xccode-native".to_owned())
+    std::env::var("XIAOCHUAN_CLIENT").unwrap_or_else(|_| "xiaochuan-native".to_owned())
 }
 
 #[cfg(test)]

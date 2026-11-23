@@ -1,4 +1,4 @@
-//! Starts a detached `xccode` service with closed stdin and stdout and a bounded stderr tail.
+//! Starts a detached `xiaochuan` service with closed stdin and stdout and a bounded stderr tail.
 
 use std::ffi::OsString;
 use std::io::Read;
@@ -159,8 +159,8 @@ mod tests {
     #[test]
     fn adds_and_removes_environment_variables_in_its_own_group() {
         let contender = sh(
-            "echo \"$XCCODE_A-${HOME:-unset}\" >&2; ps -o pgid= -p $$ >&2",
-            &[("XCCODE_A".to_owned(), Some("set".to_owned())), ("HOME".to_owned(), None)],
+            "echo \"$XIAOCHUAN_A-${HOME:-unset}\" >&2; ps -o pgid= -p $$ >&2",
+            &[("XIAOCHUAN_A".to_owned(), Some("set".to_owned())), ("HOME".to_owned(), None)],
         );
         assert!(finished(&contender).success());
         let stderr = contender.stderr();
@@ -171,7 +171,7 @@ mod tests {
 
     #[test]
     fn a_missing_program_fails_to_spawn() {
-        assert!(Contender::spawn(&["/nonexistent/xccode".into()], &[]).is_err());
+        assert!(Contender::spawn(&["/nonexistent/xiaochuan".into()], &[]).is_err());
         assert!(Contender::spawn(&[], &[]).is_err());
     }
 

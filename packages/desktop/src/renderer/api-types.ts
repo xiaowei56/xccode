@@ -1,5 +1,5 @@
-import type { DesktopMenuAction, DesktopZoomLevel } from "@xccode/app/desktop-menu"
-import type { DesktopNativeBundle } from "@xccode/app/i18n/desktop-native"
+import type { DesktopMenuAction, DesktopZoomLevel } from "@xiaochuan/app/desktop-menu"
+import type { DesktopNativeBundle } from "@xiaochuan/app/i18n/desktop-native"
 import type { StorageSnapshot } from "../shared/ipc-transport"
 import type { WindowBootstrap } from "../shared/window-bootstrap"
 import type {

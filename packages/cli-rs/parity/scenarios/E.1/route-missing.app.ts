@@ -1,4 +1,4 @@
-// `XCCODE_ROUTE` names a plugin route no plugin registers (T14b, T26): the missing route screen, centered.
+// `XIAOCHUAN_ROUTE` names a plugin route no plugin registers (T14b, T26): the missing route screen, centered.
 import { defineApp, location } from "../../lib/app"
 
 // Rust reads the default location's catalogs at startup on every route (the prompt and model state); TS
@@ -10,6 +10,6 @@ export default defineApp({
     ...["/api/model", "/api/provider", "/api/agent", "/api/integration"].map(catalog),
     { path: "/api/config", json: [] },
   ],
-  env: { XCCODE_ROUTE: JSON.stringify({ type: "plugin", id: "acme.tools", name: "board" }) },
+  env: { XIAOCHUAN_ROUTE: JSON.stringify({ type: "plugin", id: "acme.tools", name: "board" }) },
   steps: [{ checkpoint: "missing", until: "go home" }],
 })

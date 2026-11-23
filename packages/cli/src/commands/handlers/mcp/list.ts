@@ -1,16 +1,16 @@
 import { EOL } from "node:os"
 import { Effect } from "effect"
-import { Xccode, type McpServer } from "@xccode/client"
+import { Xiaochuan, type McpServer } from "@xiaochuan/client"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
-import { Service } from "@xccode/client/effect/service"
+import { Service } from "@xiaochuan/client/effect/service"
 import { ServerConnection } from "../../../services/server-connection"
 
 export default Runtime.handler(
   Commands.commands.mcp.commands.list,
   Effect.fn("cli.mcp.list")(function* () {
     const { endpoint } = yield* ServerConnection.resolve()
-    const client = Xccode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+    const client = Xiaochuan.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
     const response = yield* Effect.promise(() => client.mcp.list({ location: { directory: process.cwd() } }))
     const servers = response.data.toSorted((a, b) => a.name.localeCompare(b.name))
     if (servers.length === 0) {

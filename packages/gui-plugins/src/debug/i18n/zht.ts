@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "記憶體診斷：每 30 秒將應用程式記憶體記錄到桌面版記錄檔。重新啟動後仍保持開啟，直到關閉為止；執行期間偵錯列會保持開啟。",
-  "memory.tipEnv": "此次啟動已開啟記憶體診斷：已設定 XCCODE_DESKTOP_MEMORY_LOG。",
+  "memory.tipEnv": "此次啟動已開啟記憶體診斷：已設定 XIAOCHUAN_DESKTOP_MEMORY_LOG。",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "調整鈕",

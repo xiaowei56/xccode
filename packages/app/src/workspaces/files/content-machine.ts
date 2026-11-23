@@ -1,5 +1,5 @@
-import type { FileContent } from "@xccode/plugin/gui"
-import { getFilename } from "@xccode/util/path"
+import type { FileContent } from "@xiaochuan/plugin/gui"
+import { getFilename } from "@xiaochuan/util/path"
 import type { FileState } from "./types"
 
 // One normalized path's content lifecycle in the provider's directory. An unloaded or evicted file has no entry.

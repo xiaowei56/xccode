@@ -3,18 +3,18 @@
 use std::collections::HashSet;
 use std::path::PathBuf;
 
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     LocationPublicInfo, Project, SessionInfo, SessionListInput, SessionListInputOrder, SessionRemoveInput,
 };
-use xccode_local::cli_config::TabsScope;
-use xccode_store::state::State as Store;
-use xccode_store::{Location, SessionStatus};
-use xccode_ui::dialog::DIALOG_LIST_INSET;
-use xccode_ui::motion::Spinner;
-use xccode_ui::path::{Flavor, relative};
-use xccode_ui::select::{FooterHint, Gutter, Select, SelectAction};
-use xccode_util::time::{self, Zone};
+use xiaochuan_local::cli_config::TabsScope;
+use xiaochuan_store::state::State as Store;
+use xiaochuan_store::{Location, SessionStatus};
+use xiaochuan_ui::dialog::DIALOG_LIST_INSET;
+use xiaochuan_ui::motion::Spinner;
+use xiaochuan_ui::path::{Flavor, relative};
+use xiaochuan_ui::select::{FooterHint, Gutter, Select, SelectAction};
+use xiaochuan_util::time::{self, Zone};
 
 use crate::prelude::*;
 
@@ -488,7 +488,7 @@ impl List {
 }
 
 pub fn dialog_theme(tui: &Tui) -> Theme {
-    tui.page().surface(xccode_ui::theme::Surface::Dialog)
+    tui.page().surface(xiaochuan_ui::theme::Surface::Dialog)
 }
 
 fn local_sessions(
@@ -648,7 +648,7 @@ fn resolve_up(flavor: Flavor, directory: &str, ups: usize) -> String {
 pub mod pins {
     use std::sync::OnceLock;
 
-    use xccode_local::serial::Serial;
+    use xiaochuan_local::serial::Serial;
 
     use super::*;
 
@@ -664,7 +664,7 @@ pub mod pins {
                 .entry(key.clone())
                 .or_insert_with(|| {
                     key.as_deref()
-                        .map(xccode_local::pins::load)
+                        .map(xiaochuan_local::pins::load)
                         .unwrap_or_default()
                         .into_iter()
                         .map(SessionID)
@@ -707,7 +707,7 @@ pub mod pins {
         let id = id.0.clone();
         static WRITER: OnceLock<Serial> = OnceLock::new();
         WRITER.get_or_init(|| Serial::new("session.json")).run(move || {
-            if let Err(error) = xccode_local::pins::set(&state, &id, pinned) {
+            if let Err(error) = xiaochuan_local::pins::set(&state, &id, pinned) {
                 log::warn!("failed to save session.json: {error}");
             }
         });

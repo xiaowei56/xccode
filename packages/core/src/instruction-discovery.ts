@@ -1,7 +1,7 @@
 export * as InstructionDiscovery from "./instruction-discovery.js"
 
 import { Context, Effect, Layer, Schema, Types } from "effect"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { createPatch } from "diff"
 import { basename, dirname, join } from "path"
 import { Bus } from "./bus.js"
@@ -54,7 +54,7 @@ export const Options = Schema.Struct({
 })
 export type Options = typeof Options.Type
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/InstructionDiscovery") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/InstructionDiscovery") {}
 
 export const layer = (options?: Options) =>
   Layer.effect(

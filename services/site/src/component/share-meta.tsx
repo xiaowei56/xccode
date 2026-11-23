@@ -35,7 +35,7 @@ export function shareTags(props: {
   const video = props.image.video && `${config.baseUrl}${props.image.video}`
   return [
     { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "Xccode" },
+    { property: "og:site_name", content: "Xiaochuan" },
     { property: "og:locale", content: OG_LOCALE[props.englishOnly ? "en" : props.locale] },
     { property: "og:title", content: props.title },
     { property: "og:description", content: props.description },

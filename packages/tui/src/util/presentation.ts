@@ -33,10 +33,10 @@ export function epilogue(input: { readonly session?: SessionEpilogue; readonly u
     ...wordmark("  "),
     "",
     ...(input.updatedVersion
-      ? [`  ${dim}Run ${reset}${bold}xccode${reset}${dim} to use ${reset}${bold}${input.updatedVersion}${reset}`, ""]
+      ? [`  ${dim}Run ${reset}${bold}xiaochuan${reset}${dim} to use ${reset}${bold}${input.updatedVersion}${reset}`, ""]
       : []),
     ...(input.session
-      ? [row("Session", input.session.title), row("Continue", `xccode -s ${input.session.sessionID}`), ""]
+      ? [row("Session", input.session.title), row("Continue", `xiaochuan -s ${input.session.sessionID}`), ""]
       : []),
   ].join("\n")
 }

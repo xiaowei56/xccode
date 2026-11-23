@@ -106,7 +106,7 @@ story("each switch is named by its row's title, and each row says what it does i
 
   // The switch's accessible name is the row's title, so a screen reader hears what the row shows.
   for (const [id, title, description] of [
-    ["settings-browser-links", "Open links in Xccode", "Hold Shift and click a link to use your default browser"],
+    ["settings-browser-links", "Open links in Xiaochuan", "Hold Shift and click a link to use your default browser"],
     ["settings-browser-remote", "Share sign-ins with remote servers", "Only turn on for servers you trust, since they can access your signed\u2011in sites"],
     ["settings-browser-agent-pages", "Open browser automatically", "Show the tab when the agent opens a page or file for you"],
   ] as const) {
@@ -131,7 +131,7 @@ story("the red button asks first: Cancel, Escape, Enter on Cancel and a click ou
   await expect(view.data.getByText("0 cookies. Sign-ins are shared across sessions", { exact: true })).toBeVisible()
   await view.clear.click()
   // One title, one line, two buttons: no close button, as the app's other confirmations.
-  await expect(view.confirm.getByText("This signs you out of all sites and deletes history in Xccode, leaving your other browsers untouched.", { exact: true })).toBeVisible()
+  await expect(view.confirm.getByText("This signs you out of all sites and deletes history in Xiaochuan, leaving your other browsers untouched.", { exact: true })).toBeVisible()
   await expect(view.confirm.getByRole("button")).toHaveText(["Cancel", "Clear data"])
   // As the app's destructive confirmations do, it opens on Cancel, so Enter does not clear by accident.
   await expect(cancel).toBeFocused()
@@ -276,7 +276,7 @@ story("Add an extension aligns controls without top clipping and switches cleanl
 
   // Unsupported extensions offer "Add anyway" in the confirmation footer.
   await dialog.getByRole("button", { name: "Add anyway" }).click()
-  const unsupported = page.getByRole("dialog", { name: 'Add "Xccode Browse"?' })
+  const unsupported = page.getByRole("dialog", { name: 'Add "Xiaochuan Browse"?' })
   await expect(unsupported).toBeVisible()
   await expect(unsupported.getByText("Probably won't work here")).toBeVisible()
   await expect(unsupported.getByRole("button", { name: "Add anyway" })).toBeVisible()

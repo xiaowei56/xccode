@@ -1,4 +1,4 @@
-import type { FormField, FormValue } from "@xccode/client"
+import type { FormField, FormValue } from "@xiaochuan/client"
 
 export type FormAnswerField = Exclude<FormField, { type: "external" }>
 

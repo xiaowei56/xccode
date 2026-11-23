@@ -74,7 +74,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "無料制限に達しました",
   "dialog.usageExceeded.freeTier.description":
-    "Xccode Go にサブスクライブして、最高のオープンソースモデルに安定してアクセスできます。月額 $10。",
+    "Xiaochuan Go にサブスクライブして、最高のオープンソースモデルに安定してアクセスできます。月額 $10。",
   "dialog.usageExceeded.freeTier.actionLabel": "サブスクライブ",
 
   "ui.sessionTurn.status.delegating": "作業を委任中",
@@ -286,8 +286,8 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "モデルの予算に達しました · このモデルはリセットまで一時停止",
   "ui.sessionTurn.budgetLimit.useFreeModel": "無料モデルを使用",
   "ui.sessionTurn.budgetLimit.switchModel": "モデルを切り替え",
-  "ui.sessionTurn.goLimit.title": "Xccode Goの利用上限に達しました。",
-  "ui.sessionTurn.goLimit.lineReset": "Xccode Goの利用上限に達しました。{{time}}にリセットされます。",
+  "ui.sessionTurn.goLimit.title": "Xiaochuan Goの利用上限に達しました。",
+  "ui.sessionTurn.goLimit.lineReset": "Xiaochuan Goの利用上限に達しました。{{time}}にリセットされます。",
   "dialog.usageExceeded.freeTier.reset": "無料メッセージは{{time}}にリセットされます。",
   "ui.messagePart.compaction.queued": "セッションの圧縮をキューに追加しました",
   "ui.messagePart.compaction.done": "圧縮済み",

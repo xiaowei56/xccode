@@ -1,5 +1,5 @@
 // The JS host is on by default. A TypeScript TUI plugin in the global `plugins` directory, with no variable set,
-// loads in both clients: TS runs it in its own process, xccode-native on the JS host (Bun on the path), and
+// loads in both clients: TS runs it in its own process, xiaochuan-native on the JS host (Bun on the path), and
 // `/plugins` lists `parity.energy` active, with no notice (`F16-typescript-plugins-skipped`).
 import { mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
@@ -22,7 +22,7 @@ export default definePty({
   rows: 30,
   server: { fallback: "tui", routes: [] },
   setup: async (root) => {
-    const config = path.join(root, "home/.config/xccode")
+    const config = path.join(root, "home/.config/xiaochuan")
     await mkdir(path.join(config, "plugins/energy"), { recursive: true })
     await writeFile(path.join(config, "plugins/energy/tui.ts"), plugin)
     const cli = { experimental: { "new-designs": true }, animations: false, debug: { devtools: false } }

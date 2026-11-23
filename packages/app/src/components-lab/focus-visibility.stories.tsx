@@ -11,37 +11,37 @@ import "@/settings/workspaces/project.css"
 import "@/providers/connect/models.css"
 import "@/shell/palette-menu.css"
 import "@/shell/search-list.css"
-import "@xccode/session-ui/sources/panel"
+import "@xiaochuan/session-ui/sources/panel"
 import "../../../gui-plugins/src/browser/bar.css"
 import treeFocusCss from "../../../gui-plugins/src/file/tree-focus.css?inline"
 
-import { File } from "@xccode/session-ui/file"
-import { SessionFilePanelV2 } from "@xccode/session-ui/v2/session-file-panel-v2"
-import { SessionReviewV2Sidebar, SessionReviewV2SidebarToggle } from "@xccode/session-ui/v2/session-review-v2"
-import { Accordion } from "@xccode/ui/accordion"
-import { StickyAccordionHeader } from "@xccode/ui/sticky-accordion-header"
-import { Button } from "@xccode/ui/button"
-import { Checkbox } from "@xccode/ui/checkbox"
-import { Collapsible } from "@xccode/ui/collapsible"
-import { ErrorDetails } from "@xccode/ui/error-details"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { ProjectAvatar } from "@xccode/ui/project-avatar"
-import { RadioGroup, RadioItem } from "@xccode/ui/radio"
-import { ScrollView } from "@xccode/ui/scroll-view"
-import { SegmentedControl, SegmentedControlItem } from "@xccode/ui/segmented-control"
-import { Select } from "@xccode/ui/select"
-import { Switch } from "@xccode/ui/switch"
-import { Tabs } from "@xccode/ui/tabs"
-import { TextInput } from "@xccode/ui/text-input"
+import { File } from "@xiaochuan/session-ui/file"
+import { SessionFilePanelV2 } from "@xiaochuan/session-ui/v2/session-file-panel-v2"
+import { SessionReviewV2Sidebar, SessionReviewV2SidebarToggle } from "@xiaochuan/session-ui/v2/session-review-v2"
+import { Accordion } from "@xiaochuan/ui/accordion"
+import { StickyAccordionHeader } from "@xiaochuan/ui/sticky-accordion-header"
+import { Button } from "@xiaochuan/ui/button"
+import { Checkbox } from "@xiaochuan/ui/checkbox"
+import { Collapsible } from "@xiaochuan/ui/collapsible"
+import { ErrorDetails } from "@xiaochuan/ui/error-details"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { ProjectAvatar } from "@xiaochuan/ui/project-avatar"
+import { RadioGroup, RadioItem } from "@xiaochuan/ui/radio"
+import { ScrollView } from "@xiaochuan/ui/scroll-view"
+import { SegmentedControl, SegmentedControlItem } from "@xiaochuan/ui/segmented-control"
+import { Select } from "@xiaochuan/ui/select"
+import { Switch } from "@xiaochuan/ui/switch"
+import { Tabs } from "@xiaochuan/ui/tabs"
+import { TextInput } from "@xiaochuan/ui/text-input"
 import { createEffect, createSignal, createUniqueId, For, onCleanup, onMount, Show, type JSX } from "solid-js"
 import { createTabStripScroll } from "@/runtime/plugin/tab-strip-scroll"
-import { createFieldFocus } from "@xccode/ui/context/field-focus"
-import { createOverlayFocus } from "@xccode/ui/context/overlay-focus"
-import { installFocusRescue } from "@xccode/ui/context/focus-rescue"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@xccode/ui/dialog"
-import { Menu } from "@xccode/ui/menu"
+import { createFieldFocus } from "@xiaochuan/ui/context/field-focus"
+import { createOverlayFocus } from "@xiaochuan/ui/context/overlay-focus"
+import { installFocusRescue } from "@xiaochuan/ui/context/focus-rescue"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@xiaochuan/ui/dialog"
+import { Menu } from "@xiaochuan/ui/menu"
 import { Popover } from "@kobalte/core/popover"
 import { WaitingButton } from "@/providers/connect/step-actions"
 import { SessionHeaderActions } from "@/session/header/session-header-actions"
@@ -198,7 +198,7 @@ const surfaces: Surface[] = [
             class="flex h-7 items-center gap-2 rounded-[6px] px-1.5 text-13-regular text-v2-text-text-muted hover:bg-v2-overlay-simple-overlay-hover"
           >
             <ProjectAvatar fallback="O" variant="blue" class="!size-4" />
-            xccode
+            xiaochuan
           </button>
         ),
       },
@@ -213,7 +213,7 @@ const surfaces: Surface[] = [
         render: () => (
           <div class="flex items-center gap-2">
             <button type="button" class="h-7 rounded-[6px] px-1.5 text-13-regular">
-              xccode
+              xiaochuan
             </button>
             <Icon name="chevron-right" />
             <h1 class="session-title-rename w-fit text-13-medium">
@@ -642,7 +642,7 @@ const surfaces: Surface[] = [
           </ScrollView>
         ),
       },
-      ...(["Projects", "xccode"] as const).map(
+      ...(["Projects", "xiaochuan"] as const).map(
         (label): Case => ({
           name: `Side tabs: ${label === "Projects" ? "Projects heading" : "project row"} has only a background change`,
           failure: "Inconsistent",
@@ -687,7 +687,7 @@ const surfaces: Surface[] = [
             >
               <ProjectAvatar fallback="O" variant="blue" class="!size-4" />
               <span>Test message</span>
-              <span class="text-13-regular text-v2-text-text-muted">xccode</span>
+              <span class="text-13-regular text-v2-text-text-muted">xiaochuan</span>
             </button>
           </div>
         ),
@@ -720,7 +720,7 @@ const surfaces: Surface[] = [
                 class="flex h-7 w-full items-center gap-2 rounded-[6px] px-1.5 text-13-regular"
               >
                 <ProjectAvatar fallback="O" variant="blue" class="!size-4" />
-                xccode
+                xiaochuan
               </button>
               <div data-slot="home-row-actions" class="absolute end-1 inset-y-0 flex items-center ps-2">
                 <IconButton
@@ -941,7 +941,7 @@ const surfaces: Surface[] = [
               <Tabs.Content value="mcps">
                 <div class="settings-extension-row">
                   <span>Available to all projects</span>
-                  <span class="text-v2-text-text-muted">Manage in xccode.json</span>
+                  <span class="text-v2-text-text-muted">Manage in xiaochuan.json</span>
                 </div>
               </Tabs.Content>
               <Tabs.Content value="plugins">Manage plugins</Tabs.Content>
@@ -964,7 +964,7 @@ const surfaces: Surface[] = [
                 Connect
               </button>
               <Icon name="chevron-right" class="text-v2-icon-icon-muted" />
-              <span class="text-13-medium">Xccode Go</span>
+              <span class="text-13-medium">Xiaochuan Go</span>
             </nav>
           </div>
         ),
@@ -1032,7 +1032,7 @@ const surfaces: Surface[] = [
       {
         name: "Worktrees: Delete ring cut at the top and right by its row",
         failure: "Clipped",
-        target: '[aria-label="Delete “xccode-dialogs”?"]',
+        target: '[aria-label="Delete “xiaochuan-dialogs”?"]',
         keys: "Click the path, press Tab.",
         sizing: "Audited at 1280×800. Delete is the row's top-right control.",
         source: "app/src/settings/settings.css:1919–27 (row overflow: hidden), workspaces.tsx:543–553",
@@ -1045,15 +1045,15 @@ const surfaces: Surface[] = [
                   <div class="settings-workspaces-row">
                     <div class="settings-workspaces-row-header">
                       <div class="settings-workspaces-copy">
-                        <div class="settings-workspaces-main">/Users/alex/work/xccode-dialogs</div>
-                        <span class="settings-workspaces-meta">0 sessions in xccode</span>
+                        <div class="settings-workspaces-main">/Users/alex/work/xiaochuan-dialogs</div>
+                        <span class="settings-workspaces-meta">0 sessions in xiaochuan</span>
                       </div>
                       <div class="settings-workspaces-row-actions">
                         <IconButton
                           type="button"
                           variant="ghost-muted"
                           size="small"
-                          aria-label="Delete “xccode-dialogs”?"
+                          aria-label="Delete “xiaochuan-dialogs”?"
                           icon={<Icon name="trash" size="small" />}
                         />
                       </div>
@@ -1184,7 +1184,7 @@ const surfaces: Surface[] = [
                 class="flex h-full min-w-0 flex-1 items-center gap-2 rounded-[4px] bg-transparent text-start focus-visible:outline-none"
               >
                 <ProjectAvatar fallback="O" variant="blue" class="!size-5" />
-                <span class="text-[13px] font-[530]">xccode</span>
+                <span class="text-[13px] font-[530]">xiaochuan</span>
               </button>
             </div>
           </div>
@@ -1674,7 +1674,7 @@ const surfaces: Surface[] = [
         fix: "The rows picked their background on :focus, so a click drew it too, and drew no ring. They now take the shared ring inset (-2px) on :focus-visible; hover and the arrow-key highlight keep the background.",
         render: () => (
           <div class="flex w-[320px] flex-col gap-0.5 overflow-y-auto">
-            <For each={["Xccode Zen", "Anthropic", "OpenAI"]}>
+            <For each={["Xiaochuan Zen", "Anthropic", "OpenAI"]}>
               {(name) => (
                 <button
                   type="button"
@@ -1815,7 +1815,7 @@ const surfaces: Surface[] = [
               Big Pickle
             </button>
             <div class="grid w-full grid-cols-2 gap-x-2 gap-y-1.5">
-              <For each={["Xccode Zen", "Xccode Go"]}>
+              <For each={["Xiaochuan Zen", "Xiaochuan Go"]}>
                 {(name) => (
                   <button
                     type="button"

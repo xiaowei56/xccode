@@ -149,7 +149,7 @@ fn invalid(message: impl Into<String>) -> Error {
     Error::Invalid(message.into())
 }
 
-/// A key of `xccode service get/set/unset`.
+/// A key of `xiaochuan service get/set/unset`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Key {
     Disabled,
@@ -200,11 +200,11 @@ pub enum Edit {
 }
 
 impl Edit {
-    /// `xccode service set <key> <value> [<nested value>]`.
+    /// `xiaochuan service set <key> <value> [<nested value>]`.
     pub fn set(key: &str, value: &str, nested: Option<&str>) -> Result<Self, Error> {
         let key = Key::parse(key)?;
         if key != Key::Env && nested.is_some() {
-            return Err(invalid(format!("Usage: xccode service set {} <value>", key.name())));
+            return Err(invalid(format!("Usage: xiaochuan service set {} <value>", key.name())));
         }
         let flag = |name: &str| match value {
             "true" => Ok(true),
@@ -216,13 +216,13 @@ impl Edit {
             Key::Remote => Edit::Remote(flag("Remote")?),
             Key::Hostname => Edit::Hostname(value.to_string()),
             Key::Port => Edit::Port(
-                xccode_api_types::js::parse_number(value)
+                xiaochuan_api_types::js::parse_number(value)
                     .filter(|port| port.fract() == 0.0 && (1.0..=65_535.0).contains(port))
                     .ok_or_else(|| invalid("Port must be between 1 and 65535"))? as u16,
             ),
             Key::Password => Edit::Password(value.to_string()),
             Key::Env => {
-                let nested = nested.ok_or_else(|| invalid("Usage: xccode service set env <key> <value>"))?;
+                let nested = nested.ok_or_else(|| invalid("Usage: xiaochuan service set env <key> <value>"))?;
                 Edit::Env(value.to_string(), nested.to_string())
             }
             Key::Cors => {
@@ -237,15 +237,15 @@ impl Edit {
         })
     }
 
-    /// `xccode service unset <key> [<name>]`.
+    /// `xiaochuan service unset <key> [<name>]`.
     pub fn unset(key: &str, name: Option<&str>) -> Result<Self, Error> {
         let key = Key::parse(key)?;
         if key != Key::Env && name.is_some() {
-            return Err(invalid(format!("Usage: xccode service unset {}", key.name())));
+            return Err(invalid(format!("Usage: xiaochuan service unset {}", key.name())));
         }
         if key == Key::Env {
             return Ok(Edit::UnsetEnv(
-                name.ok_or_else(|| invalid("Usage: xccode service unset env <key>"))?.to_string(),
+                name.ok_or_else(|| invalid("Usage: xiaochuan service unset env <key>"))?.to_string(),
             ));
         }
         Ok(Edit::Unset(key))
@@ -266,7 +266,7 @@ impl Edit {
 
 // `URL.parse(origin)` is an http or https URL whose origin is exactly the input.
 fn is_origin(origin: &str) -> bool {
-    xccode_api_types::js::parse_url(origin)
+    xiaochuan_api_types::js::parse_url(origin)
         .is_ok_and(|url| matches!(url.scheme(), "http" | "https") && url.origin().ascii_serialization() == origin)
 }
 
@@ -331,7 +331,7 @@ impl ServiceConfig {
         std::os::unix::fs::OpenOptionsExt::mode(&mut options, 0o600);
         let body = serde_json::to_string_pretty(map).expect("config serializes") + "\n";
         // Windows fails a rename onto a file another process has open; retry as TypeScript does.
-        xccode_util::busy::replace(&self.file, &temp, &options, body.as_bytes())
+        xiaochuan_util::busy::replace(&self.file, &temp, &options, body.as_bytes())
     }
 
     /// The private credential, created once and kept across restarts; `Some` replaces it.
@@ -382,7 +382,7 @@ impl ServiceConfig {
         })
     }
 
-    /// `xccode service get [<key> [<name>]]`. Without a key: the config as JSON without the
+    /// `xiaochuan service get [<key> [<name>]]`. Without a key: the config as JSON without the
     /// password and with the route hidden. `get password` creates the password when missing.
     pub fn get(&self, key: Option<&str>, name: Option<&str>) -> Result<String, Error> {
         let Some(key) = key else {
@@ -395,7 +395,7 @@ impl ServiceConfig {
         };
         let key = Key::parse(key)?;
         if key != Key::Env && name.is_some() {
-            return Err(invalid(format!("Usage: xccode service get {}", key.name())));
+            return Err(invalid(format!("Usage: xiaochuan service get {}", key.name())));
         }
         if key == Key::Password {
             return Ok(self.password(None)?);
@@ -514,7 +514,7 @@ mod tests {
 
     #[test]
     fn repairs_legacy_remote_and_migrates_legacy_names() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let config = config(dir.path(), "latest");
         fs::create_dir_all(config.file.parent().unwrap()).unwrap();
         fs::write(&config.file, r#"{"remote":true,"port":5}"#).unwrap();

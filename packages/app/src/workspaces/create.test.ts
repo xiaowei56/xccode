@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { Xccode } from "@xccode/client/promise"
-import { createData } from "@xccode/client/solid"
+import { Xiaochuan } from "@xiaochuan/client/promise"
+import { createData } from "@xiaochuan/client/solid"
 import { createRoot } from "solid-js"
 import { createWorktree } from "./create"
 
@@ -31,7 +31,7 @@ describe("worktree creation", () => {
     const project = { id: "proj_clone", directory: input.root, canonical: input.canonical }
     const requests: Request[] = []
 
-    const api = Xccode.make({
+    const api = Xiaochuan.make({
       baseUrl: "http://localhost:3000",
       fetch: Object.assign(
         async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -87,7 +87,7 @@ describe("worktree creation", () => {
   test("does not fall back to a shared project when location lookup fails", async () => {
     const requests: Request[] = []
 
-    const api = Xccode.make({
+    const api = Xiaochuan.make({
       baseUrl: "http://localhost:3000",
       fetch: Object.assign(
         async (input: RequestInfo | URL, init?: RequestInit) => {

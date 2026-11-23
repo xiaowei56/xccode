@@ -1,14 +1,14 @@
 ---
 title: Windows (WSL)
-description: Pokrenite Xccode na Windowsu preko WSL-a.
+description: Pokrenite Xiaochuan na Windowsu preko WSL-a.
 ---
 
 import { Steps } from "@astrojs/starlight/components"
 
-Iako Xccode moze raditi direktno na Windowsu, preporucujemo [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) za najbolje iskustvo. WSL daje Linux okruzenje koje glatko radi sa Xccode funkcijama.
+Iako Xiaochuan moze raditi direktno na Windowsu, preporucujemo [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) za najbolje iskustvo. WSL daje Linux okruzenje koje glatko radi sa Xiaochuan funkcijama.
 
 :::tip[Zašto WSL?]
-WSL nudi bolje performanse fajl sistema, punu terminalsku podrsku i kompatibilnost s razvojnim alatima na koje se Xccode oslanja.
+WSL nudi bolje performanse fajl sistema, punu terminalsku podrsku i kompatibilnost s razvojnim alatima na koje se Xiaochuan oslanja.
 :::
 
 ---
@@ -21,21 +21,21 @@ WSL nudi bolje performanse fajl sistema, punu terminalsku podrsku i kompatibilno
 
    Ako vec niste, [instalirajte WSL](https://learn.microsoft.com/en-us/windows/wsl/install) prema zvanicnom Microsoft vodicu.
 
-2. **Instalirajte Xccode u WSL-u**
+2. **Instalirajte Xiaochuan u WSL-u**
 
-   Kad je WSL spreman, otvorite WSL terminal i instalirajte Xccode jednom od [metoda instalacije](/docs/).
+   Kad je WSL spreman, otvorite WSL terminal i instalirajte Xiaochuan jednom od [metoda instalacije](/docs/).
 
    ```bash
-   curl -fsSL https://xccode.ai/install | bash
+   curl -fsSL https://xiaochuan.ai/install | bash
    ```
 
-3. **Koristite Xccode iz WSL-a**
+3. **Koristite Xiaochuan iz WSL-a**
 
-   Idite u direktorij projekta (Windows fajlovima pristupate preko `/mnt/c/`, `/mnt/d/` itd.) i pokrenite Xccode.
+   Idite u direktorij projekta (Windows fajlovima pristupate preko `/mnt/c/`, `/mnt/d/` itd.) i pokrenite Xiaochuan.
 
    ```bash
    cd /mnt/c/Users/YourName/project
-   xccode
+   xiaochuan
    ```
 
 </Steps>
@@ -44,12 +44,12 @@ WSL nudi bolje performanse fajl sistema, punu terminalsku podrsku i kompatibilno
 
 ## Desktop aplikacija + WSL Server
 
-Ako preferirate Xccode Desktop aplikaciju, ali zelite da server radi u WSL-u:
+Ako preferirate Xiaochuan Desktop aplikaciju, ali zelite da server radi u WSL-u:
 
 1. **Pokrenite server u WSL-u** sa `--hostname 0.0.0.0` da dozvolite vanjske konekcije:
 
    ```bash
-   xccode serve --hostname 0.0.0.0 --port 4096
+   xiaochuan serve --hostname 0.0.0.0 --port 4096
    ```
 
 2. **Povezite Desktop aplikaciju** na `http://localhost:4096`
@@ -59,10 +59,10 @@ Ako `localhost` ne radi u vasem setupu, povezte se preko WSL IP adrese (u WSL-u:
 :::
 
 :::caution
-Kada koristite `--hostname 0.0.0.0`, postavite `XCCODE_SERVER_PASSWORD` da zastitite server.
+Kada koristite `--hostname 0.0.0.0`, postavite `XIAOCHUAN_SERVER_PASSWORD` da zastitite server.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve --hostname 0.0.0.0
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve --hostname 0.0.0.0
 ```
 
 :::
@@ -73,15 +73,15 @@ XCCODE_SERVER_PASSWORD=your-password xccode serve --hostname 0.0.0.0
 
 Za najbolje web iskustvo na Windowsu:
 
-1. **Pokrenite `xccode web` u WSL terminalu** umjesto u PowerShell-u:
+1. **Pokrenite `xiaochuan web` u WSL terminalu** umjesto u PowerShell-u:
 
    ```bash
-   xccode web --hostname 0.0.0.0
+   xiaochuan web --hostname 0.0.0.0
    ```
 
-2. **Otvorite iz Windows browsera** na `http://localhost:<port>` (Xccode ispisuje URL)
+2. **Otvorite iz Windows browsera** na `http://localhost:<port>` (Xiaochuan ispisuje URL)
 
-Pokretanje `xccode web` iz WSL-a osigurava ispravan pristup fajl sistemu i terminalsku integraciju, a i dalje je dostupno iz Windows browsera.
+Pokretanje `xiaochuan web` iz WSL-a osigurava ispravan pristup fajl sistemu i terminalsku integraciju, a i dalje je dostupno iz Windows browsera.
 
 ---
 
@@ -97,17 +97,17 @@ Primjer:
 
 ```bash
 cd /mnt/c/Users/YourName/Documents/project
-xccode
+xiaochuan
 ```
 
 :::tip
-Za najgladje iskustvo, razmislite da klonirate/kopirate repo u WSL fajl sistem (npr. pod `~/code/`) i tu pokrenete Xccode.
+Za najgladje iskustvo, razmislite da klonirate/kopirate repo u WSL fajl sistem (npr. pod `~/code/`) i tu pokrenete Xiaochuan.
 :::
 
 ---
 
 ## Savjeti
 
-- Drzite Xccode u WSL-u za projekte na Windows diskovima - pristup fajlovima je jednostavan
-- Koristite VS Code [WSL ekstenziju](https://code.visualstudio.com/docs/remote/wsl) uz Xccode za integrisan tok rada
-- Vase Xccode konfiguracije i sesije cuvaju se u WSL okruzenju na `~/.local/share/xccode/`
+- Drzite Xiaochuan u WSL-u za projekte na Windows diskovima - pristup fajlovima je jednostavan
+- Koristite VS Code [WSL ekstenziju](https://code.visualstudio.com/docs/remote/wsl) uz Xiaochuan za integrisan tok rada
+- Vase Xiaochuan konfiguracije i sesije cuvaju se u WSL okruzenju na `~/.local/share/xiaochuan/`

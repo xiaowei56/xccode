@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 import path from "node:path"
-import { pack } from "@xccode/script/pack"
+import { pack } from "@xiaochuan/script/pack"
 
 // The app's and desktop's internal protocol, the API only the built-in plugins use, and the app's own updater contract
 // stay in the workspace.

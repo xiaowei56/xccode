@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { onCleanup, onMount } from "solid-js"
 import * as mod from "./image-preview"
-import { Button } from "@xccode/ui/button"
+import { Button } from "@xiaochuan/ui/button"
 import { useDialog } from "../context/dialog"
 
 const docs = `### Overview

@@ -1,5 +1,5 @@
-import { Agent } from "@xccode/schema/agent"
-import { Location } from "@xccode/schema/location"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Location } from "@xiaochuan/schema/location"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { LocationQuery, locationQueryOpenApi } from "./location.js"

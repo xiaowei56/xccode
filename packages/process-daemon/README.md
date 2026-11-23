@@ -1,10 +1,10 @@
-# xccode-pty
+# xiaochuan-pty
 
-Moved from [xiaowei56/xccode-pty](https://github.com/xiaowei56/xccode-pty)
-(at 443945a, v0.3.1). It lives in the Xccode monorepo at
+Moved from [xiaowei56/xiaochuan-pty](https://github.com/xiaowei56/xiaochuan-pty)
+(at 443945a, v0.3.1). It lives in the Xiaochuan monorepo at
 `packages/process-daemon`; run the commands below from that directory.
 
-Experimental threaded PTY service core for Xccode.
+Experimental threaded PTY service core for Xiaochuan.
 
 It uses `portable-pty` to own terminal child processes and `libghostty-vt` to
 maintain authoritative terminal state and answer terminal protocol queries.
@@ -17,7 +17,7 @@ terminals. Observer commands connect to an existing daemon without taking owners
 The service uses a private authenticated local byte stream (Unix socket or Windows
 named pipe) and an atomic registration file.
 
-Integrations launch `xccode-pty daemon --name NAME [--runtime-dir DIR]` (protocol 9).
+Integrations launch `xiaochuan-pty daemon --name NAME [--runtime-dir DIR]` (protocol 9).
 The server must claim the daemon within 5 seconds by sending the authenticated
 framed envelope `{"token":"...","request":{"op":"own","instance_id":"..."}}`.
 The response is `{"type":"owned"}`; that connection stays open as the sole
@@ -39,19 +39,19 @@ current owner, stops the daemon even during handoff. No ownership or handoff sta
 is persisted.
 
 Every command requires `--name NAME`, which selects the runtime directory
-`DIR/NAME`. `--runtime-dir DIR` is optional and defaults to Xccode's state
-directory, `${XDG_STATE_HOME:-~/.local/state}/xccode/pty`. Names are a single
+`DIR/NAME`. `--runtime-dir DIR` is optional and defaults to Xiaochuan's state
+directory, `${XDG_STATE_HOME:-~/.local/state}/xiaochuan/pty`. Names are a single
 path component of letters, digits, `.`, `_`, or `-`. The registration
 (`service.json`) and lock (`service.lock`) live in that directory. They only
 default to a temporary directory when no home directory exists, because macOS deletes unaccessed regular files
-there after three days. The socket defaults to `/tmp/xccode-pty-<uid>/` to fit
+there after three days. The socket defaults to `/tmp/xiaochuan-pty-<uid>/` to fit
 socket path limits; temporary cleaners skip sockets. A stopping daemon removes
 its own files and runtime directory, and a starting daemon removes abandoned
 sibling runtime directories older than ten minutes.
 
-On Unix, set `XCCODE_PTY_SOCKET_DIR` to use a different socket directory. The
+On Unix, set `XIAOCHUAN_PTY_SOCKET_DIR` to use a different socket directory. The
 value must be an absolute path without `..` components. Sockets go in an
-`xccode-pty-<uid>` child of that directory, which gets the existing ownership
+`xiaochuan-pty-<uid>` child of that directory, which gets the existing ownership
 and symlink checks and mode `0700`; the directory itself is left unchanged.
 Socket path length limits still apply. Registration and lock files continue to
 use the runtime directory.
@@ -72,7 +72,7 @@ polls every 25 ms.
 
 The Windows named-pipe backend uses protocol 9 and the registration fields
 `instance_id`, `pid`, `protocol`, `socket`, `token`, and `features`. Treat `socket` as an opaque
-local endpoint: on Windows it is `\\.\pipe\xccode-pty-<instance_id>`, not a
+local endpoint: on Windows it is `\\.\pipe\xiaochuan-pty-<instance_id>`, not a
 filesystem socket. A random per-instance name, exclusive first pipe instance,
 current-user access control, and rejection of remote clients protect the endpoint;
 the private registration file remains the discovery and authentication source.
@@ -92,9 +92,9 @@ it never calls the potentially unbounded `FlushFileBuffers`. Stopping acceptance
 retains a pipe instance until registration is removed, preventing namespace
 squatting during cleanup.
 
-On Windows, `xccode-pty daemon --name NAME [--runtime-dir DIR]` uses the same
+On Windows, `xiaochuan-pty daemon --name NAME [--runtime-dir DIR]` uses the same
 `DIR/NAME` runtime directory; the default `DIR` resolves through `XDG_STATE_HOME`
-or the user profile's `.local\state\xccode\pty`, matching Xccode's state
+or the user profile's `.local\state\xiaochuan\pty`, matching Xiaochuan's state
 directory. The runtime directory must be absolute. Storage entries must not be
 reparse points or owned by another user; the directory, lock, and registration
 use protected current-user-only ACLs, and clients verify the registration's owner
@@ -121,7 +121,7 @@ sending the token. Discard a connection after any read/write timeout.
 ## Architecture
 
 ```text
-xccode-pty process
+xiaochuan-pty process
 ├── atomic private service registration
 ├── authenticated framed IPC
 ├── terminal registry
@@ -299,7 +299,7 @@ stack-trace helper, which otherwise fails to compile for ARM64.
 The workflow runs on pull requests and pushes to `dev` that touch
 `packages/process-daemon`, independently of the release workflow.
 It checks formatting, builds the executable, runs all enabled tests, and checks
-`xccode-pty.exe --version`. It also copies the library test executable out of
+`xiaochuan-pty.exe --version`. It also copies the library test executable out of
 the build tree and runs it without Cargo's DLL search paths, verifying that
 libghostty is statically linked. It does not publish packages or releases.
 
@@ -349,16 +349,16 @@ forced-exit deadline does not prove that those worker threads were joined.
 The workflow can also be run manually against a branch:
 
 ```sh
-gh workflow run check-process-daemon.yml --repo xiaowei56/xccode --ref BRANCH
-gh run list --repo xiaowei56/xccode --workflow check-process-daemon.yml --branch BRANCH
-gh run view RUN_ID --repo xiaowei56/xccode --log-failed
+gh workflow run check-process-daemon.yml --repo xiaowei56/xiaochuan --ref BRANCH
+gh run list --repo xiaowei56/xiaochuan --workflow check-process-daemon.yml --branch BRANCH
+gh run view RUN_ID --repo xiaowei56/xiaochuan --log-failed
 ```
 
 ## Releases
 
 Releases are built by
 [`.github/workflows/release-process-daemon.yml`](../../.github/workflows/release-process-daemon.yml)
-in xiaowei56/xccode. To release version `X.Y.Z`:
+in xiaowei56/xiaochuan. To release version `X.Y.Z`:
 
 1. Bump `version` in `Cargo.toml` (and `Cargo.lock`), and `version` plus every
    `optionalDependencies` entry in `npm/package.json`, to `X.Y.Z`. The workflow
@@ -373,27 +373,27 @@ git push origin process-daemon-vX.Y.Z
 
 The tag creates an unsigned GitHub release titled `process-daemon vX.Y.Z`. It
 is never marked Latest, because the monorepo's Latest release drives
-Xccode's own update paths. The release contains x86-64 and arm64 binaries
+Xiaochuan's own update paths. The release contains x86-64 and arm64 binaries
 for Linux GNU, Linux musl, macOS, and Windows (MSVC, statically linked C
 runtime), plus `SHA256SUMS`, a machine-readable `release-manifest.json`, and
 GitHub build-provenance attestations. Release builds force Ghostty's Zig code
 generation to its baseline CPU target so artifacts do not inherit
 instruction-set extensions from CI runners (Windows builds set
-`XCCODE_ZIG_CPU=baseline`, since the Unix Zig wrapper is a shell script).
+`XIAOCHUAN_ZIG_CPU=baseline`, since the Unix Zig wrapper is a shell script).
 Linux GNU artifacts support glibc 2.30 and newer.
 
-Tagged releases also publish `@xccode/pty` to npm with optional,
+Tagged releases also publish `@xiaochuan/pty` to npm with optional,
 platform-specific binary packages. Installing the npm package selects the native
-binary for the current platform (`xccode-pty.exe` on Windows) and exposes
+binary for the current platform (`xiaochuan-pty.exe` on Windows) and exposes
 its path as `binaryPath`:
 
 ```js
-import { binaryPath } from "@xccode/pty"
+import { binaryPath } from "@xiaochuan/pty"
 ```
 
 npm publishing uses trusted publishing with provenance. Each of the nine
-packages (`@xccode/pty` and the eight `@xccode/pty-<platform>`
-packages) must list xiaowei56/xccode with workflow
+packages (`@xiaochuan/pty` and the eight `@xiaochuan/pty-<platform>`
+packages) must list xiaowei56/xiaochuan with workflow
 `release-process-daemon.yml` as its trusted publisher, with no environment
 (the release job does not use one).
 
@@ -408,7 +408,7 @@ Platform signing will be added later.
   TerminalClient/play/watch CLI.
 - Ordinary API operations use one framed JSON request per connection;
   subscriptions keep the authenticated connection open for ordered live events.
-- The Xccode backend proxy and ordered group APIs are implemented, but the
+- The Xiaochuan backend proxy and ordered group APIs are implemented, but the
   OpenTUI client integration is not.
 - Windows uses portable-pty's published ConPTY backend and is not hardened yet.
 - Child process-tree cleanup is not complete beyond portable-pty's root killer.

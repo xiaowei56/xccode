@@ -1,8 +1,8 @@
 import { execFile } from "node:child_process"
 import { powerSaveBlocker } from "electron"
 import { Schema } from "effect"
-import { builtinMainContext } from "@xccode/plugin/gui/builtin"
-import type { Plugin } from "@xccode/plugin/gui/main"
+import { builtinMainContext } from "@xiaochuan/plugin/gui/builtin"
+import type { Plugin } from "@xiaochuan/plugin/gui/main"
 import { Pairing } from "./contract"
 import { createDispatch } from "./dispatch"
 import {
@@ -21,7 +21,7 @@ const setup: Plugin.MainSetup = (ctx) => {
   const stored = builtinMainContext(ctx).storage.store("keepScreenActive", {
     schema: Schema.Boolean,
     initial: false,
-    from: { state: ["xccode.settings", "keepScreenActive"] },
+    from: { state: ["xiaochuan.settings", "keepScreenActive"] },
   })
 
   const cli = ctx.cli
@@ -78,13 +78,13 @@ const setup: Plugin.MainSetup = (ctx) => {
     }
 
     // Remote access is a setting of the background service, so it changes through the CLI the app runs, as with
-    // `xccode pair --remote`. A hung command ends at its timeout, so the next one always runs.
+    // `xiaochuan pair --remote`. A hung command ends at its timeout, so the next one always runs.
     const attempt = effect.attempt
     const controller = new AbortController()
 
     commands.set(attempt, controller)
     execFile(
-      cli.command[0] ?? "xccode",
+      cli.command[0] ?? "xiaochuan",
       [...cli.command.slice(1), "service", ...effect.args],
       { signal: AbortSignal.any([ctx.signal, controller.signal]), timeout: effect.timeoutMs, windowsHide: true },
       (error, stdout, stderr) => {

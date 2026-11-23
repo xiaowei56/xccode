@@ -1,17 +1,17 @@
 import { expect } from "bun:test"
 import path from "path"
-import { LanguageModel, LLMClient } from "@xccode/ai/effect"
-import { OpenAIChat } from "@xccode/ai/protocols"
-import { TestLLM } from "@xccode/ai/testing"
-import { llmClient } from "@xccode/core/effect/app-node-platform"
-import { makeMemoryDriver } from "@xccode/core/environment/index"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { WorkspaceDriver } from "@xccode/core/workspace/driver"
-import { Plugin } from "@xccode/plugin/effect"
+import { LanguageModel, LLMClient } from "@xiaochuan/ai/effect"
+import { OpenAIChat } from "@xiaochuan/ai/protocols"
+import { TestLLM } from "@xiaochuan/ai/testing"
+import { llmClient } from "@xiaochuan/core/effect/app-node-platform"
+import { makeMemoryDriver } from "@xiaochuan/core/environment/index"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { WorkspaceDriver } from "@xiaochuan/core/workspace/driver"
+import { Plugin } from "@xiaochuan/plugin/effect"
 import { Context, Deferred, Effect, Exit, Layer, Schema, Scope } from "effect"
 import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
 import { testEffect } from "../../core/test/lib/effect"
-import { AbsolutePath, Agent, Location, Xccode } from "../src/effect"
+import { AbsolutePath, Agent, Location, Xiaochuan } from "../src/effect"
 
 const it = testEffect(Layer.empty)
 const metadata = Schema.decodeUnknownSync(Schema.Struct({ threadID: Schema.String }))
@@ -38,7 +38,7 @@ it.live(
       const configured: string[] = []
       const closed: number[] = []
       const executed: number[] = []
-      const options: Xccode.CreateOptions = {
+      const options: Xiaochuan.CreateOptions = {
         database: { path: path.join(directory.path, "sessions.db") },
         app: { name: "instance-test", version: "1.2.3" },
         events: { persist: true },
@@ -105,7 +105,7 @@ it.live(
         ],
       }
       yield* llm.push(TestLLM.hangAfter())
-      const first = yield* Xccode.create(options, embed).pipe(Scope.provide(firstScope))
+      const first = yield* Xiaochuan.create(options, embed).pipe(Scope.provide(firstScope))
       const session = yield* first.sessions.create({
         title: "Recovery fixture",
         location: Location.Ref.make({ directory: AbsolutePath.make(directory.path) }),
@@ -121,7 +121,7 @@ it.live(
       yield* Scope.close(firstScope, Exit.void)
       expect(closed).toEqual([1])
       yield* llm.push(TestLLM.toolCall("recovered-tool", "thread_echo", {}), TestLLM.text("Recovered", "answer"))
-      const second = yield* Xccode.create(options, embed).pipe(Scope.provide(secondScope))
+      const second = yield* Xiaochuan.create(options, embed).pipe(Scope.provide(secondScope))
       yield* Deferred.await(started).pipe(Effect.timeout("5 seconds"))
       expect((yield* llm.requests()).length).toBe(1)
       yield* Deferred.succeed(release, undefined)
@@ -159,7 +159,7 @@ it.live(
         suspendForIdle: () => Effect.void,
         destroy: () => Effect.void,
       })
-      const xccode = yield* Xccode.create(
+      const xiaochuan = yield* Xiaochuan.create(
         {
           config: { directory: directory.path, project: false, content: "{}" },
           models: { fetch: false },
@@ -198,37 +198,37 @@ it.live(
           ],
         },
       )
-      const firstWorkspace = yield* xccode.workspace.create({ provider: "memory" })
-      const secondWorkspace = yield* xccode.workspace.create({ provider: "memory" })
-      const first = yield* xccode.sessions.create({
+      const firstWorkspace = yield* xiaochuan.workspace.create({ provider: "memory" })
+      const secondWorkspace = yield* xiaochuan.workspace.create({ provider: "memory" })
+      const first = yield* xiaochuan.sessions.create({
         title: "First placement",
         location: Location.Ref.make({ directory: AbsolutePath.make(directory.path), workspaceID: firstWorkspace }),
         model: model.ref,
         metadata: { threadID: "same-thread" },
       })
-      const second = yield* xccode.sessions.create({
+      const second = yield* xiaochuan.sessions.create({
         title: "Second placement",
         location: Location.Ref.make({ directory: AbsolutePath.make(directory.path), workspaceID: secondWorkspace }),
         model: model.ref,
         metadata: { threadID: "same-thread" },
       })
       for (const session of [first, second]) {
-        const admitted = yield* xccode.sessions.prompt({ sessionID: session.id, text: "Hello" })
+        const admitted = yield* xiaochuan.sessions.prompt({ sessionID: session.id, text: "Hello" })
         expect(admitted.payload.text).toBe(`Hello:${session.location.workspaceID}`)
-        yield* xccode.experimental.session.wait({ sessionID: session.id })
+        yield* xiaochuan.experimental.session.wait({ sessionID: session.id })
       }
       expect(configured).toEqual(["same-thread", "same-thread"])
       expect(placements.map((location) => location.workspaceID)).toEqual([firstWorkspace, secondWorkspace])
 
-      yield* xccode.sessions.move({
+      yield* xiaochuan.sessions.move({
         sessionID: first.id,
         directory: AbsolutePath.make(directory.path),
         workspaceID: secondWorkspace,
       })
-      yield* xccode.experimental.session.wait({ sessionID: first.id })
-      const moved = yield* xccode.sessions.get({ sessionID: first.id })
+      yield* xiaochuan.experimental.session.wait({ sessionID: first.id })
+      const moved = yield* xiaochuan.sessions.get({ sessionID: first.id })
       expect(moved.location.workspaceID).toBe(secondWorkspace)
-      const admitted = yield* xccode.sessions.prompt({ sessionID: first.id, text: "Moved", resume: false })
+      const admitted = yield* xiaochuan.sessions.prompt({ sessionID: first.id, text: "Moved", resume: false })
       expect(admitted.payload.text).toBe(`Moved:${secondWorkspace}`)
       expect(configured).toEqual(["same-thread", "same-thread"])
     }),
@@ -247,7 +247,7 @@ it.live(
       const hostScope = yield* Scope.fork(yield* Effect.scope)
       const attempts: string[] = []
       const released: string[] = []
-      const layer = Xccode.layer({
+      const layer = Xiaochuan.layer({
         config: { directory: directory.path, project: false, content: "{}" },
         models: { fetch: false },
         fs: { filewatcher: false },
@@ -276,8 +276,8 @@ it.live(
             }),
         },
       }).pipe(Layer.provide(Layer.succeed(Personas, { of: (threadID) => Effect.succeed(`persona-for-${threadID}`) })))
-      const xccode = Context.get(yield* Layer.build(layer).pipe(Scope.provide(hostScope)), Xccode.Service)
-      const session = yield* xccode.sessions.create({
+      const xiaochuan = Context.get(yield* Layer.build(layer).pipe(Scope.provide(hostScope)), Xiaochuan.Service)
+      const session = yield* xiaochuan.sessions.create({
         title: "Service-configured fixture",
         location: Location.Ref.make({ directory: AbsolutePath.make(directory.path) }),
         metadata: { threadID: "thread-7" },
@@ -285,13 +285,13 @@ it.live(
 
       // A failed construction is discarded with what `configure` acquired, while the host lives on. Resources
       // bound to the Scope captured alongside the services would instead linger until the host closes.
-      const failed = yield* xccode.sessions
+      const failed = yield* xiaochuan.sessions
         .prompt({ sessionID: session.id, text: "Hello", resume: false })
         .pipe(Effect.exit)
       expect(Exit.isFailure(failed)).toBe(true)
       expect(released).toEqual(["thread-7:1"])
 
-      const admitted = yield* xccode.sessions.prompt({ sessionID: session.id, text: "Hello", resume: false })
+      const admitted = yield* xiaochuan.sessions.prompt({ sessionID: session.id, text: "Hello", resume: false })
       expect(admitted.payload.text).toBe("Hello:persona-for-thread-7")
       expect(attempts).toEqual(["thread-7", "thread-7"])
       expect(released).toEqual(["thread-7:1"])

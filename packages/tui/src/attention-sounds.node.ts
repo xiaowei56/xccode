@@ -3,9 +3,9 @@ import path from "node:path"
 
 const require = createRequire(import.meta.url)
 const resolve = (name: string) => {
-  const key = `@xccode/ui/audio/${name}`
-  return process.env.XCCODE_NODE_ASSETS_DIR
-    ? path.join(process.env.XCCODE_NODE_ASSETS_DIR, key)
+  const key = `@xiaochuan/ui/audio/${name}`
+  return process.env.XIAOCHUAN_NODE_ASSETS_DIR
+    ? path.join(process.env.XIAOCHUAN_NODE_ASSETS_DIR, key)
     : require.resolve(key)
 }
 

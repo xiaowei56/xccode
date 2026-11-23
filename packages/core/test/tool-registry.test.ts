@@ -1,16 +1,16 @@
 import { describe, expect } from "bun:test"
-import { Agent } from "@xccode/core/agent"
-import { Permission } from "@xccode/core/permission"
-import { Flag } from "@xccode/core/flag"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Image } from "@xccode/core/image"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { Session } from "@xccode/core/session"
-import { SessionMessage } from "@xccode/core/session/message"
-import { State } from "@xccode/core/state"
-import { Tool } from "@xccode/core/tool"
-import type { Info } from "@xccode/schema/tool"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Agent } from "@xiaochuan/core/agent"
+import { Permission } from "@xiaochuan/core/permission"
+import { Flag } from "@xiaochuan/core/flag"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Image } from "@xiaochuan/core/image"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { Session } from "@xiaochuan/core/session"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { State } from "@xiaochuan/core/state"
+import { Tool } from "@xiaochuan/core/tool"
+import type { Info } from "@xiaochuan/schema/tool"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { codeModeListings, executeTool, toolDefinitions, toolNodeReplacements } from "./lib/tool"
 import { Deferred, Effect, Exit, Fiber, Layer, Logger, Schema, SchemaGetter, SchemaIssue, Scope } from "effect"
 import { z } from "zod"
@@ -1028,16 +1028,16 @@ describe("Tool", () => {
   it.effect("denies a nested-namespace tool by its flattened name in Code Mode and as a direct tool", () =>
     Effect.gen(function* () {
       const service = yield* Tool.Service
-      yield* transform(service, { move: make(), rename: make() }, { namespace: "xccode.session" })
-      const deny: Permission.Ruleset = [{ action: "xccode_session_move", resource: "*", effect: "deny" }]
+      yield* transform(service, { move: make(), rename: make() }, { namespace: "xiaochuan.session" })
+      const deny: Permission.Ruleset = [{ action: "xiaochuan_session_move", resource: "*", effect: "deny" }]
 
       const codeMode = yield* service.snapshot(deny)
       const paths = codeModeListings(codeMode.codeModeCatalog!).map((entry) => entry.path)
-      expect(paths).toContain("xccode.session.rename")
-      expect(paths).not.toContain("xccode.session.move")
+      expect(paths).toContain("xiaochuan.session.rename")
+      expect(paths).not.toContain("xiaochuan.session.move")
 
       const direct = yield* service.snapshot([...deny, { action: "execute", resource: "*", effect: "deny" }])
-      expect(direct.definitions.map((tool) => tool.name)).toEqual(["xccode_session_rename"])
+      expect(direct.definitions.map((tool) => tool.name)).toEqual(["xiaochuan_session_rename"])
     }),
   )
 

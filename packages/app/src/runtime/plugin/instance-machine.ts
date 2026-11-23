@@ -1,5 +1,5 @@
-import type { Cleanup, Messages } from "@xccode/plugin/gui"
-import type { Entry } from "@xccode/plugin/gui/host"
+import type { Cleanup, Messages } from "@xiaochuan/plugin/gui"
+import type { Entry } from "@xiaochuan/plugin/gui/host"
 
 export type PluginStatus = "loading" | "active" | "failed" | "disabled"
 

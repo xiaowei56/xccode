@@ -3,40 +3,40 @@ title: "Pi"
 description: "Use Console and Go models from the Pi coding agent."
 ---
 
-[Pi](https://pi.dev) includes Xccode providers for pay-as-you-go and Go. It picks the right API for each paid or Go
-model. Free-tier chat models require Xccode and return HTTP `403` from Pi.
+[Pi](https://pi.dev) includes Xiaochuan providers for pay-as-you-go and Go. It picks the right API for each paid or Go
+model. Free-tier chat models require Xiaochuan and return HTTP `403` from Pi.
 
 <Callout>
   The [Console CLI](/console/harnesses#console-cli) sets up Pi with one command, including the workspace's policies, MCP
-  servers, skills and instructions. Run `npx @xccode/console setup pi`. The steps below set it up by hand.
+  servers, skills and instructions. Run `npx @xiaochuan/console setup pi`. The steps below set it up by hand.
 </Callout>
 
 | Provider      | Plan          |
 | ------------- | ------------- |
-| `xccode`    | Pay-as-you-go |
-| `xccode-go` | Go            |
+| `xiaochuan`    | Pay-as-you-go |
+| `xiaochuan-go` | Go            |
 
 ## Configure
 
-Both providers read the key from `XCCODE_API_KEY`. Create a [personal API key](/console/harnesses#get-an-api-key).
+Both providers read the key from `XIAOCHUAN_API_KEY`. Create a [personal API key](/console/harnesses#get-an-api-key).
 
 ```bash
-export XCCODE_API_KEY="oc_sk_..."
-pi --model xccode/claude-sonnet-5-5
+export XIAOCHUAN_API_KEY="oc_sk_..."
+pi --model xiaochuan/claude-sonnet-5-5
 ```
 
 You can also run `/login` in Pi and select the provider. Pi stores the key in `~/.pi/agent/auth.json`.
 
 ```text
-/login xccode
+/login xiaochuan
 ```
 
 ## Go
 
-Use the `xccode-go` provider with a key from a workspace with a [Go](/console/go) subscription.
+Use the `xiaochuan-go` provider with a key from a workspace with a [Go](/console/go) subscription.
 
 ```bash
-pi --model xccode-go/kimi-k3
+pi --model xiaochuan-go/kimi-k3
 ```
 
 ## Models
@@ -45,14 +45,14 @@ Select a model as `<provider>/<model-id>`, using IDs from the [Console](/console
 [Go](/console/go#endpoints) table. List the models Pi knows about with `--list-models`.
 
 ```bash
-pi --list-models xccode-go
+pi --list-models xiaochuan-go
 ```
 
 Set a default in `~/.pi/agent/settings.json`, or press `Ctrl+S` in the `/model` picker.
 
 ```json title="~/.pi/agent/settings.json"
 {
-  "defaultProvider": "xccode-go",
+  "defaultProvider": "xiaochuan-go",
   "defaultModel": "kimi-k3"
 }
 ```
@@ -65,6 +65,6 @@ Pi v0.99.0 and later support MCP. Add the [Console MCP](/console/harnesses#conso
 browser.
 
 ```bash
-pi mcp add xccode-console --url https://xccode.ai/console/mcp
-pi mcp login xccode-console
+pi mcp add xiaochuan-console --url https://xiaochuan.ai/console/mcp
+pi mcp login xiaochuan-console
 ```

@@ -1,14 +1,14 @@
-use xccode_api::client::Client;
-use xccode_api::error::Error as ApiError;
-use xccode_api::generated::types::{AgentListInput, ConfigGetInput, DebugHeapDumpInput};
-use xccode_api::transport::{Reqwest, Transport};
-use xccode_local::channel::Channels;
-use xccode_local::paths::Paths;
-use xccode_service::connect::{self, Env, Options};
-use xccode_service::discover;
-use xccode_service::probe::Endpoint;
-use xccode_util::path::{Flavor, strip_verbatim};
-use xccode_util::{bail, err, error};
+use xiaochuan_api::client::Client;
+use xiaochuan_api::error::Error as ApiError;
+use xiaochuan_api::generated::types::{AgentListInput, ConfigGetInput, DebugHeapDumpInput};
+use xiaochuan_api::transport::{Reqwest, Transport};
+use xiaochuan_local::channel::Channels;
+use xiaochuan_local::paths::Paths;
+use xiaochuan_service::connect::{self, Env, Options};
+use xiaochuan_service::discover;
+use xiaochuan_service::probe::Endpoint;
+use xiaochuan_util::path::{Flavor, strip_verbatim};
+use xiaochuan_util::{bail, err, error};
 use regex::Regex;
 use serde_json::Value;
 use std::path::Path;
@@ -74,7 +74,7 @@ fn redact_entry(key: &str, item: &Value, headers: bool) -> Value {
         }
         let lower = text.get(..8).unwrap_or(text).to_ascii_lowercase();
         if lower.starts_with("http://") || lower.starts_with("https://") {
-            let Ok(url) = xccode_api::js::parse_url(text) else { return hidden() };
+            let Ok(url) = xiaochuan_api::js::parse_url(text) else { return hidden() };
             if !url.username().is_empty()
                 || url.password().is_some()
                 || url.query_pairs().any(|(name, _)| SECRET_NAME.is_match(&name))
@@ -240,11 +240,11 @@ fn paths(args: &PathsArgs) -> error::Result<()> {
 }
 
 fn database(data: &Path) -> String {
-    let filename = std::env::var("XCCODE_DB").unwrap_or_else(|_| {
+    let filename = std::env::var("XIAOCHUAN_DB").unwrap_or_else(|_| {
         let channel = Channels::from_env().channel;
-        let disabled = matches!(std::env::var("XCCODE_DISABLE_CHANNEL_DB").as_deref(), Ok("1" | "true"));
+        let disabled = matches!(std::env::var("XIAOCHUAN_DISABLE_CHANNEL_DB").as_deref(), Ok("1" | "true"));
         if disabled || matches!(channel.as_str(), "latest" | "dev" | "beta" | "next" | "prod") {
-            return "xccode.db".to_owned();
+            return "xiaochuan.db".to_owned();
         }
         let safe: String = channel
             .chars()
@@ -253,7 +253,7 @@ fn database(data: &Path) -> String {
                 false => '-',
             })
             .collect();
-        format!("xccode-{safe}.db")
+        format!("xiaochuan-{safe}.db")
     });
     if filename == ":memory:" {
         return filename;

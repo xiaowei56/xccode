@@ -4,11 +4,11 @@ use std::path::{Path, PathBuf};
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_plugin::Status;
-use xccode_plugin::loader::approval::Decision;
-use xccode_plugin::pipe::{Config, Fault};
-use xccode_tui::plugins::host::{External, external_with};
-use xccode_tui::{Deps, Route};
+use xiaochuan_plugin::Status;
+use xiaochuan_plugin::loader::approval::Decision;
+use xiaochuan_plugin::pipe::{Config, Fault};
+use xiaochuan_tui::plugins::host::{External, external_with};
+use xiaochuan_tui::{Deps, Route};
 use opentui::input::{MouseButton, MouseEventKind};
 use serde_json::{Value, json};
 
@@ -154,7 +154,7 @@ fn an_intrinsic_without_a_node_is_reported_as_a_crash() {
     assert_eq!(
         toasts(&pipe),
         [
-            "Plugin: example.v2probe crashed in slot home.footer: <tab_select> is not supported by xccode-native's JS host"
+            "Plugin: example.v2probe crashed in slot home.footer: <tab_select> is not supported by xiaochuan-native's JS host"
         ]
     );
     assert_eq!(pipe.status(PROBE), Some(Status::Active));
@@ -219,7 +219,7 @@ fn a_field_shown_and_focused_in_one_handler_takes_the_focus_once_shown() {
     tui.keymap.dispatch("v2probe.findpage", None);
     pipe.harness.wait_for("no field");
     pipe.settle();
-    pipe.scripts().tamper(xccode_plugin::pipe::Tamper::Hold);
+    pipe.scripts().tamper(xiaochuan_plugin::pipe::Tamper::Hold);
     tui.keymap.dispatch("v2probe.find", None);
     // The call answered, with its focus; a settle would wait for the held revision.
     pipe.until("the call answered", || pipe.scripts().idle());
@@ -244,7 +244,7 @@ fn a_batch_of_a_closed_mount_moves_nothing_where_the_activations_would() {
     let Some(config) = config() else { return };
     let pipe = raw(config, "closed", CLOSED);
     let (app, tui) = (&pipe.harness.app, &pipe.harness.tui);
-    let mounts = || xccode_plugin::behave::mounts(app.app(), "example.closed", "pf");
+    let mounts = || xiaochuan_plugin::behave::mounts(app.app(), "example.closed", "pf");
     let route = Route::Plugin { id: "example.closed".into(), name: "pf".into() };
     for _ in 0..2 {
         tui.navigate(route.clone());
@@ -273,7 +273,7 @@ fn a_slot_claim_that_draws_nothing_moves_no_row_while_it_loads() {
     let Some(config) = config() else { return };
     let footer = |screen: &str| screen.lines().position(|line| line.contains("ctrl+p commands"));
     for route in [Route::Home, support::session_route("ses_a")] {
-        let root = xccode_util::temp::tempdir().unwrap();
+        let root = xiaochuan_util::temp::tempdir().unwrap();
         let plugin = root.path().join("config/plugins/keys");
         std::fs::create_dir_all(&plugin).unwrap();
         std::fs::write(plugin.join("tui.ts"), KEYS).unwrap();
@@ -312,7 +312,7 @@ const KEYS: &str = r#"export default { id: "example.keys", setup(api) {
 "#;
 
 fn raw(config: Config, name: &str, source: &str) -> Pipe {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let plugin = root.path().join("config").join("plugins").join(name);
     std::fs::create_dir_all(&plugin).unwrap();
     std::fs::write(plugin.join("tui.ts"), source).unwrap();
@@ -337,7 +337,7 @@ fn a_calls_effects_keep_their_order() {
     tui.keymap.dispatch("pf.close", None);
     pipe.settle();
     let focused =
-        xccode_plugin::behave::mounts(app.app(), "example.ordered", "pf").pop().and_then(|mount| mount.focused);
+        xiaochuan_plugin::behave::mounts(app.app(), "example.ordered", "pf").pop().and_then(|mount| mount.focused);
     assert_eq!((tui.dialogs.is_open(), focused.as_deref()), (false, Some("same")), "{}", app.text());
 }
 
@@ -368,14 +368,14 @@ fn a_pending_focus_goes_when_the_user_takes_the_focus_back() {
     let pipe = raw(config, "pending", PENDING);
     let (app, tui) = (&pipe.harness.app, &pipe.harness.tui);
     let focused =
-        || xccode_plugin::behave::mounts(app.app(), "example.pending", "sp").pop().and_then(|mount| mount.focused);
+        || xiaochuan_plugin::behave::mounts(app.app(), "example.pending", "sp").pop().and_then(|mount| mount.focused);
     pipe.harness.wait_for("other field");
     pipe.settle();
     for (moved, by) in [("the reserved chord", "ctrl+c"), ("a click into another field", "click")] {
         tui.keymap.dispatch("sp.hide", None);
-        xccode_plugin::Host::focus_composer(&**tui);
+        xiaochuan_plugin::Host::focus_composer(&**tui);
         pipe.settle();
-        pipe.scripts().tamper(xccode_plugin::pipe::Tamper::Hold);
+        pipe.scripts().tamper(xiaochuan_plugin::pipe::Tamper::Hold);
         tui.keymap.dispatch("sp.show", None);
         pipe.until("the call answered", || pipe.scripts().idle());
         assert!(!app.text().contains("sp field"), "{moved}: the revision was not held:\n{}", app.text());
@@ -404,7 +404,7 @@ fn a_reload_gives_the_focus_back_only_to_a_field_that_held_it() {
     let pipe = raw(config, "refocus", REFOCUS);
     let (app, tui) = (&pipe.harness.app, &pipe.harness.tui);
     let focused = || {
-        xccode_plugin::behave::mounts(app.app(), "example.refocus", "slot#0").pop().and_then(|mount| mount.focused)
+        xiaochuan_plugin::behave::mounts(app.app(), "example.refocus", "slot#0").pop().and_then(|mount| mount.focused)
     };
     // Each run adds a layer of a command `rf.more-<n>`: the registrations change, and the run is taken once the keymap
     // lists the new command.
@@ -422,7 +422,7 @@ fn a_reload_gives_the_focus_back_only_to_a_field_that_held_it() {
     assert!(focused().is_some(), "the field took no focus");
     reload();
     assert!(focused().is_some(), "the reload took the focus from the field that held it");
-    xccode_plugin::Host::focus_composer(&**tui);
+    xiaochuan_plugin::Host::focus_composer(&**tui);
     app.render();
     assert_eq!(focused(), None, "the composer took no focus");
     reload();
@@ -453,7 +453,7 @@ export default { id: "example.refocus", setup(api) {
 /// The raw probe of the pending-focus row: a slot of the home footer with the field `other`, and `sp`, which `sp.show`
 /// shows and focuses in one call and `sp.hide` hides.
 const PENDING: &str = r#"export default { id: "example.pending", setup(api) {
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   const mounts = []
   let shown = false
   const view = () => ({ type: "box", children: [
@@ -480,7 +480,7 @@ const PENDING: &str = r#"export default { id: "example.pending", setup(api) {
 /// plugin's dialog and then focuses `same` as the route's, and `pf.throw` opens the command palette as the route's and
 /// throws.
 const ORDERED: &str = r#"export default { id: "example.ordered", setup(api) {
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   const mounts = []
   const page = { type: "box", children: [{ type: "text", spans: [{ text: "ordered page" }] }, { type: "input", id: "same" }] }
   carrier.surface("pf", { type: "route", name: "pf" }, () => page, {
@@ -507,7 +507,7 @@ const ORDERED: &str = r#"export default { id: "example.ordered", setup(api) {
 /// begins; `pf.guard` focuses `guard` as the newest mount's, and `pf.old`, `pf.untagged` and `pf.new` focus `same` as
 /// the first mount's, the activation's and the newest mount's.
 const CLOSED: &str = r#"export default { id: "example.closed", setup(api) {
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   const mounts = []
   const page = { type: "box", children: [
     { type: "text", spans: [{ text: "closed page" }] },
@@ -550,7 +550,7 @@ fn a_fields_focus_after_its_mount_closed_moves_nothing() {
     }
     pipe.scripts().hold_answers(false);
     pipe.settle();
-    assert!(xccode_plugin::Host::composer_focused(&**tui), "the closed mount's focus moved it:\n{}", app.text());
+    assert!(xiaochuan_plugin::Host::composer_focused(&**tui), "the closed mount's focus moved it:\n{}", app.text());
     app.type_text("ab");
     pipe.settle();
     let typed = tui.textarea.borrow().as_ref().map(|area| area.text()).unwrap_or_default();
@@ -564,7 +564,7 @@ fn a_dialog_set_right_after_sizes_and_centers_the_dialog() {
     let (pipe, log) = probe(config);
     let (app, tui) = (&pipe.harness.app, &pipe.harness.tui);
     let presented = || (tui.dialogs.size(), tui.dialogs.centered());
-    let xlarge = (xccode_ui::dialog::DialogSize::XLarge, true);
+    let xlarge = (xiaochuan_ui::dialog::DialogSize::XLarge, true);
     tui.keymap.dispatch("v2probe.centered", None);
     pipe.harness.wait_for("Turn 1");
     assert_eq!(presented(), xlarge);
@@ -703,12 +703,12 @@ fn a_components_command_lives_with_its_mount_across_a_reload() {
     });
     // The change the page's command made settles once the command it replaced retired.
     pipe.retired();
-    let quiet = xccode_plugin::pipe::crossed();
+    let quiet = xiaochuan_plugin::pipe::crossed();
     std::thread::sleep(Duration::from_millis(400));
     for _ in 0..5 {
         pipe.harness.app.advance(Duration::from_millis(16));
     }
-    let after = xccode_plugin::pipe::crossed();
+    let after = xiaochuan_plugin::pipe::crossed();
     assert_eq!(
         (after.received, after.trees),
         (quiet.received, quiet.trees),
@@ -741,12 +741,12 @@ fn a_page_whose_commands_have_no_id_draws_and_settles() {
     let tui = &pipe.harness.tui;
     tui.keymap.dispatch("v2probe.inline", None);
     pipe.retired();
-    let quiet = xccode_plugin::pipe::crossed();
+    let quiet = xiaochuan_plugin::pipe::crossed();
     std::thread::sleep(Duration::from_millis(400));
     for _ in 0..5 {
         pipe.harness.app.advance(Duration::from_millis(16));
     }
-    let after = xccode_plugin::pipe::crossed();
+    let after = xiaochuan_plugin::pipe::crossed();
     assert_eq!((after.received, after.trees), (quiet.received, quiet.trees), "the page did not settle");
     assert_eq!(pipe.status(PROBE), Some(Status::Active));
     assert!(pipe.harness.app.text().contains("inline page"), "{}", pipe.harness.app.text());
@@ -760,12 +760,12 @@ fn a_page_that_names_its_commands_anew_each_mount_settles() {
     let (pipe, _log) = probe(config);
     pipe.harness.tui.keymap.dispatch("v2probe.churn", None);
     pipe.retired();
-    let quiet = xccode_plugin::pipe::crossed();
+    let quiet = xiaochuan_plugin::pipe::crossed();
     std::thread::sleep(Duration::from_millis(400));
     for _ in 0..5 {
         pipe.harness.app.advance(Duration::from_millis(16));
     }
-    let after = xccode_plugin::pipe::crossed();
+    let after = xiaochuan_plugin::pipe::crossed();
     assert_eq!((after.received, after.trees), (quiet.received, quiet.trees), "the page did not settle");
     assert_eq!(pipe.status(PROBE), Some(Status::Active));
     assert!(pipe.harness.app.text().contains("churn page"), "{}", pipe.harness.app.text());
@@ -814,7 +814,7 @@ fn a_session_panel_stays_open_across_a_reload() {
     let server = Arc::new(support::Fake::new(|seen| support::base(seen, support::DIRECTORY)));
     let pipe = crate::plugin_pipe::open_on(&[("v2probe", Some(options))], config, (120, 30), Vec::new(), server);
     pipe.active(PROBE);
-    pipe.harness.tui.navigate(Route::Session { id: xccode_api::generated::SessionID("ses_a".into()) });
+    pipe.harness.tui.navigate(Route::Session { id: xiaochuan_api::generated::SessionID("ses_a".into()) });
     pipe.until("the session shows", || matches!(pipe.harness.tui.route(), Route::Session { .. }));
     pipe.settle();
     pipe.harness.tui.keymap.dispatch("v2probe.panel", None);
@@ -834,7 +834,7 @@ fn a_session_panel_toggles_focuses_and_closes_itself() {
     let server = Arc::new(support::Fake::new(|seen| support::base(seen, support::DIRECTORY)));
     let pipe = crate::plugin_pipe::open_on(&[("v2probe", Some(options))], config, (120, 30), Vec::new(), server);
     pipe.active(PROBE);
-    pipe.harness.tui.navigate(Route::Session { id: xccode_api::generated::SessionID("ses_a".into()) });
+    pipe.harness.tui.navigate(Route::Session { id: xiaochuan_api::generated::SessionID("ses_a".into()) });
     pipe.until("the session shows", || matches!(pipe.harness.tui.route(), Route::Session { .. }));
     pipe.settle();
     pipe.harness.tui.keymap.dispatch("v2probe.panel", None);
@@ -847,9 +847,9 @@ fn a_session_panel_toggles_focuses_and_closes_itself() {
     };
     let presentation = || pipe.harness.tui.panels.presentation();
     run("v2probe.panel-full");
-    assert_eq!(presentation(), xccode_tui::panel::Presentation::Fullscreen);
+    assert_eq!(presentation(), xiaochuan_tui::panel::Presentation::Fullscreen);
     run("v2probe.panel-full");
-    assert_eq!(presentation(), xccode_tui::panel::Presentation::Panel);
+    assert_eq!(presentation(), xiaochuan_tui::panel::Presentation::Panel);
     run("pane.focus.left");
     run("v2probe.panel-focus");
     pipe.harness.app.type_text("zq");
@@ -1044,8 +1044,8 @@ thread_local! {
     static HEARD: std::cell::RefCell<Vec<String>> = const { std::cell::RefCell::new(Vec::new()) };
 }
 
-fn hearing(setup: &mut xccode_plugin::abi::Setup) -> Result<(), String> {
-    use xccode_plugin::abi::interact::{Event, Handled, Layer, LayerScope};
+fn hearing(setup: &mut xiaochuan_plugin::abi::Setup) -> Result<(), String> {
+    use xiaochuan_plugin::abi::interact::{Event, Handled, Layer, LayerScope};
     for (priority, name) in [(10, "above"), (-10, "below")] {
         let layer = Layer::default().scope(LayerScope::Global).any().priority(priority);
         setup.layer(layer, move |_, event| {
@@ -1063,7 +1063,7 @@ fn a_key_a_js_listener_lets_go_is_heard_once_by_each_native_listener() {
     let Some(config) = config() else { return };
     let log = log_file();
     let options = json!({ "log": log.to_string_lossy() });
-    let plugin = xccode_plugin::abi::Plugin { id: "example.hearing", setup: hearing };
+    let plugin = xiaochuan_plugin::abi::Plugin { id: "example.hearing", setup: hearing };
     let builtin = plugin.into();
     let pipe = crate::plugin_pipe::open_with(&[("v2probe", Some(options))], config, (80, 30), vec![builtin]);
     pipe.active(PROBE);
@@ -1146,7 +1146,7 @@ fn a_fresh_activation_owns_only_its_own_dialogs() {
     reloaded(&pipe, before);
     let chain = owned();
     assert!(chain.len() >= 2, "the reload handed nothing on: {chain:?}");
-    let host = xccode_tui::plugins::host::host(tui);
+    let host = xiaochuan_tui::plugins::host::host(tui);
     tui.plugins.set_active(&host, PROBE, false);
     pipe.settle();
     tui.plugins.set_active(&host, PROBE, true);
@@ -1170,7 +1170,7 @@ fn a_late_rejection_of_a_reloaded_plugin_fails_nothing() {
     let source = std::fs::read_to_string(&file).unwrap();
     let before = generation(&pipe);
     std::fs::write(&file, format!("{source}\n// reloaded\n")).unwrap();
-    xccode_tui::plugins::host::reconcile(tui);
+    xiaochuan_tui::plugins::host::reconcile(tui);
     // The new build loads and takes over; the old activation's late rejection comes as it ends.
     reloaded(&pipe, before);
     assert_eq!(pipe.status(PROBE), Some(Status::Active));
@@ -1182,8 +1182,8 @@ fn a_store_made_after_setup_takes_its_first_write() {
     let (pipe, log) = probe(config);
     pipe.harness.tui.keymap.dispatch("v2probe.late", None);
     assert_eq!(logged(&pipe, &log, 1), [json!({ "stored": true })]);
-    let host = xccode_tui::plugins::host::host(&pipe.harness.tui);
-    let stored = xccode_plugin::Host::storage_read(&*host, "plugin.example.v2probe.late");
+    let host = xiaochuan_tui::plugins::host::host(&pipe.harness.tui);
+    let stored = xiaochuan_plugin::Host::storage_read(&*host, "plugin.example.v2probe.late");
     assert_eq!(stored.and_then(|text| serde_json::from_str::<Value>(&text).ok()), Some(json!({ "count": 42 })));
 }
 
@@ -1270,7 +1270,7 @@ fn a_save_after_approval_runs_nothing_unapproved() {
     let source = std::fs::read_to_string(&file).unwrap();
     std::fs::write(&file, source.replace("const MODULE = true", "const MODULE = \"saved\"")).unwrap();
     pipe.settle();
-    xccode_tui::plugins::host::reconcile(tui);
+    xiaochuan_tui::plugins::host::reconcile(tui);
     pipe.settle();
     let ran = std::fs::read_to_string(&marker).unwrap_or_default();
     let ran: Vec<&str> = ran.lines().collect();
@@ -1286,7 +1286,7 @@ fn a_save_before_the_approved_copy_runs_nothing() {
     let (pipe, dir, marker) = project(&[], config);
     let tui = &pipe.harness.tui;
     let target = dir.to_string_lossy().into_owned();
-    let Some((Ok(shown), _)) = xccode_tui::plugins::host::held(tui, &target) else { panic!("nothing is held") };
+    let Some((Ok(shown), _)) = xiaochuan_tui::plugins::host::held(tui, &target) else { panic!("nothing is held") };
     pipe.scripts().pause_stages(true);
     assert_eq!(crate::plugin_pipe::decide(&pipe.harness, &target, &shown, Decision::Approved), Ok(true));
     let file = dir.join("tui.tsx");
@@ -1295,7 +1295,7 @@ fn a_save_before_the_approved_copy_runs_nothing() {
     pipe.scripts().pause_stages(false);
     pipe.harness.wait("the saved build is held", || {
         pipe.settle();
-        matches!(xccode_tui::plugins::host::held(tui, &target), Some((Ok(held), _)) if held.sha256 != shown.sha256)
+        matches!(xiaochuan_tui::plugins::host::held(tui, &target), Some((Ok(held), _)) if held.sha256 != shown.sha256)
     });
     assert_eq!(std::fs::read_to_string(&marker).unwrap_or_default(), "", "a module ran before its approval");
     assert_eq!(listed(&pipe, &dir, PROBE), Some(Status::Pending));
@@ -1309,21 +1309,21 @@ fn a_save_before_the_approved_copy_runs_nothing() {
 fn listed(pipe: &Pipe, dir: &Path, id: &str) -> Option<Status> {
     let target = dir.to_string_lossy();
     let entries = pipe.harness.tui.plugins.entries().into_iter();
-    let unloaded = |entry: &xccode_plugin::Entry| entry.key == format!("target:{target}");
+    let unloaded = |entry: &xiaochuan_plugin::Entry| entry.key == format!("target:{target}");
     entries.filter(|entry| entry.id == target || unloaded(entry) || entry.id == id).map(|entry| entry.status).next()
 }
 
 #[test]
 fn a_project_plugin_imports_nothing_outside_its_approved_files() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let work = root.path().join("work");
-    let dir = work.join(".xccode").join("plugins").join("reach");
+    let dir = work.join(".xiaochuan").join("plugins").join("reach");
     std::fs::create_dir_all(work.join(".git")).unwrap();
     std::fs::create_dir_all(&dir).unwrap();
     let marker = root.path().join("outside.ran");
     let shared = format!("require(\"node:fs\").writeFileSync({:?}, \"ran\")\nexport const note = 1\n", marker);
-    let outside = work.join(".xccode/shared.ts");
+    let outside = work.join(".xiaochuan/shared.ts");
     std::fs::write(&outside, shared).unwrap();
     let module = format!(
         "import {{ note }} from {outside:?}\nexport default {{ id: \"example.reach\", setup() {{ void note }} }}\n"
@@ -1347,7 +1347,7 @@ fn a_project_plugin_imports_nothing_outside_its_approved_files() {
 #[test]
 fn a_project_plugins_package_name_cannot_lead_out_of_its_approved_files() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let work = root.path().join("work");
     std::fs::create_dir_all(work.join(".git")).unwrap();
     let unapproved = work.join("unapproved");
@@ -1359,7 +1359,7 @@ fn a_project_plugins_package_name_cannot_lead_out_of_its_approved_files() {
     std::fs::write(unapproved.join("tui.ts"), &module).unwrap();
     std::fs::write(unapproved.join("helper.ts"), "export const helper = 1\n").unwrap();
     let climb = format!("{}{}", "../".repeat(40), unapproved.to_string_lossy().trim_start_matches('/'));
-    let plugins = work.join(".xccode").join("plugins");
+    let plugins = work.join(".xiaochuan").join("plugins");
     let named = |name: &str, folder: &str| {
         let dir = plugins.join(folder);
         std::fs::create_dir_all(&dir).unwrap();
@@ -1405,7 +1405,7 @@ fn a_project_plugins_package_name_cannot_lead_out_of_its_approved_files() {
 #[test]
 fn a_global_plugins_package_name_cannot_lead_out_of_its_directory() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let elsewhere = root.path().join("elsewhere");
     std::fs::create_dir_all(&elsewhere).unwrap();
     let marker = root.path().join("elsewhere.ran");
@@ -1436,9 +1436,9 @@ fn a_global_plugins_package_name_cannot_lead_out_of_its_directory() {
 #[test]
 fn a_project_plugin_imports_its_own_files_by_relative_paths() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let work = root.path().join("work");
-    let dir = work.join(".xccode").join("plugins").join("near");
+    let dir = work.join(".xiaochuan").join("plugins").join("near");
     std::fs::create_dir_all(work.join(".git")).unwrap();
     std::fs::create_dir_all(dir.join("dist/lib")).unwrap();
     std::fs::write(
@@ -1467,9 +1467,9 @@ fn a_project_plugin_imports_its_own_files_by_relative_paths() {
 #[test]
 fn a_dependency_changed_after_approval_runs_nothing_unapproved() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let work = root.path().join("work");
-    let dir = work.join(".xccode").join("plugins").join("deps");
+    let dir = work.join(".xiaochuan").join("plugins").join("deps");
     std::fs::create_dir_all(work.join(".git")).unwrap();
     std::fs::create_dir_all(dir.join("node_modules/dep")).unwrap();
     std::fs::write(dir.join("node_modules/dep/package.json"), r#"{ "name": "dep", "main": "index.js" }"#).unwrap();
@@ -1492,7 +1492,7 @@ fn a_dependency_changed_after_approval_runs_nothing_unapproved() {
     let modified = std::fs::metadata(&dep).unwrap().modified().unwrap();
     std::fs::write(&dep, "export const made = \"replaced\"\n").unwrap();
     std::fs::File::options().write(true).open(&dep).unwrap().set_modified(modified).unwrap();
-    xccode_tui::plugins::host::reconcile(&pipe.harness.tui);
+    xiaochuan_tui::plugins::host::reconcile(&pipe.harness.tui);
     pipe.settle();
     pipe.scripts().kill();
     pipe.until("the plugin was set up again", || {
@@ -1504,7 +1504,7 @@ fn a_dependency_changed_after_approval_runs_nothing_unapproved() {
 #[test]
 fn a_plugin_importing_opentuis_classes_links_and_sets_up() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().join("config/plugins/linked");
     std::fs::create_dir_all(&dir).unwrap();
     let marker = root.path().join("linked.ran");
@@ -1531,15 +1531,15 @@ fn a_plugin_importing_opentuis_classes_links_and_sets_up() {
 #[test]
 fn a_plugin_imports_runtime_modules_and_calls_its_own_rpc() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().join("config/plugins/rpc");
     std::fs::create_dir_all(&dir).unwrap();
     let log = root.path().join("rpc.log");
     let module = format!(
         "import {{ createSignal }} from \"opentui:runtime-module:solid-js\"\n\
          import {{ jsx }} from \"opentui:runtime-module:%40opentui%2Fsolid%2Fjsx-runtime\"\n\
-         import {{ Rpc }} from \"opentui:runtime-module:@xccode/plugin/rpc\"\n\
-         import {{ Plugin }} from \"@xccode/plugin/tui\"\n\
+         import {{ Rpc }} from \"opentui:runtime-module:@xiaochuan/plugin/rpc\"\n\
+         import {{ Plugin }} from \"@xiaochuan/plugin/tui\"\n\
          import {{ appendFileSync }} from \"node:fs\"\n\
          const Echo = Rpc.define({{ id: \"echo\", methods: {{ say: {{ input: {{}}, output: {{}} }} }}, events: {{}} }})\n\
          export default Plugin.define({{ id: \"example.rpc\", setup(context) {{\n\
@@ -1576,10 +1576,10 @@ fn a_plugin_imports_runtime_modules_and_calls_its_own_rpc() {
 #[test]
 fn a_local_plugin_that_fails_is_listed_by_its_package() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().join("config/plugins/broken");
     std::fs::create_dir_all(&dir).unwrap();
-    std::fs::write(dir.join("package.json"), r#"{ "name": "xccode-broken-thing" }"#).unwrap();
+    std::fs::write(dir.join("package.json"), r#"{ "name": "xiaochuan-broken-thing" }"#).unwrap();
     std::fs::write(dir.join("tui.ts"), "throw new Error(\"boom\")\n").unwrap();
     let harness = support::mount(80, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
     let external = External { config_dir: root.path().join("config"), cwd: root.path().to_path_buf() };
@@ -1591,13 +1591,13 @@ fn a_local_plugin_that_fails_is_listed_by_its_package() {
     };
     pipe.until("the load failed", || entry().is_some_and(|entry| matches!(entry.status, Status::Failed(_))));
     let entry = entry().unwrap();
-    assert_eq!(entry.id, "xccode-broken-thing", "{entry:?}");
+    assert_eq!(entry.id, "xiaochuan-broken-thing", "{entry:?}");
 }
 
 #[test]
 fn a_plugin_with_eighty_stores_reads_each() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().join("config/plugins/shards");
     std::fs::create_dir_all(&dir).unwrap();
     let marker = root.path().join("shards.sum");
@@ -1611,32 +1611,32 @@ fn a_plugin_with_eighty_stores_reads_each() {
     );
     std::fs::write(dir.join("tui.ts"), module).unwrap();
     let harness = support::mount(80, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    let host = xccode_tui::plugins::host::host(&harness.tui);
+    let host = xiaochuan_tui::plugins::host::host(&harness.tui);
     for index in 0..80 {
-        xccode_plugin::Host::storage_write(&*host, &format!("plugin.example.shards.shard{index}"), r#"{"n":1}"#)
+        xiaochuan_plugin::Host::storage_write(&*host, &format!("plugin.example.shards.shard{index}"), r#"{"n":1}"#)
             .unwrap();
     }
     let external = External { config_dir: root.path().join("config"), cwd: root.path().to_path_buf() };
-    let (received, sent) = (xccode_plugin::pipe::crossed().received, xccode_plugin::pipe::crossed().sent);
+    let (received, sent) = (xiaochuan_plugin::pipe::crossed().received, xiaochuan_plugin::pipe::crossed().sent);
     external_with(&harness.tui, external, Some(config));
     let pipe = Pipe { harness, root };
     // The UI thread takes nothing while the setup runs, as when it is busy at startup: once the hello, the load and
     // the setup went, what the setup sends waits for it.
-    pipe.until("the setup went to the JS host", || xccode_plugin::pipe::crossed().sent - sent >= 3);
+    pipe.until("the setup went to the JS host", || xiaochuan_plugin::pipe::crossed().sent - sent >= 3);
     std::thread::sleep(Duration::from_millis(1500));
     pipe.active("example.shards");
     pipe.settle();
-    let sent = xccode_plugin::pipe::crossed().received - received;
+    let sent = xiaochuan_plugin::pipe::crossed().received - received;
     assert!(sent < 1000, "the setup sent {sent} messages");
     pipe.harness.tui.keymap.dispatch("shards.sum", None);
     pipe.settle();
     assert_eq!(pipe.status("example.shards"), Some(Status::Active));
     assert_eq!(std::fs::read_to_string(&marker).ok().as_deref(), Some("80"));
     for index in 0..80 {
-        xccode_plugin::Host::storage_write(&*host, &format!("plugin.example.shards.shard{index}"), r#"{"n":2}"#)
+        xiaochuan_plugin::Host::storage_write(&*host, &format!("plugin.example.shards.shard{index}"), r#"{"n":2}"#)
             .unwrap();
     }
-    xccode_plugin::Host::storage_changed(&*host);
+    xiaochuan_plugin::Host::storage_changed(&*host);
     pipe.settle();
     pipe.harness.tui.keymap.dispatch("shards.sum", None);
     pipe.settle();
@@ -1646,7 +1646,7 @@ fn a_plugin_with_eighty_stores_reads_each() {
 #[test]
 fn a_plugin_past_the_stored_values_bound_goes_on_and_follows_a_large_value() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().join("config/plugins/big");
     std::fs::create_dir_all(&dir).unwrap();
     let marker = root.path().join("big.count");
@@ -1667,7 +1667,7 @@ fn a_plugin_past_the_stored_values_bound_goes_on_and_follows_a_large_value() {
     );
     std::fs::write(dir.join("tui.ts"), module).unwrap();
     let harness = support::mount(80, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    let host = xccode_tui::plugins::host::host(&harness.tui);
+    let host = xiaochuan_tui::plugins::host::host(&harness.tui);
     let external = External { config_dir: root.path().join("config"), cwd: root.path().to_path_buf() };
     external_with(&harness.tui, external, Some(config));
     let pipe = Pipe { harness, root };
@@ -1681,8 +1681,8 @@ fn a_plugin_past_the_stored_values_bound_goes_on_and_follows_a_large_value() {
     pipe.harness.tui.keymap.dispatch("big.save", None);
     marked("the large value was refused", &|text| text.starts_with("refused"));
     let key = "plugin.example.big.prices";
-    xccode_tui::plugins::host::flush_storage(&pipe.harness.tui);
-    let stored = xccode_plugin::Host::storage_read(&*host, key).unwrap_or_default();
+    xiaochuan_tui::plugins::host::flush_storage(&pipe.harness.tui);
+    let stored = xiaochuan_plugin::Host::storage_read(&*host, key).unwrap_or_default();
     let entries = |json: &str| {
         serde_json::from_str::<Value>(json).ok().map(|value| value["entries"].as_object().map_or(0, |map| map.len()))
     };
@@ -1694,8 +1694,8 @@ fn a_plugin_past_the_stored_values_bound_goes_on_and_follows_a_large_value() {
         .map(|index| (format!("other/model-{index}"), serde_json::json!({ "input": index, "note": "y".repeat(80) })))
         .collect();
     let theirs = serde_json::json!({ "entries": others }).to_string();
-    xccode_plugin::Host::storage_write(&*host, key, &theirs).unwrap();
-    xccode_plugin::Host::storage_changed(&*host);
+    xiaochuan_plugin::Host::storage_write(&*host, key, &theirs).unwrap();
+    xiaochuan_plugin::Host::storage_changed(&*host);
     pipe.settle();
     pipe.harness.tui.keymap.dispatch("big.count", None);
     marked("the store follows the other client's value", &|text| text == "12000");
@@ -1705,7 +1705,7 @@ fn a_plugin_past_the_stored_values_bound_goes_on_and_follows_a_large_value() {
 #[test]
 fn a_store_update_of_a_value_answered_past_a_frame_keeps_it() {
     let Some(config) = config() else { return };
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().join("config/plugins/notes");
     std::fs::create_dir_all(&dir).unwrap();
     let (marker, part) = (root.path().join("notes.lengths"), root.path().join("notes.lengths.part"));
@@ -1721,11 +1721,11 @@ fn a_store_update_of_a_value_answered_past_a_frame_keeps_it() {
     );
     std::fs::write(dir.join("tui.ts"), module).unwrap();
     let harness = support::mount(80, 30, Deps { route: Route::Home, ..support::deps(Arc::new(support::empty())) });
-    let host = xccode_tui::plugins::host::host(&harness.tui);
+    let host = xiaochuan_tui::plugins::host::host(&harness.tui);
     let key = "plugin.example.notes.notes";
     let quotes = serde_json::json!({ "items": ["\"".repeat(110_000)] }).to_string();
-    assert!(quotes.len() < xccode_plugin::storage::VALUE_BYTES);
-    xccode_plugin::Host::storage_write(&*host, key, &quotes).unwrap();
+    assert!(quotes.len() < xiaochuan_plugin::storage::VALUE_BYTES);
+    xiaochuan_plugin::Host::storage_write(&*host, key, &quotes).unwrap();
     let external = External { config_dir: root.path().join("config"), cwd: root.path().to_path_buf() };
     external_with(&harness.tui, external, Some(config));
     let pipe = Pipe { harness, root };
@@ -1735,8 +1735,8 @@ fn a_store_update_of_a_value_answered_past_a_frame_keeps_it() {
     // The plugin writes the marker whole, then renames it into place: it shows only with its text (compat-harness).
     pipe.until("the update ended", || marker.exists());
     assert_eq!(std::fs::read_to_string(&marker).unwrap(), "[110000,4]");
-    xccode_tui::plugins::host::flush_storage(&pipe.harness.tui);
-    let stored: Value = serde_json::from_str(&xccode_plugin::Host::storage_read(&*host, key).unwrap()).unwrap();
+    xiaochuan_tui::plugins::host::flush_storage(&pipe.harness.tui);
+    let stored: Value = serde_json::from_str(&xiaochuan_plugin::Host::storage_read(&*host, key).unwrap()).unwrap();
     let lengths: Vec<usize> =
         stored["items"].as_array().unwrap().iter().map(|item| item.as_str().unwrap().len()).collect();
     assert_eq!(lengths, [110_000, 4]);
@@ -1744,10 +1744,10 @@ fn a_store_update_of_a_value_answered_past_a_frame_keeps_it() {
 
 /// Unapproved project fixture with a marker written at module evaluation.
 fn project(globals: &[&str], config: Config) -> (Pipe, PathBuf, PathBuf) {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let work = root.path().join("work");
     std::fs::create_dir_all(work.join(".git")).unwrap();
-    let dir = work.join(".xccode").join("plugins").join("v2probe");
+    let dir = work.join(".xiaochuan").join("plugins").join("v2probe");
     copy(&Path::new(EXAMPLES).join("v2probe"), &dir);
     let marker = root.path().join("module.jsonl");
     std::fs::write(dir.join("marker.txt"), marker.to_string_lossy().as_bytes()).unwrap();
@@ -1766,7 +1766,7 @@ fn project(globals: &[&str], config: Config) -> (Pipe, PathBuf, PathBuf) {
 fn approve(pipe: &Pipe, dir: &Path) {
     let tui = &pipe.harness.tui;
     let target = dir.to_string_lossy().into_owned();
-    let Some((Ok(artifact), _)) = xccode_tui::plugins::host::held(tui, &target) else { panic!("nothing is held") };
+    let Some((Ok(artifact), _)) = xiaochuan_tui::plugins::host::held(tui, &target) else { panic!("nothing is held") };
     assert_eq!(crate::plugin_pipe::decide(&pipe.harness, &target, &artifact, Decision::Approved), Ok(true));
 }
 
@@ -1804,7 +1804,7 @@ impl Registry {
 
 fn missing_package(config: Config) -> (Option<Status>, Option<String>, usize) {
     let registry = Registry::start();
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().join("config").join("plugins").join("needs");
     std::fs::create_dir_all(&dir).unwrap();
     std::fs::write(
@@ -1832,7 +1832,7 @@ fn assert_installs_nothing((status, toast, asked): (Option<Status>, Option<Strin
     assert!(
         error.contains("'is-number-js-no-install-probe'")
             && error.contains("not installed")
-            && error.contains("xccode-native installs nothing"),
+            && error.contains("xiaochuan-native installs nothing"),
         "{error}"
     );
     assert!(toast.as_deref().is_some_and(|title| title.starts_with("Plugin failed")), "{toast:?}");
@@ -1846,12 +1846,12 @@ fn a_plugin_importing_a_package_nobody_installed_fails_and_nothing_is_fetched() 
 }
 
 #[test]
-fn the_bundled_xccode_as_bun_installs_nothing_either() {
+fn the_bundled_xiaochuan_as_bun_installs_nothing_either() {
     if config().is_none() {
         return;
     }
-    let Some(xccode) = xccode_plugin::pipe::find("xccode") else {
-        assert!(std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(), "XCCODE_RS_REQUIRE_TS is set: needs xccode");
+    let Some(xiaochuan) = xiaochuan_plugin::pipe::find("xiaochuan") else {
+        assert!(std::env::var_os("XIAOCHUAN_RS_REQUIRE_TS").is_none(), "XIAOCHUAN_RS_REQUIRE_TS is set: needs xiaochuan");
         return;
     };
     let home = std::env::var_os("HOME");
@@ -1859,16 +1859,16 @@ fn the_bundled_xccode_as_bun_installs_nothing_either() {
         "HOME" => home.clone(),
         _ => None,
     };
-    let work = xccode_util::temp::tempdir().unwrap();
+    let work = xiaochuan_util::temp::tempdir().unwrap();
     let Some(found) =
-        Config::find(var, work.path().to_path_buf(), &xccode_plugin::pipe::Server::Remote, Some(xccode.clone()))
+        Config::find(var, work.path().to_path_buf(), &xiaochuan_plugin::pipe::Server::Remote, Some(xiaochuan.clone()))
     else {
-        panic!("{} does not run as Bun", xccode.display())
+        panic!("{} does not run as Bun", xiaochuan.display())
     };
-    assert!(found.xccode, "{found:?}");
+    assert!(found.xiaochuan, "{found:?}");
     let mut config = config().unwrap();
     config.bun = found.bun;
-    config.xccode = true;
+    config.xiaochuan = true;
     config.bun_version = found.bun_version;
     assert_installs_nothing(missing_package(config));
 }
@@ -1881,7 +1881,7 @@ fn a_dialog_field_keeps_its_draft_across_a_reload() {
     pipe.harness.tui.keymap.dispatch("v2probe.draft", None);
     pipe.harness.wait("the field has the focus", || {
         pipe.settle();
-        xccode_plugin::behave::mounts(pipe.harness.app.app(), PROBE, "compat.dialog")
+        xiaochuan_plugin::behave::mounts(pipe.harness.app.app(), PROBE, "compat.dialog")
             .pop()
             .is_some_and(|mount| mount.focused.as_deref() == Some("draft"))
     });
@@ -1897,7 +1897,7 @@ fn a_dialog_field_keeps_its_draft_across_a_reload() {
     std::thread::sleep(Duration::from_millis(400));
     pipe.harness.wait("the field has the focus again", || {
         pipe.settle();
-        xccode_plugin::behave::mounts(pipe.harness.app.app(), PROBE, "compat.dialog")
+        xiaochuan_plugin::behave::mounts(pipe.harness.app.app(), PROBE, "compat.dialog")
             .pop()
             .is_some_and(|mount| mount.focused.as_deref() == Some("draft"))
     });

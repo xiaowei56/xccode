@@ -1,17 +1,17 @@
 //! Show the most recent completed todo list before the revert boundary.
 
-use xccode_api::generated::{SessionMessageAssistantContentItem, SessionMessageAssistantToolState};
-use xccode_plugin::abi::v2::{Node, Place, Surface};
-use xccode_plugin::abi::{self, Changed, Command, Layout, Placement, Span};
-use xccode_plugin::slot;
-use xccode_ui::tool_info::{Todo, TodoStatus, parse_todos, todo_marker};
+use xiaochuan_api::generated::{SessionMessageAssistantContentItem, SessionMessageAssistantToolState};
+use xiaochuan_plugin::abi::v2::{Node, Place, Surface};
+use xiaochuan_plugin::abi::{self, Changed, Command, Layout, Placement, Span};
+use xiaochuan_plugin::slot;
+use xiaochuan_ui::tool_info::{Todo, TodoStatus, parse_todos, todo_marker};
 
 use super::sidebar_mcp::{section, unfolded};
 use super::{hidden, kept};
 use crate::prelude::*;
 
 pub fn plugin() -> abi::Plugin {
-    abi::Plugin { id: "xccode.sidebar.todo", setup }
+    abi::Plugin { id: "xiaochuan.sidebar.todo", setup }
 }
 
 const FOLD: &str = "sidebar.todo.fold";

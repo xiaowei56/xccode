@@ -1,23 +1,23 @@
 import { describe, expect } from "bun:test"
 import { Effect, Layer } from "effect"
-import { LanguageModel } from "@xccode/ai/effect"
-import { OpenAIChat } from "@xccode/ai/protocols"
-import { TestLLM } from "@xccode/ai/testing"
-import { Agent } from "@xccode/core/agent"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@xccode/core/effect/app-node-platform"
-import { Watcher } from "@xccode/core/filesystem/watcher"
-import { Job } from "@xccode/core/job"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { Model } from "@xccode/core/model"
-import { Plugin } from "@xccode/core/plugin"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { Tool } from "@xccode/core/tool"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
+import { LanguageModel } from "@xiaochuan/ai/effect"
+import { OpenAIChat } from "@xiaochuan/ai/protocols"
+import { TestLLM } from "@xiaochuan/ai/testing"
+import { Agent } from "@xiaochuan/core/agent"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@xiaochuan/core/effect/app-node-platform"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
+import { Job } from "@xiaochuan/core/job"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { Model } from "@xiaochuan/core/model"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { Tool } from "@xiaochuan/core/tool"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
 import { tempGlobalLayer } from "./fixture/global"
 import { offlineModels } from "./fixture/models"
 import { tmpdirScoped } from "./fixture/tmpdir"
@@ -67,7 +67,7 @@ describe("subagent observer lifetime", () => {
           const childDir = yield* tmpdirScoped()
           yield* Effect.promise(() =>
             Bun.write(
-              `${parentDir.path}/xccode.json`,
+              `${parentDir.path}/xiaochuan.json`,
               JSON.stringify({
                 agents: { reviewer: { mode: "subagent" } },
                 permissions: [{ action: "*", resource: "*", effect: "allow" }],
@@ -75,7 +75,7 @@ describe("subagent observer lifetime", () => {
             ),
           )
           yield* Effect.promise(() =>
-            Bun.write(`${childDir.path}/xccode.json`, JSON.stringify({ agents: { reviewer: { mode: "subagent" } } })),
+            Bun.write(`${childDir.path}/xiaochuan.json`, JSON.stringify({ agents: { reviewer: { mode: "subagent" } } })),
           )
           const sessions = yield* Session.Service
           const locations = yield* LocationServiceMap.Service

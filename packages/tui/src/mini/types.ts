@@ -1,4 +1,4 @@
-// Shared type vocabulary for the direct interactive mode (`xccode mini`).
+// Shared type vocabulary for the direct interactive mode (`xiaochuan mini`).
 //
 // Direct mode uses a split-footer terminal layout: immutable scrollback for the
 // session transcript, and a mutable footer for prompt input, status, and
@@ -14,17 +14,17 @@
 import type {
   FormAnswer,
   FormInfo,
-  XccodeClient,
+  XiaochuanClient,
   LocationGetOutput,
   LocationRef,
   PermissionRequest,
   ReferenceListOutput,
   SessionMessageAssistantTool,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import type { Config } from "../config"
 import type { Todo } from "../util/todo"
 import type { CliRenderer } from "@opentui/core"
-import type { SessionInbox } from "@xccode/schema/session-inbox"
+import type { SessionInbox } from "@xiaochuan/schema/session-inbox"
 
 export type RunFilePart = {
   type: "file"
@@ -111,7 +111,7 @@ export type RunAgent = {
 export type RunReference = ReferenceListOutput["data"][number]
 
 export type RunInput = {
-  sdk: XccodeClient
+  sdk: XiaochuanClient
   location: LocationGetOutput
   agent: string | undefined
   model: PromptModel | undefined
@@ -391,7 +391,7 @@ export type FooterEvent =
       state: FooterSubagentState
     }
 
-export type PermissionReply = Parameters<XccodeClient["permission"]["reply"]>[0]
+export type PermissionReply = Parameters<XiaochuanClient["permission"]["reply"]>[0]
 
 export type FormReply = {
   sessionID: string

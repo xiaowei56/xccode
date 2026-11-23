@@ -1,4 +1,4 @@
-import { optional } from "@xccode/schema/schema"
+import { optional } from "@xiaochuan/schema/schema"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { RpcError, RpcInternalError } from "../errors.js"

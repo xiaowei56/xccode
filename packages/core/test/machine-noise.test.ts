@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import { createCipheriv, createHmac, createPrivateKey, createPublicKey, diffieHellman } from "node:crypto"
-import { Noise } from "@xccode/core/machine/noise"
+import { Noise } from "@xiaochuan/core/machine/noise"
 import { Result } from "effect"
 import vectors from "./fixture/noise-xx-vectors.json"
 
@@ -16,7 +16,7 @@ const flip = (message: Uint8Array, bit: number) => {
   return copy
 }
 
-const pair = (prologue = text("xccode")) => {
+const pair = (prologue = text("xiaochuan")) => {
   const initiatorStatic = Noise.generateKeyPair()
   const responderStatic = Noise.generateKeyPair()
   return {
@@ -316,7 +316,7 @@ describe("Noise", () => {
   })
 
   test("a role changed on the options after construction does not reach the handshake", () => {
-    const options = { initiator: true, prologue: text("xccode"), static: Noise.generateKeyPair() }
+    const options = { initiator: true, prologue: text("xiaochuan"), static: Noise.generateKeyPair() }
     const sides = { ...pair(), initiator: ok(Noise.handshake(options)) }
     options.initiator = false
     complete(sides)
@@ -357,7 +357,7 @@ describe("Noise", () => {
     const ephemeral = Noise.generateKeyPair()
     const fixed = pair()
     const initiator = ok(
-      Noise.handshake({ initiator: true, prologue: text("xccode"), static: fixed.initiatorStatic, ephemeral }),
+      Noise.handshake({ initiator: true, prologue: text("xiaochuan"), static: fixed.initiatorStatic, ephemeral }),
     )
     const sent = ephemeral.publicKey.slice()
     ephemeral.publicKey.fill(3)
@@ -413,7 +413,7 @@ describe("Noise", () => {
   })
 
   test("two handshakes with the same static keys use fresh ephemeral keys", () => {
-    const prologue = text("xccode")
+    const prologue = text("xiaochuan")
     const initiatorStatic = Noise.generateKeyPair()
     const responderStatic = Noise.generateKeyPair()
     const messages = [0, 1].map(() => {

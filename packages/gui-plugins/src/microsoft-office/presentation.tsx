@@ -1,6 +1,6 @@
 import { createSignal, onCleanup, Show, untrack } from "solid-js"
-import { Loader } from "@xccode/ui/loader"
-import { usePlugin } from "@xccode/plugin/gui"
+import { Loader } from "@xiaochuan/ui/loader"
+import { usePlugin } from "@xiaochuan/plugin/gui"
 import { createOfficeWorker, type WorkerClient } from "./office-worker"
 import { OfficePages, type PaintPage } from "./pages"
 import { paper } from "./paper"
@@ -20,7 +20,7 @@ import {
   type VectorRequest,
 } from "./slide-protocol"
 import { SupersededError, WorkerClosedError } from "./worker-rpc"
-import type { FileViewerProps } from "@xccode/plugin/gui/file"
+import type { FileViewerProps } from "@xiaochuan/plugin/gui/file"
 
 type Client = WorkerClient<SlideMethods>
 

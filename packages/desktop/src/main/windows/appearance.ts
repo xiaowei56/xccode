@@ -1,5 +1,5 @@
 import { app, BrowserWindow, nativeImage, nativeTheme } from "electron"
-import type { DesktopZoomLevel } from "@xccode/app/desktop-menu"
+import type { DesktopZoomLevel } from "@xiaochuan/app/desktop-menu"
 import type { Path } from "effect"
 import { type TitlebarTheme } from "../../shared/ipc-contract"
 import {
@@ -26,7 +26,7 @@ let backgroundColor: string | undefined
 
 export function windowAppearance(path: Path.Path, paths: DesktopPaths.Resolved) {
   return {
-    title: "Xccode",
+    title: "Xiaochuan",
     icon: iconPath(path, paths),
     backgroundColor: backgroundColor ?? storedBackgroundColor(),
     ...platformFrame(tone(), storedZoomLevel()),

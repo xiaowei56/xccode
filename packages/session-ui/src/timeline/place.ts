@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant, SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionMessageAssistant, SessionMessageInfo } from "@xiaochuan/client/promise"
 import { untrack } from "solid-js"
 import { timelineNoticeRequired, type TimelineDetail, type TimelinePlacement } from "./detail"
 import { placeFactOf, scriptChangePaths, scriptFilePartID, type Fact, type PlaceFact } from "./facts"

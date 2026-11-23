@@ -20,7 +20,7 @@ function wsl(fields: Partial<typeof WslServersState.Encoded>) {
     installed: [],
     online: [],
     distroProbes: {},
-    xccodeChecks: {},
+    xiaochuanChecks: {},
     pendingRestart: false,
     servers: [],
     hostJob: "idle",

@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { useTerminalDimensions } from "@opentui/solid"
 import { batch, createSignal, For, Show } from "solid-js"
 import { createStore, reconcile } from "solid-js/store"
@@ -30,18 +30,18 @@ import type { Story } from "./index"
 type FixtureStatus = ReturnType<SessionTabsController["status"]>
 
 const FIXTURE_TABS = [
-  { sessionID: "fixture-1", title: "Implement session tabs", project: "xccode" },
-  { sessionID: "fixture-2", title: "Investigate rendering", project: "xccode" },
-  { sessionID: "fixture-3", title: "A deliberately long session title for truncation", project: "xccode-slack" },
-  { sessionID: "fixture-4", title: "Fix provider state", project: "xccode" },
-  { sessionID: "fixture-5", title: "Review animation", project: "xccode-slack" },
-  { sessionID: "fixture-6", title: "Untitled behavior", project: "xccode-drive" },
-  { sessionID: "fixture-7", title: "Queue follow-up work", project: "xccode" },
-  { sessionID: "fixture-8", title: "Check narrow layout", project: "xccode-drive" },
-  { sessionID: "fixture-9", title: "Profile terminal output", project: "xccode" },
-  { sessionID: "fixture-10", title: "Handle permission", project: "xccode-slack" },
-  { sessionID: "fixture-11", title: "Run focused tests", project: "xccode" },
-  { sessionID: "fixture-12", title: "Prepare review", project: "xccode-drive" },
+  { sessionID: "fixture-1", title: "Implement session tabs", project: "xiaochuan" },
+  { sessionID: "fixture-2", title: "Investigate rendering", project: "xiaochuan" },
+  { sessionID: "fixture-3", title: "A deliberately long session title for truncation", project: "xiaochuan-slack" },
+  { sessionID: "fixture-4", title: "Fix provider state", project: "xiaochuan" },
+  { sessionID: "fixture-5", title: "Review animation", project: "xiaochuan-slack" },
+  { sessionID: "fixture-6", title: "Untitled behavior", project: "xiaochuan-drive" },
+  { sessionID: "fixture-7", title: "Queue follow-up work", project: "xiaochuan" },
+  { sessionID: "fixture-8", title: "Check narrow layout", project: "xiaochuan-drive" },
+  { sessionID: "fixture-9", title: "Profile terminal output", project: "xiaochuan" },
+  { sessionID: "fixture-10", title: "Handle permission", project: "xiaochuan-slack" },
+  { sessionID: "fixture-11", title: "Run focused tests", project: "xiaochuan" },
+  { sessionID: "fixture-12", title: "Prepare review", project: "xiaochuan-drive" },
 ]
 
 const FIXTURE_STATUSES: Record<string, FixtureStatus> = {

@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page } from "@playwright/test"
-import type { XccodeEvent, SessionMessageInfo } from "@xccode/client/promise"
+import type { XiaochuanEvent, SessionMessageInfo } from "@xiaochuan/client/promise"
 import {
   NO_PROVIDER,
   REMOTE_SERVER,
@@ -42,10 +42,10 @@ test("recently closed shows ten sessions and searches older closures in close or
       servers: [SERVER],
       tabs: [sessions[0]!.id],
       storage: {
-        "xccode.window.browser.dat:tabs.closed": sessions.slice(1).map((session, index) => ({
+        "xiaochuan.window.browser.dat:tabs.closed": sessions.slice(1).map((session, index) => ({
           tab: { type: "session", server: SERVER, sessionId: session.id },
           index,
-          info: { title: session.title, directory: "C:/Xccode/ClosedTabs", prompted: true },
+          info: { title: session.title, directory: "C:/Xiaochuan/ClosedTabs", prompted: true },
         })),
       },
     },
@@ -98,10 +98,10 @@ test("recently closed keeps the keyboard-focused session in view when the menu o
       servers: [SERVER],
       tabs: [sessions[0]!.id],
       storage: {
-        "xccode.window.browser.dat:tabs.closed": sessions.slice(1).map((item, index) => ({
+        "xiaochuan.window.browser.dat:tabs.closed": sessions.slice(1).map((item, index) => ({
           tab: { type: "session", server: SERVER, sessionId: item.id },
           index,
-          info: { title: item.title, directory: "C:/Xccode/ClosedOverflow", prompted: true },
+          info: { title: item.title, directory: "C:/Xiaochuan/ClosedOverflow", prompted: true },
         })),
       },
     },
@@ -137,10 +137,10 @@ test("recently closed fills remaining slots in Home order without open or duplic
       servers: [SERVER],
       tabs: [sessions[0]!.id, sessions[2]!.id],
       storage: {
-        "xccode.window.browser.dat:tabs.closed": sessions.slice(10).map((session, index) => ({
+        "xiaochuan.window.browser.dat:tabs.closed": sessions.slice(10).map((session, index) => ({
           tab: { type: "session", server: SERVER, sessionId: session.id },
           index,
-          info: { title: session.title, directory: "C:/Xccode/OtherTabs", prompted: true },
+          info: { title: session.title, directory: "C:/Xiaochuan/OtherTabs", prompted: true },
         })),
       },
     },
@@ -170,7 +170,7 @@ test("tab strip keeps draft tabs as wide as session tabs and navigates on mouse 
   const workspace = await mockWorkspace(page, {
     name: "Tabs",
     sessions: [a, b],
-    seed: { tabs: [a.id, { draft: "draft_tab_width", directory: "C:/Xccode/Tabs" }, b.id] },
+    seed: { tabs: [a.id, { draft: "draft_tab_width", directory: "C:/Xiaochuan/Tabs" }, b.id] },
   })
 
   await page.goto(sessionHref(a.id))
@@ -267,16 +267,16 @@ test("inactive session attention dots share the close control without marking th
 test("the browser title names the open session and resets after leaving it", async ({ page }) => {
   await mockWorkspace(page, { name: "Tabs", sessions: [a, b] })
   await page.goto(sessionHref(a.id))
-  await expect(page).toHaveTitle(`${a.title} · Xccode`)
+  await expect(page).toHaveTitle(`${a.title} · Xiaochuan`)
 
   const tabB = page.locator(`[data-titlebar-tab-slot]:has(a[href="${sessionHref(b.id)}"])`)
   await tabB.locator("[data-titlebar-tab-link]").click()
   await expectPath(page, sessionHref(b.id))
-  await expect(page).toHaveTitle(`${b.title} · Xccode`)
+  await expect(page).toHaveTitle(`${b.title} · Xiaochuan`)
 
   await page.getByRole("button", { name: "Home", exact: true }).click()
   await expectPath(page, "/")
-  await expect(page).toHaveTitle("Xccode")
+  await expect(page).toHaveTitle("Xiaochuan")
 })
 
 for (const [tabLayout, direction, label] of [
@@ -289,7 +289,7 @@ for (const [tabLayout, direction, label] of [
       name: "Tabs",
       sessions: [a, b, c],
       seed: {
-        tabs: [a.id, { draft: "draft_bulk_close", directory: "C:/Xccode/Tabs" }, b.id, c.id],
+        tabs: [a.id, { draft: "draft_bulk_close", directory: "C:/Xiaochuan/Tabs" }, b.id, c.id],
         settings: { appearance: { tabLayout } },
       },
     })
@@ -907,7 +907,7 @@ test("Recent keeps the server's order through renames, run ends and window focus
       location: { directory: workspace.directory },
       durable: { aggregateID: a.id, seq: 1, version: 1 },
       data: { sessionID: a.id, title: "Renamed A session" },
-    } satisfies Extract<XccodeEvent, { type: "session.renamed" }>,
+    } satisfies Extract<XiaochuanEvent, { type: "session.renamed" }>,
   ])
   await expect(rows.first()).toContainText("Tab B session")
   await expect(rows.last()).toContainText("Renamed A session")
@@ -922,7 +922,7 @@ test("Recent keeps the server's order through renames, run ends and window focus
       location: { directory: workspace.directory },
       durable: { aggregateID: a.id, seq: 2, version: 1 },
       data: { sessionID: a.id },
-    } satisfies Extract<XccodeEvent, { type: "session.execution.succeeded" }>,
+    } satisfies Extract<XiaochuanEvent, { type: "session.execution.succeeded" }>,
     {
       id: "evt_recent_order_rename_after_run",
       created: t + 3,
@@ -930,7 +930,7 @@ test("Recent keeps the server's order through renames, run ends and window focus
       location: { directory: workspace.directory },
       durable: { aggregateID: a.id, seq: 3, version: 1 },
       data: { sessionID: a.id, title: "Finished A session" },
-    } satisfies Extract<XccodeEvent, { type: "session.renamed" }>,
+    } satisfies Extract<XiaochuanEvent, { type: "session.renamed" }>,
   ])
   await expect(rows).toHaveText([/Tab B session/, /Finished A session/])
   await page.evaluate(() => {
@@ -959,7 +959,7 @@ test("Recent keeps the server's order through renames, run ends and window focus
         slug: created.slug,
         version: created.version,
       },
-    } satisfies Extract<XccodeEvent, { type: "session.created" }>,
+    } satisfies Extract<XiaochuanEvent, { type: "session.created" }>,
   ])
   await expect(rows).toHaveText([/Fresh session/, /Finished A session/, /Tab B session/])
   expect(pageOneLoads).toBe(2)
@@ -973,7 +973,7 @@ test("an unfocused window preserves a restored manual unread reminder", async ({
   await mockWorkspace(page, {
     name: "BackgroundUnread",
     sessions: [a, { ...c, time: { created: T0, updated: T0, idle: T0, viewed: T0 } }],
-    seed: { storage: { "xccode.global.dat:notification.manual-unread": { sessions: [c.id] } } },
+    seed: { storage: { "xiaochuan.global.dat:notification.manual-unread": { sessions: [c.id] } } },
   })
   await page.goto(sessionHref(c.id))
   await expectSessionTitle(page, c.title)
@@ -989,7 +989,7 @@ test("an unfocused window preserves a restored manual unread reminder", async ({
 
 test("vertical tabs resize, scroll, show shortcut hints, and navigate", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 480 })
-  const directory = "C:/Xccode/Tabs"
+  const directory = "C:/Xiaochuan/Tabs"
   await mockWorkspace(page, {
     name: "Tabs",
     sessions: [a, b],
@@ -1152,7 +1152,7 @@ for (const [screen, href] of [
       sessions: [a],
       seed: {
         settings: { appearance: { tabLayout: "vertical", sidebarOpen: false } },
-        tabs: [a.id, { draft: "draft_collapsed_sidebar", directory: "C:/Xccode/Tabs" }],
+        tabs: [a.id, { draft: "draft_collapsed_sidebar", directory: "C:/Xiaochuan/Tabs" }],
       },
     })
     await page.goto(href)
@@ -1451,7 +1451,7 @@ test("inactive tabs stay busy while work waits in their inbox, and pulse on a ne
         inboxID: "inb_tab_c_prompt",
         item: { type: "user", payload: { text: "Another client's prompt" }, delivery: "queue" },
       },
-    } satisfies Extract<XccodeEvent, { type: "session.inbox.enqueued" }>,
+    } satisfies Extract<XiaochuanEvent, { type: "session.inbox.enqueued" }>,
   ])
 
   await expect(tab(c.id)).toHaveAttribute("data-test-pulsed", "")
@@ -1578,7 +1578,7 @@ test("inactive tabs load attention and inbox, but read the transcript only on se
           id: `msg_${id}_assistant`,
           type: "assistant",
           agent: "build",
-          model: { id: "claude-opus-4-6", providerID: "xccode" },
+          model: { id: "claude-opus-4-6", providerID: "xiaochuan" },
           content: [{ type: "text", text: state.text }],
           time: { created: 2, completed: 3 },
         },
@@ -1650,7 +1650,7 @@ test("five loaded workspace tabs stay rendered and reactive through repeated swi
           id: `msg_assistant_${id}`,
           type: "assistant",
           agent: "build",
-          model: { id: "claude-opus-4-6", providerID: "xccode" },
+          model: { id: "claude-opus-4-6", providerID: "xiaochuan" },
           time: { created: 2, completed: 3 },
           content: [{ type: "text", text: `Answer for ${id}` }],
         },
@@ -1692,10 +1692,10 @@ test("five loaded workspace tabs stay rendered and reactive through repeated swi
 
 test("each session tab shows its own file tab after a switch to a session in another folder", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/FolderSwitch"
+  const directory = "C:/Xiaochuan/FolderSwitch"
   const alpha = { id: "ses_folderswitch_alpha", title: "Folder switch alpha" }
   const beta = { id: "ses_folderswitch_beta", title: "Folder switch beta" }
-  const other = { id: "ses_folderswitch_other", title: "Folder switch other", directory: "C:/Xccode/FolderOther" }
+  const other = { id: "ses_folderswitch_other", title: "Folder switch other", directory: "C:/Xiaochuan/FolderOther" }
   await openSession(page, {
     name: "FolderSwitch",
     sessions: [alpha, beta, other],
@@ -1742,7 +1742,7 @@ test("each session tab shows its own file tab after a switch to a session in ano
 
 test("tab shortcuts cycle side-panel tabs when the side panel is focused with multiple tabs", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/SidePanelTabs"
+  const directory = "C:/Xiaochuan/SidePanelTabs"
   const alpha = { id: "ses_side_tabs_alpha", title: "Side tabs alpha" }
   const beta = { id: "ses_side_tabs_beta", title: "Side tabs beta" }
   await openSession(page, {
@@ -1937,7 +1937,7 @@ test("⌘W in the side panel closes its last New tab with the panel, and only th
 test("the Windows titlebar menu pastes through the desktop edit action", async ({ page }) => {
   await mockWorkspace(page, { name: "WindowsMenu", sessions: [] })
   await page.goto(`/e2e/utils/windows-menu.html?${new URLSearchParams({ server: SERVER })}`)
-  await page.getByRole("button", { name: "Xccode menu", exact: true }).click()
+  await page.getByRole("button", { name: "Xiaochuan menu", exact: true }).click()
   await page.getByRole("menuitem", { name: "Edit", exact: true }).click()
   const paste = page.getByRole("menuitem", { name: /^Paste/ })
   await expect(paste).toHaveText("PasteCtrl+V")
@@ -1953,7 +1953,7 @@ test("the Windows titlebar menu swaps one submenu for the next as the pointer mo
   await page.clock.install()
   await mockWorkspace(page, { name: "WindowsMenu", sessions: [] })
   await page.goto(`/e2e/utils/windows-menu.html?${new URLSearchParams({ server: SERVER })}`)
-  await page.getByRole("button", { name: "Xccode menu", exact: true }).click()
+  await page.getByRole("button", { name: "Xiaochuan menu", exact: true }).click()
   const parents = ["File", "Edit", "View"].map((name) => page.getByRole("menuitem", { name, exact: true }))
   const submenus = page.locator('[role="menu"].desktop-app-menu-sub')
 
@@ -1982,7 +1982,7 @@ test("the Windows titlebar menu keeps a submenu open while the pointer crosses o
   await page.clock.install()
   await mockWorkspace(page, { name: "WindowsMenu", sessions: [] })
   await page.goto(`/e2e/utils/windows-menu.html?${new URLSearchParams({ server: SERVER })}`)
-  await page.getByRole("button", { name: "Xccode menu", exact: true }).click()
+  await page.getByRole("button", { name: "Xiaochuan menu", exact: true }).click()
   const file = page.getByRole("menuitem", { name: "File", exact: true })
   const fileBox = (await file.boundingBox())!
   const from = { x: fileBox.x + fileBox.width / 2, y: fileBox.y + fileBox.height / 2 }
@@ -2011,7 +2011,7 @@ test("the Windows titlebar menu highlights each parent item the pointer drifts d
   await page.clock.install()
   await mockWorkspace(page, { name: "WindowsMenu", sessions: [] })
   await page.goto(`/e2e/utils/windows-menu.html?${new URLSearchParams({ server: SERVER })}`)
-  await page.getByRole("button", { name: "Xccode menu", exact: true }).click()
+  await page.getByRole("button", { name: "Xiaochuan menu", exact: true }).click()
   const view = page.getByRole("menuitem", { name: "View", exact: true })
   const box = (await view.boundingBox())!
   const from = { x: box.x + box.width / 2, y: box.y + box.height / 2 }
@@ -2038,7 +2038,7 @@ test("the Windows menu shares the vertical sidebar's icon lane", async ({ page }
   })
   await page.goto(`/e2e/utils/windows-menu.html?${new URLSearchParams({ server: SERVER })}`)
 
-  const menu = page.getByRole("button", { name: "Xccode menu", exact: true }).locator("svg")
+  const menu = page.getByRole("button", { name: "Xiaochuan menu", exact: true }).locator("svg")
 
   const home = page.locator('[data-action="vertical-tabs-home"] svg')
   await expect(home).toBeVisible()
@@ -2165,7 +2165,7 @@ test("with the side panel open, ⌘W closes its tabs from anywhere, ⌥⌘W the 
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/SideCloseAnywhere"
+  const directory = "C:/Xiaochuan/SideCloseAnywhere"
   const alpha = { id: "ses_side_anywhere_alpha", title: "Side anywhere alpha" }
   const beta = { id: "ses_side_anywhere_beta", title: "Side anywhere beta" }
   await openSession(page, {
@@ -2220,7 +2220,7 @@ const holdClock = (page: Page) => page.evaluate(() => Date.now()).then((now) => 
 // Closes Alpha's side tabs with ⌘W until the side panel empties and collapses, as an overshooting hand would.
 async function emptySidePanel(page: Page, beforeLastClose?: () => Promise<void>) {
   await page.setViewportSize({ width: 1440, height: 900 })
-  const directory = "C:/Xccode/SideCloseOvershoot"
+  const directory = "C:/Xiaochuan/SideCloseOvershoot"
   const alpha = { id: "ses_side_close_alpha", title: "Side close alpha" }
   const beta = { id: "ses_side_close_beta", title: "Side close beta" }
   await openSession(page, {
@@ -2258,7 +2258,7 @@ test("opening a session from the inbox keeps the list's scroll position and rows
   const sessions = Array.from({ length: 24 }, (_, index) => ({
     id: `ses_inbox_${String(index).padStart(2, "0")}`,
     title: `Inbox session ${index}`,
-    directory: index === 14 ? "C:/Xccode/Inbox/worktrees/unopened" : "C:/Xccode/Inbox",
+    directory: index === 14 ? "C:/Xiaochuan/Inbox/worktrees/unopened" : "C:/Xiaochuan/Inbox",
     time: { created: T0, updated: T0 + 100 - index, idle: T0 + index, viewed: T0 + 100 },
   }))
 
@@ -2269,7 +2269,7 @@ test("opening a session from the inbox keeps the list's scroll position and rows
     seed: {
       settings: { appearance: { tabLayout: "inbox" } },
       tabs: [],
-      storage: { "xccode.global.dat:sidebar.inbox": { workingExpanded: true } },
+      storage: { "xiaochuan.global.dat:sidebar.inbox": { workingExpanded: true } },
     },
   })
   await page.goto("/")
@@ -2283,7 +2283,7 @@ test("opening a session from the inbox keeps the list's scroll position and rows
   await list.evaluate((element) => element.scrollTo(0, element.scrollHeight))
   await expect(target).toBeInViewport({ ratio: 1 })
   // Git metadata must load for an unopened worktree, not only after selecting its session.
-  await target.locator('[data-component="tooltip-v2-trigger"]:has(use[href="#xccode-v2-icon-branch"])').hover()
+  await target.locator('[data-component="tooltip-v2-trigger"]:has(use[href="#xiaochuan-v2-icon-branch"])').hover()
   await expect(page.getByRole("tooltip")).toHaveText("dev")
   const offset = await list.evaluate((element) => element.scrollTop)
   expect(offset).toBeGreaterThan(0)
@@ -2348,7 +2348,7 @@ test("the inbox Archived dialog searches only archived sessions and restores the
     seed: {
       settings: { appearance: { tabLayout: "inbox" } },
       tabs: [],
-      storage: { "xccode.global.dat:sidebar.inbox": { workingExpanded: true } },
+      storage: { "xiaochuan.global.dat:sidebar.inbox": { workingExpanded: true } },
     },
   })
   await page.goto("/")
@@ -2449,7 +2449,7 @@ test("opening a working session expands its shelf and still allows manual collap
     sessionStatus: { ses_working_selected: { type: "running" } },
     seed: {
       settings: { appearance: { tabLayout: "inbox" } },
-      storage: { "xccode.global.dat:sidebar.inbox": { workingExpanded: false } },
+      storage: { "xiaochuan.global.dat:sidebar.inbox": { workingExpanded: false } },
     },
   })
 
@@ -2502,7 +2502,7 @@ test("sessions opened from Home and Search get a temporary Current session row w
     seed: {
       settings: { appearance: { tabLayout: "inbox" } },
       tabs: [],
-      storage: { "xccode.global.dat:sidebar.inbox": { workingExpanded: true } },
+      storage: { "xiaochuan.global.dat:sidebar.inbox": { workingExpanded: true } },
     },
   })
   await page.goto("/")
@@ -2682,7 +2682,7 @@ test("the inbox waits for initial requests and orders attention by waiting age r
           fields: [{ key: "library", type: "string", title: "Library" }],
         },
       },
-    } satisfies Extract<XccodeEvent, { type: "form.created" }>,
+    } satisfies Extract<XiaochuanEvent, { type: "form.created" }>,
   ])
   await expect(needs).toContainText(["Oldest waiting session", "Newer waiting session", "New live question"])
   await expect(needs.filter({ hasText: "New live question" })).toContainText("2m")
@@ -2748,7 +2748,7 @@ async function mockGaveUpPermission(page: Page, tabLayout: "horizontal" | "inbox
     },
     seed: {
       settings: { appearance: { tabLayout }, permissions: { autoApprove: true } },
-      storage: { "xccode.global.dat:sidebar.inbox": { workingExpanded: true } },
+      storage: { "xiaochuan.global.dat:sidebar.inbox": { workingExpanded: true } },
     },
   })
   await page.route(new RegExp(`/api/session/${b.id}/permission/${permissionID}/reply(\\?|$)`), async (route) => {
@@ -2770,7 +2770,7 @@ async function mockGaveUpPermission(page: Page, tabLayout: "horizontal" | "inbox
 test("tab groups reorder without color drift, collapse and auto-expand on navigation, and combine by dwelling into manual groups", async ({
   page,
 }) => {
-  const dirA = "C:/Xccode/TabGroupsA"
+  const dirA = "C:/Xiaochuan/TabGroupsA"
   const dirB = "/srv/tab-groups-b"
   const localOne = session({ id: "ses_tg_local_1", directory: dirA, title: "Local alpha" })
   const localTwo = session({ id: "ses_tg_local_2", directory: dirA, title: "Local beta" })
@@ -2781,7 +2781,7 @@ test("tab groups reorder without color drift, collapse and auto-expand on naviga
     [SERVER]: {
       hostname: "local",
       directory: dirA,
-      project: project({ id: "proj_tg_a", directory: dirA, name: "xccode" }),
+      project: project({ id: "proj_tg_a", directory: dirA, name: "xiaochuan" }),
       provider: NO_PROVIDER,
       sessions: [localOne, localTwo, localThree],
       pageMessages: () => ({ items: [] }),
@@ -2916,7 +2916,7 @@ test("tab groups reorder without color drift, collapse and auto-expand on naviga
 test("closing the current tab in server groups selects the next visible row and keeps the group order", async ({
   page,
 }) => {
-  const dirA = "C:/Xccode/TabGroupsClose"
+  const dirA = "C:/Xiaochuan/TabGroupsClose"
   const dirB = "/srv/tab-groups-close"
   const localOne = session({ id: "ses_tgc_local_1", directory: dirA, title: "Local first" })
   const localTwo = session({ id: "ses_tgc_local_2", directory: dirA, title: "Local second" })
@@ -2926,7 +2926,7 @@ test("closing the current tab in server groups selects the next visible row and 
     [SERVER]: {
       hostname: "local",
       directory: dirA,
-      project: project({ id: "proj_tgc_a", directory: dirA, name: "xccode" }),
+      project: project({ id: "proj_tgc_a", directory: dirA, name: "xiaochuan" }),
       provider: NO_PROVIDER,
       sessions: [localOne, localTwo],
       pageMessages: () => ({ items: [] }),

@@ -7,7 +7,7 @@ use std::path::{Path, PathBuf};
 use std::time::Duration;
 
 use indexmap::IndexMap;
-use xccode_api_types::js::truthy;
+use xiaochuan_api_types::js::truthy;
 use serde::{Serialize, Serializer};
 use serde_json::{Map, Value};
 
@@ -17,7 +17,7 @@ use crate::lock;
 use crate::migrate;
 use crate::paths::Paths;
 
-pub const SCHEMA_URL: &str = "https://xccode.ai/v2/cli.json";
+pub const SCHEMA_URL: &str = "https://xiaochuan.ai/v2/cli.json";
 
 /// Decoding of one schema node from JSON. `None` means the value does not match.
 pub trait Decode: Sized {
@@ -487,7 +487,7 @@ pub enum Error {
 }
 
 /// `Config.Service`: the `cli.json` of one config directory, with the overlay of
-/// `XCCODE_CLI_CONFIG_CONTENT`.
+/// `XIAOCHUAN_CLI_CONFIG_CONTENT`.
 #[derive(Clone, Debug)]
 pub struct CliConfig {
     file: PathBuf,
@@ -500,7 +500,7 @@ pub struct CliConfig {
 impl CliConfig {
     /// The config of `paths`, with the overlay from the process environment.
     pub fn new(paths: &Paths) -> Self {
-        Self::with_content(paths, std::env::var("XCCODE_CLI_CONFIG_CONTENT").ok().as_deref())
+        Self::with_content(paths, std::env::var("XIAOCHUAN_CLI_CONFIG_CONTENT").ok().as_deref())
     }
 
     /// The config of `paths`, with `content` as the overlay. An empty or invalid overlay is ignored.
@@ -607,7 +607,7 @@ pub(crate) fn write_private(file: &Path, temp: &Path, text: &str) -> io::Result<
     options.write(true).create(true).truncate(true);
     #[cfg(unix)]
     std::os::unix::fs::OpenOptionsExt::mode(&mut options, 0o600);
-    xccode_util::busy::replace(file, temp, &options, text.as_bytes())
+    xiaochuan_util::busy::replace(file, temp, &options, text.as_bytes())
 }
 
 /// `Config.Resolved`: the config with the TUI's defaults.
@@ -664,7 +664,7 @@ impl Resolved {
                 notifications: attention.notifications.unwrap_or(false),
                 sound: attention.sound.unwrap_or(false),
                 volume: attention.volume.map_or(0.4, |v| v.0),
-                sound_pack: attention.sound_pack.unwrap_or_else(|| "xccode.default".into()),
+                sound_pack: attention.sound_pack.unwrap_or_else(|| "xiaochuan.default".into()),
                 sounds: attention.sounds.unwrap_or_default(),
             },
             leader_timeout: Duration::from_millis(info.leader.as_ref().and_then(|l| l.timeout).map_or(2000, |t| t.0)),

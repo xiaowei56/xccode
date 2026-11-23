@@ -8,7 +8,7 @@ use std::process::Command;
 use serde_json::Value;
 
 const TARGET: &str = "x86_64-unknown-linux-gnu";
-const ROOT: &str = "xccode-cli";
+const ROOT: &str = "xiaochuan-cli";
 const SECTIONS: [&str; 2] = ["[tests]", "[optional]"];
 
 /// OpenTUI's packages, first-party when they come from where the workspace takes OpenTUI.
@@ -72,7 +72,7 @@ fn allow_list_matches_the_graph() {
     );
 }
 
-/// The workspace's crates in layers, lowest first, each as (name without `xccode-`, the workspace crates it takes as
+/// The workspace's crates in layers, lowest first, each as (name without `xiaochuan-`, the workspace crates it takes as
 /// normal or build dependencies, the ones it takes only as dev-dependencies). A normal or build dependency is on a
 /// lower layer, so the shipped graph has no cycle and an edit never rebuilds a crate beside or below it. The table is
 /// the graph: a new crate or a new or removed edge changes it here, deliberately.
@@ -115,7 +115,7 @@ fn workspace_crates_depend_only_downward() {
     let manifest = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../Cargo.toml");
     let metadata: Value = serde_json::from_str(&cargo(&manifest, &["metadata", "--format-version", "1", "--no-deps"]))
         .expect("cargo metadata prints JSON");
-    let short = |name: &str| name.strip_prefix("xccode-").unwrap_or(name).to_owned();
+    let short = |name: &str| name.strip_prefix("xiaochuan-").unwrap_or(name).to_owned();
     let members = metadata["packages"].as_array().unwrap();
     let names = members.iter().map(|p| short(p["name"].as_str().unwrap())).collect::<BTreeSet<_>>();
     let graph = members

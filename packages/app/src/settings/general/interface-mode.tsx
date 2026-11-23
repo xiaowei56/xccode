@@ -1,6 +1,6 @@
 import { For, Match, Show, Switch, createUniqueId } from "solid-js"
-import { Icon } from "@xccode/ui/icon"
-import { Select } from "@xccode/ui/select"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Select } from "@xiaochuan/ui/select"
 import { useLanguage } from "@/runtime/i18n/language"
 import { type TabLayout, useSettings } from "@/settings/model"
 import { SettingsRow } from "@/settings/row"

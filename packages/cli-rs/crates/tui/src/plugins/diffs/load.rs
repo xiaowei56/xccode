@@ -1,8 +1,8 @@
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     FileDiffInfo, FileReadInput, SessionDiffInput, SessionID, VcsBaseInput, VcsBaseOutput, VcsDiffInput, VcsDiffOutput,
 };
-use xccode_plugin::abi::{self, Host, RequestId};
+use xiaochuan_plugin::abi::{self, Host, RequestId};
 
 use super::Diffs;
 use super::viewer::{Base, File, Load, Mode, Preview, Viewer, is_image};

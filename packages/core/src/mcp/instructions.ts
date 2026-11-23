@@ -1,6 +1,6 @@
 export * as McpInstructions from "./instructions.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Context, Effect, Layer, Schema } from "effect"
 import type { CodeModeCatalog } from "../codemode/catalog.js"
 import type { Tool } from "../tool.js"
@@ -59,7 +59,7 @@ export interface Interface {
   readonly load: (tools: Pick<Tool.Snapshot, "definitions" | "codeModeCatalog">) => Effect.Effect<Instructions.List>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/McpInstructions") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/McpInstructions") {}
 
 export const layer = Layer.effect(
   Service,

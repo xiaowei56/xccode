@@ -1,13 +1,13 @@
-import { Pty } from "@xccode/schema/pty"
-import { PtyTicket } from "@xccode/schema/pty-ticket"
-import { Location } from "@xccode/schema/location"
+import { Pty } from "@xiaochuan/schema/pty"
+import { PtyTicket } from "@xiaochuan/schema/pty-ticket"
+import { Location } from "@xiaochuan/schema/location"
 import { Context, Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiMiddleware, HttpApiSchema, OpenApi } from "effect/http-api"
 import { ForbiddenError, LocationNotFoundError, PtyNotFoundError } from "../errors.js"
 import { LocationQuery, locationQueryOpenApi } from "./location.js"
 
 export const PTY_CONNECT_TICKET_QUERY = "ticket"
-export const PTY_CONNECT_TOKEN_HEADER = "x-xccode-ticket"
+export const PTY_CONNECT_TOKEN_HEADER = "x-xiaochuan-ticket"
 export const PTY_CONNECT_TOKEN_HEADER_VALUE = "1"
 export const PTY_CONNECT_PATH = "/api/pty/:ptyID/connect"
 

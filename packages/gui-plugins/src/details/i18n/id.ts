@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Hapus worktree",
   "mcp.manage": "Kelola server MCP",
   timedOut: "Server terlalu lama merespons",
-  "setup.mcp": "Tambah server dengan Xccode",
+  "setup.mcp": "Tambah server dengan Xiaochuan",
   "setup.mcp.prompt":
-    "Bantu saya menambahkan server MCP ke konfigurasi Xccode global saya. Tanyakan layanan mana yang ingin saya hubungkan, lalu siapkan dan periksa apakah koneksinya berhasil.",
-  "setup.plugins": "Tambah plugin dengan Xccode",
+    "Bantu saya menambahkan server MCP ke konfigurasi Xiaochuan global saya. Tanyakan layanan mana yang ingin saya hubungkan, lalu siapkan dan periksa apakah koneksinya berhasil.",
+  "setup.plugins": "Tambah plugin dengan Xiaochuan",
   "setup.plugins.prompt":
-    "Bantu saya menambahkan plugin ke konfigurasi Xccode global saya. Tanyakan apa yang ingin saya lakukan dengannya, sarankan plugin, lalu tambahkan.",
-  "setup.skills": "Keahlian baru dengan Xccode",
+    "Bantu saya menambahkan plugin ke konfigurasi Xiaochuan global saya. Tanyakan apa yang ingin saya lakukan dengannya, sarankan plugin, lalu tambahkan.",
+  "setup.skills": "Keahlian baru dengan Xiaochuan",
   "setup.skills.prompt":
-    "Bantu saya menulis keahlian Xccode baru di konfigurasi global saya. Tanyakan apa yang harus diajarkannya kepada Anda, lalu tulis SKILL.md-nya.",
+    "Bantu saya menulis keahlian Xiaochuan baru di konfigurasi global saya. Tanyakan apa yang harus diajarkannya kepada Anda, lalu tulis SKILL.md-nya.",
   changesFailed: "Tidak dapat memuat perubahan",
   changesOffline: "Tidak dapat menjangkau server ini",
   "mcp.signIn": "Masuk",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Detail untuk {{name}}",
   "mcp.signIn.open": "Masuk ke {{name}}",
   "mcp.signIn.description":
-    "Peramban Anda akan terbuka agar Anda dapat masuk ke {{name}}. Jika peramban tidak dapat menjangkau mesin yang menjalankan Xccode, tempel URL tujuan pengalihannya di bawah.",
+    "Peramban Anda akan terbuka agar Anda dapat masuk ke {{name}}. Jika peramban tidak dapat menjangkau mesin yang menjalankan Xiaochuan, tempel URL tujuan pengalihannya di bawah.",
   "mcp.signIn.waiting": "Menunggu otorisasi…",
   "mcp.signIn.failed": "Otorisasi gagal: {{error}}",
   "mcp.signIn.expired": "Otorisasi kedaluwarsa",

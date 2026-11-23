@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { TextAttributes, type ScrollBoxRenderable } from "@opentui/core"
 import { useKeyboard, useTerminalDimensions } from "@opentui/solid"
 import { createMemo, createSignal, Show } from "solid-js"
@@ -22,7 +22,7 @@ const instructions = [
 ].join(" ")
 
 export default Plugin.define({
-  id: "xccode.btw",
+  id: "xiaochuan.btw",
   setup(context) {
     const [pending, setPending] = createSignal(0)
 

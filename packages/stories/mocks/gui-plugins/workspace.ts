@@ -1,6 +1,6 @@
-import { Xccode } from "@xccode/client/promise"
-import { createData } from "@xccode/client/solid"
-import { reviewDiffs } from "@xccode/session-ui/storybook"
+import { Xiaochuan } from "@xiaochuan/client/promise"
+import { createData } from "@xiaochuan/client/solid"
+import { reviewDiffs } from "@xiaochuan/session-ui/storybook"
 import { createSignal } from "solid-js"
 import { createStore } from "solid-js/store"
 import { createFileTreeStore } from "@/workspaces/files/tree-store"
@@ -98,7 +98,7 @@ export function createWorkspace(
     throw new Error(`Unconfigured workspace fixture: ${url.pathname}`)
   }
 
-  const client = Xccode.make({
+  const client = Xiaochuan.make({
     baseUrl: "https://workspace.invalid",
     fetch: Object.assign(request, { preconnect() {} }),
   })

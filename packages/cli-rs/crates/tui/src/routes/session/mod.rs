@@ -11,8 +11,8 @@ pub mod scroll;
 pub mod sidebar;
 pub mod tools;
 
-use xccode_api::generated::SessionMessageAssistantContentItem;
-use xccode_store::Task;
+use xiaochuan_api::generated::SessionMessageAssistantContentItem;
+use xiaochuan_store::Task;
 use std::collections::BTreeSet;
 
 use super::RouteView;
@@ -27,7 +27,7 @@ pub struct Session {
     scroll: scroll::Controls,
     _actions: actions::Actions,
     queued: queued::Queued,
-    slot: RefCell<xccode_plugin::SlotMount>,
+    slot: RefCell<xiaochuan_plugin::SlotMount>,
     composer_top: View,
     composer: crate::composer::Composer,
     permission: permission::Permission,
@@ -96,7 +96,7 @@ impl Session {
         let read = id.clone();
         tui.app.spawn(
             synced.0.clone(),
-            bind!(tui, |tui, _, session: Result<(), xccode_store::Error>| {
+            bind!(tui, |tui, _, session: Result<(), xiaochuan_store::Error>| {
                 if session.is_ok() {
                     let root = tui.data.read(|state| state.root(&read));
                     drop(tui.data.job_sync(&root));
@@ -198,12 +198,12 @@ impl RouteView for Session {
     }
 }
 
-fn composer_slot(tui: &Tui, parent: &View, id: &SessionID) -> xccode_plugin::SlotMount {
+fn composer_slot(tui: &Tui, parent: &View, id: &SessionID) -> xiaochuan_plugin::SlotMount {
     crate::plugins::host::slot(
         tui,
         parent,
-        xccode_plugin::slot::SESSION_COMPOSER_TOP,
-        &xccode_plugin::slot::SlotInput { session_id: Some(id.0.clone()), ..Default::default() },
+        xiaochuan_plugin::slot::SESSION_COMPOSER_TOP,
+        &xiaochuan_plugin::slot::SlotInput { session_id: Some(id.0.clone()), ..Default::default() },
         |_| {},
     )
 }
@@ -212,7 +212,7 @@ fn composer_slot(tui: &Tui, parent: &View, id: &SessionID) -> xccode_plugin::Slo
 fn load(tui: &Tui, task: Task<()>) {
     tui.app.spawn(
         task,
-        xccode_ui::bind!(tui, |tui, _, result| {
+        xiaochuan_ui::bind!(tui, |tui, _, result| {
             if let Err(error) = result {
                 tui.toasts.error(error.tui_message());
             }
@@ -239,11 +239,11 @@ fn prewarm(tui: &Tui, id: &SessionID, task: Task<()>) {
                     SessionMessageAssistantContentItem::Reasoning(reasoning) => Some(reasoning.text.as_str()),
                     _ => None,
                 })
-                .flat_map(xccode_ui::grammars::fence_languages)
+                .flat_map(xiaochuan_ui::grammars::fence_languages)
                 .map(str::to_owned)
                 .collect()
         });
-        xccode_ui::grammars::prewarm(languages.iter().map(String::as_str));
+        xiaochuan_ui::grammars::prewarm(languages.iter().map(String::as_str));
     });
 }
 
@@ -252,11 +252,11 @@ fn missing(tui: &Tui, id: &SessionID, task: Task<()>) {
     let id = id.clone();
     tui.app.spawn(
         task,
-        xccode_ui::bind!(tui, |tui, _, result| {
+        xiaochuan_ui::bind!(tui, |tui, _, result| {
             let message = match result {
                 Err(error) => {
                     tui.toasts.error(error.tui_message());
-                    if matches!(*error, xccode_api::error::Error::Transport(_)) {
+                    if matches!(*error, xiaochuan_api::error::Error::Transport(_)) {
                         return;
                     }
                     None

@@ -1,4 +1,4 @@
-import type { SessionInboxEnqueued, SessionMessageAssistant, SessionMessageInfo } from "@xccode/client"
+import type { SessionInboxEnqueued, SessionMessageAssistant, SessionMessageInfo } from "@xiaochuan/client"
 import { createEffect, on, onCleanup, type Accessor } from "solid-js"
 import { createStore, produce, reconcile } from "solid-js/store"
 import { useConfig } from "../../config"

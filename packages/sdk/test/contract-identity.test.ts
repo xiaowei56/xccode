@@ -1,34 +1,34 @@
 import { expect, test } from "bun:test"
-import { EnvironmentDriver } from "@xccode/core/environment/driver"
-import { EnvironmentFiles } from "@xccode/core/environment/files"
-import { Location as CoreLocation } from "@xccode/core/location"
-import { WorkspaceDriver } from "@xccode/core/workspace/driver"
-import { SessionInbox as CoreSessionInbox } from "@xccode/core/session/inbox"
-import { SessionMessage as CoreSessionMessage } from "@xccode/core/session/message"
-import { Agent } from "@xccode/schema/agent"
-import { Config } from "@xccode/schema/config"
-import { Event } from "@xccode/schema/event"
-import { Location } from "@xccode/schema/location"
-import { Model } from "@xccode/schema/model"
-import { Project } from "@xccode/schema/project"
-import { Provider } from "@xccode/schema/provider"
-import { WebSearch } from "@xccode/schema/websearch"
-import { Session } from "@xccode/schema/session"
-import { SessionInbox } from "@xccode/schema/session-inbox"
-import { SessionMessage } from "@xccode/schema/session-message"
-import { Workspace } from "@xccode/schema/workspace"
-import { Worktree } from "@xccode/schema/worktree"
-import { Api } from "@xccode/server/api"
-import { ClientApi, clientNamespace, groupNames, promiseOmitEndpoints } from "@xccode/protocol/client"
-import { compile, emitPromise } from "@xccode/httpapi-codegen"
+import { EnvironmentDriver } from "@xiaochuan/core/environment/driver"
+import { EnvironmentFiles } from "@xiaochuan/core/environment/files"
+import { Location as CoreLocation } from "@xiaochuan/core/location"
+import { WorkspaceDriver } from "@xiaochuan/core/workspace/driver"
+import { SessionInbox as CoreSessionInbox } from "@xiaochuan/core/session/inbox"
+import { SessionMessage as CoreSessionMessage } from "@xiaochuan/core/session/message"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Config } from "@xiaochuan/schema/config"
+import { Event } from "@xiaochuan/schema/event"
+import { Location } from "@xiaochuan/schema/location"
+import { Model } from "@xiaochuan/schema/model"
+import { Project } from "@xiaochuan/schema/project"
+import { Provider } from "@xiaochuan/schema/provider"
+import { WebSearch } from "@xiaochuan/schema/websearch"
+import { Session } from "@xiaochuan/schema/session"
+import { SessionInbox } from "@xiaochuan/schema/session-inbox"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
+import { Workspace } from "@xiaochuan/schema/workspace"
+import { Worktree } from "@xiaochuan/schema/worktree"
+import { Api } from "@xiaochuan/server/api"
+import { ClientApi, clientNamespace, groupNames, promiseOmitEndpoints } from "@xiaochuan/protocol/client"
+import { compile, emitPromise } from "@xiaochuan/httpapi-codegen"
 
 const SDK = await import("../src/index")
 const SDKEffect = await import("../src/effect")
-const CoreAgent = await import("@xccode/core/agent")
-const CoreModel = await import("@xccode/core/model")
-const CoreProject = await import("@xccode/core/project")
-const CoreSession = await import("@xccode/core/session")
-const CoreWorktree = await import("@xccode/core/worktree")
+const CoreAgent = await import("@xiaochuan/core/agent")
+const CoreModel = await import("@xiaochuan/core/model")
+const CoreProject = await import("@xiaochuan/core/project")
+const CoreSession = await import("@xiaochuan/core/session")
+const CoreWorktree = await import("@xiaochuan/core/worktree")
 
 test("re-exports canonical contracts directly from Schema", () => {
   expect(SDK.Agent).toBe(Agent)
@@ -51,7 +51,7 @@ test("re-exports canonical contracts directly from Schema", () => {
     "Integration",
     "Location",
     "Model",
-    "Xccode",
+    "Xiaochuan",
     "Permission",
     "PermissionSaved",
     "Project",
@@ -103,7 +103,7 @@ test("client and Server contracts generate identically", () => {
   expect(emitPromise(client)).toEqual(emitPromise(server))
 })
 
-test("re-exports workspace and environment driver contracts from @xccode/sdk/effect", () => {
+test("re-exports workspace and environment driver contracts from @xiaochuan/sdk/effect", () => {
   expect(SDKEffect.WorkspaceDriver).toBe(WorkspaceDriver)
   expect(SDKEffect.EnvironmentDriver).toBe(EnvironmentDriver)
   expect(SDKEffect.EnvironmentFiles).toBe(EnvironmentFiles)

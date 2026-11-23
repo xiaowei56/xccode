@@ -1,13 +1,13 @@
-import { Bus } from "@xccode/core/bus"
-import { Config } from "@xccode/core/config"
-import { Integration } from "@xccode/core/integration"
-import { Model } from "@xccode/core/model"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { ProviderPlugins } from "@xccode/core/plugin/provider"
-import { make, VLLMPlugin } from "@xccode/core/plugin/provider/vllm"
-import { Provider } from "@xccode/core/provider"
-import { Document, Event, Info } from "@xccode/schema/config"
+import { Bus } from "@xiaochuan/core/bus"
+import { Config } from "@xiaochuan/core/config"
+import { Integration } from "@xiaochuan/core/integration"
+import { Model } from "@xiaochuan/core/model"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { ProviderPlugins } from "@xiaochuan/core/plugin/provider"
+import { make, VLLMPlugin } from "@xiaochuan/core/plugin/provider/vllm"
+import { Provider } from "@xiaochuan/core/provider"
+import { Document, Event, Info } from "@xiaochuan/schema/config"
 import { describe, expect } from "bun:test"
 import { Duration, Effect, Layer, Logger, Schema } from "effect"
 import { TestClock } from "effect/testing"
@@ -65,8 +65,8 @@ describe("VLLMPlugin", () => {
           const providers = yield* Provider.Service
           const modelState = yield* Model.Service
           const providerID = Provider.ID.make("vllm")
-          expect(VLLMPlugin.id).toBe("xccode.provider.vllm")
-          expect(ProviderPlugins.map((item) => item.id)).toContain("xccode.provider.vllm")
+          expect(VLLMPlugin.id).toBe("xiaochuan.provider.vllm")
+          expect(ProviderPlugins.map((item) => item.id)).toContain("xiaochuan.provider.vllm")
           yield* addPlugin(server.url.origin, "5 millis")
           yield* Effect.promise(() => Bun.sleep(20))
           expect(yield* providers.get(providerID)).toBeUndefined()
@@ -80,7 +80,7 @@ describe("VLLMPlugin", () => {
           expect(yield* providers.get(providerID)).toEqual({
             id: providerID,
             name: "vLLM",
-            package: "@xccode/ai/providers/openai-compatible",
+            package: "@xiaochuan/ai/providers/openai-compatible",
             settings: { baseURL: `${server.url.origin}/v1`, provider: "vllm", apiKey: "" },
             activation: "enabled",
           })
@@ -271,7 +271,7 @@ describe("VLLMPlugin", () => {
           yield* providers.transform((editor) => {
             editor.update(providerID, (provider) => {
               provider.name = "vLLM"
-              provider.package = "@xccode/ai/providers/openai-compatible"
+              provider.package = "@xiaochuan/ai/providers/openai-compatible"
               provider.integrationID = Integration.ID.make("vllm")
               provider.activation = "auto"
             })

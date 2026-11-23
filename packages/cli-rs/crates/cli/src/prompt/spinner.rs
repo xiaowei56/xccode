@@ -108,7 +108,7 @@ impl Spinner {
         self.threads = Some(Threads { frames, frame_thread, stop_input, input_thread });
     }
 
-    #[allow(dead_code, reason = "only xccode-prompt-demo uses it")]
+    #[allow(dead_code, reason = "only xiaochuan-prompt-demo uses it")]
     /// Changes the message while it spins.
     pub fn message(&self, message: &str) {
         lock(&self.shared).message = trim_dots(message);

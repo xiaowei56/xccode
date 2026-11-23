@@ -1,4 +1,4 @@
-import { Model } from "@xccode/core/model"
+import { Model } from "@xiaochuan/core/model"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"

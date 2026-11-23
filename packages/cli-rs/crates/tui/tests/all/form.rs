@@ -5,13 +5,13 @@ use crate::support::{self, Fake, Harness, WAIT, deref_harness};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 
-use xccode_api::generated::{FormField, FormValue};
-use xccode_parity::{Fixture as Cells, compare, fixtures_dir};
-use xccode_tui::routes::session::form::{
+use xiaochuan_api::generated::{FormField, FormValue};
+use xiaochuan_parity::{Fixture as Cells, compare, fixtures_dir};
+use xiaochuan_tui::routes::session::form::{
     display_value, initial_values, selected_row, set_multiselect_custom, set_url_opener, toggle_multiselect, validate,
     visible_fields,
 };
-use xccode_tui::{Deps, Route};
+use xiaochuan_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 #[derive(Debug, PartialEq)]
@@ -45,7 +45,7 @@ fn fake(fixture: Fixture, sent: Arc<Mutex<Vec<Sent>>>) -> Fake {
             ("POST", path) if path.starts_with("/api/rpc/") => (200, json!({ "output": null })),
             (method @ ("POST" | "DELETE"), path) => {
                 let method = if method == "POST" { "POST" } else { "DELETE" };
-                let directory = seen.header("x-xccode-directory");
+                let directory = seen.header("x-xiaochuan-directory");
                 sent.lock().unwrap().push(Sent { method, path: path.to_owned(), body: seen.body.clone(), directory });
                 settled.store(true, Ordering::SeqCst);
                 (204, Value::Null)
@@ -333,7 +333,7 @@ fn home_shows_and_answers_the_global_form_of_its_own_location() {
                 (200, support::list(&directory, json!([form("global", "frm_g", &title, fields)])))
             }
             ("POST", path) if path.contains("/form/") => {
-                let directory = seen.header("x-xccode-directory");
+                let directory = seen.header("x-xiaochuan-directory");
                 sent.lock().unwrap().push(Sent {
                     method: "POST",
                     path: path.to_owned(),
@@ -347,7 +347,7 @@ fn home_shows_and_answers_the_global_form_of_its_own_location() {
     };
     let harness = Forms { harness: support::mount(100, 30, support::deps(Arc::new(fake))), sent };
     harness.wait_for("/project needs a token");
-    xccode_tui::features::location::navigate_home(&harness.tui, Some(xccode_store::Location::new("/other")));
+    xiaochuan_tui::features::location::navigate_home(&harness.tui, Some(xiaochuan_store::Location::new("/other")));
     harness.wait_for("/other needs a token");
     assert!(!harness.app.text().contains("/project needs a token"), "{}", harness.app.text());
     harness.app.type_text("abc");
@@ -460,7 +460,7 @@ fn the_helpers_follow_util_form() {
     let keys = |answers: &indexmap::IndexMap<String, FormValue>| {
         visible_fields(&conditional, answers)
             .iter()
-            .map(|field| xccode_tui::routes::session::form::key(field).to_owned())
+            .map(|field| xiaochuan_tui::routes::session::form::key(field).to_owned())
             .collect::<Vec<_>>()
     };
     assert_eq!(keys(&indexmap::IndexMap::new()), ["kind", "link"]);
@@ -495,7 +495,7 @@ fn assert_panel(harness: &Forms, name: &str) {
     let actual = panel(&Cells::from_capture(&harness.app.render()), 2, expected.width);
     let comparison = compare(&expected, &actual);
     if !comparison.is_equal() {
-        let path = std::env::temp_dir().join("xccode-parity").join(format!("{name}.json"));
+        let path = std::env::temp_dir().join("xiaochuan-parity").join(format!("{name}.json"));
         std::fs::create_dir_all(path.parent().unwrap()).unwrap();
         std::fs::write(&path, actual.to_json()).unwrap();
     }

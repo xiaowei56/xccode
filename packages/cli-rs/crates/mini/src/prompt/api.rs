@@ -1,8 +1,8 @@
 //! Session-scoped completion, history and prompt requests.
 
-use xccode_api::client::{Call, Client};
-use xccode_api::error::Error;
-use xccode_api::generated::{
+use xiaochuan_api::client::{Call, Client};
+use xiaochuan_api::error::Error;
+use xiaochuan_api::generated::{
     AgentID, AgentListInput, CommandListInput, FileFindInput, FileSystemEntryType, LocationQueryInput,
     PromptSkillAttachment, ReferenceListInput, SessionCommandInput, SessionCompactInput, SessionID,
     SessionInboxCancelInput, SessionInboxDelivery, SessionInboxUpdateInput, SessionMessageID, SessionMessageInfo,
@@ -230,7 +230,7 @@ pub async fn select(client: &Client, session: &str, agent: Option<&str>, model: 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use xccode_api::memory::{Memory, Route};
+    use xiaochuan_api::memory::{Memory, Route};
     use std::sync::Arc;
 
     /// A declared error shows its message without its tag, as the TS footer's `formatUnknownError` does.

@@ -2,20 +2,20 @@ import { expect } from "bun:test"
 import { cp, mkdir } from "node:fs/promises"
 import path from "node:path"
 import { Brand, Cause, Deferred, Effect, Exit, Fiber, Layer, Option, Schedule, Schema, Scope, Stream } from "effect"
-import { Agent } from "@xccode/schema/agent"
-import { Session } from "@xccode/schema/session"
-import { SessionMessage } from "@xccode/schema/session-message"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Watcher } from "@xccode/core/filesystem/watcher"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginModule } from "@xccode/core/plugin/module"
-import { Rpc } from "@xccode/core/rpc"
-import { Tool } from "@xccode/core/tool"
-import { execute } from "@xccode/core/tool/runtime"
-import { Global } from "@xccode/util/global"
-import { Npm } from "@xccode/util/npm"
-import { createForeignPackageFilter, ensurePluginRuntime } from "@xccode/plugin/runtime"
-import { createLoader, discoverPluginRuntimeSpecifiers, pluginRuntimeLoaderCode } from "@xccode/plugin/runtime-modules"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Session } from "@xiaochuan/schema/session"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginModule } from "@xiaochuan/core/plugin/module"
+import { Rpc } from "@xiaochuan/core/rpc"
+import { Tool } from "@xiaochuan/core/tool"
+import { execute } from "@xiaochuan/core/tool/runtime"
+import { Global } from "@xiaochuan/util/global"
+import { Npm } from "@xiaochuan/util/npm"
+import { createForeignPackageFilter, ensurePluginRuntime } from "@xiaochuan/plugin/runtime"
+import { createLoader, discoverPluginRuntimeSpecifiers, pluginRuntimeLoaderCode } from "@xiaochuan/plugin/runtime-modules"
 import { tempGlobalLayer } from "../fixture/global"
 import { setOrganizationPolicy } from "../fixture/policy"
 import { tmpdirScoped } from "../fixture/tmpdir"
@@ -115,7 +115,7 @@ it.live("interrupts pending watcher setup when the loader scope closes during mo
   }),
 )
 
-it.live("loads plugins and their transitive dependencies against the host's Effect and @xccode/plugin instances", () =>
+it.live("loads plugins and their transitive dependencies against the host's Effect and @xiaochuan/plugin instances", () =>
   Effect.gen(function* () {
     const directory = yield* tmpdirScoped()
     const pluginDir = path.join(directory.path, "plugin")
@@ -162,12 +162,12 @@ export const depToolInput = Schema.Struct({
   code: Schema.Trim.check(Schema.isPattern(/^v[0-9]+$/)),
 })
 export const depCaptured = { Effect, Schema, some }`,
-        "node_modules/@xccode/plugin/package.json":
-          '{"name":"@xccode/plugin","type":"module","exports":{"./effect":"./effect.js","./rpc":"./rpc.js"}}',
-        "node_modules/@xccode/plugin/effect.js": "export const Plugin = { define: (p) => p }",
-        "node_modules/@xccode/plugin/rpc.js": "export const Rpc = { define: (d) => d }",
-        "index.ts": `import { Plugin } from "@xccode/plugin/effect"
-import { Rpc } from "@xccode/plugin/rpc"
+        "node_modules/@xiaochuan/plugin/package.json":
+          '{"name":"@xiaochuan/plugin","type":"module","exports":{"./effect":"./effect.js","./rpc":"./rpc.js"}}',
+        "node_modules/@xiaochuan/plugin/effect.js": "export const Plugin = { define: (p) => p }",
+        "node_modules/@xiaochuan/plugin/rpc.js": "export const Rpc = { define: (d) => d }",
+        "index.ts": `import { Plugin } from "@xiaochuan/plugin/effect"
+import { Rpc } from "@xiaochuan/plugin/rpc"
 import { Effect, Schema } from "effect"
 import { some } from "effect/Option"
 import { nominal } from "effect/Brand"
@@ -333,8 +333,8 @@ it.live("discovers exported specifiers from the resolved tree even when dist/ ex
 
     yield* Effect.promise(() =>
       writeFiles(directory.path, {
-        "consumer/node_modules/@xccode/plugin/package.json": JSON.stringify({
-          name: "@xccode/plugin",
+        "consumer/node_modules/@xiaochuan/plugin/package.json": JSON.stringify({
+          name: "@xiaochuan/plugin",
           type: "module",
           exports: {
             ".": "./src/promise/index.ts",
@@ -343,25 +343,25 @@ it.live("discovers exported specifiers from the resolved tree even when dist/ ex
             "./gui/*": "./src/gui/*.ts",
           },
         }),
-        "consumer/node_modules/@xccode/plugin/src/promise/index.ts": "export const root = 'src'",
-        "consumer/node_modules/@xccode/plugin/src/effect/index.ts": "export * as plugin from './plugin.ts'",
-        "consumer/node_modules/@xccode/plugin/src/effect/plugin.ts": "export const leaf = 'src'",
-        "consumer/node_modules/@xccode/plugin/src/unexported.ts": "export const secret = true",
-        "consumer/node_modules/@xccode/plugin/src/gui/sdk/index.ts": "export const window = true",
-        "consumer/node_modules/@xccode/plugin/dist/promise/index.js": "export const root = 'dist'",
-        "consumer/node_modules/@xccode/plugin/dist/effect/index.js": "export const index = 'dist'",
-        "consumer/node_modules/@xccode/plugin/dist/effect/plugin.js": "export const leaf = 'dist'",
+        "consumer/node_modules/@xiaochuan/plugin/src/promise/index.ts": "export const root = 'src'",
+        "consumer/node_modules/@xiaochuan/plugin/src/effect/index.ts": "export * as plugin from './plugin.ts'",
+        "consumer/node_modules/@xiaochuan/plugin/src/effect/plugin.ts": "export const leaf = 'src'",
+        "consumer/node_modules/@xiaochuan/plugin/src/unexported.ts": "export const secret = true",
+        "consumer/node_modules/@xiaochuan/plugin/src/gui/sdk/index.ts": "export const window = true",
+        "consumer/node_modules/@xiaochuan/plugin/dist/promise/index.js": "export const root = 'dist'",
+        "consumer/node_modules/@xiaochuan/plugin/dist/effect/index.js": "export const index = 'dist'",
+        "consumer/node_modules/@xiaochuan/plugin/dist/effect/plugin.js": "export const leaf = 'dist'",
         "async-mod.ts": "await new Promise((r) => setTimeout(r, 20)); export const nonce = Math.random()",
       }),
     )
 
-    const discovered = discoverPluginRuntimeSpecifiers(consumerDir, ["@xccode/plugin"])
-    expect(discovered.get("@xccode/plugin")?.replaceAll("\\", "/")).toEndWith("src/promise/index.ts")
-    expect(discovered.get("@xccode/plugin/effect")?.replaceAll("\\", "/")).toEndWith("src/effect/index.ts")
-    expect(discovered.get("@xccode/plugin/effect/plugin")?.replaceAll("\\", "/")).toEndWith("src/effect/plugin.ts")
-    expect(discovered.has("@xccode/plugin/unexported")).toBe(false)
+    const discovered = discoverPluginRuntimeSpecifiers(consumerDir, ["@xiaochuan/plugin"])
+    expect(discovered.get("@xiaochuan/plugin")?.replaceAll("\\", "/")).toEndWith("src/promise/index.ts")
+    expect(discovered.get("@xiaochuan/plugin/effect")?.replaceAll("\\", "/")).toEndWith("src/effect/index.ts")
+    expect(discovered.get("@xiaochuan/plugin/effect/plugin")?.replaceAll("\\", "/")).toEndWith("src/effect/plugin.ts")
+    expect(discovered.has("@xiaochuan/plugin/unexported")).toBe(false)
     // The GUI SDK runs in the app; the server and TUI runtime never load it.
-    expect([...discovered.keys()].filter((specifier) => specifier.startsWith("@xccode/plugin/gui"))).toEqual([])
+    expect([...discovered.keys()].filter((specifier) => specifier.startsWith("@xiaochuan/plugin/gui"))).toEqual([])
 
     const hostDiscovered = discoverPluginRuntimeSpecifiers()
     expect(hostDiscovered.has("effect/schema/SchemaJITCompiler")).toBe(true)
@@ -388,16 +388,16 @@ it.live("discovers exported specifiers from the resolved tree even when dist/ ex
     expect(res1).toBe(res2)
 
     const winFilter = createForeignPackageFilter([
-      "C:\\runner\\_work\\xccode\\node_modules\\.bun\\effect@4.0.0-rc.112\\node_modules\\effect",
+      "C:\\runner\\_work\\xiaochuan\\node_modules\\.bun\\effect@4.0.0-rc.112\\node_modules\\effect",
     ])
     expect(
       winFilter.test(
-        "C:\\runner\\_work\\xccode\\node_modules\\.bun\\effect@4.0.0-rc.112\\node_modules\\effect\\dist\\index.js",
+        "C:\\runner\\_work\\xiaochuan\\node_modules\\.bun\\effect@4.0.0-rc.112\\node_modules\\effect\\dist\\index.js",
       ),
     ).toBe(false)
     expect(
       winFilter.test(
-        "C:/runner/_work/xccode/node_modules/.bun/effect@4.0.0-rc.112/node_modules/effect/dist/index.js",
+        "C:/runner/_work/xiaochuan/node_modules/.bun/effect@4.0.0-rc.112/node_modules/effect/dist/index.js",
       ),
     ).toBe(false)
     expect(winFilter.test("C:\\Users\\plugin\\node_modules\\effect\\dist\\index.js")).toBe(true)
@@ -444,7 +444,7 @@ it.live("loads a GUI-only package under its package name without running it, and
     yield* Effect.promise(() =>
       writeFiles(directory.path, {
         "gui/package.json": JSON.stringify({
-          name: "xccode-acme-gui",
+          name: "xiaochuan-acme-gui",
           exports: { "./gui-experimental": "./dist/gui-experimental.cjs" },
         }),
         "gui/dist/gui-experimental.cjs": evaluated,
@@ -456,7 +456,7 @@ it.live("loads a GUI-only package under its package name without running it, and
 
     const loaded = yield* modules.load({ type: "add", target: gui, options: { region: "eu" } })
     expect(loaded).toMatchObject({
-      id: "xccode-acme-gui",
+      id: "xiaochuan-acme-gui",
       features: { gui: true },
       gui: { options: { region: "eu" } },
       source: { type: "local", path: gui },
@@ -470,7 +470,7 @@ it.live("loads a GUI-only package under its package name without running it, and
     yield* plugins.awaitActivation
     expect((yield* plugins.list()).filter((plugin) => plugin.source.type === "local")).toEqual([
       {
-        id: Plugin.ID.make("xccode-acme-gui"),
+        id: Plugin.ID.make("xiaochuan-acme-gui"),
         source: { type: "local", path: gui },
         state: { status: "active" },
         features: { gui: true },

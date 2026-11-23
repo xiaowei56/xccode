@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import os from "os"
 import path from "path"
-import { Global } from "@xccode/util/global"
+import { Global } from "@xiaochuan/util/global"
 
 describe("Core test environment", () => {
   test("disables public npm security audits", () => {
@@ -9,20 +9,20 @@ describe("Core test environment", () => {
   })
 
   test("isolates global home and XDG roots", () => {
-    const home = process.env.XCCODE_TEST_HOME
+    const home = process.env.XIAOCHUAN_TEST_HOME
     expect(home).toBeDefined()
     if (!home) return
 
     expect(os.homedir()).toBe(home)
     expect(Global.Path.home).toBe(home)
-    expect(Global.Path.config).toBe(path.join(home, ".config", "xccode"))
-    expect(Global.Path.data).toBe(path.join(home, ".local", "share", "xccode"))
-    expect(Global.Path.cache).toBe(path.join(home, ".cache", "xccode"))
-    expect(Global.Path.state).toBe(path.join(home, ".local", "state", "xccode"))
+    expect(Global.Path.config).toBe(path.join(home, ".config", "xiaochuan"))
+    expect(Global.Path.data).toBe(path.join(home, ".local", "share", "xiaochuan"))
+    expect(Global.Path.cache).toBe(path.join(home, ".cache", "xiaochuan"))
+    expect(Global.Path.state).toBe(path.join(home, ".local", "state", "xiaochuan"))
     expect(os.tmpdir()).toBe(path.join(home, "tmp"))
-    expect(process.env.XCCODE_CONFIG_DIR).toBe(Global.Path.config)
-    expect(process.env.XCCODE_CONFIG).toBeUndefined()
-    expect(process.env.XCCODE_CONFIG_CONTENT).toBeUndefined()
+    expect(process.env.XIAOCHUAN_CONFIG_DIR).toBe(Global.Path.config)
+    expect(process.env.XIAOCHUAN_CONFIG).toBeUndefined()
+    expect(process.env.XIAOCHUAN_CONFIG_CONTENT).toBeUndefined()
     expect(process.env.AWS_REGION).toBeUndefined()
     expect(process.env.GOOGLE_VERTEX_PROJECT).toBeUndefined()
     expect(process.env.NPM_CONFIG_REGISTRY).toBeUndefined()

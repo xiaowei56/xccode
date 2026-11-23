@@ -1,4 +1,4 @@
-import type { FileContent } from "@xccode/plugin/gui"
+import type { FileContent } from "@xiaochuan/plugin/gui"
 import { Schema } from "effect"
 import { Persistence } from "@/runtime/persistence/schema"
 

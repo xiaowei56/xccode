@@ -1,5 +1,5 @@
 [package]
-name = "xccode-plugin-abi"
+name = "xiaochuan-plugin-abi"
 description = "The TUI plugin contract, its schema, and the Rust SDK the built-in plugins use."
 version.workspace = true
 edition.workspace = true
@@ -19,6 +19,6 @@ workspace = true
 # The built-ins depend on this crate, which stays free of the TUI and its native libraries.
 [dependencies]
 # The session, message and catalog values renders read.
-xccode-api-types.workspace = true
+xiaochuan-api-types.workspace = true
 serde.workspace = true
 serde_json.workspace = true

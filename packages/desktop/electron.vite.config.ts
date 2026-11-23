@@ -4,7 +4,7 @@ import { pickerPlugin } from "./script/picker"
 import { nodePtyPackage } from "./script/utils"
 
 function resolveChannel() {
-  const raw = process.env.XCCODE_CHANNEL
+  const raw = process.env.XIAOCHUAN_CHANNEL
 
   if (raw === "local" || raw === "dev" || raw === "beta" || raw === "prod") return raw
 
@@ -13,7 +13,7 @@ function resolveChannel() {
   return "dev"
 }
 
-const appPlugin = (await import("@xccode/app/vite")).default
+const appPlugin = (await import("@xiaochuan/app/vite")).default
 
 // Every module the entry reaches through static imports lands in one chunk. Automatic splitting
 // otherwise fragments the initial graph into ~50 files shared with lazy routes, and each file costs
@@ -22,7 +22,7 @@ const appPlugin = (await import("@xccode/app/vite")).default
 const initialGraph = new Set<string>()
 
 const initialChunk: Plugin = {
-  name: "xccode-desktop:initial-chunk",
+  name: "xiaochuan-desktop:initial-chunk",
   renderStart() {
     const entries = [...this.getModuleIds()].filter((id) => this.getModuleInfo(id)?.isEntry)
     initialGraph.clear()
@@ -44,7 +44,7 @@ export default defineConfig(({ command }) => {
       },
       define: {
         // Local renderer/server mode still uses the dev application identity and updater policy.
-        "import.meta.env.XCCODE_CHANNEL": JSON.stringify(channel === "local" ? "dev" : channel),
+        "import.meta.env.XIAOCHUAN_CHANNEL": JSON.stringify(channel === "local" ? "dev" : channel),
       },
       build: {
         minify: command === "build",
@@ -65,7 +65,7 @@ export default defineConfig(({ command }) => {
       },
       plugins: [
         {
-          name: "xccode:node-pty-narrower",
+          name: "xiaochuan:node-pty-narrower",
           enforce: "pre",
           resolveId(s) {
             if (s === "@lydell/node-pty") return nodePtyPkg
@@ -77,7 +77,7 @@ export default defineConfig(({ command }) => {
           // Rolldown emits its own scoped createRequire runtime for CommonJS dependencies.
           // electron-vite's post-bundle regex shim injects a top-level `const require` that collides
           // with bundled ESM modules declaring their own `require` (such as @effect/platform-node).
-          name: "xccode:disable-esm-shim",
+          name: "xiaochuan:disable-esm-shim",
           configResolved(config) {
             const shim = config.plugins.find((plugin) => plugin.name === "vite:esm-shim")
 
@@ -106,10 +106,10 @@ export default defineConfig(({ command }) => {
         bundledDev: true,
       },
       define: {
-        "import.meta.env.XCCODE_VERSION": JSON.stringify(process.env.XCCODE_VERSION),
-        "import.meta.env.VITE_XCCODE_CHANNEL": JSON.stringify(channel),
-        "import.meta.env.XCCODE_TEST_ONBOARDING": JSON.stringify(
-          command === "serve" && process.env.XCCODE_TEST_ONBOARDING === "1",
+        "import.meta.env.XIAOCHUAN_VERSION": JSON.stringify(process.env.XIAOCHUAN_VERSION),
+        "import.meta.env.VITE_XIAOCHUAN_CHANNEL": JSON.stringify(channel),
+        "import.meta.env.XIAOCHUAN_TEST_ONBOARDING": JSON.stringify(
+          command === "serve" && process.env.XIAOCHUAN_TEST_ONBOARDING === "1",
         ),
       },
       plugins: [pickerPlugin(), appPlugin, initialChunk],

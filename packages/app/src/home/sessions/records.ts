@@ -1,9 +1,9 @@
-import type { SessionInfo } from "@xccode/client/promise"
+import type { SessionInfo } from "@xiaochuan/client/promise"
 import type { LocalProject } from "@/shell/state/layout"
-import { displayName } from "@xccode/ui/project-avatar"
+import { displayName } from "@xiaochuan/ui/project-avatar"
 import { compareSessionTime } from "@/shell/layout/helpers"
 import { pathKey } from "@/workspaces/path-key"
-import { getFilename } from "@xccode/util/path"
+import { getFilename } from "@xiaochuan/util/path"
 
 export type HomeSessionRecord = {
   session: SessionInfo

@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Munkafa törlése",
   "mcp.manage": "MCP-szerverek kezelése",
   timedOut: "A szerver túl sokáig nem válaszolt",
-  "setup.mcp": "Szerver hozzáadása az Xccode-dal",
+  "setup.mcp": "Szerver hozzáadása az Xiaochuan-dal",
   "setup.mcp.prompt":
-    "Segíts hozzáadni egy MCP-szervert a globális Xccode-konfigurációmhoz. Kérdezd meg, melyik szolgáltatást szeretném csatlakoztatni, majd állítsd be, és ellenőrizd, hogy csatlakozik-e.",
-  "setup.plugins": "Beépülő modul hozzáadása az Xccode-dal",
+    "Segíts hozzáadni egy MCP-szervert a globális Xiaochuan-konfigurációmhoz. Kérdezd meg, melyik szolgáltatást szeretném csatlakoztatni, majd állítsd be, és ellenőrizd, hogy csatlakozik-e.",
+  "setup.plugins": "Beépülő modul hozzáadása az Xiaochuan-dal",
   "setup.plugins.prompt":
-    "Segíts hozzáadni egy beépülő modult a globális Xccode-konfigurációmhoz. Kérdezd meg, mit szeretnék, hogy csináljon, javasolj egy beépülő modult, majd add hozzá.",
-  "setup.skills": "Új készség az Xccode-dal",
+    "Segíts hozzáadni egy beépülő modult a globális Xiaochuan-konfigurációmhoz. Kérdezd meg, mit szeretnék, hogy csináljon, javasolj egy beépülő modult, majd add hozzá.",
+  "setup.skills": "Új készség az Xiaochuan-dal",
   "setup.skills.prompt":
-    "Segíts megírni egy új Xccode-készséget a globális konfigurációmban. Kérdezd meg, mit tanítson neked, majd írd meg a SKILL.md fájlját.",
+    "Segíts megírni egy új Xiaochuan-készséget a globális konfigurációmban. Kérdezd meg, mit tanítson neked, majd írd meg a SKILL.md fájlját.",
   changesFailed: "Nem sikerült betölteni a módosításokat",
   changesOffline: "A szerver nem érhető el",
   "mcp.signIn": "Bejelentkezés",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "A(z) {{name}} részletei",
   "mcp.signIn.open": "Bejelentkezés ide: {{name}}",
   "mcp.signIn.description":
-    "Megnyílik a böngésző, hogy bejelentkezhessen ide: {{name}}. Ha nem éri el az Xccode-ot futtató gépet, illessze be alább az URL-t, amelyre átirányította.",
+    "Megnyílik a böngésző, hogy bejelentkezhessen ide: {{name}}. Ha nem éri el az Xiaochuan-ot futtató gépet, illessze be alább az URL-t, amelyre átirányította.",
   "mcp.signIn.waiting": "Várakozás az engedélyezésre…",
   "mcp.signIn.failed": "Az engedélyezés sikertelen: {{error}}",
   "mcp.signIn.expired": "Az engedélyezés lejárt",

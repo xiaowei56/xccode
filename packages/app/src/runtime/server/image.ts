@@ -1,5 +1,5 @@
-import { getDirectory, getFilename } from "@xccode/util/path"
-import type { XccodeClient } from "@xccode/client/promise"
+import { getDirectory, getFilename } from "@xiaochuan/util/path"
+import type { XiaochuanClient } from "@xiaochuan/client/promise"
 
 const types = new Map([
   ["png", "image/png"],
@@ -14,7 +14,7 @@ const types = new Map([
 ])
 
 export async function readLocalImage(
-  api: Pick<XccodeClient, "file">,
+  api: Pick<XiaochuanClient, "file">,
   directory: string,
   path: string,
   signal: AbortSignal,

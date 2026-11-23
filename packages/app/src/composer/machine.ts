@@ -1,4 +1,4 @@
-import type { SessionMessage } from "@xccode/schema/session-message"
+import type { SessionMessage } from "@xiaochuan/schema/session-message"
 import type { ComposerDelivery, ComposerSelection, ComposerSession } from "./adapter"
 import { parseSlashCommand } from "./client-slash-command"
 import type { PromptHistoryComment } from "./history/entry"

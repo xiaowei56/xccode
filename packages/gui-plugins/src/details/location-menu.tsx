@@ -1,10 +1,10 @@
-import { DiffChanges } from "@xccode/ui/diff-changes"
-import { Icon } from "@xccode/ui/icon"
-import { Menu } from "@xccode/ui/menu"
+import { DiffChanges } from "@xiaochuan/ui/diff-changes"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Menu } from "@xiaochuan/ui/menu"
 import { createMemo, Match, onCleanup, Show, Switch } from "solid-js"
-import { createKeyed, usePlugin, type MountedSession, type SessionScreen } from "@xccode/plugin/gui"
+import { createKeyed, usePlugin, type MountedSession, type SessionScreen } from "@xiaochuan/plugin/gui"
 import type Details from "./index"
-import { Changes } from "@xccode/plugin/gui/review"
+import { Changes } from "@xiaochuan/plugin/gui/review"
 import { ReviewDetails } from "../review/contract"
 
 export default function SessionLocationMenu(props: { session: MountedSession; screen: SessionScreen; shown: boolean }) {

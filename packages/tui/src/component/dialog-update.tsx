@@ -85,7 +85,7 @@ export function DialogUpdate(props: {
         <DialogHeader
           title={
             state().type === "installing"
-              ? "Updating Xccode"
+              ? "Updating Xiaochuan"
               : state().type === "available" || state().type === "failed"
                 ? "Update available"
                 : "Update"
@@ -110,21 +110,21 @@ export function DialogUpdate(props: {
             </Match>
             <Match when={current.type === "available"}>
               <text fg={theme.text.muted}>
-                An update is available. After installing, you'll be prompted to restart Xccode.
+                An update is available. After installing, you'll be prompted to restart Xiaochuan.
               </text>
             </Match>
             <Match when={current.type === "installing"}>
               <Spinner shimmer={theme.text.base}>
-                {current.type === "installing" ? `Installing Xccode ${current.version}…` : ""}
+                {current.type === "installing" ? `Installing Xiaochuan ${current.version}…` : ""}
               </Spinner>
             </Match>
             <Match when={current.type === "installed"}>
               <text fg={theme.text.muted} wrapMode="word">
-                Update successful! Restart closes Xccode, then run xccode to use the new version.
+                Update successful! Restart closes Xiaochuan, then run xiaochuan to use the new version.
               </text>
             </Match>
             <Match when={current.type === "current"}>
-              <text fg={theme.text.muted}>Xccode is already up to date.</text>
+              <text fg={theme.text.muted}>Xiaochuan is already up to date.</text>
             </Match>
             <Match when={current.type === "unavailable"}>
               <text fg={theme.text.muted} wrapMode="word">

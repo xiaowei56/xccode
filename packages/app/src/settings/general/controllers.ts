@@ -1,7 +1,7 @@
 import { createEffect, createMemo, createSignal, onMount, untrack, type Accessor } from "solid-js"
-import type { ConfigShellOption } from "@xccode/client/promise"
-import type { ColorScheme } from "@xccode/ui/theme/context"
-import { useTheme } from "@xccode/ui/theme/context"
+import type { ConfigShellOption } from "@xiaochuan/client/promise"
+import type { ColorScheme } from "@xiaochuan/ui/theme/context"
+import { useTheme } from "@xiaochuan/ui/theme/context"
 import {
   monoDefault,
   monoFontFamily,

@@ -7,9 +7,9 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use base64::Engine;
-use xccode_local::cli_config::{Info, Prompt, PromptPaste};
-use xccode_tui::features::links::testing;
-use xccode_tui::features::startup::Args;
+use xiaochuan_local::cli_config::{Info, Prompt, PromptPaste};
+use xiaochuan_tui::features::links::testing;
+use xiaochuan_tui::features::startup::Args;
 use opentui::native::ClipboardOutcome;
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
@@ -32,26 +32,26 @@ fn fake() -> Fake {
 struct Setup {
     harness: Harness,
     seen: Log,
-    home: xccode_util::temp::TempDir,
+    home: xiaochuan_util::temp::TempDir,
 }
 
 deref_harness!(Setup);
 
 impl Setup {
     fn new() -> Self {
-        Self::with(xccode_util::temp::tempdir().unwrap(), Info::default(), false)
+        Self::with(xiaochuan_util::temp::tempdir().unwrap(), Info::default(), false)
     }
 
     /// Enable copy-on-select explicitly across platforms.
     fn copying_on_select() -> Self {
-        let info = xccode_local::cli_config::merge(&[Some(json!({ "terminal": { "copy": "select" } }))]);
-        Self::with(xccode_util::temp::tempdir().unwrap(), info, false)
+        let info = xiaochuan_local::cli_config::merge(&[Some(json!({ "terminal": { "copy": "select" } }))]);
+        Self::with(xiaochuan_util::temp::tempdir().unwrap(), info, false)
     }
 
-    fn with(home: xccode_util::temp::TempDir, info: Info, local: bool) -> Self {
+    fn with(home: xiaochuan_util::temp::TempDir, info: Info, local: bool) -> Self {
         let fake = fake();
         let seen = fake.log();
-        let deps = xccode_tui::Deps {
+        let deps = xiaochuan_tui::Deps {
             config: support::config(info),
             roots: support::roots(support::paths(home.path()), "latest"),
             ..support::deps(Arc::new(fake))
@@ -254,7 +254,7 @@ fn short_pastes_go_in_as_they_are_and_full_turns_compaction_off() {
     setup.wait_text("short red\npaste");
 
     let full =
-        Setup::with(xccode_util::temp::tempdir().unwrap(), prompt_config(Some(PromptPaste::Full), false), false);
+        Setup::with(xiaochuan_util::temp::tempdir().unwrap(), prompt_config(Some(PromptPaste::Full), false), false);
     full.app.paste("a\nb\nc\nd");
     full.wait_text("a\nb\nc\nd");
 }
@@ -263,7 +263,7 @@ fn short_pastes_go_in_as_they_are_and_full_turns_compaction_off() {
 fn clipboard_images_attach_preview_and_open_in_the_dialog() {
     let capture = testing::capture();
     let png = base64::engine::general_purpose::STANDARD.decode(PNG).unwrap();
-    let setup = Setup::with(xccode_util::temp::tempdir().unwrap(), prompt_config(None, true), false);
+    let setup = Setup::with(xiaochuan_util::temp::tempdir().unwrap(), prompt_config(None, true), false);
     let read = || ClipboardOutcome::Read { mime_type: "image/png".into(), data: png.clone() };
     // Another picture: the same image with a byte after its end, which decoders skip.
     let other = [png.clone(), vec![0]].concat();
@@ -326,12 +326,12 @@ fn clipboard_text_pastes_and_read_errors_toast() {
 
 #[test]
 fn pasted_paths_attach_files_and_svgs_paste_their_text() {
-    let files = xccode_util::temp::tempdir().unwrap();
+    let files = xiaochuan_util::temp::tempdir().unwrap();
     let png = files.path().join("shot one.png");
     std::fs::write(&png, base64::engine::general_purpose::STANDARD.decode(PNG).unwrap()).unwrap();
     let svg = files.path().join("logo.svg");
     std::fs::write(&svg, "<svg/>").unwrap();
-    let setup = Setup::with(xccode_util::temp::tempdir().unwrap(), prompt_config(None, true), true);
+    let setup = Setup::with(xiaochuan_util::temp::tempdir().unwrap(), prompt_config(None, true), true);
     // A dragged path arrives quoted or escaped; both attach. Windows has no escapes: `\` separates.
     let quoted = format!("'{}'", png.display());
     setup.app.paste(&if cfg!(windows) { quoted } else { quoted.replace(' ', "\\ ") });
@@ -360,10 +360,10 @@ fn pasted_paths_attach_files_and_svgs_paste_their_text() {
 
 #[test]
 fn previews_show_above_the_prompt_and_a_click_opens_the_dialog() {
-    let files = xccode_util::temp::tempdir().unwrap();
+    let files = xiaochuan_util::temp::tempdir().unwrap();
     let bad = files.path().join("bad.png");
     std::fs::write(&bad, b"not a png").unwrap();
-    let setup = Setup::with(xccode_util::temp::tempdir().unwrap(), prompt_config(None, true), false);
+    let setup = Setup::with(xiaochuan_util::temp::tempdir().unwrap(), prompt_config(None, true), false);
     setup.app.paste(&bad.display().to_string());
     setup.wait_text("[Image 1] ");
     let (x, y) = setup.find("No preview");
@@ -462,7 +462,7 @@ fn stash_file_is_shared_with_typescript() {
     assert_eq!(lines[0], rust.lines().next().unwrap());
     assert_eq!(lines.len(), 2);
 
-    let home = xccode_util::temp::TempDir::new().unwrap();
+    let home = xiaochuan_util::temp::TempDir::new().unwrap();
     std::fs::create_dir_all(home.path().join("state")).unwrap();
     std::fs::copy(state.join("prompt-stash.jsonl"), home.path().join("state/prompt-stash.jsonl")).unwrap();
     let again = Setup::with(home, Info::default(), false);
@@ -509,7 +509,7 @@ fn a_stash_another_tui_made_survives_pop() {
 
 #[test]
 fn a_stash_made_while_the_stash_loads_is_kept() {
-    let home = xccode_util::temp::TempDir::new().unwrap();
+    let home = xiaochuan_util::temp::TempDir::new().unwrap();
     let state = home.path().join("state");
     ts_stash(&state, "old");
     // Broken lines keep the load busy past the first frames; it heals them away.

@@ -48,7 +48,7 @@ export async function createAcpFixture(
     readonly respond?: (request: unknown) => string | Response | Promise<string | Response>
   } = {},
 ) {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "xccode-cli-acp-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "xiaochuan-cli-acp-"))
   const home = path.join(root, "workspace")
   const config = path.join(root, "config")
   const models = path.join(root, "models.json")
@@ -71,7 +71,7 @@ export async function createAcpFixture(
       })
     },
   })
-  await Bun.write(path.join(config, "xccode.json"), JSON.stringify(verifierConfig(`http://127.0.0.1:${llm.port}/v1`)))
+  await Bun.write(path.join(config, "xiaochuan.json"), JSON.stringify(verifierConfig(`http://127.0.0.1:${llm.port}/v1`)))
   await Bun.write(models, "{}")
 
   const processes = new Set<AcpProcess>()
@@ -83,12 +83,12 @@ export async function createAcpFixture(
       const acp = spawnAcp({
         env: isolatedEnv(root, {
           USERPROFILE: root,
-          XCCODE_CONFIG: undefined,
-          XCCODE_CONFIG_CONTENT: undefined,
-          XCCODE_DISABLE_AUTOUPDATE: "true",
-          XCCODE_MODELS_PATH: models,
+          XIAOCHUAN_CONFIG: undefined,
+          XIAOCHUAN_CONFIG_CONTENT: undefined,
+          XIAOCHUAN_DISABLE_AUTOUPDATE: "true",
+          XIAOCHUAN_MODELS_PATH: models,
           // The scripted model calls read and shell directly, which full_codemode moves inside execute.
-          XCCODE_FLAGS: "-full_codemode",
+          XIAOCHUAN_FLAGS: "-full_codemode",
         }),
       })
       processes.add(acp)
@@ -131,7 +131,7 @@ export function initialize(acp: AcpProcess) {
       {
         protocolVersion: 1,
         clientCapabilities: { _meta: { "terminal-auth": true } },
-        clientInfo: { name: "xccode-local-acp", version: "0.1.0" },
+        clientInfo: { name: "xiaochuan-local-acp", version: "0.1.0" },
       },
       50_000,
     )
@@ -207,8 +207,8 @@ function verifierConfig(llmUrl: string) {
 }
 
 function spawnAcp(input: { readonly env: Record<string, string | undefined> }): AcpProcess {
-  // XCCODE_ACP_TEST_BIN runs the suites against another ACP binary, such as the Rust client.
-  const override = process.env.XCCODE_ACP_TEST_BIN
+  // XIAOCHUAN_ACP_TEST_BIN runs the suites against another ACP binary, such as the Rust client.
+  const override = process.env.XIAOCHUAN_ACP_TEST_BIN
   const child = Bun.spawn(override ? [override, "acp"] : [process.execPath, "run", "src/index.ts", "acp"], {
     cwd: path.join(import.meta.dir, "../.."),
     env: input.env,

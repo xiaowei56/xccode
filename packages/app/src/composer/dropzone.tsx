@@ -1,4 +1,4 @@
-import { Icon } from "@xccode/ui/icon"
+import { Icon } from "@xiaochuan/ui/icon"
 import { Show, createMemo } from "solid-js"
 import { createStore } from "solid-js/store"
 import { useLanguage } from "@/runtime/i18n/language"

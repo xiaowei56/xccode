@@ -1,9 +1,9 @@
-import type { ConfigEntry, SkillInfo } from "@xccode/client/promise"
-import type { ServerConfig } from "@xccode/schema/mcp"
+import type { ConfigEntry, SkillInfo } from "@xiaochuan/client/promise"
+import type { ServerConfig } from "@xiaochuan/schema/mcp"
 import { Option, Result, Schema } from "effect"
 import { Base64Url } from "effect/encoding"
 
-const CONSOLE_URL = "https://xccode.ai/console"
+const CONSOLE_URL = "https://xiaochuan.ai/console"
 
 const decodeGatewayClaims = Schema.decodeUnknownOption(Schema.fromJsonString(Schema.Struct({ w: Schema.String })))
 
@@ -57,7 +57,7 @@ export function consoleMcpLinks(item: ConsoleMcp) {
 
 /**
  * Where a Console skill is managed. Skills have no source field yet, so a virtual `skill://` skill counts as Console's
- * while Console is signed in, except the ones Xccode ships. The page of one skill needs Console's internal ID, which
+ * while Console is signed in, except the ones Xiaochuan ships. The page of one skill needs Console's internal ID, which
  * the app doesn't receive, so the link opens Console's skills filtered to this one.
  */
 export function consoleSkillLink(
@@ -69,7 +69,7 @@ export function consoleSkillLink(
 
   const slug = /^skill:\/\/([^/]+)\//.exec(skill.path)?.[1]
 
-  if (!slug || ["xccode", "report", "browser"].includes(skill.id)) return
+  if (!slug || ["xiaochuan", "report", "browser"].includes(skill.id)) return
 
   if (!workspace) return CONSOLE_URL
 

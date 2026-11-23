@@ -1,7 +1,7 @@
 import type { FileNode } from "@/runtime/server/types"
-import type { XccodeEvent } from "@xccode/client/promise"
+import type { XiaochuanEvent } from "@xiaochuan/client/promise"
 
-type WatcherEvent = Extract<XccodeEvent, { type: "filesystem.changed" }>
+type WatcherEvent = Extract<XiaochuanEvent, { type: "filesystem.changed" }>
 
 type WatcherOps = {
   normalize: (input: string) => string

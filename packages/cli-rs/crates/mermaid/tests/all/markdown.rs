@@ -1,11 +1,11 @@
 use std::rc::Rc;
 
-use xccode_mermaid::{Palette, Rendered, fenced, render};
-use xccode_parity::{Fixture, compare, fixtures_dir};
-use xccode_plugin::node::{Fences, Reader, Scroll, lines_widget};
-use xccode_plugin_abi::Fenced;
-use xccode_ui::theme::{Catalog, Theme, ThemeMode};
-use xccode_ui::{code, markdown};
+use xiaochuan_mermaid::{Palette, Rendered, fenced, render};
+use xiaochuan_parity::{Fixture, compare, fixtures_dir};
+use xiaochuan_plugin::node::{Fences, Reader, Scroll, lines_widget};
+use xiaochuan_plugin_abi::Fenced;
+use xiaochuan_ui::theme::{Catalog, Theme, ThemeMode};
+use xiaochuan_ui::{code, markdown};
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 use opentui::widget::CodeBlock;
@@ -13,8 +13,8 @@ use opentui::widget::CodeBlock;
 /// The plugin's `mermaid` render from a fresh setup, through the host's fence adapter in dark `theme`, as the
 /// plugin host registers it.
 fn renderer(theme: &Theme) -> impl Fn(&CodeBlock<'_>) -> Option<AnyWidget> + use<> {
-    let mut setup = xccode_plugin_abi::Registered::new(xccode_mermaid::ID, None);
-    (xccode_mermaid::plugin().setup)(&mut setup.setup()).unwrap();
+    let mut setup = xiaochuan_plugin_abi::Registered::new(xiaochuan_mermaid::ID, None);
+    (xiaochuan_mermaid::plugin().setup)(&mut setup.setup()).unwrap();
     let (language, render) = setup.fences()[0].clone();
     assert_eq!(language, "mermaid");
     let (theme, fences) = (theme.clone(), Fences::default());
@@ -26,7 +26,7 @@ fn renderer(theme: &Theme) -> impl Fn(&CodeBlock<'_>) -> Option<AnyWidget> + use
 #[test]
 fn streaming_fence_keeps_its_last_diagram() {
     let app = TestApp::new(80, 20);
-    let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
+    let theme = Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme;
     let shown = renderer(&theme);
     let block = |code: &'static str, previous| opentui::widget::CodeBlock {
         app: &app,
@@ -55,7 +55,7 @@ fn streaming_fence_keeps_its_last_diagram() {
 #[test]
 fn dragging_scrolls_a_wide_diagram() {
     let app = TestApp::new(30, 6);
-    let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
+    let theme = Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme;
     let source = "flowchart LR\n  A[Alpha] --> B[Bravo] --> C[Charlie]";
     // Laid out for a wide terminal, so it stays horizontal in the narrow view.
     let palette = Palette::read(&Reader::new(&theme, ThemeMode::Dark));
@@ -77,7 +77,7 @@ fn dragging_scrolls_a_wide_diagram() {
 fn markdown_diagrams_match_typescript() {
     let corpus: serde_json::Value =
         serde_json::from_str(include_str!("../../../../parity/fixtures/P.3/message.json")).unwrap();
-    let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
+    let theme = Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme;
     let app = TestApp::with_options(
         80,
         30,
@@ -104,7 +104,7 @@ fn markdown_diagrams_match_typescript() {
     // TS draws two blank rows above each diagram, Markdown's block gap and the renderer's own margin; Rust one
     // (`parity/deviations/F16-plugin-fence-margin.md`). Everything below the first diagram moves by a row.
     if comparison.differences.len() != 348 {
-        let path = std::env::temp_dir().join("xccode-parity/P.3/markdown.json");
+        let path = std::env::temp_dir().join("xiaochuan-parity/P.3/markdown.json");
         std::fs::create_dir_all(path.parent().unwrap()).unwrap();
         std::fs::write(&path, actual.to_json()).unwrap();
         panic!("P-COMP P.3/markdown: {comparison}\nactual cells: {}", path.display());

@@ -1,11 +1,11 @@
 import { describe, expect } from "bun:test"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Mcp } from "@xccode/core/mcp/index"
-import { McpClient } from "@xccode/core/mcp/client"
-import type { Permission } from "@xccode/core/permission"
-import { Session } from "@xccode/core/session"
-import { Tool } from "@xccode/core/tool"
-import { McpEventTools } from "@xccode/core/tool/plugin/mcp-events"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Mcp } from "@xiaochuan/core/mcp/index"
+import { McpClient } from "@xiaochuan/core/mcp/client"
+import type { Permission } from "@xiaochuan/core/permission"
+import { Session } from "@xiaochuan/core/session"
+import { Tool } from "@xiaochuan/core/tool"
+import { McpEventTools } from "@xiaochuan/core/tool/plugin/mcp-events"
 import { Effect, Layer } from "effect"
 import { hostEnvironmentLayer } from "./fixture/environment"
 import { eventProducer } from "./fixture/event-server"
@@ -48,7 +48,7 @@ const setup = Effect.fnUntraced(function* () {
         tools.execute({
           sessionID: Session.ID.make("ses_mcp_events"),
           ...toolIdentity,
-          call: { type: "tool-call", id: "call_list", name: "xccode_list_mcp_events", input },
+          call: { type: "tool-call", id: "call_list", name: "xiaochuan_list_mcp_events", input },
         }),
       ),
     )
@@ -72,9 +72,9 @@ describe("list_mcp_events", () => {
   it.live("lists one server's push events after asking permission", () =>
     Effect.gen(function* () {
       const { list, asserts, registry } = yield* setup()
-      expect((yield* registry.list()).map((tool) => tool.id)).not.toContain("xccode_watch_mcp_event")
+      expect((yield* registry.list()).map((tool) => tool.id)).not.toContain("xiaochuan_watch_mcp_event")
       expect((yield* list({ server: "jobs" })).output).toEqual({ events: [jobFinished] })
-      expect(asserts).toMatchObject([{ action: "xccode_list_mcp_events", resources: ["jobs"], save: ["jobs"] }])
+      expect(asserts).toMatchObject([{ action: "xiaochuan_list_mcp_events", resources: ["jobs"], save: ["jobs"] }])
     }),
   )
 

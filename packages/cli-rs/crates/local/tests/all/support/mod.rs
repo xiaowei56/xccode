@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 pub fn ts_root() -> PathBuf {
-    std::env::var_os("XCCODE_TS_ROOT")
+    std::env::var_os("XIAOCHUAN_TS_ROOT")
         .map(PathBuf::from)
         .unwrap_or_else(|| Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../..").canonicalize().unwrap())
 }
@@ -13,11 +13,11 @@ pub fn available() -> bool {
     let present = ts_root().join("node_modules").is_dir() && Command::new("bun").arg("--version").output().is_ok();
     if !present {
         assert!(
-            std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(),
-            "XCCODE_RS_REQUIRE_TS is set, but skipped: needs bun and {}/node_modules; set XCCODE_TS_ROOT",
+            std::env::var_os("XIAOCHUAN_RS_REQUIRE_TS").is_none(),
+            "XIAOCHUAN_RS_REQUIRE_TS is set, but skipped: needs bun and {}/node_modules; set XIAOCHUAN_TS_ROOT",
             ts_root().display()
         );
-        eprintln!("skipped: needs bun and {}/node_modules; set XCCODE_TS_ROOT", ts_root().display());
+        eprintln!("skipped: needs bun and {}/node_modules; set XIAOCHUAN_TS_ROOT", ts_root().display());
     }
     present
 }
@@ -32,7 +32,7 @@ pub fn bun(script: &str, args: &[&str]) -> Command {
         .arg(ts_root())
         .args(args)
         // Keep Bun's transpiler cache out of the temporary homes and warm across runs.
-        .env("BUN_RUNTIME_TRANSPILER_CACHE_PATH", std::env::temp_dir().join("xccode-rs-f5-bun-cache"))
+        .env("BUN_RUNTIME_TRANSPILER_CACHE_PATH", std::env::temp_dir().join("xiaochuan-rs-f5-bun-cache"))
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped());

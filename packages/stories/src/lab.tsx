@@ -50,5 +50,5 @@ function StandaloneLab() {
   )
 }
 
-document.title = "Xccode Components Lab"
+document.title = "Xiaochuan Components Lab"
 render(StandaloneLab, document.getElementById("story-root")!)

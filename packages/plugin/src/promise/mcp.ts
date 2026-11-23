@@ -1,5 +1,5 @@
-import type { McpApi } from "@xccode/client/promise/api"
-import type { Mcp } from "@xccode/schema/mcp"
+import type { McpApi } from "@xiaochuan/client/promise/api"
+import type { Mcp } from "@xiaochuan/schema/mcp"
 import type { Types } from "effect"
 import type { Transform } from "./registration.js"
 

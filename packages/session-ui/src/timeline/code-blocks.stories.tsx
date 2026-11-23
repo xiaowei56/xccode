@@ -6,7 +6,7 @@ import { CurrentSessionProviders } from "../storybook/current-session-story"
 import { SessionTimeline } from "./session-timeline"
 
 export default {
-  title: "Xccode/Conversation/Code blocks",
+  title: "Xiaochuan/Conversation/Code blocks",
   id: "current-session-code-blocks",
   component: SessionTimeline,
   parameters: { layout: "fullscreen" },
@@ -21,7 +21,7 @@ const reply = [
   "The runner sets `NODE_OPTIONS` before install, so the type check runs out of memory. Reproduce it with:",
   "",
   "```sh",
-  'NODE_OPTIONS="--max-old-space-size=4096 --enable-source-maps" bun install --frozen-lockfile --filter "@xccode/session-ui" && bun run --cwd packages/session-ui typecheck:tsc',
+  'NODE_OPTIONS="--max-old-space-size=4096 --enable-source-maps" bun install --frozen-lockfile --filter "@xiaochuan/session-ui" && bun run --cwd packages/session-ui typecheck:tsc',
   "```",
   "",
   "The failing line reads the setting before the override:",

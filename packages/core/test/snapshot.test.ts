@@ -3,13 +3,13 @@ import { describe, expect } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
 import { Deferred, Effect, Fiber, Layer, Logger } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Git } from "@xccode/core/git"
-import { Global } from "@xccode/util/global"
-import { Location } from "@xccode/core/location"
-import { AbsolutePath, RelativePath } from "@xccode/core/schema"
-import { Snapshot } from "@xccode/core/snapshot"
-import { Hash } from "@xccode/util/hash"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Git } from "@xiaochuan/core/git"
+import { Global } from "@xiaochuan/util/global"
+import { Location } from "@xiaochuan/core/location"
+import { AbsolutePath, RelativePath } from "@xiaochuan/core/schema"
+import { Snapshot } from "@xiaochuan/core/snapshot"
+import { Hash } from "@xiaochuan/util/hash"
 import { withTempDir } from "./fixture/tmpdir"
 import { testEffect } from "./lib/effect"
 
@@ -484,5 +484,5 @@ async function initGit(directory: string, commit = false) {
   await $`git init`.cwd(directory).quiet()
   await $`git -c core.fsmonitor=false add .`.cwd(directory).quiet()
   if (!commit) return
-  await $`git -c user.email=test@xccode.test -c user.name=Test commit --no-gpg-sign -m initial`.cwd(directory).quiet()
+  await $`git -c user.email=test@xiaochuan.test -c user.name=Test commit --no-gpg-sign -m initial`.cwd(directory).quiet()
 }

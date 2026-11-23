@@ -1,10 +1,10 @@
 import { createMemo, lazy, onCleanup, Show, Suspense } from "solid-js"
-import { turnMessages, turnSources } from "@xccode/session-ui/sources"
-import { sourcesExperiment } from "@xccode/session-ui/sources/experiment"
-import { SourcesTitle } from "@xccode/session-ui/sources/title"
-import { createKeyed, LinkHandler, Panel, type MountedSession, type PanelTab, type Plugin } from "@xccode/plugin/gui"
+import { turnMessages, turnSources } from "@xiaochuan/session-ui/sources"
+import { sourcesExperiment } from "@xiaochuan/session-ui/sources/experiment"
+import { SourcesTitle } from "@xiaochuan/session-ui/sources/title"
+import { createKeyed, LinkHandler, Panel, type MountedSession, type PanelTab, type Plugin } from "@xiaochuan/plugin/gui"
 import type Sources from "./index"
-import { onIdle } from "@xccode/plugin/gui/builtin"
+import { onIdle } from "@xiaochuan/plugin/gui/builtin"
 
 /**
  * The Sources experiment's side panel: one transient tab per turn, keyed by the user message that opened it. The

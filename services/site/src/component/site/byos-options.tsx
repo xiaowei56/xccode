@@ -11,7 +11,7 @@ import { Rich } from "./rich-text"
 
 /**
  * Settings › Subscriptions style A, B and C in "Bring your own subs" (lib/byos-options.ts): ways
- * to show that Xccode works with nearly every subscription, provider and model. Like the section's
+ * to show that Xiaochuan works with nearly every subscription, provider and model. Like the section's
  * other styles, every option renders in development and the section's data-style shows one
  * (byos-options.css); production renders none while the default is "grid" (script/fold-settings.ts).
  */
@@ -94,10 +94,10 @@ export function ByosOptions() {
           </dd>
         </div>
         <div>
-          <dt>{byosOptions.rows.xccode}</dt>
+          <dt>{byosOptions.rows.xiaochuan}</dt>
           <dd>
             <ul data-slot="names">
-              <For each={byosOptions.xccode}>
+              <For each={byosOptions.xiaochuan}>
                 {(item) => (
                   <li>
                     <a href={item.href}>{item.name}</a>

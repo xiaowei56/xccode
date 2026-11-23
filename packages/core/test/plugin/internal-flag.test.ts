@@ -1,20 +1,20 @@
 import { describe, expect } from "bun:test"
 import { Duration, Effect, Layer, LayerMap, Stream } from "effect"
-import { App } from "@xccode/core/app"
-import { ConfigPluginSource } from "@xccode/core/config/plugin/source"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Flag } from "@xccode/core/flag"
-import { Instance } from "@xccode/core/instance"
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { Plugin } from "@xccode/core/plugin"
-import { SdkPlugins } from "@xccode/core/plugin/sdk"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Tool } from "@xccode/core/tool"
-import { TodoTool } from "@xccode/core/tool/plugin/todo"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
-import { Npm } from "@xccode/util/npm"
+import { App } from "@xiaochuan/core/app"
+import { ConfigPluginSource } from "@xiaochuan/core/config/plugin/source"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Flag } from "@xiaochuan/core/flag"
+import { Instance } from "@xiaochuan/core/instance"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { SdkPlugins } from "@xiaochuan/core/plugin/sdk"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Tool } from "@xiaochuan/core/tool"
+import { TodoTool } from "@xiaochuan/core/tool/plugin/todo"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
+import { Npm } from "@xiaochuan/util/npm"
 import { Bus } from "../../src/bus"
 import { Database } from "../../src/database/database"
 import { tempGlobalLayer } from "../fixture/global"
@@ -92,7 +92,7 @@ describe("PluginInternal flags", () => {
         Effect.provide(locations.get(Location.Ref.make({ directory: AbsolutePath.make(directory.path) }))),
       )
 
-      expect(registered).toContain("xccode_artifact_create")
+      expect(registered).toContain("xiaochuan_artifact_create")
       expect(registered).toContain("shell")
       expect(registered).not.toContain(TodoTool.name)
       expect(direct).not.toContain("shell")

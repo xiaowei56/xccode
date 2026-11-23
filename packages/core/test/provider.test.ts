@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import path from "node:path"
 import { Effect } from "effect"
-import { Provider } from "@xccode/core/provider"
+import { Provider } from "@xiaochuan/core/provider"
 
 describe("Provider", () => {
   test("bundles every native provider entrypoint that exports model()", async () => {
@@ -10,7 +10,7 @@ describe("Provider", () => {
       Object.keys(manifest.exports)
         .filter((key) => key.startsWith("./providers/"))
         .map(async (key) => {
-          const specifier = `@xccode/ai${key.slice(1)}`
+          const specifier = `@xiaochuan/ai${key.slice(1)}`
           const module = await import(specifier)
           return typeof module.model === "function" ? specifier : undefined
         }),
@@ -25,24 +25,24 @@ describe("Provider", () => {
     }
   })
 
-  test("loads every @xccode/ai entrypoint the bundled models.dev snapshot names", async () => {
+  test("loads every @xiaochuan/ai entrypoint the bundled models.dev snapshot names", async () => {
     const manifest = await Bun.file(path.join(import.meta.dir, "../../ai/package.json")).json()
     const snapshot: Record<
       string,
-      { models?: Record<string, { api?: Record<string, { sdk?: { xccodeai?: string } }> }> }
+      { models?: Record<string, { api?: Record<string, { sdk?: { xiaochuanai?: string } }> }> }
     > = await Bun.file(path.join(import.meta.dir, "../src/models-dev/snapshot.txt")).json()
     const specifiers = new Set(
       Object.values(snapshot)
         .flatMap((provider) => Object.values(provider.models ?? {}))
         .flatMap((model) => Object.values(model.api ?? {}))
-        .map((api) => api.sdk?.xccodeai)
-        .filter((specifier): specifier is string => specifier?.startsWith("@xccode/ai/") === true),
+        .map((api) => api.sdk?.xiaochuanai)
+        .filter((specifier): specifier is string => specifier?.startsWith("@xiaochuan/ai/") === true),
     )
     // Protocol entrypoints export no model(), so Core skips the APIs that name them.
-    const protocolOnly = new Set(["@xccode/ai/protocols/openai-decisions"])
+    const protocolOnly = new Set(["@xiaochuan/ai/protocols/openai-decisions"])
 
     expect(
-      [...specifiers].filter((specifier) => !(`.${specifier.slice("@xccode/ai".length)}` in manifest.exports)),
+      [...specifiers].filter((specifier) => !(`.${specifier.slice("@xiaochuan/ai".length)}` in manifest.exports)),
     ).toEqual([])
     expect([...specifiers].filter((specifier) => !Provider.builtinPackages.has(specifier)).toSorted()).toEqual(
       [...protocolOnly].filter((specifier) => specifiers.has(specifier)),
@@ -51,7 +51,7 @@ describe("Provider", () => {
 
   test("keeps loading the hyphenated provider paths existing configs reference", async () => {
     for (const name of ["google-vertex-messages", "openai-compatible-responses"]) {
-      const specifier = `@xccode/ai/providers/${name}`
+      const specifier = `@xiaochuan/ai/providers/${name}`
       expect(Provider.builtinPackages.has(specifier)).toBe(true)
       const loaded = await Effect.runPromise(Provider.loadPackage(specifier))
       expect(loaded.model).toBeFunction()

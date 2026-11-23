@@ -1,10 +1,10 @@
 {
   "groups": [
     {
-      "name": "Xccode",
+      "name": "Xiaochuan",
       "layers": [
         {
-          "name": "Xccode",
+          "name": "Xiaochuan",
           "image-name": "icon.png",
           "glass": false
         }

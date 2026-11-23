@@ -3,8 +3,8 @@
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
-use xccode_local::jsonl::{self, empty_prompt};
-use xccode_local::serial::Serial;
+use xiaochuan_local::jsonl::{self, empty_prompt};
+use xiaochuan_local::serial::Serial;
 use opentui::native::EditorQuery;
 use opentui::prelude::*;
 use serde_json::Value;

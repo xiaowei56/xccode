@@ -1,6 +1,6 @@
 # Testing
 
-`xccode-native` is tested against the TypeScript client: both get the same input, and what they print, draw and
+`xiaochuan-native` is tested against the TypeScript client: both get the same input, and what they print, draw and
 send is compared. The TypeScript client is the source of truth. An intended difference is a file in
 `parity/deviations/` that states both behaviors and the reason; a scenario names the file where it lets cells differ,
 and a difference without a file fails. Paths are relative to `packages/cli-rs`, and commands run there.
@@ -28,17 +28,17 @@ is:
 bun run cargo fmt --check
 bun run cargo clippy --all-targets -- -D warnings
 bun run cargo test
-bun run cargo test -p xccode-tui --test all tabs::      # one area of the TUI's tests
-bun run cargo test -p xccode-tui --lib                  # its unit tests
+bun run cargo test -p xiaochuan-tui --test all tabs::      # one area of the TUI's tests
+bun run cargo test -p xiaochuan-tui --lib                  # its unit tests
 ```
 
-`xccode-tui` and `xccode-ui` link the static OpenTUI library, so each has one integration test binary,
+`xiaochuan-tui` and `xiaochuan-ui` link the static OpenTUI library, so each has one integration test binary,
 `tests/all/main.rs`, with a module for each area and shared helpers in `tests/all/support`. Add a module there, not a
 new `tests/*.rs`.
 
 The `parity:*` commands run the TypeScript client from source, so run `bun install` at the repository root first;
 without it a run fails with `Cannot find module '@opentui/solid/preload'`. Each builds the debug binary unless
-`XCCODE_RS_BIN` names one.
+`XIAOCHUAN_RS_BIN` names one.
 
 ```sh
 bun run parity:cli [--sides ts,rs] [parity/scenarios/<group>/<name>.cli.ts ...]
@@ -49,7 +49,7 @@ bun run parity:acp [suite ...]
 
 Without files a runner runs every scenario of its kind. `--sides ts,ts` runs the TypeScript client twice, which
 shows whether a scenario is deterministic. Rust tests that run TypeScript helpers skip without Bun or `node_modules`;
-`XCCODE_RS_REQUIRE_TS=1` makes them fail instead.
+`XIAOCHUAN_RS_REQUIRE_TS=1` makes them fail instead.
 
 | Command | Checks |
 | --- | --- |
@@ -69,7 +69,7 @@ list.
 
 Committed fixtures are under `parity/fixtures/<group>/`, and only their writers write them, never a person or a Rust
 test. `bun run fixtures` runs every P-ORACLE script, P-COMP script and P-APP scenario, in name order. Run outputs go
-to `parity/out/` and `$TMPDIR/xccode-parity/`, which git ignores.
+to `parity/out/` and `$TMPDIR/xiaochuan-parity/`, which git ignores.
 
 P-COMP, P-APP and P-TUI compare screens cell by cell: symbol, foreground, background and attributes. A cell fixture
 is JSON with the size and style table on its first line, then one line per row with its text and its
@@ -96,7 +96,7 @@ list of the cells that differ:
 ```rust
 let app = TestApp::new(60, 12);
 // build the widget...
-xccode_parity::assert_fixture(&app.render(), "U.3/alert");
+xiaochuan_parity::assert_fixture(&app.render(), "U.3/alert");
 ```
 
 ## P-APP: the whole TUI in memory
@@ -110,7 +110,7 @@ parity/scenarios/<group>/<name>.app.ts            one scenario, written by hand
         ▼
 parity/fixtures/<group>/<name>.app.json           the recording: scenario, requests and responses
 parity/fixtures/<group>/<name>/<checkpoint>.json  cells
-        │  cargo test -p xccode-tui --test all app::   (the Rust runner, over xccode_api::memory)
+        │  cargo test -p xiaochuan-tui --test all app::   (the Rust runner, over xiaochuan_api::memory)
         ▼
 pass, or a report of the differing cells and requests
 ```
@@ -161,7 +161,7 @@ everything else is a write. `reads` are sorted and deduplicated, because the Typ
 The TypeScript runner (`parity/app/scenarios.test.tsx`, under `TZ=UTC`) mounts the TUI's app fixture, serves the
 routes then the defaults, runs the steps, and at a checkpoint waits for `until` and three identical polls. The Rust
 runner (`crates/tui/tests/all/app.rs`) is one test, `scenarios`, which runs every recording and reports every failing
-one at the end. It serves the recording from `xccode_api::memory::Memory`, mounts the TUI on a `TestApp`, and at a
+one at the end. It serves the recording from `xiaochuan_api::memory::Memory`, mounts the TUI on a `TestApp`, and at a
 checkpoint waits until no request is in flight and two renders are equal. It then compares the cells, the writes
 (method, path and JSON body, in order), and the reads: every Rust read must be in the recording, and a TypeScript read
 Rust did not send is listed, not failed. `Memory` knows nothing of scenarios, so other tests use it as a small fixture
@@ -177,21 +177,21 @@ To add a scenario:
    ```
 
 3. Replay it. On a difference the runner writes the Rust cells to
-   `$TMPDIR/xccode-parity/<group>/<name>/<checkpoint>.json` to diff against the recording. `PARITY_VERBOSE=1`
+   `$TMPDIR/xiaochuan-parity/<group>/<name>/<checkpoint>.json` to diff against the recording. `PARITY_VERBOSE=1`
    prints the full report of a checkpoint that passes within its deviations.
 
    ```sh
-   PARITY_SCENARIO=<group>/<name> bun run cargo test -p xccode-tui --test all app::scenarios -- --nocapture
+   PARITY_SCENARIO=<group>/<name> bun run cargo test -p xiaochuan-tui --test all app::scenarios -- --nocapture
    ```
 
 4. When a checkpoint matches, remove its deviation, and delete a deviation file no scenario names.
 
 ## P-CLI and P-PTY: one command
 
-Both runners start the TypeScript CLI from source and `xccode-native` with the same arguments, each in a fresh
-home with its own XDG roots and `TMPDIR`, without the caller's `XCCODE_*` variables, and against its own fake
+Both runners start the TypeScript CLI from source and `xiaochuan-native` with the same arguments, each in a fresh
+home with its own XDG roots and `TMPDIR`, without the caller's `XIAOCHUAN_*` variables, and against its own fake
 server: `--server <url>` is appended, or replaces a `$SERVER` argument. Neither touches the user's service. Records
-go to `$TMPDIR/xccode-parity/{cli,pty}/<name>.<n>-<side>.json`. P-CLI compares the exit code, stdout, stderr and
+go to `$TMPDIR/xiaochuan-parity/{cli,pty}/<name>.<n>-<side>.json`. P-CLI compares the exit code, stdout, stderr and
 requests:
 
 ```ts
@@ -217,7 +217,7 @@ export default definePty({
   args: [],
   server: { fallback: "tui" },
   steps: [
-    { until: { osc: "Xccode", screen: "Ask anything" }, settle: 500, checkpoint: "home" },
+    { until: { osc: "Xiaochuan", screen: "Ask anything" }, settle: 500, checkpoint: "home" },
     { keys: "\x03", settle: 300 },
     { keys: "\x03" },
   ],
@@ -236,11 +236,11 @@ Both sides' output is normalized first: the server URL, sandbox root, prefixed I
 
 ## P-TUI: the simulated server
 
-P-TUI drives the TypeScript TUI and `xccode-native` through the same steps over their `XCCODE_DRIVE` UI
+P-TUI drives the TypeScript TUI and `xiaochuan-native` through the same steps over their `XIAOCHUAN_DRIVE` UI
 endpoints, against the TypeScript server in simulation mode, and compares the screens at each checkpoint (with
 P-APP's masks and deviations) and the writes. Each side runs alone, in its own sandbox (an empty environment, a fresh
 home and `tmp`, the same working directory path), so the clients never share a server or database. Per side, the
-runner starts `xccode serve` from source in simulation mode with an in-memory database, a backend driver
+runner starts `xiaochuan serve` from source in simulation mode with an in-memory database, a backend driver
 (`parity/sim/backend.ts`) that answers each model call with the scenario's next reply (and a fixed title to a request
 with no tools), a recording proxy (`parity/sim/proxy.ts`), and the client with `--server <proxy>` and a headless
 renderer. It sends the steps through `parity/sim/drive.ts`, and kills every process it started at the end.
@@ -269,7 +269,7 @@ sandbox.
 
 `bun run parity:acp` runs each ACP subprocess suite of `packages/cli/test/acp` once per agent through
 `parity/acp/record.sh`, which records the JSON-RPC traffic. It fails when a test fails on either side or the
-normalized transcripts differ. Transcripts are kept in `$TMPDIR/xccode-parity/acp/<suite>-<side>/`.
+normalized transcripts differ. Transcripts are kept in `$TMPDIR/xiaochuan-parity/acp/<suite>-<side>/`.
 
 ## The plugin state machine
 
@@ -277,7 +277,7 @@ normalized transcripts differ. Transcripts are kept in `$TMPDIR/xccode-parity/ac
 `crates/tui/tests/all/plugin_machines.rs`, and `parity/machines/plugins.test.tsx`, which drives the TypeScript TUI.
 `bun run parity:machines` covers each edge once and the seeded walks; `bun run parity:machines:deep` adds every path
 to the file's depth and the fault trials. The package has no `test` script, so the repository's `turbo test` does not
-run this suite on every pull request that touches a package it depends on, such as `@xccode/tui`. The Rust side runs the plugin as its Luau twin, `parity/plugins/life/init.luau`, beside
+run this suite on every pull request that touches a package it depends on, such as `@xiaochuan/tui`. The Rust side runs the plugin as its Luau twin, `parity/plugins/life/init.luau`, beside
 the TypeScript `tui.tsx`.
 
 ## Generated files and drift
@@ -294,23 +294,23 @@ and P-APP recordings.
 alternate screen. What a person sees in a real terminal needs this checklist, on Windows 11 24H2 or Windows 10 1809
 or later, before a Windows build ships and when a release changes console code.
 
-Unzip `xccode-native-<version>-x86_64-pc-windows-msvc.zip` (or `aarch64-pc-windows-msvc`) into a folder without
-spaces, such as `C:\tools\xccode-native`, keeping `xccode-native.exe` beside the `xccode.exe` it starts. Run
-`Unblock-File *` there from PowerShell, because the build is not signed, and check that `xccode-native --version`
+Unzip `xiaochuan-native-<version>-x86_64-pc-windows-msvc.zip` (or `aarch64-pc-windows-msvc`) into a folder without
+spaces, such as `C:\tools\xiaochuan-native`, keeping `xiaochuan-native.exe` beside the `xiaochuan.exe` it starts. Run
+`Unblock-File *` there from PowerShell, because the build is not signed, and check that `xiaochuan-native --version`
 prints the release. Install `nvim` (`winget install Neovim.Neovim`), and open a git repository with a few files.
 
 Run every check in Windows Terminal (with PowerShell 7 and with `cmd.exe`) and in VS Code's integrated terminal. If
 you can, run them in conhost too, which has known limits (no OSC 52 copy, weaker key reporting). mintty and Git Bash
 without ConPTY are not supported, because the program's input there is a pipe. Record your machine, the Windows,
-Windows Terminal, VS Code and `xccode-native` versions, and for each failure the check, the terminal, and what you
+Windows Terminal, VS Code and `xiaochuan-native` versions, and for each failure the check, the terminal, and what you
 did, expected and got.
 
-1. **Start and quit.** Run `xccode-native`, wait for home, press Ctrl+C. The logo and "Ask anything" show. It exits
+1. **Start and quit.** Run `xiaochuan-native`, wait for home, press Ctrl+C. The logo and "Ask anything" show. It exits
    0 (`$LASTEXITCODE`, `%ERRORLEVEL%`) to a clean prompt with no stray escape text, and typing echoes normally.
 2. **Keys.** In the prompt: type, Left, Right, Home, End, Ctrl+Left, Ctrl+Right, Backspace, Delete, Shift+Enter for a
    new line, Up and Down for history; Ctrl+P and Esc; Ctrl+X then M. Each key acts once: none repeats, is lost, prints
    escape text, or shows a key release as input.
-3. **Keys in mini.** Repeat check 2 in `xccode-native mini`.
+3. **Keys in mini.** Repeat check 2 in `xiaochuan-native mini`.
 4. **Mouse.** Click a session in the list, wheel through a long transcript, click dialog buttons. Clicks hit what is
    under the pointer, and the wheel scrolls the view, not the terminal's scrollback.
 5. **Selection and copy.** Drag over message text and paste into Notepad; also Ctrl+X then Y. The selection
@@ -319,8 +319,8 @@ did, expected and got.
    one paste, unsent; three or more lines show as `[Pasted ~N lines]`.
 7. **Image paste.** Copy a screenshot (Win+Shift+S) and press Ctrl+V. It attaches as `[Image 1]`.
 8. **Resize.** Drag the edge, maximize, restore, change the font size (Ctrl+= and Ctrl+-). Each redraws cleanly.
-9. **Close the window** while the TUI runs, then run `xccode-native` in a new tab. No `xccode-native.exe` is left
-   in Task Manager, the new run starts normally, and the service still runs (`xccode-native service status`).
+9. **Close the window** while the TUI runs, then run `xiaochuan-native` in a new tab. No `xiaochuan-native.exe` is left
+   in Task Manager, the new run starts normally, and the service still runs (`xiaochuan-native service status`).
 10. **Theme.** Start in a dark, then a light, color scheme, and switch themes from the palette. The TUI picks the
     matching theme without a slow start, and a switch redraws everything.
 11. **Links.** Ctrl+click a URL in a message, and open a link from a dialog. The default browser opens it.
@@ -330,6 +330,6 @@ did, expected and got.
     nvim takes the screen with a normal cursor and no mouse garbage, and the TUI comes back with the edited text.
 14. **GUI editors.** Repeat check 13 with `EDITOR=notepad` and `EDITOR=code --wait`. The text comes back after the
     editor closes.
-15. **CLI prompts.** Step through `xccode-native auth login` with arrows, Enter and Ctrl+C. Prompts redraw in place
+15. **CLI prompts.** Step through `xiaochuan-native auth login` with arrows, Enter and Ctrl+C. Prompts redraw in place
     from the left edge, and Ctrl+C prints "Cancelled" and exits.
-16. **Piped input.** `echo hi | xccode-native mini` reads `hi`, then takes keys from the keyboard.
+16. **Piped input.** `echo hi | xiaochuan-native mini` reads `hi`, then takes keys from the keyboard.

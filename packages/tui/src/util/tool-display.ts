@@ -39,7 +39,7 @@ export function executeCallSummary(call: ExecuteCall) {
 
 export function webSearchProviderName(provider: unknown) {
   if (typeof provider !== "string" || !provider) return ""
-  if (provider === "xccode") return "Xccode"
+  if (provider === "xiaochuan") return "Xiaochuan"
   return `${provider[0].toUpperCase()}${provider.slice(1)}`
 }
 
@@ -66,5 +66,5 @@ export function nonEmptyToolContent<T>(content: ReadonlyArray<T> | undefined): [
   const [first, ...rest] = content
   return first === undefined ? undefined : [first, ...rest]
 }
-import type { SessionMessageAssistantTool } from "@xccode/client/promise"
+import type { SessionMessageAssistantTool } from "@xiaochuan/client/promise"
 import { isRecord } from "./record"

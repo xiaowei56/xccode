@@ -94,7 +94,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "openai-compatible",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/openai-compatible/images")
+      const { model } = await import("@xiaochuan/ai/providers/openai-compatible/images")
       return model("qwen-image", {
         ...shared,
         apiKey: "regolo-key",
@@ -109,7 +109,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "openai",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/openai/images")
+      const { model } = await import("@xiaochuan/ai/providers/openai/images")
       return model("gpt-image-2", { ...shared, apiKey: "openai-key", organization: "org-1" })
     },
     url: "https://api.openai.com/v1/images/generations",
@@ -119,7 +119,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "openrouter",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/openrouter/images")
+      const { model } = await import("@xiaochuan/ai/providers/openrouter/images")
       return model("openai/gpt-image-2", { ...shared, apiKey: "openrouter-key" })
     },
     url: "https://openrouter.ai/api/v1/images/generations",
@@ -129,7 +129,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "vercel-ai-gateway",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/vercel-ai-gateway/images")
+      const { model } = await import("@xiaochuan/ai/providers/vercel-ai-gateway/images")
       return model("openai/gpt-image-2", { ...shared, apiKey: "vercel-key" })
     },
     url: "https://ai-gateway.vercel.sh/v1/images/generations",
@@ -139,7 +139,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "digitalocean",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/digitalocean/images")
+      const { model } = await import("@xiaochuan/ai/providers/digitalocean/images")
       return model("openai-gpt-image-1", { ...shared, apiKey: "do-key" })
     },
     url: "https://inference.do-ai.run/v1/images/generations",
@@ -149,7 +149,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "azure",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/azure/images")
+      const { model } = await import("@xiaochuan/ai/providers/azure/images")
       return model("gpt-image-2", { ...shared, apiKey: "azure-key", resourceName: "fixture" })
     },
     url: "https://fixture.openai.azure.com/openai/v1/images/generations?api-version=v1",
@@ -160,7 +160,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "meta",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/meta/images")
+      const { model } = await import("@xiaochuan/ai/providers/meta/images")
       return model("muse-image-1.0", { ...shared, apiKey: "meta-key" })
     },
     url: "https://api.meta.ai/v1/images/generations",
@@ -169,7 +169,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "xai",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/xai/images")
+      const { model } = await import("@xiaochuan/ai/providers/xai/images")
       return model("grok-imagine-image", { ...shared, apiKey: "xai-key" })
     },
     url: "https://api.x.ai/v1/images/generations",
@@ -178,7 +178,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "zai",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/zai/images")
+      const { model } = await import("@xiaochuan/ai/providers/zai/images")
       return model("glm-image", { ...shared, apiKey: "zai-key", baseURL: "https://open.bigmodel.test/api/paas/v4" })
     },
     url: "https://open.bigmodel.test/api/paas/v4/images/generations",
@@ -187,7 +187,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "minimax",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/minimax/images")
+      const { model } = await import("@xiaochuan/ai/providers/minimax/images")
       return model("image-01", { ...shared, apiKey: "minimax-key", baseURL: "https://api.minimax.cn/v1" })
     },
     url: "https://api.minimax.cn/v1/image_generation",
@@ -196,7 +196,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "alibaba",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/alibaba/images")
+      const { model } = await import("@xiaochuan/ai/providers/alibaba/images")
       return model("qwen-image-2.0", {
         ...shared,
         apiKey: "dashscope-key",
@@ -209,7 +209,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "google",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/google/images")
+      const { model } = await import("@xiaochuan/ai/providers/google/images")
       return model("gemini-2.5-flash-image", { ...shared, apiKey: "google-key" })
     },
     url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
@@ -219,7 +219,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "google-vertex",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/google-vertex/images")
+      const { model } = await import("@xiaochuan/ai/providers/google-vertex/images")
       return model("gemini-2.5-flash-image", { ...shared, apiKey: "vertex-key" })
     },
     url: "https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash-image:generateContent",
@@ -229,7 +229,7 @@ const images: ReadonlyArray<Case<ImageModel>> = [
   {
     name: "cloudflare-workers-ai",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/cloudflare-workers-ai/images")
+      const { model } = await import("@xiaochuan/ai/providers/cloudflare-workers-ai/images")
       return model("@cf/leonardo/lucid-origin", { ...shared, apiKey: "cloudflare-key", accountId: "account-1" })
     },
     url: "https://api.cloudflare.com/client/v4/accounts/account-1/ai/run/@cf/leonardo/lucid-origin",
@@ -242,7 +242,7 @@ const decisions: ReadonlyArray<Case<DecisionModel>> = [
   {
     name: "typesafe-ai",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/typesafe-ai/decisions")
+      const { model } = await import("@xiaochuan/ai/providers/typesafe-ai/decisions")
       return model("typesafe/jev", {
         ...shared,
         apiKey: "amd-key",
@@ -255,20 +255,20 @@ const decisions: ReadonlyArray<Case<DecisionModel>> = [
     provider: "typesafe-ai",
   },
   {
-    name: "xccode",
+    name: "xiaochuan",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/xccode/decisions")
-      return model("jev", { ...shared, apiKey: "zen-key", baseURL: "https://xccode.ai/inference/systemone/v1" })
+      const { model } = await import("@xiaochuan/ai/providers/xiaochuan/decisions")
+      return model("jev", { ...shared, apiKey: "zen-key", baseURL: "https://xiaochuan.ai/inference/systemone/v1" })
     },
-    url: "https://xccode.ai/inference/systemone/v1/systemone",
+    url: "https://xiaochuan.ai/inference/systemone/v1/systemone",
     auth: ["authorization", "Bearer zen-key"],
     headers: { "typesafe-danger-zone-images": "true" },
-    provider: "xccode",
+    provider: "xiaochuan",
   },
   {
     name: "openrouter",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/openrouter/decisions")
+      const { model } = await import("@xiaochuan/ai/providers/openrouter/decisions")
       return model("cloudflare/clef-omni", { ...shared, apiKey: "openrouter-key" })
     },
     url: "https://openrouter.ai/api/v1/systemone",
@@ -278,7 +278,7 @@ const decisions: ReadonlyArray<Case<DecisionModel>> = [
   {
     name: "openai-compatible",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/openai-compatible/decisions")
+      const { model } = await import("@xiaochuan/ai/providers/openai-compatible/decisions")
       return model("clef-flash", {
         ...shared,
         apiKey: "local-key",
@@ -293,7 +293,7 @@ const decisions: ReadonlyArray<Case<DecisionModel>> = [
   {
     name: "baseten",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/baseten/decisions")
+      const { model } = await import("@xiaochuan/ai/providers/baseten/decisions")
       return model("decision-models/baseten-elephant-9b-latest", { ...shared, apiKey: "baseten-key" })
     },
     url: "https://inference.baseten.co/v1/systemone",
@@ -303,7 +303,7 @@ const decisions: ReadonlyArray<Case<DecisionModel>> = [
   {
     name: "digitalocean",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/digitalocean/decisions")
+      const { model } = await import("@xiaochuan/ai/providers/digitalocean/decisions")
       return model("typesafe-jev", { ...shared, apiKey: "do-key" })
     },
     url: "https://inference.do-ai.run/v1/systemone",
@@ -313,7 +313,7 @@ const decisions: ReadonlyArray<Case<DecisionModel>> = [
   {
     name: "google",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/google/decisions")
+      const { model } = await import("@xiaochuan/ai/providers/google/decisions")
       return model("gemini-decision-eap", { ...shared, apiKey: "google-key" })
     },
     url: "https://generativelanguage.googleapis.com/v1beta/decisions",
@@ -323,7 +323,7 @@ const decisions: ReadonlyArray<Case<DecisionModel>> = [
   {
     name: "vercel-ai-gateway",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/vercel-ai-gateway/decisions")
+      const { model } = await import("@xiaochuan/ai/providers/vercel-ai-gateway/decisions")
       return model("typesafe/jev", { ...shared, apiKey: "vercel-key" })
     },
     url: "https://ai-gateway.vercel.sh/v1/decisions",
@@ -333,7 +333,7 @@ const decisions: ReadonlyArray<Case<DecisionModel>> = [
   {
     name: "cloudflare-workers-ai",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/cloudflare-workers-ai/decisions")
+      const { model } = await import("@xiaochuan/ai/providers/cloudflare-workers-ai/decisions")
       return model("@cf/cloudflare/clef-omni", { ...shared, apiKey: "cloudflare-key", accountId: "account-1" })
     },
     url: "https://api.cloudflare.com/client/v4/accounts/account-1/ai/run",
@@ -344,7 +344,7 @@ const decisions: ReadonlyArray<Case<DecisionModel>> = [
   {
     name: "cloudflare-ai-gateway",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/cloudflare-ai-gateway/decisions")
+      const { model } = await import("@xiaochuan/ai/providers/cloudflare-ai-gateway/decisions")
       return model("@cf/cloudflare/clef-omni", {
         ...shared,
         apiKey: "gateway-key",
@@ -364,7 +364,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "openai",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/openai/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/openai/embeddings")
       return model("text-embedding-3-small", { ...shared, apiKey: "openai-key", organization: "org-1" })
     },
     url: "https://api.openai.com/v1/embeddings",
@@ -375,7 +375,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "openai-compatible",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/openai-compatible/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/openai-compatible/embeddings")
       return model("nvidia/nemotron-3.5-embed-1b", {
         ...shared,
         apiKey: "nvidia-key",
@@ -390,7 +390,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "openrouter",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/openrouter/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/openrouter/embeddings")
       return model("openai/text-embedding-3-small", { ...shared, apiKey: "openrouter-key" })
     },
     url: "https://openrouter.ai/api/v1/embeddings",
@@ -400,7 +400,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "vercel-ai-gateway",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/vercel-ai-gateway/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/vercel-ai-gateway/embeddings")
       return model("openai/text-embedding-3-small", { ...shared, apiKey: "vercel-key" })
     },
     url: "https://ai-gateway.vercel.sh/v1/embeddings",
@@ -410,7 +410,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "deepinfra",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/deepinfra/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/deepinfra/embeddings")
       return model("BAAI/bge-m3", { ...shared, apiKey: "deepinfra-key" })
     },
     url: "https://api.deepinfra.com/v1/openai/embeddings",
@@ -420,7 +420,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "fireworks",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/fireworks/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/fireworks/embeddings")
       return model("nomic-ai/nomic-embed-text-v1.5", { ...shared, apiKey: "fireworks-key" })
     },
     url: "https://api.fireworks.ai/inference/v1/embeddings",
@@ -430,7 +430,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "cohere",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/cohere/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/cohere/embeddings")
       return model("embed-v4.0", { ...shared, apiKey: "cohere-key" })
     },
     url: "https://api.cohere.ai/compatibility/v1/embeddings",
@@ -440,7 +440,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "digitalocean",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/digitalocean/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/digitalocean/embeddings")
       return model("bge-m3", { ...shared, apiKey: "do-key" })
     },
     url: "https://inference.do-ai.run/v1/embeddings",
@@ -450,7 +450,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "alibaba",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/alibaba/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/alibaba/embeddings")
       return model("text-embedding-v4", { ...shared, apiKey: "dashscope-key", region: "ap-southeast-1" })
     },
     url: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/embeddings",
@@ -460,7 +460,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "azure",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/azure/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/azure/embeddings")
       return model("text-embedding-3-small", { ...shared, apiKey: "azure-key", resourceName: "fixture" })
     },
     url: "https://fixture.openai.azure.com/openai/v1/embeddings?api-version=v1",
@@ -471,7 +471,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "google",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/google/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/google/embeddings")
       return model("gemini-embedding-001", { ...shared, apiKey: "google-key" })
     },
     url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents",
@@ -482,7 +482,7 @@ const embeddings: ReadonlyArray<Case<EmbeddingModel>> = [
   {
     name: "google-vertex",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/google-vertex/embeddings")
+      const { model } = await import("@xiaochuan/ai/providers/google-vertex/embeddings")
       return model("text-embedding-005", { ...shared, apiKey: "vertex-key" })
     },
     url: "https://aiplatform.googleapis.com/v1/publishers/google/models/text-embedding-005:predict",
@@ -506,7 +506,7 @@ const videos: ReadonlyArray<Case<VideoModel>> = [
   {
     name: "openrouter",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/openrouter/videos")
+      const { model } = await import("@xiaochuan/ai/providers/openrouter/videos")
       return model("x-ai/grok-imagine-video-1.5-lite", { ...shared, apiKey: "openrouter-key" })
     },
     url: "https://openrouter.ai/api/v1/videos",
@@ -516,7 +516,7 @@ const videos: ReadonlyArray<Case<VideoModel>> = [
   {
     name: "byteplus",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/byteplus/videos")
+      const { model } = await import("@xiaochuan/ai/providers/byteplus/videos")
       return model("dreamina-seedance-2-0-260128", { ...shared, apiKey: "byteplus-key" })
     },
     url: "https://ark.ap-southeast.bytepluses.com/api/v3/contents/generations/tasks",
@@ -526,7 +526,7 @@ const videos: ReadonlyArray<Case<VideoModel>> = [
   {
     name: "volcengine",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/volcengine/videos")
+      const { model } = await import("@xiaochuan/ai/providers/volcengine/videos")
       return model("doubao-seedance-2-0-260128", { ...shared, apiKey: "ark-key" })
     },
     url: "https://ark.cn-beijing.volces.com/api/v3/contents/generations/tasks",
@@ -536,7 +536,7 @@ const videos: ReadonlyArray<Case<VideoModel>> = [
   {
     name: "minimax",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/minimax/videos")
+      const { model } = await import("@xiaochuan/ai/providers/minimax/videos")
       return model("MiniMax-H3-Lite", { ...shared, apiKey: "minimax-key" })
     },
     url: "https://api.minimax.io/v2/video_generation",
@@ -545,7 +545,7 @@ const videos: ReadonlyArray<Case<VideoModel>> = [
   {
     name: "minimax (minimax-cn, Hailuo)",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/minimax/videos")
+      const { model } = await import("@xiaochuan/ai/providers/minimax/videos")
       return model("MiniMax-Hailuo-2.3", { ...shared, apiKey: "minimax-key", baseURL: "https://api.minimax.cn" })
     },
     url: "https://api.minimax.cn/v1/video_generation",
@@ -554,7 +554,7 @@ const videos: ReadonlyArray<Case<VideoModel>> = [
   {
     name: "google",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/google/videos")
+      const { model } = await import("@xiaochuan/ai/providers/google/videos")
       return model("gemini-omni-1.2-flash", { ...shared, apiKey: "google-key" })
     },
     url: "https://generativelanguage.googleapis.com/v1beta/interactions",
@@ -564,7 +564,7 @@ const videos: ReadonlyArray<Case<VideoModel>> = [
   {
     name: "xai",
     load: async () => {
-      const { model } = await import("@xccode/ai/providers/xai/videos")
+      const { model } = await import("@xiaochuan/ai/providers/xai/videos")
       return model("grok-imagine-video-1.5", { ...shared, apiKey: "xai-key" })
     },
     url: "https://api.x.ai/v1/videos/generations",
@@ -585,8 +585,8 @@ describe("video entrypoints", () => {
 describe("video entrypoint model options", () => {
   // Model-level options from settings (as models.dev or config set them) become defaults on every request.
   for (const entry of [
-    { name: "xai", modelID: "grok-imagine-video-1.5", load: () => import("@xccode/ai/providers/xai/videos") },
-    { name: "google", modelID: "gemini-omni-1.2-flash", load: () => import("@xccode/ai/providers/google/videos") },
+    { name: "xai", modelID: "grok-imagine-video-1.5", load: () => import("@xiaochuan/ai/providers/xai/videos") },
+    { name: "google", modelID: "gemini-omni-1.2-flash", load: () => import("@xiaochuan/ai/providers/google/videos") },
   ])
     it.effect(`providers/${entry.name}/videos keeps provider options from settings`, () =>
       Effect.gen(function* () {

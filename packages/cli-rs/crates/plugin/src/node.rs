@@ -7,8 +7,8 @@ use std::rc::{Rc, Weak};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::Duration;
 
-use xccode_plugin_abi::{self as abi, Fence, Fenced, Line, v2};
-use xccode_ui::theme::Theme;
+use xiaochuan_plugin_abi::{self as abi, Fence, Fenced, Line, v2};
+use xiaochuan_ui::theme::Theme;
 use opentui::input::{MouseButton, MouseEventKind};
 use opentui::keymap::Disposer;
 use opentui::prelude::*;
@@ -367,7 +367,7 @@ pub fn add(
         abi::Node::Slot { path } => slot(parent, path),
         abi::Node::Markdown { text } => drop(parent.add(&markdown(text))),
         abi::Node::Spinner { label } => {
-            let spinner = xccode_ui::motion::Spinner::new(app).color(theme.interactive().step(200)).label(label);
+            let spinner = xiaochuan_ui::motion::Spinner::new(app).color(theme.interactive().step(200)).label(label);
             parent.add(&spinner);
         }
         abi::Node::Box {
@@ -976,13 +976,13 @@ pub(crate) fn color(theme: &Theme, value: Option<&abi::Color>) -> Option<Color> 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use xccode_ui::theme::{Catalog, ThemeMode};
+    use xiaochuan_ui::theme::{Catalog, ThemeMode};
     use opentui::testing::TestApp;
 
     #[test]
     fn a_box_lays_out_its_1_5_properties() {
         let app = TestApp::new(30, 12);
-        let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
+        let theme = Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme;
         let rows = |count: usize| (0..count).map(|_| abi::Node::text([abi::Span::new("x")])).collect::<Vec<_>>();
         // The box's rect, its first child's, and the cell at the box's top left corner.
         let draw = |node: abi::Node| {
@@ -1044,7 +1044,7 @@ mod tests {
     #[test]
     fn a_box_draws_each_side_style_and_title_alignment() {
         let app = TestApp::new(40, 16);
-        let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
+        let theme = Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme;
         // The capture, the outer column's rect, the box's, and where the box's `x` is.
         let draw = |node: abi::Node| {
             let parent = View::new(app.app()).column();
@@ -1109,7 +1109,7 @@ mod tests {
     #[test]
     fn a_fence_key_goes_with_its_widget() {
         let app = TestApp::new(40, 10);
-        let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
+        let theme = Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme;
         let gone = Rc::new(RefCell::new(Vec::new()));
         let fences = Fences::new(Some({
             let gone = gone.clone();

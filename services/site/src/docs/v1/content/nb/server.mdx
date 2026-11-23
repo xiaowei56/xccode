@@ -1,19 +1,19 @@
 ---
 title: Tjener
-description: Samhandle med Xccode-tjener over HTTP.
+description: Samhandle med Xiaochuan-tjener over HTTP.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-Kommandoen `xccode serve` kjører en hodeløs HTTP-server som eksponerer et OpenAPI-endepunkt som en Xccode-klient kan bruke.
+Kommandoen `xiaochuan serve` kjører en hodeløs HTTP-server som eksponerer et OpenAPI-endepunkt som en Xiaochuan-klient kan bruke.
 
 ---
 
 ### Bruk
 
 ```bash
-xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+xiaochuan serve [--port <number>] [--hostname <string>] [--cors <origin>]
 ```
 
 #### Alternativer
@@ -23,41 +23,41 @@ xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
 | `--port`        | Port å lytte på                               | `4096`           |
 | `--hostname`    | Vertsnavn å lytte på                          | `127.0.0.1`      |
 | `--mdns`        | Aktiver mDNS-oppdagelse                       | `false`          |
-| `--mdns-domain` | Egendefinert domenenavn for mDNS-tjeneste     | `xccode.local` |
+| `--mdns-domain` | Egendefinert domenenavn for mDNS-tjeneste     | `xiaochuan.local` |
 | `--cors`        | Ytterligere nettleseropprinnelse som tillates | `[]`             |
 
 `--cors` kan angis flere ganger:
 
 ```bash
-xccode serve --cors http://localhost:5173 --cors https://app.example.com
+xiaochuan serve --cors http://localhost:5173 --cors https://app.example.com
 ```
 
 ---
 
 ### Autentisering
 
-Sett `XCCODE_SERVER_PASSWORD` for å beskytte serveren med HTTP grunnleggende autentisering. Brukernavnet er satt til `xccode` som standard, eller sett `XCCODE_SERVER_USERNAME` for å overstyre det. Dette gjelder både `xccode serve` og `xccode web`.
+Sett `XIAOCHUAN_SERVER_PASSWORD` for å beskytte serveren med HTTP grunnleggende autentisering. Brukernavnet er satt til `xiaochuan` som standard, eller sett `XIAOCHUAN_SERVER_USERNAME` for å overstyre det. Dette gjelder både `xiaochuan serve` og `xiaochuan web`.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve
 ```
 
 ---
 
 ### Slik fungerer det
 
-Når du kjører `xccode` starter den en TUI og en server. Der TUI er
+Når du kjører `xiaochuan` starter den en TUI og en server. Der TUI er
 klient som snakker med serveren. Serveren viser en OpenAPI 3.1-spesifikasjon
 endepunkt. Dette endepunktet brukes også til å generere en [SDK](/docs/sdk).
 
 :::tip
-Bruk Xccode-serveren til å samhandle med Xccode programmatisk.
+Bruk Xiaochuan-serveren til å samhandle med Xiaochuan programmatisk.
 :::
 
-Denne arkitekturen lar Xccode støtte flere klienter og lar deg samhandle med Xccode programmatisk.
+Denne arkitekturen lar Xiaochuan støtte flere klienter og lar deg samhandle med Xiaochuan programmatisk.
 
-Du kan kjøre `xccode serve` for å starte en frittstående server. Hvis du har
-Xccode TUI kjører, vil `xccode serve` starte en ny server.
+Du kan kjøre `xiaochuan serve` for å starte en frittstående server. Hvis du har
+Xiaochuan TUI kjører, vil `xiaochuan serve` starte en ny server.
 
 ---
 
@@ -65,7 +65,7 @@ Xccode TUI kjører, vil `xccode serve` starte en ny server.
 
 Når du starter TUI, tildeler den tilfeldig en port og vertsnavn. Du kan i stedet sende inn `--hostname` og `--port` [flagg](/docs/cli). Bruk deretter denne til å koble til serveren.
 
-[`/tui`](#tui) endepunktet kan brukes til å kjøre TUI gjennom serveren. Du kan for eksempel forhåndsutfylle eller kjøre en forespørsel. Dette oppsettet brukes av Xccode [IDE](/docs/ide) plugins.
+[`/tui`](#tui) endepunktet kan brukes til å kjøre TUI gjennom serveren. Du kan for eksempel forhåndsutfylle eller kjøre en forespørsel. Dette oppsettet brukes av Xiaochuan [IDE](/docs/ide) plugins.
 
 ---
 
@@ -83,7 +83,7 @@ For eksempel `http://localhost:4096/doc`. Bruk spesifikasjonen til å generere k
 
 ## APIer
 
-xccode-serveren viser følgende APIer.
+xiaochuan-serveren viser følgende APIer.
 
 ---
 

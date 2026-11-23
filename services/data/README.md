@@ -1,21 +1,21 @@
 # Data
 
-Deploys the xccode.ai/data site from `packages/data` as three Workers with `cf`:
+Deploys the xiaochuan.ai/data site from `packages/data` as three Workers with `cf`:
 
 | Worker                       | Config                 | What it is                                                                    |
 | ---------------------------- | ---------------------- | ----------------------------------------------------------------------------- |
-| `xccode-data-<stage>`      | `cloudflare.config.ts` | The SolidStart site, on `/data*` and `/<locale>/data*` of the stage's host    |
-| `xccode-data-og-<stage>`   | `og.config.ts`         | Open Graph images, reached only through the site's `OG_WORKER` binding        |
-| `xccode-data-sync-<stage>` | `sync.config.ts`       | The `xccode-data-sync-<stage>` Workflow and the cron handler that starts it |
+| `xiaochuan-data-<stage>`      | `cloudflare.config.ts` | The SolidStart site, on `/data*` and `/<locale>/data*` of the stage's host    |
+| `xiaochuan-data-og-<stage>`   | `og.config.ts`         | Open Graph images, reached only through the site's `OG_WORKER` binding        |
+| `xiaochuan-data-sync-<stage>` | `sync.config.ts`       | The `xiaochuan-data-sync-<stage>` Workflow and the cron handler that starts it |
 
 `script/build.ts` builds all three into one Build Output tree and `script/deploy.ts` deploys them with
 `cf deploy --prebuilt`, the OG Worker first. The `data` job in `.github/workflows/deploy.yml` runs
 `deploy:dev` or `deploy:production` and passes the Worker secrets from AWS Secrets Manager
-(`xccode/<stage>/DATA_DATABASE_HOST`, `DATA_DATABASE_USERNAME`, `DATA_DATABASE_PASSWORD`,
+(`xiaochuan/<stage>/DATA_DATABASE_HOST`, `DATA_DATABASE_USERNAME`, `DATA_DATABASE_PASSWORD`,
 `R2_SQL_AUTH_TOKEN`, `DATA_HIDDEN_MODELS`) with `--secrets-file`. Each Worker gets only the secrets
 its config declares.
 
-The database is the `xccode-stats` PlanetScale database: the `dev` branch for dev and `production`
+The database is the `xiaochuan-stats` PlanetScale database: the `dev` branch for dev and `production`
 for production, through the `data-worker-<stage>` password. It is not managed as code.
 
 Every config, `script/build.ts` and `script/deploy.ts` take the stage from `--mode`, which must be `dev` or

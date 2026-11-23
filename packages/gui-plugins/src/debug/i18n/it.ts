@@ -32,7 +32,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Diagnostica della memoria: registra la memoria dell'app nei log desktop ogni 30 secondi. Resta attiva tra i riavvii finché non viene disattivata; la barra resta aperta mentre è in esecuzione.",
-  "memory.tipEnv": "La diagnostica della memoria è attiva per questo avvio: XCCODE_DESKTOP_MEMORY_LOG è impostata.",
+  "memory.tipEnv": "La diagnostica della memoria è attiva per questo avvio: XIAOCHUAN_DESKTOP_MEMORY_LOG è impostata.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

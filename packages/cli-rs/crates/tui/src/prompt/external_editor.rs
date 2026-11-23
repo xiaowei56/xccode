@@ -2,8 +2,8 @@
 
 use std::path::PathBuf;
 
-use xccode_ui::prompt_input;
-use xccode_ui::prompt_input::editor::{Mention, edit, normalize, realign_mentions};
+use xiaochuan_ui::prompt_input;
+use xiaochuan_ui::prompt_input::editor::{Mention, edit, normalize, realign_mentions};
 
 use super::editor::Inner;
 
@@ -112,7 +112,7 @@ mod tests {
     use super::*;
 
     fn measure(text: &str) -> u32 {
-        xccode_ui::prompt_input::parse::measure(&TestApp::new(10, 2), text)
+        xiaochuan_ui::prompt_input::parse::measure(&TestApp::new(10, 2), text)
     }
 
     fn realign_default(content: &str, prompt: &Value) -> Value {

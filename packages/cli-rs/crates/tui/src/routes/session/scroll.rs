@@ -2,7 +2,7 @@
 
 use std::time::Instant;
 
-use xccode_local::cli_config::{Grouping, Info, SubmitScroll, Verbosity};
+use xiaochuan_local::cli_config::{Grouping, Info, SubmitScroll, Verbosity};
 use opentui::input::MouseEventKind;
 use opentui::widget::{MacOsScroll, ScrollAcceleration};
 
@@ -176,8 +176,8 @@ impl Inner {
     /// it asks for, also at an edge: `session.first`'s jump ends, the window reveals rows or follows, the hint and the
     /// tab's anchor follow, and the plugins told about the transcript hear of the move. `Edge::Bottom` is the tail, as
     /// "Jump to latest" goes.
-    fn plugin_scroll(&self, verb: &xccode_plugin::abi::v2::Scroll) {
-        use xccode_plugin::abi::v2::{Edge, Scroll};
+    fn plugin_scroll(&self, verb: &xiaochuan_plugin::abi::v2::Scroll) {
+        use xiaochuan_plugin::abi::v2::{Edge, Scroll};
         let Some(tui) = self.tui.upgrade() else { return };
         let scroll = self.transcript.scroll();
         let (_, top) = scroll.scroll_position();
@@ -196,7 +196,7 @@ impl Inner {
             }
             Scroll::Edge { edge: Edge::Bottom } => {
                 self.to_bottom(&tui);
-                xccode_plugin::behave::transcript_moved(&tui.app);
+                xiaochuan_plugin::behave::transcript_moved(&tui.app);
                 return;
             }
             _ => return,
@@ -208,7 +208,7 @@ impl Inner {
             self.transcript.follow(&tui, !up);
         }
         self.update_away();
-        xccode_plugin::behave::transcript_moved(&tui.app);
+        xiaochuan_plugin::behave::transcript_moved(&tui.app);
     }
 
     /// "Jump to latest" and the scrollbar in the theme.
@@ -282,7 +282,7 @@ impl Inner {
             ),
             command(
                 "session.verbosity.cycle",
-                &format!("Verbosity: {}", xccode_ui::locale::titlecase(verbosity.as_str())),
+                &format!("Verbosity: {}", xiaochuan_ui::locale::titlecase(verbosity.as_str())),
                 |_, tui| {
                     let current =
                         tui.settings.info().session.and_then(|session| session.verbosity).unwrap_or(DEFAULT_VERBOSITY);

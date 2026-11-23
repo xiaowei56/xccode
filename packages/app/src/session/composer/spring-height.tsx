@@ -16,8 +16,8 @@ import {
   prefersReducedMotion,
   Spring,
   type DurationOptions,
-} from "@xccode/ui/motion"
-import { motionTuning } from "@xccode/ui/motion-tuning"
+} from "@xiaochuan/ui/motion"
+import { motionTuning } from "@xiaochuan/ui/motion-tuning"
 import {
   createGrowState,
   createMorphState,

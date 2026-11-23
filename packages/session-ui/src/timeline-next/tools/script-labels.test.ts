@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { useI18n } from "@xccode/ui/context/i18n"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
 import { storyTool } from "../../storybook/current-session-scenarios"
 import { factsOf, type FileFact } from "../../timeline/facts"
 import { contextGroupLabel } from "../../tools/context-group-label"

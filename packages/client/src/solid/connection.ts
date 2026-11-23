@@ -1,6 +1,6 @@
 import { batch, onCleanup } from "solid-js"
 import { createStore } from "solid-js/store"
-import type { XccodeClient, XccodeEvent } from "../promise"
+import type { XiaochuanClient, XiaochuanEvent } from "../promise"
 
 export type ClientConnectionStatus = "connected" | "connecting" | "reconnecting"
 export type ClientConnectionEvent = {
@@ -14,8 +14,8 @@ export type ClientConnectionEvent = {
 }
 
 export type ClientConnectionOptions = {
-  readonly reconnect?: (signal: AbortSignal) => Promise<XccodeClient>
-  readonly onEvent: (event: XccodeEvent) => void
+  readonly reconnect?: (signal: AbortSignal) => Promise<XiaochuanClient>
+  readonly onEvent: (event: XiaochuanEvent) => void
   readonly flushInterval?: number
   readonly pageLifecycle?: boolean
   /**
@@ -37,7 +37,7 @@ export const defaultIdleTimeout = 45_000
 // returns to the foreground is probably half-open after the device slept.
 export const foregroundIdleThreshold = 20_000
 
-export function createClientConnection(initialApi: XccodeClient, options: ClientConnectionOptions) {
+export function createClientConnection(initialApi: XiaochuanClient, options: ClientConnectionOptions) {
   const abort = new AbortController()
   const history: ClientConnectionEvent[] = []
   const idleTimeout = options.idleTimeout ?? defaultIdleTimeout
@@ -47,7 +47,7 @@ export function createClientConnection(initialApi: XccodeClient, options: Client
     error?: string
   }>({ status: "connecting", attempt: 0 })
   let api = initialApi
-  let pending: XccodeEvent[] = []
+  let pending: XiaochuanEvent[] = []
   let flushTimer: ReturnType<typeof setTimeout> | undefined
   let stream: AbortController | undefined
   let current: AbortController | undefined
@@ -62,7 +62,7 @@ export function createClientConnection(initialApi: XccodeClient, options: Client
     if (history.length > connectionHistoryLimit) history.shift()
   }
 
-  function publish(event: XccodeEvent) {
+  function publish(event: XiaochuanEvent) {
     pending.push(event)
     if (flushTimer) return
     flushTimer = setTimeout(() => {

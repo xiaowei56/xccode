@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
 import { createRoot } from "solid-js"
 import { createClientConnection } from "../src/solid"
-import { Xccode, type XccodeEvent } from "../src/promise"
+import { Xiaochuan, type XiaochuanEvent } from "../src/promise"
 
 const connected = { id: "evt_connected", created: 1, type: "server.connected", data: {} }
 
@@ -15,8 +15,8 @@ function server() {
     error: (reason: Error) => void
     aborted: boolean
   }[] = []
-  const api = Xccode.make({
-    baseUrl: "http://xccode.local",
+  const api = Xiaochuan.make({
+    baseUrl: "http://xiaochuan.local",
     fetch: async (input, init) => {
       const request = input instanceof Request ? input : new Request(input, init)
       let controller!: ReadableStreamDefaultController<Uint8Array>
@@ -47,7 +47,7 @@ function server() {
 }
 
 function setup(input: ReturnType<typeof server>, idleTimeout: number) {
-  const events: XccodeEvent[] = []
+  const events: XiaochuanEvent[] = []
   return createRoot((dispose) => ({
     events,
     dispose,

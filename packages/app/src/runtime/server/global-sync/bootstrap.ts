@@ -1,6 +1,6 @@
 import type { Config, Path } from "@/runtime/server/types"
-import type { LocationGetInput, LocationGetOutput, ProjectListOutput } from "@xccode/client/promise"
-import { retry } from "@xccode/util/retry"
+import type { LocationGetInput, LocationGetOutput, ProjectListOutput } from "@xiaochuan/client/promise"
+import { retry } from "@xiaochuan/util/retry"
 import type { SetStoreFunction } from "solid-js/store"
 import type { GlobalStore } from "./types"
 import { normalizeProjectInfo } from "./utils"

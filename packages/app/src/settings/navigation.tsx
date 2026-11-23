@@ -1,7 +1,7 @@
-import { Button } from "@xccode/ui/button"
-import { Icon } from "@xccode/ui/icon"
-import { Menu } from "@xccode/ui/menu"
-import { Tabs } from "@xccode/ui/tabs"
+import { Button } from "@xiaochuan/ui/button"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Menu } from "@xiaochuan/ui/menu"
+import { Tabs } from "@xiaochuan/ui/tabs"
 import {
   createEffect,
   ErrorBoundary,

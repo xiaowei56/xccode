@@ -1,6 +1,6 @@
 // A fence drawn by a plugin (Pr): the test plugin draws the `parity` fence of an answer in the transcript. TS loads
 // it from parity/plugins/fence as a local plugin, a Markdown code-block renderer; Rust registers its twin, a renderer
-// claim of the fence, when XCCODE_PARITY_PLUGIN is `fence`. The fence opens the answer: after a paragraph, Rust's
+// claim of the fence, when XIAOCHUAN_PARITY_PLUGIN is `fence`. The fence opens the answer: after a paragraph, Rust's
 // Markdown puts a blank row before any plugin's fence and TS puts none, for a 1.x fence renderer as for a claim.
 import { assistant, defineApp, session, user } from "../../lib/app"
 
@@ -12,7 +12,7 @@ const answer = "```parity\nalpha\nbeta\n```\n\nDone."
 
 export default defineApp({
   config: { plugins: ["./plugins/fence"] },
-  env: { XCCODE_PARITY_PLUGIN: "fence" },
+  env: { XIAOCHUAN_PARITY_PLUGIN: "fence" },
   args: { sessionID: id },
   routes: [
     { path: `/api/session/${id}`, json: { data: session(id, "Fence plugin", { updated: 2 }) } },

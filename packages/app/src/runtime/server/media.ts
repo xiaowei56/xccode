@@ -1,4 +1,4 @@
-import { mediaHashFromUri, type XccodeClient } from "@xccode/client/promise"
+import { mediaHashFromUri, type XiaochuanClient } from "@xiaochuan/client/promise"
 
 export { mediaHashFromUri }
 
@@ -10,7 +10,7 @@ export type MediaCache = {
 
 // Object URLs stay valid until dispose. Rendered attachments, image previews and composer drafts keep the URL they
 // were given without releasing it, so revoking one earlier would break an image that is still on screen.
-export function createMediaCache(getApi: () => Pick<XccodeClient, "experimental">): MediaCache {
+export function createMediaCache(getApi: () => Pick<XiaochuanClient, "experimental">): MediaCache {
   const urls = new Map<string, string>()
   const inflight = new Map<string, Promise<string | undefined>>()
   let disposed = false

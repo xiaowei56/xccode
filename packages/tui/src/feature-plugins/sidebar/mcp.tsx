@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { createMemo, For, Match, Show, Switch } from "solid-js"
 import { DialogMcp } from "../../component/dialog-mcp"
 
@@ -93,7 +93,7 @@ export function SidebarMcp(props: { context: Plugin.Context; sessionID: string }
 }
 
 export default Plugin.define({
-  id: "xccode.sidebar.mcp",
+  id: "xiaochuan.sidebar.mcp",
   setup(context) {
     context.ui.slot({
       append: "sidebar.content",

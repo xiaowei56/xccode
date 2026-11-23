@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { Message, ToolMessage, ToolResultPart, Media, UserMessage } from "@xccode/ai/effect"
-import { boundImages, unsupportedParts } from "@xccode/core/session/model-request"
+import { Message, ToolMessage, ToolResultPart, Media, UserMessage } from "@xiaochuan/ai/effect"
+import { boundImages, unsupportedParts } from "@xiaochuan/core/session/model-request"
 
 const capabilities = (input: string[]) => ({ tools: true, input, output: ["text"] })
 

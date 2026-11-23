@@ -1,7 +1,7 @@
 import { blocks } from "~/lib/markdown"
 
 /**
- * The Xccode font: the six letters of the wordmark, cut on a 24 × 42 cell from the official SVG
+ * The Xiaochuan font: the six letters of the wordmark, cut on a 24 × 42 cell from the official SVG
  * logo. `ink` is the letter, `shadow` the lighter shade in its counter. The same outlines live in
  * public/font/glyphs.mjs, which the font download and the GIF worker load at runtime.
  */
@@ -75,7 +75,7 @@ export const words = [
   "depended",
   "conceded",
   "condoned",
-  "xccode",
+  "xiaochuan",
   "encoded",
   "decoded",
   "condone",
@@ -229,9 +229,9 @@ export const bigrams = Object.fromEntries(
   ),
 ) as Record<string, number>
 
-/** Words that fit inside the letters of "xccode". */
+/** Words that fit inside the letters of "xiaochuan". */
 export const subAnagrams = words.filter((word) => {
-  const pool = [..."xccode"]
+  const pool = [..."xiaochuan"]
   return [...word].every((char) => {
     const index = pool.indexOf(char)
     if (index === -1) return false
@@ -278,16 +278,16 @@ export const performance = {
 export const versions = [
   { version: "0.1", date: "2025-11-14", note: "The wordmark's outlines land in logo.tsx" },
   { version: "0.2", date: "2026-01-17", note: "The splash logo is redrawn on the same grid" },
-  { version: "1.000", date: "—", note: "The typewriter at xccode.ai/font" },
+  { version: "1.000", date: "—", note: "The typewriter at xiaochuan.ai/font" },
   { version: "1.001", date: "—", note: "Installable OTF with a per-visit substitution map" },
 ]
 
 /** The page copy, shared by the page, its Markdown version and the ⌘K search. */
 export const fontContent = {
-  title: "Xccode Font",
-  metaTitle: "Xccode | Font, a typeface cut from the wordmark",
+  title: "Xiaochuan Font",
+  metaTitle: "Xiaochuan | Font, a typeface cut from the wordmark",
   description:
-    "A six-letter typeface cut from the Xccode wordmark on a 4 × 7 grid. Type with it, see how every letter is built, then download your own installable font.",
+    "A six-letter typeface cut from the Xiaochuan wordmark on a 4 × 7 grid. Type with it, see how every letter is built, then download your own installable font.",
   combinations: { base: "6", exponent: "3,591" },
   download: "Download",
   plates: [
@@ -309,7 +309,7 @@ export const fontContent = {
     { id: "colophon", title: "Colophon" },
   ],
   cover: {
-    lead: "Six letters cut from the Xccode wordmark. No curves, no diagonals, no exceptions: every edge falls on a grid of 120-unit modules.",
+    lead: "Six letters cut from the Xiaochuan wordmark. No curves, no diagonals, no exceptions: every edge falls on a grid of 120-unit modules.",
   },
   construction: {
     lead: "Each letter, rebuilt from nothing: the grid, the metrics, one module at a time, the shade, the outline, and the measurements that prove it.",
@@ -333,22 +333,22 @@ export const fontContent = {
     lead: "A font small enough to read in one sitting.",
   },
   anagrams: {
-    lead: "The letters of xccode can be arranged 10,080 ways. Try them all.",
+    lead: "The letters of xiaochuan can be arranged 10,080 ways. Try them all.",
   },
   field: {
     lead: "A field of the six letters.",
   },
   loupe: {
     lead: "Look closer. Every module of every letter is a grid of 144 smaller squares.",
-    label: "xccode, set large in the Xccode font. Hover or press and hold to look through a loupe.",
+    label: "xiaochuan, set large in the Xiaochuan font. Hover or press and hold to look through a loupe.",
   },
   tester: {
     lead: "Type with the six letters. Other characters stay empty.",
-    label: "Text to preview in the Xccode font",
+    label: "Text to preview in the Xiaochuan font",
     initial: "open code node done",
   },
   colophon: {
-    lead: "Download the font, install it, then choose Xccode in any app. Every copy carries its own substitution map.",
+    lead: "Download the font, install it, then choose Xiaochuan in any app. Every copy carries its own substitution map.",
   },
 }
 

@@ -1,5 +1,5 @@
-import { Model } from "@xccode/schema/model"
-import { Location } from "@xccode/schema/location"
+import { Model } from "@xiaochuan/schema/model"
+import { Location } from "@xiaochuan/schema/location"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { ServiceUnavailableError } from "../errors.js"

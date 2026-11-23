@@ -1,6 +1,6 @@
 export * as IntegrationConnection from "./connection.js"
 
-import { Connection } from "@xccode/schema/connection"
+import { Connection } from "@xiaochuan/schema/connection"
 
 export const CredentialInfo = Connection.CredentialInfo
 export type CredentialInfo = Connection.CredentialInfo

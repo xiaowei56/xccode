@@ -5,7 +5,7 @@ import { writeFileSync } from "node:fs"
 export default {
   id: "example.spawner",
   async setup(api: any) {
-    const carrier = api[Symbol.for("xccode.carrier")]
+    const carrier = api[Symbol.for("xiaochuan.carrier")]
     const child = Bun.spawn(["sleep", "60"])
     const shell = Bun.spawn(["sh", "-c", "setsid sleep 61 >/dev/null 2>&1 </dev/null & echo $!"], { stdout: "pipe" })
     const escaped = (await new Response(shell.stdout).text()).trim()

@@ -1,7 +1,7 @@
 export * as AISDKNative from "./aisdk-native.js"
 
 import { Effect, Option, Schema, Struct } from "effect"
-import { isRecord } from "@xccode/util/record"
+import { isRecord } from "@xiaochuan/util/record"
 import type { Provider } from "./provider.js"
 
 export const AISDK_PREFIX = "aisdk:"
@@ -12,7 +12,7 @@ export function packageName(value: undefined): undefined
 export function packageName(value: string | undefined): string | undefined
 export function packageName(value: string | undefined) {
   // Native provider entrypoints can persist in user configuration across the npm scope migration.
-  if (value?.startsWith("@xccode-ai/ai/")) return value.replace("@xccode-ai/", "@xccode/")
+  if (value?.startsWith("@xiaochuan-ai/ai/")) return value.replace("@xiaochuan-ai/", "@xiaochuan/")
   if (value === undefined || !isAISDK(value)) return value
   return value.slice(AISDK_PREFIX.length)
 }
@@ -91,7 +91,7 @@ export function rewrite<ID extends string>(
   if (target.package !== undefined || replacement !== input.specifier) target.package = replacement
   // Without `provider`, the native compatible package reports every AI SDK-mapped host as `openai-compatible`.
   const identity =
-    replacement === "@xccode/ai/providers/openai-compatible" && !input.builtins.has(input.specifier)
+    replacement === "@xiaochuan/ai/providers/openai-compatible" && !input.builtins.has(input.specifier)
       ? { provider: input.canonical ?? input.providerID }
       : {}
   target.settings = target.settings === undefined ? undefined : { ...translated.settings, ...identity }
@@ -111,32 +111,32 @@ export function rewrite<ID extends string>(
 }
 
 const PACKAGES: Readonly<Record<string, string>> = {
-  "@ai-sdk/amazon-bedrock": "@xccode/ai/providers/amazon-bedrock",
-  "@ai-sdk/alibaba": "@xccode/ai/providers/alibaba/chat",
-  "@ai-sdk/anthropic": "@xccode/ai/providers/anthropic",
-  "@ai-sdk/azure": "@xccode/ai/providers/azure/responses",
-  "@ai-sdk/cerebras": "@xccode/ai/providers/cerebras",
-  "@ai-sdk/cohere": "@xccode/ai/providers/cohere",
-  "@ai-sdk/deepinfra": "@xccode/ai/providers/deepinfra",
-  "@ai-sdk/google": "@xccode/ai/providers/google",
-  "@ai-sdk/google-vertex": "@xccode/ai/providers/google-vertex",
-  "@ai-sdk/google-vertex/anthropic": "@xccode/ai/providers/google-vertex/messages",
-  "@ai-sdk/groq": "@xccode/ai/providers/groq",
-  "@ai-sdk/mistral": "@xccode/ai/providers/mistral",
-  "@ai-sdk/openai": "@xccode/ai/providers/openai",
-  "@ai-sdk/openai-compatible": "@xccode/ai/providers/openai-compatible",
-  "@ai-sdk/togetherai": "@xccode/ai/providers/togetherai",
-  "@ai-sdk/xai": "@xccode/ai/providers/xai",
-  "@ai-sdk/gateway": "@xccode/ai/providers/vercel-ai-gateway",
-  "@openrouter/ai-sdk-provider": "@xccode/ai/providers/openrouter",
-  "ai-gateway-provider": "@xccode/ai/providers/cloudflare-ai-gateway",
-  "venice-ai-sdk-provider": "@xccode/ai/providers/venice",
+  "@ai-sdk/amazon-bedrock": "@xiaochuan/ai/providers/amazon-bedrock",
+  "@ai-sdk/alibaba": "@xiaochuan/ai/providers/alibaba/chat",
+  "@ai-sdk/anthropic": "@xiaochuan/ai/providers/anthropic",
+  "@ai-sdk/azure": "@xiaochuan/ai/providers/azure/responses",
+  "@ai-sdk/cerebras": "@xiaochuan/ai/providers/cerebras",
+  "@ai-sdk/cohere": "@xiaochuan/ai/providers/cohere",
+  "@ai-sdk/deepinfra": "@xiaochuan/ai/providers/deepinfra",
+  "@ai-sdk/google": "@xiaochuan/ai/providers/google",
+  "@ai-sdk/google-vertex": "@xiaochuan/ai/providers/google-vertex",
+  "@ai-sdk/google-vertex/anthropic": "@xiaochuan/ai/providers/google-vertex/messages",
+  "@ai-sdk/groq": "@xiaochuan/ai/providers/groq",
+  "@ai-sdk/mistral": "@xiaochuan/ai/providers/mistral",
+  "@ai-sdk/openai": "@xiaochuan/ai/providers/openai",
+  "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/openai-compatible",
+  "@ai-sdk/togetherai": "@xiaochuan/ai/providers/togetherai",
+  "@ai-sdk/xai": "@xiaochuan/ai/providers/xai",
+  "@ai-sdk/gateway": "@xiaochuan/ai/providers/vercel-ai-gateway",
+  "@openrouter/ai-sdk-provider": "@xiaochuan/ai/providers/openrouter",
+  "ai-gateway-provider": "@xiaochuan/ai/providers/cloudflare-ai-gateway",
+  "venice-ai-sdk-provider": "@xiaochuan/ai/providers/venice",
 }
 
 const protocols = (name: string) => ({
-  "@ai-sdk/openai-compatible": `@xccode/ai/providers/${name}/chat`,
-  "@ai-sdk/anthropic": `@xccode/ai/providers/${name}/messages`,
-  "@ai-sdk/openai": `@xccode/ai/providers/${name}/responses`,
+  "@ai-sdk/openai-compatible": `@xiaochuan/ai/providers/${name}/chat`,
+  "@ai-sdk/anthropic": `@xiaochuan/ai/providers/${name}/messages`,
+  "@ai-sdk/openai": `@xiaochuan/ai/providers/${name}/responses`,
 })
 
 const HOSTS: Readonly<Record<string, Readonly<Record<string, string>>>> = {
@@ -146,21 +146,21 @@ const HOSTS: Readonly<Record<string, Readonly<Record<string, string>>>> = {
   "alibaba-coding-plan-cn": protocols("alibaba"),
   "alibaba-token-plan": protocols("alibaba"),
   "alibaba-token-plan-cn": protocols("alibaba"),
-  baseten: { "@ai-sdk/openai-compatible": "@xccode/ai/providers/baseten" },
+  baseten: { "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/baseten" },
   "cloudflare-ai-gateway": {
-    "@ai-sdk/anthropic": "@xccode/ai/providers/cloudflare-ai-gateway",
-    "@ai-sdk/openai": "@xccode/ai/providers/cloudflare-ai-gateway",
-    "@ai-sdk/openai-compatible": "@xccode/ai/providers/cloudflare-ai-gateway",
-    "ai-gateway-provider": "@xccode/ai/providers/cloudflare-ai-gateway",
+    "@ai-sdk/anthropic": "@xiaochuan/ai/providers/cloudflare-ai-gateway",
+    "@ai-sdk/openai": "@xiaochuan/ai/providers/cloudflare-ai-gateway",
+    "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/cloudflare-ai-gateway",
+    "ai-gateway-provider": "@xiaochuan/ai/providers/cloudflare-ai-gateway",
   },
-  cohere: { "@ai-sdk/openai-compatible": "@xccode/ai/providers/cohere/chat" },
-  "cloudflare-workers-ai": { "@ai-sdk/openai-compatible": "@xccode/ai/providers/cloudflare-workers-ai" },
-  deepseek: { "@ai-sdk/openai-compatible": "@xccode/ai/providers/deepseek" },
-  digitalocean: { "@ai-sdk/openai-compatible": "@xccode/ai/providers/digitalocean" },
-  "fireworks-ai": { "@ai-sdk/openai-compatible": "@xccode/ai/providers/fireworks" },
+  cohere: { "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/cohere/chat" },
+  "cloudflare-workers-ai": { "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/cloudflare-workers-ai" },
+  deepseek: { "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/deepseek" },
+  digitalocean: { "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/digitalocean" },
+  "fireworks-ai": { "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/fireworks" },
   "google-vertex": {
-    "@ai-sdk/openai-compatible": "@xccode/ai/providers/google-vertex/chat",
-    "@ai-sdk/mistral": "@xccode/ai/providers/google-vertex/mistral",
+    "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/google-vertex/chat",
+    "@ai-sdk/mistral": "@xiaochuan/ai/providers/google-vertex/mistral",
   },
   "kimi-for-coding": protocols("moonshot"),
   meta: protocols("meta"),
@@ -170,9 +170,9 @@ const HOSTS: Readonly<Record<string, Readonly<Record<string, string>>>> = {
   "minimax-cn-coding-plan": protocols("minimax"),
   moonshotai: protocols("moonshot"),
   "moonshotai-cn": protocols("moonshot"),
-  zai: { "@ai-sdk/openai-compatible": "@xccode/ai/providers/zai/chat" },
+  zai: { "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/zai/chat" },
   "zai-coding-plan": protocols("zai-coding-plan"),
-  zhipuai: { "@ai-sdk/openai-compatible": "@xccode/ai/providers/zai/chat" },
+  zhipuai: { "@ai-sdk/openai-compatible": "@xiaochuan/ai/providers/zai/chat" },
   "zhipuai-coding-plan": protocols("zai-coding-plan"),
 }
 
@@ -180,7 +180,7 @@ export function native(npm: string, context: Context & { readonly settings?: Pro
   const host = HOSTS[context.providerID]?.[npm]
   if (host) return host
   if (npm === "@ai-sdk/amazon-bedrock/mantle") return mantle(context.modelID)
-  if (npm === "@ai-sdk/azure" && azureChat(context)) return "@xccode/ai/providers/azure/chat"
+  if (npm === "@ai-sdk/azure" && azureChat(context)) return "@xiaochuan/ai/providers/azure/chat"
   return PACKAGES[npm]
 }
 
@@ -189,17 +189,17 @@ const azureChat = (context: Context & { readonly settings?: Provider.Settings })
 
 // Mantle serves Claude only through Anthropic Messages and GPT-OSS only through Chat.
 const mantle = (modelID: string | undefined) => {
-  if (modelID === undefined) return "@xccode/ai/providers/amazon-bedrock/mantle"
-  if (modelID.includes("anthropic.")) return "@xccode/ai/providers/amazon-bedrock/mantle/messages"
-  return `@xccode/ai/providers/amazon-bedrock/mantle/${modelID.includes("gpt-oss") ? "chat" : "responses"}`
+  if (modelID === undefined) return "@xiaochuan/ai/providers/amazon-bedrock/mantle"
+  if (modelID.includes("anthropic.")) return "@xiaochuan/ai/providers/amazon-bedrock/mantle/messages"
+  return `@xiaochuan/ai/providers/amazon-bedrock/mantle/${modelID.includes("gpt-oss") ? "chat" : "responses"}`
 }
 
 // Old hyphenated Vertex entrypoints that stale configs may still name.
 const LEGACY_VERTEX: Readonly<Record<string, string>> = {
-  "@xccode/ai/providers/google-vertex-chat": "@xccode/ai/providers/google-vertex/chat",
-  "@xccode/ai/providers/google-vertex-responses": "@xccode/ai/providers/google-vertex/responses",
-  "@xccode/ai/providers/google-vertex-interactions": "@xccode/ai/providers/google-vertex/interactions",
-  "@xccode/ai/providers/google-vertex-mistral": "@xccode/ai/providers/google-vertex/mistral",
+  "@xiaochuan/ai/providers/google-vertex-chat": "@xiaochuan/ai/providers/google-vertex/chat",
+  "@xiaochuan/ai/providers/google-vertex-responses": "@xiaochuan/ai/providers/google-vertex/responses",
+  "@xiaochuan/ai/providers/google-vertex-interactions": "@xiaochuan/ai/providers/google-vertex/interactions",
+  "@xiaochuan/ai/providers/google-vertex-mistral": "@xiaochuan/ai/providers/google-vertex/mistral",
 }
 
 function resolve(
@@ -208,14 +208,14 @@ function resolve(
 ): string | undefined {
   const npm = packageName(specifier)
   if (isAISDK(specifier) || npm in PACKAGES || npm in (HOSTS[context.providerID] ?? {})) return native(npm, context)
-  if (npm === "@xccode/ai/providers/amazon-bedrock/mantle" || npm === "@xccode/ai/providers/amazon-bedrock-mantle")
+  if (npm === "@xiaochuan/ai/providers/amazon-bedrock/mantle" || npm === "@xiaochuan/ai/providers/amazon-bedrock-mantle")
     return mantle(context.modelID)
   if (npm in LEGACY_VERTEX) return LEGACY_VERTEX[npm]
   if (
-    (npm === "@xccode/ai/providers/azure" || npm === "@xccode/ai/providers/azure/responses") &&
+    (npm === "@xiaochuan/ai/providers/azure" || npm === "@xiaochuan/ai/providers/azure/responses") &&
     azureChat(context)
   )
-    return "@xccode/ai/providers/azure/chat"
+    return "@xiaochuan/ai/providers/azure/chat"
   return context.builtins.has(npm) ? npm : undefined
 }
 
@@ -226,18 +226,18 @@ type Overlay = {
 }
 
 function options(replacement: string, modelID: string | undefined, settings: Legacy): Overlay {
-  const converse = replacement === "@xccode/ai/providers/amazon-bedrock" && modelID !== undefined
+  const converse = replacement === "@xiaochuan/ai/providers/amazon-bedrock" && modelID !== undefined
   const kept = Struct.omit(settings, ["headers", "extraBody", "useCompletionUrls", ...OPENROUTER_KEYS])
   const thinking = converse ? bedrockThinking(modelID, settings) : undefined
   return {
     settings: {
-      ...(replacement.startsWith("@xccode/ai/providers/amazon-bedrock") ? bedrockSettings(kept, converse) : kept),
+      ...(replacement.startsWith("@xiaochuan/ai/providers/amazon-bedrock") ? bedrockSettings(kept, converse) : kept),
       ...(thinking === undefined ? {} : { thinking }),
     },
     ...(settings.headers === undefined ? {} : { headers: settings.headers }),
     ...(settings.extraBody === undefined ? {} : { body: settings.extraBody }),
     ...(converse ? bedrockRequest(modelID, settings) : {}),
-    ...(replacement === "@xccode/ai/providers/openrouter" ? openRouterRequest(settings) : {}),
+    ...(replacement === "@xiaochuan/ai/providers/openrouter" ? openRouterRequest(settings) : {}),
   }
 }
 

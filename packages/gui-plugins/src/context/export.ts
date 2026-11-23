@@ -1,4 +1,4 @@
-import type { XccodeClient, SessionInfo, SessionMessageInfo } from "@xccode/client/promise"
+import type { XiaochuanClient, SessionInfo, SessionMessageInfo } from "@xiaochuan/client/promise"
 
 export type SessionExportData = {
   info: SessionInfo
@@ -10,7 +10,7 @@ export const EXPORT_REQUEST_TIMEOUT_MS = 60_000
 
 export async function fetchSessionExport(input: {
   sessionID: string
-  api: Pick<XccodeClient, "session" | "message">
+  api: Pick<XiaochuanClient, "session" | "message">
   signal?: AbortSignal
 }): Promise<SessionExportData> {
   const signal = () =>

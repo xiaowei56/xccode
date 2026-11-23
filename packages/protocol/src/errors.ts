@@ -1,6 +1,6 @@
 import { Schema } from "effect"
-import { Skill } from "@xccode/schema/skill"
-import { Location } from "@xccode/schema/location"
+import { Skill } from "@xiaochuan/schema/skill"
+import { Location } from "@xiaochuan/schema/location"
 
 export class LocationNotFoundError extends Schema.TaggedError<LocationNotFoundError>()(
   "LocationNotFoundError",

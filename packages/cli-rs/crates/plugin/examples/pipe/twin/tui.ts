@@ -5,7 +5,7 @@ const CARDS = 6
 export default {
   id: "example.twin",
   setup(api: any) {
-    const carrier = api[Symbol.for("xccode.carrier")]
+    const carrier = api[Symbol.for("xiaochuan.carrier")]
     const values = Array.from({ length: CARDS }, () => 0)
     api.keymap.layer(() => ({
       commands: [

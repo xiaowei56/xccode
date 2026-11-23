@@ -5,7 +5,7 @@ use std::cell::{Cell, RefCell};
 use std::collections::{HashMap, HashSet};
 use std::ops::Range;
 
-use xccode_plugin_abi::v2::{AnchorAt, ListItem, Node, Source};
+use xiaochuan_plugin_abi::v2::{AnchorAt, ListItem, Node, Source};
 use opentui::prelude::*;
 
 use crate::behave::visited;

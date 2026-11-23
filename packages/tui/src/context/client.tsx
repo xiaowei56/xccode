@@ -1,5 +1,5 @@
-import type { XccodeClient, XccodeEvent } from "@xccode/client"
-import { createClientConnection, createPersistentPtyClient } from "@xccode/client/solid"
+import type { XiaochuanClient, XiaochuanEvent } from "@xiaochuan/client"
+import { createClientConnection, createPersistentPtyClient } from "@xiaochuan/client/solid"
 import { createGlobalEmitter } from "@solid-primitives/event-bus"
 import { onCleanup } from "solid-js"
 import { createSimpleContext } from "./helper"
@@ -7,11 +7,11 @@ import { createMediaCache } from "../util/media"
 import { useLog } from "./log"
 
 type ManagedService = {
-  reconnect: (signal: AbortSignal) => Promise<{ api: XccodeClient; url?: string; headers?: Record<string, string> }>
+  reconnect: (signal: AbortSignal) => Promise<{ api: XiaochuanClient; url?: string; headers?: Record<string, string> }>
   restart: () => Promise<void>
 }
 
-type ClientEventMap = { [Type in XccodeEvent["type"]]: Extract<XccodeEvent, { type: Type }> }
+type ClientEventMap = { [Type in XiaochuanEvent["type"]]: Extract<XiaochuanEvent, { type: Type }> }
 
 export const {
   use: useClient,
@@ -19,7 +19,7 @@ export const {
   context: ClientContext,
 } = createSimpleContext({
   name: "Client",
-  init: (props: { api: XccodeClient; url?: string; headers?: Record<string, string>; service?: ManagedService }) => {
+  init: (props: { api: XiaochuanClient; url?: string; headers?: Record<string, string>; service?: ManagedService }) => {
     const log = useLog({ component: "client" })
     const service = props.service
     const events = createGlobalEmitter<ClientEventMap>()

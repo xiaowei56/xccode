@@ -1,10 +1,10 @@
 import { describe, expect, test } from "bun:test"
 import path from "node:path"
-import { XCCODE_VERSION } from "../src/version"
-import type { FormFields } from "@xccode/client"
+import { XIAOCHUAN_VERSION } from "../src/version"
+import type { FormFields } from "@xiaochuan/client"
 
 const consoleForm = [
-  { type: "string", key: "server", hidden: true, format: "uri", default: "https://xccode.ai/console" },
+  { type: "string", key: "server", hidden: true, format: "uri", default: "https://xiaochuan.ai/console" },
 ] satisfies FormFields
 
 describe("auth command", () => {
@@ -27,15 +27,15 @@ describe("auth command", () => {
     expect(auth.stdout).toContain("switch the active account for an integration")
     expect(auth.stdout).not.toMatch(/^  connect\s/m)
     expect(list.exitCode).toBe(0)
-    expect(list.stdout).toContain("xccode auth list [flags]")
+    expect(list.stdout).toContain("xiaochuan auth list [flags]")
     expect(list.stdout).toContain("--format")
     expect(login.exitCode).toBe(0)
-    expect(login.stdout).toContain("xccode auth login [flags] [<target>]")
+    expect(login.stdout).toContain("xiaochuan auth login [flags] [<target>]")
     expect(login.stdout).toContain("Integration ID, name, or well-known provider URL")
     expect(login.stdout).toContain("--method")
     expect(login.stdout).toContain("--answer")
     expect(logout.exitCode).toBe(0)
-    expect(logout.stdout).toContain("xccode auth logout [flags] [<target>] [<credential>]")
+    expect(logout.stdout).toContain("xiaochuan auth logout [flags] [<target>] [<credential>]")
   })
 
   test("lists stored and environment connections", async () => {
@@ -75,15 +75,15 @@ describe("auth command", () => {
     expect(requests.indexOf("/api/model/default")).toBeLessThan(requests.indexOf("/api/integration"))
   })
 
-  test("lists Xccode Go before Zen and preserves the remaining integration order", async () => {
+  test("lists Xiaochuan Go before Zen and preserves the remaining integration order", async () => {
     using server = authServer((request, url) => {
       if (url.pathname === "/api/integration") {
         return Response.json(
           located(
             [
-              { id: "xccode", name: "Xccode Zen" },
+              { id: "xiaochuan", name: "Xiaochuan Zen" },
               { id: "anthropic", name: "Anthropic" },
-              { id: "xccode-go", name: "Xccode Go" },
+              { id: "xiaochuan-go", name: "Xiaochuan Go" },
             ].map((integration) => ({
               ...integration,
               methods: [],
@@ -102,7 +102,7 @@ describe("auth command", () => {
         .trim()
         .split("\n")
         .map((line) => line.split(/\s{2,}/)[0]),
-    ).toEqual(["Xccode Go", "Xccode Zen", "Anthropic"])
+    ).toEqual(["Xiaochuan Go", "Xiaochuan Zen", "Anthropic"])
   })
 
   test("runs command authentication without interactive input", async () => {
@@ -144,14 +144,14 @@ describe("auth command", () => {
   test.each([
     { id: "openai", method: "browser", form: undefined, args: [], answer: undefined },
     {
-      id: "xccode",
+      id: "xiaochuan",
       method: "device",
       form: consoleForm,
       args: [],
-      answer: { server: "https://xccode.ai/console" },
+      answer: { server: "https://xiaochuan.ai/console" },
     },
     {
-      id: "xccode",
+      id: "xiaochuan",
       method: "device",
       form: consoleForm,
       args: ["--answer", "server=https://staging.example.com/console"],
@@ -359,7 +359,7 @@ function authServer(fetch: (request: Request, url: URL) => Response | Promise<Re
 }
 
 function status() {
-  return Response.json({ version: XCCODE_VERSION, pid: process.pid, urls: [], paths: { tmp: "/tmp/xccode" } })
+  return Response.json({ version: XIAOCHUAN_VERSION, pid: process.pid, urls: [], paths: { tmp: "/tmp/xiaochuan" } })
 }
 
 function located<T>(data: T) {

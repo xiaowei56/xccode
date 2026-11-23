@@ -52,7 +52,7 @@ const opentuiSolid = exports("solid", {
   Portal,
   RendererContext: solid.createContext(),
   extend() {
-    throw new Error("extend is not supported by xccode-native's JS host")
+    throw new Error("extend is not supported by xiaochuan-native's JS host")
   },
 })
 
@@ -91,9 +91,9 @@ export const modules: Record<string, Record<string, unknown>> = {
     InputRenderable,
     isRenderable: (value: unknown) => value instanceof render.VNode,
   }),
-  "@xccode/plugin/tui": plugin,
-  "@xccode/plugin/rpc": { Rpc },
-  "@xccode/plugin/effect": {
+  "@xiaochuan/plugin/tui": plugin,
+  "@xiaochuan/plugin/rpc": { Rpc },
+  "@xiaochuan/plugin/effect": {
     Rpc,
     ...Object.fromEntries(
       [

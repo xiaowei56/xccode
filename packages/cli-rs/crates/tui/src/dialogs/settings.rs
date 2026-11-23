@@ -3,12 +3,12 @@
 use std::cell::Ref;
 use std::collections::VecDeque;
 
-use xccode_api::js::number_to_string;
-use xccode_local::cli_config::{CliConfig, Info, Permissions, Resolved, merge};
-use xccode_local::serial::Serial;
-use xccode_local::watch::Watch;
-use xccode_ui::select::{Choice, Detail, select};
-use xccode_ui::theme::ModeSetting;
+use xiaochuan_api::js::number_to_string;
+use xiaochuan_local::cli_config::{CliConfig, Info, Permissions, Resolved, merge};
+use xiaochuan_local::serial::Serial;
+use xiaochuan_local::watch::Watch;
+use xiaochuan_ui::select::{Choice, Detail, select};
+use xiaochuan_ui::theme::ModeSetting;
 use serde_json::Map;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -121,7 +121,7 @@ pub const SETTINGS: &[Setting] = &[
         "Appearance",
         &["theme", "name"],
         "Color theme used across the interface",
-        S("xccode"),
+        S("xiaochuan"),
         &[],
         &[],
         &["color scheme", "colors"],
@@ -614,15 +614,15 @@ fn apply(tui: &Tui, info: Info) {
     if changed {
         tui.theme_changed();
     }
-    xccode_ui::motion::set_running(&tui.app, xccode_ui::motion::enabled(info.animations));
+    xiaochuan_ui::motion::set_running(&tui.app, xiaochuan_ui::motion::enabled(info.animations));
     let leader = tui.settings.config().leader_timeout;
     tui.keymap.set_leader_timeout(leader);
     let keybinds = tui.settings.config().keybinds();
     if keybinds != before.keybinds() {
-        tui.keymap.set_keybinds(xccode_ui::keymap::Keybinds::resolve(&keybinds, !cfg!(windows)).unwrap_or_else(
+        tui.keymap.set_keybinds(xiaochuan_ui::keymap::Keybinds::resolve(&keybinds, !cfg!(windows)).unwrap_or_else(
             |error| {
                 log::warn!("invalid keybinds config: {error}");
-                xccode_ui::keymap::Keybinds::defaults()
+                xiaochuan_ui::keymap::Keybinds::defaults()
             },
         ));
     }
@@ -788,7 +788,7 @@ pub fn show(tui: &Tui, current: Option<&str>) {
 }
 
 /// Calls `refresh` after each config change while the dialog of `cx` is open.
-pub(crate) fn refresh_on_change(tui: &Tui, cx: Weak<xccode_ui::dialog::DialogCx>, refresh: impl Fn(&Tui) + 'static) {
+pub(crate) fn refresh_on_change(tui: &Tui, cx: Weak<xiaochuan_ui::dialog::DialogCx>, refresh: impl Fn(&Tui) + 'static) {
     if let Some(cx) = cx.upgrade() {
         cx.on_close(tui.settings.subscribe(refresh));
     }
@@ -804,9 +804,9 @@ pub fn install(tui: &Rc<Tui>) {
             .slash(slash)
     };
     let layer = KeymapLayer::global(vec![
-        command("xccode.settings", "Open settings", "settings", |tui| show(tui, None))
+        command("xiaochuan.settings", "Open settings", "settings", |tui| show(tui, None))
             .suggested(opentui::keymap::Condition::Always),
-        command("xccode.debug", "View debug info", "debug", super::debug::show),
+        command("xiaochuan.debug", "View debug info", "debug", super::debug::show),
     ]);
     match tui.keymap.layer(layer) {
         Ok(disposer) => tui.settings.layers.borrow_mut().push(disposer),

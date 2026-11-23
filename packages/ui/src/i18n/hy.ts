@@ -71,7 +71,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "Ավելացնել միավորներ",
   "dialog.usageExceeded.freeTier.title": "Ազատ սահմանաչափը հասել է",
   "dialog.usageExceeded.freeTier.description":
-    "Բաժանորդագրվեք Xccode Go-ին՝ բաց կոդով լավագույն մոդելներին հուսալի մուտք ունենալու համար՝ ամսական $10 արժեքով:",
+    "Բաժանորդագրվեք Xiaochuan Go-ին՝ բաց կոդով լավագույն մոդելներին հուսալի մուտք ունենալու համար՝ ամսական $10 արժեքով:",
   "dialog.usageExceeded.freeTier.actionLabel": "Բաժանորդագրվել",
   "ui.sessionTurn.status.delegating": "Պատվիրակում է աշխատանքը",
   "ui.sessionTurn.status.planning": "Հաջորդ քայլերի պլանավորում",
@@ -268,9 +268,9 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "Մոդելի բյուջեն սպառված է · այս մոդելը դադարեցված է մինչև վերակայումը",
   "ui.sessionTurn.budgetLimit.useFreeModel": "Օգտագործել անվճար մոդել",
   "ui.sessionTurn.budgetLimit.switchModel": "Փոխել մոդելը",
-  "ui.sessionTurn.goLimit.title": "Դուք հասել եք Xccode Go-ի օգտագործման սահմանաչափին։",
+  "ui.sessionTurn.goLimit.title": "Դուք հասել եք Xiaochuan Go-ի օգտագործման սահմանաչափին։",
   "ui.sessionTurn.goLimit.lineReset":
-    "Դուք հասել եք Xccode Go-ի օգտագործման սահմանաչափին։ Այն կվերակայվի {{time}}-ին։",
+    "Դուք հասել եք Xiaochuan Go-ի օգտագործման սահմանաչափին։ Այն կվերակայվի {{time}}-ին։",
   "dialog.usageExceeded.freeTier.reset": "Ձեր անվճար հաղորդագրությունները կվերակայվեն {{time}}-ին։",
   "ui.messagePart.compaction.queued": "Նիստի կոմպակտացումը հերթում է",
   "ui.messagePart.compaction.done": "Կոմպակտացված է",

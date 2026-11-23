@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@xiaochuan/client/promise"
 import { describe, expect, test } from "bun:test"
 import { turnMessages, turnSources } from "./sources"
 

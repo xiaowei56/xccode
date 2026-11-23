@@ -1,5 +1,5 @@
-import type { Plugin } from "@xccode/plugin/tui"
-import type { SessionMessageInfo } from "@xccode/client"
+import type { Plugin } from "@xiaochuan/plugin/tui"
+import type { SessionMessageInfo } from "@xiaochuan/client"
 import { useTerminalDimensions } from "@opentui/solid"
 import { createMemo, createSignal, For } from "solid-js"
 import { SidebarTodo } from "../../sidebar/todo"

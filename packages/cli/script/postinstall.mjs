@@ -11,8 +11,8 @@ const directory = path.dirname(fileURLToPath(import.meta.url))
 const require = createRequire(import.meta.url)
 const packageJson = JSON.parse(fs.readFileSync(path.join(directory, "package.json"), "utf8"))
 const command = Object.keys(packageJson.bin ?? {})[0]
-if (!command) throw new Error("Xccode package does not declare a binary")
-const sourceCommand = packageJson.xccodeSourceBinary ?? command
+if (!command) throw new Error("Xiaochuan package does not declare a binary")
+const sourceCommand = packageJson.xiaochuanSourceBinary ?? command
 
 const platform = { darwin: "darwin", linux: "linux", win32: "windows" }[os.platform()] ?? os.platform()
 const nodeArch = { x64: "x64", arm64: "arm64", arm: "arm" }[os.arch()] ?? os.arch()
@@ -27,7 +27,7 @@ const sourceBinary = platform === "windows" ? `${sourceCommand}.exe` : sourceCom
 const targetBinary = path.resolve(directory, packageJson.bin[command])
 const dependencies = packageJson.optionalDependencies ?? {}
 const base = Object.keys(dependencies).find((name) => name.endsWith(`-${platform}-${arch}`))
-if (!base) throw new Error(`Xccode does not provide a binary for ${platform}-${arch}`)
+if (!base) throw new Error(`Xiaochuan does not provide a binary for ${platform}-${arch}`)
 
 function supportsAvx2() {
   if (arch !== "x64") return false
@@ -134,7 +134,7 @@ function resolveBinary(name) {
 }
 
 function installPackage(name) {
-  const temp = fs.mkdtempSync(path.join(os.tmpdir(), "xccode-install-"))
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), "xiaochuan-install-"))
   try {
     const result = childProcess.spawnSync(
       npm[0],
@@ -181,7 +181,7 @@ function main() {
   }
 
   throw new Error(
-    `Failed to install Xccode. Try manually installing ${names.map((name) => JSON.stringify(name)).join(" or ")}.`,
+    `Failed to install Xiaochuan. Try manually installing ${names.map((name) => JSON.stringify(name)).join(" or ")}.`,
   )
 }
 

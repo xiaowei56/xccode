@@ -1,6 +1,6 @@
 import { For, Show } from "solid-js"
-import { Icon } from "@xccode/ui/icon"
-import type { IconName } from "@xccode/ui/icons/catalog"
+import { Icon } from "@xiaochuan/ui/icon"
+import type { IconName } from "@xiaochuan/ui/icons/catalog"
 import { useLanguage } from "@/runtime/i18n/language"
 import type { ModelUsageLabel } from "@/usage/model"
 import type { ModelSelection } from "./selection"

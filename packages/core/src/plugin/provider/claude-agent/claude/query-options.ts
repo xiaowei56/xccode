@@ -9,7 +9,7 @@ import type { PendingTools } from "../tools/pending.js"
 import { ToolServer } from "../tools/server.js"
 import type { ClaudeIO } from "./io.js"
 
-// Claude Code features that duplicate xccode's. xccode's version wins (specs/v2/claude-agent-provider.md, "Turned Off").
+// Claude Code features that duplicate xiaochuan's. xiaochuan's version wins (specs/v2/claude-agent-provider.md, "Turned Off").
 const ISOLATION_ENV = {
   CLAUDE_CODE_DISABLE_CLAUDE_MDS: "1",
   CLAUDE_CODE_DISABLE_AUTO_MEMORY: "1",
@@ -19,18 +19,18 @@ const ISOLATION_ENV = {
   CLAUDE_CODE_DISABLE_ADVISOR_TOOL: "1",
   CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK: "1",
   CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK: "1",
-  // Raised so xccode's own truncation applies instead
+  // Raised so xiaochuan's own truncation applies instead
   MAX_MCP_OUTPUT_TOKENS: "200000",
-  // Xccode changes the system prompt and tools mid-session (agent switches, instruction edits). Without this,
+  // Xiaochuan changes the system prompt and tools mid-session (agent switches, instruction edits). Without this,
   // Claude Code replays thinking bound to the old prompt and the API rejects the request.
   CLAUDE_CODE_POLISHED_DEWDROP: "drop",
   // The SDK's default `sdk-ts` label uses the 5-hour plan limit about 1.8x faster (anthropics/claude-code#97074)
-  CLAUDE_CODE_ENTRYPOINT: "xccode",
+  CLAUDE_CODE_ENTRYPOINT: "xiaochuan",
   // Skips OAuth, so the subscription would not be used
   CLAUDE_CODE_SIMPLE: undefined,
-  // A shell-level effort override would take precedence over Xccode's live effort settings.
+  // A shell-level effort override would take precedence over Xiaochuan's live effort settings.
   CLAUDE_CODE_EFFORT_LEVEL: undefined,
-  // Caps every Xccode tool call, which would fail subagents and permission prompts that run longer
+  // Caps every Xiaochuan tool call, which would fail subagents and permission prompts that run longer
   MCP_TOOL_TIMEOUT: undefined,
 }
 
@@ -76,7 +76,7 @@ export function configDirs(value: unknown) {
 // that to ~/.claude/.claude.json, which can hold an older model list, so the default folder is used by not naming it.
 export function withoutDefaultFolder(connection: Readonly<Record<string, string>>, io: ClaudeIO.Interface) {
   if (connection.CLAUDE_CONFIG_DIR !== path.join(os.homedir(), ".claude")) return connection
-  // With the variable already set for xccode, leaving it out would run that folder instead.
+  // With the variable already set for xiaochuan, leaving it out would run that folder instead.
   if (io.env().CLAUDE_CONFIG_DIR !== undefined) return connection
   const { CLAUDE_CONFIG_DIR: _, ...rest } = connection
   return rest
@@ -93,13 +93,13 @@ export function base(input: {
     env: { ...input.io.env(), ...input.connection, ...ISOLATION_ENV },
     settingSources: [],
     settings: { disableAllHooks: true },
-    // Without summaries, Xccode has no reasoning text to display
+    // Without summaries, Xiaochuan has no reasoning text to display
     thinking: { type: "adaptive", display: "summarized" },
     strictMcpConfig: true,
     skills: [],
     tools: [],
     permissionMode: "dontAsk",
-    allowedTools: ["mcp__xccode__*"],
+    allowedTools: ["mcp__xiaochuan__*"],
     verbatimPrompts: true,
   }
 }
@@ -133,7 +133,7 @@ export async function session(input: {
   if (input.maxOutputTokens !== undefined) {
     options.env = { ...options.env, CLAUDE_CODE_MAX_OUTPUT_TOKENS: String(input.maxOutputTokens) }
   }
-  if (input.tools.length > 0) options.mcpServers = { xccode: await ToolServer.make(input.tools, input.pending) }
+  if (input.tools.length > 0) options.mcpServers = { xiaochuan: await ToolServer.make(input.tools, input.pending) }
   if (input.resume !== undefined) {
     options.resume = input.resume
     return options

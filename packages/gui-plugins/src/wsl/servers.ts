@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto"
-import type { MainContext } from "@xccode/plugin/gui/main"
-import type { WslXccodeCheck, WslServerConfig } from "./contract"
+import type { MainContext } from "@xiaochuan/plugin/gui/main"
+import type { WslXiaochuanCheck, WslServerConfig } from "./contract"
 import {
   createWslMachineState,
   toServersState,
@@ -260,7 +260,7 @@ export function createWslServersController(options: WslServersControllerOptions)
       )
     },
 
-    installXccode(distro: string) {
+    installXiaochuan(distro: string) {
       return request((attempt) => ({ type: "update", distro, attempt }))
     },
 
@@ -292,7 +292,7 @@ function cliCheck(
   resolvedPath: string | null,
   version: string | null,
   expectedVersion: string,
-): WslXccodeCheck {
+): WslXiaochuanCheck {
   if (!resolvedPath) {
     return {
       distro,
@@ -300,7 +300,7 @@ function cliCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: t("error.xccodeMissing"),
+      error: t("error.xiaochuanMissing"),
     }
   }
 
@@ -311,7 +311,7 @@ function cliCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: t("error.xccodeCannotRun"),
+      error: t("error.xiaochuanCannotRun"),
     }
   }
 

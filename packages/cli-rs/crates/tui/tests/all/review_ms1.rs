@@ -5,9 +5,9 @@ use crate::support::{self, WAIT};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use xccode_api::memory::{Memory, Route as MemoryRoute};
-use xccode_api::transport::{BoxFuture, Request, Response, Transport};
-use xccode_tui::{Deps, Route, Tui};
+use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
+use xiaochuan_api::transport::{BoxFuture, Request, Response, Transport};
+use xiaochuan_tui::{Deps, Route, Tui};
 use opentui::testing::TestApp;
 use opentui::widget::Widget;
 use serde_json::{Value, json};

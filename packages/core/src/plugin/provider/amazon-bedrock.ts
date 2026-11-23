@@ -1,13 +1,13 @@
 import { Effect } from "effect"
 import path from "node:path"
-import { define } from "@xccode/plugin/effect/plugin"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
 import { Provider } from "../../provider.js"
 import { credentialSettings, metadataSettings } from "./credential-settings.js"
 
 // Ambient inputs the AWS default credential chain can turn into credentials
-// without any key stored in xccode. Mirrors the presence checks the AWS CLI
+// without any key stored in xiaochuan. Mirrors the presence checks the AWS CLI
 // and SDK use before consulting shared config.
 const CHAIN_ENV = [
   "AWS_PROFILE",
@@ -18,10 +18,10 @@ const CHAIN_ENV = [
 ]
 
 const isBedrock = (item: { readonly package: string }) =>
-  item.package.startsWith("@xccode/ai/providers/amazon-bedrock")
+  item.package.startsWith("@xiaochuan/ai/providers/amazon-bedrock")
 
 export const AmazonBedrockPlugin = define({
-  id: "xccode.provider.amazon.bedrock",
+  id: "xiaochuan.provider.amazon.bedrock",
   effect: Effect.fn(function* (ctx) {
     const fs = yield* FSUtil.Service
     const paths = [

@@ -72,7 +72,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "کریڈٹ شامل کرو",
   "dialog.usageExceeded.freeTier.title": "مفت حد پوری ہو گئی",
   "dialog.usageExceeded.freeTier.description":
-    "$10/مہینہ وچ بہترین اوپن سورس ماڈلاں تک بھروسے جوگی رسائی لئی Xccode Go دی رکنیت لوو۔",
+    "$10/مہینہ وچ بہترین اوپن سورس ماڈلاں تک بھروسے جوگی رسائی لئی Xiaochuan Go دی رکنیت لوو۔",
   "dialog.usageExceeded.freeTier.actionLabel": "سبسکرائب کرو",
   "ui.sessionTurn.status.delegating": "کم سونپیا جا رہیا اے",
   "ui.sessionTurn.status.planning": "اگلے قدماں دی ویونت بندی ہو رہی اے",
@@ -273,9 +273,9 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "ماڈل دا بجٹ پورا ہو گیا · ایہہ ماڈل ری سیٹ تک رُکیا اے",
   "ui.sessionTurn.budgetLimit.useFreeModel": "مفت ماڈل ورتو",
   "ui.sessionTurn.budgetLimit.switchModel": "ماڈل بدلو",
-  "ui.sessionTurn.goLimit.title": "تسیں Xccode Go دی ورتوں دی حد تک اپڑ گئے او۔",
+  "ui.sessionTurn.goLimit.title": "تسیں Xiaochuan Go دی ورتوں دی حد تک اپڑ گئے او۔",
   "ui.sessionTurn.goLimit.lineReset":
-    "تسیں Xccode Go دی ورتوں دی حد تک اپڑ گئے او۔ ایہہ ⁨{{time}}⁩ تے ری سیٹ ہووے گی۔",
+    "تسیں Xiaochuan Go دی ورتوں دی حد تک اپڑ گئے او۔ ایہہ ⁨{{time}}⁩ تے ری سیٹ ہووے گی۔",
   "dialog.usageExceeded.freeTier.reset": "تہاڈے مفت سنیہے ⁨{{time}}⁩ تے ری سیٹ ہون گے۔",
   "ui.messagePart.compaction.queued": "سیشن کمپیکشن قطار وچ اے",
   "ui.messagePart.compaction.done": "کمپیکٹ ہو گیا",

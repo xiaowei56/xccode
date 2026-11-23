@@ -21,11 +21,11 @@ import {
   type MarkdownCodeAction,
   type MarkdownCodeBlock,
   type MarkdownCodeBlocks,
-} from "@xccode/session-ui/context/markdown"
-import { SourcesProvider } from "@xccode/session-ui/context/sources"
-import { sourcesExperiment } from "@xccode/session-ui/sources/experiment"
-import { useTheme } from "@xccode/ui/theme/context"
-import type { DesktopTheme } from "@xccode/ui/theme/types"
+} from "@xiaochuan/session-ui/context/markdown"
+import { SourcesProvider } from "@xiaochuan/session-ui/context/sources"
+import { sourcesExperiment } from "@xiaochuan/session-ui/sources/experiment"
+import { useTheme } from "@xiaochuan/ui/theme/context"
+import type { DesktopTheme } from "@xiaochuan/ui/theme/types"
 import {
   CodeBlock,
   CodeBlockAction,
@@ -33,13 +33,13 @@ import {
   Theme,
   type CodeBlockProps,
   type MountedSession,
-} from "@xccode/plugin/gui"
-import { BuiltinAppLink, BuiltinSlot, type BuiltinSlotMap } from "@xccode/plugin/gui/builtin"
+} from "@xiaochuan/plugin/gui"
+import { BuiltinAppLink, BuiltinSlot, type BuiltinSlotMap } from "@xiaochuan/plugin/gui/builtin"
 import { usePlatform } from "@/runtime/platform/platform"
 import { useLanguage } from "@/runtime/i18n/language"
 import { showToast } from "@/shell/notifications/toast"
 import { appLinkRoute, createAppLinks } from "./app-links"
-import { PluginContext } from "@xccode/plugin/gui/host"
+import { PluginContext } from "@xiaochuan/plugin/gui/host"
 import { usePluginHost, type Item } from "./host"
 import { createLinkCheck } from "./link-check"
 import { webHref } from "./web-href"

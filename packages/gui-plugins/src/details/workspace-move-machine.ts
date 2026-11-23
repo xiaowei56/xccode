@@ -1,4 +1,4 @@
-import { containsDirectory, sameDirectory } from "@xccode/util/path"
+import { containsDirectory, sameDirectory } from "@xiaochuan/util/path"
 import { workspaceDirectories, type WorkspaceProject } from "./paths"
 
 /** How long `worktree.list` may run before the menu keeps the worktrees it already shows. */

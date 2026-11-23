@@ -1,11 +1,11 @@
 import { Show, createMemo, type ComponentProps, type JSX } from "solid-js"
-import { ProgressCircle } from "@xccode/ui/progress-circle"
-import { Button } from "@xccode/ui/button"
-import { Menu } from "@xccode/ui/menu"
-import { Tooltip } from "@xccode/ui/tooltip"
-import { useI18n } from "@xccode/ui/context/i18n"
-import { lastAssistantWithUsage } from "@xccode/client/solid"
-import { usePlugin, type MountedSession } from "@xccode/plugin/gui"
+import { ProgressCircle } from "@xiaochuan/ui/progress-circle"
+import { Button } from "@xiaochuan/ui/button"
+import { Menu } from "@xiaochuan/ui/menu"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { lastAssistantWithUsage } from "@xiaochuan/client/solid"
+import { usePlugin, type MountedSession } from "@xiaochuan/plugin/gui"
 import { catalogModel, syncCatalog } from "./catalog"
 
 export function SessionContextUsage(props: {
@@ -79,7 +79,7 @@ export function SessionContextUsage(props: {
     if (spent() > 0) return true
     const ref = info()?.model ?? messages().findLast((item) => item.type === "assistant")?.model
 
-    if (ref?.providerID === "xccode-go") return false
+    if (ref?.providerID === "xiaochuan-go") return false
     const model = ref ? catalogModel(props.session, ref)?.model : undefined
 
     if (!model) return true

@@ -1,9 +1,9 @@
 ---
 title: Eklentiler
-description: Xccode'u genişletmek için kendi eklentilerinizi yazın.
+description: Xiaochuan'u genişletmek için kendi eklentilerinizi yazın.
 ---
 
-Eklentiler, çeşitli olaylara bağlanarak ve davranışı özelleştirerek Xccode'u genişletmenize olanak tanır. Yeni özellikler eklemek, harici hizmetlerle entegrasyon sağlamak veya Xccode'un varsayılan davranışını değiştirmek için eklentiler oluşturabilirsiniz.
+Eklentiler, çeşitli olaylara bağlanarak ve davranışı özelleştirerek Xiaochuan'u genişletmenize olanak tanır. Yeni özellikler eklemek, harici hizmetlerle entegrasyon sağlamak veya Xiaochuan'un varsayılan davranışını değiştirmek için eklentiler oluşturabilirsiniz.
 
 Örnekler için topluluk tarafından oluşturulan [eklentilere](/docs/ecosystem#plugins) göz atın.
 
@@ -19,8 +19,8 @@ Eklentileri yüklemenin iki yolu vardır.
 
 JavaScript veya TypeScript dosyalarını eklenti dizinine yerleştirin.
 
-- `.xccode/plugins/` - Proje düzeyinde eklentiler
-- `~/.config/xccode/plugins/` - Genel eklentiler
+- `.xiaochuan/plugins/` - Proje düzeyinde eklentiler
+- `~/.config/xiaochuan/plugins/` - Genel eklentiler
 
 Bu dizinlerdeki dosyalar başlangıçta otomatik olarak yüklenir.
 
@@ -30,10 +30,10 @@ Bu dizinlerdeki dosyalar başlangıçta otomatik olarak yüklenir.
 
 Yapılandırma dosyanızda npm paketlerini belirtin.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
-  "plugin": ["xccode-helicone-session", "xccode-wakatime", "@my-org/custom-plugin"]
+  "$schema": "https://xiaochuan.ai/config.json",
+  "plugin": ["xiaochuan-helicone-session", "xiaochuan-wakatime", "@my-org/custom-plugin"]
 }
 ```
 
@@ -45,7 +45,7 @@ Hem normal hem de kapsamlı npm paketleri desteklenir.
 
 ### Eklentiler nasıl kurulur?
 
-**npm eklentileri** başlangıçta Bun kullanılarak otomatik olarak yüklenir. Paketler ve bağımlılıkları `~/.cache/xccode/node_modules/`'da önbelleğe alınır.
+**npm eklentileri** başlangıçta Bun kullanılarak otomatik olarak yüklenir. Paketler ve bağımlılıkları `~/.cache/xiaochuan/node_modules/`'da önbelleğe alınır.
 
 **Yerel eklentiler** doğrudan eklenti dizininden yüklenir. Harici paketleri kullanmak için, sisteminizin dizininde bir `package.json` oluşturmanız (bkz. [Bağımlılıklar](#dependencies)) veya eklentiyi npm ve [yapılandırmanıza eklemeniz](/docs/config#plugins) gerekir.
 
@@ -55,10 +55,10 @@ Hem normal hem de kapsamlı npm paketleri desteklenir.
 
 Eklentiler tüm kaynaklardan yüklenir ve tüm kancalar sırayla çalışır. Yükleme sırası şöyledir:
 
-1. Global config (`~/.config/xccode/xccode.json`)
-2. Project config (`xccode.json`)
-3. Global eklenti dizini (`~/.config/xccode/plugins/`)
-4. Proje eklenti dizini (`.xccode/plugins/`)
+1. Global config (`~/.config/xiaochuan/xiaochuan.json`)
+2. Project config (`xiaochuan.json`)
+3. Global eklenti dizini (`~/.config/xiaochuan/plugins/`)
+4. Proje eklenti dizini (`.xiaochuan/plugins/`)
 
 Aynı ad ve sürüme sahip yinelenen npm paketleri bir kez yüklenir. Ancak benzer adlara sahip bir yerel eklenti ve bir npm eklentisinin her ikisi de ayrı ayrı yüklenir.
 
@@ -74,7 +74,7 @@ Eklenti, bir veya daha fazla eklenti işlevini dışa aktaran bir **JavaScript/T
 
 Yerel eklentiler ve özel araçlar harici npm paketlerini kullanabilir. İhtiyacınız olan bağımlılıkları içeren config dizininize bir `package.json` ekleyin.
 
-```json title=".xccode/package.json"
+```json title=".xiaochuan/package.json"
 {
   "dependencies": {
     "shescape": "^2.1.0"
@@ -82,9 +82,9 @@ Yerel eklentiler ve özel araçlar harici npm paketlerini kullanabilir. İhtiyac
 }
 ```
 
-Xccode bunları yüklemek için başlangıçta `bun install` komutunu çalıştırır. Eklentileriniz ve araçlarınız daha sonra bunları içe aktarabilir.
+Xiaochuan bunları yüklemek için başlangıçta `bun install` komutunu çalıştırır. Eklentileriniz ve araçlarınız daha sonra bunları içe aktarabilir.
 
-```ts title=".xccode/plugins/my-plugin.ts"
+```ts title=".xiaochuan/plugins/my-plugin.ts"
 import { escape } from "shescape"
 
 export const MyPlugin = async (ctx) => {
@@ -102,7 +102,7 @@ export const MyPlugin = async (ctx) => {
 
 ### Temel yapı
 
-```js title=".xccode/plugins/example.js"
+```js title=".xiaochuan/plugins/example.js"
 export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
   console.log("Plugin initialized!")
 
@@ -117,7 +117,7 @@ Eklenti işlevi şunları alır:
 - `project`: Mevcut proje bilgisi.
 - `directory`: Güncel çalışma dizini.
 - `worktree`: Git çalışma ağacı yolu.
-- `client`: Yapay zeka ile etkileşim kurmak için bir Xccode SDK istemcisi.
+- `client`: Yapay zeka ile etkileşim kurmak için bir Xiaochuan SDK istemcisi.
 - `$`: Bun'un komutları yürütmek için kullandığı [shell API](https://bun.com/docs/runtime/shell).
 
 ---
@@ -127,7 +127,7 @@ Eklenti işlevi şunları alır:
 TypeScript eklentileri için türleri eklenti paketinden içe aktarabilirsiniz:
 
 ```ts title="my-plugin.ts" {1}
-import type { Plugin } from "@xccode-ai/plugin"
+import type { Plugin } from "@xiaochuan-ai/plugin"
 
 export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree }) => {
   return {
@@ -206,7 +206,7 @@ Eklentiler aşağıdaki Örnekler bölümünde görüldüğü gibi etkinliklere 
 
 ## Örnekler
 
-Xccode'u genişletmek için kullanabileceğiniz bazı eklenti örneklerini burada bulabilirsiniz.
+Xiaochuan'u genişletmek için kullanabileceğiniz bazı eklenti örneklerini burada bulabilirsiniz.
 
 ---
 
@@ -214,13 +214,13 @@ Xccode'u genişletmek için kullanabileceğiniz bazı eklenti örneklerini burad
 
 Belirli olaylar meydana geldiğinde bildirim gönderin:
 
-```js title=".xccode/plugins/notification.js"
+```js title=".xiaochuan/plugins/notification.js"
 export const NotificationPlugin = async ({ project, client, $, directory, worktree }) => {
   return {
     event: async ({ event }) => {
       // Send notification on session completion
       if (event.type === "session.idle") {
-        await $`osascript -e 'display notification "Session completed!" with title "xccode"'`
+        await $`osascript -e 'display notification "Session completed!" with title "xiaochuan"'`
       }
     },
   }
@@ -230,16 +230,16 @@ export const NotificationPlugin = async ({ project, client, $, directory, worktr
 macOS'ta AppleScript'i çalıştırmak için `osascript` kullanıyoruz. Burada bildirim göndermek için kullanıyoruz.
 
 :::note
-Xccode masaüstü uygulamasını kullanıyorsanız yanıt hazır olduğunda veya oturum hataları oluştuğunda otomatik olarak sistem bildirimleri gönderebilir.
+Xiaochuan masaüstü uygulamasını kullanıyorsanız yanıt hazır olduğunda veya oturum hataları oluştuğunda otomatik olarak sistem bildirimleri gönderebilir.
 :::
 
 ---
 
 ### .env Koruması
 
-Xccode'un `.env` dosyalarını okumasını önleyin:
+Xiaochuan'un `.env` dosyalarını okumasını önleyin:
 
-```javascript title=".xccode/plugins/env-protection.js"
+```javascript title=".xiaochuan/plugins/env-protection.js"
 export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
   return {
     "tool.execute.before": async (input, output) => {
@@ -257,7 +257,7 @@ export const EnvProtection = async ({ project, client, $, directory, worktree })
 
 Ortam değişkenlerini tüm kabuk yürütmeye (AI araçları ve kullanıcı terminalleri) enjekte edin:
 
-```javascript title=".xccode/plugins/inject-env.js"
+```javascript title=".xiaochuan/plugins/inject-env.js"
 export const InjectEnvPlugin = async () => {
   return {
     "shell.env": async (input, output) => {
@@ -272,10 +272,10 @@ export const InjectEnvPlugin = async () => {
 
 ### Özel araçlar
 
-Eklentiler ayrıca Xccode'a özel araçlar da ekleyebilir:
+Eklentiler ayrıca Xiaochuan'a özel araçlar da ekleyebilir:
 
-```ts title=".xccode/plugins/custom-tools.ts"
-import { type Plugin, tool } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/plugins/custom-tools.ts"
+import { type Plugin, tool } from "@xiaochuan-ai/plugin"
 
 export const CustomToolsPlugin: Plugin = async (ctx) => {
   return {
@@ -295,13 +295,13 @@ export const CustomToolsPlugin: Plugin = async (ctx) => {
 }
 ```
 
-`tool` yardımcısı, Xccode'un çağırabileceği özel bir araç oluşturur. Bir Zod şeması işlevini alır ve aşağıdakileri içeren bir araç tanımı döndürür:
+`tool` yardımcısı, Xiaochuan'un çağırabileceği özel bir araç oluşturur. Bir Zod şeması işlevini alır ve aşağıdakileri içeren bir araç tanımı döndürür:
 
 - `description`: Araç ne yapar?
 - `args`: Aracın argümanları için Zod şeması
 - `execute`: Araç çağrıldığında çalışan fonksiyon
 
-Özel araçlarınız, yerleşik araçların yanı sıra Xccode'a da hazır olacaktır.
+Özel araçlarınız, yerleşik araçların yanı sıra Xiaochuan'a da hazır olacaktır.
 
 :::note
 Eğer bir eklenti aracı yerleşik bir araçla aynı adı kullanırsa, eklenti aracı öncelik kazanır.
@@ -313,7 +313,7 @@ Eğer bir eklenti aracı yerleşik bir araçla aynı adı kullanırsa, eklenti a
 
 Yapılandırılmış günlük kaydı için `console.log` yerine `client.app.log()` kullanın:
 
-```ts title=".xccode/plugins/my-plugin.ts"
+```ts title=".xiaochuan/plugins/my-plugin.ts"
 export const MyPlugin = async ({ client }) => {
   await client.app.log({
     body: {
@@ -334,8 +334,8 @@ Seviyeler: `debug`, `info`, `warn`, `error`. Ayrıntılar için [SDK belgelerine
 
 Bir oturum sıkıştırıldığında içerilen bağlamı özelleştirin:
 
-```ts title=".xccode/plugins/compaction.ts"
-import type { Plugin } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/plugins/compaction.ts"
+import type { Plugin } from "@xiaochuan-ai/plugin"
 
 export const CompactionPlugin: Plugin = async (ctx) => {
   return {
@@ -358,8 +358,8 @@ Include any state that should persist across compaction:
 
 Ayrıca `output.prompt` ayarını yaparak sıkıştırma istemini tamamen değiştirebilirsiniz:
 
-```ts title=".xccode/plugins/custom-compaction.ts"
-import type { Plugin } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/plugins/custom-compaction.ts"
+import type { Plugin } from "@xiaochuan-ai/plugin"
 
 export const CustomCompactionPlugin: Plugin = async (ctx) => {
   return {

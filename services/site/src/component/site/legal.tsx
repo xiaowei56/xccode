@@ -44,7 +44,7 @@ import { inHistory, pinnedScroll, revealTab } from "./legal-tabs"
 import { staticRender } from "~/lib/static-render"
 
 const feed = "/legal/feed.xml"
-const feedTitle = "Xccode legal updates"
+const feedTitle = "Xiaochuan legal updates"
 
 /**
  * A legal document in the docs-style layout: the document in the center and a right sidebar with
@@ -628,7 +628,7 @@ function LegalHistory(props: { document: LegalDocumentContent; onBack?: () => vo
       </Show>
       <h2>All versions</h2>
       <p>
-        Each version changed the text. The documents live in Xccode's public repository, so every change has a diff.
+        Each version changed the text. The documents live in Xiaochuan's public repository, so every change has a diff.
       </p>
       <ol data-slot="versions">
         <For each={versions}>
@@ -761,9 +761,9 @@ export function LegalHub(props: {
   const i18n = useI18n()
   const language = useLanguage()
   const markdown = useMarkdown("/legal", props.markdown)
-  const title = "Xccode | Privacy policy, terms and legal updates"
+  const title = "Xiaochuan | Privacy policy, terms and legal updates"
   const description =
-    "Every Xccode legal document in one place, including the Privacy Policy and the Terms of Use, with their dates, version history and a feed of changes."
+    "Every Xiaochuan legal document in one place, including the Privacy Policy and the Terms of Use, with their dates, version history and a feed of changes."
   const style = () => siteSettings.legalHubStyle
   // Group headings only help a longer list: they show once more than one group has documents and
   // there are more than three, so two documents read as one plain list.
@@ -831,7 +831,7 @@ export function LegalHub(props: {
       />
       <section data-component="hero" lang="en" dir="ltr">
         <PageTitle title="Legal" />
-        <p>The legal documents for the Xccode website and hosted services.</p>
+        <p>The legal documents for the Xiaochuan website and hosted services.</p>
       </section>
       <Show when={language.locale() !== "en"}>
         <p data-component="legal-notice">{`${i18n.t("legal.englishOnly")} ${i18n.t("legal.englishGoverns")}`}</p>
@@ -859,7 +859,7 @@ export function LegalHub(props: {
             <a href={language.route("/brand")}>Brand and trademark guidelines</a>
           </li>
           <li>
-            <a href="https://github.com/xiaowei56/xccode/blob/dev/LICENSE" target="_blank" rel="noopener">
+            <a href="https://github.com/xiaowei56/xiaochuan/blob/dev/LICENSE" target="_blank" rel="noopener">
               Open source license (MIT)
               <ExternalArrow />
               <NewTab />

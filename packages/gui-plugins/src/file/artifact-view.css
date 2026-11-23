@@ -1,7 +1,7 @@
-@import "@xccode/ui/document-surface.css";
+@import "@xiaochuan/ui/document-surface.css";
 
 [data-slot="artifact-view"] {
-  --xccode-diffs-bg: var(--v2-background-bg-layer-01);
+  --xiaochuan-diffs-bg: var(--v2-background-bg-layer-01);
   container-type: inline-size;
   background-color: var(--v2-background-bg-layer-01);
 }

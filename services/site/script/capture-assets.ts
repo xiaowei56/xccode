@@ -1,10 +1,10 @@
 #!/usr/bin/env bun
 // Captures the official product screenshots from the real product with demo data, in light and dark,
-// at 2x, and writes a manifest (Xccode version, date, size and hash of each file) next to them.
+// at 2x, and writes a manifest (Xiaochuan version, date, size and hash of each file) next to them.
 // See script/assets/README.md. Run from packages/console/app:
 //   bun script/capture-assets.ts [--out ../../../../fresh-assets] [--surface terminal] [--surface terminal-film]
-// Needs: xccode (or XCCODE_BIN), vhs, bun, git, zip. Only the terminal surfaces are automated so far.
-// Track the TUI on dev: XCCODE_BIN=<a build of origin/dev's packages/cli> (bun run script/build.ts
+// Needs: xiaochuan (or XIAOCHUAN_BIN), vhs, bun, git, zip. Only the terminal surfaces are automated so far.
+// Track the TUI on dev: XIAOCHUAN_BIN=<a build of origin/dev's packages/cli> (bun run script/build.ts
 // --single), plus --experiment for any TUI design behind a flag there.
 // terminal-film records the same run as video at the product video sizes, with a fixed frame (no camera),
 // for the locked-off product video cuts (see product-videos/cinematic next to the checkout).
@@ -26,12 +26,12 @@ const args = parseArgs({
     // TUI experiments to turn on in the capture's cli.json, e.g. --experiment new-designs (the
     // muted-blue dialogs with the left key line on dev).
     experiment: { type: "string", multiple: true, default: [] },
-    // The TUI theme. "xccode2" is the new-designs theme (offered only with that experiment on).
-    theme: { type: "string", default: "xccode" },
+    // The TUI theme. "xiaochuan2" is the new-designs theme (offered only with that experiment on).
+    theme: { type: "string", default: "xiaochuan" },
   },
 }).values
 const out = path.resolve(args.out)
-const xccode = process.env.XCCODE_BIN ?? "xccode"
+const xiaochuan = process.env.XIAOCHUAN_BIN ?? "xiaochuan"
 const modes = ["dark", "light"] as const
 
 // Logical window 1600x1000, rendered at 2x.
@@ -53,7 +53,7 @@ const films = [
 type Asset = { surface: string; id: string; mode: string; file: string; width?: number; height?: number }
 
 await mkdir(out, { recursive: true })
-const version = (await $`${xccode} --version`.text()).trim().replace(/^xccode\s+/, "")
+const version = (await $`${xiaochuan} --version`.text()).trim().replace(/^xiaochuan\s+/, "")
 const assets = (
   await Array.fromAsync(args.surface, (surface) => {
     const capture = surfaces[surface]
@@ -64,7 +64,7 @@ const assets = (
 
 const manifest = {
   schema: 1,
-  xccodeVersion: version.replace(/^v/, ""),
+  xiaochuanVersion: version.replace(/^v/, ""),
   capturedAt: new Date().toISOString(),
   generator: {
     script: "packages/console/app/script/capture-assets.ts",
@@ -92,12 +92,12 @@ const manifest = {
 await Bun.write(path.join(out, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n")
 await Promise.all(
   args.surface.map(async (surface) => {
-    await rm(path.join(out, `xccode-${surface}-screenshots.zip`), { force: true })
+    await rm(path.join(out, `xiaochuan-${surface}-screenshots.zip`), { force: true })
     if (surface === "terminal-film") return
-    await $`zip -q -X -j xccode-${surface}-screenshots.zip ${surface}/*.png manifest.json`.cwd(out)
+    await $`zip -q -X -j xiaochuan-${surface}-screenshots.zip ${surface}/*.png manifest.json`.cwd(out)
   }),
 )
-console.log(`Captured ${manifest.assets.length} files from Xccode ${manifest.xccodeVersion} into ${out}`)
+console.log(`Captured ${manifest.assets.length} files from Xiaochuan ${manifest.xiaochuanVersion} into ${out}`)
 
 // Terminal: the real TUI in VHS (ttyd + headless Chrome), with an isolated HOME, a fixture repo and the
 // scripted model. Three beats per mode: the home screen with the prompt typed, the diff with the
@@ -176,7 +176,7 @@ function filmTape(home: string, film: (typeof films)[number], file: string) {
     `Set CursorBlink false`,
     `Set TypingSpeed 55ms`,
     `Hide`,
-    `Type "export ${env} && cd ~/my-app && clear && ${xccode} --standalone"`,
+    `Type "export ${env} && cd ~/my-app && clear && ${xiaochuan} --standalone"`,
     `Enter`,
     `Wait+Screen@60s /Claude Opus 5.5/`,
     `Sleep 1200ms`,
@@ -197,8 +197,8 @@ function filmTape(home: string, film: (typeof films)[number], file: string) {
           `Sleep 700ms`,
           `Enter`,
           `Sleep 1500ms`,
-          // Below xccode2 in the list is "orng", the old orange: step past it in one burst.
-          ...(args.theme === "xccode2" ? [`Down@10ms 2`, `Sleep 900ms`] : ["Down", "Sleep 900ms"]),
+          // Below xiaochuan2 in the list is "orng", the old orange: step past it in one burst.
+          ...(args.theme === "xiaochuan2" ? [`Down@10ms 2`, `Sleep 900ms`] : ["Down", "Sleep 900ms"]),
           ...Array(5).fill(["Down", "Sleep 900ms"]).flat(),
           `Sleep 600ms`,
         ]
@@ -223,7 +223,7 @@ function terminalTape(home: string, mode: (typeof modes)[number], file: (id: str
     `Set CursorBlink false`,
     `Set TypingSpeed 15ms`,
     `Hide`,
-    `Type "export ${env} && cd ~/my-app && clear && ${xccode} --standalone"`,
+    `Type "export ${env} && cd ~/my-app && clear && ${xiaochuan} --standalone"`,
     `Enter`,
     `Wait+Screen@60s /Claude Opus 5.5/`,
     `Sleep 1500ms`,
@@ -255,7 +255,7 @@ function isolatedEnv(home: string) {
     PS1: "$ ",
     TERM: "xterm-256color",
     COLORTERM: "truecolor",
-    XCCODE_DISABLE_AUTOUPDATE: "1",
+    XIAOCHUAN_DISABLE_AUTOUPDATE: "1",
     BASH_SILENCE_DEPRECATION_WARNING: "1",
     TZ: "UTC",
     LANG: "en_US.UTF-8",
@@ -265,15 +265,15 @@ function isolatedEnv(home: string) {
 async function writeTerminalFixture(home: string, mode: string, port: number) {
   const repo = path.join(home, "my-app")
   const files: Record<string, string> = {
-    ".config/xccode/xccode.json": JSON.stringify(
+    ".config/xiaochuan/xiaochuan.json": JSON.stringify(
       {
-        $schema: "https://xccode.ai/config.json",
+        $schema: "https://xiaochuan.ai/config.json",
         autoupdate: false,
         model: "demo/claude-opus-5-5",
         providers: {
           demo: {
-            name: "Xccode",
-            package: "@xccode/ai/providers/openai-compatible",
+            name: "Xiaochuan",
+            package: "@xiaochuan/ai/providers/openai-compatible",
             settings: { baseURL: `http://127.0.0.1:${port}/v1`, apiKey: "demo" },
             models: { "claude-opus-5-5": { name: "Claude Opus 5.5" } },
           },
@@ -282,9 +282,9 @@ async function writeTerminalFixture(home: string, mode: string, port: number) {
       null,
       2,
     ),
-    ".config/xccode/cli.json": JSON.stringify(
+    ".config/xiaochuan/cli.json": JSON.stringify(
       {
-        $schema: "https://xccode.ai/v2/cli.json",
+        $schema: "https://xiaochuan.ai/v2/cli.json",
         theme: { name: args.theme, mode },
         ...(args.experiment.length
           ? { experimental: Object.fromEntries(args.experiment.map((name) => [name, true])) }
@@ -294,11 +294,11 @@ async function writeTerminalFixture(home: string, mode: string, port: number) {
       2,
     ),
     // Dismisses the sidebar's "Getting started" card (it shows while no real provider is connected).
-    ".local/state/xccode/latest/tui/plugin.xccode.sidebar.footer.getting-started.json": JSON.stringify({
+    ".local/state/xiaochuan/latest/tui/plugin.xiaochuan.sidebar.footer.getting-started.json": JSON.stringify({
       dismissed: true,
     }),
-    "my-app/xccode.json": JSON.stringify({
-      $schema: "https://xccode.ai/config.json",
+    "my-app/xiaochuan.json": JSON.stringify({
+      $schema: "https://xiaochuan.ai/config.json",
       permissions: [{ action: "shell", resource: "*", effect: "ask" }],
     }),
     "my-app/AGENTS.md": "- Keep changes small and focused.\n- Run `bun test` once, after editing.\n",

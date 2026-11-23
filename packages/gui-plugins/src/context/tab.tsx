@@ -1,18 +1,18 @@
 import { createMemo, createSignal, on, onCleanup, For, Show } from "solid-js"
 import type { JSX } from "solid-js"
 import { makeEventListener } from "@solid-primitives/event-listener"
-import { checksum } from "@xccode/util/encode"
-import { Icon } from "@xccode/ui/icon"
-import { Button } from "@xccode/ui/button"
-import { Loader } from "@xccode/ui/loader"
-import { Accordion } from "@xccode/ui/accordion"
-import { StickyAccordionHeader } from "@xccode/ui/sticky-accordion-header"
-import { showToast } from "@xccode/ui/toast"
-import { useI18n } from "@xccode/ui/context/i18n"
-import { File } from "@xccode/session-ui/file"
-import type { SessionMessageInfo } from "@xccode/client/promise"
-import { lastAssistantWithUsage } from "@xccode/client/solid"
-import { createKeyed, usePlugin, type MountedSession } from "@xccode/plugin/gui"
+import { checksum } from "@xiaochuan/util/encode"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Button } from "@xiaochuan/ui/button"
+import { Loader } from "@xiaochuan/ui/loader"
+import { Accordion } from "@xiaochuan/ui/accordion"
+import { StickyAccordionHeader } from "@xiaochuan/ui/sticky-accordion-header"
+import { showToast } from "@xiaochuan/ui/toast"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { File } from "@xiaochuan/session-ui/file"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
+import { lastAssistantWithUsage } from "@xiaochuan/client/solid"
+import { createKeyed, usePlugin, type MountedSession } from "@xiaochuan/plugin/gui"
 import { catalogModel, syncCatalog } from "./catalog"
 import { fetchSessionExport, sessionExportFilename } from "./export"
 import { createSessionContextFormatter } from "./format"
@@ -149,7 +149,7 @@ export default function SessionContextTab(props: { session: MountedSession }) {
     if (spent === 0) {
       const ref = info()?.model ?? messages().findLast((item) => item.type === "assistant")?.model
 
-      if (ref?.providerID === "xccode-go") return
+      if (ref?.providerID === "xiaochuan-go") return
     }
 
     return usd().format(spent)

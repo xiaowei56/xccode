@@ -1,20 +1,20 @@
 import { describe, expect, test } from "bun:test"
 import { SqliteClient } from "@effect/sql-sqlite-bun"
-import { EffectDrizzleSqlite } from "@xccode/core/database/drizzle"
-import { Database } from "@xccode/core/database/database"
-import { DatabaseMigration } from "@xccode/core/database/migration"
-import { V1Migration } from "@xccode/core/database/v1-migration"
-import { SessionMessage } from "@xccode/core/session/message"
-import { SessionSchema } from "@xccode/core/session/schema"
-import { SessionTable } from "@xccode/core/session/sql"
-import { Project } from "@xccode/core/project"
-import { Agent } from "@xccode/schema/agent"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { AbsolutePath } from "@xccode/core/schema"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
+import { EffectDrizzleSqlite } from "@xiaochuan/core/database/drizzle"
+import { Database } from "@xiaochuan/core/database/database"
+import { DatabaseMigration } from "@xiaochuan/core/database/migration"
+import { V1Migration } from "@xiaochuan/core/database/v1-migration"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { SessionSchema } from "@xiaochuan/core/session/schema"
+import { SessionTable } from "@xiaochuan/core/session/sql"
+import { Project } from "@xiaochuan/core/project"
+import { Agent } from "@xiaochuan/schema/agent"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
 import { Effect, Fiber, Layer, Logger, Schedule, Schema, Scope } from "effect"
 import { eq, sql } from "drizzle-orm"
 import type { SqlClient } from "effect/sql/SqlClient"
@@ -944,7 +944,7 @@ describe("V1Migration database workflow", () => {
 
   test("imports previous V2 sessions and messages containing apostrophes", async () => {
     await using tmp = await tmpdir()
-    const filename = path.join(tmp.path, "xccode-next.db")
+    const filename = path.join(tmp.path, "xiaochuan-next.db")
     const sqlite = await import("bun:sqlite")
     const source = new sqlite.Database(filename)
     source.run(`
@@ -1062,7 +1062,7 @@ describe("V1Migration database workflow", () => {
 
   test("imports previous V2 databases missing newer nullable columns", async () => {
     await using tmp = await tmpdir()
-    const filename = path.join(tmp.path, "xccode-next.db")
+    const filename = path.join(tmp.path, "xiaochuan-next.db")
     const sqlite = await import("bun:sqlite")
     const source = new sqlite.Database(filename)
     source.run(`

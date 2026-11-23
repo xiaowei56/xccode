@@ -1,5 +1,5 @@
-import type { UiI18n } from "@xccode/ui/context/i18n"
-import { getFilename } from "@xccode/util/path"
+import type { UiI18n } from "@xiaochuan/ui/context/i18n"
+import { getFilename } from "@xiaochuan/util/path"
 import { factsOf, summarize, type FactMode, type FactPart } from "../../timeline/facts"
 import { launchKeys, verbKeys, workKey } from "../events"
 import type { ActivityGroupPart } from "./context-group"

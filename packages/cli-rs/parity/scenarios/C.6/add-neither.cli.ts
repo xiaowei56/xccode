@@ -5,5 +5,5 @@ import { defineCli } from "../../cli/run"
 export default defineCli({
   stderrLines: 1,
   args: ["mcp", "add", "x"],
-  collect: ["work/xccode.json"],
+  collect: ["work/xiaochuan.json"],
 })

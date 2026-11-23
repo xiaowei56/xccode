@@ -1,10 +1,10 @@
 import { Effect } from "effect"
-import { Xccode as EffectXccode, type AppApi as EffectApi } from "../src/effect"
-import type { Session } from "@xccode/schema/session"
+import { Xiaochuan as EffectXiaochuan, type AppApi as EffectApi } from "../src/effect"
+import type { Session } from "@xiaochuan/schema/session"
 import type { DiscoverOptions } from "../src/service"
 
-type EffectClient = Effect.Success<ReturnType<typeof EffectXccode.make>>
-type PromiseClient = ReturnType<typeof import("../src/promise").Xccode.make>
+type EffectClient = Effect.Success<ReturnType<typeof EffectXiaochuan.make>>
+type PromiseClient = ReturnType<typeof import("../src/promise").Xiaochuan.make>
 
 declare const effectClient: EffectClient
 declare const promiseClient: PromiseClient

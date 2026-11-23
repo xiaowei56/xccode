@@ -1,5 +1,5 @@
-import { Location } from "@xccode/schema/location"
-import { Plugin } from "@xccode/schema/plugin"
+import { Location } from "@xiaochuan/schema/location"
+import { Plugin } from "@xiaochuan/schema/plugin"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiSchema, OpenApi } from "effect/http-api"
 import { InvalidRequestError, PluginNotFoundError, ServiceUnavailableError } from "../errors.js"

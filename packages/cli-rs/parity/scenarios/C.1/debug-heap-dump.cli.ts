@@ -10,7 +10,7 @@ export default defineCli({
         method: "POST",
         path: "/api/debug/heap-dump",
         json: {
-          path: "/var/log/xccode/heap-1.heapsnapshot",
+          path: "/var/log/xiaochuan/heap-1.heapsnapshot",
           pid: 42,
           memory: { rss: 1, heapTotal: 2, heapUsed: 3, external: 4, arrayBuffers: 5 },
         },

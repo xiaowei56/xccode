@@ -11,7 +11,7 @@ export interface Interface {
   ) => Effect.Effect<EmbeddingResponse, AIError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/AI/EmbeddingClient") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/AI/EmbeddingClient") {}
 
 export const generate = <Options extends EmbeddingOptions>(
   request: EmbeddingRequest<EmbeddingModel<Options>>,

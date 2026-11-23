@@ -1,5 +1,5 @@
-import { checksum } from "@xccode/util/encode"
-import { parseSmallMarkdown } from "@xccode/ui/context/marked-base"
+import { checksum } from "@xiaochuan/util/encode"
+import { parseSmallMarkdown } from "@xiaochuan/ui/context/marked-base"
 import DOMPurify from "dompurify"
 import {
   INITIAL_MARKDOWN_CACHE_STATE,

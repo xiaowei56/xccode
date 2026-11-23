@@ -1,7 +1,7 @@
 import { buildLocationServiceMap } from "../location-services.js"
 import { LocationServiceMap } from "../location-service-map.js"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { Effect, Layer, RcMap } from "effect"
 import { Instance } from "../instance/service.js"
 

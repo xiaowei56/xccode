@@ -173,7 +173,7 @@ pub(crate) fn install_root(dir: &Path) -> Option<PathBuf> {
 /// `package.json` and lockfile.
 fn install_sha256(tree: &str, root: &Path) -> Result<String, String> {
     let mut context = ring::digest::Context::new(&ring::digest::SHA256);
-    context.update(b"xccode-ts-package\0");
+    context.update(b"xiaochuan-ts-package\0");
     context.update(tree.as_bytes());
     for name in ["package.json", "package-lock.json"] {
         context.update(b"\0");
@@ -190,7 +190,7 @@ fn install_sha256(tree: &str, root: &Path) -> Result<String, String> {
 
 fn tree_sha256(path: &Path, copy: Option<&Path>) -> Result<String, String> {
     let mut context = ring::digest::Context::new(&ring::digest::SHA256);
-    context.update(b"xccode-ts-plugin\0");
+    context.update(b"xiaochuan-ts-plugin\0");
     let mut total = 0;
     walk(path, Path::new(""), &mut context, &mut total, 0, copy)?;
     Ok(context.finish().as_ref().iter().map(|byte| format!("{byte:02x}")).collect())
@@ -320,10 +320,10 @@ impl Stored {
 
 /// `path` as a decision keys it: one directory spelled with Windows' verbatim prefix (`\\?\C:\x`) or without it is
 /// one place (win11-runs D3); another letter case is the start directory's to settle, which names the project as the
-/// file system does (`xccode_local::paths::current_dir`).
+/// file system does (`xiaochuan_local::paths::current_dir`).
 fn encode(path: &Path) -> String {
     match path.to_str() {
-        Some(text) => xccode_util::path::strip_verbatim(text).into_owned(),
+        Some(text) => xiaochuan_util::path::strip_verbatim(text).into_owned(),
         None => {
             let bytes = path.as_os_str().as_encoded_bytes();
             format!("hex:{}", bytes.iter().map(|byte| format!("{byte:02x}")).collect::<String>())
@@ -335,7 +335,7 @@ fn encode(path: &Path) -> String {
 pub struct Approvals {
     store: Store,
     /// Where [`Artifact::stage`] copies approved trees when decisions are not saved: a private directory of this client.
-    scratch: RefCell<Option<xccode_util::temp::TempDir>>,
+    scratch: RefCell<Option<xiaochuan_util::temp::TempDir>>,
 }
 
 enum Store {
@@ -374,7 +374,7 @@ impl Approvals {
         }
         let mut scratch = self.scratch.borrow_mut();
         if scratch.is_none() {
-            *scratch = Some(xccode_util::temp::tempdir().map_err(|error| error.to_string())?);
+            *scratch = Some(xiaochuan_util::temp::tempdir().map_err(|error| error.to_string())?);
         }
         Ok(scratch.as_ref().map(|scratch| scratch.path().to_path_buf()).unwrap_or_default())
     }
@@ -503,7 +503,7 @@ fn update(file: &Path, change: impl FnOnce(&mut Vec<Value>) -> Result<(), String
     options.write(true).create_new(true);
     #[cfg(unix)]
     std::os::unix::fs::OpenOptionsExt::mode(&mut options, 0o600);
-    xccode_util::busy::replace(file, &temp, &options, &text).map_err(|error| format!("{}: {error}", file.display()))
+    xiaochuan_util::busy::replace(file, &temp, &options, &text).map_err(|error| format!("{}: {error}", file.display()))
 }
 
 /// The lock of `file`, a file beside it, held until the result drops. Another client holds it only while it writes,
@@ -522,5 +522,5 @@ fn lock(file: &Path) -> Result<File, String> {
             Err(std::fs::TryLockError::Error(error)) => return Err(format!("{}: {error}", path.display())),
         }
     }
-    Err(format!("{}: another xccode holds it", path.display()))
+    Err(format!("{}: another xiaochuan holds it", path.display()))
 }

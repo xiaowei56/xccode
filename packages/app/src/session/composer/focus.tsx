@@ -8,8 +8,8 @@ import {
   type Accessor,
   type ParentProps,
 } from "solid-js"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { focusField } from "@xccode/ui/context/field-focus"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { focusField } from "@xiaochuan/ui/context/field-focus"
 import { setCursorPosition } from "@/composer/editor/dom"
 import {
   createComposerFocusState,

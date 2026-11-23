@@ -3,8 +3,8 @@ import { sanitizeServerActionRequest } from "../src/lib/server-action"
 
 describe("server action referer", () => {
   test("preserves same-origin return locations", () => {
-    const request = new Request("https://dev.xccode.ai/_server?id=action", {
-      headers: { referer: "https://dev.xccode.ai/auth?next=%2Fconsole" },
+    const request = new Request("https://dev.xiaochuan.ai/_server?id=action", {
+      headers: { referer: "https://dev.xiaochuan.ai/auth?next=%2Fconsole" },
     })
 
     expect(sanitizeServerActionRequest(request)).toBe(request)
@@ -16,17 +16,17 @@ describe("server action referer", () => {
     expect(
       referers.map((referer) =>
         sanitizeServerActionRequest(
-          new Request("https://dev.xccode.ai/_server?id=action", {
+          new Request("https://dev.xiaochuan.ai/_server?id=action", {
             headers: referer === undefined ? undefined : { referer },
           }),
         ).headers.get("referer"),
       ),
-    ).toEqual(["https://dev.xccode.ai", "https://dev.xccode.ai", "https://dev.xccode.ai"])
+    ).toEqual(["https://dev.xiaochuan.ai", "https://dev.xiaochuan.ai", "https://dev.xiaochuan.ai"])
   })
 
   test("keeps the method and body when it replaces the referer", async () => {
     const sanitized = sanitizeServerActionRequest(
-      new Request("https://dev.xccode.ai/_server?id=action", {
+      new Request("https://dev.xiaochuan.ai/_server?id=action", {
         method: "POST",
         headers: { referer: "https://evil.example/phishing-login" },
         body: "[1]",
@@ -35,14 +35,14 @@ describe("server action referer", () => {
 
     expect([sanitized.method, sanitized.headers.get("referer"), await sanitized.text()]).toEqual([
       "POST",
-      "https://dev.xccode.ai",
+      "https://dev.xiaochuan.ai",
       "[1]",
     ])
   })
 
   test("drops the body of a GET it rebuilds", () => {
     const request = {
-      url: "https://dev.xccode.ai/_server?id=action",
+      url: "https://dev.xiaochuan.ai/_server?id=action",
       method: "GET",
       headers: new Headers({ referer: "https://evil.example/phishing-login" }),
       body: new Response("[1]").body,
@@ -52,7 +52,7 @@ describe("server action referer", () => {
   })
 
   test("does not change other routes", () => {
-    const request = new Request("https://dev.xccode.ai/auth", {
+    const request = new Request("https://dev.xiaochuan.ai/auth", {
       headers: { referer: "https://evil.example/phishing-login" },
     })
 

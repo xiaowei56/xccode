@@ -4,12 +4,12 @@ use crate::support::{self, Fake, Harness, Log, WAIT, deref_harness, list};
 
 use std::sync::{Arc, Mutex};
 
-use xccode_store::{Catalog, Location};
-use xccode_tui::{Args, Deps, Route};
+use xiaochuan_store::{Catalog, Location};
+use xiaochuan_tui::{Args, Deps, Route};
 use serde_json::{Value, json};
 
-const DIRECTORY: &str = "/tmp/xccode/app";
-const QUERY: &str = "location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp";
+const DIRECTORY: &str = "/tmp/xiaochuan/app";
+const QUERY: &str = "location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp";
 
 type Logged = (String, String, Value);
 
@@ -27,7 +27,7 @@ pub(crate) fn servers() -> Value {
 fn skills() -> Value {
     let skill = |id: &str, description: Option<&str>| {
         let mut skill = json!({
-            "id": id, "name": id, "path": format!("/tmp/xccode/skills/{id}/SKILL.md"), "content": "",
+            "id": id, "name": id, "path": format!("/tmp/xiaochuan/skills/{id}/SKILL.md"), "content": "",
         });
         if let Some(description) = description {
             skill["description"] = json!(description);
@@ -77,7 +77,7 @@ struct Kit {
     harness: Harness,
     servers: Arc<Mutex<Value>>,
     log: Log,
-    _home: xccode_util::temp::TempDir,
+    _home: xiaochuan_util::temp::TempDir,
 }
 
 deref_harness!(Kit);
@@ -88,13 +88,13 @@ impl Kit {
     }
 
     fn with(servers: Value, skills: Option<Value>) -> Self {
-        let home = xccode_util::temp::tempdir().unwrap();
+        let home = xiaochuan_util::temp::tempdir().unwrap();
         let servers = Arc::new(Mutex::new(servers));
         let fake = fake(servers.clone(), skills);
         let log = fake.log();
         let deps = Deps {
             directory: DIRECTORY.into(),
-            config: support::config(support::decode(r#"{ "theme": { "name": "xccode", "mode": "dark" } }"#)),
+            config: support::config(support::decode(r#"{ "theme": { "name": "xiaochuan", "mode": "dark" } }"#)),
             roots: support::roots(support::home_paths(home.path()), "test"),
             route: Route::Home,
             ..support::deps(Arc::new(fake))
@@ -270,12 +270,12 @@ fn mcp_error_view_goes_back_copies_and_investigates() {
     kit.wait_for("Do not expose credentials.");
     assert!(!kit.tui.dialogs.is_open());
     let textarea = kit.tui.textarea.borrow().clone().unwrap();
-    assert_eq!(textarea.cursor_offset(), xccode_ui::prompt_input::end(&textarea));
+    assert_eq!(textarea.cursor_offset(), xiaochuan_ui::prompt_input::end(&textarea));
     let text = textarea.text();
     for part in [
-        "Investigate why this Xccode component failed in the current project.",
+        "Investigate why this Xiaochuan component failed in the current project.",
         "MCP server: linear\nStatus: failed\nConfiguration: mcp.servers.linear\nError: MCP error -32000: Connection closed",
-        "project and global Xccode configuration",
+        "project and global Xiaochuan configuration",
     ] {
         assert!(text.contains(part), "{part:?} missing from {text:?}");
     }

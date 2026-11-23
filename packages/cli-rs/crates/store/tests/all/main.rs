@@ -1,5 +1,5 @@
 //! The store's integration tests, one module per area, linked into one binary. Select an area with
-//! `cargo test -p xccode-store --test all <module>::`.
+//! `cargo test -p xiaochuan-store --test all <module>::`.
 
 mod common;
 

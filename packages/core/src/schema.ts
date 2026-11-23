@@ -6,7 +6,7 @@ import {
   PositiveInt,
   RelativePath,
   statics,
-} from "@xccode/schema/schema"
+} from "@xiaochuan/schema/schema"
 
 export { AbsolutePath, DateTimeUtcFromMillis, NonNegativeInt, optional, PositiveInt, RelativePath, statics }
 

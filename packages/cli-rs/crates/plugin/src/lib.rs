@@ -1,4 +1,4 @@
-//! The plugin registry activates plugins, resolves slot claims and routes calls through `xccode-plugin-abi`.
+//! The plugin registry activates plugins, resolves slot claims and routes calls through `xiaochuan-plugin-abi`.
 
 mod activation;
 pub mod behave;
@@ -38,16 +38,16 @@ use std::rc::{Rc, Weak};
 use std::sync::Arc;
 
 use activation::{Activation, Drawn};
-pub use xccode_plugin_abi as abi;
-use xccode_ui::dialog::DialogKeymap;
-use xccode_ui::keymap::{Bind, Slash, TuiCommand};
-use xccode_ui::markdown::CodeBlockRenderers;
-use xccode_ui::theme::Theme;
+pub use xiaochuan_plugin_abi as abi;
+use xiaochuan_ui::dialog::DialogKeymap;
+use xiaochuan_ui::keymap::{Bind, Slash, TuiCommand};
+use xiaochuan_ui::markdown::CodeBlockRenderers;
+use xiaochuan_ui::theme::Theme;
 use opentui::keymap::{Condition, Disposer};
 use opentui::prelude::*;
 use opentui::widget::CodeBlock;
 
-/// Whether a switch such as `XCCODE_PLUGIN_JS` or `XCCODE_PLUGIN_LUAU`, as `value`, turns its plugins off: `0`,
+/// Whether a switch such as `XIAOCHUAN_PLUGIN_JS` or `XIAOCHUAN_PLUGIN_LUAU`, as `value`, turns its plugins off: `0`,
 /// `false` or `off`, in any case. Unset, empty or anything else leaves them on.
 pub fn turned_off(value: Option<&std::ffi::OsStr>) -> bool {
     value.and_then(|value| value.to_str()).is_some_and(|value| {
@@ -129,7 +129,7 @@ pub trait Host: 'static {
         self.toast(
             &abi::Toast::new(
                 abi::Variant::Warning,
-                "This project wants to run a plugin inside xccode. Run /plugins to approve or decline it.",
+                "This project wants to run a plugin inside xiaochuan. Run /plugins to approve or decline it.",
             )
             .title(format!("Plugin needs approval: {target}")),
         );
@@ -199,7 +199,7 @@ pub trait Host: 'static {
     /// Sets the terminal title ([`abi::Host::set_title`]). Called outside every plugin callback.
     fn set_title(&self, title: &str) {
         // A title OpenTUI refuses would end the app.
-        self.app().set_title(&xccode_ui::terminal_title(title));
+        self.app().set_title(&xiaochuan_ui::terminal_title(title));
     }
     /// Selects theme `name`, once [`Staged::theme_known`] allowed it ([`abi::Host::set_theme`]). Called outside every plugin
     /// callback.
@@ -216,9 +216,9 @@ pub trait Host: 'static {
     /// The widget of an [`abi::Node::Markdown`]. By default, Markdown in the page theme without plugin fences.
     fn markdown(&self, text: &str) -> opentui::widget::Markdown {
         let theme = self.theme();
-        let syntax = xccode_ui::code::syntax_theme(&theme);
+        let syntax = xiaochuan_ui::code::syntax_theme(&theme);
         let renderers = CodeBlockRenderers::default();
-        let markdown = xccode_ui::markdown::view(self.app(), &theme, &syntax, &renderers, true, false);
+        let markdown = xiaochuan_ui::markdown::view(self.app(), &theme, &syntax, &renderers, true, false);
         markdown.set_markdown(text)
     }
 
@@ -1708,7 +1708,7 @@ impl Staged {
     /// Whether [`abi::Host::install_theme`] installs `theme` as `name`: a name that is a plain file name, and a theme
     /// document (one the TUI's theme catalog would keep). One it installs is staged.
     pub(crate) fn install_theme(&mut self, name: &str, theme: &serde_json::Value) -> bool {
-        let valid = theme_file_name(name) && xccode_ui::theme::is_theme_source(theme);
+        let valid = theme_file_name(name) && xiaochuan_ui::theme::is_theme_source(theme);
         if !valid {
             log::warn!("a plugin installs a theme that is not one, or not as a plain file name: {name:?}");
         } else if !self.themes.iter().any(|known| known == name) {
@@ -2437,27 +2437,27 @@ impl Entry {
 }
 
 /// Reason a configured script plugin is listed but not loaded.
-pub const SKIPPED: &str = "TypeScript TUI plugins do not run in xccode-native yet";
+pub const SKIPPED: &str = "TypeScript TUI plugins do not run in xiaochuan-native yet";
 /// Why a TypeScript plugin directory the JS host found no TUI module in is not loaded, before what its resolution
 /// said.
 pub const NO_TUI_MODULE: &str = "it has no TUI module";
-pub const SKIPPED_JS_OFF: &str = "TypeScript TUI plugins run on the JS host, which XCCODE_PLUGIN_JS turns off: unset it to turn the JS host back on";
+pub const SKIPPED_JS_OFF: &str = "TypeScript TUI plugins run on the JS host, which XIAOCHUAN_PLUGIN_JS turns off: unset it to turn the JS host back on";
 /// Why a TypeScript plugin is not loaded in a build without the `ts` feature, which has no JS host at all (ts-feature).
 pub const SKIPPED_NO_TS: &str =
-    "this build of xccode-native has no TypeScript plugin support (built without the ts feature)";
+    "this build of xiaochuan-native has no TypeScript plugin support (built without the ts feature)";
 /// Why a Luau plugin is not loaded in a build without the `luau` feature.
 pub const SKIPPED_NO_LUAU: &str =
-    "this build of xccode-native has no Luau plugin support (built without the luau feature)";
+    "this build of xiaochuan-native has no Luau plugin support (built without the luau feature)";
 /// Why a TypeScript plugin is not loaded when no JS host runs: [`SKIPPED_JS_OFF`], or [`SKIPPED_NO_TS`] in a build without
 /// the `ts` feature, which has none to turn on.
 pub const SKIPPED_OFF: &str = if cfg!(feature = "ts") { SKIPPED_JS_OFF } else { SKIPPED_NO_TS };
 /// Why a native plugin library (`plugin.so`, `plugin.dylib`, `plugin.dll`) is not loaded.
-pub const SKIPPED_NATIVE: &str = "xccode-native does not load native plugin libraries";
+pub const SKIPPED_NATIVE: &str = "xiaochuan-native does not load native plugin libraries";
 /// Why an external plugin is not loaded in a run started with `--no-plugins` ([`loader::Loader::without_plugins`]).
-pub const SKIPPED_NO_PLUGINS: &str = "xccode-native started with --no-plugins, which loads no external plugin";
-/// Why a TypeScript plugin is not loaded when no Bun runs the JS host: neither the local server's xccode binary nor
+pub const SKIPPED_NO_PLUGINS: &str = "xiaochuan-native started with --no-plugins, which loads no external plugin";
+/// Why a TypeScript plugin is not loaded when no Bun runs the JS host: neither the local server's xiaochuan binary nor
 /// `bun` on the path.
-pub const SKIPPED_NO_BUN: &str = "TypeScript TUI plugins run on the JS host, which needs Bun: neither the server's xccode nor bun on the path runs it; install Bun 1.4 or newer, or set XCCODE_BUN to its absolute path";
+pub const SKIPPED_NO_BUN: &str = "TypeScript TUI plugins run on the JS host, which needs Bun: neither the server's xiaochuan nor bun on the path runs it; install Bun 1.4 or newer, or set XIAOCHUAN_BUN to its absolute path";
 
 struct Plugin {
     definition: Definition,
@@ -3378,7 +3378,7 @@ fn unnamed(plugins: &[Plugin], directives: &[String]) -> Vec<String> {
     let mut unnamed: Vec<String> = Vec::new();
     for target in directives.iter().filter(|target| !target.starts_with('-')) {
         let named = plugins.iter().any(|plugin| matches(target, &plugin.definition.id));
-        if named || target == "*" || target.ends_with(".*") || target.starts_with("xccode.") {
+        if named || target == "*" || target.ends_with(".*") || target.starts_with("xiaochuan.") {
             continue;
         }
         if !unnamed.contains(target) {

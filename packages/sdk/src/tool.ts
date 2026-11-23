@@ -1,3 +1,3 @@
-export { RegistrationError } from "@xccode/core/tool"
-export { Error } from "@xccode/schema/tool"
-export type { ToolContext as Context, Info } from "@xccode/plugin/promise/tool"
+export { RegistrationError } from "@xiaochuan/core/tool"
+export { Error } from "@xiaochuan/schema/tool"
+export type { ToolContext as Context, Info } from "@xiaochuan/plugin/promise/tool"

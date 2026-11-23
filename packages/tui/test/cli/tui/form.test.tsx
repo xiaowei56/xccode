@@ -1,5 +1,5 @@
 /** @jsxImportSource @opentui/solid */
-import type { XccodeEvent } from "@xccode/client"
+import type { XiaochuanEvent } from "@xiaochuan/client"
 import { InputRenderable, TextareaRenderable } from "@opentui/core"
 import { testRender } from "@opentui/solid"
 import { expect, test } from "bun:test"
@@ -822,7 +822,7 @@ async function mountDialogForm(root: string) {
   app.renderer.start()
   await app.waitForFrame((frame) => frame.includes("Composer ready"))
 
-  const ask = (fields: Extract<XccodeEvent, { type: "form.created" }>["data"]["form"]["fields"]) =>
+  const ask = (fields: Extract<XiaochuanEvent, { type: "form.created" }>["data"]["form"]["fields"]) =>
     events.emit({
       id: "evt_form_created",
       created: 1,

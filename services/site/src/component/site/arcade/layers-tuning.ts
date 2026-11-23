@@ -67,7 +67,7 @@ const defaults = () =>
     ]),
   ) as LayerValues
 
-const storageKey = "xccode-arcade-layers-v1"
+const storageKey = "xiaochuan-arcade-layers-v1"
 
 export const [layerValues, setLayerValues] = createStore<LayerValues>(defaults())
 

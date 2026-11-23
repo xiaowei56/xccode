@@ -1,12 +1,12 @@
 import { describe, expect } from "bun:test"
 import { Cause, Deferred, Effect, Exit, Layer, Queue } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { Location } from "@xccode/core/location"
-import { Pty } from "@xccode/core/pty"
-import { AbsolutePath } from "@xccode/core/schema"
-import { ShellSelect } from "@xccode/core/shell/select"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { Location } from "@xiaochuan/core/location"
+import { Pty } from "@xiaochuan/core/pty"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { ShellSelect } from "@xiaochuan/core/shell/select"
 import { location } from "../fixture/location"
 import { testEffect } from "../lib/effect"
 
@@ -40,7 +40,7 @@ const subscribePtyEvents = Effect.fn("PtySessionTest.subscribePtyEvents")(functi
 const createPty = Effect.fn("PtySessionTest.createPty")(function* (command: string, args: string[] = []) {
   const pty = yield* Pty.Service
   return yield* Effect.acquireRelease(
-    pty.create({ command, args, cwd: "/tmp", env: { TERM: "xterm-256color", XCCODE_TERMINAL: "1" } }),
+    pty.create({ command, args, cwd: "/tmp", env: { TERM: "xterm-256color", XIAOCHUAN_TERMINAL: "1" } }),
     (info) => pty.remove(info.id).pipe(Effect.ignore),
   )
 })

@@ -162,13 +162,13 @@ describe("createRequestQueue", () => {
   })
 
   test("never counts the event stream of a server under a path prefix against the budget", async () => {
-    const input = setup({ limit: 1, prefix: "/xccode" })
-    void input.queue.fetch("http://server/xccode/api/session")
-    void input.queue.fetch("http://server/xccode/api/event")
+    const input = setup({ limit: 1, prefix: "/xiaochuan" })
+    void input.queue.fetch("http://server/xiaochuan/api/session")
+    void input.queue.fetch("http://server/xiaochuan/api/event")
     await input.settle()
     expect(input.pending.map((item) => new URL(item.url).pathname).toSorted()).toEqual([
-      "/xccode/api/event",
-      "/xccode/api/session",
+      "/xiaochuan/api/event",
+      "/xiaochuan/api/session",
     ])
     expect(input.queue.inflight()).toBe(1)
   })

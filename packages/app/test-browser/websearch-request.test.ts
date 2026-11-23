@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test"
-import type { FormCreated, FormReplyInput, XccodeEvent } from "@xccode/client/promise"
+import type { FormCreated, FormReplyInput, XiaochuanEvent } from "@xiaochuan/client/promise"
 import { createEffect, createRoot } from "solid-js"
 import { createStore } from "solid-js/store"
 import { createWebSearchRequest } from "@/session/requests/websearch"
@@ -43,7 +43,7 @@ function ready(condition: () => boolean) {
 function fixture(form: FormCreated["data"]["form"] | null = consent) {
   return createRoot((dispose) => {
     cleanups.push(dispose)
-    const listeners = new Set<(event: XccodeEvent) => void>()
+    const listeners = new Set<(event: XiaochuanEvent) => void>()
     const replies: FormReplyInput[] = []
     const loads: string[] = []
 

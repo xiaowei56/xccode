@@ -13,7 +13,7 @@ const arrived = () => new Promise<void>((resolve) => void waiting.push(resolve))
 export default bench({
   targets: {
     web: web({
-      expect: { title: "Xccode" },
+      expect: { title: "Xiaochuan" },
       viewport: { width: 1366, height: 768 },
       prepare: (ctx) =>
         mockTimelineSession(cached(ctx), {

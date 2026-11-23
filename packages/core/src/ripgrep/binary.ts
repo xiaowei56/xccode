@@ -4,11 +4,11 @@ import { Context, Effect, Layer, Stream } from "effect"
 import { HttpClient, HttpClientRequest } from "effect/http"
 import { ChildProcess } from "effect/process"
 import { ChildProcessSpawner } from "effect/process/ChildProcessSpawner"
-import { CrossSpawnSpawner } from "@xccode/util/cross-spawn-spawner"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { httpClient } from "@xccode/util/effect/app-node-platform"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
+import { CrossSpawnSpawner } from "@xiaochuan/util/cross-spawn-spawner"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { httpClient } from "@xiaochuan/util/effect/app-node-platform"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
 import { which } from "../util/which.js"
 
 export namespace RipgrepBinary {
@@ -57,7 +57,7 @@ export namespace RipgrepBinary {
     readonly filepath: Effect.Effect<string, Error>
   }
 
-  export class Service extends Context.Service<Service, Interface>()("@xccode/RipgrepBinary") {}
+  export class Service extends Context.Service<Service, Interface>()("@xiaochuan/RipgrepBinary") {}
 
   const layer = Layer.effect(
     Service,

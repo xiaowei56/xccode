@@ -1,6 +1,6 @@
-export * as SessionSchema from "@xccode/schema/session"
+export * as SessionSchema from "@xiaochuan/schema/session"
 
-import { Session } from "@xccode/schema/session"
+import { Session } from "@xiaochuan/schema/session"
 
 export const ID = Session.ID
 export type ID = typeof ID.Type

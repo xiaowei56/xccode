@@ -1,5 +1,5 @@
-import { Icon } from "@xccode/ui/icon"
-import { Loader } from "@xccode/ui/loader"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Loader } from "@xiaochuan/ui/loader"
 import { useLanguage } from "@/runtime/i18n/language"
 import { Match, Switch } from "solid-js"
 import { selectServerIndicator, type ServerHealth } from "@/runtime/server/health-machine"

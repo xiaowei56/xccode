@@ -1,6 +1,6 @@
 //! Diff viewer keyboard help.
 
-use xccode_plugin::abi::{Dialog, Host, Layout, Node, Panel, PanelSize, Read, Span, Width};
+use xiaochuan_plugin::abi::{Dialog, Host, Layout, Node, Panel, PanelSize, Read, Span, Width};
 
 use super::viewer::Viewer;
 

@@ -1,6 +1,6 @@
 export * as CpuProfile from "./cpu-profile"
 
-import { Global } from "@xccode/util/global"
+import { Global } from "@xiaochuan/util/global"
 import { Effect, FileSystem, Queue } from "effect"
 import { Session } from "node:inspector"
 import path from "node:path"

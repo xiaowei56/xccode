@@ -1,7 +1,7 @@
 export * as WorkerdProfile from "./workerd"
 
-import type { Config } from "@xccode/schema/config"
-import { ServerWorkerd } from "@xccode/server/workerd"
+import type { Config } from "@xiaochuan/schema/config"
+import { ServerWorkerd } from "@xiaochuan/server/workerd"
 
 export type Configuration = Omit<typeof Config.Info.Encoded, "plugins">
 

@@ -4,7 +4,7 @@ import { forHumansRows } from "./source-logo-nav"
 // The comment at the top of every page's source: the wordmark with a drop shadow (▓ open, █ code,
 // ░ shadow), then pointers for people and agents, each section's rows on a ├── / └── tree under its
 // title. Concept 1 "Manifest", option 13, list style 2, from
-// /Users/davidhill/.local/share/xccode/worktree/012780/source-concepts. It must not contain "--".
+// /Users/davidhill/.local/share/xiaochuan/worktree/012780/source-concepts. It must not contain "--".
 // The build line under the tagline, from src/lib/build-stamp.json (script/build-stamp.ts, run by the
 // build and dev scripts). A glob, so a checkout that never ran the script still renders. FOR HUMANS
 // starts with the main nav, from the nav data (source-logo-nav.ts), so it follows the header.
@@ -59,14 +59,14 @@ ${installRows}
 
   DEVTOOLS
   ├── Open           Cmd+Opt+J or Ctrl+Shift+J in Chrome
-  ├── Run            xccode.help() in the DevTools console
-  └── Try            xccode.try() for Xccode Lite, nothing to install
+  ├── Run            xiaochuan.help() in the DevTools console
+  └── Try            xiaochuan.try() for Xiaochuan Lite, nothing to install
 
   BUGS
-  ├── Report         github.com/xiaowei56/xccode/issues/new
+  ├── Report         github.com/xiaowei56/xiaochuan/issues/new
   ├── Include        what you saw, the steps, your OS and terminal
-  ├── Version        xccode -v
-  ├── Logs           xccode debug paths log
+  ├── Version        xiaochuan -v
+  ├── Logs           xiaochuan debug paths log
   └── Security       /.well-known/security.txt for vulnerabilities
 
 -->`

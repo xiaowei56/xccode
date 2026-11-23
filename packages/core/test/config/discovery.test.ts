@@ -2,12 +2,12 @@ import path from "path"
 import fs from "fs/promises"
 import { describe, expect } from "bun:test"
 import { Effect, Layer } from "effect"
-import { ConfigDiscovery } from "@xccode/core/config/discovery"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Location } from "@xccode/core/location"
-import { AbsolutePath } from "@xccode/core/schema"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
+import { ConfigDiscovery } from "@xiaochuan/core/config/discovery"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Location } from "@xiaochuan/core/location"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
 import { location } from "../fixture/location"
 import { tmpdir } from "../fixture/tmpdir"
 import { testEffect } from "../lib/effect"
@@ -61,9 +61,9 @@ describe("ConfigDiscovery.discover", () => {
           const ancestor = path.join(root, "ws", "org", "repo")
           const nested = path.join(ancestor, "packages", "feature")
           yield* Effect.promise(async () => {
-            await fs.mkdir(path.join(ancestor, ".xccode"), { recursive: true })
+            await fs.mkdir(path.join(ancestor, ".xiaochuan"), { recursive: true })
             await fs.mkdir(nested, { recursive: true })
-            await fs.writeFile(path.join(nested, "xccode.json"), "{}")
+            await fs.writeFile(path.join(nested, "xiaochuan.json"), "{}")
           })
 
           const resolved: string[] = []
@@ -81,20 +81,20 @@ describe("ConfigDiscovery.discover", () => {
 
           const ws = path.join(root, "ws")
           const fixtureResolved = resolved.filter((item) => inFixture(ws, item))
-          expect(fixtureResolved).not.toContain(path.join(nested, "xccode.jsonc"))
-          expect(fixtureResolved).not.toContain(path.join(nested, ".xccode"))
-          expect(fixtureResolved).not.toContain(path.join(ancestor, "xccode.json"))
-          expect(fixtureResolved).toContain(path.join(nested, "xccode.json"))
-          expect(fixtureResolved).toContain(path.join(ancestor, ".xccode"))
+          expect(fixtureResolved).not.toContain(path.join(nested, "xiaochuan.jsonc"))
+          expect(fixtureResolved).not.toContain(path.join(nested, ".xiaochuan"))
+          expect(fixtureResolved).not.toContain(path.join(ancestor, "xiaochuan.json"))
+          expect(fixtureResolved).toContain(path.join(nested, "xiaochuan.json"))
+          expect(fixtureResolved).toContain(path.join(ancestor, ".xiaochuan"))
 
-          expect(dirChecks.filter((item) => inFixture(ws, item))).toEqual([path.join(ancestor, ".xccode")])
+          expect(dirChecks.filter((item) => inFixture(ws, item))).toEqual([path.join(ancestor, ".xiaochuan")])
 
           const wsDirect = sources.direct.filter((item) => inFixture(ws, item))
-          expect(wsDirect).toContain(AbsolutePath.make(path.join(nested, "xccode.jsonc")))
-          expect(wsDirect).toContain(AbsolutePath.make(path.join(nested, "xccode.json")))
+          expect(wsDirect).toContain(AbsolutePath.make(path.join(nested, "xiaochuan.jsonc")))
+          expect(wsDirect).toContain(AbsolutePath.make(path.join(nested, "xiaochuan.json")))
           const wsProject = sources.project.filter((entry) => inFixture(ws, entry.path))
-          expect(wsProject).toContainEqual({ path: AbsolutePath.make(path.join(ancestor, ".xccode")), present: true })
-          expect(wsProject).toContainEqual({ path: AbsolutePath.make(path.join(nested, ".xccode")), present: false })
+          expect(wsProject).toContainEqual({ path: AbsolutePath.make(path.join(ancestor, ".xiaochuan")), present: true })
+          expect(wsProject).toContainEqual({ path: AbsolutePath.make(path.join(nested, ".xiaochuan")), present: false })
         }),
       ),
     ),
@@ -108,7 +108,7 @@ describe("ConfigDiscovery.discover", () => {
           const guarded = path.join(root, "guarded")
           const project = path.join(guarded, "project")
           yield* Effect.promise(async () => {
-            await fs.mkdir(path.join(guarded, ".xccode"), { recursive: true })
+            await fs.mkdir(path.join(guarded, ".xiaochuan"), { recursive: true })
             await fs.mkdir(project, { recursive: true })
           })
 
@@ -119,7 +119,7 @@ describe("ConfigDiscovery.discover", () => {
                 : base.readDirectory(target, options),
           }))
           expect(sources.project).toContainEqual({
-            path: AbsolutePath.make(path.join(guarded, ".xccode")),
+            path: AbsolutePath.make(path.join(guarded, ".xiaochuan")),
             present: true,
           })
         }),
@@ -133,14 +133,14 @@ describe("ConfigDiscovery.discover", () => {
         Effect.gen(function* () {
           const root = yield* Effect.promise(() => fs.realpath(tmp.path))
           const project = path.join(root, "cased")
-          yield* Effect.promise(() => fs.mkdir(path.join(project, ".xccode"), { recursive: true }))
+          yield* Effect.promise(() => fs.mkdir(path.join(project, ".xiaochuan"), { recursive: true }))
 
           const sources = yield* discoverWith(root, project, project, (base) => ({
             readDirectory: (target, options) =>
-              target === project ? Effect.succeed([".XCCODE"]) : base.readDirectory(target, options),
+              target === project ? Effect.succeed([".XIAOCHUAN"]) : base.readDirectory(target, options),
           }))
           expect(sources.project).toContainEqual({
-            path: AbsolutePath.make(path.join(project, ".xccode")),
+            path: AbsolutePath.make(path.join(project, ".xiaochuan")),
             present: true,
           })
         }),

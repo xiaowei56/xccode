@@ -1,9 +1,9 @@
 //! The built-in diff viewer, shown as a route or a docked panel.
 
-use xccode_api::generated::{SessionExecutionInterruptedDataReason, V2Event};
-use xccode_plugin::abi::interact::{Button, Event, Handled, OpenPanel, PointerKind};
-use xccode_plugin::abi::v2::{Place, ScrollEvent, Surface};
-use xccode_plugin::abi::{self, Command, Dialog, Host, RequestId};
+use xiaochuan_api::generated::{SessionExecutionInterruptedDataReason, V2Event};
+use xiaochuan_plugin::abi::interact::{Button, Event, Handled, OpenPanel, PointerKind};
+use xiaochuan_plugin::abi::v2::{Place, ScrollEvent, Surface};
+use xiaochuan_plugin::abi::{self, Command, Dialog, Host, RequestId};
 
 pub mod base_branch;
 pub mod file_menu;
@@ -20,7 +20,7 @@ use viewer::{Memory, Mode, Preview, Showing, Turn, Viewer};
 
 use crate::prelude::*;
 
-pub const ID: &str = "xccode.diffs";
+pub const ID: &str = "xiaochuan.diffs";
 pub const ROUTE: &str = "diff";
 pub const PANEL: &str = "panel";
 pub const PAGE: &str = "diff";
@@ -29,13 +29,13 @@ const IMAGES: &str = "images";
 const FILES: &str = "files";
 const TREE: &str = "tree";
 const EDGE: &str = "edge";
-const SOURCE: &str = "xccode.diffs.source";
-const HELP: &str = "xccode.diffs.help";
-const LEAVE: &str = "xccode.diffs.leave";
-const PREVIEW: &str = "xccode.diffs.preview";
-const PICK_SOURCE: &str = "xccode.diffs.pick_source";
-const PICK_BASE: &str = "xccode.diffs.pick_base";
-const QUERY_BASE: &str = "xccode.diffs.query_base";
+const SOURCE: &str = "xiaochuan.diffs.source";
+const HELP: &str = "xiaochuan.diffs.help";
+const LEAVE: &str = "xiaochuan.diffs.leave";
+const PREVIEW: &str = "xiaochuan.diffs.preview";
+const PICK_SOURCE: &str = "xiaochuan.diffs.pick_source";
+const PICK_BASE: &str = "xiaochuan.diffs.pick_base";
+const QUERY_BASE: &str = "xiaochuan.diffs.query_base";
 /// The events that end a turn, after which the last turn's diff loads again.
 /// The events of a turn, and the connection's, after which the last turn's diff may load again.
 const TURNS: [&str; 5] = [

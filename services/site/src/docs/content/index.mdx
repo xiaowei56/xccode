@@ -1,9 +1,9 @@
 ---
 title: "Intro"
-description: "Install Xccode, the open source coding agent, as a CLI, desktop app, web app, or Docker image, then connect a model provider."
+description: "Install Xiaochuan, the open source coding agent, as a CLI, desktop app, web app, or Docker image, then connect a model provider."
 ---
 
-Xccode is an open source coding agent. It’s available as a terminal-based interface, desktop app, or web app.
+Xiaochuan is an open source coding agent. It’s available as a terminal-based interface, desktop app, or web app.
 
 
 ## CLI
@@ -12,49 +12,49 @@ Xccode is an open source coding agent. It’s available as a terminal-based inte
   id="install"
   label="Install method"
   tabs={[
-    { label: "curl", code: "curl -fsSL https://xccode.ai/v2/install | bash" },
-    { label: "homebrew", code: "brew install anomalyco/tap/xccode-v2" },
-    { label: "npm", code: "npm install -g @xccode/cli" },
-    { label: "bun", code: "bun install -g --trust @xccode/cli" },
-    { label: "pnpm", code: "pnpm add -g --allow-build=@xccode/cli @xccode/cli" },
-    { label: "yarn", code: "yarn global add @xccode/cli" },
-    { label: "vite+", code: "vp install -g @xccode/cli" },
-    { label: "aur", code: "paru -S xccode-beta" },
-    { label: "mise", code: "mise use -g xccode" },
+    { label: "curl", code: "curl -fsSL https://xiaochuan.ai/v2/install | bash" },
+    { label: "homebrew", code: "brew install anomalyco/tap/xiaochuan-v2" },
+    { label: "npm", code: "npm install -g @xiaochuan/cli" },
+    { label: "bun", code: "bun install -g --trust @xiaochuan/cli" },
+    { label: "pnpm", code: "pnpm add -g --allow-build=@xiaochuan/cli @xiaochuan/cli" },
+    { label: "yarn", code: "yarn global add @xiaochuan/cli" },
+    { label: "vite+", code: "vp install -g @xiaochuan/cli" },
+    { label: "aur", code: "paru -S xiaochuan-beta" },
+    { label: "mise", code: "mise use -g xiaochuan" },
   ]}
 />
 
-The npm package uses a postinstall script to select the native `xccode` binary for your platform. The Bun and pnpm commands
+The npm package uses a postinstall script to select the native `xiaochuan` binary for your platform. The Bun and pnpm commands
 explicitly allow the required script; Vite+ requires no additional flag. The mise command requires mise 2026.10.9 or later;
-older versions install Xccode 1.
+older versions install Xiaochuan 1.
 
 Windows package managers are not supported.
 
 
 Download a standalone CLI binary for your platform.
 
-- **macOS:** [Apple silicon](https://xccode.ai/update/api/latest/cli/xccode/xccode-darwin-arm64.zip) · [Intel](https://xccode.ai/update/api/latest/cli/xccode/xccode-darwin-x64.zip) · [Intel (baseline)](https://xccode.ai/update/api/latest/cli/xccode/xccode-darwin-x64-baseline.zip)
-- **Windows:** [ARM64](https://xccode.ai/update/api/latest/cli/xccode/xccode-windows-arm64.zip) · [x64](https://xccode.ai/update/api/latest/cli/xccode/xccode-windows-x64.zip) · [x64 (baseline)](https://xccode.ai/update/api/latest/cli/xccode/xccode-windows-x64-baseline.zip)
-- **Linux (glibc):** [ARM64](https://xccode.ai/update/api/latest/cli/xccode/xccode-linux-arm64.tar.gz) · [x64](https://xccode.ai/update/api/latest/cli/xccode/xccode-linux-x64.tar.gz) · [x64 (baseline)](https://xccode.ai/update/api/latest/cli/xccode/xccode-linux-x64-baseline.tar.gz)
-- **Linux (musl):** [ARM64](https://xccode.ai/update/api/latest/cli/xccode/xccode-linux-arm64-musl.tar.gz) · [x64](https://xccode.ai/update/api/latest/cli/xccode/xccode-linux-x64-musl.tar.gz) · [x64 (baseline)](https://xccode.ai/update/api/latest/cli/xccode/xccode-linux-x64-baseline-musl.tar.gz)
+- **macOS:** [Apple silicon](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-darwin-arm64.zip) · [Intel](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-darwin-x64.zip) · [Intel (baseline)](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-darwin-x64-baseline.zip)
+- **Windows:** [ARM64](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-windows-arm64.zip) · [x64](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-windows-x64.zip) · [x64 (baseline)](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-windows-x64-baseline.zip)
+- **Linux (glibc):** [ARM64](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-linux-arm64.tar.gz) · [x64](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-linux-x64.tar.gz) · [x64 (baseline)](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-linux-x64-baseline.tar.gz)
+- **Linux (musl):** [ARM64](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-linux-arm64-musl.tar.gz) · [x64](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-linux-x64-musl.tar.gz) · [x64 (baseline)](https://xiaochuan.ai/update/api/latest/cli/xiaochuan/xiaochuan-linux-x64-baseline-musl.tar.gz)
 
 ## Desktop
 
-Download the latest Xccode Desktop build for your platform.
+Download the latest Xiaochuan Desktop build for your platform.
 
-- **macOS:** [Apple silicon](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-mac-arm64.dmg) · [Intel](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-mac-x64.dmg)
-- **Windows:** [x64](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-win-x64.exe) · [ARM64](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-win-arm64.exe)
-- **Linux (.deb):** [x64](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-linux-amd64.deb) · [ARM64](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-linux-arm64.deb)
-- **Linux (.rpm):** [x64](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-linux-x86_64.rpm) · [ARM64](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-linux-aarch64.rpm)
-- **Linux (AppImage):** [x64](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-linux-x86_64.AppImage) · [ARM64](https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-linux-arm64.AppImage)
+- **macOS:** [Apple silicon](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-mac-arm64.dmg) · [Intel](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-mac-x64.dmg)
+- **Windows:** [x64](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-win-x64.exe) · [ARM64](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-win-arm64.exe)
+- **Linux (.deb):** [x64](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-linux-amd64.deb) · [ARM64](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-linux-arm64.deb)
+- **Linux (.rpm):** [x64](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-linux-x86_64.rpm) · [ARM64](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-linux-aarch64.rpm)
+- **Linux (AppImage):** [x64](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-linux-x86_64.AppImage) · [ARM64](https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-linux-arm64.AppImage)
 
 
 ## Web
 
-Access the Xccode web interface with the `xccode pair` command.
+Access the Xiaochuan web interface with the `xiaochuan pair` command.
 
 ```bash
-$ xccode pair
+$ xiaochuan pair
 
   Open a link to connect. Links work once and expire in 5 minutes.
 
@@ -63,28 +63,28 @@ $ xccode pair
 
 ## Docker
 
-Docker images use versioned tags, for example `ghcr.io/xiaowei56/xccode:2.0.0`.
+Docker images use versioned tags, for example `ghcr.io/xiaowei56/xiaochuan:2.0.0`.
 
 ---
 
 ## Connect
 
-Xccode has built-in support for many LLM providers. You can connect to them
+Xiaochuan has built-in support for many LLM providers. You can connect to them
 directly [in the TUI](/cli/providers) with `/connect`.
 
 See [Providers](/providers) to configure custom providers.
 
 If you'd like easy access to the best coding models, you can try out
-[Xccode Console](/console).
+[Xiaochuan Console](/console).
 
-You can also try [Xccode Go](/console/go), a $10/month subscription
+You can also try [Xiaochuan Go](/console/go), a $10/month subscription
 plan that grants you access to the best coding models.
 
 ---
 
 ## Customize
 
-Make Xccode your own by editing the [Xccode config](/config), [loading plugins](/plugins), [connecting MCP
+Make Xiaochuan your own by editing the [Xiaochuan config](/config), [loading plugins](/plugins), [connecting MCP
 servers](/mcp-servers), or [creating commands](/commands). For terminal interface themes and keybindings, see [CLI
 settings](/cli/config).
 
@@ -92,6 +92,6 @@ settings](/cli/config).
 
 ## Learn
 
-If you are interested in an in-depth course on Xccode, Boot.dev has created an excellent [AI Coding with
-Xccode](https://www.boot.dev/courses/learn-ai-coding) course in consultation with our team. All the information in the course is
+If you are interested in an in-depth course on Xiaochuan, Boot.dev has created an excellent [AI Coding with
+Xiaochuan](https://www.boot.dev/courses/learn-ai-coding) course in consultation with our team. All the information in the course is
 free to read and watch, though some interactive features may require payment.

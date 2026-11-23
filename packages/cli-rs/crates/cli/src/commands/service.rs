@@ -3,17 +3,17 @@
 use std::path::PathBuf;
 use std::sync::Arc;
 
-use xccode_api::transport::{Reqwest, Transport};
-use xccode_local::channel::Channels;
-use xccode_local::paths::Paths;
-use xccode_local::registration;
-use xccode_local::service_config::{Edit, ServiceConfig};
-use xccode_service::connect::{self, Env};
-use xccode_service::delegate;
-use xccode_service::discover::{self, Found};
-use xccode_service::stop::{self, Poll, Pty};
-use xccode_service::ts_command::TsCommand;
-use xccode_util::error;
+use xiaochuan_api::transport::{Reqwest, Transport};
+use xiaochuan_local::channel::Channels;
+use xiaochuan_local::paths::Paths;
+use xiaochuan_local::registration;
+use xiaochuan_local::service_config::{Edit, ServiceConfig};
+use xiaochuan_service::connect::{self, Env};
+use xiaochuan_service::delegate;
+use xiaochuan_service::discover::{self, Found};
+use xiaochuan_service::stop::{self, Poll, Pty};
+use xiaochuan_service::ts_command::TsCommand;
+use xiaochuan_util::error;
 
 use super::Context;
 use super::client::block_on;
@@ -65,7 +65,7 @@ impl Local {
 
     pub fn new(paths: Paths, env: Env) -> Self {
         let channel = Channels::from_vars(|name| match name {
-            "XCCODE_CHANNEL" => env.channel.clone().map(Into::into),
+            "XIAOCHUAN_CHANNEL" => env.channel.clone().map(Into::into),
             _ => None,
         })
         .channel;

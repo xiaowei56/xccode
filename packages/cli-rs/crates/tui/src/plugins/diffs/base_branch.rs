@@ -1,8 +1,8 @@
 //! Choose a local or remote comparison branch.
 
-use xccode_api::client::Client;
-use xccode_api::generated::{LocationQueryInput, VcsBranchListInput, VcsBranchListOutput};
-use xccode_plugin::abi::{Action, Dialog, Host, Select, SelectOption, Span};
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{LocationQueryInput, VcsBranchListInput, VcsBranchListOutput};
+use xiaochuan_plugin::abi::{Action, Dialog, Host, Select, SelectOption, Span};
 
 use super::load::Asked;
 use super::viewer::{Base, Viewer};

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import { measureEditText } from "@opentui/core"
 import path from "path"
-import type { KeymapCommand } from "@xccode/plugin/tui/context"
+import type { KeymapCommand } from "@xiaochuan/plugin/tui/context"
 import {
   directoryAutocomplete,
   directoryAutocompleteExactValue,
@@ -209,7 +209,7 @@ describe("directoryAutocompleteMatches", () => {
 describe("directoryRecentValue", () => {
   test("abbreviates home paths", () => {
     expect(directoryRecentValue("/home/user", "/home/user")).toBe("~")
-    expect(directoryRecentValue("/home/user/projects/xccode", "/home/user")).toBe("~/projects/xccode")
+    expect(directoryRecentValue("/home/user/projects/xiaochuan", "/home/user")).toBe("~/projects/xiaochuan")
   })
 
   test("keeps paths outside home absolute", () => {

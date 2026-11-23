@@ -132,7 +132,7 @@ if (command === "migrate-v1") {
 
 if (command === "config") {
   const { Config } = await load("./config/config")
-  const { Global } = await load("@xccode/util/global")
+  const { Global } = await load("@xiaochuan/util/global")
   const { Effect } = await load("effect")
   const { NodeServices } = await load("@effect/platform-node")
   const set = (draft: Record<string, unknown>, path: string[], value: unknown) => {

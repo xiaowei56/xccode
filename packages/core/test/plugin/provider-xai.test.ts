@@ -1,12 +1,12 @@
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { XAIPlugin } from "@xccode/core/plugin/provider/xai"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { XAIPlugin } from "@xiaochuan/core/plugin/provider/xai"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -75,7 +75,7 @@ describe("XAIPlugin", () => {
       const providerID = Provider.ID.make("xai")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@xccode/ai/providers/xai"
+          provider.package = "@xiaochuan/ai/providers/xai"
           provider.activation = "enabled"
         })
         editor.models.update(providerID, Model.ID.make("grok-4.6"), () => {})

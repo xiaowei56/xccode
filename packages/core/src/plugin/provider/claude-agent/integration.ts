@@ -1,6 +1,6 @@
 export * as ClaudeIntegration from "./integration.js"
 
-import type { Context } from "@xccode/plugin/effect/plugin"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
 import { Effect, Stream, SubscriptionRef } from "effect"
 import type { IntegrationConnection } from "../../../integration/connection.js"
 import { ProviderRefresh } from "../refresh.js"
@@ -42,7 +42,7 @@ export const register = Effect.fn("ClaudeIntegration.register")(function* (
     Effect.forkScoped,
   )
 
-  // Check again when the user connects. xccode keeps a problem per connection, so a new connection starts with
+  // Check again when the user connects. xiaochuan keeps a problem per connection, so a new connection starts with
   // none, and the user may have just run `claude auth login`.
   yield* ProviderRefresh.onSwitch(ClaudeProvider.ID, status.refresh())
 })

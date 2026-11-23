@@ -2,8 +2,8 @@
 
 use std::collections::HashSet;
 
-use xccode_api::generated::SessionMessageAssistantContentItem;
-use xccode_store::LoadMore;
+use xiaochuan_api::generated::SessionMessageAssistantContentItem;
+use xiaochuan_store::LoadMore;
 
 use super::scroll::{Inner, after_layout};
 

@@ -1,10 +1,10 @@
 import { createSignal, Show } from "solid-js"
 import { render } from "solid-js/web"
-import type { SessionMessageAssistantText, SessionMessageAssistantTool } from "@xccode/client/promise"
-import { activePermissionRequest, permissionPendingDocument } from "@xccode/session-ui/storybook"
-import { timelinePresets } from "@xccode/session-ui/timeline/detail"
-import { DialogProvider } from "@xccode/ui/context/dialog"
-import { ThemeProvider } from "@xccode/ui/theme"
+import type { SessionMessageAssistantText, SessionMessageAssistantTool } from "@xiaochuan/client/promise"
+import { activePermissionRequest, permissionPendingDocument } from "@xiaochuan/session-ui/storybook"
+import { timelinePresets } from "@xiaochuan/session-ui/timeline/detail"
+import { DialogProvider } from "@xiaochuan/ui/context/dialog"
+import { ThemeProvider } from "@xiaochuan/ui/theme"
 import { LanguageProvider, UiI18nBridge } from "../src/runtime/i18n/language"
 import { SettingsProvider } from "../src/settings/model"
 import { SessionPreview } from "../src/session/story-model"
@@ -52,12 +52,12 @@ export function mountContainment(markup: string, delivery: "text" | "tool") {
                 <Show
                   when={pending()}
                   fallback={
-                    <SessionPreview title="Containment" description="xccode" document={history} timelineDetail={detail} />
+                    <SessionPreview title="Containment" description="xiaochuan" document={history} timelineDetail={detail} />
                   }
                 >
                   <SessionPreview
                     title="Containment"
-                    description="xccode"
+                    description="xiaochuan"
                     document={history}
                     timelineDetail={detail}
                     request={{ type: "permission", value: activePermissionRequest }}

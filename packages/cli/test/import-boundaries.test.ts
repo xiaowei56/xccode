@@ -10,7 +10,7 @@ describe("CLI frontend import boundaries", () => {
     const imports: string[] = []
     for await (const file of glob.scan({ cwd: path.join(root, "packages/cli") })) {
       const source = await Bun.file(path.join(root, "packages/cli", file)).text()
-      if (/["']@xccode\/core(?:\/[^"']*)?["']/.test(source)) imports.push(file)
+      if (/["']@xiaochuan\/core(?:\/[^"']*)?["']/.test(source)) imports.push(file)
     }
     expect(imports).toEqual([])
   })
@@ -20,14 +20,14 @@ describe("CLI frontend import boundaries", () => {
     const imports: string[] = []
     for await (const file of glob.scan({ cwd: path.join(root, "packages/cli") })) {
       const source = await Bun.file(path.join(root, "packages/cli", file)).text()
-      if (/["']@xccode\/client(?:\/promise(?:\/[^"']*)?|\/service)?["']/.test(source)) imports.push(file)
+      if (/["']@xiaochuan\/client(?:\/promise(?:\/[^"']*)?|\/service)?["']/.test(source)) imports.push(file)
     }
     expect(imports).toEqual([])
   })
 
   test("exposes only the intentional package entrypoints", async () => {
-    const mini = await import("@xccode/tui/mini")
-    const tool = await import("@xccode/tui/mini/tool")
+    const mini = await import("@xiaochuan/tui/mini")
+    const tool = await import("@xiaochuan/tui/mini/tool")
     const cli = await Bun.file(path.join(root, "packages/cli/package.json")).json()
 
     expect(Object.keys(mini).sort()).toEqual(["runMiniFrontend"])
@@ -67,7 +67,7 @@ describe("CLI frontend import boundaries", () => {
     const imports: string[] = []
     for await (const file of glob.scan({ cwd: path.join(root, "packages/tui/src/mini") })) {
       const source = await Bun.file(path.join(root, "packages/tui/src/mini", file)).text()
-      if (/["']@xccode\/(?:core|server|cli)(?:\/[^"']*)?["']/.test(source)) imports.push(file)
+      if (/["']@xiaochuan\/(?:core|server|cli)(?:\/[^"']*)?["']/.test(source)) imports.push(file)
     }
     expect(imports).toEqual([])
 

@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Izbriši radno stablo",
   "mcp.manage": "Upravljaj MCP poslužiteljima",
   timedOut: "Poslužitelj predugo nije odgovarao",
-  "setup.mcp": "Dodaj poslužitelj uz Xccode",
+  "setup.mcp": "Dodaj poslužitelj uz Xiaochuan",
   "setup.mcp.prompt":
-    "Pomozi mi dodati MCP poslužitelj u moju globalnu Xccode konfiguraciju. Pitaj me koju uslugu želim povezati, zatim je postavi i provjeri povezuje li se.",
-  "setup.plugins": "Dodaj dodatak uz Xccode",
+    "Pomozi mi dodati MCP poslužitelj u moju globalnu Xiaochuan konfiguraciju. Pitaj me koju uslugu želim povezati, zatim je postavi i provjeri povezuje li se.",
+  "setup.plugins": "Dodaj dodatak uz Xiaochuan",
   "setup.plugins.prompt":
-    "Pomozi mi dodati dodatak u moju globalnu Xccode konfiguraciju. Pitaj me što želim da radi, predloži dodatak, a zatim ga dodaj.",
-  "setup.skills": "Nova vještina uz Xccode",
+    "Pomozi mi dodati dodatak u moju globalnu Xiaochuan konfiguraciju. Pitaj me što želim da radi, predloži dodatak, a zatim ga dodaj.",
+  "setup.skills": "Nova vještina uz Xiaochuan",
   "setup.skills.prompt":
-    "Pomozi mi napisati novu Xccode vještinu u mojoj globalnoj konfiguraciji. Pitaj me što bi te trebala naučiti, a zatim napiši njezin SKILL.md.",
+    "Pomozi mi napisati novu Xiaochuan vještinu u mojoj globalnoj konfiguraciji. Pitaj me što bi te trebala naučiti, a zatim napiši njezin SKILL.md.",
   changesFailed: "Učitavanje promjena nije uspjelo",
   changesOffline: "Poslužitelj nije dostupan",
   "mcp.signIn": "Prijava",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Pojedinosti za {{name}}",
   "mcp.signIn.open": "Prijava u {{name}}",
   "mcp.signIn.description":
-    "Otvorit će se preglednik kako biste se mogli prijaviti u {{name}}. Ako ne može pristupiti računalu na kojem radi Xccode, ispod zalijepite URL na koji je preusmjeren.",
+    "Otvorit će se preglednik kako biste se mogli prijaviti u {{name}}. Ako ne može pristupiti računalu na kojem radi Xiaochuan, ispod zalijepite URL na koji je preusmjeren.",
   "mcp.signIn.waiting": "Čeka se autorizacija…",
   "mcp.signIn.failed": "Autorizacija nije uspjela: {{error}}",
   "mcp.signIn.expired": "Autorizacija je istekla",

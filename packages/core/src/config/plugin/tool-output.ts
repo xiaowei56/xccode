@@ -1,13 +1,13 @@
 export * as ConfigToolOutputPlugin from "./tool-output.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 import { Effect } from "effect"
 import { Config } from "../../config.js"
 import { ToolOutput } from "../../tool-output.js"
 import { ConfigEntryObserver } from "./entry-observer.js"
 
 export const Plugin = define({
-  id: "xccode.config.tool-output",
+  id: "xiaochuan.config.tool-output",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const output = yield* ToolOutput.Service

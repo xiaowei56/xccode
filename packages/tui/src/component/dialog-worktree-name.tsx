@@ -1,4 +1,4 @@
-import { Slug } from "@xccode/core/util/slug"
+import { Slug } from "@xiaochuan/core/util/slug"
 import { useNewDesigns } from "../config"
 import { type DialogContext } from "../ui/dialog"
 import { DialogPrompt } from "../ui/dialog-prompt"

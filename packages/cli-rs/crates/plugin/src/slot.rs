@@ -150,8 +150,8 @@ pub struct Placement {
 }
 
 /// The placement of a plugin's slot claim.
-pub fn placement(claim: &xccode_plugin_abi::SlotClaim) -> Placement {
-    use xccode_plugin_abi::SlotKind;
+pub fn placement(claim: &xiaochuan_plugin_abi::SlotClaim) -> Placement {
+    use xiaochuan_plugin_abi::SlotKind;
     let kind = match claim.kind {
         SlotKind::Prepend => Kind::Prepend,
         SlotKind::Append => Kind::Append,

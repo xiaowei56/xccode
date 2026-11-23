@@ -1,4 +1,4 @@
-import type { McpServer, PluginInfo } from "@xccode/client/promise"
+import type { McpServer, PluginInfo } from "@xiaochuan/client/promise"
 import {
   Component,
   For,
@@ -11,12 +11,12 @@ import {
   untrack,
   type JSX,
 } from "solid-js"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Icon } from "@xccode/ui/icon"
-import { Button } from "@xccode/ui/button"
-import { Switch } from "@xccode/ui/switch"
-import { Tabs } from "@xccode/ui/tabs"
-import { TruncatedText } from "@xccode/ui/truncated-text"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Button } from "@xiaochuan/ui/button"
+import { Switch } from "@xiaochuan/ui/switch"
+import { Tabs } from "@xiaochuan/ui/tabs"
+import { TruncatedText } from "@xiaochuan/ui/truncated-text"
 import { useLanguage } from "@/runtime/i18n/language"
 import { useData } from "@/runtime/server/current"
 import { useServerSDK } from "@/runtime/server/client"
@@ -384,7 +384,7 @@ export const SettingsExtensions: Component<{
                 <span class="settings-extension-heading text-13-medium">
                   {language.t("settings.extensions.availableAll")}
                 </span>
-                <ExternalLink class="settings-extension-link text-13-regular" href="https://xccode.ai/docs/skills">
+                <ExternalLink class="settings-extension-link text-13-regular" href="https://xiaochuan.ai/docs/skills">
                   {language.t("settings.extensions.addSkills")}
                 </ExternalLink>
               </div>

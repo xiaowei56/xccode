@@ -1,4 +1,4 @@
-import type { NavMenusOptions } from "@xccode/nav-menus"
+import type { NavMenusOptions } from "@xiaochuan/nav-menus"
 
 const events = "contextmenu keydown focusin pointerdown pointerup pointercancel pointerover pointerout".split(" ")
 
@@ -35,7 +35,7 @@ export function navMenusOnIntent(options: NavMenusOptions) {
       : event.type === "pointerdown" && (event as PointerEvent).pointerType === "touch"
     if (!opens && !hint) return
     early = replay ? [event] : []
-    void import("@xccode/nav-menus").then(
+    void import("@xiaochuan/nav-menus").then(
       (module) => {
         if (stopped) return
         listen(false)

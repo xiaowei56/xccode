@@ -1,6 +1,6 @@
 export * as Machines from "./machines.js"
 
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { createHash, randomBytes } from "node:crypto"
 import { eq } from "drizzle-orm"
 import { Clock, Context, Effect, Layer, Schema } from "effect"
@@ -116,7 +116,7 @@ export interface Interface {
   readonly identify: (key: Uint8Array) => Effect.Effect<Environment.ID, UnknownKey>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Machines") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Machines") {}
 
 const SECRET_BYTES = 32
 const KEY_BYTES = 32

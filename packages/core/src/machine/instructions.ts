@@ -1,6 +1,6 @@
 export * as MachineInstructions from "./instructions.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Context, Effect, Layer, Schema } from "effect"
 import { Flag } from "../flag.js"
 import { Instructions } from "../instructions/index.js"
@@ -31,7 +31,7 @@ export interface Interface {
   readonly load: () => Effect.Effect<Instructions.List>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/MachineInstructions") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/MachineInstructions") {}
 
 const layer = Layer.effect(
   Service,

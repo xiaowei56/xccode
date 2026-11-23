@@ -1,5 +1,5 @@
 //! A request as the generated builders describe it ([`crate::client`]), typed by what it answers and with no transport:
-//! `xccode-api`'s client sends it with its credentials, and a plugin sends it as a `Fetch` through its host.
+//! `xiaochuan-api`'s client sends it with its credentials, and a plugin sends it as a `Fetch` through its host.
 //! The encodings are the TypeScript client's: the query's brackets
 //! (`appendQuery`, `packages/client/src/promise/generated/client.ts:2795-2810`) and `encodeURIComponent` for a path's
 //! parameters.
@@ -49,7 +49,7 @@ pub enum Reply {
     Empty,
     /// The body's bytes.
     Binary,
-    /// A stream of server-sent events, which only `xccode-api`'s client reads.
+    /// A stream of server-sent events, which only `xiaochuan-api`'s client reads.
     Sse,
 }
 

@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { isXccodeEvent, XccodeEvent, type XccodeEventEncoded } from "../src/groups/event.js"
+import { isXiaochuanEvent, XiaochuanEvent, type XiaochuanEventEncoded } from "../src/groups/event.js"
 
 type JsonShape<Value> = Value extends string | number | boolean | null
   ? Value
@@ -19,14 +19,14 @@ type JsonShape<Value> = Value extends string | number | boolean | null
 
 // JSON.stringify omits undefined object properties, so normalize them before
 // requiring every runtime event shape to fit its encoded wire contract.
-const wireReady: [JsonShape<XccodeEvent>] extends [JsonShape<XccodeEventEncoded>] ? true : false = true
+const wireReady: [JsonShape<XiaochuanEvent>] extends [JsonShape<XiaochuanEventEncoded>] ? true : false = true
 
 test("classifies public events by type", () => {
-  expect(isXccodeEvent({ type: "server.connected" })).toBe(true)
-  expect(isXccodeEvent({ type: "mcp.status.changed" })).toBe(true)
-  expect(isXccodeEvent({ type: "mcp.resources.changed" })).toBe(true)
-  expect(isXccodeEvent({ type: "mcp.tools.changed" })).toBe(false)
-  expect(isXccodeEvent({ type: "acme.updated" })).toBe(false)
+  expect(isXiaochuanEvent({ type: "server.connected" })).toBe(true)
+  expect(isXiaochuanEvent({ type: "mcp.status.changed" })).toBe(true)
+  expect(isXiaochuanEvent({ type: "mcp.resources.changed" })).toBe(true)
+  expect(isXiaochuanEvent({ type: "mcp.tools.changed" })).toBe(false)
+  expect(isXiaochuanEvent({ type: "acme.updated" })).toBe(false)
 })
 
 test("keeps public event runtime values within the encoded contract", () => {

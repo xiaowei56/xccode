@@ -1,6 +1,6 @@
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Tooltip } from "@xccode/ui/tooltip"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import { useI18n } from "../context/i18n"
 import "./preview-controls.css"
 

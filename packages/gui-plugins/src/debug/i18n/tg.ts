@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Ташхиси хотира: ҳар 30 сония хотираи барномаро ба гузоришҳои мизи корӣ сабт мекунад. То хомӯш кардан ҳангоми аз нав оғозёбӣ фаъол мемонад; то вақте ки кор мекунад, навор кушода мемонад.",
-  "memory.tipEnv": "Ташхиси хотира барои ин оғоз фаъол аст: XCCODE_DESKTOP_MEMORY_LOG муқаррар шудааст.",
+  "memory.tipEnv": "Ташхиси хотира барои ин оғоз фаъол аст: XIAOCHUAN_DESKTOP_MEMORY_LOG муқаррар шудааст.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Танзимгарҳо",

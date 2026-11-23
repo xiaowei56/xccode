@@ -103,7 +103,7 @@ const abortEffect = (signal: AbortSignal | undefined) =>
 export const make = (options: Options = {}) => {
   const runtime = ManagedRuntime.make(AIClient.layerWith(options.layer ?? RequestExecutor.fetchLayer))
 
-  /** Run any package Effect (for example `ai.compact(...)` from `@xccode/ai/effect`) inside this runtime. */
+  /** Run any package Effect (for example `ai.compact(...)` from `@xiaochuan/ai/effect`) inside this runtime. */
   const run = <A, E>(effect: Effect.Effect<A, E, Services>, options?: RunOptions) =>
     runtime.runPromise(Effect.raceFirst(scoped(effect, options?.http), abortEffect(options?.signal)))
 
@@ -332,7 +332,7 @@ const scoped = <Self extends Effect.Effect<unknown, unknown, unknown> | Stream.S
 const fileError = (message: string, cause: unknown) =>
   new AIError({ reason: new InvalidRequestError({ message, cause }) })
 
-/** `tool` from `@xccode/ai/effect`, with an `execute` that returns a value or a Promise and throws to fail. */
+/** `tool` from `@xiaochuan/ai/effect`, with an `execute` that returns a value or a Promise and throws to fail. */
 export const tool = <
   Input extends ToolInput = typeof Schema.Unknown,
   Success extends ToolSchema<any> = typeof Schema.Unknown,

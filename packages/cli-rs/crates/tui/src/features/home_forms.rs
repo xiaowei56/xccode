@@ -1,7 +1,7 @@
 //! Show the current location's global form over home. The prompt keeps its place but yields its keys.
 
-use xccode_store::Location;
-use xccode_store::forms::GLOBAL;
+use xiaochuan_store::Location;
+use xiaochuan_store::forms::GLOBAL;
 
 use crate::prelude::*;
 use crate::routes::session::form::{Host, quiet};

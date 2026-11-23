@@ -1,6 +1,6 @@
 export * as CopilotModels from "./models.js"
 
-import { Money } from "@xccode/schema/money"
+import { Money } from "@xiaochuan/schema/money"
 import { Effect, Option, Schema } from "effect"
 import { Headers, HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { Model } from "../model.js"
@@ -169,7 +169,7 @@ function build(id: Model.ID, remote: UsableModel, baseURL: string, previous?: Mo
   if (image) input.push("image")
   if (pdf) input.push("pdf")
   const prices = remote.billing?.token_prices
-  // Copilot reports AIC per billing batch; Xccode stores USD per million tokens.
+  // Copilot reports AIC per billing batch; Xiaochuan stores USD per million tokens.
   const usdPerMillion = prices && prices.batch_size > 0 ? 10_000 / prices.batch_size : 0
   const version = remote.version.startsWith(`${remote.id}-`)
     ? remote.version.slice(remote.id.length + 1)
@@ -219,9 +219,9 @@ function build(id: Model.ID, remote: UsableModel, baseURL: string, previous?: Mo
 type Endpoint = "messages" | "responses" | "chat"
 
 const PACKAGES = {
-  messages: "@xccode/ai/providers/anthropic",
-  responses: "@xccode/ai/providers/openai-compatible-responses",
-  chat: "@xccode/ai/providers/openai-compatible",
+  messages: "@xiaochuan/ai/providers/anthropic",
+  responses: "@xiaochuan/ai/providers/openai-compatible-responses",
+  chat: "@xiaochuan/ai/providers/openai-compatible",
 } as const satisfies Record<Endpoint, string>
 
 /** The native package and base URL for the Copilot API that serves a model. */

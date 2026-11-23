@@ -3,20 +3,20 @@ title: Referenzen
 description: Fügen Sie lokale Verzeichnisse und Git-Repositories als Projektreferenzen hinzu.
 ---
 
-Referenzen geben Xccode Zugriff auf Verzeichnisse außerhalb des aktuellen Projekts. Verwenden Sie sie, um Dokumentation, gemeinsam genutzte Bibliotheken, Beispiele oder ein anderes Repository während der Arbeit verfügbar zu machen.
+Referenzen geben Xiaochuan Zugriff auf Verzeichnisse außerhalb des aktuellen Projekts. Verwenden Sie sie, um Dokumentation, gemeinsam genutzte Bibliotheken, Beispiele oder ein anderes Repository während der Arbeit verfügbar zu machen.
 
-Referenzen werden über einen Alias in `xccode.json` oder `xccode.jsonc` konfiguriert.
+Referenzen werden über einen Alias in `xiaochuan.json` oder `xiaochuan.jsonc` konfiguriert.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "references": {
     "docs": {
       "path": "../product-docs",
       "description": "Use for product behavior and documentation conventions",
     },
     "sdk": {
-      "repository": "xiaowei56/xccode-sdk-js",
+      "repository": "xiaowei56/xiaochuan-sdk-js",
       "branch": "main",
       "description": "Use for JavaScript SDK implementation details",
     },
@@ -30,7 +30,7 @@ Referenzen werden über einen Alias in `xccode.json` oder `xccode.jsonc` konfigu
 
 Verwenden Sie `path`, um auf ein lokales Verzeichnis zu verweisen.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "docs": {
@@ -48,7 +48,7 @@ Pfade können sein:
 
 Sie können auch eine Kurzschreibweise als String verwenden:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "docs": "../docs",
@@ -60,9 +60,9 @@ Sie können auch eine Kurzschreibweise als String verwenden:
 
 ## Git-Repositories
 
-Verwenden Sie `repository`, um auf ein Git-Repository zu verweisen. Xccode legt das Repository in seinem lokalen Repository-Cache an und stellt den ausgecheckten Quellcode als Referenzverzeichnis bereit.
+Verwenden Sie `repository`, um auf ein Git-Repository zu verweisen. Xiaochuan legt das Repository in seinem lokalen Repository-Cache an und stellt den ausgecheckten Quellcode als Referenzverzeichnis bereit.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "effect": {
@@ -73,11 +73,11 @@ Verwenden Sie `repository`, um auf ein Git-Repository zu verweisen. Xccode legt 
 }
 ```
 
-`repository` akzeptiert Git-URLs, host/path-Referenzen und die GitHub-Kurzform `owner/repo`. Das optionale Feld `branch` wählt einen Branch oder Ref aus. Ohne `branch` verwendet Xccode den Standard-Branch des Repositorys.
+`repository` akzeptiert Git-URLs, host/path-Referenzen und die GitHub-Kurzform `owner/repo`. Das optionale Feld `branch` wählt einen Branch oder Ref aus. Ohne `branch` verwendet Xiaochuan den Standard-Branch des Repositorys.
 
 Sie können die Kurzschreibweise als String verwenden, wenn Sie keinen Branch, keine Beschreibung und keine weiteren Optionen benötigen:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "effect": "Effect-TS/effect",
@@ -95,7 +95,7 @@ Git-Referenzen werden asynchron aktualisiert. Bei einem neu konfigurierten Repos
 
 Fügen Sie `description` hinzu, um zu erklären, wann ein Agent eine Referenz verwenden soll.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "design-system": {
@@ -106,7 +106,7 @@ Fügen Sie `description` hinzu, um zu erklären, wann ein Agent eine Referenz ve
 }
 ```
 
-Xccode nimmt Referenzen mit Beschreibungen in den Agentenkontext auf. Beschreibungen sollten kurz und so spezifisch sein, dass sich Referenzen mit ähnlichem Inhalt unterscheiden lassen. Referenzen ohne Beschreibung bleiben über die Autovervollständigung und direkte Verwendung verfügbar, werden Agenten aber nicht angeboten.
+Xiaochuan nimmt Referenzen mit Beschreibungen in den Agentenkontext auf. Beschreibungen sollten kurz und so spezifisch sein, dass sich Referenzen mit ähnlichem Inhalt unterscheiden lassen. Referenzen ohne Beschreibung bleiben über die Autovervollständigung und direkte Verwendung verfügbar, werden Agenten aber nicht angeboten.
 
 ---
 
@@ -114,7 +114,7 @@ Xccode nimmt Referenzen mit Beschreibungen in den Agentenkontext auf. Beschreibu
 
 Setzen Sie `hidden` auf `true`, um eine Referenz aus der `@`-Autovervollständigung in der TUI auszublenden.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
   "references": {
     "internal": {
@@ -140,7 +140,7 @@ Compare this implementation with @sdk/src/client.ts
 
 Agenten erhalten in ihrem Systemkontext außerdem die aufgelösten Pfade und Beschreibungen konfigurierter Referenzen, die eine Beschreibung haben. So können sie eine Referenz untersuchen, wenn sie relevant ist, ohne dass Sie sie manuell anhängen müssen.
 
-Xccode erlaubt Referenzverzeichnisse automatisch über seine Berechtigungsgrenze für externe Verzeichnisse. Die normalen Tool-Berechtigungen gelten weiterhin; ein Agent, der keine Dateien bearbeiten darf, erhält zum Beispiel keinen Bearbeitungszugriff, nur weil ein Verzeichnis als Referenz konfiguriert ist.
+Xiaochuan erlaubt Referenzverzeichnisse automatisch über seine Berechtigungsgrenze für externe Verzeichnisse. Die normalen Tool-Berechtigungen gelten weiterhin; ein Agent, der keine Dateien bearbeiten darf, erhält zum Beispiel keinen Bearbeitungszugriff, nur weil ein Verzeichnis als Referenz konfiguriert ist.
 
 ---
 

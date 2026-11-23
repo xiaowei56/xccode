@@ -1,5 +1,5 @@
-import type { FormInfo, PermissionRequest, SessionInfo } from "@xccode/client/promise"
-import type { Data } from "@xccode/client/solid"
+import type { FormInfo, PermissionRequest, SessionInfo } from "@xiaochuan/client/promise"
+import type { Data } from "@xiaochuan/client/solid"
 
 function sessionTreeRequest<T>(
   session: SessionInfo[],

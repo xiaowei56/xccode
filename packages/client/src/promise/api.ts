@@ -1,6 +1,6 @@
-import type { Xccode } from "./client.js"
+import type { Xiaochuan } from "./client.js"
 
-type Client = ReturnType<typeof Xccode.make>
+type Client = ReturnType<typeof Xiaochuan.make>
 
 export type { RpcApi, RpcCallOptions, RpcClient, RpcEventPayload } from "./rpc.js"
 export type { SelectedEvent, SubscribeOptions } from "../shared-events.js"

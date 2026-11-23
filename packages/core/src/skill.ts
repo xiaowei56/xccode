@@ -1,10 +1,10 @@
 export * as Skill from "./skill.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { FSUtil } from "@xccode/util/fs-util"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import path from "path"
 import { Context, Effect, Layer, Types } from "effect"
-import { Skill } from "@xccode/schema/skill"
+import { Skill } from "@xiaochuan/schema/skill"
 import { Bus } from "./bus.js"
 import { Permission } from "./permission.js"
 import { State } from "./state.js"
@@ -28,7 +28,7 @@ export type ID = Skill.ID
 export const Name = Skill.Name
 export type Name = Skill.Name
 
-export { Event } from "@xccode/schema/skill"
+export { Event } from "@xiaochuan/schema/skill"
 
 export const available = (skills: ReadonlyArray<Info>, permissions: Permission.Ruleset) =>
   skills.filter((skill) => Permission.evaluate("skill", skill.id, permissions).effect !== "deny")
@@ -112,7 +112,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly list: () => Effect.Effect<Info[]>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Skill") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Skill") {}
 
 const layer = Layer.effect(
   Service,

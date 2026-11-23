@@ -1,6 +1,6 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 
-// A slot that returns bare text next to a well-formed one (xiaowei56/xccode#58112).
+// A slot that returns bare text next to a well-formed one (xiaowei56/xiaochuan#58112).
 export default Plugin.define({
   id: "fixture.slot-string",
   setup(context) {

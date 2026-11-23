@@ -1,5 +1,5 @@
 import { createMemo } from "solid-js"
-import { SettingsPage } from "@xccode/plugin/gui"
+import { SettingsPage } from "@xiaochuan/plugin/gui"
 import { usePluginHost } from "./host"
 
 /** The settings pages plugins contribute. */

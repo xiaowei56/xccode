@@ -32,7 +32,7 @@ export default {
   "memory.tip":
     "Memóriadiagnosztika: az alkalmazás memóriahasználatát 30 másodpercenként az asztali naplókba írja. Újraindítás után is bekapcsolva marad, amíg ki nem kapcsolja; futás közben a sáv nyitva marad.",
   "memory.tipEnv":
-    "A memóriadiagnosztika ehhez az indításhoz be van kapcsolva: az XCCODE_DESKTOP_MEMORY_LOG be van állítva.",
+    "A memóriadiagnosztika ehhez az indításhoz be van kapcsolva: az XIAOCHUAN_DESKTOP_MEMORY_LOG be van állítva.",
   "memory.env": "ENV",
   "motion.label": "VEZÉRLŐK",
   "motion.title": "Vezérlők",

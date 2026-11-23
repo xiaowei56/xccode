@@ -11,7 +11,7 @@ use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
 
-use xccode_plugin_abi::{Color, Fence, Fenced, Line, Plugin, Rgba, Setup, Span};
+use xiaochuan_plugin_abi::{Color, Fence, Fenced, Line, Plugin, Rgba, Setup, Span};
 
 pub use layout::{Layout, Options};
 pub use parse::{Mode, ParseError};
@@ -21,7 +21,7 @@ pub const MAX_SOURCE_BYTES: usize = 4096;
 
 /// Registers the fenced and inline math renderers.
 pub fn plugin() -> Plugin {
-    Plugin { id: "xccode.latex", setup }
+    Plugin { id: "xiaochuan.latex", setup }
 }
 
 fn setup(setup: &mut Setup) -> Result<(), String> {

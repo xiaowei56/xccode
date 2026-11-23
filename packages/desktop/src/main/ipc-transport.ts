@@ -29,7 +29,7 @@ type Handoff = {
   readonly onDisconnect: (listener: (clientId: number) => void) => () => void
 }
 
-export class IpcPortHandoff extends Context.Service<IpcPortHandoff, Handoff>()("xccode/desktop/IpcPortHandoff") {}
+export class IpcPortHandoff extends Context.Service<IpcPortHandoff, Handoff>()("xiaochuan/desktop/IpcPortHandoff") {}
 
 type TransportEvent = IpcTransportEvent<WebContents, MessagePortMain, Queue.Queue<DesktopEvent>, DesktopEvent>
 

@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant, SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionMessageAssistant, SessionMessageInfo } from "@xiaochuan/client/promise"
 import { Predicate } from "effect"
 import { TimelineRow } from "../timeline/timeline-row"
 import { resolveContent } from "./projection"

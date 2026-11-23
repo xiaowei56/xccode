@@ -2,10 +2,10 @@ export * as SessionInstructions from "./instructions.js"
 
 import { relative } from "path"
 import { Context, Effect, Layer, Option, Ref, Schema } from "effect"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Bus } from "../bus.js"
 import { Database } from "../database/database.js"
-import { FSUtil } from "@xccode/util/fs-util"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { Location } from "../location.js"
 import { SessionEvent } from "./event.js"
 import { MessageDecodeError } from "./error.js"
@@ -24,7 +24,7 @@ export interface Interface {
   }) => Effect.Effect<void, MessageDecodeError | FSUtil.Error>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionInstructions") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionInstructions") {}
 
 const layer = Layer.effect(
   Service,

@@ -5,12 +5,12 @@ use std::future::Future;
 use std::sync::{Arc, Mutex, MutexGuard};
 
 use futures_util::StreamExt;
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     AgentID, ExperimentalMcpAddInput, ExperimentalMcpAddInputConfig, LocationQueryInput, ModelRef, SessionID,
     SessionInfo, SessionSwitchAgentInput, SessionSwitchModelInput,
 };
-use xccode_util::lock;
+use xiaochuan_util::lock;
 use serde_json::{Map, Value, json};
 use tokio::sync::{mpsc, watch};
 use tokio_util::sync::CancellationToken;

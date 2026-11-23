@@ -6,9 +6,9 @@ use crate::support::{self, DIRECTORY};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
-use xccode_api::memory::{Memory, Route as MemoryRoute};
-use xccode_api::transport::{BoxFuture, Request, Response, Transport};
-use xccode_tui::{Deps, Route};
+use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
+use xiaochuan_api::transport::{BoxFuture, Request, Response, Transport};
+use xiaochuan_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 const CATALOGS: [&str; 4] = ["/api/agent", "/api/model", "/api/provider", "/api/command"];

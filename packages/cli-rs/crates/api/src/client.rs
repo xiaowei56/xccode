@@ -4,7 +4,7 @@ use std::sync::Arc;
 
 use base64::Engine;
 use bytes::Bytes;
-use xccode_api_types::de::well_formed;
+use xiaochuan_api_types::de::well_formed;
 use serde::Serialize;
 use serde::de::DeserializeOwned;
 use serde_json::Value;
@@ -28,7 +28,7 @@ pub enum Auth {
 impl Auth {
     /// Basic credentials with the user name the CLI uses for its local service.
     pub fn password(password: impl Into<String>) -> Self {
-        Self::Basic { username: "xccode".to_owned(), password: password.into() }
+        Self::Basic { username: "xiaochuan".to_owned(), password: password.into() }
     }
 
     /// `base64(username:password)`, the value of the header after `Basic ` and of `auth_token`.
@@ -245,14 +245,14 @@ pub struct Call {
     pub declared_statuses: &'static [u16],
 }
 
-pub use xccode_api_types::call::Body;
+pub use xiaochuan_api_types::call::Body;
 
-/// The call a generated builder describes ([`xccode_api_types::client`]), to send with this client: an input that did
+/// The call a generated builder describes ([`xiaochuan_api_types::client`]), to send with this client: an input that did
 /// not serialize is the error.
-impl<T> TryFrom<xccode_api_types::call::Call<T>> for Call {
+impl<T> TryFrom<xiaochuan_api_types::call::Call<T>> for Call {
     type Error = Error;
 
-    fn try_from(call: xccode_api_types::call::Call<T>) -> Result<Self, Error> {
+    fn try_from(call: xiaochuan_api_types::call::Call<T>) -> Result<Self, Error> {
         if let Some(error) = call.error {
             return Err(Error::Transport(error));
         }
@@ -314,10 +314,10 @@ impl Call {
 
 /// A path parameter: `String(value)` encoded like `encodeURIComponent`.
 pub fn path_param<T: Serialize + ?Sized>(value: &T) -> Result<String, Error> {
-    xccode_api_types::call::path_param(value).map_err(Error::Transport)
+    xiaochuan_api_types::call::path_param(value).map_err(Error::Transport)
 }
 
-pub use xccode_api_types::call::path_wildcard;
+pub use xiaochuan_api_types::call::path_wildcard;
 
 fn set_header(headers: &mut Vec<(String, String)>, name: String, value: String) {
     let name = name.to_ascii_lowercase();
@@ -415,8 +415,8 @@ mod tests {
     fn a_request_stays_on_the_configured_origin() {
         let base = Client::new("https://server.invalid:4096/base").unwrap();
         let credentials = [
-            Auth::Basic { username: "xccode".into(), password: "secret".into() },
-            Auth::Query { username: "xccode".into(), password: "secret".into() },
+            Auth::Basic { username: "xiaochuan".into(), password: "secret".into() },
+            Auth::Query { username: "xiaochuan".into(), password: "secret".into() },
         ];
         for auth in credentials {
             let client = base.clone().auth(auth);

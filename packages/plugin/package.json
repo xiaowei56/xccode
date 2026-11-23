@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/plugin",
+  "name": "@xiaochuan/plugin",
   "version": "2.3.0",
   "type": "module",
   "license": "MIT",
@@ -42,15 +42,15 @@
   ],
   "dependencies": {
     "@ai-sdk/provider": "3.0.8",
-    "@xccode/ai": "workspace:*",
-    "@xccode/client": "workspace:*",
-    "@xccode/protocol": "workspace:*",
-    "@xccode/schema": "workspace:*",
-    "@xccode/util": "workspace:*",
+    "@xiaochuan/ai": "workspace:*",
+    "@xiaochuan/client": "workspace:*",
+    "@xiaochuan/protocol": "workspace:*",
+    "@xiaochuan/schema": "workspace:*",
+    "@xiaochuan/util": "workspace:*",
     "effect": "catalog:"
   },
   "peerDependencies": {
-    "@xccode/theme": "workspace:*",
+    "@xiaochuan/theme": "workspace:*",
     "@opentui/core": ">=0.9.4",
     "@opentui/solid": ">=0.9.4",
     "electron": "*",
@@ -59,7 +59,7 @@
     "vite-plugin-solid": ">=2.11"
   },
   "peerDependenciesMeta": {
-    "@xccode/theme": {
+    "@xiaochuan/theme": {
       "optional": true
     },
     "@opentui/core": {
@@ -82,7 +82,7 @@
     }
   },
   "devDependencies": {
-    "@xccode/theme": "workspace:*",
+    "@xiaochuan/theme": "workspace:*",
     "@opentui/core": "catalog:",
     "@opentui/solid": "catalog:",
     "@tsconfig/bun": "catalog:",
@@ -97,7 +97,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaowei56/xccode.git",
+    "url": "git+https://github.com/xiaowei56/xiaochuan.git",
     "directory": "packages/plugin"
   }
 }

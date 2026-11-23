@@ -1,5 +1,5 @@
 import { Cause, Deferred, Effect, Exit, Fiber } from "effect"
-import type { UpdaterState } from "@xccode/plugin/gui/updater"
+import type { UpdaterState } from "@xiaochuan/plugin/gui/updater"
 
 export type UpdateTarget =
   | { readonly mode: "restart"; readonly version: string }

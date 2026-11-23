@@ -1,5 +1,5 @@
 //! The TUI's integration tests, one module per area, linked into one binary so a suite run links the static
-//! OpenTUI and tree-sitter set once. Select an area with `cargo test -p xccode-tui --test all <module>::`.
+//! OpenTUI and tree-sitter set once. Select an area with `cargo test -p xiaochuan-tui --test all <module>::`.
 
 mod support;
 

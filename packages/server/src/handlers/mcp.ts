@@ -1,9 +1,9 @@
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { Mcp } from "@xccode/core/mcp/index"
-import { PtyTicket } from "@xccode/core/pty/ticket"
-import { ForbiddenError, McpServerNotFoundError } from "@xccode/protocol/errors"
-import { PTY_CONNECT_TOKEN_HEADER, PTY_CONNECT_TOKEN_HEADER_VALUE } from "@xccode/protocol/groups/pty"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { Mcp } from "@xiaochuan/core/mcp/index"
+import { PtyTicket } from "@xiaochuan/core/pty/ticket"
+import { ForbiddenError, McpServerNotFoundError } from "@xiaochuan/protocol/errors"
+import { PTY_CONNECT_TOKEN_HEADER, PTY_CONNECT_TOKEN_HEADER_VALUE } from "@xiaochuan/protocol/groups/pty"
 import { Effect, Queue } from "effect"
 import { HttpServerResponse } from "effect/http"
 import { HttpApiBuilder, HttpApiSchema } from "effect/http-api"
@@ -109,7 +109,7 @@ export const McpHandler = HttpApiBuilder.group(Api, "server.mcp", (handlers) =>
 
           return yield* Effect.gen(function* () {
             const mcp = yield* Mcp.Service
-            const { McpSocketClient } = yield* Effect.promise(() => import("@xccode/core/mcp/socket-client"))
+            const { McpSocketClient } = yield* Effect.promise(() => import("@xiaochuan/core/mcp/socket-client"))
             const socket = yield* Effect.orDie(ctx.request.upgrade)
             const outbox = yield* Queue.unbounded<Outbound>()
             yield* holdLocation(outbox)

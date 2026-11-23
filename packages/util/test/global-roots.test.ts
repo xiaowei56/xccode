@@ -7,7 +7,7 @@ const module = pathToFileURL(path.join(import.meta.dir, "../src/global-roots.ts"
 
 describe("global roots", () => {
   test("uses XDG overrides", () => {
-    const root = path.join(os.tmpdir(), "xccode-xdg-overrides")
+    const root = path.join(os.tmpdir(), "xiaochuan-xdg-overrides")
     const env = {
       XDG_DATA_HOME: path.join(root, "data"),
       XDG_CACHE_HOME: path.join(root, "cache"),
@@ -16,16 +16,16 @@ describe("global roots", () => {
     }
 
     expect(run(env)).toEqual({
-      data: path.join(env.XDG_DATA_HOME, "xccode"),
-      cache: path.join(env.XDG_CACHE_HOME, "xccode"),
-      config: path.join(env.XDG_CONFIG_HOME, "xccode"),
-      state: path.join(env.XDG_STATE_HOME, "xccode"),
-      tmp: path.join(os.tmpdir(), "xccode"),
+      data: path.join(env.XDG_DATA_HOME, "xiaochuan"),
+      cache: path.join(env.XDG_CACHE_HOME, "xiaochuan"),
+      config: path.join(env.XDG_CONFIG_HOME, "xiaochuan"),
+      state: path.join(env.XDG_STATE_HOME, "xiaochuan"),
+      tmp: path.join(os.tmpdir(), "xiaochuan"),
     })
   })
 
   test("empty XDG overrides use home directory defaults", () => {
-    const home = path.join(os.tmpdir(), "xccode-xdg-home")
+    const home = path.join(os.tmpdir(), "xiaochuan-xdg-home")
 
     expect(
       run({
@@ -36,11 +36,11 @@ describe("global roots", () => {
         ...(process.platform === "win32" ? { USERPROFILE: home } : { HOME: home }),
       }),
     ).toEqual({
-      data: path.join(home, ".local", "share", "xccode"),
-      cache: path.join(home, ".cache", "xccode"),
-      config: path.join(home, ".config", "xccode"),
-      state: path.join(home, ".local", "state", "xccode"),
-      tmp: path.join(os.tmpdir(), "xccode"),
+      data: path.join(home, ".local", "share", "xiaochuan"),
+      cache: path.join(home, ".cache", "xiaochuan"),
+      config: path.join(home, ".config", "xiaochuan"),
+      state: path.join(home, ".local", "state", "xiaochuan"),
+      tmp: path.join(os.tmpdir(), "xiaochuan"),
     })
   })
 })
@@ -50,7 +50,7 @@ function run(env: Record<string, string>) {
     cmd: [
       process.execPath,
       "-e",
-      `const { roots } = await import(${JSON.stringify(module)}); console.log(JSON.stringify(roots("xccode")))`,
+      `const { roots } = await import(${JSON.stringify(module)}); console.log(JSON.stringify(roots("xiaochuan")))`,
     ],
     env: { ...process.env, ...env },
     stdout: "pipe",

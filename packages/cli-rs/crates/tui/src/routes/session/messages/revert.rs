@@ -1,6 +1,6 @@
 //! Show the undo boundary and changed files; clearing the revert restores the hidden messages.
 
-use xccode_api::generated::{FileDiffInfo, FileDiffInfoStatus, SessionRevertClearInput};
+use xiaochuan_api::generated::{FileDiffInfo, FileDiffInfoStatus, SessionRevertClearInput};
 use unicode_width::UnicodeWidthStr;
 
 use crate::dialogs::open::truncate_file_path;

@@ -18,10 +18,10 @@ import { createApi, createEventStream, createFetch, json } from "../../fixture/t
 import { TestTuiContexts } from "../../fixture/tui-environment"
 import { createTuiResolvedConfig } from "../../fixture/tui-runtime"
 
-const main = "/tmp/xccode/main"
-const clone = "/tmp/xccode/other-clone"
-const linked = "/tmp/xccode/linked"
-const created = "/tmp/xccode/proj_t/fresh"
+const main = "/tmp/xiaochuan/main"
+const clone = "/tmp/xiaochuan/other-clone"
+const linked = "/tmp/xiaochuan/linked"
+const created = "/tmp/xiaochuan/proj_t/fresh"
 
 test.each([
   { name: "a cached session in another clone", directory: clone, warm: true },
@@ -63,7 +63,7 @@ test.each([
 
 test.each([
   { name: "another clone", launch: main },
-  { name: "another project", launch: "/tmp/xccode/elsewhere", launchProjectID: "proj_launch" },
+  { name: "another project", launch: "/tmp/xiaochuan/elsewhere", launchProjectID: "proj_launch" },
 ])("uses Home's selected location instead of launch in $name", async (input) => {
   const fixture = await renderMove({ ...input, directory: `${clone}/packages/tui`, home: true })
   try {

@@ -31,7 +31,7 @@ describe("session tab marquee", () => {
   test("starts for the hovered width and resets when the next tab fits", async () => {
     await using app = await mount(() => createMarquee(() => false))
 
-    app.marquee.enter("first", "xccode", 6)
+    app.marquee.enter("first", "xiaochuan", 6)
     expect(app.marquee.active()).toBe("first")
     expect(app.marquee.offset()).toBe(0)
 
@@ -47,7 +47,7 @@ describe("session tab marquee", () => {
   test("stops after one cycle", async () => {
     await using app = await mount(() => createMarquee(() => false))
 
-    app.marquee.enter("first", "xccode", 6)
+    app.marquee.enter("first", "xiaochuan", 6)
     // Steps are due every 80 ms from clock zero: the first after the 600 ms delay is at 720 ms.
     await app.advance(1_500)
 
@@ -75,7 +75,7 @@ describe("session tab marquee", () => {
   test("resets immediately after leaving", async () => {
     await using app = await mount(() => createMarquee(() => false))
 
-    app.marquee.enter("first", "xccode", 6)
+    app.marquee.enter("first", "xiaochuan", 6)
     await app.advance(700)
     app.marquee.leave("first")
 
@@ -88,7 +88,7 @@ describe("session tab marquee", () => {
   test("resets when the pointer leaves the tab rail", async () => {
     await using app = await mount(() => createTabMarquee(() => false))
 
-    app.marquee.enter("first", "xccode", 6)
+    app.marquee.enter("first", "xiaochuan", 6)
     await app.advance(700)
     app.marquee.leaveHovered()
     await Bun.sleep(5)

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { FileNode } from "@xccode/plugin/gui"
+import type { FileNode } from "@xiaochuan/plugin/gui"
 import {
   buildAllowedTreeInput,
   buildKindsStatus,

@@ -1,10 +1,10 @@
-use xccode_acp::paths::resolve_lexical;
-use xccode_util::path::Flavor;
+use xiaochuan_acp::paths::resolve_lexical;
+use xiaochuan_util::path::Flavor;
 use serde_json::{Value, json};
 
 use crate::wire::{Wire, WireOptions, assert_matches, make_session, start_wire};
 
-const KEY: &str = "xccode.acp.additionalDirectories";
+const KEY: &str = "xiaochuan.acp.additionalDirectories";
 
 /// `path.join(directory, "*")`.
 fn grant(directory: &str) -> Value {

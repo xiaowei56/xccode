@@ -4,25 +4,25 @@ import { appendFile, mkdir, rm, utimes, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { Context, Effect, Fiber, Layer } from "effect"
 import { TestClock } from "effect/testing"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { PersistentPty } from "@xccode/core/persistent-pty"
-import { Config } from "@xccode/core/config"
-import { Environment } from "@xccode/core/environment/index"
-import { Location } from "@xccode/core/location"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Shell } from "@xccode/core/shell"
-import { Bus } from "@xccode/core/bus"
-import { Global } from "@xccode/util/global"
-import { FSUtil } from "@xccode/util/fs-util"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { AppProcess } from "@xccode/util/process"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { PersistentPty } from "@xiaochuan/core/persistent-pty"
+import { Config } from "@xiaochuan/core/config"
+import { Environment } from "@xiaochuan/core/environment/index"
+import { Location } from "@xiaochuan/core/location"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Shell } from "@xiaochuan/core/shell"
+import { Bus } from "@xiaochuan/core/bus"
+import { Global } from "@xiaochuan/util/global"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { AppProcess } from "@xiaochuan/util/process"
 import { hostEnvironmentLayer } from "./fixture/environment"
 import { tempGlobalLayer } from "./fixture/global"
 import { location, tempLocationLayer } from "./fixture/location"
 import { disabledPersistentPtyLayer } from "./fixture/persistent-pty"
 import { daemonShells, until } from "./fixture/shell-daemon"
 import { tmpdirScoped } from "./fixture/tmpdir"
-import { binaryPath } from "@xccode/pty"
+import { binaryPath } from "@xiaochuan/pty"
 import { it } from "./lib/effect"
 
 const windows = process.platform === "win32"
@@ -34,8 +34,8 @@ describe("Shell on the process daemon", () => {
     Effect.gen(function* () {
       const env = yield* daemonShells()
       yield* Effect.promise(() => mkdir(path.join(env.directory, "sub")))
-      process.env.XCCODE_TEST_REMOVED = "1"
-      yield* Effect.addFinalizer(() => Effect.sync(() => delete process.env.XCCODE_TEST_REMOVED))
+      process.env.XIAOCHUAN_TEST_REMOVED = "1"
+      yield* Effect.addFinalizer(() => Effect.sync(() => delete process.env.XIAOCHUAN_TEST_REMOVED))
       yield* env.withShell(env.directory, (shell) =>
         Effect.gen(function* () {
           const info = yield* shell.create(
@@ -48,8 +48,8 @@ describe("Shell on the process daemon", () => {
             },
             (invocation) =>
               Effect.sync(() => {
-                delete invocation.env.XCCODE_TEST_REMOVED
-                invocation.env.XCCODE_TEST_UNSET = undefined
+                delete invocation.env.XIAOCHUAN_TEST_REMOVED
+                invocation.env.XIAOCHUAN_TEST_UNSET = undefined
               }),
           )
           const [request] = env.created()
@@ -67,9 +67,9 @@ describe("Shell on the process daemon", () => {
               timeoutDeadline: expect.any(Number),
             },
           })
-          expect(request?.env).toMatchObject({ TERM: "xterm-256color", XCCODE_TERMINAL: "1" })
-          expect(request?.env).not.toHaveProperty("XCCODE_TEST_REMOVED")
-          expect(request?.env).not.toHaveProperty("XCCODE_TEST_UNSET")
+          expect(request?.env).toMatchObject({ TERM: "xterm-256color", XIAOCHUAN_TERMINAL: "1" })
+          expect(request?.env).not.toHaveProperty("XIAOCHUAN_TEST_REMOVED")
+          expect(request?.env).not.toHaveProperty("XIAOCHUAN_TEST_UNSET")
           expect(info).toMatchObject({ status: "running", pid: 1001, cwd: path.join(env.directory, "sub") })
           expect(env.spawned()).toBe(0)
 
@@ -600,8 +600,8 @@ it.live("the spawner recreates the output directory removed while the Location i
   ),
 )
 
-// Against the real xccode-pty, like server/test/persistent-pty.test.ts.
-const binary = process.env.XCCODE_PTY_BIN ?? binaryPath
+// Against the real xiaochuan-pty, like server/test/persistent-pty.test.ts.
+const binary = process.env.XIAOCHUAN_PTY_BIN ?? binaryPath
 const real = binary !== undefined && existsSync(binary) ? it.live : it.live.skip
 
 describe("Shell on a real process daemon", () => {
@@ -614,8 +614,8 @@ describe("Shell on a real process daemon", () => {
         const state = path.join(data, "state")
         const global = Global.layerWith({ data, state })
         const started = () => existsSync(path.join(state, "pty")) && readdirSync(path.join(state, "pty")).length > 0
-        process.env.XCCODE_TEST_REMOVED = "1"
-        yield* Effect.addFinalizer(() => Effect.sync(() => delete process.env.XCCODE_TEST_REMOVED))
+        process.env.XIAOCHUAN_TEST_REMOVED = "1"
+        yield* Effect.addFinalizer(() => Effect.sync(() => delete process.env.XIAOCHUAN_TEST_REMOVED))
         yield* Effect.gen(function* () {
           const shell = yield* Shell.Service
           const pty = yield* PersistentPty.Service
@@ -625,12 +625,12 @@ describe("Shell on a real process daemon", () => {
             {
               shell: windows ? (Bun.which("pwsh") ?? "powershell.exe") : "/bin/sh",
               command: windows
-                ? "if ($env:XCCODE_TEST_REMOVED) { exit 1 }; [Console]::Out.Write('unset|' + $env:TERM + '|' + $PWD.Path + [char]10 + 'tail')"
-                : 'printf "%s|%s|%s\\n" "${XCCODE_TEST_REMOVED:-unset}" "$TERM" "$(pwd)"; printf tail',
+                ? "if ($env:XIAOCHUAN_TEST_REMOVED) { exit 1 }; [Console]::Out.Write('unset|' + $env:TERM + '|' + $PWD.Path + [char]10 + 'tail')"
+                : 'printf "%s|%s|%s\\n" "${XIAOCHUAN_TEST_REMOVED:-unset}" "$TERM" "$(pwd)"; printf tail',
             },
             (invocation) =>
               Effect.sync(() => {
-                delete invocation.env.XCCODE_TEST_REMOVED
+                delete invocation.env.XIAOCHUAN_TEST_REMOVED
               }),
           )
           expect(started()).toBe(true)

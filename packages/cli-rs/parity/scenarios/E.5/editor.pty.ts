@@ -12,7 +12,7 @@ export default definePty({
   cols: 100,
   rows: 30,
   env: {
-    XCCODE_CLI_CONFIG_CONTENT: config,
+    XIAOCHUAN_CLI_CONFIG_CONTENT: config,
     EDITOR: path.join(import.meta.dir, "fake-editor.sh"),
   },
   server: { fallback: "tui" },

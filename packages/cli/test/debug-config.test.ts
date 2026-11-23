@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test"
 import fs from "node:fs/promises"
 import os from "node:os"
 import path from "node:path"
-import { XCCODE_VERSION } from "../src/version"
+import { XIAOCHUAN_VERSION } from "../src/version"
 import { redactConfig } from "../src/commands/handlers/debug/redact"
 
 describe("debug config command", () => {
@@ -13,19 +13,19 @@ describe("debug config command", () => {
     expect(debug.stdout).toContain("config")
     expect(debug.stdout).toContain("List configuration sources")
     expect(config.exitCode).toBe(0)
-    expect(config.stdout).toContain("xccode debug config [flags]")
+    expect(config.stdout).toContain("xiaochuan debug config [flags]")
     expect(config.stdout).toContain("List configuration sources")
     expect(config.stdout).not.toContain("--reveal-secrets")
   })
 
   test("prints config entries from the invoking directory without reordering permissions", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "xccode-debug-config-"))
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "xiaochuan-debug-config-"))
     const project = path.join(import.meta.dir, "..")
-    const registration = path.join(root, "state", "xccode", "service-local.json")
+    const registration = path.join(root, "state", "xiaochuan", "service-local.json")
     const entries = [
       {
         type: "document",
-        path: path.join(project, "xccode.json"),
+        path: path.join(project, "xiaochuan.json"),
         info: {
           permissions: [
             { action: "shell", resource: "*", effect: "ask" },
@@ -52,10 +52,10 @@ describe("debug config command", () => {
         if (url.pathname === "/api/info") {
           healthProbes += 1
           return Response.json({
-            version: XCCODE_VERSION,
+            version: XIAOCHUAN_VERSION,
             pid: process.pid,
             urls: [],
-            paths: { tmp: "/tmp/xccode" },
+            paths: { tmp: "/tmp/xiaochuan" },
           })
         }
         requested = url
@@ -68,7 +68,7 @@ describe("debug config command", () => {
       await fs.mkdir(path.dirname(registration), { recursive: true })
       await fs.writeFile(
         registration,
-        JSON.stringify({ version: XCCODE_VERSION, url: server.url.toString(), pid: process.pid, password: "secret" }),
+        JSON.stringify({ version: XIAOCHUAN_VERSION, url: server.url.toString(), pid: process.pid, password: "secret" }),
       )
       const result = await cli(["debug", "config"], project, { XDG_STATE_HOME: path.join(root, "state") })
 
@@ -87,7 +87,7 @@ describe("debug config command", () => {
       expect(result.stdout).not.toContain("Bearer example")
       expect(requested?.pathname).toBe("/api/config")
       expect(requested?.searchParams.get("location[directory]")).toBe(project)
-      expect(authorization).toEqual([`Basic ${btoa("xccode:secret")}`])
+      expect(authorization).toEqual([`Basic ${btoa("xiaochuan:secret")}`])
       expect(healthProbes).toBe(1)
     } finally {
       server.stop(true)

@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: xccode CLI seçenekleri ve komutları.
+description: xiaochuan CLI seçenekleri ve komutları.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-xccode CLI herhangi bir argüman olmadan çalıştırıldığında varsayılan olarak [TUI](/docs/tui)'yi başlatır.
+xiaochuan CLI herhangi bir argüman olmadan çalıştırıldığında varsayılan olarak [TUI](/docs/tui)'yi başlatır.
 
 ```bash
-xccode
+xiaochuan
 ```
 
-Ancak bu sayfada belgelendiği gibi komutları da kabul eder. Bu, xccode ile programlı olarak etkileşim kurmanıza olanak tanır.
+Ancak bu sayfada belgelendiği gibi komutları da kabul eder. Bu, xiaochuan ile programlı olarak etkileşim kurmanıza olanak tanır.
 
 ```bash
-xccode run "Explain how closures work in JavaScript"
+xiaochuan run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-xccode terminal kullanıcı arayüzünü başlatır.
+xiaochuan terminal kullanıcı arayüzünü başlatır.
 
 ```bash
-xccode [project]
+xiaochuan [project]
 ```
 
 #### Bayraklar
@@ -44,26 +44,26 @@ xccode [project]
 
 ## Komutlar
 
-xccode CLI ayrıca aşağıdaki komutlara da sahiptir.
+xiaochuan CLI ayrıca aşağıdaki komutlara da sahiptir.
 
 ---
 
 ### attach
 
-`serve` veya `web` komutlarıyla başlatılan, halihazırda çalışan bir xccode arka uç sunucusuna bir terminal ekleyin.
+`serve` veya `web` komutlarıyla başlatılan, halihazırda çalışan bir xiaochuan arka uç sunucusuna bir terminal ekleyin.
 
 ```bash
-xccode attach [url]
+xiaochuan attach [url]
 ```
 
-Bu, TUI öğesinin uzak bir xccode arka ucuyla kullanılmasına olanak tanır. Örneğin:
+Bu, TUI öğesinin uzak bir xiaochuan arka ucuyla kullanılmasına olanak tanır. Örneğin:
 
 ```bash
 # Start the backend server for web/mobile access
-xccode web --port 4096 --hostname 0.0.0.0
+xiaochuan web --port 4096 --hostname 0.0.0.0
 
 # In another terminal, attach the TUI to the running backend
-xccode attach http://10.20.30.40:4096
+xiaochuan attach http://10.20.30.40:4096
 ```
 
 #### Bayraklar
@@ -74,8 +74,8 @@ xccode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c` | Son oturuma devam et                                                                          |
 | <nobr><code>{"--session"}</code></nobr>  | `-s` | Devam edecek oturum açma bilgileri                                                            |
 | <nobr><code>{"--fork"}</code></nobr>     |      | Devam ederken oturumu çatalla (`--continue` veya `--session` ile kullanın)                    |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | Temel kimlik doğrulama parolası (varsayılan: `XCCODE_SERVER_PASSWORD`)                      |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | Temel kimlik doğrulama kullanıcı adı (varsayılan: `XCCODE_SERVER_USERNAME` veya `xccode`) |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Temel kimlik doğrulama parolası (varsayılan: `XIAOCHUAN_SERVER_PASSWORD`)                      |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Temel kimlik doğrulama kullanıcı adı (varsayılan: `XIAOCHUAN_SERVER_USERNAME` veya `xiaochuan`) |
 
 ---
 
@@ -84,20 +84,20 @@ xccode attach http://10.20.30.40:4096
 Sağlayıcılar için kimlik bilgilerini ve oturum açmayı yönetme komutu.
 
 ```bash
-xccode auth [command]
+xiaochuan auth [command]
 ```
 
 ---
 
 #### login
 
-xccode, [Models.dev](https://models.dev) adresindeki sağlayıcı listesi tarafından desteklenmektedir, dolayısıyla kullanmak istediğiniz herhangi bir sağlayıcı için API anahtarlarını ayarlamak üzere `xccode auth login` kullanabilirsiniz. Bu `~/.local/share/xccode/auth.json`'de saklanıyor.
+xiaochuan, [Models.dev](https://models.dev) adresindeki sağlayıcı listesi tarafından desteklenmektedir, dolayısıyla kullanmak istediğiniz herhangi bir sağlayıcı için API anahtarlarını ayarlamak üzere `xiaochuan auth login` kullanabilirsiniz. Bu `~/.local/share/xiaochuan/auth.json`'de saklanıyor.
 
 ```bash
-xccode auth login
+xiaochuan auth login
 ```
 
-xccode başlatıldığında sağlayıcıları kimlik bilgileri dosyasından yükler. Ayrıca ortam değişkenlerindeki veya projenizdeki `.env` dosyasındaki anahtarları da kullanır.
+xiaochuan başlatıldığında sağlayıcıları kimlik bilgileri dosyasından yükler. Ayrıca ortam değişkenlerindeki veya projenizdeki `.env` dosyasındaki anahtarları da kullanır.
 
 ---
 
@@ -106,13 +106,13 @@ xccode başlatıldığında sağlayıcıları kimlik bilgileri dosyasından yük
 Kimlik bilgileri dosyasında depolanan tüm kimliği doğrulanmış sağlayıcıları listeler.
 
 ```bash
-xccode auth list
+xiaochuan auth list
 ```
 
 Veya kısa versiyonu.
 
 ```bash
-xccode auth ls
+xiaochuan auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ xccode auth ls
 Bir sağlayıcıyı kimlik bilgileri dosyasından temizleyerek oturumunuzu kapatır.
 
 ```bash
-xccode auth logout
+xiaochuan auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ xccode auth logout
 Depo otomasyonu için GitHub aracısını yönetin.
 
 ```bash
-xccode github [command]
+xiaochuan github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ xccode github [command]
 GitHub aracısını deponuza yükleyin.
 
 ```bash
-xccode github install
+xiaochuan github install
 ```
 
 Bu komut gerekli GitHub Actions workflow'unu kurar ve yapılandırma adımlarında size rehberlik eder. [Daha fazla bilgi](/docs/github).
@@ -154,7 +154,7 @@ Bu komut gerekli GitHub Actions workflow'unu kurar ve yapılandırma adımların
 GitHub aracısını çalıştırın. Bu genellikle GitHub Eylemlerinde kullanılır.
 
 ```bash
-xccode github run
+xiaochuan github run
 ```
 
 ##### Bayraklar
@@ -171,7 +171,7 @@ xccode github run
 Model Bağlam Protokolü sunucularını yönetin.
 
 ```bash
-xccode mcp [command]
+xiaochuan mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ xccode mcp [command]
 Yapılandırmanıza bir MCP sunucusu ekleyin.
 
 ```bash
-xccode mcp add
+xiaochuan mcp add
 ```
 
 Bu komut, yerel veya uzak bir MCP sunucusu ekleme konusunda size yol gösterecektir.
@@ -193,13 +193,13 @@ Bu komut, yerel veya uzak bir MCP sunucusu ekleme konusunda size yol gösterecek
 Yapılandırılmış tüm MCP sunucularını ve bağlantı durumlarını listeleyin.
 
 ```bash
-xccode mcp list
+xiaochuan mcp list
 ```
 
 Veya kısa versiyonunu kullanın.
 
 ```bash
-xccode mcp ls
+xiaochuan mcp ls
 ```
 
 ---
@@ -209,7 +209,7 @@ xccode mcp ls
 OAuth'un etkin olduğu bir MCP sunucusuyla kimlik doğrulaması yapın.
 
 ```bash
-xccode mcp auth [name]
+xiaochuan mcp auth [name]
 ```
 
 Sunucu adı belirtmezseniz mevcut OAuth özellikli sunucular arasından seçim yapmanız istenir.
@@ -217,13 +217,13 @@ Sunucu adı belirtmezseniz mevcut OAuth özellikli sunucular arasından seçim y
 Ayrıca OAuth özellikli sunucuları ve bunların kimlik doğrulama durumlarını da listeleyebilirsiniz.
 
 ```bash
-xccode mcp auth list
+xiaochuan mcp auth list
 ```
 
 Veya kısa versiyonunu kullanın.
 
 ```bash
-xccode mcp auth ls
+xiaochuan mcp auth ls
 ```
 
 ---
@@ -233,7 +233,7 @@ xccode mcp auth ls
 MCP sunucusu için OAuth kimlik bilgilerini kaldırın.
 
 ```bash
-xccode mcp logout [name]
+xiaochuan mcp logout [name]
 ```
 
 ---
@@ -243,7 +243,7 @@ xccode mcp logout [name]
 MCP sunucusu için OAuth bağlantı sorunlarının hatalarını ayıklayın.
 
 ```bash
-xccode mcp debug <name>
+xiaochuan mcp debug <name>
 ```
 
 ---
@@ -253,7 +253,7 @@ xccode mcp debug <name>
 Yapılandırılmış sağlayıcıların tüm mevcut modellerini listeleyin.
 
 ```bash
-xccode models [provider]
+xiaochuan models [provider]
 ```
 
 Bu komut, yapılandırdığınız sağlayıcılardaki modelleri `provider/model` formatında listeler.
@@ -263,7 +263,7 @@ Bu, [config dosyanızda](/docs/config/) kullanmanız gereken tam model adını b
 Modelleri bu sağlayıcıya göre filtrelemek için isteğe bağlı olarak bir sağlayıcı kimliğini iletebilirsiniz.
 
 ```bash
-xccode models anthropic
+xiaochuan models anthropic
 ```
 
 #### Bayraklar
@@ -273,36 +273,36 @@ xccode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | Modeller.dev'den model önbelleğini yenileyin                                |
 | <nobr><code>{"--verbose"}</code></nobr> | Daha ayrıntılı model çıktısı kullanın (maliyetler gibi meta veriler içerir) |
 
-Önbelleğe alınan model listesini güncellemek için `--refresh` bayrağını kullanın. Bu, bir sağlayıcıya yeni modeller eklendiğinde ve bunları xccode'da görmek istediğinizde kullanışlıdır.
+Önbelleğe alınan model listesini güncellemek için `--refresh` bayrağını kullanın. Bu, bir sağlayıcıya yeni modeller eklendiğinde ve bunları xiaochuan'da görmek istediğinizde kullanışlıdır.
 
 ```bash
-xccode models --refresh
+xiaochuan models --refresh
 ```
 
 ---
 
 ### run
 
-Doğrudan bir istem ileterek xccode'u etkileşimli olmayan modda çalıştırın.
+Doğrudan bir istem ileterek xiaochuan'u etkileşimli olmayan modda çalıştırın.
 
 ```bash
-xccode run [message..]
+xiaochuan run [message..]
 ```
 
 Bu, komut dosyası oluşturma, otomasyon veya TUI'un tamamını başlatmadan hızlı bir yanıt istediğinizde kullanışlıdır. Örneğin.
 
-```bash "xccode run"
-xccode run Explain the use of context in Go
+```bash "xiaochuan run"
+xiaochuan run Explain the use of context in Go
 ```
 
-Ayrıca, her çalıştırmada MCP sunucusunun soğuk önyükleme sürelerini önlemek için çalışan bir `xccode serve` örneğine de ekleyebilirsiniz:
+Ayrıca, her çalıştırmada MCP sunucusunun soğuk önyükleme sürelerini önlemek için çalışan bir `xiaochuan serve` örneğine de ekleyebilirsiniz:
 
 ```bash
 # Start a headless server in one terminal
-xccode serve
+xiaochuan serve
 
 # In another terminal, run commands that attach to it
-xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+xiaochuan run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### Bayraklar
@@ -318,9 +318,9 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f` | Mesaja eklenecek dosya(lar)                                                                   |
 | <nobr><code>{"--format"}</code></nobr>   |      | Biçim: varsayılan (biçimlendirilmiş) veya json (ham JSON olayları)                            |
 | <nobr><code>{"--title"}</code></nobr>    |      | Oturumun başlığı (değer sağlanmazsa kısaltılmış bilgi istemi kullanılır)                      |
-| <nobr><code>{"--attach"}</code></nobr>   |      | Çalışan bir xccode sunucusuna ekleyin (ör. http://localhost:4096)                           |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | Temel kimlik doğrulama parolası (varsayılan: `XCCODE_SERVER_PASSWORD`)                      |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | Temel kimlik doğrulama kullanıcı adı (varsayılan: `XCCODE_SERVER_USERNAME` veya `xccode`) |
+| <nobr><code>{"--attach"}</code></nobr>   |      | Çalışan bir xiaochuan sunucusuna ekleyin (ör. http://localhost:4096)                           |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Temel kimlik doğrulama parolası (varsayılan: `XIAOCHUAN_SERVER_PASSWORD`)                      |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Temel kimlik doğrulama kullanıcı adı (varsayılan: `XIAOCHUAN_SERVER_USERNAME` veya `xiaochuan`) |
 | <nobr><code>{"--dir"}</code></nobr>      |      | Çalıştırılacak dizin veya bağlanırken uzak sunucudaki yol                                     |
 | <nobr><code>{"--variant"}</code></nobr>  |      | Model varyantı (sağlayıcıya özgü muhakeme düzeyi)                                             |
 | <nobr><code>{"--thinking"}</code></nobr> |      | Düşünme bloklarını göster                                                                     |
@@ -330,13 +330,13 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-API erişimi için headless bir xccode sunucusu başlatır. Tam HTTP arayüzü için [server docs](/docs/server) sayfasına bakın.
+API erişimi için headless bir xiaochuan sunucusu başlatır. Tam HTTP arayüzü için [server docs](/docs/server) sayfasına bakın.
 
 ```bash
-xccode serve
+xiaochuan serve
 ```
 
-Bu, TUI arayüzü olmadan xccode işlevselliğine API erişimi sağlayan bir HTTP sunucusunu başlatır. HTTP temel kimlik doğrulamasını etkinleştirmek için `XCCODE_SERVER_PASSWORD` öğesini ayarlayın (kullanıcı adı varsayılan olarak `xccode` şeklindedir).
+Bu, TUI arayüzü olmadan xiaochuan işlevselliğine API erişimi sağlayan bir HTTP sunucusunu başlatır. HTTP temel kimlik doğrulamasını etkinleştirmek için `XIAOCHUAN_SERVER_PASSWORD` öğesini ayarlayın (kullanıcı adı varsayılan olarak `xiaochuan` şeklindedir).
 
 #### Bayraklar
 
@@ -351,20 +351,20 @@ Bu, TUI arayüzü olmadan xccode işlevselliğine API erişimi sağlayan bir HTT
 
 ### session
 
-xccode oturumlarını yönetin.
+xiaochuan oturumlarını yönetin.
 
 ```bash
-xccode session [command]
+xiaochuan session [command]
 ```
 
 ---
 
 #### list
 
-Tüm xccode oturumlarını listeleyin.
+Tüm xiaochuan oturumlarını listeleyin.
 
 ```bash
-xccode session list
+xiaochuan session list
 ```
 
 ##### Bayraklar
@@ -378,10 +378,10 @@ xccode session list
 
 ### stats
 
-xccode oturumlarınız için belirteç kullanımı ve maliyet istatistiklerini gösterin.
+xiaochuan oturumlarınız için belirteç kullanımı ve maliyet istatistiklerini gösterin.
 
 ```bash
-xccode stats
+xiaochuan stats
 ```
 
 #### Bayraklar
@@ -400,7 +400,7 @@ xccode stats
 Oturum verilerini JSON olarak dışa aktarın.
 
 ```bash
-xccode export [sessionID]
+xiaochuan export [sessionID]
 ```
 
 Bir oturum kimliği sağlamazsanız mevcut oturumlar arasından seçim yapmanız istenir.
@@ -412,24 +412,24 @@ Bir oturum kimliği sağlamazsanız mevcut oturumlar arasından seçim yapmanız
 Bir JSON dosyasından oturum verilerini içe aktarın.
 
 ```bash
-xccode import <file>
+xiaochuan import <file>
 ```
 
 ```bash
-xccode import session.json
+xiaochuan import session.json
 ```
 
 ---
 
 ### web
 
-Web arayüzüyle başsız bir xccode sunucusu başlatın.
+Web arayüzüyle başsız bir xiaochuan sunucusu başlatın.
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-Bu, bir HTTP sunucusunu başlatır ve bir web arayüzü aracılığıyla xccode'a erişmek için bir web tarayıcısı açar. HTTP temel kimlik doğrulamasını etkinleştirmek için `XCCODE_SERVER_PASSWORD` öğesini ayarlayın (kullanıcı adı varsayılan olarak `xccode` şeklindedir).
+Bu, bir HTTP sunucusunu başlatır ve bir web arayüzü aracılığıyla xiaochuan'a erişmek için bir web tarayıcısı açar. HTTP temel kimlik doğrulamasını etkinleştirmek için `XIAOCHUAN_SERVER_PASSWORD` öğesini ayarlayın (kullanıcı adı varsayılan olarak `xiaochuan` şeklindedir).
 
 #### Bayraklar
 
@@ -447,7 +447,7 @@ Bu, bir HTTP sunucusunu başlatır ve bir web arayüzü aracılığıyla xccode'
 Bir ACP (Ajan İstemci Protokolü) sunucusu başlatın.
 
 ```bash
-xccode acp
+xiaochuan acp
 ```
 
 Bu komut, nd-JSON kullanarak stdin/stdout aracılığıyla iletişim kuran bir ACP sunucusunu başlatır.
@@ -464,10 +464,10 @@ Bu komut, nd-JSON kullanarak stdin/stdout aracılığıyla iletişim kuran bir A
 
 ### uninstall
 
-xccode'u kaldırın ve ilgili tüm dosyaları kaldırın.
+xiaochuan'u kaldırın ve ilgili tüm dosyaları kaldırın.
 
 ```bash
-xccode uninstall
+xiaochuan uninstall
 ```
 
 #### Bayraklar
@@ -483,22 +483,22 @@ xccode uninstall
 
 ### upgrade
 
-xccode'u en son sürüme veya belirli bir sürüme günceller.
+xiaochuan'u en son sürüme veya belirli bir sürüme günceller.
 
 ```bash
-xccode upgrade [target]
+xiaochuan upgrade [target]
 ```
 
 En son sürüme yükseltmek için.
 
 ```bash
-xccode upgrade
+xiaochuan upgrade
 ```
 
 Belirli bir sürüme yükseltmek için:
 
 ```bash
-xccode upgrade v0.1.48
+xiaochuan upgrade v0.1.48
 ```
 
 #### Bayraklar
@@ -511,7 +511,7 @@ xccode upgrade v0.1.48
 
 ## Global bayraklar
 
-xccode CLI aşağıdaki global bayrakları destekler.
+xiaochuan CLI aşağıdaki global bayrakları destekler.
 
 | Bayrak                                     | Kısa | Tanım                                    |
 | ------------------------------------------ | ---- | ---------------------------------------- |
@@ -524,33 +524,33 @@ xccode CLI aşağıdaki global bayrakları destekler.
 
 ## Ortam değişkenleri
 
-xccode ortam değişkenleri kullanılarak yapılandırılabilir.
+xiaochuan ortam değişkenleri kullanılarak yapılandırılabilir.
 
 | Değişken                              | Tip     | Açıklama                                                                    |
 | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `XCCODE_GIT_BASH_PATH`              | string  | Windows'ta yürütülebilir Git Bash'in Yolu                                   |
-| `XCCODE_CONFIG`                     | string  | Yapılandırma dosyasının yolu                                                |
-| `XCCODE_TUI_CONFIG`                 | string  | TUI yapılandırma dosyasının yolu                                            |
-| `XCCODE_CONFIG_DIR`                 | string  | Yapılandırma dizinine giden yol                                             |
-| `XCCODE_CONFIG_CONTENT`             | string  | Satır içi JSON config içeriği                                               |
-| `XCCODE_DISABLE_AUTOUPDATE`         | boolean | Otomatik güncelleme kontrollerini devre dışı bırak                          |
-| `XCCODE_DISABLE_PRUNE`              | boolean | Eski verilerin temizlenmesini devre dışı bırak                              |
-| `XCCODE_DISABLE_TERMINAL_TITLE`     | boolean | Otomatik terminal başlığı güncellemelerini devre dışı bırakın               |
-| `XCCODE_PERMISSION`                 | string  | Satır içi JSON izin config'i                                                |
-| `XCCODE_DISABLE_DEFAULT_PLUGINS`    | boolean | Varsayılan eklentileri devre dışı bırakın                                   |
-| `XCCODE_DISABLE_LSP_DOWNLOAD`       | boolean | Otomatik LSP sunucu indirmelerini devre dışı bırakın                        |
-| `XCCODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Deneysel modelleri etkinleştir                                              |
-| `XCCODE_DISABLE_AUTOCOMPACT`        | boolean | Otomatik context sıkıştırmayı devre dışı bırak                              |
-| `XCCODE_DISABLE_CLAUDE_CODE`        | boolean | `.claude`'den okumayı devre dışı bırak (istem + beceriler)                  |
-| `XCCODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | `~/.claude/CLAUDE.md` dosyasını okumayı devre dışı bırak                    |
-| `XCCODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | `.claude/skills` yüklemesini devre dışı bırak                               |
-| `XCCODE_DISABLE_MODELS_FETCH`       | boolean | Uzak kaynaklardan model getirmeyi devre dışı bırakın                        |
-| `XCCODE_FAKE_VCS`                   | string  | Test amaçlı sahte VCS sağlayıcısı                                           |
-| `XCCODE_CLIENT`                     | string  | Client kimliği (varsayılan: `cli`)                                          |
-| `XCCODE_ENABLE_EXA`                 | boolean | Exa web arama araçlarını etkinleştir                                        |
-| `XCCODE_SERVER_PASSWORD`            | string  | `serve`/`web` için temel kimlik doğrulamayı etkinleştirin                   |
-| `XCCODE_SERVER_USERNAME`            | string  | Temel kimlik doğrulama kullanıcı adını geçersiz kıl (varsayılan `xccode`) |
-| `XCCODE_MODELS_URL`                 | string  | Model yapılandırmasını almak için özel URL                                  |
+| `XIAOCHUAN_GIT_BASH_PATH`              | string  | Windows'ta yürütülebilir Git Bash'in Yolu                                   |
+| `XIAOCHUAN_CONFIG`                     | string  | Yapılandırma dosyasının yolu                                                |
+| `XIAOCHUAN_TUI_CONFIG`                 | string  | TUI yapılandırma dosyasının yolu                                            |
+| `XIAOCHUAN_CONFIG_DIR`                 | string  | Yapılandırma dizinine giden yol                                             |
+| `XIAOCHUAN_CONFIG_CONTENT`             | string  | Satır içi JSON config içeriği                                               |
+| `XIAOCHUAN_DISABLE_AUTOUPDATE`         | boolean | Otomatik güncelleme kontrollerini devre dışı bırak                          |
+| `XIAOCHUAN_DISABLE_PRUNE`              | boolean | Eski verilerin temizlenmesini devre dışı bırak                              |
+| `XIAOCHUAN_DISABLE_TERMINAL_TITLE`     | boolean | Otomatik terminal başlığı güncellemelerini devre dışı bırakın               |
+| `XIAOCHUAN_PERMISSION`                 | string  | Satır içi JSON izin config'i                                                |
+| `XIAOCHUAN_DISABLE_DEFAULT_PLUGINS`    | boolean | Varsayılan eklentileri devre dışı bırakın                                   |
+| `XIAOCHUAN_DISABLE_LSP_DOWNLOAD`       | boolean | Otomatik LSP sunucu indirmelerini devre dışı bırakın                        |
+| `XIAOCHUAN_ENABLE_EXPERIMENTAL_MODELS` | boolean | Deneysel modelleri etkinleştir                                              |
+| `XIAOCHUAN_DISABLE_AUTOCOMPACT`        | boolean | Otomatik context sıkıştırmayı devre dışı bırak                              |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE`        | boolean | `.claude`'den okumayı devre dışı bırak (istem + beceriler)                  |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_PROMPT` | boolean | `~/.claude/CLAUDE.md` dosyasını okumayı devre dışı bırak                    |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_SKILLS` | boolean | `.claude/skills` yüklemesini devre dışı bırak                               |
+| `XIAOCHUAN_DISABLE_MODELS_FETCH`       | boolean | Uzak kaynaklardan model getirmeyi devre dışı bırakın                        |
+| `XIAOCHUAN_FAKE_VCS`                   | string  | Test amaçlı sahte VCS sağlayıcısı                                           |
+| `XIAOCHUAN_CLIENT`                     | string  | Client kimliği (varsayılan: `cli`)                                          |
+| `XIAOCHUAN_ENABLE_EXA`                 | boolean | Exa web arama araçlarını etkinleştir                                        |
+| `XIAOCHUAN_SERVER_PASSWORD`            | string  | `serve`/`web` için temel kimlik doğrulamayı etkinleştirin                   |
+| `XIAOCHUAN_SERVER_USERNAME`            | string  | Temel kimlik doğrulama kullanıcı adını geçersiz kıl (varsayılan `xiaochuan`) |
+| `XIAOCHUAN_MODELS_URL`                 | string  | Model yapılandırmasını almak için özel URL                                  |
 
 ---
 
@@ -560,20 +560,20 @@ Bu ortam değişkenleri değişebilecek veya kaldırılabilecek deneysel özelli
 
 | Değişken                                        | Tip     | Tanım                                                   |
 | ----------------------------------------------- | ------- | ------------------------------------------------------- |
-| `XCCODE_EXPERIMENTAL`                         | boolean | Şemsiye bayrağa bağlı deneysel özellikleri etkinleştir  |
-| `XCCODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Simge bulmayı etkinleştir                               |
-| `XCCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | TUI'da seçim yapıldığında kopyalamayı devre dışı bırak  |
-| `XCCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | MS cinsinden bash komutları için varsayılan zaman aşımı |
-| `XCCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM yanıtları için maksimum çıktı belirteçleri          |
-| `XCCODE_EXPERIMENTAL_FILEWATCHER`             | boolean | Tüm dizin için dosya izleyiciyi etkinleştir             |
-| `XCCODE_EXPERIMENTAL_OXFMT`                   | boolean | Oxfmt biçimlendiriciyi etkinleştir                      |
-| `XCCODE_EXPERIMENTAL_LSP_TOOL`                | boolean | Deneysel LSP aracını etkinleştir                        |
-| `XCCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Dosya izleyiciyi devre dışı bırak                       |
-| `XCCODE_EXPERIMENTAL_EXA`                     | boolean | Deneysel Exa özelliklerini etkinleştirin                |
-| `XCCODE_EXPERIMENTAL_LSP_TY`                  | boolean | python dosyaları için TY LSP'yi etkinleştir             |
-| `XCCODE_EXPERIMENTAL_PLAN_MODE`               | boolean | Plan modunu etkinleştir                                 |
-| `XCCODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Deneysel olay sistemini etkinleştir                     |
-| `XCCODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | Yerel LLM istek yolunu etkinleştir                      |
-| `XCCODE_EXPERIMENTAL_PARALLEL`                | boolean | Paralel web araması yürütmesini etkinleştir             |
-| `XCCODE_EXPERIMENTAL_SCOUT`                   | boolean | Scout alt ajanını etkinleştir                           |
-| `XCCODE_EXPERIMENTAL_WORKSPACES`              | boolean | Çalışma alanı desteğini etkinleştir                     |
+| `XIAOCHUAN_EXPERIMENTAL`                         | boolean | Şemsiye bayrağa bağlı deneysel özellikleri etkinleştir  |
+| `XIAOCHUAN_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Simge bulmayı etkinleştir                               |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | TUI'da seçim yapıldığında kopyalamayı devre dışı bırak  |
+| `XIAOCHUAN_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | MS cinsinden bash komutları için varsayılan zaman aşımı |
+| `XIAOCHUAN_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM yanıtları için maksimum çıktı belirteçleri          |
+| `XIAOCHUAN_EXPERIMENTAL_FILEWATCHER`             | boolean | Tüm dizin için dosya izleyiciyi etkinleştir             |
+| `XIAOCHUAN_EXPERIMENTAL_OXFMT`                   | boolean | Oxfmt biçimlendiriciyi etkinleştir                      |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TOOL`                | boolean | Deneysel LSP aracını etkinleştir                        |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Dosya izleyiciyi devre dışı bırak                       |
+| `XIAOCHUAN_EXPERIMENTAL_EXA`                     | boolean | Deneysel Exa özelliklerini etkinleştirin                |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TY`                  | boolean | python dosyaları için TY LSP'yi etkinleştir             |
+| `XIAOCHUAN_EXPERIMENTAL_PLAN_MODE`               | boolean | Plan modunu etkinleştir                                 |
+| `XIAOCHUAN_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Deneysel olay sistemini etkinleştir                     |
+| `XIAOCHUAN_EXPERIMENTAL_NATIVE_LLM`              | boolean | Yerel LLM istek yolunu etkinleştir                      |
+| `XIAOCHUAN_EXPERIMENTAL_PARALLEL`                | boolean | Paralel web araması yürütmesini etkinleştir             |
+| `XIAOCHUAN_EXPERIMENTAL_SCOUT`                   | boolean | Scout alt ajanını etkinleştir                           |
+| `XIAOCHUAN_EXPERIMENTAL_WORKSPACES`              | boolean | Çalışma alanı desteğini etkinleştir                     |

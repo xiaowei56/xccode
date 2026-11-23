@@ -1,6 +1,6 @@
 //! Inspect, steer, undo, or delete queued prompts.
 
-use xccode_ui::select::{FooterHint, Group, Select, SelectAction};
+use xiaochuan_ui::select::{FooterHint, Group, Select, SelectAction};
 
 use crate::prelude::*;
 use crate::routes::session::queued::{self, Action};

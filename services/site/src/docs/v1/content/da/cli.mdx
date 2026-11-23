@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: Xccode CLI muligheder og kommandoer.
+description: Xiaochuan CLI muligheder og kommandoer.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-Xccode CLI starter som standard [TUI](/docs/tui), når den kører uden nogen argumenter.
+Xiaochuan CLI starter som standard [TUI](/docs/tui), når den kører uden nogen argumenter.
 
 ```bash
-xccode
+xiaochuan
 ```
 
-Men den accepterer også kommandoer som dokumenteret på denne side. Dette giver dig mulighed for at interagere med Xccode programmatisk.
+Men den accepterer også kommandoer som dokumenteret på denne side. Dette giver dig mulighed for at interagere med Xiaochuan programmatisk.
 
 ```bash
-xccode run "Explain how closures work in JavaScript"
+xiaochuan run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-Start Xccode terminalbrugergrænsefladen.
+Start Xiaochuan terminalbrugergrænsefladen.
 
 ```bash
-xccode [project]
+xiaochuan [project]
 ```
 
 #### Flag
@@ -44,26 +44,26 @@ xccode [project]
 
 ## Kommandoer
 
-Xccode CLI har også følgende kommandoer.
+Xiaochuan CLI har også følgende kommandoer.
 
 ---
 
 ### attach
 
-Tilslut en terminal til en allerede kørende Xccode backend-server startet via `serve` eller `web` kommandoer.
+Tilslut en terminal til en allerede kørende Xiaochuan backend-server startet via `serve` eller `web` kommandoer.
 
 ```bash
-xccode attach [url]
+xiaochuan attach [url]
 ```
 
-Dette gør det muligt at bruge TUI med en ekstern Xccode backend. For eksempel:
+Dette gør det muligt at bruge TUI med en ekstern Xiaochuan backend. For eksempel:
 
 ```bash
 # Start the backend server for web/mobile access
-xccode web --port 4096 --hostname 0.0.0.0
+xiaochuan web --port 4096 --hostname 0.0.0.0
 
 # In another terminal, attach the TUI to the running backend
-xccode attach http://10.20.30.40:4096
+xiaochuan attach http://10.20.30.40:4096
 ```
 
 #### Flag
@@ -74,8 +74,8 @@ xccode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c` | Fortsæt den seneste session                                                       |
 | <nobr><code>{"--session"}</code></nobr>  | `-s` | Sessions-id for at fortsætte                                                      |
 | <nobr><code>{"--fork"}</code></nobr>     |      | Forgren sessionen ved fortsættelse (brug med `--continue` eller `--session`)      |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | Adgangskode til basic auth (standard: `XCCODE_SERVER_PASSWORD`)                 |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | Brugernavn til basic auth (standard: `XCCODE_SERVER_USERNAME` eller `xccode`) |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Adgangskode til basic auth (standard: `XIAOCHUAN_SERVER_PASSWORD`)                 |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Brugernavn til basic auth (standard: `XIAOCHUAN_SERVER_USERNAME` eller `xiaochuan`) |
 
 ---
 
@@ -84,20 +84,20 @@ xccode attach http://10.20.30.40:4096
 Kommando til at administrere legitimationsoplysninger og login for udbydere.
 
 ```bash
-xccode auth [command]
+xiaochuan auth [command]
 ```
 
 ---
 
 #### login
 
-Xccode drives af udbyderlisten på [Models.dev](https://models.dev), så du kan bruge `xccode auth login` til at konfigurere API-nøgler for enhver udbyder, du vil bruge. Dette er gemt i `~/.local/share/xccode/auth.json`.
+Xiaochuan drives af udbyderlisten på [Models.dev](https://models.dev), så du kan bruge `xiaochuan auth login` til at konfigurere API-nøgler for enhver udbyder, du vil bruge. Dette er gemt i `~/.local/share/xiaochuan/auth.json`.
 
 ```bash
-xccode auth login
+xiaochuan auth login
 ```
 
-Når Xccode starter op, indlæser den udbyderne fra legitimationsfilen. Og hvis der er nogen nøgler defineret i dine miljøer eller en `.env` fil i dit projekt.
+Når Xiaochuan starter op, indlæser den udbyderne fra legitimationsfilen. Og hvis der er nogen nøgler defineret i dine miljøer eller en `.env` fil i dit projekt.
 
 ---
 
@@ -106,13 +106,13 @@ Når Xccode starter op, indlæser den udbyderne fra legitimationsfilen. Og hvis 
 Viser alle de godkendte udbydere som gemt i legitimationsfilen.
 
 ```bash
-xccode auth list
+xiaochuan auth list
 ```
 
 Eller den korte version.
 
 ```bash
-xccode auth ls
+xiaochuan auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ xccode auth ls
 Logger dig ud af en udbyder ved at rydde den fra legitimationsfilen.
 
 ```bash
-xccode auth logout
+xiaochuan auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ xccode auth logout
 Administrator GitHub-agenten til lagerautomatisering.
 
 ```bash
-xccode github [command]
+xiaochuan github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ xccode github [command]
 Installatør GitHub-agenten i dit lager.
 
 ```bash
-xccode github install
+xiaochuan github install
 ```
 
 Dette opsætter det nødvendige GitHub Actions workflow og guider dig gennem konfigurationsprocessen. [Learn more](/docs/github).
@@ -154,7 +154,7 @@ Dette opsætter det nødvendige GitHub Actions workflow og guider dig gennem kon
 Kør GitHub-agenten. Dette bruges typisk i GitHub Actions.
 
 ```bash
-xccode github run
+xiaochuan github run
 ```
 
 ##### Flag
@@ -171,7 +171,7 @@ xccode github run
 Administrator Model Context Protocol-servere.
 
 ```bash
-xccode mcp [command]
+xiaochuan mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ xccode mcp [command]
 Tilføj en MCP-server til din konfiguration.
 
 ```bash
-xccode mcp add
+xiaochuan mcp add
 ```
 
 Denne kommando vil guide dig gennem tilføjelse af enten en lokal eller ekstern MCP-server.
@@ -193,13 +193,13 @@ Denne kommando vil guide dig gennem tilføjelse af enten en lokal eller ekstern 
 Liste over alle konfigurerede MCP-servere og deres forbindelsesstatus.
 
 ```bash
-xccode mcp list
+xiaochuan mcp list
 ```
 
 Eller brug den korte version.
 
 ```bash
-xccode mcp ls
+xiaochuan mcp ls
 ```
 
 ---
@@ -209,7 +209,7 @@ xccode mcp ls
 Godkendt med en OAuth-aktiveret MCP-server.
 
 ```bash
-xccode mcp auth [name]
+xiaochuan mcp auth [name]
 ```
 
 Hvis du ikke angiver et servernavn, bliver du bedt om at vælge blandt tilgængelige OAuth-kompatible servere.
@@ -217,13 +217,13 @@ Hvis du ikke angiver et servernavn, bliver du bedt om at vælge blandt tilgænge
 Du kan også angive OAuth-kompatible servere og deres godkendelsesstatus.
 
 ```bash
-xccode mcp auth list
+xiaochuan mcp auth list
 ```
 
 Eller brug den korte version.
 
 ```bash
-xccode mcp auth ls
+xiaochuan mcp auth ls
 ```
 
 ---
@@ -233,7 +233,7 @@ xccode mcp auth ls
 Fjern OAuth-legitimationsoplysninger for en MCP-server.
 
 ```bash
-xccode mcp logout [name]
+xiaochuan mcp logout [name]
 ```
 
 ---
@@ -243,7 +243,7 @@ xccode mcp logout [name]
 Fejlfinding af OAuth-forbindelsesproblemer for en MCP-server.
 
 ```bash
-xccode mcp debug <name>
+xiaochuan mcp debug <name>
 ```
 
 ---
@@ -253,7 +253,7 @@ xccode mcp debug <name>
 Liste over alle tilgængelige modeller fra konfigurerede udbydere.
 
 ```bash
-xccode models [provider]
+xiaochuan models [provider]
 ```
 
 Denne kommando viser alle tilgængelige modeller på tværs af dine konfigurerede udbydere i formatet `provider/model`.
@@ -263,7 +263,7 @@ Dette er nyttigt til at finde ud af det nøjagtige modelnavn, der skal bruges i 
 Du kan eventuelt videregive et udbyder-id for at filtrere modeller efter den udbyder.
 
 ```bash
-xccode models anthropic
+xiaochuan models anthropic
 ```
 
 #### Flag
@@ -273,36 +273,36 @@ xccode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | Opdater modelcachen fra models.dev                                      |
 | <nobr><code>{"--verbose"}</code></nobr> | Brug mere detaljeret modeloutput (inkluderer metadata som omkostninger) |
 
-Brug flaget `--refresh` til at opdatere den cachelagrede modelliste. Dette er nyttigt, når nye modeller er blevet tilføjet til en udbyder, og du vil se dem i Xccode.
+Brug flaget `--refresh` til at opdatere den cachelagrede modelliste. Dette er nyttigt, når nye modeller er blevet tilføjet til en udbyder, og du vil se dem i Xiaochuan.
 
 ```bash
-xccode models --refresh
+xiaochuan models --refresh
 ```
 
 ---
 
 ### run
 
-Kør xccode i ikke-interaktiv tilstand ved at sende en prompt direkte.
+Kør xiaochuan i ikke-interaktiv tilstand ved at sende en prompt direkte.
 
 ```bash
-xccode run [message..]
+xiaochuan run [message..]
 ```
 
 Dette er nyttigt til scripting, automatisering, eller når du vil have et hurtigt svar uden at starte hele TUI. F.eks.
 
-```bash "xccode run"
-xccode run Explain the use of context in Go
+```bash "xiaochuan run"
+xiaochuan run Explain the use of context in Go
 ```
 
-Du kan også vedhæfte til en kørende `xccode serve`-instans for at undgå MCP serverens kolde opstartstider ved hver kørsel:
+Du kan også vedhæfte til en kørende `xiaochuan serve`-instans for at undgå MCP serverens kolde opstartstider ved hver kørsel:
 
 ```bash
 # Start a headless server in one terminal
-xccode serve
+xiaochuan serve
 
 # In another terminal, run commands that attach to it
-xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+xiaochuan run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### Flag
@@ -318,9 +318,9 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f` | Fil(er), der skal vedhæftes til meddelelsen                                         |
 | <nobr><code>{"--format"}</code></nobr>   |      | Format: standard (formateret) eller json (rå JSON hændelser)                        |
 | <nobr><code>{"--title"}</code></nobr>    |      | Titel for sessionen (bruger trunkeret prompt, hvis der ikke er angivet nogen værdi) |
-| <nobr><code>{"--attach"}</code></nobr>   |      | Tilslut til en kørende xccode-server (f.eks. http://localhost:4096)               |
-| <nobr><code>{"--password"}</code></nobr> | `-p` | Adgangskode til basic auth (standard: `XCCODE_SERVER_PASSWORD`)                   |
-| <nobr><code>{"--username"}</code></nobr> | `-u` | Brugernavn til basic auth (standard: `XCCODE_SERVER_USERNAME` eller `xccode`)   |
+| <nobr><code>{"--attach"}</code></nobr>   |      | Tilslut til en kørende xiaochuan-server (f.eks. http://localhost:4096)               |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Adgangskode til basic auth (standard: `XIAOCHUAN_SERVER_PASSWORD`)                   |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Brugernavn til basic auth (standard: `XIAOCHUAN_SERVER_USERNAME` eller `xiaochuan`)   |
 | <nobr><code>{"--dir"}</code></nobr>      |      | Mappe at køre i, eller sti på fjernserveren ved tilkobling                          |
 | <nobr><code>{"--variant"}</code></nobr>  |      | Modelvariant (udbyder-specifik ræsonneringsindsats)                                 |
 | <nobr><code>{"--thinking"}</code></nobr> |      | Vis tænkeblokke                                                                     |
@@ -330,13 +330,13 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-Start en hovedløs Xccode-server til API-adgang. Tjek [server docs](/docs/server) for den fulde HTTP-grænseflade.
+Start en hovedløs Xiaochuan-server til API-adgang. Tjek [server docs](/docs/server) for den fulde HTTP-grænseflade.
 
 ```bash
-xccode serve
+xiaochuan serve
 ```
 
-Dette starter en HTTP-server, der giver API-adgang til xccode-funktionalitet uden TUI-grænsefladen. Indstil `XCCODE_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `xccode`).
+Dette starter en HTTP-server, der giver API-adgang til xiaochuan-funktionalitet uden TUI-grænsefladen. Indstil `XIAOCHUAN_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `xiaochuan`).
 
 #### Flag
 
@@ -351,20 +351,20 @@ Dette starter en HTTP-server, der giver API-adgang til xccode-funktionalitet ude
 
 ### session
 
-Administrator Xccode sessionsholder.
+Administrator Xiaochuan sessionsholder.
 
 ```bash
-xccode session [command]
+xiaochuan session [command]
 ```
 
 ---
 
 #### list
 
-Liste over alle Xccode sessioner.
+Liste over alle Xiaochuan sessioner.
 
 ```bash
-xccode session list
+xiaochuan session list
 ```
 
 ##### Flag
@@ -378,10 +378,10 @@ xccode session list
 
 ### stats
 
-Vis tokenbrug og omkostningsstatistikker for dine Xccode-sessioner.
+Vis tokenbrug og omkostningsstatistikker for dine Xiaochuan-sessioner.
 
 ```bash
-xccode stats
+xiaochuan stats
 ```
 
 #### Flag
@@ -400,7 +400,7 @@ xccode stats
 Eksporter sessionsdata som JSON.
 
 ```bash
-xccode export [sessionID]
+xiaochuan export [sessionID]
 ```
 
 Hvis du ikke angiver et sessions-id, bliver du bedt om at vælge mellem tilgængelige sessioner.
@@ -412,24 +412,24 @@ Hvis du ikke angiver et sessions-id, bliver du bedt om at vælge mellem tilgæng
 Importer sessionsdata fra en JSON fil.
 
 ```bash
-xccode import <file>
+xiaochuan import <file>
 ```
 
 ```bash
-xccode import session.json
+xiaochuan import session.json
 ```
 
 ---
 
 ### web
 
-Start en hovedløs Xccode-server med en webgrænseflade.
+Start en hovedløs Xiaochuan-server med en webgrænseflade.
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-Dette starter en HTTP-server og åbner en webbrowser for at få adgang til Xccode via en webgrænseflade. Indstil `XCCODE_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `xccode`).
+Dette starter en HTTP-server og åbner en webbrowser for at få adgang til Xiaochuan via en webgrænseflade. Indstil `XIAOCHUAN_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `xiaochuan`).
 
 #### Flag
 
@@ -447,7 +447,7 @@ Dette starter en HTTP-server og åbner en webbrowser for at få adgang til Xccod
 Start en ACP-server (Agent Client Protocol).
 
 ```bash
-xccode acp
+xiaochuan acp
 ```
 
 Denne kommando starter en ACP-server, der kommunikerer via stdin/stdout ved hjælp af nd-JSON.
@@ -464,10 +464,10 @@ Denne kommando starter en ACP-server, der kommunikerer via stdin/stdout ved hjæ
 
 ### uninstall
 
-Afinstaller Xccode og fjern alle relaterede filer.
+Afinstaller Xiaochuan og fjern alle relaterede filer.
 
 ```bash
-xccode uninstall
+xiaochuan uninstall
 ```
 
 #### Flag
@@ -483,22 +483,22 @@ xccode uninstall
 
 ### upgrade
 
-Opdaterer Xccode til den nyeste version eller en specifik version.
+Opdaterer Xiaochuan til den nyeste version eller en specifik version.
 
 ```bash
-xccode upgrade [target]
+xiaochuan upgrade [target]
 ```
 
 For at opgradere til den nyeste version.
 
 ```bash
-xccode upgrade
+xiaochuan upgrade
 ```
 
 For at opgradere til en bestemt version.
 
 ```bash
-xccode upgrade v0.1.48
+xiaochuan upgrade v0.1.48
 ```
 
 #### upgrade
@@ -511,7 +511,7 @@ xccode upgrade v0.1.48
 
 ## Globale flag
 
-xccode CLI tager følgende globale flag.
+xiaochuan CLI tager følgende globale flag.
 
 | Flag                                       | Kort | Beskrivelse                          |
 | ------------------------------------------ | ---- | ------------------------------------ |
@@ -524,33 +524,33 @@ xccode CLI tager følgende globale flag.
 
 ## Miljøvariabler
 
-Xccode kan konfigureres ved hjælp af miljøvariabler.
+Xiaochuan kan konfigureres ved hjælp af miljøvariabler.
 
 | Variabel                              | Skriv   | Beskrivelse                                                           |
 | ------------------------------------- | ------- | --------------------------------------------------------------------- |
-| `XCCODE_GIT_BASH_PATH`              | string  | Sti til Git Bash eksekverbar på Windows                               |
-| `XCCODE_CONFIG`                     | string  | Sti til konfigurationsfil                                             |
-| `XCCODE_TUI_CONFIG`                 | string  | Sti til TUI-konfigurationsfil                                         |
-| `XCCODE_CONFIG_DIR`                 | string  | Sti til konfigurationsmappe                                           |
-| `XCCODE_CONFIG_CONTENT`             | string  | Indbygget json-konfigurationsindhold                                  |
-| `XCCODE_DISABLE_AUTOUPDATE`         | boolean | Deaktiver automatisk opdateringskontrol                               |
-| `XCCODE_DISABLE_PRUNE`              | boolean | Deaktiver beskæring af gamle data                                     |
-| `XCCODE_DISABLE_TERMINAL_TITLE`     | boolean | Deaktiver automatisk opdatering af terminaltitel                      |
-| `XCCODE_PERMISSION`                 | string  | Indbygget json-tilladelseskonfiguration                               |
-| `XCCODE_DISABLE_DEFAULT_PLUGINS`    | boolean | Deaktiver standard plugins                                            |
-| `XCCODE_DISABLE_LSP_DOWNLOAD`       | boolean | Deaktiver automatisk LSP-serverdownloads                              |
-| `XCCODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Aktive eksperimentelle modeller                                       |
-| `XCCODE_DISABLE_AUTOCOMPACT`        | boolean | Deaktiver automatisk kontekstkomprimering                             |
-| `XCCODE_DISABLE_CLAUDE_CODE`        | boolean | Deaktiver læsning fra `.claude` (prompt + færdigheder)                |
-| `XCCODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Deaktiver læsning `~/.claude/CLAUDE.md`                               |
-| `XCCODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Deaktiver indlæsning af `.claude/skills`                              |
-| `XCCODE_DISABLE_MODELS_FETCH`       | boolean | Deaktivering af modeller fra eksterne kilder                          |
-| `XCCODE_FAKE_VCS`                   | string  | Falsk VCS-udbyder til testformål                                      |
-| `XCCODE_CLIENT`                     | string  | Klient-id (standard til `cli`)                                        |
-| `XCCODE_ENABLE_EXA`                 | boolean | Aktiver Exa-websøgeværktøjer                                          |
-| `XCCODE_SERVER_PASSWORD`            | string  | Aktiver grundlæggende godkendelse for `serve`/`web`                   |
-| `XCCODE_SERVER_USERNAME`            | string  | Tilsidesæt grundlæggende godkendelsesbrugernavn (standard `xccode`) |
-| `XCCODE_MODELS_URL`                 | string  | Brugerdefineret URL til hentning af modelkonfiguration                |
+| `XIAOCHUAN_GIT_BASH_PATH`              | string  | Sti til Git Bash eksekverbar på Windows                               |
+| `XIAOCHUAN_CONFIG`                     | string  | Sti til konfigurationsfil                                             |
+| `XIAOCHUAN_TUI_CONFIG`                 | string  | Sti til TUI-konfigurationsfil                                         |
+| `XIAOCHUAN_CONFIG_DIR`                 | string  | Sti til konfigurationsmappe                                           |
+| `XIAOCHUAN_CONFIG_CONTENT`             | string  | Indbygget json-konfigurationsindhold                                  |
+| `XIAOCHUAN_DISABLE_AUTOUPDATE`         | boolean | Deaktiver automatisk opdateringskontrol                               |
+| `XIAOCHUAN_DISABLE_PRUNE`              | boolean | Deaktiver beskæring af gamle data                                     |
+| `XIAOCHUAN_DISABLE_TERMINAL_TITLE`     | boolean | Deaktiver automatisk opdatering af terminaltitel                      |
+| `XIAOCHUAN_PERMISSION`                 | string  | Indbygget json-tilladelseskonfiguration                               |
+| `XIAOCHUAN_DISABLE_DEFAULT_PLUGINS`    | boolean | Deaktiver standard plugins                                            |
+| `XIAOCHUAN_DISABLE_LSP_DOWNLOAD`       | boolean | Deaktiver automatisk LSP-serverdownloads                              |
+| `XIAOCHUAN_ENABLE_EXPERIMENTAL_MODELS` | boolean | Aktive eksperimentelle modeller                                       |
+| `XIAOCHUAN_DISABLE_AUTOCOMPACT`        | boolean | Deaktiver automatisk kontekstkomprimering                             |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE`        | boolean | Deaktiver læsning fra `.claude` (prompt + færdigheder)                |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Deaktiver læsning `~/.claude/CLAUDE.md`                               |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Deaktiver indlæsning af `.claude/skills`                              |
+| `XIAOCHUAN_DISABLE_MODELS_FETCH`       | boolean | Deaktivering af modeller fra eksterne kilder                          |
+| `XIAOCHUAN_FAKE_VCS`                   | string  | Falsk VCS-udbyder til testformål                                      |
+| `XIAOCHUAN_CLIENT`                     | string  | Klient-id (standard til `cli`)                                        |
+| `XIAOCHUAN_ENABLE_EXA`                 | boolean | Aktiver Exa-websøgeværktøjer                                          |
+| `XIAOCHUAN_SERVER_PASSWORD`            | string  | Aktiver grundlæggende godkendelse for `serve`/`web`                   |
+| `XIAOCHUAN_SERVER_USERNAME`            | string  | Tilsidesæt grundlæggende godkendelsesbrugernavn (standard `xiaochuan`) |
+| `XIAOCHUAN_MODELS_URL`                 | string  | Brugerdefineret URL til hentning af modelkonfiguration                |
 
 ---
 
@@ -560,20 +560,20 @@ Disse miljøvariabler muliggør eksperimentelle funktioner, der kan ændres elle
 
 | Variabel                                        | Skriv   | Beskrivelse                                          |
 | ----------------------------------------------- | ------- | ---------------------------------------------------- |
-| `XCCODE_EXPERIMENTAL`                         | boolean | Aktiver eksperimentelle funktioner under samleflaget |
-| `XCCODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Aktiver ikonopdagelse                                |
-| `XCCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Deaktiver kopi ved valg i TUI                        |
-| `XCCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | nummer  | Standard timeout for bash-kommandoer i ms            |
-| `XCCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | nummer  | Maks. output-tokens for LLM-svar                     |
-| `XCCODE_EXPERIMENTAL_FILEWATCHER`             | boolean | Aktiver filovervågning for hele dir                  |
-| `XCCODE_EXPERIMENTAL_OXFMT`                   | boolean | Aktiver oxfmt formatter                              |
-| `XCCODE_EXPERIMENTAL_LSP_TOOL`                | boolean | Aktive eksperimenter LSP værktøj                     |
-| `XCCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Deaktiver filovervågning                             |
-| `XCCODE_EXPERIMENTAL_EXA`                     | boolean | Aktive eksperimenter Exa-funktioner                  |
-| `XCCODE_EXPERIMENTAL_LSP_TY`                  | boolean | Aktiver TY LSP for python-filer                      |
-| `XCCODE_EXPERIMENTAL_PLAN_MODE`               | boolean | Aktiver plantilstand                                 |
-| `XCCODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Aktiver eksperimentelt hændelsessystem               |
-| `XCCODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | Aktiver native LLM-anmodningssti                     |
-| `XCCODE_EXPERIMENTAL_PARALLEL`                | boolean | Aktiver parallel udførelse af websøgning             |
-| `XCCODE_EXPERIMENTAL_SCOUT`                   | boolean | Aktiver Scout-subagent                               |
-| `XCCODE_EXPERIMENTAL_WORKSPACES`              | boolean | Aktiver workspace-understøttelse                     |
+| `XIAOCHUAN_EXPERIMENTAL`                         | boolean | Aktiver eksperimentelle funktioner under samleflaget |
+| `XIAOCHUAN_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Aktiver ikonopdagelse                                |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Deaktiver kopi ved valg i TUI                        |
+| `XIAOCHUAN_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | nummer  | Standard timeout for bash-kommandoer i ms            |
+| `XIAOCHUAN_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | nummer  | Maks. output-tokens for LLM-svar                     |
+| `XIAOCHUAN_EXPERIMENTAL_FILEWATCHER`             | boolean | Aktiver filovervågning for hele dir                  |
+| `XIAOCHUAN_EXPERIMENTAL_OXFMT`                   | boolean | Aktiver oxfmt formatter                              |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TOOL`                | boolean | Aktive eksperimenter LSP værktøj                     |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Deaktiver filovervågning                             |
+| `XIAOCHUAN_EXPERIMENTAL_EXA`                     | boolean | Aktive eksperimenter Exa-funktioner                  |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TY`                  | boolean | Aktiver TY LSP for python-filer                      |
+| `XIAOCHUAN_EXPERIMENTAL_PLAN_MODE`               | boolean | Aktiver plantilstand                                 |
+| `XIAOCHUAN_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Aktiver eksperimentelt hændelsessystem               |
+| `XIAOCHUAN_EXPERIMENTAL_NATIVE_LLM`              | boolean | Aktiver native LLM-anmodningssti                     |
+| `XIAOCHUAN_EXPERIMENTAL_PARALLEL`                | boolean | Aktiver parallel udførelse af websøgning             |
+| `XIAOCHUAN_EXPERIMENTAL_SCOUT`                   | boolean | Aktiver Scout-subagent                               |
+| `XIAOCHUAN_EXPERIMENTAL_WORKSPACES`              | boolean | Aktiver workspace-understøttelse                     |

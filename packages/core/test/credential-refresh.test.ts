@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test"
 import { Deferred, Effect, Fiber } from "effect"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/schema/integration"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/schema/integration"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(LayerNode.compile(Credential.node))

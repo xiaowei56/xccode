@@ -2,7 +2,7 @@
   Update package plugins
 
 [1mUSAGE[0m
-  [36mxccode plugin update [flags] [<target>][0m
+  [36mxiaochuan plugin update [flags] [<target>][0m
 
 [1mARGUMENTS[0m
   [32mtarget[0m [2mstring[0m    Configured package target; omit to update all outdated plugins[2m (optional)[0m

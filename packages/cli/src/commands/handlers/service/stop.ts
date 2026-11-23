@@ -1,5 +1,5 @@
 import { Effect } from "effect"
-import { Service } from "@xccode/client/effect/service"
+import { Service } from "@xiaochuan/client/effect/service"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
 import { ServiceConfig } from "../../../services/service-config"

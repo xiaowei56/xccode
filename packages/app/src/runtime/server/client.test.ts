@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
-import type { XccodeEvent } from "@xccode/client/promise"
+import type { XiaochuanEvent } from "@xiaochuan/client/promise"
 import { createRoot } from "solid-js"
-import { createXccodeEventSource, createServerTransport } from "./client"
+import { createXiaochuanEventSource, createServerTransport } from "./client"
 
 const permission = {
   id: "evt_permission",
@@ -15,16 +15,16 @@ const permission = {
     resources: ["src/**"],
     source: { type: "tool", messageID: "msg_1", id: "call_1" },
   },
-} satisfies Extract<XccodeEvent, { type: "permission.asked" }>
+} satisfies Extract<XiaochuanEvent, { type: "permission.asked" }>
 
 function setup() {
-  return createRoot((dispose) => ({ ...createXccodeEventSource(), dispose }))
+  return createRoot((dispose) => ({ ...createXiaochuanEventSource(), dispose }))
 }
 
 describe("server event stream", () => {
   test("publishes the original current event with exact data", () => {
     const server = setup()
-    const received: XccodeEvent[] = []
+    const received: XiaochuanEvent[] = []
     let requestID: string | undefined
 
     server.event.on("permission.asked", (event) => {
@@ -41,16 +41,16 @@ describe("server event stream", () => {
 
   test("filters locations without changing workspace identity", () => {
     const server = setup()
-    const repo: XccodeEvent[] = []
-    const other: XccodeEvent[] = []
-    const all: XccodeEvent[] = []
+    const repo: XiaochuanEvent[] = []
+    const other: XiaochuanEvent[] = []
+    const all: XiaochuanEvent[] = []
     let workspaceID: string | undefined
 
     const global = {
       id: "evt_connected",
       type: "server.connected",
       data: {},
-    } satisfies Extract<XccodeEvent, { type: "server.connected" }>
+    } satisfies Extract<XiaochuanEvent, { type: "server.connected" }>
 
     const repoEvents = server.event.location("/repo")
     repoEvents.on("permission.asked", (event) => {
@@ -98,7 +98,7 @@ test("rotates the HTTP client with the endpoint", async () => {
       version: "2.0.0-test",
       pid: 1,
       urls: [request.url],
-      paths: { tmp: "/tmp/xccode" },
+      paths: { tmp: "/tmp/xiaochuan" },
     })
   }) as typeof globalThis.fetch
 
@@ -121,11 +121,11 @@ test("rotates the HTTP client with the endpoint", async () => {
   expect(requests).toEqual([
     {
       url: "http://127.0.0.1:4100/api/info",
-      authorization: `Basic ${btoa("xccode:first")}`,
+      authorization: `Basic ${btoa("xiaochuan:first")}`,
     },
     {
       url: "http://127.0.0.1:4200/api/info",
-      authorization: `Basic ${btoa("xccode:second")}`,
+      authorization: `Basic ${btoa("xiaochuan:second")}`,
     },
   ])
 })

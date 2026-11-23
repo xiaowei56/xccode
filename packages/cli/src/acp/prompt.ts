@@ -1,6 +1,6 @@
 import type { ContentBlock } from "@agentclientprotocol/sdk"
-import type { Command } from "@xccode/schema/command"
-import { SessionMessage } from "@xccode/schema/session-message"
+import type { Command } from "@xiaochuan/schema/command"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
 import { Effect } from "effect"
 import { access, constants } from "node:fs/promises"
 import { fileURLToPath } from "node:url"

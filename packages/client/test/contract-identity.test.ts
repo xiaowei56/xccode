@@ -1,12 +1,12 @@
 import { expect, test } from "bun:test"
 import { Schema } from "effect"
-import { Agent } from "@xccode/schema/agent"
-import { Config } from "@xccode/schema/config"
-import { Model } from "@xccode/schema/model"
-import { Prompt } from "@xccode/schema/prompt"
-import { Session } from "@xccode/schema/session"
-import { SessionMessage } from "@xccode/schema/session-message"
-import { Vcs } from "@xccode/schema/vcs"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Config } from "@xiaochuan/schema/config"
+import { Model } from "@xiaochuan/schema/model"
+import { Prompt } from "@xiaochuan/schema/prompt"
+import { Session } from "@xiaochuan/schema/session"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
+import { Vcs } from "@xiaochuan/schema/vcs"
 
 const Client = await import("../src/effect")
 
@@ -22,7 +22,7 @@ test("generated Effect API names canonical and composed outputs", async () => {
   const source = await Bun.file(new URL("../src/effect/api/api.ts", import.meta.url)).text()
 
   expect(source).toContain("export type SessionGetOutput = Session.Info")
-  expect(source).toContain("export type EventSubscribeOutput = XccodeEvent")
+  expect(source).toContain("export type EventSubscribeOutput = XiaochuanEvent")
   expect(source).not.toContain("HttpApiClient.ForApi")
 })
 

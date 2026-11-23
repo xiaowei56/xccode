@@ -1,5 +1,5 @@
 import { Schema } from "effect"
-import { Plugin, Store } from "@xccode/plugin/gui"
+import { Plugin, Store } from "@xiaochuan/plugin/gui"
 import en from "./i18n/en"
 
 const ChatModel = Schema.Struct({

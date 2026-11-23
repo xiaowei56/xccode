@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test"
-import { App } from "@xccode/core/app"
+import { App } from "@xiaochuan/core/app"
 
 test("formats app metadata as a user agent", () => {
-  expect(App.useragent(App.make({ name: "sdk", version: "1.2.3", channel: "beta" }))).toBe("xccode/beta/1.2.3/sdk")
+  expect(App.useragent(App.make({ name: "sdk", version: "1.2.3", channel: "beta" }))).toBe("xiaochuan/beta/1.2.3/sdk")
 })

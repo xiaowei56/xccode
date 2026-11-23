@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { State } from "@xccode/core/state"
+import { State } from "@xiaochuan/core/state"
 import { Effect } from "effect"
 import FastCheck from "fast-check"
 

@@ -1,21 +1,21 @@
 import path from "node:path"
 import { describe, expect } from "bun:test"
 import { Effect, Layer, Stream } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Artifact } from "@xccode/core/artifact"
-import { Config } from "@xccode/core/config"
-import { Flag } from "@xccode/core/flag"
-import { Image } from "@xccode/core/image"
-import { Location } from "@xccode/core/location"
-import { Permission } from "@xccode/core/permission"
-import { Session } from "@xccode/core/session"
-import { Tool } from "@xccode/core/tool"
-import { ArtifactTools } from "@xccode/core/tool/plugin/artifact"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
-import { Document, Info } from "@xccode/schema/config"
-import { ConfigExperimental } from "@xccode/schema/config/experimental"
-import { AbsolutePath } from "@xccode/schema/schema"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Artifact } from "@xiaochuan/core/artifact"
+import { Config } from "@xiaochuan/core/config"
+import { Flag } from "@xiaochuan/core/flag"
+import { Image } from "@xiaochuan/core/image"
+import { Location } from "@xiaochuan/core/location"
+import { Permission } from "@xiaochuan/core/permission"
+import { Session } from "@xiaochuan/core/session"
+import { Tool } from "@xiaochuan/core/tool"
+import { ArtifactTools } from "@xiaochuan/core/tool/plugin/artifact"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
+import { Document, Info } from "@xiaochuan/schema/config"
+import { ConfigExperimental } from "@xiaochuan/schema/config/experimental"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
 import { tmpdirScoped } from "./fixture/tmpdir"
 import { testEffect } from "./lib/effect"
 import { imagePassthrough } from "./lib/image"
@@ -23,10 +23,10 @@ import { permissionLayer } from "./lib/permission"
 import { codeModeListings, executeTool, registerToolPlugin, toolIdentity } from "./lib/tool"
 
 const toolPaths = [
-  "xccode.artifact_create",
-  "xccode.artifact_read",
-  "xccode.artifact_update",
-  "xccode.artifact_delete",
+  "xiaochuan.artifact_create",
+  "xiaochuan.artifact_read",
+  "xiaochuan.artifact_update",
+  "xiaochuan.artifact_delete",
 ]
 
 const buildLayer = (artifactsEnabled: boolean, dir: string) => {
@@ -70,7 +70,7 @@ const callCodeMode = (registry: Tool.Interface, sessionID: Session.ID, name: str
       type: "tool-call",
       id: `call-${name}`,
       name: "execute",
-      input: { code: `return await tools.xccode.${name}(${JSON.stringify(input)})` },
+      input: { code: `return await tools.xiaochuan.${name}(${JSON.stringify(input)})` },
     },
   }).pipe(
     Effect.map((result) => {
@@ -86,7 +86,7 @@ const it = testEffect(Layer.empty)
 describe("experimental.artifacts service and tools", () => {
   it.live("stays disabled and hides artifact tools when experimental.artifacts is unset", () =>
     Effect.gen(function* () {
-      const dir = (yield* tmpdirScoped("xccode-artifact-off-")).path
+      const dir = (yield* tmpdirScoped("xiaochuan-artifact-off-")).path
       yield* Effect.gen(function* () {
         const artifacts = yield* Artifact.Service
         const registry = yield* Tool.Service
@@ -111,7 +111,7 @@ describe("experimental.artifacts service and tools", () => {
 
   it.live("registers custom providers, routes overrides, and runs the 4 CRUD tools", () =>
     Effect.gen(function* () {
-      const dir = (yield* tmpdirScoped("xccode-artifact-on-")).path
+      const dir = (yield* tmpdirScoped("xiaochuan-artifact-on-")).path
 
       yield* Effect.gen(function* () {
         const artifacts = yield* Artifact.Service
@@ -154,7 +154,7 @@ describe("experimental.artifacts service and tools", () => {
         const listings = snap.codeModeCatalog ? codeModeListings(snap.codeModeCatalog) : []
         expect(listings.map((item) => item.path)).toEqual(expect.arrayContaining(toolPaths))
         const rawTools = yield* registry.list()
-        const createTool = rawTools.find((item) => item.id === "xccode_artifact_create")
+        const createTool = rawTools.find((item) => item.id === "xiaochuan_artifact_create")
         expect(createTool?.description).toContain(
           "Default provider (cloudflare [static, server-code, sqlite, durable-objects]): Artifacts deploy to Cloudflare with SQLite and Durable Objects.",
         )

@@ -7,9 +7,9 @@ import { setVoicePhase, voiceLevel, voicePhase, voiceSessionKey } from "./state"
 import { siteSettings } from "../settings"
 
 /**
- * Voice mode: ask Xccode questions out loud. The footer's voice button (or, with Design mode's
+ * Voice mode: ask Xiaochuan questions out loud. The footer's voice button (or, with Design mode's
  * voiceOrb "always", the resting orb) asks the browser for the microphone; then the orb from
- * Xccode Mobile sits alone in the bottom-right corner, and Hex's Dot scope shows the voice at the
+ * Xiaochuan Mobile sits alone in the bottom-right corner, and Hex's Dot scope shows the voice at the
  * top of the window, with the status and captions in one line under it. The scope links to Hex.
  *
  * Hearing: the browser's SpeechRecognition; without it, a recording sent to /api/voice/transcribe
@@ -51,12 +51,12 @@ const failures: Record<Failure, [string, string]> = {
   ],
   "in-app": [
     "This app's browser can't use the microphone",
-    ios ? "Open this page in Safari to talk to Xccode." : "Open this page in Chrome to talk to Xccode.",
+    ios ? "Open this page in Safari to talk to Xiaochuan." : "Open this page in Chrome to talk to Xiaochuan.",
   ],
   insecure: ["Voice needs a secure connection", "Open this page over HTTPS to use the microphone."],
   "no-mic": ["No microphone", "Connect a microphone, then try again."],
   disconnected: ["Microphone disconnected", "Connect your microphone again, then try again."],
-  unsupported: ["Voice isn't supported in this browser", "Try Chrome, Edge or Safari to talk to Xccode."],
+  unsupported: ["Voice isn't supported in this browser", "Try Chrome, Edge or Safari to talk to Xiaochuan."],
   service: [
     "Speech recognition isn't responding",
     "Your browser's speech service didn't answer. Try again in a moment.",
@@ -65,9 +65,9 @@ const failures: Record<Failure, [string, string]> = {
 }
 
 const hexUrl = "https://anoma.ly/hex"
-const hexKey = "xccode-voice-hex-line-shown"
-const hexDismissedKey = "xccode-voice-hex-dismissed"
-const examples = ["What is Xccode?", "Which models can I use?", "Is there a mobile app?"]
+const hexKey = "xiaochuan-voice-hex-line-shown"
+const hexDismissedKey = "xiaochuan-voice-hex-dismissed"
+const examples = ["What is Xiaochuan?", "Which models can I use?", "Is there a mobile app?"]
 
 export default function VoiceMode() {
   const i18n = useI18n()
@@ -941,7 +941,7 @@ export default function VoiceMode() {
                   when={heard()}
                   fallback={
                     <Show when={status() === "connecting"}>
-                      <p>Allow the microphone to talk to Xccode.</p>
+                      <p>Allow the microphone to talk to Xiaochuan.</p>
                     </Show>
                   }
                 >
@@ -995,7 +995,7 @@ export default function VoiceMode() {
             onPointerLeave={(event) => event.pointerType !== "touch" && hideExplainer()}
           >
             <div data-slot="body" id="voice-orb-explainer">
-              <p data-slot="intro">Talk to Xccode</p>
+              <p data-slot="intro">Talk to Xiaochuan</p>
               <p>Allow microphone access to talk.</p>
             </div>
           </section>
@@ -1020,7 +1020,7 @@ export default function VoiceMode() {
                 )}
               </Show>
               <Show when={!failure() && !heard() && !answer() && !asked()}>
-                <p data-slot="intro">Ask me anything about Xccode</p>
+                <p data-slot="intro">Ask me anything about Xiaochuan</p>
                 <div data-slot="examples">
                   <For each={examples}>
                     {(question) => (

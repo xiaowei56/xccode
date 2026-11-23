@@ -1,13 +1,13 @@
 #!/bin/sh
 set -eu
 
-if [ -z "${XCCODE_REAL_ZIG:-}" ]; then
-  echo "XCCODE_REAL_ZIG is required" >&2
+if [ -z "${XIAOCHUAN_REAL_ZIG:-}" ]; then
+  echo "XIAOCHUAN_REAL_ZIG is required" >&2
   exit 1
 fi
 
 if [ "${1:-}" = "build" ]; then
-  exec "$XCCODE_REAL_ZIG" "$@" -Dcpu=baseline
+  exec "$XIAOCHUAN_REAL_ZIG" "$@" -Dcpu=baseline
 fi
 
-exec "$XCCODE_REAL_ZIG" "$@"
+exec "$XIAOCHUAN_REAL_ZIG" "$@"

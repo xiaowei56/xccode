@@ -1,4 +1,4 @@
-import { Button } from "@xccode/ui/button"
+import { Button } from "@xiaochuan/ui/button"
 import { createEffect, createMemo, For, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { InboxSessionCard, InboxSessionList } from "./inbox"
@@ -96,12 +96,12 @@ function SessionListStory(props: {
       {(session) => (
         <InboxSessionCard
           project={{
-            id: session.index % 3 === 2 ? "lab-port-ui" : "lab-xccode",
-            name: session.index % 3 === 2 ? "port-ui" : "xccode",
-            worktree: "/workspace/xccode",
+            id: session.index % 3 === 2 ? "lab-port-ui" : "lab-xiaochuan",
+            name: session.index % 3 === 2 ? "port-ui" : "xiaochuan",
+            worktree: "/workspace/xiaochuan",
             icon: { color: session.index % 3 === 2 ? "purple" : "blue" },
           }}
-          directory={session.index % 2 === 0 ? "/workspace/xccode/worktrees/tooltip-status" : "/workspace/xccode"}
+          directory={session.index % 2 === 0 ? "/workspace/xiaochuan/worktrees/tooltip-status" : "/workspace/xiaochuan"}
           title={session.title}
           status={session.status}
           selected={state.selected === session.id}

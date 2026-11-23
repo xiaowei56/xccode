@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js"
 import { render } from "solid-js/web"
-import { TextShimmer } from "@xccode/ui/text-shimmer"
-import { Typewriter } from "@xccode/ui/typewriter"
+import { TextShimmer } from "@xiaochuan/ui/text-shimmer"
+import { Typewriter } from "@xiaochuan/ui/typewriter"
 
 export function mountTextLifecycle() {
   const host = document.createElement("div")

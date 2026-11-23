@@ -1,4 +1,4 @@
-use xccode_acp::translate::{self, Output, StartKind, Terminal, TurnContext, TurnStart, TurnState};
+use xiaochuan_acp::translate::{self, Output, StartKind, Terminal, TurnContext, TurnStart, TurnState};
 use serde_json::{Value, json};
 
 use crate::wire::{
@@ -88,7 +88,7 @@ fn translated(events: &[Value], ctx: &TurnContext) -> Value {
 }
 
 fn child_meta(id: &str, parent: &str, depth: u64, title: &str) -> Value {
-    json!({ "xccode/child-session": { "id": id, "parentID": parent, "depth": depth, "title": title } })
+    json!({ "xiaochuan/child-session": { "id": id, "parentID": parent, "depth": depth, "title": title } })
 }
 
 fn step_failed(error: Value, tokens: Option<Value>) -> Value {
@@ -399,11 +399,11 @@ fn reports_a_pending_retry_and_clears_it_when_the_next_step_starts() {
     let pending = run(&live(vec![retry.clone()]), &ctx(false));
     assert_matches(
         &updates(&pending.outputs),
-        &json!([{ "sessionUpdate": "session_info_update", "_meta": { "xccode/retry": { "attempt": 2, "nextRetryAt": "1970-01-01T00:00:01.000Z", "error": error } } }]),
+        &json!([{ "sessionUpdate": "session_info_update", "_meta": { "xiaochuan/retry": { "attempt": 2, "nextRetryAt": "1970-01-01T00:00:01.000Z", "error": error } } }]),
     );
     assert_eq!(
         translate::response(&pending.state, ROOT, Terminal::Interrupted)["_meta"],
-        json!({ "xccode/retry": { "attempt": 2, "nextRetryAt": "1970-01-01T00:00:01.000Z", "error": error } })
+        json!({ "xiaochuan/retry": { "attempt": 2, "nextRetryAt": "1970-01-01T00:00:01.000Z", "error": error } })
     );
 
     let cleared = run(
@@ -415,7 +415,7 @@ fn reports_a_pending_retry_and_clears_it_when_the_next_step_starts() {
     );
     assert_eq!(
         updates(&cleared.outputs)[1],
-        json!({ "sessionUpdate": "session_info_update", "_meta": { "xccode/retry": null } })
+        json!({ "sessionUpdate": "session_info_update", "_meta": { "xiaochuan/retry": null } })
     );
     assert_eq!(translate::response(&cleared.state, ROOT, Terminal::Succeeded)["_meta"], json!({}));
 }
@@ -444,7 +444,7 @@ fn marker(value: Value) -> Value {
     if let (Some(marker), Value::Object(value)) = (marker.as_object_mut(), value) {
         marker.extend(value);
     }
-    json!({ "sessionUpdate": "session_info_update", "_meta": { "xccode/compaction": marker } })
+    json!({ "sessionUpdate": "session_info_update", "_meta": { "xiaochuan/compaction": marker } })
 }
 
 fn provider_error() -> Value {
@@ -479,7 +479,7 @@ fn tool_location_and_compaction_rows() {
     );
     let child = |compaction: Value| {
         let mut meta = child_meta("ses_child", ROOT, 1, "Explore");
-        meta["xccode/compaction"] = compaction;
+        meta["xiaochuan/compaction"] = compaction;
         json!({ "_meta": meta })
     };
     // (name, compaction, child updates, events, expected)
@@ -606,7 +606,7 @@ fn tool_location_and_compaction_rows() {
             false,
             false,
             live(vec![compaction_failed(provider_error(), "auto")]),
-            json!({ "updates": [{ "_meta": { "xccode/compaction": {
+            json!({ "updates": [{ "_meta": { "xiaochuan/compaction": {
                 "status": "failed", "messageId": "msg_2", "reason": "auto", "error": provider_error(),
             } } }] }),
         ),
@@ -699,7 +699,7 @@ fn replay_rows() {
             vec![compaction_message("completed", json!({ "summary": "Summary" }))],
             json!([{
                 "sessionUpdate": "session_info_update",
-                "_meta": { "xccode/compaction": { "status": "completed", "messageId": "msg_compaction", "reason": "auto" } },
+                "_meta": { "xiaochuan/compaction": { "status": "completed", "messageId": "msg_compaction", "reason": "auto" } },
             }]),
         ),
         (
@@ -721,7 +721,7 @@ fn replay_rows() {
         ),
     ];
     for (name, compaction, messages, expected) in rows {
-        let capabilities = xccode_acp::capabilities::Capabilities {
+        let capabilities = xiaochuan_acp::capabilities::Capabilities {
             child_session_updates: false,
             form_elicitation: false,
             compaction,
@@ -729,7 +729,7 @@ fn replay_rows() {
         let actual = json!(
             messages
                 .iter()
-                .flat_map(|message| xccode_acp::replay::updates(message, "/workspace", &capabilities))
+                .flat_map(|message| xiaochuan_acp::replay::updates(message, "/workspace", &capabilities))
                 .collect::<Vec<_>>()
         );
         assert!(crate::wire::matches(&actual, &expected), "{name}\n  actual:   {actual}\n  expected: {expected}");

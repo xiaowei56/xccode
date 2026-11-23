@@ -1,7 +1,7 @@
 /** @jsxImportSource @opentui/solid */
 // P-COMP fixtures of highlighted code, one per grammar of the default build but TypeScript (U.4a has it): each snippet
 // of the corpus below (written to parity/fixtures/U.4b/corpus.json for Rust) in <code conceal={false} fg={text.base}>,
-// with the TUI's parsers registered as routes/session/index.tsx registers them. crates/ui/tests/all/grammars.rs compares xccode_ui::code::view with them.
+// with the TUI's parsers registered as routes/session/index.tsx registers them. crates/ui/tests/all/grammars.rs compares xiaochuan_ui::code::view with them.
 import { addDefaultParsers } from "@opentui/core"
 import parsers from "../../../tui/src/parsers-config"
 import { useTheme, useThemes } from "../../../tui/src/context/theme"
@@ -19,7 +19,7 @@ const corpus: Record<string, string> = {
     "import os\nfrom typing import List\n\n# Count the files.\n@cache\ndef count(paths: List[str]) -> int:\n    return len([p for p in paths if os.path.isfile(p)])\n\nclass Box:\n    size = 3 if True else None\n",
   go: 'package main\n\nimport "fmt"\n\n// Greet prints a name.\nfunc Greet(name string) error {\n    for i := 0; i < 2; i++ {\n        fmt.Println("hi", name, i, 4.5)\n    }\n    return nil\n}\n',
   bash: '#!/usr/bin/env bash\nset -euo pipefail\n# Build each package.\nfor dir in packages/*; do\n  if [ -f "$dir/package.json" ]; then\n    echo "build ${dir}" && bun run --cwd "$dir" build\n  fi\ndone\nexport COUNT=$((1 + 2))\n',
-  json: '{\n  "name": "xccode",\n  "version": 2.5,\n  "private": true,\n  "tags": ["cli", null],\n  "nested": { "escape": "a\\nb" }\n}\n',
+  json: '{\n  "name": "xiaochuan",\n  "version": 2.5,\n  "private": true,\n  "tags": ["cli", null],\n  "nested": { "escape": "a\\nb" }\n}\n',
   yaml: '# CI\nname: test\non: [push]\njobs:\n  unit:\n    runs-on: ubuntu-latest\n    timeout: 10\n    enabled: true\n    steps:\n      - run: bun test --timeout 5000\n        env: { CI: "1" }\n',
   markdown:
     "# Title\n\nSome **bold**, *italic* and `code`, a [link](https://x.y).\n\n```ts\nconst a: number = 1\n```\n\n- item\n> quote\n",
@@ -45,7 +45,7 @@ const corpus: Record<string, string> = {
   lua: 'local M = {}\n\n-- Greet a name.\nfunction M.greet(name, times)\n  for i = 1, times or 2 do\n    print("hi " .. name, i, nil, true)\n  end\n  return #name\nend\n\nreturn M\n',
   clojure:
     '(ns app.core\n  (:require [clojure.string :as str]))\n\n;; Shout a name.\n(defn shout [name & {:keys [n] :or {n 1}}]\n  (str/upper-case (str name "!" n nil true)))\n\n(def ^:private max-size 10)\n',
-  toml: '# Package.\n[package]\nname = "xccode"\nversion = "0.1.0"\nedition = 2024\npublish = false\n\n[dependencies]\nserde = { version = "1", features = ["derive"] }\n',
+  toml: '# Package.\n[package]\nname = "xiaochuan"\nversion = "0.1.0"\nedition = 2024\npublish = false\n\n[dependencies]\nserde = { version = "1", features = ["derive"] }\n',
   nix: "{ pkgs ? import <nixpkgs> { } }:\n\n# The shell.\nlet\n  name = \"app\";\nin\npkgs.mkShell {\n  inherit name;\n  packages = with pkgs; [ bun zig ];\n  shellHook = ''echo ${name}'';\n}\n",
   elixir:
     'defmodule App.Greeter do\n  @moduledoc "Greets."\n\n  # Greet a name.\n  def greet(name, opts \\\\ []) when is_binary(name) do\n    times = Keyword.get(opts, :times, 2)\n    IO.puts("hi #{name} #{times}")\n    {:ok, nil}\n  end\nend\n',

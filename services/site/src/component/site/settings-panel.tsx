@@ -795,7 +795,7 @@ function MonoFontSetting() {
         </select>
       </label>
       <p data-slot="mono-preview" aria-hidden="true">
-        [01] Docs · xccode run
+        [01] Docs · xiaochuan run
       </p>
       <Show when={canQueryLocalFonts()}>
         <button
@@ -815,7 +815,7 @@ function MonoFontSetting() {
   )
 }
 
-const settingsSectionsKey = "xccode-site-settings-sections"
+const settingsSectionsKey = "xiaochuan-site-settings-sections"
 
 /** A collapsible section of the settings panel. Its open state persists; sections with no rows hide. */
 function SettingsSection(props: { id: SettingsSectionID; title: string; children: JSX.Element }) {

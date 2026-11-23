@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { Skill } from "@xccode/schema/skill"
-import { Session } from "@xccode/schema/session"
+import { Skill } from "@xiaochuan/schema/skill"
+import { Session } from "@xiaochuan/schema/session"
 import type { ImageAttachmentPart, Prompt } from "@/composer/state"
 import type { FileSelection } from "@/workspaces/files/model"
 import { buildPromptRequest } from "./request"

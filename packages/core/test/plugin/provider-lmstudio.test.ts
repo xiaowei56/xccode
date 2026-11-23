@@ -1,14 +1,14 @@
-import { Bus } from "@xccode/core/bus"
-import { Config } from "@xccode/core/config"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { Model } from "@xccode/core/model"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { LMStudioPlugin, make } from "@xccode/core/plugin/provider/lmstudio"
-import { ProviderPlugins } from "@xccode/core/plugin/provider"
-import { Provider } from "@xccode/core/provider"
-import { Document, Event, Info } from "@xccode/schema/config"
+import { Bus } from "@xiaochuan/core/bus"
+import { Config } from "@xiaochuan/core/config"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { Model } from "@xiaochuan/core/model"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { LMStudioPlugin, make } from "@xiaochuan/core/plugin/provider/lmstudio"
+import { ProviderPlugins } from "@xiaochuan/core/plugin/provider"
+import { Provider } from "@xiaochuan/core/provider"
+import { Document, Event, Info } from "@xiaochuan/schema/config"
 import { describe, expect, test } from "bun:test"
 import { Duration, Effect, Layer, Schema } from "effect"
 import { eventually } from "../lib/eventually"
@@ -26,8 +26,8 @@ const addPlugin = Effect.fn(function* (origin: string, interval: Duration.Input 
 
 describe("LMStudioPlugin", () => {
   test("is registered as a built-in provider plugin", () => {
-    expect(LMStudioPlugin.id).toBe("xccode.provider.lmstudio")
-    expect(ProviderPlugins.map((item) => item.id)).toContain("xccode.provider.lmstudio")
+    expect(LMStudioPlugin.id).toBe("xiaochuan.provider.lmstudio")
+    expect(ProviderPlugins.map((item) => item.id)).toContain("xiaochuan.provider.lmstudio")
   })
 
   it.live("discovers local language models with their capabilities and effective context", () =>
@@ -97,7 +97,7 @@ describe("LMStudioPlugin", () => {
             id: providerID,
             name: "LM Studio",
             activation: "enabled",
-            package: "@xccode/ai/providers/openai-compatible",
+            package: "@xiaochuan/ai/providers/openai-compatible",
             settings: { baseURL: `${server.url.origin}/v1`, provider: "lmstudio", apiKey: "" },
           })
           expect((yield* providers.available()).map((provider) => provider.id)).toContain(providerID)
@@ -122,7 +122,7 @@ describe("LMStudioPlugin", () => {
             id: "clef-flash",
             type: "decision",
             name: "Clef Flash",
-            package: "@xccode/ai/providers/openai-compatible/decisions",
+            package: "@xiaochuan/ai/providers/openai-compatible/decisions",
             capabilities: { tools: false, input: ["text", "image"], output: ["decision"] },
             limit: { context: 200_000 },
           })
@@ -308,7 +308,7 @@ describe("LMStudioPlugin", () => {
   it.live("keeps sending the integration's env key after models load", () =>
     Effect.acquireUseRelease(
       Effect.sync(() => {
-        process.env.XCCODE_TEST_LMSTUDIO_KEY = "env-key"
+        process.env.XIAOCHUAN_TEST_LMSTUDIO_KEY = "env-key"
         const requests: Array<string | null> = []
         return {
           requests,
@@ -343,7 +343,7 @@ describe("LMStudioPlugin", () => {
             })
             editor.method.update({
               integrationID: Integration.ID.make("lmstudio"),
-              method: { type: "env", names: ["XCCODE_TEST_LMSTUDIO_KEY"] },
+              method: { type: "env", names: ["XIAOCHUAN_TEST_LMSTUDIO_KEY"] },
             })
           })
           yield* addPlugin(server.url.origin, "5 millis")
@@ -361,7 +361,7 @@ describe("LMStudioPlugin", () => {
         }),
       ({ server }) =>
         Effect.promise(() => server.stop(true)).pipe(
-          Effect.ensuring(Effect.sync(() => delete process.env.XCCODE_TEST_LMSTUDIO_KEY)),
+          Effect.ensuring(Effect.sync(() => delete process.env.XIAOCHUAN_TEST_LMSTUDIO_KEY)),
         ),
     ),
   )
@@ -438,7 +438,7 @@ describe("LMStudioPlugin", () => {
           yield* providers.transform((editor) => {
             editor.update(providerID, (provider) => {
               provider.name = "LMStudio"
-              provider.package = "@xccode/ai/providers/openai-compatible"
+              provider.package = "@xiaochuan/ai/providers/openai-compatible"
               provider.integrationID = Integration.ID.make("lmstudio")
             })
             editor.models.update(providerID, Model.ID.make("static-model"), () => {})

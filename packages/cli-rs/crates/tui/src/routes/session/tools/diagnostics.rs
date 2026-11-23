@@ -1,6 +1,6 @@
 //! LSP error rows for file writes and edits.
 
-use xccode_ui::theme::Paints;
+use xiaochuan_ui::theme::Paints;
 use opentui::prelude::*;
 use serde_json::{Map, Value};
 
@@ -27,7 +27,7 @@ pub fn parse(diagnostics: Option<&Value>, path: &str) -> Vec<Diagnostic> {
                 .and_then(Value::as_object)
                 .and_then(|range| range.get("start"))
                 .and_then(Value::as_object)?;
-            let finite = |key: &str| start.get(key).and_then(xccode_ui::tool_info::finite_number);
+            let finite = |key: &str| start.get(key).and_then(xiaochuan_ui::tool_info::finite_number);
             let message = item.get("message").and_then(Value::as_str)?;
             let error = item.get("severity").and_then(Value::as_f64) == Some(1.0);
             if !error || message.is_empty() {

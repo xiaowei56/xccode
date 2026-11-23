@@ -1,5 +1,5 @@
-import type { SkillApi } from "@xccode/client/promise/api"
-import type { Skill } from "@xccode/schema/skill"
+import type { SkillApi } from "@xiaochuan/client/promise/api"
+import type { Skill } from "@xiaochuan/schema/skill"
 import type { Types } from "effect"
 import type { Transform } from "./registration.js"
 

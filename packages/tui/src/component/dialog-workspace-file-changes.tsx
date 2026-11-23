@@ -1,5 +1,5 @@
 import { useKeyboard, useTerminalDimensions } from "@opentui/solid"
-import type { VcsFileStatus } from "@xccode/client"
+import type { VcsFileStatus } from "@xiaochuan/client"
 import { createMemo, For } from "solid-js"
 import { createStore } from "solid-js/store"
 import { FilePath } from "../ui/file-path"

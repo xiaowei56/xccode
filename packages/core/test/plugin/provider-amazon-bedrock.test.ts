@@ -1,11 +1,11 @@
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { AmazonBedrockPlugin } from "@xccode/core/plugin/provider/amazon-bedrock"
-import { Provider } from "@xccode/core/provider"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { AmazonBedrockPlugin } from "@xiaochuan/core/plugin/provider/amazon-bedrock"
+import { Provider } from "@xiaochuan/core/provider"
 import { withEnv } from "../fixture/env"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
@@ -37,7 +37,7 @@ const seedBedrock = Effect.fn(function* (settings?: Provider.Settings) {
   const catalog = yield* Provider.Service
   yield* catalog.transform((catalog) => {
     catalog.update(Provider.ID.amazonBedrock, (item) => {
-      item.package = "@xccode/ai/providers/amazon-bedrock"
+      item.package = "@xiaochuan/ai/providers/amazon-bedrock"
       if (settings) item.settings = settings
     })
   })
@@ -51,7 +51,7 @@ describe("AmazonBedrockPlugin", () => {
         const catalog = yield* seedBedrock({ endpoint: "https://bedrock.example" })
         yield* addPlugin()
         const result = required(yield* catalog.get(Provider.ID.amazonBedrock))
-        expect(result.package).toBe("@xccode/ai/providers/amazon-bedrock")
+        expect(result.package).toBe("@xiaochuan/ai/providers/amazon-bedrock")
         expect(result.settings).toEqual({ baseURL: "https://bedrock.example", region: "us-east-1" })
       }),
     ),
@@ -152,7 +152,7 @@ describe("AmazonBedrockPlugin", () => {
         const catalog = yield* Provider.Service
         yield* catalog.transform((catalog) => {
           catalog.update(Provider.ID.amazonBedrock, (item) => {
-            item.package = "@xccode/ai/providers/amazon-bedrock"
+            item.package = "@xiaochuan/ai/providers/amazon-bedrock"
             item.activation = "disabled"
           })
         })
@@ -206,13 +206,13 @@ describe("AmazonBedrockPlugin", () => {
         const catalog = yield* Provider.Service
         yield* catalog.transform((catalog) => {
           catalog.update(Provider.ID.make("mantle"), (item) => {
-            item.package = "@xccode/ai/providers/amazon-bedrock/mantle/responses"
+            item.package = "@xiaochuan/ai/providers/amazon-bedrock/mantle/responses"
           })
           catalog.update(Provider.ID.make("native"), (item) => {
-            item.package = "@xccode/ai/providers/amazon-bedrock"
+            item.package = "@xiaochuan/ai/providers/amazon-bedrock"
           })
           catalog.update(Provider.ID.make("other"), (item) => {
-            item.package = "@xccode/ai/providers/anthropic"
+            item.package = "@xiaochuan/ai/providers/anthropic"
           })
         })
         yield* addPlugin()

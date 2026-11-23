@@ -35,7 +35,7 @@ fi
 if [ "$channel" = latest ] && [ -n "${INPUT_VERSION:-}" ]; then
   version=$INPUT_VERSION
 elif [ "$channel" = latest ]; then
-  current=$(curl -fsS https://registry.npmjs.org/-/package/@xccode%2fcli/dist-tags | jq -r .latest)
+  current=$(curl -fsS https://registry.npmjs.org/-/package/@xiaochuan%2fcli/dist-tags | jq -r .latest)
   [[ "$current" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]] || die "Unexpected latest version: $current"
   major=${BASH_REMATCH[1]} minor=${BASH_REMATCH[2]} patch=${BASH_REMATCH[3]}
   case "$INPUT_BUMP" in
@@ -53,8 +53,8 @@ if [ "$channel" = latest ]; then
   if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]] || [[ "$version" == 0.0.0-* ]]; then
     die "Invalid release version: $version"
   fi
-  status=$(curl -sS -o /dev/null -w '%{http_code}' "https://registry.npmjs.org/@xccode%2fcli/$version")
-  [ "$status" != 200 ] || die "@xccode/cli@$version is already published"
+  status=$(curl -sS -o /dev/null -w '%{http_code}' "https://registry.npmjs.org/@xiaochuan%2fcli/$version")
+  [ "$status" != 200 ] || die "@xiaochuan/cli@$version is already published"
 fi
 
 # What each channel builds and publishes.

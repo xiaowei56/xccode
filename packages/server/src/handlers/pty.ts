@@ -1,20 +1,20 @@
-import { Pty } from "@xccode/core/pty"
-import { PtyProtocol } from "@xccode/core/pty/protocol"
-import { PtyTicket } from "@xccode/core/pty/ticket"
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
+import { Pty } from "@xiaochuan/core/pty"
+import { PtyProtocol } from "@xiaochuan/core/pty/protocol"
+import { PtyTicket } from "@xiaochuan/core/pty/ticket"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
 import { Effect, Queue } from "effect"
 import { HttpServerRequest, HttpServerResponse } from "effect/http"
 import { HttpApiBuilder, HttpApiSchema } from "effect/http-api"
 import { Socket } from "effect/socket"
 import { Api } from "../api"
 import { CorsConfig, isAllowedRequestOrigin } from "../cors"
-import { ForbiddenError, PtyNotFoundError } from "@xccode/protocol/errors"
+import { ForbiddenError, PtyNotFoundError } from "@xiaochuan/protocol/errors"
 import {
   PTY_CONNECT_TICKET_QUERY,
   PTY_CONNECT_TOKEN_HEADER,
   PTY_CONNECT_TOKEN_HEADER_VALUE,
-} from "@xccode/protocol/groups/pty"
+} from "@xiaochuan/protocol/groups/pty"
 import { locationErrors, requestRef, response } from "../location"
 import { holdLocation, type Outbound, runPtySocket } from "./pty-socket"
 

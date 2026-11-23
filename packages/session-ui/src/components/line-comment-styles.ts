@@ -277,7 +277,7 @@ export function installLineCommentStyles() {
 
   if (typeof document === "undefined") return
 
-  const id = "xccode-line-comment-styles"
+  const id = "xiaochuan-line-comment-styles"
 
   if (document.getElementById(id)) {
     installed = true

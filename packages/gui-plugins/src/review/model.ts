@@ -1,9 +1,9 @@
-import type { FileDiffInfo } from "@xccode/client/promise"
-import type { SessionReviewLineComment } from "@xccode/session-ui/session-review"
-import { previewSelectedLines } from "@xccode/session-ui/pierre/selection-bridge"
-import { artifactMime } from "@xccode/util/artifact"
-import { bytesToBase64 } from "@xccode/util/base64"
-import { checksum } from "@xccode/util/encode"
+import type { FileDiffInfo } from "@xiaochuan/client/promise"
+import type { SessionReviewLineComment } from "@xiaochuan/session-ui/session-review"
+import { previewSelectedLines } from "@xiaochuan/session-ui/pierre/selection-bridge"
+import { artifactMime } from "@xiaochuan/util/artifact"
+import { bytesToBase64 } from "@xiaochuan/util/base64"
+import { checksum } from "@xiaochuan/util/encode"
 import { focusManager, useQueryClient } from "@tanstack/solid-query"
 import { debounce } from "@solid-primitives/scheduled"
 import { createMemo, createSignal, on, onCleanup, untrack, type Accessor } from "solid-js"
@@ -13,7 +13,7 @@ import {
   type MountedSession,
   type SessionScreen,
   type SetupContext,
-} from "@xccode/plugin/gui"
+} from "@xiaochuan/plugin/gui"
 import type Review from "./index"
 import {
   filterRenderableDiff,

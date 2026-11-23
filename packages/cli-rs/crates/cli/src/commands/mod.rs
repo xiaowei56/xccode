@@ -20,7 +20,7 @@ pub mod uninstall;
 pub mod upgrade;
 
 use crate::args::{Cli, Command, ServerFlags};
-use xccode_util::error;
+use xiaochuan_util::error;
 
 /// What every handler gets besides its own arguments.
 pub struct Context {

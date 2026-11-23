@@ -1,13 +1,13 @@
 //! Built-in home footer.
 
-use xccode_plugin::abi::v2::{Node, Place, Surface};
-use xccode_plugin::abi::{self, Click, Layout, Placement, Span, Width};
-use xccode_plugin::slot;
+use xiaochuan_plugin::abi::v2::{Node, Place, Surface};
+use xiaochuan_plugin::abi::{self, Click, Layout, Placement, Span, Width};
+use xiaochuan_plugin::slot;
 
 use super::{hidden, kept};
 
 pub fn plugin() -> abi::Plugin {
-    abi::Plugin { id: "xccode.home.footer", setup }
+    abi::Plugin { id: "xiaochuan.home.footer", setup }
 }
 
 const ROOT: &str = "footer";

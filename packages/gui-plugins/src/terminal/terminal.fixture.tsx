@@ -1,9 +1,9 @@
-import { Xccode } from "@xccode/client/promise"
-import { ThemeProvider } from "@xccode/ui/theme/context"
+import { Xiaochuan } from "@xiaochuan/client/promise"
+import { ThemeProvider } from "@xiaochuan/ui/theme/context"
 import { createSignal } from "solid-js"
 import { render } from "solid-js/web"
-import { PluginContext } from "@xccode/plugin/gui/host"
-import type { Context, ServerRef } from "@xccode/plugin/gui"
+import { PluginContext } from "@xiaochuan/plugin/gui/host"
+import type { Context, ServerRef } from "@xiaochuan/plugin/gui"
 import en from "./i18n/en"
 import type { TerminalModel } from "./model"
 import { Terminal } from "./terminal"
@@ -33,7 +33,7 @@ export function mountTerminal(input: { url: string; ptyID: string }) {
     id: input.url,
     name: input.url,
     url: input.url,
-    client: Xccode.make({ baseUrl: input.url }),
+    client: Xiaochuan.make({ baseUrl: input.url }),
     local: true,
     builtin: false,
     compatible: true,

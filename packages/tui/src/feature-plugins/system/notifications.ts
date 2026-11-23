@@ -1,5 +1,5 @@
-import { Plugin } from "@xccode/plugin/tui"
-import type { AttentionSoundName } from "@xccode/plugin/tui/context"
+import { Plugin } from "@xiaochuan/plugin/tui"
+import type { AttentionSoundName } from "@xiaochuan/plugin/tui/context"
 
 function notify(
   context: Plugin.Context,
@@ -32,7 +32,7 @@ function hasRunningChild(context: Plugin.Context, sessionID: string) {
 }
 
 export default Plugin.define({
-  id: "xccode.notifications",
+  id: "xiaochuan.notifications",
   setup(context) {
     const errored = new Set<string>()
     const terminal = new Set<string>()

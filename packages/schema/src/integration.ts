@@ -38,7 +38,7 @@ export const KeyMethod = Schema.Struct({
   form: optional(Form.Fields),
 }).annotate({ identifier: "Integration.KeyMethod" })
 
-/** Saves a reference to credentials managed outside xccode, configured by the form answers. */
+/** Saves a reference to credentials managed outside xiaochuan, configured by the form answers. */
 export interface ExternalMethod extends Schema.Schema.Type<typeof ExternalMethod> {}
 export const ExternalMethod = Schema.Struct({
   id: MethodID,

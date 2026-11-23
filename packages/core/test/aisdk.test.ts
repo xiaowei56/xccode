@@ -1,12 +1,12 @@
 import { APICallError } from "@ai-sdk/provider"
 import type { LanguageModelV3, LanguageModelV3StreamPart } from "@ai-sdk/provider"
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible"
-import { AISDK } from "@xccode/core/aisdk"
-import { ModelRetry } from "@xccode/core/model-retry"
-import { SessionRunnerRetry } from "@xccode/core/session/runner/retry"
-import { toSessionError } from "@xccode/core/session/to-session-error"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
+import { AISDK } from "@xiaochuan/core/aisdk"
+import { ModelRetry } from "@xiaochuan/core/model-retry"
+import { SessionRunnerRetry } from "@xiaochuan/core/session/runner/retry"
+import { toSessionError } from "@xiaochuan/core/session/to-session-error"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
 import {
   ai,
   AIError,
@@ -21,14 +21,14 @@ import {
   RateLimitError,
   TransportError,
   UnknownProviderError,
-} from "@xccode/ai/effect"
-import { LLMClient, RequestExecutor } from "@xccode/ai/route"
-import { compileRequest } from "@xccode/ai/testing"
+} from "@xiaochuan/ai/effect"
+import { LLMClient, RequestExecutor } from "@xiaochuan/ai/route"
+import { compileRequest } from "@xiaochuan/ai/testing"
 import { expect } from "bun:test"
 import { Effect, Layer } from "effect"
 import { HttpClientRequest, HttpClientResponse } from "effect/http"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@xccode/util/effect/app-node-platform"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@xiaochuan/util/effect/app-node-platform"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(AISDK.locationLayer)

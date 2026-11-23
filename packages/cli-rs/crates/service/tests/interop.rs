@@ -7,28 +7,28 @@ use std::process::Command;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_api::transport::Reqwest;
-use xccode_service::ensure::{self, Options, Timing};
-use xccode_service::ts_command::TsCommand;
+use xiaochuan_api::transport::Reqwest;
+use xiaochuan_service::ensure::{self, Options, Timing};
+use xiaochuan_service::ts_command::TsCommand;
 use rustix::process::{Pid, Signal, kill_process, test_kill_process};
 
 fn ts_root() -> Option<PathBuf> {
-    let root = std::env::var_os("XCCODE_TS_ROOT")
+    let root = std::env::var_os("XIAOCHUAN_TS_ROOT")
         .map(PathBuf::from)
         .unwrap_or_else(|| Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../.."));
     let ready = root.join("node_modules").is_dir() && root.join("packages/cli/src/index.ts").is_file();
     if !ready {
         assert!(
-            std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(),
-            "XCCODE_RS_REQUIRE_TS is set, but skipped: no TypeScript checkout with node_modules; set XCCODE_TS_ROOT"
+            std::env::var_os("XIAOCHUAN_RS_REQUIRE_TS").is_none(),
+            "XIAOCHUAN_RS_REQUIRE_TS is set, but skipped: no TypeScript checkout with node_modules; set XIAOCHUAN_TS_ROOT"
         );
-        eprintln!("skipped: no TypeScript checkout with node_modules; set XCCODE_TS_ROOT");
+        eprintln!("skipped: no TypeScript checkout with node_modules; set XIAOCHUAN_TS_ROOT");
     }
     ready.then_some(root)
 }
 
 struct Isolation {
-    root: xccode_util::temp::TempDir,
+    root: xiaochuan_util::temp::TempDir,
 }
 
 impl Isolation {
@@ -44,16 +44,16 @@ impl Isolation {
             ("XDG_CONFIG_HOME", self.path("config")),
             ("XDG_DATA_HOME", self.path("data")),
             ("XDG_CACHE_HOME", self.path("cache")),
-            ("XCCODE_CONFIG_DIR", self.path("config/xccode")),
+            ("XIAOCHUAN_CONFIG_DIR", self.path("config/xiaochuan")),
         ]
         .map(|(name, value)| format!("{name}='{}'", value.display()))
         .join(" ");
         let script = format!(
-            "#!/bin/sh\ncd '{}/packages/cli' || exit 1\nexec env -i PATH=\"$PATH\" {vars} XCCODE_DISABLE_MODELS_FETCH=1 bun run src/index.ts \"$@\"\n",
+            "#!/bin/sh\ncd '{}/packages/cli' || exit 1\nexec env -i PATH=\"$PATH\" {vars} XIAOCHUAN_DISABLE_MODELS_FETCH=1 bun run src/index.ts \"$@\"\n",
             ts_root.display()
         );
-        let wrapper = self.path("xccode-ts");
-        xccode_service::ts_command::write_script(&wrapper, &script);
+        let wrapper = self.path("xiaochuan-ts");
+        xiaochuan_service::ts_command::write_script(&wrapper, &script);
         wrapper
     }
 }
@@ -94,15 +94,15 @@ fn stop(pid: u32) {
 #[tokio::test(flavor = "multi_thread")]
 async fn typescript_service_status_sees_a_service_rust_started() {
     let Some(ts_root) = ts_root() else { return };
-    let isolation = Isolation { root: xccode_util::temp::tempdir().unwrap() };
-    for dir in ["home", "state/xccode", "config/xccode", "data", "cache"] {
+    let isolation = Isolation { root: xiaochuan_util::temp::tempdir().unwrap() };
+    for dir in ["home", "state/xiaochuan", "config/xiaochuan", "data", "cache"] {
         std::fs::create_dir_all(isolation.path(dir)).unwrap();
     }
     let port = free_port();
     // A source build is channel `local`: its service config is `service-local.json`.
-    std::fs::write(isolation.path("config/xccode/service-local.json"), format!("{{\"port\":{port}}}\n")).unwrap();
+    std::fs::write(isolation.path("config/xiaochuan/service-local.json"), format!("{{\"port\":{port}}}\n")).unwrap();
     let wrapper = isolation.wrapper(&ts_root);
-    let state = isolation.path("state/xccode");
+    let state = isolation.path("state/xiaochuan");
     let mut options = Options::new(state.join("service.json"), state.clone(), &TsCommand::new(&wrapper));
     options.timing = Timing { deadline: Duration::from_secs(60), ..Timing::default() };
     let mut started = 0;

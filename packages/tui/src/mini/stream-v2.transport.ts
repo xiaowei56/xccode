@@ -2,16 +2,16 @@ import type {
   EventSubscribeOutput,
   FormInfo,
   LocationRef,
-  XccodeClient,
+  XiaochuanClient,
   PermissionRequest,
   SessionMessageAssistantTool,
   SessionMessageInfo,
   SessionMessageUser,
   SessionInboxInfo,
-} from "@xccode/client/promise"
-import { ClientError } from "@xccode/client/promise"
-import { Event } from "@xccode/schema/event"
-import { SessionMessage } from "@xccode/schema/session-message"
+} from "@xiaochuan/client/promise"
+import { ClientError } from "@xiaochuan/client/promise"
+import { Event } from "@xiaochuan/schema/event"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
 import { blockerStatus, pickBlockerView } from "./session-data"
 import { writeSessionOutput } from "./stream"
 import { createFragmentReconciler, fragmentRef, type FragmentReconciler } from "./stream-v2.fragment"
@@ -41,9 +41,9 @@ type Trace = {
 }
 
 type StreamInput = {
-  sdk: XccodeClient
-  reconnect?: (signal: AbortSignal) => Promise<XccodeClient>
-  onClient?: (sdk: XccodeClient) => void
+  sdk: XiaochuanClient
+  reconnect?: (signal: AbortSignal) => Promise<XiaochuanClient>
+  onClient?: (sdk: XiaochuanClient) => void
   readTextFile?: (url: string) => Promise<string>
   location?: LocationRef
   sessionID: string
@@ -111,7 +111,7 @@ type RunV2Event = EventSubscribeOutput
 type PromptFilePart = Extract<RunPromptPart, { type: "file" }>
 
 type Attempt = {
-  client: XccodeClient
+  client: XiaochuanClient
   signal: AbortSignal
   generation: number
 }
@@ -450,7 +450,7 @@ function compactionError(messageID: string, text: string): StreamCommit {
 
 async function resolveSelectedModel(
   input: StreamInput,
-  sdk: XccodeClient,
+  sdk: XiaochuanClient,
   next: Pick<SessionTurnInput, "model" | "variant" | "signal">,
 ) {
   if (next.model) return { providerID: next.model.providerID, id: next.model.modelID, variant: next.variant }
@@ -482,7 +482,7 @@ export async function createSessionTransport(input: StreamInput): Promise<Sessio
   let sdk = input.sdk
   let generation = 0
   let activeAttempt: Attempt | undefined
-  let settlementClient: XccodeClient | undefined
+  let settlementClient: XiaochuanClient | undefined
   input.signal?.addEventListener("abort", () => controller.abort(), { once: true })
   const state: State = {
     permissions: [],
@@ -899,7 +899,7 @@ export async function createSessionTransport(input: StreamInput): Promise<Sessio
     }
   }
 
-  const projectedMessages = async (client: XccodeClient, signal: AbortSignal) =>
+  const projectedMessages = async (client: XiaochuanClient, signal: AbortSignal) =>
     (
       await client.message.list(
         { sessionID: input.sessionID, limit: input.replayLimit ?? 200, order: "desc" },
@@ -907,7 +907,7 @@ export async function createSessionTransport(input: StreamInput): Promise<Sessio
       )
     ).data.toReversed()
 
-  const waitForSession = async (initial: XccodeClient) => {
+  const waitForSession = async (initial: XiaochuanClient) => {
     let client = initial
     while (true) {
       try {
@@ -925,7 +925,7 @@ export async function createSessionTransport(input: StreamInput): Promise<Sessio
     }
   }
 
-  const settleSession = async (initial: XccodeClient) => {
+  const settleSession = async (initial: XiaochuanClient) => {
     const client = await waitForSession(initial)
     for (const message of await projectedMessages(client, controller.signal)) renderMessage(message, true)
     paintIdle(blockerStatus(state.view))
@@ -933,7 +933,7 @@ export async function createSessionTransport(input: StreamInput): Promise<Sessio
   }
 
   const resolvePermissionSources = async (
-    client: XccodeClient,
+    client: XiaochuanClient,
     permissions: PermissionRequest[],
     attempt: Attempt,
   ) => {
@@ -1618,7 +1618,7 @@ export async function createSessionTransport(input: StreamInput): Promise<Sessio
   const runTurnWait = async (
     next: SessionTurnInput,
     messageID: string,
-    client: XccodeClient,
+    client: XiaochuanClient,
     send: () => Promise<SessionInboxInfo | void>,
     onAdmitted?: () => void,
   ) => {
@@ -1745,7 +1745,7 @@ export async function createSessionTransport(input: StreamInput): Promise<Sessio
   let queuedResizeReplay: SessionResizeReplayInput | undefined
   let closing: Promise<void> | undefined
 
-  const admitPrompt = async (next: SessionTurnInput, client: XccodeClient, delivery: RunDelivery) => {
+  const admitPrompt = async (next: SessionTurnInput, client: XiaochuanClient, delivery: RunDelivery) => {
     const messageID = next.prompt.messageID
     if (!messageID) throw new Error("Prompt message ID is required")
     const command = next.prompt.command

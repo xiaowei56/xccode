@@ -1,6 +1,6 @@
 // P-ORACLE for F.2: records the requests the TypeScript Promise client builds, for
 // crates/api/tests/all/oracle.rs to compare with the generated Rust client. Writes parity/fixtures/F.2/requests.json.
-// The raw generated client: the exported `Xccode.make` wraps it (one shared event subscription without
+// The raw generated client: the exported `Xiaochuan.make` wraps it (one shared event subscription without
 // input), and the Rust generated client corresponds to the raw one. The package exports do not expose it.
 import { make } from "../../../client/src/promise/generated/client.ts"
 import { records } from "../lib/records"
@@ -52,7 +52,7 @@ await call("session.list", () =>
   client.session.list({ limit: 5, order: "desc", search: "héllo wörld+?", parentID: null, archived: false }),
 )
 await call("session.get", () =>
-  client.session.get({ sessionID: "ses_1 /?#%" }, { headers: { "X-Xccode-Directory": "/override" } }),
+  client.session.get({ sessionID: "ses_1 /?#%" }, { headers: { "X-Xiaochuan-Directory": "/override" } }),
 )
 await call("file.read", () => client.file.read({ path: "dir/a b/c#?.txt", location: { directory: "/w" } }))
 await call("session.prompt", () =>

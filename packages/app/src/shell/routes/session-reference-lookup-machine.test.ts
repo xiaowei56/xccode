@@ -1,4 +1,4 @@
-import type { SessionInfo } from "@xccode/client/promise"
+import type { SessionInfo } from "@xiaochuan/client/promise"
 import { describe, expect, test } from "bun:test"
 import {
   createSessionReferenceLookupState,

@@ -1,32 +1,32 @@
 import { expect, test } from "bun:test"
 import { Schema } from "effect"
-import { Agent } from "@xccode/core/agent"
-import { Session } from "@xccode/core/session"
-import { SessionStore } from "@xccode/core/session/store"
-import { Location } from "@xccode/schema/location"
-import { Model } from "@xccode/schema/model"
-import { Provider } from "@xccode/schema/provider"
-import { Project } from "@xccode/schema/project"
-import { Worktree } from "@xccode/schema/worktree"
-import { Prompt } from "@xccode/schema/prompt"
-import { SessionInbox } from "@xccode/schema/session-inbox"
-import { SessionMessage } from "@xccode/schema/session-message"
-import { Workspace } from "@xccode/schema/workspace"
-import { Command } from "@xccode/schema/command"
-import { Connection } from "@xccode/schema/connection"
-import { Credential } from "@xccode/schema/credential"
-import { FileSystem } from "@xccode/schema/filesystem"
-import { Integration } from "@xccode/schema/integration"
-import { LLM } from "@xccode/schema/llm"
-import { Permission } from "@xccode/schema/permission"
-import { Pty } from "@xccode/schema/pty"
-import { Reference } from "@xccode/schema/reference"
-import { Skill } from "@xccode/schema/skill"
-import { AbsolutePath, optional, statics } from "@xccode/schema/schema"
+import { Agent } from "@xiaochuan/core/agent"
+import { Session } from "@xiaochuan/core/session"
+import { SessionStore } from "@xiaochuan/core/session/store"
+import { Location } from "@xiaochuan/schema/location"
+import { Model } from "@xiaochuan/schema/model"
+import { Provider } from "@xiaochuan/schema/provider"
+import { Project } from "@xiaochuan/schema/project"
+import { Worktree } from "@xiaochuan/schema/worktree"
+import { Prompt } from "@xiaochuan/schema/prompt"
+import { SessionInbox } from "@xiaochuan/schema/session-inbox"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
+import { Workspace } from "@xiaochuan/schema/workspace"
+import { Command } from "@xiaochuan/schema/command"
+import { Connection } from "@xiaochuan/schema/connection"
+import { Credential } from "@xiaochuan/schema/credential"
+import { FileSystem } from "@xiaochuan/schema/filesystem"
+import { Integration } from "@xiaochuan/schema/integration"
+import { LLM } from "@xiaochuan/schema/llm"
+import { Permission } from "@xiaochuan/schema/permission"
+import { Pty } from "@xiaochuan/schema/pty"
+import { Reference } from "@xiaochuan/schema/reference"
+import { Skill } from "@xiaochuan/schema/skill"
+import { AbsolutePath, optional, statics } from "@xiaochuan/schema/schema"
 
 test("Core reuses the canonical shared schemas", async () => {
-  const schemaAgent = await import("@xccode/schema/agent")
-  const schemaSession = await import("@xccode/schema/session")
+  const schemaAgent = await import("@xiaochuan/schema/agent")
+  const schemaSession = await import("@xiaochuan/schema/session")
   const [
     coreCommand,
     coreConnection,
@@ -48,25 +48,25 @@ test("Core reuses the canonical shared schemas", async () => {
     coreSchema,
     coreWorkspace,
   ] = await Promise.all([
-    import("@xccode/core/command"),
-    import("@xccode/core/integration/connection"),
-    import("@xccode/core/credential"),
-    import("@xccode/core/filesystem"),
-    import("@xccode/core/integration"),
-    import("@xccode/core/location"),
-    import("@xccode/ai/effect"),
-    import("@xccode/core/model"),
-    import("@xccode/core/permission"),
-    import("@xccode/core/worktree"),
-    import("@xccode/core/pty"),
-    import("@xccode/core/project/schema"),
-    import("@xccode/core/provider"),
-    import("@xccode/core/reference"),
-    import("@xccode/core/session/inbox"),
-    import("@xccode/core/session/message"),
-    import("@xccode/core/skill"),
-    import("@xccode/core/schema"),
-    import("@xccode/core/workspace"),
+    import("@xiaochuan/core/command"),
+    import("@xiaochuan/core/integration/connection"),
+    import("@xiaochuan/core/credential"),
+    import("@xiaochuan/core/filesystem"),
+    import("@xiaochuan/core/integration"),
+    import("@xiaochuan/core/location"),
+    import("@xiaochuan/ai/effect"),
+    import("@xiaochuan/core/model"),
+    import("@xiaochuan/core/permission"),
+    import("@xiaochuan/core/worktree"),
+    import("@xiaochuan/core/pty"),
+    import("@xiaochuan/core/project/schema"),
+    import("@xiaochuan/core/provider"),
+    import("@xiaochuan/core/reference"),
+    import("@xiaochuan/core/session/inbox"),
+    import("@xiaochuan/core/session/message"),
+    import("@xiaochuan/core/skill"),
+    import("@xiaochuan/core/schema"),
+    import("@xiaochuan/core/workspace"),
   ])
 
   const schemas = [

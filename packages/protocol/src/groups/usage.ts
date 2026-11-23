@@ -1,5 +1,5 @@
-import { Location } from "@xccode/schema/location"
-import { UsageLimits } from "@xccode/schema/usage-limits"
+import { Location } from "@xiaochuan/schema/location"
+import { UsageLimits } from "@xiaochuan/schema/usage-limits"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { ServiceUnavailableError } from "../errors.js"
@@ -18,7 +18,7 @@ export const UsageGroup = HttpApiGroup.make("server.usage")
           identifier: "experimental.usage.limits",
           summary: "Get usage limits",
           description:
-            "Return the Xccode Go allowance and Console budgets of the Xccode Console workspace the location is signed in to, or null when it isn't signed in.",
+            "Return the Xiaochuan Go allowance and Console budgets of the Xiaochuan Console workspace the location is signed in to, or null when it isn't signed in.",
         }),
       ),
   )

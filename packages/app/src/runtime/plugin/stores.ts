@@ -13,8 +13,8 @@ import {
 } from "solid-js"
 import { produce, reconcile, type SetStoreFunction } from "solid-js/store"
 import { Predicate } from "effect"
-import type { Mutable, Persisted, SessionRef } from "@xccode/plugin/gui"
-import type { BuiltinStoreFrom } from "@xccode/plugin/gui/builtin"
+import type { Mutable, Persisted, SessionRef } from "@xiaochuan/plugin/gui"
+import type { BuiltinStoreFrom } from "@xiaochuan/plugin/gui/builtin"
 import { Persist, type persisted } from "@/runtime/persistence/storage"
 import type { SessionStateKey } from "@/runtime/server/scope"
 import {

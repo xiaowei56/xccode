@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "İş ağacını sil",
   "mcp.manage": "MCP serverlərini idarə et",
   timedOut: "Server çox gec cavab verdi",
-  "setup.mcp": "Xccode ilə server əlavə et",
+  "setup.mcp": "Xiaochuan ilə server əlavə et",
   "setup.mcp.prompt":
-    "Qlobal Xccode konfiqurasiyama MCP server əlavə etməyimə kömək et. Hansı xidməti qoşmaq istədiyimi soruş, sonra onu quraşdır və qoşulduğunu yoxla.",
-  "setup.plugins": "Xccode ilə plagin əlavə et",
+    "Qlobal Xiaochuan konfiqurasiyama MCP server əlavə etməyimə kömək et. Hansı xidməti qoşmaq istədiyimi soruş, sonra onu quraşdır və qoşulduğunu yoxla.",
+  "setup.plugins": "Xiaochuan ilə plagin əlavə et",
   "setup.plugins.prompt":
-    "Qlobal Xccode konfiqurasiyama plagin əlavə etməyimə kömək et. Nə etməsini istədiyimi soruş, plagin təklif et, sonra onu əlavə et.",
-  "setup.skills": "Xccode ilə yeni bacarıq",
+    "Qlobal Xiaochuan konfiqurasiyama plagin əlavə etməyimə kömək et. Nə etməsini istədiyimi soruş, plagin təklif et, sonra onu əlavə et.",
+  "setup.skills": "Xiaochuan ilə yeni bacarıq",
   "setup.skills.prompt":
-    "Qlobal konfiqurasiyamda yeni Xccode bacarığı yazmağıma kömək et. Sənə nəyi öyrətməli olduğunu soruş, sonra onun SKILL.md faylını yaz.",
+    "Qlobal konfiqurasiyamda yeni Xiaochuan bacarığı yazmağıma kömək et. Sənə nəyi öyrətməli olduğunu soruş, sonra onun SKILL.md faylını yaz.",
   changesFailed: "Dəyişiklikləri yükləmək mümkün olmadı",
   changesOffline: "Bu serverə çatmaq mümkün deyil",
   "mcp.signIn": "Daxil ol",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "{{name}} üçün təfərrüatlar",
   "mcp.signIn.open": "{{name}} hesabına daxil ol",
   "mcp.signIn.description":
-    "{{name}} hesabınıza daxil olmaq üçün brauzeriniz açılır. Brauzer Xccode işləyən maşına çata bilmirsə, yönləndirildiyi URL-i aşağıya yapışdırın.",
+    "{{name}} hesabınıza daxil olmaq üçün brauzeriniz açılır. Brauzer Xiaochuan işləyən maşına çata bilmirsə, yönləndirildiyi URL-i aşağıya yapışdırın.",
   "mcp.signIn.waiting": "Avtorizasiya gözlənilir…",
   "mcp.signIn.failed": "Avtorizasiya uğursuz oldu: {{error}}",
   "mcp.signIn.expired": "Avtorizasiyanın vaxtı bitdi",

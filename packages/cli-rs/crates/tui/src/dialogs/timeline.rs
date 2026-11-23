@@ -1,6 +1,6 @@
 //! Browse prompts newest first and jump to the highlighted message.
 
-use xccode_util::time::Zone;
+use xiaochuan_util::time::Zone;
 
 use crate::prelude::*;
 

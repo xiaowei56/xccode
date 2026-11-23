@@ -1,4 +1,4 @@
-import { mediaHashFromUri, type XccodeClient } from "@xccode/client"
+import { mediaHashFromUri, type XiaochuanClient } from "@xiaochuan/client"
 
 export type MediaCache = ReturnType<typeof createMediaCache>
 
@@ -7,7 +7,7 @@ export type MediaCache = ReturnType<typeof createMediaCache>
  * its bytes, so entries stay valid across reconnects.
  */
 export function createMediaCache(
-  api: () => { experimental: { media: Pick<XccodeClient["experimental"]["media"], "get"> } },
+  api: () => { experimental: { media: Pick<XiaochuanClient["experimental"]["media"], "get"> } },
 ) {
   const bytes = new Map<string, Uint8Array>()
   const inflight = new Map<string, Promise<Uint8Array>>()

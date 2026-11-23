@@ -6,9 +6,9 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use indexmap::IndexMap;
-use xccode_api::generated::SessionID;
-use xccode_api::memory::{Logged, Memory, Route as MemoryRoute};
-use xccode_tui::{Args, Deps, Route};
+use xiaochuan_api::generated::SessionID;
+use xiaochuan_api::memory::{Logged, Memory, Route as MemoryRoute};
+use xiaochuan_tui::{Args, Deps, Route};
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
 
@@ -56,8 +56,8 @@ fn environment() -> IndexMap<String, String> {
     IndexMap::from([("TERM_PROGRAM".to_owned(), "parity".to_owned())])
 }
 
-fn mount(app: &TestApp, memory: &Memory, route: Route, args: Args) -> std::rc::Rc<xccode_tui::Tui> {
-    xccode_tui::mount_with(app, Deps { route, events: true, ..support::deps(Arc::new(memory.clone())) }, args)
+fn mount(app: &TestApp, memory: &Memory, route: Route, args: Args) -> std::rc::Rc<xiaochuan_tui::Tui> {
+    xiaochuan_tui::mount_with(app, Deps { route, events: true, ..support::deps(Arc::new(memory.clone())) }, args)
 }
 
 fn writes(memory: &Memory) -> Vec<String> {
@@ -130,7 +130,7 @@ fn an_opened_session_gets_the_environment_only_on_a_local_server() {
 fn the_environment_is_uploaded_when_the_status_follows_server_connected() {
     let app = TestApp::new(100, 30);
     let memory = Memory::new(routes());
-    let tui = xccode_tui::mount_with(
+    let tui = xiaochuan_tui::mount_with(
         &app,
         Deps { route: support::session_route("ses_b"), events: false, ..support::deps(Arc::new(memory.clone())) },
         Args { local: true, environment: Some(environment()), ..Args::default() },
@@ -141,8 +141,8 @@ fn the_environment_is_uploaded_when_the_status_follows_server_connected() {
     tui.data.apply(&[connected]);
     assert!(!app.wait_until(Duration::from_millis(300), upload), "{:?}", writes(&memory));
     let state =
-        xccode_api::events::State { status: xccode_api::events::Status::Connected, attempt: 0, error: None };
-    xccode_tui::features::overlays::connection_changed(&tui, &state);
+        xiaochuan_api::events::State { status: xiaochuan_api::events::Status::Connected, attempt: 0, error: None };
+    xiaochuan_tui::features::overlays::connection_changed(&tui, &state);
     assert!(app.wait_until(support::WAIT, upload), "{:?}", writes(&memory));
     drop(tui);
 }

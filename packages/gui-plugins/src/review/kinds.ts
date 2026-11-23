@@ -1,6 +1,6 @@
-import type { FileDiffInfo } from "@xccode/client/promise"
-import type { ChangeKind } from "@xccode/plugin/gui/review"
-import { artifactKind } from "@xccode/util/artifact"
+import type { FileDiffInfo } from "@xiaochuan/client/promise"
+import type { ChangeKind } from "@xiaochuan/plugin/gui/review"
+import { artifactKind } from "@xiaochuan/util/artifact"
 import { Match, Predicate } from "effect"
 
 export type RenderDiff = FileDiffInfo

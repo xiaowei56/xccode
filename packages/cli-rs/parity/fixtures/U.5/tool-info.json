@@ -50,7 +50,7 @@
   {"label":"webfetch","part":{"type":"tool","id":"webfetch-1","name":"webfetch","state":{"status":"completed","input":{"url":"https://example.com","format":"markdown"},"metadata":{},"content":[{"type":"text","text":""}]},"time":{"created":1,"ran":1,"completed":2}},"directory":"/work/project","expected":{"icon":"%","title":"WebFetch https://example.com"}},
   {"label":"webfetch none","part":{"type":"tool","id":"webfetch-1","name":"webfetch","state":{"status":"running","input":{},"metadata":{}},"time":{"created":1,"ran":1}},"directory":"/work/project","expected":{"icon":"%","title":"WebFetch"}},
   {"label":"websearch exa","part":{"type":"tool","id":"websearch-1","name":"websearch","state":{"status":"completed","input":{"query":"rust serde"},"metadata":{"provider":"exa"},"content":[{"type":"text","text":""}]},"time":{"created":1,"ran":1,"completed":2}},"directory":"/work/project","expected":{"icon":"◈","title":"Web Search via Exa \"rust serde\""}},
-  {"label":"websearch xccode","part":{"type":"tool","id":"websearch-1","name":"websearch","state":{"status":"completed","input":{"query":"x"},"metadata":{"provider":"xccode"},"content":[{"type":"text","text":""}]},"time":{"created":1,"ran":1,"completed":2}},"directory":"/work/project","expected":{"icon":"◈","title":"Web Search via Xccode \"x\""}},
+  {"label":"websearch xiaochuan","part":{"type":"tool","id":"websearch-1","name":"websearch","state":{"status":"completed","input":{"query":"x"},"metadata":{"provider":"xiaochuan"},"content":[{"type":"text","text":""}]},"time":{"created":1,"ran":1,"completed":2}},"directory":"/work/project","expected":{"icon":"◈","title":"Web Search via Xiaochuan \"x\""}},
   {"label":"websearch none","part":{"type":"tool","id":"websearch-1","name":"websearch","state":{"status":"running","input":{},"metadata":{}},"time":{"created":1,"ran":1}},"directory":"/work/project","expected":{"icon":"◈","title":"Web Search"}},
   {"label":"skill metadata","part":{"type":"tool","id":"skill-1","name":"skill","state":{"status":"completed","input":{"id":"tigerstyle"},"metadata":{"name":"effect"},"content":[{"type":"text","text":""}]},"time":{"created":1,"ran":1,"completed":2}},"directory":"/work/project","expected":{"icon":"→","title":"Skill \"effect\""}},
   {"label":"skill input","part":{"type":"tool","id":"skill-1","name":"skill","state":{"status":"completed","input":{"id":"tigerstyle"},"metadata":{},"content":[{"type":"text","text":""}]},"time":{"created":1,"ran":1,"completed":2}},"directory":"/work/project","expected":{"icon":"→","title":"Skill \"tigerstyle\""}},
@@ -104,7 +104,7 @@
   ],
   "webSearchProviderLabel": [
    {"provider":"exa","expected":"Web Search via Exa"},
-   {"provider":"xccode","expected":"Web Search via Xccode"},
+   {"provider":"xiaochuan","expected":"Web Search via Xiaochuan"},
    {"provider":"","expected":"Web Search"},
    {"provider":null,"expected":"Web Search"},
    {"provider":3,"expected":"Web Search"},

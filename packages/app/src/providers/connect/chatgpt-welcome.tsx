@@ -1,7 +1,7 @@
-import { Button } from "@xccode/ui/button"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Dialog, DialogTitle } from "@xccode/ui/dialog"
-import { ProviderIcon } from "@xccode/ui/provider-icon"
+import { Button } from "@xiaochuan/ui/button"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Dialog, DialogTitle } from "@xiaochuan/ui/dialog"
+import { ProviderIcon } from "@xiaochuan/ui/provider-icon"
 import { useLanguage } from "@/runtime/i18n/language"
 import { ExternalLink } from "@/runtime/platform/external-link"
 

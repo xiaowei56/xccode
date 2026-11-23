@@ -1,8 +1,8 @@
 //! Node's `path.resolve` and `FSUtil.resolve`, by the rules of this platform's `path` (`path.win32` on Windows,
 //! where ACP clients such as Zed send `C:\` paths).
 
-pub use xccode_util::path::windows_path;
-use xccode_util::path::{Flavor, strip_verbatim};
+pub use xiaochuan_util::path::windows_path;
+use xiaochuan_util::path::{Flavor, strip_verbatim};
 
 /// `path.resolve(path)`: absolute against the working directory, with `.` and `..` folded.
 pub fn resolve_lexical(path: &str) -> String {

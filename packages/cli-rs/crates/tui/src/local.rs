@@ -6,18 +6,18 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, mpsc};
 
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     AgentInfo, AgentInfoMode, IntegrationInfo, LocationQueryInput, ModelInfo, ModelRef, ProviderInfo, SessionInfo,
     UsageLimitsInfo,
 };
-use xccode_local::model_pref::{self, Model, ModelPreferences, Preference};
-use xccode_local::storage::Storage;
-use xccode_local::watch::Watch;
-use xccode_store::location::{Catalog, Location, LocationData};
-use xccode_store::{Data, Selected};
-use xccode_ui::dialog::Dialogs;
-use xccode_ui::toast::Toasts;
+use xiaochuan_local::model_pref::{self, Model, ModelPreferences, Preference};
+use xiaochuan_local::storage::Storage;
+use xiaochuan_local::watch::Watch;
+use xiaochuan_store::location::{Catalog, Location, LocationData};
+use xiaochuan_store::{Data, Selected};
+use xiaochuan_ui::dialog::Dialogs;
+use xiaochuan_ui::toast::Toasts;
 
 use crate::prelude::*;
 
@@ -227,7 +227,7 @@ impl Local {
     pub(crate) fn reload(
         &self,
         catalog: Catalog,
-    ) -> impl Future<Output = Result<(), xccode_store::Error>> + Send + use<> {
+    ) -> impl Future<Output = Result<(), xiaochuan_store::Error>> + Send + use<> {
         let data = self.data.clone();
         let location = self.catalog_location();
         async move {
@@ -331,7 +331,7 @@ impl Local {
     }
 
     // `model.json` writes, in order, off the UI thread.
-    fn write(&self, job: impl FnOnce(&ModelPreferences) -> Result<(), xccode_local::lock::Error> + Send + 'static) {
+    fn write(&self, job: impl FnOnce(&ModelPreferences) -> Result<(), xiaochuan_local::lock::Error> + Send + 'static) {
         let (Some(writer), Some(preferences)) = (&self.writer, self.preferences.clone()) else { return };
         self.writes.set(self.writes.get() + 1);
         let written = self.written.clone();
@@ -379,7 +379,7 @@ impl Local {
     }
 
     /// `useUsageLimits().info`, from the store: `None` until loaded, `Some(None)` when the location is not signed in
-    /// to Xccode Console.
+    /// to Xiaochuan Console.
     pub fn usage(&self) -> Option<Option<UsageLimitsInfo>> {
         self.catalog(|data| data?.usage_limits.clone())
     }
@@ -405,7 +405,7 @@ impl Local {
         }
     }
 
-    /// Load limits when Xccode Console serves the selected model.
+    /// Load limits when Xiaochuan Console serves the selected model.
     pub(crate) fn load_served_usage(&self) {
         let served = self
             .current()

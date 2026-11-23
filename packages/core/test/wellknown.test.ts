@@ -1,12 +1,12 @@
 import { expect } from "bun:test"
 import { Effect, Fiber, Stream } from "effect"
 import { FetchHttpClient } from "effect/http"
-import { KV } from "@xccode/core/kv"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { Location } from "@xccode/core/location"
-import { AbsolutePath } from "@xccode/core/schema"
-import { WellKnown } from "@xccode/core/wellknown"
+import { KV } from "@xiaochuan/core/kv"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { Location } from "@xiaochuan/core/location"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { WellKnown } from "@xiaochuan/core/wellknown"
 import { location } from "./fixture/location"
 import { testEffect } from "./lib/effect"
 
@@ -20,7 +20,7 @@ it.live("loads embedded and remote configuration", () =>
         port: 0,
         fetch(request) {
           const url = new URL(request.url)
-          if (url.pathname === "/.well-known/xccode") {
+          if (url.pathname === "/.well-known/xiaochuan") {
             return Response.json({
               auth: { command: ["login"], env: "TOKEN" },
               config: { model: "embedded/model" },

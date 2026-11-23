@@ -1,4 +1,4 @@
-import { FSUtil } from "@xccode/util/fs-util"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { Effect, FileSystem } from "effect"
 import { HttpServerError, HttpServerRequest, HttpServerResponse } from "effect/http"
 import { createHash } from "node:crypto"

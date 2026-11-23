@@ -1,15 +1,15 @@
 ---
 title: "References"
-description: "Give Xccode named access to local directories and Git repositories outside the current project, then attach them to prompts."
+description: "Give Xiaochuan named access to local directories and Git repositories outside the current project, then attach them to prompts."
 ---
 
-References give Xccode named access to directories outside the current
-project. Add one in `xccode.json` or `xccode.jsonc`, then attach its alias in
+References give Xiaochuan named access to directories outside the current
+project. Add one in `xiaochuan.json` or `xiaochuan.jsonc`, then attach its alias in
 your client when you need it.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "references": {
     "docs": {
       "path": "../product-docs",
@@ -104,7 +104,7 @@ Use the string shorthand to follow the remote's default branch:
 }
 ```
 
-Without `branch`, Xccode checks out and refreshes the remote's default branch.
+Without `branch`, Xiaochuan checks out and refreshes the remote's default branch.
 Branch names may contain letters, numbers, `/`, `_`, `.`, and `-`, but cannot
 start with `-` or contain `..`.
 
@@ -121,24 +121,24 @@ start with `-` or contain `..`.
 
 ## Storage
 
-Xccode normalizes each remote and stores one checkout per remote and branch
+Xiaochuan normalizes each remote and stores one checkout per remote and branch
 under its global data directory. Without an explicit branch, the path uses this
 shape:
 
 ```text
-xccode/repos/<host>/<repository-path>
+xiaochuan/repos/<host>/<repository-path>
 ```
 
 On a typical Linux installation, `Effect-TS/effect` is stored at:
 
 ```text
-~/.local/share/xccode/repos/github.com/Effect-TS/effect
+~/.local/share/xiaochuan/repos/github.com/Effect-TS/effect
 ```
 
 An explicit branch adds an encoded `@<branch>` suffix:
 
 ```text
-~/.local/share/xccode/repos/github.com/Effect-TS/effect@main
+~/.local/share/xiaochuan/repos/github.com/Effect-TS/effect@main
 ```
 
 ## Refresh

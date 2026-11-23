@@ -4,9 +4,9 @@ import path from "path"
 import { readFile } from "fs/promises"
 import { statSync } from "fs"
 import { Context, Effect, Layer, Schema } from "effect"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
 import { State } from "../state.js"
 import { isAppExecutionAlias, which } from "../util/which.js"
 
@@ -50,7 +50,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly list?: () => Effect.Effect<Item[]>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/ShellSelect") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/ShellSelect") {}
 
 function stat(file: string) {
   return statSync(file, { throwIfNoEntry: false }) ?? undefined

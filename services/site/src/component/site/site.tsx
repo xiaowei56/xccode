@@ -23,10 +23,10 @@ import {
 import { Dynamic, isServer } from "solid-js/web"
 import { interLatin } from "./inter-fonts"
 import { AgentIcon, Bracket, PersonIcon, ThemeCycle } from "./site-controls"
-import logoLight from "../../asset/brand/xccode-logo-light.svg"
-import logoDark from "../../asset/brand/xccode-logo-dark.svg"
-import wordmarkLight from "../../asset/brand/xccode-wordmark-light.svg"
-import wordmarkDark from "../../asset/brand/xccode-wordmark-dark.svg"
+import logoLight from "../../asset/brand/xiaochuan-logo-light.svg"
+import logoDark from "../../asset/brand/xiaochuan-logo-dark.svg"
+import wordmarkLight from "../../asset/brand/xiaochuan-wordmark-light.svg"
+import wordmarkDark from "../../asset/brand/xiaochuan-wordmark-dark.svg"
 import { LanguagePicker } from "~/component/language-picker"
 import { LanguageSheet } from "~/component/language-sheet"
 import { useI18n } from "~/context/i18n"
@@ -158,7 +158,7 @@ const speculationRules = JSON.stringify({
   ],
 })
 
-// The tooltips match status.xccode.ai's headlines. The label is only "Normal" or "Status".
+// The tooltips match status.xiaochuan.ai's headlines. The label is only "Normal" or "Status".
 const statusHeadline = {
   operational: "site.status.operationalHeadline",
   degraded: "site.status.degradedHeadline",
@@ -229,7 +229,7 @@ export function Site(props: {
   // Read the saved theme before the first client render so hydration doesn't flip it back to
   // "system" for a frame. The inline script below applies it even earlier, before first paint.
   const [theme, setTheme] = createSignal<(typeof themes)[number]>(
-    isServer ? "system" : (themes.find((item) => item === localStorage.getItem("xccode-theme")) ?? "system"),
+    isServer ? "system" : (themes.find((item) => item === localStorage.getItem("xiaochuan-theme")) ?? "system"),
   )
   // The browser bar colour: the open banner's blue while it covers the top of the screen, the letters
   // bar's while it fills the bottom, else the page's background in the scheme the tag's media query
@@ -275,7 +275,7 @@ export function Site(props: {
   const [wordmarkNote, setWordmarkNote] = createSignal(false)
   // Whether the "Like letters?" bar is on screen, so the voice orb can rise above it.
   const [lettersBarInView, setLettersBarInView] = createSignal(false)
-  // The bar shows while the letters are out of their "xccode" order and slides away once they are
+  // The bar shows while the letters are out of their "xiaochuan" order and slides away once they are
   // put back.
   const lettersBarShown = wordmarkNote
   // The letters bar's body: the full label after its highlight ("Like letters?"), or the whole label
@@ -333,9 +333,9 @@ export function Site(props: {
   onMount(() => {
     if (!import.meta.env.DEV) return
     const asked = new URLSearchParams(location.search).get("letters-bar")
-    if (asked === "instant") localStorage.setItem("xccode-letters-bar", "instant")
-    if (asked === "slide") localStorage.removeItem("xccode-letters-bar")
-    setLettersInstant(localStorage.getItem("xccode-letters-bar") === "instant")
+    if (asked === "instant") localStorage.setItem("xiaochuan-letters-bar", "instant")
+    if (asked === "slide") localStorage.removeItem("xiaochuan-letters-bar")
+    setLettersInstant(localStorage.getItem("xiaochuan-letters-bar") === "instant")
   })
   const [lettersBlue, setLettersBlue] = createSignal<string>()
   createEffect(
@@ -558,8 +558,8 @@ export function Site(props: {
   // Compare without the language prefix, so "/product", "/de/product" and a German visitor on an
   // unprefixed URL all match the Product item. Links to other sites are never current.
   const current = (href: string) => {
-    const url = new URL(href, "https://xccode.ai")
-    if (url.origin !== "https://xccode.ai") return false
+    const url = new URL(href, "https://xiaochuan.ai")
+    if (url.origin !== "https://xiaochuan.ai") return false
     const path = strip(url.pathname)
     const here = strip(location.pathname)
     return here === path || (path !== "/" && here.startsWith(`${path}/`))
@@ -679,9 +679,9 @@ export function Site(props: {
       document.addEventListener(type, markLink, true)
 
     const idle = window.requestIdleCallback ?? ((run: () => void) => setTimeout(run, 1500))
-    // window.xccode and its hint for developers who open DevTools (Settings › Other › Console API).
+    // window.xiaochuan and its hint for developers who open DevTools (Settings › Other › Console API).
     createEffect(() => {
-      if (siteSettings.consoleApi === "off") return void delete (window as { xccode?: unknown }).xccode
+      if (siteSettings.consoleApi === "off") return void delete (window as { xiaochuan?: unknown }).xiaochuan
       // Checked again when idle: saved settings load in a microtask after this first run.
       idle(() => siteSettings.consoleApi === "on" && installConsoleStub())
     })
@@ -763,12 +763,12 @@ export function Site(props: {
       setSectionNav(false)
       setLogoMenu(undefined)
     }
-    document.addEventListener("xccode-nav-menu-open", closeSiteMenus)
+    document.addEventListener("xiaochuan-nav-menu-open", closeSiteMenus)
 
     onCleanup(() => {
       navMenus?.stop()
       navMenus = undefined
-      document.removeEventListener("xccode-nav-menu-open", closeSiteMenus)
+      document.removeEventListener("xiaochuan-nav-menu-open", closeSiteMenus)
       stopMenuLinks()
       for (const type of ["pointerover", "focusin", "touchstart", "click"])
         document.removeEventListener(type, markLink, true)
@@ -925,7 +925,7 @@ export function Site(props: {
           <a
             role="menuitem"
             href={logoVariantSvgs[file.style][file.kind][assets().suffix]}
-            download={`xccode-${file.kind}-${file.style}-${assets().suffix}.svg`}
+            download={`xiaochuan-${file.kind}-${file.style}-${assets().suffix}.svg`}
             style={{ "--i": index() }}
           >
             <span data-slot="thumb" data-kind={file.kind} data-style={file.style} data-tone={assets().suffix}>
@@ -953,7 +953,7 @@ export function Site(props: {
         <span data-slot="name">{i18n.t("legal.brand")}</span>
         <span data-slot="meta">{i18n.t("site.logoMenu.page")}</span>
       </A>
-      <a role="menuitem" href={brandAssets} download="xccode-brand-assets.zip" style={{ "--i": 5 }}>
+      <a role="menuitem" href={brandAssets} download="xiaochuan-brand-assets.zip" style={{ "--i": 5 }}>
         <span data-slot="thumb" data-kind="zip" aria-hidden="true">
           <span data-slot="archive">
             <i />
@@ -990,7 +990,7 @@ export function Site(props: {
                 <a
                   role="menuitem"
                   href={logoVariantSvgs[file.style][file.kind][assets().suffix]}
-                  download={`xccode-${file.kind}-${file.style}-${assets().suffix}.svg`}
+                  download={`xiaochuan-${file.kind}-${file.style}-${assets().suffix}.svg`}
                 >
                   <Show when={file.kind === "logo"} fallback={<MenuIcon name="wordmark" />}>
                     <span
@@ -1010,7 +1010,7 @@ export function Site(props: {
               <MenuIcon name="press" />
               {i18n.t("site.footer.press")}
             </A>
-            <a role="menuitem" href={brandAssets} download="xccode-brand-assets.zip">
+            <a role="menuitem" href={brandAssets} download="xiaochuan-brand-assets.zip">
               <MenuIcon name="press" />
               {i18n.t("site.logoMenu.zip")}
             </a>
@@ -1052,7 +1052,7 @@ export function Site(props: {
   // The pages that never hydrate show the theme with theme-switch.ts.
   const chooseTheme = (value: (typeof themes)[number]) => {
     setTheme(value)
-    localStorage.setItem("xccode-theme", value)
+    localStorage.setItem("xiaochuan-theme", value)
     setDark(value === "dark" || (value === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches))
   }
 
@@ -1135,7 +1135,7 @@ export function Site(props: {
     const current = () => bars()[bars().length - 1]
     return (
       <a
-        href="https://status.xccode.ai"
+        href="https://status.xiaochuan.ai"
         target="_blank"
         rel="noopener"
         data-component="status"

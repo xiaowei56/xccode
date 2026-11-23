@@ -1,9 +1,9 @@
 export * as Reference from "./reference.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Context, Effect, Layer, Scope } from "effect"
-import { Reference } from "@xccode/schema/reference"
-import { Global } from "@xccode/util/global"
+import { Reference } from "@xiaochuan/schema/reference"
+import { Global } from "@xiaochuan/util/global"
 import { Bus } from "./bus.js"
 import { Repository } from "./repository.js"
 import { RepositoryCache } from "./repository-cache.js"
@@ -19,7 +19,7 @@ export type GitSource = Reference.GitSource
 export const Source = Reference.Source
 export type Source = Reference.Source
 
-export { Event } from "@xccode/schema/reference"
+export { Event } from "@xiaochuan/schema/reference"
 
 export const Info = Reference.Info
 export type Info = Reference.Info
@@ -39,7 +39,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly list: () => Effect.Effect<Info[]>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Reference") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Reference") {}
 
 const layer = Layer.effect(
   Service,

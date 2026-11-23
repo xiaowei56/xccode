@@ -1,4 +1,4 @@
-import { define } from "@xccode/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 import { Effect } from "effect"
 import { Integration } from "../../integration.js"
 import { Provider } from "../../provider.js"
@@ -16,7 +16,7 @@ const legacyInput = 272_000
 const currentInput = 500_000
 
 export const OpenAIContextCapsPlugin = define({
-  id: "xccode.provider.openai-context-caps",
+  id: "xiaochuan.provider.openai-context-caps",
   effect: Effect.fn(function* (ctx) {
     let signedIn = false
 

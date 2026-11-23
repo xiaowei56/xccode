@@ -4,8 +4,8 @@ import {
   inertModule,
   pluginWindowModules,
   type pluginSharedModules,
-} from "@xccode/plugin/gui/host"
-import type { Plugin } from "@xccode/plugin/gui/main"
+} from "@xiaochuan/plugin/gui/host"
+import type { Plugin } from "@xiaochuan/plugin/gui/main"
 
 const native = createRequire(import.meta.url)
 
@@ -13,12 +13,12 @@ const native = createRequire(import.meta.url)
 // checks against. In main, the window SDK's name resolves to the main SDK.
 const shared = {
   effect: () => import("effect"),
-  "@xccode/plugin/gui": () => import("@xccode/plugin/gui/main"),
-  "@xccode/plugin/gui/main": () => import("@xccode/plugin/gui/main"),
-  "@xccode/plugin/rpc": () => import("@xccode/plugin/rpc"),
-  "@xccode/schema/rpc": () => import("@xccode/schema/rpc"),
-  "@xccode/client": () => import("@xccode/client"),
-  "@xccode/client/effect": () => import("@xccode/client/effect"),
+  "@xiaochuan/plugin/gui": () => import("@xiaochuan/plugin/gui/main"),
+  "@xiaochuan/plugin/gui/main": () => import("@xiaochuan/plugin/gui/main"),
+  "@xiaochuan/plugin/rpc": () => import("@xiaochuan/plugin/rpc"),
+  "@xiaochuan/schema/rpc": () => import("@xiaochuan/schema/rpc"),
+  "@xiaochuan/client": () => import("@xiaochuan/client"),
+  "@xiaochuan/client/effect": () => import("@xiaochuan/client/effect"),
 } satisfies Record<(typeof pluginSharedModules)[number], () => Promise<object>>
 
 const windowOnly = new Set<string>(pluginWindowModules)

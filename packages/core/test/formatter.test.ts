@@ -2,16 +2,16 @@ import fs from "fs/promises"
 import path from "path"
 import { describe, expect } from "bun:test"
 import { Deferred, Effect, Fiber } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Bus } from "@xccode/core/bus"
-import { Database } from "@xccode/core/database/database"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { Plugin } from "@xccode/core/plugin"
-import { SdkPlugins } from "@xccode/core/plugin/sdk"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Info } from "@xccode/schema/config"
-import { Global } from "@xccode/util/global"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Bus } from "@xiaochuan/core/bus"
+import { Database } from "@xiaochuan/core/database/database"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { SdkPlugins } from "@xiaochuan/core/plugin/sdk"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Info } from "@xiaochuan/schema/config"
+import { Global } from "@xiaochuan/util/global"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { FileAccess } from "../src/file-access"
 import { Formatter } from "../src/formatter"
 import { Location } from "../src/location"
@@ -38,7 +38,7 @@ function withFormatter<A, E, R>(
 ) {
   return withTemp((directory) =>
     Effect.promise(() =>
-      fs.writeFile(path.join(directory, "xccode.json"), JSON.stringify({ formatter: configured })),
+      fs.writeFile(path.join(directory, "xiaochuan.json"), JSON.stringify({ formatter: configured })),
     ).pipe(
       Effect.andThen(
         Effect.gen(function* () {
@@ -71,7 +71,7 @@ function append(expression: string) {
 const markdown = { command: append("'md'"), extensions: [".md"] }
 const project = { command: append("'project'"), extensions: [".project"] }
 
-// Writes formatter config layers from lowest to highest priority: global, project, then project .xccode.
+// Writes formatter config layers from lowest to highest priority: global, project, then project .xiaochuan.
 function withLayers<A, E, R>(
   layers: ConfigInput["formatter"][],
   body: (formatter: Formatter.Interface, directory: string) => Effect.Effect<A, E, R>,
@@ -80,11 +80,11 @@ function withLayers<A, E, R>(
     Effect.gen(function* () {
       const global = yield* Global.Service
       yield* Effect.promise(async () => {
-        await fs.mkdir(path.join(directory, ".xccode"))
+        await fs.mkdir(path.join(directory, ".xiaochuan"))
         const files = [
-          path.join(global.config, "xccode.jsonc"),
-          path.join(directory, "xccode.json"),
-          path.join(directory, ".xccode", "xccode.jsonc"),
+          path.join(global.config, "xiaochuan.jsonc"),
+          path.join(directory, "xiaochuan.json"),
+          path.join(directory, ".xiaochuan", "xiaochuan.jsonc"),
         ]
         await Promise.all(layers.map((formatter, index) => fs.writeFile(files[index], JSON.stringify({ formatter }))))
       })

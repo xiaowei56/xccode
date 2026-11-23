@@ -8,7 +8,7 @@ import {
   DigitalOcean,
   Google,
   OpenAI,
-  Xccode,
+  Xiaochuan,
   OpenRouter,
   TypeSafeAI,
 } from "../../src/providers.js"
@@ -48,11 +48,11 @@ const typesafe = recordedTests({
   metadata: { model: "jev-latest" },
 })
 
-const xccode = recordedTests({
-  prefix: "xccode-decision",
-  provider: "xccode",
+const xiaochuan = recordedTests({
+  prefix: "xiaochuan-decision",
+  provider: "xiaochuan",
   protocol: "system-one",
-  requires: ["XCCODE_API_KEY"],
+  requires: ["XIAOCHUAN_API_KEY"],
   metadata: { model: "jev-1.13-free" },
 })
 
@@ -123,8 +123,8 @@ describe("Decision recorded", () => {
     assertDecision(TypeSafeAI.configure({ apiKey: process.env.TYPESAFE_API_KEY ?? "fixture" }).decision("jev-latest")),
   )
 
-  xccode.effect("decides choice score and predicate questions", () =>
-    assertDecision(Xccode.configure({ apiKey: process.env.XCCODE_API_KEY ?? "fixture" }).decision("jev-1.13-free")),
+  xiaochuan.effect("decides choice score and predicate questions", () =>
+    assertDecision(Xiaochuan.configure({ apiKey: process.env.XIAOCHUAN_API_KEY ?? "fixture" }).decision("jev-1.13-free")),
   )
 
   openrouter.effect("decides choice score and predicate questions", () =>

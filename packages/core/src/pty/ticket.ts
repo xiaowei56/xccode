@@ -1,10 +1,10 @@
 export * as PtyTicket from "./ticket.js"
 
-import type { Workspace } from "@xccode/schema/workspace"
-import { PtyTicket } from "@xccode/schema/pty-ticket"
-import type { Pty } from "@xccode/schema/pty"
+import type { Workspace } from "@xiaochuan/schema/workspace"
+import { PtyTicket } from "@xiaochuan/schema/pty-ticket"
+import type { Pty } from "@xiaochuan/schema/pty"
 import { Cache, Context, Duration, Effect, Layer } from "effect"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 
 const DEFAULT_TTL = Duration.seconds(60)
 const CAPACITY = 10_000
@@ -32,7 +32,7 @@ export interface Interface {
   consume(input: Scope & { readonly ticket: string }): Effect.Effect<boolean>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/PtyTicket") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/PtyTicket") {}
 
 function stored(scope: Scope): Stored {
   return {

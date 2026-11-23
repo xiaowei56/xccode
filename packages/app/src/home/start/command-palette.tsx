@@ -1,4 +1,4 @@
-import { useDialog } from "@xccode/ui/context/dialog"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
 import { createMemo } from "solid-js"
 import { commandPaletteOptions, useCommand } from "@/shell/commands/command"
 import { useGlobal } from "@/runtime/server/runtime"

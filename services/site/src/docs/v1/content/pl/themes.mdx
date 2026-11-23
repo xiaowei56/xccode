@@ -3,9 +3,9 @@ title: Themes
 description: Wybierz wbudowany motyw lub zdefiniuj własny.
 ---
 
-Dzięki xccode możesz wybrać jeden z kilku wbudowanych motywów, użyć motywu, który dostosowuje się do motywu terminala lub zdefiniować własny, niestandardowy motyw.
+Dzięki xiaochuan możesz wybrać jeden z kilku wbudowanych motywów, użyć motywu, który dostosowuje się do motywu terminala lub zdefiniować własny, niestandardowy motyw.
 
-Domyślnie xccode używa naszego własnego motywu `xccode`.
+Domyślnie xiaochuan używa naszego własnego motywu `xiaochuan`.
 
 ---
 
@@ -23,7 +23,7 @@ Bez obsługi Truecolor motywy mogą pojawiać się ze zmniejszoną dokładności
 
 ## Wbudowane motywy
 
-xccode ma kilka wbudowanych motywów.
+xiaochuan ma kilka wbudowanych motywów.
 
 | Name                   | Description                                                                       |
 | ---------------------- | --------------------------------------------------------------------------------- |
@@ -53,7 +53,7 @@ Motyw `system` został zaprojektowany tak, aby automatycznie dostosowywał się 
 
 Motyw systemu przeznaczony jest dla użytkowników, którzy:
 
-- Chcą, aby Xccode pasował do wyglądu ich terminala
+- Chcą, aby Xiaochuan pasował do wyglądu ich terminala
 - Używają niestandardowych schematów kolorów terminala
 - Preferują spójny wygląd we wszystkich aplikacjach terminalowych
 
@@ -65,7 +65,7 @@ Możesz wybrać motyw, wywołując opcję wyboru motywu za pomocą polecenia `/t
 
 ```json title="tui.json" {3}
 {
-  "$schema": "https://xccode.ai/tui.json",
+  "$schema": "https://xiaochuan.ai/tui.json",
   "theme": "tokyonight"
 }
 ```
@@ -74,7 +74,7 @@ Możesz wybrać motyw, wywołując opcję wyboru motywu za pomocą polecenia `/t
 
 ## Motywy niestandardowe
 
-xccode obsługuje elastyczny system motywów oparty na JSON, który pozwala użytkownikom łatwo tworzyć i dostosowywać motywy.
+xiaochuan obsługuje elastyczny system motywów oparty na JSON, który pozwala użytkownikom łatwo tworzyć i dostosowywać motywy.
 
 ---
 
@@ -83,9 +83,9 @@ xccode obsługuje elastyczny system motywów oparty na JSON, który pozwala uży
 Motywy są ładowane z wielu katalogów w następującej kolejności, przy czym późniejsze katalogi zastępują wcześniejsze:
 
 1. **Wbudowane motywy** – są osadzone w formacie binarnym
-2. **Katalog konfiguracji użytkownika** - Zdefiniowany w `~/.config/xccode/themes/*.json` lub `$XDG_CONFIG_HOME/xccode/themes/*.json`
-3. **Katalog główny projektu** - Zdefiniowany w `<project-root>/.xccode/themes/*.json`
-4. **Bieżący katalog roboczy** - Zdefiniowany w `./.xccode/themes/*.json`
+2. **Katalog konfiguracji użytkownika** - Zdefiniowany w `~/.config/xiaochuan/themes/*.json` lub `$XDG_CONFIG_HOME/xiaochuan/themes/*.json`
+3. **Katalog główny projektu** - Zdefiniowany w `<project-root>/.xiaochuan/themes/*.json`
+4. **Bieżący katalog roboczy** - Zdefiniowany w `./.xiaochuan/themes/*.json`
 
 Jeśli wiele katalogów zawiera motyw o tej samej nazwie, zostanie użyty motyw z katalogu o wyższym priorytecie.
 
@@ -98,15 +98,15 @@ Aby utworzyć niestandardowy motyw, utwórz plik JSON w jednym z katalogów moty
 W przypadku motywów dla całego użytkownika:
 
 ```bash no-frame
-mkdir -p ~/.config/xccode/themes
-vim ~/.config/xccode/themes/my-theme.json
+mkdir -p ~/.config/xiaochuan/themes
+vim ~/.config/xiaochuan/themes/my-theme.json
 ```
 
 Oraz dla tematów specyficznych dla projektu.
 
 ```bash no-frame
-mkdir -p .xccode/themes
-vim .xccode/themes/my-theme.json
+mkdir -p .xiaochuan/themes
+vim .xiaochuan/themes/my-theme.json
 ```
 
 ---
@@ -144,7 +144,7 @@ Oto przykład niestandardowego motywu:
 
 ```json title="my-theme.json"
 {
-  "$schema": "https://xccode.ai/theme.json",
+  "$schema": "https://xiaochuan.ai/theme.json",
   "defs": {
     "nord0": "#2E3440",
     "nord1": "#3B4252",

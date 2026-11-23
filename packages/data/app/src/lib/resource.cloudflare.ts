@@ -20,7 +20,7 @@ export async function renderOgCard(card: OgCard) {
 // The Worker's own static assets. A fetch to its public URL would not reach them: Cloudflare sends a Worker's
 // subrequests to its own routes past it.
 export async function bannerPng() {
-  const response = await bindings.ASSETS.fetch(new Request("https://xccode.ai/data/banner.png"))
+  const response = await bindings.ASSETS.fetch(new Request("https://xiaochuan.ai/data/banner.png"))
   if (!response.ok) throw new Error(`banner.png answered ${response.status}`)
   return new Uint8Array(await response.arrayBuffer())
 }

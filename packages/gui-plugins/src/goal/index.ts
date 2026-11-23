@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/gui"
+import { Plugin } from "@xiaochuan/plugin/gui"
 import en from "./i18n/en"
 import active from "./icons/active.svg?raw"
 import complete from "./icons/complete.svg?raw"

@@ -25,9 +25,9 @@ function harness() {
   return { machine, effects, dispatch }
 }
 
-const a = "xccode-plugin-a@latest"
+const a = "xiaochuan-plugin-a@latest"
 
-const b = "xccode-plugin-b@latest"
+const b = "xiaochuan-plugin-b@latest"
 
 /** A listed package source, which carries `outdated` only when it is true. */
 function listed(target: string, outdated: boolean): Parameters<typeof pluginUpdateView>[1] {

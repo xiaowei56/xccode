@@ -6,11 +6,11 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::sync::Arc;
 
-use xccode_api::generated::SessionID;
-use xccode_api::memory::{Memory, Route as MemoryRoute};
-use xccode_plugin::abi::{self, v2};
-use xccode_tui::panel::{Presentation, Target};
-use xccode_tui::{Deps, Route};
+use xiaochuan_api::generated::SessionID;
+use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
+use xiaochuan_plugin::abi::{self, v2};
+use xiaochuan_tui::panel::{Presentation, Target};
+use xiaochuan_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 const CHANNEL: &str = "test";
@@ -19,7 +19,7 @@ struct Tabs {
     harness: Harness,
     memory: Memory,
     state: PathBuf,
-    _home: xccode_util::temp::TempDir,
+    _home: xiaochuan_util::temp::TempDir,
 }
 
 deref_harness!(Tabs);
@@ -35,7 +35,7 @@ fn routes() -> Vec<MemoryRoute> {
 }
 
 fn mount(width: u16, config: Value) -> Tabs {
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let paths = support::home_paths(home.path());
     std::fs::create_dir_all(&paths.state).unwrap();
     let state = paths.state.clone();
@@ -177,7 +177,7 @@ fn only_the_last_three_viewed_sessions_keep_their_transcripts() {
 
 #[test]
 fn a_background_tab_reads_its_pending_permission() {
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let paths = support::home_paths(home.path());
     let storage = paths.state.join(CHANNEL).join("tui");
     std::fs::create_dir_all(&storage).unwrap();
@@ -205,7 +205,7 @@ fn a_background_tab_reads_its_pending_permission() {
 
 #[test]
 fn closing_a_session_whose_tab_another_tui_closed_selects_its_former_neighbour() {
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let paths = support::home_paths(home.path());
     let storage = paths.state.join(CHANNEL).join("tui");
     std::fs::create_dir_all(&storage).unwrap();
@@ -236,7 +236,7 @@ fn closing_a_session_whose_tab_another_tui_closed_selects_its_former_neighbour()
     assert!(h.app.wait_until(WAIT, || ids() == ["ses_a", "ses_c"]), "{:?}", ids());
     assert_eq!(h.tui.route(), support::session_route("ses_b"));
 
-    xccode_tui::tabs::close(&h.tui, None);
+    xiaochuan_tui::tabs::close(&h.tui, None);
     let moved = h.app.wait_until(WAIT, || h.tui.route() == support::session_route("ses_c"));
     assert!(moved, "{:?}", h.tui.route());
     assert_eq!(ids(), ["ses_a", "ses_c"]);
@@ -249,7 +249,7 @@ fn a_held_tabs_lock_does_not_block_the_ui() {
     h.wait_file("tabs", |file| !file.is_null());
     let file = h.state.join(CHANNEL).join("tui").join("tabs.json");
     let locks = h.state.join(CHANNEL).join("locks");
-    let lock = xccode_local::lock::acquire(&locks, &file.to_string_lossy(), &Default::default()).unwrap();
+    let lock = xiaochuan_local::lock::acquire(&locks, &file.to_string_lossy(), &Default::default()).unwrap();
     let releaser = std::thread::spawn(move || {
         std::thread::sleep(std::time::Duration::from_secs(2));
         lock.release().unwrap();
@@ -257,7 +257,7 @@ fn a_held_tabs_lock_does_not_block_the_ui() {
     let started = std::time::Instant::now();
     h.tui.navigate(support::session_route("ses_b"));
     std::thread::sleep(std::time::Duration::from_millis(200));
-    xccode_tui::tabs::reorder(&h.tui, "ses_b", 0);
+    xiaochuan_tui::tabs::reorder(&h.tui, "ses_b", 0);
     let elapsed = started.elapsed();
     assert!(elapsed < std::time::Duration::from_secs(1), "the UI waited {elapsed:?} for the lock");
     releaser.join().unwrap();
@@ -277,7 +277,7 @@ fn a_reload_keeps_the_writes_held_behind_the_lock() {
     let storage = h.state.join(CHANNEL).join("tui");
     let file = storage.join("tabs.json");
     let locks = h.state.join(CHANNEL).join("locks");
-    let lock = xccode_local::lock::acquire(&locks, &file.to_string_lossy(), &Default::default()).unwrap();
+    let lock = xiaochuan_local::lock::acquire(&locks, &file.to_string_lossy(), &Default::default()).unwrap();
     let title = |id: &str| {
         let tabs = h.tui.tabs.tabs(&h.tui);
         tabs.into_iter().find(|tab| tab.session_id == id).and_then(|tab| tab.title)
@@ -307,7 +307,7 @@ fn a_deletion_lost_in_a_signal_overflow_still_closes_its_tab() {
     h.open("ses_b");
     h.tui.navigate(support::session_route("ses_a"));
     h.wait_for("Write the docs");
-    let _listening = xccode_tui::features::events::subscribe(&h.tui, ["filesystem.changed"], |_, _| {});
+    let _listening = xiaochuan_tui::features::events::subscribe(&h.tui, ["filesystem.changed"], |_, _| {});
     let deleted = json!({
         "id": "evt_deleted", "created": 3, "type": "session.deleted",
         "durable": { "aggregateID": "ses_b", "seq": 1, "version": 1 },
@@ -346,7 +346,7 @@ fn a_closed_busy_tab_stops_the_pulse_ticks() {
     h.app.render();
     h.app.advance(std::time::Duration::from_millis(200));
     assert!(h.app.needs_frame(), "a busy tab pulses");
-    xccode_tui::tabs::close(&h.tui, Some("ses_a"));
+    xiaochuan_tui::tabs::close(&h.tui, Some("ses_a"));
     h.wait_tabs(&["ses_b"], Some("ses_b"));
     let still = h.app.wait_until(WAIT, || {
         h.app.render();
@@ -418,19 +418,19 @@ fn a_busy_tab_paints_on_its_own_and_stops_when_idle() {
         assert!((busy.saturating_sub(1)..=busy + 2).contains(&idle.frames), "{name}: idle loop, {idle:?}");
         assert!(idle.wakeups <= idle.frames + rest.wakeups, "{name}: idle loop, {idle:?}, at rest {rest:?}");
         if busy > 0 {
-            let frames = xccode_ui::motion::SPINNER_FRAMES;
+            let frames = xiaochuan_ui::motion::SPINNER_FRAMES;
             let glyph = || {
                 let text = h.app.text();
                 let glyph = text.chars().find(|glyph| ('⠁'..='⣿').contains(glyph));
                 glyph.and_then(|glyph| frames.iter().position(|frame| frame.starts_with(glyph)))
             };
             let first = glyph().unwrap_or_else(|| panic!("{name}: no spinner"));
-            h.app.advance(xccode_ui::motion::SPINNER_INTERVAL * 5);
+            h.app.advance(xiaochuan_ui::motion::SPINNER_INTERVAL * 5);
             assert_eq!(glyph(), Some((first + 5) % frames.len()), "{name}: a late frame");
             if name.contains("rail") {
                 h.app.resize(60, 30);
                 h.app.render();
-                h.app.advance(xccode_ui::motion::SPINNER_INTERVAL * 3);
+                h.app.advance(xiaochuan_ui::motion::SPINNER_INTERVAL * 3);
                 assert_eq!(glyph(), Some(3), "{name}: the strip");
                 h.app.resize(120, 30);
                 assert_eq!(glyph(), Some(0), "{name}: the rail shown again");
@@ -459,7 +459,7 @@ fn clicking_the_open_tab_leaves_the_transcript_as_it_is() {
         .collect();
     let path = "/api/session/ses_a/message";
     routes.insert(0, MemoryRoute::json("GET", path, 200, &json!({ "data": messages, "cursor": {} })));
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let paths = support::home_paths(home.path());
     let config = json!({ "animations": false, "session": { "sidebar": "hide" }, "tabs": { "layout": "vertical" } });
     let deps = Deps {
@@ -524,7 +524,7 @@ fn a_split_panel_shows_beside_the_session_and_resizes() {
         }));
         Ok(())
     };
-    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "test", setup }.into());
+    xiaochuan_tui::plugins::host::add(&h.tui, abi::Plugin { id: "test", setup }.into());
     let target = Target { plugin: "test".into(), name: "diff".into(), session: "ses_a".into() };
     h.tui.panels.open(&h.tui, target, Presentation::Panel);
     let screen = h.wait_for("panel for ses_a");
@@ -577,7 +577,7 @@ fn run(script: &Path, args: &[&str]) -> Value {
         .current_dir(script.parent().unwrap().parent().unwrap())
         .arg(script)
         .args(args)
-        .env("BUN_RUNTIME_TRANSPILER_CACHE_PATH", std::env::temp_dir().join("xccode-rs-e12-bun-cache"));
+        .env("BUN_RUNTIME_TRANSPILER_CACHE_PATH", std::env::temp_dir().join("xiaochuan-rs-e12-bun-cache"));
     support::bun_json(&mut command, None)
 }
 
@@ -586,7 +586,7 @@ fn a_hovered_tab_scrolls_its_overflowing_title_and_resets_when_left() {
     let title = "Trace the flaky marquee across every terminal";
     let mut routes = routes();
     routes.splice(0..0, support::session_routes(&support::test_session("ses_m", title)));
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let paths = support::home_paths(home.path());
     let config = json!({ "session": { "sidebar": "hide" }, "tabs": { "layout": "vertical" } });
     let deps = Deps {
@@ -634,18 +634,18 @@ fn a_reload_keeps_the_rail_width_a_drag_committed() {
     let file = storage.file("layout").expect("layout file");
     let locks = storage.directory().parent().expect("storage root").join("locks");
     // Hold the layout file so the drag's write stays queued, as a reload can find it.
-    let lock = xccode_local::lock::acquire(&locks, &file.to_string_lossy(), &Default::default()).expect("lock");
+    let lock = xiaochuan_local::lock::acquire(&locks, &file.to_string_lossy(), &Default::default()).expect("lock");
     h.app.drag((41, 10), (5, 10));
     assert!(h.app.wait_until(WAIT, || h.tui.frame.rail_width(&h.tui) == 6), "no compact rail");
     // A reload that reads the layout before the drag's write landed keeps the drag.
-    xccode_tui::frame::reload(&h.tui, &storage);
+    xiaochuan_tui::frame::reload(&h.tui, &storage);
     assert_eq!(h.tui.frame.rail_width(&h.tui), 6, "a reload reset the rail a drag committed");
     lock.release().expect("release");
     h.wait_file("layout", |layout| layout["verticalTabsWidth"] == 6);
     // Once that write has landed, another client's width applies, as the TypeScript client's does.
     storage.update("layout", &json!({}), |value| value["verticalTabsWidth"] = json!(50)).expect("write layout");
     let applied = h.app.wait_until(WAIT, || {
-        xccode_tui::frame::reload(&h.tui, &storage);
+        xiaochuan_tui::frame::reload(&h.tui, &storage);
         h.tui.frame.rail_width(&h.tui) == 50
     });
     assert!(applied, "another client's width did not apply: rail {}", h.tui.frame.rail_width(&h.tui));

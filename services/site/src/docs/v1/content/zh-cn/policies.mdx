@@ -1,15 +1,15 @@
 ---
 title: 策略
-description: 控制 Xccode 可以使用哪些已配置的资源。
+description: 控制 Xiaochuan 可以使用哪些已配置的资源。
 ---
 
-:::caution[需要 Xccode 2]
-Xccode 1 不会执行策略。本页中的示例需要 Xccode 2。在 Xccode 1 中，请使用 [`disabled_providers`](/docs/config#disabled-providers) 或 [`enabled_providers`](/docs/config#enabled-providers) 来控制提供商的可用性。当前用法请参阅 [Xccode 2 策略文档](https://xccode.ai/docs/policies/)。
+:::caution[需要 Xiaochuan 2]
+Xiaochuan 1 不会执行策略。本页中的示例需要 Xiaochuan 2。在 Xiaochuan 1 中，请使用 [`disabled_providers`](/docs/config#disabled-providers) 或 [`enabled_providers`](/docs/config#enabled-providers) 来控制提供商的可用性。当前用法请参阅 [Xiaochuan 2 策略文档](https://xiaochuan.ai/docs/policies/)。
 :::
 
-策略用于控制 Xccode 是否可以对指定资源执行某个操作。这是 Xccode 2 的实验性功能，通过 `xccode.json` 中的 `experimental.policies` 数组进行配置。
+策略用于控制 Xiaochuan 是否可以对指定资源执行某个操作。这是 Xiaochuan 2 的实验性功能，通过 `xiaochuan.json` 中的 `experimental.policies` 数组进行配置。
 
-策略与[权限](/docs/permissions)相互独立。权限控制工具在会话中可以做什么，而策略控制 Xccode 是否可以使用某个资源，例如 LLM 提供商。
+策略与[权限](/docs/permissions)相互独立。权限控制工具在会话中可以做什么，而策略控制 Xiaochuan 是否可以使用某个资源，例如 LLM 提供商。
 
 ---
 
@@ -23,9 +23,9 @@ Xccode 1 不会执行策略。本页中的示例需要 Xccode 2。在 Xccode 1 �
 
 例如，禁止使用 `openai` 提供商：
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ Xccode 1 不会执行策略。本页中的示例需要 Xccode 2。在 Xccode 1 �
 
 ## 可用策略
 
-Xccode 目前支持一种策略操作：
+Xiaochuan 目前支持一种策略操作：
 
 | 操作           | 资源                     | 说明                            |
 | -------------- | ------------------------ | ------------------------------- |
@@ -58,9 +58,9 @@ Xccode 目前支持一种策略操作：
 
 `resource` 字段支持通配符匹配。使用 `*` 匹配零个或多个字符，使用 `?` 匹配一个字符。
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ Xccode 目前支持一种策略操作：
 
 例如，只允许 Anthropic：
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ Xccode 目前支持一种策略操作：
 
 ## 提供商列表
 
-在 Xccode 2 中，控制提供商访问时请使用策略，而不是旧的 `disabled_providers` 和 `enabled_providers` 设置。在 Xccode 1 中请继续使用这些提供商列表。
+在 Xiaochuan 2 中，控制提供商访问时请使用策略，而不是旧的 `disabled_providers` 和 `enabled_providers` 设置。在 Xiaochuan 1 中请继续使用这些提供商列表。
 
 替代 `disabled_providers`：
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ Xccode 目前支持一种策略操作：
 
 替代 `enabled_providers` 时，先禁止所有提供商，再在其后允许选定的提供商：
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [

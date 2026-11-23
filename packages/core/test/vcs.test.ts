@@ -4,19 +4,19 @@ import fs from "fs/promises"
 import path from "path"
 import { Cause, Context, Deferred, Effect, Exit, Fiber, Layer, Option, Schema, Scope, Stream } from "effect"
 import { TestClock } from "effect/testing"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { AppProcess } from "@xccode/util/process"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Git } from "@xccode/core/git"
-import { Bus } from "@xccode/core/bus"
-import { Location } from "@xccode/core/location"
-import { AbsolutePath } from "@xccode/core/schema"
-import { State } from "@xccode/core/state"
-import { Vcs } from "@xccode/core/vcs"
-import { VcsGitPlugin } from "@xccode/core/plugin/vcs/git"
-import type { VcsDefinition, VcsDiffInput } from "@xccode/plugin/effect/vcs"
-import { FileSystem } from "@xccode/schema/filesystem"
-import { VcsEvent } from "@xccode/schema/vcs-event"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { AppProcess } from "@xiaochuan/util/process"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Git } from "@xiaochuan/core/git"
+import { Bus } from "@xiaochuan/core/bus"
+import { Location } from "@xiaochuan/core/location"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { State } from "@xiaochuan/core/state"
+import { Vcs } from "@xiaochuan/core/vcs"
+import { VcsGitPlugin } from "@xiaochuan/core/plugin/vcs/git"
+import type { VcsDefinition, VcsDiffInput } from "@xiaochuan/plugin/effect/vcs"
+import { FileSystem } from "@xiaochuan/schema/filesystem"
+import { VcsEvent } from "@xiaochuan/schema/vcs-event"
 import { initGit } from "./fixture/git"
 import { location } from "./fixture/location"
 import { tmpdirScoped } from "./fixture/tmpdir"
@@ -1075,7 +1075,7 @@ describe("Vcs", () => {
           await fs.writeFile(path.join(directory, "feature.txt"), "feature\n")
           await commitAll(directory, "feature")
           await $`git branch --set-upstream-to=release feature`.cwd(directory).quiet()
-          await $`git config branch.feature.xccode-merge-base refs/heads/release`.cwd(directory).quiet()
+          await $`git config branch.feature.xiaochuan-merge-base refs/heads/release`.cwd(directory).quiet()
         })
         const vcs = yield* Vcs.Service
         expect(yield* vcs.base().pipe(Effect.flip)).toMatchObject({ message: "Choose a review base" })
@@ -1209,7 +1209,7 @@ describe("Vcs", () => {
           await commitAll(directory, "v2")
           await $`git update-ref refs/remotes/origin/v2 HEAD`.cwd(directory).quiet()
           await $`git checkout -b feature origin/v2`.cwd(directory).quiet()
-          await $`git config branch.feature.xccode-merge-base refs/remotes/origin/dev`.cwd(directory).quiet()
+          await $`git config branch.feature.xiaochuan-merge-base refs/remotes/origin/dev`.cwd(directory).quiet()
           await fs.writeFile(path.join(directory, "feature.txt"), "feature\n")
           await commitAll(directory, "feature")
           await fs.writeFile(path.join(directory, "second.txt"), "second\n")
@@ -1241,9 +1241,9 @@ describe("Vcs", () => {
         ])
         expect(yield* Effect.promise(() => fs.readFile(path.join(directory, ".git/config"), "utf8"))).toBe(config)
         expect(
-          yield* Effect.promise(() => Bun.file(path.join(directory, ".git/xccode-review.json")).exists()),
+          yield* Effect.promise(() => Bun.file(path.join(directory, ".git/xiaochuan-review.json")).exists()),
         ).toBeFalse()
-        yield* Effect.promise(() => $`git config branch.feature.xccode-merge-base missing`.cwd(directory).quiet())
+        yield* Effect.promise(() => $`git config branch.feature.xiaochuan-merge-base missing`.cwd(directory).quiet())
         expect(yield* vcs.base()).toEqual({ name: "v2", ref: "refs/remotes/origin/v2", source: "reflog" })
         yield* Effect.promise(() => $`git checkout -b uncertain HEAD`.cwd(directory).quiet())
         expect(yield* vcs.base().pipe(Effect.flip)).toMatchObject({ message: "Choose a review base" })
@@ -1314,7 +1314,7 @@ describe("Vcs", () => {
         })
         expect(yield* git.history.branch(linked)).toBeUndefined()
         expect(
-          yield* Effect.promise(() => Bun.file(path.join(linked.gitDirectory, "xccode-review.json")).exists()),
+          yield* Effect.promise(() => Bun.file(path.join(linked.gitDirectory, "xiaochuan-review.json")).exists()),
         ).toBeFalse()
         yield* Effect.gen(function* () {
           const vcs = yield* Vcs.Service
@@ -1332,21 +1332,21 @@ describe("Vcs", () => {
           expect(yield* vcs.base()).toEqual({ name: "v2", ref: "refs/remotes/origin/v2", source: "reflog" })
         }).pipe(provide(linked.worktree, { git: true }))
         expect(
-          yield* Effect.promise(() => Bun.file(path.join(linked.gitDirectory, "xccode-review.json")).exists()),
+          yield* Effect.promise(() => Bun.file(path.join(linked.gitDirectory, "xiaochuan-review.json")).exists()),
         ).toBeFalse()
         const fromHead = yield* git.worktree.create({
           repository,
           directory: AbsolutePath.make(path.join(directory, "from-head")),
         })
         expect(
-          yield* Effect.promise(() => Bun.file(path.join(fromHead.gitDirectory, "xccode-review.json")).exists()),
+          yield* Effect.promise(() => Bun.file(path.join(fromHead.gitDirectory, "xiaochuan-review.json")).exists()),
         ).toBeFalse()
         const detached = yield* git.worktree.create({
           repository: fromHead,
           directory: AbsolutePath.make(path.join(directory, "detached-source")),
         })
         expect(
-          yield* Effect.promise(() => Bun.file(path.join(detached.gitDirectory, "xccode-review.json")).exists()),
+          yield* Effect.promise(() => Bun.file(path.join(detached.gitDirectory, "xiaochuan-review.json")).exists()),
         ).toBeFalse()
       }),
     ),

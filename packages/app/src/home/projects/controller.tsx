@@ -101,7 +101,7 @@ export function createHomeProjectsController(home: HomeController) {
     },
     utility: {
       settings: openSettings,
-      help: () => platform.openExternal("https://xccode.ai/desktop-feedback"),
+      help: () => platform.openExternal("https://xiaochuan.ai/desktop-feedback"),
     },
   }
 }

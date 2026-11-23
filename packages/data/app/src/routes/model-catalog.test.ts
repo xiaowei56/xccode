@@ -5,7 +5,7 @@ mock.module("@solidjs/router", () => ({ query: (load: () => unknown) => load }))
 const { buildModelCatalog, findModelCatalogEntry, isKnownCatalogLab, modelPagePath } = await import("./model-catalog")
 
 describe("model catalog pricing", () => {
-  test("prefers Xccode Go pricing over a zero-cost coding plan with the same model id", () => {
+  test("prefers Xiaochuan Go pricing over a zero-cost coding plan with the same model id", () => {
     const catalog = buildModelCatalog(
       {
         models: {
@@ -16,8 +16,8 @@ describe("model catalog pricing", () => {
         },
       },
       {
-        "xccode-go": {
-          id: "xccode-go",
+        "xiaochuan-go": {
+          id: "xiaochuan-go",
           models: {
             "glm-5.3": {
               id: "glm-5.3",

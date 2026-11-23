@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/server",
+  "name": "@xiaochuan/server",
   "version": "2.3.0",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaowei56/xccode.git",
+    "url": "git+https://github.com/xiaowei56/xiaochuan.git",
     "directory": "packages/server"
   },
   "publishConfig": {
@@ -29,17 +29,17 @@
   "dependencies": {
     "@effect/platform-node": "catalog:",
     "@effect/platform-node-shared": "catalog:",
-    "@xccode/core": "workspace:*",
-    "@xccode/protocol": "workspace:*",
-    "@xccode/schema": "workspace:*",
-    "@xccode/simulation": "workspace:*",
-    "@xccode/util": "workspace:*",
+    "@xiaochuan/core": "workspace:*",
+    "@xiaochuan/protocol": "workspace:*",
+    "@xiaochuan/schema": "workspace:*",
+    "@xiaochuan/simulation": "workspace:*",
+    "@xiaochuan/util": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {
-    "@xccode/pty": "0.6.0",
-    "@xccode/client": "workspace:*",
-    "@xccode/plugin": "workspace:*",
+    "@xiaochuan/pty": "0.6.0",
+    "@xiaochuan/client": "workspace:*",
+    "@xiaochuan/plugin": "workspace:*",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native": "catalog:",

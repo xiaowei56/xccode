@@ -1,9 +1,9 @@
-import { activeQuestionRequest, questionPendingDocument } from "@xccode/session-ui/storybook"
+import { activeQuestionRequest, questionPendingDocument } from "@xiaochuan/session-ui/storybook"
 import { SessionPreview } from "./story-model"
 import { SettingsExperimental } from "@/settings/experimental/experimental"
 
 export default {
-  title: "Xccode/Session/Question switch",
+  title: "Xiaochuan/Session/Question switch",
   id: "session-question-switch",
   component: SessionPreview,
   parameters: {
@@ -23,7 +23,7 @@ export const Experiments = {
   render: () => (
     <SessionPreview
       title="Choose a Session layout"
-      description="xccode · question UI experiments"
+      description="xiaochuan · question UI experiments"
       document={questionPendingDocument}
       request={{ type: "question", value: activeQuestionRequest }}
       side={<SettingsExperimental />}
@@ -36,7 +36,7 @@ export const QuestionSeries = {
   render: () => (
     <SessionPreview
       title="Decide what to build next"
-      description="xccode · modular-session-ui"
+      description="xiaochuan · modular-session-ui"
       document={questionPendingDocument}
       request={{
         type: "question",
@@ -108,7 +108,7 @@ export const LinkPrompt = {
   render: () => (
     <SessionPreview
       title="Harden package publishing"
-      description="xccode · release"
+      description="xiaochuan · release"
       document={questionPendingDocument}
       request={{
         type: "question",
@@ -136,7 +136,7 @@ export const LongList = {
   render: () => (
     <SessionPreview
       title="Polish the docs site"
-      description="xccode · docs"
+      description="xiaochuan · docs"
       document={questionPendingDocument}
       request={{
         type: "question",
@@ -261,7 +261,7 @@ const longMobileOptions = [
     value: "opt-11",
     label: "11. Offline CLI migration subcommand with progress bar",
     description:
-      "Require explicit operator confirmation via xccode db migrate and refuse automatic background writes on startup.",
+      "Require explicit operator confirmation via xiaochuan db migrate and refuse automatic background writes on startup.",
   },
   {
     value: "opt-12",
@@ -293,7 +293,7 @@ export const LongPrompt = {
   render: () => (
     <SessionPreview
       title="Plan the storage migration"
-      description="xccode · storage-rollout"
+      description="xiaochuan · storage-rollout"
       document={questionPendingDocument}
       request={{
         type: "question",
@@ -358,7 +358,7 @@ export const FreeResponse = {
   render: () => (
     <SessionPreview
       title="Name the release"
-      description="xccode · release"
+      description="xiaochuan · release"
       document={questionPendingDocument}
       request={{
         type: "question",

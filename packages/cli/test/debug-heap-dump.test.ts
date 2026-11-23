@@ -2,7 +2,7 @@ import { expect, test } from "bun:test"
 import fs from "node:fs/promises"
 import path from "node:path"
 import { ServiceConfig } from "../src/services/service-config"
-import { XCCODE_VERSION } from "../src/version"
+import { XIAOCHUAN_VERSION } from "../src/version"
 import { isolatedEnv } from "./fixture/environment"
 import { tmpdir } from "./fixture/tmpdir"
 
@@ -30,7 +30,7 @@ test("prints the snapshot path from the registered server without replacing it",
     stdout: "/server/log/heap-1-2.heapsnapshot",
   })
   expect(requests).toEqual([
-    { method: "POST", path: "/api/debug/heap-dump", authorization: `Basic ${btoa("xccode:secret")}` },
+    { method: "POST", path: "/api/debug/heap-dump", authorization: `Basic ${btoa("xiaochuan:secret")}` },
   ])
   expect(await Bun.file(registration.file).json()).toEqual(registration.info)
 })
@@ -69,7 +69,7 @@ test("fails without starting a server when none is registered", async () => {
 
   expect(result.stderr).toContain("No background server is running")
   expect(result.code).toBe(1)
-  expect(await Bun.file(path.join(root.path, "state", "xccode", ServiceConfig.filename())).exists()).toBe(false)
+  expect(await Bun.file(path.join(root.path, "state", "xiaochuan", ServiceConfig.filename())).exists()).toBe(false)
 })
 
 test("explains when the server predates heap dumps", async () => {
@@ -77,7 +77,7 @@ test("explains when the server predates heap dumps", async () => {
   using server = fake(() => new Response(null, { status: 404 }))
 
   const result = await cli(root.path, ["debug", "heap-dump", "--server", server.url.href], {
-    XCCODE_PASSWORD: "secret",
+    XIAOCHUAN_PASSWORD: "secret",
   })
 
   expect(result.stderr.trim()).toBe(
@@ -93,14 +93,14 @@ function fake(handle: (request: Request) => Response) {
     port: 0,
     fetch: (request) =>
       new URL(request.url).pathname === "/api/info"
-        ? Response.json({ version: XCCODE_VERSION, pid: process.pid, urls: [] })
+        ? Response.json({ version: XIAOCHUAN_VERSION, pid: process.pid, urls: [] })
         : handle(request),
   })
 }
 
 async function register(root: string, url: string) {
-  const file = path.join(root, "state", "xccode", ServiceConfig.filename())
-  const info = { version: XCCODE_VERSION, url, pid: process.pid, password: "secret" }
+  const file = path.join(root, "state", "xiaochuan", ServiceConfig.filename())
+  const info = { version: XIAOCHUAN_VERSION, url, pid: process.pid, password: "secret" }
   await fs.mkdir(path.dirname(file), { recursive: true })
   await fs.writeFile(file, JSON.stringify(info))
   return { file, info }

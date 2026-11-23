@@ -1,7 +1,7 @@
-import { Job } from "@xccode/core/job"
-import { Session } from "@xccode/core/session"
-import { SessionBackground } from "@xccode/core/session/background"
-import type { ListQuery } from "@xccode/protocol/groups/job"
+import { Job } from "@xiaochuan/core/job"
+import { Session } from "@xiaochuan/core/session"
+import { SessionBackground } from "@xiaochuan/core/session/background"
+import type { ListQuery } from "@xiaochuan/protocol/groups/job"
 import { Effect, Option } from "effect"
 import { missingSession } from "./session-error"
 

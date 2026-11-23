@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
-import { XccodeEvent, type XccodeEventEncoded } from "@xccode/protocol/groups/event"
-import { Session } from "@xccode/schema/session"
-import { SessionMessage } from "@xccode/schema/session-message"
+import { XiaochuanEvent, type XiaochuanEventEncoded } from "@xiaochuan/protocol/groups/event"
+import { Session } from "@xiaochuan/schema/session"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
 import { Schema } from "effect"
 import path from "node:path"
 import { ACPReplay } from "../../src/acp/replay"
@@ -34,10 +34,10 @@ const ctx: ACPTranslate.TurnContext = {
   childUpdates: false,
   compaction: false,
 }
-const decodeEvent = Schema.decodeUnknownSync(XccodeEvent)
+const decodeEvent = Schema.decodeUnknownSync(XiaochuanEvent)
 const decodeMessage = Schema.decodeUnknownSync(SessionMessage.Info)
 
-const live = (...events: XccodeEventEncoded[]) => [delivered(root, "msg_input"), ...events]
+const live = (...events: XiaochuanEventEncoded[]) => [delivered(root, "msg_input"), ...events]
 const usage = (input: number, output: number, reasoning = 0, read = 0, write = 0) => ({
   input,
   output,
@@ -56,10 +56,10 @@ const compaction = {
 }
 const marker = (value: Record<string, unknown>) => ({
   sessionUpdate: "session_info_update",
-  _meta: { "xccode/compaction": { messageId: "msg_compact", reason: "manual", ...value } },
+  _meta: { "xiaochuan/compaction": { messageId: "msg_compact", reason: "manual", ...value } },
 })
 const childMeta = (id: string, parentID: string, depth: number, title: string) => ({
-  "xccode/child-session": { id, parentID, depth, title },
+  "xiaochuan/child-session": { id, parentID, depth, title },
 })
 const compactionMessage = (input: Record<string, unknown>) => ({
   id: "msg_compaction",
@@ -72,7 +72,7 @@ const compactionMessage = (input: Record<string, unknown>) => ({
 type Row = {
   readonly name: string
   readonly ctx?: Partial<ACPTranslate.TurnContext>
-  readonly events?: XccodeEventEncoded[]
+  readonly events?: XiaochuanEventEncoded[]
   readonly messages?: unknown[]
   readonly expected: object
 }
@@ -494,7 +494,7 @@ const rows: Row[] = [
       updates: [
         {
           _meta: {
-            "xccode/compaction": { status: "failed", messageId: "msg_2", reason: "auto", error: providerError },
+            "xiaochuan/compaction": { status: "failed", messageId: "msg_2", reason: "auto", error: providerError },
           },
         },
       ],
@@ -510,8 +510,8 @@ const rows: Row[] = [
     ),
     expected: {
       updates: [
-        { _meta: { "xccode/compaction": { status: "started" }, ...childMeta("ses_child", root, 1, "Explore") } },
-        { _meta: { "xccode/compaction": { status: "completed" }, ...childMeta("ses_child", root, 1, "Explore") } },
+        { _meta: { "xiaochuan/compaction": { status: "started" }, ...childMeta("ses_child", root, 1, "Explore") } },
+        { _meta: { "xiaochuan/compaction": { status: "completed" }, ...childMeta("ses_child", root, 1, "Explore") } },
       ],
     },
   },
@@ -571,7 +571,7 @@ const rows: Row[] = [
       updates: [
         {
           sessionUpdate: "session_info_update",
-          _meta: { "xccode/compaction": { status: "completed", messageId: "msg_compaction", reason: "auto" } },
+          _meta: { "xiaochuan/compaction": { status: "completed", messageId: "msg_compaction", reason: "auto" } },
         },
       ],
     },
@@ -683,7 +683,7 @@ function translate(row: Row) {
   }
 }
 
-function run(events: ReadonlyArray<XccodeEventEncoded>, context = ctx) {
+function run(events: ReadonlyArray<XiaochuanEventEncoded>, context = ctx) {
   return events.reduce<{
     state: ACPTranslate.TurnState
     outputs: ACPTranslate.Output[]

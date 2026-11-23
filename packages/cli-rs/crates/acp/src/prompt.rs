@@ -1,5 +1,5 @@
-use xccode_api::generated::CommandInfo;
-use xccode_api::js::is_whitespace;
+use xiaochuan_api::generated::CommandInfo;
+use xiaochuan_api::js::is_whitespace;
 use serde_json::Value;
 
 use crate::catalog::{Catalog, Start, builtin};
@@ -54,7 +54,7 @@ pub async fn prepare(catalog: &Catalog, content: &[Value]) -> Result<Prepared, F
         .collect::<Vec<_>>()
         .join("\n");
     let slash = detect_slash_command(&text);
-    let id = xccode_api::id::message();
+    let id = xiaochuan_api::id::message();
     let kind = match slash.as_ref().and_then(|slash| builtin(&slash.name)) {
         Some(Start::Compaction) => StartKind::Compaction,
         None => StartKind::Input,
@@ -89,7 +89,7 @@ async fn reference_unreadable_file(part: PromptPart) -> PromptPart {
     if !url.starts_with("file://") {
         return part;
     }
-    let readable = match xccode_api::js::parse_url(url).ok().and_then(|url| url.to_file_path().ok()) {
+    let readable = match xiaochuan_api::js::parse_url(url).ok().and_then(|url| url.to_file_path().ok()) {
         Some(path) => tokio::task::spawn_blocking(move || readable(&path)).await.unwrap_or(false),
         None => false,
     };

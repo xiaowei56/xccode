@@ -17,17 +17,17 @@ import {
   type RequestPermissionResponse,
   type SessionNotification,
 } from "@agentclientprotocol/sdk"
-import { Xccode } from "@xccode/client/effect"
-import type { XccodeEventEncoded } from "@xccode/protocol/groups/event"
-import type { Agent } from "@xccode/schema/agent"
-import type { Command } from "@xccode/schema/command"
-import { Form } from "@xccode/schema/form"
-import type { Location } from "@xccode/schema/location"
-import type { Model } from "@xccode/schema/model"
-import type { Plugin } from "@xccode/schema/plugin"
-import type { Session } from "@xccode/schema/session"
-import type { SessionMessage } from "@xccode/schema/session-message"
-import type { TokenUsage } from "@xccode/schema/token-usage"
+import { Xiaochuan } from "@xiaochuan/client/effect"
+import type { XiaochuanEventEncoded } from "@xiaochuan/protocol/groups/event"
+import type { Agent } from "@xiaochuan/schema/agent"
+import type { Command } from "@xiaochuan/schema/command"
+import { Form } from "@xiaochuan/schema/form"
+import type { Location } from "@xiaochuan/schema/location"
+import type { Model } from "@xiaochuan/schema/model"
+import type { Plugin } from "@xiaochuan/schema/plugin"
+import type { Session } from "@xiaochuan/schema/session"
+import type { SessionMessage } from "@xiaochuan/schema/session-message"
+import type { TokenUsage } from "@xiaochuan/schema/token-usage"
 import type { BunRequest } from "bun"
 import { createTwoFilesPatch } from "diff"
 import { Duration, Effect, Exit, Logger, Option, Schema, Scope } from "effect"
@@ -36,7 +36,7 @@ import { ACP } from "../../src/acp/agent"
 import { ACPTurn } from "../../src/acp/turn"
 
 // The fake server sends and stores the wire form of each value.
-type XccodeEvent = XccodeEventEncoded
+type XiaochuanEvent = XiaochuanEventEncoded
 type AgentInfo = typeof Agent.Info.Encoded
 type CommandInfo = typeof Command.Info.Encoded
 type LocationRef = typeof Location.PublicRef.Encoded
@@ -46,12 +46,12 @@ type PluginInfo = typeof Plugin.Info.Encoded
 type SessionInfo = typeof Session.Info.Encoded
 type SessionMessageInfo = typeof SessionMessage.Info.Encoded
 type TokenUsageInfo = typeof TokenUsage.Info.Encoded
-type DurableEvent = Extract<XccodeEvent, { durable: unknown }>
-type EphemeralEvent = Exclude<XccodeEvent, DurableEvent>
-type EventData<Type extends XccodeEvent["type"]> = Extract<XccodeEvent, { type: Type }>["data"]
+type DurableEvent = Extract<XiaochuanEvent, { durable: unknown }>
+type EphemeralEvent = Exclude<XiaochuanEvent, DurableEvent>
+type EventData<Type extends XiaochuanEvent["type"]> = Extract<XiaochuanEvent, { type: Type }>["data"]
 type AssistantMessage = Extract<SessionMessageInfo, { type: "assistant" }>
 
-type Events = ReadonlyArray<XccodeEvent> | void
+type Events = ReadonlyArray<XiaochuanEvent> | void
 type Hook<Input> = (input: Input) => Events | Promise<Events>
 
 type ServerRequest = {
@@ -301,7 +301,7 @@ export const interrupted = (sessionID: string) =>
 export const failed = (sessionID: string, error: EventData<"session.execution.failed">["error"]) =>
   durableEvent("session.execution.failed", { sessionID, error })
 
-export function turn(sessionID: string, inboxID: string, ...events: XccodeEvent[]): XccodeEvent[] {
+export function turn(sessionID: string, inboxID: string, ...events: XiaochuanEvent[]): XiaochuanEvent[] {
   return [delivered(sessionID, inboxID), ...events, succeeded(sessionID)]
 }
 
@@ -459,7 +459,7 @@ export async function startWire(options: WireOptions = {}) {
   const logs: Array<Pick<Logger.Options<unknown>, "message" | "cause">> = []
   const agentScope = Scope.makeUnsafe()
   const agentConnection = await Effect.runPromise(
-    Xccode.make({ baseUrl: server.url }).pipe(
+    Xiaochuan.make({ baseUrl: server.url }).pipe(
       Effect.provide(FetchHttpClient.layer),
       Effect.flatMap((client) => ACP.connect(client, ndJsonStream(agentToClient.writable, clientToAgent.readable))),
       Scope.provide(agentScope),
@@ -473,7 +473,7 @@ export async function startWire(options: WireOptions = {}) {
   const clientStream = ndJsonStream(clientToAgent.writable, agentToClient.readable)
   const connection = client({ name: "test" })
     .onNotification("session/update", (ctx) => handled(updates, ctx.params))
-    .onNotification("xccode/session/child_update", Schema.decodeUnknownSync(ChildUpdate), (ctx) =>
+    .onNotification("xiaochuan/session/child_update", Schema.decodeUnknownSync(ChildUpdate), (ctx) =>
       handled(childUpdates, ctx.params),
     )
     .onRequest("session/request_permission", (ctx) => {
@@ -543,7 +543,7 @@ export async function startWire(options: WireOptions = {}) {
         ...(capabilities.elicitation ? { elicitation: { form: {} } } : {}),
         ...(capabilities.compaction !== undefined ? { session: { compaction: capabilities.compaction } } : {}),
         _meta: {
-          ...(capabilities.childSessionUpdates ? { "xccode/child-session-updates": true } : {}),
+          ...(capabilities.childSessionUpdates ? { "xiaochuan/child-session-updates": true } : {}),
           ...(capabilities.terminalAuth ? { "terminal-auth": true } : {}),
         },
       },
@@ -612,7 +612,7 @@ function startServer(options: WireOptions, changed: () => void) {
     commands: [reviewCommand],
     plugins: [
       {
-        id: "xccode.models.dev",
+        id: "xiaochuan.models.dev",
         source: { type: "builtin" },
         features: { server: true },
         state: { status: "active" },
@@ -643,7 +643,7 @@ function startServer(options: WireOptions, changed: () => void) {
     cancelledForms,
     repliedForms,
     mcp,
-    send(...events: ReadonlyArray<XccodeEvent>) {
+    send(...events: ReadonlyArray<XiaochuanEvent>) {
       events.forEach((event) => {
         const seq = ++counter.events
         const stamped = {

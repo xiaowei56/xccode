@@ -1,7 +1,7 @@
 export * as ConfigCompatibilityPlugin from "./compatibility.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
-import { FSUtil } from "@xccode/util/fs-util"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import path from "path"
 import { Effect, FiberMap, PubSub, Semaphore, Stream } from "effect"
 import { Config } from "../../config.js"
@@ -11,7 +11,7 @@ import { SkillFile } from "./skill-file.js"
 import { SkillScan } from "./skill-scan.js"
 
 export const Plugin = define({
-  id: "xccode.config.compatibility",
+  id: "xiaochuan.config.compatibility",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const fs = yield* FSUtil.Service

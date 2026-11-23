@@ -9,7 +9,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::thread;
 use std::time::Duration;
 
-use xccode_local::{jsonl, pins};
+use xiaochuan_local::{jsonl, pins};
 use serde_json::{Value, json};
 use support::available;
 
@@ -100,7 +100,7 @@ fn session_json_under_contention() {
     if !available() {
         return;
     }
-    let state = xccode_util::temp::tempdir().unwrap();
+    let state = xiaochuan_util::temp::tempdir().unwrap();
     let dir = state.path().to_owned();
     let stop = Arc::new(AtomicBool::new(false));
     let reader = watch(pins::file(&dir), stop.clone(), |text| {
@@ -154,7 +154,7 @@ fn prompt_history_under_contention() {
     if !available() {
         return;
     }
-    let state = xccode_util::temp::tempdir().unwrap();
+    let state = xiaochuan_util::temp::tempdir().unwrap();
     let dir = state.path().to_owned();
     let file = dir.join("prompt-history.jsonl");
 
@@ -190,7 +190,7 @@ fn frecency_at_the_limit_under_contention() {
     if !available() {
         return;
     }
-    let state = xccode_util::temp::tempdir().unwrap();
+    let state = xiaochuan_util::temp::tempdir().unwrap();
     let dir = state.path().to_owned();
     let file = dir.join("frecency.jsonl");
     let full: String = (0..jsonl::MAX_FRECENCY_ENTRIES)
@@ -203,12 +203,12 @@ fn frecency_at_the_limit_under_contention() {
     let mut ts = typescript(&["frecency", dir.to_str().unwrap(), "ts", &WRITES.to_string()]);
     ts.go();
     for i in 0..WRITES {
-        frecency.update(&format!("rs-{i}"), xccode_util::time::now_ms());
+        frecency.update(&format!("rs-{i}"), xiaochuan_util::time::now_ms());
         thread::sleep(Duration::from_millis(1));
     }
     ts.finish();
     // Rust reopens one of TypeScript's files: it counts from TypeScript's line.
-    frecency.update("ts-0", xccode_util::time::now_ms());
+    frecency.update("ts-0", xiaochuan_util::time::now_ms());
     stop.store(true, Ordering::SeqCst);
     let reads = reader.join().unwrap();
 
@@ -237,7 +237,7 @@ fn prompt_stash_under_contention() {
     if !available() {
         return;
     }
-    let state = xccode_util::temp::tempdir().unwrap();
+    let state = xiaochuan_util::temp::tempdir().unwrap();
     let dir = state.path().to_owned();
     let stop = Arc::new(AtomicBool::new(false));
     let reader = watch(dir.join("prompt-stash.jsonl"), stop.clone(), whole_lines);
@@ -246,7 +246,7 @@ fn prompt_stash_under_contention() {
     ts.go();
     for i in 0..WRITES {
         let prompt = json!({ "text": format!("rs-{i}"), "pasted": [] });
-        stash.push(prompt, xccode_util::time::now_ms());
+        stash.push(prompt, xiaochuan_util::time::now_ms());
         thread::sleep(Duration::from_millis(1));
     }
     ts.finish();

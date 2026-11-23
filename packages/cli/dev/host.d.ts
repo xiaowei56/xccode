@@ -1,6 +1,6 @@
 import type { Effect, Fiber, FileSystem } from "effect"
-import type { TuiInput } from "@xccode/tui"
-import type { Global } from "@xccode/util/global"
+import type { TuiInput } from "@xiaochuan/tui"
+import type { Global } from "@xiaochuan/util/global"
 import type { Route } from "../../tui/src/context/route"
 
 export type Run = (input: TuiInput) => Effect.Effect<void, unknown, Global.Service | FileSystem.FileSystem>

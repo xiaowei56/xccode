@@ -1,16 +1,16 @@
 //! Interactive shell output with paging, live follow, and copy actions.
 
-use xccode_api::client::Client;
-use xccode_api::error::Error;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::error::Error;
+use xiaochuan_api::generated::{
     LocationQueryInput, SessionMessageShellOutput, SessionMessageShellStatus, ShellGetInput, ShellInfo,
     ShellOutputInput,
 };
-use xccode_store::Location;
-use xccode_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
+use xiaochuan_store::Location;
+use xiaochuan_ui::dialog::{DIALOG_INSET, DialogCx, FooterAction, FooterProps, footer, layout_view};
 use opentui::widget::ScrollEdge;
 
-use xccode_util::text_boundary;
+use xiaochuan_util::text_boundary;
 use opentui::input::strip_ansi_sequences;
 
 use crate::prelude::*;
@@ -31,7 +31,7 @@ pub fn show(tui: &Tui, shell: ShellInfo, location: Location) {
 struct Poll {
     tui: Weak<Tui>,
     cx: Weak<DialogCx>,
-    id: xccode_api::generated::ShellID,
+    id: xiaochuan_api::generated::ShellID,
     command: String,
     location: Location,
     info: RefCell<ShellInfo>,
@@ -320,7 +320,7 @@ impl Poll {
 
 async fn load(
     client: Client,
-    id: xccode_api::generated::ShellID,
+    id: xiaochuan_api::generated::ShellID,
     directory: String,
     running: bool,
     cursor: Option<i64>,

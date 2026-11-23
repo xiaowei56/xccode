@@ -1,5 +1,5 @@
-use xccode_service::delegate;
-use xccode_util::error;
+use xiaochuan_service::delegate;
+use xiaochuan_util::error;
 
 use super::Context;
 use crate::args::UninstallArgs;

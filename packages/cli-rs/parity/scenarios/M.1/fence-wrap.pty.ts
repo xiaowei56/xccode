@@ -5,10 +5,10 @@ import { definePty } from "../../pty/run"
 import { assistant, config, server, statusMask, user } from "./fixture"
 
 const command =
-  "XCCODE_STORY_MEDIA=/home/user/src/xccode/packages/tui/fixtures/story-media.json XCCODE_STORY=transcript-fences bun run dev:live"
+  "XIAOCHUAN_STORY_MEDIA=/home/user/src/xiaochuan/packages/tui/fixtures/story-media.json XIAOCHUAN_STORY=transcript-fences bun run dev:live"
 const text = `Run the story:\n\n\`\`\`sh\n${command}\n\`\`\`\n\n1. Then in a list:\n\n   \`\`\`sh\n   ${command}\n   \`\`\`\n\nDone.`
 
-const rest = String.raw`\n\s*\S*json XCCODE_STORY=transcript-fences bun run dev:live\s*\n`
+const rest = String.raw`\n\s*\S*json XIAOCHUAN_STORY=transcript-fences bun run dev:live\s*\n`
 const wrapped = new RegExp(String.raw`${rest}[\s\S]*${rest}[\s\S]*Done\.`)
 
 // The reply is cut where Core 0.8.4 cuts it; TS loses the blank row there, before `Done.`, and Rust keeps it.

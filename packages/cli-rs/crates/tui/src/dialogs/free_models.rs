@@ -1,9 +1,9 @@
 //! Model picker for users without a connected provider.
 
-use xccode_api::generated::ModelInfoStatus;
-use xccode_local::model_pref::Model;
-use xccode_ui::fuzzy;
-use xccode_ui::select::{ActionRun, SelectAction};
+use xiaochuan_api::generated::ModelInfoStatus;
+use xiaochuan_local::model_pref::Model;
+use xiaochuan_ui::fuzzy;
+use xiaochuan_ui::select::{ActionRun, SelectAction};
 
 use crate::dialogs::model::{self, is_free};
 use crate::local::Local;

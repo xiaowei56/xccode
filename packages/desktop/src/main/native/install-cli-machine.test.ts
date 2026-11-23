@@ -29,10 +29,10 @@ describe("CLI install machine", () => {
     const presenting = transitionInstallCli(installing.state, {
       type: "install.succeeded",
       attempt: 1,
-      path: "/Users/me/.xccode/bin/xccode",
+      path: "/Users/me/.xiaochuan/bin/xiaochuan",
     })
 
-    const outcome = { ok: true, path: "/Users/me/.xccode/bin/xccode" }
+    const outcome = { ok: true, path: "/Users/me/.xiaochuan/bin/xiaochuan" }
     expect(presenting.state).toEqual({ status: "presenting", attempt: 1, outcome })
     expect(presenting.commands).toEqual([{ type: "show-dialog", attempt: 1, outcome }])
     expect(transitionInstallCli(presenting.state, { type: "install.requested" }).state).toBe(presenting.state)

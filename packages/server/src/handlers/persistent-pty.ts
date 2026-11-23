@@ -1,16 +1,16 @@
-import { PersistentPty } from "@xccode/core/persistent-pty"
-import { PtyTicket } from "@xccode/core/pty/ticket"
+import { PersistentPty } from "@xiaochuan/core/persistent-pty"
+import { PtyTicket } from "@xiaochuan/core/pty/ticket"
 import {
   ForbiddenError,
   InvalidRequestError,
   PtyNotFoundError,
   ServiceUnavailableError,
-} from "@xccode/protocol/errors"
+} from "@xiaochuan/protocol/errors"
 import {
   PTY_CONNECT_TICKET_QUERY,
   PTY_CONNECT_TOKEN_HEADER,
   PTY_CONNECT_TOKEN_HEADER_VALUE,
-} from "@xccode/protocol/groups/persistent-pty"
+} from "@xiaochuan/protocol/groups/persistent-pty"
 import { Effect, Queue } from "effect"
 import { HttpServerRequest, HttpServerResponse } from "effect/http"
 import { HttpApiBuilder, HttpApiSchema } from "effect/http-api"
@@ -271,4 +271,4 @@ const notFound = (error: PersistentPty.NotFoundError) =>
   new PtyNotFoundError({ ptyID: error.ptyID, message: `PTY session not found: ${error.ptyID}` })
 
 const unavailable = (error: PersistentPty.UnavailableError) =>
-  new ServiceUnavailableError({ message: error.message, service: "xccode-pty" })
+  new ServiceUnavailableError({ message: error.message, service: "xiaochuan-pty" })

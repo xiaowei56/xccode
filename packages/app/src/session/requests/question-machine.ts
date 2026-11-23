@@ -1,4 +1,4 @@
-import type { FormAnswer, FormInfo, FormMultiselectField, FormStringField } from "@xccode/client/promise"
+import type { FormAnswer, FormInfo, FormMultiselectField, FormStringField } from "@xiaochuan/client/promise"
 
 // A reply that never settles gives the dock back after this long, so it cannot stay disabled forever.
 export const QUESTION_REQUEST_TIMEOUT_MS = 30_000

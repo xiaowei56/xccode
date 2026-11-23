@@ -1,9 +1,9 @@
 import { createEffect, createMemo, createSignal, on, onCleanup, Show } from "solid-js"
 import { Option, Schema } from "effect"
-import type { SessionStepFailed } from "@xccode/client/promise"
-import { Button } from "@xccode/ui/button"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
+import type { SessionStepFailed } from "@xiaochuan/client/promise"
+import { Button } from "@xiaochuan/ui/button"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
 import { useLanguage } from "@/runtime/i18n/language"
 import { usePlatform } from "@/runtime/platform/platform"
 import { useWorkspaceLocation } from "@/workspaces/location"
@@ -12,7 +12,7 @@ import type { ModelSelection } from "@/providers/models/selection"
 import { formatLimitReset } from "../usage-exceeded-dialogs"
 import { Grow } from "./spring-height"
 
-// Xccode Console names the workspace and the limit (5 hour, weekly or monthly) in its Go usage limit refusal.
+// Xiaochuan Console names the workspace and the limit (5 hour, weekly or monthly) in its Go usage limit refusal.
 const decodeGoLimitBody = Schema.decodeUnknownOption(
   Schema.fromJsonString(
     Schema.Struct({
@@ -31,11 +31,11 @@ function goLimit(locale: string, event: SessionStepFailed): GoLimit {
     name: metadata?.limitName,
     reset: formatLimitReset(locale, event.created, event.data.error.retryAfterMs),
     // The Go page is where the workspace turns on Extra Usage to keep going on its balance.
-    link: workspace ? `https://xccode.ai/console/${encodeURIComponent(workspace)}/go` : "https://xccode.ai/console",
+    link: workspace ? `https://xiaochuan.ai/console/${encodeURIComponent(workspace)}/go` : "https://xiaochuan.ai/console",
   }
 }
 
-// A tray that grows out from under the composer, like the queue panel, when an Xccode Go subscriber reaches a usage
+// A tray that grows out from under the composer, like the queue panel, when an Xiaochuan Go subscriber reaches a usage
 // limit: when Go is back, and how to keep going now.
 export function SessionGoLimitTray(props: {
   sessionID: string | undefined

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
 import { storyTool } from "../storybook/current-session-scenarios"
 import { timelinePresets, type TimelineDetail } from "./detail"
 import { placeFactOf, type PlaceFact } from "./facts"

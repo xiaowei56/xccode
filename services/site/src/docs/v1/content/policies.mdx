@@ -1,15 +1,15 @@
 ---
 title: Policies
-description: Control which configured resources Xccode may use.
+description: Control which configured resources Xiaochuan may use.
 ---
 
-:::caution[Requires Xccode 2]
-Policies are not enforced in Xccode 1. The examples on this page require Xccode 2. In Xccode 1, use [`disabled_providers`](/docs/config#disabled-providers) or [`enabled_providers`](/docs/config#enabled-providers) to control provider availability. See the [Xccode 2 policies documentation](https://xccode.ai/docs/policies/) for current usage.
+:::caution[Requires Xiaochuan 2]
+Policies are not enforced in Xiaochuan 1. The examples on this page require Xiaochuan 2. In Xiaochuan 1, use [`disabled_providers`](/docs/config#disabled-providers) or [`enabled_providers`](/docs/config#enabled-providers) to control provider availability. See the [Xiaochuan 2 policies documentation](https://xiaochuan.ai/docs/policies/) for current usage.
 :::
 
-Policies control whether Xccode may perform an action on a named resource. This Xccode 2 feature is experimental and is configured with the `experimental.policies` array in `xccode.json`.
+Policies control whether Xiaochuan may perform an action on a named resource. This Xiaochuan 2 feature is experimental and is configured with the `experimental.policies` array in `xiaochuan.json`.
 
-Policies are separate from [permissions](/docs/permissions). Permissions control what tools can do during a session, while policies control whether Xccode may use a resource such as an LLM provider.
+Policies are separate from [permissions](/docs/permissions). Permissions control what tools can do during a session, while policies control whether Xiaochuan may use a resource such as an LLM provider.
 
 ---
 
@@ -23,9 +23,9 @@ Each policy statement has three fields:
 
 For example, deny use of the `openai` provider:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ A provider denied by policy is not available for model selection or model use, e
 
 ## Available Policies
 
-Xccode currently supports one policy action:
+Xiaochuan currently supports one policy action:
 
 | Action         | Resource                      | Description                           |
 | -------------- | ----------------------------- | ------------------------------------- |
@@ -58,9 +58,9 @@ More policy actions may be added in the future.
 
 The `resource` field supports wildcard matching. Use `*` to match zero or more characters and `?` to match one character.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ When multiple statements match, the last matching statement wins. Put broad rule
 
 For example, allow only Anthropic:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ Policies may be set in both your global config and project config. If policies f
 
 ## Provider Lists
 
-In Xccode 2, use policies instead of the older `disabled_providers` and `enabled_providers` settings when controlling provider access. Keep using those provider lists in Xccode 1.
+In Xiaochuan 2, use policies instead of the older `disabled_providers` and `enabled_providers` settings when controlling provider access. Keep using those provider lists in Xiaochuan 1.
 
 To replace `disabled_providers`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ To replace `disabled_providers`:
 
 To replace `enabled_providers`, deny all providers first and allow the selected providers after it:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [

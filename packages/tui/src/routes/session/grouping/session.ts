@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant, SessionMessageInfo } from "@xccode/client"
+import type { SessionMessageAssistant, SessionMessageInfo } from "@xiaochuan/client"
 import { groupEntries, mergeGroups, splitGroups, type GroupNode } from "./tree"
 
 export type PartRef = {

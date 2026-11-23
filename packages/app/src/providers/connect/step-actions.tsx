@@ -1,5 +1,5 @@
-import { Button } from "@xccode/ui/button"
-import { Spinner } from "@xccode/ui/spinner"
+import { Button } from "@xiaochuan/ui/button"
+import { Spinner } from "@xiaochuan/ui/spinner"
 import type { JSX } from "solid-js"
 
 // Secondary actions first, the main action furthest right.

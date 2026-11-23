@@ -1,6 +1,6 @@
 import type { Root } from "@kobalte/core/button"
 import { type ComponentProps, Show, splitProps } from "solid-js"
-import { Icon, type IconProps } from "@xccode/ui/icon"
+import { Icon, type IconProps } from "@xiaochuan/ui/icon"
 import "./button.css"
 
 export interface ButtonProps

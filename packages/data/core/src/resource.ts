@@ -21,7 +21,7 @@ export const Resource = {
     },
   },
   DataDatabase: {
-    database: "xccode-stats",
+    database: "xiaochuan-stats",
     port: 3306,
     get host() {
       return required("DATA_DATABASE_HOST")

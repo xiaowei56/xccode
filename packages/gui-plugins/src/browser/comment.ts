@@ -1,7 +1,7 @@
-import { Browser } from "@xccode/plugin-browser/rpc"
-import { uuid } from "@xccode/util/uuid"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
+import { uuid } from "@xiaochuan/util/uuid"
 import { Schema } from "effect"
-import type { ComposerNote } from "@xccode/plugin/gui"
+import type { ComposerNote } from "@xiaochuan/plugin/gui"
 import type { PaneElement } from "./ipc"
 
 /** A comment on a picked element. The ref is absent once the page navigated. */

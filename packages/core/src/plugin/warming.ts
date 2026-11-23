@@ -1,10 +1,10 @@
 export * as WarmingPlugin from "./warming.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
-import type { SessionHooks } from "@xccode/plugin/effect/session"
-import type { Provider } from "@xccode/schema/provider"
-import type { Session } from "@xccode/schema/session"
-import { ConfigWarming } from "@xccode/schema/config/warming"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import type { SessionHooks } from "@xiaochuan/plugin/effect/session"
+import type { Provider } from "@xiaochuan/schema/provider"
+import type { Session } from "@xiaochuan/schema/session"
+import { ConfigWarming } from "@xiaochuan/schema/config/warming"
 import { Cause, Clock, Data, Deferred, Duration, Effect, FiberMap, Option, Schema, Stream } from "effect"
 import { Config } from "../config.js"
 import { resolveModel } from "./optimize.js"
@@ -37,7 +37,7 @@ const fallbackInterval = Duration.minutes(4)
 const fallbackTTL = Duration.minutes(5)
 
 export const Plugin = define({
-  id: "xccode.warming",
+  id: "xiaochuan.warming",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     // A model's or provider's `cache.warming` overrides the top-level `warming`.

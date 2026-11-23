@@ -1,4 +1,4 @@
-import { Accordion } from "@xccode/ui/accordion"
+import { Accordion } from "@xiaochuan/ui/accordion"
 import { ParentProps } from "solid-js"
 
 export function StickyAccordionHeader(

@@ -1,6 +1,6 @@
 # The plugin contract
 
-This is the reference for the contract between `xccode-native` and its plugins: its messages, what a plugin
+This is the reference for the contract between `xiaochuan-native` and its plugins: its messages, what a plugin
 registers and draws, what each callback may do, and how the host runs a plugin on each carrier. Read [`plugins.md`](plugins.md)
 first. The contract is the crate `crates/plugin-abi`, whose rustdoc documents every type; the host side is
 `crates/plugin`. Paths are relative to `packages/cli-rs`.
@@ -27,7 +27,7 @@ A linked plugin is an `abi::Plugin { id, setup }`, and `setup` is `fn(&mut Setup
 
 Setup registers everything as data, as the same registrations cross to the JS host and come from a Luau VM:
 
-| TypeScript plugin API | `xccode_plugin_abi::Setup` |
+| TypeScript plugin API | `xiaochuan_plugin_abi::Setup` |
 | --- | --- |
 | A keymap layer's commands | `command(Command, run(&dyn Host, input))` ([Commands](#commands)) |
 | A code block renderer | `code_block(language, render(&dyn Read, &Fence) -> Fenced)` |
@@ -183,7 +183,7 @@ the terminal, runs the program, waits, and sets the terminal up again.
 - One program has the terminal at a time, shared with `$EDITOR`. A request while one waits or runs is refused, and so
   is one in a headless TUI or from a plugin disabled before the program started.
 - The program gets the terminal's three standard streams, standard error included, and the signals of the terminal's
-  keys; the TUI gets none (`xccode_util::job`; [`F16-plugin-foreground.md`](../parity/deviations/F16-plugin-foreground.md)).
+  keys; the TUI gets none (`xiaochuan_util::job`; [`F16-plugin-foreground.md`](../parity/deviations/F16-plugin-foreground.md)).
   On Linux and macOS it runs in its own process group, the terminal's foreground group. Ctrl+C and Ctrl+\ signal it
   alone, and Ctrl+Z stops it, which the TUI continues at once, having no shell to hand it to. On Windows the TUI
   ignores Ctrl+C and Ctrl+Break while the program runs, and its standard error is `CONOUT$`. Input it leaves unread
@@ -244,7 +244,7 @@ number of 0 or more, is not drawn, and the claim keeps what it showed.
 
 ## Surfaces
 
-`Setup::surface(v2::Surface)` registers a surface (`xccode_plugin_abi::v2`): a route that fills the page, a slot
+`Setup::surface(v2::Surface)` registers a surface (`xiaochuan_plugin_abi::v2`): a route that fills the page, a slot
 claim that takes its root's layout, a panel, an overlay, or a dialog's body.
 
 **The tree.** A view returns a keyed tree of `v2::Node`: box, text, slot, Markdown, spinner, scroll, diff, input,
@@ -299,7 +299,7 @@ The plugin answers the tree, the content it gave and released, and its memo tabl
 
 ## Panels, overlays and input
 
-Module `xccode_plugin_abi::interact`.
+Module `xiaochuan_plugin_abi::interact`.
 
 - **`Place::Panel(name)`**: `Host::open_panel` shows it beside the session, or full screen. Its view gets
   `SurfaceInput::panel`: its width, whether it is full screen, whether it has the input, and `forced` when the room is
@@ -428,14 +428,14 @@ whether it has an activation, and whether it is slow and at what cost.
 - **Only the host changes the list**: a plugin offers a toggle row and the user picks it.
 - **On the pipe** the read is the host request `{"type": "plugins"}`; the change is not sent.
 
-The plugin manager (`xccode.plugins`, `crates/tui/src/plugins/manager.rs`) is a plugin of this contract: a rich
+The plugin manager (`xiaochuan.plugins`, `crates/tui/src/plugins/manager.rs`) is a plugin of this contract: a rich
 select that follows `on_plugins`, with fetches for the server rows, check and update. While it has failed, the host
 keeps a read-only `/plugins` whose manager row starts it again (`crates/tui/src/plugins/fallback.rs`;
 [`F16-plugin-manager-fallback.md`](../parity/deviations/F16-plugin-manager-fallback.md)).
 
 ## Settings, images and bytes
 
-The diff viewer (`xccode.diffs`, `crates/tui/src/plugins/diffs`) is the largest plugin of this contract: a panel and
+The diff viewer (`xiaochuan.diffs`, `crates/tui/src/plugins/diffs`) is the largest plugin of this contract: a panel and
 a route with one view, cards in a windowed `List` of memoized items, `sticky` headings, `Diff` patches whose hunks are
 anchors, a key layer, an overlay menu and host dialogs. It also uses:
 
@@ -537,8 +537,8 @@ every clone of the waker, waiting for wakes in progress, before `on_dispose` run
 ## The JS host
 
 The JS host (`crates/plugin/src/pipe`) is one Bun process for every TypeScript TUI plugin, found and started as
-[TypeScript plugins](plugins.md#typescript-plugins) describes. The cargo feature `ts` (of `xccode-plugin`,
-`xccode-tui` and `xccode-cli`) gates it, with the compatibility layer and the embedded `host.ts` and `compat.js`.
+[TypeScript plugins](plugins.md#typescript-plugins) describes. The cargo feature `ts` (of `xiaochuan-plugin`,
+`xiaochuan-tui` and `xiaochuan-cli`) gates it, with the compatibility layer and the embedded `host.ts` and `compat.js`.
 
 Bun's `bunfig.toml` holds only `[install] auto = "disable"`, and `--no-install` wins over a user's bunfig. The
 environment allowlist keeps what locates the user, the language, the proxy, the terminal (`TERM`, `TERM_PROGRAM`,
@@ -553,7 +553,7 @@ The JS host loads a directory's TUI module as the TypeScript client does (`packa
 - Each load imports the plugin's modules afresh. A reload's setup runs on a candidate, and the running version answers
   until the candidate's setup returns, and stays if it throws.
 - A missing package fails the load: "it imports the package '<name>', which is not installed with the plugin, and
-  xccode-native installs nothing".
+  xiaochuan-native installs nothing".
 - An npm entry resolves as the TypeScript client's `Npm.resolve` does (`crates/plugin/src/loader/npm.rs`):
   `<cache>/npm/<key>/<newest generation>/node_modules/<name>`, keyed by the spec's text (`name@latest` for a bare
   name). It is not watched.
@@ -565,7 +565,7 @@ The JS host loads a directory's TUI module as the TypeScript client does (`packa
 ### The compatibility layer
 
 `crates/plugin/src/pipe/compat`, bundled into `compat.js` by `script/gen/js-host.ts`, gives setup the TypeScript
-client's context. Imports of `@xccode/plugin/tui`, `solid-js`, `solid-js/store`, `@opentui/solid` (and its JSX
+client's context. Imports of `@xiaochuan/plugin/tui`, `solid-js`, `solid-js/store`, `@opentui/solid` (and its JSX
 runtimes) and `@opentui/core` get the layer's, also from a package's own `node_modules`.
 
 - A slot claim, a route and the session panel are surfaces. Each mount renders the JSX with Solid's universal
@@ -583,7 +583,7 @@ What does not map warns once in a toast and does nothing, or throws in the rende
 first wait; what it and its components register after that arrives as a new manifest, taken as a reload of the
 registrations.
 
-Under `Symbol.for("xccode.carrier")` the context also exposes the carrier itself:
+Under `Symbol.for("xiaochuan.carrier")` the context also exposes the carrier itself:
 
 - `surface(name, place, view, { palette, notify, on, layers, mounts, unmount })`, whose views return contract trees
   (`memo`, `content`, `release`, `visible`, a keep of the root). A view's input has no `changed`: the JS host views
@@ -657,7 +657,7 @@ Its `Host` trait is what every carrier's adapter calls. The TUI implements it on
 `crates/tui/src/plugins/host.rs`, the only code of the crate that sees the TUI.
 
 - **Built-ins.** `Registry::new` takes `Builtin::Plugin(abi::Plugin)`. The TUI's built-ins are in the TypeScript
-  client's order, the diff viewer last. Mermaid and LaTeX come from the binary crate, so `xccode-tui` does not depend
+  client's order, the diff viewer last. Mermaid and LaTeX come from the binary crate, so `xiaochuan-tui` does not depend
   on them, and none of them depends on OpenTUI. The linked host serves every optional feature (`abi::FEATURES`).
 - **Mounts.** `host::slot(tui, parent, path, input, content)` mounts a slot: before, prepend, the host's own content
   (skipped when a claim replaces it), append, after. A `SlotMount` or `RouteMount` syncs with `abi::Changed`, built

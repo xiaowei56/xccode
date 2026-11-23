@@ -1,4 +1,4 @@
-//! A ticket socket authenticates with a query parameter obtained over HTTP with `x-xccode-ticket: 1`. Other sockets
+//! A ticket socket authenticates with a query parameter obtained over HTTP with `x-xiaochuan-ticket: 1`. Other sockets
 //! use `authorization` in the handshake.
 
 use std::future::Future;

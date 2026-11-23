@@ -1,6 +1,6 @@
-import type { IntegrationOAuthMethodRegistration } from "@xccode/plugin/effect/integration"
-import type { SessionRequestKind, SessionTitle } from "@xccode/plugin/effect/session"
-import { isRecord } from "@xccode/util/record"
+import type { IntegrationOAuthMethodRegistration } from "@xiaochuan/plugin/effect/integration"
+import type { SessionRequestKind, SessionTitle } from "@xiaochuan/plugin/effect/session"
+import { isRecord } from "@xiaochuan/util/record"
 import { Clock, Effect, Option, Schema } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { IntegrationConnection } from "../../integration/connection.js"
@@ -10,10 +10,10 @@ import { App } from "../../app.js"
 import { Integration } from "../../integration.js"
 import { Model } from "../../model.js"
 import { Agent } from "../../agent.js"
-import { define } from "@xccode/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 import { Provider } from "../../provider.js"
 import { SessionAffinity } from "../../session/affinity.js"
-import type { Session } from "@xccode/schema/session"
+import type { Session } from "@xiaochuan/schema/session"
 import { SharedCache } from "../../shared-cache.js"
 import { activeCredential, credentialSettings } from "./credential-settings.js"
 import { ProviderRefresh } from "./refresh.js"
@@ -164,7 +164,7 @@ const oauth = (app: App.Info) =>
   }) satisfies IntegrationOAuthMethodRegistration
 
 export const GithubCopilotPlugin = define({
-  id: "xccode.provider.github.copilot",
+  id: "xiaochuan.provider.github.copilot",
   effect: Effect.fn(function* (ctx) {
     const providers = yield* Provider.Service
     const cache = yield* SharedCache.Service
@@ -285,9 +285,9 @@ export const GithubCopilotPlugin = define({
         evt.models.update(item.provider.id, id, (model) => {
           const route = CopilotModels.routeFor(
             model.modelID ?? model.id,
-            model.package === "@xccode/ai/providers/anthropic"
+            model.package === "@xiaochuan/ai/providers/anthropic"
               ? "messages"
-              : model.package === "@xccode/ai/providers/openai"
+              : model.package === "@xiaochuan/ai/providers/openai"
                 ? "responses"
                 : undefined,
             url,

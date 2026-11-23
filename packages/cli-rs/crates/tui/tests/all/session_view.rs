@@ -7,11 +7,11 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 
-use xccode_api::generated::V2Event;
-use xccode_api::memory::{Memory, Route as MemoryRoute};
-use xccode_api::transport::{BoxFuture, Request, Response, Transport};
-use xccode_plugin::abi;
-use xccode_tui::{Deps, Tui};
+use xiaochuan_api::generated::V2Event;
+use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
+use xiaochuan_api::transport::{BoxFuture, Request, Response, Transport};
+use xiaochuan_plugin::abi;
+use xiaochuan_tui::{Deps, Tui};
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
@@ -27,10 +27,10 @@ fn location_at(directory: &str) -> Value {
 
 fn limits(spent: f64) -> Value {
     json!({
-        "workspace": { "id": "wrk_1", "name": "Acme", "usageURL": "https://xccode.ai/console/wrk_1/usage" },
+        "workspace": { "id": "wrk_1", "name": "Acme", "usageURL": "https://xiaochuan.ai/console/wrk_1/usage" },
         "budgets": [{
             "id": "big", "limit": 10, "spent": 0, "scope": "each", "per": "model", "coverage": "models",
-            "models": [{ "providerID": "xccode", "modelID": "big", "name": "Big Pickle", "spent": spent }],
+            "models": [{ "providerID": "xiaochuan", "modelID": "big", "name": "Big Pickle", "spent": spent }],
             "vendors": [], "picked": false, "shared": false, "resetsAt": 1894708800000_i64,
         }],
     })
@@ -40,18 +40,18 @@ fn limits(spent: f64) -> Value {
 fn location_routes(directory: &str, query: Option<&str>, spent: f64) -> Vec<MemoryRoute> {
     let list = |data: Value| json!({ "location": location_at(directory), "data": data });
     let model = json!({
-        "id": "big", "modelID": "big", "providerID": "xccode", "name": "Big Pickle", "status": "active",
+        "id": "big", "modelID": "big", "providerID": "xiaochuan", "name": "Big Pickle", "status": "active",
         "enabled": true, "capabilities": { "tools": true, "input": ["text"], "output": ["text"] },
         "cost": [{ "input": 10.0, "output": 30.0, "cache": { "read": 0, "write": 0 } }],
         "limit": { "context": 200000, "output": 32000 }, "time": { "released": 0 }, "variants": [],
     });
     let provider = json!({
-        "id": "xccode", "name": "Xccode", "integrationID": "xccode", "activation": "auto",
+        "id": "xiaochuan", "name": "Xiaochuan", "integrationID": "xiaochuan", "activation": "auto",
         "package": "@ai-sdk/test",
     });
     let agent = json!({
         "id": "build", "name": "build", "mode": "primary", "hidden": false, "permissions": [],
-        "model": { "providerID": "xccode", "id": "big" },
+        "model": { "providerID": "xiaochuan", "id": "big" },
         "request": { "settings": {}, "headers": {}, "body": {} },
     });
     let routes = [
@@ -88,7 +88,7 @@ fn turns(count: u64) -> Vec<Value> {
                         "time": { "created": created } }),
                 json!({
                     "id": format!("msg_{turn:03}b"), "type": "assistant", "agent": "build",
-                    "model": { "providerID": "xccode", "id": "big" },
+                    "model": { "providerID": "xiaochuan", "id": "big" },
                     "time": { "created": created + 1000, "completed": created + 2000 }, "finish": "stop",
                     "content": [{ "type": "text", "text": format!("Answer {turn} one.\n\nAnswer {turn} two.\n\nAnswer {turn} three.") }],
                 }),
@@ -336,10 +336,10 @@ fn a_catalog_read_inside_the_messages_visitor_loads_after_the_render() {
 
 #[test]
 fn the_sidebar_limit_follows_the_selected_model() {
-    use xccode_local::model_pref::Model;
+    use xiaochuan_local::model_pref::Model;
     let model = |id: &str, name: &str| {
         json!({
-            "id": id, "modelID": id, "providerID": "xccode", "name": name, "status": "active",
+            "id": id, "modelID": id, "providerID": "xiaochuan", "name": name, "status": "active",
             "enabled": true, "capabilities": { "tools": true, "input": ["text"], "output": ["text"] },
             "cost": [{ "input": 10.0, "output": 30.0, "cache": { "read": 0, "write": 0 } }],
             "limit": { "context": 200000, "output": 32000 }, "time": { "released": 0 }, "variants": [],
@@ -355,9 +355,9 @@ fn the_sidebar_limit_follows_the_selected_model() {
     h.wait_for("Running low on Big Pickle");
     h.tui.toasts.dismiss();
     h.wait_for("$5 remaining");
-    h.tui.local.set(&Model::new("xccode", "small"), false);
+    h.tui.local.set(&Model::new("xiaochuan", "small"), false);
     h.wait("the limit to go", || !h.app.text().contains("remaining"));
-    h.tui.local.set(&Model::new("xccode", "big"), false);
+    h.tui.local.set(&Model::new("xiaochuan", "big"), false);
     h.wait_for("$5 remaining");
 }
 
@@ -467,7 +467,7 @@ fn a_credential_change_reads_the_footer_limits_again() {
     assert_eq!(h.limits().len(), 1);
     let event: V2Event = serde_json::from_value(json!({
         "id": "evt_credential", "created": 1, "type": "credential.updated",
-        "data": { "integrationID": "xccode", "credentialID": "credential" },
+        "data": { "integrationID": "xiaochuan", "credentialID": "credential" },
     }))
     .unwrap();
     h.tui.data.apply(&[event]);
@@ -480,7 +480,7 @@ fn a_session_view_lets_go_of_its_settings_listeners() {
     h.wait_for("Answer 30 three.");
     let mounted = h.tui.settings.listener_count();
     for _ in 0..5 {
-        h.tui.navigate(xccode_tui::Route::Home);
+        h.tui.navigate(xiaochuan_tui::Route::Home);
         h.tui.navigate(support::session_route("ses_a"));
         h.settle();
     }

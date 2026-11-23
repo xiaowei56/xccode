@@ -33,7 +33,7 @@ describe("acp error boundary over the wire", () => {
       })
       const unavailable = {
         code: -32603,
-        message: "Internal error: Xccode server is unavailable",
+        message: "Internal error: Xiaochuan server is unavailable",
         data: { errorName: "ServerUnavailable" },
       }
 

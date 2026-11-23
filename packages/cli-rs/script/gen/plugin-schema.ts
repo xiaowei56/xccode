@@ -3,7 +3,7 @@ import { format, resolveConfig } from "prettier"
 
 const root = new URL("../..", import.meta.url).pathname
 const proc = Bun.spawnSync(
-  ["cargo", "run", "-q", "-p", "xccode-plugin-abi", "--example", "schema"],
+  ["cargo", "run", "-q", "-p", "xiaochuan-plugin-abi", "--example", "schema"],
   { cwd: root, stdout: "pipe", stderr: "inherit" },
 )
 if (proc.exitCode !== 0) process.exit(proc.exitCode ?? 1)

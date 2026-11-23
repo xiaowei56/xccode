@@ -1,8 +1,8 @@
 export * as InstancePlugins from "./instance.js"
 
-import type { Plugin } from "@xccode/plugin/effect/plugin"
+import type { Plugin } from "@xiaochuan/plugin/effect/plugin"
 import { Context, Layer } from "effect"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import type { Generation } from "../plugin.js"
 
 /**
@@ -22,7 +22,7 @@ export interface Interface {
   readonly all: () => readonly Generation[]
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/InstancePlugins") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/InstancePlugins") {}
 
 export const node = makeLocationNode({
   service: Service,

@@ -44,7 +44,7 @@ for (const reasoningDefaultOpen of [false, true]) {
       await expect(group.locator('[data-slot="context-tool-group-item"]')).toHaveText([
         /Read.*group\.ts/,
         /Thought/,
-        /Loaded.*xccode.*frontend-design.*skills/,
+        /Loaded.*xiaochuan.*frontend-design.*skills/,
         /Thought/,
         /Loaded.*rtl-aware-development.*skill/,
       ])
@@ -69,7 +69,7 @@ for (const reasoningDefaultOpen of [false, true]) {
       await expect(group.locator('[data-slot="context-tool-group-item"]')).toHaveText([
         /Read.*group\.ts/,
         /Thought/,
-        /Loaded.*xccode.*frontend-design.*skills/,
+        /Loaded.*xiaochuan.*frontend-design.*skills/,
         /Thought/,
         /Loaded.*rtl-aware-development.*skill/,
         /Read.*group\.test\.ts/,

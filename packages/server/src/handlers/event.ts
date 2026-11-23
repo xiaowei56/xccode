@@ -1,4 +1,4 @@
-import { Event } from "@xccode/schema/event"
+import { Event } from "@xiaochuan/schema/event"
 import { Effect, Stream } from "effect"
 import { HttpServerResponse } from "effect/http"
 import { HttpApiBuilder } from "effect/http-api"

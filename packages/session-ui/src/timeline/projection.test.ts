@@ -4,7 +4,7 @@ import type {
   SessionMessageAssistant,
   SessionMessageAssistantTool,
   SessionMessageInfo,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import { createStore } from "solid-js/store"
 import {
   createTimelineProjection,

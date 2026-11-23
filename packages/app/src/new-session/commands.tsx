@@ -1,4 +1,4 @@
-import { useDialog } from "@xccode/ui/context/dialog"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
 import { useSettingsCommand } from "@/settings/command"
 import { useCommand } from "@/shell/commands/command"
 import { useLanguage } from "@/runtime/i18n/language"

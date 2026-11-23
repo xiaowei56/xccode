@@ -2,7 +2,7 @@
   Start the minimal interactive interface
 
 [1mUSAGE[0m
-  [36mxccode mini [flags][0m
+  [36mxiaochuan mini [flags][0m
 
 [1mFLAGS[0m
   [32m--continue[0m, [32m-c[0m            Continue the last session

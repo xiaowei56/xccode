@@ -1,9 +1,9 @@
 import { afterEach, expect, test } from "bun:test"
-import { DESKTOP_NATIVE_ENGLISH } from "@xccode/app/i18n/desktop-native"
+import { DESKTOP_NATIVE_ENGLISH } from "@xiaochuan/app/i18n/desktop-native"
 import { jumpList, jumpTask } from "./jump-list"
 import { setNativeTranslations } from "./translations"
 
-const program = "C:\\Program Files\\Xccode\\Xccode.exe"
+const program = "C:\\Program Files\\Xiaochuan\\Xiaochuan.exe"
 
 const tasks = () => jumpList(program).flatMap((category) => category.items ?? [])
 
@@ -15,7 +15,7 @@ test("each task starts the app with a flag that a second instance reads back as 
     ["New Session", "new-session"],
     ["New Window", "new-window"],
   ])
-  expect(jumpTask([program, "xccode://open-project?directory=C:\\repo"])).toBeUndefined()
+  expect(jumpTask([program, "xiaochuan://open-project?directory=C:\\repo"])).toBeUndefined()
 })
 
 test("task titles follow the app language", () => {

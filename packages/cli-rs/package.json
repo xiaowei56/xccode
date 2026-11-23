@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/cli-rs",
+  "name": "@xiaochuan/cli-rs",
   "private": true,
   "type": "module",
   "scripts": {
@@ -24,10 +24,10 @@
     "typecheck:tsc": "tsc --noEmit"
   },
   "devDependencies": {
-    "@xccode/httpapi-codegen": "workspace:*",
-    "@xccode/plugin": "workspace:*",
-    "@xccode/protocol": "workspace:*",
-    "@xccode/tui": "workspace:*",
+    "@xiaochuan/httpapi-codegen": "workspace:*",
+    "@xiaochuan/plugin": "workspace:*",
+    "@xiaochuan/protocol": "workspace:*",
+    "@xiaochuan/tui": "workspace:*",
     "@opentui/core": "catalog:",
     "@opentui/solid": "catalog:",
     "@tsconfig/bun": "catalog:",

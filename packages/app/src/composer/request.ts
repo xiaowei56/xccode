@@ -1,5 +1,5 @@
-import { encodeFilePath, getFilename } from "@xccode/util/path"
-import { parseSessionMention } from "@xccode/util/session-mention"
+import { encodeFilePath, getFilename } from "@xiaochuan/util/path"
+import { parseSessionMention } from "@xiaochuan/util/session-mention"
 import { serializePrompt } from "./prompt-parts"
 import type { FileSelection } from "@/workspaces/files/model"
 import type {

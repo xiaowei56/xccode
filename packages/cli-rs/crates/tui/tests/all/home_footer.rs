@@ -6,9 +6,9 @@ use std::cell::RefCell;
 use std::rc::Rc;
 use std::sync::Arc;
 
-use xccode_api::generated::{SessionID, V2Event};
-use xccode_plugin::abi;
-use xccode_tui::{Deps, Route};
+use xiaochuan_api::generated::{SessionID, V2Event};
+use xiaochuan_plugin::abi;
+use xiaochuan_tui::{Deps, Route};
 use opentui::prelude::*;
 use serde_json::json;
 
@@ -28,7 +28,7 @@ fn status(setup: &mut abi::Setup) -> Result<(), String> {
     Ok(())
 }
 
-fn mount(width: u16, plugins: &[&str], builtins: Vec<xccode_plugin::Builtin>) -> Harness {
+fn mount(width: u16, plugins: &[&str], builtins: Vec<xiaochuan_plugin::Builtin>) -> Harness {
     let servers = json!([
         { "name": "github", "status": { "status": "connected" } },
         { "name": "linear", "status": { "status": "connected" } },
@@ -105,7 +105,7 @@ thread_local! {
 /// A 2.0 surface in `home.footer` whose box holds a label and the `home.footer.status` slot, shown or hidden by its
 /// command `toggle.flip`, which changes nothing else.
 fn toggle(setup: &mut abi::Setup) -> Result<(), String> {
-    use xccode_plugin::abi::v2::{Node, Place, Surface};
+    use xiaochuan_plugin::abi::v2::{Node, Place, Surface};
     setup.command(abi::Command::new("toggle.flip"), |_, _| {
         SHOWN.set(!SHOWN.get());
     });
@@ -123,7 +123,7 @@ fn a_hidden_and_shown_box_keeps_its_nested_claim() {
         abi::Plugin { id: "test.toggle", setup: toggle }.into(),
         abi::Plugin { id: "test.status", setup: status }.into(),
     ];
-    let h = mount(100, &["-xccode.home.footer"], plugins);
+    let h = mount(100, &["-xiaochuan.home.footer"], plugins);
     h.wait_for("label status none");
     h.dispatch("toggle.flip");
     h.wait_gone("label");
@@ -157,7 +157,7 @@ fn a_growing_status_claim_fills_the_footer_row() {
 
 #[test]
 fn a_status_claim_shows_in_the_home_footer_without_the_footer_plugin() {
-    let h = mount(100, &["-xccode.home.footer"], vec![abi::Plugin { id: "test.status", setup: status }.into()]);
+    let h = mount(100, &["-xiaochuan.home.footer"], vec![abi::Plugin { id: "test.status", setup: status }.into()]);
     h.wait_for("status none");
     assert!(!h.app.text().contains("2 MCP"), "{}", h.app.text());
 }
@@ -218,7 +218,7 @@ fn a_session_toast_without_a_title_takes_the_sessions() {
     let known = || h.tui.data.read(|state| state.session(&SessionID("ses_a".to_owned())).is_some());
     h.wait("the session", known);
     h.tui.navigate(Route::Home);
-    xccode_plugin::Host::toast(
+    xiaochuan_plugin::Host::toast(
         &*h.tui,
         &abi::Toast::new(abi::Variant::Info, "Finished background job").session("ses_a"),
     );

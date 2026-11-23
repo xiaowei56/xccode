@@ -4,11 +4,11 @@ import {
   parseThemeDocument,
   type ThemeDocument,
   type ModeDefinition,
-} from "@xccode/theme/tui"
+} from "@xiaochuan/theme/tui"
 import { resolveThemeColors } from "./resolve"
 import { DEFAULT_THEMES, type Theme, type ThemeV1Json } from "./v1"
-import xccodeClassic from "./assets/v2/xccode-classic.json" with { type: "json" }
-import xccode from "./assets/v2/xccode.json" with { type: "json" }
+import xiaochuanClassic from "./assets/v2/xiaochuan-classic.json" with { type: "json" }
+import xiaochuan from "./assets/v2/xiaochuan.json" with { type: "json" }
 
 export { DEFAULT_THEMES, type Theme, type ThemeV1Json } from "./v1"
 
@@ -22,32 +22,32 @@ type BothModes = ThemeDocument & {
   readonly light: ModeDefinition
   readonly dark: ModeDefinition
 }
-let xccodeTheme: BothModes | undefined
-let xccodeClassicTheme: BothModes | undefined
+let xiaochuanTheme: BothModes | undefined
+let xiaochuanClassicTheme: BothModes | undefined
 
-/** The default "xccode" theme. */
-export function getXccodeTheme() {
-  xccodeTheme ??= parseThemeDocument(xccode, "xccode") as BothModes
-  return xccodeTheme
+/** The default "xiaochuan" theme. */
+export function getXiaochuanTheme() {
+  xiaochuanTheme ??= parseThemeDocument(xiaochuan, "xiaochuan") as BothModes
+  return xiaochuanTheme
 }
 
-/** The previous "xccode" theme, offered as "xccode-classic". */
-export function getXccodeClassicTheme() {
-  xccodeClassicTheme ??= parseThemeDocument(xccodeClassic, "xccode-classic") as BothModes
-  return xccodeClassicTheme
+/** The previous "xiaochuan" theme, offered as "xiaochuan-classic". */
+export function getXiaochuanClassicTheme() {
+  xiaochuanClassicTheme ??= parseThemeDocument(xiaochuanClassic, "xiaochuan-classic") as BothModes
+  return xiaochuanClassicTheme
 }
 
 function listThemes(): Record<string, ThemeDocumentSource> {
   // Priority: defaults < custom files < generated system.
   const themes: Record<string, ThemeDocumentSource> = {
     ...DEFAULT_THEMES,
-    xccode: getXccodeTheme(),
-    "xccode-classic": getXccodeClassicTheme(),
+    xiaochuan: getXiaochuanTheme(),
+    "xiaochuan-classic": getXiaochuanClassicTheme(),
     ...customThemes,
   }
   return {
     ...themes,
-    system: systemTheme ?? themes.system ?? themes.xccode,
+    system: systemTheme ?? themes.system ?? themes.xiaochuan,
   }
 }
 

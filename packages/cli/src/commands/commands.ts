@@ -28,7 +28,7 @@ export const Server = GlobalFlag.Setting("server")({
 
 const ServerFlags = [Standalone, Server] as const
 
-declare const XCCODE_CLI_NAME: string | undefined
+declare const XIAOCHUAN_CLI_NAME: string | undefined
 
 const ServerParams = {
   standalone: Standalone.flag,
@@ -69,13 +69,13 @@ const LoginParams = {
   ),
 }
 
-const Root = Spec.make(typeof XCCODE_CLI_NAME === "string" ? XCCODE_CLI_NAME : "xccode", {
-  description: "Xccode command line interface",
+const Root = Spec.make(typeof XIAOCHUAN_CLI_NAME === "string" ? XIAOCHUAN_CLI_NAME : "xiaochuan", {
+  description: "Xiaochuan command line interface",
   params: {
     ...ServerParams,
     ...PermissionParams,
     directory: Argument.String("directory").pipe(
-      Argument.withDescription("Directory to start Xccode in"),
+      Argument.withDescription("Directory to start Xiaochuan in"),
       Argument.optional,
     ),
     continue: Flag.Boolean("continue").pipe(
@@ -92,7 +92,7 @@ const Root = Spec.make(typeof XCCODE_CLI_NAME === "string" ? XCCODE_CLI_NAME : "
   },
   commands: [
     Spec.make("upgrade", {
-      description: "Upgrade Xccode to the latest or a specific version",
+      description: "Upgrade Xiaochuan to the latest or a specific version",
       aliases: ["update"],
       params: {
         target: Argument.String("target").pipe(
@@ -107,7 +107,7 @@ const Root = Spec.make(typeof XCCODE_CLI_NAME === "string" ? XCCODE_CLI_NAME : "
       },
     }),
     Spec.make("uninstall", {
-      description: "Uninstall Xccode, keeping session data, configuration, and state",
+      description: "Uninstall Xiaochuan, keeping session data, configuration, and state",
       params: {
         dryRun: Flag.Boolean("dry-run").pipe(
           Flag.withDescription("Show what would be removed without removing"),
@@ -417,7 +417,7 @@ const Root = Spec.make(typeof XCCODE_CLI_NAME === "string" ? XCCODE_CLI_NAME : "
       },
     }),
     Spec.make("run", {
-      description: "Run Xccode with a message",
+      description: "Run Xiaochuan with a message",
       globalFlags: ServerFlags,
       params: {
         message: Argument.String("message").pipe(

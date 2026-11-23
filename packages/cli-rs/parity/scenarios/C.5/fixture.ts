@@ -29,9 +29,9 @@ export const integrations = [
     connections: [{ type: "env", name: "ANTHROPIC_API_KEY" }],
   },
   {
-    id: "xccode-go",
-    name: "Xccode Go",
-    methods: [{ type: "key", label: "Xccode Go key" }],
+    id: "xiaochuan-go",
+    name: "Xiaochuan Go",
+    methods: [{ type: "key", label: "Xiaochuan Go key" }],
     connections: [],
   },
   {
@@ -146,7 +146,7 @@ export const oauthRoutes = (integrationID: string, mode: "auto" | "code" = "auto
       location,
       data: {
         attemptID: "att_test0001",
-        url: "https://auth.example.test/authorize?client=xccode",
+        url: "https://auth.example.test/authorize?client=xiaochuan",
         instructions: "Sign in with your browser",
         mode,
         time,

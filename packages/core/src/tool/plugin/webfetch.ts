@@ -1,7 +1,7 @@
 export * as WebFetchTool from "./webfetch.js"
 
-import type { Context } from "@xccode/plugin/effect/plugin"
-import { ToolFailure } from "@xccode/ai/effect"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
+import { ToolFailure } from "@xiaochuan/ai/effect"
 import { Duration, Effect, Schema } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientError, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { Parser } from "htmlparser2"
@@ -54,8 +54,8 @@ const headers = (format: Format, userAgent: string) => ({
   "Accept-Language": "en-US,en;q=0.9",
 })
 
-const xccodeUserAgent =
-  "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; Xccode-User/1.0; +https://xccode.ai"
+const xiaochuanUserAgent =
+  "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; Xiaochuan-User/1.0; +https://xiaochuan.ai"
 
 const isCloudflareChallenge = (error: unknown) => {
   if (!HttpClientError.isHttpClientError(error) || error.reason._tag !== "StatusCodeError") return false
@@ -63,7 +63,7 @@ const isCloudflareChallenge = (error: unknown) => {
   return response.status === 403 && response.headers["cf-mitigated"] === "challenge"
 }
 
-const request = (url: string, format: Format, userAgent = xccodeUserAgent) =>
+const request = (url: string, format: Format, userAgent = xiaochuanUserAgent) =>
   HttpClientRequest.get(url).pipe(HttpClientRequest.setHeaders(headers(format, userAgent)))
 
 const assertHttpUrl = (url: URL) => {
@@ -81,7 +81,7 @@ const execute = (
   check: (url: string) => Effect.Effect<void, Error>,
   url: string,
   format: Format,
-  userAgent = xccodeUserAgent,
+  userAgent = xiaochuanUserAgent,
   redirects = 0,
 ): Effect.Effect<HttpClientResponse.HttpClientResponse, Error> =>
   http.execute(request(url, format, userAgent)).pipe(
@@ -124,7 +124,7 @@ const convert = (content: string, contentType: string, format: Format) => {
 }
 
 export const Plugin = {
-  id: "xccode.tool.webfetch",
+  id: "xiaochuan.tool.webfetch",
   effect: Effect.fn("WebFetchTool.Plugin")(function* (ctx: Context) {
     const http = yield* HttpClient.HttpClient
     const permission = yield* Permission.Service
@@ -164,7 +164,7 @@ export const Plugin = {
                     ...Permission.invocation(context),
                   })
                 const response = yield* execute(http, check, url, input.format).pipe(
-                  Effect.catchIf(isCloudflareChallenge, () => execute(http, check, url, input.format, "xccode")),
+                  Effect.catchIf(isCloudflareChallenge, () => execute(http, check, url, input.format, "xiaochuan")),
                 )
                 const contentType = response.headers["content-type"] || ""
                 const mime = mimeFrom(contentType)

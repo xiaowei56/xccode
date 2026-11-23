@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "मेमोरी डायग्नोस्टिक्स: हर 30 सेकंड में ऐप की मेमोरी को डेस्कटॉप लॉग में दर्ज करें। बंद करने तक पुनः आरंभ के बाद भी चालू रहता है; चलते समय बार खुला रहता है।",
-  "memory.tipEnv": "इस लॉन्च के लिए मेमोरी डायग्नोस्टिक्स चालू हैं: XCCODE_DESKTOP_MEMORY_LOG सेट है।",
+  "memory.tipEnv": "इस लॉन्च के लिए मेमोरी डायग्नोस्टिक्स चालू हैं: XIAOCHUAN_DESKTOP_MEMORY_LOG सेट है।",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

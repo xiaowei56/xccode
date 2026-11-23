@@ -59,7 +59,7 @@ pub fn private_file(dir: &Path, len: usize) -> io::Result<File> {
     static NEXT: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
     for _ in 0..16 {
         let unique = format!(
-            "xccode-plugins-{}-{}-{}.run",
+            "xiaochuan-plugins-{}-{}-{}.run",
             std::process::id(),
             std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap_or_default().as_nanos(),
             NEXT.fetch_add(1, std::sync::atomic::Ordering::Relaxed)

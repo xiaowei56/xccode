@@ -1,4 +1,4 @@
-import type { SessionRef } from "@xccode/plugin/gui"
+import type { SessionRef } from "@xiaochuan/plugin/gui"
 
 /**
  * Whether a prompt to the session could gain anything by waiting for this desktop to attach to it. It could not when

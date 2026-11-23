@@ -3,9 +3,9 @@ import { Title } from "@solidjs/meta"
 import { useParams } from "@solidjs/router"
 import { createStore } from "solid-js/store"
 import { makeEventListener } from "@solid-primitives/event-listener"
-import { DataProvider } from "@xccode/session-ui/context"
-import { SessionUserMessage } from "@xccode/session-ui/message"
-import { TextShimmer } from "@xccode/ui/text-shimmer"
+import { DataProvider } from "@xiaochuan/session-ui/context"
+import { SessionUserMessage } from "@xiaochuan/session-ui/message"
+import { TextShimmer } from "@xiaochuan/ui/text-shimmer"
 import { CommentsProvider } from "@/composer/comments"
 import { readPromptPresentation } from "@/composer/comment-note"
 import { FileProvider } from "@/workspaces/files/model"
@@ -291,7 +291,7 @@ function SessionDocumentTitle(props: { title: () => string | undefined }) {
   // Keyed: <Title> reads its text inside a meta effect, which would hit a stale Show accessor once the session is deleted.
   return (
     <Show when={props.title()} keyed>
-      {(value) => <Title>{`${value} · Xccode`}</Title>}
+      {(value) => <Title>{`${value} · Xiaochuan`}</Title>}
     </Show>
   )
 }

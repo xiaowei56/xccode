@@ -2,7 +2,7 @@
   List plugins
 
 [1mUSAGE[0m
-  [36mxccode plugin list [flags][0m
+  [36mxiaochuan plugin list [flags][0m
 
 [1mFLAGS[0m
   [32m--builtin[0m    Include built-in server plugins

@@ -2,9 +2,9 @@ import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { dialog } from "electron"
 import { Effect, Exit, Schema, Scope } from "effect"
-import { builtinMainContext } from "@xccode/plugin/gui/builtin"
-import { MenubarItem, type Plugin } from "@xccode/plugin/gui/main"
-import { Updater } from "@xccode/plugin/gui/updater"
+import { builtinMainContext } from "@xiaochuan/plugin/gui/builtin"
+import { MenubarItem, type Plugin } from "@xiaochuan/plugin/gui/main"
+import { Updater } from "@xiaochuan/plugin/gui/updater"
 import { logContext } from "./log"
 import { make } from "./machine"
 
@@ -13,7 +13,7 @@ const setup: Plugin.MainSetup = async (ctx) => {
   const build = ctx.app
   const lifecycle = builtin.lifecycle
   // electron-updater reads its feed from app-update.yml. Distro packages that update the app themselves (such as the
-  // AUR's xccode-desktop-bin) delete it, and every check would then fail.
+  // AUR's xiaochuan-desktop-bin) delete it, and every check would then fail.
   const enabled = build.packaged && existsSync(join(process.resourcesPath, "app-update.yml"))
   // Holds no resources, so it needs no cleanup.
   const context = logContext(ctx.log.write)
@@ -26,7 +26,7 @@ const setup: Plugin.MainSetup = async (ctx) => {
   const ready = builtin.storage.store("ready", {
     schema: Schema.NullOr(Schema.Struct({ version: Schema.String })),
     initial: null,
-    from: { settings: "ready", file: "xccode.updater" },
+    from: { settings: "ready", file: "xiaochuan.updater" },
   })
 
   // electron-updater loads only in packaged builds with a feed, after the first window is up.

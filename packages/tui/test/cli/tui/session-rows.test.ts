@@ -1,8 +1,8 @@
 import { expect, test } from "bun:test"
-import type { SessionMessageAssistant, SessionMessageInfo } from "@xccode/client"
+import type { SessionMessageAssistant, SessionMessageInfo } from "@xiaochuan/client"
 import { createMemo, createRoot } from "solid-js"
 import { createStore } from "solid-js/store"
-import { SessionTurn } from "@xccode/util/session-turn"
+import { SessionTurn } from "@xiaochuan/util/session-turn"
 import {
   cacheReuseDrop,
   messageBoundaryIDs,
@@ -515,7 +515,7 @@ test("places a running compaction barrier before every queued user message", () 
 })
 
 test("shows an execution failure that happened before any step", () => {
-  const unavailable = { type: "provider.no-route", message: "Model unavailable: xccode/gpt-5.5" }
+  const unavailable = { type: "provider.no-route", message: "Model unavailable: xiaochuan/gpt-5.5" }
 
   expect(
     reduceSessionRows([

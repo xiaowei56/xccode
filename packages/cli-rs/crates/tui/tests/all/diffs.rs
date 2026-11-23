@@ -7,11 +7,11 @@ use std::rc::Rc;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_api::generated::SessionID;
-use xccode_api::memory::{Memory, Route as MemoryRoute};
-use xccode_plugin::reconcile;
-use xccode_store::SessionStatus;
-use xccode_tui::{Deps, Route};
+use xiaochuan_api::generated::SessionID;
+use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
+use xiaochuan_plugin::reconcile;
+use xiaochuan_store::SessionStatus;
+use xiaochuan_tui::{Deps, Route};
 use opentui::prelude::{MouseButton, MouseEventKind};
 use serde_json::{Value, json};
 
@@ -108,14 +108,14 @@ impl Diffs {
         self.app.mouse(MouseEventKind::Down(MouseButton::Right), x, y as u16);
         self.wait_for("Mark complete");
         // The menu is the plugin's overlay, which holds the focus: the viewer's keys wait.
-        assert_ne!(xccode_plugin::interact::ledger(&*xccode_tui::plugins::host::host(&self.tui)).overlays, 0);
+        assert_ne!(xiaochuan_plugin::interact::ledger(&*xiaochuan_tui::plugins::host::host(&self.tui)).overlays, 0);
     }
 
     fn assert_menu_closed(&self) {
         self.app.advance(Duration::from_millis(1));
         let screen = self.app.text();
         assert!(!screen.contains("Mark complete"), "the menu stayed:\n{screen}");
-        assert_eq!(xccode_plugin::interact::ledger(&*xccode_tui::plugins::host::host(&self.tui)).overlays, 0);
+        assert_eq!(xiaochuan_plugin::interact::ledger(&*xiaochuan_tui::plugins::host::host(&self.tui)).overlays, 0);
     }
 
     fn diff_reads(&self) -> usize {
@@ -151,7 +151,7 @@ impl Diffs {
     /// Wait for the requested diff to become visible; observing a request alone does not guarantee the reply has
     /// rendered.
     fn reloaded(&self, before: usize) {
-        let held = || xccode_plugin::surface::ledger_of("xccode.diffs").content_bytes;
+        let held = || xiaochuan_plugin::surface::ledger_of("xiaochuan.diffs").content_bytes;
         let landed = self
             .app
             .wait_until(support::WAIT, || self.diff_reads() > before && self.memory.in_flight() == 0 && held() > 0);
@@ -326,7 +326,7 @@ fn the_viewer_runs_over_files_of_every_status() {
     h.wait_for("Review");
     h.tui.keymap.dispatch("diff.open", None);
     let found = h.app.wait_until(support::WAIT, || h.app.text().contains("README.md"));
-    let failed: Vec<_> = h.tui.plugins.entries().into_iter().filter(|entry| entry.id == "xccode.diffs").collect();
+    let failed: Vec<_> = h.tui.plugins.entries().into_iter().filter(|entry| entry.id == "xiaochuan.diffs").collect();
     assert!(found, "{failed:?}\n{}", h.app.text());
 }
 
@@ -561,7 +561,7 @@ fn the_file_menu_opens_on_the_right_button_down() {
 #[test]
 fn the_route_opens_from_home_and_goes_back() {
     let h = route(1, 4, 120, 30);
-    assert_eq!(h.tui.route(), Route::Plugin { id: "xccode.diffs".into(), name: "diff".into() });
+    assert_eq!(h.tui.route(), Route::Plugin { id: "xiaochuan.diffs".into(), name: "diff".into() });
     h.keys(&["q"]);
     h.wait("the route did not go back home", || h.tui.route() == Route::Home);
 }
@@ -586,8 +586,8 @@ fn the_docked_panel_takes_the_keys_only_with_the_focus() {
 
 #[test]
 fn ctrl_c_closes_one_level_of_the_viewer() {
-    let stats = Route::Plugin { id: "xccode.stats".into(), name: "stats".into() };
-    let diff = Route::Plugin { id: "xccode.diffs".into(), name: "diff".into() };
+    let stats = Route::Plugin { id: "xiaochuan.stats".into(), name: "stats".into() };
+    let diff = Route::Plugin { id: "xiaochuan.diffs".into(), name: "diff".into() };
     for rebound in [false, true] {
         let h = match rebound {
             false => mount_with(Route::Home, json!([hunk_file(0, 4)]), 120, 30),
@@ -635,8 +635,8 @@ fn a_setting_saves_only_what_it_takes() {
     let h = route(2, 4, 140, 30);
     h.keys(&["v"]);
     h.wait("the view was not saved", || diffs_setting(&h)["view"] == "unified");
-    let setup = |setup: &mut xccode_plugin::abi::Setup| {
-        let command = xccode_plugin::abi::Command::new("probe.set");
+    let setup = |setup: &mut xiaochuan_plugin::abi::Setup| {
+        let command = xiaochuan_plugin::abi::Command::new("probe.set");
         setup.command(command, |host, _| {
             host.set_setting("diffs.view", json!("sideways"));
             host.set_setting("diffs.tree", json!("yes"));
@@ -644,7 +644,7 @@ fn a_setting_saves_only_what_it_takes() {
         });
         Ok(())
     };
-    xccode_tui::plugins::host::add(&h.tui, xccode_plugin::abi::Plugin { id: "probe", setup }.into());
+    xiaochuan_tui::plugins::host::add(&h.tui, xiaochuan_plugin::abi::Plugin { id: "probe", setup }.into());
     h.dispatch("probe.set");
     h.settle();
     assert_eq!(diffs_setting(&h)["view"], "unified");
@@ -838,7 +838,7 @@ fn a_turn_too_short_to_see_running_loads_the_diff_again() {
 #[test]
 fn a_mark_after_a_wheel_step_keeps_the_other_cards() {
     let h = route(100, 4, 120, 30);
-    let entries = || xccode_plugin::surface::ledger_of("xccode.diffs").memo_entries;
+    let entries = || xiaochuan_plugin::surface::ledger_of("xiaochuan.diffs").memo_entries;
     let before = entries();
     h.app.scroll(80, 10, true);
     h.settle();
@@ -917,11 +917,11 @@ fn an_image_the_host_cannot_decode_says_so() {
 
 #[test]
 fn the_image_preview_ends_with_the_viewer() {
-    let png = xccode_plugin::abi::base64::decode(
+    let png = xiaochuan_plugin::abi::base64::decode(
         "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAIAAAA8r+mnAAAAFUlEQVR42mO4Y2MDRzZRd+CIgXoSAKBcLGFZ7ECVAAAAAElFTkSuQmCC",
     )
     .unwrap();
-    let preview = Some("xccode.diffs/images".to_owned());
+    let preview = Some("xiaochuan.diffs/images".to_owned());
     for replaced in [false, true] {
         let h = image_route(png.clone());
         // The image is read after the route draws: "Loading image…" until it comes.
@@ -934,8 +934,8 @@ fn the_image_preview_ends_with_the_viewer() {
             h.wait("help did not replace the preview", || h.tui.dialogs.key() != preview);
         }
         let open = h.tui.dialogs.key();
-        let host = xccode_tui::plugins::host::host(&h.tui);
-        assert!(h.tui.plugins.set_active(&host, "xccode.diffs", false));
+        let host = xiaochuan_tui::plugins::host::host(&h.tui);
+        assert!(h.tui.plugins.set_active(&host, "xiaochuan.diffs", false));
         h.settle();
         assert_eq!(h.tui.dialogs.is_open(), replaced);
         assert_eq!(h.tui.dialogs.key(), if replaced { open } else { None });
@@ -986,7 +986,7 @@ fn the_docked_file_menu_takes_the_input() {
 
 #[test]
 fn a_remount_keeps_the_viewer_and_its_way_back() {
-    let stats = Route::Plugin { id: "xccode.stats".into(), name: "stats".into() };
+    let stats = Route::Plugin { id: "xiaochuan.stats".into(), name: "stats".into() };
     let h = mount_with(Route::Home, json!([hunk_file(0, 4)]), 120, 30);
     h.wait_for("/project");
     h.tui.navigate(stats.clone());
@@ -995,7 +995,7 @@ fn a_remount_keeps_the_viewer_and_its_way_back() {
     h.wait_for("≡ f0000.rs");
     h.keys(&["m"]);
     h.wait_for("1/1");
-    xccode_plugin::Host::remount(&*h.tui);
+    xiaochuan_plugin::Host::remount(&*h.tui);
     h.wait_for("≡ f0000.rs");
     assert!(h.settle().contains("1/1"), "the remount lost the mark:\n{}", h.app.text());
     h.keys(&["q"]);
@@ -1021,26 +1021,26 @@ fn the_viewers_dialogs_end_with_it() {
 #[test]
 fn a_plugin_image_preview_is_bounded_and_keyed() {
     let h = route(1, 4, 120, 30);
-    let setup = |setup: &mut xccode_plugin::abi::Setup| {
-        let command = |name: &str| xccode_plugin::abi::Command::new(name);
+    let setup = |setup: &mut xiaochuan_plugin::abi::Setup| {
+        let command = |name: &str| xiaochuan_plugin::abi::Command::new(name);
         let images = |data: String| {
-            abi_dialog_images(xccode_plugin::abi::Images::new(vec![xccode_plugin::abi::Image::new(data)]))
+            abi_dialog_images(xiaochuan_plugin::abi::Images::new(vec![xiaochuan_plugin::abi::Image::new(data)]))
         };
         setup.command(command("probe.huge"), move |host, _| {
             let mut huge = b"\x89PNG\r\n\x1a\n\0\0\0\x0dIHDR".to_vec();
             huge.extend(5000u32.to_be_bytes().into_iter().chain(5000u32.to_be_bytes()));
-            host.dialog(images(xccode_plugin::abi::base64::encode(&huge)))
+            host.dialog(images(xiaochuan_plugin::abi::base64::encode(&huge)))
         });
         setup.command(command("probe.png"), move |host, _| {
             let png = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAIAAAA8r+mnAAAAFUlEQVR42mO4Y2MDRzZRd+CIgXoSAKBcLGFZ7ECVAAAAAElFTkSuQmCC";
             host.dialog(images(png.to_owned()))
         });
         setup.command(command("probe.close"), |host, _| {
-            host.dialog(xccode_plugin::abi::Dialog::Close { key: "images".into() })
+            host.dialog(xiaochuan_plugin::abi::Dialog::Close { key: "images".into() })
         });
         Ok(())
     };
-    xccode_tui::plugins::host::add(&h.tui, xccode_plugin::abi::Plugin { id: "probe", setup }.into());
+    xiaochuan_tui::plugins::host::add(&h.tui, xiaochuan_plugin::abi::Plugin { id: "probe", setup }.into());
     h.dispatch("probe.huge");
     h.settle();
     assert!(!h.tui.dialogs.is_open(), "an image past the host's bounds opened a preview");
@@ -1050,8 +1050,8 @@ fn a_plugin_image_preview_is_bounded_and_keyed() {
     h.wait("Dialog::Close did not close the preview", || !h.tui.dialogs.is_open());
 }
 
-fn abi_dialog_images(images: xccode_plugin::abi::Images) -> xccode_plugin::abi::Dialog {
-    xccode_plugin::abi::Dialog::Images(images)
+fn abi_dialog_images(images: xiaochuan_plugin::abi::Images) -> xiaochuan_plugin::abi::Dialog {
+    xiaochuan_plugin::abi::Dialog::Images(images)
 }
 
 thread_local! {
@@ -1060,10 +1060,10 @@ thread_local! {
 
 #[test]
 fn a_plugins_binds_take_what_they_may() {
-    use xccode_plugin::abi::interact::{Bind, Handled, Layer, LayerScope};
+    use xiaochuan_plugin::abi::interact::{Bind, Handled, Layer, LayerScope};
     let h = mount_config(Route::Home, json!({ "keybinds": { "diff.next_hunk": "none" } }));
     h.wait_for("/project");
-    let setup = |setup: &mut xccode_plugin::abi::Setup| {
+    let setup = |setup: &mut xiaochuan_plugin::abi::Setup| {
         let keys = vec![
             Bind::command("diff.next_hunk", "none").key("f8"),
             Bind::command("plugins.list", "steal"),
@@ -1071,14 +1071,14 @@ fn a_plugins_binds_take_what_they_may() {
             Bind::new("f9", "kept"),
         ];
         setup.layer(Layer::default().scope(LayerScope::Global).priority(10).keys(keys), |_, event| {
-            if let xccode_plugin::abi::interact::Event::Key(key) = event {
+            if let xiaochuan_plugin::abi::interact::Event::Key(key) = event {
                 HEARD.with(|heard| heard.borrow_mut().push(key.bind.clone().unwrap_or_default()));
             }
             Handled::Consume
         });
         Ok(())
     };
-    xccode_tui::plugins::host::add(&h.tui, xccode_plugin::abi::Plugin { id: "probe", setup }.into());
+    xiaochuan_tui::plugins::host::add(&h.tui, xiaochuan_plugin::abi::Plugin { id: "probe", setup }.into());
     h.settle();
     h.keys(&["f8", "f9"]);
     h.tui.keymap.dispatch("plugins.list", None);
@@ -1093,10 +1093,10 @@ thread_local! {
 
 #[test]
 fn a_select_and_a_panel_shown_again_show_their_new_fields() {
-    use xccode_plugin::abi::{Action, Dialog, Panel, PanelSize, Select, SelectOption, Span};
+    use xiaochuan_plugin::abi::{Action, Dialog, Panel, PanelSize, Select, SelectOption, Span};
     let h = route(1, 4, 120, 30);
-    let setup = |setup: &mut xccode_plugin::abi::Setup| {
-        let command = |name: &str| xccode_plugin::abi::Command::new(name);
+    let setup = |setup: &mut xiaochuan_plugin::abi::Setup| {
+        let command = |name: &str| xiaochuan_plugin::abi::Command::new(name);
         setup.command(command("probe.select"), |host, _| {
             let second = SECOND.with(Cell::get);
             let options = if second { Vec::new() } else { vec![SelectOption::new("row one", "one")] };
@@ -1111,14 +1111,14 @@ fn a_select_and_a_panel_shown_again_show_their_new_fields() {
         setup.command(command("probe.panel"), |host, _| {
             let second = SECOND.with(Cell::get);
             host.dialog(Dialog::Panel(
-                Panel::new("info", vec![Span::new("Info")], xccode_plugin::abi::Node::text([Span::new("body")]))
+                Panel::new("info", vec![Span::new("Info")], xiaochuan_plugin::abi::Node::text([Span::new("body")]))
                     .size(PanelSize::Medium)
                     .close(if second { "shut B" } else { "shut A" }),
             ));
         });
         Ok(())
     };
-    xccode_tui::plugins::host::add(&h.tui, xccode_plugin::abi::Plugin { id: "probe", setup }.into());
+    xiaochuan_tui::plugins::host::add(&h.tui, xiaochuan_plugin::abi::Plugin { id: "probe", setup }.into());
     SECOND.with(|second| second.set(false));
     h.dispatch("probe.select");
     h.wait_for("row one");
@@ -1176,14 +1176,14 @@ fn every_end_of_a_turn_loads_last_turn_again_and_a_shutdown_does_not() {
     assert!(reloads(&h, &[("server.connected", json!({}))]), "a reconnect did not load the turn it lost");
     assert!(!reloads(&h, &[("server.connected", json!({}))]), "a reconnect loaded with no turn running");
     // Posted to the UI as the pump posts signals, so the start is heard before the skip.
-    let started: xccode_api::generated::V2Event = serde_json::from_value(json!({
+    let started: xiaochuan_api::generated::V2Event = serde_json::from_value(json!({
         "id": "evt_lagged", "created": 99, "type": "session.execution.started",
         "durable": { "aggregateID": "ses_a", "seq": 99, "version": 1 }, "data": { "sessionID": "ses_a" },
     }))
     .unwrap();
-    xccode_tui::features::events::testing::signal(&h.tui, started);
+    xiaochuan_tui::features::events::testing::signal(&h.tui, started);
     let reads = h.diff_reads();
-    xccode_tui::features::events::testing::lagged(&h.tui);
+    xiaochuan_tui::features::events::testing::lagged(&h.tui);
     h.wait("skipped signals did not load the turn again", || h.diff_reads() > reads);
 }
 
@@ -1261,7 +1261,7 @@ fn reloads_release_the_content_of_the_load_before() {
     h.wait_for("Review");
     h.tui.keymap.dispatch("diff.open", None);
     h.wait_for("src/main.rs");
-    let held = || xccode_plugin::surface::ledger_of("xccode.diffs").content_bytes;
+    let held = || xiaochuan_plugin::surface::ledger_of("xiaochuan.diffs").content_bytes;
     let reads = h.diff_reads();
     h.turn();
     h.reloaded(reads);
@@ -1287,7 +1287,7 @@ fn a_reload_holds_no_content_until_its_reply_lands() {
     h.wait_for("Review");
     h.tui.keymap.dispatch("diff.open", None);
     h.wait_for("src/main.rs");
-    let held = || xccode_plugin::surface::ledger_of("xccode.diffs").content_bytes;
+    let held = || xiaochuan_plugin::surface::ledger_of("xiaochuan.diffs").content_bytes;
     h.reloaded(0);
     let first = held();
     assert!(first > 0, "the first load holds no content");

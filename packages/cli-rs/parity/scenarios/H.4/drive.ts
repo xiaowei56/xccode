@@ -1,16 +1,16 @@
-// H.4 proof: sends the same simulation UI requests to the TS and the Rust `XCCODE_DRIVE` endpoints, checks
+// H.4 proof: sends the same simulation UI requests to the TS and the Rust `XIAOCHUAN_DRIVE` endpoints, checks
 // every response against the protocol schema (`packages/protocol/src/simulation.ts`), and compares the captures.
 //
 //   bun run parity/scenarios/H.4/drive.ts
 //
-// One TS server runs in simulation mode (`XCCODE_SIMULATE=1`) in a fresh sandbox home, never the user's service.
+// One TS server runs in simulation mode (`XIAOCHUAN_SIMULATE=1`) in a fresh sandbox home, never the user's service.
 // Each client runs headless against it with its own drive manifest. Captures go to `parity/out/H.4/` (ignored by git).
-// Build the Rust binary first (`cargo build -p xccode-cli --bin xccode-native`) or set XCCODE_RS_BIN.
+// Build the Rust binary first (`cargo build -p xiaochuan-cli --bin xiaochuan-native`) or set XIAOCHUAN_RS_BIN.
 
 import { mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { Schema } from "effect"
-import { Frontend, Handshake } from "@xccode/protocol/simulation"
+import { Frontend, Handshake } from "@xiaochuan/protocol/simulation"
 import { buildRust, command, parityRoot, sandbox, type Side } from "../../cli/client"
 import { freePort } from "../../lib/port"
 import { connectDrive } from "../../sim/drive"
@@ -61,10 +61,10 @@ const steps: Step[] = [
   { method: "ui.state", result: Frontend.State },
 ]
 
-const box = await sandbox({ XCCODE_PASSWORD: password })
-await mkdir(path.join(box.env.XDG_CONFIG_HOME, "xccode"), { recursive: true })
+const box = await sandbox({ XIAOCHUAN_PASSWORD: password })
+await mkdir(path.join(box.env.XDG_CONFIG_HOME, "xiaochuan"), { recursive: true })
 await writeFile(
-  path.join(box.env.XDG_CONFIG_HOME, "xccode", "cli.json"),
+  path.join(box.env.XDG_CONFIG_HOME, "xiaochuan", "cli.json"),
   // The TS CLI from source is the `local` channel, which shows the DevTools bar by default.
   JSON.stringify({ experimental: { "new-designs": true }, animations: false, debug: { devtools: false } }),
 )
@@ -73,7 +73,7 @@ const ports = Array.from({ length: 3 }, freePort)
 const server = `http://127.0.0.1:${ports[0]}`
 const serve = Bun.spawn(command("ts", ["serve", "--port", String(ports[0])]), {
   cwd: box.cwd,
-  env: { ...box.env, XCCODE_SIMULATE: "1" },
+  env: { ...box.env, XIAOCHUAN_SIMULATE: "1" },
   stdout: "ignore",
   stderr: Bun.file(path.join(box.root, "server.log")),
 })
@@ -120,9 +120,9 @@ async function drive(side: Side, port: number) {
     cwd: box.cwd,
     env: {
       ...box.env,
-      XCCODE_DRIVE: "parity",
+      XIAOCHUAN_DRIVE: "parity",
       DRIVE_REGISTRY_DIR: registry,
-      XCCODE_DRIVE_RENDERER: "headless",
+      XIAOCHUAN_DRIVE_RENDERER: "headless",
       TERM: "xterm-256color",
     },
     stdin: "ignore",
@@ -130,7 +130,7 @@ async function drive(side: Side, port: number) {
     stderr: Bun.file(path.join(box.root, `${side}.stderr`)),
   })
   children.push(client)
-  await waitForLine(path.join(box.root, `${side}.stderr`), "xccode drive ui websocket:")
+  await waitForLine(path.join(box.root, `${side}.stderr`), "xiaochuan drive ui websocket:")
   const drive = await connectDrive(`ws://127.0.0.1:${port}`, side)
   const call = drive.call
   const captures: Record<string, Frontend.CapturedFrame> = {}

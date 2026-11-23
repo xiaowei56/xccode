@@ -1,4 +1,4 @@
-import type { HttpRecorder } from "@xccode/http-recorder"
+import type { HttpRecorder } from "@xiaochuan/http-recorder"
 import { test, type TestOptions } from "bun:test"
 import { Effect, type Layer } from "effect"
 import { testEffect } from "./lib/effect.js"

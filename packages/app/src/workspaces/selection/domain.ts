@@ -255,7 +255,7 @@ function nativePickerPath(path: string) {
   return value
 }
 
-import { getFilename } from "@xccode/util/path"
+import { getFilename } from "@xiaochuan/util/path"
 import fuzzysort from "fuzzysort"
 import { ServerSDK } from "@/runtime/server/client"
 import {

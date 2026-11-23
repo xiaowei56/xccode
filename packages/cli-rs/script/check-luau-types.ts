@@ -1,15 +1,15 @@
 // Type-checks every Luau plugin in packages/cli-rs (a directory with a plugin.toml and .luau files) with
 // `luau-analyze` at the runtime's Luau release, the new solver, and `--formatter=gnu` (`plain` always exits 0). Each
 // plugin is one run over its files by absolute path: a module given by a relative path and also required is checked
-// twice. Each plugin's nearest `.luaurc` must say `"languageMode": "strict"` and alias `xccode` to the generated stub
-// (crates/plugin/src/luau/xccode), which types `require("@xccode/plugin")`.
+// twice. Each plugin's nearest `.luaurc` must say `"languageMode": "strict"` and alias `xiaochuan` to the generated stub
+// (crates/plugin/src/luau/xiaochuan), which types `require("@xiaochuan/plugin")`.
 //
 // The release is the one the runtime vendors, read from Cargo.lock (`luau0-src 0.22.0+luau740` is 0.740, and the
 // fork's `0.24.1+luau747.sk.aa9d8201` is 0.747, whose analyzer it does not change), so the analyzer moves with a Luau
 // bump. It comes from Luau's release zip, checked against the sha256 in `releases` below,
 // as opentui-native.ts checks OpenTUI's: a release binary rather than a build, one download and no C++ build. A
 // release with no row fails; add its rows from `gh release view <release> -R luau-lang/luau --json assets`. Zips are
-// kept in `$XDG_CACHE_HOME/xccode/luau`.
+// kept in `$XDG_CACHE_HOME/xiaochuan/luau`.
 //
 // Usage: bun run script/check-luau-types.ts
 import { createHash } from "node:crypto"
@@ -40,7 +40,7 @@ const platforms: Record<string, { zip: "ubuntu" | "macos" | "windows"; binary: s
 }
 
 const root = path.resolve(import.meta.dir, "..")
-const stub = path.join(root, "crates", "plugin", "src", "luau", "xccode")
+const stub = path.join(root, "crates", "plugin", "src", "luau", "xiaochuan")
 const vendored = (await Bun.file(path.join(root, "Cargo.lock")).text()).match(
   /^name = "luau0-src"\nversion = "[^"+]*\+luau(\d+)[."]/m,
 )?.[1]
@@ -50,7 +50,7 @@ const kind = platforms[platform] ?? fail(`Luau ships no luau-analyze for ${platf
 const sha256 =
   releases[release]?.[kind.zip] ?? fail(`no sha256 for Luau ${release}; add its rows to ${import.meta.file}`)
 const spec = { zip: `luau-${kind.zip}.zip`, sha256, binary: kind.binary }
-const cache = path.join(process.env.XDG_CACHE_HOME || path.join(homedir(), ".cache"), "xccode", "luau")
+const cache = path.join(process.env.XDG_CACHE_HOME || path.join(homedir(), ".cache"), "xiaochuan", "luau")
 const analyzer = await install()
 
 const plugins = Array.from(new Bun.Glob("**/plugin.toml").scanSync({ cwd: root }))
@@ -113,12 +113,12 @@ async function luaurc(dir: string): Promise<{ problem?: string }> {
     const config = await file.json()
     const name = path.relative(root, file.name!)
     if (config.languageMode !== "strict") return { problem: `${name} does not say "languageMode": "strict"` }
-    const alias = config.aliases?.xccode
+    const alias = config.aliases?.xiaochuan
     if (typeof alias !== "string" || path.resolve(at, alias) !== stub)
-      return { problem: `${name} does not alias xccode to ${path.relative(at, stub)}` }
+      return { problem: `${name} does not alias xiaochuan to ${path.relative(at, stub)}` }
     return {}
   }
-  return { problem: `no .luaurc above it aliases xccode to ${path.relative(root, stub)}` }
+  return { problem: `no .luaurc above it aliases xiaochuan to ${path.relative(root, stub)}` }
 }
 
 /** The analyzer, extracted from the release zip once. */

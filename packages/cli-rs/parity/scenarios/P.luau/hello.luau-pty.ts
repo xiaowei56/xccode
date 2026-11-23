@@ -17,9 +17,9 @@ export default definePty({
   rows: 30,
   server: { fallback: "tui" },
   // The TS client run from source is on the `local` channel, which shows its devtools bar: off, as Rust has none.
-  env: { XCCODE_CLI_CONFIG_CONTENT: JSON.stringify({ debug: { devtools: false } }) },
+  env: { XIAOCHUAN_CLI_CONFIG_CONTENT: JSON.stringify({ debug: { devtools: false } }) },
   setup: async (root) => {
-    const directory = path.join(root, "home/.config/xccode/plugins/hello")
+    const directory = path.join(root, "home/.config/xiaochuan/plugins/hello")
     await mkdir(directory, { recursive: true })
     for (const file of await readdir(example)) await copyFile(path.join(example, file), path.join(directory, file))
     await copyFile(path.join(parityRoot, "plugins/luau-hello/tui.tsx"), path.join(directory, "tui.tsx"))

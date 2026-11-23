@@ -10,14 +10,14 @@ const config = JSON.stringify({
   tabs: { layout: "vertical" },
   session: { sidebar: "hide" },
 })
-const here = { directory: "/tmp/xccode/packages/tui" }
+const here = { directory: "/tmp/xiaochuan/packages/tui" }
 const title = "Trace the flaky marquee across every terminal we ship"
 
 export default definePty({
   args: ["-s", "ses_m"],
   cols: 120,
   rows: 30,
-  env: { XCCODE_CLI_CONFIG_CONTENT: config },
+  env: { XIAOCHUAN_CLI_CONFIG_CONTENT: config },
   // The window titles of opening a session are H.3's.
   osc: [],
   server: {

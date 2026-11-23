@@ -40,11 +40,11 @@ export default defineApp({
   steps: [
     {
       checkpoint: "home",
-      until: "/tmp/xccode/packages/tui:main",
+      until: "/tmp/xiaochuan/packages/tui:main",
       masks: [HOME_PLACEHOLDER],
     },
     { type: "/stats" },
     { keys: ["enter"] },
-    { checkpoint: "poster", until: "xccode / stats" },
+    { checkpoint: "poster", until: "xiaochuan / stats" },
   ],
 })

@@ -272,19 +272,19 @@ export const DESKTOP_MENU: DesktopMenu[] = [
     id: "help",
     labelKey: "desktop.menu.help",
     items: [
-      { type: "item", labelKey: "desktop.menu.documentation", href: "https://xccode.ai/docs" },
-      { type: "item", labelKey: "desktop.menu.supportForum", href: "https://discord.com/invite/xccode" },
+      { type: "item", labelKey: "desktop.menu.documentation", href: "https://xiaochuan.ai/docs" },
+      { type: "item", labelKey: "desktop.menu.supportForum", href: "https://discord.com/invite/xiaochuan" },
       { type: "item", labelKey: "desktop.menu.exportLogs", command: "logs.export" },
       { type: "separator" },
       {
         type: "item",
         labelKey: "desktop.menu.shareFeedback",
-        href: "https://github.com/xiaowei56/xccode/issues/new?template=feature_request.yml",
+        href: "https://github.com/xiaowei56/xiaochuan/issues/new?template=feature_request.yml",
       },
       {
         type: "item",
         labelKey: "desktop.menu.reportBug",
-        href: "https://github.com/xiaowei56/xccode/issues/new?template=bug_report.yml",
+        href: "https://github.com/xiaowei56/xiaochuan/issues/new?template=bug_report.yml",
       },
     ],
   },

@@ -1,6 +1,6 @@
 import { lazy, onCleanup, Show, Suspense } from "solid-js"
-import { Slot, usePanel, type Plugin } from "@xccode/plugin/gui"
-import { BuiltinPanel, onIdle, type BuiltinPanelTab } from "@xccode/plugin/gui/builtin"
+import { Slot, usePanel, type Plugin } from "@xiaochuan/plugin/gui"
+import { BuiltinPanel, onIdle, type BuiltinPanelTab } from "@xiaochuan/plugin/gui/builtin"
 import type definition from "./index"
 import { SessionContextUsage } from "./indicator"
 

@@ -3,31 +3,31 @@ import path from "path"
 import { describe, expect } from "bun:test"
 import { DateTime, Deferred, Effect, Fiber, Layer, Option, PubSub, Schema, Stream } from "effect"
 import { advance, drain } from "../lib/clock"
-import { Directory, Document, Event, Info } from "@xccode/schema/config"
-import { Model } from "@xccode/schema/model"
-import { Session } from "@xccode/core/session"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { Job } from "@xccode/core/job"
-import { SubagentJob } from "@xccode/core/session/subagent-job"
-import { Agent } from "@xccode/core/agent"
-import { SessionInbox } from "@xccode/schema/session-inbox"
-import { SessionMessage } from "@xccode/schema/session-message"
-import { Command } from "@xccode/core/command"
-import { Config } from "@xccode/core/config"
-import { ConfigCommandPlugin } from "@xccode/core/config/plugin/command"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Bus } from "@xccode/core/bus"
-import { Credential } from "@xccode/core/credential"
-import { WellKnown } from "@xccode/core/wellknown"
-import { Global } from "@xccode/util/global"
-import { AppProcess } from "@xccode/util/process"
-import { Location } from "@xccode/core/location"
-import { Mcp } from "@xccode/core/mcp/index"
-import { AbsolutePath } from "@xccode/core/schema"
-import { ShellSelect } from "@xccode/core/shell/select"
-import { Watcher } from "@xccode/core/filesystem/watcher"
+import { Directory, Document, Event, Info } from "@xiaochuan/schema/config"
+import { Model } from "@xiaochuan/schema/model"
+import { Session } from "@xiaochuan/core/session"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { Job } from "@xiaochuan/core/job"
+import { SubagentJob } from "@xiaochuan/core/session/subagent-job"
+import { Agent } from "@xiaochuan/core/agent"
+import { SessionInbox } from "@xiaochuan/schema/session-inbox"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
+import { Command } from "@xiaochuan/core/command"
+import { Config } from "@xiaochuan/core/config"
+import { ConfigCommandPlugin } from "@xiaochuan/core/config/plugin/command"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Bus } from "@xiaochuan/core/bus"
+import { Credential } from "@xiaochuan/core/credential"
+import { WellKnown } from "@xiaochuan/core/wellknown"
+import { Global } from "@xiaochuan/util/global"
+import { AppProcess } from "@xiaochuan/util/process"
+import { Location } from "@xiaochuan/core/location"
+import { Mcp } from "@xiaochuan/core/mcp/index"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { ShellSelect } from "@xiaochuan/core/shell/select"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
 import { emptyCredentialNode, emptyWellknownNode } from "../fixture/config-nodes"
 import { emptyConfigLayer, emptyMcpLayer, testLocationLayer } from "../fixture/mcp"
 import { location } from "../fixture/location"
@@ -412,7 +412,7 @@ Review files`,
           )
 
           yield* configTest.emitChange({ type: "create", path: path.join(tmp.path, "notes", "todo.md") })
-          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "xccode.json") })
+          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "xiaochuan.json") })
           yield* drain
           expect(reloads).toBe(0)
 
@@ -439,7 +439,7 @@ describeNative("ConfigCommandPlugin native watcher", () => {
     Effect.gen(function* () {
       const fs = yield* FSUtil.Service
       // Watcher events report real paths, so resolve the tempdir symlink up front.
-      const tmp = yield* fs.makeTempDirectoryScoped({ prefix: "xccode-core-test-" }).pipe(Effect.flatMap(fs.realPath))
+      const tmp = yield* fs.makeTempDirectoryScoped({ prefix: "xiaochuan-core-test-" }).pipe(Effect.flatMap(fs.realPath))
       const global = path.join(tmp, "global")
       yield* fs.makeDirectory(path.join(global, "commands"), { recursive: true })
       yield* fs.makeDirectory(path.join(tmp, "project"))

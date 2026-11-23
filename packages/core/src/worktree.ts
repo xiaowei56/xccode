@@ -4,10 +4,10 @@ import { Context, Effect, Layer, Schema } from "effect"
 import { and, asc, desc, eq, isNull, sql } from "drizzle-orm"
 import path from "path"
 import { AbsolutePath } from "./schema.js"
-import { FSUtil } from "@xccode/util/fs-util"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { Git } from "./git.js"
-import { Node } from "@xccode/util/effect/app-node"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Node } from "@xiaochuan/util/effect/app-node"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { Slug } from "./util/slug.js"
 import { Bus } from "./bus.js"
 import { Database } from "./database/database.js"
@@ -15,19 +15,19 @@ import { Location } from "./location.js"
 import type { FileSystem } from "./filesystem.js"
 import { LocationServiceMap } from "./location-service-map.js"
 import { Project } from "./project.js"
-import { Worktree } from "@xccode/schema/worktree"
+import { Worktree } from "@xiaochuan/schema/worktree"
 import { WorktreeTable } from "./worktree/sql.js"
 import { canonical, DirectoryUnavailableError } from "./worktree/directory.js"
 import type { EffectDrizzleSqlite } from "./database/drizzle.js"
 import { ProjectTable } from "./project/sql.js"
-import { AppProcess } from "@xccode/util/process"
+import { AppProcess } from "@xiaochuan/util/process"
 import { ChildProcess } from "effect/process"
 import { WorktreeStrategies } from "./worktree/strategies.js"
 
 export type { Strategy, Editor } from "./worktree/strategies.js"
 
 export { DirectoryUnavailableError } from "./worktree/directory.js"
-export { OperationError } from "@xccode/schema/worktree"
+export { OperationError } from "@xiaochuan/schema/worktree"
 
 export const StrategyID = Worktree.StrategyID
 export type StrategyID = typeof StrategyID.Type
@@ -101,7 +101,7 @@ export interface Interface {
   ) => Effect.Effect<void, Error>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Worktree") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Worktree") {}
 
 const layer = Layer.effect(
   Service,
@@ -241,8 +241,8 @@ const layer = Layer.effect(
             ChildProcess.make(windows ? command : "bash", windows ? [] : ["-lc", command], {
               cwd: result.directory,
               env: {
-                XCCODE_WORKTREE_BASE: sourceDirectory,
-                XCCODE_WORKTREE_PATH: result.directory,
+                XIAOCHUAN_WORKTREE_BASE: sourceDirectory,
+                XIAOCHUAN_WORKTREE_PATH: result.directory,
               },
               extendEnv: true,
               stdin: "ignore",

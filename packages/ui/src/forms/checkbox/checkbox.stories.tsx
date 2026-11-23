@@ -1,5 +1,5 @@
 import { createEffect, createSignal } from "solid-js"
-import { Icon } from "@xccode/ui/icon"
+import { Icon } from "@xiaochuan/ui/icon"
 import { Checkbox, type CheckboxProps } from "./checkbox"
 
 const docs = `### Overview

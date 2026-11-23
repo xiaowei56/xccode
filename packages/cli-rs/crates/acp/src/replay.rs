@@ -1,8 +1,8 @@
 //! Replays stored messages on `session/load`.
 
-use xccode_api::client::Client;
-use xccode_api::generated::{MessageListInput, MessageListInputOrder};
-use xccode_util::json_object;
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{MessageListInput, MessageListInputOrder};
+use xiaochuan_util::json_object;
 use serde_json::{Value, json};
 
 use crate::capabilities::Capabilities;

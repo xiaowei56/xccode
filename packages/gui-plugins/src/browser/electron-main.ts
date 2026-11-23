@@ -1,5 +1,5 @@
 import electron from "electron"
-import type { Caller, Ipc, IpcImpl, IpcSpec, MainContext } from "@xccode/plugin/gui/main"
+import type { Caller, Ipc, IpcImpl, IpcSpec, MainContext } from "@xiaochuan/plugin/gui/main"
 
 /**
  * The browser plugin's own main entry, run in the Electron of a real-Electron fixture, and the two Ipcs it provides as
@@ -22,7 +22,7 @@ export async function runBrowserMain() {
     id: "browser",
     signal: lifetime.signal,
     t: (key: string) => key,
-    app: { name: "xccode", version: "0.0.0", channel: "local", platform: "desktop", packaged: false },
+    app: { name: "xiaochuan", version: "0.0.0", channel: "local", platform: "desktop", packaged: false },
     log: { write: (_level: string, message: string) => void logged.push(message) },
     storage: {
       store: (key: string, options: { initial: unknown }) => ({
@@ -57,7 +57,7 @@ export async function runBrowserMain() {
   // SAFETY: `provide` above received each Ipc's own implementation from the main entry, whose type the token carries.
   const ipc = <S extends IpcSpec>(token: Ipc<S>) => provided.get(token.id) as IpcImpl<S>
   const caller: Caller = { window: 1, signal: lifetime.signal }
-  const session = electron.session.fromPartition("persist:xccode-browser")
+  const session = electron.session.fromPartition("persist:xiaochuan-browser")
 
   return {
     profile: ipc(BrowserProfile),

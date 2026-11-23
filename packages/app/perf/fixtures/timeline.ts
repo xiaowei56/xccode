@@ -1,18 +1,18 @@
-import { base64Encode } from "@xccode/util/encode"
+import { base64Encode } from "@xiaochuan/util/encode"
 import type {
   JsonValue,
-  XccodeEvent,
+  XiaochuanEvent,
   SessionMessageAssistant,
   SessionMessageAssistantTool,
   SessionMessageInfo,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import type { Page } from "@playwright/test"
-import { timelinePresets } from "@xccode/session-ui/timeline/detail"
+import { timelinePresets } from "@xiaochuan/session-ui/timeline/detail"
 import { createTwoFilesPatch } from "diff"
-import { mockXccodeServer } from "../../e2e/utils/mock-server"
+import { mockXiaochuanServer } from "../../e2e/utils/mock-server"
 import { eventSource } from "./events"
 
-const directory = "C:/Xccode/TimelineStateRegression"
+const directory = "C:/Xiaochuan/TimelineStateRegression"
 
 const projectID = "proj_timeline_state_regression"
 
@@ -26,7 +26,7 @@ const editPartID = "prt_0001_edit"
 
 const title = "Timeline collapse state regression"
 
-const model = { providerID: "xccode", modelID: "claude-opus-4-6", variant: "max" }
+const model = { providerID: "xiaochuan", modelID: "claude-opus-4-6", variant: "max" }
 
 /** The session's scroll container. */
 export const timeline = ".scroll-view__viewport:has([data-timeline-row])"
@@ -123,7 +123,7 @@ export async function mockTimelineSession(page: Page, options: TimelineOptions) 
 
   const source = options.stream ? await eventSource(page, options.server) : undefined
 
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     server: options.server,
     directory,
     project: project(),
@@ -172,7 +172,7 @@ export function streamedReply(deltas: number) {
         type: "session.text.started",
         durable: { aggregateID: sessionID, seq: eventSequence, version: 1 },
         data: { sessionID, assistantMessageID, ordinal: 0 },
-      } satisfies Extract<XccodeEvent, { type: "session.text.started" }>,
+      } satisfies Extract<XiaochuanEvent, { type: "session.text.started" }>,
       delta(`Streaming${streamChunk(0, deltas + 1)}\n\n\`\`\`ts\nconst initial = true\n\`\`\``),
     ],
     deltas: Array.from({ length: deltas }, (_, index) => delta(streamChunk(index + 1, deltas + 1))),
@@ -296,7 +296,7 @@ function delta(text: string) {
     ...envelope(),
     type: "session.text.delta",
     data: { sessionID, assistantMessageID, ordinal: 0, delta: text },
-  } satisfies Extract<XccodeEvent, { type: "session.text.delta" }>
+  } satisfies Extract<XiaochuanEvent, { type: "session.text.delta" }>
 }
 
 function historicalMarkdown(index: number) {
@@ -443,12 +443,12 @@ function provider() {
   return {
     all: [
       {
-        id: "xccode",
-        name: "Xccode",
+        id: "xiaochuan",
+        name: "Xiaochuan",
         models: { "claude-opus-4-6": { id: "claude-opus-4-6", name: "Claude Opus 4.6", limit: { context: 200_000 } } },
       },
     ],
-    connected: ["xccode"],
-    default: { providerID: "xccode", modelID: "claude-opus-4-6" },
+    connected: ["xiaochuan"],
+    default: { providerID: "xiaochuan", modelID: "claude-opus-4-6" },
   }
 }

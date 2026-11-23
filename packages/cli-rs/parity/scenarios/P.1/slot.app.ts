@@ -1,10 +1,10 @@
 // A plugin in a slot (P.1): a test plugin appends a line to home.footer, under the footer built-in. TS loads it
-// from parity/plugins/slot as a local plugin; Rust registers its twin when XCCODE_PARITY_PLUGIN is `slot`.
+// from parity/plugins/slot as a local plugin; Rust registers its twin when XIAOCHUAN_PARITY_PLUGIN is `slot`.
 import { defineApp, HOME_PLACEHOLDER } from "../../lib/app"
 
 export default defineApp({
   config: { plugins: ["./plugins/slot"] },
-  env: { XCCODE_PARITY_PLUGIN: "slot" },
+  env: { XIAOCHUAN_PARITY_PLUGIN: "slot" },
   steps: [
     {
       checkpoint: "home",

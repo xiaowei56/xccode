@@ -1,9 +1,9 @@
 export * as Browser from "./rpc.js"
 
 import { Schema } from "effect"
-import { Rpc } from "@xccode/schema/rpc"
-import { Session } from "@xccode/schema/session"
-import { optional } from "@xccode/schema/schema"
+import { Rpc } from "@xiaochuan/schema/rpc"
+import { Session } from "@xiaochuan/schema/session"
+import { optional } from "@xiaochuan/schema/schema"
 
 /**
  * Codes of the failures the server acts on, beside the general ones (`operation_failed`, `navigation_failed`,

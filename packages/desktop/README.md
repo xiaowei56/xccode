@@ -1,6 +1,6 @@
-# Xccode Desktop
+# Xiaochuan Desktop
 
-The Xccode Desktop app, built with Electron.
+The Xiaochuan Desktop app, built with Electron.
 
 ## Development
 
@@ -23,9 +23,9 @@ Both read the same environment as every other release package:
 
 | Variable           | Meaning                                                                                                         |
 | ------------------ | --------------------------------------------------------------------------------------------------------------- |
-| `XCCODE_CHANNEL` | `dev` (default), `beta`, or `latest`/`prod`. Picks the app identity, icons and bundled CLI.                     |
-| `XCCODE_VERSION` | Version stamped into the app and its packages.                                                                  |
-| `XCCODE_TARGET`  | `darwin-arm64`, `darwin-x64`, `windows-arm64`, `windows-x64`, `linux-x64`, `linux-arm64`. Defaults to the host. |
+| `XIAOCHUAN_CHANNEL` | `dev` (default), `beta`, or `latest`/`prod`. Picks the app identity, icons and bundled CLI.                     |
+| `XIAOCHUAN_VERSION` | Version stamped into the app and its packages.                                                                  |
+| `XIAOCHUAN_TARGET`  | `darwin-arm64`, `darwin-x64`, `windows-arm64`, `windows-x64`, `linux-x64`, `linux-arm64`. Defaults to the host. |
 
 The CLI is placed outside `app.asar` in the application's resources directory, and packaging fails if it is missing.
 `bun run build` uses `packages/cli/dist` when that holds the target's CLI. Otherwise `dev` (and `local`, unset or unrecognized)
@@ -36,16 +36,16 @@ default. `bun dev --download-server <version>` instead downloads that CLI versio
 
 ## Beta channel
 
-Every push to the `beta` branch publishes Xccode Beta (`ai.xccode.desktop.beta`) as version `0.0.0-beta-<run>` to
+Every push to the `beta` branch publishes Xiaochuan Beta (`ai.xiaochuan.desktop.beta`) as version `0.0.0-beta-<run>` to
 the `beta` update channel. Beta publishes only the desktop app; the CLI and SDK packages ship
-from `dev`. Install it from `https://xccode.ai/update/api/beta/desktop/xccode/<asset>`, for example
-`xccode-desktop-mac-arm64.dmg` or `xccode-desktop-win-x64.exe`. Installed builds update in place on every platform.
+from `dev`. Install it from `https://xiaochuan.ai/update/api/beta/desktop/xiaochuan/<asset>`, for example
+`xiaochuan-desktop-mac-arm64.dmg` or `xiaochuan-desktop-win-x64.exe`. Installed builds update in place on every platform.
 
 ## Startup benchmark
 
 `perf/startup.bench.ts` times a launch with [strobe](https://github.com/anomalyco/strobe), from process spawn to what a
 person waits for, in pairs of launches of two builds with an interval per case. Every launch runs in a private home
-(its own `%APPDATA%`, XDG folders, database, config and service registration, the developer's `XCCODE_*`, `OTEL_*`
+(its own `%APPDATA%`, XDG folders, database, config and service registration, the developer's `XIAOCHUAN_*`, `OTEL_*`
 and `SENTRY_*` environment removed), so it never touches the developer's app, profile or live service.
 
 | Case                            | Launch                                                                              | Ends on      |
@@ -57,13 +57,13 @@ and `SENTRY_*` environment removed), so it never touches the developer's app, pr
 | dev start to Home               | `bun dev:desktop` with Vite's caches and `out` deleted.                             | Home         |
 
 ```bash
-# A returning user's launches of two packaged builds (pack each with XCCODE_CHANNEL=beta or prod), or two installed
+# A returning user's launches of two packaged builds (pack each with XIAOCHUAN_CHANNEL=beta or prod), or two installed
 # channels.
-strobe bench perf/startup.bench.ts --target desktop --base exe:<old>/Xccode.exe --head exe:<new>/Xccode.exe
-strobe bench perf/startup.bench.ts --target desktop --base app:xccode --head app:xccode-beta
+strobe bench perf/startup.bench.ts --target desktop --base exe:<old>/Xiaochuan.exe --head exe:<new>/Xiaochuan.exe
+strobe bench perf/startup.bench.ts --target desktop --base app:xiaochuan --head app:xiaochuan-beta
 
 # The first launch after an install.
-strobe bench perf/startup.bench.ts --target install --base app:xccode --head app:xccode-beta
+strobe bench perf/startup.bench.ts --target install --base app:xiaochuan --head app:xiaochuan-beta
 
 # The dev loop's cold start, dev against this checkout.
 strobe bench perf/startup.bench.ts --target dev --base origin/dev --head .
@@ -82,6 +82,6 @@ returning-user cases keep the GPU shader caches their build compiled in earlier 
 them; `first launch` starts each launch without them. `--why always` adds a profiled
 launch per build: the main process and the renderer, both from their first statement.
 
-A packaged beta or prod build registers itself as the `xccode://` handler when it starts, even from the bench; the
+A packaged beta or prod build registers itself as the `xiaochuan://` handler when it starts, even from the bench; the
 installed app takes the registration back on its next launch. Those channels run with `HTTPS_PROXY` pointed at a
 closed port (`--offline` forces it for dev) so the updater's first check fails fast instead of reaching GitHub.

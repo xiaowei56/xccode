@@ -1,9 +1,9 @@
 ---
 title: "Enterprise"
-description: "Control which models, providers, and integrations people in your organization can use in Xccode."
+description: "Control which models, providers, and integrations people in your organization can use in Xiaochuan."
 ---
 
-Use [policies](/policies) to control what Xccode can use on your organization's machines. Put them in managed
+Use [policies](/policies) to control what Xiaochuan can use on your organization's machines. Put them in managed
 configuration so users and projects can't change them.
 
 ## Deploy
@@ -12,17 +12,17 @@ Put the policies in the system configuration file:
 
 | Platform | File                                                  |
 | -------- | ----------------------------------------------------- |
-| macOS    | `/Library/Application Support/xccode/xccode.json` |
-| Linux    | `/etc/xccode/xccode.json`                         |
-| Windows  | `%ProgramData%\xccode\xccode.json`                |
+| macOS    | `/Library/Application Support/xiaochuan/xiaochuan.json` |
+| Linux    | `/etc/xiaochuan/xiaochuan.json`                         |
+| Windows  | `%ProgramData%\xiaochuan\xiaochuan.json`                |
 
-On macOS, you can also deploy them with MDM as managed preferences for the `ai.xccode.managed` domain. See
+On macOS, you can also deploy them with MDM as managed preferences for the `ai.xiaochuan.managed` domain. See
 [config locations](/config#locations).
 
-```jsonc title="/etc/xccode/xccode.json"
+```jsonc title="/etc/xiaochuan/xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
-  "policies": [{ "action": "integration.use", "resource": "xccode", "effect": "deny" }],
+  "$schema": "https://xiaochuan.ai/config.json",
+  "policies": [{ "action": "integration.use", "resource": "xiaochuan", "effect": "deny" }],
 }
 ```
 
@@ -35,18 +35,18 @@ Deny the signed-out free tier. Everything else still works, and people can conne
 
 ```jsonc
 {
-  "policies": [{ "action": "integration.use", "resource": "xccode", "effect": "deny" }],
+  "policies": [{ "action": "integration.use", "resource": "xiaochuan", "effect": "deny" }],
 }
 ```
 
-The free tier is the `xccode` integration with no account. Signed-in Console accounts are `xccode#<account>`, so
+The free tier is the `xiaochuan` integration with no account. Signed-in Console accounts are `xiaochuan#<account>`, so
 this statement doesn't affect them.
 
 A Console workspace can also offer free models. To block them:
 
 - In your own workspace, turn off **Free models** on the Console's Models tab. See
-  [Xccode models](/console/providers#xccode-models).
-- To hide free models in every account, set `XCCODE_DISABLE_FREE_MODELS=1` on the Xccode service. See
+  [Xiaochuan models](/console/providers#xiaochuan-models).
+- To hide free models in every account, set `XIAOCHUAN_DISABLE_FREE_MODELS=1` on the Xiaochuan service. See
   [free models](/models#free-models).
 
 ## Require your Console workspace
@@ -57,16 +57,16 @@ Allow only your organization's Console workspace. Nothing else can be connected 
 {
   "policies": [
     { "action": "integration.connect", "resource": "*", "effect": "deny" },
-    { "action": "integration.connect", "resource": "xccode", "effect": "allow" },
+    { "action": "integration.connect", "resource": "xiaochuan", "effect": "allow" },
     { "action": "integration.use", "resource": "*", "effect": "deny" },
-    { "action": "integration.use", "resource": "xccode#org_01M3CAP8H43Z49CER6NT0Y3ZF1", "effect": "allow" },
+    { "action": "integration.use", "resource": "xiaochuan#org_01M3CAP8H43Z49CER6NT0Y3ZF1", "effect": "allow" },
   ],
 }
 ```
 
-- `/connect` lists only the Xccode Console, so people can sign in.
+- `/connect` lists only the Xiaochuan Console, so people can sign in.
 - Only your workspace works. The free tier, personal Console accounts, other organizations, API keys from environment
-  variables, and providers from `xccode.json` are blocked.
+  variables, and providers from `xiaochuan.json` are blocked.
 - Your workspace's models, MCP servers, and web search work. Change them in the Console without redeploying the policy.
 
 Replace `org_01M3CAP8H43Z49CER6NT0Y3ZF1` with your workspace's organization ID. To block free models in the workspace
@@ -80,7 +80,7 @@ Deny every provider, then allow the ones you approve. This example allows only a
 {
   "providers": {
     "company-ai": {
-      "package": "@xccode/ai/providers/openai-compatible",
+      "package": "@xiaochuan/ai/providers/openai-compatible",
       "settings": { "baseURL": "https://ai.company.example/v1" },
     },
   },

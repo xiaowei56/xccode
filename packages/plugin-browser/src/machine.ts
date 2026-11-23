@@ -1,8 +1,8 @@
 export * as BrowserMachine from "./machine.js"
 
-import type { Permission } from "@xccode/schema/permission"
-import type { Session } from "@xccode/schema/session"
-import { Tool } from "@xccode/schema/tool"
+import type { Permission } from "@xiaochuan/schema/permission"
+import type { Session } from "@xiaochuan/schema/session"
+import { Tool } from "@xiaochuan/schema/tool"
 import type { Browser } from "./rpc.js"
 import { BrowserSkill } from "./skill.js"
 import { Wildcard } from "./wildcard.js"
@@ -651,7 +651,7 @@ export function selectConnection(
       ok: false,
       error: new Tool.Error({
         message:
-          "No browser is attached to this session. It attaches when the session is open in the Xccode desktop app. No action ran. Continue without the browser; retry only after it attaches.",
+          "No browser is attached to this session. It attaches when the session is open in the Xiaochuan desktop app. No action ran. Continue without the browser; retry only after it attaches.",
       }),
     }
 

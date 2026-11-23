@@ -6,7 +6,7 @@ use std::fmt;
 
 use bytes::Bytes;
 use futures_util::{Stream, StreamExt};
-use xccode_api_types::de::well_formed;
+use xiaochuan_api_types::de::well_formed;
 use serde::de::DeserializeOwned;
 
 /// The largest buffered event, as `maxSseEventBytes` in the TypeScript client.

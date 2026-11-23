@@ -1,8 +1,8 @@
 export * as SubagentJob from "./subagent-job.js"
 
 import { Context, Effect, Layer } from "effect"
-import { Node } from "@xccode/util/effect/app-node"
-import type { LayerNode } from "@xccode/util/effect/layer-node"
+import { Node } from "@xiaochuan/util/effect/app-node"
+import type { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { Job } from "../job.js"
 import { SessionExecution } from "./execution.js"
 
@@ -12,7 +12,7 @@ export interface Interface {
   readonly start: (recovery: Recovery) => Effect.Effect<Job.Info>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SubagentJob") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SubagentJob") {}
 
 export function start(
   jobs: Job.Interface,

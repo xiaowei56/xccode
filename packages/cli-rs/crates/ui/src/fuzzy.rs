@@ -2,7 +2,7 @@
 
 mod accents;
 
-use xccode_api_types::js::is_whitespace;
+use xiaochuan_api_types::js::is_whitespace;
 use std::borrow::Cow;
 use std::collections::HashMap;
 

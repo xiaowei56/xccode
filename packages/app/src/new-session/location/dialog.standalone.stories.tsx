@@ -1,4 +1,4 @@
-import { Button } from "@xccode/ui/button"
+import { Button } from "@xiaochuan/ui/button"
 import { onMount } from "solid-js"
 import { createStore } from "solid-js/store"
 import {

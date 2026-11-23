@@ -1,7 +1,7 @@
 //! Shell tab and its output dialog.
 
-use xccode_api::generated::{LocationQueryInput, SessionMessageShellStatus, ShellRemoveInput};
-use xccode_store::Shell;
+use xiaochuan_api::generated::{LocationQueryInput, SessionMessageShellStatus, ShellRemoveInput};
+use xiaochuan_store::Shell;
 use opentui::prelude::Container;
 
 use super::{Inner, Label, RowState, Tab, empty, row, window};

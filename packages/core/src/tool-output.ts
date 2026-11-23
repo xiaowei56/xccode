@@ -3,10 +3,10 @@ export * as ToolOutput from "./tool-output.js"
 import path from "path"
 import type { Tool } from "./tool.js"
 import { Context, Duration, Effect, Layer, Schedule } from "effect"
-import { makeGlobalNode, makeLocationNode } from "@xccode/util/effect/app-node"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
-import { Identifier } from "@xccode/schema/identifier"
+import { makeGlobalNode, makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
+import { Identifier } from "@xiaochuan/schema/identifier"
 import { FileRetention } from "./file-retention.js"
 import { State } from "./state.js"
 
@@ -35,7 +35,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly cleanup: () => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/ToolOutput") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/ToolOutput") {}
 
 const cleanup = Effect.fn("ToolOutput.cleanup")(function* (fs: FSUtil.Interface, directory: string) {
   const entries = yield* fs.readDirectory(directory).pipe(

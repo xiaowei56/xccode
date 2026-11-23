@@ -1,5 +1,5 @@
-import { Scope } from "@xccode/plugin/gui/host"
-import type { Cleanup } from "@xccode/plugin/gui/main"
+import { Scope } from "@xiaochuan/plugin/gui/host"
+import type { Cleanup } from "@xiaochuan/plugin/gui/main"
 import { isQuitting, keptScope, type Handoff, type State } from "../lifecycle/machine"
 import {
   createLifecycleState,

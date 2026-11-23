@@ -1,6 +1,6 @@
 export * as SubagentReport from "./subagent-report.js"
 
-import { Automation } from "@xccode/schema/automation"
+import { Automation } from "@xiaochuan/schema/automation"
 import { Effect, Result } from "effect"
 import type { Job } from "../../job.js"
 import { SessionBackground } from "../background.js"

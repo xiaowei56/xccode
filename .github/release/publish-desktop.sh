@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 # publish-desktop.sh <sign-macos dir> <sign-desktop-windows-installer dir> <build-desktop-linux-x64 dir>
-# <build-desktop-linux-arm64 dir>: uploads the desktop builds to xccode.ai/files and registers the desktop update
+# <build-desktop-linux-arm64 dir>: uploads the desktop builds to xiaochuan.ai/files and registers the desktop update
 # artifact. The electron-updater feeds (latest*.yml) are computed here from the final signed files.
 . "$(dirname "$0")/lib.sh"
 
 macos=$1 windows=$2 linux_x64=$3 linux_arm64=$4
-win=("$windows/xccode-desktop-win-arm64.exe" "$windows/xccode-desktop-win-x64.exe")
-mac=("$macos/xccode-desktop-mac-arm64.zip" "$macos/xccode-desktop-mac-arm64.dmg" "$macos/xccode-desktop-mac-x64.zip" "$macos/xccode-desktop-mac-x64.dmg")
-linux=("$linux_x64/xccode-desktop-linux-x86_64.AppImage" "$linux_x64/xccode-desktop-linux-amd64.deb" "$linux_x64/xccode-desktop-linux-x86_64.rpm")
-linux_arm=("$linux_arm64/xccode-desktop-linux-arm64.AppImage" "$linux_arm64/xccode-desktop-linux-arm64.deb" "$linux_arm64/xccode-desktop-linux-aarch64.rpm")
+win=("$windows/xiaochuan-desktop-win-arm64.exe" "$windows/xiaochuan-desktop-win-x64.exe")
+mac=("$macos/xiaochuan-desktop-mac-arm64.zip" "$macos/xiaochuan-desktop-mac-arm64.dmg" "$macos/xiaochuan-desktop-mac-x64.zip" "$macos/xiaochuan-desktop-mac-x64.dmg")
+linux=("$linux_x64/xiaochuan-desktop-linux-x86_64.AppImage" "$linux_x64/xiaochuan-desktop-linux-amd64.deb" "$linux_x64/xiaochuan-desktop-linux-x86_64.rpm")
+linux_arm=("$linux_arm64/xiaochuan-desktop-linux-arm64.AppImage" "$linux_arm64/xiaochuan-desktop-linux-arm64.deb" "$linux_arm64/xiaochuan-desktop-linux-aarch64.rpm")
 # Dev and beta skip the .app.tar.gz, which only the retired Tauri updater feed read.
 bundles=()
-case "$XCCODE_CHANNEL" in
+case "$XIAOCHUAN_CHANNEL" in
   dev | beta) ;;
-  *) bundles=("$macos/xccode-desktop-mac-arm64.app.tar.gz" "$macos/xccode-desktop-mac-x64.app.tar.gz") ;;
+  *) bundles=("$macos/xiaochuan-desktop-mac-arm64.app.tar.gz" "$macos/xiaochuan-desktop-mac-x64.app.tar.gz") ;;
 esac
 
 feed() {
   for file in "$@"; do
-    jq -n --arg url "https://xccode.ai/files/bin/$XCCODE_VERSION/$(basename "$file")" \
+    jq -n --arg url "https://xiaochuan.ai/files/bin/$XIAOCHUAN_VERSION/$(basename "$file")" \
       --arg sha512 "$(openssl dgst -sha512 -binary "$file" | base64 | tr -d '\n')" --argjson size "$(size "$file")" \
       '{url: $url, sha512: $sha512, size: $size}'
   done | jq -s --arg date "$(date -u +%Y-%m-%dT%H:%M:%S.000Z)" '{files: ., releaseDate: $date}'
@@ -28,4 +28,4 @@ files=$(upload_files "${win[@]}" "${mac[@]}" "${linux[@]}" "${linux_arm[@]}" "${
 manifests=$(jq -n --argjson win "$(feed "${win[@]}")" --argjson mac "$(feed "${mac[@]}")" \
   --argjson linux "$(feed "${linux[@]}")" --argjson linux_arm64 "$(feed "${linux_arm[@]}")" \
   '{"desktop.yml": $win, "desktop-mac.yml": $mac, "desktop-linux.yml": $linux, "desktop-linux-arm64.yml": $linux_arm64}')
-publish_update desktop xccode "$(jq -n --argjson files "$files" --argjson manifests "$manifests" '{files: $files, manifests: $manifests}')"
+publish_update desktop xiaochuan "$(jq -n --argjson files "$files" --argjson manifests "$manifests" '{files: $files, manifests: $manifests}')"

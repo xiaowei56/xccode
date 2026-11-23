@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
-import { Ipc } from "@xccode/plugin/gui"
+import { Ipc } from "@xiaochuan/plugin/gui"
 import { Schema } from "effect"
-import type { Bridge, BridgeMessage } from "@xccode/plugin/gui/host"
+import type { Bridge, BridgeMessage } from "@xiaochuan/plugin/gui/host"
 import { createIpcClients } from "./ipc"
 
 const token: Ipc = { kind: "ipc", id: "fixture", spec: { id: "fixture", methods: {} } }

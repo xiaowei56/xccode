@@ -1,4 +1,4 @@
-import type { SessionMessageAssistantTool } from "@xccode/client/promise"
+import type { SessionMessageAssistantTool } from "@xiaochuan/client/promise"
 import type { FileFact } from "../timeline/facts"
 
 /** Direct file changes and a script's changes in one file group, as runs in the order they happened. */

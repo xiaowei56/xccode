@@ -1,6 +1,6 @@
-import { useDialog } from "@xccode/ui/context/dialog"
-import { useI18n } from "@xccode/ui/context/i18n"
-import { ImagePreview } from "@xccode/ui/image-preview"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { ImagePreview } from "@xiaochuan/ui/image-preview"
 
 export function createImagePreview() {
   const dialog = useDialog()

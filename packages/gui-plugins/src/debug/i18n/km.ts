@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "ការវិនិច្ឆ័យអង្គចងចាំ៖ កត់ត្រាអង្គចងចាំកម្មវិធីទៅកំណត់ហេតុផ្ទៃតុរៀងរាល់ 30 វិនាទី។ នៅតែបើកឆ្លងកាត់ការចាប់ផ្តើមឡើងវិញរហូតដល់បិទ ហើយរបារនៅតែបើកខណៈពេលវាដំណើរការ។",
-  "memory.tipEnv": "ការវិនិច្ឆ័យអង្គចងចាំបើកសម្រាប់ការបើកដំណើរការនេះ៖ XCCODE_DESKTOP_MEMORY_LOG ត្រូវបានកំណត់។",
+  "memory.tipEnv": "ការវិនិច្ឆ័យអង្គចងចាំបើកសម្រាប់ការបើកដំណើរការនេះ៖ XIAOCHUAN_DESKTOP_MEMORY_LOG ត្រូវបានកំណត់។",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

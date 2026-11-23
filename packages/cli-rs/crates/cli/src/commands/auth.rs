@@ -8,9 +8,9 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 
 use indexmap::IndexMap;
-use xccode_api::client::Client;
-use xccode_api::error::Error as ApiError;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::error::Error as ApiError;
+use xiaochuan_api::generated::{
     ConnectionInfo, CredentialActivateInput, CredentialCreateInput, CredentialRemoveInput, CredentialValue,
     ExperimentalIntegrationWellknownAddInput, FormAnswer, FormField, FormValue, FormWhen, FormWhenOp, FormWhenValue,
     IntegrationAttemptMode, IntegrationAttemptStatus, IntegrationCommandAttemptStatus, IntegrationCommandCancelInput,
@@ -19,9 +19,9 @@ use xccode_api::generated::{
     IntegrationOauthCancelInput, IntegrationOauthCompleteInput, IntegrationOauthConnectInput,
     IntegrationOauthStatusInput, LocationQueryInput, SessionMessageShellExit,
 };
-use xccode_api::js::{UrlError, number_to_string, parse_number, parse_url};
-use xccode_ui::form;
-use xccode_util::{bail, err, error};
+use xiaochuan_api::js::{UrlError, number_to_string, parse_number, parse_url};
+use xiaochuan_ui::form;
+use xiaochuan_util::{bail, err, error};
 use serde_json::{Value, json};
 
 use super::Context;
@@ -50,7 +50,7 @@ fn caught(result: error::Result<()>) -> error::Result<()> {
     if error.is::<Exit>() {
         return Err(error);
     }
-    eprintln!("{}", xccode_ui::terminal_text(&error_message(&error)));
+    eprintln!("{}", xiaochuan_ui::terminal_text(&error_message(&error)));
     Err(Exit(1).into())
 }
 
@@ -110,7 +110,7 @@ pub(super) fn location() -> error::Result<Option<LocationQueryInput>> {
     Ok(Some(here()?))
 }
 
-/// `loadIntegrations`: waits for the plugins that add integrations, then the integrations, Xccode Go first.
+/// `loadIntegrations`: waits for the plugins that add integrations, then the integrations, Xiaochuan Go first.
 pub(super) fn load_integrations(server: &Server) -> error::Result<Vec<IntegrationInfo>> {
     let location = location()?;
     let mut integrations = server.run(async {
@@ -118,7 +118,7 @@ pub(super) fn load_integrations(server: &Server) -> error::Result<Vec<Integratio
         let list = server.client().integration_list(&IntegrationListInput { location }).await?;
         Ok::<_, error::Error>(list.data)
     })?;
-    integrations.sort_by_key(|integration| integration.id.as_str() != "xccode-go");
+    integrations.sort_by_key(|integration| integration.id.as_str() != "xiaochuan-go");
     Ok(integrations)
 }
 
@@ -161,7 +161,7 @@ fn list(context: &Context, args: &AuthListArgs) -> error::Result<()> {
         .iter()
         .map(|(integration, source, kind)| format!("{}{}{kind}", pad_end(integration, width), pad_end(source, 28)))
         .collect();
-    print(&xccode_ui::terminal_text(&(lines.join("\n") + "\n")))
+    print(&xiaochuan_ui::terminal_text(&(lines.join("\n") + "\n")))
 }
 
 fn export(context: &Context, args: &AuthExportArgs) -> error::Result<()> {
@@ -566,7 +566,7 @@ pub(super) fn resolve_integration<'a>(
 // ---------------------------------------------------------------------------------------------------------------
 
 // Picker order under “Popular”.
-const PRIORITY: [&str; 6] = ["xccode-go", "xccode", "openai", "github-copilot", "anthropic", "google"];
+const PRIORITY: [&str; 6] = ["xiaochuan-go", "xiaochuan", "openai", "github-copilot", "anthropic", "google"];
 
 fn login(context: &Context, args: &AuthLoginArgs) -> error::Result<()> {
     if args.target.is_none() {
@@ -637,7 +637,7 @@ fn is_web_url(target: &str) -> error::Result<bool> {
     }
 }
 
-// Xccode Go connects through Xccode, so it's only offered to people who already saved a Go key.
+// Xiaochuan Go connects through Xiaochuan, so it's only offered to people who already saved a Go key.
 fn login_choices(integrations: &[IntegrationInfo]) -> Vec<IntegrationChoice> {
     let mcp = |integration: &IntegrationInfo| {
         integration.metadata.as_ref().and_then(|metadata| metadata.get("source")).and_then(Value::as_str) == Some("mcp")
@@ -649,7 +649,7 @@ fn login_choices(integrations: &[IntegrationInfo]) -> Vec<IntegrationChoice> {
         .iter()
         .filter(|integration| !connect_methods(integration).is_empty())
         .filter(|integration| {
-            integration.id.as_str() != "xccode-go"
+            integration.id.as_str() != "xiaochuan-go"
                 || integration.connections.iter().any(|connection| matches!(connection, ConnectionInfo::Credential(_)))
         })
         .collect();
@@ -886,7 +886,7 @@ pub(super) fn oauth_login(
     prompt::log::info(&attempt.url);
     if prompt::is_interactive() {
         // Best effort: without a browser opener, the URL is printed above.
-        let _ = xccode_tui::features::links::open_url(&attempt.url);
+        let _ = xiaochuan_tui::features::links::open_url(&attempt.url);
     }
     let connected = format!("Connected to {}", integration.name);
     if attempt.mode == IntegrationAttemptMode::Code {
@@ -1225,7 +1225,7 @@ fn answer_field(field: &FormField) -> error::Result<Option<FormValue>> {
     match field {
         FormField::External(external) => {
             prompt::log::info(&external.url);
-            let _ = xccode_tui::features::links::open_url(&external.url);
+            let _ = xiaochuan_tui::features::links::open_url(&external.url);
             let question =
                 if message.is_empty() { "Continue after completing this step?".to_owned() } else { message.clone() };
             if !prompt::confirm(question).initial_value(true).prompt()? {
@@ -1381,7 +1381,7 @@ fn validate_text(field: &FormField, value: &str) -> Option<String> {
     {
         return Some("Invalid format".to_owned());
     }
-    use xccode_api::generated::FormStringFieldFormat as Format;
+    use xiaochuan_api::generated::FormStringFieldFormat as Format;
     match &field.format {
         Some(Format::Uri) => match parse_url(value) {
             Err(error @ UrlError::NonAsciiHost(_)) => Some(error.to_string()),
@@ -1462,7 +1462,7 @@ impl std::fmt::Display for IntegrationChoice {
 /// label, ID, or category. Enter on an empty match asks again.
 pub(super) fn select_integration(choices: Vec<IntegrationChoice>, kind: &str) -> error::Result<String> {
     // `render_picker` draws the labels and hints itself, so they lose their control characters here.
-    let clean = |text: &str| xccode_ui::terminal_text(text).into_owned();
+    let clean = |text: &str| xiaochuan_ui::terminal_text(text).into_owned();
     let options = choices
         .into_iter()
         .map(|choice| IntegrationChoice {
@@ -1576,8 +1576,8 @@ mod tests {
 
     #[test]
     fn uri_fields_reject_non_ascii_hosts() {
-        let field = FormField::String(xccode_api::generated::FormStringField {
-            format: Some(xccode_api::generated::FormStringFieldFormat::Uri),
+        let field = FormField::String(xiaochuan_api::generated::FormStringField {
+            format: Some(xiaochuan_api::generated::FormStringFieldFormat::Uri),
             ..Default::default()
         });
         let host = ": a host name must be ASCII; write an international name in its punycode (xn--) form";
@@ -1674,7 +1674,7 @@ mod tests {
     }
 
     #[test]
-    fn login_choices_hide_xccode_go_until_a_go_key_is_saved() {
+    fn login_choices_hide_xiaochuan_go_until_a_go_key_is_saved() {
         let integration = |id: &str, connection: &str| -> IntegrationInfo {
             serde_json::from_str(&format!(
                 r#"{{"id":"{id}","name":"{id}","methods":[{{"type":"key"}}],"connections":[{connection}]}}"#
@@ -1682,15 +1682,15 @@ mod tests {
             .unwrap()
         };
         let values = |connection: &str| -> Vec<String> {
-            login_choices(&[integration("xccode", ""), integration("xccode-go", connection)])
+            login_choices(&[integration("xiaochuan", ""), integration("xiaochuan-go", connection)])
                 .into_iter()
                 .map(|choice| choice.value)
                 .collect()
         };
-        assert_eq!(values(r#"{"type":"env","name":"XCCODE_API_KEY"}"#), ["xccode"]);
+        assert_eq!(values(r#"{"type":"env","name":"XIAOCHUAN_API_KEY"}"#), ["xiaochuan"]);
         assert_eq!(
             values(r#"{"type":"credential","id":"go","label":"Go","method":"key"}"#),
-            ["xccode-go", "xccode"]
+            ["xiaochuan-go", "xiaochuan"]
         );
     }
 

@@ -1,4 +1,4 @@
-import type { ProjectListOutput, WorktreeDirectory } from "@xccode/client/promise"
+import type { ProjectListOutput, WorktreeDirectory } from "@xiaochuan/client/promise"
 
 export type Project = Omit<ProjectListOutput[number], "canonical"> & {
   worktree: string

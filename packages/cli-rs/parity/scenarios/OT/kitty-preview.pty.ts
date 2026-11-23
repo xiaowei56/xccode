@@ -9,7 +9,7 @@ import { deflateSync } from "node:zlib"
 import { definePty } from "../../pty/run"
 import { homeMasks, paste, press, release } from "./home"
 
-const png = path.join(tmpdir(), "xccode-parity-kitty-preview.png")
+const png = path.join(tmpdir(), "xiaochuan-parity-kitty-preview.png")
 const config = { experimental: { "new-designs": true }, debug: { devtools: false }, prompt: { image_preview: true } }
 // Block glyphs other than the logo's (`█▀▄`).
 const quadrants = /[▖▗▘▙▚▛▜▝▞▟▌▐]/
@@ -18,7 +18,7 @@ export default definePty({
   args: [],
   cols: 120,
   rows: 40,
-  env: { XCCODE_CLI_CONFIG_CONTENT: JSON.stringify(config) },
+  env: { XIAOCHUAN_CLI_CONFIG_CONTENT: JSON.stringify(config) },
   server: { fallback: "tui" },
   graphics: { cell: 20 },
   setup: async () => {

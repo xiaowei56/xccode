@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
-import { Agent } from "@xccode/schema/agent"
-import { Model } from "@xccode/schema/model"
-import { Provider } from "@xccode/schema/provider"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Model } from "@xiaochuan/schema/model"
+import { Provider } from "@xiaochuan/schema/provider"
 import type { Catalog } from "../../src/acp/catalog"
 import { configOptions, parseModelSelection } from "../../src/acp/config-option"
 

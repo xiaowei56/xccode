@@ -1,5 +1,5 @@
-import { useI18n } from "@xccode/ui/context/i18n"
-import { Icon } from "@xccode/ui/icon"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { Icon } from "@xiaochuan/ui/icon"
 import { Show } from "solid-js"
 
 /** The Sources panel's title in its side-panel tab: "Sources · 87". */

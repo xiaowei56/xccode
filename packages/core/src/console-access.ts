@@ -2,14 +2,14 @@ export * as ConsoleAccess from "./console-access.js"
 
 import type { Credential } from "./credential.js"
 
-export const defaultServer = "https://xccode.ai/console"
+export const defaultServer = "https://xiaochuan.ai/console"
 
-/** The Xccode Console a credential signed in to. */
+/** The Xiaochuan Console a credential signed in to. */
 export function server(value: Credential.Value) {
   const server = typeof value.metadata?.server === "string" ? value.metadata.server : defaultServer
-  // Credentials saved before August 2026 store the retired console.xccode.ai host, which maps path-for-path onto
+  // Credentials saved before August 2026 store the retired console.xiaochuan.ai host, which maps path-for-path onto
   // the default server; rewriting it lets that host be shut down without forcing those users to reconnect.
-  return server.replace(/^https:\/\/console\.xccode\.ai(?=\/|$)/, defaultServer)
+  return server.replace(/^https:\/\/console\.xiaochuan\.ai(?=\/|$)/, defaultServer)
 }
 
 /** Authenticates a Console request as the credential's member, in the workspace the sign-in chose. */

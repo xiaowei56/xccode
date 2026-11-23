@@ -1,7 +1,7 @@
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { httpClient } from "@xccode/util/effect/app-node-platform"
-import { SdkPlugins } from "@xccode/core/plugin/sdk"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { httpClient } from "@xiaochuan/util/effect/app-node-platform"
+import { SdkPlugins } from "@xiaochuan/core/plugin/sdk"
 import { Config, Effect, FileSystem, Layer } from "effect"
 import { HttpClient } from "effect/http"
 import { DriveManifest } from "../manifest"
@@ -27,8 +27,8 @@ export const simulationReplacements: (app: {
   function* (app: { readonly version: string }) {
     // ModelsDev dies when its catalog fetch fails, so simulation answers it with
     // an empty catalog; providers come from seeded config instead.
-    const models = SimulationNetwork.json("GET", "https://models.xccode.ai/experimental/v2.0/api.json", {})
-    const drive = yield* Config.String("XCCODE_DRIVE").pipe(Config.withDefault(undefined))
+    const models = SimulationNetwork.json("GET", "https://models.xiaochuan.ai/experimental/v2.0/api.json", {})
+    const drive = yield* Config.String("XIAOCHUAN_DRIVE").pipe(Config.withDefault(undefined))
     if (!drive) return [httpClient.replace(SimulationNetwork.layer([models]))] satisfies LayerNode.Replacements
 
     const manifest = yield* DriveManifest.resolve()

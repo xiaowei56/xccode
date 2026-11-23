@@ -1,5 +1,5 @@
-import type { Data } from "@xccode/client/solid"
-import type { SessionMessageUser } from "@xccode/client/promise"
+import type { Data } from "@xiaochuan/client/solid"
+import type { SessionMessageUser } from "@xiaochuan/client/promise"
 import type { Accessor } from "solid-js"
 import type { ModelSelection } from "@/providers/models/selection"
 import type { ServerSDK } from "@/runtime/server/client"

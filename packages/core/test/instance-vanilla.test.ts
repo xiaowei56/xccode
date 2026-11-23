@@ -2,16 +2,16 @@ import fs from "fs/promises"
 import path from "path"
 import { describe, expect } from "bun:test"
 import { Duration, Effect, Layer, LayerMap } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
-import { Config } from "@xccode/core/config"
-import { Instance } from "@xccode/core/instance"
-import { InstructionDiscovery } from "@xccode/core/instruction-discovery"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { Location } from "@xccode/core/location"
-import { Plugin } from "@xccode/core/plugin"
-import { AbsolutePath } from "@xccode/core/schema"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
+import { Config } from "@xiaochuan/core/config"
+import { Instance } from "@xiaochuan/core/instance"
+import { InstructionDiscovery } from "@xiaochuan/core/instruction-discovery"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { Location } from "@xiaochuan/core/location"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { AbsolutePath } from "@xiaochuan/core/schema"
 import { tmpdirScoped } from "./fixture/tmpdir"
 import { tempGlobalLayer } from "./fixture/global"
 import { offlineModels } from "./fixture/models"
@@ -78,7 +78,7 @@ describe("Instance vanilla", () => {
             Effect.promise(async () => {
               const directory = path.join(dir.path, name)
               await fs.mkdir(directory)
-              await fs.writeFile(path.join(directory, "xccode.json"), "{}")
+              await fs.writeFile(path.join(directory, "xiaochuan.json"), "{}")
               await fs.writeFile(path.join(directory, "AGENTS.md"), "planted instructions")
               return Location.Ref.make({ directory: AbsolutePath.make(directory) })
             })

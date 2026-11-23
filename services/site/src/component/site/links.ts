@@ -16,7 +16,7 @@ export function siteLinks(t: Translate, route: (path: string) => string) {
       // Data lives on this site under /data, so no arrow. Settings › Product nav demo sends Data and
       // Console to their header demos instead.
       { id: "data", label: t("nav.data"), href: route("/data"), demo: route("/data-demo") },
-      // Anomaly's commercial products: the Console, its models list, its subscriptions page (Xccode
+      // Anomaly's commercial products: the Console, its models list, its subscriptions page (Xiaochuan
       // Go, which the home page's subscriptions section links) and its enterprise page ("Talk to our
       // team"). Settings › Nav groups moves them under an "Anomaly" label.
       {
@@ -45,7 +45,7 @@ export function siteLinks(t: Translate, route: (path: string) => string) {
       { label: t("legal.brand"), href: route("/brand") },
       { label: t("site.footer.legal"), href: route("/legal") },
     ],
-    status: { label: t("site.footer.status"), href: "https://status.xccode.ai" },
+    status: { label: t("site.footer.status"), href: "https://status.xiaochuan.ai" },
     // Settings › Footer › columns: the open source project first, Anomaly's products last.
     columns: [
       {
@@ -87,7 +87,7 @@ export function siteLinks(t: Translate, route: (path: string) => string) {
         title: "Anomaly",
         links: [
           { label: t("site.nav.console"), href: "/console" },
-          { label: "Xccode Models", href: "/console/models" },
+          { label: "Xiaochuan Models", href: "/console/models" },
           { label: t("site.nav.subscriptions"), href: "/console/go" },
           { label: t("nav.enterprise"), href: "/console/enterprise" },
           { label: t("legal.privacy"), href: route("/legal/privacy-policy") },

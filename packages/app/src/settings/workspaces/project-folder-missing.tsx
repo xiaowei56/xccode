@@ -1,4 +1,4 @@
-import { Icon } from "@xccode/ui/icon"
+import { Icon } from "@xiaochuan/ui/icon"
 import { Show } from "solid-js"
 import { useLanguage } from "@/runtime/i18n/language"
 import { useWorkspaceLocation } from "@/workspaces/location"

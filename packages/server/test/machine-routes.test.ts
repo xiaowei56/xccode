@@ -1,12 +1,12 @@
 import { expect } from "bun:test"
-import { isConflictError, isForbiddenError, isInvalidRequestError, Xccode } from "@xccode/client"
-import { Identity } from "@xccode/core/machine/identity"
-import { Machine } from "@xccode/core/machine/index"
-import { Iroh } from "@xccode/core/machine/iroh"
-import loadBinding from "@xccode/core/machine/iroh-binding"
-import { Join } from "@xccode/core/machine/join"
-import { Link } from "@xccode/core/machine/link"
-import { MACHINE_LINK_PATH } from "@xccode/protocol/groups/machine"
+import { isConflictError, isForbiddenError, isInvalidRequestError, Xiaochuan } from "@xiaochuan/client"
+import { Identity } from "@xiaochuan/core/machine/identity"
+import { Machine } from "@xiaochuan/core/machine/index"
+import { Iroh } from "@xiaochuan/core/machine/iroh"
+import loadBinding from "@xiaochuan/core/machine/iroh-binding"
+import { Join } from "@xiaochuan/core/machine/join"
+import { Link } from "@xiaochuan/core/machine/link"
+import { MACHINE_LINK_PATH } from "@xiaochuan/protocol/groups/machine"
 import { Cause, Effect, Option, Queue } from "effect"
 import { HttpServer } from "effect/http"
 import { randomBytes } from "node:crypto"
@@ -14,10 +14,10 @@ import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
 import { it } from "../../core/test/lib/effect"
 import { ServerProcess } from "../src/process"
 
-const authorization = `Basic ${btoa("xccode:secret")}`
+const authorization = `Basic ${btoa("xiaochuan:secret")}`
 
 const start = Effect.fnUntraced(function* (machines: boolean) {
-  const directory = (yield* tmpdirScoped("xccode-machine-routes-")).path
+  const directory = (yield* tmpdirScoped("xiaochuan-machine-routes-")).path
   const started = yield* ServerProcess.start<never, never>({
     password: "secret",
     app: { version: "test-version" },
@@ -34,7 +34,7 @@ const start = Effect.fnUntraced(function* (machines: boolean) {
   return {
     base,
     link,
-    api: Xccode.make({ baseUrl: base, headers: { authorization } }),
+    api: Xiaochuan.make({ baseUrl: base, headers: { authorization } }),
   }
 })
 

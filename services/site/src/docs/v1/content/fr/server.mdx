@@ -1,19 +1,19 @@
 ---
 title: Serveur
-description: Interagissez avec le serveur xccode via HTTP.
+description: Interagissez avec le serveur xiaochuan via HTTP.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-La commande `xccode serve` exécute un serveur HTTP sans tête qui expose un point de terminaison OpenAPI qu'un client xccode peut utiliser.
+La commande `xiaochuan serve` exécute un serveur HTTP sans tête qui expose un point de terminaison OpenAPI qu'un client xiaochuan peut utiliser.
 
 ---
 
 ### Usage
 
 ```bash
-xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+xiaochuan serve [--port <number>] [--hostname <string>] [--cors <origin>]
 ```
 
 #### Options
@@ -23,41 +23,41 @@ xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
 | `--port`        | Port à écouter sur                                 | `4096`           |
 | `--hostname`    | Nom d'hôte sur lequel écouter                      | `127.0.0.1`      |
 | `--mdns`        | Activer la découverte mDNS                         | `false`          |
-| `--mdns-domain` | Nom de domaine personnalisé pour le service mDNS   | `xccode.local` |
+| `--mdns-domain` | Nom de domaine personnalisé pour le service mDNS   | `xiaochuan.local` |
 | `--cors`        | Origines de navigateur supplémentaires à autoriser | `[]`             |
 
 `--cors` peut être transmis plusieurs fois :
 
 ```bash
-xccode serve --cors http://localhost:5173 --cors https://app.example.com
+xiaochuan serve --cors http://localhost:5173 --cors https://app.example.com
 ```
 
 ---
 
 ### Authentification
 
-Définissez `XCCODE_SERVER_PASSWORD` pour protéger le serveur avec l'authentification de base HTTP. Le nom d'utilisateur est par défaut `xccode`, ou définissez `XCCODE_SERVER_USERNAME` pour le remplacer. Cela s’applique à la fois à `xccode serve` et à `xccode web`.
+Définissez `XIAOCHUAN_SERVER_PASSWORD` pour protéger le serveur avec l'authentification de base HTTP. Le nom d'utilisateur est par défaut `xiaochuan`, ou définissez `XIAOCHUAN_SERVER_USERNAME` pour le remplacer. Cela s’applique à la fois à `xiaochuan serve` et à `xiaochuan web`.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve
 ```
 
 ---
 
 ### Comment ça marche
 
-Lorsque vous exécutez `xccode`, il démarre un TUI et un serveur. Où le TUI est le
+Lorsque vous exécutez `xiaochuan`, il démarre un TUI et un serveur. Où le TUI est le
 client qui parle au serveur. Le serveur expose une spécification OpenAPI 3.1
 point final. Ce point de terminaison est également utilisé pour générer un [SDK](/docs/sdk).
 
 :::tip
-Utilisez le serveur xccode pour interagir avec xccode par programmation.
+Utilisez le serveur xiaochuan pour interagir avec xiaochuan par programmation.
 :::
 
-Cette architecture permet à xccode de prendre en charge plusieurs clients et vous permet d'interagir avec xccode par programme.
+Cette architecture permet à xiaochuan de prendre en charge plusieurs clients et vous permet d'interagir avec xiaochuan par programme.
 
-Vous pouvez exécuter `xccode serve` pour démarrer un serveur autonome. Si vous avez le
-xccode TUI en cours d'exécution, `xccode serve` démarrera un nouveau serveur.
+Vous pouvez exécuter `xiaochuan serve` pour démarrer un serveur autonome. Si vous avez le
+xiaochuan TUI en cours d'exécution, `xiaochuan serve` démarrera un nouveau serveur.
 
 ---
 
@@ -65,7 +65,7 @@ xccode TUI en cours d'exécution, `xccode serve` démarrera un nouveau serveur.
 
 Lorsque vous démarrez le TUI, il attribue de manière aléatoire un port et un nom d'hôte. Vous pouvez à la place transmettre les `--hostname` et `--port` [flags](/docs/cli). Utilisez-le ensuite pour vous connecter à son serveur.
 
-Le point de terminaison [`/tui`](#tui) peut être utilisé pour piloter le TUI via le serveur. Par exemple, vous pouvez pré-remplir ou exécuter une invite. Cette configuration est utilisée par les plugins Xccode [IDE](/docs/ide).
+Le point de terminaison [`/tui`](#tui) peut être utilisé pour piloter le TUI via le serveur. Par exemple, vous pouvez pré-remplir ou exécuter une invite. Cette configuration est utilisée par les plugins Xiaochuan [IDE](/docs/ide).
 
 ---
 
@@ -83,7 +83,7 @@ Par exemple, `http://localhost:4096/doc`. Utilisez la spécification pour géné
 
 ## APIs
 
-Le serveur xccode expose les API suivantes.
+Le serveur xiaochuan expose les API suivantes.
 
 ---
 

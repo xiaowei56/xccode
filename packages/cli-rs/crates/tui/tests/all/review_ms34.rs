@@ -4,10 +4,10 @@ use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use xccode_api::memory::{Memory, Route as MemoryRoute};
-use xccode_api::transport::{BoxFuture, Request, Response, Transport};
-use xccode_local::model_pref::Model;
-use xccode_tui::{Args, Deps, Route, Tui};
+use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
+use xiaochuan_api::transport::{BoxFuture, Request, Response, Transport};
+use xiaochuan_local::model_pref::Model;
+use xiaochuan_tui::{Args, Deps, Route, Tui};
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
 
@@ -42,10 +42,10 @@ fn location_at(directory: &str) -> Value {
 
 fn limits(spent: f64) -> Value {
     json!({
-        "workspace": { "id": "wrk_1", "name": "Acme", "usageURL": "https://xccode.ai/console/wrk_1/usage" },
+        "workspace": { "id": "wrk_1", "name": "Acme", "usageURL": "https://xiaochuan.ai/console/wrk_1/usage" },
         "budgets": [{
             "id": "big", "limit": 10, "spent": 0, "scope": "each", "per": "model", "coverage": "models",
-            "models": [{ "providerID": "xccode", "modelID": "big", "name": "Big Pickle", "spent": spent }],
+            "models": [{ "providerID": "xiaochuan", "modelID": "big", "name": "Big Pickle", "spent": spent }],
             "vendors": [], "picked": false, "shared": false, "resetsAt": 1894708800000_i64,
         }],
     })
@@ -130,13 +130,13 @@ fn routes() -> Vec<MemoryRoute> {
 
 fn catalogs(directory: &str, query: Option<&str>) -> Vec<MemoryRoute> {
     let list = |data: Value| json!({ "location": location_at(directory), "data": data });
-    let models = json!([model("xccode", "big", "Big Pickle", 10.0), model("demo", "other", "Other Model", 1.0)]);
+    let models = json!([model("xiaochuan", "big", "Big Pickle", 10.0), model("demo", "other", "Other Model", 1.0)]);
     let providers = json!([
-        { "id": "xccode", "name": "Xccode", "integrationID": "xccode", "activation": "auto", "package": "@ai-sdk/test" },
+        { "id": "xiaochuan", "name": "Xiaochuan", "integrationID": "xiaochuan", "activation": "auto", "package": "@ai-sdk/test" },
         { "id": "demo", "name": "Demo", "activation": "auto", "package": "@ai-sdk/test" },
     ]);
     let agents = json!([
-        agent("build", Some(json!({ "providerID": "xccode", "id": "big" }))),
+        agent("build", Some(json!({ "providerID": "xiaochuan", "id": "big" }))),
         agent("plan", None),
         agent("code-review", None),
     ]);
@@ -187,7 +187,7 @@ fn sessions() -> Vec<MemoryRoute> {
     }
     let saved = support::merge(
         session("ses_m", DIRECTORY, "Saved model", None),
-        json!({ "model": { "providerID": "xccode", "id": "big" } }),
+        json!({ "model": { "providerID": "xiaochuan", "id": "big" } }),
     );
     routes.push(MemoryRoute::json("GET", "/api/session/ses_m", 200, &json!({ "data": saved })));
     for list in ["inbox", "permission", "form"] {
@@ -256,7 +256,7 @@ impl Harness {
     fn writes(&self) -> Vec<String> {
         self.log()
             .into_iter()
-            .filter(|line| !line.starts_with("GET ") && !line.ends_with("/xccode.goal/get"))
+            .filter(|line| !line.starts_with("GET ") && !line.ends_with("/xiaochuan.goal/get"))
             .collect()
     }
 
@@ -292,7 +292,7 @@ fn session_new_keeps_the_location_agent_and_model_and_closes_dialogs() {
     // The worktree's catalog loads after the session moves the location there: until then the agent and model are not
     // valid there, and the new session's home, in the worktree too, would drop them.
     h.wait("the worktree's catalog", || {
-        xccode_tui::features::location::current(&h.tui).is_some_and(|location| location.directory == WORKTREE)
+        xiaochuan_tui::features::location::current(&h.tui).is_some_and(|location| location.directory == WORKTREE)
             && h.tui.local.catalog_ready()
             && !h.tui.local.agents().is_empty()
     });
@@ -306,7 +306,7 @@ fn session_new_keeps_the_location_agent_and_model_and_closes_dialogs() {
     h.wait("home", || h.tui.route() == Route::Home);
     assert!(!h.tui.dialogs.is_open(), "the dialog stayed open");
     assert_eq!(
-        xccode_tui::features::location::current(&h.tui).map(|location| location.directory),
+        xiaochuan_tui::features::location::current(&h.tui).map(|location| location.directory),
         Some(WORKTREE.to_owned()),
         "`inherit` keeps the session's location"
     );
@@ -337,7 +337,7 @@ fn tui_prompt_append_appends_to_the_prompt_of_the_current_location() {
 fn console_limits_load_show_in_the_prompt_reload_after_a_turn_and_warn_once() {
     let h = mount(session_route("ses_a"), Args::default(), animations_off());
     h.wait_for("Fix the parser");
-    // Big Pickle is served by Xccode Console, so its limits load without opening `/models` or `/usage`.
+    // Big Pickle is served by Xiaochuan Console, so its limits load without opening `/models` or `/usage`.
     h.wait("the limits", || h.count("GET", LIMITS) == 1);
     h.wait_for("$5 left");
     h.wait_for("Running low on Big Pickle");
@@ -384,11 +384,11 @@ fn startup_model_keeps_a_saved_session_model_and_leads_the_fallback() {
         mount(session_route("ses_m"), Args { model: Some("demo/other".into()), ..Args::default() }, animations_off());
     h.wait_for("Saved model");
     h.wait("the recent model", || h.tui.local.recent() == [Model::new("demo", "other")]);
-    assert_eq!(h.tui.local.current(), Some(Model::new("xccode", "big")));
+    assert_eq!(h.tui.local.current(), Some(Model::new("xiaochuan", "big")));
 
     // On home, a recent model chosen later does not displace `--model` for an agent without its own.
     h.tui.navigate(Route::Home);
-    h.tui.local.set(&Model::new("xccode", "big"), true);
+    h.tui.local.set(&Model::new("xiaochuan", "big"), true);
     h.tui.local.set_agent("plan");
     h.wait("the fallback", || h.tui.local.current() == Some(Model::new("demo", "other")));
 }

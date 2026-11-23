@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Mälu diagnostika: logi rakenduse mälu iga 30 sekundi järel töölaua logidesse. Jääb sisse ka pärast taaskäivitamist, kuni välja lülitad; riba jääb selle töötamise ajaks avatuks.",
-  "memory.tipEnv": "Mälu diagnostika on selle käivituse jaoks sees: XCCODE_DESKTOP_MEMORY_LOG on määratud.",
+  "memory.tipEnv": "Mälu diagnostika on selle käivituse jaoks sees: XIAOCHUAN_DESKTOP_MEMORY_LOG on määratud.",
   "memory.env": "ENV",
   "motion.label": "NUPUD",
   "motion.title": "Nupud",

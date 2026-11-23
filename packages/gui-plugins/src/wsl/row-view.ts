@@ -1,10 +1,10 @@
-import type { WslXccodeCheck, WslServersState } from "./contract"
+import type { WslXiaochuanCheck, WslServersState } from "./contract"
 
 /** A configured distro's settings row, from main's state alone. A server still starting can be updated or removed. */
 export function wslRowView(state: WslServersState | undefined, distro: string) {
   const job = state?.distroJobs[distro]
-  const check = state?.xccodeChecks[distro]
-  const action = xccodeAction(check)
+  const check = state?.xiaochuanChecks[distro]
+  const action = xiaochuanAction(check)
   const runtime = state?.servers.find((item) => item.config.distro === distro)?.runtime.kind
   const free = !job || job === "starting"
 
@@ -16,10 +16,10 @@ export function wslRowView(state: WslServersState | undefined, distro: string) {
   }
 }
 
-function xccodeAction(check: WslXccodeCheck | undefined) {
+function xiaochuanAction(check: WslXiaochuanCheck | undefined) {
   if (!check) return
 
-  if (!check.resolvedPath) return "onboarding.installXccode"
+  if (!check.resolvedPath) return "onboarding.installXiaochuan"
 
-  if (check.matchesDesktop === false) return "onboarding.updateXccode"
+  if (check.matchesDesktop === false) return "onboarding.updateXiaochuan"
 }

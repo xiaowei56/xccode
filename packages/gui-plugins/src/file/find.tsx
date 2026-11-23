@@ -2,15 +2,15 @@ import { Option, Schema } from "effect"
 import { createSignal, onCleanup, Show, untrack } from "solid-js"
 import { makeEventListener } from "@solid-primitives/event-listener"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
-import { createKeyed, type FileContent } from "@xccode/plugin/gui"
-import { FileSearchBar } from "@xccode/session-ui/file-search"
+import { createKeyed, type FileContent } from "@xiaochuan/plugin/gui"
+import { FileSearchBar } from "@xiaochuan/session-ui/file-search"
 
 const HIT = "file-preview-find"
 
 const ACTIVE = "file-preview-find-current"
 
 /** Marks messages between the bar and the script it adds to an HTML preview. */
-const CHANNEL = "xccode-file-find"
+const CHANNEL = "xiaochuan-file-find"
 
 /** The open bar: what it searches, the query, and the active match out of `count`. */
 type PreviewFindState = {
@@ -316,8 +316,8 @@ function frameFind(channel: string) {
     const api = CSS.highlights
 
     if (data.op === "clear") {
-      api?.delete("xccode-file-find")
-      api?.delete("xccode-file-find-current")
+      api?.delete("xiaochuan-file-find")
+      api?.delete("xiaochuan-file-find-current")
 
       return
     }
@@ -345,17 +345,17 @@ function frameFind(channel: string) {
     const index = ranges.length === 0 ? 0 : Math.min(Math.max(data.index, 0), ranges.length - 1)
     const active = ranges[index]
     sheet.replaceSync(
-      `::highlight(xccode-file-find){background-color:${data.marks?.hit}}::highlight(xccode-file-find-current){background-color:${data.marks?.active}}`,
+      `::highlight(xiaochuan-file-find){background-color:${data.marks?.hit}}::highlight(xiaochuan-file-find-current){background-color:${data.marks?.active}}`,
     )
 
     if (!document.adoptedStyleSheets.includes(sheet))
       document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet]
 
     if (api) {
-      api.set("xccode-file-find", new Highlight(...ranges.filter((range) => range !== active)))
+      api.set("xiaochuan-file-find", new Highlight(...ranges.filter((range) => range !== active)))
 
-      if (active) api.set("xccode-file-find-current", new Highlight(active))
-      else api.delete("xccode-file-find-current")
+      if (active) api.set("xiaochuan-file-find-current", new Highlight(active))
+      else api.delete("xiaochuan-file-find-current")
     }
 
     active?.startContainer.parentElement?.scrollIntoView({ block: "center", inline: "nearest" })

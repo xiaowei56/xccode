@@ -1,5 +1,5 @@
 import { Schema } from "effect"
-import { Ipc } from "@xccode/plugin/gui"
+import { Ipc } from "@xiaochuan/plugin/gui"
 
 export const SshConfig = Schema.Struct({ id: Schema.String, target: Schema.String, name: Schema.String })
 

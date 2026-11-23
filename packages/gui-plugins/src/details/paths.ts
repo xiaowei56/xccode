@@ -1,4 +1,4 @@
-import { sameDirectory } from "@xccode/util/path"
+import { sameDirectory } from "@xiaochuan/util/path"
 
 /** The parts of a project that name its checkouts. */
 export type WorkspaceProject = {

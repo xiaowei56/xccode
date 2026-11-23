@@ -1,17 +1,17 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "version": "2.3.0",
-  "name": "@xccode/http-recorder",
+  "name": "@xiaochuan/http-recorder",
   "description": "Record and replay Effect HTTP and WebSocket traffic with deterministic cassettes",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaowei56/xccode.git",
+    "url": "git+https://github.com/xiaowei56/xiaochuan.git",
     "directory": "packages/http-recorder"
   },
-  "homepage": "https://github.com/xiaowei56/xccode/tree/dev/packages/http-recorder",
-  "bugs": "https://github.com/xiaowei56/xccode/issues",
+  "homepage": "https://github.com/xiaowei56/xiaochuan/tree/dev/packages/http-recorder",
+  "bugs": "https://github.com/xiaowei56/xiaochuan/issues",
   "keywords": [
     "effect",
     "http",

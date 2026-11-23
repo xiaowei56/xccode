@@ -38,7 +38,7 @@ test("bundles app icons under a base path", async () => {
     root: import.meta.dirname,
     configFile: false,
     logLevel: "silent",
-    base: "/xccode/",
+    base: "/xiaochuan/",
     plugins: [
       icons("prod"),
       {
@@ -63,7 +63,7 @@ test("bundles app icons under a base path", async () => {
 
       return new Uint8Array(Buffer.from(file.source))
     },
-    "/xccode/",
+    "/xiaochuan/",
   )
 })
 
@@ -112,7 +112,7 @@ async function check(channel: string, read: (path: string) => Promise<Uint8Array
   expect(html).toContain(`href="${base}icons/${channel}/favicon.ico"`)
   expect(html).toContain(`href="${base}icons/${channel}/apple-touch-icon.png"`)
   expect(html).toContain(`href="${base}site.webmanifest"`)
-  expect(html).not.toContain("%XCCODE_")
+  expect(html).not.toContain("%XIAOCHUAN_")
 
   await Promise.all(
     Object.entries({

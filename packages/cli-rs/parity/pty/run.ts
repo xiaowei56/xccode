@@ -1,11 +1,11 @@
-// P-PTY: runs one command with the TS CLI and with `xccode-native` under a fixed-size
+// P-PTY: runs one command with the TS CLI and with `xiaochuan-native` under a fixed-size
 // pseudo-terminal, renders the output through OpenTUI's embedded terminal (which also answers the
 // program's terminal queries), and compares the OSC log, the screens at checkpoints, and the exit.
 //
 //   bun run parity/pty/run.ts [--sides ts,rs] [scenario.pty.ts ...]
 //
 // Without files it runs every `parity/scenarios/**/*.pty.ts`. Sides run one after the other. Each
-// side's record goes to `$TMPDIR/xccode-parity/pty/<name>.<n>-<side>.json`.
+// side's record goes to `$TMPDIR/xiaochuan-parity/pty/<name>.<n>-<side>.json`.
 
 import { parseArgs } from "node:util"
 import { Glob } from "bun"
@@ -515,7 +515,7 @@ if (import.meta.main) {
     await Promise.all(
       records.map((record, index) =>
         Bun.write(
-          path.join(tmpdir(), "xccode-parity/pty", `${name}.${index}-${sides[index]}.json`),
+          path.join(tmpdir(), "xiaochuan-parity/pty", `${name}.${index}-${sides[index]}.json`),
           JSON.stringify(record, null, 2) + "\n",
         ),
       ),

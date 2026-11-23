@@ -1,6 +1,6 @@
 import { EOL } from "node:os"
-import { isConflictError, type CredentialCreateInput } from "@xccode/client"
-import { CredentialLegacy } from "@xccode/schema/credential-legacy"
+import { isConflictError, type CredentialCreateInput } from "@xiaochuan/client"
+import { CredentialLegacy } from "@xiaochuan/schema/credential-legacy"
 import { Effect, Option, Schema } from "effect"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"

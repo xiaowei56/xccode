@@ -1,16 +1,16 @@
 import { describe, expect, test } from "bun:test"
-import { SystemPart } from "@xccode/ai/effect"
-import { Agent } from "@xccode/core/agent"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { IdentityPlugin } from "@xccode/core/plugin/identity"
-import { OptimizePlugin } from "@xccode/core/plugin/optimize"
-import { Session } from "@xccode/core/session"
-import { SessionSystemPrompt } from "@xccode/core/session/system-prompt"
-import type { SessionHooks } from "@xccode/plugin/effect/session"
-import { Model } from "@xccode/schema/model"
-import { Provider } from "@xccode/core/provider"
+import { SystemPart } from "@xiaochuan/ai/effect"
+import { Agent } from "@xiaochuan/core/agent"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { IdentityPlugin } from "@xiaochuan/core/plugin/identity"
+import { OptimizePlugin } from "@xiaochuan/core/plugin/optimize"
+import { Session } from "@xiaochuan/core/session"
+import { SessionSystemPrompt } from "@xiaochuan/core/session/system-prompt"
+import type { SessionHooks } from "@xiaochuan/plugin/effect/session"
+import { Model } from "@xiaochuan/schema/model"
+import { Provider } from "@xiaochuan/core/provider"
 import { Effect } from "effect"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
@@ -49,11 +49,11 @@ const context = (id: string, system = fallback): SessionHooks["context"] => ({
 describe("OptimizePlugin", () => {
   test("enables prompt plugins without model-specific tool optimization", () => {
     expect(OptimizePlugin.Plugins.map((plugin) => plugin.id)).toEqual([
-      "xccode.prompt.openai",
-      "xccode.prompt.anthropic",
-      "xccode.prompt.kimi",
-      "xccode.prompt.arcee",
-      "xccode.prompt.meta",
+      "xiaochuan.prompt.openai",
+      "xiaochuan.prompt.anthropic",
+      "xiaochuan.prompt.kimi",
+      "xiaochuan.prompt.arcee",
+      "xiaochuan.prompt.meta",
     ])
   })
 
@@ -128,7 +128,7 @@ describe("OptimizePlugin", () => {
         SessionSystemPrompt.render(PROMPT_GPT, Object.keys(event.tools)),
         "Project instructions",
       ])
-      expect(event.system[0]?.text).not.toContain("${XCCODE_TOOL_GUIDANCE}")
+      expect(event.system[0]?.text).not.toContain("${XIAOCHUAN_TOOL_GUIDANCE}")
       expect(Object.keys(event.tools).sort()).toEqual(["edit", "glob", "grep", "patch", "read", "shell", "write"])
     }),
   )

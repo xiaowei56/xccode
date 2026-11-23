@@ -3,12 +3,12 @@ import {
   isForbiddenError,
   isInvalidRequestError,
   isMachineNotFoundError,
-  Xccode,
+  Xiaochuan,
   type MachineInfo,
   type MachineInvite,
-} from "@xccode/client/promise"
-import { Service } from "@xccode/client/effect/service"
-import { MACHINE_LINK_PATH, type MachineReach } from "@xccode/protocol/groups/machine"
+} from "@xiaochuan/client/promise"
+import { Service } from "@xiaochuan/client/effect/service"
+import { MACHINE_LINK_PATH, type MachineReach } from "@xiaochuan/protocol/groups/machine"
 import { Effect, Option } from "effect"
 import { EOL } from "node:os"
 import { Server, Standalone } from "../../commands"
@@ -27,10 +27,10 @@ export const ensureMachineClient = Effect.fn("cli.machine.client")(function* () 
   const config = yield* ServiceConfig.read()
   if (Option.isNone(serverFlag) && config.disabled === true)
     return yield* Effect.fail(
-      new Error("Managing machines requires the background service; run `xccode service unset disabled` first."),
+      new Error("Managing machines requires the background service; run `xiaochuan service unset disabled` first."),
     )
   const server = yield* ServerConnection.resolve()
-  return Xccode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
+  return Xiaochuan.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
 })
 
 export function machineReach(urls: ReadonlyArray<string>): Array<MachineReach> {
@@ -103,7 +103,7 @@ export function formatMachineList(machines: ReadonlyArray<MachineInfo>) {
 
 export function formatMachineError(error: unknown, name?: string) {
   if (isForbiddenError(error)) {
-    return "Machines are experimental and disabled on this server. Turn them on with XCCODE_FLAGS=machines or experimental.machines: true in your config."
+    return "Machines are experimental and disabled on this server. Turn them on with XIAOCHUAN_FLAGS=machines or experimental.machines: true in your config."
   }
   if (isInvalidRequestError(error) && error.kind === "invalid_name") {
     const label = name === undefined ? "That name" : JSON.stringify(name)

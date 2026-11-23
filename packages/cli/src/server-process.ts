@@ -1,14 +1,14 @@
 export * as ServerProcess from "./server-process"
 
 import { NodeServices } from "@effect/platform-node"
-import { Service } from "@xccode/client/effect/service"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
-import { XCCODE_ARTIFACT, XCCODE_CHANNEL, XCCODE_VERSION } from "./version"
-import { AppProcess } from "@xccode/util/process"
+import { Service } from "@xiaochuan/client/effect/service"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
+import { XIAOCHUAN_ARTIFACT, XIAOCHUAN_CHANNEL, XIAOCHUAN_VERSION } from "./version"
+import { AppProcess } from "@xiaochuan/util/process"
 import { randomBytes, randomUUID } from "node:crypto"
 import { Effect, Option, Redacted, Schema } from "effect"
-import { PersistentPty } from "@xccode/schema/persistent-pty"
+import { PersistentPty } from "@xiaochuan/schema/persistent-pty"
 import { HttpServer } from "effect/http"
 import { NetAddress } from "effect/net"
 import { Env } from "./env"
@@ -36,7 +36,7 @@ export const run = Effect.fnUntraced(function* (options: Options) {
       LayerNode.compile(LayerNode.group([Global.node, AppProcess.node]), {
         replacements: [
           Global.node.replace(
-            Global.layerWith(process.env.XCCODE_CONFIG_DIR ? { config: process.env.XCCODE_CONFIG_DIR } : {}),
+            Global.layerWith(process.env.XIAOCHUAN_CONFIG_DIR ? { config: process.env.XIAOCHUAN_CONFIG_DIR } : {}),
           ),
         ],
       }),
@@ -46,8 +46,8 @@ export const run = Effect.fnUntraced(function* (options: Options) {
 })
 
 const processEffect = Effect.fnUntraced(function* (options: Options) {
-  const inherited = process.env.XCCODE_PTY_HANDOFF
-  delete process.env.XCCODE_PTY_HANDOFF
+  const inherited = process.env.XIAOCHUAN_PTY_HANDOFF
+  delete process.env.XIAOCHUAN_PTY_HANDOFF
   const handoff =
     inherited === undefined
       ? undefined
@@ -81,12 +81,12 @@ const processEffect = Effect.fnUntraced(function* (options: Options) {
       // Keep a package-manager or curl install replaceable while the service runs; Desktop updates its own copy.
       if (options.mode === "service" && process.platform === "win32" && RetainedImage.installed(global.home))
         yield* RetainedImage.retain(global.cache, "service")
-      const { start } = yield* Effect.promise(() => import("@xccode/server/process"))
+      const { start } = yield* Effect.promise(() => import("@xiaochuan/server/process"))
       const environmentPassword = yield* Env.password
       // Keep the lease credential out of the environment inherited by tools.
       if (options.mode === "stdio") {
-        delete process.env.XCCODE_PASSWORD
-        delete process.env.XCCODE_SERVER_PASSWORD
+        delete process.env.XIAOCHUAN_PASSWORD
+        delete process.env.XIAOCHUAN_SERVER_PASSWORD
       }
       const password =
         options.mode === "service"
@@ -101,52 +101,52 @@ const processEffect = Effect.fnUntraced(function* (options: Options) {
       const launch = start(
         {
           app: {
-            name: process.env.XCCODE_CLIENT ?? XCCODE_ARTIFACT,
-            version: XCCODE_VERSION,
-            channel: XCCODE_CHANNEL,
+            name: process.env.XIAOCHUAN_CLIENT ?? XIAOCHUAN_ARTIFACT,
+            version: XIAOCHUAN_VERSION,
+            channel: XIAOCHUAN_CHANNEL,
           },
           hostname,
           port,
           cors: options.cors ?? config.cors,
           password,
           pty: { handoff },
-          simulation: truthy(process.env.XCCODE_SIMULATE),
+          simulation: truthy(process.env.XIAOCHUAN_SIMULATE),
           database: {
             path: databasePath(global.data),
           },
           models: {
-            url: process.env.XCCODE_MODELS_URL,
-            file: process.env.XCCODE_MODELS_PATH,
-            fetch: !truthy(process.env.XCCODE_DISABLE_MODELS_FETCH),
+            url: process.env.XIAOCHUAN_MODELS_URL,
+            file: process.env.XIAOCHUAN_MODELS_PATH,
+            fetch: !truthy(process.env.XIAOCHUAN_DISABLE_MODELS_FETCH),
           },
           config: {
-            directory: process.env.XCCODE_CONFIG_DIR,
+            directory: process.env.XIAOCHUAN_CONFIG_DIR,
             project: !truthy(
-              process.env.XCCODE_CONFIG_PROJECT_DISABLE ?? process.env.XCCODE_DISABLE_PROJECT_CONFIG,
+              process.env.XIAOCHUAN_CONFIG_PROJECT_DISABLE ?? process.env.XIAOCHUAN_DISABLE_PROJECT_CONFIG,
             ),
             // Config reads .claude only for skills; CLAUDE.md is gated under instructions.
             claude: !(
-              truthy(process.env.XCCODE_DISABLE_CLAUDE_CODE) ||
-              truthy(process.env.XCCODE_DISABLE_CLAUDE_CODE_SKILLS)
+              truthy(process.env.XIAOCHUAN_DISABLE_CLAUDE_CODE) ||
+              truthy(process.env.XIAOCHUAN_DISABLE_CLAUDE_CODE_SKILLS)
             ),
-            file: process.env.XCCODE_CONFIG,
-            content: process.env.XCCODE_CONFIG_CONTENT,
+            file: process.env.XIAOCHUAN_CONFIG,
+            content: process.env.XIAOCHUAN_CONFIG_CONTENT,
           },
           instructions: {
             claude: !(
-              truthy(process.env.XCCODE_DISABLE_CLAUDE_CODE) ||
-              truthy(process.env.XCCODE_DISABLE_CLAUDE_CODE_PROMPT)
+              truthy(process.env.XIAOCHUAN_DISABLE_CLAUDE_CODE) ||
+              truthy(process.env.XIAOCHUAN_DISABLE_CLAUDE_CODE_PROMPT)
             ),
           },
           windows: {
-            gitbash: process.env.XCCODE_GIT_BASH_PATH,
+            gitbash: process.env.XIAOCHUAN_GIT_BASH_PATH,
           },
           fs: {
-            filewatcher: !truthy(process.env.XCCODE_FILEWATCHER_DISABLE ?? process.env.XCCODE_DISABLE_FILEWATCHER),
+            filewatcher: !truthy(process.env.XIAOCHUAN_FILEWATCHER_DISABLE ?? process.env.XIAOCHUAN_DISABLE_FILEWATCHER),
             fff:
-              process.env.XCCODE_DISABLE_FFF === undefined
+              process.env.XIAOCHUAN_DISABLE_FFF === undefined
                 ? process.platform !== "win32"
-                : !truthy(process.env.XCCODE_DISABLE_FFF),
+                : !truthy(process.env.XIAOCHUAN_DISABLE_FFF),
           },
         },
         serviceOptions === undefined
@@ -185,7 +185,7 @@ const processEffect = Effect.fnUntraced(function* (options: Options) {
             return yield* Effect.fail(
               new Error(
                 `Managed service port ${port} on ${hostname} is already in use by ${owner ?? "another process"}. ` +
-                  "Configure another port with `xccode service set port <port>` and start the service again.",
+                  "Configure another port with `xiaochuan service set port <port>` and start the service again.",
                 { cause: error },
               ),
             )

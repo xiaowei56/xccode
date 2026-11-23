@@ -1,15 +1,15 @@
 ---
 title: Introduksjon
-description: Kom i gang med Xccode.
+description: Kom i gang med Xiaochuan.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 import config from "../../../../config.mjs"
 export const console = config.console
 
-[**Xccode**](/) er en åpen kildekode AI kodeagent. Den er tilgjengelig som et terminalbasert grensesnitt, skrivebordsapp eller IDE-utvidelse.
+[**Xiaochuan**](/) er en åpen kildekode AI kodeagent. Den er tilgjengelig som et terminalbasert grensesnitt, skrivebordsapp eller IDE-utvidelse.
 
-![Xccode TUI med xccode-temaet](../../../assets/lander/screenshot.png)
+![Xiaochuan TUI med xiaochuan-temaet](../../../assets/lander/screenshot.png)
 
 La oss komme i gang.
 
@@ -17,7 +17,7 @@ La oss komme i gang.
 
 #### Forutsetninger
 
-For å bruke Xccode i terminalen din trenger du:
+For å bruke Xiaochuan i terminalen din trenger du:
 
 1. En moderne terminalemulator som:
    - [WezTerm](https://wezterm.org), på tvers av plattformer
@@ -31,10 +31,10 @@ For å bruke Xccode i terminalen din trenger du:
 
 ## Installasjon
 
-Den enkleste måten å installere Xccode på er gjennom installasjonsskriptet.
+Den enkleste måten å installere Xiaochuan på er gjennom installasjonsskriptet.
 
 ```bash
-curl -fsSL https://xccode.ai/install | bash
+curl -fsSL https://xiaochuan.ai/install | bash
 ```
 
 Du kan også installere den med følgende kommandoer:
@@ -45,28 +45,28 @@ Du kan også installere den med følgende kommandoer:
 
       <TabItem label="npm">
       ```bash
-      npm install -g xccode-ai
+      npm install -g xiaochuan-ai
       ```
 
           </TabItem>
 
         <TabItem label="Bun">
         ```bash
-        bun install -g xccode-ai
+        bun install -g xiaochuan-ai
         ```
 
           </TabItem>
 
         <TabItem label="pnpm">
         ```bash
-        pnpm install -g xccode-ai
+        pnpm install -g xiaochuan-ai
         ```
 
           </TabItem>
 
         <TabItem label="Yarn">
         ```bash
-        yarn global add xccode-ai
+        yarn global add xiaochuan-ai
         ```
 
       </TabItem>
@@ -76,68 +76,68 @@ Du kan også installere den med følgende kommandoer:
 - **Bruke Homebrew på macOS og Linux**
 
   ```bash
-  brew install anomalyco/tap/xccode
+  brew install anomalyco/tap/xiaochuan
   ```
 
-  > Vi anbefaler å bruke Xccode-tappen for de mest oppdaterte utgivelsene. Den offisielle `brew install xccode`-formelen vedlikeholdes av Homebrew-teamet og oppdateres sjeldnere.
+  > Vi anbefaler å bruke Xiaochuan-tappen for de mest oppdaterte utgivelsene. Den offisielle `brew install xiaochuan`-formelen vedlikeholdes av Homebrew-teamet og oppdateres sjeldnere.
 
 - **Bruke Paru på Arch Linux**
 
   ```bash
-  sudo pacman -S xccode           # Arch Linux (Stable)
-  paru -S xccode-bin              # Arch Linux (Latest from AUR)
+  sudo pacman -S xiaochuan           # Arch Linux (Stable)
+  paru -S xiaochuan-bin              # Arch Linux (Latest from AUR)
   ```
 
 #### Windows
 
 :::tip[Anbefalt: Bruk WSL]
-For den beste opplevelsen på Windows anbefaler vi å bruke [Windows Subsystem for Linux (WSL)](/docs/windows-wsl). Det gir bedre ytelse og full kompatibilitet med funksjonene i Xccode.
+For den beste opplevelsen på Windows anbefaler vi å bruke [Windows Subsystem for Linux (WSL)](/docs/windows-wsl). Det gir bedre ytelse og full kompatibilitet med funksjonene i Xiaochuan.
 :::
 
 - **Bruke Chocolatey**
 
   ```bash
-  choco install xccode
+  choco install xiaochuan
   ```
 
 - **Bruke Scoop**
 
   ```bash
-  scoop install xccode
+  scoop install xiaochuan
   ```
 
 - **Bruke npm**
 
   ```bash
-  npm install -g xccode-ai
+  npm install -g xiaochuan-ai
   ```
 
 - **Bruke Mise**
 
   ```bash
-  mise use -g github:xiaowei56/xccode
+  mise use -g github:xiaowei56/xiaochuan
   ```
 
 - **Bruke Docker**
 
   ```bash
-  docker run -it --rm ghcr.io/xiaowei56/xccode
+  docker run -it --rm ghcr.io/xiaowei56/xiaochuan
   ```
 
-Støtte for installasjon av Xccode på Windows med Bun er under arbeid.
+Støtte for installasjon av Xiaochuan på Windows med Bun er under arbeid.
 
-Du kan også hente binæren fra [Releases](https://github.com/xiaowei56/xccode/releases).
+Du kan også hente binæren fra [Releases](https://github.com/xiaowei56/xiaochuan/releases).
 
 ---
 
 ## Konfigurasjon
 
-Med Xccode kan du bruke hvilken som helst LLM-leverandør ved å konfigurere deres API-nøkler.
+Med Xiaochuan kan du bruke hvilken som helst LLM-leverandør ved å konfigurere deres API-nøkler.
 
-Hvis du er ukjent med LLM-leverandører, anbefaler vi å bruke [Xccode Models](https://xccode.ai/docs/console/).
-Det er en kuratert liste over modeller som har blitt testet og verifisert av Xccode-teamet.
+Hvis du er ukjent med LLM-leverandører, anbefaler vi å bruke [Xiaochuan Models](https://xiaochuan.ai/docs/console/).
+Det er en kuratert liste over modeller som har blitt testet og verifisert av Xiaochuan-teamet.
 
-1. Kjør kommandoen `/connect` i TUI, velg Xccode og gå til [xccode.ai/auth](https://xccode.ai/auth).
+1. Kjør kommandoen `/connect` i TUI, velg Xiaochuan og gå til [xiaochuan.ai/auth](https://xiaochuan.ai/auth).
 
    ```txt
    /connect
@@ -167,33 +167,33 @@ du vil jobbe med.
 cd /path/to/project
 ```
 
-Og kjør Xccode.
+Og kjør Xiaochuan.
 
 ```bash
-xccode
+xiaochuan
 ```
 
-Deretter initialiserer du Xccode for prosjektet ved å kjøre følgende kommando.
+Deretter initialiserer du Xiaochuan for prosjektet ved å kjøre følgende kommando.
 
 ```bash frame="none"
 /init
 ```
 
-Dette vil få Xccode til å analysere prosjektet ditt og opprette en `AGENTS.md`-fil i
+Dette vil få Xiaochuan til å analysere prosjektet ditt og opprette en `AGENTS.md`-fil i
 prosjektroten.
 
 :::tip
 Du bør overgi prosjektets `AGENTS.md`-fil til Git.
 :::
 
-Dette hjelper Xccode med å forstå prosjektstrukturen og kodingsmønstrene
+Dette hjelper Xiaochuan med å forstå prosjektstrukturen og kodingsmønstrene
 brukt.
 
 ---
 
 ## Bruk
 
-Du er nå klar til å bruke Xccode for å jobbe med prosjektet ditt. Spør det gjerne
+Du er nå klar til å bruke Xiaochuan for å jobbe med prosjektet ditt. Spør det gjerne
 noe!
 
 Hvis du er ukjent med AI-kodeagenter, her er noen eksempler som kan
@@ -203,7 +203,7 @@ hjelpe.
 
 ### Still spørsmål
 
-Du kan be Xccode forklare kodebasen for deg.
+Du kan be Xiaochuan forklare kodebasen for deg.
 
 :::tip
 Bruk `@`-tasten for uklart søk etter filer i prosjektet.
@@ -219,11 +219,11 @@ Dette er nyttig hvis det er en del av kodebasen du ikke har jobbet med.
 
 ### Legg til funksjonalitet
 
-Du kan be Xccode legge til nye funksjoner i prosjektet ditt. Selv om vi først anbefaler å be den om å lage en plan.
+Du kan be Xiaochuan legge til nye funksjoner i prosjektet ditt. Selv om vi først anbefaler å be den om å lage en plan.
 
 1. **Lag en plan**
 
-   Xccode har en _Plan-modus_ som deaktiverer muligheten til å gjøre endringer og
+   Xiaochuan har en _Plan-modus_ som deaktiverer muligheten til å gjøre endringer og
    foreslår i stedet _hvordan_ den vil implementere funksjonen.
 
    Bytt til den ved å bruke **Tab**-tasten. Du vil se en indikator for dette i nedre høyre hjørne.
@@ -240,11 +240,11 @@ Du kan be Xccode legge til nye funksjoner i prosjektet ditt. Selv om vi først a
    From this screen, the user can undelete a note or permanently delete it.
    ```
 
-   Du bør gi Xccode nok detaljer til å forstå hva du ønsker. Det hjelper
+   Du bør gi Xiaochuan nok detaljer til å forstå hva du ønsker. Det hjelper
    å snakke med det som om du snakker med en juniorutvikler på laget ditt.
 
    :::tip
-   Gi Xccode mye kontekst og eksempler for å hjelpe den å forstå hva du
+   Gi Xiaochuan mye kontekst og eksempler for å hjelpe den å forstå hva du
    ønsker.
    :::
 
@@ -261,7 +261,7 @@ Du kan be Xccode legge til nye funksjoner i prosjektet ditt. Selv om vi først a
    Dra og slipp bilder i terminalen for å legge dem til ledeteksten.
    :::
 
-   Xccode kan skanne alle bilder du gir den og legge dem til i ledeteksten. Du kan
+   Xiaochuan kan skanne alle bilder du gir den og legge dem til i ledeteksten. Du kan
    gjør dette ved å dra og slippe et bilde inn i terminalen.
 
 3. **Bygg funksjonen**
@@ -283,7 +283,7 @@ Du kan be Xccode legge til nye funksjoner i prosjektet ditt. Selv om vi først a
 
 ### Gjør endringer
 
-For mer enkle endringer kan du be Xccode om å bygge det direkte
+For mer enkle endringer kan du be Xiaochuan om å bygge det direkte
 uten å måtte gjennomgå planen først.
 
 ```txt frame="none" "@packages/functions/src/settings.ts" "@packages/functions/src/notes.ts"
@@ -292,14 +292,14 @@ handled in the /notes route in @packages/functions/src/notes.ts and implement
 the same logic in @packages/functions/src/settings.ts
 ```
 
-Sørg for å gi nok detaljer, slik at Xccode gjør de rette
+Sørg for å gi nok detaljer, slik at Xiaochuan gjør de rette
 endringene.
 
 ---
 
 ### Angre endringer
 
-La oss si at du ber Xccode om å gjøre noen endringer.
+La oss si at du ber Xiaochuan om å gjøre noen endringer.
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
@@ -312,14 +312,14 @@ ved å bruke kommandoen `/undo`.
 /undo
 ```
 
-Xccode vil nå tilbakestille endringene du har gjort og vise den opprinnelige meldingen
+Xiaochuan vil nå tilbakestille endringene du har gjort og vise den opprinnelige meldingen
 igjen.
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
 ```
 
-Herfra kan du justere ledeteksten og be Xccode om å prøve igjen.
+Herfra kan du justere ledeteksten og be Xiaochuan om å prøve igjen.
 
 :::tip
 Du kan kjøre `/undo` flere ganger for å angre flere endringer.
@@ -335,6 +335,6 @@ Eller du **kan gjøre om** endringene ved å bruke `/redo`-kommandoen.
 
 ## Tilpasning
 
-Og det er det! Du er nå en proff på å bruke Xccode.
+Og det er det! Du er nå en proff på å bruke Xiaochuan.
 
-For å tilpasse det anbefaler vi å [velge et tema](/docs/themes), [tilpasse tastebindingene](/docs/keybinds), [konfigurere kodeformattere](/docs/formatters), [opprette egendefinerte kommandoer](/docs/commands) eller leke med [Xccode-konfigurasjonen](/docs/config).
+For å tilpasse det anbefaler vi å [velge et tema](/docs/themes), [tilpasse tastebindingene](/docs/keybinds), [konfigurere kodeformattere](/docs/formatters), [opprette egendefinerte kommandoer](/docs/commands) eller leke med [Xiaochuan-konfigurasjonen](/docs/config).

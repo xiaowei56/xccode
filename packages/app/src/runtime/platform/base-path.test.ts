@@ -9,8 +9,8 @@ describe("normalizeBasePath", () => {
   })
 
   test("has a leading slash and no trailing slash", () => {
-    expect(normalizeBasePath("/xccode/")).toBe("/xccode")
-    expect(normalizeBasePath("xccode")).toBe("/xccode")
+    expect(normalizeBasePath("/xiaochuan/")).toBe("/xiaochuan")
+    expect(normalizeBasePath("xiaochuan")).toBe("/xiaochuan")
     expect(normalizeBasePath("//a/b//")).toBe("/a/b")
   })
 })
@@ -21,8 +21,8 @@ describe("withBasePath", () => {
   })
 
   test("prefixes paths with the base", () => {
-    expect(withBasePath("/", "/xccode")).toBe("/xccode/")
-    expect(withBasePath("/server/a/session/b#m", "/xccode")).toBe("/xccode/server/a/session/b#m")
+    expect(withBasePath("/", "/xiaochuan")).toBe("/xiaochuan/")
+    expect(withBasePath("/server/a/session/b#m", "/xiaochuan")).toBe("/xiaochuan/server/a/session/b#m")
   })
 })
 
@@ -32,19 +32,19 @@ describe("stripBasePath", () => {
   })
 
   test("removes the base", () => {
-    expect(stripBasePath("/xccode", "/xccode")).toBe("/")
-    expect(stripBasePath("/xccode/", "/xccode")).toBe("/")
-    expect(stripBasePath("/xccode?draftId=1", "/xccode")).toBe("/?draftId=1")
-    expect(stripBasePath("/xccode/new-session#top", "/xccode")).toBe("/new-session#top")
+    expect(stripBasePath("/xiaochuan", "/xiaochuan")).toBe("/")
+    expect(stripBasePath("/xiaochuan/", "/xiaochuan")).toBe("/")
+    expect(stripBasePath("/xiaochuan?draftId=1", "/xiaochuan")).toBe("/?draftId=1")
+    expect(stripBasePath("/xiaochuan/new-session#top", "/xiaochuan")).toBe("/new-session#top")
   })
 
   test("keeps paths outside the base", () => {
-    expect(stripBasePath("/xccode-other/x", "/xccode")).toBe("/xccode-other/x")
-    expect(stripBasePath("/elsewhere", "/xccode")).toBe("/elsewhere")
+    expect(stripBasePath("/xiaochuan-other/x", "/xiaochuan")).toBe("/xiaochuan-other/x")
+    expect(stripBasePath("/elsewhere", "/xiaochuan")).toBe("/elsewhere")
   })
 
   test("round-trips with withBasePath", () => {
     for (const path of ["/", "/new-session", "/server/a/session/b?q=1#h"])
-      expect(stripBasePath(withBasePath(path, "/xccode"), "/xccode")).toBe(path)
+      expect(stripBasePath(withBasePath(path, "/xiaochuan"), "/xiaochuan")).toBe(path)
   })
 })

@@ -1,4 +1,4 @@
-import { Plugin, Worktree } from "@xccode/plugin"
+import { Plugin, Worktree } from "@xiaochuan/plugin"
 
 export default Plugin.define({
   id: "test.worktree",

@@ -96,7 +96,7 @@ fn listen(shutdown: Arc<Shutdown>, hangup: bool) -> std::io::Result<()> {
             hangup.then(|| signal(SignalKind::hangup())).transpose()?,
         )
     };
-    std::thread::Builder::new().name("xccode-signals".into()).spawn(move || {
+    std::thread::Builder::new().name("xiaochuan-signals".into()).spawn(move || {
         runtime.block_on(async move {
             loop {
                 let hangup = async {
@@ -129,7 +129,7 @@ fn listen(shutdown: Arc<Shutdown>, hangup: bool) -> std::io::Result<()> {
         let _guard = runtime.enter();
         (ctrl_c()?, hangup.then(ctrl_close).transpose()?)
     };
-    std::thread::Builder::new().name("xccode-signals".into()).spawn(move || {
+    std::thread::Builder::new().name("xiaochuan-signals".into()).spawn(move || {
         runtime.block_on(async move {
             loop {
                 let close = async {
@@ -218,7 +218,7 @@ impl Shutdown {
         let teardown = self.clone();
         // `runMain` reports every signal interruption as 130; the CLI turns a SIGTERM into 143.
         let code = if name == "SIGTERM" { 143 } else { 130 };
-        let spawned = std::thread::Builder::new().name("xccode-shutdown".into()).spawn(move || {
+        let spawned = std::thread::Builder::new().name("xiaochuan-shutdown".into()).spawn(move || {
             for (_, step) in steps {
                 if let Some(first) = lock(&teardown.queue).first_mut() {
                     first.1 = Some(Instant::now());
@@ -234,7 +234,7 @@ impl Shutdown {
             log::error!("failed to start the shutdown thread: {error}; no teardown runs, and the deadline exits");
         }
         let timer = self.clone();
-        let spawned = std::thread::Builder::new().name("xccode-shutdown-deadline".into()).spawn(move || {
+        let spawned = std::thread::Builder::new().name("xiaochuan-shutdown-deadline".into()).spawn(move || {
             std::thread::sleep(timer.deadline);
             if timer.done.swap(true, Ordering::SeqCst) {
                 return;

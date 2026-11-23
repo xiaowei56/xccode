@@ -1,8 +1,8 @@
-import type { EnableState } from "@xccode/plugin/gui/host"
+import type { EnableState } from "@xiaochuan/plugin/gui/host"
 
 export const IpcTransportPort = "desktop-rpc-port"
 
-export const DragCancelEvent = "xccode:drag-cancel"
+export const DragCancelEvent = "xiaochuan:drag-cancel"
 
 export const WindowSnapshotChannel = "desktop-window-snapshot"
 
@@ -34,9 +34,9 @@ export type WindowSnapshot = {
 // runs so the first render already has them; mirrors windowStorage() in
 // packages/app/src/runtime/persistence/storage.ts.
 export function storageSnapshotNames(windowID: string) {
-  return ["xccode.global.dat", "default.dat", windowDataFile(windowID)]
+  return ["xiaochuan.global.dat", "default.dat", windowDataFile(windowID)]
 }
 
 export function windowDataFile(id: string) {
-  return `xccode.window.${id.replace(/[^a-zA-Z0-9._-]/g, "-")}.dat`
+  return `xiaochuan.window.${id.replace(/[^a-zA-Z0-9._-]/g, "-")}.dat`
 }

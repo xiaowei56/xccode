@@ -1,14 +1,14 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { createMermaidCodeBlockRenderer } from "./markdown.js"
-import { resolveXccodeDiagramPalette } from "./palette.js"
+import { resolveXiaochuanDiagramPalette } from "./palette.js"
 
 export default Plugin.define({
-  id: "xccode.merman",
+  id: "xiaochuan.merman",
   setup(context) {
     context.markdown.registerCodeBlockRenderer(
       "mermaid",
       createMermaidCodeBlockRenderer(context.renderer, () => ({
-        colors: resolveXccodeDiagramPalette(context.theme, context.themeMode),
+        colors: resolveXiaochuanDiagramPalette(context.theme, context.themeMode),
       })),
     )
   },

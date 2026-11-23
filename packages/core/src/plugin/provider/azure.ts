@@ -1,9 +1,9 @@
 import { Clock, Effect, Equal, FiberHandle, Option, Schema, Semaphore, Stream } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { ChildProcess } from "effect/process"
-import { define } from "@xccode/plugin/effect/plugin"
-import { Form } from "@xccode/schema/form"
-import { AppProcess } from "@xccode/util/process"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { Form } from "@xiaochuan/schema/form"
+import { AppProcess } from "@xiaochuan/util/process"
 import { App } from "../../app.js"
 import { Credential } from "../../credential.js"
 import { Integration } from "../../integration.js"
@@ -62,7 +62,7 @@ export function make(
   },
 ) {
   return define({
-    id: "xccode.provider.azure",
+    id: "xiaochuan.provider.azure",
     effect: Effect.fn(function* (ctx) {
       const configured = yield* configuredSettings(Provider.ID.azure)
       const processes = yield* AppProcess.Service
@@ -498,7 +498,7 @@ function expandResourceName(baseURL: string, resourceName: string) {
 }
 
 function azureProvider(provider: { readonly id: string; readonly package: string }) {
-  return provider.id === Provider.ID.azure || provider.package.startsWith("@xccode/ai/providers/azure/")
+  return provider.id === Provider.ID.azure || provider.package.startsWith("@xiaochuan/ai/providers/azure/")
 }
 
 // API keys and Azure CLI sessions can list deployments; other sign-ins cannot.
@@ -559,7 +559,7 @@ function catalogModel<T>(models: ReadonlyMap<string, T>, deployment: Deployment)
 }
 
 function responsesWebSocketCapable(provider: Provider.Info) {
-  if (provider.package !== "@xccode/ai/providers/azure/responses") return false
+  if (provider.package !== "@xiaochuan/ai/providers/azure/responses") return false
   const settings = provider.settings
   if (settings?.useDeploymentBasedUrls === true) return false
   if (settings?.apiVersion !== undefined && settings.apiVersion !== "v1") return false

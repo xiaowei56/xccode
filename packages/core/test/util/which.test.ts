@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
-import { which } from "@xccode/core/util/which"
+import { which } from "@xiaochuan/core/util/which"
 import { appExecutionAlias } from "../fixture/app-execution-alias"
 import { tmpdir } from "../fixture/tmpdir"
 
@@ -43,7 +43,7 @@ function same(a: string | null, b: string) {
 
 describe("util.which", () => {
   test("returns null when command is missing", () => {
-    expect(which("xccode-missing-command-for-test")).toBeNull()
+    expect(which("xiaochuan-missing-command-for-test")).toBeNull()
   })
 
   test("finds a command from PATH override", async () => {

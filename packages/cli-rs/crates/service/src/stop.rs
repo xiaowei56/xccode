@@ -1,7 +1,7 @@
 //! Stops the registered service and waits for its process to exit.
 
-use xccode_api::transport::Transport;
-use xccode_local::registration::{self, Registration};
+use xiaochuan_api::transport::Transport;
+use xiaochuan_local::registration::{self, Registration};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
 use std::time::Duration;
@@ -38,7 +38,7 @@ pub enum Error {
     #[error("Server process {0} is still running")]
     StillRunning(u32),
     #[error(
-        "Process {pid} is not the Xccode server registered in {}, so it was not stopped. Remove that file if the server is gone.",
+        "Process {pid} is not the Xiaochuan server registered in {}, so it was not stopped. Remove that file if the server is gone.",
         file.display()
     )]
     NotTheServer { pid: u32, file: PathBuf },
@@ -134,7 +134,7 @@ pub(crate) fn signal(pid: u32, signal: Signal) {
     #[cfg(windows)]
     {
         let _ = signal;
-        let _ = xccode_util::win::terminate(pid);
+        let _ = xiaochuan_util::win::terminate(pid);
     }
 }
 
@@ -147,7 +147,7 @@ pub(crate) fn running(pid: u32) -> bool {
         .and_then(rustix::process::Pid::from_raw)
         .is_some_and(|pid| rustix::process::test_kill_process(pid).is_ok());
     #[cfg(windows)]
-    return xccode_util::win::process_alive(pid);
+    return xiaochuan_util::win::process_alive(pid);
 }
 
 async fn stopped(pid: u32, poll: Poll) -> bool {

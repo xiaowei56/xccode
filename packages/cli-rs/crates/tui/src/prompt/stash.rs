@@ -2,10 +2,10 @@
 
 use std::path::{Path, PathBuf};
 
-use xccode_local::jsonl::{self, MAX_STASH_ENTRIES};
-use xccode_local::lock;
-use xccode_local::serial::Serial;
-use xccode_ui::dialog::FocusId;
+use xiaochuan_local::jsonl::{self, MAX_STASH_ENTRIES};
+use xiaochuan_local::lock;
+use xiaochuan_local::serial::Serial;
+use xiaochuan_ui::dialog::FocusId;
 use tokio::sync::oneshot;
 
 use super::autocomplete::parts;
@@ -55,7 +55,7 @@ impl Stash {
 
     /// Timestamp and append a prompt, evicting the oldest entries beyond the limit. Report persistence errors.
     pub fn push(&self, tui: &Tui, prompt: Value) {
-        let entry = jsonl::stash_entry(prompt, xccode_util::time::now_ms());
+        let entry = jsonl::stash_entry(prompt, xiaochuan_util::time::now_ms());
         {
             let mut entries = self.entries.borrow_mut();
             entries.push(entry.clone());

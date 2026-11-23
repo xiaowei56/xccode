@@ -20,7 +20,7 @@ export function migrate(db: Database) {
   return migrateDatabase(db.$client)
 }
 
-// A drafts.sqlite symlinked or copied from the CLI's xccode.db can't hold desktop tables. Renaming it moves
+// A drafts.sqlite symlinked or copied from the CLI's xiaochuan.db can't hold desktop tables. Renaming it moves
 // only this directory entry, so a symlink's target and the CLI data in it stay untouched.
 function openOwnDatabase(filename: string) {
   const native = new DatabaseSync(filename)

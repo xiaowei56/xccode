@@ -1,11 +1,11 @@
 export * as HomeMemoryPlugin from "./home-memory.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
-import { AbsolutePath } from "@xccode/schema/schema"
-import { SessionID } from "@xccode/schema/session-id"
-import type { SessionMessage } from "@xccode/schema/session-message"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
+import { SessionID } from "@xiaochuan/schema/session-id"
+import type { SessionMessage } from "@xiaochuan/schema/session-message"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
 import { Clock, DateTime, Effect, Option, Schema } from "effect"
 import path from "path"
 import { Flag } from "../flag.js"
@@ -52,7 +52,7 @@ ${transcripts}
 </conversations>`
 
 export const Plugin = define({
-  id: "xccode.home-memory",
+  id: "xiaochuan.home-memory",
   effect: Effect.fn("HomeMemoryPlugin")(function* (ctx) {
     if (!(yield* Flag.enabled("home_memory"))) return
     const global = yield* Global.Service

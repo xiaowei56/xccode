@@ -15,9 +15,9 @@ differences remain:
   one discovery found in another channel's is used as before.
 - The client asks the resolved TS binary's version first, and does not restart a service with a
   binary of that service's own version: TS restarts on itself, which is the client's version by
-  construction, while the Rust client may run another TS binary (`XCCODE_TS_BIN`, `xccode` on
+  construction, while the Rust client may run another TS binary (`XIAOCHUAN_TS_BIN`, `xiaochuan` on
   `PATH` behind a development build) and would otherwise restart on every start.
-- A `local` build (no `XCCODE_VERSION`) restarts only in channel `local`. TS's `local` build registers in
+- A `local` build (no `XIAOCHUAN_VERSION`) restarts only in channel `local`. TS's `local` build registers in
   `service-local.json` and never sees the shared service; this client defaults to channel `latest` and shares
   `service.json`, where no TS binary reports `local`, so it uses that service of any version and logs the mismatch.
 - A service of another version that is still starting is waited for, then restarted; TS replaces it at
@@ -25,7 +25,7 @@ differences remain:
 
 Every other command uses a service of any version (`ensure` gets no version requirement). A service
 that keeps timing out is left running, and `ensure` fails with "Background service at <url> (pid
-<pid>) is not responding. Stop it with `xccode service stop`, or pass --server." Only an unresponsive
+<pid>) is not responding. Stop it with `xiaochuan service stop`, or pass --server." Only an unresponsive
 contender this `ensure` call started itself, or a registration whose pid no longer runs, is stopped and
 replaced, as TS does.
 

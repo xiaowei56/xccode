@@ -1,17 +1,17 @@
 <p align="center">
-  <a href="https://xccode.ai">
+  <a href="https://xiaochuan.ai">
     <picture>
       <source srcset=".github/assets/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset=".github/assets/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src=".github/assets/logo-ornate-light.svg" alt="Xccode logo">
+      <img src=".github/assets/logo-ornate-light.svg" alt="Xiaochuan logo">
     </picture>
   </a>
 </p>
 <p align="center">Открытый AI-агент для программирования.</p>
 <p align="center">
-  <a href="https://xccode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/@xccode/cli"><img alt="npm" src="https://img.shields.io/npm/v/@xccode/cli?style=flat-square" /></a>
-  <a href="https://github.com/xiaowei56/xccode/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/xiaowei56/xccode/release.yml?style=flat-square&branch=dev" /></a>
+  <a href="https://xiaochuan.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
+  <a href="https://www.npmjs.com/package/@xiaochuan/cli"><img alt="npm" src="https://img.shields.io/npm/v/@xiaochuan/cli?style=flat-square" /></a>
+  <a href="https://github.com/xiaowei56/xiaochuan/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/xiaowei56/xiaochuan/release.yml?style=flat-square&branch=dev" /></a>
 </p>
 
 <p align="center">
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![Xccode Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://xccode.ai)
+[![Xiaochuan Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://xiaochuan.ai)
 
 ---
 
@@ -47,16 +47,16 @@
 
 ```bash
 # YOLO
-curl -fsSL https://xccode.ai/v2/install | bash
+curl -fsSL https://xiaochuan.ai/v2/install | bash
 
 # Менеджеры пакетов
-npm i -g @xccode/cli@latest      # или bun/pnpm/yarn
-brew install anomalyco/tap/xccode-v2 # macOS и Linux (рекомендуем, всегда актуально)
-brew install xccode              # macOS и Linux (официальная формула brew, обновляется реже)
-sudo pacman -S xccode            # Arch Linux (Stable)
-paru -S xccode-beta              # Arch Linux (Latest from AUR)
-mise use -g xccode               # любая ОС
-nix run github:xiaowei56/xccode  # Nix
+npm i -g @xiaochuan/cli@latest      # или bun/pnpm/yarn
+brew install anomalyco/tap/xiaochuan-v2 # macOS и Linux (рекомендуем, всегда актуально)
+brew install xiaochuan              # macOS и Linux (официальная формула brew, обновляется реже)
+sudo pacman -S xiaochuan            # Arch Linux (Stable)
+paru -S xiaochuan-beta              # Arch Linux (Latest from AUR)
+mise use -g xiaochuan               # любая ОС
+nix run github:xiaowei56/xiaochuan  # Nix
 ```
 
 > [!TIP]
@@ -64,27 +64,27 @@ nix run github:xiaowei56/xccode  # Nix
 
 ### Десктопное приложение (BETA)
 
-Xccode также доступен как десктопное приложение. Скачайте его с [xccode.ai/download](https://xccode.ai/download).
+Xiaochuan также доступен как десктопное приложение. Скачайте его с [xiaochuan.ai/download](https://xiaochuan.ai/download).
 
 | Платформа             | Загрузка                           |
 | --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `xccode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `xccode-desktop-mac-x64.dmg`     |
-| Windows               | `xccode-desktop-win-x64.exe`     |
+| macOS (Apple Silicon) | `xiaochuan-desktop-mac-arm64.dmg`   |
+| macOS (Intel)         | `xiaochuan-desktop-mac-x64.dmg`     |
+| Windows               | `xiaochuan-desktop-win-x64.exe`     |
 | Linux                 | `.deb`, `.rpm` или AppImage        |
 
 ```bash
 # macOS (Homebrew)
-brew install --cask xccode-desktop
+brew install --cask xiaochuan-desktop
 ```
 
 #### Каталог установки
 
-Скрипт установки устанавливает Xccode в `$HOME/.xccode/bin`.
+Скрипт установки устанавливает Xiaochuan в `$HOME/.xiaochuan/bin`.
 
 ### Agents
 
-В Xccode есть два встроенных агента, между которыми можно переключаться клавишей `Tab`.
+В Xiaochuan есть два встроенных агента, между которыми можно переключаться клавишей `Tab`.
 
 - **build** - По умолчанию, агент с полным доступом для разработки
 - **plan** - Агент только для чтения для анализа и изучения кода
@@ -95,20 +95,20 @@ brew install --cask xccode-desktop
 Также включен сабагент **general** для сложных поисков и многошаговых задач.
 Он используется внутренне и может быть вызван в сообщениях через `@general`.
 
-Подробнее об [agents](https://xccode.ai/docs/agents).
+Подробнее об [agents](https://xiaochuan.ai/docs/agents).
 
 ### Документация
 
-Больше информации о том, как настроить Xccode: [**наши docs**](https://xccode.ai/docs).
+Больше информации о том, как настроить Xiaochuan: [**наши docs**](https://xiaochuan.ai/docs).
 
 ### Вклад
 
-Если вы хотите внести вклад в Xccode, прочитайте [contributing docs](./CONTRIBUTING.md) перед тем, как отправлять pull request.
+Если вы хотите внести вклад в Xiaochuan, прочитайте [contributing docs](./CONTRIBUTING.md) перед тем, как отправлять pull request.
 
-### Разработка на базе Xccode
+### Разработка на базе Xiaochuan
 
-Если вы делаете проект, связанный с Xccode, и используете "xccode" как часть имени (например, "xccode-dashboard" или "xccode-mobile"), добавьте примечание в README, чтобы уточнить, что проект не создан командой Xccode и не аффилирован с нами.
+Если вы делаете проект, связанный с Xiaochuan, и используете "xiaochuan" как часть имени (например, "xiaochuan-dashboard" или "xiaochuan-mobile"), добавьте примечание в README, чтобы уточнить, что проект не создан командой Xiaochuan и не аффилирован с нами.
 
 ---
 
-**Присоединяйтесь к нашему сообществу** [Discord](https://discord.gg/xccode) | [X.com](https://x.com/xccode)
+**Присоединяйтесь к нашему сообществу** [Discord](https://discord.gg/xiaochuan) | [X.com](https://x.com/xiaochuan)

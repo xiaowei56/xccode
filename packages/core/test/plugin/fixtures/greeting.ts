@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin"
+import { Plugin } from "@xiaochuan/plugin"
 
 export default Plugin.define({
   id: "greeting",

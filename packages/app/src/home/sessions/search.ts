@@ -1,7 +1,7 @@
 import { useCommand } from "@/shell/commands/command"
 import { useLanguage } from "@/runtime/i18n/language"
 import { useServers } from "@/runtime/server/registry"
-import { displayName } from "@xccode/ui/project-avatar"
+import { displayName } from "@xiaochuan/ui/project-avatar"
 import { sessionLabel } from "@/session/title"
 import { makeEventListener } from "@solid-primitives/event-listener"
 import { createEffect, createMemo, createSignal, onCleanup, untrack } from "solid-js"

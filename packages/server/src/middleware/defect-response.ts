@@ -1,5 +1,5 @@
-import { StorageFailure } from "@xccode/core/database/storage-failure"
-import { UnknownError } from "@xccode/protocol/errors"
+import { StorageFailure } from "@xiaochuan/core/database/storage-failure"
+import { UnknownError } from "@xiaochuan/protocol/errors"
 import { Cause, Effect } from "effect"
 import { HttpRouter, HttpServerError, HttpServerRequest, HttpServerResponse } from "effect/http"
 

@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
 import {
   createTimelineSearchState,
   extractSearchableParts,

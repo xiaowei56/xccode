@@ -1,7 +1,7 @@
 export * as ForkNoticePlugin from "./fork-notice.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
-import { SessionMessage } from "@xccode/schema/session-message"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
 import { Effect } from "effect"
 
 const notice = `<fork-notice>
@@ -13,7 +13,7 @@ This conversation is a fork of another conversation, copied up to the previous m
 </fork-notice>`
 
 export const Plugin = define({
-  id: "xccode.fork-notice",
+  id: "xiaochuan.fork-notice",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.session.hook("fork", ({ sessionID }) =>
       ctx.session

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
-import { ConfigModel } from "@xccode/schema/config/model"
-import { Model } from "@xccode/schema/model"
-import { Provider } from "@xccode/schema/provider"
+import { ConfigModel } from "@xiaochuan/schema/config/model"
+import { Model } from "@xiaochuan/schema/model"
+import { Provider } from "@xiaochuan/schema/provider"
 import { Schema } from "effect"
 
 const decode = Schema.decodeUnknownSync(ConfigModel.Selection)

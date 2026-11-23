@@ -1,4 +1,4 @@
-import type { PluginInfo } from "@xccode/client"
+import type { PluginInfo } from "@xiaochuan/client"
 
 export function pluginLabel(plugin: PluginInfo) {
   if (plugin.id) return plugin.id

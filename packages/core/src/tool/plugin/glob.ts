@@ -1,7 +1,7 @@
 export * as GlobTool from "./glob.js"
 
-import { ToolFailure } from "@xccode/ai/effect"
-import type { Context } from "@xccode/plugin/effect/plugin"
+import { ToolFailure } from "@xiaochuan/ai/effect"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
 import { Effect, Schema } from "effect"
 import path from "path"
 import { toolFailure } from "../runtime.js"
@@ -44,7 +44,7 @@ export const toModelContent = (entries: EncodedOutput, truncated = false) => {
 
 /** Glob leaf that defaults its filesystem root to the active Location. */
 export const Plugin = {
-  id: "xccode.tool.glob",
+  id: "xiaochuan.tool.glob",
   effect: Effect.fn("GlobTool.Plugin")(function* (ctx: Context) {
     const ripgrep = yield* Ripgrep.Service
     const location = yield* Location.Service

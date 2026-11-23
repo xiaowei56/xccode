@@ -1,5 +1,5 @@
-import type { FileDiffInfo } from "@xccode/client/promise"
-import { Contract, type SessionRef } from "@xccode/plugin/gui"
+import type { FileDiffInfo } from "@xiaochuan/client/promise"
+import { Contract, type SessionRef } from "@xiaochuan/plugin/gui"
 
 /** Why the session directory's uncommitted changes did not load: the request failed, or took too long. */
 export type ReviewDetailsFailure =

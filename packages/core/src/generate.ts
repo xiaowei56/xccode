@@ -11,19 +11,19 @@ import {
   type VideoAspectRatio,
   type VideoModel,
   type VideoStatus,
-} from "@xccode/ai/effect"
+} from "@xiaochuan/ai/effect"
 import type {
   DecisionRequest,
   DecisionResult,
   ImageRequest,
   ImageResult,
   VideoRequest,
-} from "@xccode/schema/generate"
-import { Money } from "@xccode/schema/money"
-import { SessionID } from "@xccode/schema/session-id"
+} from "@xiaochuan/schema/generate"
+import { Money } from "@xiaochuan/schema/money"
+import { SessionID } from "@xiaochuan/schema/session-id"
 import { Context, Effect, Layer, Schema, Stream } from "effect"
-import { RequestExecutor } from "@xccode/ai/route"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { RequestExecutor } from "@xiaochuan/ai/route"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { llmClient, requestExecutor } from "./effect/app-node-platform.js"
 import { Integration } from "./integration.js"
 import { ModelResolver } from "./model-resolver.js"
@@ -134,7 +134,7 @@ export interface Interface {
   }
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Generate") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Generate") {}
 
 // Image and decision clients are built here, on the shared request executor, so only Generate depends on them.
 export const layer = Layer.effect(
@@ -178,7 +178,7 @@ export const layer = Layer.effect(
             model: resolved.model,
             prompt: input.prompt,
             // Gateways require session attribution even for a stateless call; no Session is stored.
-            headers: { "x-xccode-session": SessionID.create() },
+            headers: { "x-xiaochuan-session": SessionID.create() },
           }),
         )
         .pipe(
@@ -360,7 +360,7 @@ function resolutionError(ref: Model.Ref, type: string, error: ModelResolver.Erro
       providerID: ref.providerID,
       modelID: ref.id,
       capability: type,
-      message: `${ref.providerID}/${ref.id} has no ${type} API xccode can call (package ${error.package})`,
+      message: `${ref.providerID}/${ref.id} has no ${type} API xiaochuan can call (package ${error.package})`,
     })
   return new InvalidRequestError({ message: error.message, field: "model" })
 }

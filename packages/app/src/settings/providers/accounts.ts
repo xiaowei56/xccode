@@ -1,4 +1,4 @@
-import type { ConnectionInfo, IntegrationInfo } from "@xccode/client/promise"
+import type { ConnectionInfo, IntegrationInfo } from "@xiaochuan/client/promise"
 
 export type ProviderAccount = Extract<ConnectionInfo, { type: "credential" }>
 

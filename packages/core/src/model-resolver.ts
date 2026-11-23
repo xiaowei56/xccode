@@ -1,6 +1,6 @@
 export * as ModelResolver from "./model-resolver.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import {
   DecisionModel,
   DecisionModelCompatibility,
@@ -12,15 +12,15 @@ import {
   type ProviderPackage,
   VideoModel,
   VideoModelSchema,
-} from "@xccode/ai/effect"
-import { Auth, mergeTransport } from "@xccode/ai/route"
+} from "@xiaochuan/ai/effect"
+import { Auth, mergeTransport } from "@xiaochuan/ai/route"
 import { Context, Effect, Layer, Schema, Struct } from "effect"
 import { AISDK } from "./aisdk.js"
 import { Credential } from "./credential.js"
 import { Integration } from "./integration.js"
 import { Capabilities, Compatibility, ID, Info, Model, Ref, VariantID } from "./model.js"
 import type { RuntimeInfo } from "./model.js"
-import { Npm } from "@xccode/util/npm"
+import { Npm } from "@xiaochuan/util/npm"
 import { Provider } from "./provider.js"
 
 export class VariantUnavailableError extends Schema.TaggedError<VariantUnavailableError>()(
@@ -160,7 +160,7 @@ export interface Interface {
   readonly resolveDecision: (ref: Ref) => Effect.Effect<DecisionModel | undefined, MediaError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/ModelResolver") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/ModelResolver") {}
 
 // Variant resolution adds request-local overlays without changing the committed model snapshot.
 export const withVariant = (
@@ -420,7 +420,7 @@ const nativeCredentialSettings = (model: RuntimeInfo, specifier: string, credent
   if (credential.type === "key") return { apiKey: credential.key }
   if (credential.type === "oauth") return tokenSettings(specifier, credential.access)
   // The Bedrock plugin projects the saved profile into settings; SigV4 keeps an ambient bearer token from taking over.
-  if (specifier.startsWith("@xccode/ai/providers/amazon-bedrock")) return { auth: "sigv4" }
+  if (specifier.startsWith("@xiaochuan/ai/providers/amazon-bedrock")) return { auth: "sigv4" }
   // The Azure plugin's request hooks replace this with an Entra ID token from the Azure CLI; it only gets the
   // request past the package's own credential check.
   if (model.providerID === Provider.ID.azure) return tokenSettings(specifier, "azure-cli")
@@ -428,11 +428,11 @@ const nativeCredentialSettings = (model: RuntimeInfo, specifier: string, credent
 }
 
 const tokenSettings = (specifier: string, token: string) => {
-  if (specifier === "@xccode/ai/providers/anthropic" || specifier === "@xccode/ai/providers/anthropic-compatible")
+  if (specifier === "@xiaochuan/ai/providers/anthropic" || specifier === "@xiaochuan/ai/providers/anthropic-compatible")
     return { authToken: token }
   if (
-    specifier === "@xccode/ai/providers/google-vertex" ||
-    specifier.startsWith("@xccode/ai/providers/google-vertex/")
+    specifier === "@xiaochuan/ai/providers/google-vertex" ||
+    specifier.startsWith("@xiaochuan/ai/providers/google-vertex/")
   )
     return { accessToken: token }
   return { apiKey: token }
@@ -597,27 +597,27 @@ const API_KEY_AUTH_PACKAGES: ReadonlySet<string> = new Set([
   "@ai-sdk/xai",
   "@openrouter/ai-sdk-provider",
   "@ai-sdk/azure",
-  "@xccode/ai/providers/openai",
-  "@xccode/ai/providers/anthropic",
-  "@xccode/ai/providers/anthropic-compatible",
-  "@xccode/ai/providers/baseten",
-  "@xccode/ai/providers/cerebras",
-  "@xccode/ai/providers/cloudflare-ai-gateway",
-  "@xccode/ai/providers/cloudflare-workers-ai",
-  "@xccode/ai/providers/deepinfra",
-  "@xccode/ai/providers/deepseek",
-  "@xccode/ai/providers/fireworks",
-  "@xccode/ai/providers/openai-compatible",
-  "@xccode/ai/providers/openai-compatible/decisions",
-  "@xccode/ai/providers/google",
-  "@xccode/ai/providers/google/interactions",
-  "@xccode/ai/providers/groq",
-  "@xccode/ai/providers/mistral",
-  "@xccode/ai/providers/togetherai",
-  "@xccode/ai/providers/vercel-ai-gateway",
-  "@xccode/ai/providers/xai",
-  "@xccode/ai/providers/openrouter",
-  "@xccode/ai/providers/azure",
+  "@xiaochuan/ai/providers/openai",
+  "@xiaochuan/ai/providers/anthropic",
+  "@xiaochuan/ai/providers/anthropic-compatible",
+  "@xiaochuan/ai/providers/baseten",
+  "@xiaochuan/ai/providers/cerebras",
+  "@xiaochuan/ai/providers/cloudflare-ai-gateway",
+  "@xiaochuan/ai/providers/cloudflare-workers-ai",
+  "@xiaochuan/ai/providers/deepinfra",
+  "@xiaochuan/ai/providers/deepseek",
+  "@xiaochuan/ai/providers/fireworks",
+  "@xiaochuan/ai/providers/openai-compatible",
+  "@xiaochuan/ai/providers/openai-compatible/decisions",
+  "@xiaochuan/ai/providers/google",
+  "@xiaochuan/ai/providers/google/interactions",
+  "@xiaochuan/ai/providers/groq",
+  "@xiaochuan/ai/providers/mistral",
+  "@xiaochuan/ai/providers/togetherai",
+  "@xiaochuan/ai/providers/vercel-ai-gateway",
+  "@xiaochuan/ai/providers/xai",
+  "@xiaochuan/ai/providers/openrouter",
+  "@xiaochuan/ai/providers/azure",
 ])
 
 function usesAPIKeyAuth(packageName: string | undefined) {
@@ -625,8 +625,8 @@ function usesAPIKeyAuth(packageName: string | undefined) {
   if (name === undefined) return false
   return (
     API_KEY_AUTH_PACKAGES.has(name) ||
-    name.startsWith("@xccode/ai/providers/openai/") ||
-    name.startsWith("@xccode/ai/providers/azure/")
+    name.startsWith("@xiaochuan/ai/providers/openai/") ||
+    name.startsWith("@xiaochuan/ai/providers/azure/")
   )
 }
 

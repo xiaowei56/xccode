@@ -1,9 +1,9 @@
 import { EOL } from "node:os"
 import { Effect } from "effect"
-import { Xccode } from "@xccode/client"
+import { Xiaochuan } from "@xiaochuan/client"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
-import { Service } from "@xccode/client/effect/service"
+import { Service } from "@xiaochuan/client/effect/service"
 import { ServerConnection } from "../../../services/server-connection"
 import { resolveIntegration } from "./resolve"
 
@@ -13,7 +13,7 @@ export default Runtime.handler(
   Commands.commands.mcp.commands.logout,
   Effect.fn("cli.mcp.logout")(function* (input) {
     const { endpoint } = yield* ServerConnection.resolve()
-    const client = Xccode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+    const client = Xiaochuan.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
 
     const integration = yield* resolveIntegration(client, input.name, location)
     if (!integration) {

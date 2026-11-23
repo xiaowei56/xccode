@@ -1,2 +1,2 @@
-export * as SessionMessage from "@xccode/schema/session-message"
-export * from "@xccode/schema/session-message"
+export * as SessionMessage from "@xiaochuan/schema/session-message"
+export * from "@xiaochuan/schema/session-message"

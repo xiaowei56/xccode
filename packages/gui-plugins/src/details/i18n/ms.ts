@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Padam worktree",
   "mcp.manage": "Urus pelayan MCP",
   timedOut: "Pelayan mengambil masa terlalu lama untuk memberi respons",
-  "setup.mcp": "Tambah pelayan dengan Xccode",
+  "setup.mcp": "Tambah pelayan dengan Xiaochuan",
   "setup.mcp.prompt":
-    "Bantu saya menambah pelayan MCP pada konfigurasi Xccode global saya. Tanya saya perkhidmatan mana yang ingin saya sambungkan, kemudian sediakannya dan pastikan ia bersambung.",
-  "setup.plugins": "Tambah plugin dengan Xccode",
+    "Bantu saya menambah pelayan MCP pada konfigurasi Xiaochuan global saya. Tanya saya perkhidmatan mana yang ingin saya sambungkan, kemudian sediakannya dan pastikan ia bersambung.",
+  "setup.plugins": "Tambah plugin dengan Xiaochuan",
   "setup.plugins.prompt":
-    "Bantu saya menambah plugin pada konfigurasi Xccode global saya. Tanya saya apa yang saya mahu ia lakukan, cadangkan satu plugin, kemudian tambahkannya.",
-  "setup.skills": "Kemahiran baharu dengan Xccode",
+    "Bantu saya menambah plugin pada konfigurasi Xiaochuan global saya. Tanya saya apa yang saya mahu ia lakukan, cadangkan satu plugin, kemudian tambahkannya.",
+  "setup.skills": "Kemahiran baharu dengan Xiaochuan",
   "setup.skills.prompt":
-    "Bantu saya menulis kemahiran Xccode baharu dalam konfigurasi global saya. Tanya saya apa yang patut ia ajarkan kepada anda, kemudian tulis SKILL.md-nya.",
+    "Bantu saya menulis kemahiran Xiaochuan baharu dalam konfigurasi global saya. Tanya saya apa yang patut ia ajarkan kepada anda, kemudian tulis SKILL.md-nya.",
   changesFailed: "Tidak dapat memuatkan perubahan",
   changesOffline: "Tidak dapat mencapai pelayan ini",
   "mcp.signIn": "Log masuk",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Butiran untuk {{name}}",
   "mcp.signIn.open": "Log masuk ke {{name}}",
   "mcp.signIn.description":
-    "Pelayar anda akan dibuka supaya anda boleh log masuk ke {{name}}. Jika ia tidak dapat mencapai mesin yang menjalankan Xccode, tampal URL yang menjadi destinasi ubah halanya di bawah.",
+    "Pelayar anda akan dibuka supaya anda boleh log masuk ke {{name}}. Jika ia tidak dapat mencapai mesin yang menjalankan Xiaochuan, tampal URL yang menjadi destinasi ubah halanya di bawah.",
   "mcp.signIn.waiting": "Menunggu kebenaran…",
   "mcp.signIn.failed": "Kebenaran gagal: {{error}}",
   "mcp.signIn.expired": "Kebenaran tamat tempoh",

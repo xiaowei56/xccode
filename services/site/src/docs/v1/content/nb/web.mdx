@@ -1,21 +1,21 @@
 ---
 title: Web
-description: Bruke Xccode i nettleseren din.
+description: Bruke Xiaochuan i nettleseren din.
 ---
 
-Xccode kan kjøres som en nettapplikasjon i nettleseren din, og gir den samme kraftige AI-kodingsopplevelsen uten at du trenger en terminal.
+Xiaochuan kan kjøres som en nettapplikasjon i nettleseren din, og gir den samme kraftige AI-kodingsopplevelsen uten at du trenger en terminal.
 
-![Xccode Web - Ny økt](../../../assets/web/web-homepage-new-session.png)
+![Xiaochuan Web - Ny økt](../../../assets/web/web-homepage-new-session.png)
 
 ## Komme i gang
 
 Start web-grensesnittet ved å kjøre:
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-Dette starter en lokal server på `127.0.0.1` med en tilfeldig tilgjengelig port og åpner automatisk Xccode i standard nettleser.
+Dette starter en lokal server på `127.0.0.1` med en tilfeldig tilgjengelig port og åpner automatisk Xiaochuan i standard nettleser.
 
 ---
 
@@ -25,49 +25,49 @@ Du kan konfigurere webserveren ved å bruke kommandolinjeflagg eller i [konfigur
 
 ### Port
 
-Som standard velger Xccode en tilgjengelig port. Du kan spesifisere en port:
+Som standard velger Xiaochuan en tilgjengelig port. Du kan spesifisere en port:
 
 ```bash
-xccode web --port 4096
+xiaochuan web --port 4096
 ```
 
 ### Vertsnavn
 
-Som standard binder serveren seg til `127.0.0.1` (kun localhost). Slik gjør du Xccode tilgjengelig på nettverket ditt:
+Som standard binder serveren seg til `127.0.0.1` (kun localhost). Slik gjør du Xiaochuan tilgjengelig på nettverket ditt:
 
 ```bash
-xccode web --hostname 0.0.0.0
+xiaochuan web --hostname 0.0.0.0
 ```
 
 ---
 
 ### Autentisering
 
-For å beskytte tilgang, angi et passord ved hjelp av miljøvariabelen `XCCODE_SERVER_PASSWORD`:
+For å beskytte tilgang, angi et passord ved hjelp av miljøvariabelen `XIAOCHUAN_SERVER_PASSWORD`:
 
 ```bash
-XCCODE_SERVER_PASSWORD=secret xccode web
+XIAOCHUAN_SERVER_PASSWORD=secret xiaochuan web
 ```
 
-Brukernavnet er satt til `xccode` som standard, men kan endres med `XCCODE_SERVER_USERNAME`.
+Brukernavnet er satt til `xiaochuan` som standard, men kan endres med `XIAOCHUAN_SERVER_USERNAME`.
 
 ---
 
 ## Bruke webgrensesnittet
 
-Når den er startet, gir nettgrensesnittet tilgang til dine Xccode-økter.
+Når den er startet, gir nettgrensesnittet tilgang til dine Xiaochuan-økter.
 
 ### Sesjoner
 
 Se og administrer øktene dine fra hjemmesiden. Du kan se aktive økter og starte nye.
 
-![Xccode Web - Active Session](../../../assets/web/web-homepage-active-session.png)
+![Xiaochuan Web - Active Session](../../../assets/web/web-homepage-active-session.png)
 
 ### Serverstatus
 
 Klikk på "Se servere" for å se tilkoblede servere og deres status.
 
-![Xccode Web - Se servere](../../../assets/web/web-homepage-see-servers.png)
+![Xiaochuan Web - Se servere](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 
@@ -77,10 +77,10 @@ Du kan koble en terminal TUI til en kjørende webserver:
 
 ```bash
 # Start the web server
-xccode web --port 4096
+xiaochuan web --port 4096
 
 # In another terminal, attach the TUI
-xccode attach http://localhost:4096
+xiaochuan attach http://localhost:4096
 ```
 
 Dette lar deg bruke både nettgrensesnittet og terminalen samtidig, og deler samme økter og tilstand.
@@ -89,7 +89,7 @@ Dette lar deg bruke både nettgrensesnittet og terminalen samtidig, og deler sam
 
 ## Konfigurasjonsfil
 
-Du kan også konfigurere serverinnstillinger i `xccode.json` konfigurasjonsfilen:
+Du kan også konfigurere serverinnstillinger i `xiaochuan.json` konfigurasjonsfilen:
 
 ```json
 {

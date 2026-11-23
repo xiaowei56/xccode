@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/data-core",
+  "name": "@xiaochuan/data-core",
   "version": "2.3.0",
   "private": true,
   "type": "module",

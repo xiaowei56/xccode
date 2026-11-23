@@ -4,7 +4,7 @@
 use std::io;
 use std::path::Path;
 
-use xccode_api_types::js::truthy;
+use xiaochuan_api_types::js::truthy;
 use serde_json::{Map, Value};
 
 use crate::cli_config::{self, Cursor, Decode, PositiveInt, SCHEMA_URL, section};

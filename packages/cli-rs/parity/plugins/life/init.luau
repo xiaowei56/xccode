@@ -1,11 +1,11 @@
 --!strict
--- The plugin of the life machine (parity/machines/plugins.json), xccode-native side: `tui.tsx` in Luau, checked
+-- The plugin of the life machine (parity/machines/plugins.json), xiaochuan-native side: `tui.tsx` in Luau, checked
 -- against the file, not against `tui.tsx`. A line in home.footer shows A or B, its build, then the pending keys while a
 -- sequence is pending. Life flip flips the line, Life throw throws, Life stall spins for 150 ms of CPU time (past the
 -- Luau budget), Life arm makes the next setup throw, Life dialog opens a prompt, Life confirm asks whether to flip the
 -- line, and Life alert flips it once it closes. With the option fail its setup throws, for the views machine.
 -- crates/tui/tests/all/plugin_machines.rs copies this directory and rewrites `BUILD` to reload it.
-local plugin = require("@xccode/plugin")
+local plugin = require("@xiaochuan/plugin")
 
 local BUILD = 1
 

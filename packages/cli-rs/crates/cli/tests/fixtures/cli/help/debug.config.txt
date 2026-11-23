@@ -2,7 +2,7 @@
   List configuration sources
 
 [1mUSAGE[0m
-  [36mxccode debug config [flags][0m
+  [36mxiaochuan debug config [flags][0m
 
 [1mGLOBAL FLAGS[0m
   [32m--help[0m, [32m-h[0m                                                          Show help information

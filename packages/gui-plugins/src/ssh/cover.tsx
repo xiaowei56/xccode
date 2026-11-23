@@ -1,8 +1,8 @@
-import { Button } from "@xccode/ui/button"
-import { Icon } from "@xccode/ui/icon"
-import { Loader } from "@xccode/ui/loader"
+import { Button } from "@xiaochuan/ui/button"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Loader } from "@xiaochuan/ui/loader"
 import { Show } from "solid-js"
-import { createKeyed, usePlugin } from "@xccode/plugin/gui"
+import { createKeyed, usePlugin } from "@xiaochuan/plugin/gui"
 import { sshName } from "./name"
 import type { SshController } from "./state"
 

@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { useTerminalDimensions } from "@opentui/solid"
 import { createSignal, For, type JSX } from "solid-js"
 import { StoryFooter } from "./footer"
@@ -138,7 +138,7 @@ function StorybookIndex(props: { context: Plugin.Context }) {
 }
 
 export default Plugin.define({
-  id: "xccode.storybook",
+  id: "xiaochuan.storybook",
   setup(context) {
     context.ui.router.register({
       name: "storybook",

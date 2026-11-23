@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { AgentListOutput, ModelListOutput, Project, ProviderListOutput } from "@xccode/client/promise"
+import type { AgentListOutput, ModelListOutput, Project, ProviderListOutput } from "@xiaochuan/client/promise"
 import { directoryKey, normalizeAgentList, normalizeProjectInfo, normalizeProviderList } from "./utils"
 
 describe("normalizeAgentList", () => {
@@ -101,14 +101,14 @@ describe("normalizeProviderList", () => {
     ["disabled-only none variant", [{ id: "none" }], undefined, false],
   ] as const)("derives reasoning capability from %s", (_, variants, compatibility, expected) => {
     const providers: ProviderListOutput["data"] = [
-      { id: "xccode", name: "Xccode", activation: "auto", package: "@xccode/ai/providers/openai-compatible" },
+      { id: "xiaochuan", name: "Xiaochuan", activation: "auto", package: "@xiaochuan/ai/providers/openai-compatible" },
     ]
 
     const models: ModelListOutput["data"] = [
       {
         id: "model",
         modelID: "model",
-        providerID: "xccode",
+        providerID: "xiaochuan",
         name: "Model",
         compatibility,
         capabilities: { tools: true, input: ["text"], output: ["text"] },
@@ -123,7 +123,7 @@ describe("normalizeProviderList", () => {
 
     const result = normalizeProviderList(providers, models)
 
-    expect(result.all.get("xccode")?.models.model?.capabilities.reasoning).toBe(expected)
+    expect(result.all.get("xiaochuan")?.models.model?.capabilities.reasoning).toBe(expected)
   })
 })
 
@@ -143,10 +143,10 @@ describe("normalizeProjectInfo", () => {
 })
 
 test.each([
-  ["C:\\Repos\\sst\\xccode", "C:/Repos/xiaowei56/xccode"],
-  ["C:/Repos/xiaowei56/xccode", "C:/Repos/xiaowei56/xccode"],
+  ["C:\\Repos\\sst\\xiaochuan", "C:/Repos/xiaowei56/xiaochuan"],
+  ["C:/Repos/xiaowei56/xiaochuan", "C:/Repos/xiaowei56/xiaochuan"],
   ["/tmp/foo\\bar", "/tmp/foo\\bar"],
-  ["C:/Repos/xiaowei56/xccode/", "C:/Repos/xiaowei56/xccode"],
+  ["C:/Repos/xiaowei56/xiaochuan/", "C:/Repos/xiaowei56/xiaochuan"],
   ["C:/", "C:/"],
   ["/", "/"],
 ])("directoryKey(%p) is %p", (input, expected) => {

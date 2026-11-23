@@ -3,7 +3,7 @@ import en from "./en"
 type Keys = keyof typeof en
 
 export const dict = {
-  "desktop.menu.app": "Xccode",
+  "desktop.menu.app": "Xiaochuan",
   "desktop.menu.file": "Dosya",
   "desktop.menu.edit": "Düzen",
   "desktop.menu.view": "Görünüm",
@@ -43,15 +43,15 @@ export const dict = {
   "desktop.menu.nextProject": "Sonraki proje",
   "desktop.menu.minimize": "Simge durumuna küçült",
   "desktop.menu.maximize": "Ekranı kapla",
-  "desktop.menu.documentation": "Xccode belgeleri",
+  "desktop.menu.documentation": "Xiaochuan belgeleri",
   "desktop.menu.supportForum": "Destek forumu",
   "desktop.menu.shareFeedback": "Geri bildirim paylaş",
   "desktop.menu.reportBug": "Hata bildir",
-  "desktop.menu.ariaLabel": "Xccode menüsü",
+  "desktop.menu.ariaLabel": "Xiaochuan menüsü",
 
   "desktop.cli.installed.title": "CLI yüklendi",
   "desktop.cli.installed.message":
-    "CLI, {{path}} konumuna yüklendi.\n\n'xccode2' komutunu kullanmak için terminalinizi yeniden başlatın.",
+    "CLI, {{path}} konumuna yüklendi.\n\n'xiaochuan2' komutunu kullanmak için terminalinizi yeniden başlatın.",
   "desktop.cli.failed.title": "Yükleme başarısız oldu",
   "desktop.cli.failed.message": "CLI yüklenemedi: {{error}}",
 
@@ -59,9 +59,9 @@ export const dict = {
   "desktop.recovery.action.exportLogs": "Günlükleri dışa aktar",
   "desktop.recovery.action.keepWaiting": "Beklemeye devam et",
   "desktop.recovery.action.quit": "Çık",
-  "desktop.recovery.loadFailed": "Xccode yüklenemedi",
-  "desktop.recovery.terminated": "Xccode penceresi beklenmedik şekilde sonlandırıldı",
-  "desktop.recovery.unresponsive": "Xccode yanıt vermiyor",
+  "desktop.recovery.loadFailed": "Xiaochuan yüklenemedi",
+  "desktop.recovery.terminated": "Xiaochuan penceresi beklenmedik şekilde sonlandırıldı",
+  "desktop.recovery.unresponsive": "Xiaochuan yanıt vermiyor",
   "desktop.recovery.unresponsive.detail":
     "Uygulamayı yeniden başlatabilir, günlükleri açabilir veya beklemeye devam edebilirsiniz.",
   "desktop.recovery.loadFailed.detail": "Pencere: {{window}}\nURL: {{url}}\nHata: {{code}} {{description}}",
@@ -151,9 +151,9 @@ export const dict = {
   "dialog.provider.empty": "Sağlayıcı bulunamadı",
   "dialog.provider.group.popular": "Popüler",
   "dialog.provider.tag.recommended": "Önerilen",
-  "dialog.provider.xccode.note": "Claude, GPT, Gemini ve daha fazlasını içeren seçilmiş modeller",
-  "dialog.provider.xccode.tagline": "Güvenilir, optimize edilmiş modeller",
-  "dialog.provider.xccodeGo.tagline": "Herkes için düşük maliyetli abonelik",
+  "dialog.provider.xiaochuan.note": "Claude, GPT, Gemini ve daha fazlasını içeren seçilmiş modeller",
+  "dialog.provider.xiaochuan.tagline": "Güvenilir, optimize edilmiş modeller",
+  "dialog.provider.xiaochuanGo.tagline": "Herkes için düşük maliyetli abonelik",
   "dialog.provider.copilot.note": "GitHub Copilot üzerinden kodlama yardımı için yapay zekâ modelleri",
   "dialog.provider.openai.note": "Hızlı ve yetenekli genel yapay zekâ görevleri için GPT modelleri",
   "dialog.provider.google.note": "Hızlı ve yapılandırılmış yanıtlar için Gemini modelleri",
@@ -166,7 +166,7 @@ export const dict = {
   "dialog.model.manage": "Modelleri yönet",
   "dialog.model.manage.description": "Model seçicide hangi modellerin görüneceğini özelleştirin.",
 
-  "dialog.model.unpaid.freeModels.title": "Xccode tarafından sunulan ücretsiz modeller",
+  "dialog.model.unpaid.freeModels.title": "Xiaochuan tarafından sunulan ücretsiz modeller",
   "dialog.model.unpaid.addMore.title": "Popüler sağlayıcılardan daha fazla model ekleyin",
   "dialog.model.unpaid.viewMoreProviders": "70'ten fazla sağlayıcı daha görüntüle",
 
@@ -178,7 +178,7 @@ export const dict = {
   "provider.connect.status.waiting": "Yetkilendirme bekleniyor",
   "provider.connect.status.failed": "Yetkilendirme başarısız: {{error}}",
   "provider.connect.apiKey.description":
-    "{{provider}} hesabınızı bağlamak ve Xccode'da {{provider}} modellerini kullanmak için API anahtarınızı girin.",
+    "{{provider}} hesabınızı bağlamak ve Xiaochuan'da {{provider}} modellerini kullanmak için API anahtarınızı girin.",
   "provider.connect.apiKey.label": "{{provider}} API anahtarı",
   "provider.connect.apiKey.placeholder": "API anahtarı",
   "provider.connect.apiKey.required": "API anahtarı gerekli",
@@ -307,7 +307,7 @@ export const dict = {
   "error.page.action.checking": "Kontrol ediliyor…",
   "error.page.action.checkUpdates": "Güncellemeleri kontrol et",
   "error.page.action.updateTo": "{{version}} sürümüne güncelle",
-  "error.page.report.prefix": "Lütfen bu hatayı Xccode ekibine",
+  "error.page.report.prefix": "Lütfen bu hatayı Xiaochuan ekibine",
   "error.page.report.discord": "Discord üzerinden bildirin",
   "error.page.version": "Sürüm: {{version}}",
 
@@ -324,9 +324,9 @@ export const dict = {
   "error.chain.responseBody": "Yanıt gövdesi:\n{{body}}",
   "error.chain.didYouMean": "Bunu mu demek istediniz: {{suggestions}}",
   "error.chain.modelNotFound": "Model bulunamadı: {{provider}}/{{model}}",
-  "error.chain.checkConfig": "Yapılandırma dosyanızdaki (xccode.json) sağlayıcı/model adlarını kontrol edin",
+  "error.chain.checkConfig": "Yapılandırma dosyanızdaki (xiaochuan.json) sağlayıcı/model adlarını kontrol edin",
   "error.chain.mcpFailed":
-    'MCP sunucusu "{{name}}" çalıştırılamadı. Not: Xccode henüz MCP kimlik doğrulamasını desteklemiyor.',
+    'MCP sunucusu "{{name}}" çalıştırılamadı. Not: Xiaochuan henüz MCP kimlik doğrulamasını desteklemiyor.',
   "error.chain.providerAuthFailed": "Sağlayıcı kimlik doğrulaması başarısız ({{provider}}): {{message}}",
   "error.chain.providerInitFailed":
     '"{{provider}}" sağlayıcısı başlatılamadı. Kimlik bilgilerini ve yapılandırmayı kontrol edin.',
@@ -421,7 +421,7 @@ export const dict = {
   "settings.general.section.sounds": "Ses efektleri",
 
   "settings.general.row.language.title": "Dil",
-  "settings.general.row.language.description": "Xccode'un görünüm dilini değiştirin",
+  "settings.general.row.language.description": "Xiaochuan'un görünüm dilini değiştirin",
   "settings.general.row.shell.title": "Terminal Kabuğu",
   "settings.general.row.shell.description":
     "Terminalinizde kullanılacak kabuğu seçin. Uyumlu kabuklar, ajan araç çağrılarında da kullanılır.",
@@ -429,9 +429,9 @@ export const dict = {
   "settings.general.row.shell.terminalOnly": "yalnızca terminal",
   "settings.general.row.colorScheme.title": "Renk şeması",
   "settings.general.row.colorScheme.description":
-    "Xccode'un sistem, açık veya koyu temayı takip etip etmeyeceğini seçin",
+    "Xiaochuan'un sistem, açık veya koyu temayı takip etip etmeyeceğini seçin",
   "settings.general.row.theme.title": "Tema",
-  "settings.general.row.theme.description": "Xccode'un temasını özelleştirin.",
+  "settings.general.row.theme.description": "Xiaochuan'un temasını özelleştirin.",
   "settings.general.row.font.title": "Kod yazı tipi",
   "settings.general.row.font.description": "Kod bloklarında kullanılan yazı tipini özelleştirin",
   "settings.general.row.terminalFont.title": "Terminal yazı tipi",
@@ -624,7 +624,7 @@ export const dict = {
   "command.project.copyID": "Proje kimliğini kopyala",
   "command.session.copyID": "Oturum kimliğini kopyala",
   "server.row.incompatible":
-    "Bu sunucu, bu uygulamayla uyumlu olmayan Xccode {{version}} sürümünü çalıştırıyor. Devam etmek için Xccode V2'ye yükseltin.",
+    "Bu sunucu, bu uygulamayla uyumlu olmayan Xiaochuan {{version}} sürümünü çalıştırıyor. Devam etmek için Xiaochuan V2'ye yükseltin.",
   "toast.session.copyID.failed.title": "Oturum kimliği kopyalanamadı",
   "toast.session.copyID.failed.description": "Oturum kimliği kopyalanırken bir hata oluştu",
   "toast.project.copyID.failed.title": "Proje kimliği kopyalanamadı",
@@ -634,7 +634,7 @@ export const dict = {
   "error.page.action.reload": "Yeniden yükle",
   "session.error.incompatible": "Bu sunucu sürümü desteklenmiyor",
   "session.error.incompatible.description":
-    "{{server}}, bu uygulamayla uyumlu olmayan Xccode {{version}} sürümünü çalıştırıyor. Devam etmek için sunucuyu Xccode V2'ye yükseltin.",
+    "{{server}}, bu uygulamayla uyumlu olmayan Xiaochuan {{version}} sürümünü çalıştırıyor. Devam etmek için sunucuyu Xiaochuan V2'ye yükseltin.",
   "session.background.moveInline": "Çalışan işi arka plana taşımak için {{keybind}} tuşuna basın",
 
   "command.session.background": "Arka plana taşı",
@@ -655,7 +655,7 @@ export const dict = {
   "settings.extensions.tab.mcps": "MCP'ler",
   "settings.extensions.tab.skills": "Beceriler",
   "settings.extensions.availableAll": "Tüm projelerde kullanılabilir",
-  "settings.extensions.manageConfig": "xccode.json içinde yönet",
+  "settings.extensions.manageConfig": "xiaochuan.json içinde yönet",
   "settings.extensions.addSkills": "Beceri ekleme",
   "project.settings.extensions.description": "Bu projede kullanılabilen uzantıları görüntüleyin",
   "project.settings.extensions.tab.lsps": "LSP'ler",
@@ -745,9 +745,9 @@ export const dict = {
   "settings.about.otherContributor.other": "{{count}} diğerleri",
   "settings.about.firstPublished": "İlk olarak Missouri, ABD'de yayınlandı",
   "settings.about.firstIllustrated": "İlk kez Londra, İngiltere'de resmedildi",
-  "settings.about.website": "www.xccode.ai",
-  "settings.about.description": "Xccode, açık kaynak kodlama aracısı",
-  "settings.about.trademark": "Xccode, Anomaly Innovations, Inc.'in tescilli ticari markasıdır.",
+  "settings.about.website": "www.xiaochuan.ai",
+  "settings.about.description": "Xiaochuan, açık kaynak kodlama aracısı",
+  "settings.about.trademark": "Xiaochuan, Anomaly Innovations, Inc.'in tescilli ticari markasıdır.",
   "settings.about.typeset": "Inter ve IBM Plex Mono'da dizgi",
   "settings.about.tagline": "Yapay zeka siz olmadan mükemmel yazılım geliştiremez",
   "settings.about.copyright": "© Anomaly Innovations, Inc.",
@@ -787,9 +787,9 @@ export const dict = {
   "server.connect.address.invalid": "Geçerli bir HTTP veya HTTPS sunucu adresi girin.",
   "server.connect.failed": "Bağlantı kurulamadı. Sunucu adresini ve şifreyi kontrol edip tekrar deneyin.",
   "server.connect.scan": "QR kodunu tarayın",
-  "server.connect.scan.description": "Kameranızı xccode pair tarafından gösterilen QR koduna doğrultun.",
+  "server.connect.scan.description": "Kameranızı xiaochuan pair tarafından gösterilen QR koduna doğrultun.",
   "server.connect.scan.invalid":
-    "Bu bir Xccode eşleştirme kodu değildir. xccode pair tarafından gösterilen kodu tarayın.",
+    "Bu bir Xiaochuan eşleştirme kodu değildir. xiaochuan pair tarafından gösterilen kodu tarayın.",
   "server.connect.camera": "Kamera eşleniyor",
   "server.connect.camera.starting": "Kamera açılıyor…",
   "server.connect.mixedContent":
@@ -825,18 +825,18 @@ export const dict = {
     "Temsilcilerin web'de arama yapmak için kullanacağı arama sağlayıcısını seçin",
   "settings.projects.search.placeholder": "Proje ara",
   "project.settings.name.title": "Proje adı",
-  "project.settings.name.description": "Xccode genelinde bu proje için gösterilen ad",
+  "project.settings.name.description": "Xiaochuan genelinde bu proje için gösterilen ad",
   "project.settings.icon.description": "Önerilen: 128×128 piksel. Bir görseli yüklemek için tıklayın veya sürükleyin.",
   "project.settings.color.description": "Özel bir görüntü ayarlanmadığında proje simgesi için kullanılır",
   "project.settings.worktree.startup.description": "Yeni bir çalışma ağacı oluşturulduktan sonra bir kez çalıştırılır",
-  "project.settings.worktree.startup.hint.base": "Temel çalışma ağacı için $XCCODE_WORKTREE_BASE kullanın.",
-  "project.settings.worktree.startup.hint.new": "Yeni çalışma ağacı için $XCCODE_WORKTREE_PATH'yi kullanın.",
+  "project.settings.worktree.startup.hint.base": "Temel çalışma ağacı için $XIAOCHUAN_WORKTREE_BASE kullanın.",
+  "project.settings.worktree.startup.hint.new": "Yeni çalışma ağacı için $XIAOCHUAN_WORKTREE_PATH'yi kullanın.",
   "project.settings.extensions.empty.mcps.title": "Henüz MCPs yok",
-  "project.settings.extensions.empty.mcps.description": "Xccode tarafından kullanılabilen MCPs burada görünecek",
+  "project.settings.extensions.empty.mcps.description": "Xiaochuan tarafından kullanılabilen MCPs burada görünecek",
   "project.settings.extensions.empty.plugins.title": "Henüz eklenti yok",
-  "project.settings.extensions.empty.plugins.description": "Xccode'de kullanılabilen eklentiler burada görünecek",
+  "project.settings.extensions.empty.plugins.description": "Xiaochuan'de kullanılabilen eklentiler burada görünecek",
   "project.settings.extensions.empty.skills.title": "Henüz beceri yok",
-  "project.settings.extensions.empty.skills.description": "Xccode'nin kullanabileceği beceriler burada görünecek",
+  "project.settings.extensions.empty.skills.description": "Xiaochuan'nin kullanabileceği beceriler burada görünecek",
   "project.settings.extensions.lsp.configured": "Yapılandırılmış dil sunucuları",
   "project.settings.extensions.lsp.status.enabled": "Yapılandırmada etkinleştirildi",
   "project.settings.extensions.lsp.status.disabled": "Yapılandırmada devre dışı bırakıldı",
@@ -856,7 +856,7 @@ export const dict = {
   "settings.timeline.collapsed.label": "{{activity}} çöktü",
   "session.new.workspace.search.empty": "Eşleşen çalışma ağacı yok",
   "settings.workspaces.description": "Çalışma ağaçlarını inceleyin ve disk kullanımını yönetin",
-  "settings.workspaces.empty.description": "Xccode'de oluşturulan çalışma ağaçları burada görünecek",
+  "settings.workspaces.empty.description": "Xiaochuan'de oluşturulan çalışma ağaçları burada görünecek",
   "settings.workspaces.sessions.filtered.one": "{{count}} oturumu",
   "settings.workspaces.sessions.filtered.other": "{{count}} oturumları",
   "settings.workspaces.deleteAll.confirm.one": "Bu, {{count}} seçili çalışma ağacını kalıcı olarak silecektir.",
@@ -906,22 +906,22 @@ export const dict = {
   "voice.captions.hide": "Altyazıları gizle",
   "voice.connecting": "Bağlanıyor…",
   "voice.you": "Siz:",
-  "voice.assistant": "Xccode:",
+  "voice.assistant": "Xiaochuan:",
   "voice.failure.unavailable": "Sesli aramalar için bu sunucuda bir OpenAI API anahtarı gerekir.",
   "voice.failure.microphone": "Arama yapmak için mikrofon erişimi gerekir.",
   "voice.failure.dropped": "Arama kesildi.",
   "voice.failure.connection": "Arama bağlanamadı.",
-  "desktop.microphoneUsage": "Xccode, sesli aramalar için mikrofonunuzu kullanır.",
+  "desktop.microphoneUsage": "Xiaochuan, sesli aramalar için mikrofonunuzu kullanır.",
   "desktop.documentsFolderUsage":
-    "Xccode, açtığınız projeler ve orada çalıştırdığınız komutlar için Belgeler klasörünüzdeki dosyaları kullanır.",
+    "Xiaochuan, açtığınız projeler ve orada çalıştırdığınız komutlar için Belgeler klasörünüzdeki dosyaları kullanır.",
   "desktop.desktopFolderUsage":
-    "Xccode, açtığınız projeler ve orada çalıştırdığınız komutlar için Masaüstünüzdeki dosyaları kullanır.",
+    "Xiaochuan, açtığınız projeler ve orada çalıştırdığınız komutlar için Masaüstünüzdeki dosyaları kullanır.",
   "desktop.downloadsFolderUsage":
-    "Xccode, açtığınız projeler ve orada çalıştırdığınız komutlar için İndirilenler klasörünüzdeki dosyaları kullanır.",
+    "Xiaochuan, açtığınız projeler ve orada çalıştırdığınız komutlar için İndirilenler klasörünüzdeki dosyaları kullanır.",
   "desktop.networkVolumesUsage":
-    "Xccode, açtığınız projeler ve orada çalıştırdığınız komutlar için ağ birimlerindeki dosyaları kullanır.",
+    "Xiaochuan, açtığınız projeler ve orada çalıştırdığınız komutlar için ağ birimlerindeki dosyaları kullanır.",
   "desktop.removableVolumesUsage":
-    "Xccode, açtığınız projeler ve orada çalıştırdığınız komutlar için çıkarılabilir birimlerdeki dosyaları kullanır.",
+    "Xiaochuan, açtığınız projeler ve orada çalıştırdığınız komutlar için çıkarılabilir birimlerdeki dosyaları kullanır.",
   "desktop.contextMenu.spellcheck": "Yazım denetimi",
   "desktop.contextMenu.spellcheckLanguages": "Yazım Denetimi Dilleri",
   "session.location.unavailable": "Oturum konumu kullanılamıyor",
@@ -935,7 +935,7 @@ export const dict = {
   "session.location.moveFailed": "Oturum taşınamadı",
   "server.thisComputer": "Bu bilgisayar",
   "command.provider.connect.description":
-    "Xccode Go, Xccode Console veya başka bir model sağlayıcısında oturum açın",
+    "Xiaochuan Go, Xiaochuan Console veya başka bir model sağlayıcısında oturum açın",
   "command.config.reload": "Yapılandırmayı yeniden yükle",
   "command.config.reload.description":
     "Ajanları, komutları, becerileri, MCP sunucularını ve eklentileri yapılandırmanızdan yeniden yükleyin",
@@ -943,7 +943,7 @@ export const dict = {
   "command.config.reload.done": "Yapılandırma yeniden yüklendi",
   "command.config.reload.failed": "Yapılandırma yeniden yüklenemedi",
   "command.usage.view": "Kullanımı görüntüle",
-  "command.usage.view.description": "Xccode Go kotanızı ve Console bütçelerinizi görün",
+  "command.usage.view.description": "Xiaochuan Go kotanızı ve Console bütçelerinizi görün",
   "command.session.branch.choose": "Temel dalı seç",
   "session.location.toggle": "Oturum konumunu aç/kapat",
   "command.commands.search": "Komut ara",
@@ -964,7 +964,7 @@ export const dict = {
   "palette.group.settings": "Ayarlar",
   "palette.session.location": "{{project}} · {{server}}",
   "dialog.provider.title": "Entegrasyonlar",
-  "dialog.provider.description": "Xccode'un kullanabilmesi için hizmetleri bağlayın.",
+  "dialog.provider.description": "Xiaochuan'un kullanabilmesi için hizmetleri bağlayın.",
   "dialog.provider.group.services": "Hizmetler",
   "dialog.provider.environmentOnly": "Yalnızca ortam",
   "dialog.provider.signInRequired": "Oturum açılması gerekiyor →",
@@ -991,11 +991,11 @@ export const dict = {
   "provider.connect.breadcrumb.root": "Bağlan",
   "provider.connect.breadcrumb.label": "Bağlantı adımları",
   "provider.connect.methods.description": "{{provider}} için bağlantı yöntemini seçin.",
-  "provider.connect.xccode.name": "Xccode",
-  "provider.connect.xccode.freeName": "Xccode Free",
+  "provider.connect.xiaochuan.name": "Xiaochuan",
+  "provider.connect.xiaochuan.freeName": "Xiaochuan Free",
   "provider.connect.console.retry": "Tekrar dene",
   "provider.connect.console.serviceKeyDescription":
-    "Xccode Console'dan alınan bir hizmet hesabı API anahtarıyla bağlanın.",
+    "Xiaochuan Console'dan alınan bir hizmet hesabı API anahtarıyla bağlanın.",
   "provider.connect.console.instructions":
     "Tarayıcınızda devam edin. Orada gösterilen kodun aşağıdakiyle eşleştiğini doğrulayın.",
   "provider.connect.console.deviceCode": "Cihaz kodu",
@@ -1018,7 +1018,7 @@ export const dict = {
   "provider.connect.models.description": "Başlamak için bir model seçin. Modeli istediğiniz zaman değiştirebilirsiniz.",
   "provider.connect.models.available": "Kullanılabilir modeller",
   "provider.connect.chatgptWelcome.title": "ChatGPT bağlandı",
-  "provider.connect.chatgptWelcome.description": "Xccode'daki uygun istekler ChatGPT planınızı kullanabilir.",
+  "provider.connect.chatgptWelcome.description": "Xiaochuan'daki uygun istekler ChatGPT planınızı kullanabilir.",
   "provider.connect.chatgptWelcome.usage": "Kullanımı ChatGPT ayarlarından yönetin",
   "provider.connect.chatgptWelcome.confirm": "Anladım",
   "provider.connect.models.list": "{{provider}} üzerinden kullanılabilir modeller",
@@ -1028,7 +1028,7 @@ export const dict = {
   "provider.connect.chatgptUsageLimit.close": "Kapat",
   "provider.connect.console.refreshFailed":
     "Hesabınız bağlandı ancak modelleriniz yüklenemedi. Yenilemek için tekrar deneyin.",
-  "provider.connect.console.connected": "Xccode bağlandı",
+  "provider.connect.console.connected": "Xiaochuan bağlandı",
   "provider.connect.console.noModels":
     "Hesabınız bağlandı ancak bu Console çalışma alanında kullanılabilir model yok. Kurulumunu Console'da kontrol edip yenileyin.",
   "provider.connect.console.modelsLoading": "Modelleriniz hâlâ yükleniyor. Tekrar kontrol etmek için yenileyin.",
@@ -1036,7 +1036,7 @@ export const dict = {
   "provider.connect.console.openingBrowser": "Tarayıcı açılıyor",
   "provider.connect.remote.label": "{{server}} üzerinde",
   "provider.connect.remote.description":
-    "Xccode kimlik bilgileriniz bu sunucuda saklanacak. Modeller bu sunucu üzerinden kullanılabilir olacak.",
+    "Xiaochuan kimlik bilgileriniz bu sunucuda saklanacak. Modeller bu sunucu üzerinden kullanılabilir olacak.",
   "provider.connect.claudeAgent.description":
     "Claude planınızı veya başka bir Claude Code oturumunu kullanın. Önce Claude Code'u yükleyip oturum açın.",
   "provider.connect.claudeAgent.install": "Claude Code'u yükle",
@@ -1068,7 +1068,7 @@ export const dict = {
   "provider.connect.oauth.browserFailed": "Tarayıcınız açılamadı. Tekrar denemek için Tarayıcıyı aç'ı seçin.",
   "provider.connect.oauth.paste.toggle": "Başka bir cihazdan mı oturum açıyorsunuz?",
   "provider.connect.oauth.paste.description":
-    "Tarayıcınız Xccode'u çalıştıran makineye erişemiyorsa, yönlendirildiği URL'yi yapıştırın.",
+    "Tarayıcınız Xiaochuan'u çalıştıran makineye erişemiyorsa, yönlendirildiği URL'yi yapıştırın.",
   "provider.connect.oauth.expired": "Yetkilendirmenin süresi doldu",
   "model.details.input.text": "Metin",
   "model.details.input.image": "Görsel",
@@ -1105,7 +1105,7 @@ export const dict = {
   "dialog.mcp.signIn": "Oturum aç",
   "dialog.mcp.signIn.open": "{{name}} hesabında oturum aç",
   "dialog.mcp.signIn.description":
-    "{{name}} hesabında oturum açabilmeniz için tarayıcınız açılır. Tarayıcı Xccode'u çalıştıran makineye erişemiyorsa, yönlendirildiği URL'yi aşağıya yapıştırın.",
+    "{{name}} hesabında oturum açabilmeniz için tarayıcınız açılır. Tarayıcı Xiaochuan'u çalıştıran makineye erişemiyorsa, yönlendirildiği URL'yi aşağıya yapıştırın.",
   "dialog.mcp.signIn.syncFailed": "Oturum açıldı ancak {{name}} yenilenemedi: {{error}}",
   "dialog.mcp.error.details":
     "MCP sunucusu: {{name}}\nDurum: başarısız\nYapılandırma: mcp.servers.{{name}}\nHata: {{error}}",
@@ -1133,22 +1133,22 @@ export const dict = {
   "server.connect.link": "Eşleştirme bağlantısı",
   "server.connect.link.placeholder": "http://192.168.1.2:4096/auth/connect/…",
   "server.connect.link.invalid":
-    "xccode pair komutundan veya sunucunun bilgisayarındaki Ayarlar → Eşleştirme bölümünden alınan eşleştirme bağlantısının tamamını yapıştırın.",
+    "xiaochuan pair komutundan veya sunucunun bilgisayarındaki Ayarlar → Eşleştirme bölümünden alınan eşleştirme bağlantısının tamamını yapıştırın.",
   "server.connect.password.prompt": "Eşleştirme bağlantınız yok mu?",
   "server.connect.password.use": "Parola kullan",
   "server.connect.password.hint":
-    "Görmek için sunucunun bilgisayarında xccode service get password komutunu çalıştırın.",
+    "Görmek için sunucunun bilgisayarında xiaochuan service get password komutunu çalıştırın.",
   "server.connect.link.prompt": "Eşleştirme bağlantınız var mı?",
   "server.connect.link.use": "Eşleştirme bağlantısı kullan",
   "server.connect.pair.link":
     "Eşleştirme bağlantısı ve QR kodu almak için bu komutu sunucunun bilgisayarında çalıştırın.",
   "server.connect.scan.failed": "Bu tarayıcı QR kodunu okuyamadı. Bağlantı ayrıntılarınızı elle girin.",
   "server.connect.link.expired":
-    "Bu eşleştirme bağlantısının süresi doldu veya zaten kullanıldı. Yenisini almak için xccode pair komutunu çalıştırın.",
+    "Bu eşleştirme bağlantısının süresi doldu veya zaten kullanıldı. Yenisini almak için xiaochuan pair komutunu çalıştırın.",
   "server.connect.link.unreachable":
     "{{url}} adresine ulaşılamadı. Bu cihazın sunucuya erişebildiğini kontrol edip tekrar deneyin.",
   "server.connect.link.legacy":
-    "Bu eşleştirme kodu Xccode'un eski bir sürümüne ait. Sunucudaki Xccode'u güncelleyip xccode pair komutunu yeniden çalıştırın.",
+    "Bu eşleştirme kodu Xiaochuan'un eski bir sürümüne ait. Sunucudaki Xiaochuan'u güncelleyip xiaochuan pair komutunu yeniden çalıştırın.",
   "server.connect.camera.native":
     "Bu sayfa HTTP üzerinden kamerayı kullanamaz. Eşleştirme bağlantısını yukarıya yapıştırın.",
   "dialog.server.signedOut":
@@ -1170,7 +1170,7 @@ export const dict = {
   "home.sessions.load.timeout": "Sunucunun yanıt vermesi çok uzun sürdü",
   "tips.browse.title": "Tarayıcınızı kontrol edin",
   "tips.browse.description":
-    "Xccode'un sekmeleriniz, oturum açtığınız hesaplar ve uzantılarınızla tarayıcınızda çalışmasına izin verin.",
+    "Xiaochuan'un sekmeleriniz, oturum açtığınız hesaplar ve uzantılarınızla tarayıcınızda çalışmasına izin verin.",
   "tips.browse.install": "Yükle",
   "tips.hex.title": "Sesinizi kullanın",
   "tips.hex.description":
@@ -1359,10 +1359,10 @@ export const dict = {
   "settings.plugins.part.server": "Sunucu",
   "settings.plugins.part.tui": "TUI",
   "settings.plugins.parts.note":
-    'Anahtarlar yalnızca bir eklentinin masaüstü arayüzünü kapatır. Sunucu bölümünü kapatmak için genel xccode.json dosyanızdaki plugins listesine "-<id>" ekleyin; TUI bölümünü kapatmak için ise cli.json dosyasındaki plugins listesine "-" ve TUI eklentisinin kimliğini ekleyin.',
+    'Anahtarlar yalnızca bir eklentinin masaüstü arayüzünü kapatır. Sunucu bölümünü kapatmak için genel xiaochuan.json dosyanızdaki plugins listesine "-<id>" ekleyin; TUI bölümünü kapatmak için ise cli.json dosyasındaki plugins listesine "-" ve TUI eklentisinin kimliğini ekleyin.',
   "settings.about.copyVersionFailed": "Sürüm kopyalanamadı",
   "settings.about.notices.title": "Üçüncü taraf bildirimleri",
-  "settings.about.notices.description": "Xccode aşağıdaki açık kaynak yazılımları içerir.",
+  "settings.about.notices.description": "Xiaochuan aşağıdaki açık kaynak yazılımları içerir.",
   "settings.about.notices.license": "Lisans metni",
   "settings.about.notices.fonts.title": "Office önizlemelerindeki yazı tipleri",
   "settings.about.notices.fonts.description":
@@ -1404,7 +1404,7 @@ export const dict = {
   "settings.extensions.sources.loadFailed": "Uzantı kaynakları yüklenemedi",
   "settings.extensions.console.temporary":
     "Anahtarlar, Console tercihlerinizi değil, geçerli projenin MCP bağlantılarını geçici olarak kontrol eder. Sunucu yapılandırması değişiklikleri bunları yeniden bağlayabilir.",
-  "settings.extensions.console.replaced": "Xccode Console'un yerini alır",
+  "settings.extensions.console.replaced": "Xiaochuan Console'un yerini alır",
   "settings.extensions.console.connect": "{{name}} hizmetini Console'da bağla",
   "settings.extensions.console.manage": "{{name}} hizmetini Console'da yönet",
   "project.settings.autoAccept.description": "Bu projenin izin isteklerini sormadan onaylayın",
@@ -1482,8 +1482,8 @@ export const dict = {
   "lab.noControls": "Bu story'de kontrol yok",
   "lab.grid": "Izgara",
   "usage.title": "Kullanım",
-  "usage.section.go": "Xccode Go",
-  "usage.section.console": "Xccode Console",
+  "usage.section.go": "Xiaochuan Go",
+  "usage.section.console": "Xiaochuan Console",
   "usage.workspace.fallback": "çalışma alanınız",
   "usage.time": "{{date}} {{time}} ({{zone}})",
   "usage.go.rolling": "Kayan",
@@ -1546,8 +1546,8 @@ export const dict = {
   "usage.footer.budgetsReset": "Bütçeler {{time}} sıfırlanır",
   "usage.footer.creditsOnly": "Harcama yalnızca {{workspace}} kredileriyle sınırlıdır",
   "usage.footer.details": "Ayrıntıları görüntüle",
-  "usage.signedOut.title": "Xccode Console'da oturum açılmadı",
-  "usage.signedOut.body": "Çalışma alanınızın bütçelerini ve Go kullanımınızı görmek için Xccode Console'u bağlayın.",
+  "usage.signedOut.title": "Xiaochuan Console'da oturum açılmadı",
+  "usage.signedOut.body": "Çalışma alanınızın bütçelerini ve Go kullanımınızı görmek için Xiaochuan Console'u bağlayın.",
   "usage.error": "Kullanım sınırları yüklenemedi.",
   "usage.retry": "Tekrar dene",
 } satisfies Partial<Record<Keys, string>>

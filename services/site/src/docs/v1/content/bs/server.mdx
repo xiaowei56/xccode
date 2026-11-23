@@ -1,19 +1,19 @@
 ---
 title: Server
-description: Komunicirajte s xccode serverom preko HTTP-a.
+description: Komunicirajte s xiaochuan serverom preko HTTP-a.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-Komanda `xccode serve` pokrece headless HTTP server koji izlaže OpenAPI endpoint koji xccode klijent moze koristiti.
+Komanda `xiaochuan serve` pokrece headless HTTP server koji izlaže OpenAPI endpoint koji xiaochuan klijent moze koristiti.
 
 ---
 
 ### Korištenje
 
 ```bash
-xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+xiaochuan serve [--port <number>] [--hostname <string>] [--cors <origin>]
 ```
 
 #### Opcije
@@ -23,38 +23,38 @@ xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
 | `--port`        | Port na kojem slusa                 | `4096`           |
 | `--hostname`    | Hostname na kojem slusa             | `127.0.0.1`      |
 | `--mdns`        | Ukljuci mDNS otkrivanje             | `false`          |
-| `--mdns-domain` | Prilagodeni domen za mDNS servis    | `xccode.local` |
+| `--mdns-domain` | Prilagodeni domen za mDNS servis    | `xiaochuan.local` |
 | `--cors`        | Dodatni browser origin-i koje dozv. | `[]`             |
 
 `--cors` mozete navesti vise puta:
 
 ```bash
-xccode serve --cors http://localhost:5173 --cors https://app.example.com
+xiaochuan serve --cors http://localhost:5173 --cors https://app.example.com
 ```
 
 ---
 
 ### Autentifikacija
 
-Postavite `XCCODE_SERVER_PASSWORD` da zastitite server HTTP basic auth mehanizmom. Korisnicko ime je po defaultu `xccode`, ili postavite `XCCODE_SERVER_USERNAME` za nadjacavanje. Ovo vazi i za `xccode serve` i za `xccode web`.
+Postavite `XIAOCHUAN_SERVER_PASSWORD` da zastitite server HTTP basic auth mehanizmom. Korisnicko ime je po defaultu `xiaochuan`, ili postavite `XIAOCHUAN_SERVER_USERNAME` za nadjacavanje. Ovo vazi i za `xiaochuan serve` i za `xiaochuan web`.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve
 ```
 
 ---
 
 ### Kako radi
 
-Kada pokrenete `xccode`, pokrecu se TUI i server. TUI je klijent koji komunicira sa serverom. Server izlaže OpenAPI 3.1 spec endpoint koji se koristi i za generisanje [SDK-a](/docs/sdk).
+Kada pokrenete `xiaochuan`, pokrecu se TUI i server. TUI je klijent koji komunicira sa serverom. Server izlaže OpenAPI 3.1 spec endpoint koji se koristi i za generisanje [SDK-a](/docs/sdk).
 
 :::tip
-Koristite xccode server za programsku interakciju sa xccode-om.
+Koristite xiaochuan server za programsku interakciju sa xiaochuan-om.
 :::
 
-Ova arhitektura omogucava xccode podrsku za vise klijenata i programsku interakciju.
+Ova arhitektura omogucava xiaochuan podrsku za vise klijenata i programsku interakciju.
 
-Mozete pokrenuti `xccode serve` da startate standalone server. Ako je xccode TUI vec pokrenut, `xccode serve` ce pokrenuti novi server.
+Mozete pokrenuti `xiaochuan serve` da startate standalone server. Ako je xiaochuan TUI vec pokrenut, `xiaochuan serve` ce pokrenuti novi server.
 
 ---
 
@@ -62,7 +62,7 @@ Mozete pokrenuti `xccode serve` da startate standalone server. Ako je xccode TUI
 
 Kada pokrenete TUI, port i hostname se nasumicno dodijele. Umjesto toga, mozete zadati `--hostname` i `--port` [zastave](/docs/cli), pa se povezati na taj server.
 
-Endpoint [`/tui`](#tui) mozete koristiti za upravljanje TUI-jem kroz server. Na primjer, mozete unaprijed popuniti ili pokrenuti prompt. Ovaj setup koriste Xccode [IDE](/docs/ide) pluginovi.
+Endpoint [`/tui`](#tui) mozete koristiti za upravljanje TUI-jem kroz server. Na primjer, mozete unaprijed popuniti ili pokrenuti prompt. Ovaj setup koriste Xiaochuan [IDE](/docs/ide) pluginovi.
 
 ---
 
@@ -80,7 +80,7 @@ Na primjer, `http://localhost:4096/doc`. Koristite specifikaciju da generisete k
 
 ## API-ji
 
-xccode server izlaže sljedece API-je.
+xiaochuan server izlaže sljedece API-je.
 
 ---
 

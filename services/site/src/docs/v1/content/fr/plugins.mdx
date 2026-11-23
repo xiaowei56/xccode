@@ -1,9 +1,9 @@
 ---
 title: Plugins
-description: Écrivez vos propres plugins pour étendre Xccode.
+description: Écrivez vos propres plugins pour étendre Xiaochuan.
 ---
 
-Les plugins vous permettent d'étendre Xccode en vous connectant à divers événements et en personnalisant le comportement. Vous pouvez créer des plugins pour ajouter de nouvelles fonctionnalités, intégrer des services externes ou modifier le comportement par défaut de Xccode.
+Les plugins vous permettent d'étendre Xiaochuan en vous connectant à divers événements et en personnalisant le comportement. Vous pouvez créer des plugins pour ajouter de nouvelles fonctionnalités, intégrer des services externes ou modifier le comportement par défaut de Xiaochuan.
 
 Pour des exemples, consultez les [plugins](/docs/ecosystem#plugins) créés par la communauté.
 
@@ -19,8 +19,8 @@ Il existe deux manières de charger des plugins.
 
 Placez les fichiers JavaScript ou TypeScript dans le répertoire du plugin.
 
-- `.xccode/plugins/` - Plugins au niveau du projet
-- `~/.config/xccode/plugins/` - Plugins globaux
+- `.xiaochuan/plugins/` - Plugins au niveau du projet
+- `~/.config/xiaochuan/plugins/` - Plugins globaux
 
 Les fichiers de ces répertoires sont automatiquement chargés au démarrage.
 
@@ -30,10 +30,10 @@ Les fichiers de ces répertoires sont automatiquement chargés au démarrage.
 
 Spécifiez les packages npm dans votre fichier de configuration.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
-  "plugin": ["xccode-helicone-session", "xccode-wakatime", "@my-org/custom-plugin"]
+  "$schema": "https://xiaochuan.ai/config.json",
+  "plugin": ["xiaochuan-helicone-session", "xiaochuan-wakatime", "@my-org/custom-plugin"]
 }
 ```
 
@@ -45,7 +45,7 @@ Parcourez les plugins disponibles dans le [ecosystem](/docs/ecosystem#plugins).
 
 ### Comment les plugins sont installés
 
-Les **plugins npm** sont installés automatiquement à l'aide de Bun au démarrage. Les packages et leurs dépendances sont mis en cache dans `~/.cache/xccode/node_modules/`.
+Les **plugins npm** sont installés automatiquement à l'aide de Bun au démarrage. Les packages et leurs dépendances sont mis en cache dans `~/.cache/xiaochuan/node_modules/`.
 
 Les **plugins locaux** sont chargés directement depuis le répertoire des plugins. Pour utiliser des packages externes, vous devez créer un `package.json` dans votre répertoire de configuration (voir [Dépendances](#dependencies)), ou publier le plugin sur npm et [l'ajouter à votre config](/docs/config#plugins).
 
@@ -55,10 +55,10 @@ Les **plugins locaux** sont chargés directement depuis le répertoire des plugi
 
 Les plugins sont chargés à partir de toutes les sources et tous les hooks s'exécutent dans l'ordre. L'ordre de chargement est le suivant :
 
-1. Configuration globale (`~/.config/xccode/xccode.json`)
-2. Configuration du projet (`xccode.json`)
-3. Répertoire global des plugins (`~/.config/xccode/plugins/`)
-4. Répertoire des plugins du projet (`.xccode/plugins/`)
+1. Configuration globale (`~/.config/xiaochuan/xiaochuan.json`)
+2. Configuration du projet (`xiaochuan.json`)
+3. Répertoire global des plugins (`~/.config/xiaochuan/plugins/`)
+4. Répertoire des plugins du projet (`.xiaochuan/plugins/`)
 
 Les packages npm en double avec le même nom et la même version sont chargés une fois. Cependant, un plugin local et un plugin npm portant des noms similaires sont tous deux chargés séparément.
 
@@ -74,7 +74,7 @@ Un plugin est un **module JavaScript/TypeScript** qui exporte une ou plusieurs f
 
 Les plugins locaux et les outils personnalisés peuvent utiliser des packages npm externes. Ajoutez un `package.json` à votre répertoire de configuration avec les dépendances dont vous avez besoin.
 
-```json title=".xccode/package.json"
+```json title=".xiaochuan/package.json"
 {
   "dependencies": {
     "shescape": "^2.1.0"
@@ -82,9 +82,9 @@ Les plugins locaux et les outils personnalisés peuvent utiliser des packages np
 }
 ```
 
-Xccode exécute `bun install` au démarrage pour les installer. Vos plugins et outils peuvent ensuite les importer.
+Xiaochuan exécute `bun install` au démarrage pour les installer. Vos plugins et outils peuvent ensuite les importer.
 
-```ts title=".xccode/plugins/my-plugin.ts"
+```ts title=".xiaochuan/plugins/my-plugin.ts"
 import { escape } from "shescape"
 
 export const MyPlugin = async (ctx) => {
@@ -102,7 +102,7 @@ export const MyPlugin = async (ctx) => {
 
 ### Structure de base
 
-```js title=".xccode/plugins/example.js"
+```js title=".xiaochuan/plugins/example.js"
 export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
   console.log("Plugin initialized!")
 
@@ -117,7 +117,7 @@ La fonction plugin reçoit :
 - `project` : informations sur le projet actuel.
 - `directory` : le répertoire de travail actuel.
 - `worktree` : le chemin de l'arbre de travail git.
-- `client` : un client SDK xccode pour interagir avec l'IA.
+- `client` : un client SDK xiaochuan pour interagir avec l'IA.
 - `$` : [shell API](https://bun.com/docs/runtime/shell) de Bun pour l'exécution de commandes.
 
 ---
@@ -127,7 +127,7 @@ La fonction plugin reçoit :
 Pour les plugins TypeScript, vous pouvez importer des types à partir du package du plugin :
 
 ```ts title="my-plugin.ts" {1}
-import type { Plugin } from "@xccode-ai/plugin"
+import type { Plugin } from "@xiaochuan-ai/plugin"
 
 export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree }) => {
   return {
@@ -206,7 +206,7 @@ Les plugins peuvent s'abonner à des événements comme indiqué ci-dessous dans
 
 ## Exemples
 
-Voici quelques exemples de plugins que vous pouvez utiliser pour étendre xccode.
+Voici quelques exemples de plugins que vous pouvez utiliser pour étendre xiaochuan.
 
 ---
 
@@ -214,13 +214,13 @@ Voici quelques exemples de plugins que vous pouvez utiliser pour étendre xccode
 
 Envoyez des notifications lorsque certains événements se produisent :
 
-```js title=".xccode/plugins/notification.js"
+```js title=".xiaochuan/plugins/notification.js"
 export const NotificationPlugin = async ({ project, client, $, directory, worktree }) => {
   return {
     event: async ({ event }) => {
       // Send notification on session completion
       if (event.type === "session.idle") {
-        await $`osascript -e 'display notification "Session completed!" with title "xccode"'`
+        await $`osascript -e 'display notification "Session completed!" with title "xiaochuan"'`
       }
     },
   }
@@ -230,16 +230,16 @@ export const NotificationPlugin = async ({ project, client, $, directory, worktr
 Nous utilisons `osascript` pour exécuter AppleScript sur macOS. Ici, nous l'utilisons pour envoyer des notifications.
 
 :::note
-Si vous utilisez l'application de bureau Xccode, elle peut envoyer automatiquement des notifications système lorsqu'une réponse est prête ou en cas d'erreur de session.
+Si vous utilisez l'application de bureau Xiaochuan, elle peut envoyer automatiquement des notifications système lorsqu'une réponse est prête ou en cas d'erreur de session.
 :::
 
 ---
 
 ### Protection .env
 
-Empêchez xccode de lire les fichiers `.env` :
+Empêchez xiaochuan de lire les fichiers `.env` :
 
-```javascript title=".xccode/plugins/env-protection.js"
+```javascript title=".xiaochuan/plugins/env-protection.js"
 export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
   return {
     "tool.execute.before": async (input, output) => {
@@ -257,7 +257,7 @@ export const EnvProtection = async ({ project, client, $, directory, worktree })
 
 Injectez des variables d'environnement dans toutes les exécutions du shell (outils d'IA et terminal utilisateur) :
 
-```javascript title=".xccode/plugins/inject-env.js"
+```javascript title=".xiaochuan/plugins/inject-env.js"
 export const InjectEnvPlugin = async () => {
   return {
     "shell.env": async (input, output) => {
@@ -272,10 +272,10 @@ export const InjectEnvPlugin = async () => {
 
 ### Outils personnalisés
 
-Les plugins peuvent également ajouter des outils personnalisés à xccode :
+Les plugins peuvent également ajouter des outils personnalisés à xiaochuan :
 
-```ts title=".xccode/plugins/custom-tools.ts"
-import { type Plugin, tool } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/plugins/custom-tools.ts"
+import { type Plugin, tool } from "@xiaochuan-ai/plugin"
 
 export const CustomToolsPlugin: Plugin = async (ctx) => {
   return {
@@ -295,13 +295,13 @@ export const CustomToolsPlugin: Plugin = async (ctx) => {
 }
 ```
 
-L'assistant `tool` crée un outil personnalisé que xccode peut appeler. Il prend une fonction de schéma Zod et renvoie une définition d'outil avec :
+L'assistant `tool` crée un outil personnalisé que xiaochuan peut appeler. Il prend une fonction de schéma Zod et renvoie une définition d'outil avec :
 
 - `description` : ce que fait l'outil
 - `args` : schéma Zod pour les arguments de l'outil
 - `execute` : Fonction qui s'exécute lorsque l'outil est appelé
 
-Vos outils personnalisés seront disponibles pour xccode aux côtés des outils intégrés.
+Vos outils personnalisés seront disponibles pour xiaochuan aux côtés des outils intégrés.
 
 ---
 
@@ -309,7 +309,7 @@ Vos outils personnalisés seront disponibles pour xccode aux côtés des outils 
 
 Utilisez `client.app.log()` au lieu de `console.log` pour la journalisation structurée :
 
-```ts title=".xccode/plugins/my-plugin.ts"
+```ts title=".xiaochuan/plugins/my-plugin.ts"
 export const MyPlugin = async ({ client }) => {
   await client.app.log({
     body: {
@@ -330,8 +330,8 @@ Niveaux : `debug`, `info`, `warn`, `error`. Voir la [documentation du SDK](/docs
 
 Personnalisez le contexte inclus lorsqu'une session est compactée :
 
-```ts title=".xccode/plugins/compaction.ts"
-import type { Plugin } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/plugins/compaction.ts"
+import type { Plugin } from "@xiaochuan-ai/plugin"
 
 export const CompactionPlugin: Plugin = async (ctx) => {
   return {
@@ -354,8 +354,8 @@ Le hook `experimental.session.compacting` se déclenche avant que le LLM ne gén
 
 Vous pouvez également remplacer entièrement le prompt de compactage en définissant `output.prompt` :
 
-```ts title=".xccode/plugins/custom-compaction.ts"
-import type { Plugin } from "@xccode-ai/plugin"
+```ts title=".xiaochuan/plugins/custom-compaction.ts"
+import type { Plugin } from "@xiaochuan-ai/plugin"
 
 export const CustomCompactionPlugin: Plugin = async (ctx) => {
   return {

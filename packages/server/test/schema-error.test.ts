@@ -1,6 +1,6 @@
 import { expect } from "bun:test"
-import { Generate } from "@xccode/core/generate"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { Generate } from "@xiaochuan/core/generate"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Effect, Layer } from "effect"
 import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
 import { it } from "../../core/test/lib/effect"
@@ -56,7 +56,7 @@ it.live("reports response encoding failures as server errors and request decodin
 function request(handler: (request: Request) => Promise<Response>, body: unknown) {
   return Effect.promise(async () => {
     const response = await handler(
-      new Request("http://xccode.local/api/experimental/generate", {
+      new Request("http://xiaochuan.local/api/experimental/generate", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(body),

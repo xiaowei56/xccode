@@ -3,7 +3,7 @@ import { createMemo, Show } from "solid-js"
 import { useTheme } from "../../context/theme"
 import { useConfig } from "../../config"
 import { Slot } from "../../plugin/render"
-import { withTimestampedFallback } from "@xccode/util/session-title-fallback"
+import { withTimestampedFallback } from "@xiaochuan/util/session-title-fallback"
 import { TextAttributes } from "@opentui/core"
 import "../../component/title-shimmer"
 

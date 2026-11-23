@@ -6,7 +6,7 @@ import { CodeModeJob } from "../codemode/job.js"
 import { Database } from "../database/database.js"
 import { Job } from "../job.js"
 import { Instance } from "../instance/service.js"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { SessionEvent } from "./event.js"
 import { SessionInbox } from "./inbox.js"
 import { SubagentReport } from "./execution/subagent-report.js"
@@ -43,7 +43,7 @@ export interface Interface {
 }
 
 /** Routes execution from a Session ID to its selected instance's runner. */
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionExecution") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionExecution") {}
 
 type InterruptReason = "user" | "shutdown"
 

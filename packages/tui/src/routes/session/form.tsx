@@ -9,9 +9,9 @@ import {
   type ScrollBoxRenderable,
   type TextareaRenderable,
 } from "@opentui/core"
-import { openUrl } from "@xccode/util/open"
+import { openUrl } from "@xiaochuan/util/open"
 import { useTheme } from "../../context/theme"
-import type { FormAnswer, FormField, FormValue } from "@xccode/client"
+import type { FormAnswer, FormField, FormValue } from "@xiaochuan/client"
 import { useData, type FormWithLocation } from "../../context/data"
 import { useClipboard } from "../../context/clipboard"
 import { SplitBorder } from "../../ui/border"

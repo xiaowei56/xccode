@@ -1,25 +1,25 @@
 import { describe, expect } from "bun:test"
 import fs from "fs/promises"
 import path from "path"
-import { Bus } from "@xccode/core/bus"
-import { Config } from "@xccode/core/config"
-import { Generate } from "@xccode/core/generate"
-import { Job } from "@xccode/core/job"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { Permission } from "@xccode/core/permission"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { Provider } from "@xccode/core/provider"
-import { Session } from "@xccode/core/session"
-import { SessionEvent } from "@xccode/core/session/event"
-import { Tool } from "@xccode/core/tool"
-import { ImageGenerateTool } from "@xccode/core/tool/plugin/image-generate"
-import { XccodeTools } from "@xccode/core/tool/plugin/xccode"
-import { Document, Event, Info } from "@xccode/schema/config"
-import { ConfigExperimental } from "@xccode/schema/config/experimental"
-import type { ImageRequest, ImageResult } from "@xccode/schema/generate"
-import { Global } from "@xccode/util/global"
+import { Bus } from "@xiaochuan/core/bus"
+import { Config } from "@xiaochuan/core/config"
+import { Generate } from "@xiaochuan/core/generate"
+import { Job } from "@xiaochuan/core/job"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { Permission } from "@xiaochuan/core/permission"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { Provider } from "@xiaochuan/core/provider"
+import { Session } from "@xiaochuan/core/session"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { Tool } from "@xiaochuan/core/tool"
+import { ImageGenerateTool } from "@xiaochuan/core/tool/plugin/image-generate"
+import { XiaochuanTools } from "@xiaochuan/core/tool/plugin/xiaochuan"
+import { Document, Event, Info } from "@xiaochuan/schema/config"
+import { ConfigExperimental } from "@xiaochuan/schema/config/experimental"
+import type { ImageRequest, ImageResult } from "@xiaochuan/schema/generate"
+import { Global } from "@xiaochuan/util/global"
 import { Effect, Layer, Schedule, Stream } from "effect"
 import { testEffect } from "./lib/effect"
 import { permissionLayer } from "./lib/permission"
@@ -104,7 +104,7 @@ const setup = (providerID = "test") =>
     const location = yield* Location.Service
     const host = yield* PluginHost.make(plugins, "test")
     yield* ImageGenerateTool.Plugin.effect(host)
-    yield* XccodeTools.Plugin.effect(host)
+    yield* XiaochuanTools.Plugin.effect(host)
     const session = yield* sessions.create({
       location: Location.Ref.make({ directory: location.directory }),
       model: Model.Ref.make({ providerID: Provider.ID.make(providerID), id: Model.ID.make("chat") }),
@@ -493,7 +493,7 @@ describe("experimental_image_generate", () => {
             type: "tool-call",
             id: `models-${JSON.stringify(input)}`,
             name: "execute",
-            input: { code: `return await tools.xccode.models(${JSON.stringify(input)})` },
+            input: { code: `return await tools.xiaochuan.models(${JSON.stringify(input)})` },
           },
         }).pipe(
           Effect.map((result) =>

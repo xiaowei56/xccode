@@ -3,7 +3,7 @@ title: "Agent Skills"
 description: "Define reusable behavior via SKILL.md definitions"
 ---
 
-Agent skills let Xccode discover reusable instructions from your repo or home directory.
+Agent skills let Xiaochuan discover reusable instructions from your repo or home directory.
 Skills are loaded on-demand via the native `skill` tool—agents see available skills and can load the full content when needed.
 
 ---
@@ -11,10 +11,10 @@ Skills are loaded on-demand via the native `skill` tool—agents see available s
 ## Place files
 
 Create one folder per skill name and put a `SKILL.md` inside it.
-Xccode searches these locations:
+Xiaochuan searches these locations:
 
-- Project config: `.xccode/skills/<name>/SKILL.md`
-- Global config: `~/.config/xccode/skills/<name>/SKILL.md`
+- Project config: `.xiaochuan/skills/<name>/SKILL.md`
+- Global config: `~/.config/xiaochuan/skills/<name>/SKILL.md`
 - Project Claude-compatible: `.claude/skills/<name>/SKILL.md`
 - Global Claude-compatible: `~/.claude/skills/<name>/SKILL.md`
 - Project agent-compatible: `.agents/skills/<name>/SKILL.md`
@@ -24,10 +24,10 @@ Xccode searches these locations:
 
 ## Understand discovery
 
-For project-local paths, Xccode walks up from your current working directory until it reaches the git worktree.
-It loads any matching `skills/*/SKILL.md` in `.xccode/` and any matching `.claude/skills/*/SKILL.md` or `.agents/skills/*/SKILL.md` along the way.
+For project-local paths, Xiaochuan walks up from your current working directory until it reaches the git worktree.
+It loads any matching `skills/*/SKILL.md` in `.xiaochuan/` and any matching `.claude/skills/*/SKILL.md` or `.agents/skills/*/SKILL.md` along the way.
 
-Global definitions are also loaded from `~/.config/xccode/skills/*/SKILL.md`, `~/.claude/skills/*/SKILL.md`, and `~/.agents/skills/*/SKILL.md`.
+Global definitions are also loaded from `~/.config/xiaochuan/skills/*/SKILL.md`, `~/.claude/skills/*/SKILL.md`, and `~/.agents/skills/*/SKILL.md`.
 
 ---
 
@@ -42,7 +42,7 @@ Use these Agent Skills fields:
 - `compatibility` (optional)
 - `metadata` (optional, string-to-string map)
 
-Unknown frontmatter fields are ignored. Xccode 1 does not use metadata to control slash commands or automatic skill selection.
+Unknown frontmatter fields are ignored. Xiaochuan 1 does not use metadata to control slash commands or automatic skill selection.
 
 ---
 
@@ -73,14 +73,14 @@ Keep it specific enough for the agent to choose correctly.
 
 ## Use an example
 
-Create `.xccode/skills/git-release/SKILL.md` like this:
+Create `.xiaochuan/skills/git-release/SKILL.md` like this:
 
 ```markdown
 ---
 name: git-release
 description: Create consistent releases and changelogs
 license: MIT
-compatibility: xccode
+compatibility: xiaochuan
 metadata:
   audience: maintainers
   workflow: github
@@ -102,7 +102,7 @@ Ask clarifying questions if the target versioning scheme is unclear.
 
 ## Recognize tool description
 
-Xccode lists available skills in the `skill` tool description.
+Xiaochuan lists available skills in the `skill` tool description.
 Each entry includes the skill name and description:
 
 ```xml
@@ -124,7 +124,7 @@ skill({ name: "git-release" })
 
 ## Configure permissions
 
-Control which skills agents can access using pattern-based permissions in `xccode.json`:
+Control which skills agents can access using pattern-based permissions in `xiaochuan.json`:
 
 ```json
 {
@@ -163,7 +163,7 @@ permission:
 ---
 ```
 
-**For built-in agents** (in `xccode.json`):
+**For built-in agents** (in `xiaochuan.json`):
 
 ```json
 {

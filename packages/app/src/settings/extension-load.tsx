@@ -1,4 +1,4 @@
-import { Button } from "@xccode/ui/button"
+import { Button } from "@xiaochuan/ui/button"
 import { createEffect, createMemo, createSignal, on, onCleanup, untrack } from "solid-js"
 import { useServerSDK } from "@/runtime/server/client"
 import {

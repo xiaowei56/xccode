@@ -12,7 +12,7 @@ import {
   type ServerProbeResult,
 } from "./health-machine"
 import { endpointCredentials } from "./machine"
-import { ClientError, isUnauthorizedError, Xccode } from "@xccode/client"
+import { ClientError, isUnauthorizedError, Xiaochuan } from "@xiaochuan/client"
 import { Accessor, batch, createComputed, createSignal, onCleanup, untrack } from "solid-js"
 import { createStore, reconcile } from "solid-js/store"
 
@@ -119,7 +119,7 @@ export async function checkServerHealth(
   }
 
   const attempt = async (count: number): Promise<ServerProbeResult> => {
-    const current = await Xccode.make({
+    const current = await Xiaochuan.make({
       baseUrl: server.url,
       fetch,
       headers,

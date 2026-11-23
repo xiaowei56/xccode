@@ -1,7 +1,7 @@
 import { Effect, Layer } from "effect"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { Credential } from "@xccode/core/credential"
-import { WellKnown } from "@xccode/core/wellknown"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { Credential } from "@xiaochuan/core/credential"
+import { WellKnown } from "@xiaochuan/core/wellknown"
 
 export const emptyCredentialNode = makeGlobalNode({
   service: Credential.Service,

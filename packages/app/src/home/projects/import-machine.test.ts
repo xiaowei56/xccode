@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { SessionInfo } from "@xccode/client/promise"
+import type { SessionInfo } from "@xiaochuan/client/promise"
 import type { ServerConnection } from "@/runtime/server/registry"
 import {
   INITIAL_PROJECT_IMPORT_STATE,

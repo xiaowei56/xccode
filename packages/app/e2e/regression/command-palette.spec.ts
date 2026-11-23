@@ -1,4 +1,4 @@
-import type { XccodeEvent } from "@xccode/client/promise"
+import type { XiaochuanEvent } from "@xiaochuan/client/promise"
 import { expect, test } from "@playwright/test"
 import {
   captureConsoleWarnings,
@@ -325,7 +325,7 @@ test("titlebar search keeps recent order stable across agent steps", async ({ pa
         model: { providerID: "test", id: "test" },
         started: busy.time.updated,
       },
-    } as XccodeEvent,
+    } as XiaochuanEvent,
   ])
   const home = page.getByRole("region", { name: "Recent sessions" }).getByRole("button", { name: /fixture session/ })
   await expect(home).toHaveText([/Fresh fixture session/, /Palette fixture session/])

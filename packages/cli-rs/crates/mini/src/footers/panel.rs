@@ -1,4 +1,4 @@
-use xccode_ui::fuzzy;
+use xiaochuan_ui::fuzzy;
 
 use super::menu::{self, Groups, Item, Look};
 use crate::prelude::*;

@@ -1,12 +1,12 @@
-import { useI18n } from "@xccode/ui/context/i18n"
-import { Icon } from "@xccode/ui/icon"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { Icon } from "@xiaochuan/ui/icon"
 import {
   frameLoop,
   observeReducedMotion,
   prefersReducedMotion,
   Spring,
   type DurationOptions,
-} from "@xccode/ui/motion"
+} from "@xiaochuan/ui/motion"
 import { createEffect, createMemo, createSignal, For, Match, onCleanup, Show, Switch } from "solid-js"
 import { sourcesExpand, type SiteIconMode } from "./experiment"
 import {

@@ -7,9 +7,9 @@ import { mediaUrl } from "~/lib/media"
 
 // The published cut. Files are versioned so a new cut never plays from a cached old one.
 const FILM = {
-  wide: "/font/film/xccode-font-film-v3-1080p.mp4",
-  tall: "/font/film/xccode-font-film-v3-4x5.mp4",
-  captions: "/font/film/xccode-font-film-v3.en.vtt",
+  wide: "/font/film/xiaochuan-font-film-v3-1080p.mp4",
+  tall: "/font/film/xiaochuan-font-film-v3-4x5.mp4",
+  captions: "/font/film/xiaochuan-font-film-v3.en.vtt",
 }
 
 /**
@@ -65,7 +65,7 @@ export function FilmPlate() {
           playsinline
           width="1920"
           height="1080"
-          aria-label="A film about the Xccode font."
+          aria-label="A film about the Xiaochuan font."
           onPlay={() => {
             setStarted(true)
             setPlaying(true)
@@ -86,7 +86,7 @@ export function FilmPlate() {
           </span>
         </button>
         <figcaption data-anno>
-          <a href={mediaUrl(FILM.tall)} download="xccode-font-film-4x5.mp4">
+          <a href={mediaUrl(FILM.tall)} download="xiaochuan-font-film-4x5.mp4">
             4:5 cut
           </a>
         </figcaption>

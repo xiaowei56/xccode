@@ -5,7 +5,7 @@ import type {
   SessionMessageAssistant,
   SessionMessageInfo,
   ShellInfo,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import { Option, Schema } from "effect"
 import { createMemo } from "solid-js"
 

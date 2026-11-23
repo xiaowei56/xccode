@@ -5,15 +5,15 @@ use crate::support::{self, Harness};
 
 use std::sync::Arc;
 
-use xccode_plugin::abi;
-use xccode_tui::{Deps, Route};
+use xiaochuan_plugin::abi;
+use xiaochuan_tui::{Deps, Route};
 use opentui::prelude::Widget;
 
 pub(crate) mod probe;
 
 fn add(h: &Harness) {
     let definition = abi::Plugin { id: "p0a", setup: probe::setup }.into();
-    xccode_tui::plugins::host::add(&h.tui, definition);
+    xiaochuan_tui::plugins::host::add(&h.tui, definition);
 }
 
 fn home() -> Harness {
@@ -23,7 +23,7 @@ fn home() -> Harness {
 }
 
 fn log(h: &Harness) -> Vec<String> {
-    let json = xccode_plugin::Host::storage_read(&*xccode_tui::plugins::host::host(&h.tui), "plugin.p0a.log");
+    let json = xiaochuan_plugin::Host::storage_read(&*xiaochuan_tui::plugins::host::host(&h.tui), "plugin.p0a.log");
     json.and_then(|json| serde_json::from_str(&json).ok()).unwrap_or_default()
 }
 
@@ -275,7 +275,7 @@ fn a_submit_behind_a_dialog_sends_and_leaves_the_dialog() {
     assert!(!setup.app.text().contains("alert closed"), "{}", setup.app.text());
 }
 
-fn event(kind: &str, data: serde_json::Value) -> xccode_api::generated::V2Event {
+fn event(kind: &str, data: serde_json::Value) -> xiaochuan_api::generated::V2Event {
     let id = format!("evt_{}", data.to_string().len());
     let json = serde_json::json!({
         "id": id, "created": 1, "type": kind, "location": { "directory": support::DIRECTORY }, "data": data,
@@ -283,20 +283,20 @@ fn event(kind: &str, data: serde_json::Value) -> xccode_api::generated::V2Event 
     serde_json::from_value(json).unwrap()
 }
 
-fn changed(file: &str) -> xccode_api::generated::V2Event {
+fn changed(file: &str) -> xiaochuan_api::generated::V2Event {
     event("filesystem.changed", serde_json::json!({ "file": file, "event": "change" }))
 }
 
 #[test]
 fn a_composer_edit_is_not_overtaken_by_the_next_signal() {
     let setup = session();
-    xccode_tui::features::events::testing::signal(&setup.tui, changed("src/set.rs"));
-    xccode_tui::features::events::testing::signal(&setup.tui, changed("src/read.rs"));
+    xiaochuan_tui::features::events::testing::signal(&setup.tui, changed("src/set.rs"));
+    xiaochuan_tui::features::events::testing::signal(&setup.tui, changed("src/read.rs"));
     setup.wait("the read", || !logged(&setup, "read").is_empty());
     assert_eq!(logged(&setup, "read"), ["read from an event"]);
     setup.tui.keymap.dispatch("p0a.set", Some(""));
     setup.wait("the clear", || setup.textarea().text().is_empty());
-    xccode_tui::features::events::testing::signal(&setup.tui, changed("src/set.rs"));
+    xiaochuan_tui::features::events::testing::signal(&setup.tui, changed("src/set.rs"));
     setup.tui.keymap.dispatch("p0a.wake", None);
     setup.wait("the wake", || {
         setup.app.render();
@@ -307,9 +307,9 @@ fn a_composer_edit_is_not_overtaken_by_the_next_signal() {
     let setup = Setup::new(Route::Home);
     add(&setup);
     setup.ready();
-    xccode_tui::features::events::testing::signal(&setup.tui, changed("src/set.rs"));
+    xiaochuan_tui::features::events::testing::signal(&setup.tui, changed("src/set.rs"));
     let select = event("tui.session.select", serde_json::json!({ "sessionID": "ses_a" }));
-    xccode_tui::features::events::testing::signal(&setup.tui, select);
+    xiaochuan_tui::features::events::testing::signal(&setup.tui, select);
     setup.wait("the session", || matches!(setup.tui.route(), Route::Session { .. }));
     setup.app.advance(std::time::Duration::from_millis(100));
     assert_eq!(setup.textarea().text(), "");
@@ -367,7 +367,7 @@ fn a_dispose_callback_that_panics_leaves_no_effects() {
     setup.app.type_text("untouched");
     setup.tui.keymap.dispatch("p0a.teardown", None);
     setup.wait("the arming", || logged(&setup, "teardown").len() == 1);
-    let host = xccode_tui::plugins::host::host(&setup.tui);
+    let host = xiaochuan_tui::plugins::host::host(&setup.tui);
     assert!(setup.tui.plugins.set_active(&host, "p0a", false));
     setup.app.advance(std::time::Duration::from_millis(100));
     assert_eq!(setup.textarea().text(), "untouched");
@@ -402,7 +402,7 @@ fn witness() -> abi::Plugin {
 }
 
 fn witnessed(h: &Harness) -> u64 {
-    let json = xccode_plugin::Host::storage_read(&*xccode_tui::plugins::host::host(&h.tui), "plugin.witness.ran");
+    let json = xiaochuan_plugin::Host::storage_read(&*xiaochuan_tui::plugins::host::host(&h.tui), "plugin.witness.ran");
     json.and_then(|json| serde_json::from_str::<serde_json::Value>(&json).ok()?["count"].as_u64()).unwrap_or(0)
 }
 
@@ -410,8 +410,8 @@ fn witnessed(h: &Harness) -> u64 {
 fn a_dialog_of_a_disabled_plugin_goes_and_answers_nobody() {
     for (open, title) in [("p0a.alert", "Heads up"), ("p0a.alert-foreign", "Heads up")] {
         let h = home();
-        xccode_tui::plugins::host::add(&h.tui, witness().into());
-        let host = xccode_tui::plugins::host::host(&h.tui);
+        xiaochuan_tui::plugins::host::add(&h.tui, witness().into());
+        let host = xiaochuan_tui::plugins::host::host(&h.tui);
         h.tui.keymap.dispatch(open, None);
         h.wait_for(title);
         assert!(h.tui.plugins.set_active(&host, "p0a", false));
@@ -439,11 +439,11 @@ fn a_dialog_of_a_disabled_plugin_goes_and_answers_nobody() {
 #[test]
 fn a_dialog_of_a_plugin_that_is_not_live_does_not_show() {
     let h = home();
-    xccode_tui::plugins::host::add(&h.tui, witness().into());
+    xiaochuan_tui::plugins::host::add(&h.tui, witness().into());
     h.tui.keymap.dispatch("witness.alert", None);
     h.wait_for("Witness says");
     h.tui.keymap.dispatch("p0a.alert", None);
-    assert!(h.tui.plugins.set_active(&xccode_tui::plugins::host::host(&h.tui), "p0a", false));
+    assert!(h.tui.plugins.set_active(&xiaochuan_tui::plugins::host::host(&h.tui), "p0a", false));
     h.app.advance(std::time::Duration::from_millis(50));
     let screen = h.app.text();
     assert!(screen.contains("Witness says") && !screen.contains("Heads up"), "{screen}");
@@ -452,7 +452,7 @@ fn a_dialog_of_a_plugin_that_is_not_live_does_not_show() {
 #[test]
 fn a_dialog_of_a_failed_plugin_goes_and_answers_nobody() {
     let h = home();
-    xccode_tui::plugins::host::add(&h.tui, witness().into());
+    xiaochuan_tui::plugins::host::add(&h.tui, witness().into());
     h.tui.keymap.dispatch("p0a.alert-foreign", None);
     h.wait_for("Heads up");
     h.tui.keymap.dispatch("p0a.all", Some("panic"));
@@ -476,7 +476,7 @@ fn a_closed_dialog_leaves_the_next_one_to_the_host() {
         h.tui.keymap.dispatch("plugins.list", None);
         h.wait("the plugin manager", || h.tui.dialogs.is_open());
         let manager = h.tui.dialogs.key();
-        assert!(h.tui.plugins.set_active(&xccode_tui::plugins::host::host(&h.tui), "p0a", false));
+        assert!(h.tui.plugins.set_active(&xiaochuan_tui::plugins::host::host(&h.tui), "p0a", false));
         h.app.advance(std::time::Duration::from_millis(50));
         assert!(h.tui.dialogs.is_open() && h.tui.dialogs.key() == manager, "{open}: {}", h.app.text());
     }
@@ -485,7 +485,7 @@ fn a_closed_dialog_leaves_the_next_one_to_the_host() {
 #[test]
 fn a_live_dialog_runs_a_foreign_command_once() {
     let h = home();
-    xccode_tui::plugins::host::add(&h.tui, witness().into());
+    xiaochuan_tui::plugins::host::add(&h.tui, witness().into());
     h.tui.keymap.dispatch("p0a.alert-foreign", None);
     h.wait_for("Heads up");
     h.app.press("return");

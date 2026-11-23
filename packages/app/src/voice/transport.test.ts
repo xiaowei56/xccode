@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, expect, jest, test } from "bun:test"
-import type { XccodeClient } from "@xccode/client/promise"
+import type { XiaochuanClient } from "@xiaochuan/client/promise"
 import { CLOSE_TIMEOUT, DISCONNECT_GRACE, JOIN_TIMEOUT } from "./transport-machine"
 import { VoiceFailure, VoiceTransport } from "./transport"
 
@@ -144,7 +144,7 @@ afterEach(() => {
   Object.defineProperty(navigator, "mediaDevices", savedMediaDevices ?? missing)
 })
 
-type Voice = XccodeClient["experimental"]["voice"]
+type Voice = XiaochuanClient["experimental"]["voice"]
 
 const live = {
   model: "gpt-live-1",

@@ -1,11 +1,11 @@
 ---
 title: ウェブ
-description: ブラウザで Xccode を使用する。
+description: ブラウザで Xiaochuan を使用する。
 ---
 
-Xccode はブラウザで Web アプリケーションとして実行でき、ターミナルを必要とせずに同じ強力な AI コーディングエクスペリエンスを提供します。
+Xiaochuan はブラウザで Web アプリケーションとして実行でき、ターミナルを必要とせずに同じ強力な AI コーディングエクスペリエンスを提供します。
 
-![Xccode Web - 新しいセッション](../../../assets/web/web-homepage-new-session.png)
+![Xiaochuan Web - 新しいセッション](../../../assets/web/web-homepage-new-session.png)
 
 ---
 
@@ -14,16 +14,16 @@ Xccode はブラウザで Web アプリケーションとして実行でき、�
 以下を実行して Web インターフェースを開始します。
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-これにより、利用可能なランダムなポートを使用して `127.0.0.1` でローカルサーバーが起動され、デフォルトのブラウザで Xccode が自動的に開きます。
+これにより、利用可能なランダムなポートを使用して `127.0.0.1` でローカルサーバーが起動され、デフォルトのブラウザで Xiaochuan が自動的に開きます。
 
 :::caution
-`XCCODE_SERVER_PASSWORD` が設定されていない場合、サーバーは保護されません。これはローカルで使用する場合には問題ありませんが、ネットワークアクセス用に設定する必要があります。
+`XIAOCHUAN_SERVER_PASSWORD` が設定されていない場合、サーバーは保護されません。これはローカルで使用する場合には問題ありませんが、ネットワークアクセス用に設定する必要があります。
 :::
 :::tip[Windows ユーザー]
-最高のエクスペリエンスを得るには、PowerShell ではなく [WSL](/docs/windows-wsl) から `xccode web` を実行します。これにより、ファイルシステムへの適切なアクセスとターミナルの統合が保証されます。
+最高のエクスペリエンスを得るには、PowerShell ではなく [WSL](/docs/windows-wsl) から `xiaochuan web` を実行します。これにより、ファイルシステムへの適切なアクセスとターミナルの統合が保証されます。
 :::
 
 ---
@@ -34,21 +34,21 @@ xccode web
 
 ### ポート
 
-デフォルトでは、Xccode は使用可能なポートを選択します。ポートを指定できます。
+デフォルトでは、Xiaochuan は使用可能なポートを選択します。ポートを指定できます。
 
 ```bash
-xccode web --port 4096
+xiaochuan web --port 4096
 ```
 
 ### ホスト名
 
-デフォルトでは、サーバーは `127.0.0.1` (localhost のみ) にバインドされます。ネットワーク上で Xccode にアクセスできるようにするには:
+デフォルトでは、サーバーは `127.0.0.1` (localhost のみ) にバインドされます。ネットワーク上で Xiaochuan にアクセスできるようにするには:
 
 ```bash
-xccode web --hostname 0.0.0.0
+xiaochuan web --hostname 0.0.0.0
 ```
 
-`0.0.0.0` を使用すると、Xccode はローカルアドレスとネットワークアドレスの両方を表示します。
+`0.0.0.0` を使用すると、Xiaochuan はローカルアドレスとネットワークアドレスの両方を表示します。
 
 ```
   Local access:       http://localhost:4096
@@ -60,15 +60,15 @@ xccode web --hostname 0.0.0.0
 mDNS を有効にして、ローカルネットワーク上でサーバーを検出できるようにします。
 
 ```bash
-xccode web --mdns
+xiaochuan web --mdns
 ```
 
-これにより、ホスト名が自動的に `0.0.0.0` に設定され、サーバーが `xccode.local` としてアドバタイズされます。
+これにより、ホスト名が自動的に `0.0.0.0` に設定され、サーバーが `xiaochuan.local` としてアドバタイズされます。
 
 mDNS ドメイン名をカスタマイズして、同じネットワーク上で複数のインスタンスを実行できます。
 
 ```bash
-xccode web --mdns --mdns-domain myproject.local
+xiaochuan web --mdns --mdns-domain myproject.local
 ```
 
 ### CORS
@@ -76,36 +76,36 @@ xccode web --mdns --mdns-domain myproject.local
 CORS の追加ドメインを許可するには (カスタムフロントエンドに便利):
 
 ```bash
-xccode web --cors https://example.com
+xiaochuan web --cors https://example.com
 ```
 
 ### 認証
 
-アクセスを保護するには、`XCCODE_SERVER_PASSWORD` 環境変数を使用してパスワードを設定します。
+アクセスを保護するには、`XIAOCHUAN_SERVER_PASSWORD` 環境変数を使用してパスワードを設定します。
 
 ```bash
-XCCODE_SERVER_PASSWORD=secret xccode web
+XIAOCHUAN_SERVER_PASSWORD=secret xiaochuan web
 ```
 
-ユーザー名のデフォルトは `xccode` ですが、`XCCODE_SERVER_USERNAME` で変更できます。
+ユーザー名のデフォルトは `xiaochuan` ですが、`XIAOCHUAN_SERVER_USERNAME` で変更できます。
 
 ---
 
 ## Web インターフェースの使用
 
-開始すると、Web インターフェイスから Xccode セッションにアクセスできるようになります。
+開始すると、Web インターフェイスから Xiaochuan セッションにアクセスできるようになります。
 
 ### セッション
 
 ホームページからセッションを表示および管理します。アクティブなセッションを確認したり、新しいセッションを開始したりできます。
 
-![Xccode Web - アクティブなセッション](../../../assets/web/web-homepage-active-session.png)
+![Xiaochuan Web - アクティブなセッション](../../../assets/web/web-homepage-active-session.png)
 
 ### サーバーステータス
 
 「サーバーを表示」をクリックすると、接続されているサーバーとそのステータスが表示されます。
 
-![Xccode Web - サーバー](../../../assets/web/web-homepage-see-servers.png)
+![Xiaochuan Web - サーバー](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 
@@ -115,10 +115,10 @@ XCCODE_SERVER_PASSWORD=secret xccode web
 
 ```bash
 # Start the web server
-xccode web --port 4096
+xiaochuan web --port 4096
 
 # In another terminal, attach the TUI
-xccode attach http://localhost:4096
+xiaochuan attach http://localhost:4096
 ```
 
 これにより、Web インターフェイスとターミナルの両方を同時に使用し、同じセッションと状態を共有できるようになります。
@@ -127,7 +127,7 @@ xccode attach http://localhost:4096
 
 ## 設定ファイル
 
-`xccode.json` 設定ファイルでサーバー設定を構成することもできます。
+`xiaochuan.json` 設定ファイルでサーバー設定を構成することもできます。
 
 ```json
 {

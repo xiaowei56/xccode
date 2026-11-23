@@ -1,4 +1,4 @@
-# Third-party crates in the shipped graph of xccode-cli for x86_64-unknown-linux-gnu (normal and build edges,
+# Third-party crates in the shipped graph of xiaochuan-cli for x86_64-unknown-linux-gnu (normal and build edges,
 # not dev, default features), one name per line (all versions of a crate share it), sorted. Third-party is every
 # crate but the workspace members and OpenTUI's opentui and opentui-sys. Marks: `build` (has a
 # build script), `cc` (the build script compiles C with `cc`), `proc-macro`, and a source other than crates.io:
@@ -166,7 +166,7 @@ zmij build
 
 [tests]
 # Third-party crates only the rest of the workspace reaches, over normal, build and dev edges with default features:
-# tests, examples, and members xccode-cli does not ship. The same rules apply: a new line needs a maintainer's
+# tests, examples, and members xiaochuan-cli does not ship. The same rules apply: a new line needs a maintainer's
 # approval. Empty: tests use only crates that ship.
 
 [optional]

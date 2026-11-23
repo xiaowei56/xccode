@@ -1,4 +1,4 @@
-import { Plugin } from "@xccode/plugin/gui"
+import { Plugin } from "@xiaochuan/plugin/gui"
 import en from "./i18n/en"
 
 /** Read-only previews of Word, Excel and PowerPoint files in the file view. */

@@ -1,6 +1,6 @@
 export * as SkillInstructions from "./instructions.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Context, Effect, Layer, Schema } from "effect"
 import { Permission } from "../permission.js"
 import { Skill } from "../skill.js"
@@ -50,7 +50,7 @@ export interface Interface {
   readonly load: (permissions: Permission.Ruleset) => Effect.Effect<Instructions.List>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SkillInstructions") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SkillInstructions") {}
 
 const layer = Layer.effect(
   Service,

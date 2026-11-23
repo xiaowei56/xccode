@@ -1,6 +1,6 @@
 export const popularProviders = [
-  "xccode-go",
-  "xccode",
+  "xiaochuan-go",
+  "xiaochuan",
   "anthropic",
   "github-copilot",
   "openai",

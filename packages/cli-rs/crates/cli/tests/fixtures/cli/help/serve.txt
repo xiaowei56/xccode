@@ -2,7 +2,7 @@
   Start the v2 API and web server
 
 [1mUSAGE[0m
-  [36mxccode serve [flags][0m
+  [36mxiaochuan serve [flags][0m
 
 [1mFLAGS[0m
   [32m--hostname[0m [2mstring[0m    

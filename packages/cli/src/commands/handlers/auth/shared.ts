@@ -1,6 +1,6 @@
 import { Effect } from "effect"
-import { Xccode, type IntegrationInfo, type IntegrationMethod, type XccodeClient } from "@xccode/client"
-import { Service } from "@xccode/client/effect/service"
+import { Xiaochuan, type IntegrationInfo, type IntegrationMethod, type XiaochuanClient } from "@xiaochuan/client"
+import { Service } from "@xiaochuan/client/effect/service"
 import { ServerConnection } from "../../../services/server-connection"
 import { waitForPlugins } from "../../../services/plugin-startup"
 
@@ -8,18 +8,18 @@ export const location = { directory: process.cwd() }
 
 export const createClient = Effect.fn("cli.auth.client")(function* (input: ServerConnection.Args = {}) {
   const server = yield* ServerConnection.resolve(input)
-  return Xccode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
+  return Xiaochuan.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
 })
 
 export function request<A>(run: (signal: AbortSignal) => Promise<A>) {
   return Effect.tryPromise({ try: run, catch: (cause) => cause })
 }
 
-export const loadIntegrations = Effect.fn("cli.auth.integrations")(function* (client: XccodeClient) {
+export const loadIntegrations = Effect.fn("cli.auth.integrations")(function* (client: XiaochuanClient) {
   yield* waitForPlugins(client, location.directory)
   return yield* request((signal) => client.integration.list({ location }, { signal })).pipe(
     Effect.map((response) =>
-      response.data.toSorted((a, b) => Number(b.id === "xccode-go") - Number(a.id === "xccode-go")),
+      response.data.toSorted((a, b) => Number(b.id === "xiaochuan-go") - Number(a.id === "xiaochuan-go")),
     ),
   )
 })

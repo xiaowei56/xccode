@@ -9,7 +9,7 @@ export const content = {
     },
     mobile: { name: "Mobile", body: "无论身在何处，都能在手机上启动、引导和批准会话。", action: "下载" },
     terminal: { name: "Terminal", body: "快速的终端界面，可在任意 shell、编辑器或远程服务器中使用。", action: "安装" },
-    sdk: { name: "SDK", body: "在您自己的脚本、CI 任务和工具中驱动 Xccode。", action: "阅读文档" },
+    sdk: { name: "SDK", body: "在您自己的脚本、CI 任务和工具中驱动 Xiaochuan。", action: "阅读文档" },
     mini: {
       name: "Mini",
       body: "极简的终端界面，回复直接输出到滚动记录中，下方只有一个提示词输入框。",
@@ -18,9 +18,9 @@ export const content = {
   },
   productDetails: {
     desktop: {
-      title: "Xccode | 适用于 macOS、Windows 和 Linux 的桌面应用",
+      title: "Xiaochuan | 适用于 macOS、Windows 和 Linux 的桌面应用",
       description:
-        "并行运行任意多个 Xccode 代理，在旁边的浏览器中查看每处更改，并在任意设备上继续。适用于 macOS、Windows 和 Linux。",
+        "并行运行任意多个 Xiaochuan 代理，在旁边的浏览器中查看每处更改，并在任意设备上继续。适用于 macOS、Windows 和 Linux。",
       intro:
         "同时运行多个代理，每个会话都有独立的标签页。以 diff 审查每处更改，在任意一行添加评论，并在内置浏览器中检查结果。支持 macOS、Windows 和 Linux。",
       showcase: {
@@ -38,23 +38,23 @@ export const content = {
         },
         "extend-it": {
           title: "扩展它",
-          body: "连接你的工具和服务，让代理能处理任何事情。或者让 Xccode 为自己构建插件，并在侧边栏中拥有自己的界面。",
+          body: "连接你的工具和服务，让代理能处理任何事情。或者让 Xiaochuan 为自己构建插件，并在侧边栏中拥有自己的界面。",
         },
       },
     },
     mobile: {
-      title: "Xccode | 在手机上引导编程代理的移动应用",
+      title: "Xiaochuan | 在手机上引导编程代理的移动应用",
       description:
-        "在手机上启动并引导 Xccode 会话。代理在您的电脑上运行时，您可以与它对话。",
+        "在手机上启动并引导 Xiaochuan 会话。代理在您的电脑上运行时，您可以与它对话。",
       intro:
-        "无论身在何处，都能在手机上启动并引导会话。给会话打电话与代理交谈，或打开任意会话从上次中断处继续，一切都在您自己电脑上的 Xccode 中运行。",
+        "无论身在何处，都能在手机上启动并引导会话。给会话打电话与代理交谈，或打开任意会话从上次中断处继续，一切都在您自己电脑上的 Xiaochuan 中运行。",
       features: {
         "notify-when-done": { title: "完成时通知", body: "您启动的会话完成后，会收到一段简短总结。" },
-        "pair-from-anywhere": { title: "随处配对", body: "使用 xccode pair --remote 从任意网络连接。" },
+        "pair-from-anywhere": { title: "随处配对", body: "使用 xiaochuan pair --remote 从任意网络连接。" },
         "every-computer": { title: "每台电脑", body: "一键切换已配对的电脑。" },
         "siri-and-shortcuts": { title: "Siri 和快捷指令", body: "通过 Siri 或控制中心发起通话或会话。" },
         "follow-along": { title: "实时跟进", body: "看着时间线随代理的工作实时更新。" },
-        "your-computer": { title: "您的电脑", body: "连接到您自己机器上运行的 Xccode。" },
+        "your-computer": { title: "您的电脑", body: "连接到您自己机器上运行的 Xiaochuan。" },
         "share-sheet": { title: "共享菜单", body: "无需打开应用，即可把任何内容分享到会话。" },
         "mute-sessions": { title: "静音会话", body: "将会话保留在列表中，但不接收它的通知。" },
       },
@@ -66,73 +66,73 @@ export const content = {
       },
     },
     terminal: {
-      title: "Xccode | 开源编程代理的终端界面",
+      title: "Xiaochuan | 开源编程代理的终端界面",
       description:
-        "Xccode 的快速终端界面，可在任意 shell、编辑器或远程服务器中使用。描述您的需求，以 diff 查看每处编辑，并批准命令。",
+        "Xiaochuan 的快速终端界面，可在任意 shell、编辑器或远程服务器中使用。描述您的需求，以 diff 查看每处编辑，并批准命令。",
       intro:
         "快速的终端界面，可在任意 shell、编辑器或远程服务器中使用。用自然语言描述需求，看着每处编辑以 diff 呈现，并选择哪些命令可以自动运行。",
       features: {
         "any-terminal": { title: "任意终端", body: "可在任意 shell、编辑器的终端或远程服务器中使用。" },
         "diffs-in-the-timeline": { title: "时间线中的 diff", body: "代理每做一处编辑，都会以 diff 显示在时间线中。" },
         "pick-up-later": { title: "稍后继续", body: "用 -c 继续上一个会话，或用 -s 继续任意会话。" },
-        "one-off-runs": { title: "单次运行", body: "xccode run 发送一条消息并输出回复。" },
+        "one-off-runs": { title: "单次运行", body: "xiaochuan run 发送一条消息并输出回复。" },
         "agents-and-commands": { title: "代理和命令", body: "用 shift+tab 切换代理，用 ctrl+p 打开所有命令。" },
         "auto-approve": { title: "自动批准", body: "使用 --auto 运行，即可允许所有您未拒绝的操作。" },
-        "any-server": { title: "任意服务器", body: "使用 --server 通过 URL 连接到 Xccode 服务器。" },
-        "usage-stats": { title: "使用统计", body: "xccode stats 显示可分享的使用统计。" },
+        "any-server": { title: "任意服务器", body: "使用 --server 通过 URL 连接到 Xiaochuan 服务器。" },
+        "usage-stats": { title: "使用统计", body: "xiaochuan stats 显示可分享的使用统计。" },
       },
       showcase: {
         "ask-in-plain-words": { title: "用自然语言提问", body: "输入您的需求，代理会在工作时展示计划。" },
         "approve-what-runs": { title: "批准要运行的内容", body: "编辑以 diff 显示，命令会等待您的许可。" },
         "make-it-yours": { title: "随心定制", body: "一键切换主题，从默认主题到 tokyonight 等。" },
-        mini: { title: "Mini", body: "运行 xccode mini，回复会输出到您自己的滚动记录中。" },
+        mini: { title: "Mini", body: "运行 xiaochuan mini，回复会输出到您自己的滚动记录中。" },
       },
     },
     sdk: {
-      title: "Xccode | 在代码中驱动代理的 TypeScript SDK",
+      title: "Xiaochuan | 在代码中驱动代理的 TypeScript SDK",
       description:
-        "在您自己的脚本、CI 任务和工具中驱动 Xccode。带类型的 TypeScript 客户端可以创建会话、发送提示词，并实时流式传输每个事件。",
+        "在您自己的脚本、CI 任务和工具中驱动 Xiaochuan。带类型的 TypeScript 客户端可以创建会话、发送提示词，并实时流式传输每个事件。",
       intro:
-        "在您自己的脚本、CI 任务和工具中驱动 Xccode。SDK 在您的进程内运行 Xccode，使用您的配置和模型，其带类型的客户端可以创建会话、发送提示词并流式传输每个事件。",
+        "在您自己的脚本、CI 任务和工具中驱动 Xiaochuan。SDK 在您的进程内运行 Xiaochuan，使用您的配置和模型，其带类型的客户端可以创建会话、发送提示词并流式传输每个事件。",
       features: {
-        "typescript-client": { title: "TypeScript 客户端", body: "带类型的请求和事件，与 @xccode/client 的值相同。" },
+        "typescript-client": { title: "TypeScript 客户端", body: "带类型的请求和事件，与 @xiaochuan/client 的值相同。" },
         "sessions-from-code": { title: "用代码创建会话", body: "在任意脚本中创建会话并发送提示词。" },
-        "any-model": { title: "任意模型", body: "使用您的 Xccode 配置中的任意模型。" },
-        "npm-or-bun": { title: "npm 或 bun", body: "使用 npm i @xccode/sdk 或 bun add @xccode/sdk 安装。" },
-        "in-process-host": { title: "进程内宿主", body: "在内存中运行 Xccode，无需经过网络。" },
+        "any-model": { title: "任意模型", body: "使用您的 Xiaochuan 配置中的任意模型。" },
+        "npm-or-bun": { title: "npm 或 bun", body: "使用 npm i @xiaochuan/sdk 或 bun add @xiaochuan/sdk 安装。" },
+        "in-process-host": { title: "进程内宿主", body: "在内存中运行 Xiaochuan，无需经过网络。" },
         "your-plugins": { title: "您的插件", body: "创建进程内宿主时传入您自己的插件。" },
         "promise-or-effect": { title: "Promise 或 Effect", body: "Promise API 和 Effect API，返回相同的值。" },
         "cloudflare-workers": {
           title: "Cloudflare Workers",
-          body: "在 Workers 上的 Cloudflare Durable Object 中运行 Xccode。",
+          body: "在 Workers 上的 Cloudflare Durable Object 中运行 Xiaochuan。",
         },
       },
       showcase: {
-        "in-your-process": { title: "在您的进程内", body: "在您的进程内运行 Xccode，使用您的配置和模型。" },
+        "in-your-process": { title: "在您的进程内", body: "在您的进程内运行 Xiaochuan，使用您的配置和模型。" },
         "fix-ci-from-code": {
           title: "用代码修复 CI",
-          body: "一段简短的脚本让 Xccode 修复失败的测试，然后重新运行。",
+          body: "一段简短的脚本让 Xiaochuan 修复失败的测试，然后重新运行。",
         },
         "follow-every-step": { title: "跟踪每一步", body: "流式传输事件，实时查看代理调用的每个工具。" },
         "build-your-own-tools": {
           title: "构建自己的工具",
-          body: "只需几行代码，就能把 Xccode 接入机器人、仪表盘和工作流。",
+          body: "只需几行代码，就能把 Xiaochuan 接入机器人、仪表盘和工作流。",
         },
       },
     },
     mini: {
-      title: "Xccode | Mini，代理的极简终端界面",
+      title: "Xiaochuan | Mini，代理的极简终端界面",
       description:
-        "Mini 在极简的终端界面中运行 Xccode。回复直接输出到终端自身的滚动记录中，下方只保留提示词输入框和一行状态栏。",
+        "Mini 在极简的终端界面中运行 Xiaochuan。回复直接输出到终端自身的滚动记录中，下方只保留提示词输入框和一行状态栏。",
       intro:
-        "Xccode 的极简终端界面。运行 xccode mini，回复会直接输出到终端自身的滚动记录中，您可以像处理其他输出一样滚动、搜索和复制。底部只保留提示词输入框和一行状态栏。",
+        "Xiaochuan 的极简终端界面。运行 xiaochuan mini，回复会直接输出到终端自身的滚动记录中，您可以像处理其他输出一样滚动、搜索和复制。底部只保留提示词输入框和一行状态栏。",
       features: {
         "your-scrollback": { title: "您的滚动记录", body: "回复就是普通的终端历史。" },
         "one-prompt": { title: "一个输入框", body: "代理、模型、上下文和费用都在一行状态栏中。" },
         permissions: { title: "权限", body: "在输入区域批准编辑和命令。" },
         "how-much-shows": { title: "显示多少", body: "思考过程和工具输出可设为安静、默认或全部。" },
         "pick-up-later": { title: "稍后继续", body: "用 -c 继续上一个会话，或用 -s 继续任意会话。" },
-        "same-xccode": { title: "同一个 Xccode", body: "服务器、代理和模型与其他应用相同。" },
+        "same-xiaochuan": { title: "同一个 Xiaochuan", body: "服务器、代理和模型与其他应用相同。" },
         agents: { title: "代理", body: "直接在输入框中切换代理。" },
         compact: { title: "压缩", body: "用 /compact 压缩冗长的会话。" },
       },
@@ -140,16 +140,16 @@ export const content = {
   },
   extensionCard: {
     name: "扩展",
-    body: "在 VS Code 中使用 Xccode，或通过 ACP 在 Zed 等编辑器中使用。",
+    body: "在 VS Code 中使用 Xiaochuan，或通过 ACP 在 Zed 等编辑器中使用。",
     action: "安装",
   },
   extensions: {
     browse: {
       name: "Browse",
       body: "让代理使用您真实的浏览器。",
-      title: "Xccode | Browse，为编程代理准备的真实浏览器",
+      title: "Xiaochuan | Browse，为编程代理准备的真实浏览器",
       description:
-        "Browse 让 Xccode 和其他 MCP 客户端使用您真实的浏览器。代理会阅读页面、点击、输入、截图、录制标签页，并把登录和双重验证交还给您。",
+        "Browse 让 Xiaochuan 和其他 MCP 客户端使用您真实的浏览器。代理会阅读页面、点击、输入、截图、录制标签页，并把登录和双重验证交还给您。",
       intro:
         "一个 MCP 服务器加一个 Chromium 扩展，让您的代理使用真实的浏览器，包括您的标签页、登录状态和扩展。代理在后台打开标签页，分组收好，不打扰您，并阅读页面、点击、输入、截图和录制标签页。轮到您操作时，比如登录、双重验证或付款，代理会把标签页交还给您，您点击“继续”后它再接着工作。",
       features: {
@@ -163,7 +163,7 @@ export const content = {
         "record-and-capture": { title: "录制和捕获", body: "截图、标签页录制和网络流量。" },
         "any-mcp-client": {
           title: "任意 MCP 客户端",
-          body: "Xccode、Claude Code、Cursor、Codex、Zed 等众多客户端。",
+          body: "Xiaochuan、Claude Code、Cursor、Codex、Zed 等众多客户端。",
         },
         "all-your-logins": {
           title: "沿用你的所有登录",
@@ -183,39 +183,39 @@ export const content = {
   },
   getStarted: {
     title: "开始使用",
-    lead: "最简单的入门方式是下载 Xccode 并使用免费模型，无需账户。想要更多，可以使用您自己的订阅或 Xccode Go。",
+    lead: "最简单的入门方式是下载 Xiaochuan 并使用免费模型，无需账户。想要更多，可以使用您自己的订阅或 Xiaochuan Go。",
     phrases: {
-      "download-xccode": { text: "下载 Xccode" },
+      "download-xiaochuan": { text: "下载 Xiaochuan" },
       "free-models": { text: "免费模型" },
       "your-own-subscription": { text: "您自己的订阅" },
       "a-subscription-you-already-have": { text: "已有的订阅" },
-      "xccode-go": { text: "Xccode Go" },
+      "xiaochuan-go": { text: "Xiaochuan Go" },
     },
     subscriptions: { "chatgpt-plus-pro": { name: "ChatGPT Plus/Pro" } },
     steps: {
       download: { title: "下载", line: "桌面端、终端或移动端。" },
-      "use-free-models": { title: "使用免费模型", line: "Xccode 内置一组免费模型，无需账户。" },
+      "use-free-models": { title: "使用免费模型", line: "Xiaochuan 内置一组免费模型，无需账户。" },
       "add-more-models": {
         title: "添加更多模型",
-        line: "使用您自己的订阅，或选择 Xccode Go 的精选模型，每月 $10 起。",
+        line: "使用您自己的订阅，或选择 Xiaochuan Go 的精选模型，每月 $10 起。",
       },
     },
-    sentence: "下载 Xccode，从免费模型开始，想要更多时再使用您自己的订阅或 Xccode Go。",
+    sentence: "下载 Xiaochuan，从免费模型开始，想要更多时再使用您自己的订阅或 Xiaochuan Go。",
   },
   byos: {
     title: "自带订阅",
     headline: "使用您已有的订阅。",
-    line: "使用 ChatGPT Plus 或 Pro 或 GitHub Copilot 登录，或者使用 Xccode 订阅。",
+    line: "使用 ChatGPT Plus 或 Pro 或 GitHub Copilot 登录，或者使用 Xiaochuan 订阅。",
     yours: { label: "您的订阅", items: { "chatgpt-plus-pro": { name: "ChatGPT Plus/Pro" } } },
-    planLinks: ["Xccode 订阅", "Xccode Go"],
-    ours: { label: "Xccode 套餐" },
+    planLinks: ["Xiaochuan 订阅", "Xiaochuan Go"],
+    ours: { label: "Xiaochuan 套餐" },
   },
   brand: {
     hero: { copy: { text: "给代理的规范", copied: "规范已复制" } },
     naming: {
       title: "命名",
-      body: "Xccode 写作一个词，O 和 C 大写。不要写成 Xccode、Open Code、Xccode AI 或 Open-Code。",
-      code: "小写的 `xccode` 仅用于代码和包名，例如 `xccode-figma` 或 `@acme/xccode-plugin`。",
+      body: "Xiaochuan 写作一个词，O 和 C 大写。不要写成 Xiaochuan、Open Code、Xiaochuan AI 或 Open-Code。",
+      code: "小写的 `xiaochuan` 仅用于代码和包名，例如 `xiaochuan-figma` 或 `@acme/xiaochuan-plugin`。",
     },
     families: {
       logo: {
@@ -230,7 +230,7 @@ export const content = {
       },
       wordmark: {
         title: "文字标识",
-        body: "以 Xccode 字形写出的完整名称。只要有足够空间写出全名，就使用它。",
+        body: "以 Xiaochuan 字形写出的完整名称。只要有足够空间写出全名，就使用它。",
         assets: { light: { name: "浅色" }, dark: { name: "深色" } },
       },
       "simple-wordmark": {
@@ -327,47 +327,47 @@ export const content = {
     },
     integrations: {
       title: "集成",
-      body: "与 Xccode 配合使用的插件、提供商和工具，以及基于 Xccode 构建的项目，都可以注明这一点。请使用徽章或合作伙伴组合标识，并为项目命名，清楚表明它属于您。",
+      body: "与 Xiaochuan 配合使用的插件、提供商和工具，以及基于 Xiaochuan 构建的项目，都可以注明这一点。请使用徽章或合作伙伴组合标识，并为项目命名，清楚表明它属于您。",
       badges: {
-        body: "在 README、文档或网站中放置徽章，并链接到 xccode.ai。根据背景选择浅色或深色文件（HTML 会自动切换），不要修改颜色或文字。",
+        body: "在 README、文档或网站中放置徽章，并链接到 xiaochuan.ai。根据背景选择浅色或深色文件（HTML 会自动切换），不要修改颜色或文字。",
         sizes: "每种样式都提供 20、32 和 44px（Shields 仅 20px），格式为 SVG 和 2 倍 PNG。",
-        mono: "每个文件还有使用 OpenTUI Mono 字体的版本，在扩展名前加 -mono，例如 xccode-works-with-a-light-20-mono.svg；加 -mono-caps 则为大写 OpenTUI Mono。",
+        mono: "每个文件还有使用 OpenTUI Mono 字体的版本，在扩展名前加 -mono，例如 xiaochuan-works-with-a-light-20-mono.svg；加 -mono-caps 则为大写 OpenTUI Mono。",
         groups: {
-          "works-with": { title: "兼容", alt: "兼容 Xccode", body: "适用于配合 Xccode 运行的插件、提供商和工具。" },
-          "built-with": { title: "构建于", alt: "基于 Xccode 构建", body: "适用于用 Xccode 制作的项目。" },
+          "works-with": { title: "兼容", alt: "兼容 Xiaochuan", body: "适用于配合 Xiaochuan 运行的插件、提供商和工具。" },
+          "built-with": { title: "构建于", alt: "基于 Xiaochuan 构建", body: "适用于用 Xiaochuan 制作的项目。" },
         },
         styles: { a: { name: "边框" }, c: { name: "格子" }, f: { name: "实心" }, g: { name: "Shields" } },
       },
       lockup: {
         title: "合作伙伴组合标识",
-        body: "将 Xccode Logo 和合作伙伴 Logo 并排放置，中间加一个 ×。× 两侧各留 3 笔画的空间，合作伙伴 Logo 的视觉高度与 Xccode Logo 一致，并在整个组合标识四周保留留白。",
+        body: "将 Xiaochuan Logo 和合作伙伴 Logo 并排放置，中间加一个 ×。× 两侧各留 3 笔画的空间，合作伙伴 Logo 的视觉高度与 Xiaochuan Logo 一致，并在整个组合标识四周保留留白。",
         partners: { github: { name: "GitHub" } },
       },
       naming: {
         title: "为项目命名",
         body: "以您自己的名称开头，清楚表明项目属于您。",
-        rule: "写作 `Linear for Xccode`，或将包命名为 `xccode-linear`。不要写成 `Xccode Linear` 或 `Linear by Xccode`。",
+        rule: "写作 `Linear for Xiaochuan`，或将包命名为 `xiaochuan-linear`。不要写成 `Xiaochuan Linear` 或 `Linear by Xiaochuan`。",
       },
     },
     trademarks: {
       title: "商标",
-      body: "Xccode 和 Xccode Logo 是 Anomaly 的商标。未经许可，不得用它们暗示 Anomaly 认可或赞助您，不得用于您的产品或公司名称，也不得用于周边商品。",
+      body: "Xiaochuan 和 Xiaochuan Logo 是 Anomaly 的商标。未经许可，不得用它们暗示 Anomaly 认可或赞助您，不得用于您的产品或公司名称，也不得用于周边商品。",
       contact: { before: "如有疑问，请发送邮件至 ", after: "。" },
     },
   },
   press: {
-    title: "Xccode | 包含公司信息和品牌资产的媒体资料包",
+    title: "Xiaochuan | 包含公司信息和品牌资产的媒体资料包",
     description:
-      "Xccode 媒体资料包，包含 Xccode 及其背后公司 Anomaly 的相关信息，可下载的 Logo 和文字标识，以及媒体咨询联系方式。",
-    hero: { title: "媒体", body: "报道 Xccode 和 Anomaly 所需的信息、品牌资产和联系方式。" },
+      "Xiaochuan 媒体资料包，包含 Xiaochuan 及其背后公司 Anomaly 的相关信息，可下载的 Logo 和文字标识，以及媒体咨询联系方式。",
+    hero: { title: "媒体", body: "报道 Xiaochuan 和 Anomaly 所需的信息、品牌资产和联系方式。" },
     company: {
       title: "关于 Anomaly",
-      lead: "Anomaly 是 Xccode 背后的公司，专为开发者打造开源工具。",
+      lead: "Anomaly 是 Xiaochuan 背后的公司，专为开发者打造开源工具。",
       more: "其他项目包括 SST 和 OpenTUI，全部在 [GitHub](github) 上开源。",
       learnMore: "了解更多，请访问 [anoma.ly](site)。",
       projects: {
-        xccode: {
-          name: "Xccode",
+        xiaochuan: {
+          name: "Xiaochuan",
           body: "开源编程代理，提供桌面、终端和移动应用以及 SDK。采用 MIT 许可，GitHub 星标超过 220,000。",
         },
         sst: {
@@ -376,7 +376,7 @@ export const content = {
         },
         opentui: {
           name: "OpenTUI",
-          body: "用 TypeScript、React 或 Solid 构建终端界面的库，核心以 Zig 编写。Xccode 在生产环境中使用它。GitHub 星标超过 13,000。",
+          body: "用 TypeScript、React 或 Solid 构建终端界面的库，核心以 Zig 编写。Xiaochuan 在生产环境中使用它。GitHub 星标超过 13,000。",
         },
         "models-dev": {
           name: "Models.dev",
@@ -393,29 +393,29 @@ export const content = {
       },
     },
     about: {
-      title: "关于 Xccode",
-      body: "Xccode 及其产品的介绍，有长短两个版本，可直接复制。",
+      title: "关于 Xiaochuan",
+      body: "Xiaochuan 及其产品的介绍，有长短两个版本，可直接复制。",
       boilerplate: {
-        long: "Xccode 是一个开源编程代理。它提供桌面应用、终端界面、移动应用和 SDK，并支持任意提供商的模型，包括 Claude、GPT 和 Gemini。Xccode 采用 MIT 许可，由 Anomaly 打造。它在 GitHub 上拥有超过 220,000 个星标和 1,000 多位贡献者，每月有超过 2200 万开发者使用。",
-        short: "Xccode 是 Anomaly 推出的开源编程代理，提供桌面、终端和移动应用以及 SDK。",
+        long: "Xiaochuan 是一个开源编程代理。它提供桌面应用、终端界面、移动应用和 SDK，并支持任意提供商的模型，包括 Claude、GPT 和 Gemini。Xiaochuan 采用 MIT 许可，由 Anomaly 打造。它在 GitHub 上拥有超过 220,000 个星标和 1,000 多位贡献者，每月有超过 2200 万开发者使用。",
+        short: "Xiaochuan 是 Anomaly 推出的开源编程代理，提供桌面、终端和移动应用以及 SDK。",
       },
       products: {
-        "xccode-console": {
-          name: "Xccode Console",
-          long: "Xccode Console 是一款 Web 应用，开发者和团队可以在这里为 Xccode 及其他编程代理购买和管理 AI 模型访问权限。它为前沿模型和开放权重模型提供按量付费的推理服务，按请求从预付额度中扣费，同时提供 Xccode Go 订阅。团队可以获得带有成员、管理员和所有者角色的工作区，工作区级和单个用户的支出上限，通过 Okta、Microsoft Entra ID 或 Google Workspace 进行单点登录，以及 SCIM。Console 支持 30 多家提供商，团队可以接入已有的提供商账户，其自有推理服务是可选的。访问地址为 xccode.ai/console。",
+        "xiaochuan-console": {
+          name: "Xiaochuan Console",
+          long: "Xiaochuan Console 是一款 Web 应用，开发者和团队可以在这里为 Xiaochuan 及其他编程代理购买和管理 AI 模型访问权限。它为前沿模型和开放权重模型提供按量付费的推理服务，按请求从预付额度中扣费，同时提供 Xiaochuan Go 订阅。团队可以获得带有成员、管理员和所有者角色的工作区，工作区级和单个用户的支出上限，通过 Okta、Microsoft Entra ID 或 Google Workspace 进行单点登录，以及 SCIM。Console 支持 30 多家提供商，团队可以接入已有的提供商账户，其自有推理服务是可选的。访问地址为 xiaochuan.ai/console。",
           short:
-            "Xccode Console 是 Anomaly 的 Web 应用，提供按量付费的 AI 模型访问、Xccode Go 订阅，以及预算和单点登录等团队管控功能。",
+            "Xiaochuan Console 是 Anomaly 的 Web 应用，提供按量付费的 AI 模型访问、Xiaochuan Go 订阅，以及预算和单点登录等团队管控功能。",
         },
-        "xccode-go": {
-          name: "Xccode Go",
-          long: "Xccode Go 是为希望以固定月费使用编程模型的开发者提供的订阅。Go 每月 $10，额度更高的 Go Plus 每月 $40，Go Teams 每位成员每月 $20。每个套餐都包含一组针对代理式编程测试过的精选模型。使用上限是每个模型的月度金额，另有滚动的 5 小时和每周额度，分别为月度上限的 20% 和 50%。订阅者可以充值额度、在超出后使用按量付费余额，并可随时取消。Go 适用于 Xccode 和其他代理。访问地址为 xccode.ai/console/go。",
-          short: "Xccode Go 是 Anomaly 推出的月度订阅，为开发者提供一组精选编程模型的月度使用额度，每月 $10 起。",
+        "xiaochuan-go": {
+          name: "Xiaochuan Go",
+          long: "Xiaochuan Go 是为希望以固定月费使用编程模型的开发者提供的订阅。Go 每月 $10，额度更高的 Go Plus 每月 $40，Go Teams 每位成员每月 $20。每个套餐都包含一组针对代理式编程测试过的精选模型。使用上限是每个模型的月度金额，另有滚动的 5 小时和每周额度，分别为月度上限的 20% 和 50%。订阅者可以充值额度、在超出后使用按量付费余额，并可随时取消。Go 适用于 Xiaochuan 和其他代理。访问地址为 xiaochuan.ai/console/go。",
+          short: "Xiaochuan Go 是 Anomaly 推出的月度订阅，为开发者提供一组精选编程模型的月度使用额度，每月 $10 起。",
         },
-        "xccode-data": {
-          name: "Xccode Data",
-          long: "Xccode Data 是一个公开仪表盘，展示开发者在 Xccode 中使用哪些 AI 模型，以及这一组合如何随时间变化。它发布热门模型排行榜、token 用量、会话和 token 成本、缓存比率、市场份额以及按国家划分的数据。数据每小时汇总一次，天和周以 UTC 计算。用户数和会话数为近似值，成本使用 Xccode 模型目录中的标价。记者可以引用为 Xccode Data (xccode.ai/data)，并注明页面上显示的更新时间。",
+        "xiaochuan-data": {
+          name: "Xiaochuan Data",
+          long: "Xiaochuan Data 是一个公开仪表盘，展示开发者在 Xiaochuan 中使用哪些 AI 模型，以及这一组合如何随时间变化。它发布热门模型排行榜、token 用量、会话和 token 成本、缓存比率、市场份额以及按国家划分的数据。数据每小时汇总一次，天和周以 UTC 计算。用户数和会话数为近似值，成本使用 Xiaochuan 模型目录中的标价。记者可以引用为 Xiaochuan Data (xiaochuan.ai/data)，并注明页面上显示的更新时间。",
           short:
-            "Xccode Data 是位于 xccode.ai/data 的公开仪表盘，按 Xccode 中的真实使用量为 AI 模型排名，token、成本和市场份额每小时更新。",
+            "Xiaochuan Data 是位于 xiaochuan.ai/data 的公开仪表盘，按 Xiaochuan 中的真实使用量为 AI 模型排名，token、成本和市场份额每小时更新。",
         },
       },
     },
@@ -428,22 +428,22 @@ export const content = {
       items: {
         "first-release-v0-0-1": { date: "2025 年 4 月", text: "首次发布 v0.0.1" },
         "1-million-downloads": { date: "2025 年 10 月", text: "下载量突破 100 万" },
-        "xccode-1-0": { date: "2025 年 10 月", text: "Xccode 1.0" },
+        "xiaochuan-1-0": { date: "2025 年 10 月", text: "Xiaochuan 1.0" },
         "desktop-app-ships": { date: "2025 年 12 月", text: "桌面应用发布" },
         "10-million-downloads": { date: "2026 年 1 月", text: "下载量突破 1000 万" },
-        "xccode-2-0": { date: "2026 年 9 月", text: "Xccode 2.0" },
+        "xiaochuan-2-0": { date: "2026 年 9 月", text: "Xiaochuan 2.0" },
         "220-000-github-stars": { date: "2026 年 11 月", text: "GitHub 星标突破 220,000" },
       },
     },
     news: {
       title: "最新发布",
-      intro: "Xccode 更新频繁。以下是包含新功能的最新版本。",
+      intro: "Xiaochuan 更新频繁。以下是包含新功能的最新版本。",
       changelog: { text: "完整更新日志" },
       feed: { text: "RSS 订阅源" },
     },
     media: {
       title: "媒体",
-      intro: "各应用的截图和短视频，均录制自真实产品。您可以在报道 Xccode 时使用。",
+      intro: "各应用的截图和短视频，均录制自真实产品。您可以在报道 Xiaochuan 时使用。",
       note: "所有素材均使用深色主题。截图和封面为 JPG，最大 1920 × 1080，竖版为 1080 × 1350。视频为无声 MP4 片段。",
       products: {
         desktop: {
@@ -518,10 +518,10 @@ export const content = {
     coverage: { title: "媒体报道" },
     brand: {
       title: "品牌",
-      before: "在一个 ZIP 文件中下载 Xccode 的 Logo 和文字标识。如需单独的文件、变体和使用规则，请前往",
+      before: "在一个 ZIP 文件中下载 Xiaochuan 的 Logo 和文字标识。如需单独的文件、变体和使用规则，请前往",
       link: { text: "品牌页面" },
       after: "。",
-      usage: "您可以在报道 Xccode 时使用这些文件。请勿修改它们，也不要暗示 Xccode 为您的作品背书。",
+      usage: "您可以在报道 Xiaochuan 时使用这些文件。请勿修改它们，也不要暗示 Xiaochuan 为您的作品背书。",
     },
     product: {
       title: "产品",
@@ -532,7 +532,7 @@ export const content = {
         },
         mobile: {
           name: "Mobile",
-          body: "最新的 Xccode 应用。呼叫会话与代理对话，然后随时随地在手机上审查并批准它的更改。",
+          body: "最新的 Xiaochuan 应用。呼叫会话与代理对话，然后随时随地在手机上审查并批准它的更改。",
         },
         terminal: {
           name: "Terminal",
@@ -551,7 +551,7 @@ export const content = {
         support: {
           links: { "github-issues": { text: "GitHub 议题" }, "help-anoma-ly": { text: "help@anoma.ly" } },
           title: "支持",
-          body: "如需 Xccode 使用帮助，请提交 issue 或在社区提问。账户和账单问题请发送邮件给我们。",
+          body: "如需 Xiaochuan 使用帮助，请提交 issue 或在社区提问。账户和账单问题请发送邮件给我们。",
         },
         security: {
           links: { "report-a-vulnerability": { text: "报告漏洞" }, "security-anoma-ly": { text: "security@anoma.ly" } },
@@ -580,17 +580,17 @@ export const content = {
     sdk: { more: { label: "阅读 SDK 文档" } },
     mini: {
       commands: { curl: { name: "脚本" } },
-      lead: "Mini 随 Xccode CLI 一起提供。用以下任一方式安装，然后运行 xccode mini。",
+      lead: "Mini 随 Xiaochuan CLI 一起提供。用以下任一方式安装，然后运行 xiaochuan mini。",
     },
   },
   pair: {
     title: "连接手机",
     cardTitle: "一条命令配对手机",
-    intro: "Xccode Mobile 是您电脑上 Xccode 的遥控器。会话继续在电脑上运行，应用负责显示它们，并让您引导它们。",
+    intro: "Xiaochuan Mobile 是您电脑上 Xiaochuan 的遥控器。会话继续在电脑上运行，应用负责显示它们，并让您引导它们。",
     steps: {
       "get-the-app": {
         title: "获取应用",
-        body: "从 TestFlight 在 iPhone 上安装 Xccode 测试版。Android 应用即将推出。",
+        body: "从 TestFlight 在 iPhone 上安装 Xiaochuan 测试版。Android 应用即将推出。",
       },
       "run-this-on-your-computer": {
         title: "在电脑上运行",
@@ -598,19 +598,19 @@ export const content = {
       },
       "scan-the-code": { title: "扫码", body: "用应用扫描二维码，或粘贴链接。电脑上最近的会话就会在手机上打开。" },
     },
-    note: "--remote 通过 OpenTunnel 地址连接，因此可在任意网络中使用。在同一 Wi-Fi 下，先运行一次 xccode service set hostname 0.0.0.0，然后运行 xccode pair。",
+    note: "--remote 通过 OpenTunnel 地址连接，因此可在任意网络中使用。在同一 Wi-Fi 下，先运行一次 xiaochuan service set hostname 0.0.0.0，然后运行 xiaochuan pair。",
     facts: [
       "可在任意网络中使用，--remote 通过 OpenTunnel 地址连接。",
       "链接和二维码只能使用一次，5 分钟后过期。",
       "请保持电脑开机，代理在电脑上运行，而不是在手机上。",
-      "如果在同一 Wi-Fi 下，先运行一次 xccode service set hostname 0.0.0.0，然后运行 xccode pair。",
+      "如果在同一 Wi-Fi 下，先运行一次 xiaochuan service set hostname 0.0.0.0，然后运行 xiaochuan pair。",
     ],
   },
   announcements: {
     "create-install-and-share-desktop-plugins": { text: "创建、安装和分享桌面插件。", link: "查看 2.2 的新功能" },
     "desktop-terminals-now-survive-restarts": { text: "桌面端终端现在重启后依然保留。", link: "查看 v2.2.4" },
     "agents-can-now-generate-images": { text: "代理现在可以生成图片了。", link: "查看 v2.2.1" },
-    "steer-your-sessions-from-your-phone": { text: "在手机上引导您的会话。", link: "认识 Xccode Mobile" },
+    "steer-your-sessions-from-your-phone": { text: "在手机上引导您的会话。", link: "认识 Xiaochuan Mobile" },
     "a-refreshed-desktop-app": { text: "焕然一新的桌面应用。", link: "查看 2.2 的新功能" },
   },
 } satisfies ContentOverlay

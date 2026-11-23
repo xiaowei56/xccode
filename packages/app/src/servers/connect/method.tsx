@@ -1,4 +1,4 @@
-import { Button } from "@xccode/ui/button"
+import { Button } from "@xiaochuan/ui/button"
 import { useLanguage } from "@/runtime/i18n/language"
 
 export type ConnectMethod = "link" | "password"

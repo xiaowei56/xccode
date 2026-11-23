@@ -19,7 +19,7 @@ describe("focus ring colour", () => {
   test.each([
     { mode: "light", expected: "var(--v2-blue-500)" },
     { mode: "dark", expected: "var(--v2-blue-400)" },
-  ] as const)("$mode uses the same focus token for Xccode and custom-theme fallbacks", ({ mode, expected }) => {
+  ] as const)("$mode uses the same focus token for Xiaochuan and custom-theme fallbacks", ({ mode, expected }) => {
     expect(resolveThemeV2(theme)[mode]["v2-border-border-focus"]).toBe(expected)
     expect(
       resolveThemeVariantV2({ ...theme[mode], v2Overrides: undefined }, mode === "dark")["v2-border-border-focus"],

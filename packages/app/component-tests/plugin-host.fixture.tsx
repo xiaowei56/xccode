@@ -1,8 +1,8 @@
-import type { PluginInfo, SessionMessageInfo } from "@xccode/client/promise"
-import { DialogProvider, useDialog } from "@xccode/ui/context/dialog"
-import { Icon } from "@xccode/ui/icon"
-import { Menu } from "@xccode/ui/menu"
-import { Toast } from "@xccode/ui/toast"
+import type { PluginInfo, SessionMessageInfo } from "@xiaochuan/client/promise"
+import { DialogProvider, useDialog } from "@xiaochuan/ui/context/dialog"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Menu } from "@xiaochuan/ui/menu"
+import { Toast } from "@xiaochuan/ui/toast"
 import {
   Panel,
   type Appearance,
@@ -19,8 +19,8 @@ import {
   type Storage,
   type StoreOptions,
   type Workspaces,
-} from "@xccode/plugin/gui"
-import type { BuiltinLayout, BuiltinLocale } from "@xccode/plugin/gui/builtin"
+} from "@xiaochuan/plugin/gui"
+import type { BuiltinLayout, BuiltinLocale } from "@xiaochuan/plugin/gui/builtin"
 import {
   createComponent,
   createMemo,
@@ -41,14 +41,14 @@ import { Persist, persisted } from "@/runtime/persistence/storage"
 import { ServerScope } from "@/runtime/server/scope"
 import { PluginHostProvider, usePluginHost, type HostApiFactories, type PluginInput } from "../src/runtime/plugin/host"
 import { createHostApis } from "../src/runtime/plugin/host-apis"
-import type { Bridge, Entry } from "@xccode/plugin/gui/host"
+import type { Bridge, Entry } from "@xiaochuan/plugin/gui/host"
 import { createRegion, RegionContent } from "../src/runtime/plugin/panels"
 import { createSessionScreenLayout } from "../src/session/screen-layout"
 import type { SessionModel } from "../src/session/model"
 import { createClosedTabs } from "../src/runtime/plugin/closed-tabs"
 import { PluginLinks, PluginSlot, PluginThemes } from "../src/runtime/plugin/render"
-import { Markdown } from "@xccode/session-ui/markdown"
-import { ThemeProvider, useTheme, type ColorScheme } from "@xccode/ui/theme/context"
+import { Markdown } from "@xiaochuan/session-ui/markdown"
+import { ThemeProvider, useTheme, type ColorScheme } from "@xiaochuan/ui/theme/context"
 import { persistedHandle } from "../src/runtime/plugin/stores"
 import { LanguageProvider } from "../src/runtime/i18n/language"
 import { ExtensionPlugins } from "../src/runtime/plugin/extension-plugins"
@@ -68,7 +68,7 @@ export {
   Slot,
   Store,
   Theme,
-} from "@xccode/plugin/gui"
+} from "@xiaochuan/plugin/gui"
 
 export { Schema }
 
@@ -104,7 +104,7 @@ const layout: BuiltinLayout = {
   command() {},
 }
 
-const about: App = { name: "xccode", version: "", channel: "dev", platform: "desktop", packaged: false }
+const about: App = { name: "xiaochuan", version: "", channel: "dev", platform: "desktop", packaged: false }
 
 const locale: BuiltinLocale = { locale: () => "en", direction: () => "ltr", setDirection() {} }
 

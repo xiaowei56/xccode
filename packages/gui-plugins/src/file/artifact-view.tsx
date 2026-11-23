@@ -13,19 +13,19 @@ import {
 import { createStore } from "solid-js/store"
 import { Dynamic } from "solid-js/web"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
-import { PreviewControls } from "@xccode/ui/preview-controls"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { FileIcon } from "@xccode/ui/file-icon"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { ImagePreview } from "@xccode/ui/image-preview"
-import { Loader } from "@xccode/ui/loader"
-import { showToast } from "@xccode/ui/toast"
-import { Markdown } from "@xccode/session-ui/markdown"
-import { MarkdownProvider, useMarkdown } from "@xccode/session-ui/context/markdown"
-import { artifactKind } from "@xccode/util/artifact"
-import { getDirectory, getFilename } from "@xccode/util/path"
-import { createKeyed, usePlugin, type FileContent, type MountedSession, type SessionScreen } from "@xccode/plugin/gui"
+import { PreviewControls } from "@xiaochuan/ui/preview-controls"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { FileIcon } from "@xiaochuan/ui/file-icon"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { ImagePreview } from "@xiaochuan/ui/image-preview"
+import { Loader } from "@xiaochuan/ui/loader"
+import { showToast } from "@xiaochuan/ui/toast"
+import { Markdown } from "@xiaochuan/session-ui/markdown"
+import { MarkdownProvider, useMarkdown } from "@xiaochuan/session-ui/context/markdown"
+import { artifactKind } from "@xiaochuan/util/artifact"
+import { getDirectory, getFilename } from "@xiaochuan/util/path"
+import { createKeyed, usePlugin, type FileContent, type MountedSession, type SessionScreen } from "@xiaochuan/plugin/gui"
 import {
   blobUrlFromContent,
   bytesFromContent,
@@ -35,8 +35,8 @@ import {
   splitFrontmatter,
   type FrontmatterProperty,
 } from "./artifact"
-import { FileViewer } from "@xccode/plugin/gui/file"
-import { uuid } from "@xccode/util/uuid"
+import { FileViewer } from "@xiaochuan/plugin/gui/file"
+import { uuid } from "@xiaochuan/util/uuid"
 import { ArtifactToolbar } from "./artifact-toolbar"
 import { findableHtml } from "./find"
 import {

@@ -48,7 +48,7 @@ export interface Interface {
   readonly exportDebug: Effect.Effect<string>
 }
 
-export class Service extends Context.Service<Service, Interface>()("xccode/desktop/DesktopLogging") {}
+export class Service extends Context.Service<Service, Interface>()("xiaochuan/desktop/DesktopLogging") {}
 
 const serviceLayer = Layer.effect(
   Service,
@@ -62,7 +62,7 @@ const serviceLayer = Layer.effect(
     yield* Effect.logInfo("app starting", {
       version: VERSION,
       packaged: app.isPackaged,
-      onboardingTest: process.env.XCCODE_TEST_ONBOARDING === "1",
+      onboardingTest: process.env.XIAOCHUAN_TEST_ONBOARDING === "1",
       marks,
     })
     const fibers = yield* FiberSet.make()
@@ -266,7 +266,7 @@ function initCrashReporter(fs: FileSystem.FileSystem, path: Path.Path) {
 
 function writeDebugArchive(fs: FileSystem.FileSystem, path: Path.Path, netLogPath: string | undefined) {
   return Effect.gen(function* () {
-    const output = path.join(app.getPath("downloads"), `xccode-debug-${stamp()}.zip`)
+    const output = path.join(app.getPath("downloads"), `xiaochuan-debug-${stamp()}.zip`)
     yield* Effect.logInfo("exporting debug logs", { output })
 
     const files = [
@@ -350,7 +350,7 @@ function manifest(path: Path.Path, netLogPath: string | undefined) {
 function serverLogRoots(path: Path.Path) {
   const xdgData = process.env.XDG_DATA_HOME || path.join(homedir(), ".local", "share")
 
-  return [...new Set([path.join(xdgData, "xccode", "log"), path.join(app.getPath("userData"), "xccode", "log")])]
+  return [...new Set([path.join(xdgData, "xiaochuan", "log"), path.join(app.getPath("userData"), "xiaochuan", "log")])]
 }
 
 type Entry = { name: string; path: string; offset: number } | { name: string; data: Uint8Array }

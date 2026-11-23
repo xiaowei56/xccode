@@ -1,11 +1,11 @@
-import { Button } from "@xccode/ui/button"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@xccode/ui/dialog"
-import { ErrorDetails } from "@xccode/ui/error-details"
-import { Icon } from "@xccode/ui/icon"
-import { Loader } from "@xccode/ui/loader"
-import { Menu } from "@xccode/ui/menu"
-import { MenuScroll } from "@xccode/ui/menu-scroll"
-import { getFilename } from "@xccode/util/path"
+import { Button } from "@xiaochuan/ui/button"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@xiaochuan/ui/dialog"
+import { ErrorDetails } from "@xiaochuan/ui/error-details"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Loader } from "@xiaochuan/ui/loader"
+import { Menu } from "@xiaochuan/ui/menu"
+import { MenuScroll } from "@xiaochuan/ui/menu-scroll"
+import { getFilename } from "@xiaochuan/util/path"
 import {
   createMemo,
   createRoot,
@@ -24,7 +24,7 @@ import {
   type MountedSession,
   type Project,
   type ServerRef,
-} from "@xccode/plugin/gui"
+} from "@xiaochuan/plugin/gui"
 import {
   createWorkspaceMoveState,
   transitionWorkspaceMove,

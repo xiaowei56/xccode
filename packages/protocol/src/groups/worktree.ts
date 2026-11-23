@@ -1,7 +1,7 @@
-import { Worktree } from "@xccode/schema/worktree"
+import { Worktree } from "@xiaochuan/schema/worktree"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiSchema, OpenApi } from "effect/http-api"
-import { Project } from "@xccode/schema/project"
+import { Project } from "@xiaochuan/schema/project"
 import { ProjectNotFoundError } from "../errors.js"
 
 const root = "/api/worktree"

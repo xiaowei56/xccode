@@ -1,13 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/plugin-browser",
+  "name": "@xiaochuan/plugin-browser",
   "version": "2.3.0",
-  "description": "Xccode's desktop browser plugin",
+  "description": "Xiaochuan's desktop browser plugin",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaowei56/xccode.git",
+    "url": "git+https://github.com/xiaowei56/xiaochuan.git",
     "directory": "packages/plugin-browser"
   },
   "publishConfig": {
@@ -31,9 +31,9 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@xccode/plugin": "workspace:*",
-    "@xccode/schema": "workspace:*",
-    "@xccode/util": "workspace:*",
+    "@xiaochuan/plugin": "workspace:*",
+    "@xiaochuan/schema": "workspace:*",
+    "@xiaochuan/util": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {

@@ -1,17 +1,17 @@
 <p align="center">
-  <a href="https://xccode.ai">
+  <a href="https://xiaochuan.ai">
     <picture>
       <source srcset=".github/assets/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset=".github/assets/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src=".github/assets/logo-ornate-light.svg" alt="Xccode logo">
+      <img src=".github/assets/logo-ornate-light.svg" alt="Xiaochuan logo">
     </picture>
   </a>
 </p>
 <p align="center">오픈 소스 AI 코딩 에이전트.</p>
 <p align="center">
-  <a href="https://xccode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/@xccode/cli"><img alt="npm" src="https://img.shields.io/npm/v/@xccode/cli?style=flat-square" /></a>
-  <a href="https://github.com/xiaowei56/xccode/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/xiaowei56/xccode/release.yml?style=flat-square&branch=dev" /></a>
+  <a href="https://xiaochuan.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
+  <a href="https://www.npmjs.com/package/@xiaochuan/cli"><img alt="npm" src="https://img.shields.io/npm/v/@xiaochuan/cli?style=flat-square" /></a>
+  <a href="https://github.com/xiaowei56/xiaochuan/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/xiaowei56/xiaochuan/release.yml?style=flat-square&branch=dev" /></a>
 </p>
 
 <p align="center">
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![Xccode Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://xccode.ai)
+[![Xiaochuan Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://xiaochuan.ai)
 
 ---
 
@@ -47,16 +47,16 @@
 
 ```bash
 # YOLO
-curl -fsSL https://xccode.ai/v2/install | bash
+curl -fsSL https://xiaochuan.ai/v2/install | bash
 
 # 패키지 매니저
-npm i -g @xccode/cli@latest      # bun/pnpm/yarn 도 가능
-brew install anomalyco/tap/xccode-v2 # macOS 및 Linux (권장, 항상 최신)
-brew install xccode              # macOS 및 Linux (공식 brew formula, 업데이트 빈도 낮음)
-sudo pacman -S xccode            # Arch Linux (Stable)
-paru -S xccode-beta              # Arch Linux (Latest from AUR)
-mise use -g xccode               # 어떤 OS든
-nix run github:xiaowei56/xccode  # Nix
+npm i -g @xiaochuan/cli@latest      # bun/pnpm/yarn 도 가능
+brew install anomalyco/tap/xiaochuan-v2 # macOS 및 Linux (권장, 항상 최신)
+brew install xiaochuan              # macOS 및 Linux (공식 brew formula, 업데이트 빈도 낮음)
+sudo pacman -S xiaochuan            # Arch Linux (Stable)
+paru -S xiaochuan-beta              # Arch Linux (Latest from AUR)
+mise use -g xiaochuan               # 어떤 OS든
+nix run github:xiaowei56/xiaochuan  # Nix
 ```
 
 > [!TIP]
@@ -64,27 +64,27 @@ nix run github:xiaowei56/xccode  # Nix
 
 ### 데스크톱 앱 (BETA)
 
-Xccode 는 데스크톱 앱으로도 제공됩니다. [xccode.ai/download](https://xccode.ai/download) 에서 다운로드하세요.
+Xiaochuan 는 데스크톱 앱으로도 제공됩니다. [xiaochuan.ai/download](https://xiaochuan.ai/download) 에서 다운로드하세요.
 
 | 플랫폼                | 다운로드                           |
 | --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `xccode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `xccode-desktop-mac-x64.dmg`     |
-| Windows               | `xccode-desktop-win-x64.exe`     |
+| macOS (Apple Silicon) | `xiaochuan-desktop-mac-arm64.dmg`   |
+| macOS (Intel)         | `xiaochuan-desktop-mac-x64.dmg`     |
+| Windows               | `xiaochuan-desktop-win-x64.exe`     |
 | Linux                 | `.deb`, `.rpm`, 또는 AppImage      |
 
 ```bash
 # macOS (Homebrew)
-brew install --cask xccode-desktop
+brew install --cask xiaochuan-desktop
 ```
 
 #### 설치 디렉터리
 
-설치 스크립트는 Xccode를 `$HOME/.xccode/bin`에 설치합니다.
+설치 스크립트는 Xiaochuan를 `$HOME/.xiaochuan/bin`에 설치합니다.
 
 ### Agents
 
-Xccode 에는 내장 에이전트 2개가 있으며 `Tab` 키로 전환할 수 있습니다.
+Xiaochuan 에는 내장 에이전트 2개가 있으며 `Tab` 키로 전환할 수 있습니다.
 
 - **build** - 기본값, 개발 작업을 위한 전체 권한 에이전트
 - **plan** - 분석 및 코드 탐색을 위한 읽기 전용 에이전트
@@ -95,20 +95,20 @@ Xccode 에는 내장 에이전트 2개가 있으며 `Tab` 키로 전환할 수 �
 또한 복잡한 검색과 여러 단계 작업을 위한 **general** 서브 에이전트가 포함되어 있습니다.
 내부적으로 사용되며, 메시지에서 `@general` 로 호출할 수 있습니다.
 
-[agents](https://xccode.ai/docs/agents) 에 대해 더 알아보세요.
+[agents](https://xiaochuan.ai/docs/agents) 에 대해 더 알아보세요.
 
 ### 문서
 
-Xccode 설정에 대한 자세한 내용은 [**문서**](https://xccode.ai/docs) 를 참고하세요.
+Xiaochuan 설정에 대한 자세한 내용은 [**문서**](https://xiaochuan.ai/docs) 를 참고하세요.
 
 ### 기여하기
 
-Xccode 에 기여하고 싶다면, Pull Request 를 제출하기 전에 [contributing docs](./CONTRIBUTING.md) 를 읽어주세요.
+Xiaochuan 에 기여하고 싶다면, Pull Request 를 제출하기 전에 [contributing docs](./CONTRIBUTING.md) 를 읽어주세요.
 
-### Xccode 기반으로 만들기
+### Xiaochuan 기반으로 만들기
 
-Xccode 와 관련된 프로젝트를 진행하면서 이름에 "xccode"(예: "xccode-dashboard" 또는 "xccode-mobile") 를 포함한다면, README 에 해당 프로젝트가 Xccode 팀이 만든 것이 아니며 어떤 방식으로도 우리와 제휴되어 있지 않다는 점을 명시해 주세요.
+Xiaochuan 와 관련된 프로젝트를 진행하면서 이름에 "xiaochuan"(예: "xiaochuan-dashboard" 또는 "xiaochuan-mobile") 를 포함한다면, README 에 해당 프로젝트가 Xiaochuan 팀이 만든 것이 아니며 어떤 방식으로도 우리와 제휴되어 있지 않다는 점을 명시해 주세요.
 
 ---
 
-**커뮤니티에 참여하기** [Discord](https://discord.gg/xccode) | [X.com](https://x.com/xccode)
+**커뮤니티에 참여하기** [Discord](https://discord.gg/xiaochuan) | [X.com](https://x.com/xiaochuan)

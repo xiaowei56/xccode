@@ -1,4 +1,4 @@
-import type { SessionMessageUser } from "@xccode/client/promise"
+import type { SessionMessageUser } from "@xiaochuan/client/promise"
 import { useLocation, useNavigate } from "@solidjs/router"
 import { createEffect, createSignal, on, onCleanup, onMount, untrack, type Accessor } from "solid-js"
 import {

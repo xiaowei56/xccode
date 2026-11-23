@@ -1,14 +1,14 @@
 export * as ConfigMcpPlugin from "./mcp.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
-import { Document, type Entry } from "@xccode/schema/config"
-import type { ServerConfig } from "@xccode/schema/mcp"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { Document, type Entry } from "@xiaochuan/schema/config"
+import type { ServerConfig } from "@xiaochuan/schema/mcp"
 import { Effect, Stream } from "effect"
 import { Config } from "../../config.js"
 import { Mcp } from "../../mcp/index.js"
 
 export const Plugin = define({
-  id: "xccode.config.mcp",
+  id: "xiaochuan.config.mcp",
   effect: Effect.fn(function* (ctx) {
     yield* register(ctx.event.subscribe({ types: ["config.updated"] }))
   }),

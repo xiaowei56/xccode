@@ -1,6 +1,6 @@
 import { createEffect, createMemo, createSignal, on, onMount, untrack, type Accessor } from "solid-js"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { focusField, handoffRing } from "@xccode/ui/context/field-focus"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { focusField, handoffRing } from "@xiaochuan/ui/context/field-focus"
 import type { ComposerControls } from "@/composer/adapter"
 import { setCursorPosition } from "@/composer/editor/dom"
 import { promptLength } from "@/composer/prompt-parts"

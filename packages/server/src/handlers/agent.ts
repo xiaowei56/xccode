@@ -1,9 +1,9 @@
-import { Agent } from "@xccode/core/agent"
+import { Agent } from "@xiaochuan/core/agent"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"
 import { response } from "../location"
-import { AgentNotFoundError } from "@xccode/protocol/errors"
+import { AgentNotFoundError } from "@xiaochuan/protocol/errors"
 
 export const AgentHandler = HttpApiBuilder.group(Api, "server.agent", (handlers) =>
   handlers

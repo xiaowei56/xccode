@@ -13,7 +13,7 @@ export function nodeTarget(platform: string, arch: string) {
   const parcelWatcherPackage = `@parcel/watcher-${targetPlatform}-${targetArch}${targetPlatform === "linux" ? "-glibc" : ""}`
   const fffPackage = `@ff-labs/fff-bin-${targetPlatform}-${targetArch}${targetPlatform === "linux" ? "-gnu" : ""}`
   const fffFfiPackage = `@yuuang/ffi-rs-${targetPlatform}-${targetArch}${targetPlatform === "linux" ? "-gnu" : targetPlatform === "win32" ? "-msvc" : ""}`
-  const xccodePtyAsset = targetPlatform === "win32" ? "xccode-pty/xccode-pty.exe" : "xccode-pty/xccode-pty"
+  const xiaochuanPtyAsset = targetPlatform === "win32" ? "xiaochuan-pty/xiaochuan-pty.exe" : "xiaochuan-pty/xiaochuan-pty"
 
   return {
     platform: targetPlatform,
@@ -26,7 +26,7 @@ export function nodeTarget(platform: string, arch: string) {
     fffAsset: `${fffPackage}/${targetPlatform === "darwin" ? "libfff_c.dylib" : targetPlatform === "win32" ? "fff_c.dll" : "libfff_c.so"}`,
     fffFfiPackage,
     fffFfiAsset: `${fffFfiPackage}/ffi-rs.${targetPlatform}-${targetArch}${targetPlatform === "linux" ? "-gnu" : targetPlatform === "win32" ? "-msvc" : ""}.node`,
-    xccodePtyAsset,
+    xiaochuanPtyAsset,
   }
 }
 
@@ -34,9 +34,9 @@ export const photonWasmAsset = "@silvia-odwyer/photon-node/photon_rs_bg.wasm"
 export const nodeExecArgv = ["--experimental-ffi", "--use-system-ca", "--disable-warning=ExperimentalWarning"] as const
 
 export const attentionSoundAssets = [
-  "@xccode/ui/audio/bip-bop-01.mp3",
-  "@xccode/ui/audio/bip-bop-03.mp3",
-  "@xccode/ui/audio/staplebops-06.mp3",
-  "@xccode/ui/audio/nope-03.mp3",
-  "@xccode/ui/audio/yup-01.mp3",
+  "@xiaochuan/ui/audio/bip-bop-01.mp3",
+  "@xiaochuan/ui/audio/bip-bop-03.mp3",
+  "@xiaochuan/ui/audio/staplebops-06.mp3",
+  "@xiaochuan/ui/audio/nope-03.mp3",
+  "@xiaochuan/ui/audio/yup-01.mp3",
 ] as const

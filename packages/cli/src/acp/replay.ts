@@ -1,6 +1,6 @@
 import type { SessionUpdate } from "@agentclientprotocol/sdk"
-import type { XccodeClient } from "@xccode/client/effect"
-import type { SessionMessage } from "@xccode/schema/session-message"
+import type { XiaochuanClient } from "@xiaochuan/client/effect"
+import type { SessionMessage } from "@xiaochuan/schema/session-message"
 import { Effect, Option, Stream } from "effect"
 import type { Capabilities } from "./capabilities"
 import { ACPClient } from "./client"
@@ -13,7 +13,7 @@ import { ACPTranslate } from "./translate"
 import { completedToolUpdate, errorToolUpdate, pendingToolCall, runningToolUpdate } from "./tool"
 
 export function history(
-  client: XccodeClient,
+  client: XiaochuanClient,
   connection: ACPConnection.Interface,
   attached: Attached,
   capabilities: Capabilities,

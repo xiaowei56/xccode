@@ -4,8 +4,8 @@ import { useServer } from "@/runtime/server/current"
 import type { ServerCtx } from "@/runtime/server/runtime"
 import { usePlatform } from "@/runtime/platform/platform"
 import { showToast } from "@/shell/notifications/toast"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { uuid } from "@xccode/util/uuid"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { uuid } from "@xiaochuan/util/uuid"
 import {
   createMcpState,
   type McpEffect,

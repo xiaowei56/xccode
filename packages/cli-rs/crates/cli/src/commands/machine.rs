@@ -3,14 +3,14 @@
 
 use std::io::IsTerminal;
 
-use xccode_api::client::Client;
-use xccode_api::error::Error as ApiError;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::error::Error as ApiError;
+use xiaochuan_api::generated::{
     ConflictError, ExperimentalMachineAddInput, ExperimentalMachineRemoveInput, ForbiddenError, InvalidRequestError,
     MachineInfo, MachineInvite, MachineInviteReachItem, MachineNotFoundError, MachineReach,
 };
-use xccode_util::time::{Zone, now_ms};
-use xccode_util::{bail, error};
+use xiaochuan_util::time::{Zone, now_ms};
+use xiaochuan_util::{bail, error};
 use serde::Deserialize;
 
 use super::Context;
@@ -86,7 +86,7 @@ async fn client(context: &Context) -> error::Result<Connected> {
     }
     let disabled = Local::from_env()?.config().read()?.disabled == Some(true);
     if context.server.server.is_none() && disabled {
-        bail!("Managing machines requires the background service; run `xccode service unset disabled` first.");
+        bail!("Managing machines requires the background service; run `xiaochuan service unset disabled` first.");
     }
     connect(context).await
 }
@@ -96,7 +96,7 @@ fn reach(urls: &[String]) -> Vec<MachineReach> {
     let parsed: Vec<(String, bool)> = urls
         .iter()
         .filter_map(|raw| {
-            let mut url = xccode_api::js::join_url(&xccode_api::js::parse_url(raw).ok()?, LINK_PATH).ok()?;
+            let mut url = xiaochuan_api::js::join_url(&xiaochuan_api::js::parse_url(raw).ok()?, LINK_PATH).ok()?;
             // As `url.protocol = ...`, a scheme the URL cannot take leaves it as it was.
             let _ = url.set_scheme(if url.scheme() == "https" { "wss" } else { "ws" });
             let loopback = is_loopback(url.host_str().unwrap_or(""));
@@ -124,7 +124,7 @@ fn add_text(invite: &MachineInvite, tty: bool, now: i64, zone: Zone) -> String {
     };
     let reachable = |entry: &MachineInviteReachItem| match entry {
         MachineInviteReachItem::Url(entry) => {
-            xccode_api::js::parse_url(&entry.url).is_ok_and(|url| !is_loopback(url.host_str().unwrap_or("")))
+            xiaochuan_api::js::parse_url(&entry.url).is_ok_and(|url| !is_loopback(url.host_str().unwrap_or("")))
         }
         _ => false,
     };
@@ -213,7 +213,7 @@ fn message(error: &error::Error, name: Option<&str>) -> String {
     let Some(declared) = api.declared() else { return api.error_message() };
     let quote = |text: &str| serde_json::to_string(text).unwrap_or_default();
     if declared.is::<ForbiddenError>() {
-        return "Machines are experimental and disabled on this server. Turn them on with XCCODE_FLAGS=machines or experimental.machines: true in your config.".into();
+        return "Machines are experimental and disabled on this server. Turn them on with XIAOCHUAN_FLAGS=machines or experimental.machines: true in your config.".into();
     }
     if declared.decode::<InvalidRequestError>().is_ok_and(|invalid| invalid.kind.as_deref() == Some("invalid_name")) {
         let label = name.map_or_else(|| "That name".to_string(), quote);
@@ -238,7 +238,7 @@ fn message(error: &error::Error, name: Option<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use xccode_api::error::DeclaredError;
+    use xiaochuan_api::error::DeclaredError;
     use serde_json::json;
 
     fn urls(reach: &[MachineReach]) -> Vec<&str> {
@@ -399,7 +399,7 @@ mod tests {
     fn errors_say_what_to_do() {
         let declared = |status, body| error::Error::new(ApiError::Declared(Box::new(DeclaredError::new(status, body))));
         let forbidden = declared(403, json!({ "_tag": "ForbiddenError", "message": "disabled" }));
-        assert!(message(&forbidden, None).contains("XCCODE_FLAGS=machines or experimental.machines: true"));
+        assert!(message(&forbidden, None).contains("XIAOCHUAN_FLAGS=machines or experimental.machines: true"));
         let invalid = declared(400, json!({ "_tag": "InvalidRequestError", "kind": "invalid_name", "message": "bad" }));
         assert!(message(&invalid, Some("Bad")).starts_with("\"Bad\" is not a valid machine name."));
         assert!(message(&invalid, None).contains("That name is not a valid machine name. Use lowercase letters, digits, and hyphens, starting with a letter, 2 to 63 characters"));
@@ -412,6 +412,6 @@ mod tests {
         assert!(message(&anonymous, None).starts_with("This machine is already paired."));
         let missing = declared(404, json!({ "_tag": "MachineNotFoundError", "machine": "x", "message": "missing" }));
         assert_eq!(message(&missing, Some("x")), "No machine named \"x\".");
-        assert_eq!(message(&xccode_util::err!("plain failure"), None), "plain failure");
+        assert_eq!(message(&xiaochuan_util::err!("plain failure"), None), "plain failure");
     }
 }

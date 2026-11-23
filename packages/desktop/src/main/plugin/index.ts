@@ -25,7 +25,7 @@ export interface Interface {
   readonly configure: (window: number, servers: readonly PluginEndpoint[]) => void
 }
 
-export class Service extends Context.Service<Service, Interface>()("xccode/desktop/Plugins") {}
+export class Service extends Context.Service<Service, Interface>()("xiaochuan/desktop/Plugins") {}
 
 export const layer = Layer.effect(
   Service,

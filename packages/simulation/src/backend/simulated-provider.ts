@@ -1,6 +1,6 @@
-import { SdkPlugins } from "@xccode/core/plugin/sdk"
-import { Tool } from "@xccode/core/tool"
-import { Plugin } from "@xccode/plugin/effect"
+import { SdkPlugins } from "@xiaochuan/core/plugin/sdk"
+import { Tool } from "@xiaochuan/core/tool"
+import { Plugin } from "@xiaochuan/plugin/effect"
 import { createHash } from "node:crypto"
 import {
   Cause,
@@ -40,7 +40,7 @@ export interface Interface {
   readonly stream: (request: ProviderRequest) => Stream.Stream<ProviderResponseEvent, ProviderDisconnectedError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/simulation/SimulatedProvider") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/simulation/SimulatedProvider") {}
 
 interface ProviderInvocation extends ProviderRequest {
   readonly id: string
@@ -272,7 +272,7 @@ export const layerDrive = (options: { readonly endpoint: string; readonly versio
       yield* Effect.addFinalizer(() => tools.shutdown)
       yield* SimulationControlServer.start({
         endpoint: options.endpoint,
-        label: "xccode drive backend websocket",
+        label: "xiaochuan drive backend websocket",
         data: () => ({}),
         decode: SimulationProtocol.Backend.decodeRequestEffect,
         handle: (socket, request) =>
@@ -282,7 +282,7 @@ export const layerDrive = (options: { readonly endpoint: string; readonly versio
             discard: true,
           }),
       })
-      yield* Effect.sync(() => process.stderr.write(`xccode drive backend websocket: ${options.endpoint}\n`))
+      yield* Effect.sync(() => process.stderr.write(`xiaochuan drive backend websocket: ${options.endpoint}\n`))
 
       return Service.of({
         stream: (request) =>
@@ -312,7 +312,7 @@ function handle(
       return SimulationProtocol.Handshake.dispatch(
         {
           role: "backend",
-          server: { name: "xccode", version },
+          server: { name: "xiaochuan", version },
           capabilities: SimulationProtocol.Backend.Capabilities,
         },
         request.params,
@@ -537,7 +537,7 @@ const makeToolDriver = Effect.fn("SimulatedProvider.makeToolDriver")(function* (
 
   yield* plugins.register(
     Plugin.define({
-      id: "xccode.simulation.tools",
+      id: "xiaochuan.simulation.tools",
       effect: (ctx) =>
         Effect.gen(function* () {
           const scope = yield* Scope.Scope

@@ -1,5 +1,5 @@
-import type { SessionInfo, SessionMessageInfo } from "@xccode/client/promise"
-import { SessionMessage } from "@xccode/schema/session-message"
+import type { SessionInfo, SessionMessageInfo } from "@xiaochuan/client/promise"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
 import type { ServerCtx } from "@/runtime/server/runtime"
 import { decodeArguments, type ToolCall } from "./protocol"
 import { ReplyWatch } from "./replies"

@@ -6,8 +6,8 @@ use std::process::Command;
 /// `openUrl`'s check: the normalized `href` of an http or https link, or the error to show. Check a URL with this
 /// before [`command`], which also starts programs and opens files.
 pub fn web_url(input: &str) -> Result<String, String> {
-    match xccode_api_types::js::parse_url(input) {
-        Err(error @ xccode_api_types::js::UrlError::NonAsciiHost(_)) => Err(error.to_string()),
+    match xiaochuan_api_types::js::parse_url(input) {
+        Err(error @ xiaochuan_api_types::js::UrlError::NonAsciiHost(_)) => Err(error.to_string()),
         url => url
             .ok()
             .filter(|url| matches!(url.scheme(), "http" | "https"))
@@ -68,7 +68,7 @@ mod tests {
 
     #[test]
     fn only_web_links_pass_as_urls() {
-        assert_eq!(web_url("HTTPS://xccode.ai"), Ok("https://xccode.ai/".to_owned()));
+        assert_eq!(web_url("HTTPS://xiaochuan.ai"), Ok("https://xiaochuan.ai/".to_owned()));
         for input in [r"C:\Windows\System32\calc.exe", "calc", "file:///etc/passwd", "ms-settings:"] {
             assert_eq!(web_url(input), Err(format!("Only http and https links can be opened in the browser: {input}")));
         }
@@ -82,7 +82,7 @@ mod tests {
 
     #[test]
     fn windows_starts_the_target_through_encoded_powershell() {
-        let (program, args) = opener("windows", "https://xccode.ai", Some(r"D:\Win"));
+        let (program, args) = opener("windows", "https://xiaochuan.ai", Some(r"D:\Win"));
         assert_eq!(program, r"D:\Win\System32\WindowsPowerShell\v1.0\powershell.exe");
         assert_eq!(args[..5], ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-EncodedCommand"]);
         // The `open` package's encoding of the same command.

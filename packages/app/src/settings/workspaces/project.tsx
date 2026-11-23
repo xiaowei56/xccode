@@ -1,13 +1,13 @@
-import { Icon } from "@xccode/ui/icon"
+import { Icon } from "@xiaochuan/ui/icon"
 import {
   displayName,
   getProjectAvatarVariant,
   ProjectAvatar,
   PROJECT_AVATAR_VARIANTS,
-} from "@xccode/ui/project-avatar"
-import { Select } from "@xccode/ui/select"
-import { Textarea } from "@xccode/ui/textarea"
-import { TextInput } from "@xccode/ui/text-input"
+} from "@xiaochuan/ui/project-avatar"
+import { Select } from "@xiaochuan/ui/select"
+import { Textarea } from "@xiaochuan/ui/textarea"
+import { TextInput } from "@xiaochuan/ui/text-input"
 import { For, Show, createMemo, type Component } from "solid-js"
 import { useLanguage } from "@/runtime/i18n/language"
 import type { LocalProject } from "@/shell/state/layout"

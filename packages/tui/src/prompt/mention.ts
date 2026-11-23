@@ -1,4 +1,4 @@
-import type { PromptInput, PromptMention } from "@xccode/schema"
+import type { PromptInput, PromptMention } from "@xiaochuan/schema"
 import { measureEditText, type WidthMethod } from "@opentui/core"
 import type { EditablePromptInput } from "./codec"
 import { expandTrackedPastedText } from "./part"

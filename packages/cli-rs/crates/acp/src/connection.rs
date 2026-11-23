@@ -8,7 +8,7 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use futures_util::future::BoxFuture;
-use xccode_util::lock;
+use xiaochuan_util::lock;
 use serde_json::{Map, Value, json};
 use tokio::io::{AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
 use tokio::sync::{mpsc, oneshot};
@@ -446,7 +446,7 @@ fn strip_cr(line: &[u8]) -> &[u8] {
 fn receive_line(connection: &Connection, handler: &Arc<dyn Handler>, line: &[u8]) -> ControlFlow<()> {
     let text = String::from_utf8_lossy(line);
     // JavaScript's `trim`: a byte order mark goes, U+0085 stays.
-    let text = text.trim_matches(xccode_api::js::is_whitespace);
+    let text = text.trim_matches(xiaochuan_api::js::is_whitespace);
     if text.is_empty() {
         return ControlFlow::Continue(());
     }

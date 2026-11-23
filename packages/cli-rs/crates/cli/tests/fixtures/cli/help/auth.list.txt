@@ -2,7 +2,7 @@
   list integrations and credentials
 
 [1mUSAGE[0m
-  [36mxccode auth list [flags][0m
+  [36mxiaochuan auth list [flags][0m
 
 [1mFLAGS[0m
   [32m--format[0m [2mchoice[0m    Output format (choices: default, json)

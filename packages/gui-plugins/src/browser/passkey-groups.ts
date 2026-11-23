@@ -1,4 +1,4 @@
-import type { Browser } from "@xccode/plugin-browser/rpc"
+import type { Browser } from "@xiaochuan/plugin-browser/rpc"
 
 /**
  * Which tabs of a binding refuse passkeys together. A tab and the pop-ups it opened, and theirs, can script each other

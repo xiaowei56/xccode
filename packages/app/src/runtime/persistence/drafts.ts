@@ -532,7 +532,7 @@ function split(text: string) {
 }
 
 export function createBrowserDraftStore(): DraftStore {
-  const request = indexedDB.open("xccode-drafts", 1)
+  const request = indexedDB.open("xiaochuan-drafts", 1)
   request.addEventListener("upgradeneeded", () => {
     request.result.createObjectStore("documents")
     request.result.createObjectStore("blobs")

@@ -1,9 +1,9 @@
-import { Button } from "@xccode/ui/button"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Menu } from "@xccode/ui/menu"
+import { Button } from "@xiaochuan/ui/button"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Menu } from "@xiaochuan/ui/menu"
 import { createMemo, Show } from "solid-js"
-import { usePlugin, type IpcClient, type ServerRow } from "@xccode/plugin/gui"
+import { usePlugin, type IpcClient, type ServerRow } from "@xiaochuan/plugin/gui"
 import type { Wsl, WslServersState } from "./contract"
 import { wslRowView } from "./row-view"
 
@@ -41,7 +41,7 @@ export default function WslRow(props: {
                 <Button
                   size="small"
                   disabled={button().disabled}
-                  onClick={() => props.run(() => api().installXccode({ name: props.distro }))}
+                  onClick={() => props.run(() => api().installXiaochuan({ name: props.distro }))}
                 >
                   {plugin.t(button().label)}
                 </Button>

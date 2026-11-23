@@ -3,7 +3,7 @@
 // with its error output, each call in its own row (`session.grouping: none`).
 import { defineApp, session } from "../../lib/app"
 
-const directory = "/tmp/xccode/packages/tui"
+const directory = "/tmp/xiaochuan/packages/tui"
 const patch = [
   "Index: src/lexer.rs",
   "===================================================================",

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { FileContent } from "@xccode/plugin/gui"
+import type { FileContent } from "@xiaochuan/plugin/gui"
 import {
   createArtifactViewerState,
   createVideoOverlayState,

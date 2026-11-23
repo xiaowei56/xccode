@@ -6,10 +6,10 @@ use std::rc::Rc;
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_local::cli_config::{CliConfig, Info};
-use xccode_tui::app::Roots;
-use xccode_tui::features::links::testing;
-use xccode_tui::{Deps, Route, Tui};
+use xiaochuan_local::cli_config::{CliConfig, Info};
+use xiaochuan_tui::app::Roots;
+use xiaochuan_tui::features::links::testing;
+use xiaochuan_tui::{Deps, Route, Tui};
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 use serde_json::{Value, json};
@@ -30,7 +30,7 @@ fn mount(app: &TestApp, info: Info, roots: Option<Roots>) -> Rc<Tui> {
         "/api/location/reload" => (204, Value::Null),
         _ => support::not_found(),
     });
-    xccode_tui::mount(
+    xiaochuan_tui::mount(
         app,
         Deps { config: support::config(info), roots, route: Route::Home, ..support::deps(Arc::new(fake)) },
     )
@@ -109,7 +109,7 @@ fn copies_drop_nul() {
     let capture = testing::capture();
     let app = TestApp::new(80, 24);
     let tui = mount(&app, support::component_info(json!({})), None);
-    assert!(xccode_tui::features::selection::copy(&tui, "a\0b", "Copied to clipboard"));
+    assert!(xiaochuan_tui::features::selection::copy(&tui, "a\0b", "Copied to clipboard"));
     assert_eq!(*capture.0.copied.borrow(), ["ab"]);
 }
 
@@ -149,7 +149,7 @@ fn a_plain_click_opens_a_link_and_modified_clicks_and_drags_do_not() {
     let app = TestApp::new(80, 24);
     let _tui = mount(&app, support::component_info(json!({})), None);
     let link = Text::new(app.app(), "");
-    link.set_text(vec![Span::raw("docs").link("https://xccode.ai/docs")]);
+    link.set_text(vec![Span::raw("docs").link("https://xiaochuan.ai/docs")]);
     app.app().root().add(&link);
     let screen = app.text();
     let y = screen.lines().position(|line| line.starts_with("docs")).unwrap() as u16;
@@ -162,10 +162,10 @@ fn a_plain_click_opens_a_link_and_modified_clicks_and_drags_do_not() {
     app.mouse(MouseEventKind::Up(MouseButton::Left), 1, y);
     app.drag((0, y), (3, y));
     assert!(capture.0.opened.borrow().is_empty());
-    assert_eq!(xccode_tui::features::links::link_at(app.app(), 1, y).as_deref(), Some("https://xccode.ai/docs"));
+    assert_eq!(xiaochuan_tui::features::links::link_at(app.app(), 1, y).as_deref(), Some("https://xiaochuan.ai/docs"));
     app.advance(Duration::from_millis(600));
     app.click(1, y);
-    assert_eq!(*capture.0.opened.borrow(), ["https://xccode.ai/docs"]);
+    assert_eq!(*capture.0.opened.borrow(), ["https://xiaochuan.ai/docs"]);
 }
 
 #[test]
@@ -176,7 +176,7 @@ fn system_commands_run_from_their_keys_and_the_palette() {
     app.press("ctrl+p");
     app.type_text("open docs");
     app.press("return");
-    assert_eq!(*capture.0.opened.borrow(), ["https://xccode.ai/docs"]);
+    assert_eq!(*capture.0.opened.borrow(), ["https://xiaochuan.ai/docs"]);
     assert!(!tui.dialogs.is_open());
 
     let palette: Vec<String> = tui
@@ -231,7 +231,7 @@ fn toggles_write_cli_json_as_typescript_does_and_typescript_reads_them() {
         "{{\n  // my settings\n  \"keybinds\": {},\n  \"prompt\": {{ \"image_preview\": true }}\n}}\n",
         keybinds()
     );
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let paths = support::xdg_paths(home.path());
     std::fs::create_dir_all(&paths.config).unwrap();
     let file = paths.config.join("cli.json");
@@ -274,7 +274,7 @@ fn toggles_write_cli_json_as_typescript_does_and_typescript_reads_them() {
         assert_eq!(title(id).as_deref(), Some(expected), "{id}");
     }
 
-    let twin = xccode_util::temp::tempdir().unwrap();
+    let twin = xiaochuan_util::temp::tempdir().unwrap();
     let twin_file = support::xdg_paths(twin.path()).config.join("cli.json");
     std::fs::create_dir_all(twin_file.parent().unwrap()).unwrap();
     std::fs::write(&twin_file, &original).unwrap();

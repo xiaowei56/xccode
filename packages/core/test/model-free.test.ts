@@ -1,17 +1,17 @@
-import { Agent } from "@xccode/core/agent"
+import { Agent } from "@xiaochuan/core/agent"
 import { expect } from "bun:test"
 import { DateTime, Effect, Layer } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { ModelResolver } from "@xccode/core/model-resolver"
-import { Project } from "@xccode/core/project"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { Money } from "@xccode/schema/money"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { ModelResolver } from "@xiaochuan/core/model-resolver"
+import { Project } from "@xiaochuan/core/project"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { Money } from "@xiaochuan/schema/money"
 import { withEnv } from "./fixture/env"
 import { location } from "./fixture/location"
 import { it } from "./lib/effect"
@@ -27,9 +27,9 @@ const local = Model.ID.make("local")
 const other = Provider.ID.make("other")
 
 for (const flag of [undefined, "0", "1", "true"]) {
-  for (const providerID of [Provider.ID.xccode, Provider.ID.make("xccode-go")])
-    it.effect(`${providerID} catalog with XCCODE_DISABLE_FREE_MODELS=${flag}`, () =>
-      withEnv({ XCCODE_DISABLE_FREE_MODELS: flag }, () =>
+  for (const providerID of [Provider.ID.xiaochuan, Provider.ID.make("xiaochuan-go")])
+    it.effect(`${providerID} catalog with XIAOCHUAN_DISABLE_FREE_MODELS=${flag}`, () =>
+      withEnv({ XIAOCHUAN_DISABLE_FREE_MODELS: flag }, () =>
         Effect.gen(function* () {
           const providers = yield* Provider.Service
           const models = yield* Model.Service

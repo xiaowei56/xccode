@@ -1,15 +1,15 @@
 ---
 title: Политики
-description: Управляйте тем, какие настроенные ресурсы может использовать Xccode.
+description: Управляйте тем, какие настроенные ресурсы может использовать Xiaochuan.
 ---
 
-:::caution[Требуется Xccode 2]
-В Xccode 1 политики не применяются. Примеры на этой странице требуют Xccode 2. В Xccode 1 используйте [`disabled_providers`](/docs/config#disabled-providers) или [`enabled_providers`](/docs/config#enabled-providers), чтобы управлять доступностью поставщиков. Актуальные сведения см. в [документации по политикам Xccode 2](https://xccode.ai/docs/policies/).
+:::caution[Требуется Xiaochuan 2]
+В Xiaochuan 1 политики не применяются. Примеры на этой странице требуют Xiaochuan 2. В Xiaochuan 1 используйте [`disabled_providers`](/docs/config#disabled-providers) или [`enabled_providers`](/docs/config#enabled-providers), чтобы управлять доступностью поставщиков. Актуальные сведения см. в [документации по политикам Xiaochuan 2](https://xiaochuan.ai/docs/policies/).
 :::
 
-Политики определяют, может ли Xccode выполнить действие над именованным ресурсом. Эта функция Xccode 2 экспериментальная и настраивается с помощью массива `experimental.policies` в `xccode.json`.
+Политики определяют, может ли Xiaochuan выполнить действие над именованным ресурсом. Эта функция Xiaochuan 2 экспериментальная и настраивается с помощью массива `experimental.policies` в `xiaochuan.json`.
 
-Политики существуют отдельно от [разрешений](/docs/permissions). Разрешения управляют тем, что инструменты могут делать во время сеанса, а политики — тем, может ли Xccode использовать ресурс, например поставщика LLM.
+Политики существуют отдельно от [разрешений](/docs/permissions). Разрешения управляют тем, что инструменты могут делать во время сеанса, а политики — тем, может ли Xiaochuan использовать ресурс, например поставщика LLM.
 
 ---
 
@@ -23,9 +23,9 @@ description: Управляйте тем, какие настроенные ре
 
 Например, запретите использование поставщика `openai`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ description: Управляйте тем, какие настроенные ре
 
 ## Доступные политики
 
-Сейчас Xccode поддерживает одно действие политики:
+Сейчас Xiaochuan поддерживает одно действие политики:
 
 | Действие       | Ресурс                                      | Описание                                              |
 | -------------- | ------------------------------------------- | ----------------------------------------------------- |
@@ -58,9 +58,9 @@ description: Управляйте тем, какие настроенные ре
 
 Поле `resource` поддерживает сопоставление с подстановочными знаками. Используйте `*`, чтобы сопоставить ноль или более символов, и `?`, чтобы сопоставить один символ.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ description: Управляйте тем, какие настроенные ре
 
 Например, разрешите только Anthropic:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ description: Управляйте тем, какие настроенные ре
 
 ## Списки поставщиков
 
-В Xccode 2 для управления доступом к поставщикам используйте политики вместо старых настроек `disabled_providers` и `enabled_providers`. В Xccode 1 продолжайте использовать эти списки поставщиков.
+В Xiaochuan 2 для управления доступом к поставщикам используйте политики вместо старых настроек `disabled_providers` и `enabled_providers`. В Xiaochuan 1 продолжайте использовать эти списки поставщиков.
 
 Чтобы заменить `disabled_providers`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ description: Управляйте тем, какие настроенные ре
 
 Чтобы заменить `enabled_providers`, сначала запретите всех поставщиков, а затем разрешите выбранных:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [

@@ -1,14 +1,14 @@
-export * as Xccode from "./client.js"
+export * as Xiaochuan from "./client.js"
 
 import { SharedEvents } from "../shared-events.js"
-import { Xccode } from "./generated/index.js"
+import { Xiaochuan } from "./generated/index.js"
 import type { ClientOptions } from "./generated/client.js"
 import { makeRpc } from "./rpc.js"
 
 export type { ClientOptions, RequestOptions } from "./generated/client.js"
 
 export function make(options: ClientOptions) {
-  const raw = Xccode.make(options)
+  const raw = Xiaochuan.make(options)
   const events = SharedEvents.make((signal, onActivity) => raw.event.subscribe(undefined, { signal, onActivity }))
   return {
     ...raw,

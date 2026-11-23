@@ -16,7 +16,7 @@ use std::path::{Path, PathBuf};
 use std::rc::{Rc, Weak};
 use std::time::{Duration, Instant};
 
-use xccode_plugin_abi::{HostRequest, Request};
+use xiaochuan_plugin_abi::{HostRequest, Request};
 use opentui::keymap::Disposer;
 use opentui::prelude::*;
 
@@ -35,7 +35,7 @@ const COMPAT: &str = include_str!("compat.js");
 /// The JS host's own `bunfig.toml`: Bun installs nothing a plugin imports (js-no-install).
 const BUNFIG: &str = "[install]\nauto = \"disable\"\n";
 
-/// The oldest Bun the JS host was run on (1.4.0 to 1.4.4 were): an xccode binary whose own Bun is older is not used.
+/// The oldest Bun the JS host was run on (1.4.0 to 1.4.4 were): an xiaochuan binary whose own Bun is older is not used.
 pub const OLDEST_BUN: (u64, u64, u64) = (1, 4, 0);
 
 /// Where the server the client talks to runs, which decides the JS host's runtime.
@@ -50,10 +50,10 @@ pub enum Server {
 /// How the JS host runs.
 #[derive(Clone, Debug)]
 pub struct Config {
-    /// The Bun executable, or an xccode binary run as the Bun it embeds.
+    /// The Bun executable, or an xiaochuan binary run as the Bun it embeds.
     pub bun: PathBuf,
-    /// `bun` is an xccode binary, which runs as Bun with `BUN_BE_BUN=1`.
-    pub xccode: bool,
+    /// `bun` is an xiaochuan binary, which runs as Bun with `BUN_BE_BUN=1`.
+    pub xiaochuan: bool,
     /// The version `bun` reported as Bun's, when it was asked.
     pub bun_version: Option<String>,
     /// Bun's arguments before the script.
@@ -70,7 +70,7 @@ pub struct Config {
     /// The directory the client works in, a project's perhaps: told to the JS host as data, never where Bun starts.
     pub directory: PathBuf,
     /// Where Bun is found once a plugin needs the JS host, when it was not found yet ([`Config::from_env`]): `bun`,
-    /// `xccode` and `bun_version` are then the ones it finds.
+    /// `xiaochuan` and `bun_version` are then the ones it finds.
     pub find: Option<Find>,
     /// Variables set on the JS host beyond the ones it inherits: for the tests, which point Bun at a registry of their
     /// own to prove it asks none.
@@ -88,14 +88,14 @@ impl std::fmt::Debug for Find {
     }
 }
 
-/// Whether `XCCODE_PLUGIN_JS` disables script plugins.
+/// Whether `XIAOCHUAN_PLUGIN_JS` disables script plugins.
 pub use crate::turned_off;
 
 impl Config {
     pub fn new(bun: PathBuf) -> Self {
         Self {
             bun,
-            xccode: false,
+            xiaochuan: false,
             bun_version: None,
             args: Vec::new(),
             limits: Limits::default(),
@@ -110,38 +110,38 @@ impl Config {
         }
     }
 
-    /// The JS host, unless `XCCODE_PLUGIN_JS` turns it off ([`turned_off`]). Bun is not looked for yet: that runs a
+    /// The JS host, unless `XIAOCHUAN_PLUGIN_JS` turns it off ([`turned_off`]). Bun is not looked for yet: that runs a
     /// binary, so it waits until a plugin needs the JS host ([`Scripts::runtime`]), and [`Config::find`] does it then
     /// for the client's `server`. A client with no TypeScript plugin starts no process.
     pub fn from_env(server: &Server) -> Option<Self> {
-        if turned_off(std::env::var_os("XCCODE_PLUGIN_JS").as_deref()) {
+        if turned_off(std::env::var_os("XIAOCHUAN_PLUGIN_JS").as_deref()) {
             return None;
         }
         let server = server.clone();
         let find = Find(Rc::new(move || {
-            let bundled = xccode_util::bundle::server();
+            let bundled = xiaochuan_util::bundle::server();
             Self::find(|name| std::env::var_os(name), std::env::current_dir().unwrap_or_default(), &server, bundled)
         }));
         Some(Self { find: Some(find), ..Self::new(PathBuf::new()) })
     }
 
-    /// [`Config::find`], unless `XCCODE_PLUGIN_JS` in `var` turns the JS host off.
+    /// [`Config::find`], unless `XIAOCHUAN_PLUGIN_JS` in `var` turns the JS host off.
     pub fn from_vars(
         var: impl Fn(&str) -> Option<std::ffi::OsString>,
         directory: PathBuf,
         server: &Server,
     ) -> Option<Self> {
-        if turned_off(var("XCCODE_PLUGIN_JS").as_deref()) {
+        if turned_off(var("XIAOCHUAN_PLUGIN_JS").as_deref()) {
             return None;
         }
-        Self::find(var, directory, server, xccode_util::bundle::server())
+        Self::find(var, directory, server, xiaochuan_util::bundle::server())
     }
 
     /// Bun for the JS host, over the environment `var` reads, for a client in `directory`. The runtime is
-    /// `XCCODE_BUN` (an absolute path only), else the xccode binary of a local server run as its own Bun
-    /// ([`Config::xccode`]; xccode ships with Bun), else `bundled`, the xccode installed beside the client,
+    /// `XIAOCHUAN_BUN` (an absolute path only), else the xiaochuan binary of a local server run as its own Bun
+    /// ([`Config::xiaochuan`]; xiaochuan ships with Bun), else `bundled`, the xiaochuan installed beside the client,
     /// else `bun` on the path ([`find_in`]). The server's binary is the executable its process runs,
-    /// or, where the client cannot tell, the first `xccode` on the path that answers, after `bundled`.
+    /// or, where the client cannot tell, the first `xiaochuan` on the path that answers, after `bundled`.
     pub fn find(
         var: impl Fn(&str) -> Option<std::ffi::OsString>,
         directory: PathBuf,
@@ -150,19 +150,19 @@ impl Config {
     ) -> Option<Self> {
         let home = var("HOME").map(PathBuf::from);
         let path = var("PATH").unwrap_or_default();
-        let xccode =
-            |binary: &Path| outside(binary, &directory, home.as_deref()).then(|| Self::xccode(binary)).flatten();
-        let config = match var("XCCODE_BUN") {
+        let xiaochuan =
+            |binary: &Path| outside(binary, &directory, home.as_deref()).then(|| Self::xiaochuan(binary)).flatten();
+        let config = match var("XIAOCHUAN_BUN") {
             Some(bun) => Some(PathBuf::from(bun)).filter(|bun| bun.is_absolute()).map(Self::new),
             None => match server {
-                Server::Local(Some(executable)) => xccode(executable),
+                Server::Local(Some(executable)) => xiaochuan(executable),
                 Server::Local(None) | Server::Remote => None,
             }
-            .or_else(|| bundled.as_deref().and_then(xccode))
+            .or_else(|| bundled.as_deref().and_then(xiaochuan))
             .or_else(|| match server {
-                Server::Local(None) => found_in("xccode", &path, &directory, home.as_deref())
+                Server::Local(None) => found_in("xiaochuan", &path, &directory, home.as_deref())
                     .iter()
-                    .find_map(|found| Self::xccode(found)),
+                    .find_map(|found| Self::xiaochuan(found)),
                 Server::Local(Some(_)) | Server::Remote => None,
             })
             .or_else(|| {
@@ -172,33 +172,33 @@ impl Config {
         };
         let Some(config) = config else {
             log::warn!(
-                "neither the server's xccode nor bun on the path runs the JS host: TypeScript plugins are skipped"
+                "neither the server's xiaochuan nor bun on the path runs the JS host: TypeScript plugins are skipped"
             );
             return None;
         };
-        let kind = if config.xccode { "xccode's Bun" } else { "Bun" };
+        let kind = if config.xiaochuan { "xiaochuan's Bun" } else { "Bun" };
         let version = config.bun_version.as_deref().unwrap_or("unknown");
         log::info!("the JS host runs on {} ({kind} {version})", config.bun.display());
         Some(Self { directory, ..config })
     }
 
-    /// `binary`, an xccode build, run as the Bun it embeds (`BUN_BE_BUN=1`), when that Bun says its version and it is
-    /// [`OLDEST_BUN`] or newer. Its real path is what is asked and run: `xccode` on the path may be a `mise` shim, a
+    /// `binary`, an xiaochuan build, run as the Bun it embeds (`BUN_BE_BUN=1`), when that Bun says its version and it is
+    /// [`OLDEST_BUN`] or newer. Its real path is what is asked and run: `xiaochuan` on the path may be a `mise` shim, a
     /// link to `mise`, which then answers for itself and is not taken.
-    pub fn xccode(binary: &Path) -> Option<Self> {
+    pub fn xiaochuan(binary: &Path) -> Option<Self> {
         let binary = std::fs::canonicalize(binary).ok()?;
         let version = bun_version(&binary)?;
         if semver(&version)? < OLDEST_BUN {
             log::info!("{} embeds Bun {version}, older than the JS host runs on", binary.display());
             return None;
         }
-        Some(Self { xccode: true, bun_version: Some(version), ..Self::new(binary) })
+        Some(Self { xiaochuan: true, bun_version: Some(version), ..Self::new(binary) })
     }
 }
 
-/// The version `binary --version` prints as Bun (with `BUN_BE_BUN=1`, which makes an xccode binary Bun and changes
-/// nothing for Bun), when it prints one version alone within a second: xccode without `BUN_BE_BUN` prints
-/// `xccode v…`, and `mise` its version and platform. It runs as the JS host does, apart from any project: in the
+/// The version `binary --version` prints as Bun (with `BUN_BE_BUN=1`, which makes an xiaochuan binary Bun and changes
+/// nothing for Bun), when it prints one version alone within a second: xiaochuan without `BUN_BE_BUN` prints
+/// `xiaochuan v…`, and `mise` its version and platform. It runs as the JS host does, apart from any project: in the
 /// binary's directory, with the allowlisted environment.
 fn bun_version(binary: &Path) -> Option<String> {
     let mut child = std::process::Command::new(binary)
@@ -270,24 +270,24 @@ fn outside(path: &Path, directory: &Path, home: Option<&Path>) -> bool {
 
 /// Bun with the JS host's script in `dir`, its private directory, which it starts in: no `bunfig.toml` (a `preload`),
 /// `.env` or other file of the project it works for is read as Bun starts, and only the variables [`inherited`] allows
-/// reach it. The project's directory is told as data (`XCCODE_DIRECTORY`). An xccode binary gets `BUN_BE_BUN=1`,
+/// reach it. The project's directory is told as data (`XIAOCHUAN_DIRECTORY`). An xiaochuan binary gets `BUN_BE_BUN=1`,
 /// which makes it Bun, and then reads what Bun reads, so the same holds for it.
 ///
 /// Bun's auto-install is off twice over (js-no-install): `--no-install`, which a user's own bunfig cannot turn back on,
 /// and `install.auto = "disable"` in the JS host's own bunfig ([`BUNFIG`]). Without them a plugin that imports a package
-/// its directory does not hold made Bun fetch it from npm and run it. Both were checked on Bun and on an xccode
+/// its directory does not hold made Bun fetch it from npm and run it. Both were checked on Bun and on an xiaochuan
 /// binary run as Bun: neither asks a registry anything.
 fn command(config: &Config, dir: &Path) -> std::process::Command {
     let mut command = std::process::Command::new(&config.bun);
     command.current_dir(dir).env_clear().envs(std::env::vars_os().filter(|(name, _)| inherited(name)));
-    if config.xccode {
+    if config.xiaochuan {
         command.env("BUN_BE_BUN", "1");
     }
     command.arg("--no-env-file").arg("--no-install").arg(format!("--config={}", dir.join("bunfig.toml").display()));
     command.args(&config.args).arg(dir.join("host.ts"));
     command.envs(config.env.iter().map(|(name, value)| (name, value)));
-    command.env("XCCODE_VERSION", &config.version).env("XCCODE_CHANNEL", &config.channel);
-    command.env("XCCODE_DIRECTORY", &config.directory);
+    command.env("XIAOCHUAN_VERSION", &config.version).env("XIAOCHUAN_CHANNEL", &config.channel);
+    command.env("XIAOCHUAN_DIRECTORY", &config.directory);
     command
 }
 
@@ -351,7 +351,7 @@ fn inherited(name: &std::ffi::OsStr) -> bool {
     NAMES.contains(&name.as_str())
         || name.starts_with("LC_")
         || name.starts_with("XDG_")
-        || name.starts_with("XCCODE_")
+        || name.starts_with("XIAOCHUAN_")
 }
 
 /// What crossed the pipe, counted outside any plugin and any mount.
@@ -488,7 +488,7 @@ struct Call {
     export: &'static str,
     /// It answers the user's input.
     user: bool,
-    request: xccode_plugin_abi::Request,
+    request: xiaochuan_plugin_abi::Request,
     /// The input owner of a handler's event: its effects are that mount's, as in process.
     owner: Option<Weak<crate::interact::Owner>>,
     /// The mount the call's requests belong to: a route command's, or the input owner's, which outlives the owner.
@@ -520,7 +520,7 @@ fn settles(message: &Down) -> bool {
 
 /// Large replies, read snapshots and effect results can be split across frames.
 enum Parted<'a> {
-    Reply { activation: u64, request: xccode_plugin_abi::RequestId, result: &'a Result<serde_json::Value, String> },
+    Reply { activation: u64, request: xiaochuan_plugin_abi::RequestId, result: &'a Result<serde_json::Value, String> },
     Snapshot { id: &'a str, activation: u64, key: &'a str, value: &'a serde_json::Value },
     Answered { id: &'a str, activation: u64, key: &'a str, results: &'a [serde_json::Value] },
 }
@@ -699,7 +699,7 @@ pub struct Scripts {
     generation: Cell<u64>,
     ending: Cell<u64>,
     /// The directory of the written script, while the JS host may run.
-    script: RefCell<Option<xccode_util::temp::TempDir>>,
+    script: RefCell<Option<xiaochuan_util::temp::TempDir>>,
     seq: Cell<u64>,
     /// The bytes read from the running JS host, and of them in trees, as last counted.
     read: Cell<(u64, u64)>,
@@ -722,7 +722,7 @@ pub struct Scripts {
     /// When each plugin's registrations changed after setup, within the last [`RELOAD_WINDOW`] ([`Scripts::reloaded`]).
     reloads: RefCell<HashMap<String, VecDeque<Instant>>>,
     /// The theme's mode and the theme the JS host was told last.
-    theme: RefCell<Option<(String, xccode_ui::theme::Theme)>>,
+    theme: RefCell<Option<(String, xiaochuan_ui::theme::Theme)>>,
     /// The plugin whose code the JS host said it runs outside any sequenced work.
     entered: RefCell<Option<String>>,
     reconcile: RefCell<Option<Rc<dyn Fn()>>>,
@@ -1222,7 +1222,7 @@ impl Scripts {
             confined: load.confined,
             options: load.options.clone(),
             seq: 0,
-            manifest: xccode_plugin_abi::Manifest { id: id.clone(), ..Default::default() },
+            manifest: xiaochuan_plugin_abi::Manifest { id: id.clone(), ..Default::default() },
             holds: Vec::new(),
             effects: RefCell::new(None),
             watches: RefCell::default(),
@@ -1493,7 +1493,7 @@ impl Scripts {
         tests::SPLITS.set(tests::SPLITS.get() + 1);
         let json = parted.json()?;
         let mut parts: Vec<Down> =
-            json.chunks(chunk).map(|bytes| parted.part(xccode_plugin_abi::base64::encode(bytes))).collect();
+            json.chunks(chunk).map(|bytes| parted.part(xiaochuan_plugin_abi::base64::encode(bytes))).collect();
         parts.push(parted.closing(message));
         Some(parts)
     }
@@ -1599,7 +1599,7 @@ impl Scripts {
             None => Some(self.config.clone()),
             Some(find) => (find.0)().map(|found| Config {
                 bun: found.bun,
-                xccode: found.xccode,
+                xiaochuan: found.xiaochuan,
                 bun_version: found.bun_version,
                 find: None,
                 ..self.config.clone()
@@ -1653,7 +1653,7 @@ impl Scripts {
             return Err(std::io::Error::new(std::io::ErrorKind::NotFound, crate::SKIPPED_NO_BUN));
         };
         if self.script.borrow().is_none() {
-            let dir = xccode_util::temp::tempdir()?;
+            let dir = xiaochuan_util::temp::tempdir()?;
             std::fs::write(dir.path().join("host.ts"), SOURCE)?;
             std::fs::write(dir.path().join("compat.js"), COMPAT)?;
             std::fs::write(dir.path().join("bunfig.toml"), BUNFIG)?;
@@ -1838,10 +1838,10 @@ impl Scripts {
             }
             Up::Log { id, level, message } => {
                 let level = match level {
-                    xccode_plugin_abi::Level::Debug => log::Level::Debug,
-                    xccode_plugin_abi::Level::Info => log::Level::Info,
-                    xccode_plugin_abi::Level::Warn => log::Level::Warn,
-                    xccode_plugin_abi::Level::Error => log::Level::Error,
+                    xiaochuan_plugin_abi::Level::Debug => log::Level::Debug,
+                    xiaochuan_plugin_abi::Level::Info => log::Level::Info,
+                    xiaochuan_plugin_abi::Level::Warn => log::Level::Warn,
+                    xiaochuan_plugin_abi::Level::Error => log::Level::Error,
                 };
                 log::log!(level, "plugin {}: {message}", id.as_deref().unwrap_or("(js host)"));
             }
@@ -2170,7 +2170,7 @@ impl Scripts {
         self: &Rc<Self>,
         guest: &Rc<Guest>,
         export: &'static str,
-        request: xccode_plugin_abi::Request,
+        request: xiaochuan_plugin_abi::Request,
         hold: bool,
         owner: Owning,
         key: Option<Keyed>,
@@ -2184,7 +2184,7 @@ impl Scripts {
         self: &Rc<Self>,
         guest: &Rc<Guest>,
         export: &'static str,
-        request: xccode_plugin_abi::Request,
+        request: xiaochuan_plugin_abi::Request,
         hold: bool,
         user: bool,
         (owner, mount): Owning,
@@ -2576,8 +2576,8 @@ impl Scripts {
 /// `hue.<name>.<step>` and `categorical.<index>.<step>`, which the context's `theme.hue` and `theme.categorical` are.
 fn palette(host: &dyn Host) -> proto::Palette {
     let theme = host.theme();
-    let steps = |name: String, scale: &xccode_ui::theme::Scale| {
-        let steps = xccode_ui::theme::STEPS.into_iter().zip(scale.0);
+    let steps = |name: String, scale: &xiaochuan_ui::theme::Scale| {
+        let steps = xiaochuan_ui::theme::STEPS.into_iter().zip(scale.0);
         steps.map(move |(step, color)| (format!("{name}.{step}"), color)).collect::<Vec<_>>()
     };
     let hues = theme.hues().iter().flat_map(|(name, scale)| steps(format!("hue.{name}"), scale));
@@ -2587,8 +2587,8 @@ fn palette(host: &dyn Host) -> proto::Palette {
     // which the context's `theme.surface(name)` answers.
     let page = theme.list();
     let raised = [
-        (xccode_ui::theme::Surface::Dialog, "@dialog"),
-        (xccode_ui::theme::Surface::DialogFooter, "@dialog.footer"),
+        (xiaochuan_ui::theme::Surface::Dialog, "@dialog"),
+        (xiaochuan_ui::theme::Surface::DialogFooter, "@dialog.footer"),
     ]
     .into_iter()
     .flat_map(|(surface, prefix)| {
@@ -2671,7 +2671,7 @@ mod tests {
             id: "p".into(),
             activation: 1,
             call: Request::Reply {
-                id: xccode_plugin_abi::RequestId(3),
+                id: xiaochuan_plugin_abi::RequestId(3),
                 result: Ok(serde_json::json!("r".repeat(bytes))),
             },
             route: None,
@@ -2692,7 +2692,7 @@ mod tests {
         let host: Rc<dyn Host> = crate::tests::host();
         let scripts = Scripts::new(Config::new("bun".into()), &host);
         silent(&scripts, &host);
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let _ = scripts.trees.light(dir.path());
         while scripts.walking() {
             std::thread::sleep(Duration::from_millis(1));
@@ -2730,7 +2730,7 @@ mod tests {
             confined: false,
             options: None,
             seq,
-            manifest: xccode_plugin_abi::Manifest { id: "p".into(), ..Default::default() },
+            manifest: xiaochuan_plugin_abi::Manifest { id: "p".into(), ..Default::default() },
             holds: Vec::new(),
             effects: RefCell::new(None),
             watches: RefCell::default(),
@@ -2782,7 +2782,7 @@ mod tests {
             id: "p".into(),
             activation: 1,
             call: Request::Reply {
-                id: xccode_plugin_abi::RequestId(3),
+                id: xiaochuan_plugin_abi::RequestId(3),
                 result: Ok(serde_json::json!("r".repeat(json - 9))),
             },
             route: None,
@@ -2824,7 +2824,7 @@ mod tests {
         let bytes = |message: &Down| serde_json::to_vec(message).unwrap().len();
         let held = Down::Ping { seq: 1 };
         scripts.overflowed(held.clone(), 512);
-        let cancelled = Down::Cancelled { activation: 1, request: xccode_plugin_abi::RequestId(5) };
+        let cancelled = Down::Cancelled { activation: 1, request: xiaochuan_plugin_abi::RequestId(5) };
         let answered = Down::Answered {
             id: "p".into(),
             activation: 1,
@@ -2851,7 +2851,7 @@ mod tests {
             parted: false,
         };
         // A tree's adoption and its refusal settle what the JS host holds in flight.
-        let mount = xccode_plugin_abi::v2::MountId { surface: "s".into(), key: "k".into(), generation: 1 };
+        let mount = xiaochuan_plugin_abi::v2::MountId { surface: "s".into(), key: "k".into(), generation: 1 };
         let adopted = Down::Adopted { id: "p".into(), mount: mount.clone(), rev: 1 };
         let refused = Down::Refused { id: "p".into(), mount, rev: 2, adopted: 1, error: "refused".into() };
         scripts.overflowed(cancelled.clone(), bytes(&cancelled));
@@ -2892,8 +2892,8 @@ mod tests {
 
     /// A JS host that says hello and reads all it gets, answering nothing, for `scripts`; and its file.
     #[cfg(unix)]
-    fn quiet(scripts: &Rc<Scripts>, host: &Rc<crate::tests::TestHost>) -> xccode_util::temp::TempDir {
-        let dir = xccode_util::temp::tempdir().unwrap();
+    fn quiet(scripts: &Rc<Scripts>, host: &Rc<crate::tests::TestHost>) -> xiaochuan_util::temp::TempDir {
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let file = dir.path().join("hello");
         let hello = Up::Hello { magic: proto::MAGIC.to_owned(), version: proto::VERSION, pid: 0 };
         std::fs::write(&file, wire::encode(wire::CONTROL, &serde_json::to_vec(&hello).unwrap())).unwrap();
@@ -3027,11 +3027,11 @@ mod tests {
             seq,
             id: "p".into(),
             activation: 1,
-            call: Request::Reply { id: xccode_plugin_abi::RequestId(id), result: Ok(read(bytes)) },
+            call: Request::Reply { id: xiaochuan_plugin_abi::RequestId(id), result: Ok(read(bytes)) },
             route: None,
             parted: false,
         };
-        let cancelled = |id: u64| Down::Cancelled { activation: 1, request: xccode_plugin_abi::RequestId(id) };
+        let cancelled = |id: u64| Down::Cancelled { activation: 1, request: xiaochuan_plugin_abi::RequestId(id) };
         let mut failed = Vec::new();
         for queued in [4 << 10, 1 << 20] {
             let mut config = Config::new("sh".into());
@@ -3039,7 +3039,7 @@ mod tests {
             let host = crate::tests::host();
             let dynamic: Rc<dyn Host> = host.clone();
             let scripts = Scripts::new(config, &dynamic);
-            let dir = xccode_util::temp::tempdir().unwrap();
+            let dir = xiaochuan_util::temp::tempdir().unwrap();
             recorder(&scripts, &host, dir.path());
             // A backlog first, as large as the OS pipe and the queue hold and more; then the stream behind it.
             let mut sent: Vec<Down> = (1..=80).map(|seq| call(seq, 2 << 10)).collect();
@@ -3134,7 +3134,7 @@ mod tests {
             let joined: Vec<u8> = got
                 .iter()
                 .filter_map(|message| match message {
-                    Down::Part { request, data, .. } if request.0 == 8 => xccode_plugin_abi::base64::decode(data),
+                    Down::Part { request, data, .. } if request.0 == 8 => xiaochuan_plugin_abi::base64::decode(data),
                     _ => None,
                 })
                 .flatten()
@@ -3148,7 +3148,7 @@ mod tests {
             let joined: Vec<u8> = got
                 .iter()
                 .filter_map(|message| match message {
-                    Down::SnapshotPart { key, data, .. } if key == "k2" => xccode_plugin_abi::base64::decode(data),
+                    Down::SnapshotPart { key, data, .. } if key == "k2" => xiaochuan_plugin_abi::base64::decode(data),
                     _ => None,
                 })
                 .flatten()
@@ -3176,7 +3176,7 @@ mod tests {
 
     #[test]
     fn bun_is_never_the_projects_own() {
-        let root = xccode_util::temp::tempdir().unwrap();
+        let root = xiaochuan_util::temp::tempdir().unwrap();
         let (project, tools) = (root.path().join("work"), root.path().join("tools"));
         let file = format!("bun{}", std::env::consts::EXE_SUFFIX);
         for dir in [project.join("bin"), tools.clone()] {
@@ -3196,8 +3196,8 @@ mod tests {
     fn the_js_host_starts_apart_from_the_project() {
         let vars = |flag: Option<&'static str>, bun: &'static str| {
             move |name: &str| match name {
-                "XCCODE_PLUGIN_JS" => flag.map(Into::into),
-                "XCCODE_BUN" => Some(bun.into()),
+                "XIAOCHUAN_PLUGIN_JS" => flag.map(Into::into),
+                "XIAOCHUAN_BUN" => Some(bun.into()),
                 _ => None,
             }
         };
@@ -3224,14 +3224,14 @@ mod tests {
                 format!("--config={}", dir.join("bunfig.toml").display())
             ]
         );
-        let directory = command.get_envs().find(|(name, _)| *name == "XCCODE_DIRECTORY").and_then(|(_, value)| value);
+        let directory = command.get_envs().find(|(name, _)| *name == "XIAOCHUAN_DIRECTORY").and_then(|(_, value)| value);
         assert_eq!(directory, Some(std::ffi::OsStr::new("/work")));
         let inherits = |name: &str| inherited(std::ffi::OsStr::new(name));
         // `BUN_BE_BUN` would make even a compiled host read a project's `bunfig.toml` and `.env`.
         for name in ["BUN_OPTIONS", "BUN_BE_BUN", "NODE_OPTIONS", "PWN_FROM_ENV"] {
             assert!(!inherits(name), "{name}");
         }
-        assert!(inherits("HOME") && inherits("XDG_CONFIG_HOME") && inherits("XCCODE_CHANNEL"));
+        assert!(inherits("HOME") && inherits("XDG_CONFIG_HOME") && inherits("XIAOCHUAN_CHANNEL"));
         // What names the terminal, which a plugin reads to detect it.
         for name in ["TERM", "TERM_PROGRAM", "COLORTERM", "TMUX", "WT_SESSION", "KITTY_WINDOW_ID", "LC_TERMINAL"] {
             assert!(inherits(name), "{name}");
@@ -3245,9 +3245,9 @@ mod tests {
                 .map(ToOwned::to_owned)
         };
         assert_eq!(be_bun(&config), None);
-        let xccode = Config { xccode: true, ..config.clone() };
-        assert_eq!(be_bun(&xccode), Some("1".into()));
-        assert_eq!(super::command(&xccode, dir).get_current_dir(), Some(dir));
+        let xiaochuan = Config { xiaochuan: true, ..config.clone() };
+        assert_eq!(be_bun(&xiaochuan), Some("1".into()));
+        assert_eq!(super::command(&xiaochuan, dir).get_current_dir(), Some(dir));
     }
 
     #[test]
@@ -3255,7 +3255,7 @@ mod tests {
         assert_eq!(semver("1.4.4"), Some((1, 4, 4)));
         assert_eq!(semver("1.4.5-canary.20+38afee6c8"), Some((1, 4, 5)));
         for text in
-            ["2026.10.19 linux-x64 (2026-10-24)", "xccode v0.0.0-dev-202611120832", "v1.4.4", "1.4", "1.4.4.1", ""]
+            ["2026.10.19 linux-x64 (2026-10-24)", "xiaochuan v0.0.0-dev-202611120832", "v1.4.4", "1.4", "1.4.4.1", ""]
         {
             assert_eq!(semver(text), None, "{text}");
         }
@@ -3263,8 +3263,8 @@ mod tests {
 
     #[cfg(unix)]
     #[test]
-    fn the_js_host_runs_on_the_servers_xccode_else_bun() {
-        let root = xccode_util::temp::tempdir().unwrap();
+    fn the_js_host_runs_on_the_servers_xiaochuan_else_bun() {
+        let root = xiaochuan_util::temp::tempdir().unwrap();
         let root = std::fs::canonicalize(root.path()).unwrap();
         let script = |path: &Path, text: &str| {
             std::fs::create_dir_all(path.parent().unwrap()).unwrap();
@@ -3277,77 +3277,77 @@ mod tests {
                 .unwrap();
             assert!(status.success());
         };
-        let xccode = |bun: &str| {
-            format!("#!/bin/sh\nif [ \"$BUN_BE_BUN\" = 1 ]; then echo {bun}; else echo xccode v0.0.0-dev; fi\n")
+        let xiaochuan = |bun: &str| {
+            format!("#!/bin/sh\nif [ \"$BUN_BE_BUN\" = 1 ]; then echo {bun}; else echo xiaochuan v0.0.0-dev; fi\n")
         };
         let (server, old, tools, shims) =
             (root.join("server"), root.join("old"), root.join("tools"), root.join("shims"));
         let work = root.join("work");
-        script(&server.join("xccode"), &xccode("1.4.4"));
-        script(&old.join("xccode"), &xccode("1.3.9"));
+        script(&server.join("xiaochuan"), &xiaochuan("1.4.4"));
+        script(&old.join("xiaochuan"), &xiaochuan("1.3.9"));
         let failing = root.join("failing");
-        script(&failing.join("xccode"), "#!/bin/sh\necho 1.4.4\nexit 1\n");
-        script(&work.join("bin/xccode"), &xccode("1.4.4"));
+        script(&failing.join("xiaochuan"), "#!/bin/sh\necho 1.4.4\nexit 1\n");
+        script(&work.join("bin/xiaochuan"), &xiaochuan("1.4.4"));
         script(&work.join("bin/bun"), "#!/bin/sh\necho 1.4.4\n");
         script(&tools.join("bun"), "#!/bin/sh\necho 1.4.2\n");
         // `mise`'s shims are links to it: run by the shim's name it runs the tool, by its own it answers for itself.
         let mise =
-            "#!/bin/sh\ncase \"$0\" in */xccode) echo 1.4.4 ;; *) echo '2026.10.19 linux-x64 (2026-10-24)' ;; esac\n";
+            "#!/bin/sh\ncase \"$0\" in */xiaochuan) echo 1.4.4 ;; *) echo '2026.10.19 linux-x64 (2026-10-24)' ;; esac\n";
         script(&root.join("mise/mise"), mise);
         std::fs::create_dir_all(&shims).unwrap();
-        std::os::unix::fs::symlink(root.join("mise/mise"), shims.join("xccode")).unwrap();
+        std::os::unix::fs::symlink(root.join("mise/mise"), shims.join("xiaochuan")).unwrap();
         let with = |server: Server, entries: &[&Path], bun: Option<&str>, bundled: Option<PathBuf>| {
             let path = std::env::join_paths(entries).unwrap();
             let var = |name: &str| match name {
-                "XCCODE_BUN" => bun.map(Into::into),
+                "XIAOCHUAN_BUN" => bun.map(Into::into),
                 "PATH" => Some(path.clone()),
                 _ => None,
             };
             Config::find(var, work.clone(), &server, bundled)
-                .map(|config| (config.bun, config.xccode, config.bun_version))
+                .map(|config| (config.bun, config.xiaochuan, config.bun_version))
         };
         let from = |server: Server, entries: &[&Path], bun: Option<&str>| with(server, entries, bun, None);
         let relative = [Path::new("bin"), Path::new("")];
         let chosen =
-            |bun: &Path, xccode, version: &str| Some((bun.to_path_buf(), xccode, Some(version.to_owned())));
+            |bun: &Path, xiaochuan, version: &str| Some((bun.to_path_buf(), xiaochuan, Some(version.to_owned())));
         let all = [&relative[..], &[&shims, &old, &failing, &server, &tools]].concat();
         // The server's binary is known.
-        let known = Server::Local(Some(server.join("xccode")));
-        assert_eq!(from(known, &all, None), chosen(&server.join("xccode"), true, "1.4.4"));
-        let too_old = Server::Local(Some(old.join("xccode")));
+        let known = Server::Local(Some(server.join("xiaochuan")));
+        assert_eq!(from(known, &all, None), chosen(&server.join("xiaochuan"), true, "1.4.4"));
+        let too_old = Server::Local(Some(old.join("xiaochuan")));
         assert_eq!(from(too_old, &all, None), chosen(&tools.join("bun"), false, "1.4.2"));
-        let projects = Server::Local(Some(work.join("bin/xccode")));
+        let projects = Server::Local(Some(work.join("bin/xiaochuan")));
         assert_eq!(from(projects, &all, None), chosen(&tools.join("bun"), false, "1.4.2"));
-        // It is not: the path's first `xccode` that answers, past the shim, the old one and one that fails.
-        assert_eq!(from(Server::Local(None), &all, None), chosen(&server.join("xccode"), true, "1.4.4"));
+        // It is not: the path's first `xiaochuan` that answers, past the shim, the old one and one that fails.
+        assert_eq!(from(Server::Local(None), &all, None), chosen(&server.join("xiaochuan"), true, "1.4.4"));
         // A remote server's binary is not this machine's.
         assert_eq!(from(Server::Remote, &all, None), chosen(&tools.join("bun"), false, "1.4.2"));
         // Nothing outside the project.
         assert_eq!(from(Server::Local(None), &[&relative[..], &[&shims, &old]].concat(), None), None);
-        // `XCCODE_BUN` wins, unasked.
-        let named = from(Server::Local(Some(server.join("xccode"))), &all, Some("/opt/bun/bin/bun"));
+        // `XIAOCHUAN_BUN` wins, unasked.
+        let named = from(Server::Local(Some(server.join("xiaochuan"))), &all, Some("/opt/bun/bin/bun"));
         assert_eq!(named, Some((PathBuf::from("/opt/bun/bin/bun"), false, None)));
-        // Expected (the bundled layout): the xccode installed beside the client comes after the server's binary and before
+        // Expected (the bundled layout): the xiaochuan installed beside the client comes after the server's binary and before
         // the path, for a remote server too; an old one, or one inside the project, is passed over.
         let bundle = root.join("bundle");
-        script(&bundle.join("xccode"), &xccode("1.4.5"));
-        let bundled = || Some(bundle.join("xccode"));
-        let ours = chosen(&bundle.join("xccode"), true, "1.4.5");
+        script(&bundle.join("xiaochuan"), &xiaochuan("1.4.5"));
+        let bundled = || Some(bundle.join("xiaochuan"));
+        let ours = chosen(&bundle.join("xiaochuan"), true, "1.4.5");
         assert_eq!(
-            with(Server::Local(Some(server.join("xccode"))), &all, None, bundled()),
-            chosen(&server.join("xccode"), true, "1.4.4")
+            with(Server::Local(Some(server.join("xiaochuan"))), &all, None, bundled()),
+            chosen(&server.join("xiaochuan"), true, "1.4.4")
         );
-        assert_eq!(with(Server::Local(Some(old.join("xccode"))), &all, None, bundled()), ours);
+        assert_eq!(with(Server::Local(Some(old.join("xiaochuan"))), &all, None, bundled()), ours);
         assert_eq!(with(Server::Local(None), &all, None, bundled()), ours);
         assert_eq!(with(Server::Remote, &all, None, bundled()), ours);
         assert_eq!(with(Server::Remote, &[], None, bundled()), ours, "a fresh box: nothing on the path");
         assert_eq!(
-            with(Server::Remote, &all, None, Some(old.join("xccode"))),
+            with(Server::Remote, &all, None, Some(old.join("xiaochuan"))),
             chosen(&tools.join("bun"), false, "1.4.2")
         );
         assert_eq!(
-            with(Server::Local(None), &all, None, Some(work.join("bin/xccode"))),
-            chosen(&server.join("xccode"), true, "1.4.4")
+            with(Server::Local(None), &all, None, Some(work.join("bin/xiaochuan"))),
+            chosen(&server.join("xiaochuan"), true, "1.4.4")
         );
         assert_eq!(with(Server::Local(None), &all, Some("/opt/bun/bin/bun"), bundled()), named);
     }
@@ -3485,7 +3485,7 @@ mod tests {
         let (host, scripts, seen) = holding();
         let ran = Rc::new(Cell::new(0));
         let (counted, weak) = (ran.clone(), Rc::downgrade(&scripts));
-        let command = xccode_ui::keymap::TuiCommand::new("p.escape", move |_, _| {
+        let command = xiaochuan_ui::keymap::TuiCommand::new("p.escape", move |_, _| {
             let Some(scripts) = weak.upgrade() else { return false };
             if scripts.stepped_aside("p\0escape") {
                 return false;
@@ -3493,8 +3493,8 @@ mod tests {
             counted.set(counted.get() + 1);
             true
         })
-        .bind(xccode_ui::keymap::Bind::Key("escape".into()));
-        let _layer = host.keymap().layer(xccode_ui::keymap::KeymapLayer::global(vec![command])).unwrap();
+        .bind(xiaochuan_ui::keymap::Bind::Key("escape".into()));
+        let _layer = host.keymap().layer(xiaochuan_ui::keymap::KeymapLayer::global(vec![command])).unwrap();
         let key = Keyed::new(stroke("escape"), &scripts, Vec::new(), None, Some("p"));
         scripts.hold_for(1, Some(key));
         scripts.answered(1, true);
@@ -3533,9 +3533,9 @@ mod tests {
         let (host, scripts, seen) = holding();
         let below = Rc::new(Cell::new(0));
         let (ran, weak) = (below.clone(), Rc::downgrade(&scripts));
-        fn command(id: &str, run: impl Fn(Option<&KeyEvent>) -> bool + 'static) -> xccode_ui::keymap::TuiCommand {
-            xccode_ui::keymap::TuiCommand::new(id, move |_, key| run(key))
-                .bind(xccode_ui::keymap::Bind::Key("<leader>n".into()))
+        fn command(id: &str, run: impl Fn(Option<&KeyEvent>) -> bool + 'static) -> xiaochuan_ui::keymap::TuiCommand {
+            xiaochuan_ui::keymap::TuiCommand::new(id, move |_, key| run(key))
+                .bind(xiaochuan_ui::keymap::Bind::Key("<leader>n".into()))
         }
         let taking = command("js.chord", move |key| {
             let Some(scripts) = weak.upgrade() else { return false };
@@ -3550,8 +3550,8 @@ mod tests {
             true
         });
         let keymap = host.keymap();
-        let _lower = keymap.layer(xccode_ui::keymap::KeymapLayer::global(vec![lower])).unwrap();
-        let _taking = keymap.layer(xccode_ui::keymap::KeymapLayer::global(vec![taking]).priority(10)).unwrap();
+        let _lower = keymap.layer(xiaochuan_ui::keymap::KeymapLayer::global(vec![lower])).unwrap();
+        let _taking = keymap.layer(xiaochuan_ui::keymap::KeymapLayer::global(vec![taking]).priority(10)).unwrap();
         host.app.press("ctrl+x");
         host.app.press("n");
         assert_eq!(below.get(), 0, "the chord's command did not take it first");

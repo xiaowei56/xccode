@@ -1,9 +1,9 @@
-import { FileSystem } from "@xccode/core/filesystem"
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { LocationNotFoundError, InvalidRequestError } from "@xccode/protocol/errors"
+import { FileSystem } from "@xiaochuan/core/filesystem"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { LocationNotFoundError, InvalidRequestError } from "@xiaochuan/protocol/errors"
 import { Effect, Layer, Schema } from "effect"
 import { HttpServerRequest } from "effect/http"
 import { HttpApiMiddleware } from "effect/http-api"
@@ -12,7 +12,7 @@ import { missingSession } from "./handlers/session-error"
 export type LocationServices = Layer.Success<ReturnType<(typeof LocationServiceMap.Service)["get"]>>
 
 export class LocationMiddleware extends HttpApiMiddleware.Service<LocationMiddleware, { provides: LocationServices }>()(
-  "@xccode/HttpApiLocation",
+  "@xiaochuan/HttpApiLocation",
   { error: [LocationNotFoundError] },
 ) {}
 
@@ -58,7 +58,7 @@ export function requestRef(request: HttpServerRequest.HttpServerRequest): Locati
   const query = new URL(request.url, "http://localhost").searchParams
   const directory =
     query.get("location[directory]") ||
-    (request.headers["x-xccode-directory"] ? decode(request.headers["x-xccode-directory"]) : process.cwd())
+    (request.headers["x-xiaochuan-directory"] ? decode(request.headers["x-xiaochuan-directory"]) : process.cwd())
   return Location.Ref.make({
     directory: AbsolutePath.make(directory),
   })

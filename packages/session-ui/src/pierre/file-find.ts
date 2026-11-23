@@ -101,8 +101,8 @@ function clearHighlightFind() {
   const api = globalThis.CSS?.highlights
 
   if (!api) return
-  api.delete("xccode-find")
-  api.delete("xccode-find-current")
+  api.delete("xiaochuan-find")
+  api.delete("xiaochuan-find-current")
 }
 
 function supportsHighlights() {
@@ -438,16 +438,16 @@ export function createFileFind(opts: CreateFileFindOptions) {
 
     if (!api || !("Highlight" in globalThis)) return false
 
-    api.delete("xccode-find")
-    api.delete("xccode-find-current")
+    api.delete("xiaochuan-find")
+    api.delete("xiaochuan-find-current")
 
     const active = ranges[currentIndex]
 
-    if (active) api.set("xccode-find-current", new Highlight(active))
+    if (active) api.set("xiaochuan-find-current", new Highlight(active))
 
     const rest = ranges.filter((_, i) => i !== currentIndex)
 
-    if (rest.length > 0) api.set("xccode-find", new Highlight(...rest))
+    if (rest.length > 0) api.set("xiaochuan-find", new Highlight(...rest))
 
     return true
   }

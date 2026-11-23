@@ -1,17 +1,17 @@
 ---
 title: GitHub
-description: Brug Xccode i GitHub-problemer og Pull Requests.
+description: Brug Xiaochuan i GitHub-problemer og Pull Requests.
 ---
 
-Xccode integreres med din GitHub arbejdsgang. Nævn `/xccode` eller `/oc` i din kommentar, og Xccode vil udføre opgaver i din GitHub Actions-løber.
+Xiaochuan integreres med din GitHub arbejdsgang. Nævn `/xiaochuan` eller `/oc` i din kommentar, og Xiaochuan vil udføre opgaver i din GitHub Actions-løber.
 
 ---
 
 ## Funktioner
 
-- **Triageproblemer**: Bed Xccode om at undersøge et problem og forklare dig det.
-- **Ret og implementer**: Bed Xccode om at løse et problem eller implementere en funktion. Og det vil fungere i en ny branch og indsende en PR med alle ændringerne.
-- **Sikker**: Xccode løber inde i din GitHubs løbere.
+- **Triageproblemer**: Bed Xiaochuan om at undersøge et problem og forklare dig det.
+- **Ret og implementer**: Bed Xiaochuan om at løse et problem eller implementere en funktion. Og det vil fungere i en ny branch og indsende en PR med alle ændringerne.
+- **Sikker**: Xiaochuan løber inde i din GitHubs løbere.
 
 ---
 
@@ -20,7 +20,7 @@ Xccode integreres med din GitHub arbejdsgang. Nævn `/xccode` eller `/oc` i din 
 Kør følgende kommando i et projekt, der er i en GitHub repo:
 
 ```bash
-xccode github install
+xiaochuan github install
 ```
 
 Dette vil lede dig gennem installation af GitHub-appen, oprettelse af arbejdsgangen og opsætning af hemmeligheder.
@@ -33,14 +33,14 @@ Eller du kan indstille det manuelt.
 
 1. **Installationsprogrammet GitHub-appen**
 
-   Gå over til [**github.com/apps/xccode-agent**](https://github.com/apps/xccode-agent). Sørg for, at det er installeret på mållageret.
+   Gå over til [**github.com/apps/xiaochuan-agent**](https://github.com/apps/xiaochuan-agent). Sørg for, at det er installeret på mållageret.
 
 2. **Tilføj arbejdsgangen**
 
-   Tilføj følgende workflow-fil til `.github/workflows/xccode.yml` i din repo. Sørg for at indstille de relevante `model` og nødvendige API-nøgler i `env`.
+   Tilføj følgende workflow-fil til `.github/workflows/xiaochuan.yml` i din repo. Sørg for at indstille de relevante `model` og nødvendige API-nøgler i `env`.
 
-   ```yml title=".github/workflows/xccode.yml" {24,26}
-   name: xccode
+   ```yml title=".github/workflows/xiaochuan.yml" {24,26}
+   name: xiaochuan
 
    on:
      issue_comment:
@@ -49,10 +49,10 @@ Eller du kan indstille det manuelt.
        types: [created]
 
    jobs:
-     xccode:
+     xiaochuan:
        if: |
          contains(github.event.comment.body, '/oc') ||
-         contains(github.event.comment.body, '/xccode')
+         contains(github.event.comment.body, '/xiaochuan')
        runs-on: ubuntu-latest
        permissions:
          id-token: write
@@ -63,8 +63,8 @@ Eller du kan indstille det manuelt.
              fetch-depth: 1
              persist-credentials: false
 
-         - name: Run Xccode
-           uses: xiaowei56/xccode/github@latest
+         - name: Run Xiaochuan
+           uses: xiaowei56/xiaochuan/github@latest
            env:
              ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
            with:
@@ -80,12 +80,12 @@ Eller du kan indstille det manuelt.
 
 ## Konfiguration
 
-- `model`: Den model, der skal bruges med Xccode. Antager formatet `provider/model`. Dette er **påkrævet**.
+- `model`: Den model, der skal bruges med Xiaochuan. Antager formatet `provider/model`. Dette er **påkrævet**.
 - `agent`: Agenten, der skal bruges. Skal være en primær agent. Falder tilbage til `default_agent` fra config eller `"build"`, hvis den ikke findes.
-- `prompt`: Valgfri brugerdefineret prompt for at tilsidesætte standardadfærden. Brug dette til at tilpasse, hvordan Xccode behandler anmodninger.
-- `token`: Valgfrit GitHub adgangstoken til at udføre operationer såsom oprettelse af kommentarer, begå ændringer og åbning af Pull Requests. Som standard bruger Xccode installationsadgangstokenet fra Xccode GitHub-appen, så commits, kommentarer og Pull Requests ser ud til at komme fra appen.
+- `prompt`: Valgfri brugerdefineret prompt for at tilsidesætte standardadfærden. Brug dette til at tilpasse, hvordan Xiaochuan behandler anmodninger.
+- `token`: Valgfrit GitHub adgangstoken til at udføre operationer såsom oprettelse af kommentarer, begå ændringer og åbning af Pull Requests. Som standard bruger Xiaochuan installationsadgangstokenet fra Xiaochuan GitHub-appen, så commits, kommentarer og Pull Requests ser ud til at komme fra appen.
 
-  Alternativt kan du bruge GitHub Action runners [built-in `GITHUB_TOKEN`](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) uden at installere Xccode GitHub appen. Bare sørg for at give de nødvendige tilladelser i dit workflow:
+  Alternativt kan du bruge GitHub Action runners [built-in `GITHUB_TOKEN`](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) uden at installere Xiaochuan GitHub appen. Bare sørg for at give de nødvendige tilladelser i dit workflow:
 
   ```yaml
   permissions:
@@ -101,30 +101,30 @@ Eller du kan indstille det manuelt.
 
 ## Understøttede begivenheder
 
-Xccode kan udløses af følgende GitHub hændelser:
+Xiaochuan kan udløses af følgende GitHub hændelser:
 
 | Begivenhedstype               | Udløst af                               | Detaljer                                                                                                                |
 | ----------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `issue_comment`               | Kommentarer og problemer eller PR       | Nævn `/xccode` eller `/oc` i din kommentar. Xccode læser kontekst og kan oprette brancher, åbne PR'er eller svare.  |
-| `pull_request_review_comment` | Kommenter specifikke kodelinjer i en PR | Nævn `/xccode` eller `/oc`, mens du gennemgår koden. Xccode modtager filsti, linjenumre og diff-kontekst.           |
-| `issues`                      | Udgave åbnet eller redigeret            | Udløs automatisk Xccode, når problemer oprettes eller ændres. Kræver `prompt` input.                                  |
-| `pull_request`                | PR åbnet eller opdateret                | Udløs automatisk Xccode, når PR'er åbnes, synkroniseres eller genåbnes. Nyttigt til automatiserede kodegennemgange.   |
-| `schedule`                    | Cron-baseret tidsplan                   | Kør Xccode efter en tidsplan. Kræver `prompt` input. Output går til logfiler og PR'er (intet problem ved kommentere). |
-| `workflow_dispatch`           | Manuel trigger fra GitHub UI            | Udløs Xccode efter behov via fanen Handlinger. Kræver `prompt` input. Output går til logfiler og PR'er.               |
+| `issue_comment`               | Kommentarer og problemer eller PR       | Nævn `/xiaochuan` eller `/oc` i din kommentar. Xiaochuan læser kontekst og kan oprette brancher, åbne PR'er eller svare.  |
+| `pull_request_review_comment` | Kommenter specifikke kodelinjer i en PR | Nævn `/xiaochuan` eller `/oc`, mens du gennemgår koden. Xiaochuan modtager filsti, linjenumre og diff-kontekst.           |
+| `issues`                      | Udgave åbnet eller redigeret            | Udløs automatisk Xiaochuan, når problemer oprettes eller ændres. Kræver `prompt` input.                                  |
+| `pull_request`                | PR åbnet eller opdateret                | Udløs automatisk Xiaochuan, når PR'er åbnes, synkroniseres eller genåbnes. Nyttigt til automatiserede kodegennemgange.   |
+| `schedule`                    | Cron-baseret tidsplan                   | Kør Xiaochuan efter en tidsplan. Kræver `prompt` input. Output går til logfiler og PR'er (intet problem ved kommentere). |
+| `workflow_dispatch`           | Manuel trigger fra GitHub UI            | Udløs Xiaochuan efter behov via fanen Handlinger. Kræver `prompt` input. Output går til logfiler og PR'er.               |
 
 ### Tidsplan eksempel
 
-Kør Xccode efter en tidsplan for at udføre automatiske opgaver:
+Kør Xiaochuan efter en tidsplan for at udføre automatiske opgaver:
 
-```yaml title=".github/workflows/xccode-scheduled.yml"
-name: Scheduled Xccode Task
+```yaml title=".github/workflows/xiaochuan-scheduled.yml"
+name: Scheduled Xiaochuan Task
 
 on:
   schedule:
     - cron: "0 9 * * 1" # Every Monday at 9am UTC
 
 jobs:
-  xccode:
+  xiaochuan:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -137,8 +137,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run Xccode
-        uses: xiaowei56/xccode/github@latest
+      - name: Run Xiaochuan
+        uses: xiaowei56/xiaochuan/github@latest
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         with:
@@ -148,7 +148,7 @@ jobs:
             If you find issues worth addressing, open an issue to track them.
 ```
 
-For planlagte begivenheder er `prompt` input **påkrævet**, da der ikke er nogen kommentarer at udtrække instruktioner fra. Planlagte arbejdsgange kører uden en brugerkontekst til kontrol af tilladelser, så arbejdsgangen skal give `contents: write` og `pull-requests: write`, hvis du forventer, at Xccode skal oprette brancher eller PR'er.
+For planlagte begivenheder er `prompt` input **påkrævet**, da der ikke er nogen kommentarer at udtrække instruktioner fra. Planlagte arbejdsgange kører uden en brugerkontekst til kontrol af tilladelser, så arbejdsgangen skal give `contents: write` og `pull-requests: write`, hvis du forventer, at Xiaochuan skal oprette brancher eller PR'er.
 
 ---
 
@@ -156,8 +156,8 @@ For planlagte begivenheder er `prompt` input **påkrævet**, da der ikke er noge
 
 Gennemgå automatisk PR'er, når de åbnes eller opdateres:
 
-```yaml title=".github/workflows/xccode-review.yml"
-name: xccode-review
+```yaml title=".github/workflows/xiaochuan-review.yml"
+name: xiaochuan-review
 
 on:
   pull_request:
@@ -175,7 +175,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-      - uses: xiaowei56/xccode/github@latest
+      - uses: xiaowei56/xiaochuan/github@latest
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -189,7 +189,7 @@ jobs:
             - Suggest improvements
 ```
 
-For `pull_request` hændelser, hvis der ikke er angivet nogen `prompt`, vil Xccode som standard gennemgå Pull Requesten.
+For `pull_request` hændelser, hvis der ikke er angivet nogen `prompt`, vil Xiaochuan som standard gennemgå Pull Requesten.
 
 ---
 
@@ -197,7 +197,7 @@ For `pull_request` hændelser, hvis der ikke er angivet nogen `prompt`, vil Xcco
 
 Triage automatisk nye problemer. Dette eksempel filtrerer til konti ældre end 30 dage for at reducere spam:
 
-```yaml title=".github/workflows/xccode-triage.yml"
+```yaml title=".github/workflows/xiaochuan-triage.yml"
 name: Issue Triage
 
 on:
@@ -231,7 +231,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: xiaowei56/xccode/github@latest
+      - uses: xiaowei56/xiaochuan/github@latest
         if: steps.check.outputs.result == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -250,10 +250,10 @@ For `issues` begivenheder er `prompt` input **påkrævet**, da der ikke er nogen
 
 ## Brugerdefinerede prompter
 
-Tilsidesæt standardprompten for at tilpasse Xccodes adfærd til din arbejdsgang.
+Tilsidesæt standardprompten for at tilpasse Xiaochuans adfærd til din arbejdsgang.
 
-```yaml title=".github/workflows/xccode.yml"
-- uses: xiaowei56/xccode/github@latest
+```yaml title=".github/workflows/xiaochuan.yml"
+- uses: xiaowei56/xiaochuan/github@latest
   with:
     model: anthropic/claude-sonnet-5-5
     prompt: |
@@ -269,27 +269,27 @@ Dette er nyttigt til at håndhæve specifikke gennemgangskriterier, kodningsstan
 
 ## Eksempler
 
-Her er nogle eksempler på, hvordan du kan bruge Xccode i GitHub.
+Her er nogle eksempler på, hvordan du kan bruge Xiaochuan i GitHub.
 
 - **Forklar et problem**
 
   Tilføj denne kommentar i et GitHub-nummer.
 
   ```
-  /xccode explain this issue
+  /xiaochuan explain this issue
   ```
 
-  Xccode vil læse hele tråden, inklusive alle kommentarer, og svare med en klar forklaring.
+  Xiaochuan vil læse hele tråden, inklusive alle kommentarer, og svare med en klar forklaring.
 
 - **Løs et problem**
 
   I et GitHub-problem skal du sige:
 
   ```
-  /xccode fix this
+  /xiaochuan fix this
   ```
 
-  Og Xccode vil oprette en ny branch, implementere ændringer og åbne en PR med ændringer.
+  Og Xiaochuan vil oprette en ny branch, implementere ændringer og åbne en PR med ændringer.
 
 - **Gennemgå PR'er og foretag ændringer**
 
@@ -299,18 +299,18 @@ Her er nogle eksempler på, hvordan du kan bruge Xccode i GitHub.
   Delete the attachment from S3 when the note is removed /oc
   ```
 
-  Xccode vil implementere den ønskede ændring og forpligtelse til den samme PR.
+  Xiaochuan vil implementere den ønskede ændring og forpligtelse til den samme PR.
 
 - **Gennemgå specifikke kodelinjer**
 
-  Efterlad en kommentar direkte på kodelinjer i PR's faneblad "Filer". Xccode detekterer automatisk filer, linjenumrene og diff-konteksten for at give præcise svar.
+  Efterlad en kommentar direkte på kodelinjer i PR's faneblad "Filer". Xiaochuan detekterer automatisk filer, linjenumrene og diff-konteksten for at give præcise svar.
 
   ```
   [Comment on specific lines in Files tab]
   /oc add error handling here
   ```
 
-  Når du kommenterer på specifikke linjer, modtager Xccode:
+  Når du kommenterer på specifikke linjer, modtager Xiaochuan:
   - Den nøjagtige fil bliver gennemgået
   - De specifikke kodelinjer
   - Den omgivende forskellig kontekst

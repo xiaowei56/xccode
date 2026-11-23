@@ -9,7 +9,7 @@ export type OgImage = { src: string; alt: string; video?: string; locales?: Reco
 const cards: Record<string, OgImage> =
   Object.values(import.meta.glob<Record<string, OgImage>>("./og-images.json", { eager: true, import: "default" }))[0] ??
   {}
-const fallback: OgImage = { src: "/social-share.png", alt: "Xccode" }
+const fallback: OgImage = { src: "/social-share.png", alt: "Xiaochuan" }
 
 /**
  * The card for a page, by its English path. ShareMeta picks the locale's image when there is one. script/og.ts

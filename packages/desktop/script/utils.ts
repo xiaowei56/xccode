@@ -10,7 +10,7 @@ const Manifest = Schema.fromJsonString(Schema.Struct({ version: Schema.NonEmptyS
 export type Channel = "dev" | "beta" | "prod"
 
 export function resolveChannel(): Channel {
-  const raw = process.env.XCCODE_CHANNEL
+  const raw = process.env.XIAOCHUAN_CHANNEL
 
   if (raw === "dev" || raw === "beta" || raw === "prod") return raw
 
@@ -22,37 +22,37 @@ export function resolveChannel(): Channel {
 export const CLI_BINARIES: Array<{ target: string; package: string; os: string; cpu: string }> = [
   {
     target: "darwin-arm64",
-    package: "@xccode/cli-darwin-arm64",
+    package: "@xiaochuan/cli-darwin-arm64",
     os: "darwin",
     cpu: "arm64",
   },
   {
     target: "darwin-x64",
-    package: "@xccode/cli-darwin-x64-baseline",
+    package: "@xiaochuan/cli-darwin-x64-baseline",
     os: "darwin",
     cpu: "x64",
   },
   {
     target: "windows-arm64",
-    package: "@xccode/cli-windows-arm64",
+    package: "@xiaochuan/cli-windows-arm64",
     os: "win32",
     cpu: "arm64",
   },
   {
     target: "windows-x64",
-    package: "@xccode/cli-windows-x64-baseline",
+    package: "@xiaochuan/cli-windows-x64-baseline",
     os: "win32",
     cpu: "x64",
   },
   {
     target: "linux-x64",
-    package: "@xccode/cli-linux-x64-baseline",
+    package: "@xiaochuan/cli-linux-x64-baseline",
     os: "linux",
     cpu: "x64",
   },
   {
     target: "linux-arm64",
-    package: "@xccode/cli-linux-arm64",
+    package: "@xiaochuan/cli-linux-arm64",
     os: "linux",
     cpu: "arm64",
   },
@@ -69,7 +69,7 @@ function nativeTarget() {
   throw new Error(`Unsupported platform: ${platform}/${arch}`)
 }
 
-export function getCurrentCli(target = process.env.XCCODE_TARGET ?? nativeTarget()) {
+export function getCurrentCli(target = process.env.XIAOCHUAN_TARGET ?? nativeTarget()) {
   const binaryConfig = CLI_BINARIES.find((item) => item.target === target)
 
   if (!binaryConfig) throw new Error(`CLI configuration not available for target '${target}'`)
@@ -83,10 +83,10 @@ export function nodePtyPackage(target?: string) {
   return `@lydell/node-pty-${cli.os}-${cli.cpu}`
 }
 
-export async function downloadCliToResources(version = CLI_VERSION, dest = windowsify("resources/xccode-cli")) {
+export async function downloadCliToResources(version = CLI_VERSION, dest = windowsify("resources/xiaochuan-cli")) {
   const { $ } = await import("bun")
   const cli = getCurrentCli()
-  const directory = await mkdtemp(join(tmpdir(), "xccode-cli-"))
+  const directory = await mkdtemp(join(tmpdir(), "xiaochuan-cli-"))
 
   try {
     await $`bun install --no-save --cwd ${directory} ${`${cli.package}@${version}`} ${`--os=${cli.os}`} ${`--cpu=${cli.cpu}`}`
@@ -98,9 +98,9 @@ export async function downloadCliToResources(version = CLI_VERSION, dest = windo
   console.log(`Copied ${cli.package}@${version} to ${dest}`)
 }
 
-export async function copyBuiltCliToResources(root: string, dest = windowsify("resources/xccode-cli")) {
+export async function copyBuiltCliToResources(root: string, dest = windowsify("resources/xiaochuan-cli")) {
   const cli = getCurrentCli()
-  const directory = cli.package.replace("@xccode/", "")
+  const directory = cli.package.replace("@xiaochuan/", "")
   await copyCliToResources(join(root, directory), dest)
 }
 
@@ -109,7 +109,7 @@ export async function copyBuiltCliToResources(root: string, dest = windowsify("r
 // 200 MB binary on first launch.
 async function copyCliToResources(pkg: string, dest: string) {
   const cli = getCurrentCli()
-  await copyFile(join(pkg, "bin", cli.os === "win32" ? "xccode.exe" : "xccode"), dest)
+  await copyFile(join(pkg, "bin", cli.os === "win32" ? "xiaochuan.exe" : "xiaochuan"), dest)
   await prepareCli(dest)
 
   const manifest = Option.getOrUndefined(
@@ -121,7 +121,7 @@ async function copyCliToResources(pkg: string, dest: string) {
 }
 
 export function versionFile(cli: string) {
-  return join(dirname(cli), "xccode-cli.version")
+  return join(dirname(cli), "xiaochuan-cli.version")
 }
 
 async function prepareCli(dest: string) {

@@ -14,28 +14,28 @@ import { verifyPreviewBinding } from "./script/preview-binding"
 const { FileMatcher } = createRequire(import.meta.resolve("electron-builder"))("app-builder-lib/out/fileMatcher")
 
 const channels = [
-  { channel: "dev", appId: "ai.xccode.desktop.dev", feed: "dev" },
-  { channel: "beta", appId: "ai.xccode.desktop.beta", feed: "beta" },
-  { channel: "prod", appId: "ai.xccode.desktop", feed: "latest" },
+  { channel: "dev", appId: "ai.xiaochuan.desktop.dev", feed: "dev" },
+  { channel: "beta", appId: "ai.xiaochuan.desktop.beta", feed: "beta" },
+  { channel: "prod", appId: "ai.xiaochuan.desktop", feed: "latest" },
 ] as const
 
 function load(channel: string, target?: string): Configuration {
-  const previous = process.env.XCCODE_CHANNEL
-  const previousTarget = process.env.XCCODE_TARGET
-  process.env.XCCODE_CHANNEL = channel
+  const previous = process.env.XIAOCHUAN_CHANNEL
+  const previousTarget = process.env.XIAOCHUAN_TARGET
+  process.env.XIAOCHUAN_CHANNEL = channel
 
-  if (target !== undefined) process.env.XCCODE_TARGET = target
-  else delete process.env.XCCODE_TARGET
+  if (target !== undefined) process.env.XIAOCHUAN_TARGET = target
+  else delete process.env.XIAOCHUAN_TARGET
 
   try {
     return getConfig()
   } finally {
-    delete process.env.XCCODE_CHANNEL
-    delete process.env.XCCODE_TARGET
+    delete process.env.XIAOCHUAN_CHANNEL
+    delete process.env.XIAOCHUAN_TARGET
 
-    if (previous !== undefined) process.env.XCCODE_CHANNEL = previous
+    if (previous !== undefined) process.env.XIAOCHUAN_CHANNEL = previous
 
-    if (previousTarget !== undefined) process.env.XCCODE_TARGET = previousTarget
+    if (previousTarget !== undefined) process.env.XIAOCHUAN_TARGET = previousTarget
   }
 }
 
@@ -54,13 +54,13 @@ test.each(channels)("channel identity for $channel", ({ channel, appId, feed }) 
   // Every published channel updates from its own feed on the update service.
   expect(config.publish).toEqual({
     provider: "generic",
-    url: `https://xccode.ai/update/api/${feed}/desktop/xccode/`,
+    url: `https://xiaochuan.ai/update/api/${feed}/desktop/xiaochuan/`,
     channel: "latest",
   })
   expect(config.extraMetadata?.desktopName).toBe(`${appId}.desktop`)
   // The executable must never end in `.desktop`: libappimage resolves the
   // AppImage's desktop entry by globbing `*.desktop`, and an ELF matching
-  // that glob breaks integration (xiaowei56/xccode#51867).
+  // that glob breaks integration (xiaowei56/xiaochuan#51867).
   expect(config.linux?.executableName).toBe(appId.replace(/\.desktop$/, ""))
   expect(config.linux?.executableName).not.toMatch(/\.desktop$/)
   // The installed `.desktop` filename still derives from `desktopName` so
@@ -71,7 +71,7 @@ test.each(channels)("channel identity for $channel", ({ channel, appId, feed }) 
   for (const fpm of [config.deb?.fpm, config.rpm?.fpm]) {
     expect(fpm).toContainEqual(expect.stringContaining(`/usr/share/metainfo/${appId}.metainfo.xml`))
     expect(
-      fpm?.some((entry) => entry.endsWith("xccode-desktop.desktop=/usr/share/applications/xccode-desktop.desktop")),
+      fpm?.some((entry) => entry.endsWith("xiaochuan-desktop.desktop=/usr/share/applications/xiaochuan-desktop.desktop")),
     ).toBe(channel === "prod")
   }
 
@@ -96,10 +96,10 @@ test.each([
 })
 
 test("legacy Linux launcher stays hidden", async () => {
-  const desktop = await Bun.file(path.join(import.meta.dirname, "resources/linux/xccode-desktop.desktop")).text()
-  expect(desktop).toContain("Exec=/opt/Xccode/ai.xccode %U")
-  expect(desktop).toContain("Icon=ai.xccode")
-  expect(desktop).toContain("StartupWMClass=ai.xccode.desktop")
+  const desktop = await Bun.file(path.join(import.meta.dirname, "resources/linux/xiaochuan-desktop.desktop")).text()
+  expect(desktop).toContain("Exec=/opt/Xiaochuan/ai.xiaochuan %U")
+  expect(desktop).toContain("Icon=ai.xiaochuan")
+  expect(desktop).toContain("StartupWMClass=ai.xiaochuan.desktop")
   expect(desktop).toContain("NoDisplay=true")
 })
 
@@ -140,9 +140,9 @@ test("shared packaging defaults", async () => {
   const include = path.join(import.meta.dirname, "resources/windows/installer.nsh")
   expect(config.nsis?.include).toBe(include)
   expect(await Bun.file(include).exists()).toBe(true)
-  expect(config.files).toContain("!resources/xccode-cli*")
+  expect(config.files).toContain("!resources/xiaochuan-cli*")
   expect(config.extraResources).toEqual([
-    { from: "resources/", to: "", filter: ["xccode-cli", "xccode-cli.exe", "xccode-cli.version"] },
+    { from: "resources/", to: "", filter: ["xiaochuan-cli", "xiaochuan-cli.exe", "xiaochuan-cli.version"] },
   ])
 })
 
@@ -262,7 +262,7 @@ test.each(["arm64", "x64"] as const)("packaging linux/%s needs no preview addon"
 
 test("the trimmed Zip.js package can still export compressed logs", async () => {
   const config = load("dev")
-  const dir = await mkdtemp(path.join(os.tmpdir(), "xccode-zip-package-"))
+  const dir = await mkdtemp(path.join(os.tmpdir(), "xiaochuan-zip-package-"))
   const source = path.dirname(fileURLToPath(import.meta.resolve("@zip.js/zip.js/package.json")))
   const filter = trimFilter(dir, config)
 

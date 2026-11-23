@@ -42,7 +42,7 @@ type ShowCache = {
 const shows = new Map<string, ShowCache>()
 
 export const make = createLocalProviderPlugin({
-  id: "xccode.provider.ollama",
+  id: "xiaochuan.provider.ollama",
   providerID: "ollama",
   name: "Ollama",
   origin: "http://127.0.0.1:11434",

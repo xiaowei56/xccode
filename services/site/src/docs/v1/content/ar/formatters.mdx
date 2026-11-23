@@ -1,15 +1,15 @@
 ---
 title: المُنسِّقات
-description: يستخدم Xccode مُنسِّقات خاصة بكل لغة.
+description: يستخدم Xiaochuan مُنسِّقات خاصة بكل لغة.
 ---
 
-يُنسِّق Xccode الملفات تلقائيا بعد كتابتها أو تعديلها باستخدام مُنسِّقات خاصة بكل لغة. يضمن ذلك أن الشيفرة التي يتم توليدها تتبع أساليب التنسيق المعتمدة في مشروعك.
+يُنسِّق Xiaochuan الملفات تلقائيا بعد كتابتها أو تعديلها باستخدام مُنسِّقات خاصة بكل لغة. يضمن ذلك أن الشيفرة التي يتم توليدها تتبع أساليب التنسيق المعتمدة في مشروعك.
 
 ---
 
 ## مُضمَّنة
 
-يأتي Xccode مع عدة مُنسِّقات مُضمَّنة للغات وأطر العمل الشائعة. فيما يلي قائمة بالمُنسِّقات وامتدادات الملفات المدعومة والأوامر أو خيارات الإعداد التي تحتاجها.
+يأتي Xiaochuan مع عدة مُنسِّقات مُضمَّنة للغات وأطر العمل الشائعة. فيما يلي قائمة بالمُنسِّقات وامتدادات الملفات المدعومة والأوامر أو خيارات الإعداد التي تحتاجها.
 
 | المُنسِّق            | الامتدادات                                                                                               | المتطلبات                                                                               |
 | -------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
@@ -39,13 +39,13 @@ description: يستخدم Xccode مُنسِّقات خاصة بكل لغة.
 | oxfmt (Experimental) | .js, .jsx, .ts, .tsx                                                                                     | وجود اعتماد `oxfmt` في `package.json` و[علم متغير بيئة تجريبي](/docs/cli/#experimental) |
 | ormolu               | .hs                                                                                                      | يتوفر أمر `ormolu`                                                                      |
 
-لذا إذا كان مشروعك يتضمن `prettier` ضمن `package.json`، فسيستخدمه Xccode تلقائيا.
+لذا إذا كان مشروعك يتضمن `prettier` ضمن `package.json`، فسيستخدمه Xiaochuan تلقائيا.
 
 ---
 
 ## كيف يعمل
 
-عندما يكتب Xccode ملفا أو يحرره، فإنه:
+عندما يكتب Xiaochuan ملفا أو يحرره، فإنه:
 
 1. يتحقق من امتداد الملف مقابل جميع المُنسِّقات المفعّلة.
 2. يشغّل أمر المُنسِّق المناسب على الملف.
@@ -57,11 +57,11 @@ description: يستخدم Xccode مُنسِّقات خاصة بكل لغة.
 
 ## الإعداد
 
-يمكنك تخصيص المُنسِّقات عبر قسم `formatter` في إعدادات Xccode.
+يمكنك تخصيص المُنسِّقات عبر قسم `formatter` في إعدادات Xiaochuan.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": {}
 }
 ```
@@ -83,18 +83,18 @@ description: يستخدم Xccode مُنسِّقات خاصة بكل لغة.
 
 لتعطيل **جميع** المُنسِّقات على مستوى عام، اضبط `formatter` على `false`:
 
-```json title="xccode.json" {3}
+```json title="xiaochuan.json" {3}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": false
 }
 ```
 
 لتعطيل مُنسِّق **محدد**، اضبط `disabled` على `true`:
 
-```json title="xccode.json" {5}
+```json title="xiaochuan.json" {5}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": {
     "prettier": {
       "disabled": true
@@ -109,9 +109,9 @@ description: يستخدم Xccode مُنسِّقات خاصة بكل لغة.
 
 يمكنك تجاوز المُنسِّقات المُضمَّنة أو إضافة مُنسِّقات جديدة عبر تحديد الأمر ومتغيرات البيئة وامتدادات الملفات:
 
-```json title="xccode.json" {4-14}
+```json title="xiaochuan.json" {4-14}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": {
     "prettier": {
       "command": ["npx", "prettier", "--write", "$FILE"],

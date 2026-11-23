@@ -1,10 +1,10 @@
 export * as ReadTool from "./read.js"
 
-import type { Context } from "@xccode/plugin/effect/plugin"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
 import path, { basename, dirname, extname, isAbsolute, join, relative } from "path"
-import { ToolFailure } from "@xccode/ai/effect"
+import { ToolFailure } from "@xiaochuan/ai/effect"
 import { Effect, Schema } from "effect"
-import { FSUtil } from "@xccode/util/fs-util"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { Config } from "../../config.js"
 import { ConfigEntryObserver } from "../../config/plugin/entry-observer.js"
 import { Flag } from "../../flag.js"
@@ -41,7 +41,7 @@ const description = (codemode: boolean) =>
   ].join(" ")
 
 export const Plugin = {
-  id: "xccode.tool.read",
+  id: "xiaochuan.tool.read",
   effect: Effect.fn("ReadTool.Plugin")(function* (ctx: Context) {
     const access = yield* FileAccess.Service
     const permission = yield* Permission.Service

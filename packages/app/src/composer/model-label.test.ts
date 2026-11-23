@@ -23,27 +23,27 @@ function label(labels: ReturnType<typeof composerModelLabels>, providerID: strin
   return labels.get(composerModelLabelKey(providerID, modelID))
 }
 
-const root = provider("xccode", "Anomaly / Xccode", { integrationID: "xccode", models: [] })
+const root = provider("xiaochuan", "Anomaly / Xiaochuan", { integrationID: "xiaochuan", models: [] })
 
-const managed = provider("console-openai", "Anomaly / OpenAI", { integrationID: "xccode", canonical: "openai" })
+const managed = provider("console-openai", "Anomaly / OpenAI", { integrationID: "xiaochuan", canonical: "openai" })
 
 test.each([
-  provider("xccode", "Anomaly / Xccode", { integrationID: "xccode" }),
-  provider("xccode", "Xccode"),
+  provider("xiaochuan", "Anomaly / Xiaochuan", { integrationID: "xiaochuan" }),
+  provider("xiaochuan", "Xiaochuan"),
 ])("omits native provider $name", (native) => {
   const all = catalog(native)
 
-  expect(composerProviderName("xccode", all)).toBeUndefined()
-  expect(label(composerModelLabels(all), "xccode", "m")).toEqual({ provider: undefined, model: "Model" })
+  expect(composerProviderName("xiaochuan", all)).toBeUndefined()
+  expect(label(composerModelLabels(all), "xiaochuan", "m")).toEqual({ provider: undefined, model: "Model" })
 })
 
 test.each([
   { direct: provider("openai", "Renamed", { models: [] }), connected: [], expected: "OpenAI" },
-  { direct: provider("openai", "Renamed", { models: [] }), connected: ["openai"], expected: "Xccode / OpenAI" },
+  { direct: provider("openai", "Renamed", { models: [] }), connected: ["openai"], expected: "Xiaochuan / OpenAI" },
   {
     direct: provider("account", "Owls", { integrationID: "openai", models: [] }),
     connected: ["account"],
-    expected: "Xccode / OpenAI",
+    expected: "Xiaochuan / OpenAI",
   },
   {
     direct: provider("proxy", "OpenAI", { canonical: "openai", models: [] }),
@@ -71,7 +71,7 @@ test("only connected providers get labels", () => {
 test("unknown managed routes do not infer identity from console prefixes or display names", () => {
   const all = catalog(
     root,
-    provider("console-openai", "Anomaly / OpenAI", { integrationID: "xccode" }),
+    provider("console-openai", "Anomaly / OpenAI", { integrationID: "xiaochuan" }),
     provider("openai", "OpenAI"),
   )
 

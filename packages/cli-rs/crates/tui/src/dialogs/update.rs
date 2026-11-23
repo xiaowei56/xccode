@@ -1,7 +1,7 @@
 //! Update check and installation dialog.
 
-use xccode_ui::dialog::{DialogButton, DialogButtons, DialogCx};
-use xccode_ui::motion::Spinner;
+use xiaochuan_ui::dialog::{DialogButton, DialogButtons, DialogCx};
+use xiaochuan_ui::motion::Spinner;
 
 use crate::features::update_notification::{self as updates, UpdateState};
 use crate::prelude::*;
@@ -143,7 +143,7 @@ fn draw(tui: &Tui, cx: &Rc<DialogCx>, root: &View, check: &Check) -> Option<Dial
     let theme = &cx.theme;
     let shown = shown(tui, check);
     let title = match &shown {
-        Shown::Update(UpdateState::Installing(_)) => "Updating Xccode",
+        Shown::Update(UpdateState::Installing(_)) => "Updating Xiaochuan",
         Shown::Update(UpdateState::Available(_) | UpdateState::Failed(_)) => "Update available",
         _ => "Update",
     };
@@ -155,13 +155,13 @@ fn draw(tui: &Tui, cx: &Rc<DialogCx>, root: &View, check: &Check) -> Option<Dial
     let body = match &shown {
         Shown::Checking => spinner("Checking for updates…".to_owned()),
         Shown::Update(UpdateState::Available(_)) => {
-            muted("An update is available. After installing, you'll be prompted to restart Xccode.")
+            muted("An update is available. After installing, you'll be prompted to restart Xiaochuan.")
         }
-        Shown::Update(UpdateState::Installing(version)) => spinner(format!("Installing Xccode {version}…")),
+        Shown::Update(UpdateState::Installing(version)) => spinner(format!("Installing Xiaochuan {version}…")),
         Shown::Update(UpdateState::Installed(_)) => {
-            muted("Update successful! Restart closes Xccode, then run xccode to use the new version.")
+            muted("Update successful! Restart closes Xiaochuan, then run xiaochuan to use the new version.")
         }
-        Shown::Current => muted("Xccode is already up to date."),
+        Shown::Current => muted("Xiaochuan is already up to date."),
         Shown::Unavailable(message) => muted(message),
         Shown::Update(UpdateState::Failed(message)) | Shown::CheckFailed(message) => {
             Text::new(app, message.clone()).fg(theme.text.feedback.error.base).as_any()
@@ -185,12 +185,12 @@ fn draw(tui: &Tui, cx: &Rc<DialogCx>, root: &View, check: &Check) -> Option<Dial
         DialogButtons::new(cx, buttons, last)
     });
     root.clear();
-    root.add(&xccode_ui::dialog::layout_view(
+    root.add(&xiaochuan_ui::dialog::layout_view(
         cx,
         &header(cx, HeaderProps::new(title)),
         &View::new(app).child(&body),
         row.as_ref().map(|row| &row.view),
-        xccode_ui::dialog::DIALOG_INSET,
+        xiaochuan_ui::dialog::DIALOG_INSET,
         1,
     ));
     row

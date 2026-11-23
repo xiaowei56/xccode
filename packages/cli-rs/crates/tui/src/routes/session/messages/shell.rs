@@ -1,13 +1,13 @@
 //! Shell commands with their collapsible output and exit status.
 
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     LocationQueryInput, SessionMessageShell, SessionMessageShellExit, SessionMessageShellStatus, ShellID,
     ShellOutputInput,
 };
-use xccode_store::Data;
-use xccode_ui::motion::Spinner;
-use xccode_util::text_boundary;
+use xiaochuan_store::Data;
+use xiaochuan_ui::motion::Spinner;
+use xiaochuan_util::text_boundary;
 use opentui::input::strip_ansi_sequences;
 use unicode_width::UnicodeWidthChar;
 
@@ -185,7 +185,7 @@ impl Shell {
             this: this.clone(),
         });
         inner.root.on_hover(bind!(inner, |inner, _, hovered| {
-            inner.root.mouse_pointer(xccode_ui::click_pointer(inner.expandable.get()));
+            inner.root.mouse_pointer(xiaochuan_ui::click_pointer(inner.expandable.get()));
             inner.hover.set(hovered);
             inner.paint_background();
         }));

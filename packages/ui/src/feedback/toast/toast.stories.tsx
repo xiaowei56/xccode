@@ -1,6 +1,6 @@
 import { onCleanup, onMount } from "solid-js"
 import { Toast, showToast, toaster, type ToastRegionProps } from "./toast"
-import { Button } from "@xccode/ui/button"
+import { Button } from "@xiaochuan/ui/button"
 
 const docs = `### Overview
 Toast notifications with optional icons, actions, and progress.

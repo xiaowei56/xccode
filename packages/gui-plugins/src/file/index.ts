@@ -1,5 +1,5 @@
-import { builtinCatalog } from "@xccode/plugin/gui/builtin"
-import { Plugin, Store } from "@xccode/plugin/gui"
+import { builtinCatalog } from "@xiaochuan/plugin/gui/builtin"
+import { Plugin, Store } from "@xiaochuan/plugin/gui"
 import { OpenAppPreferences } from "./apps"
 import en from "./i18n/en"
 

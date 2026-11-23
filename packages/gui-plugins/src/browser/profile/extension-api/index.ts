@@ -1,6 +1,6 @@
 import { mkdir } from "node:fs/promises"
 import type { BrowserWindow, Session } from "electron"
-import type { Log, Storage } from "@xccode/plugin/gui/main"
+import type { Log, Storage } from "@xiaochuan/plugin/gui/main"
 import { createActions } from "./action"
 import type { Emit } from "./api"
 import { createContextMenus } from "./context-menus"

@@ -1,15 +1,15 @@
 export * as SdkPlugins from "./sdk.js"
 
-import type { Plugin } from "@xccode/plugin/effect/plugin"
+import type { Plugin } from "@xiaochuan/plugin/effect/plugin"
 import { Context, Effect, Layer } from "effect"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { Bus } from "../bus.js"
 import type { Generation } from "../plugin.js"
 
 export const Updated = Bus.ephemeral({ type: "sdk.plugin.updated", schema: {} })
 
 /**
- * Holds the plugins an embedder (the `@xccode/sdk` host) contributes,
+ * Holds the plugins an embedder (the `@xiaochuan/sdk` host) contributes,
  * so the application loader can add them on every Location boot through its
  * ordinary generation path. Registration publishes an unlocated update so every booted Location
  * reloads its plugin generation from the shared store.
@@ -23,7 +23,7 @@ export interface Interface {
   readonly all: () => readonly Generation[]
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SdkPlugins") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SdkPlugins") {}
 
 export const layer = Layer.effect(
   Service,

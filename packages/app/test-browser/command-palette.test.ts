@@ -1,11 +1,11 @@
 import { describe, expect, test } from "bun:test"
 import type { Project } from "@/runtime/server/types"
-import type { SessionInfo } from "@xccode/client/promise"
+import type { SessionInfo } from "@xiaochuan/client/promise"
 import { createRoot } from "solid-js"
 import { createCommandPaletteCommandEntry, createServerSessionEntries } from "@/shell/commands/palette"
 import { matchesCommandPaletteEntry } from "@/shell/commands/dialog"
 import { ServerConnection } from "@/runtime/server/registry"
-import { getProjectAvatarSource } from "@xccode/ui/project-avatar"
+import { getProjectAvatarSource } from "@xiaochuan/ui/project-avatar"
 
 const project: Project = {
   id: "project-1",

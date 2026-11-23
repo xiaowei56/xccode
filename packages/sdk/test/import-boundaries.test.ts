@@ -14,8 +14,8 @@ test("bundles the Promise and Effect clients with the in-memory host", async () 
   const result = await Bun.build({
     entrypoints: Object.values(entrypoints),
     files: {
-      [entrypoints.promise]: 'export * from "@xccode/sdk"',
-      [entrypoints.effect]: 'export * from "@xccode/sdk/effect"',
+      [entrypoints.promise]: 'export * from "@xiaochuan/sdk"',
+      [entrypoints.effect]: 'export * from "@xiaochuan/sdk/effect"',
     },
     target: "bun",
     format: "esm",

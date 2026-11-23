@@ -6,8 +6,8 @@ import { chmod, copyFile, mkdir, mkdtemp, readFile, realpath, rename, rm, stat, 
 import os from "node:os"
 import path from "node:path"
 import { build } from "vite"
-import { Script } from "@xccode/script"
-import { embed } from "@xccode/script/highlights"
+import { Script } from "@xiaochuan/script"
+import { embed } from "@xiaochuan/script/highlights"
 import pkg from "../package.json"
 import { collectNodeAssets, copyNodeAssets, hashNodeAssets, seaAssetMap } from "./node-assets"
 import { appArchiveAsset, mainConfig } from "../vite.node.config"
@@ -31,10 +31,10 @@ const bundleOnly = process.argv.includes("--bundle-only")
 const single = process.argv.includes("--single")
 const skipInstall = process.argv.includes("--skip-install")
 const appArchiveOnly = process.argv.includes("--app-archive-only")
-const highlights = Script.preview ? undefined : embed(process.env.XCCODE_RELEASE_NOTES)
-const requestedArchive = process.env.XCCODE_APP_ARCHIVE
+const highlights = Script.preview ? undefined : embed(process.env.XIAOCHUAN_RELEASE_NOTES)
+const requestedArchive = process.env.XIAOCHUAN_APP_ARCHIVE
 const archivePath = requestedArchive ? path.resolve(dir, requestedArchive) : undefined
-const requested = process.env.XCCODE_TARGET
+const requested = process.env.XIAOCHUAN_TARGET
 const allTargets = [
   nodeTarget("linux", "arm64"),
   nodeTarget("linux", "x64"),
@@ -51,7 +51,7 @@ const targets = requested
 process.chdir(dir)
 if (!skipInstall) run(process.execPath, ["install", "--os=*", "--cpu=*"])
 if (appArchiveOnly) {
-  if (!archivePath) throw new Error("--app-archive-only requires XCCODE_APP_ARCHIVE")
+  if (!archivePath) throw new Error("--app-archive-only requires XIAOCHUAN_APP_ARCHIVE")
   await mkdir(path.dirname(archivePath), { recursive: true })
   await writeFile(archivePath, await buildAppArchive(Script.channel, Script.version))
   process.exit(0)
@@ -106,24 +106,24 @@ for (const target of targets) {
   await copyNodeAssets(assets)
   await writeFile(path.join("dist-node", "assets", appArchiveAsset), appArchive)
   await build(mainConfig(input))
-  await assertTextImportsInlined("dist-node/xccode.mjs")
-  if (bundleOnly) await verifyArtifact("dist-node/xccode.mjs")
+  await assertTextImportsInlined("dist-node/xiaochuan.mjs")
+  if (bundleOnly) await verifyArtifact("dist-node/xiaochuan.mjs")
 
   const host = target.platform === process.platform && target.arch === process.arch
   if (host) {
     if (!builder) throw new Error("Node SEA builder is unavailable")
-    run(builder, [...nodeExecArgv, "dist-node/xccode.mjs", "--version"])
-    run(builder, [...nodeExecArgv, "dist-node/xccode.mjs", "--help"])
+    run(builder, [...nodeExecArgv, "dist-node/xiaochuan.mjs", "--version"])
+    run(builder, [...nodeExecArgv, "dist-node/xiaochuan.mjs", "--help"])
   }
   if (bundleOnly) continue
 
   const name = `cli-node-${targetName(target)}`
-  const binary = target.platform === "win32" ? "xccode2-node.exe" : "xccode2-node"
+  const binary = target.platform === "win32" ? "xiaochuan2-node.exe" : "xiaochuan2-node"
   const output = path.join(outdir, name, "bin", binary)
   if (!builder) throw new Error("Node SEA builder is unavailable")
   await mkdir(path.dirname(output), { recursive: true })
   const config = {
-    main: "dist-node/xccode.mjs",
+    main: "dist-node/xiaochuan.mjs",
     mainFormat: "module",
     executable: await resolveTargetNode(target, builder),
     output: path.relative(dir, output),
@@ -146,10 +146,10 @@ for (const target of targets) {
     path.join(outdir, name, "package.json"),
     `${JSON.stringify(
       {
-        name: `@xccode/${name}`,
+        name: `@xiaochuan/${name}`,
         version: Script.version,
         license: pkg.license,
-        repository: { type: "git", url: "git+https://github.com/xiaowei56/xccode.git" },
+        repository: { type: "git", url: "git+https://github.com/xiaowei56/xiaochuan.git" },
         os: [target.platform],
         cpu: [target.arch],
       },
@@ -229,7 +229,7 @@ async function resolveTargetNode(target: NodeTarget, host?: string) {
 }
 
 async function smoke(output: string) {
-  const root = await mkdtemp(path.join(os.tmpdir(), "xccode-node-smoke-"))
+  const root = await mkdtemp(path.join(os.tmpdir(), "xiaochuan-node-smoke-"))
   const executable = path.join(root, path.basename(output))
   await copyFile(output, executable)
   if (process.platform !== "win32") await chmod(executable, 0o755)

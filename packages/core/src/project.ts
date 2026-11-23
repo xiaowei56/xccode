@@ -7,12 +7,12 @@ import path from "path"
 import { AbsolutePath } from "./schema.js"
 import { Bus } from "./bus.js"
 import { Database } from "./database/database.js"
-import { Worktree } from "@xccode/schema/worktree"
-import { FSUtil } from "@xccode/util/fs-util"
+import { Worktree } from "@xiaochuan/schema/worktree"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { Git } from "./git.js"
-import { AppProcess } from "@xccode/util/process"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { Hash } from "@xccode/util/hash"
+import { AppProcess } from "@xiaochuan/util/process"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { Hash } from "@xiaochuan/util/hash"
 import { ProjectSchema } from "./project/schema.js"
 import { ProjectTable, upsertProject } from "./project/sql.js"
 import { ProjectIcon } from "./project/icon.js"
@@ -70,7 +70,7 @@ export interface Options {
   readonly now?: () => number
 }
 
-const Now = Context.Reference<() => number>("@xccode/Project/Now", { defaultValue: () => Date.now })
+const Now = Context.Reference<() => number>("@xiaochuan/Project/Now", { defaultValue: () => Date.now })
 
 export interface ListInput {
   /** Includes archived Projects when true. */
@@ -98,7 +98,7 @@ export interface Interface {
   readonly sweep: () => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Project") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Project") {}
 
 function fromRow(row: typeof ProjectTable.$inferSelect): Info {
   const icon =
@@ -307,7 +307,7 @@ const layer = Layer.effect(
       })
 
     const cached = Effect.fnUntraced(function* (dir: string) {
-      return yield* fs.readFileString(path.join(dir, "xccode")).pipe(
+      return yield* fs.readFileString(path.join(dir, "xiaochuan")).pipe(
         Effect.map((value) => value.trim()),
         Effect.map((value) => (value && !/[\u0000-\u001f\u007f]/.test(value) ? ID.make(value) : undefined)),
         Effect.orElseSucceed(() => undefined),

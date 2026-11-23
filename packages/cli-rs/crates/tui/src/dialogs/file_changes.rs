@@ -1,7 +1,7 @@
 //! Worktree changes and the actions available for them.
 
-use xccode_api::generated::{FileDiffInfoStatus, VcsFileStatus};
-use xccode_ui::dialog::{DIALOG_INSET, FooterAction, FooterProps, layout};
+use xiaochuan_api::generated::{FileDiffInfoStatus, VcsFileStatus};
+use xiaochuan_ui::dialog::{DIALOG_INSET, FooterAction, FooterProps, layout};
 use unicode_width::UnicodeWidthStr;
 
 use crate::prelude::*;
@@ -119,7 +119,7 @@ fn count_text(file: &VcsFileStatus) -> String {
     added + &removed
 }
 
-fn file_row(app: &App, page: &xccode_ui::theme::Theme, file: &VcsFileStatus, name_width: i64) -> View {
+fn file_row(app: &App, page: &xiaochuan_ui::theme::Theme, file: &VcsFileStatus, name_width: i64) -> View {
     let path = crate::dialogs::open::truncate_file_path(&file.file, name_width);
     let mut counts = vec![" ".fg(Color::rgb(255, 255, 255))];
     if file.additions != 0 {

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { FormCreated, FormInfo } from "@xccode/client/promise"
+import type { FormCreated, FormInfo } from "@xiaochuan/client/promise"
 import {
   createWebSearchState,
   selectWebSearchDockView,

@@ -1,6 +1,6 @@
-import { Button } from "@xccode/ui/button"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Keybind } from "@xccode/ui/keybind"
+import { Button } from "@xiaochuan/ui/button"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Keybind } from "@xiaochuan/ui/keybind"
 import { createEffect, createSignal, For, on, onMount, Show } from "solid-js"
 import { useLanguage } from "@/runtime/i18n/language"
 import { formatKeybindParts, matchKeybind, parseKeybind } from "@/shell/commands/command"
@@ -205,7 +205,7 @@ function SessionStory(props: Args) {
 }
 
 export default {
-  title: "Xccode/Session/Jump to message",
+  title: "Xiaochuan/Session/Jump to message",
   id: "session-jump-to-message",
   render: (args: Args) => <SessionStory {...args} />,
   args: { scene: "browse", query: "" },

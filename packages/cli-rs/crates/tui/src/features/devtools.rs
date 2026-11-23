@@ -1,11 +1,11 @@
 //! Developer tools bar and runtime samples.
 
-use xccode_api::events::{State, Status};
-use xccode_api::generated::ExperimentalSessionLogInput;
-use xccode_api::generated::ServerInfo;
-use xccode_api::transport::SseResponse;
-use xccode_local::cli_config::{Info, TurnTokens};
-use xccode_ui::theme::ThemeMode;
+use xiaochuan_api::events::{State, Status};
+use xiaochuan_api::generated::ExperimentalSessionLogInput;
+use xiaochuan_api::generated::ServerInfo;
+use xiaochuan_api::transport::SseResponse;
+use xiaochuan_local::cli_config::{Info, TurnTokens};
+use xiaochuan_ui::theme::ThemeMode;
 use std::time::Instant;
 
 use crate::dialogs::settings::{self, set_path};
@@ -117,11 +117,11 @@ pub fn enabled(info: &Info) -> bool {
     info.debug
         .as_ref()
         .and_then(|debug| debug.devtools)
-        .unwrap_or_else(|| xccode_local::channel::Channels::from_env().channel == "local")
+        .unwrap_or_else(|| xiaochuan_local::channel::Channels::from_env().channel == "local")
 }
 
 fn shown(tui: &Tui, info: &Info) -> bool {
-    enabled(info) && !matches!(tui.route(), Route::Plugin { id, .. } if id == "xccode.stats")
+    enabled(info) && !matches!(tui.route(), Route::Plugin { id, .. } if id == "xiaochuan.stats")
 }
 
 thread_local! {
@@ -604,7 +604,7 @@ impl Bar {
             });
         }
         let run = Rc::new(run);
-        view.mouse_pointer(xccode_ui::click_pointer(!disabled)).on_mouse(bind!(self, |bar, cx, event| {
+        view.mouse_pointer(xiaochuan_ui::click_pointer(!disabled)).on_mouse(bind!(self, |bar, cx, event| {
             if !bar.release(event, &target) {
                 return;
             }
@@ -693,7 +693,7 @@ fn defer(tui: &Tui, run: impl FnOnce(&Tui) + 'static) {
 }
 
 /// The last 100 durable events of the session's log; nothing when the log is unavailable.
-async fn session_events(client: &xccode_api::client::Client, id: &xccode_api::generated::SessionID) -> Vec<Value> {
+async fn session_events(client: &xiaochuan_api::client::Client, id: &xiaochuan_api::generated::SessionID) -> Vec<Value> {
     use futures_util::StreamExt;
     let input = ExperimentalSessionLogInput { session_id: id.clone(), after: None, follow: Some(false) };
     let Ok(response) = client.experimental_session_log(&input).await else { return Vec::new() };
@@ -712,7 +712,7 @@ async fn session_events(client: &xccode_api::client::Client, id: &xccode_api::ge
 
 fn write_private(output: &Value) -> Result<String, String> {
     use std::io::Write;
-    let path = std::env::temp_dir().join(format!("xccode-debug-{}.json", xccode_local::id::v4()));
+    let path = std::env::temp_dir().join(format!("xiaochuan-debug-{}.json", xiaochuan_local::id::v4()));
     let mut options = std::fs::OpenOptions::new();
     options.write(true).create_new(true);
     #[cfg(unix)]
@@ -786,19 +786,19 @@ fn url_host(url: &str) -> String {
 
 #[cfg(windows)]
 fn cpu_time() -> f64 {
-    xccode_util::win::process_times().map_or(0.0, |times| times.cpu_seconds)
+    xiaochuan_util::win::process_times().map_or(0.0, |times| times.cpu_seconds)
 }
 
 /// Resident memory in bytes (`process.memoryUsage().rss`), the working set.
 #[cfg(windows)]
 fn memory() -> f64 {
-    xccode_util::win::resident_memory().map_or(0.0, |bytes| bytes as f64)
+    xiaochuan_util::win::resident_memory().map_or(0.0, |bytes| bytes as f64)
 }
 
 /// Process uptime in milliseconds.
 #[cfg(windows)]
 fn process_age_ms() -> f64 {
-    xccode_util::win::process_times().map_or(0.0, |times| times.age_ms.max(0.0))
+    xiaochuan_util::win::process_times().map_or(0.0, |times| times.age_ms.max(0.0))
 }
 
 #[cfg(not(windows))]

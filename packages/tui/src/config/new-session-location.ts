@@ -1,4 +1,4 @@
-import type { LocationRef } from "@xccode/client/promise"
+import type { LocationRef } from "@xiaochuan/client/promise"
 
 export function newSessionLocation(
   mode: "launch" | "inherit",

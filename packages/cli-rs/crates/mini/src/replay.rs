@@ -4,8 +4,8 @@ use std::borrow::Cow;
 use std::sync::{Arc, Mutex};
 
 use futures_util::StreamExt;
-use xccode_api::error::Error;
-use xccode_api::generated::{
+use xiaochuan_api::error::Error;
+use xiaochuan_api::generated::{
     ExperimentalSessionWaitInput, MessageListInput, MessageListInputOrder, ModelDefaultInput, PromptFileAttachment,
     PromptFileSource, PromptSkillAttachment, SessionID, SessionInboxInfo, SessionInboxItem, SessionInboxListInput,
     SessionInboxUser, SessionInterruptInput, SessionMessageAssistant,
@@ -758,12 +758,12 @@ impl Transcript {
             }
             return Output::default();
         }
-        let name = xccode_ui::tool_info::canonical_tool_name(&part.name).to_owned();
+        let name = xiaochuan_ui::tool_info::canonical_tool_name(&part.name).to_owned();
         let directory = self.directory.clone();
         let directory = directory.as_deref();
         let current = self.tool_tracks.get(&key).cloned();
         let output =
-            xccode_ui::tool_info::tool_output_text(&name, &xccode_ui::tool_info::tool_display_content(&part.state));
+            xiaochuan_ui::tool_info::tool_output_text(&name, &xiaochuan_ui::tool_info::tool_display_content(&part.state));
         let prefix = current.as_ref().is_some_and(|current| output.starts_with(&current.output));
         let version = match &current {
             Some(current) if !prefix => current.version + 1,
@@ -873,7 +873,7 @@ impl Transcript {
                     && self.shell_ended.insert(id.to_owned())
                 {
                     let exit = match &shell.exit {
-                        Some(SessionMessageShellExit::Number(code)) => Some(xccode_api::js::number_to_string(*code)),
+                        Some(SessionMessageShellExit::Number(code)) => Some(xiaochuan_api::js::number_to_string(*code)),
                         Some(SessionMessageShellExit::String(code)) => Some(code.clone()),
                         _ => None,
                     };
@@ -1148,7 +1148,7 @@ impl Transcript {
                         V2Event::SessionExecutionInterrupted(interrupted)
                             if !(wait.interrupted
                                 && interrupted.data.reason
-                                    == xccode_api::generated::SessionExecutionInterruptedDataReason::User) =>
+                                    == xiaochuan_api::generated::SessionExecutionInterruptedDataReason::User) =>
                         {
                             let reason = interrupted.data.reason.as_str();
                             wait.terminal_error = Some(format!("Session interrupted: {reason}"));
@@ -1194,7 +1194,7 @@ impl Transcript {
                     output.commits.push(shell_commit(id, &command, "running shell", Phase::Start, ToolState::Running));
                 }
                 if self.shell_ended.insert(id.to_owned()) {
-                    let exit = shell.exit.map(xccode_api::js::number_to_string);
+                    let exit = shell.exit.map(xiaochuan_api::js::number_to_string);
                     output.commits.extend(shell_terminal(
                         id,
                         &command,
@@ -1390,7 +1390,7 @@ impl Transcript {
         id: &str,
         state: SessionMessageAssistantToolState,
         created: f64,
-        native: Option<&xccode_api::generated::SessionMessageNative>,
+        native: Option<&xiaochuan_api::generated::SessionMessageNative>,
     ) -> SessionMessageAssistantTool {
         let previous = part.as_ref().and_then(|part| part.native.clone());
         let native = match native {
@@ -1710,7 +1710,7 @@ async fn stream(
     proxy: &AppProxy,
     connected: &watch::Sender<bool>,
 ) -> Result<(), String> {
-    let mut events = xccode_api::events::raw::<V2Event>(client);
+    let mut events = xiaochuan_api::events::raw::<V2Event>(client);
     match events.next().await {
         Some(Ok(V2Event::ServerConnected(_))) => {}
         Some(Err(error)) if !matches!(error, Error::MalformedResponse(_)) => return Err(error.to_string()),
@@ -1801,11 +1801,11 @@ mod tests {
     #[derive(Default)]
     struct Down(std::sync::atomic::AtomicUsize);
 
-    impl xccode_api::transport::Transport for Down {
+    impl xiaochuan_api::transport::Transport for Down {
         fn send(
             &self,
-            _: xccode_api::transport::Request,
-        ) -> futures_util::future::BoxFuture<'_, Result<xccode_api::transport::Response, String>> {
+            _: xiaochuan_api::transport::Request,
+        ) -> futures_util::future::BoxFuture<'_, Result<xiaochuan_api::transport::Response, String>> {
             Box::pin(async { Err("connection refused".to_owned()) })
         }
 
@@ -1832,13 +1832,13 @@ mod tests {
     }
 
     /// Fails its first request with a transport error, then answers from `Memory`.
-    struct Flaky(std::sync::atomic::AtomicBool, xccode_api::memory::Memory);
+    struct Flaky(std::sync::atomic::AtomicBool, xiaochuan_api::memory::Memory);
 
-    impl xccode_api::transport::Transport for Flaky {
+    impl xiaochuan_api::transport::Transport for Flaky {
         fn send(
             &self,
-            request: xccode_api::transport::Request,
-        ) -> futures_util::future::BoxFuture<'_, Result<xccode_api::transport::Response, String>> {
+            request: xiaochuan_api::transport::Request,
+        ) -> futures_util::future::BoxFuture<'_, Result<xiaochuan_api::transport::Response, String>> {
             if !self.0.swap(true, std::sync::atomic::Ordering::SeqCst) {
                 return Box::pin(async { Err("connection reset".to_owned()) });
             }
@@ -1850,7 +1850,7 @@ mod tests {
     /// (`waitForSession`).
     #[tokio::test]
     async fn a_session_wait_survives_a_dropped_connection() {
-        let memory = xccode_api::memory::Memory::new(vec![xccode_api::memory::Route::json(
+        let memory = xiaochuan_api::memory::Memory::new(vec![xiaochuan_api::memory::Route::json(
             "POST",
             "/api/experimental/session/ses_1/wait",
             204,
@@ -2172,7 +2172,7 @@ mod tests {
     /// the server's ordered messages.
     mod model {
         use super::*;
-        use xccode_util::rng::SplitMix64;
+        use xiaochuan_util::rng::SplitMix64;
         use std::collections::VecDeque;
 
         fn env(name: &str, default: u64) -> u64 {

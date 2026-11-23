@@ -1,4 +1,4 @@
-import type { Model } from "@xccode/schema/model"
+import type { Model } from "@xiaochuan/schema/model"
 
 const fullCodeModeHidden = ["glob", "grep", "webfetch"] as const
 

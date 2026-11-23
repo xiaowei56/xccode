@@ -1,9 +1,9 @@
 import { createSignal, Match, onCleanup, onMount, Show, Switch } from "solid-js"
-import { FileIcon } from "@xccode/ui/file-icon"
-import { Icon } from "@xccode/ui/icon"
-import { useI18n } from "@xccode/ui/context/i18n"
-import { getFilenameTruncated } from "@xccode/util/path"
-import { Tooltip } from "@xccode/ui/tooltip"
+import { FileIcon } from "@xiaochuan/ui/file-icon"
+import { Icon } from "@xiaochuan/ui/icon"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
+import { getFilenameTruncated } from "@xiaochuan/util/path"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import { AttachmentCard } from "./attachment-card"
 
 /**

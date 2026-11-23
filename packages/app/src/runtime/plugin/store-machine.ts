@@ -1,4 +1,4 @@
-import type { Mutable } from "@xccode/plugin/gui"
+import type { Mutable } from "@xiaochuan/plugin/gui"
 
 /** A `Persisted` write, kept as data while it waits. */
 export type StoreWrite<T> =

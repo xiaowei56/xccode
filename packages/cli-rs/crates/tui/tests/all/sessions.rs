@@ -5,11 +5,11 @@ use crate::support::{self, Fake, Harness, Log, WAIT, deref_harness};
 use std::sync::Arc;
 use std::time::Duration;
 
-use xccode_api::generated::SessionID;
-use xccode_tui::{Args, Deps, Route};
+use xiaochuan_api::generated::SessionID;
+use xiaochuan_tui::{Args, Deps, Route};
 use serde_json::{Value, json};
 
-const DIRECTORY: &str = "/tmp/xccode/app";
+const DIRECTORY: &str = "/tmp/xiaochuan/app";
 
 #[derive(Clone, Copy, PartialEq)]
 enum Mode {
@@ -32,8 +32,8 @@ fn fake(mode: Mode, now: f64, delete_status: u16) -> Fake {
                 }),
             ),
             ("GET", "/api/project") => (200, projects()),
-            ("GET", "/api/worktree") => (200, json!([{ "directory": "/tmp/xccode/app-feature" }])),
-            ("POST", "/api/worktree") => (200, json!({ "directory": "/tmp/xccode/app-new" })),
+            ("GET", "/api/worktree") => (200, json!([{ "directory": "/tmp/xiaochuan/app-feature" }])),
+            ("POST", "/api/worktree") => (200, json!({ "directory": "/tmp/xiaochuan/app-new" })),
             ("POST", "/api/worktree/refresh") => (204, Value::Null),
             ("GET", "/api/session") => {
                 let all = param("project").is_none() && param("directory").is_none();
@@ -75,8 +75,8 @@ fn fake(mode: Mode, now: f64, delete_status: u16) -> Fake {
 }
 
 fn noon(day: u32) -> f64 {
-    let date = xccode_util::time::Date { year: 2026, month: 3, day };
-    xccode_util::time::UTC.instant(date, 12 * 3600) as f64
+    let date = xiaochuan_util::time::Date { year: 2026, month: 3, day };
+    xiaochuan_util::time::UTC.instant(date, 12 * 3600) as f64
 }
 
 fn session(id: &str, title: Option<&str>, updated: f64, extra: Value) -> Value {
@@ -99,7 +99,7 @@ fn scoped() -> Vec<Value> {
     vec![
         session("ses_b", Some("Write docs"), noon(3) - 3_600_000.0, json!({})),
         session("ses_a", Some("Fix the parser"), noon(3), json!({})),
-        session("ses_c", None, noon(1), json!({ "location": { "directory": "/tmp/xccode/app-feature" } })),
+        session("ses_c", None, noon(1), json!({ "location": { "directory": "/tmp/xiaochuan/app-feature" } })),
     ]
 }
 
@@ -120,7 +120,7 @@ fn recent(now: f64) -> Vec<Value> {
             "ses_r3",
             Some("Explore the worktree"),
             now - 2.0 * 86_400_000.0,
-            json!({ "location": { "directory": "/tmp/xccode/app-feature" } }),
+            json!({ "location": { "directory": "/tmp/xiaochuan/app-feature" } }),
         ),
     ]
 }
@@ -147,7 +147,7 @@ struct Kit {
     harness: Harness,
     log: Log,
     state: std::path::PathBuf,
-    _home: xccode_util::temp::TempDir,
+    _home: xiaochuan_util::temp::TempDir,
 }
 
 deref_harness!(Kit);
@@ -158,14 +158,14 @@ impl Kit {
     }
 
     fn with(mode: Mode, delete_status: u16) -> Self {
-        let home = xccode_util::temp::tempdir().unwrap();
+        let home = xiaochuan_util::temp::tempdir().unwrap();
         let paths = support::home_paths(home.path());
         std::fs::create_dir_all(&paths.state).unwrap();
         std::fs::write(paths.state.join("session.json"), r#"{"pinned":["ses_b"]}"#).unwrap();
         let state = paths.state.clone();
-        let fake = fake(mode, xccode_tui::dialogs::session_list::now_ms(), delete_status);
+        let fake = fake(mode, xiaochuan_tui::dialogs::session_list::now_ms(), delete_status);
         let log = fake.log();
-        let info = support::decode(r#"{ "tabs": { "mode": "off" }, "theme": { "name": "xccode", "mode": "dark" } }"#);
+        let info = support::decode(r#"{ "tabs": { "mode": "off" }, "theme": { "name": "xiaochuan", "mode": "dark" } }"#);
         let deps = Deps {
             directory: DIRECTORY.into(),
             config: support::config(info),
@@ -186,7 +186,7 @@ impl Kit {
         tui.app.spawn(
             async move {
                 client
-                    .session_list(&xccode_api::generated::SessionListInput {
+                    .session_list(&xiaochuan_api::generated::SessionListInput {
                         limit: Some(50),
                         parent_id: Some(None),
                         directory: Some(DIRECTORY.to_owned().into()),
@@ -311,7 +311,7 @@ fn a_session_below_a_worktree_root_is_named_by_the_worktree() {
         "ses_n",
         Some("Nested work"),
         noon(3),
-        json!({ "location": { "directory": "/tmp/xccode/app-feature/src/lib" }, "subpath": "src/lib" }),
+        json!({ "location": { "directory": "/tmp/xiaochuan/app-feature/src/lib" }, "subpath": "src/lib" }),
     );
     let fake = Fake::new(move |seen| match (seen.method.as_str(), seen.path.as_str()) {
         ("GET", "/api/project") => (200, projects()),
@@ -328,8 +328,8 @@ fn a_session_below_a_worktree_root_is_named_by_the_worktree() {
     assert!(row.contains("app-feature") && !row.contains("lib"), "{screen}");
 }
 
-fn evented() -> (Harness, xccode_api::memory::Memory) {
-    use xccode_api::memory::{Memory, Route as MemoryRoute};
+fn evented() -> (Harness, xiaochuan_api::memory::Memory) {
+    use xiaochuan_api::memory::{Memory, Route as MemoryRoute};
     let session = session("ses_r1", Some("Review the plan"), 1.0, json!({}));
     let mut routes = vec![
         MemoryRoute::json("GET", "/api/session", 200, &json!({ "data": [session], "cursor": {} })),
@@ -340,7 +340,7 @@ fn evented() -> (Harness, xccode_api::memory::Memory) {
             200,
             &json!({ "directory": DIRECTORY, "project": { "id": "proj_app", "directory": DIRECTORY, "canonical": DIRECTORY } }),
         ),
-        MemoryRoute::json("GET", "/api/worktree", 200, &json!([{ "directory": "/tmp/xccode/app-feature" }])),
+        MemoryRoute::json("GET", "/api/worktree", 200, &json!([{ "directory": "/tmp/xiaochuan/app-feature" }])),
         MemoryRoute::body("POST", "/api/worktree/refresh", 204, None, ""),
     ];
     routes.extend(support::session_routes(&session));
@@ -363,7 +363,7 @@ fn a_session_waiting_on_a_form_is_marked_with_a_question() {
         "data": { "form": { "id": "frm_1", "sessionID": "ses_r1", "title": "Pick one", "fields": [] } },
     }));
     let id = SessionID("ses_r1".into());
-    let attention = || harness.tui.data.read(|state| xccode_tui::dialogs::session_list::attention(state, &id));
+    let attention = || harness.tui.data.read(|state| xiaochuan_tui::dialogs::session_list::attention(state, &id));
     harness.wait("the form never arrived", || harness.tui.data.read(|state| !state.form_sessions().is_empty()));
     assert_eq!(attention(), Some('?'));
 }
@@ -412,9 +412,9 @@ fn open_and_session_list_follow_project_updated() {
 #[test]
 fn session_list_and_open_read_the_home_location_not_the_launch_directory() {
     let kit = Kit::new(Mode::List);
-    xccode_tui::features::location::navigate_home(&kit.tui, Some(xccode_store::Location::new("/tmp/other")));
+    xiaochuan_tui::features::location::navigate_home(&kit.tui, Some(xiaochuan_store::Location::new("/tmp/other")));
     kit.clear_log();
-    let launch = "/api/location?location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp";
+    let launch = "/api/location?location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp";
     kit.open_list();
     kit.wait_gone("Loading");
     let reads = kit.dialog_reads();
@@ -442,7 +442,7 @@ fn session_list_reads_the_scoped_list_then_all_projects_and_saves_the_scope() {
     assert_eq!(
         reads,
         [
-            "/api/location?location%5Bdirectory%5D=%2Ftmp%2Fxccode%2Fapp",
+            "/api/location?location%5Bdirectory%5D=%2Ftmp%2Fxiaochuan%2Fapp",
             "/api/project",
             "/api/session?limit=50&order=desc&parentID=null&archived=false&project=proj_app&subpath=",
         ],

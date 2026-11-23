@@ -6,8 +6,8 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use common::*;
 use futures_util::FutureExt;
 use futures_util::future::BoxFuture;
-use xccode_api::generated::*;
-use xccode_store::{Data, Options, SessionStatus};
+use xiaochuan_api::generated::*;
+use xiaochuan_store::{Data, Options, SessionStatus};
 use serde_json::json;
 
 fn id(value: &str) -> SessionID {

@@ -7,10 +7,10 @@ use std::rc::{Rc, Weak};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 
-pub use xccode_plugin_abi::claim::{FencePart, Part, State, ToolPart};
-use xccode_plugin_abi::v2::{self, ContentRef, Node, Source};
-use xccode_plugin_abi::{self as abi};
-use xccode_ui::theme::Theme;
+pub use xiaochuan_plugin_abi::claim::{FencePart, Part, State, ToolPart};
+use xiaochuan_plugin_abi::v2::{self, ContentRef, Node, Source};
+use xiaochuan_plugin_abi::{self as abi};
+use xiaochuan_ui::theme::Theme;
 use opentui::prelude::*;
 use opentui::style::Color;
 use opentui::widget::MarkdownColors;
@@ -202,9 +202,9 @@ impl ToolClaims {
     /// The claim of the calls of tool `name`, by the name as the transcript has it or as the host names the tool. At
     /// one tool the plugin last in activation order wins.
     pub fn find(&self, name: &str) -> Option<ToolClaim> {
-        let canonical = xccode_ui::tool_info::canonical_tool_name(name);
+        let canonical = xiaochuan_ui::tool_info::canonical_tool_name(name);
         let (_, claim) = self.0.iter().rev().find(|(claimed, _)| {
-            claimed == name || xccode_ui::tool_info::canonical_tool_name(claimed) == canonical
+            claimed == name || xiaochuan_ui::tool_info::canonical_tool_name(claimed) == canonical
         })?;
         Some(ToolClaim(claim.clone()))
     }
@@ -751,7 +751,7 @@ impl Drawn for Core {
 /// `part` as a claim's view gets it: a call without what it returned, which its output reference names, and without
 /// metadata over [`abi::claim::METADATA_BYTES`], so a request stays small whatever the call returned.
 fn without_result(part: Part) -> Part {
-    use xccode_plugin_abi::types::SessionMessageAssistantToolState as ToolState;
+    use xiaochuan_plugin_abi::types::SessionMessageAssistantToolState as ToolState;
     fn bounded<T: serde::Serialize + Default>(metadata: &mut T) {
         if serde_json::to_vec(metadata).is_ok_and(|bytes| bytes.len() > abi::claim::METADATA_BYTES) {
             *metadata = T::default();
@@ -808,7 +808,7 @@ pub(crate) fn fence(claim: Rc<Registered>) -> crate::CodeBlockRender {
         static KEYS: AtomicU64 = AtomicU64::new(1);
         // A fence in a claimed part's own Markdown is code: a claim inside a claim could nest without bound. A restyle
         // builds the block again more than once; the claim takes the last build, so it is viewed once.
-        if ADOPTING.get() > 0 || xccode_ui::markdown::restyling() {
+        if ADOPTING.get() > 0 || xiaochuan_ui::markdown::restyling() {
             return None;
         }
         let part = Part::Fence(FencePart {
@@ -921,7 +921,7 @@ impl FenceCode {
             Some(code) if code.look == look => {
                 if code.bg != bg {
                     let (theme, _) = &look;
-                    let colors = xccode_ui::markdown::view_colors(theme, &xccode_ui::code::syntax_theme(theme));
+                    let colors = xiaochuan_ui::markdown::view_colors(theme, &xiaochuan_ui::code::syntax_theme(theme));
                     code.markdown.colors(MarkdownColors { code_bg: bg.unwrap_or(colors.code_bg), ..colors });
                     code.bg = bg;
                 }
@@ -933,11 +933,11 @@ impl FenceCode {
             }
             _ => {
                 let (theme, conceal) = &look;
-                let syntax = xccode_ui::code::syntax_theme(theme);
-                let renderers = xccode_ui::markdown::CodeBlockRenderers::default();
-                let markdown = xccode_ui::markdown::view(&self.app, theme, &syntax, &renderers, *conceal, true);
+                let syntax = xiaochuan_ui::code::syntax_theme(theme);
+                let renderers = xiaochuan_ui::markdown::CodeBlockRenderers::default();
+                let markdown = xiaochuan_ui::markdown::view(&self.app, theme, &syntax, &renderers, *conceal, true);
                 if let Some(bg) = bg {
-                    let colors = xccode_ui::markdown::view_colors(theme, &syntax);
+                    let colors = xiaochuan_ui::markdown::view_colors(theme, &syntax);
                     markdown.colors(MarkdownColors { code_bg: bg, ..colors });
                 }
                 let markdown = markdown.set_markdown(source.clone()).streaming(fence.streaming);

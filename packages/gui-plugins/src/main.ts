@@ -1,4 +1,4 @@
-import { compose } from "@xccode/plugin/gui/host"
+import { compose } from "@xiaochuan/plugin/gui/host"
 import context from "./context"
 import btw from "./btw"
 import debug from "./debug"

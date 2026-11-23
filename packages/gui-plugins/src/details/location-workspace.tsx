@@ -1,7 +1,7 @@
-import { Icon } from "@xccode/ui/icon"
-import { Menu } from "@xccode/ui/menu"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Menu } from "@xiaochuan/ui/menu"
 import { Show } from "solid-js"
-import type { BuiltinSlotMap } from "@xccode/plugin/gui/builtin"
+import type { BuiltinSlotMap } from "@xiaochuan/plugin/gui/builtin"
 import { SessionWorkspaceMenu, type WorkspaceMoveControllers } from "./workspace-menu"
 
 export default function SessionLocationWorkspace(

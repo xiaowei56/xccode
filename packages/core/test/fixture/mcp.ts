@@ -1,8 +1,8 @@
 import { Effect, Layer, Stream } from "effect"
-import { Config } from "@xccode/core/config"
-import { Location } from "@xccode/core/location"
-import { Mcp } from "@xccode/core/mcp/index"
-import { AbsolutePath } from "@xccode/core/schema"
+import { Config } from "@xiaochuan/core/config"
+import { Location } from "@xiaochuan/core/location"
+import { Mcp } from "@xiaochuan/core/mcp/index"
+import { AbsolutePath } from "@xiaochuan/core/schema"
 import { location } from "./location"
 
 // Plugins may register MCP transforms at startup; with no servers there is nothing to rebuild.

@@ -1,5 +1,5 @@
-import { Rpc } from "@xccode/core/rpc"
-import { RpcError, RpcInternalError } from "@xccode/protocol/errors"
+import { Rpc } from "@xiaochuan/core/rpc"
+import { RpcError, RpcInternalError } from "@xiaochuan/protocol/errors"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"

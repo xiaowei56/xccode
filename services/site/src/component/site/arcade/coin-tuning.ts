@@ -94,7 +94,7 @@ const defaults = () =>
     ]),
   ) as CoinValues
 
-const storageKey = "xccode-arcade-coin-v1"
+const storageKey = "xiaochuan-arcade-coin-v1"
 
 export const [coinValues, setCoinValues] = createStore<CoinValues>(defaults())
 /** Settings › Coin › Preview: the token held still over the cabinet, in its held pose. */

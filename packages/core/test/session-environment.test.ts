@@ -1,8 +1,8 @@
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Session } from "@xccode/core/session"
-import { SessionEnvironment } from "@xccode/core/session/environment"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Session } from "@xiaochuan/core/session"
+import { SessionEnvironment } from "@xiaochuan/core/session/environment"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(AppNodeBuilder.build(SessionEnvironment.node))

@@ -1,5 +1,5 @@
-import type { WebSearch } from "@xccode/schema/websearch"
-import type { WebSearchApi } from "@xccode/client/promise/api"
+import type { WebSearch } from "@xiaochuan/schema/websearch"
+import type { WebSearchApi } from "@xiaochuan/client/promise/api"
 import type { Transform } from "./registration.js"
 
 export interface WebSearchDefinition {

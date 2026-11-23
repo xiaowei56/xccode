@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, expect, jest, test } from "bun:test"
-import { Registry, type SessionRef } from "@xccode/plugin/gui"
-import { BuiltinPromptGate } from "@xccode/plugin/gui/builtin"
+import { Registry, type SessionRef } from "@xiaochuan/plugin/gui"
+import { BuiltinPromptGate } from "@xiaochuan/plugin/gui/builtin"
 import { PROMPT_GATE_TIMEOUT_MS, settlePromptGates } from "./prompt-gate"
 
 // SAFETY: the gates under test receive the ref and never read it.

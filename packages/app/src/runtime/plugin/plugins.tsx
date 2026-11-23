@@ -1,7 +1,7 @@
 import { createMemo, onCleanup, untrack } from "solid-js"
-import type { PluginOptions } from "@xccode/plugin/gui"
-import type { Bridge, BridgePluginGui, Entry } from "@xccode/plugin/gui/host"
-import type { XccodeClient } from "@xccode/client/promise"
+import type { PluginOptions } from "@xiaochuan/plugin/gui"
+import type { Bridge, BridgePluginGui, Entry } from "@xiaochuan/plugin/gui/host"
+import type { XiaochuanClient } from "@xiaochuan/client/promise"
 import { useGlobal } from "@/runtime/server/runtime"
 import { ServerConnection } from "@/runtime/server/registry"
 import { pluginDefinition } from "./module"
@@ -18,7 +18,7 @@ import {
 export type PluginGui = {
   readonly definition: Entry
   readonly options: PluginOptions
-  readonly client: () => XccodeClient | undefined
+  readonly client: () => XiaochuanClient | undefined
 }
 
 /**

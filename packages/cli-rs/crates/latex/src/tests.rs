@@ -1,21 +1,21 @@
 use std::rc::Rc;
 
-use xccode_plugin::node::Fences;
-use xccode_ui::markdown::CodeBlockRenderers;
-use xccode_ui::theme::{Catalog, Theme, ThemeMode};
+use xiaochuan_plugin::node::Fences;
+use xiaochuan_ui::markdown::CodeBlockRenderers;
+use xiaochuan_ui::theme::{Catalog, Theme, ThemeMode};
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 use serde_json::Value;
 
 use crate::layout::Options;
 
-/// `XCCODE_RS_LATEX_ORACLE=write` records only layouts that differ from the TypeScript renderer.
+/// `XIAOCHUAN_RS_LATEX_ORACLE=write` records only layouts that differ from the TypeScript renderer.
 #[test]
 fn layouts_match_typescript() {
     let cases: Vec<Value> = serde_json::from_str(include_str!("../../../parity/fixtures/P.2/layouts.json")).unwrap();
     let rust: Vec<Value> = serde_json::from_str(include_str!("oracle_rust.json")).unwrap();
     let key = |case: &Value| (case["source"].clone(), case["options"].clone());
-    if std::env::var("XCCODE_RS_LATEX_ORACLE").is_ok_and(|value| value == "write") {
+    if std::env::var("XIAOCHUAN_RS_LATEX_ORACLE").is_ok_and(|value| value == "write") {
         let differ: Vec<String> = cases
             .iter()
             .filter_map(|case| {
@@ -92,7 +92,7 @@ fn styled(layout: &crate::Layout) -> Vec<String> {
 
 /// Match the oracle's screen background.
 fn app(width: u16, height: u16) -> (TestApp, Theme) {
-    let theme = Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme;
+    let theme = Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme;
     let options = AppOptions {
         theme: opentui::theme::Theme {
             background: theme.background.base,
@@ -107,18 +107,18 @@ fn app(width: u16, height: u16) -> (TestApp, Theme) {
 
 struct Dark;
 
-impl xccode_plugin_abi::Read for Dark {
-    fn theme_mode(&self) -> xccode_plugin_abi::ThemeMode {
-        xccode_plugin_abi::ThemeMode::Dark
+impl xiaochuan_plugin_abi::Read for Dark {
+    fn theme_mode(&self) -> xiaochuan_plugin_abi::ThemeMode {
+        xiaochuan_plugin_abi::ThemeMode::Dark
     }
 
-    fn color(&self, _: &str) -> Option<xccode_plugin_abi::Rgba> {
+    fn color(&self, _: &str) -> Option<xiaochuan_plugin_abi::Rgba> {
         None
     }
 }
 
 fn markdown(app: &TestApp, theme: &Theme, streaming: bool) -> Markdown {
-    let mut setup = xccode_plugin_abi::Registered::new("xccode.latex", None);
+    let mut setup = xiaochuan_plugin_abi::Registered::new("xiaochuan.latex", None);
     (crate::plugin().setup)(&mut setup.setup()).unwrap();
     let mut renderers = CodeBlockRenderers::default();
     for (language, render) in setup.fences() {
@@ -131,11 +131,11 @@ fn markdown(app: &TestApp, theme: &Theme, streaming: bool) -> Markdown {
     for render in setup.inline_math() {
         let (render, theme) = (render.clone(), theme.clone());
         renderers.register_math(Rc::new(move |tex| {
-            Some(render(&Dark, tex)?.iter().map(|span| xccode_plugin::node::styled(&theme, span, None)).collect())
+            Some(render(&Dark, tex)?.iter().map(|span| xiaochuan_plugin::node::styled(&theme, span, None)).collect())
         }));
     }
-    let syntax = xccode_ui::code::syntax_theme(theme);
-    xccode_ui::markdown::view(app, theme, &syntax, &renderers, true, streaming)
+    let syntax = xiaochuan_ui::code::syntax_theme(theme);
+    xiaochuan_ui::markdown::view(app, theme, &syntax, &renderers, true, streaming)
 }
 
 /// The radical and matrix layouts have known differences, and TS draws two blank rows above a formula after a block
@@ -151,12 +151,12 @@ fn transcript_fences_match_typescript() {
         app.root().add(&View::new(&app).padding_edge(Edge::Left, 3).shrink(0.0).child(&text));
         let capture = app.render();
         if differ == 0 {
-            xccode_parity::assert_fixture(&capture, &format!("P.2/{name}"));
+            xiaochuan_parity::assert_fixture(&capture, &format!("P.2/{name}"));
             continue;
         }
-        let path = xccode_parity::fixtures_dir().join(format!("P.2/{name}.json"));
-        let expected = xccode_parity::Fixture::load(path).unwrap();
-        let comparison = xccode_parity::compare(&expected, &xccode_parity::Fixture::from_capture(&capture));
+        let path = xiaochuan_parity::fixtures_dir().join(format!("P.2/{name}.json"));
+        let expected = xiaochuan_parity::Fixture::load(path).unwrap();
+        let comparison = xiaochuan_parity::compare(&expected, &xiaochuan_parity::Fixture::from_capture(&capture));
         assert_eq!(comparison.differences.len(), differ, "P-COMP P.2/{name}: {comparison}");
     }
 }
@@ -297,10 +297,10 @@ fn wide_formulas_scroll_sideways() {
 fn removed_streaming_fences_leave_nothing_kept() {
     let (app, theme) = app(40, 10);
     let shown: crate::Shown = Rc::default();
-    let mut registered = xccode_plugin_abi::Registered::new("xccode.latex", None);
+    let mut registered = xiaochuan_plugin_abi::Registered::new("xiaochuan.latex", None);
     crate::register(&mut registered.setup(), shown.clone());
     let registered = Rc::new(registered);
-    let gone: xccode_plugin::node::Gone = {
+    let gone: xiaochuan_plugin::node::Gone = {
         let registered = registered.clone();
         Rc::new(move |key| registered.fence_gone().iter().for_each(|run| run(key)))
     };
@@ -312,9 +312,9 @@ fn removed_streaming_fences_leave_nothing_kept() {
             Rc::new(move |block| fences.render(block, &theme, |fence| render(&Dark, &fence))),
         );
     }
-    let syntax = xccode_ui::code::syntax_theme(&theme);
+    let syntax = xiaochuan_ui::code::syntax_theme(&theme);
     for _ in 0..5 {
-        let view = xccode_ui::markdown::view(&app, &theme, &syntax, &renderers, true, true);
+        let view = xiaochuan_ui::markdown::view(&app, &theme, &syntax, &renderers, true, true);
         app.root().add(&view);
         view.append("```latex\nx^2");
         app.render();

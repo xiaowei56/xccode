@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { compile } from "@xccode/httpapi-codegen"
+import { compile } from "@xiaochuan/httpapi-codegen"
 import {
   ClientApi,
   clientNamespace,
@@ -7,11 +7,11 @@ import {
   effectOmitEndpoints,
   groupNames,
   promiseOmitEndpoints,
-} from "@xccode/protocol/client"
+} from "@xiaochuan/protocol/client"
 import { Effect } from "effect"
 import { HttpClient } from "effect/http"
-import { Xccode as EffectXccode } from "../src/effect/index"
-import { Xccode as PromiseXccode } from "../src/promise/index"
+import { Xiaochuan as EffectXiaochuan } from "../src/effect/index"
+import { Xiaochuan as PromiseXiaochuan } from "../src/promise/index"
 
 // The pre-experimental paths stay until the next minor.
 const aliases = (omitEndpoints: ReadonlySet<string>) =>
@@ -31,11 +31,11 @@ const expectSameFunctions = (client: unknown, list: ReturnType<typeof aliases>) 
 }
 
 test("every Promise client alias is the same function as its client.experimental path", () => {
-  expectSameFunctions(PromiseXccode.make({ baseUrl: "http://localhost:3000" }), aliases(promiseOmitEndpoints))
+  expectSameFunctions(PromiseXiaochuan.make({ baseUrl: "http://localhost:3000" }), aliases(promiseOmitEndpoints))
 })
 
 test("every Effect client alias is the same function as its client.experimental path", async () => {
-  const client = await EffectXccode.make({ baseUrl: "http://localhost:3000" }).pipe(
+  const client = await EffectXiaochuan.make({ baseUrl: "http://localhost:3000" }).pipe(
     Effect.provideService(
       HttpClient.HttpClient,
       HttpClient.make(() => Effect.die("unused")),

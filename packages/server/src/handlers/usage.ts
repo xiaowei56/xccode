@@ -1,5 +1,5 @@
-import { UsageLimits } from "@xccode/core/usage-limits"
-import { ServiceUnavailableError } from "@xccode/protocol/errors"
+import { UsageLimits } from "@xiaochuan/core/usage-limits"
+import { ServiceUnavailableError } from "@xiaochuan/protocol/errors"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"
@@ -14,7 +14,7 @@ export const UsageHandler = HttpApiBuilder.group(Api, "server.usage", (handlers)
         return yield* response(
           limits.get().pipe(
             Effect.map((info) => info ?? null),
-            Effect.mapError((error) => new ServiceUnavailableError({ message: error.message, service: "xccode" })),
+            Effect.mapError((error) => new ServiceUnavailableError({ message: error.message, service: "xiaochuan" })),
           ),
         )
       }),

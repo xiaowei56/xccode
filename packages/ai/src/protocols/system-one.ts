@@ -38,7 +38,7 @@ const Answer = Schema.Union([
     probabilities: Schema.Record(Schema.String, Probability),
     confidence: Probability,
   }),
-  // OpenRouter's and Xccode Zen's answer for a question the upstream model declined.
+  // OpenRouter's and Xiaochuan Zen's answer for a question the upstream model declined.
   Schema.Struct({ type: Schema.Literal("refusal"), message: Schema.optional(Schema.String) }),
 ]).pipe(Schema.toTaggedUnion("type"))
 const NativeUsage = Schema.StructWithRest(

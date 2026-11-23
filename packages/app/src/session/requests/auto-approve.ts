@@ -1,9 +1,9 @@
 import { createEffect, onCleanup, untrack } from "solid-js"
 import { createStore, produce } from "solid-js/store"
-import type { PermissionRequest } from "@xccode/client/promise"
-import type { Data } from "@xccode/client/solid"
-import { abort } from "@xccode/util/abort"
-import { uuid } from "@xccode/util/uuid"
+import type { PermissionRequest } from "@xiaochuan/client/promise"
+import type { Data } from "@xiaochuan/client/solid"
+import { abort } from "@xiaochuan/util/abort"
+import { uuid } from "@xiaochuan/util/uuid"
 import type { ServerSDK } from "@/runtime/server/client"
 import { projectSettingsKey, useSettings } from "@/settings/model"
 import {

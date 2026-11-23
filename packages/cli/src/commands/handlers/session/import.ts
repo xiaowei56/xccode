@@ -1,6 +1,6 @@
-import { Xccode } from "@xccode/client"
-import { Service } from "@xccode/client/effect/service"
-import { Session } from "@xccode/schema/session"
+import { Xiaochuan } from "@xiaochuan/client"
+import { Service } from "@xiaochuan/client/effect/service"
+import { Session } from "@xiaochuan/schema/session"
 import { Effect, Option, Schema } from "effect"
 import { EOL } from "node:os"
 import path from "node:path"
@@ -27,7 +27,7 @@ export default Runtime.handler(
       text,
     )
     const server = yield* ServerConnection.resolve()
-    const client = Xccode.make({
+    const client = Xiaochuan.make({
       baseUrl: server.endpoint.url,
       headers: Service.headers(server.endpoint),
     })

@@ -1,4 +1,4 @@
-use xccode_util::json_object;
+use xiaochuan_util::json_object;
 use serde_json::{Value, json};
 
 /// A JSON-RPC error object, as the ACP SDK's `RequestError` writes it.
@@ -101,7 +101,7 @@ pub enum Failure {
     ServerUnavailable,
     CatalogNotReady(NotReady),
     /// A catalog read failed; the handler classifies the cause.
-    CatalogLoad(std::sync::Arc<xccode_api::error::Error>),
+    CatalogLoad(std::sync::Arc<xiaochuan_api::error::Error>),
     /// A JSON-RPC error the client answered with.
     Rpc(RpcError),
     /// An unexpected failure (TS: a defect). Only its error name reaches the client.
@@ -178,7 +178,7 @@ impl Failure {
                 RpcError::internal_error(json_object! { "service"?: service, "errorName"?: error_name }, safe_message)
             }
             Self::ServerUnavailable => {
-                RpcError::internal_error(json!({ "errorName": "ServerUnavailable" }), "Xccode server is unavailable")
+                RpcError::internal_error(json!({ "errorName": "ServerUnavailable" }), "Xiaochuan server is unavailable")
             }
             Self::CatalogNotReady(reason) => Self::ServiceFailure {
                 safe_message: not_ready_message(*reason).to_owned(),

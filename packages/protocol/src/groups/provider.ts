@@ -1,5 +1,5 @@
-import { Provider } from "@xccode/schema/provider"
-import { Location } from "@xccode/schema/location"
+import { Provider } from "@xiaochuan/schema/provider"
+import { Location } from "@xiaochuan/schema/location"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "effect/http-api"
 import { ProviderNotFoundError, ServiceUnavailableError } from "../errors.js"

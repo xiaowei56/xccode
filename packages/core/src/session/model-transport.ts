@@ -9,13 +9,13 @@ import {
   type WebSocketChannelExecutor,
   type WebSocketConnection,
   type WebSocketConnector,
-} from "@xccode/ai/route"
-import { AIError, AIErrorReason, TransportError, type TransportOperation } from "@xccode/ai/effect"
-import { Hash } from "@xccode/util/hash"
+} from "@xiaochuan/ai/route"
+import { AIError, AIErrorReason, TransportError, type TransportOperation } from "@xiaochuan/ai/effect"
+import { Hash } from "@xiaochuan/util/hash"
 import { Cause, Clock, Context, Duration, Effect, Fiber, Layer, Metric, Queue, Scope, Semaphore, Stream } from "effect"
 import { Headers } from "effect/http"
 import { Socket } from "effect/socket"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { SessionSchema } from "./schema.js"
 import { webSocketConstructor } from "../effect/app-node-platform.js"
 
@@ -25,7 +25,7 @@ const CONNECT_TIMEOUT = "15 seconds"
 const IDLE_TIMEOUT = "30 minutes"
 /** Consecutive exchanges lost to the socket before the Session stays on HTTP. */
 const MAX_STREAM_FAILURES = 5
-const events = Metric.counter("xccode_session_websocket_events_total", {
+const events = Metric.counter("xiaochuan_session_websocket_events_total", {
   description: "Session WebSocket lifecycle events",
   incremental: true,
 })
@@ -82,7 +82,7 @@ export interface Interface {
   readonly closeAll: Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionModelTransport") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionModelTransport") {}
 
 const transportError = (
   message: string,

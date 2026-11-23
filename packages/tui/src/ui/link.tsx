@@ -1,6 +1,6 @@
 import type { JSX } from "solid-js"
 import type { CliRenderer, MouseEvent, RGBA } from "@opentui/core"
-import { openUrl } from "@xccode/util/open"
+import { openUrl } from "@xiaochuan/util/open"
 
 export interface LinkProps {
   href: string

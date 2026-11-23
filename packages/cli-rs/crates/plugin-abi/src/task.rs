@@ -3,8 +3,8 @@
 //! [`crate::Setup::tasks`] gives the plugin a [`Tasks`] handle, and a handler starts a task with it:
 //!
 //! ```
-//! # use xccode_plugin_abi::*;
-//! # use xccode_plugin_abi::task::Cx;
+//! # use xiaochuan_plugin_abi::*;
+//! # use xiaochuan_plugin_abi::task::Cx;
 //! fn setup(setup: &mut Setup) -> Result<(), String> {
 //!     let tasks = setup.tasks();
 //!     setup.command(Command::new("x.clear").palette(), move |host, _| tasks.spawn(host, clear));
@@ -268,7 +268,7 @@ impl Cx {
     /// plugin was disposed, panics here instead.
     ///
     /// ```compile_fail,E0521
-    /// # use xccode_plugin_abi::{Host, task::Cx};
+    /// # use xiaochuan_plugin_abi::{Host, task::Cx};
     /// async fn kept(cx: Cx) {
     ///     let mut kept: Option<&dyn Host> = None;
     ///     cx.with(|host| kept = Some(host));
@@ -1275,7 +1275,7 @@ mod tests {
         assert!(crate::call::fetch_of(&stream).unwrap_err().contains("streams events"));
         let mut headed =
             crate::client::session_get(&crate::types::SessionGetInput { session_id: SessionID("ses_1".into()) });
-        headed.header("x-xccode-ticket", "t");
+        headed.header("x-xiaochuan-ticket", "t");
         assert!(crate::call::fetch_of(&headed).unwrap_err().contains("no headers"));
         let (registered, tasks, _) = plugin();
         let host = Fake::default();

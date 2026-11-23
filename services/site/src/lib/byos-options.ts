@@ -3,7 +3,7 @@ import { providerLogo } from "~/lib/providers"
 
 /**
  * Settings › Subscriptions style A, B and C (component/site/byos-options.tsx): explorations of showing
- * that Xccode works with nearly every subscription, provider and model. English only while they
+ * that Xiaochuan works with nearly every subscription, provider and model. English only while they
  * are explorations; the chosen one's copy moves into lib/byos.ts (and its translations). A module of
  * its own, so production, which folds the options out, never loads it. Checked on 2026-11-06 against
  * this repo:
@@ -20,16 +20,16 @@ import { providerLogo } from "~/lib/providers"
  */
 export const byosOptions = {
   leads: {
-    rows: "Use the subscriptions, API keys and local models you already have, or an Xccode subscription.",
-    wall: "Log in with ChatGPT Plus or Pro, GitHub Copilot, SuperGrok or GitLab Duo, or connect any of 200+ providers with an API key. Or use an Xccode subscription.",
+    rows: "Use the subscriptions, API keys and local models you already have, or an Xiaochuan subscription.",
+    wall: "Log in with ChatGPT Plus or Pro, GitHub Copilot, SuperGrok or GitLab Duo, or connect any of 200+ providers with an API key. Or use an Xiaochuan subscription.",
     names:
-      "Use the subscriptions and API keys you already have, or run models on your own machine. Or use an Xccode subscription.",
+      "Use the subscriptions and API keys you already have, or run models on your own machine. Or use an Xiaochuan subscription.",
   },
   rows: {
     subscriptions: "Subscriptions",
     providers: "Providers",
     local: "Local",
-    xccode: "Xccode",
+    xiaochuan: "Xiaochuan",
     providersMore: "200+ through models.dev",
   },
   all: "All 200+ providers",
@@ -49,9 +49,9 @@ export const byosOptions = {
     { name: "vLLM" },
   ],
   // The same pages as Get started and the main nav link (lib/get-started.ts, links.ts).
-  xccode: [
+  xiaochuan: [
     { name: "Free models", href: docsUrl("/console/models/#free-models") },
-    { name: "Xccode Go", href: "/console/go" },
-    { name: "Xccode Models", href: "/console/models" },
+    { name: "Xiaochuan Go", href: "/console/go" },
+    { name: "Xiaochuan Models", href: "/console/models" },
   ],
 } as const

@@ -1,10 +1,10 @@
 import { Effect } from "effect"
-import { define } from "@xccode/plugin/effect/plugin"
-import { Npm } from "@xccode/util/npm"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { Npm } from "@xiaochuan/util/npm"
 import { loadSDKFactory } from "./sdk-factory.js"
 
 export const DynamicProviderPlugin = define({
-  id: "xccode.provider.dynamic",
+  id: "xiaochuan.provider.dynamic",
   effect: Effect.fn(function* (ctx) {
     const npm = yield* Npm.Service
     yield* ctx.aisdk.hook(

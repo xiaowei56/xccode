@@ -1,5 +1,5 @@
-use xccode_api::error::{DeclaredError, TaggedError};
-use xccode_api::generated::*;
+use xiaochuan_api::error::{DeclaredError, TaggedError};
+use xiaochuan_api::generated::*;
 use serde_json::json;
 
 #[test]

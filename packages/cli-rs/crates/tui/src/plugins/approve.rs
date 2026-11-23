@@ -1,7 +1,7 @@
 //! Ask before running a project plugin. Approval belongs to the displayed artifact, not its path alone.
 
-use xccode_plugin::loader::approval::{Artifact, Decision};
-use xccode_ui::confirm::{ConfirmProps, confirm};
+use xiaochuan_plugin::loader::approval::{Artifact, Decision};
+use xiaochuan_ui::confirm::{ConfirmProps, confirm};
 
 use crate::prelude::*;
 
@@ -52,20 +52,20 @@ pub(super) fn ask(tui: &Tui, target: &str, back: impl Fn() + 'static) {
 /// Describe the plugin directory's real path, the hash of its files, and whether the decision can be saved.
 fn question(target: &str, artifact: &Artifact, unsaved: Option<&str>) -> String {
     let saved =
-        unsaved.map(|reason| format!("\nYour answer lasts until xccode exits: {reason}.")).unwrap_or_default();
+        unsaved.map(|reason| format!("\nYour answer lasts until xiaochuan exits: {reason}.")).unwrap_or_default();
     // The real path as a user would type it: Windows' canonical form starts `\\?\` (`\\?\C:\`, `\\?\UNC\`).
-    let path = xccode_util::path::strip_verbatim(&artifact.path.to_string_lossy()).into_owned();
+    let path = xiaochuan_util::path::strip_verbatim(&artifact.path.to_string_lossy()).into_owned();
     #[cfg(luau)]
-    if xccode_plugin::luau::approves(artifact) {
+    if xiaochuan_plugin::luau::approves(artifact) {
         return format!(
-            "This project wants to run a Luau plugin inside xccode:\n\n{target}\nPlugin directory: {path}\
-             \nSHA-256 of its files: {}…\n\nIt has no direct access to your files, but it acts through xccode with \
+            "This project wants to run a Luau plugin inside xiaochuan:\n\n{target}\nPlugin directory: {path}\
+             \nSHA-256 of its files: {}…\n\nIt has no direct access to your files, but it acts through xiaochuan with \
              your permissions. Approve it only if you trust this project.{saved}",
-            xccode_plugin::luau::tree_of(artifact).short(),
+            xiaochuan_plugin::luau::tree_of(artifact).short(),
         );
     }
     format!(
-        "This project wants to run TypeScript code in xccode's JS host:\n\n{target}\nModule directory: {path}\
+        "This project wants to run TypeScript code in xiaochuan's JS host:\n\n{target}\nModule directory: {path}\
          \nSHA-256 of its files: {}…\n\nIt runs with your permissions. Approve it only if you trust this project.{saved}",
         artifact.short(),
     )
@@ -83,7 +83,7 @@ mod tests {
         assert!(text.contains(&format!("SHA-256 of its files: {}…", "ab".repeat(8))), "{text}");
         assert!(!text.contains("lasts until"), "{text}");
         let text = question("/p", &artifact, Some("it is shared"));
-        assert!(text.contains("Your answer lasts until xccode exits: it is shared."), "{text}");
+        assert!(text.contains("Your answer lasts until xiaochuan exits: it is shared."), "{text}");
     }
 
     // Expected: on Windows the real path is shown as a user would type it, without the verbatim prefix that
@@ -91,16 +91,16 @@ mod tests {
     #[test]
     fn the_question_shows_a_windows_path_without_its_verbatim_prefix() {
         let artifact = |path: &str| Artifact {
-            target: r"C:\work\.xccode\plugins\p".into(),
+            target: r"C:\work\.xiaochuan\plugins\p".into(),
             path: path.into(),
             sha256: "ab".repeat(32),
         };
         let cases = [
-            (r"\\?\C:\work\.xccode\plugins\p", r"Module directory: C:\work\.xccode\plugins\p"),
+            (r"\\?\C:\work\.xiaochuan\plugins\p", r"Module directory: C:\work\.xiaochuan\plugins\p"),
             (r"\\?\UNC\srv\share\p", r"Module directory: \\srv\share\p"),
         ];
         for (path, shown) in cases {
-            let text = question(r"C:\work\.xccode\plugins\p", &artifact(path), None);
+            let text = question(r"C:\work\.xiaochuan\plugins\p", &artifact(path), None);
             assert!(text.contains(&format!("{shown}\n")) && !text.contains(r"\\?\"), "{path}: {text}");
         }
     }
@@ -109,8 +109,8 @@ mod tests {
     #[test]
     fn a_luau_plugin_is_asked_about_as_one() {
         let tree = Artifact { target: "/p".into(), path: "/p".into(), sha256: "ab".repeat(32) };
-        let text = question("/p", &xccode_plugin::luau::artifact(tree.clone()), None);
+        let text = question("/p", &xiaochuan_plugin::luau::artifact(tree.clone()), None);
         assert!(text.contains("run a Luau plugin") && text.contains(&format!("files: {}…", "ab".repeat(8))), "{text}");
-        assert!(question("/p", &tree, None).contains("TypeScript code in xccode's JS host"));
+        assert!(question("/p", &tree, None).contains("TypeScript code in xiaochuan's JS host"));
     }
 }

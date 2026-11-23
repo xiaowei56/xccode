@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/update",
+  "name": "@xiaochuan/update",
   "version": "2.3.0",
   "private": true,
   "type": "module",

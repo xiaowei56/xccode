@@ -74,9 +74,9 @@
 
   /* A created file is all new, so its code reads plain rather than as one long addition. */
   [data-slot="accordion-item"][data-type="add"] {
-    --xccode-diffs-addition-bg: transparent;
-    --xccode-diffs-addition-number-fg: var(--v2-text-text-faint);
-    --xccode-diffs-addition-color: transparent;
+    --xiaochuan-diffs-addition-bg: transparent;
+    --xiaochuan-diffs-addition-number-fg: var(--v2-text-text-faint);
+    --xiaochuan-diffs-addition-color: transparent;
     --diffs-addition-color-override: transparent;
   }
 }
@@ -93,7 +93,7 @@
    toggle sits as far from the right edge as the file icon does from the left, since the icon's arrows are drawn narrow
    inside their box. */
 [data-timeline="next"] [data-component="accordion"][data-scope="apply-patch"] [data-slot="accordion-item"] {
-  --xccode-diffs-bar-opacity: 0.5;
+  --xiaochuan-diffs-bar-opacity: 0.5;
 
   [data-slot="apply-patch-file-name-container"] {
     flex-grow: 0;

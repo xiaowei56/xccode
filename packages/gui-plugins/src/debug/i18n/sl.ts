@@ -30,7 +30,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Diagnostika pomnilnika: vsakih 30 sekund zapiše porabo pomnilnika aplikacije v dnevnike namizne aplikacije. Ostane vklopljena tudi po ponovnih zagonih, dokler je ne izklopite; vrstica ostane odprta, dokler deluje.",
-  "memory.tipEnv": "Diagnostika pomnilnika je vklopljena za ta zagon: XCCODE_DESKTOP_MEMORY_LOG je nastavljen.",
+  "memory.tipEnv": "Diagnostika pomnilnika je vklopljena za ta zagon: XIAOCHUAN_DESKTOP_MEMORY_LOG je nastavljen.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Regulatorji",

@@ -1,5 +1,5 @@
 // CommonMark 0.31.2 inline parser (a port of commonmark.js's delimiter-stack and bracket-stack algorithm),
-// extended with GFM strikethrough and extended autolinks, and Xccode's `$…$`, `$$…$$`, and `\(…\)` math.
+// extended with GFM strikethrough and extended autolinks, and Xiaochuan's `$…$`, `$$…$$`, and `\(…\)` math.
 import { decodeEntity, ENTITY_PATTERN, ESCAPABLE, normalizeURI, unescapeString } from "./entities"
 import type { InlineNode, MathDelimiter } from "./types"
 
@@ -91,7 +91,7 @@ const reMainGfm = /[^\n`[\]\\!<&*_'"~]+/y
 const reMainMath = /[^\n`[\]\\!<&*_'"$]+/y
 const reMainGfmMath = /[^\n`[\]\\!<&*_'"~$]+/y
 
-// Xccode's marked math extension (packages/ui/src/context/marked-parser.tsx), verbatim
+// Xiaochuan's marked math extension (packages/ui/src/context/marked-parser.tsx), verbatim
 const reInlineDollarMath =
   /\$\$(?!\$)((?:\\.|[^\\\n])*?(?:\\.|[^\\\n$]))\$\$|\$(?=[^\s$])((?:\\.|[^\\\n$])*?(?:\\\S|[^\s\\$]))\$(?!\w)/y
 const reInlineParenMath = /\\\(((?:\\.|[^\\\n])*?)\\\)/y

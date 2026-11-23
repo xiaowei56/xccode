@@ -2,7 +2,7 @@
   Check package plugins for updates
 
 [1mUSAGE[0m
-  [36mxccode plugin check [flags] [<target>][0m
+  [36mxiaochuan plugin check [flags] [<target>][0m
 
 [1mARGUMENTS[0m
   [32mtarget[0m [2mstring[0m    Configured package target[2m (optional)[0m

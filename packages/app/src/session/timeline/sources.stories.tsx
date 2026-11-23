@@ -1,15 +1,15 @@
-import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@xccode/client/promise"
-import { SourcesProvider } from "@xccode/session-ui/context/sources"
-import type { SessionDocument } from "@xccode/session-ui/document"
-import { turnMessages, turnSources } from "@xccode/session-ui/sources"
-import type { SiteIconMode } from "@xccode/session-ui/sources/experiment"
-import { SourcesPanel } from "@xccode/session-ui/sources/panel"
-import { SourcesTitle } from "@xccode/session-ui/sources/title"
-import { CURRENT_SESSION_ID, STORY_MODEL, STORY_TIME } from "@xccode/session-ui/storybook"
-import { timelinePresets } from "@xccode/session-ui/timeline/detail"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Tabs } from "@xccode/ui/tabs"
+import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@xiaochuan/client/promise"
+import { SourcesProvider } from "@xiaochuan/session-ui/context/sources"
+import type { SessionDocument } from "@xiaochuan/session-ui/document"
+import { turnMessages, turnSources } from "@xiaochuan/session-ui/sources"
+import type { SiteIconMode } from "@xiaochuan/session-ui/sources/experiment"
+import { SourcesPanel } from "@xiaochuan/session-ui/sources/panel"
+import { SourcesTitle } from "@xiaochuan/session-ui/sources/title"
+import { CURRENT_SESSION_ID, STORY_MODEL, STORY_TIME } from "@xiaochuan/session-ui/storybook"
+import { timelinePresets } from "@xiaochuan/session-ui/timeline/detail"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Tabs } from "@xiaochuan/ui/tabs"
 import { createEffect, createMemo, on, onCleanup, Show, type ParentProps } from "solid-js"
 import { createStore } from "solid-js/store"
 import { useLanguage } from "@/runtime/i18n/language"
@@ -247,7 +247,7 @@ function Sources(props: SourcesArgs) {
     <SourcesProvider enabled icons={props.icons} onOpen={() => setState("panel", true)}>
       <SessionPreview
         title="Who makes the 10,000 checkboxes thing?"
-        description="xccode · sources"
+        description="xiaochuan · sources"
         document={value()}
         timelineDetail={timelineDetail}
         side={
@@ -319,7 +319,7 @@ function Side(props: ParentProps<{ turn: Turn; expand: boolean; count: number; o
 }
 
 export default {
-  title: "Xccode/Session/Sources",
+  title: "Xiaochuan/Session/Sources",
   id: "session-sources",
   render: (args: SourcesArgs) => <Sources {...args} />,
   args: { turn: "three", icons: "letters", panel: false, expand: false },

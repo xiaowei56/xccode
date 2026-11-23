@@ -8,10 +8,10 @@ import { faces } from "../src/lib/contributor-faces"
 import type { GithubSnapshot } from "../src/lib/github-snapshot"
 
 const root = path.resolve(import.meta.dir, "..")
-const api = "https://api.github.com/repos/xiaowei56/xccode"
+const api = "https://api.github.com/repos/xiaowei56/xiaochuan"
 const headers = {
   Accept: "application/vnd.github+json",
-  "User-Agent": "Xccode-Console",
+  "User-Agent": "Xiaochuan-Console",
   ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
 }
 const get = (url: string) =>

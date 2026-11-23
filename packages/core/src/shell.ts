@@ -18,20 +18,20 @@ import {
 } from "effect"
 import { ChildProcess } from "effect/process"
 import { produce } from "immer"
-import { Shell } from "@xccode/schema/shell"
-import { AppProcess } from "@xccode/util/process"
-import { CrossSpawnSpawner } from "@xccode/util/cross-spawn-spawner"
-import { makeGlobalNode, makeLocationNode } from "@xccode/util/effect/app-node"
-import { FSUtil } from "@xccode/util/fs-util"
-import { TextBoundary } from "@xccode/util/text-boundary"
+import { Shell } from "@xiaochuan/schema/shell"
+import { AppProcess } from "@xiaochuan/util/process"
+import { CrossSpawnSpawner } from "@xiaochuan/util/cross-spawn-spawner"
+import { makeGlobalNode, makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { TextBoundary } from "@xiaochuan/util/text-boundary"
 import { Bus } from "./bus.js"
 import { Environment } from "./environment/index.js"
 import { FileRetention } from "./file-retention.js"
 import { Location } from "./location.js"
-import { Global } from "@xccode/util/global"
+import { Global } from "@xiaochuan/util/global"
 import { PersistentPty } from "./persistent-pty.js"
 import { ShellSelect } from "./shell/select.js"
-import type { ShellCreateBefore } from "@xccode/plugin/effect/shell"
+import type { ShellCreateBefore } from "@xiaochuan/plugin/effect/shell"
 import { PluginHooks } from "./plugin/hooks.js"
 import { SessionEnvironment } from "./session/environment.js"
 import { SessionSchema } from "./session/schema.js"
@@ -183,7 +183,7 @@ export interface Interface {
   readonly handoffPrepared: () => boolean
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Shell") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Shell") {}
 
 export const cleanup = Effect.fn("Shell.cleanup")(function* () {
   const fs = yield* FSUtil.Service
@@ -276,7 +276,7 @@ export interface DaemonInterface {
 }
 
 /** The process daemon's shell commands, owned by the server and grouped by Location. */
-export class Daemon extends Context.Service<Daemon, DaemonInterface>()("@xccode/Shell/Daemon") {}
+export class Daemon extends Context.Service<Daemon, DaemonInterface>()("@xiaochuan/Shell/Daemon") {}
 
 /** Keeps commands running outside the server and finds them again after it restarts. */
 interface CommandHost<E> {
@@ -981,7 +981,7 @@ const layer = () =>
           env: {
             ...baseEnv,
             TERM: "xterm-256color",
-            XCCODE_TERMINAL: "1",
+            XIAOCHUAN_TERMINAL: "1",
           },
         }
         yield* hooks.trigger("shell", "create.before", invocation)
@@ -1236,11 +1236,11 @@ function splitCharacter(bytes: Buffer, cut: number, running: boolean) {
 function annotate(info: Info) {
   const sessionID = info.metadata.sessionID
   return Effect.annotateCurrentSpan({
-    "xccode.shell.id": info.id,
-    "xccode.shell.command": spanCommand(info.command),
+    "xiaochuan.shell.id": info.id,
+    "xiaochuan.shell.command": spanCommand(info.command),
     ...(typeof sessionID === "string" ? { "session.id": sessionID } : {}),
-    ...(info.metadata.background === true ? { "xccode.shell.background": true } : {}),
-    ...(info.status === "running" ? {} : { "xccode.shell.status": info.status }),
+    ...(info.metadata.background === true ? { "xiaochuan.shell.background": true } : {}),
+    ...(info.status === "running" ? {} : { "xiaochuan.shell.status": info.status }),
     ...(info.exit === undefined ? {} : { "process.exit.code": info.exit }),
   })
 }

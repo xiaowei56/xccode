@@ -1,7 +1,7 @@
 //! Adopts sessions into their project when `worktree.resolved` supplies the repository root.
 use std::collections::HashSet;
 
-use xccode_api::generated::*;
+use xiaochuan_api::generated::*;
 
 use crate::connection::Follow;
 use crate::state::{Data, Error, State, Task};

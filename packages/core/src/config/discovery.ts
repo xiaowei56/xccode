@@ -3,19 +3,19 @@ export * as ConfigDiscovery from "./discovery.js"
 import os from "os"
 import path from "path"
 import { Effect } from "effect"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
 import { Location } from "../location.js"
 import { Project } from "../project.js"
 import { AbsolutePath } from "../schema.js"
 import type { Options } from "../config.js"
 
-export const names = ["xccode.json", "xccode.jsonc"]
+export const names = ["xiaochuan.json", "xiaochuan.jsonc"]
 
 /** Eligible sources in priority order, including paths that may appear later. */
 export interface Sources {
   readonly system?: { readonly path: AbsolutePath; readonly present: boolean }
-  /** macOS MDM managed preferences plist (`ai.xccode.managed`), when one is deployed. */
+  /** macOS MDM managed preferences plist (`ai.xiaochuan.managed`), when one is deployed. */
   readonly preferences?: AbsolutePath
   readonly global?: AbsolutePath
   readonly explicit?: AbsolutePath
@@ -25,22 +25,22 @@ export interface Sources {
   readonly agents: readonly AbsolutePath[]
 }
 
-/** Platform system configuration directory (`/Library/Application Support/xccode`, `/etc/xccode`, `%ProgramData%\xccode`). */
+/** Platform system configuration directory (`/Library/Application Support/xiaochuan`, `/etc/xiaochuan`, `%ProgramData%\xiaochuan`). */
 export function systemDirectory(platform: NodeJS.Platform = process.platform, env: NodeJS.ProcessEnv = process.env) {
-  if (platform === "darwin") return AbsolutePath.make("/Library/Application Support/xccode")
-  if (platform === "win32") return AbsolutePath.make(path.join(env.ProgramData || "C:\\ProgramData", "xccode"))
-  return AbsolutePath.make("/etc/xccode")
+  if (platform === "darwin") return AbsolutePath.make("/Library/Application Support/xiaochuan")
+  if (platform === "win32") return AbsolutePath.make(path.join(env.ProgramData || "C:\\ProgramData", "xiaochuan"))
+  return AbsolutePath.make("/etc/xiaochuan")
 }
 
 /** macOS MDM managed preferences plists, most specific first; the first one present wins. */
 export function preferencePaths(user: string) {
   return [
-    AbsolutePath.make(path.join("/Library/Managed Preferences", user, "ai.xccode.managed.plist")),
-    AbsolutePath.make("/Library/Managed Preferences/ai.xccode.managed.plist"),
+    AbsolutePath.make(path.join("/Library/Managed Preferences", user, "ai.xiaochuan.managed.plist")),
+    AbsolutePath.make("/Library/Managed Preferences/ai.xiaochuan.managed.plist"),
   ]
 }
 
-// Keys macOS and MDM profiles inject into managed preferences that are not Xccode config.
+// Keys macOS and MDM profiles inject into managed preferences that are not Xiaochuan config.
 const preferenceMetadata = new Set([
   "PayloadDisplayName",
   "PayloadIdentifier",
@@ -57,7 +57,7 @@ export function stripPreferenceMetadata(json: string) {
   return JSON.stringify(Object.fromEntries(Object.entries(parsed).filter(([key]) => !preferenceMetadata.has(key))))
 }
 
-/** The project's personal config dir under the global config dir, layered above the repo's own `.xccode` dirs. */
+/** The project's personal config dir under the global config dir, layered above the repo's own `.xiaochuan` dirs. */
 export const overlay = Effect.fn("ConfigDiscovery.overlay")(function* (options?: Options) {
   const fs = yield* FSUtil.Service
   const global = yield* Global.Service
@@ -90,7 +90,7 @@ export const discover = Effect.fn("ConfigDiscovery.discover")(function* (options
     globalRoots.slice(0, configDirectories.length).includes(current) || options?.project === false
       ? []
       : yield* fs.up({ targets: ["."], start: location.directory }).pipe(Effect.orDie)
-  const candidates = [".claude", ".agents", ".xccode", ...names.toReversed()]
+  const candidates = [".claude", ".agents", ".xiaochuan", ...names.toReversed()]
   const discovered = yield* Effect.forEach(
     directories,
     (directory) =>
@@ -151,9 +151,9 @@ export const discover = Effect.fn("ConfigDiscovery.discover")(function* (options
     preferences,
     global: globalEnabled ? globalDirectory : undefined,
     explicit: options?.file ? AbsolutePath.make(path.resolve(options.file)) : undefined,
-    direct: visible.filter((item) => ![".agents", ".claude", ".xccode"].includes(path.basename(item))).toReversed(),
+    direct: visible.filter((item) => ![".agents", ".claude", ".xiaochuan"].includes(path.basename(item))).toReversed(),
     project: yield* Effect.forEach(
-      visibleEntries.filter((entry) => path.basename(entry.item) === ".xccode").toReversed(),
+      visibleEntries.filter((entry) => path.basename(entry.item) === ".xiaochuan").toReversed(),
       (entry) =>
         entry.missing
           ? Effect.succeed({ path: entry.item, present: false })

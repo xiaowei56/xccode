@@ -1,31 +1,31 @@
 import { describe, expect, test } from "bun:test"
 import { INITIAL_DEEP_LINK_STATE, parseDeepLink, transitionDeepLinks, type DeepLinkEvent } from "./machine"
 
-const project = `xccode://open-project?directory=${encodeURIComponent("C:\\work\\api")}`
+const project = `xiaochuan://open-project?directory=${encodeURIComponent("C:\\work\\api")}`
 
-const session = `xccode://new-session?directory=%2Frepo&prompt=${encodeURIComponent("fix the build")}`
+const session = `xiaochuan://new-session?directory=%2Frepo&prompt=${encodeURIComponent("fix the build")}`
 
 describe("deep links", () => {
   test.each([
     { url: project, link: { type: "open-project", directory: "C:\\work\\api" } },
-    { url: "xccode://open-project?directory=/repo", link: { type: "open-project", directory: "/repo" } },
+    { url: "xiaochuan://open-project?directory=/repo", link: { type: "open-project", directory: "/repo" } },
     { url: session, link: { type: "new-session", directory: "/repo", prompt: "fix the build" } },
     {
-      url: "xccode://new-session?directory=/repo",
+      url: "xiaochuan://new-session?directory=/repo",
       link: { type: "new-session", directory: "/repo", prompt: undefined },
     },
-    { url: "xccode://open-project", link: undefined },
-    { url: "xccode://open-project?directory=%2Frepo%0A", link: undefined },
-    { url: "xccode://console/authorized?window=a", link: undefined },
+    { url: "xiaochuan://open-project", link: undefined },
+    { url: "xiaochuan://open-project?directory=%2Frepo%0A", link: undefined },
+    { url: "xiaochuan://console/authorized?window=a", link: undefined },
     { url: "https://open-project?directory=/repo", link: undefined },
-    { url: "xccode://open-project/%E0%A4%A%", link: undefined },
+    { url: "xiaochuan://open-project/%E0%A4%A%", link: undefined },
   ])("reads $url", ({ url, link }) => {
     expect(parseDeepLink(url)).toEqual(link)
   })
 
   test("a link that started the app waits for the app's server, then each opens in order", () => {
     const events: DeepLinkEvent[] = [
-      { type: "links.received", urls: [project, "xccode://console/authorized?window=a"] },
+      { type: "links.received", urls: [project, "xiaochuan://console/authorized?window=a"] },
       { type: "server.lost" },
       { type: "links.received", urls: [session] },
       { type: "server.ready" },
@@ -59,7 +59,7 @@ describe("deep links", () => {
   })
 
   test("a link the app doesn't open changes nothing", () => {
-    const next = transitionDeepLinks(INITIAL_DEEP_LINK_STATE, { type: "links.received", urls: ["xccode://other"] })
+    const next = transitionDeepLinks(INITIAL_DEEP_LINK_STATE, { type: "links.received", urls: ["xiaochuan://other"] })
 
     expect(next.state).toBe(INITIAL_DEEP_LINK_STATE)
     expect(next.effects).toEqual([])

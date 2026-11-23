@@ -864,7 +864,7 @@ fn single(name: &str, schema: Value) -> Value {
 pub(crate) const OPENAPI: &str = "../../../../protocol/openapi.json";
 
 /// A value of the HTTP API's component `key` (`Session.Info`), a reference into its OpenAPI document. The Rust type of
-/// `xccode_api_types` is the key in Pascal case (`SessionInfo`).
+/// `xiaochuan_api_types` is the key in Pascal case (`SessionInfo`).
 fn api(key: &str) -> Value {
     json!({ "$ref": format!("{OPENAPI}#/components/schemas/{key}") })
 }

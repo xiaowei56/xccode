@@ -230,12 +230,12 @@ it.live("rejects incompatible daemons without replacing or killing them", () =>
         }),
       ),
     )
-    const daemon = yield* makeDaemonTransport(root, "daemon", () => Promise.resolve("/missing/xccode-pty"))
+    const daemon = yield* makeDaemonTransport(root, "daemon", () => Promise.resolve("/missing/xiaochuan-pty"))
 
     const optional = yield* Effect.flip(daemon.requestIfRunning({ op: "list" }))
     expect(optional).toMatchObject({
       kind: "protocol",
-      message: "xccode-pty protocol mismatch: daemon=7, client=9",
+      message: "xiaochuan-pty protocol mismatch: daemon=7, client=9",
       pid: existing.pid,
     })
 
@@ -308,7 +308,7 @@ if (process.platform !== "win32")
       const root = yield* temporaryDirectory()
       const runtime = path.join(root, "runtime")
       const spawns = path.join(root, "spawns")
-      const binary = path.join(root, "old-xccode-pty")
+      const binary = path.join(root, "old-xiaochuan-pty")
       // Registers like an older release would, then idles.
       yield* Effect.promise(() =>
         writeFile(

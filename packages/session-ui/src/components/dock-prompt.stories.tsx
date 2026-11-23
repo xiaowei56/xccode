@@ -1,8 +1,8 @@
-import { Button } from "@xccode/ui/button"
+import { Button } from "@xiaochuan/ui/button"
 import { DockPrompt } from "./dock-prompt"
 
 export default {
-  title: "Xccode/Requests/Prompt frame",
+  title: "Xiaochuan/Requests/Prompt frame",
   id: "components-dock-prompt",
   component: DockPrompt,
   args: { experimental: false },

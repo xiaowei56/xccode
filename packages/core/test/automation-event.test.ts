@@ -1,30 +1,30 @@
 import { expect } from "bun:test"
-import { Automation } from "@xccode/core/automation"
-import { AutomationTable } from "@xccode/core/automation/sql"
-import { Agent } from "@xccode/core/agent"
-import { Bus } from "@xccode/core/bus"
-import { Config } from "@xccode/core/config"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { LocationLifecycle } from "@xccode/core/location-lifecycle"
-import { LocationActivity } from "@xccode/core/location-activity"
-import { Mcp } from "@xccode/core/mcp/index"
-import { McpClient } from "@xccode/core/mcp/client"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { PluginSupervisor } from "@xccode/core/plugin/supervisor"
-import { Session } from "@xccode/core/session"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { SessionMessage } from "@xccode/core/session/message"
-import { Permission } from "@xccode/core/permission"
-import { SessionInboxTable, SessionTable } from "@xccode/core/session/sql"
-import { AbsolutePath } from "@xccode/schema/schema"
-import { Tool } from "@xccode/schema/tool"
-import { Document, Info } from "@xccode/schema/config"
-import { ConfigExperimental } from "@xccode/schema/config/experimental"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Automation } from "@xiaochuan/core/automation"
+import { AutomationTable } from "@xiaochuan/core/automation/sql"
+import { Agent } from "@xiaochuan/core/agent"
+import { Bus } from "@xiaochuan/core/bus"
+import { Config } from "@xiaochuan/core/config"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { LocationLifecycle } from "@xiaochuan/core/location-lifecycle"
+import { LocationActivity } from "@xiaochuan/core/location-activity"
+import { Mcp } from "@xiaochuan/core/mcp/index"
+import { McpClient } from "@xiaochuan/core/mcp/client"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { PluginSupervisor } from "@xiaochuan/core/plugin/supervisor"
+import { Session } from "@xiaochuan/core/session"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { Permission } from "@xiaochuan/core/permission"
+import { SessionInboxTable, SessionTable } from "@xiaochuan/core/session/sql"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
+import { Tool } from "@xiaochuan/schema/tool"
+import { Document, Info } from "@xiaochuan/schema/config"
+import { ConfigExperimental } from "@xiaochuan/schema/config/experimental"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { Clock, Context, Duration, Effect, Fiber, Latch, Layer, Schedule, Schema } from "effect"
 import { TestClock } from "effect/testing"
 import { eq } from "drizzle-orm"
@@ -582,7 +582,7 @@ it.effect("validates permission, push capability and arguments before creating a
       sessionID,
       permissions: [
         {
-          action: "xccode_watch_mcp_event",
+          action: "xiaochuan_watch_mcp_event",
           resource: "ci",
           effect: "deny",
         },
@@ -659,7 +659,7 @@ for (const stop of ["terminated", "permission revoked", "expired"]) {
             sessionID,
             permissions: [
               {
-                action: "xccode_watch_mcp_event",
+                action: "xiaochuan_watch_mcp_event",
                 resource: "ci",
                 effect: "deny",
               },

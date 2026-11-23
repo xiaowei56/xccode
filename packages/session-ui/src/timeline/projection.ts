@@ -6,7 +6,7 @@ import type {
   SessionMessageShell,
   SessionMessageUser,
   SessionStatus,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import { Effect, Option, Predicate, Schema } from "effect"
 import { createComputed, createMemo, createSignal, mapArray, untrack, type Accessor } from "solid-js"
 import { currentContentDefaultOpen, currentToolHasLoadedFiles } from "../message/current-tool-state"
@@ -714,7 +714,7 @@ function usageLimit(
   return { kind, resetAt: base + delay }
 }
 
-// Xccode Console says when the budget resets in its refusal's metadata, which every protocol's envelope names `resetsAt`.
+// Xiaochuan Console says when the budget resets in its refusal's metadata, which every protocol's envelope names `resetsAt`.
 function budgetLimit(message: Pick<SessionMessageAssistant, "error">) {
   const type = message.error?.type
 

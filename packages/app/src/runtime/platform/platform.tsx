@@ -1,9 +1,9 @@
-import { createSimpleContext } from "@xccode/ui/context"
+import { createSimpleContext } from "@xiaochuan/ui/context"
 import type { AsyncStorage, SyncStorage } from "@solid-primitives/storage"
 import type { Accessor } from "solid-js"
 import type { DesktopMenuAction, DesktopZoomLevel } from "@/shell/commands/desktop-menu"
 import type { DraftStore } from "@/runtime/persistence/drafts"
-import type { Bridge } from "@xccode/plugin/gui/host"
+import type { Bridge } from "@xiaochuan/plugin/gui/host"
 
 type PickerPaths = string | string[] | null
 
@@ -90,7 +90,7 @@ type PlatformBase = {
   startFileDrag?(path: string): Promise<boolean>
 
   /**
-   * Observe `xccode://` links opened with the app (desktop only). Links that arrived before the first listener
+   * Observe `xiaochuan://` links opened with the app (desktop only). Links that arrived before the first listener
    * are delivered to it at once.
    */
   onDeepLinks?(listener: (urls: string[]) => void): () => void

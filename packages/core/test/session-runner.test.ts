@@ -16,74 +16,74 @@ import {
   RateLimitError,
   UnknownProviderError,
   type UserMessage,
-} from "@xccode/ai/effect"
-import { OpenAIChat } from "@xccode/ai/protocols/openai-chat"
-import { AnthropicMessages, OpenAIResponses } from "@xccode/ai/protocols"
-import { TestLLM, compileRequest } from "@xccode/ai/testing"
-import { RequestExecutor } from "@xccode/ai/route"
-import type { SessionHooks } from "@xccode/plugin/effect/session"
-import { Database } from "@xccode/core/database/database"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@xccode/core/effect/app-node-platform"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Bus } from "@xccode/core/bus"
-import { Event } from "@xccode/schema/event"
-import { App } from "@xccode/core/app"
-import { Permission } from "@xccode/core/permission"
-import { EventTable } from "@xccode/core/event/sql"
-import { Project } from "@xccode/core/project"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { Form } from "@xccode/core/form"
-import { Job } from "@xccode/core/job"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { Snapshot } from "@xccode/core/snapshot"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionCompaction } from "@xccode/core/session/compaction"
-import { SessionInbox } from "@xccode/core/session/inbox"
-import { SessionMessage } from "@xccode/core/session/message"
-import { SessionModelTransport } from "@xccode/core/session/model-transport"
-import { Money } from "@xccode/schema/money"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { SessionRunCoordinator } from "@xccode/core/session/run-coordinator"
-import { SessionRunner } from "@xccode/core/session/runner/index"
-import { SessionRunnerLLM } from "@xccode/core/session/runner/llm"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { SessionUsage } from "@xccode/core/session/usage"
-import { PluginSupervisor } from "@xccode/core/plugin/supervisor"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { PluginPromise } from "@xccode/core/plugin/promise"
-import { OptimizePlugin } from "@xccode/core/plugin/optimize"
-import { IdentityPlugin } from "@xccode/core/plugin/identity"
-import { QuestionTool } from "@xccode/core/tool/plugin/question"
-import { Agent } from "@xccode/core/agent"
-import { Config } from "@xccode/core/config"
-import { Document, Info } from "@xccode/schema/config"
-import { ConfigCompaction } from "@xccode/schema/config/compaction"
-import { Tool } from "@xccode/core/tool"
-import type { Info as ToolInfo } from "@xccode/schema/tool"
+} from "@xiaochuan/ai/effect"
+import { OpenAIChat } from "@xiaochuan/ai/protocols/openai-chat"
+import { AnthropicMessages, OpenAIResponses } from "@xiaochuan/ai/protocols"
+import { TestLLM, compileRequest } from "@xiaochuan/ai/testing"
+import { RequestExecutor } from "@xiaochuan/ai/route"
+import type { SessionHooks } from "@xiaochuan/plugin/effect/session"
+import { Database } from "@xiaochuan/core/database/database"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@xiaochuan/core/effect/app-node-platform"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Bus } from "@xiaochuan/core/bus"
+import { Event } from "@xiaochuan/schema/event"
+import { App } from "@xiaochuan/core/app"
+import { Permission } from "@xiaochuan/core/permission"
+import { EventTable } from "@xiaochuan/core/event/sql"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { Form } from "@xiaochuan/core/form"
+import { Job } from "@xiaochuan/core/job"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { Snapshot } from "@xiaochuan/core/snapshot"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionCompaction } from "@xiaochuan/core/session/compaction"
+import { SessionInbox } from "@xiaochuan/core/session/inbox"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { SessionModelTransport } from "@xiaochuan/core/session/model-transport"
+import { Money } from "@xiaochuan/schema/money"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { SessionRunCoordinator } from "@xiaochuan/core/session/run-coordinator"
+import { SessionRunner } from "@xiaochuan/core/session/runner/index"
+import { SessionRunnerLLM } from "@xiaochuan/core/session/runner/llm"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { SessionUsage } from "@xiaochuan/core/session/usage"
+import { PluginSupervisor } from "@xiaochuan/core/plugin/supervisor"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { PluginPromise } from "@xiaochuan/core/plugin/promise"
+import { OptimizePlugin } from "@xiaochuan/core/plugin/optimize"
+import { IdentityPlugin } from "@xiaochuan/core/plugin/identity"
+import { QuestionTool } from "@xiaochuan/core/tool/plugin/question"
+import { Agent } from "@xiaochuan/core/agent"
+import { Config } from "@xiaochuan/core/config"
+import { Document, Info } from "@xiaochuan/schema/config"
+import { ConfigCompaction } from "@xiaochuan/schema/config/compaction"
+import { Tool } from "@xiaochuan/core/tool"
+import type { Info as ToolInfo } from "@xiaochuan/schema/tool"
 import {
   InstructionStateTable,
   SessionInboxTable,
   SessionMessageTable,
   SessionPartTable,
   SessionTable,
-} from "@xccode/core/session/sql"
-import { InstructionEntry } from "@xccode/core/session/instruction-entry"
-import { SessionStore } from "@xccode/core/session/store"
-import { Instructions } from "@xccode/core/instructions/index"
-import { InstructionBuiltIns } from "@xccode/core/instructions/builtins"
-import { InstructionDiscovery } from "@xccode/core/instruction-discovery"
-import { SkillInstructions } from "@xccode/core/skill/instructions"
-import { ReferenceInstructions } from "@xccode/core/reference/instructions"
-import { McpInstructions } from "@xccode/core/mcp/instructions"
-import { SessionSystemPrompt } from "@xccode/core/session/system-prompt"
-import { ID, Model } from "@xccode/core/model"
-import { Location } from "@xccode/core/location"
-import { Provider } from "@xccode/core/provider"
+} from "@xiaochuan/core/session/sql"
+import { InstructionEntry } from "@xiaochuan/core/session/instruction-entry"
+import { SessionStore } from "@xiaochuan/core/session/store"
+import { Instructions } from "@xiaochuan/core/instructions/index"
+import { InstructionBuiltIns } from "@xiaochuan/core/instructions/builtins"
+import { InstructionDiscovery } from "@xiaochuan/core/instruction-discovery"
+import { SkillInstructions } from "@xiaochuan/core/skill/instructions"
+import { ReferenceInstructions } from "@xiaochuan/core/reference/instructions"
+import { McpInstructions } from "@xiaochuan/core/mcp/instructions"
+import { SessionSystemPrompt } from "@xiaochuan/core/session/system-prompt"
+import { ID, Model } from "@xiaochuan/core/model"
+import { Location } from "@xiaochuan/core/location"
+import { Provider } from "@xiaochuan/core/provider"
 import {
   Cause,
   Context,
@@ -103,11 +103,11 @@ import { TestClock } from "effect/testing"
 import { and, asc, desc, eq, sql } from "drizzle-orm"
 import { testEffect } from "./lib/effect"
 import { promptLocationNode } from "./fixture/prompt-location"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
 import { Expected } from "./lib/session-message"
 import { permissionLayer } from "./lib/permission"
 import { agentHost, modelHost, host, noProviders } from "./plugin/host"
-import { CodeModeInstructions } from "@xccode/core/codemode/instructions"
+import { CodeModeInstructions } from "@xiaochuan/core/codemode/instructions"
 
 const emptyCodeMode = `${CodeModeInstructions.render({ total: 0, namespaces: [] })}\n\n`
 type ToolBarrier = {
@@ -5391,13 +5391,13 @@ describe("SessionRunnerLLM", () => {
     yield* s.runPrompt("Run correlated request")
 
     expect(s.requests[0]?.headers).toEqual({
-      "x-xccode-session-id": sessionID,
+      "x-xiaochuan-session-id": sessionID,
       "x-session-affinity": sessionID,
       "X-Session-Id": sessionID,
       "User-Agent": App.useragent(App.make()),
-      "x-xccode-project": Project.ID.global,
-      "x-xccode-session": sessionID,
-      "x-xccode-client": "xccode",
+      "x-xiaochuan-project": Project.ID.global,
+      "x-xiaochuan-session": sessionID,
+      "x-xiaochuan-client": "xiaochuan",
     })
   })
 
@@ -5413,12 +5413,12 @@ describe("SessionRunnerLLM", () => {
     yield* s.runPrompt("Run child request")
 
     expect(s.requests[0]?.headers).toMatchObject({
-      "x-xccode-session-id": sessionID,
-      "x-xccode-parent-session-id": parentID,
+      "x-xiaochuan-session-id": sessionID,
+      "x-xiaochuan-parent-session-id": parentID,
       "x-session-affinity": parentID,
       "X-Session-Id": parentID,
       "x-parent-session-id": parentID,
-      "x-xccode-session": parentID,
+      "x-xiaochuan-session": parentID,
     })
     expect(s.requests[0]?.promptCacheKey).toBe(parentID)
   })
@@ -6396,7 +6396,7 @@ describe("SessionRunnerLLM", () => {
           .filter((span) => span.name === "SessionStep.attempt")
           .map((span) => ({
             error: span.attributes.get("error.type"),
-            attempt: span.attributes.get("xccode.retry.attempt"),
+            attempt: span.attributes.get("xiaochuan.retry.attempt"),
           })),
       ).toEqual([
         { error: "Transport", attempt: undefined },
@@ -6989,7 +6989,7 @@ describe("SessionRunnerLLM", () => {
     expect(yield* recordedEventTypes(sessionID)).not.toContain("session.retry.scheduled.1")
   })
 
-  scenario("records Xccode Console's Go usage limit 429 as a typed step failure without retrying", function* (s) {
+  scenario("records Xiaochuan Console's Go usage limit 429 as a typed step failure without retrying", function* (s) {
     // The exact refusal Console sends a Go subscriber at a limit.
     const body = JSON.stringify({
       type: "error",
@@ -6998,7 +6998,7 @@ describe("SessionRunnerLLM", () => {
     })
     const failure = RequestExecutor.httpFailure({
       message: "Go usage limit exceeded",
-      url: "https://xccode.ai/inference/go/openai/v1/chat/completions",
+      url: "https://xiaochuan.ai/inference/go/openai/v1/chat/completions",
       status: 429,
       responseHeaders: { "retry-after": "3600" },
       responseBody: body,
@@ -7017,7 +7017,7 @@ describe("SessionRunnerLLM", () => {
           error: {
             type: "provider.go-limit",
             message:
-              "Xccode Go 5 hour usage limit reached. Switch to a free model, or turn on Extra Usage on the Go page in Xccode Console to keep going.",
+              "Xiaochuan Go 5 hour usage limit reached. Switch to a free model, or turn on Extra Usage on the Go page in Xiaochuan Console to keep going.",
             status: 429,
             response: { body },
             retryAfterMs: 3_600_000,

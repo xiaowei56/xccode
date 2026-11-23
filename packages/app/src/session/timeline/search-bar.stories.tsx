@@ -1,8 +1,8 @@
-import type { SessionMessageInfo } from "@xccode/client/promise"
-import type { SessionDocument } from "@xccode/session-ui/document"
-import { CurrentSessionProviders, emptySessionDocument, STORY_MODEL, STORY_TIME } from "@xccode/session-ui/storybook"
-import { SessionTimeline } from "@xccode/session-ui/timeline"
-import { Button } from "@xccode/ui/button"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
+import type { SessionDocument } from "@xiaochuan/session-ui/document"
+import { CurrentSessionProviders, emptySessionDocument, STORY_MODEL, STORY_TIME } from "@xiaochuan/session-ui/storybook"
+import { SessionTimeline } from "@xiaochuan/session-ui/timeline"
+import { Button } from "@xiaochuan/ui/button"
 import { createEffect, createSignal, on, Show } from "solid-js"
 import { TimelineSearchBar } from "./search-bar"
 import { createTranscriptSearch } from "./search-controller"
@@ -105,7 +105,7 @@ function FindStory(props: Args) {
 }
 
 export default {
-  title: "Xccode/Session/Find in transcript",
+  title: "Xiaochuan/Session/Find in transcript",
   id: "session-transcript-find",
   args: { query: "trail", open: true, empty: false } satisfies Args,
   render: (args: Args) => <FindStory {...args} />,

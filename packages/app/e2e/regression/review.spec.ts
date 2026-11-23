@@ -1,9 +1,9 @@
-import type { XccodeEvent, SessionMessageInfo } from "@xccode/client/promise"
+import type { XiaochuanEvent, SessionMessageInfo } from "@xiaochuan/client/promise"
 import { expect, test, type Locator, type Page } from "@playwright/test"
-import { base64Encode } from "@xccode/util/encode"
+import { base64Encode } from "@xiaochuan/util/encode"
 import { SERVER, holdRoute, project, provider, session } from "../utils/app"
 import { browseFiles, openFileLauncher, openReviewLauncher, reviewTabs } from "../utils/side-panel"
-import { mockXccodeServer } from "../utils/mock-server"
+import { mockXiaochuanServer } from "../utils/mock-server"
 import { fileDiff, fileNode, openSession } from "../utils/workspace"
 import { expectSessionTitle } from "../utils/waits"
 import { readFile } from "node:fs/promises"
@@ -127,7 +127,7 @@ test("Git initialization belongs to its session and refreshes after a session sw
     ],
     seed: {
       panes: { ses_init_a: { review: true }, ses_init_b: { review: true } },
-      storage: reviewTabs("C:/Xccode/ReviewInitSwitch", "ses_init_a", "ses_init_b"),
+      storage: reviewTabs("C:/Xiaochuan/ReviewInitSwitch", "ses_init_a", "ses_init_b"),
     },
   })
 
@@ -182,7 +182,7 @@ test("a rejected Git init releases its session's button without showing an error
     ],
     seed: {
       panes: { ses_init_failure_a: { review: true }, ses_init_failure_b: { review: true } },
-      storage: reviewTabs("C:/Xccode/ReviewInitFailure", "ses_init_failure_a", "ses_init_failure_b"),
+      storage: reviewTabs("C:/Xiaochuan/ReviewInitFailure", "ses_init_failure_a", "ses_init_failure_b"),
     },
   })
   const request = await holdRoute(page, (url) => url.pathname === "/api/vcs/init", { method: "POST" })
@@ -211,7 +211,7 @@ test("a created Git repository whose project refresh fails still refreshes the s
     sessions: [{ id: "ses_init_refresh", title: "Initialize Refresh" }],
     seed: {
       panes: { ses_init_refresh: { review: true } },
-      storage: reviewTabs("C:/Xccode/ReviewInitRefresh", "ses_init_refresh"),
+      storage: reviewTabs("C:/Xiaochuan/ReviewInitRefresh", "ses_init_refresh"),
     },
   })
   const panel = page.locator("#review-panel")
@@ -256,7 +256,7 @@ test("opens file picker launchers when randomUUID is unavailable on insecure HTT
 
 test("open file tab browses, searches, and tracks missing files", async ({ page }) => {
   const searches: { query: string; dirs?: string; limit?: number; directory: string }[] = []
-  const directory = "C:/Xccode/ReviewOpenFile"
+  const directory = "C:/Xiaochuan/ReviewOpenFile"
   const files = Array.from({ length: 80 }, (_, index) => `file-${String(index).padStart(2, "0")}.ts`)
 
   const workspace = await openSession(page, {
@@ -279,8 +279,8 @@ test("open file tab browses, searches, and tracks missing files", async ({ page 
     seed: {
       panes: { ses_reviewopenfile: { review: true } },
       storage: {
-        ...reviewTabs("C:/Xccode/ReviewOpenFile", "ses_reviewopenfile"),
-        "xccode.global.dat:review-panel-v2": { sidebarOpened: false },
+        ...reviewTabs("C:/Xiaochuan/ReviewOpenFile", "ses_reviewopenfile"),
+        "xiaochuan.global.dat:review-panel-v2": { sidebarOpened: false },
       },
     },
   })
@@ -422,7 +422,7 @@ for (const listed of [false, true]) {
   test(`the open file heading names a subfolder session ${listed ? "after its sidebar project" : "after its folder"}`, async ({
     page,
   }) => {
-    const root = "C:/Xccode/BrowserRepo"
+    const root = "C:/Xiaochuan/BrowserRepo"
     const directory = `${root}/packages/app`
     await openSession(page, {
       name: "BrowserRepo",
@@ -452,9 +452,9 @@ test("context closes the side region only when its button opened it", async ({ p
     name: "ReviewContextOpener",
     seed: {
       storage: {
-        "xccode.global.dat:layout": {
+        "xiaochuan.global.dat:layout": {
           sessionTabs: {
-            [`local\u0000${base64Encode("C:/Xccode/ReviewContextOpener")}/ses_reviewcontextopener`]: {
+            [`local\u0000${base64Encode("C:/Xiaochuan/ReviewContextOpener")}/ses_reviewcontextopener`]: {
               all: ["btw"],
               active: "btw",
             },
@@ -527,7 +527,7 @@ test("context hides zero cost for Go and free models but keeps paid-model cost",
     {
       id: "ses_context_go",
       title: "Covered by Go",
-      providerID: "xccode-go",
+      providerID: "xiaochuan-go",
       model: "paid",
       cost: 0,
       usage: true,
@@ -536,7 +536,7 @@ test("context hides zero cost for Go and free models but keeps paid-model cost",
     {
       id: "ses_context_go_spend",
       title: "Go with charges",
-      providerID: "xccode-go",
+      providerID: "xiaochuan-go",
       model: "paid",
       cost: 0.38,
       usage: true,
@@ -558,21 +558,21 @@ test("context hides zero cost for Go and free models but keeps paid-model cost",
     name: "ContextPricing",
     provider: {
       ...catalog,
-      all: [...catalog.all, { ...catalog.all[0], id: "xccode-go", name: "Xccode Go" }],
-      connected: [...catalog.connected, "xccode-go"],
+      all: [...catalog.all, { ...catalog.all[0], id: "xiaochuan-go", name: "Xiaochuan Go" }],
+      connected: [...catalog.connected, "xiaochuan-go"],
     },
     sessions: [
       ...cases.map((item) => ({
         id: item.id,
         title: item.title,
-        model: { id: item.model, providerID: item.providerID ?? "xccode" },
+        model: { id: item.model, providerID: item.providerID ?? "xiaochuan" },
         cost: item.cost,
       })),
       {
         id: "ses_context_family_child",
         parentID: "ses_context_family",
         title: "Subagent run",
-        model: { id: "paid", providerID: "xccode" },
+        model: { id: "paid", providerID: "xiaochuan" },
         cost: 1.25,
       },
     ],
@@ -584,7 +584,7 @@ test("context hides zero cost for Go and free models but keeps paid-model cost",
                 id: `msg_${item.id}`,
                 type: "assistant",
                 agent: "build",
-                model: { id: item.model, providerID: item.providerID ?? "xccode" },
+                model: { id: item.model, providerID: item.providerID ?? "xiaochuan" },
                 tokens: { input: 1500, output: 500, reasoning: 0, cache: { read: 0, write: 0 } },
                 content: [{ type: "text", text: "Done." }],
                 time: { created: 1, completed: 2 },
@@ -614,11 +614,11 @@ test("context hides zero cost for Go and free models but keeps paid-model cost",
     await expectSessionTitle(page, item.title)
     await expect(button).toHaveText(item.text)
 
-    if (item.providerID === "xccode-go") {
+    if (item.providerID === "xiaochuan-go") {
       await button.click()
       const panel = page.locator('[data-slot="session-usage-content"]')
 
-      await expect(panel.getByText("Xccode Go", { exact: true })).toBeVisible()
+      await expect(panel.getByText("Xiaochuan Go", { exact: true })).toBeVisible()
       await expect(panel.getByText("Total Cost", { exact: true })).toBeVisible({ visible: item.cost > 0 })
       await button.click()
     }
@@ -626,7 +626,7 @@ test("context hides zero cost for Go and free models but keeps paid-model cost",
 })
 
 test("file tree expands Windows paths and scrolls long names in both directions", async ({ page }) => {
-  const directory = "C:/Xccode/OpenFileExpand"
+  const directory = "C:/Xiaochuan/OpenFileExpand"
   const longFilename = "a-very-long-file-name-that-must-overflow-the-file-sidebar-instead-of-being-truncated.ts"
   const longPath = `frontend/${longFilename}`
   await openSession(page, {
@@ -668,7 +668,7 @@ test("file tree expands Windows paths and scrolls long names in both directions"
     fileContent: (path) => ({ type: "text", content: `contents:${path}` }),
     seed: {
       panes: { ses_openfileexpand: { review: true } },
-      storage: { "xccode.global.dat:review-panel-v2": { sidebarOpened: true } },
+      storage: { "xiaochuan.global.dat:review-panel-v2": { sidebarOpened: true } },
     },
   })
 
@@ -733,7 +733,7 @@ test("file tree expands Windows paths and scrolls long names in both directions"
     .toBeGreaterThan(0)
   await expect(status).toHaveText("A")
   await expect.poll(() => statusInset(status, "right")).toBeLessThanOrEqual(24)
-  const treeScroll = panel.locator(".xccode-pierre-file-tree")
+  const treeScroll = panel.locator(".xiaochuan-pierre-file-tree")
 
   const scrollTree = (position: { left?: number; top?: number }) =>
     treeScroll.evaluate((element, position) => {
@@ -794,7 +794,7 @@ test("file tree expands Windows paths and scrolls long names in both directions"
 })
 
 test("the file tree follows a folder the review closes and lists a recreated folder's files", async ({ page }) => {
-  const directory = "C:/Xccode/TreeFollow"
+  const directory = "C:/Xiaochuan/TreeFollow"
   const disk = { src: true }
 
   const workspace = await openSession(page, {
@@ -810,7 +810,7 @@ test("the file tree follows a folder the review closes and lists a recreated fol
     fileContent: (path) => ({ type: "text", content: `contents:${path}` }),
     seed: {
       panes: { ses_treefollow: { review: true } },
-      storage: { "xccode.global.dat:review-panel-v2": { sidebarOpened: true } },
+      storage: { "xiaochuan.global.dat:review-panel-v2": { sidebarOpened: true } },
     },
   })
 
@@ -862,7 +862,7 @@ test("rereads a file each time an artifact link opens it", async ({ page }) => {
       id: "msg_reply",
       type: "assistant",
       agent: "build",
-      model: { id: "test", providerID: "xccode" },
+      model: { id: "test", providerID: "xiaochuan" },
       content: [{ type: "text", text: "Updated [shopping.txt](shopping.txt)." }],
       time: { created: 2, completed: 3 },
     },
@@ -961,7 +961,7 @@ test("a file changed during its read shows the change", async ({ page }) => {
       id: "msg_reply",
       type: "assistant",
       agent: "build",
-      model: { id: "test", providerID: "xccode" },
+      model: { id: "test", providerID: "xiaochuan" },
       content: [{ type: "text", text: "Updated [notes.txt](notes.txt) and [shopping.txt](shopping.txt)." }],
       time: { created: 2, completed: 3 },
     },
@@ -1022,7 +1022,7 @@ test("artifact actions copy and download content, switch source, and follow the 
     "---",
     "description: Release checklist",
     "mode: primary",
-    "model: xccode/test",
+    "model: xiaochuan/test",
     "temperature: 0.2",
     "steps: 12",
     "color: accent",
@@ -1063,7 +1063,7 @@ test("artifact actions copy and download content, switch source, and follow the 
           id: "msg_artifact_actions",
           type: "assistant",
           agent: "build",
-          model: { id: "test", providerID: "xccode" },
+          model: { id: "test", providerID: "xiaochuan" },
           content: [
             {
               type: "text",
@@ -1168,7 +1168,7 @@ test("artifact actions copy and download content, switch source, and follow the 
   await expect(paper.getByRole("definition")).toHaveText([
     "Release checklist",
     "primary",
-    "xccode/test",
+    "xiaochuan/test",
     "0.2",
     "12",
     "accent",
@@ -1242,13 +1242,13 @@ test("Markdown and DOCX sheets stay aligned when switching at wide and narrow pr
           id: "msg_document_alignment",
           type: "assistant",
           agent: "build",
-          model: { id: "test", providerID: "xccode" },
+          model: { id: "test", providerID: "xiaochuan" },
           content: [{ type: "text", text: "[Markdown](notes.md) [Word](sample.docx) [Second Word](other.docx)" }],
           time: { created: 1, completed: 2 },
         },
       ],
     }),
-    seed: { storage: { "xccode.global.dat:review-panel-v2": { sidebarOpened: false } } },
+    seed: { storage: { "xiaochuan.global.dat:review-panel-v2": { sidebarOpened: false } } },
   })
 
   const panel = page.locator("#review-panel")
@@ -1337,7 +1337,7 @@ test("diagram preview controls zoom the rendered diagram and fit it back into it
           id: "msg_diagram_zoom",
           type: "assistant",
           agent: "build",
-          model: { id: "test", providerID: "xccode" },
+          model: { id: "test", providerID: "xiaochuan" },
           content: [{ type: "text", text: "[Diagram](flow.mmd)" }],
           time: { created: 1, completed: 2 },
         },
@@ -1403,7 +1403,7 @@ test("image gestures anchor zoom, pan, and reset independently of the pane", asy
           id: "msg_images",
           type: "assistant",
           agent: "build",
-          model: { id: "test", providerID: "xccode" },
+          model: { id: "test", providerID: "xiaochuan" },
           content: [{ type: "text", text: "[First](first.svg) [Second](second.svg) [Small](small.svg)" }],
           time: { created: 1, completed: 2 },
         },
@@ -1532,7 +1532,7 @@ test("image gestures anchor zoom, pan, and reset independently of the pane", asy
 
 test("image files load into the review panel and keep it painted while loading", async ({ page }) => {
   await page.setViewportSize({ width: 960, height: 900 })
-  const directory = "C:/Xccode/ReviewImage"
+  const directory = "C:/Xiaochuan/ReviewImage"
   const image = "assets/preview.png"
   const read = Promise.withResolvers<void>()
   const release = Promise.withResolvers<void>()
@@ -1627,7 +1627,7 @@ test("image files load into the review panel and keep it painted while loading",
 test("video files stream into the viewer behind a loading state, open into the preview, and come back on Escape without remounting", async ({
   page,
 }) => {
-  const directory = "C:/Xccode/ReviewVideo"
+  const directory = "C:/Xiaochuan/ReviewVideo"
   const file = "arcade-update-draft.mp4"
 
   const head = Buffer.from(
@@ -1740,8 +1740,8 @@ test("review file navigation focuses the arrow for the keyboard direction", asyn
     seed: {
       panes: { ses_reviewarrowfocus: { review: true } },
       storage: {
-        ...reviewTabs("C:/Xccode/ReviewArrowFocus", "ses_reviewarrowfocus"),
-        "xccode.global.dat:review-panel-v2": { sidebarOpened: false },
+        ...reviewTabs("C:/Xiaochuan/ReviewArrowFocus", "ses_reviewarrowfocus"),
+        "xiaochuan.global.dat:review-panel-v2": { sidebarOpened: false },
       },
     },
   })
@@ -1783,7 +1783,7 @@ test("restores review state and the side-panel tab per session", async ({ page }
     { id: "ses_review_state_c", title: "Gamma review state" },
   ]
 
-  const directory = "C:/Xccode/ReviewState"
+  const directory = "C:/Xiaochuan/ReviewState"
   await openSession(page, {
     name: "ReviewState",
     sessions,
@@ -1906,7 +1906,7 @@ test("shows and restores last turn changes from the session diff", async ({ page
 })
 
 test("keeps the review state a session stored before plugins", async ({ page }) => {
-  const directory = "C:/Xccode/ReviewLegacy"
+  const directory = "C:/Xiaochuan/ReviewLegacy"
   await openSession(page, {
     name: "ReviewLegacy",
     vcs: { current: "feature", default: "dev" },
@@ -1914,7 +1914,7 @@ test("keeps the review state a session stored before plugins", async ({ page }) 
       mode === "branch" ? [fileDiff("alpha.ts"), fileDiff("beta.ts")] : [fileDiff("alpha.ts"), fileDiff("gamma.ts")],
     seed: {
       storage: {
-        "xccode.global.dat:layout": {
+        "xiaochuan.global.dat:layout": {
           sessionView: {
             [`local\u0000${base64Encode(directory)}/ses_reviewlegacy`]: {
               scroll: {},
@@ -1956,10 +1956,10 @@ test("keeps the review state a session stored before plugins", async ({ page }) 
 })
 
 test("desktop review waits for the session's stored mode before it loads changes", async ({ page }) => {
-  const directory = "C:/Xccode/ReviewDesktop"
+  const directory = "C:/Xiaochuan/ReviewDesktop"
   const id = "ses_review_desktop"
   const title = "Desktop review"
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     directory,
     project: project({ id: "proj_review_desktop", directory }),
     provider: provider(),
@@ -2071,7 +2071,7 @@ test("a large file whose full diff fails to load says so, and loads on Try again
 
 // A failed search used to read "No results found", as if the workspace had no such file.
 test("a failed file search offers a retry instead of no results", async ({ page }) => {
-  const directory = "C:/Xccode/ReviewSearchFailure"
+  const directory = "C:/Xiaochuan/ReviewSearchFailure"
   await openSession(page, {
     name: "ReviewSearchFailure",
     fileList: () => [fileNode(directory, "README.md")],
@@ -2225,14 +2225,14 @@ test("names a single change source and keeps the review header rows at 48px", as
 })
 
 test("Review from a new tab keeps the file browser and preview open", async ({ page }) => {
-  const directory = "C:/Xccode/ReviewNewTabFile"
+  const directory = "C:/Xiaochuan/ReviewNewTabFile"
   await openSession(page, {
     name: "ReviewNewTabFile",
     fileList: (path) => (path ? [] : [fileNode(directory, "README.md")]),
     fileContent: (path) => ({ type: "text", content: `contents:${path}` }),
     seed: {
       panes: { ses_reviewnewtabfile: { review: true } },
-      storage: { "xccode.global.dat:review-panel-v2": { sidebarOpened: false } },
+      storage: { "xiaochuan.global.dat:review-panel-v2": { sidebarOpened: false } },
     },
   })
   const panel = page.locator("#review-panel")
@@ -2345,7 +2345,7 @@ async function statusInset(status: Locator, side: "left" | "right") {
   }, side)
 }
 
-function filesystemEvent(directory: string, file: string, event: "add" | "change" | "unlink"): XccodeEvent {
+function filesystemEvent(directory: string, file: string, event: "add" | "change" | "unlink"): XiaochuanEvent {
   return {
     id: `evt_${file}_${event}`,
     created: 1,

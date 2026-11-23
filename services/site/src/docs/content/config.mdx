@@ -1,26 +1,26 @@
 ---
 title: "Config"
-description: "Configure Xccode in xccode.json or xccode.jsonc, and see where config files live, how they take precedence, and how to substitute variables."
+description: "Configure Xiaochuan in xiaochuan.json or xiaochuan.jsonc, and see where config files live, how they take precedence, and how to substitute variables."
 ---
 
-Create `xccode.jsonc` in your project to configure Xccode. Add the schema for editor validation, then set only the options you need.
+Create `xiaochuan.jsonc` in your project to configure Xiaochuan. Add the schema for editor validation, then set only the options you need.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "model": "anthropic/claude-sonnet-5-5",
 }
 ```
 
-You can also ask Xccode to update this file for you.
+You can also ask Xiaochuan to update this file for you.
 
 ## Format
 
-Xccode supports JSON and JSONC. Use JSONC when you want comments or trailing commas.
+Xiaochuan supports JSON and JSONC. Use JSONC when you want comments or trailing commas.
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   // Use this model by default.
   "model": "anthropic/claude-sonnet-5-5",
 }
@@ -32,29 +32,29 @@ Put managed, machine-wide settings in the system configuration directory:
 
 | Platform | Directory                               |
 | -------- | --------------------------------------- |
-| macOS    | `/Library/Application Support/xccode` |
-| Linux    | `/etc/xccode`                         |
-| Windows  | `%ProgramData%\xccode`                |
+| macOS    | `/Library/Application Support/xiaochuan` |
+| Linux    | `/etc/xiaochuan`                         |
+| Windows  | `%ProgramData%\xiaochuan`                |
 
 The system directory works like the global directory. Besides
-`xccode.json(c)`, it loads `agents/`, `commands/`, `skills/`, and `plugins/`
+`xiaochuan.json(c)`, it loads `agents/`, `commands/`, `skills/`, and `plugins/`
 for every user on the machine:
 
 ```text
-/etc/xccode/
-├── xccode.json
+/etc/xiaochuan/
+├── xiaochuan.json
 ├── agents/review.md
 ├── commands/release.md
 └── skills/deploy/SKILL.md
 ```
 
-On macOS, Xccode also reads managed preferences that MDM tools deploy for the
-`ai.xccode.managed` domain. A user-specific profile replaces the
+On macOS, Xiaochuan also reads managed preferences that MDM tools deploy for the
+`ai.xiaochuan.managed` domain. A user-specific profile replaces the
 machine-wide one:
 
 ```text
-/Library/Managed Preferences/<user>/ai.xccode.managed.plist
-/Library/Managed Preferences/ai.xccode.managed.plist
+/Library/Managed Preferences/<user>/ai.xiaochuan.managed.plist
+/Library/Managed Preferences/ai.xiaochuan.managed.plist
 ```
 
 Managed settings have the highest precedence, so users and projects cannot
@@ -66,42 +66,42 @@ configuration to enforce restrictions.
 Put user settings for every project in the global configuration:
 
 ```text
-~/.config/xccode/xccode.json(c)
+~/.config/xiaochuan/xiaochuan.json(c)
 ```
 
 Put project settings in either of these files:
 
 ```text
-/home/user/projects/my-app/xccode.json(c)
-/home/user/projects/my-app/.xccode/xccode.json(c)
+/home/user/projects/my-app/xiaochuan.json(c)
+/home/user/projects/my-app/.xiaochuan/xiaochuan.json(c)
 ```
 
-Xccode searches from the current directory to the filesystem root. It first
-merges direct `xccode.json(c)` files from the farthest directory to the
-closest, then merges files inside `.xccode` directories in the same order.
-This means every discovered `.xccode` config overrides every direct config.
+Xiaochuan searches from the current directory to the filesystem root. It first
+merges direct `xiaochuan.json(c)` files from the farthest directory to the
+closest, then merges files inside `.xiaochuan` directories in the same order.
+This means every discovered `.xiaochuan` config overrides every direct config.
 Use one form throughout a directory tree unless you need that behavior.
 
-For example, start Xccode from `/home/user/projects/acme/packages/web`:
+For example, start Xiaochuan from `/home/user/projects/acme/packages/web`:
 
 ```text
-/etc/xccode/xccode.json
-~/.config/xccode/xccode.json
+/etc/xiaochuan/xiaochuan.json
+~/.config/xiaochuan/xiaochuan.json
 
 /home/user/projects/acme/
-├── xccode.json
+├── xiaochuan.json
 └── packages/
     └── web/
-        ├── xccode.json
+        ├── xiaochuan.json
         └── src/
 ```
 
-Xccode applies these files from lowest to highest precedence:
+Xiaochuan applies these files from lowest to highest precedence:
 
-1. `~/.config/xccode/xccode.json`
-2. `/home/user/projects/acme/xccode.json`
-3. `/home/user/projects/acme/packages/web/xccode.json`
-4. `/etc/xccode/xccode.json`
+1. `~/.config/xiaochuan/xiaochuan.json`
+2. `/home/user/projects/acme/xiaochuan.json`
+3. `/home/user/projects/acme/packages/web/xiaochuan.json`
+4. `/etc/xiaochuan/xiaochuan.json`
 
 The package config overrides matching settings from the repository config,
 which overrides the global config. The system config overrides all of them.
@@ -111,15 +111,15 @@ policies outrank all of them.
 
 ## Schema
 
-The complete Xccode configuration schema is available at
-[xccode.ai/config.json](https://xccode.ai/config.json).
+The complete Xiaochuan configuration schema is available at
+[xiaochuan.ai/config.json](https://xiaochuan.ai/config.json).
 
 Add the `$schema` field to your configuration file to enable validation and
 autocomplete in editors that support JSON Schema:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json"
+  "$schema": "https://xiaochuan.ai/config.json"
 }
 ```
 
@@ -179,7 +179,7 @@ Project-level values are ignored.
 
 ### Username
 
-Set a username. Xccode accepts this field but does not display it in
+Set a username. Xiaochuan accepts this field but does not display it in
 conversations.
 
 ```jsonc
@@ -318,7 +318,7 @@ Set the maximum number of lines and bytes retained from a tool result.
 
 ### Search
 
-Choose how Xccode searches the web. Use `"random"` to select an available
+Choose how Xiaochuan searches the web. Use `"random"` to select an available
 provider automatically.
 
 ```jsonc
@@ -417,7 +417,7 @@ considerations, and [cache lifetime](/models#cache-lifetime) for `cache.ttl`.
 
 ### Skills
 
-Add directories or URLs that Xccode should search for agent skills.
+Add directories or URLs that Xiaochuan should search for agent skills.
 
 ```jsonc
 {
@@ -425,7 +425,7 @@ Add directories or URLs that Xccode should search for agent skills.
 }
 ```
 
-See the [skills guide](/skills) for skill structure and automatic discovery under `.xccode/skills/`.
+See the [skills guide](/skills) for skill structure and automatic discovery under `.xiaochuan/skills/`.
 
 ### Commands
 
@@ -446,7 +446,7 @@ See the [commands guide](/commands) for arguments, models, agents, and file-base
 
 ### Instructions
 
-Declare additional instruction files, globs, or HTTP(S) URLs. Xccode loads
+Declare additional instruction files, globs, or HTTP(S) URLs. Xiaochuan loads
 them alongside discovered `AGENTS.md` files.
 
 ```jsonc
@@ -481,7 +481,7 @@ See the [references guide](/references) for shorthand, visibility, and path reso
 
 ### Worktrees
 
-Set the parent directory for new local worktrees. Xccode appends the requested or generated worktree name.
+Set the parent directory for new local worktrees. Xiaochuan appends the requested or generated worktree name.
 
 ```jsonc
 {
@@ -521,7 +521,7 @@ accepts options.
 ```jsonc
 {
   "plugins": [
-    "xccode-example-plugin",
+    "xiaochuan-example-plugin",
     {
       "package": "./plugins/local",
       "options": {
@@ -570,10 +570,10 @@ You can use variable substitution in your config files to reference environment 
 
 Use `{env:VARIABLE_NAME}` to substitute environment variables:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
-  "model": "{env:XCCODE_MODEL}",
+  "$schema": "https://xiaochuan.ai/config.json",
+  "model": "{env:XIAOCHUAN_MODEL}",
   "providers": {
     "anthropic": {
       "settings": {
@@ -590,9 +590,9 @@ If the environment variable is not set, it will be replaced with an empty string
 
 Use `{file:path/to/file}` to substitute the contents of a file:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "providers": {
     "openai": {
       "settings": {
@@ -624,9 +624,9 @@ These are useful for:
 
 All experimental settings live under the `experimental` key:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "todo": true,
     "subagent_depth": 2,
@@ -648,7 +648,7 @@ start another subagent.
 ### Image generation
 
 `image_generate` sets the default model for the [`experimental_image_generate`](/tools#image-generate) tool, as
-`providerID/modelID`, optionally with `#variant`. When that model isn't available or can't handle a request, Xccode
+`providerID/modelID`, optionally with `#variant`. When that model isn't available or can't handle a request, Xiaochuan
 picks another image model automatically.
 
 ```jsonc
@@ -663,7 +663,7 @@ picks another image model automatically.
 
 ### Location idle timeout
 
-`location_idle_timeout` controls how long a project location can go without session activity before Xccode unloads
+`location_idle_timeout` controls how long a project location can go without session activity before Xiaochuan unloads
 its services. It takes a duration such as `"2 hours"` and defaults to `"60 minutes"`. Running sessions and background
 jobs keep a location loaded. Set it to `false` to never unload idle locations. Project config can override the global
 value.

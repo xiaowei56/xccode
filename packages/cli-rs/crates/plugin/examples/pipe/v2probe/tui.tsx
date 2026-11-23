@@ -2,7 +2,7 @@
 // Exercises the public V2 plugin context and JSX intrinsics. The configured log records the plugin side of each
 // call.
 
-import { Plugin } from "@xccode/plugin/tui"
+import { Plugin } from "@xiaochuan/plugin/tui"
 import { RGBA } from "@opentui/core"
 import { createElement, effect, insert, insertNode, setProp } from "@opentui/solid"
 import { createMemo, createSignal, onCleanup } from "solid-js"

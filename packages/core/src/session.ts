@@ -2,15 +2,15 @@ export * as Session from "./session.js"
 export * from "./session/schema.js"
 
 import { DateTime, Effect, Layer, Context, Option, Stream } from "effect"
-import { LLMClient } from "@xccode/ai/effect"
-import { ListAnchor, ListCursor, ListFilter } from "@xccode/schema/session"
+import { LLMClient } from "@xiaochuan/ai/effect"
+import { ListAnchor, ListCursor, ListFilter } from "@xiaochuan/schema/session"
 import { and, desc, eq } from "drizzle-orm"
 import { Project } from "./project.js"
-import { Model } from "@xccode/schema/model"
+import { Model } from "@xiaochuan/schema/model"
 import { Location } from "./location.js"
 import type { FileSystem } from "./filesystem.js"
 import { SessionMessage } from "./session/message.js"
-import { PromptInput } from "@xccode/schema/prompt-input"
+import { PromptInput } from "@xiaochuan/schema/prompt-input"
 import { Bus } from "./bus.js"
 import { Instance } from "./instance/service.js"
 import { Plugin } from "./plugin/service.js"
@@ -21,8 +21,8 @@ import { SessionMessageTable } from "./session/sql.js"
 import { SessionBlob } from "./session/blob.js"
 import { SessionSchema } from "./session/schema.js"
 import { RelativePath } from "./schema.js"
-import { Agent } from "@xccode/schema/agent"
-import type { Permission } from "@xccode/schema/permission"
+import { Agent } from "@xiaochuan/schema/agent"
+import type { Permission } from "@xiaochuan/schema/permission"
 import { App } from "./app.js"
 import { Slug } from "./util/slug.js"
 import path from "path"
@@ -43,8 +43,8 @@ import {
   SkillNotFoundError,
   SyntheticConflictError,
 } from "./session/error.js"
-import { Node } from "@xccode/util/effect/app-node"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { Node } from "@xiaochuan/util/effect/app-node"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { SessionEvent } from "./session/event.js"
 import { SessionInbox } from "./session/inbox.js"
 import { InstructionState } from "./session/instruction-state.js"
@@ -62,9 +62,9 @@ import { Snapshot } from "./snapshot.js"
 import { Session } from "./session/session.js"
 import { SessionDiff, TurnRangeError } from "./session/diff.js"
 import { LocationServiceMap } from "./location-service-map.js"
-import { FSUtil } from "@xccode/util/fs-util"
-import type { EventLog } from "@xccode/schema/event-log"
-import type { FileDiff } from "@xccode/schema/file-diff"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import type { EventLog } from "@xiaochuan/schema/event-log"
+import type { FileDiff } from "@xiaochuan/schema/file-diff"
 import { Job } from "./job.js"
 import type { Command } from "./command.js"
 import { SessionEnvironment } from "./session/environment.js"
@@ -264,7 +264,7 @@ export interface Interface {
   }
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Session") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Session") {}
 
 const layer = Layer.effect(
   Service,

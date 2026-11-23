@@ -8,13 +8,13 @@ describe("default command directory", () => {
     const result = await cli(["missing-directory-not-a-command"])
 
     expect(result.exitCode).toBe(1)
-    expect(result.stdout).toContain("xccode <subcommand> [flags] [<directory>]")
+    expect(result.stdout).toContain("xiaochuan <subcommand> [flags] [<directory>]")
     expect(result.stdout + result.stderr).toContain('No directory or command named "missing-directory-not-a-command"')
     expect(result.stdout + result.stderr).not.toContain("ENOENT")
   })
 
   test("shows help for a path that is a file", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "xccode-default-directory-"))
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "xiaochuan-default-directory-"))
     const file = path.join(root, "file.txt")
     await fs.writeFile(file, "")
 

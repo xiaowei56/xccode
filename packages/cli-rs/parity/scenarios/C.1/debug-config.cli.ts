@@ -11,7 +11,7 @@ export default defineCli({
         json: [
           {
             type: "document",
-            path: "/work/xccode.json",
+            path: "/work/xiaochuan.json",
             info: {
               permissions: [
                 { action: "shell", resource: "*", effect: "ask" },

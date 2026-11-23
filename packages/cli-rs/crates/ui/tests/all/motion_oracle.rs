@@ -1,5 +1,5 @@
-use xccode_parity::fixtures_dir;
-use xccode_ui::motion::{
+use xiaochuan_parity::fixtures_dir;
+use xiaochuan_ui::motion::{
     OneCellMotion, ScannerOptions, ScannerStyle, WORK_SPINNER_NAMES, octant_glyph, one_cell_frame, scanner_frames,
     seed_launch, seed_mono, work_spinner,
 };

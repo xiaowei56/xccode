@@ -12,7 +12,7 @@ import { onNativeTranslations } from "../native/translations"
 import { DesktopStorage } from "../storage"
 import { safeWebContentsOrigin } from "../windows/state"
 import { getLastFocusedWindow, mainWindows } from "../windows"
-import type { Scope } from "@xccode/plugin/gui/host"
+import type { Scope } from "@xiaochuan/plugin/gui/host"
 import { marks } from "./marks"
 import {
   createDriver,
@@ -39,7 +39,7 @@ export interface Interface {
   readonly restoreWindows: () => BrowserWindow[]
 }
 
-export class Service extends Context.Service<Service, Interface>()("xccode/desktop/ApplicationLifecycle") {}
+export class Service extends Context.Service<Service, Interface>()("xiaochuan/desktop/ApplicationLifecycle") {}
 
 const runtime = Layer.effect(
   Service,

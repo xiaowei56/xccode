@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import { Arbitrary, Duration, Effect, Schema } from "effect"
-import { ConfigNormalize } from "@xccode/core/config/normalize"
-import { Info } from "@xccode/schema/config"
+import { ConfigNormalize } from "@xiaochuan/core/config/normalize"
+import { Info } from "@xiaochuan/schema/config"
 
 const options = { errors: "all", onExcessProperty: "ignore" } as const
 

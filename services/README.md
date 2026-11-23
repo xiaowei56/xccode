@@ -1,12 +1,12 @@
 # Services
 
-Independently deployed services supporting Xccode live here. Runtime packages
+Independently deployed services supporting Xiaochuan live here. Runtime packages
 and clients live in `packages/`.
 
 | Service                | Purpose                                  | Deployment                   |
 | ---------------------- | ---------------------------------------- | ---------------------------- |
-| [`site`](./site)       | The xccode.ai website and V2 docs      | `deploy-site.yml`, `cf`      |
-| [`legacy`](./legacy)   | Deprecated: opncd.ai and api.xccode.ai | `deploy.yml`, `cf`           |
+| [`site`](./site)       | The xiaochuan.ai website and V2 docs      | `deploy-site.yml`, `cf`      |
+| [`legacy`](./legacy)   | Deprecated: opncd.ai and api.xiaochuan.ai | `deploy.yml`, `cf`           |
 | [`data`](./data)       | The /data site, its OG images and sync   | `deploy.yml`, `cf`           |
 | [`updates`](./updates) | Release metadata and update selection    | `release.yml`, Wrangler      |
 | [`files`](./files)     | Public file distribution at `/files/*`   | `deploy-files.yml`, Wrangler |

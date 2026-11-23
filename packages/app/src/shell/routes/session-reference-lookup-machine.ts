@@ -1,4 +1,4 @@
-import type { SessionInfo } from "@xccode/client/promise"
+import type { SessionInfo } from "@xiaochuan/client/promise"
 
 /**
  * Lookups of sessions the transcript references but this window has not loaded. Each ID is looked up once per

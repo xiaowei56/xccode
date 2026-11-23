@@ -9,11 +9,11 @@ use std::thread;
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 use base64::Engine;
-use xccode_pty::daemon::Registration;
-use xccode_pty::protocol::{
+use xiaochuan_pty::daemon::Registration;
+use xiaochuan_pty::protocol::{
     AttachmentRole, Envelope, Request, Response, read_frame, write_frame,
 };
-use xccode_pty::service::{ProcessInfo, ProcessMode};
+use xiaochuan_pty::service::{ProcessInfo, ProcessMode};
 
 struct Daemon {
     child: Child,
@@ -25,11 +25,11 @@ struct Daemon {
 impl Daemon {
     fn start() -> Self {
         let root = std::env::temp_dir().join(format!(
-            "xccode-pty-ownership-{:032x}",
+            "xiaochuan-pty-ownership-{:032x}",
             rand::random::<u128>()
         ));
         let directory = root.join("test");
-        let mut child = Command::new(env!("CARGO_BIN_EXE_xccode-pty"))
+        let mut child = Command::new(env!("CARGO_BIN_EXE_xiaochuan-pty"))
             .args(["daemon", "--name", "test", "--runtime-dir"])
             .arg(&root)
             .stdin(Stdio::null())
@@ -225,7 +225,7 @@ fn owner_loss_stops_terminals_despite_blocked_clients() {
 
 #[test]
 fn subscription_delivers_final_exit_frame_before_closing() {
-    use xccode_pty::protocol::{SubscriptionEvent, read_subscription_event};
+    use xiaochuan_pty::protocol::{SubscriptionEvent, read_subscription_event};
 
     let mut daemon = Daemon::start();
     let (owner, response) = daemon.own(None);
@@ -311,7 +311,7 @@ fn shutdown_ends_an_idle_subscription() {
 
 #[test]
 fn rename_is_served() {
-    use xccode_pty::protocol::{SubscriptionEvent, read_subscription_event};
+    use xiaochuan_pty::protocol::{SubscriptionEvent, read_subscription_event};
 
     let mut daemon = Daemon::start();
     assert!(daemon.registration.features.is_empty());
@@ -565,7 +565,7 @@ fn stop_signals_stop_terminals_and_clean_up() {
                 value.id == probe.id
                     && !matches!(
                         value.lifecycle,
-                        xccode_pty::service::TerminalLifecycle::Running
+                        xiaochuan_pty::service::TerminalLifecycle::Running
                     )
             });
             if exited {
@@ -657,7 +657,7 @@ fn pipe_processes_survive_handoff_and_stay_out_of_pty_lists() {
 
 #[test]
 fn pipe_processes_do_not_inherit_the_daemons_blocked_signals() {
-    use xccode_pty::service::TerminalLifecycle;
+    use xiaochuan_pty::service::TerminalLifecycle;
 
     let mut daemon = Daemon::start();
     let (_owner, response) = daemon.own(None);

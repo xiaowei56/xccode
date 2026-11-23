@@ -1,9 +1,9 @@
 ---
 title: ACP-understøttelse
-description: Brug Xccode i enhver ACP-kompatibel editor.
+description: Brug Xiaochuan i enhver ACP-kompatibel editor.
 ---
 
-Xccode understøtter [Agent Client Protocol](https://agentclientprotocol.com) eller (ACP), så du kan bruge det direkte i kompatible editorer og IDE'er.
+Xiaochuan understøtter [Agent Client Protocol](https://agentclientprotocol.com) eller (ACP), så du kan bruge det direkte i kompatible editorer og IDE'er.
 
 :::tip
 For en liste over editorer og værktøjer, der understøtter ACP, tjek [ACP fremskridtsrapport](https://zed.dev/blog/acp-progress-report#available-now).
@@ -15,9 +15,9 @@ ACP er en åben protokol, der standardiserer kommunikation mellem kodeeditorer o
 
 ## Konfiguration
 
-For at bruge Xccode via ACP, konfigurer din editor til at køre kommandoen `xccode acp`.
+For at bruge Xiaochuan via ACP, konfigurer din editor til at køre kommandoen `xiaochuan acp`.
 
-Kommandoen starter Xccode som en ACP-kompatibel underproces, der kommunikerer med din editor over JSON-RPC via stdio.
+Kommandoen starter Xiaochuan som en ACP-kompatibel underproces, der kommunikerer med din editor over JSON-RPC via stdio.
 
 Nedenfor er eksempler på populære editorer, der understøtter ACP.
 
@@ -25,16 +25,16 @@ Nedenfor er eksempler på populære editorer, der understøtter ACP.
 
 ### Zed
 
-Installer Xccode fra [Zeds ACP-register](https://zed.dev/docs/ai/external-agents#registry) ved at køre `zed: acp registry` i kommandopaletten.
+Installer Xiaochuan fra [Zeds ACP-register](https://zed.dev/docs/ai/external-agents#registry) ved at køre `zed: acp registry` i kommandopaletten.
 
-Hvis du i stedet vil bruge en brugerdefineret Xccode-eksekverbar fil, skal du føje den til din [Zed](https://zed.dev)-konfiguration (`~/.config/zed/settings.json`):
+Hvis du i stedet vil bruge en brugerdefineret Xiaochuan-eksekverbar fil, skal du føje den til din [Zed](https://zed.dev)-konfiguration (`~/.config/zed/settings.json`):
 
 ```json title="~/.config/zed/settings.json"
 {
   "agent_servers": {
-    "Xccode": {
+    "Xiaochuan": {
       "type": "custom",
-      "command": "xccode",
+      "command": "xiaochuan",
       "args": ["acp"]
     }
   }
@@ -54,9 +54,9 @@ Du kan også binde en tastaturgenvej ved at redigere din `keymap.json`:
         {
           "agent": {
             "custom": {
-              "name": "Xccode",
+              "name": "Xiaochuan",
               "command": {
-                "command": "xccode",
+                "command": "xiaochuan",
                 "args": ["acp"]
               }
             }
@@ -77,15 +77,15 @@ Tilføj til din [JetBrains IDE](https://www.jetbrains.com/) acp.json i henhold t
 ```json title="acp.json"
 {
   "agent_servers": {
-    "Xccode": {
-      "command": "/absolute/path/bin/xccode",
+    "Xiaochuan": {
+      "command": "/absolute/path/bin/xiaochuan",
       "args": ["acp"]
     }
   }
 }
 ```
 
-For at åbne den skal du bruge den nye 'Xccode'-agent i AI Chat-agentvælgeren.
+For at åbne den skal du bruge den nye 'Xiaochuan'-agent i AI Chat-agentvælgeren.
 
 ---
 
@@ -96,8 +96,8 @@ Føj til din [Avante.nvim](https://github.com/yetone/avante.nvim)-konfiguration:
 ```lua
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" }
     }
   }
@@ -109,11 +109,11 @@ Hvis du har brug for at videregive miljøvariabler:
 ```lua {6-8}
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" },
       env = {
-        XCCODE_API_KEY = os.getenv("XCCODE_API_KEY")
+        XIAOCHUAN_API_KEY = os.getenv("XIAOCHUAN_API_KEY")
       }
     }
   }
@@ -124,14 +124,14 @@ Hvis du har brug for at videregive miljøvariabler:
 
 ### CodeCompanion.nvim
 
-For at bruge Xccode som en ACP-agent i [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim), skal du tilføje følgende til din Neovim-konfiguration:
+For at bruge Xiaochuan som en ACP-agent i [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim), skal du tilføje følgende til din Neovim-konfiguration:
 
 ```lua
 require("codecompanion").setup({
   interactions = {
     chat = {
       adapter = {
-        name = "xccode",
+        name = "xiaochuan",
         model = "claude-sonnet-5-5",
       },
     },
@@ -139,13 +139,13 @@ require("codecompanion").setup({
 })
 ```
 
-Denne konfiguration sætter CodeCompanion til at bruge Xccode som ACP-agent til chat.
+Denne konfiguration sætter CodeCompanion til at bruge Xiaochuan som ACP-agent til chat.
 
-Hvis du har brug for at sende miljøvariabler (som `XCCODE_API_KEY`), henvises til [Konfiguration af adaptere: Miljøvariabler](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) i CodeCompanion.nvim-dokumentationen for alle detaljer.
+Hvis du har brug for at sende miljøvariabler (som `XIAOCHUAN_API_KEY`), henvises til [Konfiguration af adaptere: Miljøvariabler](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) i CodeCompanion.nvim-dokumentationen for alle detaljer.
 
 ## Understøttelse
 
-Xccode fungerer på samme måde via ACP som i terminalen. Alle funktioner understøtter:
+Xiaochuan fungerer på samme måde via ACP som i terminalen. Alle funktioner understøtter:
 
 :::note
 Nogle indbyggede slash-kommandoer som `/undo` og `/redo` er i øjeblikket ikke understøttet.
@@ -153,7 +153,7 @@ Nogle indbyggede slash-kommandoer som `/undo` og `/redo` er i øjeblikket ikke u
 
 - Indbyggede værktøjer (filoperationer, terminalkommandoer osv.)
 - Brugerdefinerede værktøjer og slash-kommandoer
-- MCP-servere konfigureret i din Xccode-konfiguration
+- MCP-servere konfigureret i din Xiaochuan-konfiguration
 - Projektspecifikke regler fra `AGENTS.md`
 - Brugerdefinerede formatere og linters
 - Agenter og tilladelsessystem

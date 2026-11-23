@@ -1,5 +1,5 @@
-import { define } from "@xccode/plugin/effect/plugin"
-import { Form } from "@xccode/schema/form"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { Form } from "@xiaochuan/schema/form"
 import { Clock, Deferred, Effect, Option, Schema } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import { App } from "../../app.js"
@@ -36,7 +36,7 @@ const decodeError = Schema.decodeUnknownOption(
 )
 
 export const SnowflakeCortexPlugin = define({
-  id: "xccode.provider.snowflake.cortex",
+  id: "xiaochuan.provider.snowflake.cortex",
   effect: Effect.fn(function* (ctx) {
     const http = yield* HttpClient.HttpClient
     const credentials = yield* Credential.Service

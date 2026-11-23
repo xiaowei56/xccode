@@ -1057,8 +1057,8 @@ pub fn experimental_mcp_client_token(
         call.query("location", value);
     }
     call.query("name", &input.name);
-    if let Some(value) = &input.x_xccode_ticket {
-        call.header("x-xccode-ticket", value);
+    if let Some(value) = &input.x_xiaochuan_ticket {
+        call.header("x-xiaochuan-ticket", value);
     }
     call
 }
@@ -1428,8 +1428,8 @@ pub fn pty_connect_token(input: &PtyConnectTokenInput) -> Call<PtyConnectTokenOu
     if let Some(value) = &input.location {
         call.query("location", value);
     }
-    if let Some(value) = &input.x_xccode_ticket {
-        call.header("x-xccode-ticket", value);
+    if let Some(value) = &input.x_xiaochuan_ticket {
+        call.header("x-xiaochuan-ticket", value);
     }
     call
 }
@@ -1537,8 +1537,8 @@ pub fn experimental_persistent_pty_connect_token(
 ) -> Call<ExperimentalPersistentPtyConnectTokenOutput> {
     let mut call = Call::new("POST", String::new(), Reply::Data, 200, &[400, 401, 403, 404, 503]);
     call.path = format!("/api/experimental/persistent-pty/{}/connect-token", call.param(&input.pty_id));
-    if let Some(value) = &input.x_xccode_ticket {
-        call.header("x-xccode-ticket", value);
+    if let Some(value) = &input.x_xiaochuan_ticket {
+        call.header("x-xiaochuan-ticket", value);
     }
     call
 }
@@ -2620,7 +2620,7 @@ pub fn probe(name: &str, input: &serde_json::Value) -> Option<Result<Call<serde_
             Ok(experimental_mcp_client_token(&ExperimentalMcpClientTokenInput {
                 location: field(input, "location")?,
                 name: field(input, "name")?,
-                x_xccode_ticket: field(input, "x-xccode-ticket")?,
+                x_xiaochuan_ticket: field(input, "x-xiaochuan-ticket")?,
             })
             .cast())
         })()),
@@ -2789,7 +2789,7 @@ pub fn probe(name: &str, input: &serde_json::Value) -> Option<Result<Call<serde_
             Ok(pty_connect_token(&PtyConnectTokenInput {
                 pty_id: field(input, "ptyID")?,
                 location: field(input, "location")?,
-                x_xccode_ticket: field(input, "x-xccode-ticket")?,
+                x_xiaochuan_ticket: field(input, "x-xiaochuan-ticket")?,
             })
             .cast())
         })()),
@@ -2848,7 +2848,7 @@ pub fn probe(name: &str, input: &serde_json::Value) -> Option<Result<Call<serde_
         "experimental.persistentPty.connectToken" => Some((|| {
             Ok(experimental_persistent_pty_connect_token(&ExperimentalPersistentPtyConnectTokenInput {
                 pty_id: field(input, "ptyID")?,
-                x_xccode_ticket: field(input, "x-xccode-ticket")?,
+                x_xiaochuan_ticket: field(input, "x-xiaochuan-ticket")?,
             })
             .cast())
         })()),

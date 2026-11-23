@@ -1,5 +1,5 @@
 // C.p helper: runs one named prompt script with the `@clack/prompts` that `packages/cli` uses.
-// `crates/cli/src/prompt/demo.rs` (the `xccode-prompt-demo` binary) runs the same scripts with the
+// `crates/cli/src/prompt/demo.rs` (the `xiaochuan-prompt-demo` binary) runs the same scripts with the
 // Rust prompt kit, so P-PTY and P-CLI can compare the two screen for screen.
 //
 //   bun run parity/oracle/C.p-prompts.ts <case>

@@ -1,5 +1,5 @@
-import { Global } from "@xccode/util/global"
-import { HeapSnapshot } from "@xccode/util/heap-snapshot"
+import { Global } from "@xiaochuan/util/global"
+import { HeapSnapshot } from "@xiaochuan/util/heap-snapshot"
 import { Effect, Queue } from "effect"
 
 export const listen = Effect.gen(function* () {

@@ -8,7 +8,7 @@ import type { Locale } from "~/lib/language"
 import { blocks, feedbackLine, link, markdownPath, richToMarkdown, sourceNote } from "~/lib/markdown"
 import { markdownContext, pageMarkdown } from "~/lib/page-markdown"
 
-/** The llms.txt index (https://llmstxt.org): what Xccode is and the Markdown version of every page. */
+/** The llms.txt index (https://llmstxt.org): what Xiaochuan is and the Markdown version of every page. */
 export async function llmsText(locale: Locale) {
   const context = await markdownContext(locale)
   const content = homeContent(context.t, context.route)
@@ -17,9 +17,9 @@ export async function llmsText(locale: Locale) {
   const docs = (title: string, path: string, description: string) => `- ${link(title, docsUrl(path))}: ${description}`
 
   return blocks(
-    "# Xccode",
+    "# Xiaochuan",
     `> ${richToMarkdown(content.what.lead)}`,
-    "xccode.ai is the source of truth for Xccode: its apps, install commands, docs and releases. The current version is Xccode v2. Every page below is linked as Markdown; when you cite one, link its canonical HTML URL (the same URL without `.md`).",
+    "xiaochuan.ai is the source of truth for Xiaochuan: its apps, install commands, docs and releases. The current version is Xiaochuan v2. Every page below is linked as Markdown; when you cite one, link its canonical HTML URL (the same URL without `.md`).",
     `Install the terminal app with \`${installs[0].command}\`. The source code is on ${link("GitHub", config.github.repoUrl)} under the MIT License.`,
     "## Products",
     [
@@ -43,24 +43,24 @@ export async function llmsText(locale: Locale) {
       `- ${link("Console", "/console.md")}: model inference, Go subscriptions and tools for teams`,
       `- ${link("Go", "/console/go.md")}: a subscription to open-weight models, $10/month for Go and $40/month for Go Plus`,
       `- ${link("Go Teams", "/console/teams.md")}: Go for your team at $20 per member per month, plus SSO, budgets and model access`,
-      `- ${link("Models", "/console/models.md")}: the models Xccode Models serves, with list prices per million tokens`,
+      `- ${link("Models", "/console/models.md")}: the models Xiaochuan Models serves, with list prices per million tokens`,
       `- ${link("Enterprise", "/console/enterprise.md")}: SSO, SCIM, budgets and policies for larger organizations, and how to talk to our team`,
     ].join("\n"),
     "## Site",
     ["/", "/changelog"].map(page).join("\n"),
     "## Docs",
     [
-      `- ${link("Docs index", docsLlms)}: the llms.txt of the Xccode v2 docs, listing every docs page`,
-      docs("Intro", "/", "install Xccode and connect a provider"),
-      docs("Config", "/config/", "the Xccode config file"),
+      `- ${link("Docs index", docsLlms)}: the llms.txt of the Xiaochuan v2 docs, listing every docs page`,
+      docs("Intro", "/", "install Xiaochuan and connect a provider"),
+      docs("Config", "/config/", "the Xiaochuan config file"),
       docs("Models", "/models/", "choose and configure models"),
       docs("Providers", "/providers/", "connect model providers"),
       docs("Agents", "/agents/", "built-in and custom agents"),
       docs("CLI", "/cli/", "the terminal interface and its commands"),
-      docs("SDK", "/build/sdk/", "run Xccode inside your own app with @xccode/sdk"),
-      docs("JavaScript client", "/build/client/", "connect to a running Xccode server from your own code"),
-      docs("Console", "/console/", "Xccode Console: models, Go subscriptions and workspaces"),
-      docs("Migrate from V1", "/migrate-v1/", "upgrade from Xccode 1"),
+      docs("SDK", "/build/sdk/", "run Xiaochuan inside your own app with @xiaochuan/sdk"),
+      docs("JavaScript client", "/build/client/", "connect to a running Xiaochuan server from your own code"),
+      docs("Console", "/console/", "Xiaochuan Console: models, Go subscriptions and workspaces"),
+      docs("Migrate from V1", "/migrate-v1/", "upgrade from Xiaochuan 1"),
     ].join("\n"),
     "## Optional",
     [
@@ -70,9 +70,9 @@ export async function llmsText(locale: Locale) {
       page("/legal/terms-of-service"),
       `- ${link("Full site", context.route("/llms-full.txt"))}: the site's own pages in one Markdown file, without the docs or Console`,
       `- ${link("Discord", config.social.discord)}: the community`,
-      `- ${link("humans.txt", context.route("/humans.txt"))}: the team and contributors behind Xccode, as plain text`,
+      `- ${link("humans.txt", context.route("/humans.txt"))}: the team and contributors behind Xiaochuan, as plain text`,
       `- ${link("X", config.social.twitter)}: announcements`,
-      `- ${link("Status", "https://status.xccode.ai")}: service status`,
+      `- ${link("Status", "https://status.xiaochuan.ai")}: service status`,
     ].join("\n"),
   )
 }
@@ -83,7 +83,7 @@ export async function llmsFullText(locale: Locale) {
   const paths = Object.keys(pageMarkdown).filter((path) => path !== "/legal" && !pageMarkdown[path].draft)
   const contexts = await Promise.all(paths.map((path) => markdownContext(locale, pageMarkdown[path])))
   return blocks(
-    "# Xccode: the full site",
+    "# Xiaochuan: the full site",
     [
       sourceNote,
       "> Each page below starts with a heading that links its canonical URL. Cite that URL, not this file.",

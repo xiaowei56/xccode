@@ -1,19 +1,19 @@
 import { describe, expect } from "bun:test"
 import { Context, Effect, Layer } from "effect"
 import type { HttpClientError } from "effect/http"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Config } from "@xccode/core/config"
-import { Flag } from "@xccode/core/flag"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Permission } from "@xccode/core/permission"
-import { KV } from "@xccode/core/kv"
-import { Form } from "@xccode/core/form"
-import { WebSearch } from "@xccode/core/websearch"
-import { Session } from "@xccode/core/session"
-import { toSessionError } from "@xccode/core/session/to-session-error"
-import { Tool } from "@xccode/core/tool"
-import { WebSearchTool } from "@xccode/core/tool/plugin/websearch"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Config } from "@xiaochuan/core/config"
+import { Flag } from "@xiaochuan/core/flag"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Permission } from "@xiaochuan/core/permission"
+import { KV } from "@xiaochuan/core/kv"
+import { Form } from "@xiaochuan/core/form"
+import { WebSearch } from "@xiaochuan/core/websearch"
+import { Session } from "@xiaochuan/core/session"
+import { toSessionError } from "@xiaochuan/core/session/to-session-error"
+import { Tool } from "@xiaochuan/core/tool"
+import { WebSearchTool } from "@xiaochuan/core/tool/plugin/websearch"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { testEffect } from "./lib/effect"
 import { permissionLayer } from "./lib/permission"
 import { toolIdentity, executeTool, registerToolPlugin, toolDefinitions, toolNodeReplacements } from "./lib/tool"
@@ -227,7 +227,7 @@ describe("WebSearchTool registration", () => {
           fields: [
             {
               key: "choice",
-              description: "Allow Xccode to search the web for up-to-date information?",
+              description: "Allow Xiaochuan to search the web for up-to-date information?",
               type: "string",
               required: true,
               custom: false,

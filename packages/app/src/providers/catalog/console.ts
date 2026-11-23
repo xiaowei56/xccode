@@ -5,8 +5,8 @@ type Provider = {
 }
 
 export function consoleProviderGroup<T extends Provider>(providers: readonly T[]) {
-  const root = providers.find((provider) => provider.id === "xccode" && provider.integrationID === "xccode")
-  const suffix = " / Xccode"
+  const root = providers.find((provider) => provider.id === "xiaochuan" && provider.integrationID === "xiaochuan")
+  const suffix = " / Xiaochuan"
 
   if (!root?.name.endsWith(suffix)) return
   const workspace = root.name.slice(0, -suffix.length).trim()
@@ -19,16 +19,16 @@ export function consoleProviderGroup<T extends Provider>(providers: readonly T[]
     workspace,
     prefix,
     providers: providers.filter(
-      (provider) => provider.integrationID === "xccode" && provider.name.startsWith(prefix),
+      (provider) => provider.integrationID === "xiaochuan" && provider.name.startsWith(prefix),
     ),
   }
 }
 
-// A signed-in Console workspace adds its own providers next to the free `xccode` catalog.
+// A signed-in Console workspace adds its own providers next to the free `xiaochuan` catalog.
 export function consoleCatalogLoaded(providers: readonly Provider[]) {
   return (
     consoleProviderGroup(providers) !== undefined ||
-    providers.some((provider) => provider.integrationID === "xccode" && provider.id !== "xccode")
+    providers.some((provider) => provider.integrationID === "xiaochuan" && provider.id !== "xiaochuan")
   )
 }
 

@@ -3,7 +3,7 @@ import { Context, Effect, Exit, Layer, Scope, Stream } from "effect"
 import { FetchHttpClient } from "effect/http"
 import { tmpdirScoped } from "../../core/test/fixture/tmpdir"
 import { testEffect } from "../../core/test/lib/effect"
-import { AbsolutePath, Location, Xccode, Session } from "../src/effect"
+import { AbsolutePath, Location, Xiaochuan, Session } from "../src/effect"
 
 const it = testEffect(Layer.empty)
 
@@ -21,7 +21,7 @@ for (const entrypoint of ["create", "layer"] as const) {
       )
       const parent = yield* Effect.scope
       const scope = yield* Scope.fork(parent)
-      const options: Xccode.CreateOptions = {
+      const options: Xiaochuan.CreateOptions = {
         app: { version: "transport-test" },
         config: { directory: directory.path, project: false, content: "{}" },
         events: { persist: true },
@@ -30,8 +30,8 @@ for (const entrypoint of ["create", "layer"] as const) {
       }
       const client = yield* (
         entrypoint === "create"
-          ? Xccode.create(options).pipe(Scope.provide(scope))
-          : Layer.buildWithScope(Xccode.layer(options), scope).pipe(Effect.map(Context.get(Xccode.Service)))
+          ? Xiaochuan.create(options).pipe(Scope.provide(scope))
+          : Layer.buildWithScope(Xiaochuan.layer(options), scope).pipe(Effect.map(Context.get(Xiaochuan.Service)))
       ).pipe(Effect.provideService(FetchHttpClient.Fetch, ambient))
 
       yield* Effect.gen(function* () {

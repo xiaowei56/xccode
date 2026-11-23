@@ -1,5 +1,5 @@
-import { CrossSpawnSpawner } from "@xccode/util/cross-spawn-spawner"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { CrossSpawnSpawner } from "@xiaochuan/util/cross-spawn-spawner"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Context, Effect, Layer, Schema } from "effect"
 import { ChildProcessSpawner } from "effect/process/ChildProcessSpawner"
 import type { PlatformPath } from "node:path"
@@ -47,7 +47,7 @@ export interface Interface extends Facts {
   readonly spawner: ChildProcessSpawner["Service"]
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Environment") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Environment") {}
 
 export const make = (id: ID, driver: Driver, facts?: Facts): Interface => ({
   ...facts,

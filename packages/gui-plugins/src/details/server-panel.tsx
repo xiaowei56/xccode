@@ -1,16 +1,16 @@
-import type { PluginInfo } from "@xccode/client"
-import { Button } from "@xccode/ui/button"
-import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@xccode/ui/dialog"
-import { ErrorDetails } from "@xccode/ui/error-details"
-import { Icon } from "@xccode/ui/icon"
-import { Loader } from "@xccode/ui/loader"
-import { createMcpSignIn, type McpSignInFailure } from "@xccode/ui/mcp-sign-in"
-import { MenuScroll } from "@xccode/ui/menu-scroll"
-import { RedirectPasteForm } from "@xccode/ui/redirect-paste"
-import { Switch } from "@xccode/ui/switch"
-import { showToast } from "@xccode/ui/toast"
-import { Tooltip } from "@xccode/ui/tooltip"
-import { TruncatedText } from "@xccode/ui/truncated-text"
+import type { PluginInfo } from "@xiaochuan/client"
+import { Button } from "@xiaochuan/ui/button"
+import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@xiaochuan/ui/dialog"
+import { ErrorDetails } from "@xiaochuan/ui/error-details"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Loader } from "@xiaochuan/ui/loader"
+import { createMcpSignIn, type McpSignInFailure } from "@xiaochuan/ui/mcp-sign-in"
+import { MenuScroll } from "@xiaochuan/ui/menu-scroll"
+import { RedirectPasteForm } from "@xiaochuan/ui/redirect-paste"
+import { Switch } from "@xiaochuan/ui/switch"
+import { showToast } from "@xiaochuan/ui/toast"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
+import { TruncatedText } from "@xiaochuan/ui/truncated-text"
 import {
   children,
   createMemo,
@@ -26,9 +26,9 @@ import {
   type JSX,
 } from "solid-js"
 import { createStore } from "solid-js/store"
-import { createKeyed, useDrawer, usePlugin, type MountedSession, type ServerRef } from "@xccode/plugin/gui"
+import { createKeyed, useDrawer, usePlugin, type MountedSession, type ServerRef } from "@xiaochuan/plugin/gui"
 import { globalConfigDirectory, serviceConfigFile } from "./config-file"
-import { builtinContext } from "@xccode/plugin/gui/builtin"
+import { builtinContext } from "@xiaochuan/plugin/gui/builtin"
 import { createFlyoutMotion } from "./flyout-motion"
 import {
   configActionView,
@@ -995,7 +995,7 @@ function ServiceConfigLink(props: { owner: ServiceProps; service: Service }) {
   )
 }
 
-// Starts a draft session in the global configuration's directory that asks Xccode to set the service up.
+// Starts a draft session in the global configuration's directory that asks Xiaochuan to set the service up.
 function ServiceSetup(props: { owner: ServiceProps; service: Service }) {
   const ctx = usePlugin()
 

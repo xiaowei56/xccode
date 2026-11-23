@@ -13,18 +13,18 @@ test("prints nothing without a session or update", () => {
 test("formats session continuation summary", () => {
   expect(rows(epilogue({ session: { title: "A session", sessionID: "ses_123" } }))).toEqual([
     "  Session   A session",
-    "  Continue  xccode -s ses_123",
+    "  Continue  xiaochuan -s ses_123",
   ])
 })
 
-test("tells the user to start Xccode again after an update", () => {
-  expect(rows(epilogue({ updatedVersion: "2.0.0" }))).toEqual(["  Run xccode to use 2.0.0"])
+test("tells the user to start Xiaochuan again after an update", () => {
+  expect(rows(epilogue({ updatedVersion: "2.0.0" }))).toEqual(["  Run xiaochuan to use 2.0.0"])
 })
 
 test("keeps the session continuation after an update", () => {
   expect(rows(epilogue({ session: { title: "A session", sessionID: "ses_123" }, updatedVersion: "2.0.0" }))).toEqual([
-    "  Run xccode to use 2.0.0",
+    "  Run xiaochuan to use 2.0.0",
     "  Session   A session",
-    "  Continue  xccode -s ses_123",
+    "  Continue  xiaochuan -s ses_123",
   ])
 })

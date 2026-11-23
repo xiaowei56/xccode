@@ -32,9 +32,9 @@ test.each([
   )
   expect(config.webServer.reuseExistingServer).toBe(!built)
   expect(config.webServer.env).toEqual({
-    VITE_XCCODE_TEST_FIXTURES: "1",
-    VITE_XCCODE_SERVER_HOST: built ? "127.0.0.1" : "127.0.0.2",
-    VITE_XCCODE_SERVER_PORT: built ? "4321" : "4322",
+    VITE_XIAOCHUAN_TEST_FIXTURES: "1",
+    VITE_XIAOCHUAN_SERVER_HOST: built ? "127.0.0.1" : "127.0.0.2",
+    VITE_XIAOCHUAN_SERVER_PORT: built ? "4321" : "4322",
   })
 })
 

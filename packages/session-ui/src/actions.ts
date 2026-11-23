@@ -1,4 +1,4 @@
-import type { PromptAttachment } from "@xccode/client/promise"
+import type { PromptAttachment } from "@xiaochuan/client/promise"
 
 export type SessionUserComment =
   | {

@@ -2,15 +2,15 @@ import { expect } from "bun:test"
 import { Deferred, Effect, Fiber, Layer, Queue, Scope, Sink, Stream } from "effect"
 import { ChildProcessSpawner } from "effect/process"
 import { ExitCode, makeHandle, ProcessId } from "effect/process/ChildProcessSpawner"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Config } from "@xccode/core/config"
-import { Environment } from "@xccode/core/environment/index"
-import { Location } from "@xccode/core/location"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Shell } from "@xccode/core/shell"
-import { Workspace } from "@xccode/core/workspace"
-import { Global } from "@xccode/util/global"
-import { PersistentPty } from "@xccode/core/persistent-pty"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Config } from "@xiaochuan/core/config"
+import { Environment } from "@xiaochuan/core/environment/index"
+import { Location } from "@xiaochuan/core/location"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Shell } from "@xiaochuan/core/shell"
+import { Workspace } from "@xiaochuan/core/workspace"
+import { Global } from "@xiaochuan/util/global"
+import { PersistentPty } from "@xiaochuan/core/persistent-pty"
 import { disabledPersistentPtyLayer } from "./fixture/persistent-pty"
 import { hostEnvironmentLayer } from "./fixture/environment"
 import { tempGlobalLayer } from "./fixture/global"
@@ -156,7 +156,7 @@ it.live("does not inherit host process.env when creating a shell in a workspace-
     expect(process.env.PATH).toBeDefined()
     expect(capturedEnv).toEqual({
       TERM: "xterm-256color",
-      XCCODE_TERMINAL: "1",
+      XIAOCHUAN_TERMINAL: "1",
     })
   }),
 )

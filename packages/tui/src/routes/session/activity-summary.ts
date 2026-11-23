@@ -3,7 +3,7 @@ import type {
   SessionMessageAssistantReasoning,
   SessionMessageAssistantTool,
   SessionMessageInfo,
-} from "@xccode/client"
+} from "@xiaochuan/client"
 import { canonicalToolName, executeCalls } from "../../util/tool-display"
 import { visitEntries } from "./anchor-view"
 import { instructionPaths, type PartRef, type SessionEntry, type SessionNode } from "./grouping/session"

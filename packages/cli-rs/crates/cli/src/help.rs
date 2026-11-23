@@ -1,29 +1,29 @@
 //! Help, version, completions and usage-error output.
 
-use xccode_util::error;
+use xiaochuan_util::error;
 use std::io::IsTerminal;
 
 use crate::args::{Flag, Shell, Spec};
 use crate::prompt::wrap;
 use crate::{completions, output, parse};
 
-// Like the TypeScript CLI, a build without XCCODE_VERSION reports "local".
-pub const VERSION: &str = match option_env!("XCCODE_VERSION") {
+// Like the TypeScript CLI, a build without XIAOCHUAN_VERSION reports "local".
+pub const VERSION: &str = match option_env!("XIAOCHUAN_VERSION") {
     Some(version) => version,
     None => "local",
 };
 
 /// The source commit CI stamps into a preview build; only the log shows it, so `--version` matches TypeScript.
-pub const COMMIT: &str = match option_env!("XCCODE_NATIVE_COMMIT") {
+pub const COMMIT: &str = match option_env!("XIAOCHUAN_NATIVE_COMMIT") {
     Some(commit) => commit,
     None => "unknown",
 };
 
 pub fn name() -> String {
-    std::env::var("XCCODE_CLI_NAME")
+    std::env::var("XIAOCHUAN_CLI_NAME")
         .ok()
         .filter(|name| !name.is_empty())
-        .map_or_else(|| "xccode-native".into(), |name| xccode_ui::terminal_text(&name).into_owned())
+        .map_or_else(|| "xiaochuan-native".into(), |name| xiaochuan_ui::terminal_text(&name).into_owned())
 }
 
 /// `TerminalCapabilities.canColor`: never for `TERM=dumb` or with `NO_COLOR`, always with `FORCE_COLOR`, else when

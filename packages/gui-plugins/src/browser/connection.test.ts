@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test"
-import { Browser } from "@xccode/plugin-browser/rpc"
-import type { IpcClient } from "@xccode/plugin/gui"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
+import type { IpcClient } from "@xiaochuan/plugin/gui"
 import { Schema } from "effect"
 import { openBinding } from "./connection"
 import { BrowserPane, PluginTabHandle, type PaneEvent } from "./ipc"

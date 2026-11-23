@@ -1,28 +1,28 @@
 ---
 title: Web
-description: Usa Xccode nel browser.
+description: Usa Xiaochuan nel browser.
 ---
 
-Xccode puo funzionare come applicazione web nel browser, offrendo la stessa potente esperienza di coding AI senza bisogno di un terminale.
+Xiaochuan puo funzionare come applicazione web nel browser, offrendo la stessa potente esperienza di coding AI senza bisogno di un terminale.
 
-![Xccode Web - Nuova sessione](../../../assets/web/web-homepage-new-session.png)
+![Xiaochuan Web - Nuova sessione](../../../assets/web/web-homepage-new-session.png)
 
 ## Per iniziare
 
 Avvia l'interfaccia web eseguendo:
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-Questo avvia un server locale su `127.0.0.1` con una porta disponibile scelta a caso e apre automaticamente Xccode nel browser predefinito.
+Questo avvia un server locale su `127.0.0.1` con una porta disponibile scelta a caso e apre automaticamente Xiaochuan nel browser predefinito.
 
 :::caution
-Se `XCCODE_SERVER_PASSWORD` non e impostata, il server non sara protetto. Va bene per l'uso locale, ma va impostata per l'accesso in rete.
+Se `XIAOCHUAN_SERVER_PASSWORD` non e impostata, il server non sara protetto. Va bene per l'uso locale, ma va impostata per l'accesso in rete.
 :::
 
 :::tip[Utenti Windows]
-Per la migliore esperienza, esegui `xccode web` da [WSL](/docs/windows-wsl) invece che da PowerShell. Questo garantisce accesso corretto al file system e integrazione col terminale.
+Per la migliore esperienza, esegui `xiaochuan web` da [WSL](/docs/windows-wsl) invece che da PowerShell. Questo garantisce accesso corretto al file system e integrazione col terminale.
 :::
 
 ---
@@ -33,21 +33,21 @@ Puoi configurare il server web con i flag della riga di comando o nel tuo [file 
 
 ### Porta
 
-Per impostazione predefinita, Xccode sceglie una porta disponibile. Puoi specificare una porta:
+Per impostazione predefinita, Xiaochuan sceglie una porta disponibile. Puoi specificare una porta:
 
 ```bash
-xccode web --port 4096
+xiaochuan web --port 4096
 ```
 
 ### Nome host
 
-Per impostazione predefinita, il server si lega a `127.0.0.1` (solo localhost). Per rendere Xccode accessibile sulla rete:
+Per impostazione predefinita, il server si lega a `127.0.0.1` (solo localhost). Per rendere Xiaochuan accessibile sulla rete:
 
 ```bash
-xccode web --hostname 0.0.0.0
+xiaochuan web --hostname 0.0.0.0
 ```
 
-Usando `0.0.0.0`, Xccode mostrera sia l'indirizzo locale sia quello di rete:
+Usando `0.0.0.0`, Xiaochuan mostrera sia l'indirizzo locale sia quello di rete:
 
 ```
   Local access:       http://localhost:4096
@@ -59,15 +59,15 @@ Usando `0.0.0.0`, Xccode mostrera sia l'indirizzo locale sia quello di rete:
 Abilita mDNS per rendere il server individuabile sulla rete locale:
 
 ```bash
-xccode web --mdns
+xiaochuan web --mdns
 ```
 
-Questo imposta automaticamente l'hostname a `0.0.0.0` e pubblicizza il server come `xccode.local`.
+Questo imposta automaticamente l'hostname a `0.0.0.0` e pubblicizza il server come `xiaochuan.local`.
 
 Puoi personalizzare il nome di dominio mDNS per eseguire piu istanze sulla stessa rete:
 
 ```bash
-xccode web --mdns --mdns-domain myproject.local
+xiaochuan web --mdns --mdns-domain myproject.local
 ```
 
 ### CORS
@@ -75,36 +75,36 @@ xccode web --mdns --mdns-domain myproject.local
 Per consentire domini aggiuntivi per CORS (utile per frontend personalizzati):
 
 ```bash
-xccode web --cors https://example.com
+xiaochuan web --cors https://example.com
 ```
 
 ### Autenticazione
 
-Per proteggere l'accesso, imposta una password usando la variabile d'ambiente `XCCODE_SERVER_PASSWORD`:
+Per proteggere l'accesso, imposta una password usando la variabile d'ambiente `XIAOCHUAN_SERVER_PASSWORD`:
 
 ```bash
-XCCODE_SERVER_PASSWORD=secret xccode web
+XIAOCHUAN_SERVER_PASSWORD=secret xiaochuan web
 ```
 
-Lo username predefinito e `xccode`, ma puo essere cambiato con `XCCODE_SERVER_USERNAME`.
+Lo username predefinito e `xiaochuan`, ma puo essere cambiato con `XIAOCHUAN_SERVER_USERNAME`.
 
 ---
 
 ## Usa l'interfaccia web
 
-Una volta avviata, l'interfaccia web ti da accesso alle tue sessioni Xccode.
+Una volta avviata, l'interfaccia web ti da accesso alle tue sessioni Xiaochuan.
 
 ### Sessioni
 
 Visualizza e gestisci le sessioni dalla homepage. Puoi vedere le sessioni attive e avviarne di nuove.
 
-![Xccode Web - Sessione attiva](../../../assets/web/web-homepage-active-session.png)
+![Xiaochuan Web - Sessione attiva](../../../assets/web/web-homepage-active-session.png)
 
 ### Stato del server
 
 Fai clic su "See Servers" per vedere i server connessi e il loro stato.
 
-![Xccode Web - See Servers](../../../assets/web/web-homepage-see-servers.png)
+![Xiaochuan Web - See Servers](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 
@@ -114,10 +114,10 @@ Puoi collegare una TUI da terminale a un server web gia in esecuzione:
 
 ```bash
 # Avvia il web server
-xccode web --port 4096
+xiaochuan web --port 4096
 
 # In un altro terminale, collega la TUI
-xccode attach http://localhost:4096
+xiaochuan attach http://localhost:4096
 ```
 
 Questo ti permette di usare contemporaneamente interfaccia web e terminale, condividendo le stesse sessioni e lo stesso stato.
@@ -126,7 +126,7 @@ Questo ti permette di usare contemporaneamente interfaccia web e terminale, cond
 
 ## File di configurazione
 
-Puoi anche configurare le impostazioni del server nel file di config `xccode.json`:
+Puoi anche configurare le impostazioni del server nel file di config `xiaochuan.json`:
 
 ```json
 {

@@ -1,9 +1,9 @@
 import { describe, expect, test } from "bun:test"
-import { Agent } from "@xccode/core/agent"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { SessionMessage } from "@xccode/core/session/message"
-import { LiveToolMetadata } from "@xccode/core/session/runner/live-tool-metadata"
+import { Agent } from "@xiaochuan/core/agent"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { LiveToolMetadata } from "@xiaochuan/core/session/runner/live-tool-metadata"
 import { DateTime } from "effect"
 
 const id = SessionMessage.ID.create()

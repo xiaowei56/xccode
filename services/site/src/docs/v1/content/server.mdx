@@ -1,19 +1,19 @@
 ---
 title: Server
-description: Interact with xccode server over HTTP.
+description: Interact with xiaochuan server over HTTP.
 ---
 
 import config from "../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-The `xccode serve` command runs a headless HTTP server that exposes an OpenAPI endpoint that an xccode client can use.
+The `xiaochuan serve` command runs a headless HTTP server that exposes an OpenAPI endpoint that an xiaochuan client can use.
 
 ---
 
 ### Usage
 
 ```bash
-xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+xiaochuan serve [--port <number>] [--hostname <string>] [--cors <origin>]
 ```
 
 #### Options
@@ -23,41 +23,41 @@ xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
 | `--port`        | Port to listen on                   | `4096`           |
 | `--hostname`    | Hostname to listen on               | `127.0.0.1`      |
 | `--mdns`        | Enable mDNS discovery               | `false`          |
-| `--mdns-domain` | Custom domain name for mDNS service | `xccode.local` |
+| `--mdns-domain` | Custom domain name for mDNS service | `xiaochuan.local` |
 | `--cors`        | Additional browser origins to allow | `[]`             |
 
 `--cors` can be passed multiple times:
 
 ```bash
-xccode serve --cors http://localhost:5173 --cors https://app.example.com
+xiaochuan serve --cors http://localhost:5173 --cors https://app.example.com
 ```
 
 ---
 
 ### Authentication
 
-Set `XCCODE_SERVER_PASSWORD` to protect the server with HTTP basic auth. The username defaults to `xccode`, or set `XCCODE_SERVER_USERNAME` to override it. This applies to both `xccode serve` and `xccode web`.
+Set `XIAOCHUAN_SERVER_PASSWORD` to protect the server with HTTP basic auth. The username defaults to `xiaochuan`, or set `XIAOCHUAN_SERVER_USERNAME` to override it. This applies to both `xiaochuan serve` and `xiaochuan web`.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve
 ```
 
 ---
 
 ### How it works
 
-When you run `xccode` it starts a TUI and a server. Where the TUI is the
+When you run `xiaochuan` it starts a TUI and a server. Where the TUI is the
 client that talks to the server. The server exposes an OpenAPI 3.1 spec
 endpoint. This endpoint is also used to generate an [SDK](/docs/sdk).
 
 :::tip
-Use the xccode server to interact with xccode programmatically.
+Use the xiaochuan server to interact with xiaochuan programmatically.
 :::
 
-This architecture lets xccode support multiple clients and allows you to interact with xccode programmatically.
+This architecture lets xiaochuan support multiple clients and allows you to interact with xiaochuan programmatically.
 
-You can run `xccode serve` to start a standalone server. If you have the
-xccode TUI running, `xccode serve` will start a new server.
+You can run `xiaochuan serve` to start a standalone server. If you have the
+xiaochuan TUI running, `xiaochuan serve` will start a new server.
 
 ---
 
@@ -65,7 +65,7 @@ xccode TUI running, `xccode serve` will start a new server.
 
 When you start the TUI it randomly assigns a port and hostname. You can instead pass in the `--hostname` and `--port` [flags](/docs/cli). Then use this to connect to its server.
 
-The [`/tui`](#tui) endpoint can be used to drive the TUI through the server. For example, you can prefill or run a prompt. This setup is used by the Xccode [IDE](/docs/ide) plugins.
+The [`/tui`](#tui) endpoint can be used to drive the TUI through the server. For example, you can prefill or run a prompt. This setup is used by the Xiaochuan [IDE](/docs/ide) plugins.
 
 ---
 
@@ -83,7 +83,7 @@ For example, `http://localhost:4096/doc`. Use the spec to generate clients or in
 
 ## APIs
 
-The xccode server exposes the following APIs.
+The xiaochuan server exposes the following APIs.
 
 ---
 

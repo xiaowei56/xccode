@@ -39,8 +39,8 @@ describe("getProjectAvatarGenerated", () => {
     expect(getProjectAvatarGenerated({ id: "abc", icon: { override: "data:custom" } })).toBeUndefined()
     expect(getProjectAvatarGenerated({ id: "abc", icon: { url: "data:auto" } })).toBeUndefined()
     expect(getProjectAvatarGenerated({ id: "abc", icon: { color: "blue" } })).toBeUndefined()
-    const xccode = createHash("sha1").update("git-remote:github.com/xiaowei56/xccode").digest("hex")
-    expect(getProjectAvatarGenerated({ id: xccode, worktree: "/repo" })).toBeUndefined()
+    const xiaochuan = createHash("sha1").update("git-remote:github.com/xiaowei56/xiaochuan").digest("hex")
+    expect(getProjectAvatarGenerated({ id: xiaochuan, worktree: "/repo" })).toBeUndefined()
   })
 
   test("seeds by project ID or, for unidentified projects, by directory", () => {

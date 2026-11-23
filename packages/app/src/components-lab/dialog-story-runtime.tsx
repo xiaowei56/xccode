@@ -1,4 +1,4 @@
-import type { IntegrationInfo, PluginInfo } from "@xccode/client/promise"
+import type { IntegrationInfo, PluginInfo } from "@xiaochuan/client/promise"
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query"
 import type { ParentProps } from "solid-js"
 import { LocalProvider } from "@/providers/models/selection"
@@ -16,11 +16,11 @@ import { LocationProvider } from "@/workspaces/location"
 
 const STORY_SERVER_URL = "http://localhost:0"
 
-const STORY_UNAUTHORIZED_URL = "http://locked.xccode.local:4096"
+const STORY_UNAUTHORIZED_URL = "http://locked.xiaochuan.local:4096"
 
 const STORY_HOME = "/Users/alex"
 
-export const STORY_DIRECTORY = "/Users/alex/work/xccode"
+export const STORY_DIRECTORY = "/Users/alex/work/xiaochuan"
 
 export const STORY_SERVER: ServerConnection.Http = {
   type: "http",
@@ -47,7 +47,7 @@ const directoryTree = {
     { name: "notes", type: "directory" },
   ],
   "/Users/alex/work": [
-    { name: "xccode", type: "directory" },
+    { name: "xiaochuan", type: "directory" },
     { name: "docs", type: "directory" },
     { name: "website", type: "directory" },
   ],
@@ -84,12 +84,12 @@ const directoryTree = {
 
 export const STORY_PROJECTS = [
   {
-    id: "prj_xccode",
+    id: "prj_xiaochuan",
     worktree: STORY_DIRECTORY,
     canonical: STORY_DIRECTORY,
-    name: "xccode",
+    name: "xiaochuan",
     vcs: "git" as const,
-    sandboxes: ["/Users/alex/work/xccode-dialogs"],
+    sandboxes: ["/Users/alex/work/xiaochuan-dialogs"],
     time: { created: Date.UTC(2026, 8, 1), updated: Date.UTC(2026, 9, 28), active: Date.UTC(2026, 9, 28) },
   },
   {
@@ -113,8 +113,8 @@ export const STORY_PROJECTS = [
 ]
 
 const defaultProviders = [
-  { id: "xccode-go", name: "Xccode Go", package: "xccode-go", activation: "enabled" },
-  { id: "xccode", name: "Xccode Zen", package: "xccode", activation: "enabled" },
+  { id: "xiaochuan-go", name: "Xiaochuan Go", package: "xiaochuan-go", activation: "enabled" },
+  { id: "xiaochuan", name: "Xiaochuan Zen", package: "xiaochuan", activation: "enabled" },
   { id: "anthropic", name: "Anthropic", package: "anthropic", activation: "enabled" },
 ]
 
@@ -149,7 +149,7 @@ function modelRecord(input: {
 const defaultModels = [
   modelRecord({
     id: "deepseek-v4-pro",
-    providerID: "xccode-go",
+    providerID: "xiaochuan-go",
     name: "DeepSeek V4 Pro",
     inputCost: 1,
     outputCost: 3,
@@ -157,7 +157,7 @@ const defaultModels = [
   }),
   modelRecord({
     id: "glm-5",
-    providerID: "xccode-go",
+    providerID: "xiaochuan-go",
     name: "GLM-5",
     inputCost: 1,
     outputCost: 2,
@@ -165,7 +165,7 @@ const defaultModels = [
   }),
   modelRecord({
     id: "kimi-k3",
-    providerID: "xccode-go",
+    providerID: "xiaochuan-go",
     name: "Kimi K3",
     inputCost: 1,
     outputCost: 3,
@@ -173,14 +173,14 @@ const defaultModels = [
   }),
   modelRecord({
     id: "big-pickle",
-    providerID: "xccode",
+    providerID: "xiaochuan",
     name: "Big Pickle",
     inputCost: 0,
     outputCost: 0,
   }),
   modelRecord({
     id: "claude-opus-5-5",
-    providerID: "xccode",
+    providerID: "xiaochuan",
     name: "Claude Opus 5.5",
     inputCost: 5,
     outputCost: 25,
@@ -188,7 +188,7 @@ const defaultModels = [
   }),
   modelRecord({
     id: "gpt-5-6",
-    providerID: "xccode",
+    providerID: "xiaochuan",
     name: "GPT-5.6",
     inputCost: 2.5,
     outputCost: 10,
@@ -219,18 +219,18 @@ const fixtureIntegrations = [
     ],
   },
   {
-    id: "xccode",
-    name: "Xccode Console",
+    id: "xiaochuan",
+    name: "Xiaochuan Console",
     methods: [
-      { type: "oauth", id: "console", label: "Xccode Console account" },
+      { type: "oauth", id: "console", label: "Xiaochuan Console account" },
       { type: "key", label: "API key (service account)" },
     ],
     connections: [],
   },
   {
-    id: "xccode-go",
-    name: "Xccode Go",
-    methods: [{ type: "oauth", id: "go", label: "Sign in with Xccode" }],
+    id: "xiaochuan-go",
+    name: "Xiaochuan Go",
+    methods: [{ type: "oauth", id: "go", label: "Sign in with Xiaochuan" }],
     connections: [],
   },
   {
@@ -413,7 +413,7 @@ function jsonResponse<T>(body: T, status = 200) {
 }
 
 function errorResponse(tag: string, message: string, status: number) {
-  // SAFETY: the server's HTTP wire body for a tagged error, decoded at the Xccode client boundary.
+  // SAFETY: the server's HTTP wire body for a tagged error, decoded at the Xiaochuan client boundary.
   // oxlint-disable-next-line anti-slop-effect/no-manual-tagged-construction -- see SAFETY above
   return jsonResponse({ _tag: tag, message }, status)
 }
@@ -507,19 +507,19 @@ const REDIRECT_PASTE = ["openai", "gitlab", "snowflake-cortex"]
 const storyPlugins: PluginInfo[] = [
   {
     id: "wakatime",
-    source: { type: "package", target: "xccode-wakatime@latest", version: "1.2.0", outdated: true },
+    source: { type: "package", target: "xiaochuan-wakatime@latest", version: "1.2.0", outdated: true },
     features: { server: true },
     state: { status: "active" },
   },
   {
     id: "notifier",
-    source: { type: "package", target: "xccode-notifier@latest", version: "0.4.1", outdated: true },
+    source: { type: "package", target: "xiaochuan-notifier@latest", version: "0.4.1", outdated: true },
     features: { server: true, tui: true },
     state: { status: "active" },
   },
   {
     id: "review",
-    source: { type: "package", target: "@acme/xccode-review@latest", version: "2.0.3" },
+    source: { type: "package", target: "@acme/xiaochuan-review@latest", version: "2.0.3" },
     features: { server: true },
     state: { status: "active" },
   },
@@ -576,7 +576,7 @@ export function createStoryFetch(overrides: IntegrationInfo[] = []): typeof fetc
         pid: 1,
         hostname: "MacBook-Pro",
         urls: [STORY_SERVER_URL],
-        paths: { tmp: "/tmp/xccode" },
+        paths: { tmp: "/tmp/xiaochuan" },
       })
     }
 
@@ -657,9 +657,9 @@ export function createStoryFetch(overrides: IntegrationInfo[] = []): typeof fetc
             url:
               integrationID === "github-copilot" || integrationID === "xai"
                 ? "https://example.test/device?user_code=KBSC-TK37"
-                : integrationID === "xccode"
-                  ? "https://xccode.ai/auth/device?user_code=WXYZ-2345"
-                  : "https://xccode.ai/auth/authorize",
+                : integrationID === "xiaochuan"
+                  ? "https://xiaochuan.ai/auth/device?user_code=WXYZ-2345"
+                  : "https://xiaochuan.ai/auth/authorize",
             instructions: "",
             mode: integrationID === "acme-code" ? "code" : "auto",
             paste: REDIRECT_PASTE.includes(integrationID) ? true : undefined,

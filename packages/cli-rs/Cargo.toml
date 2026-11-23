@@ -23,24 +23,24 @@ todo = "warn"
 undocumented_unsafe_blocks = "deny"
 
 [workspace.dependencies]
-xccode-acp = { path = "crates/acp" }
-xccode-api = { path = "crates/api" }
-xccode-api-types = { path = "crates/api-types" }
-xccode-drive = { path = "crates/drive" }
-xccode-latex = { path = "crates/latex" }
-xccode-local = { path = "crates/local" }
-xccode-mermaid = { path = "crates/mermaid" }
-xccode-mini = { path = "crates/mini" }
-xccode-parity = { path = "crates/parity" }
-# Without their default features: `ts` (TypeScript TUI plugins on the JS host) is chosen by xccode-cli, so a build
+xiaochuan-acp = { path = "crates/acp" }
+xiaochuan-api = { path = "crates/api" }
+xiaochuan-api-types = { path = "crates/api-types" }
+xiaochuan-drive = { path = "crates/drive" }
+xiaochuan-latex = { path = "crates/latex" }
+xiaochuan-local = { path = "crates/local" }
+xiaochuan-mermaid = { path = "crates/mermaid" }
+xiaochuan-mini = { path = "crates/mini" }
+xiaochuan-parity = { path = "crates/parity" }
+# Without their default features: `ts` (TypeScript TUI plugins on the JS host) is chosen by xiaochuan-cli, so a build
 # without it has no JS host anywhere (ts-feature).
-xccode-plugin = { path = "crates/plugin", default-features = false }
-xccode-plugin-abi = { path = "crates/plugin-abi", features = ["host"] }
-xccode-service = { path = "crates/service" }
-xccode-store = { path = "crates/store" }
-xccode-tui = { path = "crates/tui", default-features = false }
-xccode-ui = { path = "crates/ui" }
-xccode-util = { path = "crates/util" }
+xiaochuan-plugin = { path = "crates/plugin", default-features = false }
+xiaochuan-plugin-abi = { path = "crates/plugin-abi", features = ["host"] }
+xiaochuan-service = { path = "crates/service" }
+xiaochuan-store = { path = "crates/store" }
+xiaochuan-tui = { path = "crates/tui", default-features = false }
+xiaochuan-ui = { path = "crates/ui" }
+xiaochuan-util = { path = "crates/util" }
 
 # OpenTUI's Rust crates (`packages/rust` of anomalyco/opentui), pinned exactly to a release on crates.io. The crate
 # has no native library: script/opentui-native.ts installs the release's, checked against its table; see README.md.
@@ -58,7 +58,7 @@ indexmap = { version = "2", features = ["serde"] }
 libc = "0.2"
 log = { version = "0.4", features = ["std"] }
 memchr = "2"
-# Luau plugins, behind xccode-plugin's default feature `luau`: Luau's VM and compiler. Values cross as
+# Luau plugins, behind xiaochuan-plugin's default feature `luau`: Luau's VM and compiler. Values cross as
 # JSON (`crates/plugin/src/luau/json.rs`), so mlua's own serde is off.
 mlua = { version = "0.12", features = ["luau"] }
 notify = "8"
@@ -66,7 +66,7 @@ percent-encoding = "2"
 rand = "0.10"
 regex = "1"
 ring = "0.17"
-# TLS is rustls on ring with the platform's roots, configured once in `xccode_api::transport`, for HTTP/1.1 only, as
+# TLS is rustls on ring with the platform's roots, configured once in `xiaochuan_api::transport`, for HTTP/1.1 only, as
 # Bun's fetch speaks.
 reqwest = { version = "0.13", default-features = false, features = ["rustls-no-provider", "json", "stream"] }
 rustix = { version = "1", features = ["fs", "process"] }
@@ -81,10 +81,10 @@ tokio-tungstenite = { version = "0.30", features = ["rustls-tls-native-roots"] }
 tokio-util = "0.7"
 unicode-width = "0.2"
 url = "2"
-# Win32 calls, for xccode-util's `win` module only (DW1); each use adds its features there.
+# Win32 calls, for xiaochuan-util's `win` module only (DW1); each use adds its features there.
 windows-sys = "0.61"
 
-# Tree-sitter grammars for xccode-ui's `grammars` feature (crates/ui/src/grammars), pinned to
+# Tree-sitter grammars for xiaochuan-ui's `grammars` feature (crates/ui/src/grammars), pinned to
 # the WASM releases packages/tui/src/parsers-config.ts loads where crates.io has them. The five opentui bundles take
 # its versions.
 tree-sitter-javascript = "0.25"

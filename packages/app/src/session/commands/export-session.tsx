@@ -1,4 +1,4 @@
-import { createSimpleContext } from "@xccode/ui/context"
+import { createSimpleContext } from "@xiaochuan/ui/context"
 import { createSignal, onCleanup, untrack } from "solid-js"
 import { useLanguage } from "@/runtime/i18n/language"
 import { usePlatform } from "@/runtime/platform/platform"

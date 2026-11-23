@@ -4,18 +4,18 @@ import { fileURLToPath } from "node:url"
 
 import { Arch, type Configuration } from "electron-builder"
 import { NativeArch } from "../../script/native-arch"
-import { DESKTOP_NATIVE_ENGLISH } from "@xccode/app/i18n/desktop-native"
+import { DESKTOP_NATIVE_ENGLISH } from "@xiaochuan/app/i18n/desktop-native"
 import { CLI_BINARIES, getCurrentCli, nodePtyPackage } from "./script/utils"
 import { previewBinding, verifyPreviewBinding } from "./script/preview-binding"
 
 const packageDir = path.dirname(fileURLToPath(import.meta.url))
 
 // The Electron 42 packaging update briefly installed Linux launchers/icons under
-// "xccode-desktop". Keep that hidden desktop entry around so existing GNOME/KDE
-// pins still resolve after the canonical app id changes back to ai.xccode.desktop.
-const legacyDesktopEntry = path.join(packageDir, "resources", "linux", "xccode-desktop.desktop")
+// "xiaochuan-desktop". Keep that hidden desktop entry around so existing GNOME/KDE
+// pins still resolve after the canonical app id changes back to ai.xiaochuan.desktop.
+const legacyDesktopEntry = path.join(packageDir, "resources", "linux", "xiaochuan-desktop.desktop")
 
-const legacyDesktopEntryFpm = `${legacyDesktopEntry}=/usr/share/applications/xccode-desktop.desktop`
+const legacyDesktopEntryFpm = `${legacyDesktopEntry}=/usr/share/applications/xiaochuan-desktop.desktop`
 
 // rpmbuild adds /usr/lib/.build-id links for every ELF file. The bundled Electron
 // binaries are byte-identical across apps on the same Electron version, so those
@@ -32,7 +32,7 @@ const metainfoFpm = (appId: string) =>
 const previewCompressionFpm = (target: "deb" | "rpm") => [`--${target}-compression-level`, "1"]
 
 function resolveChannel() {
-  const raw = process.env.XCCODE_CHANNEL
+  const raw = process.env.XIAOCHUAN_CHANNEL
 
   if (raw === "dev" || raw === "beta" || raw === "prod") return raw
 
@@ -42,18 +42,18 @@ function resolveChannel() {
 }
 
 const APP_IDS = {
-  dev: "ai.xccode.desktop.dev",
-  beta: "ai.xccode.desktop.beta",
-  prod: "ai.xccode.desktop",
+  dev: "ai.xiaochuan.desktop.dev",
+  beta: "ai.xiaochuan.desktop.beta",
+  prod: "ai.xiaochuan.desktop",
 } as const
 
 // libappimage (used by AppImageLauncher) resolves the .desktop entry inside an
 // AppImage by globbing `*.desktop` at the squashfs root. If the main
-// executable itself ends in `.desktop` (prod appId `ai.xccode.desktop`), the
+// executable itself ends in `.desktop` (prod appId `ai.xiaochuan.desktop`), the
 // ELF binary matches the glob and is parsed as a desktop entry, so
 // integration fails with `Malformed desktop entry: Unexpected char '\x7f' at 0`
 // (0x7F is the first byte of the ELF magic).
-// https://github.com/xiaowei56/xccode/issues/51867
+// https://github.com/xiaowei56/xiaochuan/issues/51867
 // Strip a trailing `.desktop` so the executable can never collide with the
 // desktop-entry glob. Beta/dev appIds end in `.beta`/`.dev` and are unaffected.
 function linuxExecutableName(appId: string): string {
@@ -66,24 +66,24 @@ const getBase = (appId: string): Configuration => {
   const desktopName = `${appId}.desktop`
 
   return {
-    artifactName: "xccode-desktop-${os}-${arch}.${ext}",
+    artifactName: "xiaochuan-desktop-${os}-${arch}.${ext}",
     directories: {
       output: "dist",
       buildResources: "resources",
     },
     // Linux launchers are .desktop files, so this is the desktop file name,
-    // not just the app id. For prod, app id "ai.xccode.desktop" becomes
-    // "ai.xccode.desktop.desktop".
+    // not just the app id. For prod, app id "ai.xiaochuan.desktop" becomes
+    // "ai.xiaochuan.desktop.desktop".
     // https://developer.gnome.org/documentation/guidelines/maintainer/integrating.html
     // https://www.electron.build/docs/linux/
-    // Release builds take their version from XCCODE_VERSION instead of rewriting package.json.
-    extraMetadata: process.env.XCCODE_VERSION
-      ? { desktopName, version: process.env.XCCODE_VERSION }
+    // Release builds take their version from XIAOCHUAN_VERSION instead of rewriting package.json.
+    extraMetadata: process.env.XIAOCHUAN_VERSION
+      ? { desktopName, version: process.env.XIAOCHUAN_VERSION }
       : { desktopName },
     files: [
       "out/**/*",
       "resources/**/*",
-      "!resources/xccode-cli*",
+      "!resources/xiaochuan-cli*",
       `!**/node_modules/@yuuang/ffi-rs-!(${binding}){,/**/*}`,
       // Keep only the target platform's node-pty prebuild when cross-packaging with --cpu=*.
       ...CLI_BINARIES.filter((item) => item.os !== target.os || item.cpu !== target.cpu).map(
@@ -109,7 +109,7 @@ const getBase = (appId: string): Configuration => {
       {
         from: "resources/",
         to: "",
-        filter: ["xccode-cli", "xccode-cli.exe", "xccode-cli.version"],
+        filter: ["xiaochuan-cli", "xiaochuan-cli.exe", "xiaochuan-cli.version"],
       },
     ],
     // Electron stores cookies in plain text by default. The browser pane keeps sign-ins, so encrypt them with the OS
@@ -132,19 +132,19 @@ const getBase = (appId: string): Configuration => {
     afterPack: async (context) => {
       const arch = Arch[context.arch]
 
-      // The --arm64 flag picks Electron while XCCODE_TARGET picks the CLI and node-pty, so they can disagree.
+      // The --arm64 flag picks Electron while XIAOCHUAN_TARGET picks the CLI and node-pty, so they can disagree.
       if (arch !== "x64" && arch !== "arm64") throw new Error(`Unsupported desktop architecture: ${arch}`)
 
       if (arch !== target.cpu) throw new Error(`Packaging ${arch} Electron with the ${target.target} CLI`)
       const resources = context.packager.getResourcesDir(context.appOutDir)
       await verifyPreviewBinding(resources, context.electronPlatformName, arch)
-      const cli = path.join(resources, context.electronPlatformName === "win32" ? "xccode-cli.exe" : "xccode-cli")
+      const cli = path.join(resources, context.electronPlatformName === "win32" ? "xiaochuan-cli.exe" : "xiaochuan-cli")
 
       const file = await stat(cli)
 
       if (!file.isFile() || file.size === 0) throw new Error(`Bundled CLI must be a non-empty file: ${cli}`)
       await NativeArch.verify(cli, arch)
-      const version = path.join(path.dirname(cli), "xccode-cli.version")
+      const version = path.join(path.dirname(cli), "xiaochuan-cli.version")
 
       if ((await stat(version)).size === 0) throw new Error(`Bundled CLI version must be a non-empty file: ${version}`)
 
@@ -197,8 +197,8 @@ const getBase = (appId: string): Configuration => {
       target: ["dmg", "zip"],
     },
     protocols: {
-      name: "Xccode",
-      schemes: ["xccode"],
+      name: "Xiaochuan",
+      schemes: ["xiaochuan"],
     },
     win: {
       icon: `resources/icons/icon.ico`,
@@ -217,7 +217,7 @@ const getBase = (appId: string): Configuration => {
       category: "Development",
       executableName: linuxExecutableName(appId),
       // Derive the installed `.desktop` filename from `desktopName`
-      // (`ai.xccode.desktop.desktop` for prod) instead of `executableName`,
+      // (`ai.xiaochuan.desktop.desktop` for prod) instead of `executableName`,
       // so window association is unaffected by the executable rename above.
       syncDesktopName: true,
       desktop: {
@@ -242,15 +242,15 @@ export function getConfig() {
       return {
         ...base,
         appId,
-        productName: "Xccode Dev",
+        productName: "Xiaochuan Dev",
         publish: {
           provider: "generic",
-          url: "https://xccode.ai/update/api/dev/desktop/xccode/",
+          url: "https://xiaochuan.ai/update/api/dev/desktop/xiaochuan/",
           channel: "latest",
         },
         deb: { fpm: [...previewCompressionFpm("deb"), metainfoFpm(appId)] },
         rpm: {
-          packageName: "xccode-dev",
+          packageName: "xiaochuan-dev",
           fpm: [rpmNoBuildIdLinksFpm, ...previewCompressionFpm("rpm"), metainfoFpm(appId)],
         },
       }
@@ -260,16 +260,16 @@ export function getConfig() {
       return {
         ...base,
         appId,
-        productName: "Xccode Beta",
-        protocols: { name: "Xccode Beta", schemes: ["xccode"] },
+        productName: "Xiaochuan Beta",
+        protocols: { name: "Xiaochuan Beta", schemes: ["xiaochuan"] },
         publish: {
           provider: "generic",
-          url: "https://xccode.ai/update/api/beta/desktop/xccode/",
+          url: "https://xiaochuan.ai/update/api/beta/desktop/xiaochuan/",
           channel: "latest",
         },
         deb: { fpm: [...previewCompressionFpm("deb"), metainfoFpm(appId)] },
         rpm: {
-          packageName: "xccode-beta",
+          packageName: "xiaochuan-beta",
           fpm: [rpmNoBuildIdLinksFpm, ...previewCompressionFpm("rpm"), metainfoFpm(appId)],
         },
       }
@@ -279,8 +279,8 @@ export function getConfig() {
       return {
         ...base,
         appId,
-        productName: "Xccode",
-        protocols: { name: "Xccode", schemes: ["xccode"] },
+        productName: "Xiaochuan",
+        protocols: { name: "Xiaochuan", schemes: ["xiaochuan"] },
         // An Icon Composer package compiles to Assets.car, which macOS 26 and later draw the app icon from
         // (Dock, Finder, system dialogs and the system icon styles). Older macOS keeps using the ICNS.
         mac: { ...base.mac, icon: "resources/icons/icon.icon" },
@@ -288,11 +288,11 @@ export function getConfig() {
         dmg: { icon: "resources/icons/icon.icns" },
         publish: {
           provider: "generic",
-          url: "https://xccode.ai/update/api/latest/desktop/xccode/",
+          url: "https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/",
           channel: "latest",
         },
         deb: { fpm: [metainfoFpm(appId), legacyDesktopEntryFpm] },
-        rpm: { packageName: "xccode", fpm: [rpmNoBuildIdLinksFpm, metainfoFpm(appId), legacyDesktopEntryFpm] },
+        rpm: { packageName: "xiaochuan", fpm: [rpmNoBuildIdLinksFpm, metainfoFpm(appId), legacyDesktopEntryFpm] },
       }
     }
   }

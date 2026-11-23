@@ -1,6 +1,6 @@
 import { Component, Show } from "solid-js"
-import { Select } from "@xccode/ui/select"
-import { TextInput } from "@xccode/ui/text-input"
+import { Select } from "@xiaochuan/ui/select"
+import { TextInput } from "@xiaochuan/ui/text-input"
 import { useLanguage } from "@/runtime/i18n/language"
 import { ExternalLink } from "@/runtime/platform/external-link"
 import { SettingsList } from "@/settings/list"
@@ -113,7 +113,7 @@ export const SettingsAppearance: Component = () => {
               description={
                 <>
                   {language.t("settings.general.row.theme.description")}{" "}
-                  <ExternalLink class="settings-link" href="https://xccode.ai/docs/themes">
+                  <ExternalLink class="settings-link" href="https://xiaochuan.ai/docs/themes">
                     {language.t("common.learnMore")}
                   </ExternalLink>
                 </>

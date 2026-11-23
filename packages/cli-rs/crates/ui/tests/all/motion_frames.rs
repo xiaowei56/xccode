@@ -1,5 +1,5 @@
-use xccode_parity::{Fixture, compare, fixtures_dir};
-use xccode_ui::motion::{
+use xiaochuan_parity::{Fixture, compare, fixtures_dir};
+use xiaochuan_ui::motion::{
     FadeInText, ScannerOptions, ScannerStyle, ShimmerText, Spinner, one_cell_frame, scanner_colors, scanner_frames,
     set_running, work_spinner,
 };

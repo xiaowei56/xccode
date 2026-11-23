@@ -4,7 +4,7 @@
  * Payloads are structured-clone values already encoded with the Ipc's schemas. The `ipc` fields name an Ipc by id.
  */
 
-import type { PluginInfo } from "@xccode/client/promise"
+import type { PluginInfo } from "@xiaochuan/client/promise"
 import { Cause, Exit, Predicate, Schema } from "effect"
 import type { BuiltinStoreDeclaration } from "./builtin.js"
 import type { Cleanup, OS, PluginOptions } from "./core.js"
@@ -271,7 +271,7 @@ export function evaluatePluginBundle(code: string, host: PluginBundleHost): Plug
     const problem = Exit.isFailure(decoded) ? Cause.pretty(decoded.cause) : "it does not match"
 
     throw new Error(
-      `A plugin's ./gui-experimental bundle must default-export a \`Plugin.define\` from \`@xccode/plugin/gui\`: ${problem}`,
+      `A plugin's ./gui-experimental bundle must default-export a \`Plugin.define\` from \`@xiaochuan/plugin/gui\`: ${problem}`,
     )
   }
 
@@ -323,7 +323,7 @@ const matchesPlugin = Schema.is(BundleDefinition)
 
 /**
  * Whether a plugin's GUI may take an id. Built-ins win: a plugin cannot take a built-in's id, an id that nests under
- * one or that one nests under (tokens and stored keys resolve by dot-separated prefix), or the `xccode` namespace.
+ * one or that one nests under (tokens and stored keys resolve by dot-separated prefix), or the `xiaochuan` namespace.
  * Both hosts check it, each against its own built-ins.
  *
  * @param id - The server plugin's id.
@@ -331,7 +331,7 @@ const matchesPlugin = Schema.is(BundleDefinition)
  * @returns True when no built-in claims the id.
  */
 export function pluginIdAvailable(id: string, builtins: readonly Pick<Entry, "id">[]) {
-  return [{ id: "xccode" }, ...builtins].every(
+  return [{ id: "xiaochuan" }, ...builtins].every(
     (taken) => id !== taken.id && !id.startsWith(`${taken.id}.`) && !taken.id.startsWith(`${id}.`),
   )
 }
@@ -413,7 +413,7 @@ export interface BridgePluginGui {
   readonly revision: string
   /** The bundle's CommonJS code. */
   readonly code: string
-  /** The plugin's options from `xccode.json`, its GUI's `ctx.options`. */
+  /** The plugin's options from `xiaochuan.json`, its GUI's `ctx.options`. */
   readonly options: PluginOptions
 }
 
@@ -572,7 +572,7 @@ export interface Bridge {
       readonly id: string
       /** Its base URL. */
       readonly url: string
-      /** The HTTP basic password; the user name is always `xccode`. */
+      /** The HTTP basic password; the user name is always `xiaochuan`. */
       readonly password?: string
     }[],
   ): void

@@ -7,10 +7,10 @@ use std::path::PathBuf;
 use std::rc::{Rc, Weak};
 use std::sync::Arc;
 
-use xccode_plugin_abi::interact::{Event, Handled};
-use xccode_plugin_abi::v2::{self, ContentRef};
-use xccode_plugin_abi::{HostRequest, InputTo, Manifest, Request, Scope, Span};
-use xccode_ui::keymap::TuiCommand;
+use xiaochuan_plugin_abi::interact::{Event, Handled};
+use xiaochuan_plugin_abi::v2::{self, ContentRef};
+use xiaochuan_plugin_abi::{HostRequest, InputTo, Manifest, Request, Scope, Span};
+use xiaochuan_ui::keymap::TuiCommand;
 use opentui::keymap::Disposer;
 
 use super::proto::{Down, Listener, Revision};
@@ -128,7 +128,7 @@ impl Answers for Relay {
         }
     }
 
-    fn cancel(self: Rc<Self>, request: xccode_plugin_abi::RequestId) {
+    fn cancel(self: Rc<Self>, request: xiaochuan_plugin_abi::RequestId) {
         if let Some(guest) = self.guest() {
             guest.cancel(request);
         }
@@ -240,7 +240,7 @@ pub(crate) struct Guest {
     revoked: RefCell<Vec<Disposer>>,
     /// The commands and holds the JS host last told: its load's, or what a change of commands alone made them since
     /// ([`Guest::activated`]).
-    commands: RefCell<(Vec<xccode_plugin_abi::Command>, Vec<String>)>,
+    commands: RefCell<(Vec<xiaochuan_plugin_abi::Command>, Vec<String>)>,
     /// The keymap layers of `commands` outside a route, which a change of commands alone replaces.
     layers: RefCell<Vec<Disposer>>,
     activation: Rc<Activation>,
@@ -330,7 +330,7 @@ impl Guest {
             let Some(guest) = guest.upgrade().filter(|guest| !guest.ended()) else { return Handled::Pass };
             let Some(scripts) = guest.scripts.upgrade() else { return Handled::Pass };
             // A setup listener may observe text input, but cannot hold it waiting for JS.
-            let typed = |key: &xccode_plugin_abi::interact::Key| {
+            let typed = |key: &xiaochuan_plugin_abi::interact::Key| {
                 matches!(listener, Listener::Layer(_)) && crate::interact::printable(&key.key) && owner.typing()
             };
             let listened = match event {
@@ -456,7 +456,7 @@ impl Guest {
         // A guest that handed its activation to a reload not yet registered changes that reload's registrations: the
         // replacement registers what it carries.
         let commands_only = !self.handed_over.get() && self.commands_only(&manifest, &holds);
-        let same = |(commands, held): &(Vec<xccode_plugin_abi::Command>, Vec<String>)| {
+        let same = |(commands, held): &(Vec<xiaochuan_plugin_abi::Command>, Vec<String>)| {
             stateless(commands) == stateless(&manifest.commands) && *held == holds
         };
         if commands_only && same(&self.commands.borrow()) {
@@ -527,7 +527,7 @@ impl Guest {
     /// Whether `manifest` and `holds` change only the commands outside a route of what this activation registered, or
     /// a command's state: a route's commands are bound to each of its mounts as it mounts.
     fn commands_only(&self, manifest: &Manifest, holds: &[String]) -> bool {
-        let routed = |manifest: &Manifest, holds: &[String]| -> (Vec<xccode_plugin_abi::Command>, Vec<bool>) {
+        let routed = |manifest: &Manifest, holds: &[String]| -> (Vec<xiaochuan_plugin_abi::Command>, Vec<bool>) {
             let commands: Vec<_> =
                 manifest.commands.iter().filter(|command| matches!(command.scope, Scope::Route(_))).cloned().collect();
             let held = commands.iter().map(|command| holds.contains(&command.name)).collect();
@@ -1002,7 +1002,7 @@ impl Answers for Guest {
         self.call("on-reply", request, false);
     }
 
-    fn cancel(self: Rc<Self>, request: xccode_plugin_abi::RequestId) {
+    fn cancel(self: Rc<Self>, request: xiaochuan_plugin_abi::RequestId) {
         if !self.ended() {
             self.send(Down::Cancelled { activation: self.activation(), request }, None);
         }
@@ -1015,8 +1015,8 @@ impl Answers for Guest {
 }
 
 /// `commands` without their states, which change by `set-enabled` and take no reload.
-fn stateless(commands: &[xccode_plugin_abi::Command]) -> Vec<xccode_plugin_abi::Command> {
-    let enable = |command: &xccode_plugin_abi::Command| {
+fn stateless(commands: &[xiaochuan_plugin_abi::Command]) -> Vec<xiaochuan_plugin_abi::Command> {
+    let enable = |command: &xiaochuan_plugin_abi::Command| {
         let mut command = command.clone();
         command.enabled = true;
         command
@@ -1025,7 +1025,7 @@ fn stateless(commands: &[xccode_plugin_abi::Command]) -> Vec<xccode_plugin_abi::
 }
 
 /// Forward the whole chord to the next binding if the JS command declines it.
-fn js_command(guest: &Rc<Guest>, command: &xccode_plugin_abi::Command, alive: Option<Weak<()>>) -> TuiCommand {
+fn js_command(guest: &Rc<Guest>, command: &xiaochuan_plugin_abi::Command, alive: Option<Weak<()>>) -> TuiCommand {
     let (called, name) = (guest.clone(), command.name.clone());
     let hold = guest.commands.borrow().1.contains(&name);
     let entry = format!("{}\u{0}{name}", guest.id());
@@ -1034,14 +1034,14 @@ fn js_command(guest: &Rc<Guest>, command: &xccode_plugin_abi::Command, alive: Op
     let enabled = crate::command_enabled(&guest.activation, &name);
     // A key it declines goes on once the JS host answers, as the hold routes it again; the command took it until then.
     keyed_command(guest.id(), command, enabled, move |input, key| {
-        let Some(scripts) = scripts.upgrade() else { return xccode_plugin_abi::interact::Handled::Pass };
+        let Some(scripts) = scripts.upgrade() else { return xiaochuan_plugin_abi::interact::Handled::Pass };
         if key.is_some() && scripts.stepped_aside(&entry) {
-            return xccode_plugin_abi::interact::Handled::Pass;
+            return xiaochuan_plugin_abi::interact::Handled::Pass;
         }
         let request = Request::Command { name: name.clone(), input: input.map(str::to_owned) };
         let key = key.map(|key| super::Keyed::chord(*key, &scripts, &entry));
         called.call_keyed("run-command", request, hold || key.is_some(), (None, alive.clone()), key);
-        xccode_plugin_abi::interact::Handled::Consume
+        xiaochuan_plugin_abi::interact::Handled::Consume
     })
 }
 
@@ -1138,7 +1138,7 @@ fn register(setup: &mut Setup<'_>, guest: &Rc<Guest>) {
         );
     }
     let watching = Rc::downgrade(guest);
-    let watcher = setup.host().watch(Rc::new(move |_: &xccode_plugin_abi::Changed| {
+    let watcher = setup.host().watch(Rc::new(move |_: &xiaochuan_plugin_abi::Changed| {
         if let Some(guest) = watching.upgrade() {
             guest.refresh();
             if let Some(scripts) = guest.scripts.upgrade() {
@@ -1589,7 +1589,7 @@ impl ClaimViewer {
     /// Sends `part` of `mount` to the JS host, unless what the host sent waits in its overflow: then it is sent as
     /// it is drawn after the overflow drained, oldest first, so a transcript that mounts many fences at once
     /// neither floods the queue nor loses one. Meanwhile the host's row or the last tree shows.
-    fn tell(&self, guest: &Rc<Guest>, id: &v2::MountId, part: &xccode_plugin_abi::claim::Part) {
+    fn tell(&self, guest: &Rc<Guest>, id: &v2::MountId, part: &xiaochuan_plugin_abi::claim::Part) {
         let Some(scripts) = guest.scripts.upgrade() else { return };
         if scripts.backed_up() {
             count(|crossed| crossed.deferred_parts += 1);
@@ -1618,12 +1618,12 @@ impl crate::claim::Viewer for ClaimViewer {
         &self,
         _: &dyn Host,
         viewing: Viewing<'_>,
-        part: &xccode_plugin_abi::claim::Part,
+        part: &xiaochuan_plugin_abi::claim::Part,
     ) -> crate::claim::Viewed {
         use crate::claim::Viewed;
         let Some(guest) = self.guest.upgrade().filter(|guest| !guest.ended()) else { return Viewed::Failed };
         let id = viewing.mount;
-        if let xccode_plugin_abi::claim::Part::Fence(fence) = part
+        if let xiaochuan_plugin_abi::claim::Part::Fence(fence) = part
             && fence.code.len() > FENCE_BYTES
         {
             if !guest.over_cap.replace(true) {
@@ -1690,7 +1690,7 @@ impl crate::claim::Viewer for ClaimViewer {
 
 /// A digest of `part`: its JSON as the JS host would read it, hashed as it is written, so no copy of it is made. Two
 /// parts with the same digest are taken for one: 64 bits make another part's the same by chance negligible.
-fn digest(part: &xccode_plugin_abi::claim::Part) -> u64 {
+fn digest(part: &xiaochuan_plugin_abi::claim::Part) -> u64 {
     use std::hash::Hasher;
     struct Hashing(std::collections::hash_map::DefaultHasher);
     impl std::io::Write for Hashing {
@@ -1710,9 +1710,9 @@ fn digest(part: &xccode_plugin_abi::claim::Part) -> u64 {
 /// Until the first tree arrives, reserve the key's previous height. A new transcript part gets one row; a new slot
 /// claim gets none.
 fn placeholder(height: u16) -> v2::Node {
-    let layout = xccode_plugin_abi::Layout {
-        height: Some(xccode_plugin_abi::Width::Cells(height)),
-        ..xccode_plugin_abi::Layout::default()
+    let layout = xiaochuan_plugin_abi::Layout {
+        height: Some(xiaochuan_plugin_abi::Width::Cells(height)),
+        ..xiaochuan_plugin_abi::Layout::default()
     };
     // A mount that showed nothing reserves nothing.
     if height == 0 {

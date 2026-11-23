@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Ýat diagnostikasy: her 30 sekuntda programmanyň ýadyny iş stoly žurnallaryna ýazýar. Öçürilýänçä täzeden açylanda-da açyk galýar; ol işleýän wagty zolak açyk durýar.",
-  "memory.tipEnv": "Ýat diagnostikasy bu açylyş üçin açyk: XCCODE_DESKTOP_MEMORY_LOG bellenen.",
+  "memory.tipEnv": "Ýat diagnostikasy bu açylyş üçin açyk: XIAOCHUAN_DESKTOP_MEMORY_LOG bellenen.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Sazlaýjylar",

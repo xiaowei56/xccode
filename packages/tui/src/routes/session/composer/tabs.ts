@@ -1,6 +1,6 @@
 import { createEffect, createMemo, on, untrack } from "solid-js"
 import { createStore } from "solid-js/store"
-import type { Plugin } from "@xccode/plugin/tui"
+import type { Plugin } from "@xiaochuan/plugin/tui"
 import type { ComposerTab } from "./context"
 import { ownedJobs } from "../../../util/session"
 

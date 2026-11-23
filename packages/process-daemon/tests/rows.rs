@@ -4,16 +4,16 @@ use std::process::{Command, Stdio};
 use std::thread;
 use std::time::{Duration, Instant};
 
-use xccode_pty::client::TerminalClient;
-use xccode_pty::daemon::{REGISTRATION_FILE, Registration};
-use xccode_pty::protocol::{Envelope, Request, Response, read_frame, write_frame};
-use xccode_pty::service::CreatePty;
+use xiaochuan_pty::client::TerminalClient;
+use xiaochuan_pty::daemon::{REGISTRATION_FILE, Registration};
+use xiaochuan_pty::protocol::{Envelope, Request, Response, read_frame, write_frame};
+use xiaochuan_pty::service::CreatePty;
 
 #[test]
 fn daemon_client_read_rows_roundtrip() {
     // Run the Rust client in a child test process so discovery's environment is
     // isolated without mutating this multithreaded test process's environment.
-    if let Some(directory) = std::env::var_os("XCCODE_PTY_ROWS_TEST_CHILD") {
+    if let Some(directory) = std::env::var_os("XIAOCHUAN_PTY_ROWS_TEST_CHILD") {
         let directory = std::path::PathBuf::from(directory);
         let client = TerminalClient::discover(&directory).unwrap();
         let mut request = CreatePty::shell().unwrap();
@@ -52,7 +52,7 @@ fn daemon_client_read_rows_roundtrip() {
                 .contains("positive")
         );
 
-        let registration = xccode_pty::daemon::read_registration(&directory).unwrap();
+        let registration = xiaochuan_pty::daemon::read_registration(&directory).unwrap();
         assert_eq!(registration.protocol, 9);
         // Exercise omitted rows independently of the Rust client's null encoding.
         let mut stream = std::os::unix::net::UnixStream::connect(registration.socket).unwrap();
@@ -84,9 +84,9 @@ fn daemon_client_read_rows_roundtrip() {
     }
 
     let root =
-        std::env::temp_dir().join(format!("xccode-pty-rows-{:032x}", rand::random::<u128>()));
+        std::env::temp_dir().join(format!("xiaochuan-pty-rows-{:032x}", rand::random::<u128>()));
     let runtime = root.join("rows");
-    let mut daemon = Command::new(env!("CARGO_BIN_EXE_xccode-pty"))
+    let mut daemon = Command::new(env!("CARGO_BIN_EXE_xiaochuan-pty"))
         .args(["daemon", "--name", "rows", "--runtime-dir"])
         .arg(&root)
         .stdin(Stdio::null())
@@ -121,7 +121,7 @@ fn daemon_client_read_rows_roundtrip() {
             "daemon_client_read_rows_roundtrip",
             "--nocapture",
         ])
-        .env("XCCODE_PTY_ROWS_TEST_CHILD", &runtime)
+        .env("XIAOCHUAN_PTY_ROWS_TEST_CHILD", &runtime)
         .output();
     drop(owner);
     assert!(daemon.wait().unwrap().success());

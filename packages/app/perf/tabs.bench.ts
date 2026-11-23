@@ -1,14 +1,14 @@
 // Switching between two open session tabs of 200 long markdown exchanges each (headings, tables, task lists and four
 // highlighted code fences per answer), loaded in full, at 1440×900.
 //
-// Set XCCODE_PERF_SESSION to a session export (`xccode export <id>`) to add two cases on your own session.
+// Set XIAOCHUAN_PERF_SESSION to a session export (`xiaochuan export <id>`) to add two cases on your own session.
 import { readFileSync } from "node:fs"
-import type { SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
 import type { Page } from "@playwright/test"
 import { bench, web, type Case } from "@hona/strobe"
 import { pageMessagesFrom, sessionHref } from "../e2e/utils/app"
 import { expected, messages } from "../e2e/utils/markdown-sessions"
-import { mockXccodeServer, type MockSession } from "../e2e/utils/mock-server"
+import { mockXiaochuanServer, type MockSession } from "../e2e/utils/mock-server"
 import { fixture, installTimelineSettings } from "../e2e/utils/session-fixture"
 import { reviewDiffs } from "./fixtures/diffs"
 import { openReview, review } from "./fixtures/review"
@@ -29,9 +29,9 @@ type SessionExport = {
   messages: SessionMessageInfo[]
 }
 
-const exportFile = process.env.XCCODE_PERF_SESSION
+const exportFile = process.env.XIAOCHUAN_PERF_SESSION
 
-// SAFETY: `xccode export` writes this shape; a file that is not an export fails the first block's load.
+// SAFETY: `xiaochuan export` writes this shape; a file that is not an export fails the first block's load.
 const exported = exportFile ? (JSON.parse(readFileSync(exportFile, "utf8")) as SessionExport) : undefined
 
 // The destination was rendered before and is cached: switching back and forth. A cached transcript is not fetched
@@ -110,7 +110,7 @@ export default bench({
 
   targets: {
     web: web({
-      expect: { title: "Xccode" },
+      expect: { title: "Xiaochuan" },
       viewport: { width: 1440, height: 900 },
       async prepare(ctx) {
         const { setupKey: setup, url } = ctx
@@ -118,7 +118,7 @@ export default bench({
         const page = cached(ctx)
 
         if (exported && setup.export) return mockExport(page, server, exported)
-        await mockXccodeServer(page, {
+        await mockXiaochuanServer(page, {
           server,
           sessions: fixture.sessions,
           provider: setup.catalog ? catalog(1_200) : fixture.provider,
@@ -200,7 +200,7 @@ async function mockExport(page: Page, server: string, session: NonNullable<typeo
       message.type === "assistant" && message.content.some((part) => part.type === "text" && part.text.trim()),
   )
 
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     server,
     directory,
     project: {

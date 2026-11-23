@@ -1,4 +1,4 @@
-import type { SessionInfo, SessionsResponse } from "@xccode/client/promise"
+import type { SessionInfo, SessionsResponse } from "@xiaochuan/client/promise"
 import { pathKey } from "@/workspaces/path-key"
 import { mergeRootSessionIndex } from "@/runtime/server/session-index"
 import { SESSION_RECENT_LIMIT, SESSION_RECENT_WINDOW } from "@/runtime/server/global-sync/types"

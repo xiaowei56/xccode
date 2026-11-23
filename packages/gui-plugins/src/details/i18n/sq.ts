@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Fshi pemën e punës",
   "mcp.manage": "Menaxho serverët MCP",
   timedOut: "Serveri vonoi shumë të përgjigjej",
-  "setup.mcp": "Shto një server me Xccode",
+  "setup.mcp": "Shto një server me Xiaochuan",
   "setup.mcp.prompt":
-    "Më ndihmo të shtoj një server MCP në konfigurimin tim global të Xccode. Më pyet cilin shërbim dua të lidh, pastaj konfiguroje dhe kontrollo që lidhet.",
-  "setup.plugins": "Shto një shtojcë me Xccode",
+    "Më ndihmo të shtoj një server MCP në konfigurimin tim global të Xiaochuan. Më pyet cilin shërbim dua të lidh, pastaj konfiguroje dhe kontrollo që lidhet.",
+  "setup.plugins": "Shto një shtojcë me Xiaochuan",
   "setup.plugins.prompt":
-    "Më ndihmo të shtoj një shtojcë në konfigurimin tim global të Xccode. Më pyet çfarë dua të bëjë, sugjero një shtojcë, pastaj shtoje.",
-  "setup.skills": "Aftësi e re me Xccode",
+    "Më ndihmo të shtoj një shtojcë në konfigurimin tim global të Xiaochuan. Më pyet çfarë dua të bëjë, sugjero një shtojcë, pastaj shtoje.",
+  "setup.skills": "Aftësi e re me Xiaochuan",
   "setup.skills.prompt":
-    "Më ndihmo të shkruaj një aftësi të re Xccode në konfigurimin tim global. Më pyet çfarë duhet të të mësojë, pastaj shkruaj SKILL.md-në e saj.",
+    "Më ndihmo të shkruaj një aftësi të re Xiaochuan në konfigurimin tim global. Më pyet çfarë duhet të të mësojë, pastaj shkruaj SKILL.md-në e saj.",
   changesFailed: "Ndryshimet nuk mund të ngarkoheshin",
   changesOffline: "Ky server nuk arrihet",
   "mcp.signIn": "Hyr",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Detajet për {{name}}",
   "mcp.signIn.open": "Hyr në {{name}}",
   "mcp.signIn.description":
-    "Shfletuesi do të hapet që të hyni në {{name}}. Nëse nuk arrin te makina ku ekzekutohet Xccode, ngjitni më poshtë URL-në ku u ridrejtua.",
+    "Shfletuesi do të hapet që të hyni në {{name}}. Nëse nuk arrin te makina ku ekzekutohet Xiaochuan, ngjitni më poshtë URL-në ku u ridrejtua.",
   "mcp.signIn.waiting": "Në pritje të autorizimit…",
   "mcp.signIn.failed": "Autorizimi dështoi: {{error}}",
   "mcp.signIn.expired": "Autorizimi skadoi",

@@ -3,7 +3,7 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
-use xccode_plugin_abi::{Command, Layout, Setup, Span, Toast, Variant, v2};
+use xiaochuan_plugin_abi::{Command, Layout, Setup, Span, Toast, Variant, v2};
 
 pub const ID: &str = "example.twin";
 pub const CARDS: usize = 6;

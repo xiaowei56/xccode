@@ -3,8 +3,8 @@ import { Commands } from "../commands"
 import { Runtime } from "../../framework/runtime"
 import { ServerConnection } from "../../services/server-connection"
 import { Config } from "../../config"
-import { resolve } from "@xccode/tui/config"
-import { Global } from "@xccode/util/global"
+import { resolve } from "@xiaochuan/tui/config"
+import { Global } from "@xiaochuan/util/global"
 
 export default Runtime.handler(Commands.commands.mini, (input) =>
   Effect.gen(function* () {

@@ -1,4 +1,4 @@
-import type { SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
 
 export type TodoStatus = "pending" | "in_progress" | "completed" | "cancelled"
 

@@ -5,7 +5,7 @@ description: "Define reusable agents in Markdown or config, each with its own sy
 
 Create a Markdown file to add a reusable agent. This example adds a read-only reviewer that the main agent can launch for code reviews:
 
-```md title=".xccode/agents/reviewer.md"
+```md title=".xiaochuan/agents/reviewer.md"
 ---
 description: Reviews changes for correctness and regressions
 mode: subagent
@@ -35,14 +35,14 @@ An agent combines a system prompt, model preference, permissions, and display de
 Save Markdown agents globally for all projects or inside a project:
 
 ```text
-~/.config/xccode/agents/<name>.md
-.xccode/agents/<name>.md
+~/.config/xiaochuan/agents/<name>.md
+.xiaochuan/agents/<name>.md
 ```
 
-Xccode discovers project `.xccode` directories from the current directory up to the project root. A nested path becomes part of the agent ID:
+Xiaochuan discovers project `.xiaochuan` directories from the current directory up to the project root. A nested path becomes part of the agent ID:
 
 ```text
-.xccode/agents/team/reviewer.md  →  team/reviewer
+.xiaochuan/agents/team/reviewer.md  →  team/reviewer
 ```
 
 ## Formats
@@ -51,7 +51,7 @@ Xccode discovers project `.xccode` directories from the current directory up to 
 
 Frontmatter accepts the same fields as an `agents` configuration entry. The Markdown body becomes the agent's `system` prompt:
 
-```md title=".xccode/agents/explainer.md"
+```md title=".xiaochuan/agents/explainer.md"
 ---
 description: Explains code without changing it
 mode: subagent
@@ -64,11 +64,11 @@ V1 frontmatter fields are deprecated. See [Agent files](/migrate-v1#agent-files)
 
 ### JSONC
 
-Define agents under `agents` in any [Xccode configuration file](/config):
+Define agents under `agents` in any [Xiaochuan configuration file](/config):
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "agents": {
     "reviewer": {
       "description": "Reviews current changes",
@@ -86,9 +86,9 @@ Define agents under `agents` in any [Xccode configuration file](/config):
 
 Set the primary agent used when a session has not selected one:
 
-```jsonc title="xccode.jsonc"
+```jsonc title="xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "default_agent": "writer",
   "agents": {
     "writer": { "mode": "primary" },
@@ -96,7 +96,7 @@ Set the primary agent used when a session has not selected one:
 }
 ```
 
-The selected default must exist, be visible, and support primary use. Otherwise Xccode uses `build`, then the first visible primary-capable agent. Changing this setting does not replace the agent stored on an existing session.
+The selected default must exist, be visible, and support primary use. Otherwise Xiaochuan uses `build`, then the first visible primary-capable agent. Changing this setting does not replace the agent stored on an existing session.
 
 ## Modes
 
@@ -136,12 +136,12 @@ which agents it may launch; the child uses its own configured permissions.
 
 ## Built-ins
 
-Xccode includes these visible agents:
+Xiaochuan includes these visible agents:
 
 | Agent | Mode | Purpose |
 | --- | --- | --- |
 | **Build** (`build`) | `primary` | Default coding agent. Tools and access outside the workspace are allowed by default; sensitive environment-file reads ask for approval. |
-| **Plan** (`plan`) | `primary` | Explores and plans without editing normal project files. It may write Xccode plan files when asked, and shell commands remain permission-controlled. |
+| **Plan** (`plan`) | `primary` | Explores and plans without editing normal project files. It may write Xiaochuan plan files when asked, and shell commands remain permission-controlled. |
 | **General** (`general`) | `subagent` | Handles research and multi-step work with broad tool access, but cannot launch more subagents. |
 | **Explore** (`explore`) | `subagent` | Searches and reads code or web sources without editing files. |
 
@@ -186,7 +186,7 @@ Global `permissions` apply before agent-specific rules, so later agent rules can
 
 ### Description
 
-`description` explains the agent's purpose. Add it to subagents because Xccode shows it to the model choosing which agent to launch:
+`description` explains the agent's purpose. Add it to subagents because Xiaochuan shows it to the model choosing which agent to launch:
 
 ```yaml
 description: Reviews database migrations for safety
@@ -275,7 +275,7 @@ The last matching rule wins, so put broad rules before exceptions. Common action
 | `webfetch`, `websearch` | Web tools |
 | `skill` | Skill loading |
 
-For `read`, `edit`, and `external_directory` resources, Xccode expands `~` and `$HOME`:
+For `read`, `edit`, and `external_directory` resources, Xiaochuan expands `~` and `$HOME`:
 
 ```jsonc
 { "action": "read", "resource": "~/notes/**", "effect": "allow" }
@@ -291,7 +291,7 @@ Shell resources remain raw command text and do not expand those values.
 steps: 8
 ```
 
-On the final step, Xccode removes tools and asks the model to summarize in text. New user input resets the allowance.
+On the final step, Xiaochuan removes tools and asks the model to summarize in text. New user input resets the allowance.
 
 ### Hidden
 

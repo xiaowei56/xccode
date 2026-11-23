@@ -1,11 +1,11 @@
 ---
 title: "CLI plugins"
-description: "Load TUI plugins from your Xccode config in the CLI, and add CLI-only plugins and their options in cli.json."
+description: "Load TUI plugins from your Xiaochuan config in the CLI, and add CLI-only plugins and their options in cli.json."
 ---
 
-Plugins configured in `xccode.json(c)` that expose a TUI component are loaded automatically by the CLI. To learn how
+Plugins configured in `xiaochuan.json(c)` that expose a TUI component are loaded automatically by the CLI. To learn how
 to build plugins, see [Building plugins](/build/plugins). You do not need to add the same package to `cli.json`. The CLI
-gets the active plugin list from the connected Xccode server, so this also works when the server is remote.
+gets the active plugin list from the connected Xiaochuan server, so this also works when the server is remote.
 
 Use `cli.json` for CLI-only plugins. These plugins run locally in the terminal and remain active when the CLI connects
 to a remote server:
@@ -13,10 +13,10 @@ to a remote server:
 ```json title="cli.json"
 {
   "plugins": [
-    "xccode.example",
-    "xccode.example@1.0.0",
-    "@example/xccode-tui",
-    "@example/xccode-tui@1.0.0",
+    "xiaochuan.example",
+    "xiaochuan.example@1.0.0",
+    "@example/xiaochuan-tui",
+    "@example/xiaochuan-tui@1.0.0",
     "./plugins/status",
     "../plugins/status",
     "/home/user/plugins/status",
@@ -29,7 +29,7 @@ Entries are processed in order. Prefix an ID or wildcard with `-` to disable mat
 
 ```json title="cli.json"
 {
-  "plugins": ["*", "-xccode.notifications", "-team.*"]
+  "plugins": ["*", "-xiaochuan.notifications", "-team.*"]
 }
 ```
 
@@ -39,7 +39,7 @@ Pass plugin options with the object form:
 {
   "plugins": [
     {
-      "package": "@example/xccode-tui",
+      "package": "@example/xiaochuan-tui",
       "options": {
         "compact": true
       }
@@ -48,15 +48,15 @@ Pass plugin options with the object form:
 }
 ```
 
-Xccode also discovers plugins under the global config directory and project `.xccode` directories. Each plugin uses
+Xiaochuan also discovers plugins under the global config directory and project `.xiaochuan` directories. Each plugin uses
 the same layout as a published package, with server and TUI entrypoints kept together.
 
 ```text title="Plugin discovery paths"
 <global-config>/plugins/status/index.ts
 <global-config>/plugins/status/tui.ts
-<project>/.xccode/plugins/status/index.ts
-<project>/.xccode/plugins/status/tui.ts
+<project>/.xiaochuan/plugins/status/index.ts
+<project>/.xiaochuan/plugins/status/tui.ts
 ```
 
-Discovered plugins can import `@xccode/plugin/tui` directly; Xccode resolves the package at runtime. See
+Discovered plugins can import `@xiaochuan/plugin/tui` directly; Xiaochuan resolves the package at runtime. See
 [Building TUI plugins](/build/plugins/cli) for examples.

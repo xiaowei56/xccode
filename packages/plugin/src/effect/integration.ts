@@ -1,8 +1,8 @@
-import type { ConnectionInfo } from "@xccode/client"
-import type { IntegrationApi } from "@xccode/client/effect/api"
-import { Connection } from "@xccode/schema/connection"
-import { Credential } from "@xccode/schema/credential"
-import { Form } from "@xccode/schema/form"
+import type { ConnectionInfo } from "@xiaochuan/client"
+import type { IntegrationApi } from "@xiaochuan/client/effect/api"
+import { Connection } from "@xiaochuan/schema/connection"
+import { Credential } from "@xiaochuan/schema/credential"
+import { Form } from "@xiaochuan/schema/form"
 import type { Effect, Scope } from "effect"
 import type { Transform } from "./registration.js"
 

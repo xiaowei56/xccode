@@ -92,25 +92,25 @@ describe("funnel config", () => {
 
   test("names downloads by what they are", () => {
     expect(
-      downloadOf(new URL("https://xccode.ai/update/api/latest/desktop/xccode/xccode-desktop-mac-arm64.dmg")),
+      downloadOf(new URL("https://xiaochuan.ai/update/api/latest/desktop/xiaochuan/xiaochuan-desktop-mac-arm64.dmg")),
     ).toEqual({
       target: "desktop",
-      properties: { file: "xccode-desktop-mac-arm64.dmg", channel: "latest", os_match: expect.any(Boolean) },
+      properties: { file: "xiaochuan-desktop-mac-arm64.dmg", channel: "latest", os_match: expect.any(Boolean) },
     })
-    expect(downloadOf(new URL("https://xccode.ai/update/api/beta/cli/xccode/xccode-linux-x64.tar.gz"))).toEqual({
+    expect(downloadOf(new URL("https://xiaochuan.ai/update/api/beta/cli/xiaochuan/xiaochuan-linux-x64.tar.gz"))).toEqual({
       target: "cli",
-      properties: { file: "xccode-linux-x64.tar.gz", channel: "beta", os_match: expect.any(Boolean) },
+      properties: { file: "xiaochuan-linux-x64.tar.gz", channel: "beta", os_match: expect.any(Boolean) },
     })
     expect(downloadOf(new URL("https://testflight.apple.com/join/M9eFEE1q"))).toEqual({
       target: "mobile",
       properties: { file: "testflight.apple.com" },
     })
-    expect(downloadOf(new URL("https://marketplace.visualstudio.com/items?itemName=sst-dev.xccode"))?.target).toBe(
+    expect(downloadOf(new URL("https://marketplace.visualstudio.com/items?itemName=sst-dev.xiaochuan"))?.target).toBe(
       "ide",
     )
-    expect(downloadOf(new URL("https://open-vsx.org/extension/sst-dev/xccode"))?.target).toBe("ide")
-    expect(downloadOf(new URL("https://github.com/xiaowei56/xccode/releases"))).toBeUndefined()
-    expect(downloadOf(new URL("https://example.com/update/api/latest/desktop/xccode/x.dmg"))).toBeUndefined()
+    expect(downloadOf(new URL("https://open-vsx.org/extension/sst-dev/xiaochuan"))?.target).toBe("ide")
+    expect(downloadOf(new URL("https://github.com/xiaowei56/xiaochuan/releases"))).toBeUndefined()
+    expect(downloadOf(new URL("https://example.com/update/api/latest/desktop/xiaochuan/x.dmg"))).toBeUndefined()
   })
 })
 
@@ -120,7 +120,7 @@ describe("funnel markup", () => {
       type: "element",
       tagName: "code",
       properties: { className: ["language-bash"] },
-      children: [{ type: "text", value: "npm i -g xccode" }],
+      children: [{ type: "text", value: "npm i -g xiaochuan" }],
     }
     const tree: Root = {
       type: "root",

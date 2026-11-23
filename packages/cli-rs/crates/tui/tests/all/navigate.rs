@@ -5,8 +5,8 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::time::Duration;
 
-use xccode_local::cli_config::{Info, Session, Verbosity};
-use xccode_tui::{Deps, Route};
+use xiaochuan_local::cli_config::{Info, Session, Verbosity};
+use xiaochuan_tui::{Deps, Route};
 use serde_json::{Value, json};
 
 /// Serves the same messages for every session, newest page first, `limit` at a time, with a cursor that

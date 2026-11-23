@@ -139,13 +139,13 @@ describe("classifyRequest", () => {
     ] as const
 
     for (const [method, path] of paths)
-      expect(classifyRequest(method, new URL(`http://server/xccode${path}`), "/xccode")).toEqual(
+      expect(classifyRequest(method, new URL(`http://server/xiaochuan${path}`), "/xiaochuan")).toEqual(
         classifyRequest(method, new URL(`http://server${path}`)),
       )
   })
 
   test("leaves paths outside the prefix alone", () => {
-    expect(classifyRequest("GET", new URL("http://server/api/event"), "/xccode").bypass).toBe(true)
-    expect(classifyRequest("GET", new URL("http://server/xccode-other/api/event"), "/xccode").bypass).toBe(false)
+    expect(classifyRequest("GET", new URL("http://server/api/event"), "/xiaochuan").bypass).toBe(true)
+    expect(classifyRequest("GET", new URL("http://server/xiaochuan-other/api/event"), "/xiaochuan").bypass).toBe(false)
   })
 })

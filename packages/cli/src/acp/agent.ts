@@ -9,7 +9,7 @@ import {
   type JsonRpcId,
   type Stream,
 } from "@agentclientprotocol/sdk"
-import type { XccodeClient } from "@xccode/client/effect"
+import type { XiaochuanClient } from "@xiaochuan/client/effect"
 import { Cause, Deferred, Effect, Ref, Result, Schema, type Scope } from "effect"
 import { ACPCapabilities } from "./capabilities"
 import { ACPCatalog } from "./catalog"
@@ -23,7 +23,7 @@ import { ACPTurn } from "./turn"
 type HandlerContext<Params> = AgentHandlerContext<Params> & { readonly requestId?: JsonRpcId }
 
 // Untraced so request spans parent to the caller's span instead of a setup span that has already ended.
-export const connect = Effect.fnUntraced(function* (client: XccodeClient, stream: Stream) {
+export const connect = Effect.fnUntraced(function* (client: XiaochuanClient, stream: Stream) {
   const run = Effect.runPromiseWith(yield* Effect.context<Scope.Scope>())
   const catalog = yield* ACPCatalog.make(client)
   // Requests can dispatch before the service below is built.
@@ -55,7 +55,7 @@ export const connect = Effect.fnUntraced(function* (client: XccodeClient, stream
       )
       return (ctx: HandlerContext<Params>) => run(handler(ctx))
     }
-  const app = agent({ name: "xccode" })
+  const app = agent({ name: "xiaochuan" })
   const request = <Method extends AgentRequestMethod>(
     method: Method,
     make: (name: string) => AgentRequestHandlersByMethod[Method],

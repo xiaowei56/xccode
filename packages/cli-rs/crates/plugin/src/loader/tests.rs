@@ -4,13 +4,13 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
 
-use xccode_ui::dialog::DialogKeymap;
-use xccode_ui::keymap::{Keybinds, Options};
-use xccode_ui::theme::{Catalog, Theme, ThemeMode};
+use xiaochuan_ui::dialog::DialogKeymap;
+use xiaochuan_ui::keymap::{Keybinds, Options};
+use xiaochuan_ui::theme::{Catalog, Theme, ThemeMode};
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 
-use xccode_plugin_abi::types::{ModelRef, SessionInfo, SessionMessageInfo};
+use xiaochuan_plugin_abi::types::{ModelRef, SessionInfo, SessionMessageInfo};
 
 use super::*;
 use crate::{Entry, abi};
@@ -86,7 +86,7 @@ impl abi::Read for Fixture<'_> {
     }
 
     fn model(&self) -> Option<ModelRef> {
-        Some(ModelRef { id: "big".to_owned(), provider_id: "xccode".into(), variant: None })
+        Some(ModelRef { id: "big".to_owned(), provider_id: "xiaochuan".into(), variant: None })
     }
 
     fn interactive(&self) -> bool {
@@ -145,11 +145,11 @@ impl abi::Read for Fixture<'_> {
     }
 
     fn theme(&self) -> Option<String> {
-        Some("xccode".to_owned())
+        Some("xiaochuan".to_owned())
     }
 
     fn themes(&self) -> Vec<String> {
-        vec!["xccode".to_owned(), "nord".to_owned()]
+        vec!["xiaochuan".to_owned(), "nord".to_owned()]
     }
 
     fn plugins(&self) -> Vec<abi::PluginEntry> {
@@ -164,8 +164,8 @@ impl abi::Read for Fixture<'_> {
         };
         vec![
             entry(
-                "plugin:xccode.stats",
-                "xccode.stats",
+                "plugin:xiaochuan.stats",
+                "xiaochuan.stats",
                 None,
                 abi::PluginOrigin::Builtin,
                 abi::PluginStatus::Active,
@@ -193,7 +193,7 @@ impl Host for TestHost {
     }
 
     fn theme(&self) -> Theme {
-        Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme
+        Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme
     }
 
     fn theme_mode(&self) -> ThemeMode {
@@ -376,28 +376,28 @@ fn write(path: &Path, text: &str) {
 
 #[test]
 fn plugin_directories_follow_the_project_root_down_to_cwd() {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let config = root.path().join("config");
     let project = root.path().join("repo");
     let cwd = project.join("a/b");
     fs::create_dir_all(project.join(".git")).unwrap();
-    fs::create_dir_all(cwd.join(".xccode")).unwrap();
+    fs::create_dir_all(cwd.join(".xiaochuan")).unwrap();
     // Above the project root: not searched.
-    fs::create_dir_all(root.path().join(".xccode")).unwrap();
+    fs::create_dir_all(root.path().join(".xiaochuan")).unwrap();
     assert_eq!(
         plugin_directories(&config, &cwd),
         [
             config.join("plugins"),
-            // The project's own `.xccode` is searched even when missing; `a/.xccode` is not there.
-            project.join(".xccode/plugins"),
-            cwd.join(".xccode/plugins"),
+            // The project's own `.xiaochuan` is searched even when missing; `a/.xiaochuan` is not there.
+            project.join(".xiaochuan/plugins"),
+            cwd.join(".xiaochuan/plugins"),
         ]
     );
 }
 
 #[test]
 fn discover_lists_subdirectories_by_name() {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let plugins = root.path().join("plugins");
     for name in ["beta", "Alpha", "gamma"] {
         fs::create_dir_all(plugins.join(name)).unwrap();
@@ -412,12 +412,12 @@ fn discover_lists_subdirectories_by_name() {
 #[cfg(unix)]
 #[test]
 fn local_source_resolves_paths_and_urls_but_not_packages() {
-    let dir = Path::new("/home/me/.config/xccode");
+    let dir = Path::new("/home/me/.config/xiaochuan");
     assert_eq!(local_source("./plugins/x", dir), Some(dir.join("plugins/x")));
     assert_eq!(local_source("../x.wasm", dir), Some("/home/me/.config/x.wasm".into()));
     assert_eq!(local_source("/abs/x", dir), Some("/abs/x".into()));
     assert_eq!(local_source("file:///abs/y.wasm", dir), Some("/abs/y.wasm".into()));
-    assert_eq!(local_source("@acme/xccode-tui", dir), None);
+    assert_eq!(local_source("@acme/xiaochuan-tui", dir), None);
     // `\` is no separator here: `..\x` names a package, which the cache refuses.
     assert_eq!(local_source(r"..\x", dir), None);
     assert_eq!(local_source("file:///a/My%20Plugin", dir), Some("/a/My Plugin".into()));
@@ -430,18 +430,18 @@ fn local_source_resolves_paths_and_urls_but_not_packages() {
 #[cfg(windows)]
 #[test]
 fn local_source_resolves_paths_and_urls_but_not_packages() {
-    let dir = Path::new(r"C:\Users\me\.config\xccode");
-    assert_eq!(local_source("./plugins/x", dir), Some(r"C:\Users\me\.config\xccode\plugins\x".into()));
+    let dir = Path::new(r"C:\Users\me\.config\xiaochuan");
+    assert_eq!(local_source("./plugins/x", dir), Some(r"C:\Users\me\.config\xiaochuan\plugins\x".into()));
     assert_eq!(local_source("../x.wasm", dir), Some(r"C:\Users\me\.config\x.wasm".into()));
     // Windows' own relative forms, which climb no further than a `/` form does.
-    assert_eq!(local_source(r".\plugins\x", dir), Some(r"C:\Users\me\.config\xccode\plugins\x".into()));
+    assert_eq!(local_source(r".\plugins\x", dir), Some(r"C:\Users\me\.config\xiaochuan\plugins\x".into()));
     assert_eq!(local_source(r"..\..\..\x", dir), Some(r"C:\Users\x".into()));
     assert_eq!(local_source("/abs/x", dir), Some(r"C:\abs\x".into()));
     assert_eq!(local_source(r"\abs\x", dir), Some(r"C:\abs\x".into()));
     assert_eq!(local_source(r"D:\abs\x", dir), Some(r"D:\abs\x".into()));
     assert_eq!(local_source("C:x", dir), None);
     assert_eq!(local_source("file:///D:/abs/y.wasm", dir), Some(r"D:\abs\y.wasm".into()));
-    assert_eq!(local_source("@acme/xccode-tui", dir), None);
+    assert_eq!(local_source("@acme/xiaochuan-tui", dir), None);
     assert_eq!(local_source("file:///D:/a/My%20Plugin", dir), Some(r"D:\a\My Plugin".into()));
     assert_eq!(local_source("file:///D:/a/b/../c", dir), Some(r"D:\a\c".into()));
     // Expected (win11-runs D2): a verbatim spelling names the same directory, handed on without its prefix.
@@ -464,7 +464,7 @@ fn a_verbatim_path_is_handed_on_plain() {
 
 #[test]
 fn watch_dirs_cover_a_plugins_directory_made_later() {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let config = root.path().join("config");
     let project = root.path().join("repo");
     let cwd = project.join("a");
@@ -473,11 +473,11 @@ fn watch_dirs_cover_a_plugins_directory_made_later() {
     let loader = Loader::new(config, cwd.clone(), Vec::new());
     let dirs = loader.watch_dirs();
     assert!(dirs.contains(&cwd) && dirs.contains(&project), "{dirs:?}");
-    fs::create_dir_all(cwd.join(".xccode")).unwrap();
-    assert!(loader.watch_dirs().contains(&cwd.join(".xccode")));
-    fs::create_dir_all(cwd.join(".xccode/plugins")).unwrap();
+    fs::create_dir_all(cwd.join(".xiaochuan")).unwrap();
+    assert!(loader.watch_dirs().contains(&cwd.join(".xiaochuan")));
+    fs::create_dir_all(cwd.join(".xiaochuan/plugins")).unwrap();
     let dirs = loader.watch_dirs();
-    assert!(dirs.contains(&cwd.join(".xccode/plugins")) && !dirs.contains(&cwd), "{dirs:?}");
+    assert!(dirs.contains(&cwd.join(".xiaochuan/plugins")) && !dirs.contains(&cwd), "{dirs:?}");
 }
 
 /// The records of level info and above logged in this process, once this was first called.
@@ -506,12 +506,12 @@ pub(crate) fn logged() -> &'static std::sync::Mutex<Vec<String>> {
 
 /// A project `repo` (with `.git`) as the working directory, and the global config directory beside it.
 struct Project {
-    root: xccode_util::temp::TempDir,
+    root: xiaochuan_util::temp::TempDir,
 }
 
 impl Project {
     fn new() -> Self {
-        let root = xccode_util::temp::tempdir().unwrap();
+        let root = xiaochuan_util::temp::tempdir().unwrap();
         fs::create_dir_all(root.path().join("repo/.git")).unwrap();
         Self { root }
     }
@@ -531,7 +531,7 @@ impl Project {
     /// The project's plugins directory, one component at a time: a target is the path the loader finds, so on Windows
     /// its separators are all `\`.
     fn plugins(&self) -> std::path::PathBuf {
-        self.repo().join(".xccode").join("plugins")
+        self.repo().join(".xiaochuan").join("plugins")
     }
 
     /// The global plugin `global`'s directory.
@@ -593,7 +593,7 @@ fn concurrent_clients_keep_each_others_decisions() {
                     let path = std::path::PathBuf::from(format!("/c{client}/p{index}/plugin.so"));
                     // A busy store says so, and the user answers again.
                     while let Err(error) = approvals.decide(&artifact(&path, "aa"), approval::Decision::Approved) {
-                        assert!(error.contains("another xccode holds it"), "{error}");
+                        assert!(error.contains("another xiaochuan holds it"), "{error}");
                     }
                 }
             })
@@ -633,9 +633,9 @@ fn a_replaced_decision_stays_replaced() {
 fn a_verbatim_spelling_is_the_same_place() {
     let project = Project::new();
     let approvals = project.approvals();
-    let plain = std::path::Path::new(r"C:\p\.xccode\plugins\x\plugin.dll");
-    let verbatim = std::path::Path::new(r"\\?\C:\p\.xccode\plugins\x\plugin.dll");
-    let other = std::path::Path::new(r"C:\q\.xccode\plugins\x\plugin.dll");
+    let plain = std::path::Path::new(r"C:\p\.xiaochuan\plugins\x\plugin.dll");
+    let verbatim = std::path::Path::new(r"\\?\C:\p\.xiaochuan\plugins\x\plugin.dll");
+    let other = std::path::Path::new(r"C:\q\.xiaochuan\plugins\x\plugin.dll");
     approvals.decide(&artifact(plain, "aa"), approval::Decision::Approved).unwrap();
     assert_eq!(approvals.decision(&artifact(verbatim, "aa")), Some(approval::Decision::Approved));
     assert_eq!(approvals.decision(&artifact(other, "aa")), None);
@@ -774,7 +774,7 @@ fn a_save_waits_for_a_lock_held_briefly() {
 
 #[test]
 fn a_typescript_plugins_artifact_is_its_files() {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let dir = root.path().join("probe");
     std::fs::create_dir_all(dir.join("src")).unwrap();
     std::fs::create_dir_all(dir.join("node_modules/dep")).unwrap();
@@ -804,7 +804,7 @@ fn a_typescript_plugins_artifact_is_its_files() {
 
 #[test]
 fn a_typescript_plugin_is_staged_only_as_it_was_approved() {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let (dir, staging) = (root.path().join("probe"), root.path().join("staged"));
     std::fs::create_dir_all(dir.join("node_modules/dep")).unwrap();
     std::fs::write(dir.join("tui.ts"), "export default {}\n").unwrap();
@@ -826,7 +826,7 @@ fn a_typescript_plugin_is_staged_only_as_it_was_approved() {
 #[test]
 fn a_typescript_plugins_subdirectories_are_watched() {
     let project = Project::new();
-    let dir = project.repo().join(".xccode/plugins/js");
+    let dir = project.repo().join(".xiaochuan/plugins/js");
     write(&dir.join("tui.ts"), "export default {}\n");
     write(&dir.join("src/deep/a.ts"), "export const a = 1\n");
     write(&dir.join("node_modules/dep/index.js"), "\n");
@@ -842,7 +842,7 @@ fn a_typescript_plugins_subdirectories_are_watched() {
 #[test]
 fn a_project_typescript_plugin_named_through_a_link_is_listed_once() {
     let project = Project::new();
-    let dir = project.repo().join(".xccode/plugins/js");
+    let dir = project.repo().join(".xiaochuan/plugins/js");
     write(&dir.join("tui.ts"), "export default {}\n");
     let link = project.root.path().join("link");
     std::os::unix::fs::symlink(&dir, &link).unwrap();
@@ -1132,10 +1132,10 @@ fn a_native_library_is_skipped_and_never_asked_about() {
 /// `text` as the transcript draws Markdown: in the host's theme, with the registry's fence renderers.
 pub(crate) fn fence_view(host: &dyn Host, registry: &crate::Registry, text: &str) -> opentui::widget::Markdown {
     let theme = host.theme();
-    let syntax = xccode_ui::code::syntax_theme(&theme);
+    let syntax = xiaochuan_ui::code::syntax_theme(&theme);
     let renderers = registry.code_blocks({
         let theme = theme.clone();
         Rc::new(move || theme.clone())
     });
-    xccode_ui::markdown::view(host.app(), &theme, &syntax, &renderers, true, false).set_markdown(text)
+    xiaochuan_ui::markdown::view(host.app(), &theme, &syntax, &renderers, true, false).set_markdown(text)
 }

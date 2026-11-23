@@ -1,35 +1,35 @@
 ---
 title: "Console web search"
-description: "Hosted web search for Xccode through Console."
+description: "Hosted web search for Xiaochuan through Console."
 ---
 
-Console provides hosted web search to connected Xccode users. A workspace owner or admin enables it once for the workspace, without giving members a separate search provider key.
+Console provides hosted web search to connected Xiaochuan users. A workspace owner or admin enables it once for the workspace, without giving members a separate search provider key.
 
 Each successful search costs **$0.01** and counts toward the workspace balance and member spending limits.
 
 ## Enable
 
-1. Sign in to the [Console](https://xccode.ai/console) as a workspace owner or admin.
+1. Sign in to the [Console](https://xiaochuan.ai/console) as a workspace owner or admin.
 2. Open **Integrations** and click **Set up** on **Hosted Web Search**.
 3. Click **Enable**.
 
-Each member then connects Xccode to the workspace with `/connect`.
+Each member then connects Xiaochuan to the workspace with `/connect`.
 
 ```text
 /connect
 ```
 
-The workspace configuration selects **Xccode Web Search** as the default provider. Members do not need to set `websearch.provider` or add a provider API key. A member who sets their own `websearch.provider` keeps that choice instead.
+The workspace configuration selects **Xiaochuan Web Search** as the default provider. Members do not need to set `websearch.provider` or add a provider API key. A member who sets their own `websearch.provider` keeps that choice instead.
 
 ## Search
 
-Ask Xccode for current information in a prompt. Searches run from Xccode rather than from an interactive page in Console.
+Ask Xiaochuan for current information in a prompt. Searches run from Xiaochuan rather than from an interactive page in Console.
 
 ```text
 Find the latest Bun release and summarize the changes with source links.
 ```
 
-The hosted provider searches the public web and returns up to eight results. Xccode uses the results to answer the prompt and cite sources.
+The hosted provider searches the public web and returns up to eight results. Xiaochuan uses the results to answer the prompt and cite sources.
 
 See the [web search guide](/websearch) to configure permissions or disable the tool.
 

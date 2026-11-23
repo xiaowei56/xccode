@@ -9,11 +9,11 @@ import {
   VideoID,
   type VideoJob,
   type VideoRunning,
-} from "@xccode/schema/generate"
-import { Model } from "@xccode/schema/model"
-import { makeGlobalNode, Node } from "@xccode/util/effect/app-node"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
+} from "@xiaochuan/schema/generate"
+import { Model } from "@xiaochuan/schema/model"
+import { makeGlobalNode, Node } from "@xiaochuan/util/effect/app-node"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
 import { Clock, Context, Duration, Effect, Fiber, FiberMap, Layer, Option, Schedule, Schema } from "effect"
 import { BlobStore } from "./blob-store.js"
 import { Database } from "./database/database.js"
@@ -56,7 +56,7 @@ export interface Interface {
   readonly cancel: (id: VideoID) => Effect.Effect<void, NotFoundError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/VideoGeneration") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/VideoGeneration") {}
 
 // `remote` is the provider's ID for the job; it never leaves this service.
 const fields = { model: Model.Ref, location: Location.Ref, created: Schema.Finite }

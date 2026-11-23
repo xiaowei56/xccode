@@ -8,8 +8,8 @@ use std::time::Duration;
 
 use mlua::chunk::Compiler;
 use mlua::{Function, Lua, MultiValue, Table, Value};
-use xccode_plugin_abi::interact::{self, Handled};
-use xccode_plugin_abi::{self as abi, v2};
+use xiaochuan_plugin_abi::interact::{self, Handled};
+use xiaochuan_plugin_abi::{self as abi, v2};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
 
@@ -30,7 +30,7 @@ pub(crate) struct Plugin {
     inputs: Rc<Inputs>,
 }
 
-/// The module `@xccode/plugin`: `plugin.define` and the node helpers, in Luau.
+/// The module `@xiaochuan/plugin`: `plugin.define` and the node helpers, in Luau.
 const MODULE: &str = include_str!("plugin.luau");
 
 /// [`MODULE`] compiled once a process, as `Lua::load` compiles a source (optimization and debug level 1): each VM
@@ -51,7 +51,7 @@ fn load_prelude(lua: &Lua) -> Result<Function, String> {
     #[allow(unsafe_code)]
     let loaded = unsafe {
         lua.exec_raw::<Value>((), |state| {
-            let name = c"=@xccode/plugin".as_ptr();
+            let name = c"=@xiaochuan/plugin".as_ptr();
             mlua::ffi::luau_loadlazy(state, name, code.as_ptr().cast(), code.len(), 0, std::ptr::null_mut(), None);
         })
     };
@@ -90,7 +90,7 @@ pub(crate) fn setup(
         .map_err(error)?;
     let native = natives(&vm.lua).map_err(error)?;
     let module: Table = prelude.call((fail, native)).map_err(error)?;
-    vm.lua.register_module("@xccode/plugin", &module).map_err(error)?;
+    vm.lua.register_module("@xiaochuan/plugin", &module).map_err(error)?;
     let lua = vm.lua.clone();
     let inputs = Inputs::new(&lua).map_err(error)?;
     let plugin = Rc::new(Plugin { vm: RefCell::new(Some(vm)), current, read, host, memo, inputs });
@@ -103,7 +103,7 @@ pub(crate) fn setup(
         started(&mut |vm| vm.start(compiled))?
     };
     let run = match &defined {
-        Value::Table(defined) => defined.raw_get::<Option<Function>>("__xccode_setup").map_err(error)?,
+        Value::Table(defined) => defined.raw_get::<Option<Function>>("__xiaochuan_setup").map_err(error)?,
         _ => None,
     };
     let run = run.ok_or("init.luau must return plugin.define(function(setup) ... end)")?;

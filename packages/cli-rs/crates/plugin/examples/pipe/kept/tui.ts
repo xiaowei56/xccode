@@ -3,7 +3,7 @@
 export default {
   id: "example.kept",
   setup(api: any) {
-    const carrier = api[Symbol.for("xccode.carrier")]
+    const carrier = api[Symbol.for("xiaochuan.carrier")]
     const state = { bumps: 0, hidden: false, begun: 0, ended: 0 }
     let shown: string | undefined
     carrier.watch("message", { type: "message", session: "ses_a", message: "msg_1" })

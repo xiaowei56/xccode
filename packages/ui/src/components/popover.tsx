@@ -15,8 +15,8 @@ import {
   ValidComponent,
 } from "solid-js"
 import { useI18n } from "../context/i18n"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
 import {
   createPopoverState,
   EMPTY_POPOVER_STACK,

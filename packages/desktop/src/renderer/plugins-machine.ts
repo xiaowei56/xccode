@@ -1,4 +1,4 @@
-import type { BridgeMenubarItem, BridgeMessage } from "@xccode/plugin/gui/host"
+import type { BridgeMenubarItem, BridgeMessage } from "@xiaochuan/plugin/gui/host"
 
 /** One `bridge.on` call, so registering the same callback twice removes independently. */
 export type PluginBridgeSubscription = { readonly listener: (message: BridgeMessage) => void }

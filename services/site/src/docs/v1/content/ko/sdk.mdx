@@ -1,13 +1,13 @@
 ---
 title: SDK
-description: xccode 서버를 위한 타입 안전한 JS 클라이언트.
+description: xiaochuan 서버를 위한 타입 안전한 JS 클라이언트.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-xccode JS/TS SDK는 서버와 상호 작용을 위한 유형 안전한 클라이언트를 제공합니다.
-통합 및 제어 xccode programmatically를 구축하는 데 사용됩니다.
+xiaochuan JS/TS SDK는 서버와 상호 작용을 위한 유형 안전한 클라이언트를 제공합니다.
+통합 및 제어 xiaochuan programmatically를 구축하는 데 사용됩니다.
 
 [Learn more](/docs/server) 서버가 어떻게 작동하나요? 예를 들어, 커뮤니티에 의해 구축 된 [projects](/docs/ecosystem#projects)를 확인하십시오.
 
@@ -18,19 +18,19 @@ xccode JS/TS SDK는 서버와 상호 작용을 위한 유형 안전한 클라이
 npm에서 SDK 설치:
 
 ```bash
-npm install @xccode-ai/sdk
+npm install @xiaochuan-ai/sdk
 ```
 
 ---
 
 ## 클라이언트 만들기
 
-xccode의 인스턴스 만들기:
+xiaochuan의 인스턴스 만들기:
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const { client } = await createXccode()
+const { client } = await createXiaochuan()
 ```
 
 서버와 클라이언트 모두 시작
@@ -49,12 +49,12 @@ const { client } = await createXccode()
 
 ## 구성
 
-구성 객체를 전달할 수 있습니다. 인스턴스는 여전히 `xccode.json`를 선택하지만 구성 인라인을 추가 할 수 있습니다.
+구성 객체를 전달할 수 있습니다. 인스턴스는 여전히 `xiaochuan.json`를 선택하지만 구성 인라인을 추가 할 수 있습니다.
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const xccode = await createXccode({
+const xiaochuan = await createXiaochuan({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -62,19 +62,19 @@ const xccode = await createXccode({
   },
 })
 
-console.log(`Server running at ${xccode.server.url}`)
+console.log(`Server running at ${xiaochuan.server.url}`)
 
-xccode.server.close()
+xiaochuan.server.close()
 ```
 
 ## 클라이언트만
 
-xccode의 실행 인스턴스가 이미 있다면 클라이언트 인스턴스를 만들 수 있습니다.
+xiaochuan의 실행 인스턴스가 이미 있다면 클라이언트 인스턴스를 만들 수 있습니다.
 
 ```javascript
-import { createXccodeClient } from "@xccode-ai/sdk"
+import { createXiaochuanClient } from "@xiaochuan-ai/sdk"
 
-const client = createXccodeClient({
+const client = createXiaochuanClient({
   baseUrl: "http://localhost:4096",
 })
 ```
@@ -96,7 +96,7 @@ const client = createXccodeClient({
 SDK에는 모든 API 유형의 TypeScript 정의가 포함되어 있습니다. 직접 가져 오기 :
 
 ```typescript
-import type { Session, Message, Part } from "@xccode-ai/sdk"
+import type { Session, Message, Part } from "@xiaochuan-ai/sdk"
 ```
 
 모든 유형은 서버의 OpenAPI 사양에서 생성되며 <a href={typesUrl}>types 파일</a>에서 사용할 수 있습니다.
@@ -373,7 +373,7 @@ await client.session.prompt({
 ```javascript
 // Search and read files
 const textResults = await client.find.text({
-  query: { pattern: "function.*xccode" },
+  query: { pattern: "function.*xiaochuan" },
 })
 
 const files = await client.find.files({

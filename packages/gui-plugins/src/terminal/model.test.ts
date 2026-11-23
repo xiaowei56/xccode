@@ -1,8 +1,8 @@
 import { describe, expect, jest, test } from "bun:test"
 import { createStore, produce } from "solid-js/store"
-import { ClientError, type PersistentPtyInfo } from "@xccode/client"
-import type { Layout, ServerRef, SessionRef, Storage, ToastOptions } from "@xccode/plugin/gui"
-import { PtyFeatureUnsupportedError, PtyNotFoundError, ServiceUnavailableError } from "@xccode/protocol/errors"
+import { ClientError, type PersistentPtyInfo } from "@xiaochuan/client"
+import type { Layout, ServerRef, SessionRef, Storage, ToastOptions } from "@xiaochuan/plugin/gui"
+import { PtyFeatureUnsupportedError, PtyNotFoundError, ServiceUnavailableError } from "@xiaochuan/protocol/errors"
 import { TERMINAL_REQUEST_TIMEOUT_MS } from "./machine"
 import { createTerminalModel } from "./model"
 
@@ -305,8 +305,8 @@ describe("terminal model", () => {
   test("treats a server whose terminal daemon is unavailable like one without terminal support", async () => {
     const server = fakeServer()
     server.state.listError = new ServiceUnavailableError({
-      message: "xccode-pty is not available",
-      service: "xccode-pty",
+      message: "xiaochuan-pty is not available",
+      service: "xiaochuan-pty",
     })
     const { model, session } = setup(server)
 
@@ -373,8 +373,8 @@ describe("terminal model", () => {
     expect(terminal.all().map((item) => item.id)).toEqual(["pty_1", "pty_2"])
 
     server.state.listError = new ServiceUnavailableError({
-      message: "xccode-pty is not available",
-      service: "xccode-pty",
+      message: "xiaochuan-pty is not available",
+      service: "xiaochuan-pty",
     })
     slow.resolve()
     await flush()

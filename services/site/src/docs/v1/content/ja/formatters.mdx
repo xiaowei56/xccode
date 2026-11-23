@@ -1,15 +1,15 @@
 ---
 title: フォーマッタ
-description: Xccode は言語固有のフォーマッタを使用します。
+description: Xiaochuan は言語固有のフォーマッタを使用します。
 ---
 
-Xccode は、言語固有のフォーマッタを使用してファイルを作成または編集した後、ファイルを自動的にフォーマットします。これにより、生成されるコードがプロジェクトのコードスタイルに従っていることが保証されます。
+Xiaochuan は、言語固有のフォーマッタを使用してファイルを作成または編集した後、ファイルを自動的にフォーマットします。これにより、生成されるコードがプロジェクトのコードスタイルに従っていることが保証されます。
 
 ---
 
 ## 組み込み
 
-Xccode には、一般的な言語およびフレームワーク用のいくつかの組み込みフォーマッタが付属しています。以下は、フォーマッタ、サポートされているファイル拡張子、および必要なコマンドまたは構成オプションのリストです。
+Xiaochuan には、一般的な言語およびフレームワーク用のいくつかの組み込みフォーマッタが付属しています。以下は、フォーマッタ、サポートされているファイル拡張子、および必要なコマンドまたは構成オプションのリストです。
 
 | Formatter            | Extensions                                                                                               | Requirements                                                                                          |
 | -------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -40,13 +40,13 @@ Xccode には、一般的な言語およびフレームワーク用のいくつ�
 | uv                   | .py, .pyi                                                                                                | `uv` command available                                                                                |
 | zig                  | .zig, .zon                                                                                               | `zig` command available                                                                               |
 
-したがって、プロジェクトの `prettier` に `package.json` が含まれている場合、Xccode は自動的にそれを使用します。
+したがって、プロジェクトの `prettier` に `package.json` が含まれている場合、Xiaochuan は自動的にそれを使用します。
 
 ---
 
 ## 仕組み
 
-Xccode がファイルを書き込んだり編集したりすると、次のことが行われます。
+Xiaochuan がファイルを書き込んだり編集したりすると、次のことが行われます。
 
 1. 有効なすべてのフォーマッタに対してファイル拡張子をチェックします。
 2. ファイルに対して適切なフォーマッタコマンドを実行します。
@@ -58,11 +58,11 @@ Xccode がファイルを書き込んだり編集したりすると、次のこ�
 
 ## 設定
 
-Xccode 設定の `formatter` セクションを通じてフォーマッタをカスタマイズできます。
+Xiaochuan 設定の `formatter` セクションを通じてフォーマッタをカスタマイズできます。
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": {}
 }
 ```
@@ -84,18 +84,18 @@ Xccode 設定の `formatter` セクションを通じてフォーマッタをカ
 
 **すべて**のフォーマッタをグローバルに無効にするには、`formatter` を `false` に設定します。
 
-```json title="xccode.json" {3}
+```json title="xiaochuan.json" {3}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": false
 }
 ```
 
 **特定**のフォーマッタを無効にするには、`disabled` を `true` に設定します。
 
-```json title="xccode.json" {5}
+```json title="xiaochuan.json" {5}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": {
     "prettier": {
       "disabled": true
@@ -110,9 +110,9 @@ Xccode 設定の `formatter` セクションを通じてフォーマッタをカ
 
 コマンド、環境変数、ファイル拡張子を指定することで、組み込みフォーマッタをオーバーライドしたり、新しいフォーマッタを追加したりできます。
 
-```json title="xccode.json" {4-14}
+```json title="xiaochuan.json" {4-14}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "formatter": {
     "prettier": {
       "command": ["npx", "prettier", "--write", "$FILE"],

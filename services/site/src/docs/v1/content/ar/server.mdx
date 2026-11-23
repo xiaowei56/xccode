@@ -1,19 +1,19 @@
 ---
 title: الخادم
-description: تفاعل مع خادم xccode عبر HTTP.
+description: تفاعل مع خادم xiaochuan عبر HTTP.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-يشغّل الأمر `xccode serve` خادما HTTP دون واجهة ويعرض نقطة نهاية OpenAPI يمكن لعميل xccode استخدامها.
+يشغّل الأمر `xiaochuan serve` خادما HTTP دون واجهة ويعرض نقطة نهاية OpenAPI يمكن لعميل xiaochuan استخدامها.
 
 ---
 
 ### الاستخدام
 
 ```bash
-xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+xiaochuan serve [--port <number>] [--hostname <string>] [--cors <origin>]
 ```
 
 #### الخيارات
@@ -23,41 +23,41 @@ xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
 | `--port`        | المنفذ الذي يستمع عليه                | `4096`           |
 | `--hostname`    | اسم المضيف الذي يستمع عليه            | `127.0.0.1`      |
 | `--mdns`        | تفعيل اكتشاف mDNS                     | `false`          |
-| `--mdns-domain` | اسم نطاق مخصص لخدمة mDNS              | `xccode.local` |
+| `--mdns-domain` | اسم نطاق مخصص لخدمة mDNS              | `xiaochuan.local` |
 | `--cors`        | أصول (Origins) متصفح إضافية مسموح بها | `[]`             |
 
 يمكن تمرير `--cors` عدة مرات:
 
 ```bash
-xccode serve --cors http://localhost:5173 --cors https://app.example.com
+xiaochuan serve --cors http://localhost:5173 --cors https://app.example.com
 ```
 
 ---
 
 ### المصادقة
 
-عيّن `XCCODE_SERVER_PASSWORD` لحماية الخادم باستخدام مصادقة HTTP الأساسية. اسم المستخدم افتراضيا هو `xccode`، أو عيّن `XCCODE_SERVER_USERNAME` لتغييره. ينطبق ذلك على كل من `xccode serve` و `xccode web`.
+عيّن `XIAOCHUAN_SERVER_PASSWORD` لحماية الخادم باستخدام مصادقة HTTP الأساسية. اسم المستخدم افتراضيا هو `xiaochuan`، أو عيّن `XIAOCHUAN_SERVER_USERNAME` لتغييره. ينطبق ذلك على كل من `xiaochuan serve` و `xiaochuan web`.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve
 ```
 
 ---
 
 ### كيف يعمل
 
-عند تشغيل `xccode` يبدأ تشغيل واجهة terminal تفاعلية (TUI) وخادما. تكون الـ TUI هي
+عند تشغيل `xiaochuan` يبدأ تشغيل واجهة terminal تفاعلية (TUI) وخادما. تكون الـ TUI هي
 العميل الذي يتحدث إلى الخادم. يوفّر الخادم نقطة نهاية لمواصفة OpenAPI 3.1.
 وتُستخدم هذه النقطة أيضا لتوليد [SDK](/docs/sdk).
 
 :::tip
-استخدم خادم xccode للتفاعل مع xccode برمجيا.
+استخدم خادم xiaochuan للتفاعل مع xiaochuan برمجيا.
 :::
 
-تتيح هذه البنية لـ xccode دعم عدة عملاء وتمكّنك من التفاعل مع xccode برمجيا.
+تتيح هذه البنية لـ xiaochuan دعم عدة عملاء وتمكّنك من التفاعل مع xiaochuan برمجيا.
 
-يمكنك تشغيل `xccode serve` لبدء خادم مستقل. إذا كانت واجهة xccode في terminal (TUI)
-قيد التشغيل، فسيبدأ `xccode serve` خادما جديدا.
+يمكنك تشغيل `xiaochuan serve` لبدء خادم مستقل. إذا كانت واجهة xiaochuan في terminal (TUI)
+قيد التشغيل، فسيبدأ `xiaochuan serve` خادما جديدا.
 
 ---
 
@@ -65,7 +65,7 @@ XCCODE_SERVER_PASSWORD=your-password xccode serve
 
 عند بدء الـ TUI تقوم بتعيين منفذ واسم مضيف عشوائيا. يمكنك بدلا من ذلك تمرير [الخيارات](/docs/cli) `--hostname` و `--port`، ثم استخدامهما للاتصال بخادمها.
 
-يمكن استخدام نقطة النهاية [`/tui`](#tui) للتحكم في الـ TUI عبر الخادم. على سبيل المثال، يمكنك تعبئة الموجّه مسبقا أو تشغيله. يُستخدم هذا الإعداد بواسطة ملحقات Xccode لـ [IDE](/docs/ide).
+يمكن استخدام نقطة النهاية [`/tui`](#tui) للتحكم في الـ TUI عبر الخادم. على سبيل المثال، يمكنك تعبئة الموجّه مسبقا أو تشغيله. يُستخدم هذا الإعداد بواسطة ملحقات Xiaochuan لـ [IDE](/docs/ide).
 
 ---
 
@@ -83,7 +83,7 @@ http://<hostname>:<port>/doc
 
 ## واجهات API
 
-يعرض خادم xccode واجهات API التالية.
+يعرض خادم xiaochuan واجهات API التالية.
 
 ---
 

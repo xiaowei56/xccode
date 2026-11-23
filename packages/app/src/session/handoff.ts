@@ -1,5 +1,5 @@
 import { createEffect, createSignal, onCleanup, untrack } from "solid-js"
-import type { Data } from "@xccode/client/solid"
+import type { Data } from "@xiaochuan/client/solid"
 import type { ServerSDK } from "@/runtime/server/client"
 import {
   createSessionHandoffState,

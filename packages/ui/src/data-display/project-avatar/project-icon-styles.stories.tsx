@@ -57,7 +57,7 @@ const SESSIONS = [
 
 const SIZES = [32, 20, 16]
 
-const STARS_KEY = "xccode.lab.project-icon-styles.starred"
+const STARS_KEY = "xiaochuan.lab.project-icon-styles.starred"
 
 const SURFACES = {
   dark: {

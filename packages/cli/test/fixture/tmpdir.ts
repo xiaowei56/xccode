@@ -3,7 +3,7 @@ import os from "node:os"
 import path from "node:path"
 
 export async function tmpdir() {
-  const directory = await mkdtemp(path.join(os.tmpdir(), "xccode-cli-test-"))
+  const directory = await mkdtemp(path.join(os.tmpdir(), "xiaochuan-cli-test-"))
   return {
     path: directory,
     async [Symbol.asyncDispose]() {

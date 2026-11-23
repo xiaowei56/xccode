@@ -1,4 +1,4 @@
-import type { Session } from "@xccode/schema/session"
+import type { Session } from "@xiaochuan/schema/session"
 
 type McpStates = Readonly<Record<string, boolean>>
 

@@ -1,15 +1,15 @@
 import { isAbsolute, join, resolve } from "node:path"
 import { isDeepStrictEqual } from "node:util"
-import type { XccodeClient } from "@xccode/client/effect"
-import type { Permission } from "@xccode/schema/permission"
-import { AbsolutePath } from "@xccode/schema/schema"
-import type { Session } from "@xccode/schema/session"
-import { FSUtil } from "@xccode/util/fs-util"
+import type { XiaochuanClient } from "@xiaochuan/client/effect"
+import type { Permission } from "@xiaochuan/schema/permission"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
+import type { Session } from "@xiaochuan/schema/session"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { Effect, Option, Schema } from "effect"
 import { ACPClient } from "./client"
 import { ACPError } from "./error"
 
-const key = "xccode.acp.additionalDirectories"
+const key = "xiaochuan.acp.additionalDirectories"
 const decodeStored = Schema.decodeUnknownOption(Schema.Array(Schema.String))
 
 // Permission resources treat `*` and `?` as wildcards.
@@ -39,7 +39,7 @@ export function list(session: Pick<Session.Info, "metadata">) {
 }
 
 export const activate = Effect.fnUntraced(function* (
-  client: XccodeClient,
+  client: XiaochuanClient,
   session: Session.Info,
   directories: readonly string[],
 ) {

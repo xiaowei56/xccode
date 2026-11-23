@@ -1,10 +1,10 @@
-use xccode_parity::assert_fixture;
-use xccode_ui::dialog::{DialogKeymap, Dialogs, route_keys};
-use xccode_ui::keymap::{Keybinds, Options};
-use xccode_ui::keymap::{KeymapLayer, TuiCommand};
-use xccode_ui::select::{self, SelectAction, SelectOption, SelectProps};
-use xccode_ui::theme::{Catalog, Theme, ThemeError, ThemeMode};
-use xccode_ui::{alert, confirm, fuzzy, help, palette, path, prompt, toast};
+use xiaochuan_parity::assert_fixture;
+use xiaochuan_ui::dialog::{DialogKeymap, Dialogs, route_keys};
+use xiaochuan_ui::keymap::{Keybinds, Options};
+use xiaochuan_ui::keymap::{KeymapLayer, TuiCommand};
+use xiaochuan_ui::select::{self, SelectAction, SelectOption, SelectProps};
+use xiaochuan_ui::theme::{Catalog, Theme, ThemeError, ThemeMode};
+use xiaochuan_ui::{alert, confirm, fuzzy, help, palette, path, prompt, toast};
 use opentui::prelude::*;
 use opentui::testing::TestApp;
 use std::cell::RefCell;
@@ -18,7 +18,7 @@ struct Kit {
 }
 
 fn theme() -> Theme {
-    Catalog::default().load("xccode", ThemeMode::Dark).unwrap().theme
+    Catalog::default().load("xiaochuan", ThemeMode::Dark).unwrap().theme
 }
 
 // Clear the test app to the page color so translucent dialog backdrops blend against the right background.
@@ -762,7 +762,7 @@ fn multi_line_titles_scroll_by_the_rows_they_draw() {
 
 #[test]
 fn a_theme_change_restyles_the_open_dialog_in_place() {
-    let light = Catalog::default().load("xccode", ThemeMode::Light).unwrap().theme;
+    let light = Catalog::default().load("xiaochuan", ThemeMode::Light).unwrap().theme;
     type Open = fn(&Kit);
     let cases: [(&str, Open); 3] = [
         ("select", |kit| {
@@ -802,7 +802,7 @@ fn a_theme_change_restyles_the_open_dialog_in_place() {
 // and does not submit twice.
 #[test]
 fn a_prompt_rebuilt_while_saving_stays_busy() {
-    let light = Catalog::default().load("xccode", ThemeMode::Light).unwrap().theme;
+    let light = Catalog::default().load("xiaochuan", ThemeMode::Light).unwrap().theme;
     let kit = kit(72, 30);
     let submitted = Rc::new(RefCell::new(0));
     let count = submitted.clone();

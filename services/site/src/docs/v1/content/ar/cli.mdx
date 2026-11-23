@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: أوامر وخيارات CLI في Xccode.
+description: أوامر وخيارات CLI في Xiaochuan.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-يبدأ CLI الخاص بـ Xccode افتراضيا واجهة [TUI](/docs/tui) عند تشغيله بدون أي معاملات.
+يبدأ CLI الخاص بـ Xiaochuan افتراضيا واجهة [TUI](/docs/tui) عند تشغيله بدون أي معاملات.
 
 ```bash
-xccode
+xiaochuan
 ```
 
-كما يدعم أيضا أوامر موثقة في هذه الصفحة، ما يتيح لك التفاعل مع Xccode برمجيا.
+كما يدعم أيضا أوامر موثقة في هذه الصفحة، ما يتيح لك التفاعل مع Xiaochuan برمجيا.
 
 ```bash
-xccode run "Explain how closures work in JavaScript"
+xiaochuan run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-بدء واجهة المستخدم terminal (TUI) الخاصة بـ Xccode.
+بدء واجهة المستخدم terminal (TUI) الخاصة بـ Xiaochuan.
 
 ```bash
-xccode [project]
+xiaochuan [project]
 ```
 
 #### الخيارات
@@ -44,26 +44,26 @@ xccode [project]
 
 ## الأوامر
 
-يتضمن CLI الخاص بـ Xccode أيضا الأوامر التالية.
+يتضمن CLI الخاص بـ Xiaochuan أيضا الأوامر التالية.
 
 ---
 
 ### attach
 
-إرفاق terminal بخادم الواجهة الخلفية لـ Xccode قيد التشغيل بالفعل، والذي تم تشغيله عبر الأمرين `serve` أو `web`.
+إرفاق terminal بخادم الواجهة الخلفية لـ Xiaochuan قيد التشغيل بالفعل، والذي تم تشغيله عبر الأمرين `serve` أو `web`.
 
 ```bash
-xccode attach [url]
+xiaochuan attach [url]
 ```
 
-يتيح ذلك استخدام واجهة TUI مع واجهة خلفية لـ Xccode تعمل عن بعد. على سبيل المثال:
+يتيح ذلك استخدام واجهة TUI مع واجهة خلفية لـ Xiaochuan تعمل عن بعد. على سبيل المثال:
 
 ```bash
 # ابدأ خادم الواجهة الخلفية للوصول عبر الويب/الجوال
-xccode web --port 4096 --hostname 0.0.0.0
+xiaochuan web --port 4096 --hostname 0.0.0.0
 
 # في محطة طرفية (terminal) أخرى، اربط TUI بالواجهة الخلفية قيد التشغيل
-xccode attach http://10.20.30.40:4096
+xiaochuan attach http://10.20.30.40:4096
 ```
 
 #### الرايات
@@ -74,8 +74,8 @@ xccode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c`    | متابعة آخر جلسة                                                                   |
 | <nobr><code>{"--session"}</code></nobr>  | `-s`    | معرّف الجلسة للمتابعة                                                             |
 | <nobr><code>{"--fork"}</code></nobr>     |         | تفريع الجلسة عند المتابعة (استخدمه مع `--continue` أو `--session`)                |
-| <nobr><code>{"--password"}</code></nobr> | `-p`    | كلمة مرور المصادقة الأساسية (الافتراضي `XCCODE_SERVER_PASSWORD`)                |
-| <nobr><code>{"--username"}</code></nobr> | `-u`    | اسم مستخدم المصادقة الأساسية (الافتراضي `XCCODE_SERVER_USERNAME` أو `xccode`) |
+| <nobr><code>{"--password"}</code></nobr> | `-p`    | كلمة مرور المصادقة الأساسية (الافتراضي `XIAOCHUAN_SERVER_PASSWORD`)                |
+| <nobr><code>{"--username"}</code></nobr> | `-u`    | اسم مستخدم المصادقة الأساسية (الافتراضي `XIAOCHUAN_SERVER_USERNAME` أو `xiaochuan`) |
 
 ---
 
@@ -84,20 +84,20 @@ xccode attach http://10.20.30.40:4096
 أمر لإدارة بيانات الاعتماد وتسجيل الدخول لمزودي الخدمة.
 
 ```bash
-xccode auth [command]
+xiaochuan auth [command]
 ```
 
 ---
 
 #### login
 
-يعتمد Xccode على قائمة المزودين في [Models.dev](https://models.dev)، لذا يمكنك استخدام `xccode auth login` لتهيئة مفاتيح API لأي مزود ترغب باستخدامه. يتم حفظ ذلك في `~/.local/share/xccode/auth.json`.
+يعتمد Xiaochuan على قائمة المزودين في [Models.dev](https://models.dev)، لذا يمكنك استخدام `xiaochuan auth login` لتهيئة مفاتيح API لأي مزود ترغب باستخدامه. يتم حفظ ذلك في `~/.local/share/xiaochuan/auth.json`.
 
 ```bash
-xccode auth login
+xiaochuan auth login
 ```
 
-عند تشغيل Xccode يقوم بتحميل المزودين من ملف بيانات الاعتماد، وكذلك أي مفاتيح معرّفة في متغيرات البيئة لديك أو في ملف `.env` ضمن مشروعك.
+عند تشغيل Xiaochuan يقوم بتحميل المزودين من ملف بيانات الاعتماد، وكذلك أي مفاتيح معرّفة في متغيرات البيئة لديك أو في ملف `.env` ضمن مشروعك.
 
 ---
 
@@ -106,13 +106,13 @@ xccode auth login
 يسرد جميع المزودين الذين تم توثيقهم كما هم محفوظون في ملف بيانات الاعتماد.
 
 ```bash
-xccode auth list
+xiaochuan auth list
 ```
 
 أو النسخة المختصرة.
 
 ```bash
-xccode auth ls
+xiaochuan auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ xccode auth ls
 يسجلك خارج مزود عبر حذفه من ملف بيانات الاعتماد.
 
 ```bash
-xccode auth logout
+xiaochuan auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ xccode auth logout
 إدارة وكيل GitHub لأتمتة المستودع.
 
 ```bash
-xccode github [command]
+xiaochuan github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ xccode github [command]
 تثبيت وكيل GitHub في مستودعك.
 
 ```bash
-xccode github install
+xiaochuan github install
 ```
 
 يقوم ذلك بإعداد سير عمل GitHub Actions اللازم ويرشدك خلال عملية التهيئة. [اعرف المزيد](/docs/github).
@@ -154,7 +154,7 @@ xccode github install
 تشغيل وكيل GitHub. يُستخدم هذا عادة ضمن GitHub Actions.
 
 ```bash
-xccode github run
+xiaochuan github run
 ```
 
 ##### الرايات
@@ -171,7 +171,7 @@ xccode github run
 إدارة خوادم Model Context Protocol.
 
 ```bash
-xccode mcp [command]
+xiaochuan mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ xccode mcp [command]
 إضافة خادم MCP إلى تهيئتك.
 
 ```bash
-xccode mcp add
+xiaochuan mcp add
 ```
 
 سيرشدك هذا الأمر خلال إضافة خادم MCP محلي أو بعيد.
@@ -193,13 +193,13 @@ xccode mcp add
 عرض جميع خوادم MCP المُهيأة وحالة اتصالها.
 
 ```bash
-xccode mcp list
+xiaochuan mcp list
 ```
 
 أو استخدم النسخة المختصرة.
 
 ```bash
-xccode mcp ls
+xiaochuan mcp ls
 ```
 
 ---
@@ -209,7 +209,7 @@ xccode mcp ls
 إجراء المصادقة مع خادم MCP يدعم OAuth.
 
 ```bash
-xccode mcp auth [name]
+xiaochuan mcp auth [name]
 ```
 
 إذا لم تُحدِّد اسم خادم، فسيُطلب منك الاختيار من الخوادم المتاحة الداعمة لـ OAuth.
@@ -217,13 +217,13 @@ xccode mcp auth [name]
 يمكنك أيضا عرض الخوادم الداعمة لـ OAuth وحالة المصادقة الخاصة بها.
 
 ```bash
-xccode mcp auth list
+xiaochuan mcp auth list
 ```
 
 أو استخدم النسخة المختصرة.
 
 ```bash
-xccode mcp auth ls
+xiaochuan mcp auth ls
 ```
 
 ---
@@ -233,7 +233,7 @@ xccode mcp auth ls
 إزالة بيانات اعتماد OAuth لخادم MCP.
 
 ```bash
-xccode mcp logout [name]
+xiaochuan mcp logout [name]
 ```
 
 ---
@@ -243,7 +243,7 @@ xccode mcp logout [name]
 تشخيص مشاكل اتصال OAuth لخادم MCP.
 
 ```bash
-xccode mcp debug <name>
+xiaochuan mcp debug <name>
 ```
 
 ---
@@ -253,7 +253,7 @@ xccode mcp debug <name>
 عرض جميع النماذج المتاحة من المزودين المُهيأين.
 
 ```bash
-xccode models [provider]
+xiaochuan models [provider]
 ```
 
 يعرض هذا الأمر جميع النماذج المتاحة عبر المزودين المُهيأين لديك بصيغة `provider/model`.
@@ -263,7 +263,7 @@ xccode models [provider]
 يمكنك اختياريا تمرير معرّف مزود لتصفية النماذج حسب ذلك المزود.
 
 ```bash
-xccode models anthropic
+xiaochuan models anthropic
 ```
 
 #### الرايات
@@ -273,36 +273,36 @@ xccode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | تحديث ذاكرة التخزين المؤقت للنماذج من models.dev              |
 | <nobr><code>{"--verbose"}</code></nobr> | استخدام مخرجات أكثر تفصيلا للنماذج (تشمل بيانات مثل التكاليف) |
 
-استخدم الراية `--refresh` لتحديث قائمة النماذج المخزنة مؤقتا. يفيد ذلك عند إضافة نماذج جديدة إلى مزود وتريد رؤيتها في Xccode.
+استخدم الراية `--refresh` لتحديث قائمة النماذج المخزنة مؤقتا. يفيد ذلك عند إضافة نماذج جديدة إلى مزود وتريد رؤيتها في Xiaochuan.
 
 ```bash
-xccode models --refresh
+xiaochuan models --refresh
 ```
 
 ---
 
 ### run
 
-تشغيل xccode في وضع غير تفاعلي عبر تمرير موجه مباشرة.
+تشغيل xiaochuan في وضع غير تفاعلي عبر تمرير موجه مباشرة.
 
 ```bash
-xccode run [message..]
+xiaochuan run [message..]
 ```
 
 هذا مفيد للبرمجة النصية والأتمتة، أو عندما تريد إجابة سريعة دون تشغيل واجهة TUI كاملة. على سبيل المثال.
 
-```bash "xccode run"
-xccode run Explain the use of context in Go
+```bash "xiaochuan run"
+xiaochuan run Explain the use of context in Go
 ```
 
-يمكنك أيضا الإرفاق بمثيل `xccode serve` قيد التشغيل لتجنّب زمن الإقلاع البارد لخوادم MCP في كل تشغيل:
+يمكنك أيضا الإرفاق بمثيل `xiaochuan serve` قيد التشغيل لتجنّب زمن الإقلاع البارد لخوادم MCP في كل تشغيل:
 
 ```bash
 # ابدأ خادمًا بلا واجهة في محطة طرفية واحدة
-xccode serve
+xiaochuan serve
 
 # في محطة طرفية أخرى، شغّل الأوامر التي ترتبط به
-xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+xiaochuan run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### الرايات
@@ -318,9 +318,9 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f`    | ملف/ملفات لإرفاقها بالرسالة                                                       |
 | <nobr><code>{"--format"}</code></nobr>   |         | التنسيق: default (منسق) أو json (أحداث JSON خام)                                  |
 | <nobr><code>{"--title"}</code></nobr>    |         | عنوان للجلسة (يستخدم موجهًا مقتطعًا إن لم تُحدَّد قيمة)                           |
-| <nobr><code>{"--attach"}</code></nobr>   |         | الإرفاق بخادم xccode قيد التشغيل (مثل http://localhost:4096)                    |
-| <nobr><code>{"--password"}</code></nobr> | `-p`    | كلمة مرور المصادقة الأساسية (الافتراضي `XCCODE_SERVER_PASSWORD`)                |
-| <nobr><code>{"--username"}</code></nobr> | `-u`    | اسم مستخدم المصادقة الأساسية (الافتراضي `XCCODE_SERVER_USERNAME` أو `xccode`) |
+| <nobr><code>{"--attach"}</code></nobr>   |         | الإرفاق بخادم xiaochuan قيد التشغيل (مثل http://localhost:4096)                    |
+| <nobr><code>{"--password"}</code></nobr> | `-p`    | كلمة مرور المصادقة الأساسية (الافتراضي `XIAOCHUAN_SERVER_PASSWORD`)                |
+| <nobr><code>{"--username"}</code></nobr> | `-u`    | اسم مستخدم المصادقة الأساسية (الافتراضي `XIAOCHUAN_SERVER_USERNAME` أو `xiaochuan`) |
 | <nobr><code>{"--dir"}</code></nobr>      |         | دليل التشغيل، أو المسار على الخادم البعيد عند الإرفاق                             |
 | <nobr><code>{"--variant"}</code></nobr>  |         | متغير النموذج (جهد الاستدلال الخاص بالمزود)                                       |
 | <nobr><code>{"--thinking"}</code></nobr> |         | عرض كتل التفكير                                                                   |
@@ -330,13 +330,13 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-بدء خادم Xccode بدون واجهة للوصول عبر API. راجع [توثيق الخادم](/docs/server) لواجهة HTTP الكاملة.
+بدء خادم Xiaochuan بدون واجهة للوصول عبر API. راجع [توثيق الخادم](/docs/server) لواجهة HTTP الكاملة.
 
 ```bash
-xccode serve
+xiaochuan serve
 ```
 
-يشغّل هذا خادم HTTP يوفّر وصولا عبر API لوظائف xccode دون واجهة TUI. اضبط `XCCODE_SERVER_PASSWORD` لتفعيل مصادقة HTTP الأساسية (اسم المستخدم الافتراضي `xccode`).
+يشغّل هذا خادم HTTP يوفّر وصولا عبر API لوظائف xiaochuan دون واجهة TUI. اضبط `XIAOCHUAN_SERVER_PASSWORD` لتفعيل مصادقة HTTP الأساسية (اسم المستخدم الافتراضي `xiaochuan`).
 
 #### الرايات
 
@@ -351,20 +351,20 @@ xccode serve
 
 ### session
 
-إدارة جلسات Xccode.
+إدارة جلسات Xiaochuan.
 
 ```bash
-xccode session [command]
+xiaochuan session [command]
 ```
 
 ---
 
 #### list
 
-عرض جميع جلسات Xccode.
+عرض جميع جلسات Xiaochuan.
 
 ```bash
-xccode session list
+xiaochuan session list
 ```
 
 ##### الرايات
@@ -378,10 +378,10 @@ xccode session list
 
 ### stats
 
-عرض إحصاءات استخدام الرموز والتكلفة لجلسات Xccode لديك.
+عرض إحصاءات استخدام الرموز والتكلفة لجلسات Xiaochuan لديك.
 
 ```bash
-xccode stats
+xiaochuan stats
 ```
 
 #### الرايات
@@ -400,7 +400,7 @@ xccode stats
 تصدير بيانات الجلسة بصيغة JSON.
 
 ```bash
-xccode export [sessionID]
+xiaochuan export [sessionID]
 ```
 
 إذا لم تُقدّم معرّف جلسة، فسيُطلب منك الاختيار من الجلسات المتاحة.
@@ -412,24 +412,24 @@ xccode export [sessionID]
 استيراد بيانات الجلسة من ملف JSON.
 
 ```bash
-xccode import <file>
+xiaochuan import <file>
 ```
 
 ```bash
-xccode import session.json
+xiaochuan import session.json
 ```
 
 ---
 
 ### web
 
-بدء خادم Xccode بدون واجهة مع واجهة ويب.
+بدء خادم Xiaochuan بدون واجهة مع واجهة ويب.
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-يشغّل هذا خادم HTTP ويفتح متصفح ويب للوصول إلى Xccode عبر واجهة ويب. اضبط `XCCODE_SERVER_PASSWORD` لتفعيل مصادقة HTTP الأساسية (اسم المستخدم الافتراضي `xccode`).
+يشغّل هذا خادم HTTP ويفتح متصفح ويب للوصول إلى Xiaochuan عبر واجهة ويب. اضبط `XIAOCHUAN_SERVER_PASSWORD` لتفعيل مصادقة HTTP الأساسية (اسم المستخدم الافتراضي `xiaochuan`).
 
 #### الرايات
 
@@ -447,7 +447,7 @@ xccode web
 بدء خادم ACP (Agent Client Protocol).
 
 ```bash
-xccode acp
+xiaochuan acp
 ```
 
 يشغّل هذا الأمر خادم ACP يتواصل عبر stdin/stdout باستخدام nd-JSON.
@@ -464,10 +464,10 @@ xccode acp
 
 ### uninstall
 
-إلغاء تثبيت Xccode وإزالة جميع الملفات ذات الصلة.
+إلغاء تثبيت Xiaochuan وإزالة جميع الملفات ذات الصلة.
 
 ```bash
-xccode uninstall
+xiaochuan uninstall
 ```
 
 #### الرايات
@@ -483,22 +483,22 @@ xccode uninstall
 
 ### upgrade
 
-تحديث xccode إلى أحدث إصدار أو إلى إصدار محدد.
+تحديث xiaochuan إلى أحدث إصدار أو إلى إصدار محدد.
 
 ```bash
-xccode upgrade [target]
+xiaochuan upgrade [target]
 ```
 
 للترقية إلى أحدث إصدار.
 
 ```bash
-xccode upgrade
+xiaochuan upgrade
 ```
 
 للترقية إلى إصدار محدد.
 
 ```bash
-xccode upgrade v0.1.48
+xiaochuan upgrade v0.1.48
 ```
 
 #### الرايات
@@ -511,7 +511,7 @@ xccode upgrade v0.1.48
 
 ## الخيارات العامة
 
-يدعم سطر أوامر xccode الخيارات العامة التالية.
+يدعم سطر أوامر xiaochuan الخيارات العامة التالية.
 
 | الراية                                     | المختصر | الوصف                                  |
 | ------------------------------------------ | ------- | -------------------------------------- |
@@ -524,32 +524,32 @@ xccode upgrade v0.1.48
 
 ## متغيرات البيئة
 
-يمكن تهيئة Xccode باستخدام متغيرات البيئة.
+يمكن تهيئة Xiaochuan باستخدام متغيرات البيئة.
 
 | المتغير                               | النوع   | الوصف                                                     |
 | ------------------------------------- | ------- | --------------------------------------------------------- |
-| `XCCODE_GIT_BASH_PATH`              | string  | مسار ملف Git Bash التنفيذي على Windows                    |
-| `XCCODE_CONFIG`                     | string  | مسار ملف التهيئة                                          |
-| `XCCODE_CONFIG_DIR`                 | string  | مسار دليل التهيئة                                         |
-| `XCCODE_CONFIG_CONTENT`             | string  | محتوى تهيئة JSON مُضمّن                                   |
-| `XCCODE_DISABLE_AUTOUPDATE`         | boolean | تعطيل التحقق التلقائي من التحديثات                        |
-| `XCCODE_DISABLE_PRUNE`              | boolean | تعطيل تنقية البيانات القديمة                              |
-| `XCCODE_DISABLE_TERMINAL_TITLE`     | boolean | تعطيل تحديث عنوان terminal تلقائيا                        |
-| `XCCODE_PERMISSION`                 | string  | تهيئة أذونات JSON مُضمّنة                                 |
-| `XCCODE_DISABLE_DEFAULT_PLUGINS`    | boolean | تعطيل الإضافات الافتراضية                                 |
-| `XCCODE_DISABLE_LSP_DOWNLOAD`       | boolean | تعطيل تنزيل خوادم LSP تلقائيا                             |
-| `XCCODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | تفعيل النماذج التجريبية                                   |
-| `XCCODE_DISABLE_AUTOCOMPACT`        | boolean | تعطيل ضغط السياق تلقائيا                                  |
-| `XCCODE_DISABLE_CLAUDE_CODE`        | boolean | تعطيل القراءة من `.claude` (الموجه + المهارات)            |
-| `XCCODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | تعطيل قراءة `~/.claude/CLAUDE.md`                         |
-| `XCCODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | تعطيل تحميل `.claude/skills`                              |
-| `XCCODE_DISABLE_MODELS_FETCH`       | boolean | تعطيل جلب النماذج من مصادر بعيدة                          |
-| `XCCODE_FAKE_VCS`                   | string  | مزود VCS وهمي لأغراض الاختبار                             |
-| `XCCODE_CLIENT`                     | string  | معرّف العميل (الافتراضي `cli`)                            |
-| `XCCODE_ENABLE_EXA`                 | boolean | تفعيل أدوات بحث الويب من Exa                              |
-| `XCCODE_SERVER_PASSWORD`            | string  | تفعيل المصادقة الأساسية لخادمي `serve`/`web`              |
-| `XCCODE_SERVER_USERNAME`            | string  | تجاوز اسم مستخدم المصادقة الأساسية (الافتراضي `xccode`) |
-| `XCCODE_MODELS_URL`                 | string  | رابط مخصص لجلب تهيئة النماذج                              |
+| `XIAOCHUAN_GIT_BASH_PATH`              | string  | مسار ملف Git Bash التنفيذي على Windows                    |
+| `XIAOCHUAN_CONFIG`                     | string  | مسار ملف التهيئة                                          |
+| `XIAOCHUAN_CONFIG_DIR`                 | string  | مسار دليل التهيئة                                         |
+| `XIAOCHUAN_CONFIG_CONTENT`             | string  | محتوى تهيئة JSON مُضمّن                                   |
+| `XIAOCHUAN_DISABLE_AUTOUPDATE`         | boolean | تعطيل التحقق التلقائي من التحديثات                        |
+| `XIAOCHUAN_DISABLE_PRUNE`              | boolean | تعطيل تنقية البيانات القديمة                              |
+| `XIAOCHUAN_DISABLE_TERMINAL_TITLE`     | boolean | تعطيل تحديث عنوان terminal تلقائيا                        |
+| `XIAOCHUAN_PERMISSION`                 | string  | تهيئة أذونات JSON مُضمّنة                                 |
+| `XIAOCHUAN_DISABLE_DEFAULT_PLUGINS`    | boolean | تعطيل الإضافات الافتراضية                                 |
+| `XIAOCHUAN_DISABLE_LSP_DOWNLOAD`       | boolean | تعطيل تنزيل خوادم LSP تلقائيا                             |
+| `XIAOCHUAN_ENABLE_EXPERIMENTAL_MODELS` | boolean | تفعيل النماذج التجريبية                                   |
+| `XIAOCHUAN_DISABLE_AUTOCOMPACT`        | boolean | تعطيل ضغط السياق تلقائيا                                  |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE`        | boolean | تعطيل القراءة من `.claude` (الموجه + المهارات)            |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_PROMPT` | boolean | تعطيل قراءة `~/.claude/CLAUDE.md`                         |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_SKILLS` | boolean | تعطيل تحميل `.claude/skills`                              |
+| `XIAOCHUAN_DISABLE_MODELS_FETCH`       | boolean | تعطيل جلب النماذج من مصادر بعيدة                          |
+| `XIAOCHUAN_FAKE_VCS`                   | string  | مزود VCS وهمي لأغراض الاختبار                             |
+| `XIAOCHUAN_CLIENT`                     | string  | معرّف العميل (الافتراضي `cli`)                            |
+| `XIAOCHUAN_ENABLE_EXA`                 | boolean | تفعيل أدوات بحث الويب من Exa                              |
+| `XIAOCHUAN_SERVER_PASSWORD`            | string  | تفعيل المصادقة الأساسية لخادمي `serve`/`web`              |
+| `XIAOCHUAN_SERVER_USERNAME`            | string  | تجاوز اسم مستخدم المصادقة الأساسية (الافتراضي `xiaochuan`) |
+| `XIAOCHUAN_MODELS_URL`                 | string  | رابط مخصص لجلب تهيئة النماذج                              |
 
 ---
 
@@ -559,20 +559,20 @@ xccode upgrade v0.1.48
 
 | المتغير                                         | النوع   | الوصف                                        |
 | ----------------------------------------------- | ------- | -------------------------------------------- |
-| `XCCODE_EXPERIMENTAL`                         | boolean | تفعيل الميزات التجريبية الخاضعة للعلم الشامل |
-| `XCCODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | تفعيل اكتشاف الأيقونات                       |
-| `XCCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | تعطيل النسخ عند التحديد في TUI               |
-| `XCCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | المهلة الافتراضية لأوامر bash بالميلي ثانية  |
-| `XCCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | الحد الأقصى لرموز المخرجات لاستجابات LLM     |
-| `XCCODE_EXPERIMENTAL_FILEWATCHER`             | boolean | تفعيل مراقب الملفات لكامل الدليل             |
-| `XCCODE_EXPERIMENTAL_OXFMT`                   | boolean | تفعيل مُنسّق oxfmt                           |
-| `XCCODE_EXPERIMENTAL_LSP_TOOL`                | boolean | تفعيل أداة LSP تجريبية                       |
-| `XCCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | تعطيل مراقب الملفات                          |
-| `XCCODE_EXPERIMENTAL_EXA`                     | boolean | تفعيل ميزات Exa التجريبية                    |
-| `XCCODE_EXPERIMENTAL_LSP_TY`                  | boolean | تمكين TY LSP لملفات python                   |
-| `XCCODE_EXPERIMENTAL_PLAN_MODE`               | boolean | تفعيل وضع الخطة                              |
-| `XCCODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | تفعيل نظام الأحداث التجريبي                  |
-| `XCCODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | تفعيل مسار طلبات LLM الأصلي                  |
-| `XCCODE_EXPERIMENTAL_PARALLEL`                | boolean | تفعيل تنفيذ بحث الويب بالتوازي               |
-| `XCCODE_EXPERIMENTAL_SCOUT`                   | boolean | تفعيل Scout subagent                         |
-| `XCCODE_EXPERIMENTAL_WORKSPACES`              | boolean | تفعيل دعم مساحات العمل                       |
+| `XIAOCHUAN_EXPERIMENTAL`                         | boolean | تفعيل الميزات التجريبية الخاضعة للعلم الشامل |
+| `XIAOCHUAN_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | تفعيل اكتشاف الأيقونات                       |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | تعطيل النسخ عند التحديد في TUI               |
+| `XIAOCHUAN_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | المهلة الافتراضية لأوامر bash بالميلي ثانية  |
+| `XIAOCHUAN_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | الحد الأقصى لرموز المخرجات لاستجابات LLM     |
+| `XIAOCHUAN_EXPERIMENTAL_FILEWATCHER`             | boolean | تفعيل مراقب الملفات لكامل الدليل             |
+| `XIAOCHUAN_EXPERIMENTAL_OXFMT`                   | boolean | تفعيل مُنسّق oxfmt                           |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TOOL`                | boolean | تفعيل أداة LSP تجريبية                       |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | تعطيل مراقب الملفات                          |
+| `XIAOCHUAN_EXPERIMENTAL_EXA`                     | boolean | تفعيل ميزات Exa التجريبية                    |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TY`                  | boolean | تمكين TY LSP لملفات python                   |
+| `XIAOCHUAN_EXPERIMENTAL_PLAN_MODE`               | boolean | تفعيل وضع الخطة                              |
+| `XIAOCHUAN_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | تفعيل نظام الأحداث التجريبي                  |
+| `XIAOCHUAN_EXPERIMENTAL_NATIVE_LLM`              | boolean | تفعيل مسار طلبات LLM الأصلي                  |
+| `XIAOCHUAN_EXPERIMENTAL_PARALLEL`                | boolean | تفعيل تنفيذ بحث الويب بالتوازي               |
+| `XIAOCHUAN_EXPERIMENTAL_SCOUT`                   | boolean | تفعيل Scout subagent                         |
+| `XIAOCHUAN_EXPERIMENTAL_WORKSPACES`              | boolean | تفعيل دعم مساحات العمل                       |

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/legacy",
+  "name": "@xiaochuan/legacy",
   "private": true,
   "type": "module",
   "scripts": {

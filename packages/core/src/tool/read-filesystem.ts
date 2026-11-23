@@ -2,7 +2,7 @@ export * as ReadToolFileSystem from "./read-filesystem.js"
 
 import path from "path"
 import { pathToFileURL } from "url"
-import { TextBoundary } from "@xccode/util/text-boundary"
+import { TextBoundary } from "@xiaochuan/util/text-boundary"
 import { Effect, Schema } from "effect"
 import { Environment } from "../environment/index.js"
 import type { Files } from "../environment/index.js"

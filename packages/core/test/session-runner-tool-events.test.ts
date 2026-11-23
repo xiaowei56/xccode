@@ -1,29 +1,29 @@
 import { expect, test } from "bun:test"
 import { Cause, Deferred, Effect, Exit, Fiber, Schema } from "effect"
 import { eq } from "drizzle-orm"
-import { LLMEvent } from "@xccode/ai/effect"
-import { Money } from "@xccode/schema/money"
-import { Bus } from "@xccode/core/bus"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { EventTable } from "@xccode/core/event/sql"
-import { Event } from "@xccode/schema/event"
-import { Agent } from "@xccode/core/agent"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionMessage } from "@xccode/core/session/message"
-import { Session } from "@xccode/core/session"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { SessionMessageTable, SessionTable } from "@xccode/core/session/sql"
-import { SessionHistory } from "@xccode/core/session/history"
-import { Project } from "@xccode/core/project"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath, RelativePath } from "@xccode/core/schema"
-import { Snapshot } from "@xccode/core/snapshot"
-import { createLLMEventPublisher } from "@xccode/core/session/runner/publish-llm-event"
-import { SessionUsage } from "@xccode/core/session/usage"
-import { LayerNode } from "@xccode/util/effect/layer-node"
+import { LLMEvent } from "@xiaochuan/ai/effect"
+import { Money } from "@xiaochuan/schema/money"
+import { Bus } from "@xiaochuan/core/bus"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { EventTable } from "@xiaochuan/core/event/sql"
+import { Event } from "@xiaochuan/schema/event"
+import { Agent } from "@xiaochuan/core/agent"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { Session } from "@xiaochuan/core/session"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { SessionMessageTable, SessionTable } from "@xiaochuan/core/session/sql"
+import { SessionHistory } from "@xiaochuan/core/session/history"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath, RelativePath } from "@xiaochuan/core/schema"
+import { Snapshot } from "@xiaochuan/core/snapshot"
+import { createLLMEventPublisher } from "@xiaochuan/core/session/runner/publish-llm-event"
+import { SessionUsage } from "@xiaochuan/core/session/usage"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
 import { it, testEffect } from "./lib/effect"
 import { TestClock } from "effect/testing"
 
@@ -63,7 +63,7 @@ const capture = (
       agent: Agent.ID.make("build"),
       model: {
         id: Model.ID.make("model"),
-        providerID: Provider.ID.xccode,
+        providerID: Provider.ID.xiaochuan,
       },
       providerMetadataKey,
       pendingSnapshot: options?.pendingSnapshot,
@@ -169,7 +169,7 @@ testEffect(
         sessionID,
         assistantMessageID,
         agent: Agent.defaultID,
-        model: { id: Model.ID.make("test-model"), providerID: Provider.ID.xccode },
+        model: { id: Model.ID.make("test-model"), providerID: Provider.ID.xiaochuan },
         providerMetadataKey: "openai",
         started: 0,
       },

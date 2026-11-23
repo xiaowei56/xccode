@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant } from "@xccode/client/promise"
+import type { SessionMessageAssistant } from "@xiaochuan/client/promise"
 import { Match, Switch } from "solid-js"
 import { AssistantTextContent } from "../../message/message-content"
 import {

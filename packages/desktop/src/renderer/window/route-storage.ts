@@ -30,5 +30,5 @@ export function acceptedLastActiveUrl(value: string | null | undefined) {
 }
 
 function windowLastActiveUrlKey(windowID: string) {
-  return `xccode.desktop.window.${windowID}.last-active-url`
+  return `xiaochuan.desktop.window.${windowID}.last-active-url`
 }

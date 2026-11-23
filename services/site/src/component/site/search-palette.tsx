@@ -21,7 +21,7 @@ import type { SearchAction, SearchGroup, SearchItem, SearchResult } from "./sear
 type SearchModule = typeof import("./search-index")
 type Row = { result: SearchResult; group: SearchGroup; query?: string }
 
-const recentKey = "xccode-site-search-recent"
+const recentKey = "xiaochuan-site-search-recent"
 const listID = "site-search-listbox"
 const optionID = (index: number) => `site-search-option-${index}`
 const groupID = (index: number) => `site-search-group-${index}`
@@ -238,7 +238,7 @@ export function SearchPalette(props: SiteSearchProps & { openOnMount?: SearchVia
       close()
       const link = Object.assign(document.createElement("a"), {
         href: item.href,
-        download: "xccode-brand-assets.zip",
+        download: "xiaochuan-brand-assets.zip",
       })
       link.click()
       return
@@ -410,7 +410,7 @@ export function SearchPalette(props: SiteSearchProps & { openOnMount?: SearchVia
   const current = (item: SearchItem) =>
     item.group === "Pages" &&
     !!item.href &&
-    trim(new URL(item.href, "https://xccode.ai").pathname) === trim(location.pathname)
+    trim(new URL(item.href, "https://xiaochuan.ai").pathname) === trim(location.pathname)
 
   return (
     <Show when={open()}>

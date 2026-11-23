@@ -1,7 +1,7 @@
 import { Effect } from "effect"
 import { isArrayNonEmpty } from "effect/Array"
-import { define } from "@xccode/plugin/effect/plugin"
-import { Form } from "@xccode/schema/form"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { Form } from "@xiaochuan/schema/form"
 import { Provider } from "../../provider.js"
 import { configuredSettings } from "./configured.js"
 import { credentialSettings, metadataSettings } from "./credential-settings.js"
@@ -25,7 +25,7 @@ const gatewayIdField = Form.StringField.make({
 })
 
 export const CloudflareAIGatewayPlugin = define({
-  id: "xccode.provider.cloudflare.ai.gateway",
+  id: "xiaochuan.provider.cloudflare.ai.gateway",
   effect: Effect.fn(function* (ctx) {
     const accountId = process.env.CLOUDFLARE_ACCOUNT_ID
     const gatewayId = process.env.CLOUDFLARE_GATEWAY_ID

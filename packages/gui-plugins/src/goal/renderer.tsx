@@ -1,8 +1,8 @@
 import { createSignal, Match, onCleanup, Show, Switch, untrack } from "solid-js"
-import { ComposerPill, createKeyed, Style, type ComposerPillProps, type Plugin } from "@xccode/plugin/gui"
-import { Goal } from "@xccode/schema/goal"
-import { Button } from "@xccode/ui/button"
-import { showToast } from "@xccode/ui/toast"
+import { ComposerPill, createKeyed, Style, type ComposerPillProps, type Plugin } from "@xiaochuan/plugin/gui"
+import { Goal } from "@xiaochuan/schema/goal"
+import { Button } from "@xiaochuan/ui/button"
+import { showToast } from "@xiaochuan/ui/toast"
 import styles from "./goal.css?inline"
 import type GoalDefinition from "./index"
 import {

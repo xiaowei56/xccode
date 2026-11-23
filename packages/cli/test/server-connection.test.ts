@@ -1,6 +1,6 @@
 import { NodeFileSystem, NodeServices } from "@effect/platform-node"
-import { Global } from "@xccode/util/global"
-import { XCCODE_VERSION } from "../src/version"
+import { Global } from "@xiaochuan/util/global"
+import { XIAOCHUAN_VERSION } from "../src/version"
 import { expect, test } from "bun:test"
 import { Console, Effect, FileSystem, Option, Scope } from "effect"
 import { Command } from "effect/cli"
@@ -14,13 +14,13 @@ import { ServiceConfig } from "../src/services/service-config"
 import { isolatedEnv } from "./fixture/environment"
 
 test("resolution groups Effect-native lifecycle operations only for the managed service", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "xccode-server-resolution-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "xiaochuan-server-resolution-"))
   const id = "server-resolution-test"
   const server = Bun.serve({
     port: 0,
     fetch() {
       return Response.json({
-        version: XCCODE_VERSION,
+        version: XIAOCHUAN_VERSION,
         pid: process.pid,
         urls: [],
       })
@@ -37,7 +37,7 @@ test("resolution groups Effect-native lifecycle operations only for the managed 
       registration,
       JSON.stringify({
         id,
-        version: XCCODE_VERSION,
+        version: XIAOCHUAN_VERSION,
         url: server.url.toString(),
         pid: process.pid,
       }),
@@ -65,14 +65,14 @@ test("resolution groups Effect-native lifecycle operations only for the managed 
 })
 
 test("service options only require a matching version when requested", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "xccode-service-options-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "xiaochuan-service-options-"))
   const layer = Global.layerWith({ config: path.join(root, "config"), state: path.join(root, "state") })
   const runPromise = <A, E>(effect: Effect.Effect<A, E, Global.Service | FileSystem.FileSystem | Scope.Scope>) =>
     Effect.runPromise(effect.pipe(Effect.provide(layer), Effect.provide(NodeFileSystem.layer), Effect.scoped))
 
   try {
     expect((await runPromise(ServiceConfig.options())).version).toBeUndefined()
-    expect((await runPromise(ServiceConfig.options({ checkVersion: true }))).version).toBe(XCCODE_VERSION)
+    expect((await runPromise(ServiceConfig.options({ checkVersion: true }))).version).toBe(XIAOCHUAN_VERSION)
   } finally {
     await fs.rm(root, { recursive: true, force: true })
   }
@@ -122,35 +122,35 @@ test("global --server and --standalone flags parse in any position for server-co
   const runArgs = (args: ReadonlyArray<string>) =>
     Effect.runPromise(
       Command.runWith(bindTree(Commands).pipe(Command.withGlobalFlags([PrintLogs])), {
-        version: XCCODE_VERSION,
+        version: XIAOCHUAN_VERSION,
         renderErrors: false,
       })(args).pipe(Effect.provideService(Console.Console, silentConsole), Effect.provide(NodeServices.layer)),
     )
 
   const url = "http://127.0.0.1:43210"
   const serverCases: ReadonlyArray<readonly [ReadonlyArray<string>, string]> = [
-    [["--server", url, "session", "list"], "xccode session list"],
-    [["session", "--server", url, "list"], "xccode session list"],
-    [["session", "list", "--server", url], "xccode session list"],
-    [["session", "--server", url, "delete", "ses_123"], "xccode session delete"],
-    [["--server", url, "plugin", "list"], "xccode plugin list"],
-    [["plugin", "--server", url, "list"], "xccode plugin list"],
-    [["plugin", "list", "--server", url], "xccode plugin list"],
-    [["plugin", "--server", url, "check"], "xccode plugin check"],
-    [["plugin", "--server", url, "update"], "xccode plugin update"],
-    [["--server", url, "mcp", "list"], "xccode mcp list"],
-    [["mcp", "--server", url, "list"], "xccode mcp list"],
-    [["mcp", "list", "--server", url], "xccode mcp list"],
-    [["mcp", "--server", url, "auth", "linear"], "xccode mcp auth"],
-    [["mcp", "--server", url, "logout", "linear"], "xccode mcp logout"],
-    [["auth", "--server", url, "list"], "xccode auth list"],
-    [["debug", "--server", url, "config"], "xccode debug config"],
-    [["debug", "--server", url, "agents"], "xccode debug agents"],
-    [["debug", "--server", url, "heap-dump"], "xccode debug heap-dump"],
-    [["--server", url, "models"], "xccode models"],
-    [["models", "--server", url], "xccode models"],
-    [["--server", url, "run", "hello"], "xccode run"],
-    [["run", "hello", "--server", url], "xccode run"],
+    [["--server", url, "session", "list"], "xiaochuan session list"],
+    [["session", "--server", url, "list"], "xiaochuan session list"],
+    [["session", "list", "--server", url], "xiaochuan session list"],
+    [["session", "--server", url, "delete", "ses_123"], "xiaochuan session delete"],
+    [["--server", url, "plugin", "list"], "xiaochuan plugin list"],
+    [["plugin", "--server", url, "list"], "xiaochuan plugin list"],
+    [["plugin", "list", "--server", url], "xiaochuan plugin list"],
+    [["plugin", "--server", url, "check"], "xiaochuan plugin check"],
+    [["plugin", "--server", url, "update"], "xiaochuan plugin update"],
+    [["--server", url, "mcp", "list"], "xiaochuan mcp list"],
+    [["mcp", "--server", url, "list"], "xiaochuan mcp list"],
+    [["mcp", "list", "--server", url], "xiaochuan mcp list"],
+    [["mcp", "--server", url, "auth", "linear"], "xiaochuan mcp auth"],
+    [["mcp", "--server", url, "logout", "linear"], "xiaochuan mcp logout"],
+    [["auth", "--server", url, "list"], "xiaochuan auth list"],
+    [["debug", "--server", url, "config"], "xiaochuan debug config"],
+    [["debug", "--server", url, "agents"], "xiaochuan debug agents"],
+    [["debug", "--server", url, "heap-dump"], "xiaochuan debug heap-dump"],
+    [["--server", url, "models"], "xiaochuan models"],
+    [["models", "--server", url], "xiaochuan models"],
+    [["--server", url, "run", "hello"], "xiaochuan run"],
+    [["run", "hello", "--server", url], "xiaochuan run"],
   ]
 
   for (const [args, expectedPath] of serverCases) {
@@ -161,7 +161,7 @@ test("global --server and --standalone flags parse in any position for server-co
 
   captured.length = 0
   await runArgs(["session", "--standalone", "list"])
-  expect(captured).toEqual([{ path: "xccode session list", server: undefined, standalone: true }])
+  expect(captured).toEqual([{ path: "xiaochuan session list", server: undefined, standalone: true }])
 
   await expect(runArgs(["plugin", "add", "some-plugin", "--server", url])).rejects.toThrow()
   await expect(runArgs(["plugin", "remove", "some-plugin", "--server", url])).rejects.toThrow()
@@ -173,7 +173,7 @@ test("global --server and --standalone flags parse in any position for server-co
 })
 
 test("local config commands do not start or require a server", async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), "xccode-local-config-cmd-"))
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "xiaochuan-local-config-cmd-"))
   try {
     const env = isolatedEnv(root)
     const child = Bun.spawn(
@@ -202,7 +202,7 @@ test("local config commands do not start or require a server", async () => {
     ])
     expect({ exitCode, stderr }).toEqual({ exitCode: 0, stderr: "" })
     expect(stdout).toContain('MCP server "demo" added')
-    const config = await Bun.file(path.join(root, "config", "xccode.json")).json()
+    const config = await Bun.file(path.join(root, "config", "xiaochuan.json")).json()
     expect(config).toMatchObject({
       mcp: {
         servers: {
@@ -210,7 +210,7 @@ test("local config commands do not start or require a server", async () => {
         },
       },
     })
-    expect(await Bun.file(path.join(root, "state", "xccode", ServiceConfig.filename())).exists()).toBe(false)
+    expect(await Bun.file(path.join(root, "state", "xiaochuan", ServiceConfig.filename())).exists()).toBe(false)
   } finally {
     await fs.rm(root, { recursive: true, force: true })
   }

@@ -1,15 +1,15 @@
-import type { SessionInfo } from "@xccode/client/promise"
-import type { MountedSession, SessionScreen } from "@xccode/plugin/gui"
-import { Icon } from "@xccode/ui/icon"
-import { Menu } from "@xccode/ui/menu"
-import { Tooltip } from "@xccode/ui/tooltip"
+import type { SessionInfo } from "@xiaochuan/client/promise"
+import type { MountedSession, SessionScreen } from "@xiaochuan/plugin/gui"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Menu } from "@xiaochuan/ui/menu"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import {
   displayName,
   getProjectAvatarGenerated,
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@xccode/ui/project-avatar"
+} from "@xiaochuan/ui/project-avatar"
 import { useNavigate } from "@solidjs/router"
 import {
   createContext,
@@ -23,7 +23,7 @@ import {
 } from "solid-js"
 import { createStore } from "solid-js/store"
 import { PluginSlot } from "@/runtime/plugin/render"
-import { containsDirectory, getFilename } from "@xccode/util/path"
+import { containsDirectory, getFilename } from "@xiaochuan/util/path"
 import { useServer } from "@/runtime/server/current"
 import { ServerConnection, useServers } from "@/runtime/server/registry"
 import { ServerLabel } from "@/servers/registry/label"

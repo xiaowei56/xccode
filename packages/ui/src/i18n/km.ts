@@ -72,7 +72,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "បន្ថែមក្រេឌីត",
   "dialog.usageExceeded.freeTier.title": "បានដល់ដែនកំណត់ឥតគិតថ្លៃ",
   "dialog.usageExceeded.freeTier.description":
-    "ជាវ Xccode Go ក្នុងតម្លៃ $10/ខែ សម្រាប់ការចូលប្រើដែលអាចទុកចិត្តបានចំពោះម៉ូដែលប្រភពបើកចំហល្អបំផុត។",
+    "ជាវ Xiaochuan Go ក្នុងតម្លៃ $10/ខែ សម្រាប់ការចូលប្រើដែលអាចទុកចិត្តបានចំពោះម៉ូដែលប្រភពបើកចំហល្អបំផុត។",
   "dialog.usageExceeded.freeTier.actionLabel": "ជាវ",
   "ui.sessionTurn.status.delegating": "ការផ្ទេរការងារ",
   "ui.sessionTurn.status.planning": "ការធ្វើផែនការជំហានបន្ទាប់",
@@ -268,9 +268,9 @@ export const dict = {
   "ui.sessionTurn.budgetLimit.modelsUntilReset": "បានដល់ថវិកាម៉ូដែល · ម៉ូដែលនេះត្រូវបានផ្អាករហូតដល់វាកំណត់ឡើងវិញ",
   "ui.sessionTurn.budgetLimit.useFreeModel": "ប្រើម៉ូដែលឥតគិតថ្លៃ",
   "ui.sessionTurn.budgetLimit.switchModel": "ប្តូរម៉ូដែល",
-  "ui.sessionTurn.goLimit.title": "អ្នកបានដល់ដែនកំណត់ការប្រើប្រាស់ Xccode Go របស់អ្នកហើយ។",
+  "ui.sessionTurn.goLimit.title": "អ្នកបានដល់ដែនកំណត់ការប្រើប្រាស់ Xiaochuan Go របស់អ្នកហើយ។",
   "ui.sessionTurn.goLimit.lineReset":
-    "អ្នកបានដល់ដែនកំណត់ការប្រើប្រាស់ Xccode Go របស់អ្នកហើយ។ វានឹងកំណត់ឡើងវិញនៅ {{time}}។",
+    "អ្នកបានដល់ដែនកំណត់ការប្រើប្រាស់ Xiaochuan Go របស់អ្នកហើយ។ វានឹងកំណត់ឡើងវិញនៅ {{time}}។",
   "dialog.usageExceeded.freeTier.reset": "សារឥតគិតថ្លៃរបស់អ្នកកំណត់ឡើងវិញនៅ {{time}}។",
   "ui.messagePart.compaction.queued": "ការសង្ខេបសម័យបានដាក់ក្នុងជួរ",
   "ui.messagePart.compaction.done": "បានសង្ខេប",

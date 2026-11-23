@@ -1,9 +1,9 @@
 import { describe, expect, test } from "bun:test"
-import type { SessionInboxInfo, SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionInboxInfo, SessionMessageInfo } from "@xiaochuan/client/promise"
 import { createRoot } from "solid-js"
 import { applyTimelineMessageHandoff, visibleTimelineMessages } from "./controller-projection"
 import { createTimelineProjection } from "./projection"
-import { timelinePresets } from "@xccode/session-ui/timeline/detail"
+import { timelinePresets } from "@xiaochuan/session-ui/timeline/detail"
 
 const messages = [
   { id: "msg_1", type: "user", text: "first", time: { created: 1 } },

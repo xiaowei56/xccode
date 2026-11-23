@@ -1,11 +1,11 @@
 export * as PluginSupervisor from "./supervisor.js"
 
-import { Event } from "@xccode/schema/config"
+import { Event } from "@xiaochuan/schema/config"
 import { Cause, Effect, Layer, Queue, Stream } from "effect"
 import { ConfigPluginSource } from "../config/plugin/source.js"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Bus } from "../bus.js"
-import { Npm } from "@xccode/util/npm"
+import { Npm } from "@xiaochuan/util/npm"
 import { Plugin } from "../plugin.js"
 import { InstancePlugins } from "./instance.js"
 import { PluginInternal } from "./internal.js"
@@ -45,7 +45,7 @@ const resolve = Effect.fn("PluginSupervisor.resolve")(function* (
       matched.length > 0 ||
       operation.target === "*" ||
       operation.target.endsWith(".*") ||
-      operation.target.startsWith("xccode.")
+      operation.target.startsWith("xiaochuan.")
     if (selectsPlugins) {
       matched.forEach((plugin) => enabled.add(plugin.id))
       continue

@@ -1,4 +1,4 @@
-import { SessionMessageTable } from "@xccode/core/session/sql"
+import { SessionMessageTable } from "@xiaochuan/core/session/sql"
 
 type MessageData = (typeof SessionMessageTable.$inferInsert)["data"]
 

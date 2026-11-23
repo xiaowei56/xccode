@@ -1,4 +1,4 @@
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import type { Protocol } from "devtools-protocol"
 
 // One CDP request ID's hops. Chromium reuses a request ID across a redirect chain, and the network

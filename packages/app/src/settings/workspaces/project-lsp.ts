@@ -1,4 +1,4 @@
-import type { ConfigEntry } from "@xccode/client/promise"
+import type { ConfigEntry } from "@xiaochuan/client/promise"
 
 type ConfiguredServer = { name: string; disabled: boolean; extensions: readonly string[] }
 

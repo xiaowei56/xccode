@@ -1,9 +1,9 @@
 export * as IdentityPlugin from "./identity.js"
 
-import { SystemPart } from "@xccode/ai/effect"
-import { define } from "@xccode/plugin/effect/plugin"
-import type { SessionHooks } from "@xccode/plugin/effect/session"
-import { Model } from "@xccode/schema/model"
+import { SystemPart } from "@xiaochuan/ai/effect"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import type { SessionHooks } from "@xiaochuan/plugin/effect/session"
+import { Model } from "@xiaochuan/schema/model"
 import { Effect } from "effect"
 import { OptimizePlugin } from "./optimize.js"
 
@@ -17,7 +17,7 @@ export function identity(model: { readonly name: string; readonly ref: Model.Ref
 }
 
 export const Plugin = define({
-  id: "xccode.prompt.identity",
+  id: "xiaochuan.prompt.identity",
   effect: Effect.fn("IdentityPlugin")(function* (ctx) {
     const hook = (event: SessionHooks["context"]) =>
       Effect.gen(function* () {

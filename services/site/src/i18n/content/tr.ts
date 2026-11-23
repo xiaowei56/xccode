@@ -16,7 +16,7 @@ export const content = {
     },
     "steer-your-sessions-from-your-phone": {
       text: "Oturumlarınızı telefonunuzdan yönetin.",
-      link: "Xccode Mobile ile tanışın",
+      link: "Xiaochuan Mobile ile tanışın",
     },
     "a-refreshed-desktop-app": {
       text: "Yenilenmiş masaüstü uygulaması.",
@@ -41,7 +41,7 @@ export const content = {
     },
     sdk: {
       name: "SDK",
-      body: "Xccode'u kendi betiklerinizden, CI işlerinizden ve araçlarınızdan yönetin.",
+      body: "Xiaochuan'u kendi betiklerinizden, CI işlerinizden ve araçlarınızdan yönetin.",
       action: "Dokümanlar",
     },
     mini: {
@@ -52,9 +52,9 @@ export const content = {
   },
   productDetails: {
     desktop: {
-      title: "Xccode | macOS, Windows ve Linux için masaüstü uygulaması",
+      title: "Xiaochuan | macOS, Windows ve Linux için masaüstü uygulaması",
       description:
-        "İstediğiniz kadar Xccode ajanını paralel çalıştırın, her değişikliği yanlarındaki tarayıcıda görün ve her cihazdan devam edin. macOS, Windows ve Linux için.",
+        "İstediğiniz kadar Xiaochuan ajanını paralel çalıştırın, her değişikliği yanlarındaki tarayıcıda görün ve her cihazdan devam edin. macOS, Windows ve Linux için.",
       intro:
         "Birden fazla ajanı aynı anda, her oturumu kendi sekmesinde çalıştırın. Her değişikliği diff olarak inceleyin, istediğiniz satıra yorum yapın ve sonucu yerleşik tarayıcıda kontrol edin. macOS, Windows ve Linux için.",
       showcase: {
@@ -72,16 +72,16 @@ export const content = {
         },
         "extend-it": {
           title: "Genişletin",
-          body: "Araçlarınızı ve hizmetlerinizi bağlayın, ajan her şeyle çalışabilsin. Ya da Xccode'un kendisi için kenar çubuğunda kendi arayüzü olan eklentiler yapmasını sağlayın.",
+          body: "Araçlarınızı ve hizmetlerinizi bağlayın, ajan her şeyle çalışabilsin. Ya da Xiaochuan'un kendisi için kenar çubuğunda kendi arayüzü olan eklentiler yapmasını sağlayın.",
         },
       },
     },
     mobile: {
-      title: "Xccode | Mobile, kodlama oturumlarınız telefonunuzda",
+      title: "Xiaochuan | Mobile, kodlama oturumlarınız telefonunuzda",
       description:
-        "Xccode oturumlarını telefonunuzdan başlatın ve yönetin. Ajan bilgisayarınızda çalışırken onunla konuşun.",
+        "Xiaochuan oturumlarını telefonunuzdan başlatın ve yönetin. Ajan bilgisayarınızda çalışırken onunla konuşun.",
       intro:
-        "Nerede olursanız olun oturumları telefonunuzdan başlatın ve yönetin. Bir oturumu arayıp ajanla konuşun ya da bir oturum açıp kaldığınız yerden devam edin, hepsi kendi bilgisayarınızdaki Xccode üzerinde.",
+        "Nerede olursanız olun oturumları telefonunuzdan başlatın ve yönetin. Bir oturumu arayıp ajanla konuşun ya da bir oturum açıp kaldığınız yerden devam edin, hepsi kendi bilgisayarınızdaki Xiaochuan üzerinde.",
       features: {
         "notify-when-done": {
           title: "Bitince haber ver",
@@ -89,7 +89,7 @@ export const content = {
         },
         "pair-from-anywhere": {
           title: "Her yerden eşle",
-          body: "xccode pair --remote ile her ağdan bağlanın.",
+          body: "xiaochuan pair --remote ile her ağdan bağlanın.",
         },
         "every-computer": {
           title: "Her bilgisayar",
@@ -105,7 +105,7 @@ export const content = {
         },
         "your-computer": {
           title: "Bilgisayarınız",
-          body: "Kendi makinenizde çalışan Xccode'a bağlanır.",
+          body: "Kendi makinenizde çalışan Xiaochuan'a bağlanır.",
         },
         "share-sheet": {
           title: "Paylaşım menüsü",
@@ -136,9 +136,9 @@ export const content = {
       },
     },
     terminal: {
-      title: "Xccode | Açık kaynaklı kodlama ajanı için terminal arayüzü",
+      title: "Xiaochuan | Açık kaynaklı kodlama ajanı için terminal arayüzü",
       description:
-        "Xccode için her kabukta, editörde ya da uzak sunucuda çalışan hızlı bir terminal arayüzü. Ne istediğinizi anlatın, her düzenlemeyi diff olarak görün ve komutları onaylayın.",
+        "Xiaochuan için her kabukta, editörde ya da uzak sunucuda çalışan hızlı bir terminal arayüzü. Ne istediğinizi anlatın, her düzenlemeyi diff olarak görün ve komutları onaylayın.",
       intro:
         "Her kabukta, editörde ya da uzak sunucuda çalışan hızlı bir terminal arayüzü. Ne istediğinizi sade bir dille anlatın, her düzenlemenin diff olarak gelişini izleyin ve hangi komutların kendiliğinden çalışacağını seçin.",
       features: {
@@ -156,7 +156,7 @@ export const content = {
         },
         "one-off-runs": {
           title: "Tek seferlik",
-          body: "xccode run tek bir mesaj gönderir ve yanıtı yazdırır.",
+          body: "xiaochuan run tek bir mesaj gönderir ve yanıtı yazdırır.",
         },
         "agents-and-commands": {
           title: "Ajan ve komutlar",
@@ -168,11 +168,11 @@ export const content = {
         },
         "any-server": {
           title: "Her sunucu",
-          body: "--server ile bir Xccode sunucusuna URL üzerinden bağlanın.",
+          body: "--server ile bir Xiaochuan sunucusuna URL üzerinden bağlanın.",
         },
         "usage-stats": {
           title: "İstatistikler",
-          body: "xccode stats paylaşılabilir kullanım istatistikleri gösterir.",
+          body: "xiaochuan stats paylaşılabilir kullanım istatistikleri gösterir.",
         },
       },
       showcase: {
@@ -190,20 +190,20 @@ export const content = {
         },
         mini: {
           title: "Mini",
-          body: "xccode mini'yi çalıştırın, yanıtlar kaydırma geçmişinize yazılır.",
+          body: "xiaochuan mini'yi çalıştırın, yanıtlar kaydırma geçmişinize yazılır.",
         },
       },
     },
     sdk: {
-      title: "Xccode | Betikler, CI işleri ve araçlar için TypeScript SDK",
+      title: "Xiaochuan | Betikler, CI işleri ve araçlar için TypeScript SDK",
       description:
-        "Xccode'u kendi betiklerinizden, CI işlerinizden ve araçlarınızdan yönetin. Tipli TypeScript istemcisi oturum oluşturur, prompt gönderir ve her olayı anında aktarır.",
+        "Xiaochuan'u kendi betiklerinizden, CI işlerinizden ve araçlarınızdan yönetin. Tipli TypeScript istemcisi oturum oluşturur, prompt gönderir ve her olayı anında aktarır.",
       intro:
-        "Xccode'u kendi betiklerinizden, CI işlerinizden ve araçlarınızdan yönetin. SDK, Xccode'u kendi yapılandırmanız ve modellerinizle sürecinizin içinde çalıştırır. Tipli istemcisi oturum oluşturur, prompt gönderir ve her olayı aktarır.",
+        "Xiaochuan'u kendi betiklerinizden, CI işlerinizden ve araçlarınızdan yönetin. SDK, Xiaochuan'u kendi yapılandırmanız ve modellerinizle sürecinizin içinde çalıştırır. Tipli istemcisi oturum oluşturur, prompt gönderir ve her olayı aktarır.",
       features: {
         "typescript-client": {
           title: "TypeScript istemcisi",
-          body: "@xccode/client ile aynı değerlere sahip tipli istekler ve olaylar.",
+          body: "@xiaochuan/client ile aynı değerlere sahip tipli istekler ve olaylar.",
         },
         "sessions-from-code": {
           title: "Koddan oturumlar",
@@ -211,15 +211,15 @@ export const content = {
         },
         "any-model": {
           title: "Her model",
-          body: "Xccode kurulumunuzdaki modelleri kullanır.",
+          body: "Xiaochuan kurulumunuzdaki modelleri kullanır.",
         },
         "npm-or-bun": {
           title: "npm ya da bun",
-          body: "npm i @xccode/sdk ya da bun add @xccode/sdk ile kurun.",
+          body: "npm i @xiaochuan/sdk ya da bun add @xiaochuan/sdk ile kurun.",
         },
         "in-process-host": {
           title: "Süreç içi host",
-          body: "Xccode'u ağ adımı olmadan bellekte çalıştırır.",
+          body: "Xiaochuan'u ağ adımı olmadan bellekte çalıştırır.",
         },
         "your-plugins": {
           title: "Eklentileriniz",
@@ -231,13 +231,13 @@ export const content = {
         },
         "cloudflare-workers": {
           title: "Cloudflare Workers",
-          body: "Xccode'u Workers üzerinde bir Cloudflare Durable Object içinde çalıştırın.",
+          body: "Xiaochuan'u Workers üzerinde bir Cloudflare Durable Object içinde çalıştırın.",
         },
       },
       showcase: {
         "fix-ci-from-code": {
           title: "CI'ı koddan düzelt",
-          body: "Kısa bir betik Xccode'dan başarısız testleri düzeltmesini ister ve testleri yeniden çalıştırır.",
+          body: "Kısa bir betik Xiaochuan'dan başarısız testleri düzeltmesini ister ve testleri yeniden çalıştırır.",
         },
         "follow-every-step": {
           title: "Her adımı izle",
@@ -245,20 +245,20 @@ export const content = {
         },
         "build-your-own-tools": {
           title: "Kendi araçların",
-          body: "Xccode'u birkaç satırla botlara, panolara ve iş akışlarına bağlayın.",
+          body: "Xiaochuan'u birkaç satırla botlara, panolara ve iş akışlarına bağlayın.",
         },
         "in-your-process": {
           title: "Kendi sürecinizde",
-          body: "Xccode'u kendi yapılandırmanız ve modellerinizle sürecinizin içinde çalıştırır.",
+          body: "Xiaochuan'u kendi yapılandırmanız ve modellerinizle sürecinizin içinde çalıştırır.",
         },
       },
     },
     mini: {
-      title: "Xccode | Mini, ajan için minimal bir terminal arayüzü",
+      title: "Xiaochuan | Mini, ajan için minimal bir terminal arayüzü",
       description:
-        "Mini, Xccode'u minimal bir terminal arayüzünde çalıştırır. Yanıtlar terminalin kendi kaydırma geçmişine yazılır, altta yalnızca bir prompt ve bir durum satırı kalır.",
+        "Mini, Xiaochuan'u minimal bir terminal arayüzünde çalıştırır. Yanıtlar terminalin kendi kaydırma geçmişine yazılır, altta yalnızca bir prompt ve bir durum satırı kalır.",
       intro:
-        "Xccode için minimal bir terminal arayüzü. xccode mini'yi çalıştırın, yanıtlar doğrudan terminalinizin kaydırma geçmişine yazılsın. Onları diğer çıktılar gibi kaydırır, arar ve kopyalarsınız. Altta yalnızca prompt ve bir durum satırı kalır.",
+        "Xiaochuan için minimal bir terminal arayüzü. xiaochuan mini'yi çalıştırın, yanıtlar doğrudan terminalinizin kaydırma geçmişine yazılsın. Onları diğer çıktılar gibi kaydırır, arar ve kopyalarsınız. Altta yalnızca prompt ve bir durum satırı kalır.",
       features: {
         "your-scrollback": {
           title: "Kaydırma geçmişi",
@@ -280,8 +280,8 @@ export const content = {
           title: "Sonra devam et",
           body: "Son oturuma -c ile, herhangi birine -s ile devam edin.",
         },
-        "same-xccode": {
-          title: "Aynı Xccode",
+        "same-xiaochuan": {
+          title: "Aynı Xiaochuan",
           body: "Diğer uygulamalarla aynı sunucu, ajanlar ve modeller.",
         },
         agents: {
@@ -297,16 +297,16 @@ export const content = {
   },
   extensionCard: {
     name: "Eklentiler",
-    body: "Xccode'u VS Code'da ya da ACP ile Zed ve diğer editörlerde kullanın.",
+    body: "Xiaochuan'u VS Code'da ya da ACP ile Zed ve diğer editörlerde kullanın.",
     action: "Kur",
   },
   extensions: {
     browse: {
       name: "Browse",
       body: "Ajanlar gerçek tarayıcınızı kullansın.",
-      title: "Xccode | Browse, kodlama ajanları için gerçek tarayıcınız",
+      title: "Xiaochuan | Browse, kodlama ajanları için gerçek tarayıcınız",
       description:
-        "Browse, Xccode'un ve diğer MCP istemcilerinin gerçek tarayıcınızı kullanmasını sağlar. Ajanlar okur, tıklar, yazar, ekran görüntüsü alır, sekme kaydeder ve girişleri ve 2FA'yı size bırakır.",
+        "Browse, Xiaochuan'un ve diğer MCP istemcilerinin gerçek tarayıcınızı kullanmasını sağlar. Ajanlar okur, tıklar, yazar, ekran görüntüsü alır, sekme kaydeder ve girişleri ve 2FA'yı size bırakır.",
       intro:
         "Ajanlarınızın gerçek tarayıcınızı, yani sekmelerinizi, oturum açmış hesaplarınızı ve eklentilerinizi kullanmasını sağlayan bir MCP sunucusu ve bir Chromium eklentisi. Sekmeleri arka planda, yolunuzdan uzakta gruplanmış olarak açarlar; sayfaları okur, tıklar, yazar, ekran görüntüsü alır ve sekme kaydederler. Sıra size geldiğinde, örneğin bir giriş, 2FA istemi ya da ödeme için, sekmeyi size verirler ve siz Continue'ya tıklayınca devam ederler.",
       features: {
@@ -332,7 +332,7 @@ export const content = {
         },
         "any-mcp-client": {
           title: "Her MCP istemcisi",
-          body: "Xccode, Claude Code, Cursor, Codex, Zed ve çok daha fazlası.",
+          body: "Xiaochuan, Claude Code, Cursor, Codex, Zed ve çok daha fazlası.",
         },
         "all-your-logins": {
           title: "Tüm oturum açmalarınız",
@@ -367,10 +367,10 @@ export const content = {
   },
   getStarted: {
     title: "Başlayın",
-    lead: "Başlamanın en kolay yolu Xccode'u indirip ücretsiz modelleri kullanmak. Hesap gerekmez. Daha fazlası için kendi aboneliğinizi getirin ya da Xccode Go kullanın.",
+    lead: "Başlamanın en kolay yolu Xiaochuan'u indirip ücretsiz modelleri kullanmak. Hesap gerekmez. Daha fazlası için kendi aboneliğinizi getirin ya da Xiaochuan Go kullanın.",
     phrases: {
-      "download-xccode": {
-        text: "Xccode'u indirip",
+      "download-xiaochuan": {
+        text: "Xiaochuan'u indirip",
       },
       "free-models": {
         text: "ücretsiz modelleri",
@@ -381,8 +381,8 @@ export const content = {
       "a-subscription-you-already-have": {
         text: "zaten sahip olduğunuz bir abonelik",
       },
-      "xccode-go": {
-        text: "Xccode Go",
+      "xiaochuan-go": {
+        text: "Xiaochuan Go",
       },
     },
     subscriptions: {
@@ -394,11 +394,11 @@ export const content = {
       },
     },
     plans: {
-      "xccode-go": {
-        name: "Xccode Go",
+      "xiaochuan-go": {
+        name: "Xiaochuan Go",
       },
-      "xccode-go-plus": {
-        name: "Xccode Go Plus",
+      "xiaochuan-go-plus": {
+        name: "Xiaochuan Go Plus",
       },
     },
     steps: {
@@ -408,20 +408,20 @@ export const content = {
       },
       "use-free-models": {
         title: "Ücretsiz modeller",
-        line: "Xccode bir dizi ücretsiz modelle gelir. Hesap gerekmez.",
+        line: "Xiaochuan bir dizi ücretsiz modelle gelir. Hesap gerekmez.",
       },
       "add-more-models": {
         title: "Model ekle",
-        line: "Kendi aboneliğinizi getirin ya da aylık 10 $'dan başlayan Xccode Go seçkisini kullanın.",
+        line: "Kendi aboneliğinizi getirin ya da aylık 10 $'dan başlayan Xiaochuan Go seçkisini kullanın.",
       },
     },
     sentence:
-      "Xccode'u indirin, ücretsiz modellerle başlayın, daha fazlasını istediğinizde kendi aboneliğinizi ya da Xccode Go'yu kullanın.",
+      "Xiaochuan'u indirin, ücretsiz modellerle başlayın, daha fazlasını istediğinizde kendi aboneliğinizi ya da Xiaochuan Go'yu kullanın.",
   },
   byos: {
     title: "Kendi aboneliğinizi getirin",
     headline: "Zaten sahip olduğunuz abonelikleri kullanın.",
-    line: "ChatGPT Plus ya da Pro veya GitHub Copilot ile giriş yapın. Ya da bir Xccode aboneliği kullanın.",
+    line: "ChatGPT Plus ya da Pro veya GitHub Copilot ile giriş yapın. Ya da bir Xiaochuan aboneliği kullanın.",
     yours: {
       label: "Aboneliğiniz",
       items: {
@@ -433,9 +433,9 @@ export const content = {
         },
       },
     },
-    planLinks: ["Xccode aboneliği", "Xccode Go"],
+    planLinks: ["Xiaochuan aboneliği", "Xiaochuan Go"],
     ours: {
-      label: "Xccode planları",
+      label: "Xiaochuan planları",
     },
   },
   brand: {
@@ -447,8 +447,8 @@ export const content = {
     },
     naming: {
       title: "Ad",
-      body: "Xccode'u büyük O ve büyük C ile tek kelime olarak yazın. Xccode, Open Code, Xccode AI ya da Open-Code yazmayın.",
-      code: "Küçük harfli `xccode` adını yalnızca kodda ve `xccode-figma` ya da `@acme/xccode-plugin` gibi paket adlarında kullanın.",
+      body: "Xiaochuan'u büyük O ve büyük C ile tek kelime olarak yazın. Xiaochuan, Open Code, Xiaochuan AI ya da Open-Code yazmayın.",
+      code: "Küçük harfli `xiaochuan` adını yalnızca kodda ve `xiaochuan-figma` ya da `@acme/xiaochuan-plugin` gibi paket adlarında kullanın.",
     },
     families: {
       logo: {
@@ -471,7 +471,7 @@ export const content = {
       },
       wordmark: {
         title: "Yazı logosu",
-        body: "Xccode harf biçimleriyle yazılmış tam ad. Adı tam yazacak yer olan her yerde kullanın.",
+        body: "Xiaochuan harf biçimleriyle yazılmış tam ad. Adı tam yazacak yer olan her yerde kullanın.",
         assets: {
           light: {
             name: "Açık",
@@ -676,21 +676,21 @@ export const content = {
     },
     integrations: {
       title: "Entegrasyonlar",
-      body: "Xccode ile çalışan eklentiler, sağlayıcılar ve araçlar ile onunla yapılmış projeler bunu belirtebilir. Bir rozet ya da ortaklık logosu kullanın ve projenize sizin olduğu açıkça anlaşılacak bir ad verin.",
+      body: "Xiaochuan ile çalışan eklentiler, sağlayıcılar ve araçlar ile onunla yapılmış projeler bunu belirtebilir. Bir rozet ya da ortaklık logosu kullanın ve projenize sizin olduğu açıkça anlaşılacak bir ad verin.",
       badges: {
-        body: "README'nize, dokümanlarınıza ya da sitenize bir rozet koyun ve xccode.ai'ye bağlayın. Arka planınıza göre açık ya da koyu dosyayı seçin (HTML kendiliğinden geçiş yapar) ve renkleri ya da metni değiştirmeyin.",
+        body: "README'nize, dokümanlarınıza ya da sitenize bir rozet koyun ve xiaochuan.ai'ye bağlayın. Arka planınıza göre açık ya da koyu dosyayı seçin (HTML kendiliğinden geçiş yapar) ve renkleri ya da metni değiştirmeyin.",
         sizes: "Her stil 20, 32 ve 44px boyutlarında (Shields yalnızca 20px), SVG ve 2× PNG olarak gelir.",
-        mono: "Her dosyanın OpenTUI Mono metinli bir sürümü de var. Uzantıdan önce -mono ekleyin, örneğin xccode-works-with-a-light-20-mono.svg, ya da büyük harfli OpenTUI Mono için -mono-caps.",
+        mono: "Her dosyanın OpenTUI Mono metinli bir sürümü de var. Uzantıdan önce -mono ekleyin, örneğin xiaochuan-works-with-a-light-20-mono.svg, ya da büyük harfli OpenTUI Mono için -mono-caps.",
         groups: {
           "works-with": {
             title: "Uyumlu",
-            alt: "Xccode ile uyumlu",
-            body: "Xccode ile çalışan eklentiler, sağlayıcılar ve araçlar için.",
+            alt: "Xiaochuan ile uyumlu",
+            body: "Xiaochuan ile çalışan eklentiler, sağlayıcılar ve araçlar için.",
           },
           "built-with": {
             title: "Yapıldı",
-            alt: "Xccode ile yapıldı",
-            body: "Xccode ile yapılmış projeler için.",
+            alt: "Xiaochuan ile yapıldı",
+            body: "Xiaochuan ile yapılmış projeler için.",
           },
         },
         styles: {
@@ -710,7 +710,7 @@ export const content = {
       },
       lockup: {
         title: "Ortak logo",
-        body: "Xccode logosunu ve ortak logosunu aralarında bir × ile yan yana koyun. ×'in her iki yanında 3 çizgi boşluk bırakın, ortak logosunu Xccode logosu kadar yüksek görünecek şekilde boyutlandırın ve tüm bileşimin çevresinde boş alan bırakın.",
+        body: "Xiaochuan logosunu ve ortak logosunu aralarında bir × ile yan yana koyun. ×'in her iki yanında 3 çizgi boşluk bırakın, ortak logosunu Xiaochuan logosu kadar yüksek görünecek şekilde boyutlandırın ve tüm bileşimin çevresinde boş alan bırakın.",
         partners: {
           github: {
             name: "GitHub",
@@ -720,12 +720,12 @@ export const content = {
       naming: {
         title: "Projenizi adlandırma",
         body: "Projenin size ait olduğu anlaşılsın diye kendi adınızla başlayın.",
-        rule: "`Linear for Xccode` yazın ya da paketi `xccode-linear` olarak adlandırın. `Xccode Linear` ya da `Linear by Xccode` yazmayın.",
+        rule: "`Linear for Xiaochuan` yazın ya da paketi `xiaochuan-linear` olarak adlandırın. `Xiaochuan Linear` ya da `Linear by Xiaochuan` yazmayın.",
       },
     },
     trademarks: {
       title: "Markalar",
-      body: "Xccode ve Xccode logosu Anomaly'nin ticari markalarıdır. Bunları Anomaly'nin sizi desteklediğini ya da sponsorluğunu yaptığını ima edecek şekilde, ürün ya da şirket adınızda ya da izinsiz ürünlerde kullanmayın.",
+      body: "Xiaochuan ve Xiaochuan logosu Anomaly'nin ticari markalarıdır. Bunları Anomaly'nin sizi desteklediğini ya da sponsorluğunu yaptığını ima edecek şekilde, ürün ya da şirket adınızda ya da izinsiz ürünlerde kullanmayın.",
       contact: {
         before: "Sorularınız için e-posta gönderin, ",
         after: ".",
@@ -733,21 +733,21 @@ export const content = {
     },
   },
   press: {
-    title: "Xccode | Şirket bilgileri ve marka dosyalarıyla basın kiti",
+    title: "Xiaochuan | Şirket bilgileri ve marka dosyalarıyla basın kiti",
     description:
-      "Xccode basın kiti. Xccode ve onu geliştiren şirket Anomaly hakkında bilgiler, indirilebilir logolar ve yazı logoları, basın soruları için bir iletişim adresi.",
+      "Xiaochuan basın kiti. Xiaochuan ve onu geliştiren şirket Anomaly hakkında bilgiler, indirilebilir logolar ve yazı logoları, basın soruları için bir iletişim adresi.",
     hero: {
       title: "Basın",
-      body: "Xccode ve Anomaly hakkında yazmak için bilgiler, marka dosyaları ve iletişim.",
+      body: "Xiaochuan ve Anomaly hakkında yazmak için bilgiler, marka dosyaları ve iletişim.",
     },
     company: {
       title: "Anomaly hakkında",
-      lead: "Anomaly, Xccode'u geliştiren şirkettir. Geliştiriciler için açık kaynak araçlar yapar.",
+      lead: "Anomaly, Xiaochuan'u geliştiren şirkettir. Geliştiriciler için açık kaynak araçlar yapar.",
       more: "Diğer projeler arasında SST ve OpenTUI var, hepsi [GitHub](github) üzerinde açık kaynak.",
       learnMore: "Daha fazlası için [anoma.ly](site) adresine gidin.",
       projects: {
-        xccode: {
-          name: "Xccode",
+        xiaochuan: {
+          name: "Xiaochuan",
           body: "Masaüstü, terminal ve mobil uygulamaları ile bir SDK'sı olan açık kaynaklı kodlama ajanı. MIT lisanslı, 220.000'den fazla GitHub yıldızı.",
         },
         sst: {
@@ -756,7 +756,7 @@ export const content = {
         },
         opentui: {
           name: "OpenTUI",
-          body: "Zig ile yazılmış bir çekirdekle TypeScript, React ya da Solid'de terminal arayüzleri için bir kitaplık. Xccode onu üretimde kullanır. 13.000'den fazla GitHub yıldızı.",
+          body: "Zig ile yazılmış bir çekirdekle TypeScript, React ya da Solid'de terminal arayüzleri için bir kitaplık. Xiaochuan onu üretimde kullanır. 13.000'den fazla GitHub yıldızı.",
         },
         "models-dev": {
           name: "Models.dev",
@@ -773,31 +773,31 @@ export const content = {
       },
     },
     about: {
-      title: "Xccode hakkında",
-      body: "Xccode ve ürünleri için uzun ve kısa sürümlerde, kopyalanmaya hazır tanıtım metinleri.",
+      title: "Xiaochuan hakkında",
+      body: "Xiaochuan ve ürünleri için uzun ve kısa sürümlerde, kopyalanmaya hazır tanıtım metinleri.",
       boilerplate: {
-        long: "Xccode açık kaynaklı bir kodlama ajanıdır. Masaüstü uygulaması, terminal arayüzü, mobil uygulama ve SDK olarak gelir ve Claude, GPT ve Gemini dahil her sağlayıcının modelleriyle çalışır. Xccode MIT lisanslıdır ve Anomaly tarafından geliştirilir. 220.000'den fazla GitHub yıldızı ve 1.000'den fazla katkıcısı vardır, her ay 22 milyondan fazla geliştirici onu kullanır.",
+        long: "Xiaochuan açık kaynaklı bir kodlama ajanıdır. Masaüstü uygulaması, terminal arayüzü, mobil uygulama ve SDK olarak gelir ve Claude, GPT ve Gemini dahil her sağlayıcının modelleriyle çalışır. Xiaochuan MIT lisanslıdır ve Anomaly tarafından geliştirilir. 220.000'den fazla GitHub yıldızı ve 1.000'den fazla katkıcısı vardır, her ay 22 milyondan fazla geliştirici onu kullanır.",
         short:
-          "Xccode, Anomaly'nin masaüstü, terminal ve mobil uygulamaları ile bir SDK'sı olan açık kaynaklı kodlama ajanıdır.",
+          "Xiaochuan, Anomaly'nin masaüstü, terminal ve mobil uygulamaları ile bir SDK'sı olan açık kaynaklı kodlama ajanıdır.",
       },
       products: {
-        "xccode-console": {
-          name: "Xccode Console",
-          long: "Xccode Console, geliştiricilerin ve ekiplerin Xccode ve diğer kodlama ajanları için AI model erişimi satın alıp yönettiği web uygulamasıdır. Sınır modeller ve açık ağırlıklı modeller için ön ödemeli kredilerden istek başına ücretlendirilen kullandıkça öde çıkarımı ve Xccode Go abonelikleri sunar. Ekipler Member, Admin ve Owner rollerine sahip çalışma alanları, çalışma alanı ve kullanıcı başına harcama limitleri, Okta, Microsoft Entra ID ya da Google Workspace ile tek oturum açma ve SCIM elde eder. Console 30'dan fazla sağlayıcıyı destekler, böylece ekipler mevcut sağlayıcı hesaplarını bağlayabilir ve Console'un kendi çıkarımı isteğe bağlıdır. Adresi xccode.ai/console.",
+        "xiaochuan-console": {
+          name: "Xiaochuan Console",
+          long: "Xiaochuan Console, geliştiricilerin ve ekiplerin Xiaochuan ve diğer kodlama ajanları için AI model erişimi satın alıp yönettiği web uygulamasıdır. Sınır modeller ve açık ağırlıklı modeller için ön ödemeli kredilerden istek başına ücretlendirilen kullandıkça öde çıkarımı ve Xiaochuan Go abonelikleri sunar. Ekipler Member, Admin ve Owner rollerine sahip çalışma alanları, çalışma alanı ve kullanıcı başına harcama limitleri, Okta, Microsoft Entra ID ya da Google Workspace ile tek oturum açma ve SCIM elde eder. Console 30'dan fazla sağlayıcıyı destekler, böylece ekipler mevcut sağlayıcı hesaplarını bağlayabilir ve Console'un kendi çıkarımı isteğe bağlıdır. Adresi xiaochuan.ai/console.",
           short:
-            "Xccode Console, Anomaly'nin kullandıkça öde AI model erişimi, Xccode Go abonelikleri ve bütçe ile tek oturum açma gibi ekip denetimleri sunan web uygulamasıdır.",
+            "Xiaochuan Console, Anomaly'nin kullandıkça öde AI model erişimi, Xiaochuan Go abonelikleri ve bütçe ile tek oturum açma gibi ekip denetimleri sunan web uygulamasıdır.",
         },
-        "xccode-go": {
-          name: "Xccode Go",
-          long: "Xccode Go, kodlama modelleri için sabit aylık fiyat isteyen geliştiricilere yönelik bir aboneliktir. Go aylık 10 $, daha yüksek limitli Go Plus aylık 40 $, Go Teams ise üye başına aylık 20 $'dır. Her plan, ajanlı kodlama için test edilmiş seçkin bir model kümesi içerir. Kullanım limitleri her model için aylık dolar tutarlarıdır, aylık limitin %20'si ve %50'si olan kayan 5 saatlik ve haftalık paylarla birlikte. Aboneler kredi yükleyebilir, kullandıkça öde bakiyesine geçebilir ve istedikleri zaman iptal edebilir. Go, Xccode ve diğer ajanlarla çalışır. Adresi xccode.ai/console/go.",
+        "xiaochuan-go": {
+          name: "Xiaochuan Go",
+          long: "Xiaochuan Go, kodlama modelleri için sabit aylık fiyat isteyen geliştiricilere yönelik bir aboneliktir. Go aylık 10 $, daha yüksek limitli Go Plus aylık 40 $, Go Teams ise üye başına aylık 20 $'dır. Her plan, ajanlı kodlama için test edilmiş seçkin bir model kümesi içerir. Kullanım limitleri her model için aylık dolar tutarlarıdır, aylık limitin %20'si ve %50'si olan kayan 5 saatlik ve haftalık paylarla birlikte. Aboneler kredi yükleyebilir, kullandıkça öde bakiyesine geçebilir ve istedikleri zaman iptal edebilir. Go, Xiaochuan ve diğer ajanlarla çalışır. Adresi xiaochuan.ai/console/go.",
           short:
-            "Xccode Go, Anomaly'nin geliştiricilere seçkin kodlama modellerinde aylık kullanım limitleri veren, aylık 10 $'dan başlayan aboneliğidir.",
+            "Xiaochuan Go, Anomaly'nin geliştiricilere seçkin kodlama modellerinde aylık kullanım limitleri veren, aylık 10 $'dan başlayan aboneliğidir.",
         },
-        "xccode-data": {
-          name: "Xccode Data",
-          long: "Xccode Data, geliştiricilerin Xccode'da hangi AI modellerini kullandığını ve bu dağılımın zamanla nasıl değiştiğini gösteren herkese açık bir panodur. En çok kullanılan modellerin sıralamasını, token kullanımını, oturum ve token maliyetlerini, önbellek oranlarını, pazar payını ve ülkelere göre dağılımı yayımlar. Rakamlar saatte bir toplanır, günler ve haftalar UTC'ye göredir. Kullanıcı ve oturum sayıları yaklaşıktır, maliyetler Xccode model kataloğundaki liste fiyatlarını kullanır. Gazeteciler, sayfada gösterilen güncelleme saatiyle birlikte Xccode Data (xccode.ai/data) olarak kaynak gösterebilir.",
+        "xiaochuan-data": {
+          name: "Xiaochuan Data",
+          long: "Xiaochuan Data, geliştiricilerin Xiaochuan'da hangi AI modellerini kullandığını ve bu dağılımın zamanla nasıl değiştiğini gösteren herkese açık bir panodur. En çok kullanılan modellerin sıralamasını, token kullanımını, oturum ve token maliyetlerini, önbellek oranlarını, pazar payını ve ülkelere göre dağılımı yayımlar. Rakamlar saatte bir toplanır, günler ve haftalar UTC'ye göredir. Kullanıcı ve oturum sayıları yaklaşıktır, maliyetler Xiaochuan model kataloğundaki liste fiyatlarını kullanır. Gazeteciler, sayfada gösterilen güncelleme saatiyle birlikte Xiaochuan Data (xiaochuan.ai/data) olarak kaynak gösterebilir.",
           short:
-            "Xccode Data, xccode.ai/data adresinde AI modellerini Xccode'daki gerçek kullanıma göre sıralayan, token, maliyet ve pazar payını saatlik güncelleyen herkese açık bir panodur.",
+            "Xiaochuan Data, xiaochuan.ai/data adresinde AI modellerini Xiaochuan'daki gerçek kullanıma göre sıralayan, token, maliyet ve pazar payını saatlik güncelleyen herkese açık bir panodur.",
         },
       },
     },
@@ -826,9 +826,9 @@ export const content = {
           date: "Eki 2025",
           text: "1 milyon+ indirme",
         },
-        "xccode-1-0": {
+        "xiaochuan-1-0": {
           date: "Eki 2025",
-          text: "Xccode 1.0",
+          text: "Xiaochuan 1.0",
         },
         "desktop-app-ships": {
           date: "Ara 2025",
@@ -838,9 +838,9 @@ export const content = {
           date: "Oca 2026",
           text: "10 milyon+ indirme",
         },
-        "xccode-2-0": {
+        "xiaochuan-2-0": {
           date: "Eyl 2026",
-          text: "Xccode 2.0",
+          text: "Xiaochuan 2.0",
         },
         "220-000-github-stars": {
           date: "Kas 2026",
@@ -850,7 +850,7 @@ export const content = {
     },
     news: {
       title: "Son sürümler",
-      intro: "Xccode sık sık sürüm çıkarır. Yeni özellikler içeren en yeni sürümler bunlar.",
+      intro: "Xiaochuan sık sık sürüm çıkarır. Yeni özellikler içeren en yeni sürümler bunlar.",
       changelog: {
         text: "Tüm sürüm notları",
       },
@@ -861,7 +861,7 @@ export const content = {
     media: {
       title: "Medya",
       intro:
-        "Her uygulamanın gerçek üründen kaydedilmiş görselleri ve kısa videoları. Xccode hakkında yazarken kullanabilirsiniz.",
+        "Her uygulamanın gerçek üründen kaydedilmiş görselleri ve kısa videoları. Xiaochuan hakkında yazarken kullanabilirsiniz.",
       note: "Tüm kayıtlar koyu temayı kullanır. Görseller ve kapaklar en fazla 1920 × 1080, dikeyde 1080 × 1350 boyutunda JPG'lerdir. Videolar sessiz MP4 kliplerdir.",
       products: {
         desktop: {
@@ -1021,13 +1021,13 @@ export const content = {
     brand: {
       title: "Marka",
       before:
-        "Xccode logolarını ve yazı logolarını tek bir ZIP dosyasında indirin. Tek tek dosyalar, varyantlar ve kullanım kuralları için ",
+        "Xiaochuan logolarını ve yazı logolarını tek bir ZIP dosyasında indirin. Tek tek dosyalar, varyantlar ve kullanım kuralları için ",
       link: {
         text: "Marka",
       },
       after: " sayfasına gidin.",
       usage:
-        "Bu dosyaları Xccode hakkında yazmak için kullanabilirsiniz. Onları değiştirmeyin ve Xccode'un çalışmanızı desteklediğini ima etmeyin.",
+        "Bu dosyaları Xiaochuan hakkında yazmak için kullanabilirsiniz. Onları değiştirmeyin ve Xiaochuan'un çalışmanızı desteklediğini ima etmeyin.",
     },
     product: {
       title: "Ürün",
@@ -1038,7 +1038,7 @@ export const content = {
         },
         mobile: {
           name: "Mobile",
-          body: "En yeni Xccode uygulaması. Ajanla konuşmak için bir oturumu arayın, ardından değişikliklerini her yerden telefonunuzla inceleyip onaylayın.",
+          body: "En yeni Xiaochuan uygulaması. Ajanla konuşmak için bir oturumu arayın, ardından değişikliklerini her yerden telefonunuzla inceleyip onaylayın.",
         },
         terminal: {
           name: "Terminal",
@@ -1059,7 +1059,7 @@ export const content = {
         },
         support: {
           title: "Destek",
-          body: "Xccode ile ilgili yardım için bir issue açın ya da topluluğa sorun. Hesap ve faturalama soruları için bize e-posta gönderin.",
+          body: "Xiaochuan ile ilgili yardım için bir issue açın ya da topluluğa sorun. Hesap ve faturalama soruları için bize e-posta gönderin.",
           links: {
             "github-issues": {
               text: "GitHub issue'ları",
@@ -1136,7 +1136,7 @@ export const content = {
       },
     },
     mini: {
-      lead: "Mini, Xccode CLI ile gelir. Bunlardan biriyle kurun, sonra xccode mini çalıştırın.",
+      lead: "Mini, Xiaochuan CLI ile gelir. Bunlardan biriyle kurun, sonra xiaochuan mini çalıştırın.",
       commands: {
         curl: {
           name: "Betik",
@@ -1155,11 +1155,11 @@ export const content = {
     title: "Telefonunuzu bağlayın",
     cardTitle: "Telefonunuzu tek komutla eşleyin",
     intro:
-      "Xccode Mobile, bilgisayarınızdaki Xccode için bir uzaktan kumandadır. Oturumlarınız orada çalışmaya devam eder, uygulama onları gösterir ve yönlendirmenizi sağlar.",
+      "Xiaochuan Mobile, bilgisayarınızdaki Xiaochuan için bir uzaktan kumandadır. Oturumlarınız orada çalışmaya devam eder, uygulama onları gösterir ve yönlendirmenizi sağlar.",
     steps: {
       "get-the-app": {
         title: "Uygulamayı edinin",
-        body: "Xccode betasını TestFlight üzerinden iPhone'unuza kurun. Android uygulaması çok yakında.",
+        body: "Xiaochuan betasını TestFlight üzerinden iPhone'unuza kurun. Android uygulaması çok yakında.",
       },
       "run-this-on-your-computer": {
         title: "Bunu bilgisayarda çalıştırın",
@@ -1170,12 +1170,12 @@ export const content = {
         body: "QR kodunu uygulamayla okutun ya da bağlantıyı yapıştırın. Bilgisayarınızın son oturumları telefonunuzda açılır.",
       },
     },
-    note: "--remote bir OpenTunnel adresi üzerinden bağlanır, bu yüzden her ağdan çalışır. Aynı Wi-Fi'daysanız bir kez xccode service set hostname 0.0.0.0, ardından xccode pair çalıştırın.",
+    note: "--remote bir OpenTunnel adresi üzerinden bağlanır, bu yüzden her ağdan çalışır. Aynı Wi-Fi'daysanız bir kez xiaochuan service set hostname 0.0.0.0, ardından xiaochuan pair çalıştırın.",
     facts: [
       "Eşleme her ağdan çalışır, çünkü --remote bir OpenTunnel adresi üzerinden bağlanır.",
       "Bağlantı ve kod bir kez çalışır ve 5 dakikada sona erer.",
       "Bilgisayarı açık tutun, çünkü ajan telefonda değil, orada çalışır.",
-      "Aynı Wi-Fi'daysanız bir kez xccode service set hostname 0.0.0.0, ardından xccode pair çalıştırın.",
+      "Aynı Wi-Fi'daysanız bir kez xiaochuan service set hostname 0.0.0.0, ardından xiaochuan pair çalıştırın.",
     ],
   },
 } satisfies ContentOverlay

@@ -1,15 +1,15 @@
-import { Bus } from "@xccode/core/bus"
-import { Config } from "@xccode/core/config"
-import { Environment, makeFiles } from "@xccode/core/environment/index"
-import { EnvironmentUnavailable } from "@xccode/core/environment/unavailable"
-import { Integration } from "@xccode/core/integration"
-import { Model } from "@xccode/core/model"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { OllamaPlugin, make } from "@xccode/core/plugin/provider/ollama"
-import { ProviderPlugins } from "@xccode/core/plugin/provider"
-import { Provider } from "@xccode/core/provider"
-import { Document, Event, Info } from "@xccode/schema/config"
+import { Bus } from "@xiaochuan/core/bus"
+import { Config } from "@xiaochuan/core/config"
+import { Environment, makeFiles } from "@xiaochuan/core/environment/index"
+import { EnvironmentUnavailable } from "@xiaochuan/core/environment/unavailable"
+import { Integration } from "@xiaochuan/core/integration"
+import { Model } from "@xiaochuan/core/model"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { OllamaPlugin, make } from "@xiaochuan/core/plugin/provider/ollama"
+import { ProviderPlugins } from "@xiaochuan/core/plugin/provider"
+import { Provider } from "@xiaochuan/core/provider"
+import { Document, Event, Info } from "@xiaochuan/schema/config"
 import { describe, expect } from "bun:test"
 import { Duration, Effect, Layer, Schema } from "effect"
 import { eventually } from "../lib/eventually"
@@ -90,8 +90,8 @@ describe("OllamaPlugin", () => {
           const providers = yield* Provider.Service
           const modelState = yield* Model.Service
           const providerID = Provider.ID.make("ollama")
-          expect(OllamaPlugin.id).toBe("xccode.provider.ollama")
-          expect(ProviderPlugins.map((item) => item.id)).toContain("xccode.provider.ollama")
+          expect(OllamaPlugin.id).toBe("xiaochuan.provider.ollama")
+          expect(ProviderPlugins.map((item) => item.id)).toContain("xiaochuan.provider.ollama")
           yield* addPlugin(server.url.origin)
           const model = yield* eventually(
             modelState.get(providerID, Model.ID.make("gemma3:4b")),
@@ -102,7 +102,7 @@ describe("OllamaPlugin", () => {
             id: providerID,
             name: "Ollama",
             activation: "enabled",
-            package: "@xccode/ai/providers/openai-compatible",
+            package: "@xiaochuan/ai/providers/openai-compatible",
             settings: { baseURL: `${server.url.origin}/v1`, provider: "ollama", apiKey: "" },
           })
           expect(model).toMatchObject({
@@ -210,7 +210,7 @@ describe("OllamaPlugin", () => {
           yield* providers.transform((editor) => {
             editor.update(providerID, (provider) => {
               provider.name = "Ollama"
-              provider.package = "@xccode/ai/providers/openai-compatible"
+              provider.package = "@xiaochuan/ai/providers/openai-compatible"
               provider.integrationID = Integration.ID.make("ollama")
             })
             editor.models.update(providerID, Model.ID.make("static-model"), () => {})

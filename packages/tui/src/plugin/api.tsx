@@ -1,4 +1,4 @@
-import { PluginContextProvider } from "@xccode/plugin/tui"
+import { PluginContextProvider } from "@xiaochuan/plugin/tui"
 import {
   children,
   createMemo,
@@ -22,7 +22,7 @@ import type {
   SlotMap,
   SlotPath,
   Toast,
-} from "@xccode/plugin/tui/context"
+} from "@xiaochuan/plugin/tui/context"
 import type { Placement, PlacementKind } from "./structure"
 import { infoStringToFiletype, type MarkdownCodeBlockRenderer } from "@opentui/core"
 import { useRenderer } from "@opentui/solid"

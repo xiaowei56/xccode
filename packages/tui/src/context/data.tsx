@@ -1,14 +1,14 @@
-import { createData } from "@xccode/client/solid"
-import { withMediaRefs, type LocationRef } from "@xccode/client"
-import type { Plugin } from "@xccode/plugin/tui"
+import { createData } from "@xiaochuan/client/solid"
+import { withMediaRefs, type LocationRef } from "@xiaochuan/client"
+import type { Plugin } from "@xiaochuan/plugin/tui"
 import { createEffect, on } from "solid-js"
 import { createStore } from "solid-js/store"
 import { createSimpleContext } from "./helper"
 import { useClient } from "./client"
 import { useConfig } from "../config"
 
-export { locationKey } from "@xccode/client/solid"
-export type { FormWithLocation } from "@xccode/client/solid"
+export { locationKey } from "@xiaochuan/client/solid"
+export type { FormWithLocation } from "@xiaochuan/client/solid"
 
 export const { use: useData, provider: DataProvider } = createSimpleContext({
   name: "Data",

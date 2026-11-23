@@ -1,6 +1,6 @@
 import { createEffect, createMemo } from "solid-js"
 import { createStore } from "solid-js/store"
-import { Keybind } from "@xccode/ui/keybind"
+import { Keybind } from "@xiaochuan/ui/keybind"
 import { SearchHighlight, SearchList } from "./search-list"
 
 type Row = { id: string; section: string; title: string; description: string; keybind?: string[] }
@@ -34,7 +34,7 @@ function SearchListStory(props: typeof args) {
           id: `${section}-${index}`,
           section,
           title: `${words[(index + s) % words.length]} ${index + 1}`,
-          description: section === "Sessions" ? "xccode" : section,
+          description: section === "Sessions" ? "xiaochuan" : section,
           keybind: section === "Commands" && index < 3 ? ["⌥", index % 2 ? "↓" : "↑"] : undefined,
         }),
       ),

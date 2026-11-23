@@ -2,45 +2,45 @@ import { expect, test } from "bun:test"
 import { mkdir } from "node:fs/promises"
 import { join } from "node:path"
 import { tmpdir } from "../../core/test/fixture/tmpdir"
-import { Xccode, Session } from "../src"
+import { Xiaochuan, Session } from "../src"
 
 test("Promise host uses the embedded router", async () => {
-  await using directory = await tmpdir("xccode-promise-sdk-")
+  await using directory = await tmpdir("xiaochuan-promise-sdk-")
   const config = join(directory.path, "config")
   await mkdir(config)
-  const xccode = await Xccode.create({
+  const xiaochuan = await Xiaochuan.create({
     events: { persist: true },
     config: { directory: config, project: false, content: "{}" },
   })
 
   try {
     const location = { directory: directory.path }
-    const session = await xccode.sessions.create({ location })
-    const selected = await xccode.sessions.get({ sessionID: session.id })
-    const page = await xccode.sessions.list({ directory: directory.path })
-    const events = Array.fromAsync(xccode.experimental.session.log({ sessionID: session.id }))
+    const session = await xiaochuan.sessions.create({ location })
+    const selected = await xiaochuan.sessions.get({ sessionID: session.id })
+    const page = await xiaochuan.sessions.list({ directory: directory.path })
+    const events = Array.fromAsync(xiaochuan.experimental.session.log({ sessionID: session.id }))
 
     expect(selected.id).toBe(session.id)
     expect(page.data.some((item) => item.id === session.id)).toBe(true)
     expect((await events).some((event) => event.type === "session.created")).toBe(true)
 
     const missingSessionID = Session.ID.create()
-    const missing = await xccode.sessions.get({ sessionID: missingSessionID }).catch((error: unknown) => error)
+    const missing = await xiaochuan.sessions.get({ sessionID: missingSessionID }).catch((error: unknown) => error)
     expect(missing).toMatchObject({ _tag: "SessionNotFoundError", sessionID: missingSessionID })
   } finally {
-    await xccode.close()
-    await xccode.close()
+    await xiaochuan.close()
+    await xiaochuan.close()
   }
 })
 
 test("Promise event streams support cancellation", async () => {
-  await using directory = await tmpdir("xccode-promise-stream-")
+  await using directory = await tmpdir("xiaochuan-promise-stream-")
   const config = join(directory.path, "config")
   await mkdir(config)
   {
-    await using xccode = await Xccode.create({ config: { directory: config, project: false, content: "{}" } })
+    await using xiaochuan = await Xiaochuan.create({ config: { directory: config, project: false, content: "{}" } })
     const controller = new AbortController()
-    const events = xccode.events.subscribe({ signal: controller.signal })[Symbol.asyncIterator]()
+    const events = xiaochuan.events.subscribe({ signal: controller.signal })[Symbol.asyncIterator]()
     expect(await events.next()).toMatchObject({ value: { type: "server.connected" }, done: false })
     const pending = events.next()
     controller.abort()
@@ -51,15 +51,15 @@ test("Promise event streams support cancellation", async () => {
 })
 
 test("closing cancels active Promise event streams", async () => {
-  await using directory = await tmpdir("xccode-promise-stream-close-")
+  await using directory = await tmpdir("xiaochuan-promise-stream-close-")
   const config = join(directory.path, "config")
   await mkdir(config)
-  const xccode = await Xccode.create({ config: { directory: config, project: false, content: "{}" } })
-  const events = xccode.events.subscribe()[Symbol.asyncIterator]()
+  const xiaochuan = await Xiaochuan.create({ config: { directory: config, project: false, content: "{}" } })
+  const events = xiaochuan.events.subscribe()[Symbol.asyncIterator]()
   expect(await events.next()).toMatchObject({ value: { type: "server.connected" }, done: false })
   const pending = events.next()
 
-  await xccode.close()
+  await xiaochuan.close()
   const error = await pending.catch((error: unknown) => error)
   expect(error).toMatchObject({ name: "ClientError", reason: "Transport" })
 })

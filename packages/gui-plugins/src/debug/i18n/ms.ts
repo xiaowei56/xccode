@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Diagnostik memori: log memori aplikasi ke log desktop setiap 30 saat. Kekal hidup merentas mula semula sehingga dimatikan; bar kekal terbuka semasa ia berjalan.",
-  "memory.tipEnv": "Diagnostik memori dihidupkan untuk pelancaran ini: XCCODE_DESKTOP_MEMORY_LOG ditetapkan.",
+  "memory.tipEnv": "Diagnostik memori dihidupkan untuk pelancaran ini: XIAOCHUAN_DESKTOP_MEMORY_LOG ditetapkan.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Knobs",

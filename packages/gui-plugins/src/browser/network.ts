@@ -1,8 +1,8 @@
 import { net, session, type WebContents } from "electron"
-import type { RpcClient } from "@xccode/client/effect/api"
-import type { Session } from "@xccode/schema/session"
-import { Browser } from "@xccode/plugin-browser/rpc"
-import { BrowserProxy } from "@xccode/plugin-browser/proxy"
+import type { RpcClient } from "@xiaochuan/client/effect/api"
+import type { Session } from "@xiaochuan/schema/session"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
+import { BrowserProxy } from "@xiaochuan/plugin-browser/proxy"
 import { Effect } from "effect"
 import { Base64 } from "effect/encoding"
 
@@ -59,7 +59,7 @@ export const createBrowserNetwork = Effect.fn("BrowserNetwork.create")(function*
           auth.scheme !== "basic" ||
           auth.host !== proxy.host ||
           auth.port !== proxy.port ||
-          auth.realm !== "Xccode Browser Proxy"
+          auth.realm !== "Xiaochuan Browser Proxy"
         )
           return
         event.preventDefault()

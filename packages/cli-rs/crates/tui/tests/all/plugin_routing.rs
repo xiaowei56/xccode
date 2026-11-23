@@ -6,9 +6,9 @@ use crate::plugin_input::{self as plugin, probe};
 use crate::support::model::{self, Failure, Model, Rng};
 use crate::support::{self, Harness};
 
-use xccode_plugin::abi;
-use xccode_plugin::interact::{self, Ledger};
-use xccode_tui::{Deps, Tui};
+use xiaochuan_plugin::abi;
+use xiaochuan_plugin::interact::{self, Ledger};
+use xiaochuan_tui::{Deps, Tui};
 use opentui::input::{Event as Input, KeyCode, KeyEvent, Modifiers, MouseButton, MouseEventKind};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -380,7 +380,7 @@ impl Model for Delivery {
                     ),
                 );
             }
-            let focused = xccode_plugin::Host::composer_focused(&*harness.tui);
+            let focused = xiaochuan_plugin::Host::composer_focused(&*harness.tui);
             if focused != (reference.focus == Focus::Composer && !reference.dialog) {
                 return fail("focus", format!("{command:?}: the composer has the focus: {focused}, {reference:?}"));
             }
@@ -411,7 +411,7 @@ fn apply(harness: &Harness, reference: &mut Reference, command: &Command) {
             keys.iter().for_each(|key| reference.key(*key));
         }
         Command::Focus(Focus::Composer) => {
-            xccode_plugin::Host::focus_composer(&**tui);
+            xiaochuan_plugin::Host::focus_composer(&**tui);
             plugin::settle(harness);
             reference.focus(Focus::Composer);
         }
@@ -515,7 +515,7 @@ fn apply(harness: &Harness, reference: &mut Reference, command: &Command) {
 
 fn composer(tui: &Tui) -> (String, usize) {
     let mut composer = (String::new(), 0);
-    xccode_plugin::Host::read(tui, &mut |read| {
+    xiaochuan_plugin::Host::read(tui, &mut |read| {
         composer = read.composer().map(|composer| (composer.text, composer.cursor)).unwrap_or_default();
     });
     composer
@@ -642,7 +642,7 @@ impl Model for Ledgers {
                 if ledger != without {
                     return fail("plugin", format!("{command:?}: a plugin that left left {ledger:?}, not {without:?}"));
                 }
-                if !xccode_plugin::Host::composer_focused(&*harness.tui) {
+                if !xiaochuan_plugin::Host::composer_focused(&*harness.tui) {
                     return fail("focus", format!("{command:?}: the focus is not at the composer"));
                 }
                 continue;
@@ -662,7 +662,7 @@ impl Model for Ledgers {
 
 /// Lets time pass beyond a hold's deadline.
 fn wait(harness: &Harness) {
-    harness.app.advance(xccode_plugin::abi::interact::HOLD * 2);
+    harness.app.advance(xiaochuan_plugin::abi::interact::HOLD * 2);
     plugin::settle(harness);
 }
 
@@ -682,7 +682,7 @@ fn live(harness: &Harness, shown: &mut Shown, command: Life) {
         }
         Life::Key('\u{1b}') => {
             // Escape in the composer: the composer takes the focus first.
-            xccode_plugin::Host::focus_composer(&**tui);
+            xiaochuan_plugin::Host::focus_composer(&**tui);
             plugin::settle(harness);
             harness.app.press("escape");
             wait(harness);
@@ -727,7 +727,7 @@ fn live(harness: &Harness, shown: &mut Shown, command: Life) {
             shown.captured = false;
         }
         Life::FocusComposer => {
-            xccode_plugin::Host::focus_composer(&**tui);
+            xiaochuan_plugin::Host::focus_composer(&**tui);
             plugin::settle(harness);
             shown.focus(At::Composer);
         }
@@ -754,11 +754,11 @@ fn live(harness: &Harness, shown: &mut Shown, command: Life) {
         Life::Route(false) if shown.route => {
             session(harness);
             shown.route = false;
-            shown.at = if xccode_plugin::Host::composer_focused(&**tui) { At::Composer } else { At::Panel };
+            shown.at = if xiaochuan_plugin::Host::composer_focused(&**tui) { At::Composer } else { At::Panel };
         }
         Life::HeldExit(exit) if shown.active && shown.panel => {
             // Out of the panel and back, which ends its mode, so `x` is a key of it again.
-            xccode_plugin::Host::focus_composer(&**tui);
+            xiaochuan_plugin::Host::focus_composer(&**tui);
             plugin::settle(harness);
             plugin::run(harness, "input.focus", Some("a"));
             shown.focus(At::Panel);
@@ -799,7 +799,7 @@ fn close(shown: &mut Shown) {
 
 fn toggle(harness: &Harness, shown: &mut Shown, active: bool) {
     let tui = &harness.tui;
-    let host = xccode_tui::plugins::host::host(tui);
+    let host = xiaochuan_tui::plugins::host::host(tui);
     tui.plugins.toggle(&host, plugin::ID, active);
     tui.navigate(tui.route());
     plugin::settle(harness);
@@ -811,11 +811,11 @@ fn toggle(harness: &Harness, shown: &mut Shown, active: bool) {
 }
 
 fn runs(tui: &Tui) -> bool {
-    tui.plugins.entries().iter().any(|entry| entry.id == plugin::ID && entry.status == xccode_plugin::Status::Active)
+    tui.plugins.entries().iter().any(|entry| entry.id == plugin::ID && entry.status == xiaochuan_plugin::Status::Active)
 }
 
 fn session(harness: &Harness) {
-    let route = xccode_tui::Route::Session { id: xccode_api::generated::SessionID("ses_a".into()) };
+    let route = xiaochuan_tui::Route::Session { id: xiaochuan_api::generated::SessionID("ses_a".into()) };
     if harness.tui.route() != route {
         harness.tui.navigate(route);
         plugin::settle(harness);

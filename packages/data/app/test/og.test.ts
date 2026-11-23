@@ -94,7 +94,7 @@ describe("cards", () => {
       { date: "2026-11-06", tokens: 140_000_000_000 },
     ])
     expect(card && ogImageAlt(card)).toBe(
-      "Inkling 2 Small by Thinking Machines on Xccode Data, ranked #20 last week with 358B tokens in the last 2 months.",
+      "Inkling 2 Small by Thinking Machines on Xiaochuan Data, ranked #20 last week with 358B tokens in the last 2 months.",
     )
   })
 
@@ -110,14 +110,14 @@ describe("cards", () => {
   test("an unranked model with usage drops the rank", () => {
     const card = modelOgCard({ ...inkling, stats: { ...inkling.stats, rank: null } })
     expect(card && ogImageAlt(card)).toBe(
-      "Inkling 2 Small by Thinking Machines on Xccode Data, with 358B tokens in the last 2 months.",
+      "Inkling 2 Small by Thinking Machines on Xiaochuan Data, with 358B tokens in the last 2 months.",
     )
   })
 
   test("a model before its first usage shows only its name and lab", () => {
     const card = modelOgCard({ ...inkling, stats: null })
     expect(card).toMatchObject({ rank: null, tokens: 0, days: [], updatedAt: null })
-    expect(card && ogImageAlt(card)).toBe("Inkling 2 Small by Thinking Machines on Xccode Data.")
+    expect(card && ogImageAlt(card)).toBe("Inkling 2 Small by Thinking Machines on Xiaochuan Data.")
   })
 
   test("a stealth model has no lab line", () => {
@@ -127,7 +127,7 @@ describe("cards", () => {
       stats: { ...inkling.stats, model: "iceman", provider: "unknown", rank: 3 },
     })
     expect(card).toMatchObject({ name: "iceman", lab: null })
-    expect(card && ogImageAlt(card)).toStartWith("iceman on Xccode Data, ranked #3")
+    expect(card && ogImageAlt(card)).toStartWith("iceman on Xiaochuan Data, ranked #3")
   })
 
   test("a page that doesn't exist has no card", () => {
@@ -139,10 +139,10 @@ describe("cards", () => {
     const card = labOgCard(thinkingMachines)
     expect(card).toMatchObject({ kind: "lab", path: "/data/thinkingmachines", name: "Thinking Machines", models: 3 })
     expect(card && ogImageAlt(card)).toBe(
-      "Thinking Machines on Xccode Data, with 358B tokens in the last 2 months across 3 models.",
+      "Thinking Machines on Xiaochuan Data, with 358B tokens in the last 2 months across 3 models.",
     )
     const unused = labOgCard({ ...thinkingMachines, stats: null })
-    expect(unused && ogImageAlt(unused)).toBe("Thinking Machines on Xccode Data, with 3 models.")
+    expect(unused && ogImageAlt(unused)).toBe("Thinking Machines on Xiaochuan Data, with 3 models.")
   })
 })
 
@@ -151,7 +151,7 @@ describe("image URL", () => {
 
   test("is the English page's og.png with a version", () => {
     expect(ogImageUrl(card)).toBe(
-      `https://xccode.ai/data/thinkingmachines/inkling-2-small/og.png?v=${ogVersion(card)}`,
+      `https://xiaochuan.ai/data/thinkingmachines/inkling-2-small/og.png?v=${ogVersion(card)}`,
     )
     expect(ogVersion(card)).toMatch(/^[0-9a-f]{8}$/)
   })
@@ -173,7 +173,7 @@ describe("image URL", () => {
 describe("og.png response", () => {
   const card = modelOgCard(inkling)!
   // A dev stage's origin: its cache entries must not land on production's keys.
-  const origin = "https://dev.xccode.ai"
+  const origin = "https://dev.xiaochuan.ai"
   const image = `${card.path}/og.png`
   const banner = Bun.file(new URL("../public/banner.png", import.meta.url))
 

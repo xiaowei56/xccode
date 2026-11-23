@@ -19,10 +19,10 @@ import {
   SESSION_REVIEW_V2_SIDEBAR_WIDTH_DEFAULT,
   SESSION_REVIEW_V2_SIDEBAR_WIDTH_MAX,
   SESSION_REVIEW_V2_SIDEBAR_WIDTH_MIN,
-} from "@xccode/session-ui/v2/session-review-v2"
-import type { PanelFrame, PanelSidebar, MountedSession, SessionScreen } from "@xccode/plugin/gui"
-import { BuiltinPanel, type BuiltinPanelTab } from "@xccode/plugin/gui/builtin"
-import { PanelContext } from "@xccode/plugin/gui/host"
+} from "@xiaochuan/session-ui/v2/session-review-v2"
+import type { PanelFrame, PanelSidebar, MountedSession, SessionScreen } from "@xiaochuan/plugin/gui"
+import { BuiltinPanel, type BuiltinPanelTab } from "@xiaochuan/plugin/gui/builtin"
+import { PanelContext } from "@xiaochuan/plugin/gui/host"
 import { same } from "@/runtime/persistence/equality"
 import { sessionTabPane, type SessionPane, type SessionTabs } from "@/shell/state/session-tabs"
 import { Persist, persisted } from "@/runtime/persistence/storage"

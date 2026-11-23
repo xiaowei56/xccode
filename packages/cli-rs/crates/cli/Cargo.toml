@@ -1,18 +1,18 @@
 [package]
-name = "xccode-cli"
-description = "The xccode-native binary."
+name = "xiaochuan-cli"
+description = "The xiaochuan-native binary."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 publish.workspace = true
 
 [[bin]]
-name = "xccode-native"
+name = "xiaochuan-native"
 path = "src/main.rs"
 
 # Runs the prompt kit's parity scripts (parity/oracle/C.p-prompts.ts); not shipped.
 [[bin]]
-name = "xccode-prompt-demo"
+name = "xiaochuan-prompt-demo"
 path = "src/prompt/demo.rs"
 test = false
 
@@ -33,18 +33,18 @@ unicode-width.workspace = true
 url.workspace = true
 # The terminal size and raw reads of the prompt kit.
 opentui.workspace = true
-xccode-acp.workspace = true
-xccode-api.workspace = true
-xccode-latex.workspace = true
-xccode-local.workspace = true
-xccode-mermaid.workspace = true
-xccode-mini.workspace = true
-xccode-plugin.workspace = true
-xccode-service.workspace = true
-xccode-store.workspace = true
-xccode-tui.workspace = true
-xccode-ui.workspace = true
-xccode-util.workspace = true
+xiaochuan-acp.workspace = true
+xiaochuan-api.workspace = true
+xiaochuan-latex.workspace = true
+xiaochuan-local.workspace = true
+xiaochuan-mermaid.workspace = true
+xiaochuan-mini.workspace = true
+xiaochuan-plugin.workspace = true
+xiaochuan-service.workspace = true
+xiaochuan-store.workspace = true
+xiaochuan-tui.workspace = true
+xiaochuan-ui.workspace = true
+xiaochuan-util.workspace = true
 
 [target.'cfg(unix)'.dependencies]
 rustix = { workspace = true, features = ["termios", "event", "pty"] }
@@ -52,11 +52,11 @@ libc.workspace = true
 
 [features]
 # TypeScript TUI plugins on the JS host: the pipe carrier, the JS host and its embedded `host.ts` and `compat.js`
-# (ts-feature). On by default; `XCCODE_PLUGIN_JS=0` still turns the host off at run time.
+# (ts-feature). On by default; `XIAOCHUAN_PLUGIN_JS=0` still turns the host off at run time.
 default = ["ts", "luau"]
-ts = ["xccode-tui/ts", "xccode-plugin/ts"]
-# Luau plugins, in process. On by default; `XCCODE_PLUGIN_LUAU=0` turns them off at run time.
-luau = ["xccode-tui/luau"]
+ts = ["xiaochuan-tui/ts", "xiaochuan-plugin/ts"]
+# Luau plugins, in process. On by default; `XIAOCHUAN_PLUGIN_LUAU=0` turns them off at run time.
+luau = ["xiaochuan-tui/luau"]
 
 [dev-dependencies]
 serde_json.workspace = true

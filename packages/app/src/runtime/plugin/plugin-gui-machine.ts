@@ -1,5 +1,5 @@
-import type { PluginOptions } from "@xccode/plugin/gui"
-import type { BridgePluginGui, BridgePluginGuis, Entry } from "@xccode/plugin/gui/host"
+import type { PluginOptions } from "@xiaochuan/plugin/gui"
+import type { BridgePluginGui, BridgePluginGuis, Entry } from "@xiaochuan/plugin/gui/host"
 
 /** How long main may take to answer the first request before the window settles with no plugin GUIs. */
 export const PLUGIN_GUI_INITIAL_TIMEOUT_MS = 10_000

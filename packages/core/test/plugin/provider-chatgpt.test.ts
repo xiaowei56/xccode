@@ -1,36 +1,36 @@
-import { Money } from "@xccode/schema/money"
-import { Agent } from "@xccode/schema/agent"
-import { Session } from "@xccode/core/session"
-import { OpenAIResponses } from "@xccode/ai/protocols/openai-responses"
-import { ai, AIError, HttpContext, Message, RateLimitError } from "@xccode/ai/effect"
-import { classifyProviderFailure } from "@xccode/ai/route"
-import { compileRequest } from "@xccode/ai/testing"
+import { Money } from "@xiaochuan/schema/money"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Session } from "@xiaochuan/core/session"
+import { OpenAIResponses } from "@xiaochuan/ai/protocols/openai-responses"
+import { ai, AIError, HttpContext, Message, RateLimitError } from "@xiaochuan/ai/effect"
+import { classifyProviderFailure } from "@xiaochuan/ai/route"
+import { compileRequest } from "@xiaochuan/ai/testing"
 import { describe, expect } from "bun:test"
 // import { DateTime, Deferred, Effect, Schedule } from "effect"
 import { DateTime, Effect, Schedule } from "effect"
 import { HttpClient, HttpClientResponse } from "effect/http"
 import { exportJWK, generateKeyPair, SignJWT } from "jose"
-import { App } from "@xccode/core/app"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { KV } from "@xccode/core/kv"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { ModelResolver } from "@xccode/core/model-resolver"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { GithubCopilotPlugin } from "@xccode/core/plugin/provider/github-copilot"
-import { ChatGPTPlugin, fetchModels, refresh, revoke, verifyIDToken } from "@xccode/core/plugin/provider/chatgpt"
-import { OpenAIPlugin } from "@xccode/core/plugin/provider/openai"
-import { Project } from "@xccode/core/project"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { SessionModelRequest } from "@xccode/core/session/model-request"
-import { SessionModelTransport } from "@xccode/core/session/model-transport"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { SessionRunnerRetry } from "@xccode/core/session/runner/retry"
-import { toSessionError } from "@xccode/core/session/to-session-error"
+import { App } from "@xiaochuan/core/app"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { KV } from "@xiaochuan/core/kv"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { ModelResolver } from "@xiaochuan/core/model-resolver"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { GithubCopilotPlugin } from "@xiaochuan/core/plugin/provider/github-copilot"
+import { ChatGPTPlugin, fetchModels, refresh, revoke, verifyIDToken } from "@xiaochuan/core/plugin/provider/chatgpt"
+import { OpenAIPlugin } from "@xiaochuan/core/plugin/provider/openai"
+import { Project } from "@xiaochuan/core/project"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { SessionModelRequest } from "@xiaochuan/core/session/model-request"
+import { SessionModelTransport } from "@xiaochuan/core/session/model-transport"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { SessionRunnerRetry } from "@xiaochuan/core/session/runner/retry"
+import { toSessionError } from "@xiaochuan/core/session/to-session-error"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -486,7 +486,7 @@ describe("ChatGPTPlugin", () => {
       expect(`${url.origin}${url.pathname}`).toBe("https://auth.openai.com/api/accounts/authorize")
       expect(Object.fromEntries(url.searchParams)).toMatchObject({
         client_id: "dynamic_agent_client",
-        agent_name_hint: "Xccode",
+        agent_name_hint: "Xiaochuan",
         response_type: "code",
         scope: "openid profile email offline_access resource.invoke chatgpt.tokens.use.direct",
         resource: "https://api.openai.com/v1",
@@ -640,7 +640,7 @@ describe("ChatGPTPlugin", () => {
   //     const kv = yield* KV.Service
   //     yield* catalog.transform((editor) => {
   //       editor.update(Provider.ID.openai, (provider) => {
-  //         provider.package = "@xccode/ai/providers/openai"
+  //         provider.package = "@xiaochuan/ai/providers/openai"
   //       })
   //       editor.models.update(Provider.ID.openai, Model.ID.make("gpt-5.6-sol"), (model) => {
   //         model.limit = { context: 1_050_000, input: 922_000, output: 128_000 }
@@ -702,7 +702,7 @@ describe("ChatGPTPlugin", () => {
   //     expect(sol.settings?.compaction).toEqual({ type: "summary" })
   //     const future = required(available.find((model) => model.id === "gpt-6-future"))
   //     expect(future.name).toBe("GPT-6-Future")
-  //     expect(future.package).toBe("@xccode/ai/providers/openai")
+  //     expect(future.package).toBe("@xiaochuan/ai/providers/openai")
   //     expect(future.limit).toEqual({ context: 272_000, output: 32_000 })
   //   }),
   // )
@@ -715,7 +715,7 @@ describe("ChatGPTPlugin", () => {
   //     const kv = yield* KV.Service
   //     yield* catalog.transform((editor) => {
   //       editor.update(Provider.ID.openai, (provider) => {
-  //         provider.package = "@xccode/ai/providers/openai"
+  //         provider.package = "@xiaochuan/ai/providers/openai"
   //       })
   //       for (const id of ["gpt-5.5", "gpt-6-astra", "gpt-6-sol"])
   //         editor.models.update(Provider.ID.openai, Model.ID.make(id), () => {})
@@ -783,7 +783,7 @@ describe("ChatGPTPlugin", () => {
       const credentials = yield* Credential.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.openai, (draft) => {
-          draft.package = "@xccode/ai/providers/openai"
+          draft.package = "@xiaochuan/ai/providers/openai"
           draft.settings = { transport: "websocket" }
         })
         catalog.models.update(Provider.ID.openai, Model.ID.make("gpt-5.5"), (model) => {
@@ -855,7 +855,7 @@ describe("ChatGPTPlugin", () => {
       const direct = yield* request(Provider.ID.openai, "https://api.openai.com/v1")
 
       const provider = required(yield* catalog.get(Provider.ID.openai))
-      expect(provider.package).toBe("@xccode/ai/providers/openai")
+      expect(provider.package).toBe("@xiaochuan/ai/providers/openai")
       expect(provider.settings?.transport).toBe("http")
       expect(provider.settings?.baseURL).toBe("https://api.openai.com/v1")
       expect(provider.headers).not.toHaveProperty("x-openai-chatpass-test")
@@ -876,7 +876,7 @@ describe("ChatGPTPlugin", () => {
         "x-client-request-id": child.id,
       })
       const eligible = required(yield* models.get(Provider.ID.openai, Model.ID.make("gpt-5.5")))
-      expect(eligible.package).toBe("@xccode/ai/providers/openai")
+      expect(eligible.package).toBe("@xiaochuan/ai/providers/openai")
       expect(eligible.headers).not.toHaveProperty("x-openai-chatpass-test")
       expect(eligible.cost).toEqual([])
       expect(eligible.limit).toEqual({ context: 1_050_000, input: 922_000, output: 128_000 })
@@ -934,7 +934,7 @@ describe("ChatGPTPlugin", () => {
       const credentials = yield* Credential.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.openai, (draft) => {
-          draft.package = "@xccode/ai/providers/openai"
+          draft.package = "@xiaochuan/ai/providers/openai"
         })
         catalog.models.update(Provider.ID.openai, Model.ID.make("gpt-6-astra"), () => {})
       })
@@ -968,7 +968,7 @@ describe("ChatGPTPlugin", () => {
       const credentials = yield* Credential.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.openai, (draft) => {
-          draft.package = "@xccode/ai/providers/openai"
+          draft.package = "@xiaochuan/ai/providers/openai"
         })
         catalog.models.update(Provider.ID.openai, Model.ID.make("gpt-5.5"), (model) => {
           model.limit = { context: 1_050_000, input: 922_000, output: 128_000 }
@@ -986,7 +986,7 @@ describe("ChatGPTPlugin", () => {
 
       const provider = required(yield* catalog.get(Provider.ID.openai))
       const model = required(yield* models.get(Provider.ID.openai, Model.ID.make("gpt-5.5")))
-      expect(model.package).toBe("@xccode/ai/providers/openai")
+      expect(model.package).toBe("@xiaochuan/ai/providers/openai")
       expect(model.enabled).toBe(true)
       expect(model.limit).toEqual({ context: 1_050_000, input: 922_000, output: 128_000 })
       expect(provider.settings?.transport).toBe("websocket")
@@ -1006,7 +1006,7 @@ describe("ChatGPTPlugin", () => {
       const kv = yield* KV.Service
       yield* catalog.transform((editor) => {
         editor.update(Provider.ID.openai, (provider) => {
-          provider.package = "@xccode/ai/providers/openai"
+          provider.package = "@xiaochuan/ai/providers/openai"
         })
         editor.models.update(Provider.ID.openai, Model.ID.make("gpt-5.5"), () => {})
       })
@@ -1108,7 +1108,7 @@ describe("ChatGPTPlugin", () => {
         // const kv = yield* KV.Service
         yield* catalog.transform((editor) => {
           editor.update(providerID, (provider) => {
-            provider.package = "@xccode/ai/providers/openai/responses"
+            provider.package = "@xiaochuan/ai/providers/openai/responses"
           })
           for (const id of [baseID, modelID, variantID])
             editor.models.update(providerID, id, (model) => {
@@ -1193,7 +1193,7 @@ describe("ChatGPTPlugin", () => {
         const modelID = Model.ID.make("gpt-6.1-sol")
         yield* catalog.transform((editor) => {
           editor.update(Provider.ID.openai, (provider) => {
-            provider.package = "@xccode/ai/providers/openai"
+            provider.package = "@xiaochuan/ai/providers/openai"
           })
           editor.models.update(Provider.ID.openai, modelID, (model) => {
             model.variants = ["high", "max"].map((effort) => ({

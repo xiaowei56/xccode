@@ -1,4 +1,4 @@
-import { connectClientMcp, type ClientMcpConnection } from "@xccode/client/mcp"
+import { connectClientMcp, type ClientMcpConnection } from "@xiaochuan/client/mcp"
 import { createEffect, onCleanup, untrack } from "solid-js"
 import { useClientMcpExperiment } from "../config"
 import { useClient } from "./client"

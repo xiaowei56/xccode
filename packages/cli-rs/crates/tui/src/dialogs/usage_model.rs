@@ -1,7 +1,7 @@
 //! Limits for one model, highlighting the binding limit.
 
-use xccode_api::generated::ModelInfo;
-use xccode_ui::dialog::layout;
+use xiaochuan_api::generated::ModelInfo;
+use xiaochuan_ui::dialog::layout;
 
 use crate::dialogs::usage::{Level, format_dollars, format_reset, level, limit_scope};
 use crate::local::Local;

@@ -1,8 +1,8 @@
 //! Connection and data-migration overlays. Delay the first reconnect indication longer than subsequent ones to avoid
 //! flashing during startup.
 
-use xccode_api::events::{State, Status};
-use xccode_ui::motion::Spinner;
+use xiaochuan_api::events::{State, Status};
+use xiaochuan_ui::motion::Spinner;
 
 use crate::prelude::*;
 
@@ -57,7 +57,7 @@ pub fn connection_changed(tui: &Tui, state: &State) {
                 return;
             }
             let view = reconnecting(&tui);
-            xccode_ui::root::add(&tui.app, &view);
+            xiaochuan_ui::root::add(&tui.app, &view);
             *tui.overlays.reconnecting.borrow_mut() = Some(view);
             tui.app.request_redraw();
         }),
@@ -177,7 +177,7 @@ fn set_migration(tui: &Tui, progress: Option<String>) {
         .padding_x(2)
         .padding_y(1)
         .child(&spinner);
-    xccode_ui::root::add(&tui.app, &view);
+    xiaochuan_ui::root::add(&tui.app, &view);
     *tui.overlays.migration.borrow_mut() = Some(view);
     tui.app.request_redraw();
 }

@@ -1,4 +1,4 @@
-import { Permission } from "@xccode/core/permission"
+import { Permission } from "@xiaochuan/core/permission"
 import { Effect, Layer } from "effect"
 
 export const permissionLayer = (overrides: Partial<Permission.Interface> = {}) =>

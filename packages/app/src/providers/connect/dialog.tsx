@@ -1,15 +1,15 @@
-import { Button } from "@xccode/ui/button"
-import { Badge } from "@xccode/ui/badge"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Icon } from "@xccode/ui/icon"
-import { RadioGroup, RadioItem } from "@xccode/ui/radio"
-import { Checkbox } from "@xccode/ui/checkbox"
-import { Loader } from "@xccode/ui/loader"
-import { Field } from "@xccode/ui/field"
-import { DialogBody, DialogHeader, DialogTitle, DialogTitleGroup, Dialog } from "@xccode/ui/dialog"
-import { RedirectPasteForm } from "@xccode/ui/redirect-paste"
-import { TextInput } from "@xccode/ui/text-input"
-import { Tooltip } from "@xccode/ui/tooltip"
+import { Button } from "@xiaochuan/ui/button"
+import { Badge } from "@xiaochuan/ui/badge"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Icon } from "@xiaochuan/ui/icon"
+import { RadioGroup, RadioItem } from "@xiaochuan/ui/radio"
+import { Checkbox } from "@xiaochuan/ui/checkbox"
+import { Loader } from "@xiaochuan/ui/loader"
+import { Field } from "@xiaochuan/ui/field"
+import { DialogBody, DialogHeader, DialogTitle, DialogTitleGroup, Dialog } from "@xiaochuan/ui/dialog"
+import { RedirectPasteForm } from "@xiaochuan/ui/redirect-paste"
+import { TextInput } from "@xiaochuan/ui/text-input"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
 import { type Component, createMemo, createUniqueId, For, type JSX, Match, onMount, Show, Switch } from "solid-js"
 import { createStore } from "solid-js/store"
 import { useParams } from "@solidjs/router"
@@ -25,7 +25,7 @@ import { SettingsList } from "@/settings/list"
 import { Persist, persisted } from "@/runtime/persistence/storage"
 import { Persistence } from "@/runtime/persistence/schema"
 import { Schema } from "effect"
-import type { FormField, IntegrationInfo } from "@xccode/client/promise"
+import type { FormField, IntegrationInfo } from "@xiaochuan/client/promise"
 import { createProviderDialogController, modelKey } from "./controller"
 import { CONSOLE_INTEGRATION, type ProviderDialogBody } from "./dialog-machine"
 import { connectMethods, selectProviderConnectView, type ProviderConnectMethod } from "./machine"
@@ -36,9 +36,9 @@ import { DialogChatGPTPlanWelcome } from "./chatgpt-welcome"
 import { authServerName } from "./remote"
 import { providerAccounts } from "@/settings/providers/accounts"
 import { AccountNameInput } from "@/settings/providers/account-name"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Menu } from "@xccode/ui/menu"
-import { writeClipboard } from "@xccode/session-ui/copy"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Menu } from "@xiaochuan/ui/menu"
+import { writeClipboard } from "@xiaochuan/session-ui/copy"
 import { showToast } from "@/shell/notifications/toast"
 import "@/shell/search-list.css"
 import "./models.css"
@@ -99,7 +99,7 @@ export const DialogConnectProvider: Component<{
   const holdFocus = () => focusHost?.focus({ preventScroll: true })
 
   const providerName = () =>
-    consoleSelected() ? language.t("provider.connect.xccode.name") : controller.providerName()
+    consoleSelected() ? language.t("provider.connect.xiaochuan.name") : controller.providerName()
 
   // A Console sign-in through another server is stored on that server, so the header names it.
   const sdk = useServerSDK()
@@ -291,10 +291,10 @@ const METHOD_ICON = {
 
 // The TUI's integration groups, with connected integrations pulled up into their own group first. Unlike the TUI,
 // Go comes before Console here.
-const POPULAR = ["xccode-go", "xccode", "openai", "github-copilot", "anthropic", "google"]
+const POPULAR = ["xiaochuan-go", "xiaochuan", "openai", "github-copilot", "anthropic", "google"]
 
 const providerNote = (id: string) => {
-  if (id === "xccode-go") return "dialog.provider.xccodeGo.tagline" as const
+  if (id === "xiaochuan-go") return "dialog.provider.xiaochuanGo.tagline" as const
 }
 
 function ProviderPicker(props: { directory?: string; onSelect: (provider: string) => void; onPrepare?: () => void }) {
@@ -308,7 +308,7 @@ function ProviderPicker(props: { directory?: string; onSelect: (provider: string
     filter: "",
   })
 
-  // MCP servers are connected and managed from the MCP dialog, not here. Xccode Go connects through Xccode, so
+  // MCP servers are connected and managed from the MCP dialog, not here. Xiaochuan Go connects through Xiaochuan, so
   // it's only listed for people who already saved a Go key.
   const all = createMemo(() => {
     const query = store.filter.trim().toLowerCase()
@@ -316,7 +316,7 @@ function ProviderPicker(props: { directory?: string; onSelect: (provider: string
     return integrations
       .list()
       .filter((row) => row.metadata?.source !== "mcp")
-      .filter((row) => row.id !== "xccode-go" || row.connections.some((item) => item.type === "credential"))
+      .filter((row) => row.id !== "xiaochuan-go" || row.connections.some((item) => item.type === "credential"))
       .filter((row) => !query || `${row.id} ${row.name}`.toLowerCase().includes(query))
   })
 
@@ -1328,7 +1328,7 @@ function ProviderSteps(props: { provider: string; controller: ProviderDialogCont
         </div>
         <StepActions>
           <Show when={!input.body.catalogPending}>
-            <Button variant="ghost" onClick={() => platform.openExternal("https://xccode.ai/console")}>
+            <Button variant="ghost" onClick={() => platform.openExternal("https://xiaochuan.ai/console")}>
               {language.t("provider.connect.console.openAgain")}
             </Button>
           </Show>

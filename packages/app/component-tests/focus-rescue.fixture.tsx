@@ -1,4 +1,4 @@
-import { installFocusRescue } from "@xccode/ui/context/focus-rescue"
+import { installFocusRescue } from "@xiaochuan/ui/context/focus-rescue"
 
 /** Scopes whose buttons remove themselves when pressed, all but the opener. */
 export function mountFocusRescue() {

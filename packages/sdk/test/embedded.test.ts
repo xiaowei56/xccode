@@ -1,20 +1,20 @@
 import fs from "fs/promises"
 import path from "path"
 import { expect } from "bun:test"
-import { LanguageModel, LLMClient } from "@xccode/ai/effect"
-import { OpenAIChat } from "@xccode/ai/protocols"
-import { TestLLM } from "@xccode/ai/testing"
-import { llmClient } from "@xccode/core/effect/app-node-platform"
-import { makeMemoryDriver } from "@xccode/core/environment/index"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { WorkspaceDriver } from "@xccode/core/workspace/driver"
-import { Plugin } from "@xccode/plugin/effect"
+import { LanguageModel, LLMClient } from "@xiaochuan/ai/effect"
+import { OpenAIChat } from "@xiaochuan/ai/protocols"
+import { TestLLM } from "@xiaochuan/ai/testing"
+import { llmClient } from "@xiaochuan/core/effect/app-node-platform"
+import { makeMemoryDriver } from "@xiaochuan/core/environment/index"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { WorkspaceDriver } from "@xiaochuan/core/workspace/driver"
+import { Plugin } from "@xiaochuan/plugin/effect"
 import { makeDurableObjectStorage } from "../../core/test/fixture/durable-object-storage"
-import { XccodeWorkerd } from "../src/effect/workerd"
+import { XiaochuanWorkerd } from "../src/effect/workerd"
 import { Deferred, Effect, Fiber, Latch, Layer, Option, Schedule, Stream } from "effect"
 import { testEffect } from "../../core/test/lib/effect"
 import { tmpdir } from "../../core/test/fixture/tmpdir"
-import type { XccodeEvent } from "../src/effect"
+import type { XiaochuanEvent } from "../src/effect"
 
 const it = testEffect(Layer.empty)
 type Sdk = typeof import("../src/effect")
@@ -48,12 +48,12 @@ const loaded = <A, E, R>(name: string, read: Effect.Effect<A, E, R>, ready: (val
 
 for (const selection of ["explicit", "default"] as const) {
   it.live(`generate.text uses configured providers with ${selection} model selection`, () =>
-    withEmbedded("xccode-embedded-generate-", (fixture) =>
+    withEmbedded("xiaochuan-embedded-generate-", (fixture) =>
       Effect.gen(function* () {
         const llm = yield* TestLLM.Test.pipe(
           Effect.provide(TestLLM.testLayer({ fallback: TestLLM.text("ready", "answer") })),
         )
-        const xccode = yield* fixture.sdk.Xccode.create(
+        const xiaochuan = yield* fixture.sdk.Xiaochuan.create(
           {
             config: {
               directory: fixture.directory,
@@ -76,11 +76,11 @@ for (const selection of ["explicit", "default"] as const) {
             overrides: [llmClient.replace(Layer.succeed(LLMClient.Service, llm))],
           },
         )
-        yield* loaded("custom/fictional-chat", xccode.model.list({ location: location(fixture) }), (models) =>
+        yield* loaded("custom/fictional-chat", xiaochuan.model.list({ location: location(fixture) }), (models) =>
           models.data.some((model) => model.providerID === "custom" && model.id === "fictional-chat"),
         )
 
-        const result = yield* xccode.experimental.generate.text({
+        const result = yield* xiaochuan.experimental.generate.text({
           prompt: "Say ready",
           ...(selection === "explicit"
             ? {
@@ -102,7 +102,7 @@ for (const selection of ["explicit", "default"] as const) {
 }
 
 it.live("seeds host plugins from CreateOptions and loads delayed model plugins without self-deadlock", () =>
-  withEmbedded("xccode-embedded-seeded-plugin-", (fixture) =>
+  withEmbedded("xiaochuan-embedded-seeded-plugin-", (fixture) =>
     Effect.gen(function* () {
       const llm = yield* TestLLM.Test.pipe(
         Effect.provide(TestLLM.testLayer({ fallback: TestLLM.text("ready", "answer") })),
@@ -119,7 +119,7 @@ it.live("seeds host plugins from CreateOptions and loads delayed model plugins w
               providers.update(fixture.sdk.Provider.ID.make("seeded"), (provider) => {
                 provider.name = "Seeded Provider"
                 provider.activation = "enabled"
-                provider.package = "@xccode/ai/providers/openai-compatible"
+                provider.package = "@xiaochuan/ai/providers/openai-compatible"
                 provider.settings = { baseURL: "https://provider.example/v1", apiKey: "secret" }
               })
               providers.models.update(
@@ -132,7 +132,7 @@ it.live("seeds host plugins from CreateOptions and loads delayed model plugins w
             })
           }).pipe(Effect.orDie),
       })
-      const xccode = yield* fixture.sdk.Xccode.create(
+      const xiaochuan = yield* fixture.sdk.Xiaochuan.create(
         {
           config: {
             directory: fixture.directory,
@@ -150,10 +150,10 @@ it.live("seeds host plugins from CreateOptions and loads delayed model plugins w
 
       const defaultModel = yield* loaded(
         "seeded model",
-        xccode.model.default({ location: location(fixture) }),
+        xiaochuan.model.default({ location: location(fixture) }),
         (model) => model.data?.providerID === "seeded",
       )
-      const generated = yield* xccode.experimental.generate.text({ prompt: "Say ready" })
+      const generated = yield* xiaochuan.experimental.generate.text({ prompt: "Say ready" })
 
       expect(listedDuringSetup.length).toBeGreaterThan(0)
       expect(defaultModel.data).toMatchObject({
@@ -166,10 +166,10 @@ it.live("seeds host plugins from CreateOptions and loads delayed model plugins w
   ),
 )
 
-it.live("XccodeWorkerd seeds plugins before cold model resolution", () =>
-  withEmbedded("xccode-workerd-seeded-plugin-", (fixture) =>
+it.live("XiaochuanWorkerd seeds plugins before cold model resolution", () =>
+  withEmbedded("xiaochuan-workerd-seeded-plugin-", (fixture) =>
     Effect.gen(function* () {
-      const xccode = yield* XccodeWorkerd.create({
+      const xiaochuan = yield* XiaochuanWorkerd.create({
         storage: makeDurableObjectStorage(),
         models: { fetch: false },
         config: { model: "workerd-seeded/fictional-chat" },
@@ -184,7 +184,7 @@ it.live("XccodeWorkerd seeds plugins before cold model resolution", () =>
                   providers.update(fixture.sdk.Provider.ID.make("workerd-seeded"), (provider) => {
                     provider.name = "Workerd Seeded"
                     provider.activation = "enabled"
-                    provider.package = "@xccode/ai/providers/openai-compatible"
+                    provider.package = "@xiaochuan/ai/providers/openai-compatible"
                     provider.settings = { baseURL: "https://provider.example/v1", apiKey: "secret" }
                   })
                   providers.models.update(
@@ -200,7 +200,7 @@ it.live("XccodeWorkerd seeds plugins before cold model resolution", () =>
 
       const selected = yield* loaded(
         "workerd-seeded model",
-        xccode.model.default({
+        xiaochuan.model.default({
           location: fixture.sdk.Location.Ref.make({ directory: fixture.sdk.AbsolutePath.make("/workspace") }),
         }),
         (model) => model.data?.providerID === "workerd-seeded",
@@ -216,49 +216,49 @@ it.live("XccodeWorkerd seeds plugins before cold model resolution", () =>
 it.live(
   "embedded client uses the real router and handlers",
   () =>
-    withEmbedded("xccode-embedded-", (fixture) =>
+    withEmbedded("xiaochuan-embedded-", (fixture) =>
       Effect.gen(function* () {
-        const xccode = yield* fixture.sdk.Xccode.create({ events: { persist: true } })
+        const xiaochuan = yield* fixture.sdk.Xiaochuan.create({ events: { persist: true } })
         const id = sessionID(fixture)
         const model = fixture.sdk.Model.Ref.make({
           id: fixture.sdk.Model.ID.make("embedded"),
           providerID: fixture.sdk.Provider.ID.make("test"),
         })
 
-        const created = yield* xccode.sessions.create({
+        const created = yield* xiaochuan.sessions.create({
           id,
           agent: fixture.sdk.Agent.ID.make("build"),
           location: location(fixture),
         })
-        yield* xccode.sessions.switchModel({ sessionID: id, model })
-        const selected = yield* xccode.sessions.get({ sessionID: id })
-        const page = yield* xccode.sessions.list({ directory: fixture.sdk.AbsolutePath.make(fixture.directory) })
-        const active = yield* xccode.sessions.active()
-        const admitted = yield* xccode.sessions.prompt({
+        yield* xiaochuan.sessions.switchModel({ sessionID: id, model })
+        const selected = yield* xiaochuan.sessions.get({ sessionID: id })
+        const page = yield* xiaochuan.sessions.list({ directory: fixture.sdk.AbsolutePath.make(fixture.directory) })
+        const active = yield* xiaochuan.sessions.active()
+        const admitted = yield* xiaochuan.sessions.prompt({
           sessionID: id,
           text: "Do not run",
           resume: false,
         })
-        const context = yield* xccode.sessions.context({ sessionID: id })
-        const pendingAfterAdmit = yield* xccode.sessions.inbox.list({ sessionID: id })
-        yield* xccode.experimental.session.instructions.entry.put({ sessionID: id, key: "deploy-target", value: "production" })
-        yield* xccode.experimental.session.instructions.entry.put({ sessionID: id, key: "flags", value: { beta: true } })
-        const contextEntries = yield* xccode.experimental.session.instructions.entry.list({ sessionID: id })
-        yield* xccode.experimental.session.instructions.entry.remove({ sessionID: id, key: "flags" })
-        const remainingContextEntries = yield* xccode.experimental.session.instructions.entry.list({ sessionID: id })
-        const wake = yield* xccode.sessions.prompt({
+        const context = yield* xiaochuan.sessions.context({ sessionID: id })
+        const pendingAfterAdmit = yield* xiaochuan.sessions.inbox.list({ sessionID: id })
+        yield* xiaochuan.experimental.session.instructions.entry.put({ sessionID: id, key: "deploy-target", value: "production" })
+        yield* xiaochuan.experimental.session.instructions.entry.put({ sessionID: id, key: "flags", value: { beta: true } })
+        const contextEntries = yield* xiaochuan.experimental.session.instructions.entry.list({ sessionID: id })
+        yield* xiaochuan.experimental.session.instructions.entry.remove({ sessionID: id, key: "flags" })
+        const remainingContextEntries = yield* xiaochuan.experimental.session.instructions.entry.list({ sessionID: id })
+        const wake = yield* xiaochuan.sessions.prompt({
           sessionID: id,
           text: "Promote this input",
         })
-        const prompted = yield* xccode.experimental.session.log({ sessionID: id, follow: true }).pipe(
+        const prompted = yield* xiaochuan.experimental.session.log({ sessionID: id, follow: true }).pipe(
           Stream.filter((event) => event.type === "session.inbox.delivered" && event.data.inboxID === wake.id),
           Stream.runHead,
           Effect.timeout("10 seconds"),
           Effect.map(Option.getOrThrow),
         )
-        const wakeContext = yield* xccode.sessions.context({ sessionID: id })
-        const pendingAfterPromote = yield* xccode.sessions.inbox.list({ sessionID: id })
-        const event = yield* xccode.experimental.session.log({ sessionID: id }).pipe(
+        const wakeContext = yield* xiaochuan.sessions.context({ sessionID: id })
+        const pendingAfterPromote = yield* xiaochuan.sessions.inbox.list({ sessionID: id })
+        const event = yield* xiaochuan.experimental.session.log({ sessionID: id }).pipe(
           Stream.filter((item) => item.type === "session.model.selected"),
           Stream.take(1),
           Stream.runHead,
@@ -267,22 +267,22 @@ it.live(
         const modelMessage = Option.fromNullishOr(context.find((message) => message.type === "model-switched")).pipe(
           Option.getOrThrow,
         )
-        const message = yield* xccode.sessions.message.get({ sessionID: id, messageID: modelMessage.id })
-        yield* xccode.sessions.interrupt({ sessionID: id })
-        const other = yield* xccode.sessions.create({ location: location(fixture) })
+        const message = yield* xiaochuan.sessions.message.get({ sessionID: id, messageID: modelMessage.id })
+        yield* xiaochuan.sessions.interrupt({ sessionID: id })
+        const other = yield* xiaochuan.sessions.create({ location: location(fixture) })
         const missingSessionID = fixture.sdk.Session.ID.create()
         const missing = yield* Effect.all(
           [
-            xccode.experimental.session.log({ sessionID: missingSessionID }).pipe(Stream.runHead, Effect.flip),
-            xccode.sessions.interrupt({ sessionID: missingSessionID }).pipe(Effect.flip),
-            xccode.sessions.message.get({ sessionID: missingSessionID, messageID: modelMessage.id }).pipe(Effect.flip),
-            xccode.experimental.session.instructions.entry.list({ sessionID: missingSessionID }).pipe(Effect.flip),
-            xccode.sessions.inbox.list({ sessionID: missingSessionID }).pipe(Effect.flip),
+            xiaochuan.experimental.session.log({ sessionID: missingSessionID }).pipe(Stream.runHead, Effect.flip),
+            xiaochuan.sessions.interrupt({ sessionID: missingSessionID }).pipe(Effect.flip),
+            xiaochuan.sessions.message.get({ sessionID: missingSessionID, messageID: modelMessage.id }).pipe(Effect.flip),
+            xiaochuan.experimental.session.instructions.entry.list({ sessionID: missingSessionID }).pipe(Effect.flip),
+            xiaochuan.sessions.inbox.list({ sessionID: missingSessionID }).pipe(Effect.flip),
           ],
           { concurrency: "unbounded" },
         )
         const missingMessage = yield* Effect.flip(
-          xccode.sessions.message.get({
+          xiaochuan.sessions.message.get({
             sessionID: other.id,
             messageID: modelMessage.id,
           }),
@@ -322,11 +322,11 @@ it.live(
 )
 
 it.live("embedded client exposes plugin-backed web search", () =>
-  withEmbedded("xccode-embedded-websearch-", (fixture) =>
+  withEmbedded("xiaochuan-embedded-websearch-", (fixture) =>
     Effect.gen(function* () {
-      const xccode = yield* fixture.sdk.Xccode.create()
+      const xiaochuan = yield* fixture.sdk.Xiaochuan.create()
       const providerID = fixture.sdk.WebSearch.ID.make("embedded-websearch")
-      yield* xccode.plugin({
+      yield* xiaochuan.plugin({
         id: `embedded-websearch-${crypto.randomUUID()}`,
         effect: (ctx) =>
           ctx.websearch.transform((editor) => {
@@ -340,19 +340,19 @@ it.live("embedded client exposes plugin-backed web search", () =>
       })
       yield* loaded(
         "embedded-websearch provider",
-        xccode.websearch.providers({ location: location(fixture) }),
+        xiaochuan.websearch.providers({ location: location(fixture) }),
         (providers) => providers.data.some((provider) => provider.id === providerID),
       )
 
-      const result = yield* xccode.websearch.query({
-        query: "xccode",
+      const result = yield* xiaochuan.websearch.query({
+        query: "xiaochuan",
         providerID,
         location: location(fixture),
       })
 
       expect(result.data).toEqual({
         providerID,
-        results: [{ url: "https://example.com", content: "Found xccode", time: {} }],
+        results: [{ url: "https://example.com", content: "Found xiaochuan", time: {} }],
       })
     }),
   ),
@@ -361,14 +361,14 @@ it.live("embedded client exposes plugin-backed web search", () =>
 it.live(
   "Location-owned runner events reach the ready global client",
   () =>
-    withEmbedded("xccode-embedded-events-", (fixture) =>
+    withEmbedded("xiaochuan-embedded-events-", (fixture) =>
       Effect.gen(function* () {
-        const xccode = yield* fixture.sdk.Xccode.create()
+        const xiaochuan = yield* fixture.sdk.Xiaochuan.create()
         const id = sessionID(fixture)
         const connected = yield* Latch.make(false)
-        const prompted = yield* Deferred.make<Extract<XccodeEvent, { type: "session.inbox.delivered" }>>()
+        const prompted = yield* Deferred.make<Extract<XiaochuanEvent, { type: "session.inbox.delivered" }>>()
 
-        yield* xccode.events.subscribe().pipe(
+        yield* xiaochuan.events.subscribe().pipe(
           Stream.runForEach((event) =>
             event.type === "server.connected"
               ? connected.open
@@ -379,8 +379,8 @@ it.live(
           Effect.forkScoped,
         )
         yield* connected.await
-        yield* xccode.sessions.create({ id, location: location(fixture) })
-        yield* xccode.sessions.prompt({
+        yield* xiaochuan.sessions.create({ id, location: location(fixture) })
+        yield* xiaochuan.sessions.prompt({
           sessionID: id,
           text: "Observe this input",
         })
@@ -395,17 +395,17 @@ it.live(
 it.live(
   "independent embedded hosts do not share live notifications",
   () =>
-    withEmbedded("xccode-embedded-hosts-", (fixture) =>
+    withEmbedded("xiaochuan-embedded-hosts-", (fixture) =>
       Effect.gen(function* () {
-        const first = yield* fixture.sdk.Xccode.create()
-        const second = yield* fixture.sdk.Xccode.create()
+        const first = yield* fixture.sdk.Xiaochuan.create()
+        const second = yield* fixture.sdk.Xiaochuan.create()
         const id = sessionID(fixture)
         const firstReady = yield* Latch.make(false)
         const secondReady = yield* Latch.make(false)
         const firstEvent = yield* Latch.make(false)
         const secondEvent = yield* Latch.make(false)
         const observe = (ready: Latch.Latch, event: Latch.Latch) =>
-          Stream.runForEach((notification: XccodeEvent) =>
+          Stream.runForEach((notification: XiaochuanEvent) =>
             notification.type === "server.connected"
               ? ready.open
               : notification.type === "session.agent.selected" && notification.data.sessionID === id
@@ -427,18 +427,18 @@ it.live(
 )
 
 it.live("embedded client is available as a Layer service", () =>
-  withEmbedded("xccode-embedded-layer-", (fixture) => {
+  withEmbedded("xiaochuan-embedded-layer-", (fixture) => {
     const id = sessionID(fixture)
     return Effect.gen(function* () {
-      const xccode = yield* fixture.sdk.Xccode.Service
-      const created = yield* xccode.sessions.create({ id, location: location(fixture) })
+      const xiaochuan = yield* fixture.sdk.Xiaochuan.Service
+      const created = yield* xiaochuan.sessions.create({ id, location: location(fixture) })
       expect(created.id).toBe(id)
-    }).pipe(Effect.provide(fixture.sdk.Xccode.layer()))
+    }).pipe(Effect.provide(fixture.sdk.Xiaochuan.layer()))
   }),
 )
 
 it.live("configures workspace providers through the SDK facade", () =>
-  withEmbedded("xccode-embedded-workspace-", (fixture) =>
+  withEmbedded("xiaochuan-embedded-workspace-", (fixture) =>
     Effect.gen(function* () {
       const calls: Array<{ readonly operation: string; readonly workspaceID: string }> = []
       const driver = WorkspaceDriver.make({
@@ -456,15 +456,15 @@ it.live("configures workspace providers through the SDK facade", () =>
           return Effect.void
         },
       })
-      const xccode = yield* fixture.sdk.Xccode.create({ workspaceProviders: { fake: driver } })
+      const xiaochuan = yield* fixture.sdk.Xiaochuan.create({ workspaceProviders: { fake: driver } })
       const requestedID = fixture.sdk.Workspace.ID.create()
-      const workspaceID = yield* xccode.workspace.create({ id: requestedID, provider: "fake" })
+      const workspaceID = yield* xiaochuan.workspace.create({ id: requestedID, provider: "fake" })
 
       expect(workspaceID).toBe(requestedID)
-      expect(yield* xccode.workspace.create({ id: requestedID, provider: "fake" })).toBe(requestedID)
+      expect(yield* xiaochuan.workspace.create({ id: requestedID, provider: "fake" })).toBe(requestedID)
       expect(calls).toEqual([])
 
-      const workspace = yield* xccode.workspace.provision({ workspaceID })
+      const workspace = yield* xiaochuan.workspace.provision({ workspaceID })
 
       expect(workspace.provider).toBe("fake")
       expect(workspace.binding).toEqual({ externalID: workspace.id })
@@ -474,12 +474,12 @@ it.live("configures workspace providers through the SDK facade", () =>
         directory: fixture.sdk.AbsolutePath.make("/"),
         workspaceID: workspace.id,
       })
-      const session = yield* xccode.sessions.create({ location: workspaceLocation })
+      const session = yield* xiaochuan.sessions.create({ location: workspaceLocation })
       expect(session.location.workspaceID).toBe(workspace.id)
 
-      expect(yield* xccode.workspace.destroy({ workspaceID: workspace.id })).toEqual({ destroyed: true })
+      expect(yield* xiaochuan.workspace.destroy({ workspaceID: workspace.id })).toEqual({ destroyed: true })
       expect(calls.map((call) => call.operation)).toEqual(["create", "destroy"])
-      expect(yield* xccode.workspace.destroy({ workspaceID: workspace.id })).toEqual({ destroyed: false })
+      expect(yield* xiaochuan.workspace.destroy({ workspaceID: workspace.id })).toEqual({ destroyed: false })
       expect(calls.map((call) => call.operation)).toEqual(["create", "destroy"])
     }),
   ),
@@ -528,7 +528,7 @@ const workspaceModelScenario = (fixture: Fixture, policy: "eager" | "lazy") =>
     })
     const configDirectory = path.join(fixture.directory, "config")
     yield* Effect.promise(() => fs.mkdir(configDirectory))
-    const xccode = yield* fixture.sdk.Xccode.create(
+    const xiaochuan = yield* fixture.sdk.Xiaochuan.create(
       {
         config: { directory: configDirectory, project: false, content: "{}" },
         workspaceProviders: { fake: driver },
@@ -537,10 +537,10 @@ const workspaceModelScenario = (fixture: Fixture, policy: "eager" | "lazy") =>
         overrides: [llmClient.replace(client), SessionRunnerModel.node.replace(models)],
       },
     )
-    const workspaceID = yield* xccode.workspace.create({ provider: "fake" })
+    const workspaceID = yield* xiaochuan.workspace.create({ provider: "fake" })
     const provisioning =
       policy === "eager"
-        ? yield* xccode.workspace.provision({ workspaceID }).pipe(Effect.forkScoped({ startImmediately: true }))
+        ? yield* xiaochuan.workspace.provision({ workspaceID }).pipe(Effect.forkScoped({ startImmediately: true }))
         : undefined
     if (provisioning) {
       yield* Deferred.await(createStarted).pipe(
@@ -548,13 +548,13 @@ const workspaceModelScenario = (fixture: Fixture, policy: "eager" | "lazy") =>
       )
     }
 
-    const session = yield* xccode.sessions.create({
+    const session = yield* xiaochuan.sessions.create({
       location: fixture.sdk.Location.Ref.make({
         directory: fixture.sdk.AbsolutePath.make(fixture.directory),
         workspaceID,
       }),
     })
-    yield* xccode.sessions.prompt({ sessionID: session.id, text: "Answer without using tools" })
+    yield* xiaochuan.sessions.prompt({ sessionID: session.id, text: "Answer without using tools" })
     yield* Deferred.await(modelStarted).pipe(
       Effect.timeoutOrElse({ duration: "8 seconds", orElse: () => Effect.die("model stream did not start") }),
     )
@@ -572,20 +572,20 @@ const workspaceModelScenario = (fixture: Fixture, policy: "eager" | "lazy") =>
 
 it.live(
   "starts model execution while eager workspace provisioning is blocked",
-  () => withEmbedded("xccode-embedded-workspace-eager-", (fixture) => workspaceModelScenario(fixture, "eager")),
+  () => withEmbedded("xiaochuan-embedded-workspace-eager-", (fixture) => workspaceModelScenario(fixture, "eager")),
   15_000,
 )
 
 it.live(
   "starts model execution without provisioning a lazy workspace",
-  () => withEmbedded("xccode-embedded-workspace-lazy-", (fixture) => workspaceModelScenario(fixture, "lazy")),
+  () => withEmbedded("xiaochuan-embedded-workspace-lazy-", (fixture) => workspaceModelScenario(fixture, "lazy")),
   15_000,
 )
 
 it.live(
   "blocks the model-selected first tool on lazy provisioning",
   () =>
-    withEmbedded("xccode-embedded-workspace-tool-", (fixture) =>
+    withEmbedded("xiaochuan-embedded-workspace-tool-", (fixture) =>
       Effect.gen(function* () {
         const calls: string[] = []
         const createStarted = yield* Deferred.make<void>()
@@ -630,7 +630,7 @@ it.live(
         })
         const configDirectory = path.join(fixture.directory, "config")
         yield* Effect.promise(() => fs.mkdir(configDirectory))
-        const xccode = yield* fixture.sdk.Xccode.create(
+        const xiaochuan = yield* fixture.sdk.Xiaochuan.create(
           {
             config: { directory: configDirectory, project: false, content: "{}" },
             workspaceProviders: { fake: driver },
@@ -642,8 +642,8 @@ it.live(
             ],
           },
         )
-        const workspaceID = yield* xccode.workspace.create({ provider: "fake" })
-        const session = yield* xccode.sessions.create({
+        const workspaceID = yield* xiaochuan.workspace.create({ provider: "fake" })
+        const session = yield* xiaochuan.sessions.create({
           location: fixture.sdk.Location.Ref.make({
             directory: fixture.sdk.AbsolutePath.make(fixture.directory),
             workspaceID,
@@ -651,7 +651,7 @@ it.live(
         })
         expect(calls).toEqual([])
 
-        yield* xccode.sessions.prompt({ sessionID: session.id, text: "Run echo" })
+        yield* xiaochuan.sessions.prompt({ sessionID: session.id, text: "Run echo" })
         // The model-selected shell tool is the first execution-plane demand: it alone
         // starts provisioning and blocks inside the tool call until the provider is ready.
         yield* Deferred.await(createStarted).pipe(
@@ -660,7 +660,7 @@ it.live(
         expect(calls).toEqual(["create"])
 
         yield* Deferred.succeed(createRelease, undefined)
-        yield* xccode.experimental.session.wait({ sessionID: session.id })
+        yield* xiaochuan.experimental.session.wait({ sessionID: session.id })
         // Provisioning settled, the workspace connected, and the turn completed. The
         // memory driver rejects the actual spawn, which surfaces to the model as an
         // ordinary tool error before the final text response.
@@ -672,10 +672,10 @@ it.live(
 )
 
 it.live("preserves unknown workspace provider errors", () =>
-  withEmbedded("xccode-embedded-workspace-provider-", (fixture) =>
+  withEmbedded("xiaochuan-embedded-workspace-provider-", (fixture) =>
     Effect.gen(function* () {
-      const xccode = yield* fixture.sdk.Xccode.create()
-      const error = yield* xccode.workspace.create({ provider: "missing" }).pipe(Effect.flip)
+      const xiaochuan = yield* fixture.sdk.Xiaochuan.create()
+      const error = yield* xiaochuan.workspace.create({ provider: "missing" }).pipe(Effect.flip)
       expect(error).toEqual(new WorkspaceDriver.ProviderNotFound({ provider: "missing" }))
     }),
   ),

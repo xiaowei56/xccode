@@ -1,5 +1,5 @@
-import type { IntegrationOAuthMethodRegistration } from "@xccode/plugin/effect/integration"
-import { define } from "@xccode/plugin/effect/plugin"
+import type { IntegrationOAuthMethodRegistration } from "@xiaochuan/plugin/effect/integration"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 import { Clock, Effect, Option, Schema } from "effect"
 import { App } from "../../app.js"
 import { Credential } from "../../credential.js"
@@ -51,7 +51,7 @@ const device = (app: App.Info) =>
         {
           method: "POST",
           headers: headers(app),
-          body: new URLSearchParams({ client_id: clientID, scope, referrer: "xccode" }).toString(),
+          body: new URLSearchParams({ client_id: clientID, scope, referrer: "xiaochuan" }).toString(),
         },
         Device,
       ).pipe(
@@ -74,7 +74,7 @@ const device = (app: App.Info) =>
   }) satisfies IntegrationOAuthMethodRegistration
 
 export const XAIPlugin = define({
-  id: "xccode.provider.xai",
+  id: "xiaochuan.provider.xai",
   effect: Effect.fn(function* (ctx) {
     const credentials = yield* Credential.Service
     yield* Effect.forEach(

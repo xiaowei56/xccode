@@ -1,7 +1,7 @@
 import { afterEach, expect, jest, test } from "bun:test"
 import { createRoot } from "solid-js"
 import { createData, type CreateDataInput } from "../src/solid"
-import { Xccode, type XccodeEvent, type SessionInboxItem } from "../src/promise"
+import { Xiaochuan, type XiaochuanEvent, type SessionInboxItem } from "../src/promise"
 
 const item: SessionInboxItem = {
   id: "msg_remote",
@@ -14,8 +14,8 @@ const item: SessionInboxItem = {
 
 function fixture(fetch: (request: Request) => Promise<Response>) {
   const listeners = new Set<Parameters<CreateDataInput["event"]["listen"]>[0]>()
-  const api = Xccode.make({
-    baseUrl: "http://xccode.local",
+  const api = Xiaochuan.make({
+    baseUrl: "http://xiaochuan.local",
     fetch: (input, init) => fetch(input instanceof Request ? input : new Request(input, init)),
   })
   return createRoot((dispose) => ({
@@ -30,12 +30,12 @@ function fixture(fetch: (request: Request) => Promise<Response>) {
         },
       },
     }),
-    emit: (event: XccodeEvent) => listeners.forEach((listener) => listener({ name: event.type, details: event })),
+    emit: (event: XiaochuanEvent) => listeners.forEach((listener) => listener({ name: event.type, details: event })),
     dispose,
   }))
 }
 
-const enqueued: XccodeEvent = {
+const enqueued: XiaochuanEvent = {
   id: "evt_enqueued",
   type: "session.inbox.enqueued",
   created: 1,

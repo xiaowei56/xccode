@@ -13,4 +13,4 @@ pub mod sse;
 pub mod transport;
 pub mod ws;
 
-pub use xccode_api_types::{de, js, ser};
+pub use xiaochuan_api_types::{de, js, ser};

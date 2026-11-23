@@ -1,17 +1,17 @@
 <p align="center">
-  <a href="https://xccode.ai">
+  <a href="https://xiaochuan.ai">
     <picture>
       <source srcset=".github/assets/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset=".github/assets/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src=".github/assets/logo-ornate-light.svg" alt="Xccode logo">
+      <img src=".github/assets/logo-ornate-light.svg" alt="Xiaochuan logo">
     </picture>
   </a>
 </p>
-<p align="center">Xccode je open source AI agent za programiranje.</p>
+<p align="center">Xiaochuan je open source AI agent za programiranje.</p>
 <p align="center">
-  <a href="https://xccode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/@xccode/cli"><img alt="npm" src="https://img.shields.io/npm/v/@xccode/cli?style=flat-square" /></a>
-  <a href="https://github.com/xiaowei56/xccode/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/xiaowei56/xccode/release.yml?style=flat-square&branch=dev" /></a>
+  <a href="https://xiaochuan.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
+  <a href="https://www.npmjs.com/package/@xiaochuan/cli"><img alt="npm" src="https://img.shields.io/npm/v/@xiaochuan/cli?style=flat-square" /></a>
+  <a href="https://github.com/xiaowei56/xiaochuan/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/xiaowei56/xiaochuan/release.yml?style=flat-square&branch=dev" /></a>
 </p>
 
 <p align="center">
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![Xccode Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://xccode.ai)
+[![Xiaochuan Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://xiaochuan.ai)
 
 ---
 
@@ -47,16 +47,16 @@
 
 ```bash
 # YOLO
-curl -fsSL https://xccode.ai/v2/install | bash
+curl -fsSL https://xiaochuan.ai/v2/install | bash
 
 # Package manageri
-npm i -g @xccode/cli@latest      # ili bun/pnpm/yarn
-brew install anomalyco/tap/xccode-v2 # macOS i Linux (preporučeno, uvijek ažurno)
-brew install xccode              # macOS i Linux (zvanična brew formula, rjeđe se ažurira)
-sudo pacman -S xccode            # Arch Linux (Stable)
-paru -S xccode-beta              # Arch Linux (Latest from AUR)
-mise use -g xccode               # Bilo koji OS
-nix run github:xiaowei56/xccode  # Nix
+npm i -g @xiaochuan/cli@latest      # ili bun/pnpm/yarn
+brew install anomalyco/tap/xiaochuan-v2 # macOS i Linux (preporučeno, uvijek ažurno)
+brew install xiaochuan              # macOS i Linux (zvanična brew formula, rjeđe se ažurira)
+sudo pacman -S xiaochuan            # Arch Linux (Stable)
+paru -S xiaochuan-beta              # Arch Linux (Latest from AUR)
+mise use -g xiaochuan               # Bilo koji OS
+nix run github:xiaowei56/xiaochuan  # Nix
 ```
 
 > [!TIP]
@@ -64,27 +64,27 @@ nix run github:xiaowei56/xccode  # Nix
 
 ### Desktop aplikacija (BETA)
 
-Xccode je dostupan i kao desktop aplikacija. Preuzmi je sa [xccode.ai/download](https://xccode.ai/download).
+Xiaochuan je dostupan i kao desktop aplikacija. Preuzmi je sa [xiaochuan.ai/download](https://xiaochuan.ai/download).
 
 | Platforma             | Preuzimanje                        |
 | --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `xccode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `xccode-desktop-mac-x64.dmg`     |
-| Windows               | `xccode-desktop-win-x64.exe`     |
+| macOS (Apple Silicon) | `xiaochuan-desktop-mac-arm64.dmg`   |
+| macOS (Intel)         | `xiaochuan-desktop-mac-x64.dmg`     |
+| Windows               | `xiaochuan-desktop-win-x64.exe`     |
 | Linux                 | `.deb`, `.rpm`, ili AppImage       |
 
 ```bash
 # macOS (Homebrew)
-brew install --cask xccode-desktop
+brew install --cask xiaochuan-desktop
 ```
 
 #### Instalacijski direktorij
 
-Instalacijska skripta instalira Xccode u `$HOME/.xccode/bin`.
+Instalacijska skripta instalira Xiaochuan u `$HOME/.xiaochuan/bin`.
 
 ### Agenti
 
-Xccode uključuje dva ugrađena agenta između kojih možeš prebacivati tasterom `Tab`.
+Xiaochuan uključuje dva ugrađena agenta između kojih možeš prebacivati tasterom `Tab`.
 
 - **build** - Podrazumijevani agent sa punim pristupom za razvoj
 - **plan** - Agent samo za čitanje za analizu i istraživanje koda
@@ -95,20 +95,20 @@ Xccode uključuje dva ugrađena agenta između kojih možeš prebacivati tastero
 Uključen je i **general** pod-agent za složene pretrage i višekoračne zadatke.
 Koristi se interno i može se pozvati pomoću `@general` u porukama.
 
-Saznaj više o [agentima](https://xccode.ai/docs/agents).
+Saznaj više o [agentima](https://xiaochuan.ai/docs/agents).
 
 ### Dokumentacija
 
-Za više informacija o konfiguraciji Xccode-a, [**pogledaj dokumentaciju**](https://xccode.ai/docs).
+Za više informacija o konfiguraciji Xiaochuan-a, [**pogledaj dokumentaciju**](https://xiaochuan.ai/docs).
 
 ### Doprinosi
 
-Ako želiš doprinositi Xccode-u, pročitaj [upute za doprinošenje](./CONTRIBUTING.md) prije slanja pull requesta.
+Ako želiš doprinositi Xiaochuan-u, pročitaj [upute za doprinošenje](./CONTRIBUTING.md) prije slanja pull requesta.
 
-### Gradnja na Xccode-u
+### Gradnja na Xiaochuan-u
 
-Ako radiš na projektu koji je povezan s Xccode-om i koristi "xccode" kao dio naziva, npr. "xccode-dashboard" ili "xccode-mobile", dodaj napomenu u svoj README da projekat nije napravio Xccode tim i da nije povezan s nama.
+Ako radiš na projektu koji je povezan s Xiaochuan-om i koristi "xiaochuan" kao dio naziva, npr. "xiaochuan-dashboard" ili "xiaochuan-mobile", dodaj napomenu u svoj README da projekat nije napravio Xiaochuan tim i da nije povezan s nama.
 
 ---
 
-**Pridruži se našoj zajednici** [Discord](https://discord.gg/xccode) | [X.com](https://x.com/xccode)
+**Pridruži se našoj zajednici** [Discord](https://discord.gg/xiaochuan) | [X.com](https://x.com/xiaochuan)

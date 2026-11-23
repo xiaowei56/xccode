@@ -1,15 +1,15 @@
 use std::sync::Arc;
 
-use xccode_api::client::Client;
-use xccode_api::generated::{FileListInput, LocationGetInput, LocationQueryInput, SessionID};
-use xccode_api::transport::Reqwest;
-use xccode_local::channel::Channels;
-use xccode_local::cli_config::{CliConfig, Resolved};
-use xccode_local::paths::{self, Paths};
-use xccode_service::connect::{self, Env, Options, Source};
-use xccode_tui::plugins::host::External;
-use xccode_tui::{Args, Deps, Launch, Route, app::Roots};
-use xccode_util::{err, error};
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{FileListInput, LocationGetInput, LocationQueryInput, SessionID};
+use xiaochuan_api::transport::Reqwest;
+use xiaochuan_local::channel::Channels;
+use xiaochuan_local::cli_config::{CliConfig, Resolved};
+use xiaochuan_local::paths::{self, Paths};
+use xiaochuan_service::connect::{self, Env, Options, Source};
+use xiaochuan_tui::plugins::host::External;
+use xiaochuan_tui::{Args, Deps, Launch, Route, app::Roots};
+use xiaochuan_util::{err, error};
 
 use super::Context;
 use crate::args::RootArgs;
@@ -19,7 +19,7 @@ use crate::output::Exit;
 pub fn run(context: &Context, args: &RootArgs) -> error::Result<()> {
     // Unlike `run` and `mini`, TS changes directory only for an explicit one and ignores `PWD`.
     let directory = match &args.directory {
-        // `xccode login` reads as a mistyped command more often than a directory, so answer with help, not ENOENT.
+        // `xiaochuan login` reads as a mistyped command more often than a directory, so answer with help, not ENOENT.
         Some(directory) if !std::path::Path::new(directory).is_dir() => return not_a_directory(directory),
         Some(directory) => paths::enter(std::path::Path::new(directory))?,
         None => paths::current_dir()?,
@@ -29,7 +29,7 @@ pub fn run(context: &Context, args: &RootArgs) -> error::Result<()> {
     let runtime = tokio::runtime::Builder::new_multi_thread()
         .worker_threads(2)
         .enable_all()
-        .thread_name("xccode-tui")
+        .thread_name("xiaochuan-tui")
         .build()?;
     let transport = Arc::new(Reqwest::default());
     let env = Env::from_env();
@@ -59,13 +59,13 @@ pub fn run(context: &Context, args: &RootArgs) -> error::Result<()> {
         },
     ))?;
     // A managed service's client follows the service when it restarts on a new port or password.
-    let client = xccode_service::follow::client(transport, &connection, &paths, &env)?;
+    let client = xiaochuan_service::follow::client(transport, &connection, &paths, &env)?;
     // A `--session` ID the server does not know becomes the ID of the session the first prompt creates.
     let session = match &args.session {
         Some(id) => {
             let id = SessionID(id.clone());
             let found = runtime
-                .block_on(xccode_store::target::find_session(&client, &id))
+                .block_on(xiaochuan_store::target::find_session(&client, &id))
                 .map_err(|error| err!(error.error_message()))?;
             Some((id, found.is_some()))
         }
@@ -80,9 +80,9 @@ pub fn run(context: &Context, args: &RootArgs) -> error::Result<()> {
     let location = runtime.block_on(server_directory(&client, &directory.to_string_lossy()))?;
     let route = match &session {
         Some((id, true)) => Route::Session { id: id.clone() },
-        _ => std::env::var("XCCODE_ROUTE")
+        _ => std::env::var("XIAOCHUAN_ROUTE")
             .ok()
-            .and_then(|value| xccode_tui::features::startup::env_route(&value))
+            .and_then(|value| xiaochuan_tui::features::startup::env_route(&value))
             .unwrap_or(Route::Home),
     };
     // Managed and standalone servers run here; an explicit `--server` may be on another machine.
@@ -95,14 +95,14 @@ pub fn run(context: &Context, args: &RootArgs) -> error::Result<()> {
         managed: matches!(connection.source, Source::Service { .. }),
         server_executable: connection.executable(),
         auto: args.permissions.auto(),
-        environment: local.then(xccode_store::environment::session_environment),
+        environment: local.then(xiaochuan_store::environment::session_environment),
         no_plugins: args.no_plugins,
         ..Args::default()
     };
     let plugins = External { config_dir: paths.config.clone(), cwd: directory.clone() };
     // The TUI's tasks run on this runtime: `App::runtime` uses the multi-threaded runtime it starts in.
     let _guard = runtime.enter();
-    xccode_tui::run(Launch {
+    xiaochuan_tui::run(Launch {
         deps: Deps {
             client,
             directory: location,
@@ -112,7 +112,7 @@ pub fn run(context: &Context, args: &RootArgs) -> error::Result<()> {
             // With `--session` too, TS opens that session, then the continued one replaces it.
             continue_: args.continue_,
             events: true,
-            builtins: vec![xccode_mermaid::plugin().into(), xccode_latex::plugin().into()],
+            builtins: vec![xiaochuan_mermaid::plugin().into(), xiaochuan_latex::plugin().into()],
         },
         args: tui_args,
         keep: Box::new(connection),
@@ -144,12 +144,12 @@ async fn server_directory(client: &Client, directory: &str) -> error::Result<Str
 mod tests {
     use std::sync::Arc;
 
-    use xccode_api::client::Client;
-    use xccode_api::memory::{Memory, Route};
+    use xiaochuan_api::client::Client;
+    use xiaochuan_api::memory::{Memory, Route};
     use serde_json::json;
 
     fn directory(routes: Vec<Route>) -> String {
-        let client = Client::with_transport("http://xccode.local", Arc::new(Memory::new(routes))).unwrap();
+        let client = Client::with_transport("http://xiaochuan.local", Arc::new(Memory::new(routes))).unwrap();
         let runtime = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
         runtime.block_on(super::server_directory(&client, "/project/")).unwrap()
     }

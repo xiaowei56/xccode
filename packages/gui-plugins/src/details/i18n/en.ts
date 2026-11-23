@@ -28,15 +28,15 @@ export default {
   copyConfigPath: "Copy configuration file path",
   configFileMissing: "No configuration file found",
   timedOut: "The server took too long to respond",
-  "setup.mcp": "Add a server with Xccode",
+  "setup.mcp": "Add a server with Xiaochuan",
   "setup.mcp.prompt":
-    "Help me add an MCP server to my global Xccode config. Ask me which service I want to connect, then set it up and check that it connects.",
-  "setup.plugins": "Add a plugin with Xccode",
+    "Help me add an MCP server to my global Xiaochuan config. Ask me which service I want to connect, then set it up and check that it connects.",
+  "setup.plugins": "Add a plugin with Xiaochuan",
   "setup.plugins.prompt":
-    "Help me add a plugin to my global Xccode config. Ask me what I want it to do, suggest a plugin, then add it.",
-  "setup.skills": "New skill with Xccode",
+    "Help me add a plugin to my global Xiaochuan config. Ask me what I want it to do, suggest a plugin, then add it.",
+  "setup.skills": "New skill with Xiaochuan",
   "setup.skills.prompt":
-    "Help me write a new Xccode skill in my global config. Ask me what it should teach you, then write its SKILL.md.",
+    "Help me write a new Xiaochuan skill in my global config. Ask me what it should teach you, then write its SKILL.md.",
   loadingChanges: "Loading changes…",
   noChanges: "No changes",
   changesFailed: "Couldn't load changes",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Details for {{name}}",
   "mcp.signIn.open": "Sign in to {{name}}",
   "mcp.signIn.description":
-    "Your browser opens so you can sign in to {{name}}. If it can't reach the machine running Xccode, paste the URL it was redirected to below.",
+    "Your browser opens so you can sign in to {{name}}. If it can't reach the machine running Xiaochuan, paste the URL it was redirected to below.",
   "mcp.signIn.waiting": "Waiting for authorization…",
   "mcp.signIn.failed": "Authorization failed: {{error}}",
   "mcp.signIn.expired": "Authorization expired",

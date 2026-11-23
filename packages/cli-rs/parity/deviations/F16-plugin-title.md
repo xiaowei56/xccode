@@ -9,7 +9,7 @@ goes to the terminal as the plugin wrote it. Only the client's own titles go thr
 ## Rust
 
 A plugin sets the title with `Host::set_title`. The host cleans it as it cleans its own titles
-(`xccode_ui::terminal_title`): each run of C0 and C1 control characters becomes one space. It then cuts the title
+(`xiaochuan_ui::terminal_title`): each run of C0 and C1 control characters becomes one space. It then cuts the title
 to 4091 UTF-8 bytes on a character boundary. Example: a plugin title of `"p0b long "` and 3000 `é` (6009 bytes)
 sends `"p0b long "` and 2041 `é` (4091 bytes). Scenario: `P.0b/title-long` (P-PTY, Rust only).
 

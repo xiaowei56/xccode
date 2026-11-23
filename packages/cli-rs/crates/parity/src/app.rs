@@ -27,7 +27,7 @@ pub struct Recording {
     /// `cli.json` `Info`, with `animations: false`.
     pub config: Value,
     pub args: Args,
-    /// Environment variables the TUI reads at startup, such as `XCCODE_ROUTE`.
+    /// Environment variables the TUI reads at startup, such as `XIAOCHUAN_ROUTE`.
     #[serde(default)]
     pub env: BTreeMap<String, String>,
     pub routes: Vec<RouteSpec>,
@@ -552,8 +552,8 @@ mod tests {
         assert!(result.writes_differ.unwrap().contains("+ rs | POST /api/a {\"n\":2}"));
         assert_eq!(result.unmatched, ["GET /api/nope"]);
 
-        assert!(is_read("POST", "/api/rpc/xccode.goal/get"));
-        assert!(!is_read("POST", "/api/rpc/xccode.goal/set"));
+        assert!(is_read("POST", "/api/rpc/xiaochuan.goal/get"));
+        assert!(!is_read("POST", "/api/rpc/xiaochuan.goal/set"));
         assert!(!is_read("POST", "/api/rpc//get"));
     }
 }

@@ -6,13 +6,13 @@ const file = (name: string) => ({ name, directory: false })
 const directory = (name: string) => ({ name, directory: true })
 
 describe("hasExistingAppState", () => {
-  test("recognizes state from an earlier Xccode launch but not files Electron creates on a fresh install", () => {
+  test("recognizes state from an earlier Xiaochuan launch but not files Electron creates on a fresh install", () => {
     expect(hasExistingAppState([])).toBe(false)
     expect(hasExistingAppState([file("Local State"), directory("Crashpad")])).toBe(false)
-    expect(hasExistingAppState([file("xccode.settings")])).toBe(true)
-    expect(hasExistingAppState([file("xccode.global.dat")])).toBe(true)
+    expect(hasExistingAppState([file("xiaochuan.settings")])).toBe(true)
+    expect(hasExistingAppState([file("xiaochuan.global.dat")])).toBe(true)
     expect(hasExistingAppState([file("drafts.sqlite")])).toBe(true)
     expect(hasExistingAppState([file("window-state-abc.json")])).toBe(true)
-    expect(hasExistingAppState([directory("xccode")])).toBe(true)
+    expect(hasExistingAppState([directory("xiaochuan")])).toBe(true)
   })
 })

@@ -1,15 +1,15 @@
 ---
 title: Políticas
-description: Controle qué recursos configurados puede usar Xccode.
+description: Controle qué recursos configurados puede usar Xiaochuan.
 ---
 
-:::caution[Requiere Xccode 2]
-Las políticas no se aplican en Xccode 1. Los ejemplos de esta página requieren Xccode 2. En Xccode 1, use [`disabled_providers`](/docs/config#disabled-providers) o [`enabled_providers`](/docs/config#enabled-providers) para controlar la disponibilidad de los proveedores. Consulte la [documentación de políticas de Xccode 2](https://xccode.ai/docs/policies/) para conocer el uso actual.
+:::caution[Requiere Xiaochuan 2]
+Las políticas no se aplican en Xiaochuan 1. Los ejemplos de esta página requieren Xiaochuan 2. En Xiaochuan 1, use [`disabled_providers`](/docs/config#disabled-providers) o [`enabled_providers`](/docs/config#enabled-providers) para controlar la disponibilidad de los proveedores. Consulte la [documentación de políticas de Xiaochuan 2](https://xiaochuan.ai/docs/policies/) para conocer el uso actual.
 :::
 
-Las políticas controlan si Xccode puede realizar una acción sobre un recurso con nombre. Esta función de Xccode 2 es experimental y se configura con el array `experimental.policies` en `xccode.json`.
+Las políticas controlan si Xiaochuan puede realizar una acción sobre un recurso con nombre. Esta función de Xiaochuan 2 es experimental y se configura con el array `experimental.policies` en `xiaochuan.json`.
 
-Las políticas son independientes de los [permisos](/docs/permissions). Los permisos controlan lo que pueden hacer las herramientas durante una sesión, mientras que las políticas controlan si Xccode puede usar un recurso como un proveedor de LLM.
+Las políticas son independientes de los [permisos](/docs/permissions). Los permisos controlan lo que pueden hacer las herramientas durante una sesión, mientras que las políticas controlan si Xiaochuan puede usar un recurso como un proveedor de LLM.
 
 ---
 
@@ -23,9 +23,9 @@ Cada declaración de política tiene tres campos:
 
 Por ejemplo, para denegar el uso del proveedor `openai`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ Un proveedor denegado por una política no está disponible para seleccionar ni 
 
 ## Políticas disponibles
 
-Actualmente, Xccode admite una acción de política:
+Actualmente, Xiaochuan admite una acción de política:
 
 | Acción         | Recurso                                | Descripción                                      |
 | -------------- | -------------------------------------- | ------------------------------------------------ |
@@ -58,9 +58,9 @@ Es posible que se añadan más acciones de política en el futuro.
 
 El campo `resource` admite coincidencia con comodines. Use `*` para coincidir con cero o más caracteres y `?` para coincidir con un solo carácter.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ Cuando coinciden varias declaraciones, gana la última declaración coincidente.
 
 Por ejemplo, para permitir solo Anthropic:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ Las políticas pueden establecerse tanto en su configuración global como en la 
 
 ## Listas de proveedores
 
-En Xccode 2, use políticas en lugar de las opciones anteriores `disabled_providers` y `enabled_providers` para controlar el acceso a los proveedores. En Xccode 1, siga usando esas listas de proveedores.
+En Xiaochuan 2, use políticas en lugar de las opciones anteriores `disabled_providers` y `enabled_providers` para controlar el acceso a los proveedores. En Xiaochuan 1, siga usando esas listas de proveedores.
 
 Para reemplazar `disabled_providers`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ Para reemplazar `disabled_providers`:
 
 Para reemplazar `enabled_providers`, deniegue primero todos los proveedores y después permita los proveedores seleccionados:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [

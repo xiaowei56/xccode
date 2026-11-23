@@ -2,8 +2,8 @@ use crate::common;
 
 use common::*;
 use futures_util::FutureExt;
-use xccode_api::generated::*;
-use xccode_store::{Data, MessageExt, Options, Prompt};
+use xiaochuan_api::generated::*;
+use xiaochuan_store::{Data, MessageExt, Options, Prompt};
 use serde_json::{Value, json};
 
 const SESSION: &str = "ses_remote";

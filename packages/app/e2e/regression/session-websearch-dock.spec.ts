@@ -3,7 +3,7 @@ import { sessionHref } from "../utils/app"
 import { expectSessionTitle } from "../utils/waits"
 import { mockWorkspace, type WorkspaceInput } from "../utils/workspace"
 
-const directory = "C:/Xccode/WebSearchDock"
+const directory = "C:/Xiaochuan/WebSearchDock"
 
 const sessionID = "ses_websearch_dock"
 

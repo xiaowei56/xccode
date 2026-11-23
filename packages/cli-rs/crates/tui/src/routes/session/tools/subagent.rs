@@ -1,8 +1,8 @@
 //! Subagent tool status and navigation.
 
-use xccode_api::generated::ModelInfo;
-use xccode_store::SessionStatus;
-use xccode_ui::tool_info::titlecase;
+use xiaochuan_api::generated::ModelInfo;
+use xiaochuan_store::SessionStatus;
+use xiaochuan_ui::tool_info::titlecase;
 
 use super::dispatch::{Inline, InlineTool, Props, Status};
 use crate::prelude::*;

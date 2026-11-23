@@ -19,15 +19,15 @@ const descriptions: Record<string, string> = {
 // Rows the sidebar's secondary nav doesn't have, after it.
 const extra = [
   { label: "Humans", href: "/humans.txt", description: "the team and contributors" },
-  { label: "Anomaly", href: "https://anoma.ly", description: "the company behind Xccode" },
+  { label: "Anomaly", href: "https://anoma.ly", description: "the company behind Xiaochuan" },
 ]
 
 const secondaryDescriptions: Record<string, string> = {
-  "https://discord.gg/xccode": "chat with the team and other users",
+  "https://discord.gg/xiaochuan": "chat with the team and other users",
   "/press": "press kit and facts",
   "/brand": "logos, colors and usage",
   "/legal": "privacy policy and terms",
-  "https://status.xccode.ai": "live system status",
+  "https://status.xiaochuan.ai": "live system status",
 }
 
 /**
@@ -72,7 +72,7 @@ export function forHumansRows() {
       `  ├── ${row.label.padEnd(15)}${row.description ? row.href.padEnd(path) + row.description : row.href}`.trimEnd(),
     ),
     "  │",
-    "  ├── Source         https://github.com/xiaowei56/xccode",
-    "  └── Contribute     https://github.com/xiaowei56/xccode/blob/dev/CONTRIBUTING.md",
+    "  ├── Source         https://github.com/xiaowei56/xiaochuan",
+    "  └── Contribute     https://github.com/xiaowei56/xiaochuan/blob/dev/CONTRIBUTING.md",
   ].join("\n")
 }

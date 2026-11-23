@@ -19,7 +19,7 @@ export function icons(channel: string): Plugin {
     })),
   ]
 
-  // Vite's resolved `base`, such as `/xccode/` for `vite build --base=/xccode/`.
+  // Vite's resolved `base`, such as `/xiaochuan/` for `vite build --base=/xiaochuan/`.
   let base = "/"
 
   const webManifest = () => ({
@@ -37,7 +37,7 @@ export function icons(channel: string): Plugin {
   const files = () => [...iconFiles, webManifest()]
 
   return {
-    name: "xccode-app:icons",
+    name: "xiaochuan-app:icons",
     configResolved(config) {
       base = config.base
     },
@@ -57,8 +57,8 @@ export function icons(channel: string): Plugin {
       order: "pre",
       handler(html) {
         return html
-          .replace("%XCCODE_FAVICON%", `${base}${prefix}/favicon.ico`)
-          .replace("%XCCODE_APPLE_TOUCH_ICON%", `${base}${prefix}/apple-touch-icon.png`)
+          .replace("%XIAOCHUAN_FAVICON%", `${base}${prefix}/favicon.ico`)
+          .replace("%XIAOCHUAN_APPLE_TOUCH_ICON%", `${base}${prefix}/apple-touch-icon.png`)
       },
     },
   }

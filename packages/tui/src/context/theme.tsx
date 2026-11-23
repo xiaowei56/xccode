@@ -6,7 +6,7 @@ import {
   themeModes,
   type ResolvedTheme,
   type SurfaceName,
-} from "@xccode/theme/tui"
+} from "@xiaochuan/theme/tui"
 import {
   allThemes,
   hasTheme,
@@ -112,7 +112,7 @@ type ThemeContextValue = {
 const [store, setStore] = createStore<State>({
   mode: "dark",
   lock: undefined,
-  active: "xccode",
+  active: "xiaochuan",
   ready: false,
 })
 const [themeSources, setThemeSources] = createSignal(allThemes())
@@ -135,7 +135,7 @@ const themeContext = createSimpleContext({
         const mode = lock ?? renderer.themeMode ?? props.mode
         draft.mode = mode
         draft.lock = lock
-        draft.active = config.theme?.name ?? "xccode"
+        draft.active = config.theme?.name ?? "xiaochuan"
         draft.ready = false
       }),
     )
@@ -162,7 +162,7 @@ const themeContext = createSimpleContext({
         .then((themes) => {
           setCustomThemes(themes)
         })
-        .catch(() => setStore("active", "xccode"))
+        .catch(() => setStore("active", "xiaochuan"))
     }
 
     onMount(() => {
@@ -292,22 +292,22 @@ const themeContext = createSimpleContext({
     })
 
     const available = themeSources
-    // "xccode2" was the new theme's name before it became "xccode".
-    const alias = (name: string) => (name === "xccode2" && !available().xccode2 ? "xccode" : name)
+    // "xiaochuan2" was the new theme's name before it became "xiaochuan".
+    const alias = (name: string) => (name === "xiaochuan2" && !available().xiaochuan2 ? "xiaochuan" : name)
     const has = (name: string) => Boolean(name) && available()[alias(name)] !== undefined
 
     const initStarted = performance.now()
     const selected = createMemo(() => {
       const sources = available()
       const active = alias(store.active)
-      const name = sources[active] ? active : "xccode"
+      const name = sources[active] ? active : "xiaochuan"
       try {
         return loadTheme(sources[name], name, store.mode, newDesigns())
       } catch (error) {
-        if (name === "xccode") throw error
+        if (name === "xiaochuan") throw error
         themeErrors.emit(name, error)
-        setStore("active", "xccode")
-        return loadTheme(sources.xccode, "xccode", store.mode, newDesigns())
+        setStore("active", "xiaochuan")
+        return loadTheme(sources.xiaochuan, "xiaochuan", store.mode, newDesigns())
       }
     })
     const modes = () => selected().modes

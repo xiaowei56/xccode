@@ -1,23 +1,23 @@
 import { chmod } from "node:fs/promises"
-import { Agent } from "@xccode/core/agent"
-import { Bus } from "@xccode/core/bus"
+import { Agent } from "@xiaochuan/core/agent"
+import { Bus } from "@xiaochuan/core/bus"
 import { describe, expect } from "bun:test"
 import { Clock, Effect, Schedule, Schema } from "effect"
 import { TestClock } from "effect/testing"
-import { Config } from "@xccode/core/config"
-import { ConfigProviderPlugin } from "@xccode/core/config/plugin/provider"
-import { Credential } from "@xccode/core/credential"
-import { Model } from "@xccode/core/model"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { make } from "@xccode/core/plugin/provider/azure"
-import { Provider } from "@xccode/core/provider"
-import { Integration } from "@xccode/core/integration"
-import { Location } from "@xccode/core/location"
-import { Session } from "@xccode/core/session"
-import { Document, Info } from "@xccode/schema/config"
-import { AppProcess } from "@xccode/util/process"
+import { Config } from "@xiaochuan/core/config"
+import { ConfigProviderPlugin } from "@xiaochuan/core/config/plugin/provider"
+import { Credential } from "@xiaochuan/core/credential"
+import { Model } from "@xiaochuan/core/model"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { make } from "@xiaochuan/core/plugin/provider/azure"
+import { Provider } from "@xiaochuan/core/provider"
+import { Integration } from "@xiaochuan/core/integration"
+import { Location } from "@xiaochuan/core/location"
+import { Session } from "@xiaochuan/core/session"
+import { Document, Info } from "@xiaochuan/schema/config"
+import { AppProcess } from "@xiaochuan/util/process"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -176,7 +176,7 @@ const seedProvider = (settings?: Provider.Settings) =>
     const catalog = yield* Provider.Service
     yield* catalog.transform((editor) => {
       editor.update(Provider.ID.azure, (provider) => {
-        provider.package = "@xccode/ai/providers/azure/responses"
+        provider.package = "@xiaochuan/ai/providers/azure/responses"
         if (settings) provider.settings = settings
       })
     })
@@ -197,7 +197,7 @@ const seedCatalog = Effect.gen(function* () {
     })
     editor.models.update(Provider.ID.azure, Model.ID.make("deepseek-v4-flash"), (model) => {
       model.name = "DeepSeek-V4-Flash"
-      model.package = "@xccode/ai/providers/openai-compatible"
+      model.package = "@xiaochuan/ai/providers/openai-compatible"
       model.settings = { baseURL: "https://${AZURE_RESOURCE_NAME}.services.ai.azure.com/models" }
     })
   })
@@ -720,7 +720,7 @@ describe("AzurePlugin resource name", () => {
       const models = yield* Model.Service
       yield* providers.transform((editor) => {
         editor.update(Provider.ID.azure, (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.activation = "enabled"
           provider.settings = {
             baseURL: "https://${AZURE_COGNITIVE_SERVICES_RESOURCE_NAME}.cognitiveservices.azure.com/openai",
@@ -728,7 +728,7 @@ describe("AzurePlugin resource name", () => {
         })
         editor.models.update(Provider.ID.azure, Model.ID.make("gpt-5-mini"), () => {})
         editor.models.update(Provider.ID.azure, Model.ID.make("anthropic"), (model) => {
-          model.package = "@xccode/ai/providers/anthropic"
+          model.package = "@xiaochuan/ai/providers/anthropic"
           model.settings = {
             resourceName: "model-resource",
             baseURL: "https://${AZURE_RESOURCE_NAME}.services.ai.azure.com/anthropic/v1",
@@ -761,7 +761,7 @@ describe("AzurePlugin transport", () => {
       const variants: Record<string, (model: Model.MutableInfo) => void> = {
         responses: () => {},
         chat: (model) => {
-          model.package = "@xccode/ai/providers/azure/chat"
+          model.package = "@xiaochuan/ai/providers/azure/chat"
         },
         preview: (model) => {
           model.settings = { apiVersion: "2025-04-01-preview" }
@@ -773,12 +773,12 @@ describe("AzurePlugin transport", () => {
           model.settings = { baseURL: "https://gateway.example/azure" }
         },
         "non-azure": (model) => {
-          model.package = "@xccode/ai/providers/anthropic"
+          model.package = "@xiaochuan/ai/providers/anthropic"
         },
       }
       yield* providers.transform((editor) => {
         editor.update(Provider.ID.azure, (provider) => {
-          provider.package = "@xccode/ai/providers/azure/responses"
+          provider.package = "@xiaochuan/ai/providers/azure/responses"
           provider.activation = "enabled"
         })
         Object.entries(variants).forEach(([id, update]) =>

@@ -1,12 +1,12 @@
 import fuzzysort from "fuzzysort"
-import type { WslInstalledDistro, WslOnlineDistro, WslXccodeCheck, WslServersState } from "./contract"
+import type { WslInstalledDistro, WslOnlineDistro, WslXiaochuanCheck, WslServersState } from "./contract"
 import {
   selectWslDialogAdding,
   selectWslDialogBusy,
   selectWslDialogCatalogSearch,
   selectWslDialogCatalogTarget,
   selectWslDialogInstallingCatalog,
-  selectWslDialogInstallingXccode,
+  selectWslDialogInstallingXiaochuan,
   selectWslDialogSelectedDistro,
   selectWslDialogView,
   type WslDialogState,
@@ -28,7 +28,7 @@ export type AddServerPrimaryButton = {
   variant: "neutral" | "contrast"
   label: AddServerText
   disabled: boolean
-  action: "install-xccode" | "add" | null
+  action: "install-xiaochuan" | "add" | null
   loading: boolean
   width: string | null
 }
@@ -89,7 +89,7 @@ export function addServerViewModel(input: {
     addableInstalledDistros,
   )
 
-  const xccodeCheck = selectedDistro ? (state?.xccodeChecks[selectedDistro] ?? null) : null
+  const xiaochuanCheck = selectedDistro ? (state?.xiaochuanChecks[selectedDistro] ?? null) : null
   const installableDistros = addServerInstallableDistros(visibleInstalledDistros, visibleOnlineDistros)
   const filteredInstallableDistros = addServerFilteredInstallableDistros(installableDistros, catalogSearch)
   const catalogTarget = addServerCatalogTarget(selectWslDialogCatalogTarget(input.dialog), filteredInstallableDistros)
@@ -106,7 +106,7 @@ export function addServerViewModel(input: {
     visibleOnlineDistros,
     addableInstalledDistros,
     selectedDistro,
-    xccodeCheck,
+    xiaochuanCheck,
     wslReady: !!state?.runtime?.available && !state?.pendingRestart,
     distroStatuses: Object.fromEntries(
       addableInstalledDistros.flatMap((item) => {
@@ -120,9 +120,9 @@ export function addServerViewModel(input: {
     primaryButton: addServerPrimaryButton({
       state,
       selectedDistro,
-      xccodeCheck,
+      xiaochuanCheck,
       busy: working,
-      installingXccode: selectWslDialogInstallingXccode(input.dialog, selectedDistro),
+      installingXiaochuan: selectWslDialogInstallingXiaochuan(input.dialog, selectedDistro),
       adding: selectWslDialogAdding(input.dialog),
       probingAddable: input.probingAddable,
     }),
@@ -190,15 +190,15 @@ function addServerDistroStatus(input: {
     return { label: { key: "onboarding.distroStatus.missingTools" }, tone: "warning" }
   }
 
-  const check = input.state?.xccodeChecks[input.name]
+  const check = input.state?.xiaochuanChecks[input.name]
 
   if (!check) return probing ? checkingStatus() : undefined
 
-  if (check.matchesDesktop === false) return { label: { key: "onboarding.updateXccode" }, tone: "warning" }
+  if (check.matchesDesktop === false) return { label: { key: "onboarding.updateXiaochuan" }, tone: "warning" }
 
-  if (!check.resolvedPath) return { label: { key: "onboarding.distroStatus.xccodeMissing" }, tone: "warning" }
+  if (!check.resolvedPath) return { label: { key: "onboarding.distroStatus.xiaochuanMissing" }, tone: "warning" }
 
-  if (check.error) return { label: { key: "onboarding.installXccode" }, tone: "warning" }
+  if (check.error) return { label: { key: "onboarding.installXiaochuan" }, tone: "warning" }
 
   return { label: { key: "onboarding.distroStatus.ready" }, tone: "success" }
 }
@@ -210,21 +210,21 @@ function checkingStatus(): DistroStatus {
 function addServerPrimaryButton(input: {
   state: WslServersState | undefined
   selectedDistro: string | null
-  xccodeCheck: WslXccodeCheck | null
+  xiaochuanCheck: WslXiaochuanCheck | null
   /** Main runs a job the dialog waits for, or the dialog waits for its own call. */
   busy: boolean
-  /** The dialog asked main to install Xccode in the selected distro and waits for the answer. */
-  installingXccode: boolean
+  /** The dialog asked main to install Xiaochuan in the selected distro and waits for the answer. */
+  installingXiaochuan: boolean
   adding: boolean
   probingAddable: boolean
 }): AddServerPrimaryButton {
   const ready = !!input.selectedDistro && wslDistroReady(input.state, input.selectedDistro)
   const probingSelected = input.probingAddable && !addServerSelectedDistroSettled(input.state, input.selectedDistro)
   const job = input.selectedDistro ? input.state?.distroJobs[input.selectedDistro] : undefined
-  const probingXccode = probingSelected || (ready && (!input.xccodeCheck || job === "probing"))
-  const installingXccode = job === "updating" || input.installingXccode
+  const probingXiaochuan = probingSelected || (ready && (!input.xiaochuanCheck || job === "probing"))
+  const installingXiaochuan = job === "updating" || input.installingXiaochuan
 
-  if (!ready || probingXccode) {
+  if (!ready || probingXiaochuan) {
     return {
       variant: "contrast",
       label: probingSelected ? { key: "onboarding.distroStatus.checking" } : { key: "server.add" },
@@ -235,19 +235,19 @@ function addServerPrimaryButton(input: {
     }
   }
 
-  if (!addServerXccodeReady(input.xccodeCheck)) {
-    const update = !!input.xccodeCheck?.resolvedPath && input.xccodeCheck.matchesDesktop === false
+  if (!addServerXiaochuanReady(input.xiaochuanCheck)) {
+    const update = !!input.xiaochuanCheck?.resolvedPath && input.xiaochuanCheck.matchesDesktop === false
 
     return {
       variant: "neutral",
-      label: installingXccode
-        ? { key: "onboarding.updatingXccode" }
+      label: installingXiaochuan
+        ? { key: "onboarding.updatingXiaochuan" }
         : update
-          ? { key: "onboarding.updateXccode" }
-          : { key: "onboarding.installXccode" },
+          ? { key: "onboarding.updateXiaochuan" }
+          : { key: "onboarding.installXiaochuan" },
       disabled: input.busy,
-      action: "install-xccode",
-      loading: installingXccode,
+      action: "install-xiaochuan",
+      loading: installingXiaochuan,
       width: update ? "138px" : "129px",
     }
   }
@@ -262,7 +262,7 @@ function addServerPrimaryButton(input: {
   }
 }
 
-function addServerXccodeReady(check: WslXccodeCheck | null) {
+function addServerXiaochuanReady(check: WslXiaochuanCheck | null) {
   return !!check?.resolvedPath && check.matchesDesktop !== false && !check.error
 }
 
@@ -276,7 +276,7 @@ function addServerSelectedDistroSettled(state: WslServersState | undefined, sele
 
   if (!wslDistroReady(state, selectedDistro)) return true
 
-  return !!state.xccodeChecks[selectedDistro]
+  return !!state.xiaochuanChecks[selectedDistro]
 }
 
 function addServerInstallableDistros(installedDistros: WslInstalledDistro[], onlineDistros: WslOnlineDistro[]) {
@@ -328,7 +328,7 @@ function addableProbePlan(input: {
 
     if (!state.distroProbes[item.name]) return [`distro:${item.name}`]
 
-    if (wslDistroReady(state, item.name) && !state.xccodeChecks[item.name]) return [`xccode:${item.name}`]
+    if (wslDistroReady(state, item.name) && !state.xiaochuanChecks[item.name]) return [`xiaochuan:${item.name}`]
 
     return []
   })

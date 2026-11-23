@@ -1,6 +1,6 @@
 import { expect } from "bun:test"
-import { PermissionSaved } from "@xccode/schema/permission-saved"
-import { Session } from "@xccode/schema/session"
+import { PermissionSaved } from "@xiaochuan/schema/permission-saved"
+import { Session } from "@xiaochuan/schema/session"
 import { Effect, Schema } from "effect"
 import { it } from "../../core/test/lib/effect"
 import { ServerFetch } from "../src/fetch"
@@ -21,7 +21,7 @@ it.live("edits saved permissions through PATCH", () =>
     const request = (path: string, method: string, body?: unknown) =>
       Effect.promise(async () => {
         const response = await handler(
-          new Request(`http://xccode.local${path}`, {
+          new Request(`http://xiaochuan.local${path}`, {
             method,
             headers: { "content-type": "application/json" },
             body: body === undefined ? undefined : JSON.stringify(body),

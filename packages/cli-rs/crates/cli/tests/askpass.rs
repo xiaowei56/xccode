@@ -27,16 +27,16 @@ fn desktop(chunks: Vec<Vec<u8>>) -> (u16, std::thread::JoinHandle<String>) {
 }
 
 fn helper(port: u16, confirm: bool) -> std::process::Output {
-    let home = xccode_util::temp::tempdir().unwrap();
-    let mut command = Command::new(env!("CARGO_BIN_EXE_xccode-native"));
+    let home = xiaochuan_util::temp::tempdir().unwrap();
+    let mut command = Command::new(env!("CARGO_BIN_EXE_xiaochuan-native"));
     command
         .arg("Enter passphrase:")
         // Any log file would land here, never in the user's directories.
         .env("HOME", home.path())
         .env("XDG_DATA_HOME", home.path().join("data"))
-        .env("XCCODE_SSH_ASKPASS_PORT", port.to_string())
-        .env("XCCODE_SSH_ASKPASS_TOKEN", "fixture")
-        .env("XCCODE_PRINT_LOGS", "1")
+        .env("XIAOCHUAN_SSH_ASKPASS_PORT", port.to_string())
+        .env("XIAOCHUAN_SSH_ASKPASS_TOKEN", "fixture")
+        .env("XIAOCHUAN_PRINT_LOGS", "1")
         .env_remove("SSH_ASKPASS_PROMPT")
         .stdin(Stdio::null());
     if confirm {

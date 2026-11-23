@@ -1,14 +1,14 @@
 ---
 title: Windows (WSL)
-description: Запускайте xccode в Windows через WSL.
+description: Запускайте xiaochuan в Windows через WSL.
 ---
 
 import { Steps } from "@astrojs/starlight/components"
 
-xccode можно запускать напрямую в Windows, но для лучшего опыта мы рекомендуем [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install). WSL дает Linux-среду, которая отлично работает с возможностями xccode.
+xiaochuan можно запускать напрямую в Windows, но для лучшего опыта мы рекомендуем [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install). WSL дает Linux-среду, которая отлично работает с возможностями xiaochuan.
 
 :::tip[Почему WSL?]
-WSL дает более высокую производительность файловой системы, полноценную поддержку терминала и совместимость с инструментами разработки, на которые опирается xccode.
+WSL дает более высокую производительность файловой системы, полноценную поддержку терминала и совместимость с инструментами разработки, на которые опирается xiaochuan.
 :::
 
 ---
@@ -21,21 +21,21 @@ WSL дает более высокую производительность фа
 
    Если вы еще не сделали этого, установите WSL по [официальному руководству Microsoft](https://learn.microsoft.com/en-us/windows/wsl/install).
 
-2. **Установите xccode в WSL**
+2. **Установите xiaochuan в WSL**
 
-   После настройки WSL откройте терминал WSL и установите xccode одним из [способов установки](/docs/).
+   После настройки WSL откройте терминал WSL и установите xiaochuan одним из [способов установки](/docs/).
 
    ```bash
-   curl -fsSL https://xccode.ai/install | bash
+   curl -fsSL https://xiaochuan.ai/install | bash
    ```
 
-3. **Запускайте xccode из WSL**
+3. **Запускайте xiaochuan из WSL**
 
-   Перейдите в каталог проекта (к файлам Windows можно обращаться через `/mnt/c/`, `/mnt/d/` и т.д.) и запустите xccode.
+   Перейдите в каталог проекта (к файлам Windows можно обращаться через `/mnt/c/`, `/mnt/d/` и т.д.) и запустите xiaochuan.
 
    ```bash
    cd /mnt/c/Users/YourName/project
-   xccode
+   xiaochuan
    ```
 
 </Steps>
@@ -44,12 +44,12 @@ WSL дает более высокую производительность фа
 
 ## Десктопное приложение + сервер в WSL
 
-Если вы предпочитаете xccode Desktop, но хотите запускать сервер в WSL:
+Если вы предпочитаете xiaochuan Desktop, но хотите запускать сервер в WSL:
 
 1. **Запустите сервер в WSL** с параметром `--hostname 0.0.0.0`, чтобы разрешить внешние подключения:
 
    ```bash
-   xccode serve --hostname 0.0.0.0 --port 4096
+   xiaochuan serve --hostname 0.0.0.0 --port 4096
    ```
 
 2. **Подключите десктопное приложение** к `http://localhost:4096`
@@ -59,10 +59,10 @@ WSL дает более высокую производительность фа
 :::
 
 :::caution
-При использовании `--hostname 0.0.0.0` задайте `XCCODE_SERVER_PASSWORD`, чтобы защитить сервер.
+При использовании `--hostname 0.0.0.0` задайте `XIAOCHUAN_SERVER_PASSWORD`, чтобы защитить сервер.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve --hostname 0.0.0.0
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve --hostname 0.0.0.0
 ```
 
 :::
@@ -73,15 +73,15 @@ XCCODE_SERVER_PASSWORD=your-password xccode serve --hostname 0.0.0.0
 
 Для лучшего веб-опыта в Windows:
 
-1. **Запускайте `xccode web` в терминале WSL**, а не в PowerShell:
+1. **Запускайте `xiaochuan web` в терминале WSL**, а не в PowerShell:
 
    ```bash
-   xccode web --hostname 0.0.0.0
+   xiaochuan web --hostname 0.0.0.0
    ```
 
-2. **Открывайте в браузере Windows** адрес `http://localhost:<port>` (xccode выведет URL)
+2. **Открывайте в браузере Windows** адрес `http://localhost:<port>` (xiaochuan выведет URL)
 
-Запуск `xccode web` из WSL обеспечивает корректный доступ к файловой системе и интеграцию с терминалом, при этом интерфейс остается доступным из браузера Windows.
+Запуск `xiaochuan web` из WSL обеспечивает корректный доступ к файловой системе и интеграцию с терминалом, при этом интерфейс остается доступным из браузера Windows.
 
 ---
 
@@ -97,17 +97,17 @@ WSL может получать доступ ко всем вашим файла
 
 ```bash
 cd /mnt/c/Users/YourName/Documents/project
-xccode
+xiaochuan
 ```
 
 :::tip
-Для максимально плавной работы стоит клонировать или скопировать репозиторий в файловую систему WSL (например, в `~/code/`) и запускать xccode оттуда.
+Для максимально плавной работы стоит клонировать или скопировать репозиторий в файловую систему WSL (например, в `~/code/`) и запускать xiaochuan оттуда.
 :::
 
 ---
 
 ## Советы
 
-- Даже для проектов на дисках Windows запускайте xccode в WSL, чтобы получить более плавный доступ к файлам
-- Используйте xccode вместе с [расширением WSL для VS Code](https://code.visualstudio.com/docs/remote/wsl) для единого рабочего процесса
-- Конфигурация и сессии xccode хранятся в среде WSL по пути `~/.local/share/xccode/`
+- Даже для проектов на дисках Windows запускайте xiaochuan в WSL, чтобы получить более плавный доступ к файлам
+- Используйте xiaochuan вместе с [расширением WSL для VS Code](https://code.visualstudio.com/docs/remote/wsl) для единого рабочего процесса
+- Конфигурация и сессии xiaochuan хранятся в среде WSL по пути `~/.local/share/xiaochuan/`

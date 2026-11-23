@@ -1,4 +1,4 @@
-import type { SessionMessageInfo, SessionMessageUser } from "@xccode/client/promise"
+import type { SessionMessageInfo, SessionMessageUser } from "@xiaochuan/client/promise"
 
 export function selectSessionUserMessages(messages: SessionMessageInfo[]) {
   return messages.filter((message): message is SessionMessageUser => message.type === "user")

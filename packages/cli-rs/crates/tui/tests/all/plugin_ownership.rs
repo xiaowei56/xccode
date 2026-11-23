@@ -8,11 +8,11 @@ use std::sync::Arc;
 use std::sync::atomic::Ordering;
 use std::time::Duration;
 
-use xccode_plugin::abi;
-use xccode_plugin::abi::interact::{Anchor, Bind, Event, Handled, Interact, Layer, LayerScope, Overlay};
-use xccode_plugin::abi::v2;
-use xccode_tui::plugins::host::{External, external_with};
-use xccode_tui::{Deps, Route};
+use xiaochuan_plugin::abi;
+use xiaochuan_plugin::abi::interact::{Anchor, Bind, Event, Handled, Interact, Layer, LayerScope, Overlay};
+use xiaochuan_plugin::abi::v2;
+use xiaochuan_tui::plugins::host::{External, external_with};
+use xiaochuan_tui::{Deps, Route};
 
 use crate::plugin_pipe::{Pipe, config};
 use crate::plugin_surface::held;
@@ -64,7 +64,7 @@ enum Close {
     /// the turn to start. Setup's fetch is in flight while the route opens and closes.
     InFlight,
     /// Over the pipe, the host navigates away as soon as the call is delivered, and only then handles the JS host's
-    /// answer ([`xccode_plugin::pipe::Scripts::hold_answers`]).
+    /// answer ([`xiaochuan_plugin::pipe::Scripts::hold_answers`]).
     Racing,
     Other,
     /// The program ran, and the route's mount closes before its reply goes (`foreground::on_exit`).
@@ -236,20 +236,20 @@ fn parked(carrier: Carrier) {
     let definition = match carrier {
         #[cfg(luau)]
         Carrier::Luau => {
-            let sources = xccode_plugin::luau::Sources::from_files([
+            let sources = xiaochuan_plugin::luau::Sources::from_files([
                 ("plugin.toml", "id = \"test.parked\""),
                 ("init.luau", &parked_script()),
             ]);
-            xccode_plugin::luau::define(&sources, None).unwrap().0
+            xiaochuan_plugin::luau::define(&sources, None).unwrap().0
         }
         _ => abi::Plugin { id: "test.parked", setup: parked_plugin }.into(),
     };
-    xccode_tui::plugins::host::add(&h.tui, definition);
+    xiaochuan_tui::plugins::host::add(&h.tui, definition);
     let route = Route::Plugin { id: "test.parked".into(), name: "probe".into() };
     let resumed = || match carrier {
         #[cfg(luau)]
         Carrier::Luau => {
-            let stored = xccode_plugin::Host::storage_read(&*h.tui, "plugin.test.parked.seen");
+            let stored = xiaochuan_plugin::Host::storage_read(&*h.tui, "plugin.test.parked.seen");
             let seen: Vec<String> = stored.and_then(|json| serde_json::from_str(&json).ok()).unwrap_or_default();
             seen
         }
@@ -307,7 +307,7 @@ fn parked_plugin(setup: &mut abi::Setup) -> Result<(), String> {
 fn parked_script() -> String {
     let page = luau_literal(&serde_json::to_value(page()).unwrap());
     format!(
-        r#"local plugin = require("@xccode/plugin")
+        r#"local plugin = require("@xiaochuan/plugin")
 local PAGE = {page}
 return plugin.define(function(setup)
     setup:storageKey("seen")
@@ -336,7 +336,7 @@ fn a_task_a_mount_wakes_keeps_the_activations_owner() {
     WOKEN.with_borrow_mut(|woken| *woken = (false, None));
     let h = support::mount(80, 24, Deps { route: Route::Home, ..support::deps(Arc::new(fake)) });
     let definition = abi::Plugin { id: "test.woken", setup: woken_plugin }.into();
-    xccode_tui::plugins::host::add(&h.tui, definition);
+    xiaochuan_tui::plugins::host::add(&h.tui, definition);
     h.tui.navigate(Route::Plugin { id: "test.woken".into(), name: "probe".into() });
     turns(&h, 3);
     h.app.press("x");
@@ -426,7 +426,7 @@ fn run(carrier: Carrier, row: Row) -> Result<(), String> {
     if !row.kind.request() {
         return run_effect(carrier, row);
     }
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let mark = root.path().join("launched");
     let (fake, gate, served, asked) = held();
     let release = || {
@@ -435,8 +435,8 @@ fn run(carrier: Carrier, row: Row) -> Result<(), String> {
     };
     let launched = || std::fs::read_to_string(&mark).unwrap_or_default().lines().count();
     // The route closes the moment a program exited, before its reply goes.
-    let closing = Rc::new(move |tui: &xccode_tui::app::Tui| close_mount(tui, row.place));
-    xccode_tui::features::foreground::on_exit((row.close == Close::Launched).then_some(closing as _));
+    let closing = Rc::new(move |tui: &xiaochuan_tui::app::Tui| close_mount(tui, row.place));
+    xiaochuan_tui::features::foreground::on_exit((row.close == Close::Launched).then_some(closing as _));
     let probe = Probe::start(carrier, row, root.path(), &mark, support::deps(Arc::new(fake)));
     let h = probe.harness();
     let (open, close) = (|| open_mount(h, probe.id(), row.place), || close_mount(&h.tui, row.place));
@@ -459,8 +459,8 @@ fn run(carrier: Carrier, row: Row) -> Result<(), String> {
     // pipe a dialog's first tree comes on the JS host's time, which a racing row's hold does not stop: a key before it
     // waits for the dialog's field, and then goes to the composer once the row closed the dialog.
     if !matches!(row.origin, Origin::Setup | Origin::MountBegin) {
-        let mounts = || xccode_plugin::behave::mounts(h.app.app(), probe.id(), "probe");
-        let typing = || row.origin == Origin::Input && xccode_plugin::Host::composer_focused(&*h.tui);
+        let mounts = || xiaochuan_plugin::behave::mounts(h.app.app(), probe.id(), "probe");
+        let typing = || row.origin == Origin::Input && xiaochuan_plugin::Host::composer_focused(&*h.tui);
         let ready = h.app.wait_until(support::WAIT, || {
             probe.turn();
             let mounts = mounts();
@@ -532,7 +532,7 @@ fn run(carrier: Carrier, row: Row) -> Result<(), String> {
         probe.turn();
         false
     });
-    xccode_tui::features::foreground::on_exit(None);
+    xiaochuan_tui::features::foreground::on_exit(None);
     let seen = Seen {
         asked: probe.asked(),
         replies: probe.replies(),
@@ -599,26 +599,26 @@ fn check(carrier: Carrier, row: Row, seen: &Seen) -> Result<(), String> {
 /// effect did is read from the host: the overlays and modes it holds, and the route's last live mount's focus and
 /// scroll.
 fn run_effect(carrier: Carrier, row: Row) -> Result<(), String> {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let mark = root.path().join("launched");
     let probe = Probe::start(carrier, row, root.path(), &mark, support::deps(Arc::new(support::empty())));
     let h = probe.harness();
     let plugin = probe.id();
     let (open, close) = (|| open_mount(h, plugin, row.place), || close_mount(&h.tui, row.place));
-    let mounts = || xccode_plugin::behave::mounts(h.app.app(), plugin, "probe");
+    let mounts = || xiaochuan_plugin::behave::mounts(h.app.app(), plugin, "probe");
     let shows = |count: usize| {
         h.app.wait_until(support::WAIT, || {
             probe.turn();
             mounts().len() == count && mounts().last().is_some_and(|mount| !mount.offsets.is_empty())
         })
     };
-    let ledger = || xccode_plugin::interact::ledger(&*h.tui);
+    let ledger = || xiaochuan_plugin::interact::ledger(&*h.tui);
     // The session transcript, as the host publishes it: what moved it is recorded.
     let moved = Rc::new(Cell::new(0));
     let recorded = moved.clone();
-    let _published = xccode_plugin::behave::publish_transcript(
+    let _published = xiaochuan_plugin::behave::publish_transcript(
         h.app.app(),
-        xccode_plugin::behave::Published {
+        xiaochuan_plugin::behave::Published {
             read: Rc::new(|| v2::TranscriptView { offset: 0, viewport: 10, extent: 40, ..Default::default() }),
             scroll: Rc::new(move |_| recorded.set(recorded.get() + 1)),
         },
@@ -718,13 +718,13 @@ fn open_mount(h: &Harness, plugin: &str, place: Place) {
             let generation = (0..100_000).find(|generation| h.tui.plugins.live(plugin, *generation));
             let generation = generation.expect("the probe has a running activation");
             let dialog = abi::Dialog::Surface(abi::DialogSurface::new("probe"));
-            xccode_tui::plugins::panel::show(&h.tui, plugin, generation, dialog);
+            xiaochuan_tui::plugins::panel::show(&h.tui, plugin, generation, dialog);
         }
     }
 }
 
 /// Closes the probe's mount, as the user does: navigates home, or closes the dialog.
-fn close_mount(tui: &xccode_tui::app::Tui, place: Place) {
+fn close_mount(tui: &xiaochuan_tui::app::Tui, place: Place) {
     match place {
         Place::Route => tui.navigate(Route::Home),
         Place::Dialog => tui.dialogs.clear(),
@@ -765,7 +765,7 @@ impl Probe {
             let harness = support::mount(80, 24, Deps { route: Route::Home, ..deps });
             let external = External { config_dir: root.join("config"), cwd: root.to_path_buf() };
             external_with(&harness.tui, external, config());
-            let pipe = Pipe { harness, root: xccode_util::temp::tempdir().unwrap() };
+            let pipe = Pipe { harness, root: xiaochuan_util::temp::tempdir().unwrap() };
             pipe.active("example.probe");
             return Probe::Pipe(pipe, log);
         }
@@ -773,12 +773,12 @@ impl Probe {
         if carrier == Carrier::Luau {
             let harness = support::mount(80, 24, Deps { route: Route::Home, ..deps });
             let init = luau_script(row, mark);
-            let sources = xccode_plugin::luau::Sources::from_files([
+            let sources = xiaochuan_plugin::luau::Sources::from_files([
                 ("plugin.toml", "id = \"test.probe\""),
                 ("init.luau", &init),
             ]);
-            let definition = xccode_plugin::luau::define(&sources, None).unwrap().0;
-            xccode_tui::plugins::host::add(&harness.tui, definition);
+            let definition = xiaochuan_plugin::luau::define(&sources, None).unwrap().0;
+            xiaochuan_tui::plugins::host::add(&harness.tui, definition);
             return Probe::Luau(harness);
         }
         ROW.set(Some(row));
@@ -786,7 +786,7 @@ impl Probe {
         SEEN.with_borrow_mut(|seen| *seen = Default::default());
         OTHER.with_borrow_mut(Vec::clear);
         let harness = support::mount(80, 24, Deps { route: Route::Home, ..deps });
-        xccode_tui::plugins::host::add(&harness.tui, abi::Plugin { id: "test.probe", setup: probe }.into());
+        xiaochuan_tui::plugins::host::add(&harness.tui, abi::Plugin { id: "test.probe", setup: probe }.into());
         Probe::Native(harness)
     }
 
@@ -1039,7 +1039,7 @@ const [KIND, ORIGIN, CLOSE, LOG, COMMAND, ARGS, PLACE] = {params}
 const PAGE = {page}
 const log = (line) => appendFileSync(LOG, line + "\n")
 export default {{ id: "example.probe", setup(api) {{
-  const carrier = api[Symbol.for("xccode.carrier")]
+  const carrier = api[Symbol.for("xiaochuan.carrier")]
   let asked = false
   const home = () =>
     PLACE === "Dialog"
@@ -1093,7 +1093,7 @@ export default {{ id: "example.probe", setup(api) {{
 
 #[cfg(luau)]
 fn luau_seen(harness: &Harness, field: &str) -> Vec<serde_json::Value> {
-    let stored = xccode_plugin::Host::storage_read(&*harness.tui, "plugin.test.probe.seen");
+    let stored = xiaochuan_plugin::Host::storage_read(&*harness.tui, "plugin.test.probe.seen");
     let seen: serde_json::Value = stored.and_then(|json| serde_json::from_str(&json).ok()).unwrap_or_default();
     seen[field].as_array().cloned().unwrap_or_default()
 }
@@ -1127,7 +1127,7 @@ fn luau_script(row: Row, mark: &Path) -> String {
     let page = luau_literal(&serde_json::to_value(page()).unwrap());
     let args = luau_literal(&serde_json::json!(args));
     format!(
-        r#"local plugin = require("@xccode/plugin")
+        r#"local plugin = require("@xiaochuan/plugin")
 local KIND, ORIGIN, CLOSE, PLACE = {kind:?}, {origin:?}, {close:?}, {place:?}
 local function leave(host)
     if PLACE == "Dialog" then host:dialog({{ type = "close", key = "probe" }})

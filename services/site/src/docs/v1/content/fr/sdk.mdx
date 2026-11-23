@@ -1,13 +1,13 @@
 ---
 title: SDK
-description: Client JS de type sécurisé pour le serveur xccode.
+description: Client JS de type sécurisé pour le serveur xiaochuan.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-Le SDK xccode JS/TS fournit un client de type sécurisé pour interagir avec le serveur.
-Utilisez-le pour créer des intégrations et contrôler xccode par programme.
+Le SDK xiaochuan JS/TS fournit un client de type sécurisé pour interagir avec le serveur.
+Utilisez-le pour créer des intégrations et contrôler xiaochuan par programme.
 
 [En savoir plus](/docs/server) sur le fonctionnement du serveur. Pour des exemples, consultez les [projects](/docs/ecosystem#projects) construits par la communauté.
 
@@ -18,19 +18,19 @@ Utilisez-le pour créer des intégrations et contrôler xccode par programme.
 Installez le SDK à partir de npm :
 
 ```bash
-npm install @xccode-ai/sdk
+npm install @xiaochuan-ai/sdk
 ```
 
 ---
 
 ## Créer un client
 
-Créez une instance de xccode :
+Créez une instance de xiaochuan :
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const { client } = await createXccode()
+const { client } = await createXiaochuan()
 ```
 
 Cela démarre à la fois un serveur et un client
@@ -49,12 +49,12 @@ Cela démarre à la fois un serveur et un client
 
 ## Configuration
 
-Vous pouvez transmettre un objet de configuration pour personnaliser le comportement. L'instance récupère toujours votre `xccode.json`, mais vous pouvez remplacer ou ajouter une configuration en ligne :
+Vous pouvez transmettre un objet de configuration pour personnaliser le comportement. L'instance récupère toujours votre `xiaochuan.json`, mais vous pouvez remplacer ou ajouter une configuration en ligne :
 
 ```javascript
-import { createXccode } from "@xccode-ai/sdk"
+import { createXiaochuan } from "@xiaochuan-ai/sdk"
 
-const xccode = await createXccode({
+const xiaochuan = await createXiaochuan({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -62,19 +62,19 @@ const xccode = await createXccode({
   },
 })
 
-console.log(`Server running at ${xccode.server.url}`)
+console.log(`Server running at ${xiaochuan.server.url}`)
 
-xccode.server.close()
+xiaochuan.server.close()
 ```
 
 ## Client uniquement
 
-Si vous disposez déjà d'une instance en cours d'exécution de xccode, vous pouvez créer une instance client pour vous y connecter :
+Si vous disposez déjà d'une instance en cours d'exécution de xiaochuan, vous pouvez créer une instance client pour vous y connecter :
 
 ```javascript
-import { createXccodeClient } from "@xccode-ai/sdk"
+import { createXiaochuanClient } from "@xiaochuan-ai/sdk"
 
-const client = createXccodeClient({
+const client = createXiaochuanClient({
   baseUrl: "http://localhost:4096",
 })
 ```
@@ -96,7 +96,7 @@ const client = createXccodeClient({
 Le SDK inclut des définitions TypeScript pour tous les types API. Importez-les directement :
 
 ```typescript
-import type { Session, Message, Part } from "@xccode-ai/sdk"
+import type { Session, Message, Part } from "@xiaochuan-ai/sdk"
 ```
 
 Tous les types sont générés à partir de la spécification OpenAPI du serveur et disponibles dans le <a href={typesUrl}>fichier de types</a>.
@@ -373,7 +373,7 @@ await client.session.prompt({
 ```javascript
 // Search and read files
 const textResults = await client.find.text({
-  query: { pattern: "function.*xccode" },
+  query: { pattern: "function.*xiaochuan" },
 })
 
 const files = await client.find.files({

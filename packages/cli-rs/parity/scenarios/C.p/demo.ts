@@ -1,5 +1,5 @@
 // The C.p scenarios run one prompt script on each side: `parity/oracle/C.p-prompts.ts` with
-// `@clack/prompts`, and the same script in `xccode-prompt-demo` with the Rust kit.
+// `@clack/prompts`, and the same script in `xiaochuan-prompt-demo` with the Rust kit.
 import path from "node:path"
 import type { Side } from "../../cli/client"
 import type { PtyStep } from "../../pty/run"
@@ -10,7 +10,7 @@ export function demo(name: string) {
   return (side: Side) =>
     side === "ts"
       ? ["bun", path.join(rs, "parity/oracle/C.p-prompts.ts"), name]
-      : [path.join(rs, "target/debug/xccode-prompt-demo"), name]
+      : [path.join(rs, "target/debug/xiaochuan-prompt-demo"), name]
 }
 
 // One key (or chunk of typed text), then a checkpoint once the screen has settled.

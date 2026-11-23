@@ -1,29 +1,29 @@
 ---
 title: Provedores
-description: Usando qualquer provedor LLM no xccode.
+description: Usando qualquer provedor LLM no xiaochuan.
 ---
 
 import config from "../../../../config.mjs"
 export const console = config.console
 
-xccode usa o [AI SDK](https://ai-sdk.dev/) e [Models.dev](https://models.dev) para suportar **75+ provedores LLM** e suporta a execução de modelos locais.
+xiaochuan usa o [AI SDK](https://ai-sdk.dev/) e [Models.dev](https://models.dev) para suportar **75+ provedores LLM** e suporta a execução de modelos locais.
 
 Para adicionar um provedor, você precisa:
 
 1. Adicionar as chaves da API para o provedor usando o comando `/connect`.
-2. Configurar o provedor na sua configuração do xccode.
+2. Configurar o provedor na sua configuração do xiaochuan.
 
 ---
 
 ### Credenciais
 
-Quando você adiciona as chaves da API de um provedor com o comando `/connect`, elas são armazenadas em `~/.local/share/xccode/auth.json`.
+Quando você adiciona as chaves da API de um provedor com o comando `/connect`, elas são armazenadas em `~/.local/share/xiaochuan/auth.json`.
 
 ---
 
 ### Configuração
 
-Você pode personalizar os provedores através da seção `provider` na sua configuração do xccode.
+Você pode personalizar os provedores através da seção `provider` na sua configuração do xiaochuan.
 
 ---
 
@@ -31,9 +31,9 @@ Você pode personalizar os provedores através da seção `provider` na sua conf
 
 Você pode personalizar a URL base para qualquer provedor definindo a opção `baseURL`. Isso é útil ao usar serviços de proxy ou endpoints personalizados.
 
-```json title="xccode.json" {6}
+```json title="xiaochuan.json" {6}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "anthropic": {
       "options": {
@@ -46,17 +46,17 @@ Você pode personalizar a URL base para qualquer provedor definindo a opção `b
 
 ---
 
-<a id="xccode-zen"></a>
+<a id="xiaochuan-zen"></a>
 
-## Xccode Models
+## Xiaochuan Models
 
-Xccode Models é uma lista de modelos fornecidos pela equipe do xccode que foram testados e verificados para funcionar bem com o xccode. [Saiba mais](https://xccode.ai/docs/console/).
+Xiaochuan Models é uma lista de modelos fornecidos pela equipe do xiaochuan que foram testados e verificados para funcionar bem com o xiaochuan. [Saiba mais](https://xiaochuan.ai/docs/console/).
 
 :::tip
-Se você é novo, recomendamos começar com o Xccode Models.
+Se você é novo, recomendamos começar com o Xiaochuan Models.
 :::
 
-1. Execute o comando `/connect` no TUI, selecione `Xccode` e acesse [xccode.ai/auth](https://xccode.ai/auth).
+1. Execute o comando `/connect` no TUI, selecione `Xiaochuan` e acesse [xiaochuan.ai/auth](https://xiaochuan.ai/auth).
 
    ```txt
    /connect
@@ -79,16 +79,16 @@ Se você é novo, recomendamos começar com o Xccode Models.
    /models
    ```
 
-Funciona como qualquer outro provedor no xccode e é completamente opcional.
+Funciona como qualquer outro provedor no xiaochuan e é completamente opcional.
 
 ---
 
-## Xccode Go
+## Xiaochuan Go
 
-Xccode Go é um plano de assinatura de baixo custo que fornece acesso confiável a modelos de codificação abertos populares fornecidos pela equipe do xccode que foram
-testados e verificados para funcionar bem com o xccode.
+Xiaochuan Go é um plano de assinatura de baixo custo que fornece acesso confiável a modelos de codificação abertos populares fornecidos pela equipe do xiaochuan que foram
+testados e verificados para funcionar bem com o xiaochuan.
 
-1. Execute o comando `/connect` no TUI, selecione `Xccode Go` e acesse [xccode.ai/auth](https://xccode.ai/auth).
+1. Execute o comando `/connect` no TUI, selecione `Xiaochuan Go` e acesse [xiaochuan.ai/auth](https://xiaochuan.ai/auth).
 
    ```txt
    /connect
@@ -111,7 +111,7 @@ testados e verificados para funcionar bem com o xccode.
    /models
    ```
 
-Funciona como qualquer outro provedor no xccode e é completamente opcional.
+Funciona como qualquer outro provedor no xiaochuan e é completamente opcional.
 
 ---
 
@@ -154,7 +154,7 @@ Não vê um provedor aqui? Envie um PR.
 
 ### Amazon Bedrock
 
-Para usar o Amazon Bedrock com o xccode:
+Para usar o Amazon Bedrock com o xiaochuan:
 
 1. Acesse o **Catálogo de Modelos** no console do Amazon Bedrock e solicite acesso aos modelos que você deseja.
 
@@ -168,17 +168,17 @@ Para usar o Amazon Bedrock com o xccode:
 
    #### Variáveis de Ambiente (Início Rápido)
 
-   Defina uma dessas variáveis de ambiente ao executar o xccode:
+   Defina uma dessas variáveis de ambiente ao executar o xiaochuan:
 
    ```bash
    # Option 1: Using AWS access keys
-   AWS_ACCESS_KEY_ID=XXX AWS_SECRET_ACCESS_KEY=YYY xccode
+   AWS_ACCESS_KEY_ID=XXX AWS_SECRET_ACCESS_KEY=YYY xiaochuan
 
    # Option 2: Using named AWS profile
-   AWS_PROFILE=my-profile xccode
+   AWS_PROFILE=my-profile xiaochuan
 
    # Option 3: Using Bedrock bearer token
-   AWS_BEARER_TOKEN_BEDROCK=XXX xccode
+   AWS_BEARER_TOKEN_BEDROCK=XXX xiaochuan
    ```
 
    Ou adicione-as ao seu perfil bash:
@@ -192,11 +192,11 @@ Para usar o Amazon Bedrock com o xccode:
 
    #### Arquivo de Configuração (Recomendado)
 
-   Para configuração específica do projeto ou persistente, use `xccode.json`:
+   Para configuração específica do projeto ou persistente, use `xiaochuan.json`:
 
-   ```json title="xccode.json"
+   ```json title="xiaochuan.json"
    {
-     "$schema": "https://xccode.ai/config.json",
+     "$schema": "https://xiaochuan.ai/config.json",
      "provider": {
        "amazon-bedrock": {
          "options": {
@@ -223,9 +223,9 @@ Para usar o Amazon Bedrock com o xccode:
 
    Se você estiver usando endpoints VPC para Bedrock:
 
-   ```json title="xccode.json"
+   ```json title="xiaochuan.json"
    {
-     "$schema": "https://xccode.ai/config.json",
+     "$schema": "https://xiaochuan.ai/config.json",
      "provider": {
        "amazon-bedrock": {
          "options": {
@@ -272,9 +272,9 @@ Para usar o Amazon Bedrock com o xccode:
 Para perfis de inferência personalizados, use o nome do modelo e do provedor na chave e defina a propriedade `id` para o arn. Isso garante o cache correto.
 :::
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "amazon-bedrock": {
       // ...
@@ -316,7 +316,7 @@ Para perfis de inferência personalizados, use o nome do modelo e do provedor na
    ```
 
 :::info
-Usar sua assinatura Claude Pro/Max no xccode não é oficialmente suportado pela [Anthropic](https://anthropic.com).
+Usar sua assinatura Claude Pro/Max no xiaochuan não é oficialmente suportado pela [Anthropic](https://anthropic.com).
 :::
 
 ##### Usando chaves da API
@@ -329,11 +329,11 @@ Ou, se você já tiver uma chave da API, pode selecionar **Inserir manualmente a
 
 ### Atomic Chat
 
-Você pode configurar o xccode para usar modelos locais através do [Atomic Chat](https://atomic.chat), um aplicativo de desktop que executa LLMs locais por trás de um servidor API compatível com OpenAI (endpoint padrão `http://127.0.0.1:1337/v1`).
+Você pode configurar o xiaochuan para usar modelos locais através do [Atomic Chat](https://atomic.chat), um aplicativo de desktop que executa LLMs locais por trás de um servidor API compatível com OpenAI (endpoint padrão `http://127.0.0.1:1337/v1`).
 
-```json title="xccode.json" "atomic-chat" {5, 6, 8, 10-14}
+```json title="xiaochuan.json" "atomic-chat" {5, 6, 8, 10-14}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "atomic-chat": {
       "npm": "@ai-sdk/openai-compatible",
@@ -378,7 +378,7 @@ Se você encontrar erros "Desculpe, mas não posso ajudar com esse pedido", tent
 2. Vá para [Azure AI Foundry](https://ai.azure.com/) e implante um modelo.
 
    :::note
-   O nome da implantação deve corresponder ao nome do modelo para que o xccode funcione corretamente.
+   O nome da implantação deve corresponder ao nome do modelo para que o xiaochuan funcione corretamente.
    :::
 
 3. Execute o comando `/connect` e procure por **Azure**.
@@ -399,7 +399,7 @@ Se você encontrar erros "Desculpe, mas não posso ajudar com esse pedido", tent
 5. Defina o nome do seu recurso como uma variável de ambiente:
 
    ```bash
-   AZURE_RESOURCE_NAME=XXX xccode
+   AZURE_RESOURCE_NAME=XXX xiaochuan
    ```
 
    Ou adicione ao seu perfil bash:
@@ -425,7 +425,7 @@ Se você encontrar erros "Desculpe, mas não posso ajudar com esse pedido", tent
 2. Vá para [Azure AI Foundry](https://ai.azure.com/) e implante um modelo.
 
    :::note
-   O nome da implantação deve corresponder ao nome do modelo para que o xccode funcione corretamente.
+   O nome da implantação deve corresponder ao nome do modelo para que o xiaochuan funcione corretamente.
    :::
 
 3. Execute o comando `/connect` e procure por **Azure Cognitive Services**.
@@ -446,7 +446,7 @@ Se você encontrar erros "Desculpe, mas não posso ajudar com esse pedido", tent
 5. Defina o nome do seu recurso como uma variável de ambiente:
 
    ```bash
-   AZURE_COGNITIVE_SERVICES_RESOURCE_NAME=XXX xccode
+   AZURE_COGNITIVE_SERVICES_RESOURCE_NAME=XXX xiaochuan
    ```
 
    Ou adicione ao seu perfil bash:
@@ -557,11 +557,11 @@ O Cloudflare AI Gateway permite que você acesse modelos do OpenAI, Anthropic, W
    /models
    ```
 
-   Você também pode adicionar modelos através da sua configuração do xccode.
+   Você também pode adicionar modelos através da sua configuração do xiaochuan.
 
-   ```json title="xccode.json"
+   ```json title="xiaochuan.json"
    {
-     "$schema": "https://xccode.ai/config.json",
+     "$schema": "https://xiaochuan.ai/config.json",
      "provider": {
        "cloudflare-ai-gateway": {
          "models": {
@@ -737,7 +737,7 @@ GitLab Duo fornece um chat agente com suporte a ferramentas nativas através do 
    #### Usando Token de Acesso Pessoal
    1. Vá para [Configurações do Usuário do GitLab > Tokens de Acesso](https://gitlab.com/-/user_settings/personal_access_tokens)
    2. Clique em **Adicionar novo token**
-   3. Nome: `Xccode`, Escopos: `api`
+   3. Nome: `Xiaochuan`, Escopos: `api`
    4. Copie o token (começa com `glpat-`)
    5. Insira-o no terminal
 
@@ -754,20 +754,20 @@ GitLab Duo fornece um chat agente com suporte a ferramentas nativas através do 
 
 :::note
 Você também pode especificar a variável de ambiente 'GITLAB_TOKEN' se não quiser
-armazenar o token no armazenamento de autenticação do xccode.
+armazenar o token no armazenamento de autenticação do xiaochuan.
 :::
 
 ##### GitLab Auto-Hospedado
 
 :::note[nota de conformidade]
-xccode usa um pequeno modelo para algumas tarefas de AI, como gerar o título da sessão.
-Ele está configurado para usar gpt-5-nano por padrão, hospedado pela Xccode. Para bloquear o xccode
+xiaochuan usa um pequeno modelo para algumas tarefas de AI, como gerar o título da sessão.
+Ele está configurado para usar gpt-5-nano por padrão, hospedado pela Xiaochuan. Para bloquear o xiaochuan
 para usar apenas sua própria instância hospedada do GitLab, adicione o seguinte ao seu
-arquivo `xccode.json`.
+arquivo `xiaochuan.json`.
 
 ```json
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "small_model": "gitlab/duo-chat-haiku-4-5"
 }
 ```
@@ -820,15 +820,15 @@ Em seguida, exponha o ID do aplicativo como variável de ambiente:
 export GITLAB_OAUTH_CLIENT_ID=your_application_id_here
 ```
 
-Mais documentação na página [xccode-gitlab-auth](https://www.npmjs.com/package/xccode-gitlab-auth).
+Mais documentação na página [xiaochuan-gitlab-auth](https://www.npmjs.com/package/xiaochuan-gitlab-auth).
 
 ##### Configuração
 
-Personalize através do `xccode.json`:
+Personalize através do `xiaochuan.json`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "gitlab": {
       "options": {
@@ -843,10 +843,10 @@ Personalize através do `xccode.json`:
 
 Para acessar ferramentas do GitLab (merge requests, issues, pipelines, CI/CD, etc.):
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
-  "plugin": ["xccode-gitlab-plugin"]
+  "$schema": "https://xiaochuan.ai/config.json",
+  "plugin": ["xiaochuan-gitlab-plugin"]
 }
 ```
 
@@ -856,7 +856,7 @@ Este plugin fornece capacidades abrangentes de gerenciamento de repositório do 
 
 ### GitHub Copilot
 
-Para usar sua assinatura do GitHub Copilot com o xccode:
+Para usar sua assinatura do GitHub Copilot com o xiaochuan:
 
 :::note
 Alguns modelos podem precisar de uma [assinatura Pro+](https://github.com/features/copilot/plans) para usar.
@@ -891,7 +891,7 @@ Alguns modelos podem precisar de uma [assinatura Pro+](https://github.com/featur
 
 ### Google Vertex AI
 
-Para usar o Google Vertex AI com o xccode:
+Para usar o Google Vertex AI com o xiaochuan:
 
 1. Acesse o **Model Garden** no Console do Google Cloud e verifique os
    modelos disponíveis na sua região.
@@ -907,10 +907,10 @@ Para usar o Google Vertex AI com o xccode:
      - `GOOGLE_APPLICATION_CREDENTIALS`: Caminho para seu arquivo de chave JSON da conta de serviço
      - Autentique usando o CLI gcloud: `gcloud auth application-default login`
 
-   Defina-as ao executar o xccode.
+   Defina-as ao executar o xiaochuan.
 
    ```bash
-   GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json GOOGLE_CLOUD_PROJECT=your-project-id xccode
+   GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json GOOGLE_CLOUD_PROJECT=your-project-id xiaochuan
    ```
 
    Ou adicione-as ao seu perfil bash.
@@ -1020,13 +1020,13 @@ Para mais provedores e recursos avançados como cache e limitação de taxa, con
 
 #### Configurações Opcionais
 
-Caso você veja um recurso ou modelo do Helicone que não está configurado automaticamente através do xccode, você sempre pode configurá-lo você mesmo.
+Caso você veja um recurso ou modelo do Helicone que não está configurado automaticamente através do xiaochuan, você sempre pode configurá-lo você mesmo.
 
 Aqui está o [Diretório de Modelos do Helicone](https://helicone.ai/models), você precisará disso para pegar os IDs dos modelos que deseja adicionar.
 
-```jsonc title="~/.config/xccode/xccode.jsonc"
+```jsonc title="~/.config/xiaochuan/xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1052,9 +1052,9 @@ Aqui está o [Diretório de Modelos do Helicone](https://helicone.ai/models), vo
 
 Helicone suporta cabeçalhos personalizados para recursos como cache, rastreamento de usuários e gerenciamento de sessões. Adicione-os à sua configuração do provedor usando `options.headers`:
 
-```jsonc title="~/.config/xccode/xccode.jsonc"
+```jsonc title="~/.config/xiaochuan/xiaochuan.jsonc"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1063,7 +1063,7 @@ Helicone suporta cabeçalhos personalizados para recursos como cache, rastreamen
         "baseURL": "https://ai-gateway.helicone.ai",
         "headers": {
           "Helicone-Cache-Enabled": "true",
-          "Helicone-User-Id": "xccode",
+          "Helicone-User-Id": "xiaochuan",
         },
       },
     },
@@ -1073,21 +1073,21 @@ Helicone suporta cabeçalhos personalizados para recursos como cache, rastreamen
 
 ##### Rastreamento de Sessões
 
-O recurso [Sessões](https://docs.helicone.ai/features/sessions) do Helicone permite que você agrupe solicitações LLM relacionadas. Use o plugin [xccode-helicone-session](https://github.com/H2Shami/xccode-helicone-session) para registrar automaticamente cada conversa do xccode como uma sessão no Helicone.
+O recurso [Sessões](https://docs.helicone.ai/features/sessions) do Helicone permite que você agrupe solicitações LLM relacionadas. Use o plugin [xiaochuan-helicone-session](https://github.com/H2Shami/xiaochuan-helicone-session) para registrar automaticamente cada conversa do xiaochuan como uma sessão no Helicone.
 
 ```bash
-npm install -g xccode-helicone-session
+npm install -g xiaochuan-helicone-session
 ```
 
 Adicione-o à sua configuração.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "plugin": ["xccode-helicone-session"]
+  "plugin": ["xiaochuan-helicone-session"]
 }
 ```
 
-O plugin injeta os cabeçalhos `Helicone-Session-Id` e `Helicone-Session-Name` em suas solicitações. Na página de Sessões do Helicone, você verá cada conversa do xccode listada como uma sessão separada.
+O plugin injeta os cabeçalhos `Helicone-Session-Id` e `Helicone-Session-Name` em suas solicitações. Na página de Sessões do Helicone, você verá cada conversa do xiaochuan listada como uma sessão separada.
 
 ##### Cabeçalhos Comuns do Helicone
 
@@ -1104,11 +1104,11 @@ Consulte o [Diretório de Cabeçalhos do Helicone](https://docs.helicone.ai/heli
 
 ### llama.cpp
 
-Você pode configurar o xccode para usar modelos locais através da utilidade llama-server do [llama.cpp](https://github.com/ggml-org/llama.cpp)
+Você pode configurar o xiaochuan para usar modelos locais através da utilidade llama-server do [llama.cpp](https://github.com/ggml-org/llama.cpp)
 
-```json title="xccode.json" "llama.cpp" {5, 6, 8, 10-15}
+```json title="xiaochuan.json" "llama.cpp" {5, 6, 8, 10-15}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1171,11 +1171,11 @@ IO.NET oferece 17 modelos otimizados para vários casos de uso:
 
 ### LM Studio
 
-Você pode configurar o xccode para usar modelos locais através do LM Studio.
+Você pode configurar o xiaochuan para usar modelos locais através do LM Studio.
 
-```json title="xccode.json" "lmstudio" {5, 6, 8, 10-14}
+```json title="xiaochuan.json" "lmstudio" {5, 6, 8, 10-14}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "lmstudio": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1288,15 +1288,15 @@ Para usar Kimi K2 do Moonshot AI:
 
 ### Ollama
 
-Você pode configurar o xccode para usar modelos locais através do Ollama.
+Você pode configurar o xiaochuan para usar modelos locais através do Ollama.
 
 :::tip
-Ollama pode se configurar automaticamente para o xccode. Consulte a [documentação de integração do Ollama](https://docs.ollama.com/integrations/xccode) para detalhes.
+Ollama pode se configurar automaticamente para o xiaochuan. Consulte a [documentação de integração do Ollama](https://docs.ollama.com/integrations/xiaochuan) para detalhes.
 :::
 
-```json title="xccode.json" "ollama" {5, 6, 8, 10-14}
+```json title="xiaochuan.json" "ollama" {5, 6, 8, 10-14}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1330,13 +1330,13 @@ Se chamadas de ferramentas não estiverem funcionando, tente aumentar `num_ctx` 
 
 ### Ollama Cloud
 
-Para usar o Ollama Cloud com o xccode:
+Para usar o Ollama Cloud com o xiaochuan:
 
 1. Acesse [https://ollama.com/](https://ollama.com/) e faça login ou crie uma conta.
 
 2. Navegue até **Configurações** > **Chaves** e clique em **Adicionar Chave da API** para gerar uma nova chave da API.
 
-3. Copie a chave da API para uso no xccode.
+3. Copie a chave da API para uso no xiaochuan.
 
 4. Execute o comando `/connect` e procure por **Ollama Cloud**.
 
@@ -1353,7 +1353,7 @@ Para usar o Ollama Cloud com o xccode:
    └ enter
    ```
 
-6. **Importante**: Antes de usar modelos em nuvem no xccode, você deve puxar as informações do modelo localmente:
+6. **Importante**: Antes de usar modelos em nuvem no xiaochuan, você deve puxar as informações do modelo localmente:
 
    ```bash
    ollama pull gpt-oss:20b-cloud
@@ -1400,21 +1400,21 @@ Se você já tiver uma chave da API, pode selecionar **Inserir chave da API manu
 
 ---
 
-<a id="xccode-zen-1"></a>
+<a id="xiaochuan-zen-1"></a>
 
-### Xccode Models
+### Xiaochuan Models
 
-Xccode Models é uma lista de modelos testados e verificados fornecidos pela equipe do xccode. [Saiba mais](https://xccode.ai/docs/console/).
+Xiaochuan Models é uma lista de modelos testados e verificados fornecidos pela equipe do xiaochuan. [Saiba mais](https://xiaochuan.ai/docs/console/).
 
-1. Faça login em **<a href={console}>Xccode Console</a>** e clique em **Criar Chave da API**.
+1. Faça login em **<a href={console}>Xiaochuan Console</a>** e clique em **Criar Chave da API**.
 
-2. Execute o comando `/connect` e procure por **Xccode**.
+2. Execute o comando `/connect` e procure por **Xiaochuan**.
 
    ```txt
    /connect
    ```
 
-3. Insira sua chave da API do xccode.
+3. Insira sua chave da API do xiaochuan.
 
    ```txt
    ┌ API key
@@ -1456,11 +1456,11 @@ Xccode Models é uma lista de modelos testados e verificados fornecidos pela equ
    /models
    ```
 
-   Você também pode adicionar modelos adicionais através da sua configuração do xccode.
+   Você também pode adicionar modelos adicionais através da sua configuração do xiaochuan.
 
-   ```json title="xccode.json" {6}
+   ```json title="xiaochuan.json" {6}
    {
-     "$schema": "https://xccode.ai/config.json",
+     "$schema": "https://xiaochuan.ai/config.json",
      "provider": {
        "openrouter": {
          "models": {
@@ -1471,11 +1471,11 @@ Xccode Models é uma lista de modelos testados e verificados fornecidos pela equ
    }
    ```
 
-5. Você também pode personalizá-los através da sua configuração do xccode. Aqui está um exemplo de especificar um provedor
+5. Você também pode personalizá-los através da sua configuração do xiaochuan. Aqui está um exemplo de especificar um provedor
 
-   ```json title="xccode.json"
+   ```json title="xiaochuan.json"
    {
-     "$schema": "https://xccode.ai/config.json",
+     "$schema": "https://xiaochuan.ai/config.json",
      "provider": {
        "openrouter": {
          "models": {
@@ -1523,7 +1523,7 @@ SAP AI Core fornece acesso a mais de 40 modelos do OpenAI, Anthropic, Google, Am
    Ou defina a variável de ambiente `AICORE_SERVICE_KEY`:
 
    ```bash
-   AICORE_SERVICE_KEY='{"clientid":"...","clientsecret":"...","url":"...","serviceurls":{"AI_API_URL":"..."}}' xccode
+   AICORE_SERVICE_KEY='{"clientid":"...","clientsecret":"...","url":"...","serviceurls":{"AI_API_URL":"..."}}' xiaochuan
    ```
 
    Ou adicione ao seu perfil bash:
@@ -1535,7 +1535,7 @@ SAP AI Core fornece acesso a mais de 40 modelos do OpenAI, Anthropic, Google, Am
 4. Opcionalmente, defina o ID de implantação e o grupo de recursos:
 
    ```bash
-   AICORE_DEPLOYMENT_ID=your-deployment-id AICORE_RESOURCE_GROUP=your-resource-group xccode
+   AICORE_DEPLOYMENT_ID=your-deployment-id AICORE_RESOURCE_GROUP=your-resource-group xiaochuan
    ```
 
    :::note
@@ -1612,7 +1612,7 @@ O STACKIT AI Model Serving fornece um ambiente de hospedagem soberano totalmente
 
 ### Scaleway
 
-Para usar [APIs Generativas Scaleway](https://www.scaleway.com/en/docs/generative-apis/) com o xccode:
+Para usar [APIs Generativas Scaleway](https://www.scaleway.com/en/docs/generative-apis/) com o xiaochuan:
 
 1. Acesse as [configurações de IAM do Scaleway Console](https://console.scaleway.com/iam/api-keys) para gerar uma nova chave da API.
 
@@ -1720,11 +1720,11 @@ O Vercel AI Gateway permite que você acesse modelos do OpenAI, Anthropic, Googl
    /models
    ```
 
-Você também pode personalizar modelos através da sua configuração do xccode. Aqui está um exemplo de especificar a ordem de roteamento do provedor.
+Você também pode personalizar modelos através da sua configuração do xiaochuan. Aqui está um exemplo de especificar a ordem de roteamento do provedor.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "vercel": {
       "models": {
@@ -1830,11 +1830,11 @@ Algumas opções de roteamento úteis:
    /models
    ```
 
-   Você também pode adicionar modelos adicionais através da sua configuração do xccode.
+   Você também pode adicionar modelos adicionais através da sua configuração do xiaochuan.
 
-   ```json title="xccode.json" {6}
+   ```json title="xiaochuan.json" {6}
    {
-     "$schema": "https://xccode.ai/config.json",
+     "$schema": "https://xiaochuan.ai/config.json",
      "provider": {
        "zenmux": {
          "models": {
@@ -1852,7 +1852,7 @@ Algumas opções de roteamento úteis:
 Para adicionar qualquer provedor **compatível com OpenAI** que não esteja listado no comando `/connect`:
 
 :::tip
-Você pode usar qualquer provedor compatível com OpenAI com o xccode. A maioria dos provedores de AI modernos oferece APIs compatíveis com OpenAI.
+Você pode usar qualquer provedor compatível com OpenAI com o xiaochuan. A maioria dos provedores de AI modernos oferece APIs compatíveis com OpenAI.
 :::
 
 1. Execute o comando `/connect` e role para baixo até **Outro**.
@@ -1891,18 +1891,18 @@ Você pode usar qualquer provedor compatível com OpenAI com o xccode. A maioria
 
    ┌  Adicionar credencial
    │
-   ▲  Isso armazena apenas uma credencial para myprovider - você precisará configurá-lo no xccode.json, verifique a documentação para exemplos.
+   ▲  Isso armazena apenas uma credencial para myprovider - você precisará configurá-lo no xiaochuan.json, verifique a documentação para exemplos.
    │
    ◇  Digite sua chave de API
    │  sk-...
    └
    ```
 
-4. Crie ou atualize seu arquivo `xccode.json` no diretório do seu projeto:
+4. Crie ou atualize seu arquivo `xiaochuan.json` no diretório do seu projeto:
 
-   ```json title="xccode.json" ""myprovider"" {5-15}
+   ```json title="xiaochuan.json" ""myprovider"" {5-15}
    {
-     "$schema": "https://xccode.ai/config.json",
+     "$schema": "https://xiaochuan.ai/config.json",
      "provider": {
        "myprovider": {
          "npm": "@ai-sdk/openai-compatible",
@@ -1938,9 +1938,9 @@ Você pode usar qualquer provedor compatível com OpenAI com o xccode. A maioria
 
 Aqui está um exemplo definindo as opções `apiKey`, `headers` e `limit` do modelo.
 
-```json title="xccode.json" {9,11,17-20}
+```json title="xiaochuan.json" {9,11,17-20}
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "provider": {
     "myprovider": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1973,7 +1973,7 @@ Detalhes da configuração:
 - **limit.context**: Máximo de tokens de entrada que o modelo aceita.
 - **limit.output**: Máximo de tokens que o modelo pode gerar.
 
-Os campos `limit` permitem que o xccode entenda quanto contexto você tem disponível. Provedores padrão puxam isso automaticamente do models.dev.
+Os campos `limit` permitem que o xiaochuan entenda quanto contexto você tem disponível. Provedores padrão puxam isso automaticamente do models.dev.
 
 ---
 
@@ -1981,12 +1981,12 @@ Os campos `limit` permitem que o xccode entenda quanto contexto você tem dispon
 
 Se você estiver tendo problemas para configurar um provedor, verifique o seguinte:
 
-1. **Verifique a configuração de autenticação**: Execute `xccode auth list` para ver se as credenciais
+1. **Verifique a configuração de autenticação**: Execute `xiaochuan auth list` para ver se as credenciais
    para o provedor estão adicionadas à sua configuração.
 
    Isso não se aplica a provedores como Amazon Bedrock, que dependem de variáveis de ambiente para sua autenticação.
 
-2. Para provedores personalizados, verifique a configuração do xccode e:
-   - Certifique-se de que o ID do provedor usado no comando `/connect` corresponda ao ID na sua configuração do xccode.
+2. Para provedores personalizados, verifique a configuração do xiaochuan e:
+   - Certifique-se de que o ID do provedor usado no comando `/connect` corresponda ao ID na sua configuração do xiaochuan.
    - O pacote npm correto está sendo usado para o provedor. Por exemplo, use `@ai-sdk/cerebras` para Cerebras. E para todos os outros provedores compatíveis com OpenAI, use `@ai-sdk/openai-compatible`.
    - Verifique se o endpoint da API correto está sendo usado no campo `options.baseURL`.

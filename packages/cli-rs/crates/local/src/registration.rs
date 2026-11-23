@@ -143,7 +143,7 @@ mod tests {
 
     #[test]
     fn files_per_channel() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let p = paths(dir.path());
         let state = p.state.clone();
         assert_eq!(Files::new(&p, "latest"), Files { file: state.join("service.json"), legacy: vec![] });
@@ -169,7 +169,7 @@ mod tests {
 
     #[test]
     fn migrates_only_matching_versions_once() {
-        let dir = xccode_util::temp::tempdir().unwrap();
+        let dir = xiaochuan_util::temp::tempdir().unwrap();
         let p = paths(dir.path());
         fs::create_dir_all(&p.state).unwrap();
         let files = Files::new(&p, "oc-x");

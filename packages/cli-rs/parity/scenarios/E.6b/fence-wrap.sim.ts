@@ -4,7 +4,7 @@ import { defineSim } from "../../sim/scenario"
 
 const duration = { line: "· \\d.*", reason: "the turn duration depends on timing, also in length; the row ends there" }
 const command =
-  "XCCODE_STORY_MEDIA=/home/user/src/xccode/packages/tui/fixtures/story-media.json XCCODE_STORY=transcript-fences bun run dev:live /home/user/src/project"
+  "XIAOCHUAN_STORY_MEDIA=/home/user/src/xiaochuan/packages/tui/fixtures/story-media.json XIAOCHUAN_STORY=transcript-fences bun run dev:live /home/user/src/project"
 
 export default defineSim({
   height: 40,

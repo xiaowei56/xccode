@@ -32,7 +32,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Dijagnostika memorije: bilježi memoriju aplikacije u zapisnike desktop aplikacije svakih 30 sekundi. Ostaje uključena i nakon ponovnog pokretanja dok je ne isključite; traka ostaje otvorena dok radi.",
-  "memory.tipEnv": "Dijagnostika memorije uključena je za ovo pokretanje: postavljen je XCCODE_DESKTOP_MEMORY_LOG.",
+  "memory.tipEnv": "Dijagnostika memorije uključena je za ovo pokretanje: postavljen je XIAOCHUAN_DESKTOP_MEMORY_LOG.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Kontrole",

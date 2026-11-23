@@ -1,7 +1,7 @@
 //! Restore or delete stashed prompts.
 
-use xccode_ui::select::{Select, SelectAction};
-use xccode_util::time::Zone;
+use xiaochuan_ui::select::{Select, SelectAction};
+use xiaochuan_util::time::Zone;
 
 use crate::prelude::*;
 
@@ -61,7 +61,7 @@ struct List {
 impl List {
     fn options(&self) -> Vec<SelectOption<usize>> {
         let Some(tui) = self.tui.upgrade() else { return Vec::new() };
-        let theme = tui.page().surface(xccode_ui::theme::Surface::Dialog);
+        let theme = tui.page().surface(xiaochuan_ui::theme::Surface::Dialog);
         let key = tui.keymap.shortcut("stash.delete").unwrap_or_default();
         let now = crate::dialogs::session_list::now_ms();
         let deleting = self.to_delete.get();

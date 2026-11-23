@@ -1,7 +1,7 @@
-import { Instance } from "@xccode/core/instance/service"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { Session } from "@xccode/core/session"
-import { LocationNotFoundError, InvalidRequestError, SessionNotFoundError } from "@xccode/protocol/errors"
+import { Instance } from "@xiaochuan/core/instance/service"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { Session } from "@xiaochuan/core/session"
+import { LocationNotFoundError, InvalidRequestError, SessionNotFoundError } from "@xiaochuan/protocol/errors"
 import { Effect, Layer } from "effect"
 import { HttpRouter, HttpServerRequest, HttpServerResponse } from "effect/http"
 import { HttpApiMiddleware } from "effect/http-api"
@@ -10,7 +10,7 @@ import { locationErrors, requestRef, sessionInfo, type LocationServices } from "
 export class FormLocationMiddleware extends HttpApiMiddleware.Service<
   FormLocationMiddleware,
   { provides: LocationServices }
->()("@xccode/HttpApiFormLocation", {
+>()("@xiaochuan/HttpApiFormLocation", {
   error: [InvalidRequestError, SessionNotFoundError, LocationNotFoundError],
 }) {}
 

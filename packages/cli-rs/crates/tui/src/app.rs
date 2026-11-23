@@ -3,17 +3,17 @@
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
-use xccode_api::client::Client;
-use xccode_api::events::{self, Connection};
-use xccode_local::cli_config::{CliConfig, Info, Resolved, ThemeMode as ConfigMode};
-use xccode_local::paths::Paths;
-use xccode_local::storage::Storage;
-use xccode_store::{Data, Options};
-use xccode_ui::dialog::{DialogKeymap, Dialogs, focus_path};
-use xccode_ui::keymap::{COMMAND_PALETTE_COMMAND, Keybinds, Slash};
-use xccode_ui::theme::{Effect, ModeSetting, TerminalColors, ThemeMode, ThemeState, ThemeStateOptions};
-use xccode_ui::toast::Toasts;
-use xccode_ui::{help, palette};
+use xiaochuan_api::client::Client;
+use xiaochuan_api::events::{self, Connection};
+use xiaochuan_local::cli_config::{CliConfig, Info, Resolved, ThemeMode as ConfigMode};
+use xiaochuan_local::paths::Paths;
+use xiaochuan_local::storage::Storage;
+use xiaochuan_store::{Data, Options};
+use xiaochuan_ui::dialog::{DialogKeymap, Dialogs, focus_path};
+use xiaochuan_ui::keymap::{COMMAND_PALETTE_COMMAND, Keybinds, Slash};
+use xiaochuan_ui::theme::{Effect, ModeSetting, TerminalColors, ThemeMode, ThemeState, ThemeStateOptions};
+use xiaochuan_ui::toast::Toasts;
+use xiaochuan_ui::{help, palette};
 use opentui::app::ProxyError;
 use opentui::widget::Textarea;
 
@@ -31,7 +31,7 @@ pub struct Deps {
     pub events: bool,
     /// Renderer plugins in registration order: Mermaid, then LaTeX. The shell receives them from the caller to avoid
     /// depending on the renderers.
-    pub builtins: Vec<xccode_plugin::Builtin>,
+    pub builtins: Vec<xiaochuan_plugin::Builtin>,
 }
 
 pub struct Roots {
@@ -50,7 +50,7 @@ pub struct Launch {
 /// The shared context. Held as `Rc<Tui>`; widget callbacks keep a [`Weak`].
 pub struct Tui {
     pub app: App,
-    pub router: xccode_plugin::interact::Router,
+    pub router: xiaochuan_plugin::interact::Router,
     pub plugin_overlays: View,
     pub data: Data,
     pub keymap: Rc<DialogKeymap>,
@@ -227,7 +227,7 @@ impl Tui {
         let view = routes::mount(self, &route);
         drop(old);
         self.frame.main().add(&view.root());
-        view.sync(self, &xccode_store::Changes::everything());
+        view.sync(self, &xiaochuan_store::Changes::everything());
         crate::frame::mount_app(self, remount);
         // A remount under an open dialog (a theme change, a plugin toggled in `/plugins`) must not take the dialog's
         // focus; the new view takes it once the dialog closes, as the old one would have.
@@ -339,18 +339,18 @@ impl Tui {
     /// Syncs the route view with everything, after state outside the store changed.
     pub(crate) fn resync(&self) {
         if let Some(view) = self.view.borrow().as_ref() {
-            view.sync(self, &xccode_store::Changes::everything());
+            view.sync(self, &xiaochuan_store::Changes::everything());
         }
-        crate::frame::sync_app(self, &xccode_store::Changes::everything());
+        crate::frame::sync_app(self, &xiaochuan_store::Changes::everything());
         self.app.request_redraw();
     }
 
     /// Refresh the route for a view change outside the store.
     pub(crate) fn sync_view(&self) {
         if let Some(view) = self.view.borrow().as_ref() {
-            view.sync(self, &xccode_store::Changes::default());
+            view.sync(self, &xiaochuan_store::Changes::default());
         }
-        crate::frame::sync_app(self, &xccode_store::Changes::default());
+        crate::frame::sync_app(self, &xiaochuan_store::Changes::default());
         self.app.request_redraw();
     }
 
@@ -372,7 +372,7 @@ impl Tui {
                 self.app.runtime().spawn_blocking(move || persist(&files, effects));
             }
         }
-        // The plugins read the selected theme's name, which can change with the palette the same (`xccode` and
+        // The plugins read the selected theme's name, which can change with the palette the same (`xiaochuan` and
         // `system` without a terminal palette), so it is not a repaint that tells them.
         let selected = self.theme.borrow().selected().to_owned();
         if *self.theme_selected.borrow() != selected {
@@ -425,7 +425,7 @@ impl Drop for Tui {
     }
 }
 
-impl xccode_ui::bind::WeakRef for Tui {
+impl xiaochuan_ui::bind::WeakRef for Tui {
     type Target = Tui;
     fn weak_ref(&self) -> Weak<Tui> {
         self.weak()
@@ -466,7 +466,7 @@ pub fn mount_with(app: &App, deps: Deps, args: Args) -> Rc<Tui> {
     });
     let keymap = Rc::new(DialogKeymap::new(
         keybinds,
-        xccode_ui::keymap::Options {
+        xiaochuan_ui::keymap::Options {
             leader_timeout: deps.config.leader_timeout,
             textarea_enabled: textarea_focused(app, &textarea),
             textarea_run: {
@@ -482,7 +482,7 @@ pub fn mount_with(app: &App, deps: Deps, args: Args) -> Rc<Tui> {
         },
     ));
 
-    xccode_ui::motion::set_running(app, xccode_ui::motion::enabled(deps.config.info.animations));
+    xiaochuan_ui::motion::set_running(app, xiaochuan_ui::motion::enabled(deps.config.info.animations));
     let page = theme.theme().page();
     app.set_theme(app_theme(&page));
     let shell = View::new(app).column().grow(1.0).basis(Length::Auto);
@@ -496,7 +496,7 @@ pub fn mount_with(app: &App, deps: Deps, args: Args) -> Rc<Tui> {
         .height(Length::percent(100.0))
         .visible(false);
     // Before the plugin behaviors' hook, which stays the root's last child.
-    xccode_ui::root::add(app, &plugin_overlays);
+    xiaochuan_ui::root::add(app, &plugin_overlays);
     let local_files = deps.roots.as_ref().map(|roots| crate::local::Files {
         state: roots.paths.state.clone(),
         storage: files.as_ref().and_then(|files| files.storage.clone()),
@@ -622,7 +622,7 @@ pub fn run(launch: Launch) -> opentui::Result<()> {
     let app = App::new(options)?;
     // Around the hook `App::new` installed, which restores the terminal: a plugin's panic its catch stops is not the
     // end of the app.
-    xccode_plugin::contain::filter_panics();
+    xiaochuan_plugin::contain::filter_panics();
     // Only the TUI on the real terminal plays sounds out loud; tests and harnesses mix them without a device.
     run_on(app, launch, |tui| {
         tui.attention.sound.set_output(crate::features::attention::sound::Output::Device);
@@ -666,7 +666,7 @@ fn route_keys(tui: &Rc<Tui>) {
         if result.handled || result.stop_propagation {
             cx.stop_propagation();
         }
-        xccode_plugin::flush();
+        xiaochuan_plugin::flush();
     });
 }
 
@@ -684,8 +684,8 @@ fn close_plugin_surface(tui: &Tui) -> bool {
     }
     // The reserved chord returns focus from a plugin field to the composer without clearing its draft or exiting.
     if tui.router.surface_focused(tui) && !matches!(tui.route(), Route::Plugin { .. }) {
-        xccode_plugin::Host::focus_composer(tui);
-        if xccode_plugin::Host::composer_focused(tui) {
+        xiaochuan_plugin::Host::focus_composer(tui);
+        if xiaochuan_plugin::Host::composer_focused(tui) {
             // The plugins' layers stop holding at the composer too, until the focus moves again.
             tui.router.escape(tui);
             return true;
@@ -709,7 +709,7 @@ fn install_keys(tui: &Rc<Tui>) {
     let weak = tui.weak();
     tui.app.on_key_capture(move |cx, key| {
         let Some(tui) = weak.upgrade() else { return };
-        if !key.matches(xccode_plugin::abi::interact::RESERVED) {
+        if !key.matches(xiaochuan_plugin::abi::interact::RESERVED) {
             return;
         }
         tui.router.escape(&*tui);
@@ -725,7 +725,7 @@ fn install_keys(tui: &Rc<Tui>) {
     crate::features::selection::install(tui);
     crate::terminal::install_keys(tui);
     route_keys(tui);
-    tui.layers.borrow_mut().push(xccode_ui::dialog::expire_leader(&tui.app, &tui.keymap));
+    tui.layers.borrow_mut().push(xiaochuan_ui::dialog::expire_leader(&tui.app, &tui.keymap));
 
     tui.keymap.set_first_layer(app_commands());
     // Keep commands globally available to the palette over dialogs; bind their keys in separate layers.
@@ -794,7 +794,7 @@ fn install_keys(tui: &Rc<Tui>) {
         .bindings(["app.exit"]);
     let layers = [
         commands,
-        KeymapLayer::default().bindings([COMMAND_PALETTE_COMMAND, "help.show", "xccode.settings"]),
+        KeymapLayer::default().bindings([COMMAND_PALETTE_COMMAND, "help.show", "xiaochuan.settings"]),
         KeymapLayer::global(Vec::new()).bindings(["session.list", "session.new", "open.menu"]),
         exit,
     ];
@@ -836,14 +836,14 @@ fn app_commands() -> Vec<String> {
             "variant.list",
             "agent.cycle.reverse",
             "provider.connect",
-            "xccode.highlights",
-            "xccode.settings",
-            "xccode.status",
-            "xccode.update",
+            "xiaochuan.highlights",
+            "xiaochuan.settings",
+            "xiaochuan.status",
+            "xiaochuan.update",
             "server.pair",
             "service.restart",
             "location.reload",
-            "xccode.debug",
+            "xiaochuan.debug",
             "theme.switch",
             "theme.switch_mode",
             "theme.mode.lock",
@@ -894,19 +894,19 @@ fn install_theme(tui: &Rc<Tui>) {
 /// then applies them. One worker runs every `prepare` (a theme's write) and scan in the order asked, and only the
 /// last scan asked for applies, so an earlier one that finishes later does not drop a theme a later write added.
 pub(crate) fn discover_themes(tui: &Tui, prepare: impl FnOnce(&std::path::Path) + Send + 'static) {
-    static WORKER: std::sync::OnceLock<xccode_local::serial::Serial> = std::sync::OnceLock::new();
+    static WORKER: std::sync::OnceLock<xiaochuan_local::serial::Serial> = std::sync::OnceLock::new();
     let Some(files) = &tui.files else {
         tui.theme_changed();
         return;
     };
     let config = files.config.path().parent().unwrap_or(files.config.path()).to_path_buf();
-    let directories = xccode_ui::theme::config_directories(&config, std::path::Path::new(&tui.directory));
+    let directories = xiaochuan_ui::theme::config_directories(&config, std::path::Path::new(&tui.directory));
     let scan = tui.theme_scans.get() + 1;
     tui.theme_scans.set(scan);
     let (send, scanned) = tokio::sync::oneshot::channel();
-    WORKER.get_or_init(|| xccode_local::serial::Serial::new("themes")).run(move || {
+    WORKER.get_or_init(|| xiaochuan_local::serial::Serial::new("themes")).run(move || {
         prepare(&config);
-        let _ = send.send(xccode_ui::theme::discover(&directories).ok());
+        let _ = send.send(xiaochuan_ui::theme::discover(&directories).ok());
     });
     tui.app.spawn(
         async move { scanned.await.ok().flatten() },
@@ -927,7 +927,7 @@ pub(crate) fn discover_themes(tui: &Tui, prepare: impl FnOnce(&std::path::Path) 
 /// The store's flushes and signals, subscribed before anything can flush or signal, until [`pump`] forwards them.
 struct Wakeups {
     revisions: tokio::sync::watch::Receiver<u64>,
-    signals: tokio::sync::broadcast::Receiver<Arc<xccode_api::generated::V2Event>>,
+    signals: tokio::sync::broadcast::Receiver<Arc<xiaochuan_api::generated::V2Event>>,
     /// A [`DataChanged`] is queued.
     pending: Arc<AtomicBool>,
 }
@@ -1017,7 +1017,7 @@ async fn post<M: Clone + Send + 'static>(proxy: &AppProxy, message: M) -> bool {
 }
 
 fn connect(tui: &Rc<Tui>) -> tokio::sync::watch::Receiver<events::State> {
-    let (connection, _task) = xccode_store::connection::connect(&tui.data, events::Options::default());
+    let (connection, _task) = xiaochuan_store::connection::connect(&tui.data, events::Options::default());
     let state = connection.watch();
     *tui.connection.borrow_mut() = Some(connection);
     state
@@ -1107,7 +1107,7 @@ mod tests {
     use super::*;
     use crate::features::events::Signal;
     use events::{State, Status};
-    use xccode_api::generated::V2Event;
+    use xiaochuan_api::generated::V2Event;
     use opentui::testing::TestApp;
 
     fn state(status: Status) -> State {

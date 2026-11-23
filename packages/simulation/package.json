@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/simulation",
+  "name": "@xiaochuan/simulation",
   "version": "2.3.0",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaowei56/xccode.git",
+    "url": "git+https://github.com/xiaowei56/xiaochuan.git",
     "directory": "packages/simulation"
   },
   "publishConfig": {
@@ -31,11 +31,11 @@
     "typecheck:tsc": "tsc -b"
   },
   "dependencies": {
-    "@xccode/core": "workspace:*",
-    "@xccode/ai": "workspace:*",
-    "@xccode/plugin": "workspace:*",
-    "@xccode/protocol": "workspace:*",
-    "@xccode/util": "workspace:*",
+    "@xiaochuan/core": "workspace:*",
+    "@xiaochuan/ai": "workspace:*",
+    "@xiaochuan/plugin": "workspace:*",
+    "@xiaochuan/protocol": "workspace:*",
+    "@xiaochuan/util": "workspace:*",
     "@opentui/core": "catalog:",
     "effect": "catalog:",
     "ws": "8.21.0"

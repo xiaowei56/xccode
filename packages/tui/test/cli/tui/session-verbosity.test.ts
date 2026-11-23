@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@xccode/client"
+import type { SessionMessageAssistant, SessionMessageAssistantTool, SessionMessageInfo } from "@xiaochuan/client"
 import { activitySummary, busyLabel, summarizeActivity } from "../../../src/routes/session/activity-summary"
 import {
   append,

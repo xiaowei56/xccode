@@ -1,15 +1,15 @@
 ---
 title: Introduction
-description: Commencez avec Xccode.
+description: Commencez avec Xiaochuan.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 import config from "../../../../config.mjs"
 export const console = config.console
 
-[**Xccode**](/) est un agent de codage d'IA open source. Il est disponible sous forme d'interface basée sur un terminal, d'application de bureau ou d'extension IDE.
+[**Xiaochuan**](/) est un agent de codage d'IA open source. Il est disponible sous forme d'interface basée sur un terminal, d'application de bureau ou d'extension IDE.
 
-![Xccode TUI avec le thème xccode](../../../assets/lander/screenshot.png)
+![Xiaochuan TUI avec le thème xiaochuan](../../../assets/lander/screenshot.png)
 
 Commençons.
 
@@ -17,7 +17,7 @@ Commençons.
 
 #### Prérequis
 
-Pour utiliser Xccode dans votre terminal, vous aurez besoin de :
+Pour utiliser Xiaochuan dans votre terminal, vous aurez besoin de :
 
 1. Un émulateur de terminal moderne comme :
    - [WezTerm](https://wezterm.org), multiplateforme
@@ -31,10 +31,10 @@ Pour utiliser Xccode dans votre terminal, vous aurez besoin de :
 
 ## Installation
 
-Le moyen le plus simple d'installer Xccode est d'utiliser le script d'installation.
+Le moyen le plus simple d'installer Xiaochuan est d'utiliser le script d'installation.
 
 ```bash
-curl -fsSL https://xccode.ai/install | bash
+curl -fsSL https://xiaochuan.ai/install | bash
 ```
 
 Vous pouvez également l'installer avec les commandes suivantes :
@@ -45,28 +45,28 @@ Vous pouvez également l'installer avec les commandes suivantes :
 
       <TabItem label="npm">
       ```bash
-      npm install -g xccode-ai
+      npm install -g xiaochuan-ai
       ```
 
       </TabItem>
 
       <TabItem label="Bun">
       ```bash
-      bun install -g xccode-ai
+      bun install -g xiaochuan-ai
       ```
 
       </TabItem>
 
       <TabItem label="pnpm">
       ```bash
-      pnpm install -g xccode-ai
+      pnpm install -g xiaochuan-ai
       ```
 
       </TabItem>
 
       <TabItem label="Yarn">
       ```bash
-      yarn global add xccode-ai
+      yarn global add xiaochuan-ai
       ```
 
       </TabItem>
@@ -76,68 +76,68 @@ Vous pouvez également l'installer avec les commandes suivantes :
 - **Via Homebrew sur macOS et Linux**
 
   ```bash
-  brew install anomalyco/tap/xccode
+  brew install anomalyco/tap/xiaochuan
   ```
 
-  > Nous vous recommandons d'utiliser le tap Xccode pour les versions les plus récentes. La formule officielle `brew install xccode` est maintenue par l'équipe Homebrew et est mise à jour moins fréquemment.
+  > Nous vous recommandons d'utiliser le tap Xiaochuan pour les versions les plus récentes. La formule officielle `brew install xiaochuan` est maintenue par l'équipe Homebrew et est mise à jour moins fréquemment.
 
 - **Via Paru sur Arch Linux**
 
   ```bash
-  sudo pacman -S xccode           # Arch Linux (Stable)
-  paru -S xccode-bin              # Arch Linux (Latest from AUR)
+  sudo pacman -S xiaochuan           # Arch Linux (Stable)
+  paru -S xiaochuan-bin              # Arch Linux (Latest from AUR)
   ```
 
 #### Windows
 
 :::tip[Recommandé : utilisez WSL]
-Pour une expérience optimale sur Windows, nous vous recommandons d'utiliser le [Windows Subsystem for Linux (WSL)](/docs/windows-wsl). Il offre de meilleures performances et une compatibilité totale avec les fonctionnalités de Xccode.
+Pour une expérience optimale sur Windows, nous vous recommandons d'utiliser le [Windows Subsystem for Linux (WSL)](/docs/windows-wsl). Il offre de meilleures performances et une compatibilité totale avec les fonctionnalités de Xiaochuan.
 :::
 
 - **Via Chocolatey**
 
   ```bash
-  choco install xccode
+  choco install xiaochuan
   ```
 
 - **Via Scoop**
 
   ```bash
-  scoop install xccode
+  scoop install xiaochuan
   ```
 
 - **Via NPM**
 
   ```bash
-  npm install -g xccode-ai
+  npm install -g xiaochuan-ai
   ```
 
 - **Via Mise**
 
   ```bash
-  mise use -g github:xiaowei56/xccode
+  mise use -g github:xiaowei56/xiaochuan
   ```
 
 - **Via Docker**
 
   ```bash
-  docker run -it --rm ghcr.io/xiaowei56/xccode
+  docker run -it --rm ghcr.io/xiaowei56/xiaochuan
   ```
 
-Le support de l'installation de Xccode sur Windows à l'aide de Bun est actuellement en cours de développement.
+Le support de l'installation de Xiaochuan sur Windows à l'aide de Bun est actuellement en cours de développement.
 
-Vous pouvez également récupérer le binaire dans les [Releases](https://github.com/xiaowei56/xccode/releases).
+Vous pouvez également récupérer le binaire dans les [Releases](https://github.com/xiaowei56/xiaochuan/releases).
 
 ---
 
 ## Configuration
 
-Avec Xccode, vous pouvez utiliser n'importe quel fournisseur de LLM en configurant ses clés API.
+Avec Xiaochuan, vous pouvez utiliser n'importe quel fournisseur de LLM en configurant ses clés API.
 
-Si vous débutez avec les fournisseurs de LLM, nous vous recommandons d'utiliser [Xccode Models](https://xccode.ai/docs/console/).
-C'est une liste curée de modèles qui ont été testés et vérifiés par l'équipe Xccode.
+Si vous débutez avec les fournisseurs de LLM, nous vous recommandons d'utiliser [Xiaochuan Models](https://xiaochuan.ai/docs/console/).
+C'est une liste curée de modèles qui ont été testés et vérifiés par l'équipe Xiaochuan.
 
-1. Exécutez la commande `/connect` dans le TUI, sélectionnez xccode et allez sur [xccode.ai/auth](https://xccode.ai/auth).
+1. Exécutez la commande `/connect` dans le TUI, sélectionnez xiaochuan et allez sur [xiaochuan.ai/auth](https://xiaochuan.ai/auth).
 
    ```txt
    /connect
@@ -166,31 +166,31 @@ Maintenant que vous avez configuré un fournisseur, vous pouvez accéder à un p
 cd /path/to/project
 ```
 
-Et exécutez Xccode.
+Et exécutez Xiaochuan.
 
 ```bash
-xccode
+xiaochuan
 ```
 
-Ensuite, initialisez Xccode pour le projet en exécutant la commande suivante.
+Ensuite, initialisez Xiaochuan pour le projet en exécutant la commande suivante.
 
 ```bash frame="none"
 /init
 ```
 
-Cela permettra à Xccode d'analyser votre projet et de créer un fichier `AGENTS.md` à la racine du projet.
+Cela permettra à Xiaochuan d'analyser votre projet et de créer un fichier `AGENTS.md` à la racine du projet.
 
 :::tip
 Vous devez valider le fichier `AGENTS.md` de votre projet dans Git.
 :::
 
-Cela aide Xccode à comprendre la structure du projet et les modèles de codage utilisés.
+Cela aide Xiaochuan à comprendre la structure du projet et les modèles de codage utilisés.
 
 ---
 
 ## Utilisation
 
-Vous êtes maintenant prêt à utiliser Xccode pour travailler sur votre projet. N'hésitez pas à lui demander n'importe quoi !
+Vous êtes maintenant prêt à utiliser Xiaochuan pour travailler sur votre projet. N'hésitez pas à lui demander n'importe quoi !
 
 Si vous débutez dans l'utilisation d'un agent de codage IA, voici quelques exemples qui pourraient aider.
 
@@ -198,7 +198,7 @@ Si vous débutez dans l'utilisation d'un agent de codage IA, voici quelques exem
 
 ### Poser des questions
 
-Vous pouvez demander à Xccode de vous expliquer la base de code.
+Vous pouvez demander à Xiaochuan de vous expliquer la base de code.
 
 :::tip
 Utilisez la touche `@` pour effectuer une recherche floue de fichiers dans le projet.
@@ -214,11 +214,11 @@ Ceci est utile s'il y a une partie de la base de code sur laquelle vous n'avez p
 
 ### Ajouter des fonctionnalités
 
-Vous pouvez demander à Xccode d'ajouter de nouvelles fonctionnalités à votre projet. Cependant, nous recommandons d’abord de lui demander de créer un plan.
+Vous pouvez demander à Xiaochuan d'ajouter de nouvelles fonctionnalités à votre projet. Cependant, nous recommandons d’abord de lui demander de créer un plan.
 
 1. **Créer un plan**
 
-Xccode dispose d'un _Mode Plan_ qui désactive sa capacité à apporter des modifications et suggère plutôt _comment_ il implémentera la fonctionnalité.
+Xiaochuan dispose d'un _Mode Plan_ qui désactive sa capacité à apporter des modifications et suggère plutôt _comment_ il implémentera la fonctionnalité.
 
 Accédez-y à l'aide de la touche **Tab**. Vous verrez un indicateur à cet effet dans le coin inférieur droit.
 
@@ -234,10 +234,10 @@ Décrivons maintenant ce que nous voulons qu'il fasse.
    From this screen, the user can undelete a note or permanently delete it.
 ```
 
-Vous souhaitez donner à Xccode suffisamment de détails pour comprendre ce que vous voulez. Ça aide pour lui parler comme si vous parliez à un développeur junior de votre équipe.
+Vous souhaitez donner à Xiaochuan suffisamment de détails pour comprendre ce que vous voulez. Ça aide pour lui parler comme si vous parliez à un développeur junior de votre équipe.
 
 :::tip
-Donnez à Xccode beaucoup de contexte et d'exemples pour l'aider à comprendre ce que vous voulez.
+Donnez à Xiaochuan beaucoup de contexte et d'exemples pour l'aider à comprendre ce que vous voulez.
 :::
 
 2. **Itérer sur le plan**
@@ -253,7 +253,7 @@ Une fois qu'il vous donne un plan, vous pouvez lui faire part de vos commentaire
 Glissez-déposez des images dans le terminal pour les ajouter à l'invite.
 :::
 
-Xccode peut scanner toutes les images que vous lui donnez et les ajouter à l'invite. Vous pouvez le faire en glissant et en déposant une image dans le terminal.
+Xiaochuan peut scanner toutes les images que vous lui donnez et les ajouter à l'invite. Vous pouvez le faire en glissant et en déposant une image dans le terminal.
 
 3. **Créez la fonctionnalité**
 
@@ -273,7 +273,7 @@ Et demandez-lui d'apporter les modifications.
 
 ### Apporter des modifications
 
-Pour des modifications plus simples, vous pouvez demander à Xccode de construire directement sans avoir à revoir le plan au préalable.
+Pour des modifications plus simples, vous pouvez demander à Xiaochuan de construire directement sans avoir à revoir le plan au préalable.
 
 ```txt frame="none" "@packages/functions/src/settings.ts" "@packages/functions/src/notes.ts"
 We need to add authentication to the /settings route. Take a look at how this is
@@ -281,13 +281,13 @@ handled in the /notes route in @packages/functions/src/notes.ts and implement
 the same logic in @packages/functions/src/settings.ts
 ```
 
-Vous devez fournir suffisamment de détails pour qu'Xccode effectue les bonnes modifications.
+Vous devez fournir suffisamment de détails pour qu'Xiaochuan effectue les bonnes modifications.
 
 ---
 
 ### Annuler les modifications
 
-Disons que vous demandez à Xccode d'apporter quelques modifications.
+Disons que vous demandez à Xiaochuan d'apporter quelques modifications.
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
@@ -299,13 +299,13 @@ Mais vous réalisez que ce n’est pas ce que vous vouliez. Vous **pouvez annule
 /undo
 ```
 
-Xccode annulera désormais les modifications que vous avez apportées et affichera votre message d'origine encore.
+Xiaochuan annulera désormais les modifications que vous avez apportées et affichera votre message d'origine encore.
 
 ```txt frame="none" "@packages/functions/src/api/index.ts"
 Can you refactor the function in @packages/functions/src/api/index.ts?
 ```
 
-À partir de là, vous pouvez modifier l'invite et demander à Xccode de réessayer.
+À partir de là, vous pouvez modifier l'invite et demander à Xiaochuan de réessayer.
 
 :::tip
 Vous pouvez exécuter `/undo` plusieurs fois pour annuler plusieurs modifications.
@@ -321,6 +321,6 @@ Ou vous **pouvez refaire** les modifications à l'aide de la commande `/redo`.
 
 ## Personnaliser
 
-Et c'est tout ! Vous êtes désormais un pro de l'utilisation de Xccode.
+Et c'est tout ! Vous êtes désormais un pro de l'utilisation de Xiaochuan.
 
-Pour vous l'approprier, nous vous recommandons de [choisir un thème](/docs/themes), [de personnaliser les raccourcis clavier](/docs/keybinds), de [configurer les formateurs de code](/docs/formatters), de [créer des commandes personnalisées](/docs/commands) ou de jouer avec la [Xccode Config](/docs/config).
+Pour vous l'approprier, nous vous recommandons de [choisir un thème](/docs/themes), [de personnaliser les raccourcis clavier](/docs/keybinds), de [configurer les formateurs de code](/docs/formatters), de [créer des commandes personnalisées](/docs/commands) ou de jouer avec la [Xiaochuan Config](/docs/config).

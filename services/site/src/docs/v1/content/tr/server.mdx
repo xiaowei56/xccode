@@ -1,19 +1,19 @@
 ---
 title: Sunucu
-description: xccode sunucusuyla HTTP uzerinden etkilesin.
+description: xiaochuan sunucusuyla HTTP uzerinden etkilesin.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-`xccode serve` komutu, xccode istemcisinin kullanabileceği bir OpenAPI endpoint'i açan headless bir HTTP sunucusu çalıştırır.
+`xiaochuan serve` komutu, xiaochuan istemcisinin kullanabileceği bir OpenAPI endpoint'i açan headless bir HTTP sunucusu çalıştırır.
 
 ---
 
 ### Kullanım
 
 ```bash
-xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+xiaochuan serve [--port <number>] [--hostname <string>] [--cors <origin>]
 ```
 
 #### Seçenekler
@@ -23,39 +23,39 @@ xccode serve [--port <number>] [--hostname <string>] [--cors <origin>]
 | `--port`        | Dinlenecek bağlantı noktası                    | `4096`           |
 | `--hostname`    | Dinlenecek ana bilgisayar adı                  | `127.0.0.1`      |
 | `--mdns`        | mDNS keşfini etkinleştir                       | `false`          |
-| `--mdns-domain` | mDNS hizmeti için özel alan adı                | `xccode.local` |
+| `--mdns-domain` | mDNS hizmeti için özel alan adı                | `xiaochuan.local` |
 | `--cors`        | İzin verilecek ek tarayıcı kaynakları (origin) | `[]`             |
 
 `--cors` birden fazla kez geçilebilir:
 
 ```bash
-xccode serve --cors http://localhost:5173 --cors https://app.example.com
+xiaochuan serve --cors http://localhost:5173 --cors https://app.example.com
 ```
 
 ---
 
 ### Kimlik Doğrulama
 
-Sunucuyu HTTP temel kimlik doğrulama (basic auth) ile korumak için `XCCODE_SERVER_PASSWORD` ayarlayın. Kullanıcı adı varsayılan olarak `xccode` değeridir; değiştirmek isterseniz `XCCODE_SERVER_USERNAME` ayarlayabilirsiniz. Bu ayar hem `xccode serve` hem de `xccode web` için geçerlidir.
+Sunucuyu HTTP temel kimlik doğrulama (basic auth) ile korumak için `XIAOCHUAN_SERVER_PASSWORD` ayarlayın. Kullanıcı adı varsayılan olarak `xiaochuan` değeridir; değiştirmek isterseniz `XIAOCHUAN_SERVER_USERNAME` ayarlayabilirsiniz. Bu ayar hem `xiaochuan serve` hem de `xiaochuan web` için geçerlidir.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve
 ```
 
 ---
 
 ### Nasıl çalışır
 
-`xccode` çalıştırdığınızda hem TUI hem de sunucu başlar. TUI, sunucuyla konuşan istemci tarafıdır.
+`xiaochuan` çalıştırdığınızda hem TUI hem de sunucu başlar. TUI, sunucuyla konuşan istemci tarafıdır.
 Sunucu bir OpenAPI 3.1 spesifikasyon uç noktası açar. Bu uç nokta [SDK](/docs/sdk) üretiminde de kullanılır.
 
 :::tip
-xccode ile programatik etkileşim için xccode sunucusunu kullanın.
+xiaochuan ile programatik etkileşim için xiaochuan sunucusunu kullanın.
 :::
 
-Bu mimari, xccode'un birden fazla istemciyi desteklemesini ve programatik kullanımları mümkün kılmasını sağlar.
+Bu mimari, xiaochuan'un birden fazla istemciyi desteklemesini ve programatik kullanımları mümkün kılmasını sağlar.
 
-`xccode serve` ile bağımsız bir sunucu başlatabilirsiniz. xccode TUI açıksa, `xccode serve` yeni bir sunucu başlatır.
+`xiaochuan serve` ile bağımsız bir sunucu başlatabilirsiniz. xiaochuan TUI açıksa, `xiaochuan serve` yeni bir sunucu başlatır.
 
 ---
 
@@ -63,7 +63,7 @@ Bu mimari, xccode'un birden fazla istemciyi desteklemesini ve programatik kullan
 
 TUI başlarken rastgele bir port ve hostname atanır. Bunun yerine `--hostname` ve `--port` [bayraklarını](/docs/cli) verebilirsiniz.
 
-[`/tui`](#tui) uç noktası sunucu üzerinden TUI'yi sürmek için kullanılabilir. Örneğin bir istemi önceden doldurabilir veya çalıştırabilirsiniz. Bu kurulum xccode [IDE](/docs/ide) eklentileri tarafından kullanılır.
+[`/tui`](#tui) uç noktası sunucu üzerinden TUI'yi sürmek için kullanılabilir. Örneğin bir istemi önceden doldurabilir veya çalıştırabilirsiniz. Bu kurulum xiaochuan [IDE](/docs/ide) eklentileri tarafından kullanılır.
 
 ---
 
@@ -81,7 +81,7 @@ http://<hostname>:<port>/doc
 
 ## API'ler
 
-xccode sunucusu aşağıdaki API'leri sunar.
+xiaochuan sunucusu aşağıdaki API'leri sunar.
 
 ---
 

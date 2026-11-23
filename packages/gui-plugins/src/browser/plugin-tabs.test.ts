@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import { pluginTabs } from "./plugin-tabs"
 
 test("only the creating consumer can close a plugin tab, using its handle, until the tab closes", () => {

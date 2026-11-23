@@ -1,7 +1,7 @@
-import { Event } from "@xccode/schema/event"
-import { EventManifest } from "@xccode/schema/event-manifest"
-import { Location } from "@xccode/schema/location"
-import type { Definition } from "@xccode/schema/event"
+import { Event } from "@xiaochuan/schema/event"
+import { EventManifest } from "@xiaochuan/schema/event-manifest"
+import { Location } from "@xiaochuan/schema/location"
+import type { Definition } from "@xiaochuan/schema/event"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiSchema, OpenApi } from "effect/http-api"
 
@@ -79,8 +79,8 @@ export const makeEventGroup = <const Definitions extends ReadonlyArray<Definitio
 
 const event = make(EventManifest.ServerDefinitions)
 export const EventGroup = event.group
-export const XccodeEvent = event.schema
-export type XccodeEvent = typeof XccodeEvent.Type
-export type XccodeEventEncoded = typeof XccodeEvent.Encoded
-export const isXccodeEvent = (event: { readonly type: string }): event is XccodeEvent =>
+export const XiaochuanEvent = event.schema
+export type XiaochuanEvent = typeof XiaochuanEvent.Type
+export type XiaochuanEventEncoded = typeof XiaochuanEvent.Encoded
+export const isXiaochuanEvent = (event: { readonly type: string }): event is XiaochuanEvent =>
   event.type === "server.connected" || EventManifest.isServer(event) || event.type.startsWith("rpc.")

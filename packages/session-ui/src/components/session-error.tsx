@@ -1,6 +1,6 @@
 import { createMemo, Show } from "solid-js"
-import { Card } from "@xccode/ui/card"
-import { Icon } from "@xccode/ui/icon"
+import { Card } from "@xiaochuan/ui/card"
+import { Icon } from "@xiaochuan/ui/icon"
 import { LinkedText } from "./linked-text"
 
 export function SessionErrorMessage(props: { message: string; links?: boolean }) {

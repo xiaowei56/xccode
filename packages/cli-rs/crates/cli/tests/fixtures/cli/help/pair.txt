@@ -2,7 +2,7 @@
   Print one-time links to connect a browser or app
 
 [1mUSAGE[0m
-  [36mxccode pair [flags][0m
+  [36mxiaochuan pair [flags][0m
 
 [1mFLAGS[0m
   [32m--url[0m [2mstring[0m    Use an external HTTP(S) server URL in pairing links

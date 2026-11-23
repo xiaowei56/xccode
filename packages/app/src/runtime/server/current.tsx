@@ -1,5 +1,5 @@
 import { Show, type JSX, type ParentProps } from "solid-js"
-import { createSimpleContext } from "@xccode/ui/context"
+import { createSimpleContext } from "@xiaochuan/ui/context"
 import { ServerConnection } from "./registry"
 import { useGlobal, type ServerCtx } from "./runtime"
 

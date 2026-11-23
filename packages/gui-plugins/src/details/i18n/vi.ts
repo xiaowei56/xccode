@@ -35,15 +35,15 @@ export default {
   "move.recovery.remove": "Xóa worktree",
   "mcp.manage": "Quản lý máy chủ MCP",
   timedOut: "Máy chủ phản hồi quá lâu",
-  "setup.mcp": "Thêm máy chủ với Xccode",
+  "setup.mcp": "Thêm máy chủ với Xiaochuan",
   "setup.mcp.prompt":
-    "Giúp tôi thêm một máy chủ MCP vào cấu hình Xccode toàn cục của tôi. Hãy hỏi tôi muốn kết nối dịch vụ nào, sau đó thiết lập và kiểm tra xem nó có kết nối được không.",
-  "setup.plugins": "Thêm plugin với Xccode",
+    "Giúp tôi thêm một máy chủ MCP vào cấu hình Xiaochuan toàn cục của tôi. Hãy hỏi tôi muốn kết nối dịch vụ nào, sau đó thiết lập và kiểm tra xem nó có kết nối được không.",
+  "setup.plugins": "Thêm plugin với Xiaochuan",
   "setup.plugins.prompt":
-    "Giúp tôi thêm một plugin vào cấu hình Xccode toàn cục của tôi. Hãy hỏi tôi muốn plugin làm gì, đề xuất một plugin, sau đó thêm nó.",
-  "setup.skills": "Kỹ năng mới với Xccode",
+    "Giúp tôi thêm một plugin vào cấu hình Xiaochuan toàn cục của tôi. Hãy hỏi tôi muốn plugin làm gì, đề xuất một plugin, sau đó thêm nó.",
+  "setup.skills": "Kỹ năng mới với Xiaochuan",
   "setup.skills.prompt":
-    "Giúp tôi viết một kỹ năng Xccode mới trong cấu hình toàn cục của tôi. Hãy hỏi tôi kỹ năng đó nên dạy bạn điều gì, sau đó viết tệp SKILL.md của nó.",
+    "Giúp tôi viết một kỹ năng Xiaochuan mới trong cấu hình toàn cục của tôi. Hãy hỏi tôi kỹ năng đó nên dạy bạn điều gì, sau đó viết tệp SKILL.md của nó.",
   changesFailed: "Không thể tải thay đổi",
   changesOffline: "Không thể kết nối tới máy chủ này",
   "mcp.signIn": "Đăng nhập",
@@ -55,7 +55,7 @@ export default {
   "mcp.error.actionLabel": "Chi tiết về {{name}}",
   "mcp.signIn.open": "Đăng nhập vào {{name}}",
   "mcp.signIn.description":
-    "Trình duyệt sẽ mở để bạn đăng nhập vào {{name}}. Nếu trình duyệt không thể kết nối tới máy đang chạy Xccode, hãy dán URL mà nó được chuyển hướng đến vào bên dưới.",
+    "Trình duyệt sẽ mở để bạn đăng nhập vào {{name}}. Nếu trình duyệt không thể kết nối tới máy đang chạy Xiaochuan, hãy dán URL mà nó được chuyển hướng đến vào bên dưới.",
   "mcp.signIn.waiting": "Đang chờ ủy quyền…",
   "mcp.signIn.failed": "Ủy quyền thất bại: {{error}}",
   "mcp.signIn.expired": "Ủy quyền đã hết hạn",

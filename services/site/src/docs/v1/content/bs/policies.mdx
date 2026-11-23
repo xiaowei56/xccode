@@ -1,15 +1,15 @@
 ---
 title: Politike
-description: Kontrolirajte koje konfigurirane resurse Xccode smije koristiti.
+description: Kontrolirajte koje konfigurirane resurse Xiaochuan smije koristiti.
 ---
 
-:::caution[Zahtijeva Xccode 2]
-Politike se ne primjenjuju u Xccode 1. Primjeri na ovoj stranici zahtijevaju Xccode 2. U Xccode 1 koristite [`disabled_providers`](/docs/config#disabled-providers) ili [`enabled_providers`](/docs/config#enabled-providers) za kontrolu dostupnosti provajdera. Za trenutnu upotrebu pogledajte [dokumentaciju o politikama za Xccode 2](https://xccode.ai/docs/policies/).
+:::caution[Zahtijeva Xiaochuan 2]
+Politike se ne primjenjuju u Xiaochuan 1. Primjeri na ovoj stranici zahtijevaju Xiaochuan 2. U Xiaochuan 1 koristite [`disabled_providers`](/docs/config#disabled-providers) ili [`enabled_providers`](/docs/config#enabled-providers) za kontrolu dostupnosti provajdera. Za trenutnu upotrebu pogledajte [dokumentaciju o politikama za Xiaochuan 2](https://xiaochuan.ai/docs/policies/).
 :::
 
-Politike određuju da li Xccode smije izvršiti radnju nad imenovanim resursom. Ova funkcija u Xccode 2 je eksperimentalna i konfiguriše se nizom `experimental.policies` u `xccode.json`.
+Politike određuju da li Xiaochuan smije izvršiti radnju nad imenovanim resursom. Ova funkcija u Xiaochuan 2 je eksperimentalna i konfiguriše se nizom `experimental.policies` u `xiaochuan.json`.
 
-Politike su odvojene od [dozvola](/docs/permissions). Dozvole kontroliraju šta alati mogu raditi tokom sesije, dok politike kontroliraju da li Xccode smije koristiti resurs kao što je LLM provajder.
+Politike su odvojene od [dozvola](/docs/permissions). Dozvole kontroliraju šta alati mogu raditi tokom sesije, dok politike kontroliraju da li Xiaochuan smije koristiti resurs kao što je LLM provajder.
 
 ---
 
@@ -23,9 +23,9 @@ Svaka izjava politike ima tri polja:
 
 Na primjer, zabranite upotrebu provajdera `openai`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ Provajder zabranjen politikom nije dostupan za odabir ili upotrebu modela, čak 
 
 ## Dostupne politike
 
-Xccode trenutno podržava jednu radnju politike:
+Xiaochuan trenutno podržava jednu radnju politike:
 
 | Radnja         | Resurs                             | Opis                                               |
 | -------------- | ---------------------------------- | -------------------------------------------------- |
@@ -58,9 +58,9 @@ U budućnosti mogu biti dodane nove radnje politika.
 
 Polje `resource` podržava podudaranje zamjenskim znakovima. Koristite `*` za podudaranje nula ili više znakova i `?` za podudaranje tačno jednog znaka.
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ Kada se podudara više izjava, pobjeđuje posljednja izjava koja se podudara. Pr
 
 Na primjer, dozvolite samo Anthropic:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ Politike se mogu postaviti i u globalnoj i u projektnoj konfiguraciji. Ako se po
 
 ## Liste provajdera
 
-U Xccode 2 koristite politike umjesto starijih postavki `disabled_providers` i `enabled_providers` kada kontrolirate pristup provajderima. U Xccode 1 nastavite koristiti te liste provajdera.
+U Xiaochuan 2 koristite politike umjesto starijih postavki `disabled_providers` i `enabled_providers` kada kontrolirate pristup provajderima. U Xiaochuan 1 nastavite koristiti te liste provajdera.
 
 Da zamijenite `disabled_providers`:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ Da zamijenite `disabled_providers`:
 
 Da zamijenite `enabled_providers`, prvo zabranite sve provajdere, a zatim dozvolite odabrane provajdere:
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [

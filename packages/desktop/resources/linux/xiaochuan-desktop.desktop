@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Xiaochuan
+Exec=/opt/Xiaochuan/ai.xiaochuan %U
+Terminal=false
+Type=Application
+Icon=ai.xiaochuan
+StartupWMClass=ai.xiaochuan.desktop
+NoDisplay=true
+Comment=Open source AI coding agent
+Categories=Development;

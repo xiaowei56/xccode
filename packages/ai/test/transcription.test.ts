@@ -47,7 +47,7 @@ describe("Transcription", () => {
           Transcription.generate({ model: openai.transcription("gpt-4o-mini-transcribe"), audio, diarize: true }),
           Transcription.generate({ model: openai.transcription("gpt-4o-mini-transcribe"), audio, timestamps: "word" }),
           Transcription.generate({ model: openai.transcription("gpt-4o-transcribe-diarize"), audio, prompt: "Names" }),
-          Transcription.generate({ model: deepgram, audio, prompt: "Xccode" }),
+          Transcription.generate({ model: deepgram, audio, prompt: "Xiaochuan" }),
           Transcription.generate({ model: google, audio, speakers: 2 }),
           Transcription.start({ model: deepgram, audio }),
           Transcription.generate({ model: deepgram, audio, http: { body: { callback: "https://hook.test" } } }),
@@ -272,7 +272,7 @@ describe("Transcription", () => {
         model: deepgram,
         audio: Media.url("https://a.test/call.mp3", { mediaType: "audio/mpeg" }),
         language: "en",
-        providerOptions: { keyterm: ["Xccode", "Effect"] },
+        providerOptions: { keyterm: ["Xiaochuan", "Effect"] },
       }).pipe(
         Effect.provide(
           layer((input) =>
@@ -295,7 +295,7 @@ describe("Transcription", () => {
         ["model", "nova-3"],
         ["smart_format", "true"],
         ["language", "en"],
-        ["keyterm", "Xccode"],
+        ["keyterm", "Xiaochuan"],
         ["keyterm", "Effect"],
       ])
       expect(calls[0].headers.get("content-type")).toBe("application/json")
@@ -465,7 +465,7 @@ describe("Transcription", () => {
     Effect.gen(function* () {
       const errors = yield* Effect.all(
         [
-          Transcription.generate({ model: elevenlabs, audio, prompt: "Xccode" }),
+          Transcription.generate({ model: elevenlabs, audio, prompt: "Xiaochuan" }),
           Transcription.generate({ model: elevenlabs, audio, providerOptions: { webhook: true } }),
           Transcription.generate({ model: elevenlabs, audio, http: { body: { use_multi_channel: true } } }),
           Transcription.generate({
@@ -508,7 +508,7 @@ describe("Transcription", () => {
         audio: Media.url("https://a.test/call.mp3"),
         language: "en",
         speakers: 2,
-        providerOptions: { keyterms: ["Xccode", "Scribe"], tag_audio_events: true, diarize: false },
+        providerOptions: { keyterms: ["Xiaochuan", "Scribe"], tag_audio_events: true, diarize: false },
       }).pipe(
         Effect.provide(
           layer((input) =>
@@ -550,7 +550,7 @@ describe("Transcription", () => {
         ["language_code", "en"],
         ["diarize", "true"],
         ["num_speakers", "2"],
-        ["keyterms", "Xccode"],
+        ["keyterms", "Xiaochuan"],
         ["keyterms", "Scribe"],
         ["tag_audio_events", "true"],
       ])

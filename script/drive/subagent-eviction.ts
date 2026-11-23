@@ -1,17 +1,17 @@
 import { Deferred, Effect, Stream } from "effect"
-import { Llm, XccodeDriver } from "xccode-drive"
+import { Llm, XiaochuanDriver } from "xiaochuan-drive"
 import { AbsolutePath } from "../../packages/schema/src/schema"
 import { Database } from "bun:sqlite"
 
 const label = process.env.DEMO_LABEL ?? "AFTER"
 const evict = process.env.DEMO_EVICT !== "false"
 
-// Run with XCCODE_DRIVE_DB=proof.sqlite. Only model output and fixture_hold are
+// Run with XIAOCHUAN_DRIVE_DB=proof.sqlite. Only model output and fixture_hold are
 // simulated. The debug endpoint closes the real graph without waiting an hour.
-// Dynamic tools avoid the static adapter issue: xiaowei56/xccode-drive#116.
-export default XccodeDriver.use(
+// Dynamic tools avoid the static adapter issue: xiaowei56/xiaochuan-drive#116.
+export default XiaochuanDriver.use(
   {
-    xccode: { dev: process.env.XCCODE_DEV ?? process.cwd() },
+    xiaochuan: { dev: process.env.XIAOCHUAN_DEV ?? process.cwd() },
     keepArtifacts: true,
     tui: { recording: true, viewport: { cols: 100, rows: 30 } },
     config: {
@@ -19,10 +19,10 @@ export default XccodeDriver.use(
       username: "Demo",
       agents: { reviewer: { mode: "subagent", description: "Review the fixture" } },
     },
-    tuiConfig: { theme: { name: "xccode", mode: "dark" }, animations: false, tabs: { mode: "off" } },
+    tuiConfig: { theme: { name: "xiaochuan", mode: "dark" }, animations: false, tabs: { mode: "off" } },
     project: { git: true, files: { "README.md": "# Parent fixture\n", "child/README.md": "# Child fixture\n" } },
   },
-  ({ ui, llm, tui, xccode, artifacts, tools }) =>
+  ({ ui, llm, tui, xiaochuan, artifacts, tools }) =>
     Effect.gen(function* () {
       const release = yield* Deferred.make<void>()
       const held = yield* Deferred.make<void>()
@@ -76,32 +76,32 @@ export default XccodeDriver.use(
       yield* ui.waitFor("Simulated Model", { timeout: 30000 })
       yield* ui.submit("Run the fixture review in the background.")
       yield* ui.waitFor("Review is running in the background.", { timeout: 30000 })
-      const parent = (yield* xccode.session.list({ limit: 20 })).data.find((session) => !session.parentID)
+      const parent = (yield* xiaochuan.session.list({ limit: 20 })).data.find((session) => !session.parentID)
       if (!parent) return yield* Effect.fail(new Error("Parent missing"))
-      const child = (yield* xccode.session.list({ parentID: parent.id })).data[0]
+      const child = (yield* xiaochuan.session.list({ parentID: parent.id })).data[0]
       if (!child) return yield* Effect.fail(new Error("Child missing"))
       const hold = yield* tools.take("call_hold")
-      yield* xccode.session.move({ sessionID: child.id, directory: AbsolutePath.make(`${artifacts}/files/child`) })
+      yield* xiaochuan.session.move({ sessionID: child.id, directory: AbsolutePath.make(`${artifacts}/files/child`) })
       yield* hold.finish({ structured: {}, content: [{ type: "text", text: "Fixture ready" }] })
       yield* Deferred.await(held).pipe(Effect.timeout("30 seconds"))
-      const moved = yield* xccode.session.get({ sessionID: child.id })
+      const moved = yield* xiaochuan.session.get({ sessionID: child.id })
       if (moved.location.directory !== `${artifacts}/files/child`)
         return yield* Effect.fail(new Error("Child did not move"))
-      yield* xccode.session.wait({ sessionID: parent.id })
+      yield* xiaochuan.session.wait({ sessionID: parent.id })
       if (evict) {
-        yield* xccode.debug.location.evict({ location: { directory: parent.location.directory } })
-        yield* xccode.location.get({ location: { directory: parent.location.directory } })
+        yield* xiaochuan.debug.location.evict({ location: { directory: parent.location.directory } })
+        yield* xiaochuan.location.get({ location: { directory: parent.location.directory } })
       }
       if (tui.recording)
         yield* tui.recording.mark(`${label}: parent idle${evict ? ", original location evicted" : " (control)"}`)
       yield* Deferred.succeed(release, undefined)
-      yield* xccode.session.wait({ sessionID: child.id })
+      yield* xiaochuan.session.wait({ sessionID: child.id })
       const resumed = yield* ui.waitFor("Review received. All checks passed.", { timeout: 5000 }).pipe(
         Effect.as(true),
         Effect.catchTag("UiWaitTimeoutError", () => Effect.succeed(false)),
       )
-      const messages = yield* xccode.message.list({ sessionID: parent.id })
-      const childMessages = yield* xccode.message.list({ sessionID: child.id })
+      const messages = yield* xiaochuan.message.list({ sessionID: parent.id })
+      const childMessages = yield* xiaochuan.message.list({ sessionID: child.id })
       const completed = childMessages.data.some(
         (message) =>
           message.type === "assistant" &&
@@ -112,7 +112,7 @@ export default XccodeDriver.use(
         (message) => message.type === "synthetic" && message.metadata?.source === "subagent",
       ).length
       const marker = yield* Effect.acquireUseRelease(
-        Effect.sync(() => new Database(`${artifacts}/logs/xccode/proof.sqlite`, { readonly: true })),
+        Effect.sync(() => new Database(`${artifacts}/logs/xiaochuan/proof.sqlite`, { readonly: true })),
         (database) =>
           Effect.sync(() =>
             database
@@ -134,9 +134,9 @@ export default XccodeDriver.use(
       )
         return yield* Effect.fail(new Error("Inconsistent completion evidence"))
       if (evict) {
-        yield* xccode.debug.location.evict({ location: { directory: parent.location.directory } })
-        yield* xccode.location.get({ location: { directory: parent.location.directory } })
-        const rebuilt = yield* xccode.message.list({ sessionID: parent.id })
+        yield* xiaochuan.debug.location.evict({ location: { directory: parent.location.directory } })
+        yield* xiaochuan.location.get({ location: { directory: parent.location.directory } })
+        const rebuilt = yield* xiaochuan.message.list({ sessionID: parent.id })
         if (rebuilt.data.filter((message) => message.type === "synthetic").length !== notifications)
           return yield* Effect.fail(new Error("Location rebuild duplicated notification"))
       }

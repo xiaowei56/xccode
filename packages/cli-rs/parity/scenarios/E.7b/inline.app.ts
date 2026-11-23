@@ -33,7 +33,7 @@ const messages = [
     model: { providerID: "provider", id: "model" },
     content: [
       tool("call_1", "webfetch", running({ url: "https://example.com/spec" })),
-      tool("call_2", "webfetch", completed({ url: "https://xccode.ai/docs" }, "# Docs")),
+      tool("call_2", "webfetch", completed({ url: "https://xiaochuan.ai/docs" }, "# Docs")),
       tool("call_3", "websearch", running({})),
       tool("call_4", "websearch", completed({ query: "opentui rust" }, "results", { provider: "exa" })),
       tool("call_5", "skill", running({})),

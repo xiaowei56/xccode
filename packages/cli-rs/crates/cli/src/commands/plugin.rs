@@ -1,10 +1,10 @@
-//! Delegates npm installation and plugin entrypoint resolution to `xccode`.
+//! Delegates npm installation and plugin entrypoint resolution to `xiaochuan`.
 
-use xccode_local::cli_config::{self, CliConfig, Plugin};
-use xccode_local::paths::Paths;
-use xccode_service::delegate;
-use xccode_service::ts_command::TsCommand;
-use xccode_util::error;
+use xiaochuan_local::cli_config::{self, CliConfig, Plugin};
+use xiaochuan_local::paths::Paths;
+use xiaochuan_service::delegate;
+use xiaochuan_service::ts_command::TsCommand;
+use xiaochuan_util::error;
 
 use super::Context;
 use crate::args::{PluginArgs, PluginCommand};
@@ -42,19 +42,19 @@ fn add() -> error::Result<()> {
     Ok(())
 }
 
-/// What `plugin add` says of the TUI package `added` when `xccode-native` will not load it: this build has no JS host
-/// (ts-feature), or `XCCODE_PLUGIN_JS` turns it off. With the JS host on it says nothing more, as TS.
+/// What `plugin add` says of the TUI package `added` when `xiaochuan-native` will not load it: this build has no JS host
+/// (ts-feature), or `XIAOCHUAN_PLUGIN_JS` turns it off. With the JS host on it says nothing more, as TS.
 fn not_loaded(added: &str) -> Option<String> {
     #[cfg(not(feature = "ts"))]
     return Some(format!(
-        "xccode-native will not load TUI plugin \"{added}\": this build has no TypeScript plugin support (built \
-         without the ts feature). The TypeScript client (xccode) loads it as it is."
+        "xiaochuan-native will not load TUI plugin \"{added}\": this build has no TypeScript plugin support (built \
+         without the ts feature). The TypeScript client (xiaochuan) loads it as it is."
     ));
     #[cfg(feature = "ts")]
-    return xccode_plugin::pipe::turned_off(std::env::var_os("XCCODE_PLUGIN_JS").as_deref()).then(|| {
+    return xiaochuan_plugin::pipe::turned_off(std::env::var_os("XIAOCHUAN_PLUGIN_JS").as_deref()).then(|| {
         format!(
-            "xccode-native loads TUI plugin \"{added}\" on its JS host, which XCCODE_PLUGIN_JS turns off: unset it \
-             to load it. The TypeScript client (xccode) loads it as it is."
+            "xiaochuan-native loads TUI plugin \"{added}\" on its JS host, which XIAOCHUAN_PLUGIN_JS turns off: unset it \
+             to load it. The TypeScript client (xiaochuan) loads it as it is."
         )
     });
 }

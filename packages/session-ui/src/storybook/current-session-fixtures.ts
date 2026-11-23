@@ -9,7 +9,7 @@ import type {
   SessionMessageInfo,
   SessionMessageUser,
   SessionStatus,
-} from "@xccode/client/promise"
+} from "@xiaochuan/client/promise"
 import type { SessionDocument } from "../document"
 import type { SessionUserPresentation } from "../timeline/session-timeline"
 
@@ -372,7 +372,7 @@ export const fileChangeLoadingDocument = document(
           args: {
             path: "packages/app/src/components/empty-session.tsx",
             oldString: "No messages yet",
-            newString: "Ask Xccode to start working",
+            newString: "Ask Xiaochuan to start working",
           },
         }),
       ],
@@ -395,7 +395,7 @@ export const fileChangeRunningDocument = document(
           args: {
             path: "packages/app/src/components/empty-session.tsx",
             oldString: "No messages yet",
-            newString: "Ask Xccode to start working",
+            newString: "Ask Xiaochuan to start working",
           },
         }),
       ],
@@ -522,10 +522,10 @@ export const expandedShellDocument = document([
         offset: 52_300,
         args: {
           command:
-            "xccode api get /openapi.json > /private/var/folders/j/gd69b2|16y91666jzf3p9g22asdasc0000gn/T/xccode/temp/tes",
+            "xiaochuan api get /openapi.json > /private/var/folders/j/gd69b2|16y91666jzf3p9g22asdasc0000gn/T/xiaochuan/temp/tes",
         },
         output:
-          '{"location":{"directory":"/Users/usrnk1","project":{"id":"global","directory":"/","canonical":"/"}},"data":[{"id":"xccode","name":"Xccode","description":"Use this skill for any question about Xccode itself, including how Xccode works, using or configuring it, migrating from V1 to V2, troubleshooting it, developing plugins or integrations, using the Xccode SDK, clients, server, or API, and contributing to the Xccode codebase."}]}',
+          '{"location":{"directory":"/Users/usrnk1","project":{"id":"global","directory":"/","canonical":"/"}},"data":[{"id":"xiaochuan","name":"Xiaochuan","description":"Use this skill for any question about Xiaochuan itself, including how Xiaochuan works, using or configuring it, migrating from V1 to V2, troubleshooting it, developing plugins or integrations, using the Xiaochuan SDK, clients, server, or API, and contributing to the Xiaochuan codebase."}]}',
         metadata: { exit: 0 },
       }),
     ],
@@ -544,13 +544,13 @@ export const executeCodeDocument = document([
         name: "execute",
         offset: 52_300,
         args: {
-          code: 'const tab = await tools.browser.tabs.open({ url: "http://localhost:4399" })\nconst usage = await tools.xccode_console.get_usage({ range: "24h" })\nreturn { tab: tab.id, cost: usage.cost_usd }',
+          code: 'const tab = await tools.browser.tabs.open({ url: "http://localhost:4399" })\nconst usage = await tools.xiaochuan_console.get_usage({ range: "24h" })\nreturn { tab: tab.id, cost: usage.cost_usd }',
         },
         output: '{\n  "tab": "tab_4f1c",\n  "cost": 0.42\n}',
         metadata: {
           toolCalls: [
             { tool: "browser.tabs.open", status: "completed", input: { url: "http://localhost:4399" } },
-            { tool: "xccode_console.get_usage", status: "completed", input: { range: "24h" } },
+            { tool: "xiaochuan_console.get_usage", status: "completed", input: { range: "24h" } },
           ],
         },
       }),
@@ -567,10 +567,10 @@ export const executeCodeDocument = document([
         name: "execute",
         offset: 52_700,
         args: {
-          code: 'return await tools.mesh.exec({ target: "blade", script: "foreach ($t in \'\\\\xccode-mesh\\\\sync\', \'\\\\xccode-mesh\\\\run\') { schtasks /delete /tn $t /f 2>&1 | Out-Null; \\"deleted $t\\" }" })',
+          code: 'return await tools.mesh.exec({ target: "blade", script: "foreach ($t in \'\\\\xiaochuan-mesh\\\\sync\', \'\\\\xiaochuan-mesh\\\\run\') { schtasks /delete /tn $t /f 2>&1 | Out-Null; \\"deleted $t\\" }" })',
         },
         output:
-          "deleted \\xccode-mesh\\sync\ndeleted \\xccode-mesh\\run\nCleanup finished on blade after removing both scheduled tasks and their trigger history.",
+          "deleted \\xiaochuan-mesh\\sync\ndeleted \\xiaochuan-mesh\\run\nCleanup finished on blade after removing both scheduled tasks and their trigger history.",
         metadata: {
           toolCalls: [
             {
@@ -579,7 +579,7 @@ export const executeCodeDocument = document([
               input: {
                 target: "blade",
                 script:
-                  "foreach ($t in '\\xccode-mesh\\sync', '\\xccode-mesh\\run') { schtasks /delete /tn $t /f 2>&1 | Out-Null; \"deleted $t\" }",
+                  "foreach ($t in '\\xiaochuan-mesh\\sync', '\\xiaochuan-mesh\\run') { schtasks /delete /tn $t /f 2>&1 | Out-Null; \"deleted $t\" }",
               },
             },
           ],
@@ -615,7 +615,7 @@ export const executeLongDetailsDocument = document([
             "];",
             "",
             "const results = await Promise.allSettled(",
-            "  names.map((name) => tools.xccode.worktree_create({ name }))",
+            "  names.map((name) => tools.xiaochuan.worktree_create({ name }))",
             ");",
             "",
             "return names.map((name, i) => ({",
@@ -627,12 +627,12 @@ export const executeLongDetailsDocument = document([
         output: JSON.stringify(
           executeWorktreeNames.map((name) => ({
             name,
-            result: { directory: `/Users/dev/.local/share/xccode/worktree/012780/${name}` },
+            result: { directory: `/Users/dev/.local/share/xiaochuan/worktree/012780/${name}` },
           })),
         ),
         metadata: {
           toolCalls: executeWorktreeNames.map((name) => ({
-            tool: "xccode.worktree_create",
+            tool: "xiaochuan.worktree_create",
             status: "completed",
             input: { name },
           })),
@@ -893,9 +893,9 @@ export const loadedResourcesDocument = document([
         id: "tool_loaded_file",
         name: "read",
         offset: 80_100,
-        args: { path: "C:/workspaces/xccode/packages/cli/AGENTS.md" },
+        args: { path: "C:/workspaces/xiaochuan/packages/cli/AGENTS.md" },
         output: "Project instructions loaded.",
-        metadata: { loaded: ["C:/workspaces/xccode/packages/cli/AGENTS.md"] },
+        metadata: { loaded: ["C:/workspaces/xiaochuan/packages/cli/AGENTS.md"] },
       }),
       completedTool({
         id: "tool_skill_rtl",
@@ -1248,7 +1248,7 @@ export const attachmentsAndCommentsPresentation = {
   },
 } satisfies Record<string, SessionUserPresentation>
 
-// The header and body as the Xccode iOS app's `VoiceHandoff.format` writes them.
+// The header and body as the Xiaochuan iOS app's `VoiceHandoff.format` writes them.
 const voiceHeader =
   "Voice delegation. The user is on a voice call with a voice agent, which hands their requests to you. Instruction is the user's own spoken words since the previous delegation, transcribed from speech, so it may contain recognition errors and disfluencies: resolve meaning from the complete utterance, not a disfluent prefix. Voice, when present, is how the voice agent framed the request. Transcript delta is the surrounding voice conversation, both sides, for context, not additional commands. Lead your reply with one or two plain sentences suitable for reading aloud, then any detail; answer only what was asked, with no unrequested tips. If this arrives while you are already working (a follow-up, nudge, or status check), answer it promptly: a clear status update, the finished result if you have enough, or the precise blocker or input you need; then continue on the fastest safe path."
 

@@ -62,7 +62,7 @@ pub struct Art {
 }
 
 pub fn new(app: &App, colors: Colors, anchor: &View) -> Custom<Art> {
-    let elapsed = Rc::new(Cell::new(if xccode_ui::motion::running() { 0.0 } else { STILL }));
+    let elapsed = Rc::new(Cell::new(if xiaochuan_ui::motion::running() { 0.0 } else { STILL }));
     let art = Custom::new(
         app,
         Art {
@@ -90,7 +90,7 @@ impl Art {
     /// Runs the 30 fps clock while animations run, and parks on the still frame while they are off.
     fn follow_motion(&self) {
         let mut tick = self.tick.borrow_mut();
-        if !xccode_ui::motion::running() {
+        if !xiaochuan_ui::motion::running() {
             *tick = None;
             self.elapsed.set(STILL);
             return;

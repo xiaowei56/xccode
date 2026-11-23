@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { Session } from "@xccode/schema/session"
+import { Session } from "@xiaochuan/schema/session"
 import { Schema } from "effect"
 import { BrowserMachine } from "../src/machine.js"
 import { Browser } from "../src/rpc.js"

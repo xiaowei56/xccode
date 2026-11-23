@@ -2,16 +2,16 @@ import { expect } from "bun:test"
 import path from "path"
 import fs from "fs/promises"
 import { Effect, Exit, Fiber, Stream, Tracer } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Project } from "@xccode/core/project"
-import { ProjectIcon } from "@xccode/core/project/icon"
-import { ProjectSchema } from "@xccode/core/project/schema"
-import { ProjectTable } from "@xccode/core/project/sql"
-import { Database } from "@xccode/core/database/database"
-import { Bus } from "@xccode/core/bus"
-import { AbsolutePath } from "@xccode/core/schema"
-import { FSUtil } from "@xccode/util/fs-util"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Project } from "@xiaochuan/core/project"
+import { ProjectIcon } from "@xiaochuan/core/project/icon"
+import { ProjectSchema } from "@xiaochuan/core/project/schema"
+import { ProjectTable } from "@xiaochuan/core/project/sql"
+import { Database } from "@xiaochuan/core/database/database"
+import { Bus } from "@xiaochuan/core/bus"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { tmpdirScoped } from "./fixture/tmpdir"
 import { testEffect } from "./lib/effect"
 
@@ -87,7 +87,7 @@ for (const fixture of [
     file: "assets/AppIcon.icon/Assets/logo.svg",
     manifest: "assets/AppIcon.icon/icon.json",
   },
-  { name: "direct-child Xcode catalog", file: "Xccode/Assets.xcassets/AppIcon.appiconset/icon128.svg" },
+  { name: "direct-child Xcode catalog", file: "Xiaochuan/Assets.xcassets/AppIcon.appiconset/icon128.svg" },
   { name: "Windows nearest usable size", file: "resources/windows/icon-96.png" },
   { name: "Scrawl oversized flat icon", file: "site/public/icon.svg" },
 ]) {

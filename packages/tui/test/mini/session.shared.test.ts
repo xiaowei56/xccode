@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, mock, spyOn, test } from "bun:test"
-import { Xccode, type SessionMessageUser } from "@xccode/client/promise"
+import { Xiaochuan, type SessionMessageUser } from "@xiaochuan/client/promise"
 import {
   createSession,
   resolveCurrentSession,
@@ -200,7 +200,7 @@ describe("run session shared", () => {
   })
 
   test("restores current prompt history from stored text and file references", async () => {
-    const client = Xccode.make({ baseUrl: "https://xccode.test" })
+    const client = Xiaochuan.make({ baseUrl: "https://xiaochuan.test" })
     spyOn(client.message, "list").mockImplementation(() =>
       Promise.resolve({
         data: [

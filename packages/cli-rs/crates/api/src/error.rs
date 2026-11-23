@@ -2,7 +2,7 @@
 
 use serde_json::Value;
 
-pub use xccode_api_types::TaggedError;
+pub use xiaochuan_api_types::TaggedError;
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {

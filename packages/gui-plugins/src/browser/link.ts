@@ -1,4 +1,4 @@
-import { encodeFilePath } from "@xccode/util/path"
+import { encodeFilePath } from "@xiaochuan/util/path"
 import { workspacePrefix } from "./remote-address"
 
 /** The file:// URL of a workspace-relative path. */

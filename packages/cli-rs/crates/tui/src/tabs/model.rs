@@ -369,7 +369,7 @@ mod tests {
     /// active tab.
     #[test]
     fn any_walk_of_tab_operations_keeps_the_strip_the_stack_and_the_history_consistent() {
-        let mut rng = xccode_util::rng::SplitMix64(7);
+        let mut rng = xiaochuan_util::rng::SplitMix64(7);
         for case in 0..400 {
             let (mut tabs, mut stack, mut history, mut active) = (Vec::<Tab>::new(), Vec::new(), History::new(), None);
             let steps = if case % 10 == 0 { 400 } else { 60 };

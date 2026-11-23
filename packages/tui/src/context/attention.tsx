@@ -1,4 +1,4 @@
-import type { Attention } from "@xccode/plugin/tui/context"
+import type { Attention } from "@xiaochuan/plugin/tui/context"
 import { useRenderer } from "@opentui/solid"
 import { createContext, onCleanup, useContext, type ParentProps } from "solid-js"
 import { createTuiAttention } from "../attention"

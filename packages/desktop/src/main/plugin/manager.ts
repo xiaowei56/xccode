@@ -1,4 +1,4 @@
-import { pluginEnabled } from "@xccode/plugin/gui/host"
+import { pluginEnabled } from "@xiaochuan/plugin/gui/host"
 import type { Database } from "../storage/database"
 import { plugin } from "../storage/schema"
 import { readEnableState } from "./enable-state"

@@ -10,12 +10,12 @@ use std::sync::{Arc, Mutex, MutexGuard};
 use futures_util::FutureExt;
 use futures_util::future::{BoxFuture, Shared};
 use indexmap::IndexMap;
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     JobInfo, PermissionRequest, Project, ProjectID, SessionID, SessionInboxCompaction, SessionInboxInfo, SessionInfo,
     SessionMessageID,
 };
-use xccode_util::lock;
+use xiaochuan_util::lock;
 use tokio::runtime::Handle;
 use tokio::sync::{broadcast, watch};
 use tokio::task::AbortHandle;
@@ -33,7 +33,7 @@ const SIGNALS: usize = 1024;
 pub const DELTAS: usize = 4096;
 
 /// A store error. Shared, because one keyed read answers every caller.
-pub type Error = Arc<xccode_api::error::Error>;
+pub type Error = Arc<xiaochuan_api::error::Error>;
 
 /// A spawned request any number of callers can await.
 pub type Task<T> = Shared<BoxFuture<'static, Result<T, Error>>>;
@@ -352,7 +352,7 @@ pub(crate) struct Inner {
     state: Mutex<State>,
     revision: watch::Sender<u64>,
     /// The events views act on themselves, sent after their batch is applied.
-    pub(crate) signals: broadcast::Sender<Arc<xccode_api::generated::V2Event>>,
+    pub(crate) signals: broadcast::Sender<Arc<xiaochuan_api::generated::V2Event>>,
     /// How many [`Listening`]s want each event type on [`Data::signals`].
     pub(crate) listened: Mutex<HashMap<String, usize>>,
     /// The streaming deltas kept for the [`DeltaListening`]s.
@@ -440,7 +440,7 @@ impl Data {
     /// Receives the events of each type a [`Listening`] wants, for the views that handle one themselves (`tui.*`,
     /// `session.deleted`) and the plugins' `on_event`, after the store applied their batch. Streaming deltas are never
     /// sent ([`DeltaListening::take`] has them). A receiver that falls behind skips the oldest.
-    pub fn signals(&self) -> broadcast::Receiver<Arc<xccode_api::generated::V2Event>> {
+    pub fn signals(&self) -> broadcast::Receiver<Arc<xiaochuan_api::generated::V2Event>> {
         self.inner.signals.subscribe()
     }
 
@@ -469,7 +469,7 @@ impl Data {
 
     /// Keeps `events`, one batch, for the [`DeltaListening`]s, all under one lock so a take gets all or none of
     /// them; whether it kept any.
-    pub(crate) fn keep_deltas<'a>(&self, events: impl Iterator<Item = &'a xccode_api::generated::V2Event>) -> bool {
+    pub(crate) fn keep_deltas<'a>(&self, events: impl Iterator<Item = &'a xiaochuan_api::generated::V2Event>) -> bool {
         let mut events = events.peekable();
         if self.inner.delta_listeners.load(Ordering::SeqCst) == 0 || events.peek().is_none() {
             return false;
@@ -544,7 +544,7 @@ impl Data {
         let handle = self.inner.runtime.spawn(future);
         async move {
             handle.await.unwrap_or_else(|error| {
-                Err(Arc::new(xccode_api::error::Error::Transport(format!("store task failed: {error}"))))
+                Err(Arc::new(xiaochuan_api::error::Error::Transport(format!("store task failed: {error}"))))
             })
         }
         .boxed()
@@ -795,7 +795,7 @@ pub(crate) struct Deltas {
     /// The number the next delta kept gets.
     next: u64,
     /// The deltas some listener has not taken, the last numbered `next - 1`.
-    kept: std::collections::VecDeque<xccode_api::generated::V2Event>,
+    kept: std::collections::VecDeque<xiaochuan_api::generated::V2Event>,
     /// Each listener's first delta not taken, by its ID.
     cursors: HashMap<u64, u64>,
     /// The ID of the next listener.
@@ -820,7 +820,7 @@ pub struct DeltaListening {
 
 impl DeltaListening {
     /// The streaming deltas the store applied since this listener last took them, or since it started, oldest first.
-    pub fn take(&self) -> Vec<xccode_api::generated::V2Event> {
+    pub fn take(&self) -> Vec<xiaochuan_api::generated::V2Event> {
         let Some(inner) = self.inner.upgrade() else { return Vec::new() };
         let mut deltas = lock(&inner.deltas);
         let first = deltas.next - deltas.kept.len() as u64;
@@ -856,7 +856,7 @@ pub(crate) fn session_not_found(error: &Error) -> Option<SessionID> {
 }
 
 /// Marks a missing session deleted and passes the error on (`evictMissing`).
-pub(crate) fn evict_missing(data: &Data, error: xccode_api::error::Error) -> Error {
+pub(crate) fn evict_missing(data: &Data, error: xiaochuan_api::error::Error) -> Error {
     let error = Arc::new(error);
     if let Some(id) = session_not_found(&error) {
         data.write(|state| state.mark_deleted(&id));
@@ -870,7 +870,7 @@ mod tests {
 
     fn data() -> (tokio::runtime::Runtime, Data) {
         let runtime = tokio::runtime::Builder::new_current_thread().build().unwrap();
-        let client = Client::new("http://xccode.local").unwrap();
+        let client = Client::new("http://xiaochuan.local").unwrap();
         let data = Data::with_runtime(client, Options::default(), runtime.handle().clone());
         (runtime, data)
     }

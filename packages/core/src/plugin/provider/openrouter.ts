@@ -1,21 +1,21 @@
 import { Effect } from "effect"
 import { Model } from "../../model.js"
-import { define } from "@xccode/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 
 export const OpenRouterPlugin = define({
-  id: "xccode.provider.openrouter",
+  id: "xiaochuan.provider.openrouter",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.provider.transform((evt) => {
       for (const item of evt.list()) {
-        if (item.provider.package !== "@xccode/ai/providers/openrouter") continue
+        if (item.provider.package !== "@xiaochuan/ai/providers/openrouter") continue
         evt.update(item.provider.id, (provider) => {
-          provider.headers = { ...provider.headers, "HTTP-Referer": "https://xccode.ai/", "X-Title": "xccode" }
+          provider.headers = { ...provider.headers, "HTTP-Referer": "https://xiaochuan.ai/", "X-Title": "xiaochuan" }
         })
       }
     })
     yield* ctx.model.transform((models) => {
       for (const item of models.provider.list()) {
-        if (item.provider.package !== "@xccode/ai/providers/openrouter") continue
+        if (item.provider.package !== "@xiaochuan/ai/providers/openrouter") continue
         for (const modelID of [Model.ID.make("gpt-5-chat-latest"), Model.ID.make("openai/gpt-5-chat")]) {
           if (!models.get(item.provider.id, modelID)) continue
           models.update(item.provider.id, modelID, (model) => {

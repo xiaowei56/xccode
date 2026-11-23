@@ -1,11 +1,11 @@
 import { expect, test } from "bun:test"
 import { Effect, Schema, SchemaGetter } from "effect"
 import { z } from "zod"
-import { emptyInputJsonSchema } from "@xccode/ai/effect"
-import { Agent } from "@xccode/schema/agent"
-import { Session } from "@xccode/schema/session"
-import { SessionMessage } from "@xccode/schema/session-message"
-import type { Info } from "@xccode/schema/tool"
+import { emptyInputJsonSchema } from "@xiaochuan/ai/effect"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Session } from "@xiaochuan/schema/session"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
+import type { Info } from "@xiaochuan/schema/tool"
 import { Tool } from "../src/tool"
 import { definition, execute } from "../src/tool/runtime"
 
@@ -109,7 +109,7 @@ test("empty input normalization preserves explicit Effect overrides and raw JSON
   }
 })
 
-// Projection rules are covered by @xccode/ai; core must delegate to them and execute the decoded input.
+// Projection rules are covered by @xiaochuan/ai; core must delegate to them and execute the decoded input.
 test("Effect inputs delegate empty-input projection to the shared helper", async () => {
   // Callers send `{}`; the handler receives a token.
   const defaulted = Schema.Struct({}).pipe(

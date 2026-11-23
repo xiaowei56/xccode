@@ -354,7 +354,7 @@ function plain(node: VNode): string {
 
 const renderer = createRenderer<VNode>({
   createElement(tag) {
-    if (UNSUPPORTED.has(tag)) throw new Error(`<${tag}> is not supported by xccode-native's JS host`)
+    if (UNSUPPORTED.has(tag)) throw new Error(`<${tag}> is not supported by xiaochuan-native's JS host`)
     if (!ELEMENTS.has(tag)) throw new Error(`[Reconciler] Unknown component type: ${tag}`)
     const node = new VNode(tag)
     node.made = getOwner()

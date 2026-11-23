@@ -2,7 +2,7 @@
   import credentials exported by auth export
 
 [1mUSAGE[0m
-  [36mxccode auth import [flags] [<file>][0m
+  [36mxiaochuan auth import [flags] [<file>][0m
 
 [1mARGUMENTS[0m
   [32mfile[0m [2mstring[0m    JSON file to import (reads stdin when omitted)[2m (optional)[0m

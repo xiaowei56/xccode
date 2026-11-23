@@ -1,15 +1,15 @@
-import { Instance } from "@xccode/core/instance/service"
-import { Session } from "@xccode/core/session"
+import { Instance } from "@xiaochuan/core/instance/service"
+import { Session } from "@xiaochuan/core/session"
 import { Effect, Layer } from "effect"
 import { HttpRouter } from "effect/http"
 import { HttpApiMiddleware } from "effect/http-api"
-import { LocationNotFoundError, InvalidRequestError, SessionNotFoundError } from "@xccode/protocol/errors"
+import { LocationNotFoundError, InvalidRequestError, SessionNotFoundError } from "@xiaochuan/protocol/errors"
 import { locationErrors, sessionInfo, type LocationServices } from "../location"
 
 export class SessionLocationMiddleware extends HttpApiMiddleware.Service<
   SessionLocationMiddleware,
   { provides: LocationServices }
->()("@xccode/HttpApiSessionLocation", {
+>()("@xiaochuan/HttpApiSessionLocation", {
   error: [InvalidRequestError, SessionNotFoundError, LocationNotFoundError],
 }) {}
 

@@ -1,10 +1,10 @@
 import { expect } from "bun:test"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { UsageLimits } from "@xccode/core/usage-limits"
-import { Model } from "@xccode/schema/model"
-import { Money } from "@xccode/schema/money"
-import { Provider } from "@xccode/schema/provider"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { UsageLimits } from "@xiaochuan/core/usage-limits"
+import { Model } from "@xiaochuan/schema/model"
+import { Money } from "@xiaochuan/schema/money"
+import { Provider } from "@xiaochuan/schema/provider"
 import { Effect, Exit, Layer } from "effect"
 import { HttpClient, type HttpClientRequest, HttpClientResponse } from "effect/http"
 import { testEffect } from "./lib/effect"
@@ -19,7 +19,7 @@ const signedIn = Credential.OAuth.make({
   access: "console-access",
   refresh: "console-refresh",
   expires: 1,
-  metadata: { server: "https://dev.xccode.ai/console", orgID: "wrk_anomaly", orgName: "Anomaly" },
+  metadata: { server: "https://dev.xiaochuan.ai/console", orgID: "wrk_anomaly", orgName: "Anomaly" },
 })
 
 const budget = {
@@ -33,7 +33,7 @@ const budget = {
   coverage: "models",
   models: [
     {
-      providerID: "xccode",
+      providerID: "xiaochuan",
       connectionID: "conn_managed",
       modelID: "gpt-6-astra",
       name: "GPT-6 Astra",
@@ -49,7 +49,7 @@ const budget = {
 
 const meter = (status: string, percent: number) => ({ status, percent, resetsAt: "2026-10-24T17:00:00.000Z" })
 
-/** Reads usage limits for a location whose active Xccode Console connection resolves to `credential`. */
+/** Reads usage limits for a location whose active Xiaochuan Console connection resolves to `credential`. */
 const read = (
   credential: Credential.Value | undefined,
   respond: (url: string) => Response,
@@ -117,7 +117,7 @@ it.effect("reads the member's Go allowance and budgets from the Console they sig
       workspace: {
         id: "wrk_anomaly",
         name: "Anomaly",
-        usageURL: "https://dev.xccode.ai/console/wrk_anomaly/activity/overview",
+        usageURL: "https://dev.xiaochuan.ai/console/wrk_anomaly/activity/overview",
       },
       go: {
         rolling: { percent: 42, limited: false, resetsAt: Date.parse("2026-10-24T17:00:00.000Z") },
@@ -134,7 +134,7 @@ it.effect("reads the member's Go allowance and budgets from the Console they sig
           coverage: "models",
           models: [
             {
-              providerID: Provider.ID.make("xccode"),
+              providerID: Provider.ID.make("xiaochuan"),
               modelID: Model.ID.make("gpt-6-astra"),
               name: "GPT-6 Astra",
               spent: Money.USD.make(15),
@@ -148,7 +148,7 @@ it.effect("reads the member's Go allowance and budgets from the Console they sig
         },
       ],
     })
-    // Console reads the workspace from x-org-id; inference, which serves Go, from x-xccode-org-id.
+    // Console reads the workspace from x-org-id; inference, which serves Go, from x-xiaochuan-org-id.
     expect(
       requests
         .map((request) => ({
@@ -159,14 +159,14 @@ it.effect("reads the member's Go allowance and budgets from the Console they sig
         .toSorted((a, b) => a.url.localeCompare(b.url)),
     ).toEqual([
       {
-        url: "https://dev.xccode.ai/console/api/policies/current-budgets",
+        url: "https://dev.xiaochuan.ai/console/api/policies/current-budgets",
         authorization: "Bearer console-access",
         workspace: [["x-org-id", "wrk_anomaly"]],
       },
       {
-        url: "https://dev.xccode.ai/zen/go/v1/usage",
+        url: "https://dev.xiaochuan.ai/zen/go/v1/usage",
         authorization: "Bearer console-access",
-        workspace: [["x-xccode-org-id", "wrk_anomaly"]],
+        workspace: [["x-xiaochuan-org-id", "wrk_anomaly"]],
       },
     ])
   }),
@@ -181,14 +181,14 @@ it.effect("has no Go allowance or budgets to show where Console refuses them", (
       workspace: {
         id: "wrk_anomaly",
         name: "Anomaly",
-        usageURL: "https://dev.xccode.ai/console/wrk_anomaly/activity/overview",
+        usageURL: "https://dev.xiaochuan.ai/console/wrk_anomaly/activity/overview",
       },
       budgets: [],
     })
   }),
 )
 
-it.effect("has nothing to show for a location that isn't signed in to Xccode Console", () =>
+it.effect("has nothing to show for a location that isn't signed in to Xiaochuan Console", () =>
   Effect.gen(function* () {
     expect(yield* read(undefined, () => Response.json([budget]))).toBeUndefined()
   }),

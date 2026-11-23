@@ -26,10 +26,10 @@ import {
 export type { ColorScheme } from "./machine"
 
 const STORAGE_KEYS = {
-  THEME_ID: "xccode-theme-id",
-  COLOR_SCHEME: "xccode-color-scheme",
-  THEME_CSS_LIGHT: "xccode-theme-css-light",
-  THEME_CSS_DARK: "xccode-theme-css-dark",
+  THEME_ID: "xiaochuan-theme-id",
+  COLOR_SCHEME: "xiaochuan-color-scheme",
+  THEME_CSS_LIGHT: "xiaochuan-theme-css-light",
+  THEME_CSS_DARK: "xiaochuan-theme-css-dark",
 } as const
 
 const THEME_STYLE_ID = "oc-theme"
@@ -65,7 +65,7 @@ function knownThemes() {
 
 const names = new Map(
   Object.entries({
-    "oc-2": "Xccode",
+    "oc-2": "Xiaochuan",
     amoled: "AMOLED",
     aura: "Aura",
     ayu: "Ayu",

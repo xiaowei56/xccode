@@ -17,7 +17,7 @@ export const content = {
       body: "En hurtig terminalbrugerflade, der virker i enhver shell, editor eller fjernserver.",
       action: "Installer",
     },
-    sdk: { body: "Styr Xccode fra dine egne scripts, CI-jobs og værktøjer.", action: "Læs docs" },
+    sdk: { body: "Styr Xiaochuan fra dine egne scripts, CI-jobs og værktøjer.", action: "Læs docs" },
     mini: {
       body: "En minimal terminalbrugerflade. Svarene skrives ind i din scrollback med én prompt nedenunder.",
       action: "Installer",
@@ -25,9 +25,9 @@ export const content = {
   },
   productDetails: {
     desktop: {
-      title: "Xccode | Desktopapp til macOS, Windows og Linux",
+      title: "Xiaochuan | Desktopapp til macOS, Windows og Linux",
       description:
-        "Kør så mange Xccode-agenter parallelt, som du vil, se hver ændring i en browser ved siden af, og fortsæt på enhver enhed. Til macOS, Windows og Linux.",
+        "Kør så mange Xiaochuan-agenter parallelt, som du vil, se hver ændring i en browser ved siden af, og fortsæt på enhver enhed. Til macOS, Windows og Linux.",
       intro:
         "Kør flere agenter på én gang, hver session i sin egen fane. Gennemgå hver ændring som et diff, kommenter enhver linje, og tjek resultatet i den indbyggede browser. Til macOS, Windows og Linux.",
       showcase: {
@@ -45,16 +45,16 @@ export const content = {
         },
         "extend-it": {
           title: "Udvid den",
-          body: "Forbind dine værktøjer og tjenester, så agenten kan arbejde med alt. Eller lad Xccode bygge plugins til sig selv med deres egen brugerflade i sidepanelet.",
+          body: "Forbind dine værktøjer og tjenester, så agenten kan arbejde med alt. Eller lad Xiaochuan bygge plugins til sig selv med deres egen brugerflade i sidepanelet.",
         },
       },
     },
     mobile: {
-      title: "Xccode | Mobile, dine kodningssessioner på telefonen",
+      title: "Xiaochuan | Mobile, dine kodningssessioner på telefonen",
       description:
-        "Start og styr Xccode-sessioner fra din telefon. Tal med agenten, mens den kører på din computer.",
+        "Start og styr Xiaochuan-sessioner fra din telefon. Tal med agenten, mens den kører på din computer.",
       intro:
-        "Start og styr sessioner fra din telefon, hvor du end er. Ring til en session og tal med agenten, eller åbn en session og fortsæt, hvor du slap, alt med Xccode på din egen computer.",
+        "Start og styr sessioner fra din telefon, hvor du end er. Ring til en session og tal med agenten, eller åbn en session og fortsæt, hvor du slap, alt med Xiaochuan på din egen computer.",
       features: {
         "notify-when-done": {
           title: "Besked når færdig",
@@ -62,7 +62,7 @@ export const content = {
         },
         "pair-from-anywhere": {
           title: "Par hvor som helst",
-          body: "Forbind fra ethvert netværk med xccode pair --remote.",
+          body: "Forbind fra ethvert netværk med xiaochuan pair --remote.",
         },
         "every-computer": { title: "Alle computere", body: "Skift mellem dine parrede computere med ét tryk." },
         "siri-and-shortcuts": {
@@ -70,7 +70,7 @@ export const content = {
           body: "Start et opkald eller en session fra Siri eller Kontrolcenter.",
         },
         "follow-along": { title: "Følg med", body: "Se tidslinjen opdatere, mens agenten arbejder." },
-        "your-computer": { title: "Din computer", body: "Forbinder til Xccode, der kører på din egen maskine." },
+        "your-computer": { title: "Din computer", body: "Forbinder til Xiaochuan, der kører på din egen maskine." },
         "share-sheet": { title: "Delingsmenu", body: "Del hvad som helst med en session uden at åbne appen." },
         "mute-sessions": { title: "Slå lyd fra", body: "Behold en session på listen uden at få dens notifikationer." },
       },
@@ -82,9 +82,9 @@ export const content = {
       },
     },
     terminal: {
-      title: "Xccode | Terminal-UI til open source-kodningsagenten",
+      title: "Xiaochuan | Terminal-UI til open source-kodningsagenten",
       description:
-        "En hurtig terminalbrugerflade til Xccode, der virker i enhver shell, editor eller fjernserver. Beskriv, hvad du vil, se hver ændring som et diff, og godkend kommandoer.",
+        "En hurtig terminalbrugerflade til Xiaochuan, der virker i enhver shell, editor eller fjernserver. Beskriv, hvad du vil, se hver ændring som et diff, og godkend kommandoer.",
       intro:
         "En hurtig terminalbrugerflade, der virker i enhver shell, editor eller fjernserver. Beskriv med almindelige ord, hvad du vil, se hver ændring lande som et diff, og vælg, hvilke kommandoer der kører af sig selv.",
       features: {
@@ -100,7 +100,7 @@ export const content = {
           title: "Fortsæt senere",
           body: "Fortsæt den seneste session med -c, eller en hvilken som helst med -s.",
         },
-        "one-off-runs": { title: "Enkeltkørsler", body: "xccode run sender én besked og udskriver svaret." },
+        "one-off-runs": { title: "Enkeltkørsler", body: "xiaochuan run sender én besked og udskriver svaret." },
         "agents-and-commands": {
           title: "Agenter og kommandoer",
           body: "Skift agent med shift+tab, og åbn alle kommandoer med ctrl+p.",
@@ -109,8 +109,8 @@ export const content = {
           title: "Autogodkend",
           body: "Kør med --auto for at tillade alle handlinger, du ikke har afvist.",
         },
-        "any-server": { title: "Enhver server", body: "Forbind til en Xccode-server via URL med --server." },
-        "usage-stats": { title: "Forbrug", body: "xccode stats viser forbrugsstatistik, du kan dele." },
+        "any-server": { title: "Enhver server", body: "Forbind til en Xiaochuan-server via URL med --server." },
+        "usage-stats": { title: "Forbrug", body: "xiaochuan stats viser forbrugsstatistik, du kan dele." },
       },
       showcase: {
         "ask-in-plain-words": {
@@ -125,30 +125,30 @@ export const content = {
           title: "Gør den til din",
           body: "Skift tema med et tastetryk, fra standard til tokyonight og flere.",
         },
-        mini: { title: "Mini", body: "Kør xccode mini, og svarene skrives ind i din egen scrollback." },
+        mini: { title: "Mini", body: "Kør xiaochuan mini, og svarene skrives ind i din egen scrollback." },
       },
     },
     sdk: {
-      title: "Xccode | TypeScript-SDK til scripts, CI-jobs og værktøjer",
+      title: "Xiaochuan | TypeScript-SDK til scripts, CI-jobs og værktøjer",
       description:
-        "Styr Xccode fra dine egne scripts, CI-jobs og værktøjer. Den typede TypeScript-klient opretter sessioner, sender prompts og streamer alle events, mens de sker.",
+        "Styr Xiaochuan fra dine egne scripts, CI-jobs og værktøjer. Den typede TypeScript-klient opretter sessioner, sender prompts og streamer alle events, mens de sker.",
       intro:
-        "Styr Xccode fra dine egne scripts, CI-jobs og værktøjer. SDK'et kører Xccode i din egen proces med din konfiguration og dine modeller, og dets typede klient opretter sessioner, sender prompts og streamer alle events.",
+        "Styr Xiaochuan fra dine egne scripts, CI-jobs og værktøjer. SDK'et kører Xiaochuan i din egen proces med din konfiguration og dine modeller, og dets typede klient opretter sessioner, sender prompts og streamer alle events.",
       features: {
         "typescript-client": {
           title: "TypeScript-klient",
-          body: "Typede requests og events med de samme værdier som @xccode/client.",
+          body: "Typede requests og events med de samme værdier som @xiaochuan/client.",
         },
         "sessions-from-code": {
           title: "Sessioner fra kode",
           body: "Opret sessioner og send prompts fra ethvert script.",
         },
-        "any-model": { title: "Enhver model", body: "Bruger de modeller, din Xccode-opsætning har." },
+        "any-model": { title: "Enhver model", body: "Bruger de modeller, din Xiaochuan-opsætning har." },
         "npm-or-bun": {
           title: "npm eller bun",
-          body: "Installer det med npm i @xccode/sdk eller bun add @xccode/sdk.",
+          body: "Installer det med npm i @xiaochuan/sdk eller bun add @xiaochuan/sdk.",
         },
-        "in-process-host": { title: "In-process-host", body: "Kører Xccode i hukommelsen uden netværkshop." },
+        "in-process-host": { title: "In-process-host", body: "Kører Xiaochuan i hukommelsen uden netværkshop." },
         "your-plugins": {
           title: "Dine plugins",
           body: "Giv dine egne plugins med, når du opretter in-process-hosten.",
@@ -159,13 +159,13 @@ export const content = {
         },
         "cloudflare-workers": {
           title: "Cloudflare Workers",
-          body: "Kør Xccode i et Cloudflare Durable Object på Workers.",
+          body: "Kør Xiaochuan i et Cloudflare Durable Object på Workers.",
         },
       },
       showcase: {
         "fix-ci-from-code": {
           title: "Ret CI fra kode",
-          body: "Et kort script beder Xccode rette fejlende tests og kører dem så igen.",
+          body: "Et kort script beder Xiaochuan rette fejlende tests og kører dem så igen.",
         },
         "follow-every-step": {
           title: "Følg hvert trin",
@@ -173,20 +173,20 @@ export const content = {
         },
         "build-your-own-tools": {
           title: "Byg egne værktøjer",
-          body: "Kobl Xccode på bots, dashboards og workflows med få linjer.",
+          body: "Kobl Xiaochuan på bots, dashboards og workflows med få linjer.",
         },
         "in-your-process": {
           title: "I din proces",
-          body: "Kører Xccode i din proces med din konfiguration og dine modeller.",
+          body: "Kører Xiaochuan i din proces med din konfiguration og dine modeller.",
         },
       },
     },
     mini: {
-      title: "Xccode | Mini, en minimal terminalbrugerflade til agenten",
+      title: "Xiaochuan | Mini, en minimal terminalbrugerflade til agenten",
       description:
-        "Mini kører Xccode i en minimal terminalbrugerflade. Svarene skrives ind i din terminals egen scrollback, og kun en prompt og en statuslinje bliver nederst.",
+        "Mini kører Xiaochuan i en minimal terminalbrugerflade. Svarene skrives ind i din terminals egen scrollback, og kun en prompt og en statuslinje bliver nederst.",
       intro:
-        "En minimal terminalbrugerflade til Xccode. Kør xccode mini, og svarene skrives direkte ind i din terminals egen scrollback, så du kan scrolle, søge og kopiere dem som alt andet output. Kun prompten og en statuslinje bliver nederst.",
+        "En minimal terminalbrugerflade til Xiaochuan. Kør xiaochuan mini, og svarene skrives direkte ind i din terminals egen scrollback, så du kan scrolle, søge og kopiere dem som alt andet output. Kun prompten og en statuslinje bliver nederst.",
       features: {
         "your-scrollback": { title: "Din scrollback", body: "Svarene bliver til almindelig terminalhistorik." },
         "one-prompt": { title: "Én prompt", body: "Agent, model, kontekst og pris på én statuslinje." },
@@ -199,7 +199,7 @@ export const content = {
           title: "Fortsæt senere",
           body: "Fortsæt den seneste session med -c, eller en hvilken som helst med -s.",
         },
-        "same-xccode": { title: "Samme Xccode", body: "Samme server, agenter og modeller som de andre apps." },
+        "same-xiaochuan": { title: "Samme Xiaochuan", body: "Samme server, agenter og modeller som de andre apps." },
         agents: { title: "Agenter", body: "Skift agent direkte fra prompten." },
         compact: { title: "Kompakt", body: "Gør en lang session mindre med /compact." },
       },
@@ -207,15 +207,15 @@ export const content = {
   },
   extensionCard: {
     name: "Udvidelser",
-    body: "Brug Xccode i VS Code, eller i Zed og andre editorer via ACP.",
+    body: "Brug Xiaochuan i VS Code, eller i Zed og andre editorer via ACP.",
     action: "Installer",
   },
   extensions: {
     browse: {
       body: "Lad agenter bruge din rigtige browser.",
-      title: "Xccode | Browse, din rigtige browser til kodningsagenter",
+      title: "Xiaochuan | Browse, din rigtige browser til kodningsagenter",
       description:
-        "Browse lader Xccode og andre MCP-klienter bruge din rigtige browser. Agenter læser, klikker, skriver, tager skærmbilleder, optager faner og giver logins og 2FA tilbage til dig.",
+        "Browse lader Xiaochuan og andre MCP-klienter bruge din rigtige browser. Agenter læser, klikker, skriver, tager skærmbilleder, optager faner og giver logins og 2FA tilbage til dig.",
       intro:
         "En MCP-server og en Chromium-udvidelse, der lader dine agenter bruge din rigtige browser med dine faner, logins og udvidelser. De åbner faner i baggrunden, samlet i grupper og ude af vejen, og læser sider, klikker, skriver, tager skærmbilleder og optager faner. Når det er din tur, for et login, en 2FA-prompt eller en betaling, giver de fanen tilbage til dig og fortsætter, når du klikker på Continue.",
       features: {
@@ -235,7 +235,7 @@ export const content = {
         },
         "any-mcp-client": {
           title: "Enhver MCP-klient",
-          body: "Xccode, Claude Code, Cursor, Codex, Zed og mange flere.",
+          body: "Xiaochuan, Claude Code, Cursor, Codex, Zed og mange flere.",
         },
         "all-your-logins": {
           title: "Alle dine logins",
@@ -258,9 +258,9 @@ export const content = {
   },
   getStarted: {
     title: "Kom i gang",
-    lead: "Den nemmeste måde at starte på er at downloade Xccode og bruge de gratis modeller. Ingen konto nødvendig. Vil du have mere, så tag dit eget abonnement med, eller brug Xccode Go.",
+    lead: "Den nemmeste måde at starte på er at downloade Xiaochuan og bruge de gratis modeller. Ingen konto nødvendig. Vil du have mere, så tag dit eget abonnement med, eller brug Xiaochuan Go.",
     phrases: {
-      "download-xccode": { text: "downloade Xccode" },
+      "download-xiaochuan": { text: "downloade Xiaochuan" },
       "free-models": { text: "gratis modeller" },
       "your-own-subscription": { text: "dit eget abonnement" },
       "a-subscription-you-already-have": { text: "et abonnement, du allerede har" },
@@ -270,30 +270,30 @@ export const content = {
       download: { title: "Download", line: "Desktop, terminal eller mobil." },
       "use-free-models": {
         title: "Brug gratis modeller",
-        line: "Xccode har et sæt gratis modeller. Ingen konto nødvendig.",
+        line: "Xiaochuan har et sæt gratis modeller. Ingen konto nødvendig.",
       },
       "add-more-models": {
         title: "Tilføj flere modeller",
-        line: "Tag dit eget abonnement med, eller brug Xccode Go's udvalgte modeller fra $10/md.",
+        line: "Tag dit eget abonnement med, eller brug Xiaochuan Go's udvalgte modeller fra $10/md.",
       },
     },
     sentence:
-      "Download Xccode, start med gratis modeller, og tag dit eget abonnement eller Xccode Go med, når du vil have mere.",
+      "Download Xiaochuan, start med gratis modeller, og tag dit eget abonnement eller Xiaochuan Go med, når du vil have mere.",
   },
   byos: {
     title: "Brug dit eget abonnement",
     headline: "Brug de abonnementer, du allerede har.",
-    line: "Log ind med ChatGPT Plus eller Pro eller med GitHub Copilot. Eller brug et Xccode-abonnement.",
+    line: "Log ind med ChatGPT Plus eller Pro eller med GitHub Copilot. Eller brug et Xiaochuan-abonnement.",
     yours: { label: "Dit abonnement", items: { "chatgpt-plus-pro": { name: "ChatGPT Plus/Pro" } } },
-    planLinks: ["Xccode-abonnement"],
-    ours: { label: "Xccode-abonnementer" },
+    planLinks: ["Xiaochuan-abonnement"],
+    ours: { label: "Xiaochuan-abonnementer" },
   },
   brand: {
     hero: { copy: { text: "Regler til agent", copied: "Regler kopieret" } },
     naming: {
       title: "Navn",
-      body: "Skriv Xccode i ét ord med stort O og stort C. Skriv ikke Xccode, Open Code, Xccode AI eller Open-Code.",
-      code: "Brug kun `xccode` med små bogstaver i kode og pakkenavne, som `xccode-figma` eller `@acme/xccode-plugin`.",
+      body: "Skriv Xiaochuan i ét ord med stort O og stort C. Skriv ikke Xiaochuan, Open Code, Xiaochuan AI eller Open-Code.",
+      code: "Brug kun `xiaochuan` med små bogstaver i kode og pakkenavne, som `xiaochuan-figma` eller `@acme/xiaochuan-plugin`.",
     },
     families: {
       logo: {
@@ -308,7 +308,7 @@ export const content = {
       },
       wordmark: {
         title: "Ordmærke",
-        body: "Det fulde navn i Xccodes bogstavformer. Brug det, hvor der er plads til at skrive navnet helt ud.",
+        body: "Det fulde navn i Xiaochuans bogstavformer. Brug det, hvor der er plads til at skrive navnet helt ud.",
         assets: { light: { name: "Lyst" }, dark: { name: "Mørkt" } },
       },
       "simple-wordmark": {
@@ -408,49 +408,49 @@ export const content = {
     },
     integrations: {
       title: "Integrationer",
-      body: "Plugins, udbydere og værktøjer, der virker med Xccode, og projekter bygget med det, må gerne sige det. Brug et badge eller et partner-lockup, og navngiv dit projekt, så det er tydeligt, at det er dit.",
+      body: "Plugins, udbydere og værktøjer, der virker med Xiaochuan, og projekter bygget med det, må gerne sige det. Brug et badge eller et partner-lockup, og navngiv dit projekt, så det er tydeligt, at det er dit.",
       badges: {
-        body: "Sæt et badge i din README, dokumentation eller på dit website, og link det til xccode.ai. Vælg den lyse eller mørke fil til din baggrund (HTML'en skifter selv), og ændr ikke farverne eller teksten.",
+        body: "Sæt et badge i din README, dokumentation eller på dit website, og link det til xiaochuan.ai. Vælg den lyse eller mørke fil til din baggrund (HTML'en skifter selv), og ændr ikke farverne eller teksten.",
         sizes: "Alle stilarter findes i 20, 32 og 44px (Shields kun i 20px), som SVG og som PNG i 2×.",
-        mono: "Hver fil findes også med tekst i OpenTUI Mono. Tilføj -mono før filtypen, som i xccode-works-with-a-light-20-mono.svg, eller -mono-caps for OpenTUI Mono med versaler.",
+        mono: "Hver fil findes også med tekst i OpenTUI Mono. Tilføj -mono før filtypen, som i xiaochuan-works-with-a-light-20-mono.svg, eller -mono-caps for OpenTUI Mono med versaler.",
         groups: {
           "works-with": {
             title: "Virker med",
-            alt: "Virker med Xccode",
-            body: "Til plugins, udbydere og værktøjer, der kører med Xccode.",
+            alt: "Virker med Xiaochuan",
+            body: "Til plugins, udbydere og værktøjer, der kører med Xiaochuan.",
           },
-          "built-with": { title: "Bygget med", alt: "Bygget med Xccode", body: "Til projekter lavet med Xccode." },
+          "built-with": { title: "Bygget med", alt: "Bygget med Xiaochuan", body: "Til projekter lavet med Xiaochuan." },
         },
         styles: { a: { name: "Ramme" }, c: { name: "Celler" }, f: { name: "Massiv" }, g: { name: "Shields" } },
       },
       lockup: {
         title: "Partner-lockup",
-        body: "Placer Xccode-logoet og partnerlogoet side om side med et × imellem. Hold 3 stregers afstand på hver side af ×, skaler partnerlogoet, så det ser lige så højt ud som Xccode-logoet, og hold frirum rundt om hele lockuppet.",
+        body: "Placer Xiaochuan-logoet og partnerlogoet side om side med et × imellem. Hold 3 stregers afstand på hver side af ×, skaler partnerlogoet, så det ser lige så højt ud som Xiaochuan-logoet, og hold frirum rundt om hele lockuppet.",
       },
       naming: {
         title: "Navngiv dit projekt",
         body: "Start med dit eget navn, så det er tydeligt, at projektet er dit.",
-        rule: "Skriv `Linear for Xccode`, eller kald pakken `xccode-linear`. Skriv ikke `Xccode Linear` eller `Linear by Xccode`.",
+        rule: "Skriv `Linear for Xiaochuan`, eller kald pakken `xiaochuan-linear`. Skriv ikke `Xiaochuan Linear` eller `Linear by Xiaochuan`.",
       },
     },
     trademarks: {
       title: "Varemærker",
-      body: "Xccode og Xccode-logoet er varemærker tilhørende Anomaly. Brug dem ikke til at antyde, at Anomaly støtter eller sponsorerer dig, i dit produkt- eller firmanavn eller på merchandise uden tilladelse.",
+      body: "Xiaochuan og Xiaochuan-logoet er varemærker tilhørende Anomaly. Brug dem ikke til at antyde, at Anomaly støtter eller sponsorerer dig, i dit produkt- eller firmanavn eller på merchandise uden tilladelse.",
       contact: { before: "Spørgsmål kan sendes til " },
     },
   },
   press: {
-    title: "Xccode | Pressekit med fakta om firmaet og brand-assets",
+    title: "Xiaochuan | Pressekit med fakta om firmaet og brand-assets",
     description:
-      "Xccodes pressekit med fakta om Xccode og Anomaly, firmaet bag, plus logoer og ordmærker til download og en kontakt til spørgsmål fra pressen.",
-    hero: { title: "Presse", body: "Fakta, brand-assets og kontakter til at skrive om Xccode og Anomaly." },
+      "Xiaochuans pressekit med fakta om Xiaochuan og Anomaly, firmaet bag, plus logoer og ordmærker til download og en kontakt til spørgsmål fra pressen.",
+    hero: { title: "Presse", body: "Fakta, brand-assets og kontakter til at skrive om Xiaochuan og Anomaly." },
     company: {
       title: "Om Anomaly",
-      lead: "Anomaly er firmaet bag Xccode. Det bygger open source-værktøjer til udviklere.",
+      lead: "Anomaly er firmaet bag Xiaochuan. Det bygger open source-værktøjer til udviklere.",
       more: "Andre projekter er bl.a. SST og OpenTUI, alle open source på [GitHub](github).",
       learnMore: "Læs mere på [anoma.ly](site).",
       projects: {
-        xccode: {
+        xiaochuan: {
           body: "Open source-kodningsagenten med apps til desktop, terminal og mobil og et SDK. MIT-licenseret, over 220.000 GitHub-stjerner.",
         },
         sst: {
@@ -458,7 +458,7 @@ export const content = {
         },
         opentui: {
           name: "OpenTUI",
-          body: "Et bibliotek til terminalbrugerflader i TypeScript, React eller Solid med en kerne i Zig. Xccode bruger det i produktion. Over 13.000 GitHub-stjerner.",
+          body: "Et bibliotek til terminalbrugerflader i TypeScript, React eller Solid med en kerne i Zig. Xiaochuan bruger det i produktion. Over 13.000 GitHub-stjerner.",
         },
         "models-dev": {
           body: "En open source-database med specifikationer, priser og egenskaber for AI-modeller og et offentligt API. Den indeholder over 8.900 modeller fra over 200 udbydere.",
@@ -472,30 +472,30 @@ export const content = {
       },
     },
     about: {
-      title: "Om Xccode",
-      body: "Beskrivelser af Xccode og dets produkter i en lang og en kort version, klar til at kopiere.",
+      title: "Om Xiaochuan",
+      body: "Beskrivelser af Xiaochuan og dets produkter i en lang og en kort version, klar til at kopiere.",
       boilerplate: {
-        long: "Xccode er en open source-kodningsagent. Den findes som desktopapp, terminal-UI, mobilapp og SDK og virker med modeller fra enhver udbyder, bl.a. Claude, GPT og Gemini. Xccode er MIT-licenseret og lavet af Anomaly. Den har over 220.000 GitHub-stjerner og mere end 1.000 bidragydere, og over 22 millioner udviklere bruger den hver måned.",
+        long: "Xiaochuan er en open source-kodningsagent. Den findes som desktopapp, terminal-UI, mobilapp og SDK og virker med modeller fra enhver udbyder, bl.a. Claude, GPT og Gemini. Xiaochuan er MIT-licenseret og lavet af Anomaly. Den har over 220.000 GitHub-stjerner og mere end 1.000 bidragydere, og over 22 millioner udviklere bruger den hver måned.",
         short:
-          "Xccode er en open source-kodningsagent fra Anomaly med apps til desktop, terminal og mobil og et SDK.",
+          "Xiaochuan er en open source-kodningsagent fra Anomaly med apps til desktop, terminal og mobil og et SDK.",
       },
       products: {
-        "xccode-console": {
-          name: "Xccode Console",
-          long: "Xccode Console er webappen, hvor udviklere og teams køber og administrerer adgang til AI-modeller til Xccode og andre kodningsagenter. Den tilbyder pay-as-you-go-inferens til frontier- og open weight-modeller, afregnet pr. request fra forudbetalt kredit, og Xccode Go-abonnementer. Teams får workspaces med rollerne Member, Admin og Owner, forbrugsgrænser for workspace og pr. bruger, single sign-on med Okta, Microsoft Entra ID eller Google Workspace og SCIM. Console understøtter mere end 30 udbydere, så teams kan forbinde udbyderkonti, de allerede har, og den egen inferens er valgfri. Den findes på xccode.ai/console.",
+        "xiaochuan-console": {
+          name: "Xiaochuan Console",
+          long: "Xiaochuan Console er webappen, hvor udviklere og teams køber og administrerer adgang til AI-modeller til Xiaochuan og andre kodningsagenter. Den tilbyder pay-as-you-go-inferens til frontier- og open weight-modeller, afregnet pr. request fra forudbetalt kredit, og Xiaochuan Go-abonnementer. Teams får workspaces med rollerne Member, Admin og Owner, forbrugsgrænser for workspace og pr. bruger, single sign-on med Okta, Microsoft Entra ID eller Google Workspace og SCIM. Console understøtter mere end 30 udbydere, så teams kan forbinde udbyderkonti, de allerede har, og den egen inferens er valgfri. Den findes på xiaochuan.ai/console.",
           short:
-            "Xccode Console er Anomalys webapp til pay-as-you-go-adgang til AI-modeller, Xccode Go-abonnementer og teamkontrol som budgetter og single sign-on.",
+            "Xiaochuan Console er Anomalys webapp til pay-as-you-go-adgang til AI-modeller, Xiaochuan Go-abonnementer og teamkontrol som budgetter og single sign-on.",
         },
-        "xccode-go": {
-          long: "Xccode Go er et abonnement til udviklere, der vil have en fast månedspris for kodningsmodeller. Go koster $10/md., Go Plus koster $40/md. med højere grænser, og Go Teams koster $20/md. pr. medlem. Hvert abonnement indeholder et udvalg af modeller, der er testet til agentisk kodning. Forbrugsgrænserne er månedlige dollarbeløb for hver model med løbende kvoter for 5 timer og en uge på 20% og 50% af månedsgrænsen. Abonnenter kan fylde kredit på, falde tilbage på en pay-as-you-go-saldo og opsige når som helst. Go virker med Xccode og andre agenter. Det findes på xccode.ai/console/go.",
+        "xiaochuan-go": {
+          long: "Xiaochuan Go er et abonnement til udviklere, der vil have en fast månedspris for kodningsmodeller. Go koster $10/md., Go Plus koster $40/md. med højere grænser, og Go Teams koster $20/md. pr. medlem. Hvert abonnement indeholder et udvalg af modeller, der er testet til agentisk kodning. Forbrugsgrænserne er månedlige dollarbeløb for hver model med løbende kvoter for 5 timer og en uge på 20% og 50% af månedsgrænsen. Abonnenter kan fylde kredit på, falde tilbage på en pay-as-you-go-saldo og opsige når som helst. Go virker med Xiaochuan og andre agenter. Det findes på xiaochuan.ai/console/go.",
           short:
-            "Xccode Go er et månedligt abonnement fra Anomaly, der giver udviklere månedlige forbrugsgrænser på et udvalg af kodningsmodeller, fra $10/md.",
+            "Xiaochuan Go er et månedligt abonnement fra Anomaly, der giver udviklere månedlige forbrugsgrænser på et udvalg af kodningsmodeller, fra $10/md.",
         },
-        "xccode-data": {
-          name: "Xccode Data",
-          long: "Xccode Data er et offentligt dashboard, der viser, hvilke AI-modeller udviklere bruger i Xccode, og hvordan fordelingen ændrer sig over tid. Det udgiver en rangliste over de mest brugte modeller, tokenforbrug, omkostninger pr. session og token, cache-andele, markedsandele og en opdeling efter land. Tallene samles hver time med dage og uger i UTC. Antal brugere og sessioner er omtrentlige, og omkostninger bruger listepriser fra Xccodes modelkatalog. Journalister kan citere det som Xccode Data (xccode.ai/data) med det opdateringstidspunkt, siden viser.",
+        "xiaochuan-data": {
+          name: "Xiaochuan Data",
+          long: "Xiaochuan Data er et offentligt dashboard, der viser, hvilke AI-modeller udviklere bruger i Xiaochuan, og hvordan fordelingen ændrer sig over tid. Det udgiver en rangliste over de mest brugte modeller, tokenforbrug, omkostninger pr. session og token, cache-andele, markedsandele og en opdeling efter land. Tallene samles hver time med dage og uger i UTC. Antal brugere og sessioner er omtrentlige, og omkostninger bruger listepriser fra Xiaochuans modelkatalog. Journalister kan citere det som Xiaochuan Data (xiaochuan.ai/data) med det opdateringstidspunkt, siden viser.",
           short:
-            "Xccode Data er et offentligt dashboard på xccode.ai/data, der rangerer AI-modeller efter reelt forbrug i Xccode med tokens, omkostninger og markedsandele, opdateret hver time.",
+            "Xiaochuan Data er et offentligt dashboard på xiaochuan.ai/data, der rangerer AI-modeller efter reelt forbrug i Xiaochuan med tokens, omkostninger og markedsandele, opdateret hver time.",
         },
       },
     },
@@ -512,23 +512,23 @@ export const content = {
       items: {
         "first-release-v0-0-1": { date: "apr. 2025", text: "Første version, v0.0.1" },
         "1-million-downloads": { date: "okt. 2025", text: "Over 1 million downloads" },
-        "xccode-1-0": { date: "okt. 2025", text: "Xccode 1.0" },
+        "xiaochuan-1-0": { date: "okt. 2025", text: "Xiaochuan 1.0" },
         "desktop-app-ships": { date: "dec. 2025", text: "Desktopappen udkommer" },
         "10-million-downloads": { date: "jan. 2026", text: "Over 10 millioner downloads" },
-        "xccode-2-0": { date: "sep. 2026", text: "Xccode 2.0" },
+        "xiaochuan-2-0": { date: "sep. 2026", text: "Xiaochuan 2.0" },
         "220-000-github-stars": { date: "nov. 2026", text: "Over 220.000 GitHub-stjerner" },
       },
     },
     news: {
       title: "Seneste versioner",
-      intro: "Xccode udkommer ofte. Her er de nyeste versioner med nye funktioner.",
+      intro: "Xiaochuan udkommer ofte. Her er de nyeste versioner med nye funktioner.",
       changelog: { text: "Fuld changelog" },
       feed: { text: "RSS-feed" },
     },
     media: {
       title: "Medier",
       intro:
-        "Stillbilleder og korte videoer af hver app, optaget fra det rigtige produkt. Du kan bruge dem, når du skriver om Xccode.",
+        "Stillbilleder og korte videoer af hver app, optaget fra det rigtige produkt. Du kan bruge dem, når du skriver om Xiaochuan.",
       note: "Alle optagelser bruger det mørke tema. Stillbilleder og plakater er JPG'er op til 1920 × 1080, eller 1080 × 1350 i portræt. Videoer er MP4-klip uden lyd.",
       products: {
         desktop: {
@@ -603,10 +603,10 @@ export const content = {
     brand: {
       title: "Brand",
       before:
-        "Download Xccode-logoerne og -ordmærkerne i én ZIP-fil. Enkelte filer, varianter og regler for brug finder du på ",
+        "Download Xiaochuan-logoerne og -ordmærkerne i én ZIP-fil. Enkelte filer, varianter og regler for brug finder du på ",
       link: { text: "brandsiden" },
       usage:
-        "Du kan bruge filerne, når du skriver om Xccode. Ændr dem ikke, og antyd ikke, at Xccode støtter dit arbejde.",
+        "Du kan bruge filerne, når du skriver om Xiaochuan. Ændr dem ikke, og antyd ikke, at Xiaochuan støtter dit arbejde.",
     },
     product: {
       title: "Produkt",
@@ -617,7 +617,7 @@ export const content = {
         },
         mobile: {
           name: "Mobile",
-          body: "Den nyeste Xccode-app. Ring til en session for at tale med agenten, og gennemgå og godkend dens ændringer fra din telefon, hvor som helst.",
+          body: "Den nyeste Xiaochuan-app. Ring til en session for at tale med agenten, og gennemgå og godkend dens ændringer fra din telefon, hvor som helst.",
         },
         terminal: {
           name: "Terminal",
@@ -634,7 +634,7 @@ export const content = {
         press: { title: "Presse", body: "Til journalister og analytikere. Vi svarer kun på henvendelser fra medier." },
         support: {
           title: "Support",
-          body: "Få hjælp til Xccode ved at oprette et issue eller spørge fællesskabet. Skriv til os om konto og betaling.",
+          body: "Få hjælp til Xiaochuan ved at oprette et issue eller spørge fællesskabet. Skriv til os om konto og betaling.",
           links: { "github-issues": { text: "GitHub-issues" }, "help-anoma-ly": { text: "help@anoma.ly" } },
         },
         security: {
@@ -667,18 +667,18 @@ export const content = {
     sdk: { more: { label: "Læs SDK-dokumentationen" } },
     mini: {
       commands: { curl: { name: "Script" } },
-      lead: "Mini følger med Xccode CLI. Installer den på en af disse måder, og kør så xccode mini.",
+      lead: "Mini følger med Xiaochuan CLI. Installer den på en af disse måder, og kør så xiaochuan mini.",
     },
   },
   pair: {
     title: "Forbind din telefon",
     cardTitle: "Par din telefon med én kommando",
     intro:
-      "Xccode Mobile er en fjernbetjening til Xccode på din computer. Dine sessioner kører videre der, og appen viser dem og lader dig styre dem.",
+      "Xiaochuan Mobile er en fjernbetjening til Xiaochuan på din computer. Dine sessioner kører videre der, og appen viser dem og lader dig styre dem.",
     steps: {
       "get-the-app": {
         title: "Hent appen",
-        body: "Installer Xccode-betaen på din iPhone fra TestFlight. Android-appen kommer snart.",
+        body: "Installer Xiaochuan-betaen på din iPhone fra TestFlight. Android-appen kommer snart.",
       },
       "run-this-on-your-computer": {
         title: "Kør dette på din computer",
@@ -689,12 +689,12 @@ export const content = {
         body: "Scan QR-koden med appen, eller indsæt linket. Din computers seneste sessioner åbner på telefonen.",
       },
     },
-    note: "--remote forbinder via en OpenTunnel-adresse, så det virker fra ethvert netværk. På samme Wi-Fi kører du xccode service set hostname 0.0.0.0 én gang og derefter xccode pair.",
+    note: "--remote forbinder via en OpenTunnel-adresse, så det virker fra ethvert netværk. På samme Wi-Fi kører du xiaochuan service set hostname 0.0.0.0 én gang og derefter xiaochuan pair.",
     facts: [
       "Parringen virker fra ethvert netværk, fordi --remote forbinder via en OpenTunnel-adresse.",
       "Linket og koden virker én gang og udløber efter 5 minutter.",
       "Lad computeren være tændt, for agenten kører der og ikke på telefonen.",
-      "På samme Wi-Fi kører du xccode service set hostname 0.0.0.0 én gang og derefter xccode pair.",
+      "På samme Wi-Fi kører du xiaochuan service set hostname 0.0.0.0 én gang og derefter xiaochuan pair.",
     ],
   },
   announcements: {
@@ -706,7 +706,7 @@ export const content = {
     "agents-can-now-generate-images": { text: "Agenter kan nu generere billeder.", link: "Se v2.2.1" },
     "steer-your-sessions-from-your-phone": {
       text: "Styr dine sessioner fra din telefon.",
-      link: "Mød Xccode Mobile",
+      link: "Mød Xiaochuan Mobile",
     },
     "a-refreshed-desktop-app": { text: "En fornyet desktopapp.", link: "Se nyt i 2.2" },
   },

@@ -1,10 +1,10 @@
 import { describe, expect } from "bun:test"
 import { Effect, Layer } from "effect"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Location } from "@xccode/core/location"
-import { Project } from "@xccode/core/project"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Workspace } from "@xccode/core/workspace"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Location } from "@xiaochuan/core/location"
+import { Project } from "@xiaochuan/core/project"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Workspace } from "@xiaochuan/core/workspace"
 import { testEffect } from "./lib/effect"
 
 const workspaceID = Workspace.ID.make("wrk_test")

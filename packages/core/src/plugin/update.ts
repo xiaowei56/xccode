@@ -1,9 +1,9 @@
 export * as PluginUpdate from "./update.js"
 
 import { Context, Effect, Exit, Layer, Option, PubSub, Stream } from "effect"
-import { Npm } from "@xccode/util/npm"
-import { EffectFlock } from "@xccode/util/effect-flock"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { Npm } from "@xiaochuan/util/npm"
+import { EffectFlock } from "@xiaochuan/util/effect-flock"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { KeyedMutex } from "../effect/keyed-mutex.js"
 
 /** How often package plugins are checked for newer versions. */
@@ -23,7 +23,7 @@ export interface Interface {
   readonly intervals: () => Stream.Stream<number>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/PluginUpdate") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/PluginUpdate") {}
 
 const layer = Layer.effect(
   Service,

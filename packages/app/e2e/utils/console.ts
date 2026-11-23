@@ -1,6 +1,6 @@
-export const CONSOLE_URL = "https://xccode.ai/console"
+export const CONSOLE_URL = "https://xiaochuan.ai/console"
 
-// An MCP server Xccode Console delivers through its gateway, with the gateway token that names its workspace.
+// An MCP server Xiaochuan Console delivers through its gateway, with the gateway token that names its workspace.
 // `protocol` is the pin Console sets while the member hasn't connected their account.
 export function consoleGateway(slug: string, options: { workspace?: string; protocol?: "2026-07-28" } = {}) {
   const claims = Buffer.from(JSON.stringify({ u: "user_fixture", w: options.workspace ?? "org_acme", d: 1 }))
@@ -14,10 +14,10 @@ export function consoleGateway(slug: string, options: { workspace?: string; prot
   }
 }
 
-// The Xccode Console integration with a saved sign-in.
+// The Xiaochuan Console integration with a saved sign-in.
 export const consoleSignIn = {
-  id: "xccode",
-  name: "Xccode",
+  id: "xiaochuan",
+  name: "Xiaochuan",
   methods: [{ id: "oauth", type: "oauth" }],
   connections: [{ type: "credential", id: "cred_console", label: "Acme", method: "oauth" }],
 }

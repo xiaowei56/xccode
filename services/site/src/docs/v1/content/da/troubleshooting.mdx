@@ -3,7 +3,7 @@ title: Fejlfinding
 description: Almindelige problemer, og hvordan de løses.
 ---
 
-For at fejlfinde problemer med Xccode, start med at tjekke logfilerne og de lokale data, den gemmer på disken.
+For at fejlfinde problemer med Xiaochuan, start med at tjekke logfilerne og de lokale data, den gemmer på disken.
 
 ---
 
@@ -11,21 +11,21 @@ For at fejlfinde problemer med Xccode, start med at tjekke logfilerne og de loka
 
 Logfiler skrives til:
 
-- **macOS/Linux**: `~/.local/share/xccode/log/`
-- **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.local\share\xccode\log`
+- **macOS/Linux**: `~/.local/share/xiaochuan/log/`
+- **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.local\share\xiaochuan\log`
 
 Logfiler navngives med tidsstempler (f.eks. `2025-01-09T123456.log`) og de sidste 10 logfiler beholdes.
 
-Du kan angive logniveauet med kommandolinjeflaget `--log-level` for at få mere detaljeret fejlfindingsinformation. For eksempel `xccode --log-level DEBUG`.
+Du kan angive logniveauet med kommandolinjeflaget `--log-level` for at få mere detaljeret fejlfindingsinformation. For eksempel `xiaochuan --log-level DEBUG`.
 
 ---
 
 ## Lagring
 
-xccode gemmer sessionsdata og andre applikationsdata på disken på:
+xiaochuan gemmer sessionsdata og andre applikationsdata på disken på:
 
-- **macOS/Linux**: `~/.local/share/xccode/`
-- **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.local\share\xccode`
+- **macOS/Linux**: `~/.local/share/xiaochuan/`
+- **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.local\share\xiaochuan`
 
 Denne mappe indeholder:
 
@@ -39,13 +39,13 @@ Denne mappe indeholder:
 
 ## Desktop-app
 
-Xccode Desktop kører en lokal Xccode-server (`xccode-cli` sidevognen) i baggrunden. De fleste problemer er forårsaget af et plugin, der fungerer dårligt, en ødelagt cache eller en dårlig serverindstilling.
+Xiaochuan Desktop kører en lokal Xiaochuan-server (`xiaochuan-cli` sidevognen) i baggrunden. De fleste problemer er forårsaget af et plugin, der fungerer dårligt, en ødelagt cache eller en dårlig serverindstilling.
 
 ### Hurtige tjek
 
 - Afslut og start appen på ny.
 - Hvis appen viser en fejlskærm, klikker du på **Start på ny** og kopierer fejldetaljerne.
-- Kun macOS: `Xccode`-menu -> **Genindlæs webvisning** (hjælper hvis UI er tom/frosset).
+- Kun macOS: `Xiaochuan`-menu -> **Genindlæs webvisning** (hjælper hvis UI er tom/frosset).
 
 ---
 
@@ -57,28 +57,28 @@ Hvis skrivebordsappen går ned ved opstart, hænger eller opfører sig mærkelig
 
 Åbn den globale konfigurationsfil og se efter en `plugin`-nøgle.
 
-- **macOS/Linux**: `~/.config/xccode/xccode.jsonc` (eller `~/.config/xccode/xccode.json`)
-- **macOS/Linux** (ældre installationer): `~/.local/share/xccode/xccode.jsonc`
-- **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.config\xccode\xccode.jsonc`
+- **macOS/Linux**: `~/.config/xiaochuan/xiaochuan.jsonc` (eller `~/.config/xiaochuan/xiaochuan.json`)
+- **macOS/Linux** (ældre installationer): `~/.local/share/xiaochuan/xiaochuan.jsonc`
+- **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.config\xiaochuan\xiaochuan.jsonc`
 
 Hvis du har konfigureret plugins, deaktiver dem midlertidigt ved at fjerne nøglen eller sætte den til et tomt array:
 
 ```jsonc
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "plugin": [],
 }
 ```
 
 #### Tjek plugin-mapper
 
-Xccode kan også indlæse lokale plugins fra disken. Flyt disse midlertidigt væk (eller giv mappen nyt navn) og start skrivebordsappen på ny:
+Xiaochuan kan også indlæse lokale plugins fra disken. Flyt disse midlertidigt væk (eller giv mappen nyt navn) og start skrivebordsappen på ny:
 
 - **Globale plugins**
-  - **macOS/Linux**: `~/.config/xccode/plugins/`
-  - **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.config\xccode\plugins`
+  - **macOS/Linux**: `~/.config/xiaochuan/plugins/`
+  - **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.config\xiaochuan\plugins`
 - **Projektplugins** (kun hvis du bruger konfiguration per projekt)
-  - `<your-project>/.xccode/plugins/`
+  - `<your-project>/.xiaochuan/plugins/`
 
 Hvis appen begynder at fungere igen, aktiverer du plugins én ad gangen for at finde ud af, hvilken som forårsager problemet.
 
@@ -86,22 +86,22 @@ Hvis appen begynder at fungere igen, aktiverer du plugins én ad gangen for at f
 
 ### Ryd cachen
 
-Hvis deaktivering af plugins ikke hjælper (eller en plugin-installation sidder fast), tøm cachen så Xccode kan genopbygge den.
+Hvis deaktivering af plugins ikke hjælper (eller en plugin-installation sidder fast), tøm cachen så Xiaochuan kan genopbygge den.
 
-1. Afslut Xccode Desktop helt.
+1. Afslut Xiaochuan Desktop helt.
 2. Slet cache-mappen:
 
-- **macOS**: Finder -> `Cmd+Shift+G` -> indsæt `~/.cache/xccode`
-- **Linux**: slet `~/.cache/xccode` (eller kør `rm -rf ~/.cache/xccode`)
-- **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.cache\xccode`
+- **macOS**: Finder -> `Cmd+Shift+G` -> indsæt `~/.cache/xiaochuan`
+- **Linux**: slet `~/.cache/xiaochuan` (eller kør `rm -rf ~/.cache/xiaochuan`)
+- **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.cache\xiaochuan`
 
-3. Start Xccode Desktop på ny.
+3. Start Xiaochuan Desktop på ny.
 
 ---
 
 ### Løs problemer med serverforbindelse
 
-Xccode Desktop kan enten starte sin egen lokale server (standard) eller forbinde til en server URL, du har konfigureret.
+Xiaochuan Desktop kan enten starte sin egen lokale server (standard) eller forbinde til en server URL, du har konfigureret.
 
 Hvis du ser en **"Forbindelse mislykkedes"**-dialogboks (eller appen kommer aldrig forbi splash-skærmen), se efter en brugerdefineret server URL.
 
@@ -111,13 +111,13 @@ Fra startskærmen klikker du på servernavnet (med statusprikken) for at åbne s
 
 #### Fjern `server.port` / `server.hostname` fra din konfiguration
 
-Hvis `xccode.json(c)` indeholder en `server`-del, fjern den midlertidigt og start skrivebordsappen på ny.
+Hvis `xiaochuan.json(c)` indeholder en `server`-del, fjern den midlertidigt og start skrivebordsappen på ny.
 
 #### Tjek miljøvariabler
 
-Hvis du har `XCCODE_PORT` sat i dit miljø, vil skrivebordsappen prøve at bruge den port for den lokale server.
+Hvis du har `XIAOCHUAN_PORT` sat i dit miljø, vil skrivebordsappen prøve at bruge den port for den lokale server.
 
-- Deaktiver `XCCODE_PORT` (eller vælg en ledig port) og start på ny.
+- Deaktiver `XIAOCHUAN_PORT` (eller vælg en ledig port) og start på ny.
 
 ---
 
@@ -132,21 +132,21 @@ På Linux kan nogle Wayland-opsætninger forårsage tomme vinduer eller komposit
 
 ### Windows: WebView2-runtime
 
-På Windows kræver Xccode Desktop Microsoft Edge **WebView2 Runtime**. Hvis appen åbnes i et tomt vindue eller ikke starter, installer/opdater WebView2 og prøv igen.
+På Windows kræver Xiaochuan Desktop Microsoft Edge **WebView2 Runtime**. Hvis appen åbnes i et tomt vindue eller ikke starter, installer/opdater WebView2 og prøv igen.
 
 ---
 
 ### Windows: Generelle ydeevneproblemer
 
-Hvis du oplever langsom ydeevne, problemer med filadgang eller terminalproblemer på Windows, kan du prøve at bruge [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). WSL giver et Linux-miljø som fungerer mere sømløst med funktionerne i Xccode.
+Hvis du oplever langsom ydeevne, problemer med filadgang eller terminalproblemer på Windows, kan du prøve at bruge [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). WSL giver et Linux-miljø som fungerer mere sømløst med funktionerne i Xiaochuan.
 
 ---
 
 ### Meddelelser vises ikke
 
-Xccode Desktop viser kun systemvarsler når:
+Xiaochuan Desktop viser kun systemvarsler når:
 
-- varsler er aktiveret for Xccode i dine OS-indstillinger, og
+- varsler er aktiveret for Xiaochuan i dine OS-indstillinger, og
 - appvinduet ikke er fokuseret.
 
 ---
@@ -155,11 +155,11 @@ Xccode Desktop viser kun systemvarsler når:
 
 Hvis appen ikke starter og du ikke kan slette indstillingerne fra UI, nulstil skrivebordsappens gemte tilstand.
 
-1. Afslut Xccode Desktop.
-2. Find og slet disse filer (de findes i Xccode Desktop-appens datamappe):
+1. Afslut Xiaochuan Desktop.
+2. Find og slet disse filer (de findes i Xiaochuan Desktop-appens datamappe):
 
-- `xccode.settings.dat` (skrivebordsstandardserver URL)
-- `xccode.global.dat` og `xccode.workspace.*.dat` (UI tilstand som nylige servere/projekter)
+- `xiaochuan.settings.dat` (skrivebordsstandardserver URL)
+- `xiaochuan.global.dat` og `xiaochuan.workspace.*.dat` (UI tilstand som nylige servere/projekter)
 
 Sådan finder du mappen hurtigt:
 
@@ -171,13 +171,13 @@ Sådan finder du mappen hurtigt:
 
 ## Få hjælp
 
-Hvis du oplever problemer med Xccode:
+Hvis du oplever problemer med Xiaochuan:
 
 1. **Rapporter problemer på GitHub**
 
    Den bedste måde at rapportere fejl eller bede om funktioner på er gennem vores GitHub-repo:
 
-   [**github.com/xiaowei56/xccode/issues**](https://github.com/xiaowei56/xccode/issues)
+   [**github.com/xiaowei56/xiaochuan/issues**](https://github.com/xiaowei56/xiaochuan/issues)
 
    Før du opretter et nyt issue, søg i eksisterende issues for at se om dit problem allerede er rapporteret.
 
@@ -185,7 +185,7 @@ Hvis du oplever problemer med Xccode:
 
    For hjælp i realtid og fællesskabsdiskussion, bliv en del af vores Discord-server:
 
-   [**xccode.ai/discord**](https://xccode.ai/discord)
+   [**xiaochuan.ai/discord**](https://xiaochuan.ai/discord)
 
 ---
 
@@ -195,11 +195,11 @@ Her er nogle almindelige problemer og hvordan du kan løse dem.
 
 ---
 
-### Xccode vil ikke starte
+### Xiaochuan vil ikke starte
 
 1. Tjek logfilerne for fejlmeddelelser
 2. Prøv at køre med `--print-logs` for at se output i terminalen
-3. Sørg for at du har den nyeste version med `xccode upgrade`
+3. Sørg for at du har den nyeste version med `xiaochuan upgrade`
 
 ---
 
@@ -225,9 +225,9 @@ Eksempler:
 
 - `openai/gpt-6.1-sol`
 - `openrouter/google/gemini-3.8-flash`
-- `xccode/kimi-k2`
+- `xiaochuan/kimi-k2`
 
-For at finde ud af hvilke modeller du har adgang til, kør `xccode models`
+For at finde ud af hvilke modeller du har adgang til, kør `xiaochuan models`
 
 ---
 
@@ -241,10 +241,10 @@ For at løse dette:
 2. Hvis problemet vedvarer, prøv at tømme den gemte konfiguration:
 
    ```bash
-   rm -rf ~/.local/share/xccode
+   rm -rf ~/.local/share/xiaochuan
    ```
 
-   På Windows, tryk `WIN+R` og slet: `%USERPROFILE%\.local\share\xccode`
+   På Windows, tryk `WIN+R` og slet: `%USERPROFILE%\.local\share\xiaochuan`
 
 3. Godkend på ny med din udbyder ved at bruge kommandoen `/connect` i TUI.
 
@@ -252,21 +252,21 @@ For at løse dette:
 
 ### AI_APICallError og udbyderpakkeproblemer
 
-Hvis du støder på API-kaldsfejl, kan dette skyldes forældede udbyderpakker. xccode installerer dynamisk udbyderpakker (OpenAI, Anthropic, Google, etc.) efter behov og cacher dem lokalt.
+Hvis du støder på API-kaldsfejl, kan dette skyldes forældede udbyderpakker. xiaochuan installerer dynamisk udbyderpakker (OpenAI, Anthropic, Google, etc.) efter behov og cacher dem lokalt.
 
 For at løse problemer med udbyderpakke:
 
 1. Tøm udbyderens pakkecache:
 
    ```bash
-   rm -rf ~/.cache/xccode
+   rm -rf ~/.cache/xiaochuan
    ```
 
-   På Windows, tryk `WIN+R` og slet: `%USERPROFILE%\.cache\xccode`
+   På Windows, tryk `WIN+R` og slet: `%USERPROFILE%\.cache\xiaochuan`
 
-2. Start xccode på ny for at installere de nyeste udbyderpakker på ny
+2. Start xiaochuan på ny for at installere de nyeste udbyderpakker på ny
 
-Dette vil tvinge xccode til at downloade de nyeste versioner af udbyderpakkerne, som ofte løser kompatibilitetsproblemer med modelparametre og API-ændringer.
+Dette vil tvinge xiaochuan til at downloade de nyeste versioner af udbyderpakkerne, som ofte løser kompatibilitetsproblemer med modelparametre og API-ændringer.
 
 ---
 
@@ -297,4 +297,4 @@ Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 export DISPLAY=:99.0
 ```
 
-xccode vil opdage om du bruger Wayland og foretrække `wl-clipboard`, ellers vil den prøve at finde udklipsholderværktøjer i rækkefølgen: `xclip` og `xsel`.
+xiaochuan vil opdage om du bruger Wayland og foretrække `wl-clipboard`, ellers vil den prøve at finde udklipsholderværktøjer i rækkefølgen: `xclip` og `xsel`.

@@ -1,6 +1,6 @@
 //! Pending forms are keyed by session ID, or [`GLOBAL`] for elicitations without a session.
-use xccode_api::client::Client;
-use xccode_api::generated::*;
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::*;
 
 use crate::location::Location;
 use crate::state::{Data, Error, State, Task, evict_missing};
@@ -183,7 +183,7 @@ impl Data {
         owner: &str,
         id: &FormID,
         location: Option<&Location>,
-        result: Result<(), xccode_api::error::Error>,
+        result: Result<(), xiaochuan_api::error::Error>,
     ) -> Result<(), Error> {
         if let Err(error) = result {
             let settled = error.declared().is_some_and(|declared| {
@@ -208,7 +208,7 @@ impl Data {
 fn form_client(client: &Client, owner: &str, location: Option<&Location>) -> Client {
     match (owner, location) {
         (GLOBAL, Some(location)) => {
-            client.with_header("x-xccode-directory", xccode_api::js::encode_component(&location.directory))
+            client.with_header("x-xiaochuan-directory", xiaochuan_api::js::encode_component(&location.directory))
         }
         _ => client.clone(),
     }

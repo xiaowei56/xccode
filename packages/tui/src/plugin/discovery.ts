@@ -1,13 +1,13 @@
 import { readdir, stat } from "node:fs/promises"
 import path from "node:path"
-import { localSource } from "@xccode/plugin/source"
+import { localSource } from "@xiaochuan/plugin/source"
 import { isMissingPath, localProjectDirectory, projectConfigDirectories } from "../util/config-directories"
 
 export { localSource }
 
 export async function localPluginDirectories(cwd: string, configDirectory: string) {
   const projectDirectory = await localProjectDirectory(cwd)
-  const projectConfig = path.join(projectDirectory, ".xccode")
+  const projectConfig = path.join(projectDirectory, ".xiaochuan")
   const directories = [configDirectory, ...projectConfigDirectories(projectDirectory, cwd)]
   const exists = await Promise.all(
     directories.map(async (directory) => {

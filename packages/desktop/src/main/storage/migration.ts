@@ -4,7 +4,7 @@ import { migrations } from "./migration.gen"
 /** The desktop journal, usable by the early preload read without loading Drizzle or Effect. */
 export function migrateDatabase(db: DatabaseSync) {
   // Check before writing anything: desktop tables written into the CLI database break the CLI's own migrations.
-  if (isCliDatabase(db)) throw new Error("drafts.sqlite is the Xccode CLI database")
+  if (isCliDatabase(db)) throw new Error("drafts.sqlite is the Xiaochuan CLI database")
 
   db.exec("CREATE TABLE IF NOT EXISTS migration (id TEXT PRIMARY KEY, time_completed INTEGER NOT NULL)")
 
@@ -35,7 +35,7 @@ export function migrateDatabase(db: DatabaseSync) {
   return pending.map((migration) => migration.id)
 }
 
-/** The CLI's xccode.db, reached through a symlink or a copy. Both apps define `blob` and `migration`, so they can't share one file. */
+/** The CLI's xiaochuan.db, reached through a symlink or a copy. Both apps define `blob` and `migration`, so they can't share one file. */
 export function isCliDatabase(db: DatabaseSync) {
   return (
     db.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name IN ('session', 'session_v2')").get() !==

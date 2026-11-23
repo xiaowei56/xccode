@@ -8,7 +8,7 @@ import statsStylesheetUrl from "./routes/index.css?url"
 const statsThemePreloadScript = `;(function () {
   var preference = "system"
   try {
-    var stored = localStorage.getItem("xccode:stats-theme")
+    var stored = localStorage.getItem("xiaochuan:stats-theme")
     if (stored === "dark" || stored === "light" || stored === "system") preference = stored
   } catch (_) {}
   document.documentElement.dataset.statsTheme = preference

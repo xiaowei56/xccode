@@ -1,14 +1,14 @@
 ---
 title: Windows (WSL)
-description: Kør Xccode på Windows med WSL for den bedste oplevelse.
+description: Kør Xiaochuan på Windows med WSL for den bedste oplevelse.
 ---
 
 import { Steps } from "@astrojs/starlight/components"
 
-Selvom Xccode kan køre direkte på Windows, anbefaler vi at bruge [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) for den bedste oplevelse. WSL giver et Linux-miljø, der fungerer problemfrit med Xccodes funktioner.
+Selvom Xiaochuan kan køre direkte på Windows, anbefaler vi at bruge [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) for den bedste oplevelse. WSL giver et Linux-miljø, der fungerer problemfrit med Xiaochuans funktioner.
 
 :::tip[Hvorfor WSL?]
-WSL giver bedre filsystemydelse, fuld terminalunderstøttelse og kompatibilitet med de udviklingsværktøjer, som Xccode er afhængig af.
+WSL giver bedre filsystemydelse, fuld terminalunderstøttelse og kompatibilitet med de udviklingsværktøjer, som Xiaochuan er afhængig af.
 :::
 
 ---
@@ -21,21 +21,21 @@ WSL giver bedre filsystemydelse, fuld terminalunderstøttelse og kompatibilitet 
 
    Hvis du ikke allerede har gjort det, så [installer WSL](https://learn.microsoft.com/en-us/windows/wsl/install) med Microsofts officielle vejledning.
 
-2. **Installer Xccode i WSL**
+2. **Installer Xiaochuan i WSL**
 
-   Når WSL er sat op, skal du åbne din WSL-terminal og installere Xccode med en af [installationsmetoderne](/docs/).
+   Når WSL er sat op, skal du åbne din WSL-terminal og installere Xiaochuan med en af [installationsmetoderne](/docs/).
 
    ```bash
-   curl -fsSL https://xccode.ai/install | bash
+   curl -fsSL https://xiaochuan.ai/install | bash
    ```
 
-3. **Brug Xccode fra WSL**
+3. **Brug Xiaochuan fra WSL**
 
-   Gå til din projektmappe (få adgang til Windows-filer via `/mnt/c/`, `/mnt/d/` osv.) og kør Xccode.
+   Gå til din projektmappe (få adgang til Windows-filer via `/mnt/c/`, `/mnt/d/` osv.) og kør Xiaochuan.
 
    ```bash
    cd /mnt/c/Users/YourName/project
-   xccode
+   xiaochuan
    ```
 
 </Steps>
@@ -44,12 +44,12 @@ WSL giver bedre filsystemydelse, fuld terminalunderstøttelse og kompatibilitet 
 
 ## Desktop-app + WSL-server
 
-Hvis du foretrækker Xccode Desktop-appen, men vil køre serveren i WSL:
+Hvis du foretrækker Xiaochuan Desktop-appen, men vil køre serveren i WSL:
 
 1. **Start serveren i WSL** med `--hostname 0.0.0.0` for at tillade eksterne forbindelser:
 
    ```bash
-   xccode serve --hostname 0.0.0.0 --port 4096
+   xiaochuan serve --hostname 0.0.0.0 --port 4096
    ```
 
 2. **Forbind Desktop-appen** til `http://localhost:4096`
@@ -59,10 +59,10 @@ Hvis `localhost` ikke virker i din opsætning, så forbind i stedet med WSL-IP-a
 :::
 
 :::caution[Caution]
-Når du bruger `--hostname 0.0.0.0`, skal du sætte `XCCODE_SERVER_PASSWORD` for at sikre serveren.
+Når du bruger `--hostname 0.0.0.0`, skal du sætte `XIAOCHUAN_SERVER_PASSWORD` for at sikre serveren.
 
 ```bash
-XCCODE_SERVER_PASSWORD=your-password xccode serve --hostname 0.0.0.0
+XIAOCHUAN_SERVER_PASSWORD=your-password xiaochuan serve --hostname 0.0.0.0
 ```
 
 :::
@@ -73,15 +73,15 @@ XCCODE_SERVER_PASSWORD=your-password xccode serve --hostname 0.0.0.0
 
 For den bedste weboplevelse på Windows:
 
-1. **Kør `xccode web` i WSL-terminalen** i stedet for PowerShell:
+1. **Kør `xiaochuan web` i WSL-terminalen** i stedet for PowerShell:
 
    ```bash
-   xccode web --hostname 0.0.0.0
+   xiaochuan web --hostname 0.0.0.0
    ```
 
-2. **Åbn fra din Windows-browser** på `http://localhost:<port>` (Xccode udskriver URL'en)
+2. **Åbn fra din Windows-browser** på `http://localhost:<port>` (Xiaochuan udskriver URL'en)
 
-Når du kører `xccode web` fra WSL, får du korrekt filsystemadgang og terminalintegration, samtidig med at det stadig er tilgængeligt fra din Windows-browser.
+Når du kører `xiaochuan web` fra WSL, får du korrekt filsystemadgang og terminalintegration, samtidig med at det stadig er tilgængeligt fra din Windows-browser.
 
 ---
 
@@ -97,17 +97,17 @@ Eksempel:
 
 ```bash
 cd /mnt/c/Users/YourName/Documents/project
-xccode
+xiaochuan
 ```
 
 :::tip
-For den mest problemfri oplevelse kan du overveje at klone/kopiere dit repo ind i WSL-filsystemet (for eksempel under `~/code/`) og køre Xccode derfra.
+For den mest problemfri oplevelse kan du overveje at klone/kopiere dit repo ind i WSL-filsystemet (for eksempel under `~/code/`) og køre Xiaochuan derfra.
 :::
 
 ---
 
 ## Tips
 
-- Lad Xccode køre i WSL for projekter, der ligger på Windows-drev - filadgangen er problemfri
-- Brug VS Codes [WSL-udvidelse](https://code.visualstudio.com/docs/remote/wsl) sammen med Xccode for et integreret udviklingsworkflow
-- Din Xccode-konfiguration og dine sessioner gemmes i WSL-miljøet i `~/.local/share/xccode/`
+- Lad Xiaochuan køre i WSL for projekter, der ligger på Windows-drev - filadgangen er problemfri
+- Brug VS Codes [WSL-udvidelse](https://code.visualstudio.com/docs/remote/wsl) sammen med Xiaochuan for et integreret udviklingsworkflow
+- Din Xiaochuan-konfiguration og dine sessioner gemmes i WSL-miljøet i `~/.local/share/xiaochuan/`

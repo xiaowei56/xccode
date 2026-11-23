@@ -1,27 +1,27 @@
 ---
 title: "Cloudflare"
-description: "Run Xccode inside a Cloudflare Durable Object with @xccode/sdk/workerd, backed by the object's SQLite storage."
+description: "Run Xiaochuan inside a Cloudflare Durable Object with @xiaochuan/sdk/workerd, backed by the object's SQLite storage."
 ---
 
-Use `@xccode/sdk/workerd` inside a Cloudflare Durable Object. This profile uses the object's SQLite storage,
+Use `@xiaochuan/sdk/workerd` inside a Cloudflare Durable Object. This profile uses the object's SQLite storage,
 persists durable events for eviction recovery, and replaces unavailable local filesystem and process services.
 
 ```sh
-bun add @xccode/sdk
+bun add @xiaochuan/sdk
 ```
 
 Hold one host for the lifetime of the Durable Object instance instead of creating one for every request.
 
 ```ts
-import { XccodeWorkerd } from "@xccode/sdk/workerd"
+import { XiaochuanWorkerd } from "@xiaochuan/sdk/workerd"
 import myPlugin from "./my-plugin"
 
-export class XccodeDO {
-  private readonly xccode: Promise<XccodeWorkerd.Interface>
+export class XiaochuanDO {
+  private readonly xiaochuan: Promise<XiaochuanWorkerd.Interface>
 
   constructor(state: DurableObjectState) {
-    this.xccode = state.blockConcurrencyWhile(() =>
-      XccodeWorkerd.create({
+    this.xiaochuan = state.blockConcurrencyWhile(() =>
+      XiaochuanWorkerd.create({
         storage: state.storage,
         config: { default_agent: "build" },
         plugins: [myPlugin],
@@ -30,8 +30,8 @@ export class XccodeDO {
   }
 
   async fetch() {
-    const xccode = await this.xccode
-    return Response.json(await xccode.server.info())
+    const xiaochuan = await this.xiaochuan
+    return Response.json(await xiaochuan.server.info())
   }
 }
 ```
@@ -41,13 +41,13 @@ initialization fails. The retained Promise gives request handlers direct access 
 
 ```ts
 constructor(state: DurableObjectState) {
-  this.xccode = state.blockConcurrencyWhile(() =>
-    XccodeWorkerd.create({ storage: state.storage }),
+  this.xiaochuan = state.blockConcurrencyWhile(() =>
+    XiaochuanWorkerd.create({ storage: state.storage }),
   )
 }
 ```
 
-Wrangler selects Xccode's Workerd-safe implementations through the `workerd` package condition. Cloudflare may evict
+Wrangler selects Xiaochuan's Workerd-safe implementations through the `workerd` package condition. Cloudflare may evict
 a Durable Object without running cleanup, so correctness does not depend on `close()` being called.
 
 ```jsonc title="wrangler.jsonc"
@@ -58,12 +58,12 @@ a Durable Object without running cleanup, so correctness does not depend on `clo
 
 ## Route outbound requests
 
-Pass `fetch` to route Xccode's outbound HTTP requests (Xccode Console config, model requests, web fetch and
+Pass `fetch` to route Xiaochuan's outbound HTTP requests (Xiaochuan Console config, model requests, web fetch and
 search, well-known config, and remote MCP servers) through a custom handler such as a Service Binding. Agent code in
 Code Mode continues to use `globalThis.fetch`.
 
 ```ts
-XccodeWorkerd.create({
+XiaochuanWorkerd.create({
   storage: state.storage,
   fetch: (input, init) => {
     const request = new Request(input, init)
@@ -74,13 +74,13 @@ XccodeWorkerd.create({
 
 ## Customize
 
-Customize your Xccode instance by registering plugins bundled with your
-Worker. Pass plugins to `XccodeWorkerd.create()` to customize agents, models,
+Customize your Xiaochuan instance by registering plugins bundled with your
+Worker. Pass plugins to `XiaochuanWorkerd.create()` to customize agents, models,
 tools, and other behavior:
 
 ```ts
-import { Plugin } from "@xccode/plugin"
-import { XccodeWorkerd } from "@xccode/sdk/workerd"
+import { Plugin } from "@xiaochuan/plugin"
+import { XiaochuanWorkerd } from "@xiaochuan/sdk/workerd"
 
 const plugin = Plugin.define({
   id: "customize-agent",
@@ -93,7 +93,7 @@ const plugin = Plugin.define({
   },
 })
 
-await XccodeWorkerd.create({
+await XiaochuanWorkerd.create({
   storage: state.storage,
   config: { default_agent: "build" },
   plugins: [plugin],

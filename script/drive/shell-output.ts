@@ -1,18 +1,18 @@
 import { Effect, Stream } from "effect"
-import { Llm, XccodeDriver } from "xccode-drive"
+import { Llm, XiaochuanDriver } from "xiaochuan-drive"
 
 const label = process.env.DEMO_LABEL ?? "AFTER"
 
-// Run from the repository root with `xccode-drive run script/drive/shell-output.ts`.
-// Set XCCODE_DEV to an immutable base worktree and DEMO_LABEL=BEFORE for comparison.
+// Run from the repository root with `xiaochuan-drive run script/drive/shell-output.ts`.
+// Set XIAOCHUAN_DEV to an immutable base worktree and DEMO_LABEL=BEFORE for comparison.
 // Only the conversation is simulated; shell execution and output reads are real.
-export default XccodeDriver.use(
+export default XiaochuanDriver.use(
   {
-    xccode: { dev: process.env.XCCODE_DEV ?? process.cwd() },
+    xiaochuan: { dev: process.env.XIAOCHUAN_DEV ?? process.cwd() },
     keepArtifacts: true,
     tui: { recording: true, keypressOverlay: true, viewport: { cols: 90, rows: 30 } },
     config: { autoupdate: false, username: "Demo" },
-    tuiConfig: { theme: { name: "xccode", mode: "dark" }, animations: false, tabs: { mode: "off" } },
+    tuiConfig: { theme: { name: "xiaochuan", mode: "dark" }, animations: false, tabs: { mode: "off" } },
     project: {
       git: true,
       files: {
@@ -30,18 +30,18 @@ export default XccodeDriver.use(
       },
     },
   },
-  ({ ui, llm, tui, xccode, artifacts }) =>
+  ({ ui, llm, tui, xiaochuan, artifacts }) =>
     Effect.gen(function* () {
       const recording = tui.recording
       if (!recording) return yield* Effect.fail(new Error("Recording required"))
       yield* llm.serve(() => Stream.make(Llm.text("Ready to inspect the render job.")))
       yield* ui.submit("Inspect the render job.")
       yield* ui.waitFor("Ready to inspect the render job.")
-      const sessions = yield* xccode.session.list({ limit: 1, order: "desc" })
+      const sessions = yield* xiaochuan.session.list({ limit: 1, order: "desc" })
       const session = sessions.data[0]
       if (!session) return yield* Effect.fail(new Error("Session missing"))
-      yield* xccode.session.rename({ sessionID: session.id, title: "Shell output demo" })
-      yield* xccode.shell.create({ command: "sh render-scene.sh", timeout: 0, metadata: { sessionID: session.id } })
+      yield* xiaochuan.session.rename({ sessionID: session.id, title: "Shell output demo" })
+      yield* xiaochuan.shell.create({ command: "sh render-scene.sh", timeout: 0, metadata: { sessionID: session.id } })
       yield* ui.arrow("down")
       yield* ui.arrow("right")
       yield* ui.waitFor("sh render-scene.sh")

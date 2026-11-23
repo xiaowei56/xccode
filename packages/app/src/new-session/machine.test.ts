@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { Session } from "@xccode/schema/session"
+import { Session } from "@xiaochuan/schema/session"
 import {
   NEW_SESSION_CREATE_TIMEOUT_MS,
   NEW_SESSION_WORKTREE_TIMEOUT_MS,

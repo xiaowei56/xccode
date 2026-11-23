@@ -1,7 +1,7 @@
-import { builtinCatalog } from "@xccode/plugin/gui/builtin"
+import { builtinCatalog } from "@xiaochuan/plugin/gui/builtin"
 import { Schema } from "effect"
-import { Plugin, Store } from "@xccode/plugin/gui"
-import { BuiltinStore } from "@xccode/plugin/gui/builtin"
+import { Plugin, Store } from "@xiaochuan/plugin/gui"
+import { BuiltinStore } from "@xiaochuan/plugin/gui/builtin"
 import en from "./i18n/en"
 
 const ReleaseNotes = Schema.Struct({ enabled: Schema.Boolean })

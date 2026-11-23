@@ -27,19 +27,19 @@ export const MODEL_NAME_ALIASES: Record<string, string> = {
   "cat-jam": "beam-1.0-501b-a23b",
   "crouton-alpha": "muse-ember-1.0",
   "deepseek-flash": "deepseek-v4.1-flash",
-  "deepseek-v4-1-flash-xccode-bo44an": "deepseek-v4.1-flash",
+  "deepseek-v4-1-flash-xiaochuan-bo44an": "deepseek-v4.1-flash",
   "deepseek-v4-flash-0731": "deepseek-v4-flash",
   "deepseek-v4-flash-dsv4-flash-final-rnaovd": "deepseek-v4-flash",
   "ll-alpha": "flint-40b",
-  "xccode-go/union-alpha": "union-alpha",
-  "xccode/union-alpha": "union-alpha",
+  "xiaochuan-go/union-alpha": "union-alpha",
+  "xiaochuan/union-alpha": "union-alpha",
   "ox-alpha": "glm-5.3-flash",
   "x-preview-f": "glm-5.3-flash",
   "space-bunny": "minimax-m3.1-flash",
   "xiaomi/mimo-v2.5": "mimo-v2.5",
 }
 export const RETIRED_STAT_MODELS = ["big-pickle", ...Object.keys(MODEL_NAME_ALIASES)]
-export const RETIRED_STAT_PROVIDERS = ["xccode"]
+export const RETIRED_STAT_PROVIDERS = ["xiaochuan"]
 
 export function normalizeInferenceModel(value: string | undefined) {
   return (value || "unknown").toLowerCase().replace(/(-free|:free|:global)+$/, "") || "unknown"

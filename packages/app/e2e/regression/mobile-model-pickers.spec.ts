@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test"
 import { fixture, installStressSessionTabs } from "../utils/session-fixture"
 import { sessionHref } from "../utils/app"
 import { openWithDirection } from "../utils/direction"
-import { mockXccodeServer } from "../utils/mock-server"
+import { mockXiaochuanServer } from "../utils/mock-server"
 import { expectAppVisible } from "../utils/waits"
 
 for (const direction of ["ltr", "rtl"] as const) {
@@ -131,7 +131,7 @@ for (const direction of ["ltr", "rtl"] as const) {
     await model.click()
     await expect(dialog.getByRole("combobox", { name: "Search models", exact: true })).toBeFocused()
     await expect(page.getByRole("menu")).toHaveCount(0)
-    await dialog.locator('[data-option-key="xccode:mobile-b"]').click()
+    await dialog.locator('[data-option-key="xiaochuan:mobile-b"]').click()
     await expect(dialog).toBeHidden()
     await expect(model).toHaveText("Mobile Model B")
     await expect(page.locator('[data-slot="mobile-drawer-content"]')).toHaveCount(0)
@@ -142,13 +142,13 @@ for (const direction of ["ltr", "rtl"] as const) {
     const { model, variant, dialog } = await openDesktopPicker(page, direction)
     const flyout = dialog.locator('[data-slot="model-dialog-flyout"]')
     await model.click()
-    await dialog.locator('[data-option-key="xccode:mobile-a"]').hover()
+    await dialog.locator('[data-option-key="xiaochuan:mobile-a"]').hover()
     await expect(flyout.getByRole("menuitemradio", { name: "balanced", exact: true })).toHaveAttribute(
       "aria-checked",
       "true",
     )
-    await dialog.locator('[data-option-key="xccode:mobile-b"]').hover()
-    await expect(flyout.getByText("Xccode · 1M context", { exact: true })).toBeVisible()
+    await dialog.locator('[data-option-key="xiaochuan:mobile-b"]').hover()
+    await expect(flyout.getByText("Xiaochuan · 1M context", { exact: true })).toBeVisible()
     await expect(flyout.getByText("Text, Image, PDF, Tools", { exact: true })).toBeVisible()
     await flyout.getByRole("menuitemradio", { name: "max", exact: true }).click()
     await expect(dialog).toBeHidden()
@@ -235,9 +235,9 @@ test("model dialog flyout follows the arrow keys, waits while one is held, and c
   const { model, dialog } = await openDesktopPicker(page, "ltr")
   const flyout = dialog.locator('[data-slot="model-dialog-flyout"]')
   const search = dialog.getByRole("combobox", { name: "Search models", exact: true })
-  const rowA = dialog.locator('[data-option-key="xccode:mobile-a"]')
-  const rowB = dialog.locator('[data-option-key="xccode:mobile-b"]')
-  const rowC = dialog.locator('[data-option-key="xccode:mobile-c"]')
+  const rowA = dialog.locator('[data-option-key="xiaochuan:mobile-a"]')
+  const rowB = dialog.locator('[data-option-key="xiaochuan:mobile-b"]')
+  const rowC = dialog.locator('[data-option-key="xiaochuan:mobile-c"]')
   await model.click()
   await expect(search).toBeFocused()
   await expect(flyout.getByRole("menuitemradio", { name: "balanced", exact: true })).toBeVisible()
@@ -257,7 +257,7 @@ test("model dialog flyout follows the arrow keys, waits while one is held, and c
   await expect(rowC).toHaveAttribute("data-active", "")
   await expect(flyout).toHaveCount(0)
   await page.clock.runFor(200)
-  await expect(flyout.getByText("Xccode · 262K context", { exact: true })).toBeVisible()
+  await expect(flyout.getByText("Xiaochuan · 262K context", { exact: true })).toBeVisible()
 
   // The pointer takes the flyout over at once.
   await rowB.hover()
@@ -278,8 +278,8 @@ test("model dialog shows a summary and only the default variant for models witho
   const { model, dialog } = await openDesktopPicker(page, "ltr")
   const flyout = dialog.locator('[data-slot="model-dialog-flyout"]')
   await model.click()
-  await dialog.locator('[data-option-key="xccode:mobile-c"]').hover()
-  await expect(flyout.getByText("Xccode · 262K context", { exact: true })).toBeVisible()
+  await dialog.locator('[data-option-key="xiaochuan:mobile-c"]').hover()
+  await expect(flyout.getByText("Xiaochuan · 262K context", { exact: true })).toBeVisible()
   await expect(flyout.getByRole("menuitemradio")).toHaveText(["Default"])
 })
 
@@ -290,31 +290,31 @@ test("model dialog toggles a favorite from the keyboard and leads with favorite 
   const sections = dialog.locator('[data-slot="search-list-header"]')
   const search = dialog.getByRole("combobox", { name: "Search models", exact: true })
   await model.click()
-  await expect(sections).toHaveText(["Xccode"])
+  await expect(sections).toHaveText(["Xiaochuan"])
   await search.press("ArrowDown")
   await search.press("ArrowDown")
   await search.press("ControlOrMeta+f")
-  await expect(sections).toHaveText(["Favorites", "Xccode"])
+  await expect(sections).toHaveText(["Favorites", "Xiaochuan"])
   // A favorite leaves its provider group, so the model is listed once.
-  await expect(dialog.locator('[data-option-key="xccode:mobile-c"]')).toHaveCount(1)
-  await dialog.locator('[data-option-key="xccode:mobile-b"]').click()
+  await expect(dialog.locator('[data-option-key="xiaochuan:mobile-c"]')).toHaveCount(1)
+  await dialog.locator('[data-option-key="xiaochuan:mobile-b"]').click()
   await expect(model).toHaveText("Mobile Model B")
 
   await model.click()
-  await expect(sections).toHaveText(["Favorites", "Recent", "Xccode"])
-  await expect(dialog.locator('[data-option-key="xccode:mobile-b"]')).toHaveAttribute("aria-current", "true")
+  await expect(sections).toHaveText(["Favorites", "Recent", "Xiaochuan"])
+  await expect(dialog.locator('[data-option-key="xiaochuan:mobile-b"]')).toHaveAttribute("aria-current", "true")
   await search.fill("Mobile")
-  await expect(sections).toHaveText(["Xccode"])
+  await expect(sections).toHaveText(["Xiaochuan"])
   await search.press("Escape")
   await expect(dialog).toBeHidden()
   // The dialog opens on its first row with the search focused, not on the selected model further down.
   await model.click()
   await expect(search).toBeFocused()
-  await expect(dialog.locator('[data-option-key="xccode:mobile-c"]')).toHaveAttribute("data-active", "")
-  await expect(dialog.locator('[data-option-key="xccode:mobile-b"]')).not.toHaveAttribute("data-active")
+  await expect(dialog.locator('[data-option-key="xiaochuan:mobile-c"]')).toHaveAttribute("data-active", "")
+  await expect(dialog.locator('[data-option-key="xiaochuan:mobile-b"]')).not.toHaveAttribute("data-active")
   await search.press("ControlOrMeta+f")
-  await expect(sections).toHaveText(["Recent", "Xccode"])
-  await expect(dialog.locator('[data-option-key="xccode:mobile-c"]')).toHaveAttribute("data-active", "")
+  await expect(sections).toHaveText(["Recent", "Xiaochuan"])
+  await expect(dialog.locator('[data-option-key="xiaochuan:mobile-c"]')).toHaveAttribute("data-active", "")
 })
 
 test("model dialog opens Manage models from its search row with Enter", async ({ page }) => {
@@ -380,17 +380,17 @@ async function openDesktopPicker(page: Page, direction: "ltr" | "rtl") {
 }
 
 async function openPickerSession(page: Page, direction: "ltr" | "rtl", paid: boolean) {
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     ...fixture,
     sessions: fixture.sessions.map((session) => ({
       ...session,
-      model: { id: "mobile-a", providerID: "xccode", variant: "balanced" },
+      model: { id: "mobile-a", providerID: "xiaochuan", variant: "balanced" },
     })),
     provider: {
       all: [
         {
-          id: "xccode",
-          name: "Xccode",
+          id: "xiaochuan",
+          name: "Xiaochuan",
           models: Object.fromEntries(
             ["a", "b", "c"].map((id) => [
               `mobile-${id}`,
@@ -410,18 +410,18 @@ async function openPickerSession(page: Page, direction: "ltr" | "rtl", paid: boo
           ),
         },
       ],
-      connected: ["xccode"],
-      default: { providerID: "xccode", modelID: "mobile-a" },
+      connected: ["xiaochuan"],
+      default: { providerID: "xiaochuan", modelID: "mobile-a" },
     },
     pageMessages: () => ({ items: [] }),
   })
   await installStressSessionTabs(page)
   await page.addInitScript((direction) => {
-    localStorage.setItem("xccode-color-scheme", direction === "rtl" ? "dark" : "light")
+    localStorage.setItem("xiaochuan-color-scheme", direction === "rtl" ? "dark" : "light")
     localStorage.setItem(
-      "xccode.global.dat:model",
+      "xiaochuan.global.dat:model",
       JSON.stringify({
-        user: ["a", "b", "c"].map((id) => ({ providerID: "xccode", modelID: `mobile-${id}`, visibility: "show" })),
+        user: ["a", "b", "c"].map((id) => ({ providerID: "xiaochuan", modelID: `mobile-${id}`, visibility: "show" })),
         recent: [],
         variant: {},
       }),

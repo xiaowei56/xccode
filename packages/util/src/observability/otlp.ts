@@ -42,19 +42,19 @@ function resourceAttributes() {
   }
 }
 
-export function resource(app: App = { client: "xccode", version: "unknown", channel: "local" }): {
+export function resource(app: App = { client: "xiaochuan", version: "unknown", channel: "local" }): {
   serviceName: string
   serviceVersion: string
   attributes: Record<string, string>
 } {
   return {
-    serviceName: "xccode",
+    serviceName: "xiaochuan",
     serviceVersion: app.version,
     attributes: {
       ...resourceAttributes(),
       "deployment.environment.name": app.channel,
-      "xccode.client": app.client,
-      "xccode.run": runID(),
+      "xiaochuan.client": app.client,
+      "xiaochuan.run": runID(),
       "service.instance.id": runID(),
     },
   }

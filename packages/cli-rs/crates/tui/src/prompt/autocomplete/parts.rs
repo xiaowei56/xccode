@@ -1,9 +1,9 @@
 //! Atomic prompt extmarks for file, agent, and skill mentions.
 
-use xccode_api::generated::{PromptAgentAttachment, PromptInputSkillAttachment};
+use xiaochuan_api::generated::{PromptAgentAttachment, PromptInputSkillAttachment};
 use opentui::widget::{ExtmarkId, ExtmarkOptions};
 
-use xccode_ui::prompt_input;
+use xiaochuan_ui::prompt_input;
 
 use crate::prelude::*;
 use crate::prompt::editor::Inner;
@@ -151,7 +151,7 @@ pub fn restore(prompt: &Inner) {
 /// Reapply mention styles without changing text, selection, or edit history.
 pub fn restyle(prompt: &Inner, old: &Theme, new: &Theme) {
     const SCOPES: [&str; 4] = ["extmark.file", "extmark.agent", "extmark.skill", "extmark.paste"];
-    let (old, new) = (xccode_ui::code::syntax_theme(old), xccode_ui::code::syntax_theme(new));
+    let (old, new) = (xiaochuan_ui::code::syntax_theme(old), xiaochuan_ui::code::syntax_theme(new));
     let mut marks = prompt.textarea.extmarks();
     marks.sort_by_key(|mark| mark.id);
     let mut tracked = prompt.parts.marks.borrow_mut();
@@ -262,7 +262,7 @@ pub fn skills(entry: &Value) -> Option<Vec<PromptInputSkillAttachment>> {
     serde_json::from_value::<Vec<_>>(entry.get(Kind::Skill.key())?.clone()).ok().filter(|skills| !skills.is_empty())
 }
 
-pub use xccode_ui::prompt_input::replace;
+pub use xiaochuan_ui::prompt_input::replace;
 
 /// An atomic mark in the kind's `extmark.*` style.
 fn options(prompt: &Inner, kind: Kind) -> ExtmarkOptions {
@@ -273,7 +273,7 @@ fn options(prompt: &Inner, kind: Kind) -> ExtmarkOptions {
 pub(crate) fn styled(prompt: &Inner, scope: &str) -> ExtmarkOptions {
     let options = ExtmarkOptions::default().atomic();
     let Some(tui) = prompt.tui.upgrade() else { return options };
-    match xccode_ui::code::syntax_theme(&tui.page()).get(scope) {
+    match xiaochuan_ui::code::syntax_theme(&tui.page()).get(scope) {
         Some(style) => options.style(style),
         None => options,
     }

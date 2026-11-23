@@ -1,4 +1,4 @@
-// A fake Xccode server for P-CLI and P-PTY: it serves a scenario's route table and logs every
+// A fake Xiaochuan server for P-CLI and P-PTY: it serves a scenario's route table and logs every
 // request, so both clients can run with `--server <url>` and never touch the user's service.
 
 import { createEventStream, createFetch } from "../../../tui/test/fixture/tui-client"

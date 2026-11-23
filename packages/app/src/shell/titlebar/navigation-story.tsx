@@ -1,4 +1,4 @@
-import type { ProjectListOutput, SessionInfo } from "@xccode/client/promise"
+import type { ProjectListOutput, SessionInfo } from "@xiaochuan/client/promise"
 import { createMemoryHistory, MemoryRouter, Route } from "@solidjs/router"
 import { createEffect, on, Show } from "solid-js"
 import {
@@ -116,8 +116,8 @@ export function NavigationStory(props: { preset: Preset; width: number }) {
   }
 
   const storage = createMemoryStorage()
-  storage("xccode.window.navigation.dat").setItem("tabs", JSON.stringify(tabs))
-  storage("xccode.global.dat").setItem("sidebar.view", JSON.stringify(view))
+  storage("xiaochuan.window.navigation.dat").setItem("tabs", JSON.stringify(tabs))
+  storage("xiaochuan.global.dat").setItem("sidebar.view", JSON.stringify(view))
 
   const platform: Platform = {
     platform: "desktop",

@@ -1,5 +1,5 @@
-import { Icon } from "@xccode/ui/icon"
-import type { SkillInfo } from "@xccode/client/promise"
+import { Icon } from "@xiaochuan/ui/icon"
+import type { SkillInfo } from "@xiaochuan/client/promise"
 import { createEffect, onCleanup } from "solid-js"
 import { useLanguage } from "@/runtime/i18n/language"
 import { usePlatform } from "@/runtime/platform/platform"
@@ -10,7 +10,7 @@ import { consoleMcpLinks, consoleMcps, consoleSkillLink, consoleWorkspace } from
 import "@/settings/settings.css"
 
 /**
- * Which MCP servers and skills Xccode Console delivers, read from config and the Console sign-in, for the Extensions
+ * Which MCP servers and skills Xiaochuan Console delivers, read from config and the Console sign-in, for the Extensions
  * pages. `directory` is the Location whose config decides which same-named server wins; without one, the server's.
  */
 export function createConsoleSources(directory: () => string | undefined) {
@@ -47,7 +47,7 @@ export function createConsoleSources(directory: () => string | undefined) {
   const signedIn = () =>
     !!data.location.integration
       .list(location())
-      ?.find((integration) => integration.id === "xccode")
+      ?.find((integration) => integration.id === "xiaochuan")
       ?.connections.some((connection) => connection.type === "credential")
 
   const mcps = () => {

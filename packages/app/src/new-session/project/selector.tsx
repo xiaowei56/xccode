@@ -1,5 +1,5 @@
 import { type Accessor, createMemo } from "solid-js"
-import { Icon } from "@xccode/ui/icon"
+import { Icon } from "@xiaochuan/ui/icon"
 import { useLanguage } from "@/runtime/i18n/language"
 import { pathKey } from "@/workspaces/path-key"
 

@@ -10,9 +10,9 @@
 
 An escape sequence in that text reaches the terminal. Example: a session titled `x\e]52;c;cHduZWQ=\a` writes
 "pwned" to the clipboard (OSC 52) when the TUI exits on it, and a model reply with the same bytes does it during
-`xccode run hi`.
+`xiaochuan run hi`.
 
-**Rust.** `xccode_ui::terminal_text` filters that text first: it removes the escape sequences `ansi-regex`
+**Rust.** `xiaochuan_ui::terminal_text` filters that text first: it removes the escape sequences `ansi-regex`
 matches, then every other C0 control except newline and tab, DEL, and C1. The client's own styling is added
 after the filter, so it stays. The examples print `xy` and nothing reaches the clipboard. A tool output with color
 codes prints without them; a carriage return is dropped, so `\r\n` prints as `\n`. Text without control

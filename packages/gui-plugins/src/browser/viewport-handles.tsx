@@ -1,4 +1,4 @@
-import { usePlugin } from "@xccode/plugin/gui"
+import { usePlugin } from "@xiaochuan/plugin/gui"
 import { For, onCleanup } from "solid-js"
 
 type Grip = "width" | "height" | "corner"

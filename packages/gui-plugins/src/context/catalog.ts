@@ -1,6 +1,6 @@
 import { onCleanup, type Accessor } from "solid-js"
-import { isServiceUnavailableError } from "@xccode/client/promise"
-import { createKeyed, type MountedSession } from "@xccode/plugin/gui"
+import { isServiceUnavailableError } from "@xiaochuan/client/promise"
+import { createKeyed, type MountedSession } from "@xiaochuan/plugin/gui"
 import {
   CATALOG_LOAD_TIMEOUT_MS,
   createCatalogState,

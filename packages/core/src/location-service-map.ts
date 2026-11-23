@@ -1,7 +1,7 @@
 import { Context, Effect, Exit, Layer, LayerMap, RcMap } from "effect"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Node } from "@xccode/util/effect/app-node"
-import { AbsolutePath } from "@xccode/schema/schema"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Node } from "@xiaochuan/util/effect/app-node"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
 import path from "path"
 import { Location } from "./location.js"
 import type { Instance } from "./instance.js"
@@ -9,7 +9,7 @@ import type { Instance } from "./instance.js"
 export class Service extends Context.Service<
   Service,
   LayerMap.LayerMap<Location.Ref, Instance.Services, Instance.Error>
->()("@xccode/example/LocationServiceMap") {
+>()("@xiaochuan/example/LocationServiceMap") {
   static get(ref: Location.Ref) {
     return Layer.unwrap(Effect.map(Service, (locations) => locations.get(ref)))
   }

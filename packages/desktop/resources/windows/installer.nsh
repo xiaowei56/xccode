@@ -1,5 +1,5 @@
 ; electron-builder names a one-click per-user install directory after the package name, which every
-; channel shares, so Xccode, Xccode Beta and Xccode Dev all installed into one "@xccodedesktop"
+; channel shares, so Xiaochuan, Xiaochuan Beta and Xiaochuan Dev all installed into one "@xiaochuandesktop"
 ; directory and each channel's installer and uninstaller replaced or deleted the others' files.
 ; Each channel now installs into a directory named after its app ID, like its data directory.
 ; Only the installer moves, and NSIS rejects a variable that the uninstaller build never sets.

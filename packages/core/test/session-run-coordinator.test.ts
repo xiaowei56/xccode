@@ -1,7 +1,7 @@
 import { describe, expect } from "bun:test"
 import { Cause, Deferred, Effect, Exit, Fiber, Layer } from "effect"
-import { SessionInbox } from "@xccode/core/session/inbox"
-import { SessionRunCoordinator } from "@xccode/core/session/run-coordinator"
+import { SessionInbox } from "@xiaochuan/core/session/inbox"
+import { SessionRunCoordinator } from "@xiaochuan/core/session/run-coordinator"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(Layer.empty)

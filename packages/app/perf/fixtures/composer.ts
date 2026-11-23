@@ -1,7 +1,7 @@
-import { base64Encode } from "@xccode/util/encode"
+import { base64Encode } from "@xiaochuan/util/encode"
 import type { Page } from "@playwright/test"
 import { sessionHref } from "../../e2e/utils/app"
-import { mockXccodeServer } from "../../e2e/utils/mock-server"
+import { mockXiaochuanServer } from "../../e2e/utils/mock-server"
 import { fixture } from "../../e2e/utils/session-fixture"
 
 const sessionID = "ses_perf_composer"
@@ -36,7 +36,7 @@ export async function mockLargeDraft(page: Page, server: string) {
     ).join("\n"),
   }))
 
-  await mockXccodeServer(page, {
+  await mockXiaochuanServer(page, {
     server,
     directory: fixture.directory,
     project: fixture.project,
@@ -141,7 +141,7 @@ export async function seedHistory() {
     }),
   )
 
-  const open = indexedDB.open("xccode-drafts", 1)
+  const open = indexedDB.open("xiaochuan-drafts", 1)
   open.onupgradeneeded = () => {
     open.result.createObjectStore("documents")
     open.result.createObjectStore("blobs")
@@ -153,10 +153,10 @@ export async function seedHistory() {
   })
 
   const transaction = db.transaction(["documents", "blobs"], "readwrite")
-  transaction.objectStore("documents").put(JSON.stringify({ entries: normal }), "xccode.global.dat:prompt-history")
+  transaction.objectStore("documents").put(JSON.stringify({ entries: normal }), "xiaochuan.global.dat:prompt-history")
   transaction
     .objectStore("documents")
-    .put(JSON.stringify({ entries: shell }), "xccode.global.dat:prompt-history-shell")
+    .put(JSON.stringify({ entries: shell }), "xiaochuan.global.dat:prompt-history-shell")
   screenshots.forEach((screenshot) => transaction.objectStore("blobs").put(screenshot.blob, screenshot.id))
   await new Promise<void>((resolve, reject) => {
     transaction.oncomplete = () => resolve()

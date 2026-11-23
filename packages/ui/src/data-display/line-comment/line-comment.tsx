@@ -13,14 +13,14 @@ import {
   type ComponentProps,
   type JSX,
 } from "solid-js"
-import { FileIcon } from "@xccode/ui/file-icon"
+import { FileIcon } from "@xiaochuan/ui/file-icon"
 import { useI18n } from "../../context/i18n"
-import { Button } from "@xccode/ui/button"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Keybind } from "@xccode/ui/keybind"
-import { Tooltip } from "@xccode/ui/tooltip"
-import { Loader } from "@xccode/ui/loader"
+import { Button } from "@xiaochuan/ui/button"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Keybind } from "@xiaochuan/ui/keybind"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
+import { Loader } from "@xiaochuan/ui/loader"
 import { makeEventListener } from "@solid-primitives/event-listener"
 import {
   createLineCommentEditorState,

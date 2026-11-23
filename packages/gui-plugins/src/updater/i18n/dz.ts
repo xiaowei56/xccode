@@ -4,13 +4,13 @@ export default {
   "action.checking": "ཞིབ་དཔྱད་འབད་དོ།",
   "action.downloading": "ཕབ་ལེན་འབད་དོ།",
   "action.installRestart": "གཞི་བཙུགས་དང་ལོག་འགོ་བཙུགས།",
-  "action.download": "Xccode ཕབ་ལེན་འབད།",
+  "action.download": "Xiaochuan ཕབ་ལེན་འབད།",
   "action.installing": "གཞི་བཙུགས་འབད་དོ།",
   "toast.latest.title": "ཁྱོད་དུས་དང་བསྟུན།",
-  "toast.latest.description": "ཁྱོད་ཀྱིས་ Xccodeགི་ཐོན་རིམ་གསརཔ་འདི་གཡོག་བཀོལ་དོ།",
+  "toast.latest.description": "ཁྱོད་ཀྱིས་ Xiaochuanགི་ཐོན་རིམ་གསརཔ་འདི་གཡོག་བཀོལ་དོ།",
   "migration.title": "Beta ལས་ Stable ལུ་སྤོ།",
   "migration.description":
-    "ད་ལྟོའི་རིང་ལུ་ Xccode Beta འདི་ Xccode Stable ལུ་སྤོ་དོ། དུས་མཐུན་ཚུ་འཕྲོ་མཐུད་དེ་ཐོབ་ནི་ལུ་ ཐོན་རིམ་ {{version}} ཕབ་ལེན་འབད་དེ་ ཌིཀསི་གཟུགས་བརྙན་ལས་ Xccode གཞི་བཙུགས་འབད།",
+    "ད་ལྟོའི་རིང་ལུ་ Xiaochuan Beta འདི་ Xiaochuan Stable ལུ་སྤོ་དོ། དུས་མཐུན་ཚུ་འཕྲོ་མཐུད་དེ་ཐོབ་ནི་ལུ་ ཐོན་རིམ་ {{version}} ཕབ་ལེན་འབད་དེ་ ཌིཀསི་གཟུགས་བརྙན་ལས་ Xiaochuan གཞི་བཙུགས་འབད།",
   "section.title": "དུས་མཐུན།",
   "releaseNotes.title": "འགྲེམ་སྤེལ་དྲན་ཐོ།",
   "releaseNotes.description": "དུས་མཐུན་བཟོ་ཚར་བའི་ཤུལ་ལས་ པོཔ་ཨཔ་གསརཔ་ག་ཅི་ཡོདཔ་ཨིན་ན་སྟོན།",
@@ -33,7 +33,7 @@ export default {
   "action.reloading": "ཡང་བསྐྱར་མངོན་གསལ་འབད་དོ…",
   "web.ready.title": "དུས་མཐུན་གྲ་སྒྲིག་ཡོདཔ།",
   "web.ready.message":
-    "Xccode གི་ཐོན་རིམ་གསརཔ་ཅིག་ གྲ་སྒྲིག་ཡོདཔ། ཁ་ཕྱེ་ཡོད་པའི་སྒོ་སྒྲིག་ག་ར་ནང་ ལག་ལེན་འཐབ་ནིའི་དོན་ལུ་ ཡང་བསྐྱར་མངོན་གསལ་འབད།",
+    "Xiaochuan གི་ཐོན་རིམ་གསརཔ་ཅིག་ གྲ་སྒྲིག་ཡོདཔ། ཁ་ཕྱེ་ཡོད་པའི་སྒོ་སྒྲིག་ག་ར་ནང་ ལག་ལེན་འཐབ་ནིའི་དོན་ལུ་ ཡང་བསྐྱར་མངོན་གསལ་འབད།",
   "web.reload": "ཡང་བསྐྱར་མངོན་གསལ།",
   "web.reset.title": "སར་བར་ལས་ ཡང་བསྐྱར་མངོན་གསལ།",
   "web.reset.description":

@@ -1,5 +1,5 @@
 import { createEffect, createSignal, on, onCleanup, Show } from "solid-js"
-import { Button } from "@xccode/ui/button"
+import { Button } from "@xiaochuan/ui/button"
 import { ErrorDetails } from "./error-details"
 
 type Phase = "failed" | "retrying" | "connected"

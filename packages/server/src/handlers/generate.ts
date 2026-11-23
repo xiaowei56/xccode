@@ -1,9 +1,9 @@
-import { Flag } from "@xccode/core/flag"
-import { Generate } from "@xccode/core/generate"
-import { VideoGeneration } from "@xccode/core/video-generation"
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-services"
-import { AbsolutePath } from "@xccode/core/schema"
+import { Flag } from "@xiaochuan/core/flag"
+import { Generate } from "@xiaochuan/core/generate"
+import { VideoGeneration } from "@xiaochuan/core/video-generation"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-services"
+import { AbsolutePath } from "@xiaochuan/core/schema"
 import {
   ForbiddenError,
   VideoNotFoundError,
@@ -12,10 +12,10 @@ import {
   ProviderRequestError,
   ServiceUnavailableError,
   UnsupportedModelError,
-} from "@xccode/protocol/errors"
-import type { DecisionRequest, VideoID, ImageRequest, VideoRequest } from "@xccode/schema/generate"
-import { Global } from "@xccode/util/global"
-import { Model } from "@xccode/schema/model"
+} from "@xiaochuan/protocol/errors"
+import type { DecisionRequest, VideoID, ImageRequest, VideoRequest } from "@xiaochuan/schema/generate"
+import { Global } from "@xiaochuan/util/global"
+import { Model } from "@xiaochuan/schema/model"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"

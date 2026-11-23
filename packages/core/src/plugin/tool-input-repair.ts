@@ -1,7 +1,7 @@
 export * as ToolInputRepairPlugin from "./tool-input-repair.js"
 
-import { ToolFailure } from "@xccode/ai/effect"
-import { define } from "@xccode/plugin/effect/plugin"
+import { ToolFailure } from "@xiaochuan/ai/effect"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 import { Effect, JsonSchema, Option, Predicate, Schema } from "effect"
 import { definition, normalizeContent } from "../tool/runtime.js"
 
@@ -24,7 +24,7 @@ const maxDepth = 6
 const aliases = new Map([["bash", "shell"]])
 
 export const Plugin = define({
-  id: "xccode.tool.input.repair",
+  id: "xiaochuan.tool.input.repair",
   effect: (ctx) =>
     Effect.gen(function* () {
       const aliased = new Map<string, string>()

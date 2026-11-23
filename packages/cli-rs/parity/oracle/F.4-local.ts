@@ -3,7 +3,7 @@
 //   bun F.4-local.ts <ts-root> lock-hold <dir> <key> <staleMs>   acquire, print "acquired", release on a stdin line
 //   bun F.4-local.ts <ts-root> lock-try <dir> <key> <timeoutMs> <staleMs>   print "acquired" or "timeout"
 //   bun F.4-local.ts <ts-root> oracle                            channel and registration functions as JSON
-//   bun F.4-local.ts <ts-root> config <get|set|unset> [args...]  `xccode service` config operations
+//   bun F.4-local.ts <ts-root> config <get|set|unset> [args...]  `xiaochuan service` config operations
 //
 // <ts-root> is a checkout of this repository. The lock commands import only Node built-ins; oracle
 // and config need its node_modules. config uses the XDG variables of its environment, so callers
@@ -43,7 +43,7 @@ if (command === "lock-try") {
 
 if (command === "oracle") {
   const { ServiceConfig } = await load("./services/service-config")
-  const { Service } = await load("@xccode/client/effect/service")
+  const { Service } = await load("@xiaochuan/client/effect/service")
   const { Schema, Option } = await load("effect")
   const decode = Schema.decodeUnknownOption(Schema.fromJsonString(Service.Info))
   const channels = ["latest", "dev", "beta", "next", "local", "oc-opentui-next", "feat/a b", "x", "ünï"]
@@ -89,7 +89,7 @@ if (command === "oracle") {
 
 if (command === "config") {
   const { ServiceConfig } = await load("./services/service-config")
-  const { Global } = await load("@xccode/util/global")
+  const { Global } = await load("@xiaochuan/util/global")
   const { Effect } = await load("effect")
   const { NodeServices } = await load("@effect/platform-node")
   const [op, ...rest] = args

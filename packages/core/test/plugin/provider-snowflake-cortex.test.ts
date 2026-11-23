@@ -1,19 +1,19 @@
-import { Message } from "@xccode/ai/effect"
-import { LLMClient, RequestExecutor } from "@xccode/ai/route"
-import { Agent } from "@xccode/core/agent"
-import { Credential } from "@xccode/core/credential"
-import { Integration } from "@xccode/core/integration"
-import { Location } from "@xccode/core/location"
-import { Model } from "@xccode/core/model"
-import { ModelResolver } from "@xccode/core/model-resolver"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { PluginHooks } from "@xccode/core/plugin/hooks"
-import { SnowflakeCortexPlugin } from "@xccode/core/plugin/provider/snowflake-cortex"
-import { Provider } from "@xccode/core/provider"
-import { Session } from "@xccode/core/session"
-import { SessionModelRequest } from "@xccode/core/session/model-request"
-import { SessionModelTransport } from "@xccode/core/session/model-transport"
+import { Message } from "@xiaochuan/ai/effect"
+import { LLMClient, RequestExecutor } from "@xiaochuan/ai/route"
+import { Agent } from "@xiaochuan/core/agent"
+import { Credential } from "@xiaochuan/core/credential"
+import { Integration } from "@xiaochuan/core/integration"
+import { Location } from "@xiaochuan/core/location"
+import { Model } from "@xiaochuan/core/model"
+import { ModelResolver } from "@xiaochuan/core/model-resolver"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { PluginHooks } from "@xiaochuan/core/plugin/hooks"
+import { SnowflakeCortexPlugin } from "@xiaochuan/core/plugin/provider/snowflake-cortex"
+import { Provider } from "@xiaochuan/core/provider"
+import { Session } from "@xiaochuan/core/session"
+import { SessionModelRequest } from "@xiaochuan/core/session/model-request"
+import { SessionModelTransport } from "@xiaochuan/core/session/model-transport"
 import { expect } from "bun:test"
 import { Effect, Layer, Schedule, Stream } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
@@ -56,7 +56,7 @@ const fixture = Effect.fn(function* () {
   const host = yield* PluginHost.make(plugin, "test")
   yield* providers.transform((editor) => {
     editor.update(providerID, (provider) => {
-      provider.package = "@xccode/ai/providers/openai-compatible"
+      provider.package = "@xiaochuan/ai/providers/openai-compatible"
       provider.settings = { baseURL: "https://${SNOWFLAKE_ACCOUNT}.snowflakecomputing.com/api/v2/cortex/v1" }
     })
     editor.models.update(providerID, modelID, () => {})
@@ -228,7 +228,7 @@ it.live("uses environment tokens rather than the account identifier and bypasses
           name: "SNOWFLAKE_CORTEX_TOKEN",
         })
         expect((yield* test.providers.get(providerID))?.package).toBe(
-          "@xccode/ai/providers/openai-compatible",
+          "@xiaochuan/ai/providers/openai-compatible",
         )
         expect(yield* test.hooks.has("aisdk", "sdk", providerID)).toBe(false)
 

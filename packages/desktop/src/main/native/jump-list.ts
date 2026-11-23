@@ -4,8 +4,8 @@ import { nativeT } from "./translations"
 // The taskbar button's right-click tasks. Each runs the app again with its flag, which the running app gets on
 // `second-instance`, so a task does what the File menu item of the same name does.
 const TASKS = [
-  { id: "new-session", flag: "--xccode-task=new-session", labelKey: "desktop.menu.newSession" },
-  { id: "new-window", flag: "--xccode-task=new-window", labelKey: "desktop.menu.newWindow" },
+  { id: "new-session", flag: "--xiaochuan-task=new-session", labelKey: "desktop.menu.newSession" },
+  { id: "new-window", flag: "--xiaochuan-task=new-window", labelKey: "desktop.menu.newWindow" },
 ] as const
 
 export function jumpList(program: string): JumpListCategory[] {

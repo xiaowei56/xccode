@@ -7,8 +7,8 @@ use std::env;
 use std::thread;
 use std::time::{Duration, Instant};
 
-use xccode_pty::service::{CreatePty, ProcessMode, TerminalLifecycle, TerminalService};
-use xccode_pty::{protocol::AttachmentRole, service::StreamEvent};
+use xiaochuan_pty::service::{CreatePty, ProcessMode, TerminalLifecycle, TerminalService};
+use xiaochuan_pty::{protocol::AttachmentRole, service::StreamEvent};
 use resize_fixture::ResizeFixture;
 
 #[test]

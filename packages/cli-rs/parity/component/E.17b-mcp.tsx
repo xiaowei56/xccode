@@ -22,7 +22,7 @@ import { createTuiResolvedConfig } from "../../../tui/test/fixture/tui-runtime"
 import { withNewDesigns } from "../lib/app"
 import { renderComponent } from "../lib/component"
 
-const directory = "/tmp/xccode/app"
+const directory = "/tmp/xiaochuan/app"
 const location = { directory, project: { id: "proj_app", directory, canonical: directory } }
 
 const SERVERS = [
@@ -37,7 +37,7 @@ const SKILL = (id: string, description?: string) => ({
   id,
   name: id,
   ...(description === undefined ? {} : { description }),
-  path: `/tmp/xccode/skills/${id}/SKILL.md`,
+  path: `/tmp/xiaochuan/skills/${id}/SKILL.md`,
   content: "",
 })
 const SKILLS = [

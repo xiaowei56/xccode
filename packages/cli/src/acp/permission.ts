@@ -1,9 +1,9 @@
 import type { PermissionOption, SessionUpdate } from "@agentclientprotocol/sdk"
-import type { XccodeClient, XccodeEvent } from "@xccode/client/effect"
-import { FileDiff } from "@xccode/schema/file-diff"
-import type { Permission } from "@xccode/schema/permission"
-import type { Session } from "@xccode/schema/session"
-import { Patch } from "@xccode/util/patch"
+import type { XiaochuanClient, XiaochuanEvent } from "@xiaochuan/client/effect"
+import { FileDiff } from "@xiaochuan/schema/file-diff"
+import type { Permission } from "@xiaochuan/schema/permission"
+import type { Session } from "@xiaochuan/schema/session"
+import { Patch } from "@xiaochuan/util/patch"
 import { applyPatch, parsePatch, reversePatch, structuredPatch, type StructuredPatch } from "diff"
 import { Effect, Option, Schema } from "effect"
 import { ACPChild } from "./child"
@@ -21,12 +21,12 @@ import {
   type ToolInput,
 } from "./tool"
 
-type PermissionEvent = Extract<XccodeEvent, { type: "permission.asked" }>
+type PermissionEvent = Extract<XiaochuanEvent, { type: "permission.asked" }>
 type Tool = { readonly id: string; readonly name: string; readonly input: ToolInput }
 type Preview = ReturnType<typeof diff>
 
 type Input = {
-  readonly client: XccodeClient
+  readonly client: XiaochuanClient
   readonly connection: ACPConnection.Interface
   readonly event: PermissionEvent
   readonly sessionID: Session.ID

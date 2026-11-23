@@ -2,12 +2,12 @@
 
 use std::time::Duration;
 
-use xccode_api::client::Client;
-use xccode_local::service_config::Info;
-use xccode_service::delegate;
-use xccode_service::ts_command::TsCommand;
-use xccode_ui::qr;
-use xccode_util::{bail, err, error};
+use xiaochuan_api::client::Client;
+use xiaochuan_local::service_config::Info;
+use xiaochuan_service::delegate;
+use xiaochuan_service::ts_command::TsCommand;
+use xiaochuan_ui::qr;
+use xiaochuan_util::{bail, err, error};
 
 use super::Context;
 use super::client::block_on;
@@ -17,15 +17,15 @@ use crate::args::PairArgs;
 use crate::output::{Exit, print};
 use crate::prompt;
 
-const NOT_ENABLED: &str = "Remote access was not enabled. To pair locally, run `xccode pair`.";
+const NOT_ENABLED: &str = "Remote access was not enabled. To pair locally, run `xiaochuan pair`.";
 
-pub const REMOTE_WARNING: &str = "This will expose your Xccode server to the internet.\nTraffic is end-to-end encrypted, and access requires your server password.\nTo pair locally instead, run `xccode pair` without the --remote flag.";
+pub const REMOTE_WARNING: &str = "This will expose your Xiaochuan server to the internet.\nTraffic is end-to-end encrypted, and access requires your server password.\nTo pair locally instead, run `xiaochuan pair` without the --remote flag.";
 
 pub fn run(_context: &Context, args: &PairArgs) -> error::Result<()> {
     let local = Local::from_env()?;
     let config = local.config().read()?;
     if config.disabled == Some(true) {
-        bail!("Pairing requires the background service; run `xccode service unset disabled` first");
+        bail!("Pairing requires the background service; run `xiaochuan service unset disabled` first");
     }
     if args.remote && args.url.is_some() {
         bail!("--remote cannot be combined with --url");
@@ -77,15 +77,15 @@ fn links(urls: &[String], code: &str, expires_in: i64) -> String {
         .iter()
         .map(|url| {
             // `new URL(`/auth/connect/${code}`, url).href`.
-            xccode_api::js::parse_url(url)
-                .and_then(|base| xccode_api::js::join_url(&base, &format!("/auth/connect/{code}")))
+            xiaochuan_api::js::parse_url(url)
+                .and_then(|base| xiaochuan_api::js::join_url(&base, &format!("/auth/connect/{code}")))
                 .map_or_else(|_| format!("{url}/auth/connect/{code}"), String::from)
         })
         .collect();
     // Loopback URLs are useless to the scanning device, so the QR code only carries reachable addresses.
     let remote: Vec<&String> = urls
         .iter()
-        .filter(|url| !xccode_api::js::parse_url(url).is_ok_and(|url| is_loopback(url.host_str().unwrap_or(""))))
+        .filter(|url| !xiaochuan_api::js::parse_url(url).is_ok_and(|url| is_loopback(url.host_str().unwrap_or(""))))
         .collect();
     let mut lines = vec![
         String::new(),
@@ -116,7 +116,7 @@ fn links(urls: &[String], code: &str, expires_in: i64) -> String {
 
 /// The SSH port-forwarding hint for a service on a loopback address, for stderr.
 fn ssh_hint(endpoint: &str) -> Option<String> {
-    let url = xccode_api::js::parse_url(endpoint).ok()?;
+    let url = xiaochuan_api::js::parse_url(endpoint).ok()?;
     let host = url.host_str()?;
     if !["localhost", "127.0.0.1", "[::1]"].contains(&host) {
         return None;
@@ -128,7 +128,7 @@ fn ssh_hint(endpoint: &str) -> Option<String> {
             format!("  ssh -L {port}:{host}:{port} <host>"),
             format!("  If port {port} is busy locally, forward another port and use it in the link."),
             String::new(),
-            "  To connect from other devices, run `xccode service set hostname 0.0.0.0`.".into(),
+            "  To connect from other devices, run `xiaochuan service set hostname 0.0.0.0`.".into(),
             String::new(),
         ]
         .join("\n")
@@ -176,7 +176,7 @@ async fn remote_url(local: &Local, client: &Client) -> error::Result<String> {
         let hostname = delegate::tunnel_hostname(&local.paths, &route).ok()??;
         let info = client.server_info().await.ok()?;
         info.urls.into_iter().find(|candidate| {
-            xccode_api::js::parse_url(candidate).is_ok_and(|url| url.host_str() == Some(hostname.as_str()))
+            xiaochuan_api::js::parse_url(candidate).is_ok_and(|url| url.host_str() == Some(hostname.as_str()))
         })
     };
     let poll = async {
@@ -191,7 +191,7 @@ async fn remote_url(local: &Local, client: &Client) -> error::Result<String> {
         .await
         .map_err(|_| {
             err!(
-                "Timed out waiting for the remote tunnel; run `xccode pair --remote` again to retry.\nBehind an HTTP proxy, give the background service its address with `xccode service set env HTTPS_PROXY <url>` (and `NO_PROXY` for hosts to reach directly)."
+                "Timed out waiting for the remote tunnel; run `xiaochuan pair --remote` again to retry.\nBehind an HTTP proxy, give the background service its address with `xiaochuan service set env HTTPS_PROXY <url>` (and `NO_PROXY` for hosts to reach directly)."
             )
         })
 }
@@ -215,7 +215,7 @@ mod tests {
     #[test]
     fn server_urls_with_non_ascii_hosts_do_not_panic() {
         let url = "https://Bücher.example";
-        assert!(matches!(xccode_api::js::parse_url(url), Err(xccode_api::js::UrlError::NonAsciiHost(_))));
+        assert!(matches!(xiaochuan_api::js::parse_url(url), Err(xiaochuan_api::js::UrlError::NonAsciiHost(_))));
         assert!(links(&[url.into()], "abc", 600).contains("  https://Bücher.example/auth/connect/abc\n\n  ████"));
         assert_eq!(ssh_hint(url), None);
     }

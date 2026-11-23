@@ -1,8 +1,8 @@
 export * as SubagentTool from "./subagent.js"
 
-import { ToolFailure } from "@xccode/ai/effect"
-import type { Context } from "@xccode/plugin/effect/plugin"
-import type { SessionHooks } from "@xccode/plugin/effect/session"
+import { ToolFailure } from "@xiaochuan/ai/effect"
+import type { Context } from "@xiaochuan/plugin/effect/plugin"
+import type { SessionHooks } from "@xiaochuan/plugin/effect/session"
 import { Effect, Predicate, Schema } from "effect"
 import { Agent } from "../../agent.js"
 import { Config } from "../../config.js"
@@ -57,7 +57,7 @@ export const description = [
 ].join("\n")
 
 export const Plugin = {
-  id: "xccode.tool.subagent",
+  id: "xiaochuan.tool.subagent",
   effect: Effect.fn("SubagentTool.Plugin")(function* (ctx: Context) {
     const sessions = yield* Session.Service
     const jobs = yield* Job.Service

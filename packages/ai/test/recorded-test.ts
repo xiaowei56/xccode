@@ -1,4 +1,4 @@
-import { HttpRecorder } from "@xccode/http-recorder"
+import { HttpRecorder } from "@xiaochuan/http-recorder"
 import { NodeWS } from "@effect/platform-node"
 import { Effect, Layer } from "effect"
 import { Socket } from "effect/socket"

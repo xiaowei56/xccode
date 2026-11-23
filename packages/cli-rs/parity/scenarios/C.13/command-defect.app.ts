@@ -3,7 +3,7 @@
 import { defineApp, session, user } from "../../lib/app"
 import { catalog } from "./catalog"
 
-const location = { directory: "/tmp/xccode/packages/tui" }
+const location = { directory: "/tmp/xiaochuan/packages/tui" }
 
 export default defineApp({
   args: { sessionID: "ses_d" },

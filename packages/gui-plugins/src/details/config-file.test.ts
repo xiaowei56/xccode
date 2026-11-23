@@ -1,9 +1,9 @@
 import { expect, test } from "bun:test"
 import { globalConfigDirectory, serviceConfigFile } from "./config-file"
 
-const global = "/home/kit/.config/xccode/xccode.jsonc"
+const global = "/home/kit/.config/xiaochuan/xiaochuan.jsonc"
 
-const project = "/work/acme/.xccode/xccode.jsonc"
+const project = "/work/acme/.xiaochuan/xiaochuan.jsonc"
 
 test("a project file that sets a service without entries does not hide the global file's entries", () => {
   const entries = [
@@ -12,7 +12,7 @@ test("a project file that sets a service without entries does not hide the globa
       path: global,
       info: {
         mcp: { servers: { atlas: { type: "remote" as const, url: "https://atlas.example" } } },
-        plugins: ["xccode-tidewater"],
+        plugins: ["xiaochuan-tidewater"],
       },
     },
     {
@@ -20,7 +20,7 @@ test("a project file that sets a service without entries does not hide the globa
       path: project,
       info: { mcp: {}, plugins: [] },
     },
-    { type: "document" as const, path: "/work/acme/.xccode/agents/review.md", info: {} },
+    { type: "document" as const, path: "/work/acme/.xiaochuan/agents/review.md", info: {} },
   ]
 
   expect(serviceConfigFile(entries, "mcp")).toBe(global)
@@ -41,18 +41,18 @@ test("a file that only sets a service still wins over one that never mentions it
 
 test("setup sessions run in the global configuration's directory, never an ancestor project's", () => {
   // In the server's order: global files and root, an ancestor's config outside the worktree, then the project's.
-  const ancestor = "/work/xccode.json"
-  const projectRoot = { type: "directory" as const, path: "/work/acme/.xccode" }
+  const ancestor = "/work/xiaochuan.json"
+  const projectRoot = { type: "directory" as const, path: "/work/acme/.xiaochuan" }
 
   const entries = [
     { type: "document" as const, path: global, info: {} },
-    { type: "directory" as const, path: "/home/kit/.config/xccode" },
+    { type: "directory" as const, path: "/home/kit/.config/xiaochuan" },
     { type: "document" as const, path: ancestor, info: {} },
     { type: "document" as const, path: project, info: {} },
     projectRoot,
   ]
 
-  expect(globalConfigDirectory(entries, "/work/acme")).toBe("/home/kit/.config/xccode")
+  expect(globalConfigDirectory(entries, "/work/acme")).toBe("/home/kit/.config/xiaochuan")
   // With global configuration off, the ancestor's directory is still not taken for the global one.
   expect(
     globalConfigDirectory(

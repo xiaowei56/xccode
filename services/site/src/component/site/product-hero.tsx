@@ -183,7 +183,7 @@ export function ProductHero(props: {
 
 /**
  * A hero with a still per theme and no video yet, framed like the themed heroes in videos.ts. Browse's
- * (product-videos/heroes/browse-landscape-*.webp) is an HTML scene of Xccode driving an agent tab,
+ * (product-videos/heroes/browse-landscape-*.webp) is an HTML scene of Xiaochuan driving an agent tab,
  * captured to a still.
  */
 export function heroStills(slug: string) {

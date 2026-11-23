@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
-import { Usage } from "@xccode/ai/effect"
-import { Money } from "@xccode/schema/money"
-import { SessionUsage } from "@xccode/core/session/usage"
+import { Usage } from "@xiaochuan/ai/effect"
+import { Money } from "@xiaochuan/schema/money"
+import { SessionUsage } from "@xiaochuan/core/session/usage"
 
 // $1 per million fresh input tokens, so a million of them price at $1 from the catalog.
 const costs = [

@@ -3,7 +3,7 @@
 
 mod methods;
 
-pub use xccode_api_types::types;
+pub use xiaochuan_api_types::types;
 pub use types::*;
 
 /// Endpoints in the generated client.

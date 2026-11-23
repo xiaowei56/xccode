@@ -1,11 +1,11 @@
-import type { SessionMessageInfo } from "@xccode/client/promise"
-import { DialogFooter, DialogHeader, DialogTitleGroup, Dialog } from "@xccode/ui/dialog"
-import { Button } from "@xccode/ui/button"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
+import { DialogFooter, DialogHeader, DialogTitleGroup, Dialog } from "@xiaochuan/ui/dialog"
+import { Button } from "@xiaochuan/ui/button"
 import { useNavigate } from "@solidjs/router"
 import { createEffect, createMemo, createSignal, on, onCleanup, untrack, type Accessor } from "solid-js"
 import { Option, Predicate, Schema } from "effect"
 import { notifySessionTabsRemoved } from "@/shell/titlebar/session-events"
-import { useDialog } from "@xccode/ui/context/dialog"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
 import { useLanguage } from "@/runtime/i18n/language"
 import { useSettings } from "@/settings/model"
 import { useWorkspaceLocation } from "@/workspaces/location"
@@ -35,9 +35,9 @@ import {
   type SessionHeaderTitleEvent,
 } from "./header-actions-machine"
 import { createTimelineProjection } from "./projection"
-import { createNextTimelineProjection } from "@xccode/session-ui/timeline-next"
+import { createNextTimelineProjection } from "@xiaochuan/session-ui/timeline-next"
 import { useServer } from "@/runtime/server/current"
-import type { ReasoningMode } from "@xccode/session-ui/timeline/projection"
+import type { ReasoningMode } from "@xiaochuan/session-ui/timeline/projection"
 
 const emptyMessages: SessionMessageInfo[] = []
 

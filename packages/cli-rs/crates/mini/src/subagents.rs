@@ -4,13 +4,13 @@
 use std::collections::VecDeque;
 
 use indexmap::{IndexMap, IndexSet};
-use xccode_api::generated::{
+use xiaochuan_api::generated::{
     FormInfo, PromptFileAttachment, SessionInboxInfo, SessionInboxItem, SessionInfo,
     SessionMessageAssistantContentItem as ContentItem, SessionMessageAssistantToolState as ToolPartState,
     SessionMessageAssistantToolTime, SessionMessageToolStateCompleted, SessionMessageToolStateError,
     SessionMessageToolStateRunning, SessionMessageToolStateStreaming,
 };
-use xccode_ui::tool_info::{canonical_tool_name, titlecase, tool_display_content, tool_output_text};
+use xiaochuan_ui::tool_info::{canonical_tool_name, titlecase, tool_display_content, tool_output_text};
 
 use crate::footers::permission::Request;
 use crate::prelude::*;

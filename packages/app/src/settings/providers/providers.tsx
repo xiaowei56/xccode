@@ -1,11 +1,11 @@
-import { Button } from "@xccode/ui/button"
-import { Badge } from "@xccode/ui/badge"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Dialog, DialogFooter, DialogHeader, DialogTitleGroup } from "@xccode/ui/dialog"
-import { Icon } from "@xccode/ui/icon"
-import { IconButton } from "@xccode/ui/icon-button"
-import { Menu } from "@xccode/ui/menu"
-import { XccodeLogo } from "@/providers/xccode-logo"
+import { Button } from "@xiaochuan/ui/button"
+import { Badge } from "@xiaochuan/ui/badge"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Dialog, DialogFooter, DialogHeader, DialogTitleGroup } from "@xiaochuan/ui/dialog"
+import { Icon } from "@xiaochuan/ui/icon"
+import { IconButton } from "@xiaochuan/ui/icon-button"
+import { Menu } from "@xiaochuan/ui/menu"
+import { XiaochuanLogo } from "@/providers/xiaochuan-logo"
 import { showToast } from "@/shell/notifications/toast"
 import { popularProviders, useProviders } from "@/providers/catalog/providers"
 import { consoleProviderGroup } from "@/providers/catalog/console"
@@ -37,8 +37,8 @@ type ProviderSource = "env" | "api" | "account" | "config" | "custom"
 type ProviderItem = ReturnType<ReturnType<typeof useProviders>["connected"]>[number]
 
 const PROVIDER_NOTES = [
-  { match: (id: string) => id === "xccode", key: "dialog.provider.xccode.note" },
-  { match: (id: string) => id === "xccode-go", key: "dialog.provider.xccodeGo.tagline" },
+  { match: (id: string) => id === "xiaochuan", key: "dialog.provider.xiaochuan.note" },
+  { match: (id: string) => id === "xiaochuan-go", key: "dialog.provider.xiaochuanGo.tagline" },
   { match: (id: string) => id === "anthropic", key: "dialog.provider.anthropic.note" },
   { match: (id: string) => id === "claude-agent", key: "dialog.provider.claudeAgent.note" },
   { match: (id: string) => id.startsWith("github-copilot"), key: "dialog.provider.copilot.note" },
@@ -170,7 +170,7 @@ export const SettingsProviders: Component<{
     })
   }
 
-  // Console-managed providers (`xccode-go`, `console-*`) connect through the `xccode`
+  // Console-managed providers (`xiaochuan-go`, `console-*`) connect through the `xiaochuan`
   // integration, so the lookup must follow `integrationID` rather than the provider id.
   const integration = (item: ProviderItem) => {
     const id = item.integrationID ?? item.id
@@ -194,12 +194,12 @@ export const SettingsProviders: Component<{
     return connected
       .filter(
         (provider) =>
-          provider.id !== "xccode" ||
+          provider.id !== "xiaochuan" ||
           managedConsole !== undefined ||
           consoleConnected ||
           Object.values(provider.models).some((model) => model.cost.input > 0),
       )
-      .toSorted((a, b) => Number(b.id === "xccode-go") - Number(a.id === "xccode-go"))
+      .toSorted((a, b) => Number(b.id === "xiaochuan-go") - Number(a.id === "xiaochuan-go"))
   })
 
   const available = createMemo(() => availableProviders(pageState(), liveAvailable()))
@@ -228,7 +228,7 @@ export const SettingsProviders: Component<{
 
   const popular = createMemo(() => {
     const connectedIDs = new Set(connected().map((p) => p.id))
-    // The Console account (integration `xccode`) shares its id with the Zen provider. A stored API
+    // The Console account (integration `xiaochuan`) shares its id with the Zen provider. A stored API
     // key, including one imported from a v1 auth.json, makes Zen "connected" without any account, so
     // the Popular list keeps the sign-in row until the active credential is an OAuth grant. Until the
     // integration list arrives the row is still the models.dev Zen provider, so dedupe it as before.
@@ -550,11 +550,11 @@ export const SettingsProviders: Component<{
                         <div class="settings-provider-console group">
                           <div class="settings-provider-console-header">
                             <div class="settings-provider-lead">
-                              <XccodeLogo class="settings-provider-icon size-4 shrink-0" />
+                              <XiaochuanLogo class="settings-provider-icon size-4 shrink-0" />
                               <div class="settings-provider-console-summary">
                                 <div class="settings-provider-main">
                                   <span class="settings-provider-name truncate">
-                                    {language.t("provider.connect.xccode.name")}
+                                    {language.t("provider.connect.xiaochuan.name")}
                                   </span>
                                   <Badge>{group().workspace}</Badge>
                                 </div>
@@ -589,13 +589,13 @@ export const SettingsProviders: Component<{
                                 <Button
                                   size="normal"
                                   variant="ghost-muted"
-                                  onClick={() => disconnect(item, language.t("provider.connect.xccode.name"))}
+                                  onClick={() => disconnect(item, language.t("provider.connect.xiaochuan.name"))}
                                 >
                                   {language.t("common.disconnect")}
                                 </Button>
                               }
                             >
-                              <AccountMenu provider={item} name={language.t("provider.connect.xccode.name")} />
+                              <AccountMenu provider={item} name={language.t("provider.connect.xiaochuan.name")} />
                             </Show>
                           </div>
                           <Show when={consoleExpanded()}>
@@ -640,7 +640,7 @@ export const SettingsProviders: Component<{
                     <div class="settings-provider-copy">
                       <div class="settings-provider-main">
                         <span class="settings-provider-name">{item.name}</span>
-                        <Show when={item.id === "xccode" || item.id === "xccode-go"}>
+                        <Show when={item.id === "xiaochuan" || item.id === "xiaochuan-go"}>
                           <Badge>{language.t("dialog.provider.tag.recommended")}</Badge>
                         </Show>
                       </div>

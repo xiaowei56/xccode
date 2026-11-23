@@ -1,18 +1,18 @@
 export * as Provider from "./provider.js"
 
 import { Context, Effect, Layer, Option, Schema, Stream, Struct } from "effect"
-import { Provider } from "@xccode/schema/provider"
-import { Model } from "@xccode/schema/model"
-import { makeLocationNode } from "@xccode/util/effect/app-node"
-import { HttpTimeout, type ProviderPackage } from "@xccode/ai/effect"
-import { Npm } from "@xccode/util/npm"
+import { Provider } from "@xiaochuan/schema/provider"
+import { Model } from "@xiaochuan/schema/model"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
+import { HttpTimeout, type ProviderPackage } from "@xiaochuan/ai/effect"
+import { Npm } from "@xiaochuan/util/npm"
 import type { DeepMutable } from "./schema.js"
-import { importModule, resolveModule } from "@xccode/util/runtime-import"
+import { importModule, resolveModule } from "@xiaochuan/util/runtime-import"
 import { Bus } from "./bus.js"
 import { Integration } from "./integration.js"
 import { State } from "./state.js"
 import { IntegrationConnection } from "./integration/connection.js"
-import { Credential } from "@xccode/schema/credential"
+import { Credential } from "@xiaochuan/schema/credential"
 import { Location } from "./location.js"
 import { freeze } from "immer"
 import { AISDKNative } from "./aisdk-native.js"
@@ -29,171 +29,171 @@ export class LoadError extends Schema.TaggedError<LoadError>()("Provider.LoadErr
 
 const packages = new Map<string, Promise<unknown>>()
 const builtins = new Map<string, () => Promise<unknown>>([
-  ["@xccode/ai/providers/alibaba", () => import("@xccode/ai/providers/alibaba")],
-  ["@xccode/ai/providers/alibaba/chat", () => import("@xccode/ai/providers/alibaba/chat")],
-  ["@xccode/ai/providers/alibaba/messages", () => import("@xccode/ai/providers/alibaba/messages")],
-  ["@xccode/ai/providers/alibaba/responses", () => import("@xccode/ai/providers/alibaba/responses")],
-  ["@xccode/ai/providers/alibaba/images", () => import("@xccode/ai/providers/alibaba/images")],
-  ["@xccode/ai/providers/alibaba/embeddings", () => import("@xccode/ai/providers/alibaba/embeddings")],
-  ["@xccode/ai/providers/amazon-bedrock", () => import("@xccode/ai/providers/amazon-bedrock")],
-  ["@xccode/ai/providers/amazon-bedrock/mantle", () => import("@xccode/ai/providers/amazon-bedrock/mantle")],
+  ["@xiaochuan/ai/providers/alibaba", () => import("@xiaochuan/ai/providers/alibaba")],
+  ["@xiaochuan/ai/providers/alibaba/chat", () => import("@xiaochuan/ai/providers/alibaba/chat")],
+  ["@xiaochuan/ai/providers/alibaba/messages", () => import("@xiaochuan/ai/providers/alibaba/messages")],
+  ["@xiaochuan/ai/providers/alibaba/responses", () => import("@xiaochuan/ai/providers/alibaba/responses")],
+  ["@xiaochuan/ai/providers/alibaba/images", () => import("@xiaochuan/ai/providers/alibaba/images")],
+  ["@xiaochuan/ai/providers/alibaba/embeddings", () => import("@xiaochuan/ai/providers/alibaba/embeddings")],
+  ["@xiaochuan/ai/providers/amazon-bedrock", () => import("@xiaochuan/ai/providers/amazon-bedrock")],
+  ["@xiaochuan/ai/providers/amazon-bedrock/mantle", () => import("@xiaochuan/ai/providers/amazon-bedrock/mantle")],
   [
-    "@xccode/ai/providers/amazon-bedrock/mantle/chat",
-    () => import("@xccode/ai/providers/amazon-bedrock/mantle/chat"),
+    "@xiaochuan/ai/providers/amazon-bedrock/mantle/chat",
+    () => import("@xiaochuan/ai/providers/amazon-bedrock/mantle/chat"),
   ],
   [
-    "@xccode/ai/providers/amazon-bedrock/mantle/messages",
-    () => import("@xccode/ai/providers/amazon-bedrock/mantle/messages"),
+    "@xiaochuan/ai/providers/amazon-bedrock/mantle/messages",
+    () => import("@xiaochuan/ai/providers/amazon-bedrock/mantle/messages"),
   ],
   [
-    "@xccode/ai/providers/amazon-bedrock/mantle/responses",
-    () => import("@xccode/ai/providers/amazon-bedrock/mantle/responses"),
+    "@xiaochuan/ai/providers/amazon-bedrock/mantle/responses",
+    () => import("@xiaochuan/ai/providers/amazon-bedrock/mantle/responses"),
   ],
-  ["@xccode/ai/providers/anthropic", () => import("@xccode/ai/providers/anthropic")],
-  ["@xccode/ai/providers/anthropic-compatible", () => import("@xccode/ai/providers/anthropic-compatible")],
-  ["@xccode/ai/providers/azure", () => import("@xccode/ai/providers/azure")],
-  ["@xccode/ai/providers/azure/chat", () => import("@xccode/ai/providers/azure/chat")],
-  ["@xccode/ai/providers/azure/responses", () => import("@xccode/ai/providers/azure/responses")],
-  ["@xccode/ai/providers/azure/images", () => import("@xccode/ai/providers/azure/images")],
-  ["@xccode/ai/providers/azure/embeddings", () => import("@xccode/ai/providers/azure/embeddings")],
-  ["@xccode/ai/providers/azure/messages", () => import("@xccode/ai/providers/azure/messages")],
-  ["@xccode/ai/providers/baseten", () => import("@xccode/ai/providers/baseten")],
-  ["@xccode/ai/providers/baseten/decisions", () => import("@xccode/ai/providers/baseten/decisions")],
-  ["@xccode/ai/providers/byteplus/videos", () => import("@xccode/ai/providers/byteplus/videos")],
-  ["@xccode/ai/providers/cerebras", () => import("@xccode/ai/providers/cerebras")],
-  ["@xccode/ai/providers/cloudflare-ai-gateway", () => import("@xccode/ai/providers/cloudflare-ai-gateway")],
+  ["@xiaochuan/ai/providers/anthropic", () => import("@xiaochuan/ai/providers/anthropic")],
+  ["@xiaochuan/ai/providers/anthropic-compatible", () => import("@xiaochuan/ai/providers/anthropic-compatible")],
+  ["@xiaochuan/ai/providers/azure", () => import("@xiaochuan/ai/providers/azure")],
+  ["@xiaochuan/ai/providers/azure/chat", () => import("@xiaochuan/ai/providers/azure/chat")],
+  ["@xiaochuan/ai/providers/azure/responses", () => import("@xiaochuan/ai/providers/azure/responses")],
+  ["@xiaochuan/ai/providers/azure/images", () => import("@xiaochuan/ai/providers/azure/images")],
+  ["@xiaochuan/ai/providers/azure/embeddings", () => import("@xiaochuan/ai/providers/azure/embeddings")],
+  ["@xiaochuan/ai/providers/azure/messages", () => import("@xiaochuan/ai/providers/azure/messages")],
+  ["@xiaochuan/ai/providers/baseten", () => import("@xiaochuan/ai/providers/baseten")],
+  ["@xiaochuan/ai/providers/baseten/decisions", () => import("@xiaochuan/ai/providers/baseten/decisions")],
+  ["@xiaochuan/ai/providers/byteplus/videos", () => import("@xiaochuan/ai/providers/byteplus/videos")],
+  ["@xiaochuan/ai/providers/cerebras", () => import("@xiaochuan/ai/providers/cerebras")],
+  ["@xiaochuan/ai/providers/cloudflare-ai-gateway", () => import("@xiaochuan/ai/providers/cloudflare-ai-gateway")],
   [
-    "@xccode/ai/providers/cloudflare-ai-gateway/decisions",
-    () => import("@xccode/ai/providers/cloudflare-ai-gateway/decisions"),
+    "@xiaochuan/ai/providers/cloudflare-ai-gateway/decisions",
+    () => import("@xiaochuan/ai/providers/cloudflare-ai-gateway/decisions"),
   ],
-  ["@xccode/ai/providers/cloudflare-workers-ai", () => import("@xccode/ai/providers/cloudflare-workers-ai")],
+  ["@xiaochuan/ai/providers/cloudflare-workers-ai", () => import("@xiaochuan/ai/providers/cloudflare-workers-ai")],
   [
-    "@xccode/ai/providers/cloudflare-workers-ai/decisions",
-    () => import("@xccode/ai/providers/cloudflare-workers-ai/decisions"),
-  ],
-  [
-    "@xccode/ai/providers/cloudflare-workers-ai/images",
-    () => import("@xccode/ai/providers/cloudflare-workers-ai/images"),
-  ],
-  ["@xccode/ai/providers/cohere", () => import("@xccode/ai/providers/cohere")],
-  ["@xccode/ai/providers/cohere/chat", () => import("@xccode/ai/providers/cohere/chat")],
-  ["@xccode/ai/providers/cohere/embeddings", () => import("@xccode/ai/providers/cohere/embeddings")],
-  ["@xccode/ai/providers/deepinfra", () => import("@xccode/ai/providers/deepinfra")],
-  ["@xccode/ai/providers/deepinfra/embeddings", () => import("@xccode/ai/providers/deepinfra/embeddings")],
-  ["@xccode/ai/providers/deepseek", () => import("@xccode/ai/providers/deepseek")],
-  ["@xccode/ai/providers/digitalocean", () => import("@xccode/ai/providers/digitalocean")],
-  ["@xccode/ai/providers/digitalocean/decisions", () => import("@xccode/ai/providers/digitalocean/decisions")],
-  ["@xccode/ai/providers/digitalocean/embeddings", () => import("@xccode/ai/providers/digitalocean/embeddings")],
-  ["@xccode/ai/providers/digitalocean/images", () => import("@xccode/ai/providers/digitalocean/images")],
-  ["@xccode/ai/providers/digitalocean/responses", () => import("@xccode/ai/providers/digitalocean/responses")],
-  ["@xccode/ai/providers/fireworks", () => import("@xccode/ai/providers/fireworks")],
-  ["@xccode/ai/providers/fireworks/embeddings", () => import("@xccode/ai/providers/fireworks/embeddings")],
-  ["@xccode/ai/providers/google", () => import("@xccode/ai/providers/google")],
-  ["@xccode/ai/providers/google/decisions", () => import("@xccode/ai/providers/google/decisions")],
-  ["@xccode/ai/providers/google/interactions", () => import("@xccode/ai/providers/google/interactions")],
-  ["@xccode/ai/providers/google/embeddings", () => import("@xccode/ai/providers/google/embeddings")],
-  ["@xccode/ai/providers/google/images", () => import("@xccode/ai/providers/google/images")],
-  ["@xccode/ai/providers/google/videos", () => import("@xccode/ai/providers/google/videos")],
-  ["@xccode/ai/providers/google-vertex", () => import("@xccode/ai/providers/google-vertex")],
-  ["@xccode/ai/providers/google-vertex/chat", () => import("@xccode/ai/providers/google-vertex/chat")],
-  ["@xccode/ai/providers/google-vertex/gemini", () => import("@xccode/ai/providers/google-vertex/gemini")],
-  [
-    "@xccode/ai/providers/google-vertex/interactions",
-    () => import("@xccode/ai/providers/google-vertex/interactions"),
-  ],
-  ["@xccode/ai/providers/google-vertex/messages", () => import("@xccode/ai/providers/google-vertex/messages")],
-  ["@xccode/ai/providers/google-vertex/mistral", () => import("@xccode/ai/providers/google-vertex/mistral")],
-  ["@xccode/ai/providers/google-vertex/responses", () => import("@xccode/ai/providers/google-vertex/responses")],
-  ["@xccode/ai/providers/google-vertex/embeddings", () => import("@xccode/ai/providers/google-vertex/embeddings")],
-  ["@xccode/ai/providers/google-vertex/images", () => import("@xccode/ai/providers/google-vertex/images")],
-  ["@xccode/ai/providers/google-vertex-messages", () => import("@xccode/ai/providers/google-vertex-messages")],
-  ["@xccode/ai/providers/groq", () => import("@xccode/ai/providers/groq")],
-  ["@xccode/ai/providers/meta", () => import("@xccode/ai/providers/meta")],
-  ["@xccode/ai/providers/meta/chat", () => import("@xccode/ai/providers/meta/chat")],
-  ["@xccode/ai/providers/meta/images", () => import("@xccode/ai/providers/meta/images")],
-  ["@xccode/ai/providers/meta/messages", () => import("@xccode/ai/providers/meta/messages")],
-  ["@xccode/ai/providers/meta/responses", () => import("@xccode/ai/providers/meta/responses")],
-  ["@xccode/ai/providers/minimax", () => import("@xccode/ai/providers/minimax")],
-  ["@xccode/ai/providers/minimax/chat", () => import("@xccode/ai/providers/minimax/chat")],
-  ["@xccode/ai/providers/minimax/images", () => import("@xccode/ai/providers/minimax/images")],
-  ["@xccode/ai/providers/minimax/messages", () => import("@xccode/ai/providers/minimax/messages")],
-  ["@xccode/ai/providers/minimax/responses", () => import("@xccode/ai/providers/minimax/responses")],
-  ["@xccode/ai/providers/minimax/videos", () => import("@xccode/ai/providers/minimax/videos")],
-  ["@xccode/ai/providers/mistral", () => import("@xccode/ai/providers/mistral")],
-  ["@xccode/ai/providers/moonshot", () => import("@xccode/ai/providers/moonshot")],
-  ["@xccode/ai/providers/moonshot/chat", () => import("@xccode/ai/providers/moonshot/chat")],
-  ["@xccode/ai/providers/moonshot/messages", () => import("@xccode/ai/providers/moonshot/messages")],
-  ["@xccode/ai/providers/moonshot/responses", () => import("@xccode/ai/providers/moonshot/responses")],
-  ["@xccode/ai/providers/openai", () => import("@xccode/ai/providers/openai")],
-  ["@xccode/ai/providers/openai/chat", () => import("@xccode/ai/providers/openai/chat")],
-  ["@xccode/ai/providers/openai/responses", () => import("@xccode/ai/providers/openai/responses")],
-  ["@xccode/ai/providers/openai/images", () => import("@xccode/ai/providers/openai/images")],
-  ["@xccode/ai/providers/openai/embeddings", () => import("@xccode/ai/providers/openai/embeddings")],
-  ["@xccode/ai/providers/openai-compatible", () => import("@xccode/ai/providers/openai-compatible")],
-  [
-    "@xccode/ai/providers/openai-compatible/responses",
-    () => import("@xccode/ai/providers/openai-compatible/responses"),
-  ],
-  ["@xccode/ai/providers/openai-compatible/images", () => import("@xccode/ai/providers/openai-compatible/images")],
-  [
-    "@xccode/ai/providers/openai-compatible/decisions",
-    () => import("@xccode/ai/providers/openai-compatible/decisions"),
+    "@xiaochuan/ai/providers/cloudflare-workers-ai/decisions",
+    () => import("@xiaochuan/ai/providers/cloudflare-workers-ai/decisions"),
   ],
   [
-    "@xccode/ai/providers/openai-compatible/embeddings",
-    () => import("@xccode/ai/providers/openai-compatible/embeddings"),
+    "@xiaochuan/ai/providers/cloudflare-workers-ai/images",
+    () => import("@xiaochuan/ai/providers/cloudflare-workers-ai/images"),
+  ],
+  ["@xiaochuan/ai/providers/cohere", () => import("@xiaochuan/ai/providers/cohere")],
+  ["@xiaochuan/ai/providers/cohere/chat", () => import("@xiaochuan/ai/providers/cohere/chat")],
+  ["@xiaochuan/ai/providers/cohere/embeddings", () => import("@xiaochuan/ai/providers/cohere/embeddings")],
+  ["@xiaochuan/ai/providers/deepinfra", () => import("@xiaochuan/ai/providers/deepinfra")],
+  ["@xiaochuan/ai/providers/deepinfra/embeddings", () => import("@xiaochuan/ai/providers/deepinfra/embeddings")],
+  ["@xiaochuan/ai/providers/deepseek", () => import("@xiaochuan/ai/providers/deepseek")],
+  ["@xiaochuan/ai/providers/digitalocean", () => import("@xiaochuan/ai/providers/digitalocean")],
+  ["@xiaochuan/ai/providers/digitalocean/decisions", () => import("@xiaochuan/ai/providers/digitalocean/decisions")],
+  ["@xiaochuan/ai/providers/digitalocean/embeddings", () => import("@xiaochuan/ai/providers/digitalocean/embeddings")],
+  ["@xiaochuan/ai/providers/digitalocean/images", () => import("@xiaochuan/ai/providers/digitalocean/images")],
+  ["@xiaochuan/ai/providers/digitalocean/responses", () => import("@xiaochuan/ai/providers/digitalocean/responses")],
+  ["@xiaochuan/ai/providers/fireworks", () => import("@xiaochuan/ai/providers/fireworks")],
+  ["@xiaochuan/ai/providers/fireworks/embeddings", () => import("@xiaochuan/ai/providers/fireworks/embeddings")],
+  ["@xiaochuan/ai/providers/google", () => import("@xiaochuan/ai/providers/google")],
+  ["@xiaochuan/ai/providers/google/decisions", () => import("@xiaochuan/ai/providers/google/decisions")],
+  ["@xiaochuan/ai/providers/google/interactions", () => import("@xiaochuan/ai/providers/google/interactions")],
+  ["@xiaochuan/ai/providers/google/embeddings", () => import("@xiaochuan/ai/providers/google/embeddings")],
+  ["@xiaochuan/ai/providers/google/images", () => import("@xiaochuan/ai/providers/google/images")],
+  ["@xiaochuan/ai/providers/google/videos", () => import("@xiaochuan/ai/providers/google/videos")],
+  ["@xiaochuan/ai/providers/google-vertex", () => import("@xiaochuan/ai/providers/google-vertex")],
+  ["@xiaochuan/ai/providers/google-vertex/chat", () => import("@xiaochuan/ai/providers/google-vertex/chat")],
+  ["@xiaochuan/ai/providers/google-vertex/gemini", () => import("@xiaochuan/ai/providers/google-vertex/gemini")],
+  [
+    "@xiaochuan/ai/providers/google-vertex/interactions",
+    () => import("@xiaochuan/ai/providers/google-vertex/interactions"),
+  ],
+  ["@xiaochuan/ai/providers/google-vertex/messages", () => import("@xiaochuan/ai/providers/google-vertex/messages")],
+  ["@xiaochuan/ai/providers/google-vertex/mistral", () => import("@xiaochuan/ai/providers/google-vertex/mistral")],
+  ["@xiaochuan/ai/providers/google-vertex/responses", () => import("@xiaochuan/ai/providers/google-vertex/responses")],
+  ["@xiaochuan/ai/providers/google-vertex/embeddings", () => import("@xiaochuan/ai/providers/google-vertex/embeddings")],
+  ["@xiaochuan/ai/providers/google-vertex/images", () => import("@xiaochuan/ai/providers/google-vertex/images")],
+  ["@xiaochuan/ai/providers/google-vertex-messages", () => import("@xiaochuan/ai/providers/google-vertex-messages")],
+  ["@xiaochuan/ai/providers/groq", () => import("@xiaochuan/ai/providers/groq")],
+  ["@xiaochuan/ai/providers/meta", () => import("@xiaochuan/ai/providers/meta")],
+  ["@xiaochuan/ai/providers/meta/chat", () => import("@xiaochuan/ai/providers/meta/chat")],
+  ["@xiaochuan/ai/providers/meta/images", () => import("@xiaochuan/ai/providers/meta/images")],
+  ["@xiaochuan/ai/providers/meta/messages", () => import("@xiaochuan/ai/providers/meta/messages")],
+  ["@xiaochuan/ai/providers/meta/responses", () => import("@xiaochuan/ai/providers/meta/responses")],
+  ["@xiaochuan/ai/providers/minimax", () => import("@xiaochuan/ai/providers/minimax")],
+  ["@xiaochuan/ai/providers/minimax/chat", () => import("@xiaochuan/ai/providers/minimax/chat")],
+  ["@xiaochuan/ai/providers/minimax/images", () => import("@xiaochuan/ai/providers/minimax/images")],
+  ["@xiaochuan/ai/providers/minimax/messages", () => import("@xiaochuan/ai/providers/minimax/messages")],
+  ["@xiaochuan/ai/providers/minimax/responses", () => import("@xiaochuan/ai/providers/minimax/responses")],
+  ["@xiaochuan/ai/providers/minimax/videos", () => import("@xiaochuan/ai/providers/minimax/videos")],
+  ["@xiaochuan/ai/providers/mistral", () => import("@xiaochuan/ai/providers/mistral")],
+  ["@xiaochuan/ai/providers/moonshot", () => import("@xiaochuan/ai/providers/moonshot")],
+  ["@xiaochuan/ai/providers/moonshot/chat", () => import("@xiaochuan/ai/providers/moonshot/chat")],
+  ["@xiaochuan/ai/providers/moonshot/messages", () => import("@xiaochuan/ai/providers/moonshot/messages")],
+  ["@xiaochuan/ai/providers/moonshot/responses", () => import("@xiaochuan/ai/providers/moonshot/responses")],
+  ["@xiaochuan/ai/providers/openai", () => import("@xiaochuan/ai/providers/openai")],
+  ["@xiaochuan/ai/providers/openai/chat", () => import("@xiaochuan/ai/providers/openai/chat")],
+  ["@xiaochuan/ai/providers/openai/responses", () => import("@xiaochuan/ai/providers/openai/responses")],
+  ["@xiaochuan/ai/providers/openai/images", () => import("@xiaochuan/ai/providers/openai/images")],
+  ["@xiaochuan/ai/providers/openai/embeddings", () => import("@xiaochuan/ai/providers/openai/embeddings")],
+  ["@xiaochuan/ai/providers/openai-compatible", () => import("@xiaochuan/ai/providers/openai-compatible")],
+  [
+    "@xiaochuan/ai/providers/openai-compatible/responses",
+    () => import("@xiaochuan/ai/providers/openai-compatible/responses"),
+  ],
+  ["@xiaochuan/ai/providers/openai-compatible/images", () => import("@xiaochuan/ai/providers/openai-compatible/images")],
+  [
+    "@xiaochuan/ai/providers/openai-compatible/decisions",
+    () => import("@xiaochuan/ai/providers/openai-compatible/decisions"),
   ],
   [
-    "@xccode/ai/providers/openai-compatible-responses",
-    () => import("@xccode/ai/providers/openai-compatible-responses"),
-  ],
-  ["@xccode/ai/providers/xccode/decisions", () => import("@xccode/ai/providers/xccode/decisions")],
-  ["@xccode/ai/providers/openrouter", () => import("@xccode/ai/providers/openrouter")],
-  ["@xccode/ai/providers/openrouter/decisions", () => import("@xccode/ai/providers/openrouter/decisions")],
-  ["@xccode/ai/providers/openrouter/embeddings", () => import("@xccode/ai/providers/openrouter/embeddings")],
-  ["@xccode/ai/providers/openrouter/images", () => import("@xccode/ai/providers/openrouter/images")],
-  ["@xccode/ai/providers/openrouter/videos", () => import("@xccode/ai/providers/openrouter/videos")],
-  ["@xccode/ai/providers/openrouter/responses", () => import("@xccode/ai/providers/openrouter/responses")],
-  ["@xccode/ai/providers/togetherai", () => import("@xccode/ai/providers/togetherai")],
-  ["@xccode/ai/providers/typesafe-ai/decisions", () => import("@xccode/ai/providers/typesafe-ai/decisions")],
-  ["@xccode/ai/providers/venice", () => import("@xccode/ai/providers/venice")],
-  ["@xccode/ai/providers/venice/responses", () => import("@xccode/ai/providers/venice/responses")],
-  ["@xccode/ai/providers/volcengine/videos", () => import("@xccode/ai/providers/volcengine/videos")],
-  ["@xccode/ai/providers/vercel-ai-gateway", () => import("@xccode/ai/providers/vercel-ai-gateway")],
-  ["@xccode/ai/providers/vercel-ai-gateway/chat", () => import("@xccode/ai/providers/vercel-ai-gateway/chat")],
-  [
-    "@xccode/ai/providers/vercel-ai-gateway/messages",
-    () => import("@xccode/ai/providers/vercel-ai-gateway/messages"),
+    "@xiaochuan/ai/providers/openai-compatible/embeddings",
+    () => import("@xiaochuan/ai/providers/openai-compatible/embeddings"),
   ],
   [
-    "@xccode/ai/providers/vercel-ai-gateway/responses",
-    () => import("@xccode/ai/providers/vercel-ai-gateway/responses"),
+    "@xiaochuan/ai/providers/openai-compatible-responses",
+    () => import("@xiaochuan/ai/providers/openai-compatible-responses"),
+  ],
+  ["@xiaochuan/ai/providers/xiaochuan/decisions", () => import("@xiaochuan/ai/providers/xiaochuan/decisions")],
+  ["@xiaochuan/ai/providers/openrouter", () => import("@xiaochuan/ai/providers/openrouter")],
+  ["@xiaochuan/ai/providers/openrouter/decisions", () => import("@xiaochuan/ai/providers/openrouter/decisions")],
+  ["@xiaochuan/ai/providers/openrouter/embeddings", () => import("@xiaochuan/ai/providers/openrouter/embeddings")],
+  ["@xiaochuan/ai/providers/openrouter/images", () => import("@xiaochuan/ai/providers/openrouter/images")],
+  ["@xiaochuan/ai/providers/openrouter/videos", () => import("@xiaochuan/ai/providers/openrouter/videos")],
+  ["@xiaochuan/ai/providers/openrouter/responses", () => import("@xiaochuan/ai/providers/openrouter/responses")],
+  ["@xiaochuan/ai/providers/togetherai", () => import("@xiaochuan/ai/providers/togetherai")],
+  ["@xiaochuan/ai/providers/typesafe-ai/decisions", () => import("@xiaochuan/ai/providers/typesafe-ai/decisions")],
+  ["@xiaochuan/ai/providers/venice", () => import("@xiaochuan/ai/providers/venice")],
+  ["@xiaochuan/ai/providers/venice/responses", () => import("@xiaochuan/ai/providers/venice/responses")],
+  ["@xiaochuan/ai/providers/volcengine/videos", () => import("@xiaochuan/ai/providers/volcengine/videos")],
+  ["@xiaochuan/ai/providers/vercel-ai-gateway", () => import("@xiaochuan/ai/providers/vercel-ai-gateway")],
+  ["@xiaochuan/ai/providers/vercel-ai-gateway/chat", () => import("@xiaochuan/ai/providers/vercel-ai-gateway/chat")],
+  [
+    "@xiaochuan/ai/providers/vercel-ai-gateway/messages",
+    () => import("@xiaochuan/ai/providers/vercel-ai-gateway/messages"),
   ],
   [
-    "@xccode/ai/providers/vercel-ai-gateway/decisions",
-    () => import("@xccode/ai/providers/vercel-ai-gateway/decisions"),
+    "@xiaochuan/ai/providers/vercel-ai-gateway/responses",
+    () => import("@xiaochuan/ai/providers/vercel-ai-gateway/responses"),
   ],
-  ["@xccode/ai/providers/vercel-ai-gateway/images", () => import("@xccode/ai/providers/vercel-ai-gateway/images")],
   [
-    "@xccode/ai/providers/vercel-ai-gateway/embeddings",
-    () => import("@xccode/ai/providers/vercel-ai-gateway/embeddings"),
+    "@xiaochuan/ai/providers/vercel-ai-gateway/decisions",
+    () => import("@xiaochuan/ai/providers/vercel-ai-gateway/decisions"),
   ],
-  ["@xccode/ai/providers/xai", () => import("@xccode/ai/providers/xai")],
-  ["@xccode/ai/providers/xai/images", () => import("@xccode/ai/providers/xai/images")],
-  ["@xccode/ai/providers/xai/videos", () => import("@xccode/ai/providers/xai/videos")],
-  ["@xccode/ai/providers/zai", () => import("@xccode/ai/providers/zai")],
-  ["@xccode/ai/providers/zai/chat", () => import("@xccode/ai/providers/zai/chat")],
-  ["@xccode/ai/providers/zai/images", () => import("@xccode/ai/providers/zai/images")],
-  ["@xccode/ai/providers/zai-coding-plan", () => import("@xccode/ai/providers/zai-coding-plan")],
-  ["@xccode/ai/providers/zai-coding-plan/chat", () => import("@xccode/ai/providers/zai-coding-plan/chat")],
-  ["@xccode/ai/providers/zai-coding-plan/messages", () => import("@xccode/ai/providers/zai-coding-plan/messages")],
+  ["@xiaochuan/ai/providers/vercel-ai-gateway/images", () => import("@xiaochuan/ai/providers/vercel-ai-gateway/images")],
   [
-    "@xccode/ai/providers/zai-coding-plan/responses",
-    () => import("@xccode/ai/providers/zai-coding-plan/responses"),
+    "@xiaochuan/ai/providers/vercel-ai-gateway/embeddings",
+    () => import("@xiaochuan/ai/providers/vercel-ai-gateway/embeddings"),
+  ],
+  ["@xiaochuan/ai/providers/xai", () => import("@xiaochuan/ai/providers/xai")],
+  ["@xiaochuan/ai/providers/xai/images", () => import("@xiaochuan/ai/providers/xai/images")],
+  ["@xiaochuan/ai/providers/xai/videos", () => import("@xiaochuan/ai/providers/xai/videos")],
+  ["@xiaochuan/ai/providers/zai", () => import("@xiaochuan/ai/providers/zai")],
+  ["@xiaochuan/ai/providers/zai/chat", () => import("@xiaochuan/ai/providers/zai/chat")],
+  ["@xiaochuan/ai/providers/zai/images", () => import("@xiaochuan/ai/providers/zai/images")],
+  ["@xiaochuan/ai/providers/zai-coding-plan", () => import("@xiaochuan/ai/providers/zai-coding-plan")],
+  ["@xiaochuan/ai/providers/zai-coding-plan/chat", () => import("@xiaochuan/ai/providers/zai-coding-plan/chat")],
+  ["@xiaochuan/ai/providers/zai-coding-plan/messages", () => import("@xiaochuan/ai/providers/zai-coding-plan/messages")],
+  [
+    "@xiaochuan/ai/providers/zai-coding-plan/responses",
+    () => import("@xiaochuan/ai/providers/zai-coding-plan/responses"),
   ],
 ])
 
-/** Native `@xccode/ai/providers/*` entrypoints bundled with Core and loadable by name from config. */
+/** Native `@xiaochuan/ai/providers/*` entrypoints bundled with Core and loadable by name from config. */
 export const builtinPackages: ReadonlySet<string> = new Set(builtins.keys())
 
 export const loadPackage = Effect.fn("Provider.loadPackage")(function* (input: string, npm?: Npm.Interface) {
@@ -201,7 +201,7 @@ export const loadPackage = Effect.fn("Provider.loadPackage")(function* (input: s
   const builtin = builtins.get(specifier)
   if (builtin) return yield* importPackage(specifier, specifier, builtin)
   const resolved = yield* Effect.sync(() => {
-    if (specifier.startsWith("file://") || specifier.startsWith("@xccode/ai/")) return specifier
+    if (specifier.startsWith("file://") || specifier.startsWith("@xiaochuan/ai/")) return specifier
     try {
       return import.meta.resolve(specifier)
     } catch {
@@ -228,7 +228,7 @@ export const loadPackage = Effect.fn("Provider.loadPackage")(function* (input: s
 const settingsKeys = Struct.keys(Provider.Settings.schema.fields)
 const providerOnlyKeys = settingsKeys.filter((key) => !(key in Model.Settings.schema.fields))
 
-/** The provider options: every settings key Xccode doesn't read itself. */
+/** The provider options: every settings key Xiaochuan doesn't read itself. */
 export function nativeSettings(settings: Settings) {
   return Struct.omit(settings, settingsKeys)
 }
@@ -299,7 +299,7 @@ export type Info = Provider.Info
 
 export type MutableInfo = DeepMutable<Info>
 
-export { Event } from "@xccode/schema/provider"
+export { Event } from "@xiaochuan/schema/provider"
 
 /** Provider metadata owns its drafts; model definitions remain immutable inputs. */
 export type Definition = {
@@ -339,7 +339,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly snapshot: () => Effect.Effect<Snapshot>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Provider") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Provider") {}
 
 // Every location references the same index for a shared immutable definition array.
 const definitions = new WeakMap<readonly Model.Info[], Map<ID, ReadonlyMap<Model.ID, Model.Info>>>()

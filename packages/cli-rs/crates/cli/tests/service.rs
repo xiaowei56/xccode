@@ -4,7 +4,7 @@
 use std::path::PathBuf;
 use std::process::{Command, Output};
 
-use xccode_service::ts_command::write_script;
+use xiaochuan_service::ts_command::write_script;
 
 const SERVICE: &str = r#"
 import { appendFile, rename, writeFile } from "node:fs/promises"
@@ -32,21 +32,21 @@ await rename(registration + ".tmp", registration)
 "#;
 
 struct Sandbox {
-    root: xccode_util::temp::TempDir,
+    root: xiaochuan_util::temp::TempDir,
 }
 
 impl Sandbox {
     fn new() -> Option<Self> {
         if Command::new("bun").arg("--version").output().is_err() {
             assert!(
-                std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(),
-                "XCCODE_RS_REQUIRE_TS is set, but skipped: bun is not on PATH"
+                std::env::var_os("XIAOCHUAN_RS_REQUIRE_TS").is_none(),
+                "XIAOCHUAN_RS_REQUIRE_TS is set, but skipped: bun is not on PATH"
             );
             eprintln!("skipped: bun is not on PATH");
             return None;
         }
-        let sandbox = Self { root: xccode_util::temp::tempdir().unwrap() };
-        for dir in ["home", "state/xccode", "config/xccode", "data", "cache", "work"] {
+        let sandbox = Self { root: xiaochuan_util::temp::tempdir().unwrap() };
+        for dir in ["home", "state/xiaochuan", "config/xiaochuan", "data", "cache", "work"] {
             std::fs::create_dir_all(sandbox.path(dir)).unwrap();
         }
         std::fs::write(sandbox.path("service.ts"), SERVICE).unwrap();
@@ -70,11 +70,11 @@ esac
 "#,
             log = sandbox.path("log").display(),
             service = sandbox.path("service.ts").display(),
-            registration = sandbox.path("state/xccode/service-local.json").display(),
+            registration = sandbox.path("state/xiaochuan/service-local.json").display(),
             data = sandbox.path("data").display(),
-            config = sandbox.path("config/xccode/service-local.json").display(),
+            config = sandbox.path("config/xiaochuan/service-local.json").display(),
         );
-        write_script(&sandbox.path("xccode-ts"), &script);
+        write_script(&sandbox.path("xiaochuan-ts"), &script);
         Some(sandbox)
     }
 
@@ -83,7 +83,7 @@ esac
     }
 
     fn run(&self, args: &[&str], env: &[(&str, &str)]) -> Output {
-        let mut command = Command::new(env!("CARGO_BIN_EXE_xccode-native"));
+        let mut command = Command::new(env!("CARGO_BIN_EXE_xiaochuan-native"));
         command
             .args(args)
             .env_clear()
@@ -93,15 +93,15 @@ esac
             .env("XDG_CONFIG_HOME", self.path("config"))
             .env("XDG_DATA_HOME", self.path("data"))
             .env("XDG_CACHE_HOME", self.path("cache"))
-            .env("XCCODE_CONFIG_DIR", self.path("config/xccode"))
-            .env("XCCODE_CHANNEL", "local")
-            .env("XCCODE_CLI_NAME", "xccode")
-            .env("XCCODE_TS_BIN", self.path("xccode-ts"))
+            .env("XIAOCHUAN_CONFIG_DIR", self.path("config/xiaochuan"))
+            .env("XIAOCHUAN_CHANNEL", "local")
+            .env("XIAOCHUAN_CLI_NAME", "xiaochuan")
+            .env("XIAOCHUAN_TS_BIN", self.path("xiaochuan-ts"))
             .current_dir(self.path("work"));
         for (name, value) in env {
             command.env(name, value);
         }
-        command.output().unwrap_or_else(|error| panic!("xccode-native {args:?}: {error}"))
+        command.output().unwrap_or_else(|error| panic!("xiaochuan-native {args:?}: {error}"))
     }
 
     fn log(&self) -> String {
@@ -109,13 +109,13 @@ esac
     }
 
     fn registration(&self) -> Option<serde_json::Value> {
-        let text = std::fs::read_to_string(self.path("state/xccode/service-local.json")).ok()?;
+        let text = std::fs::read_to_string(self.path("state/xiaochuan/service-local.json")).ok()?;
         serde_json::from_str(&text).ok()
     }
 
     fn config(&self) -> serde_json::Value {
         let text =
-            std::fs::read_to_string(self.path("config/xccode/service-local.json")).unwrap_or_else(|_| "{}".into());
+            std::fs::read_to_string(self.path("config/xiaochuan/service-local.json")).unwrap_or_else(|_| "{}".into());
         serde_json::from_str(&text).unwrap()
     }
 
@@ -245,7 +245,7 @@ fn set_remote_true_runs_the_typescript_command() {
     assert_eq!(sandbox.log(), "service set remote true\n");
     assert_eq!(text(&sandbox.run(&["service", "get", "remote"], &[]).stdout), "true\n");
     // A failure of the TS command is the exit code.
-    write_script(&sandbox.path("xccode-ts"), "#!/bin/sh\necho tunnel failed >&2\nexit 4\n");
+    write_script(&sandbox.path("xiaochuan-ts"), "#!/bin/sh\necho tunnel failed >&2\nexit 4\n");
     let failed = sandbox.run(&["service", "set", "remote", "true"], &[]);
     assert_eq!(failed.status.code(), Some(4));
     assert_eq!(text(&failed.stderr), "tunnel failed\n");
@@ -258,7 +258,7 @@ fn pair_remote_enables_remote_access_and_waits_for_the_tunnel() {
     assert!(pair.status.success(), "{}", text(&pair.stderr));
     let stdout = text(&pair.stdout);
     // `--yes` still shows the warning, then the tunnel link with its QR code.
-    assert!(stdout.contains("This will expose your Xccode server to the internet."), "{stdout}");
+    assert!(stdout.contains("This will expose your Xiaochuan server to the internet."), "{stdout}");
     assert!(stdout.contains("expire in 5 minutes."), "{stdout}");
     assert!(stdout.contains("  https://r0ute.t1.tunnel.test/auth/connect/CODE7\n\n  ██"), "{stdout}");
     assert!(!stdout.contains("127.0.0.1"), "{stdout}");
@@ -300,19 +300,19 @@ fn pair_prints_links_and_the_ssh_hint() {
 
 // Interop with the real TS CLI from source, in the same sandbox: a service TS started is seen, stopped, and
 // restarted by Rust, and the other way round. The TS CLI runs under `env -i` with only the sandbox's variables,
-// on a free port from its service config. Needs a TS checkout with `node_modules` (`XCCODE_TS_ROOT`, else this
+// on a free port from its service config. Needs a TS checkout with `node_modules` (`XIAOCHUAN_TS_ROOT`, else this
 // repository); without one the test passes with a note.
 #[test]
 fn interop_with_a_typescript_service() {
-    let root = std::env::var_os("XCCODE_TS_ROOT")
+    let root = std::env::var_os("XIAOCHUAN_TS_ROOT")
         .map(PathBuf::from)
         .unwrap_or_else(|| PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../..")));
     if !root.join("node_modules").is_dir() || !root.join("packages/cli/src/index.ts").is_file() {
         assert!(
-            std::env::var_os("XCCODE_RS_REQUIRE_TS").is_none(),
-            "XCCODE_RS_REQUIRE_TS is set, but skipped: no TypeScript checkout with node_modules; set XCCODE_TS_ROOT"
+            std::env::var_os("XIAOCHUAN_RS_REQUIRE_TS").is_none(),
+            "XIAOCHUAN_RS_REQUIRE_TS is set, but skipped: no TypeScript checkout with node_modules; set XIAOCHUAN_TS_ROOT"
         );
-        eprintln!("skipped: no TypeScript checkout with node_modules; set XCCODE_TS_ROOT");
+        eprintln!("skipped: no TypeScript checkout with node_modules; set XIAOCHUAN_TS_ROOT");
         return;
     }
     let Some(sandbox) = Sandbox::new() else { return };
@@ -322,20 +322,20 @@ fn interop_with_a_typescript_service() {
         ("XDG_CONFIG_HOME", "config"),
         ("XDG_DATA_HOME", "data"),
         ("XDG_CACHE_HOME", "cache"),
-        ("XCCODE_CONFIG_DIR", "config/xccode"),
+        ("XIAOCHUAN_CONFIG_DIR", "config/xiaochuan"),
     ]
     .map(|(name, dir)| format!("{name}='{}'", sandbox.path(dir).display()))
     .join(" ");
-    let wrapper = sandbox.path("xccode-ts-source");
+    let wrapper = sandbox.path("xiaochuan-ts-source");
     write_script(
         &wrapper,
         &format!(
-            "#!/bin/sh\ncd '{}/packages/cli' || exit 1\nexec env -i PATH=\"$PATH\" {vars} XCCODE_DISABLE_MODELS_FETCH=1 XCCODE_DISABLE_AUTOUPDATE=1 bun run --silent src/index.ts \"$@\"\n",
+            "#!/bin/sh\ncd '{}/packages/cli' || exit 1\nexec env -i PATH=\"$PATH\" {vars} XIAOCHUAN_DISABLE_MODELS_FETCH=1 XIAOCHUAN_DISABLE_AUTOUPDATE=1 bun run --silent src/index.ts \"$@\"\n",
             root.display()
         ),
     );
     let port = free_port();
-    std::fs::write(sandbox.path("config/xccode/service-local.json"), format!("{{\"port\":{port}}}\n")).unwrap();
+    std::fs::write(sandbox.path("config/xiaochuan/service-local.json"), format!("{{\"port\":{port}}}\n")).unwrap();
     let ts = |args: &[&str]| {
         let output = Command::new(&wrapper).args(args).output().unwrap();
         assert!(output.status.success(), "ts {args:?}: {}", text(&output.stderr));
@@ -343,7 +343,7 @@ fn interop_with_a_typescript_service() {
     };
     let ts_bin = wrapper.to_str().unwrap();
     let rs = |args: &[&str]| {
-        let output = sandbox.run(args, &[("XCCODE_TS_BIN", ts_bin)]);
+        let output = sandbox.run(args, &[("XIAOCHUAN_TS_BIN", ts_bin)]);
         assert!(output.status.success(), "rs {args:?}: {}", text(&output.stderr));
         text(&output.stdout)
     };

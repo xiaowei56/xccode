@@ -19,7 +19,7 @@ export const content = {
     },
     sdk: {
       name: "SDK",
-      body: "自分のスクリプト、CIジョブ、ツールからXccodeを操作できます。",
+      body: "自分のスクリプト、CIジョブ、ツールからXiaochuanを操作できます。",
       action: "ドキュメント",
     },
     mini: {
@@ -30,9 +30,9 @@ export const content = {
   },
   productDetails: {
     desktop: {
-      title: "Xccode | macOS、Windows、Linux向けデスクトップアプリ",
+      title: "Xiaochuan | macOS、Windows、Linux向けデスクトップアプリ",
       description:
-        "Xccodeエージェントを好きなだけ並列で実行し、すべての変更を横のブラウザで確認して、どのデバイスからでも再開できます。macOS、Windows、Linuxに対応。",
+        "Xiaochuanエージェントを好きなだけ並列で実行し、すべての変更を横のブラウザで確認して、どのデバイスからでも再開できます。macOS、Windows、Linuxに対応。",
       intro:
         "複数のエージェントを同時に実行し、セッションごとに専用のタブで管理できます。すべての変更を差分で確認し、任意の行にコメントして、内蔵ブラウザで結果をチェックできます。macOS、Windows、Linuxに対応しています。",
       showcase: {
@@ -50,21 +50,21 @@ export const content = {
         },
         "extend-it": {
           title: "拡張する",
-          body: "ツールやサービスを接続すれば、エージェントはどんなものでも扱えます。Xccodeに自分用のプラグインを作らせ、サイドバーに専用のUIを表示することもできます。",
+          body: "ツールやサービスを接続すれば、エージェントはどんなものでも扱えます。Xiaochuanに自分用のプラグインを作らせ、サイドバーに専用のUIを表示することもできます。",
         },
       },
     },
     mobile: {
-      title: "Xccode | Mobile、スマートフォンで操作するコーディングセッション",
+      title: "Xiaochuan | Mobile、スマートフォンで操作するコーディングセッション",
       description:
-        "スマートフォンからXccodeのセッションを開始して操作できます。エージェントがコンピューターで動く間も、会話できます。",
+        "スマートフォンからXiaochuanのセッションを開始して操作できます。エージェントがコンピューターで動く間も、会話できます。",
       intro:
-        "どこにいても、スマートフォンからセッションを開始して操作できます。セッションに通話してエージェントと話したり、セッションを開いて続きから再開できます。すべて自分のコンピューターで動くXccode上で行われます。",
+        "どこにいても、スマートフォンからセッションを開始して操作できます。セッションに通話してエージェントと話したり、セッションを開いて続きから再開できます。すべて自分のコンピューターで動くXiaochuan上で行われます。",
       features: {
         "notify-when-done": { title: "完了を通知", body: "開始したセッションが終わると、短い要約が届きます。" },
         "pair-from-anywhere": {
           title: "どこからでも接続",
-          body: "xccode pair --remote で、どのネットワークからでも接続できます。",
+          body: "xiaochuan pair --remote で、どのネットワークからでも接続できます。",
         },
         "every-computer": { title: "すべてのPC", body: "ペアリングしたコンピューターをワンタップで切り替えられます。" },
         "siri-and-shortcuts": {
@@ -72,7 +72,7 @@ export const content = {
           body: "Siriやコントロールセンターから通話やセッションを開始できます。",
         },
         "follow-along": { title: "進捗を追う", body: "エージェントの作業に合わせてタイムラインが更新されます。" },
-        "your-computer": { title: "自分のPC", body: "自分のマシンで動くXccodeに接続します。" },
+        "your-computer": { title: "自分のPC", body: "自分のマシンで動くXiaochuanに接続します。" },
         "share-sheet": { title: "共有シート", body: "アプリを開かずに、何でもセッションに共有できます。" },
         "mute-sessions": { title: "ミュート", body: "通知を受け取らずに、セッションをリストに残せます。" },
       },
@@ -84,9 +84,9 @@ export const content = {
       },
     },
     terminal: {
-      title: "Xccode | オープンソースのコーディングエージェントのターミナルUI",
+      title: "Xiaochuan | オープンソースのコーディングエージェントのターミナルUI",
       description:
-        "どのシェル、エディタ、リモートサーバーでも動く、Xccodeの高速なターミナルUI。やりたいことを伝えれば、各編集を差分で確認し、コマンドを承認できます。",
+        "どのシェル、エディタ、リモートサーバーでも動く、Xiaochuanの高速なターミナルUI。やりたいことを伝えれば、各編集を差分で確認し、コマンドを承認できます。",
       intro:
         "どのシェル、エディタ、リモートサーバーでも動く高速なターミナルUI。やりたいことを普段の言葉で伝え、各編集が差分として反映される様子を確認し、どのコマンドを自動で実行するかを選べます。",
       features: {
@@ -102,7 +102,7 @@ export const content = {
           title: "後から再開",
           body: "-c で前回のセッションを、-s で任意のセッションを再開できます。",
         },
-        "one-off-runs": { title: "単発の実行", body: "xccode run でメッセージを1つ送り、返答を出力します。" },
+        "one-off-runs": { title: "単発の実行", body: "xiaochuan run でメッセージを1つ送り、返答を出力します。" },
         "agents-and-commands": {
           title: "エージェントとコマンド",
           body: "shift+tab でエージェントを切り替え、ctrl+p ですべてのコマンドを開けます。",
@@ -111,8 +111,8 @@ export const content = {
           title: "自動承認",
           body: "--auto を付けて実行すると、拒否していないすべての操作を許可します。",
         },
-        "any-server": { title: "任意のサーバー", body: "--server でURLを指定してXccodeサーバーに接続できます。" },
-        "usage-stats": { title: "利用統計", body: "xccode stats で、共有できる利用統計を表示します。" },
+        "any-server": { title: "任意のサーバー", body: "--server でURLを指定してXiaochuanサーバーに接続できます。" },
+        "usage-stats": { title: "利用統計", body: "xiaochuan stats で、共有できる利用統計を表示します。" },
       },
       showcase: {
         "ask-in-plain-words": {
@@ -127,32 +127,32 @@ export const content = {
           title: "自分好みに",
           body: "デフォルトからtokyonightまで、キー1つでテーマを切り替えられます。",
         },
-        mini: { title: "Mini", body: "xccode mini を実行すると、返答が自分のスクロールバックに出力されます。" },
+        mini: { title: "Mini", body: "xiaochuan mini を実行すると、返答が自分のスクロールバックに出力されます。" },
       },
     },
     sdk: {
-      title: "Xccode | スクリプト、CIジョブ、ツールのためのTypeScript SDK",
+      title: "Xiaochuan | スクリプト、CIジョブ、ツールのためのTypeScript SDK",
       description:
-        "自分のスクリプト、CIジョブ、ツールからXccodeを操作できます。型付きのTypeScriptクライアントで、セッションの作成、プロンプトの送信、すべてのイベントのストリーミングを行えます。",
+        "自分のスクリプト、CIジョブ、ツールからXiaochuanを操作できます。型付きのTypeScriptクライアントで、セッションの作成、プロンプトの送信、すべてのイベントのストリーミングを行えます。",
       intro:
-        "自分のスクリプト、CIジョブ、ツールからXccodeを操作できます。SDKはあなたの設定とモデルでXccodeをプロセス内で実行し、型付きクライアントでセッションの作成、プロンプトの送信、すべてのイベントのストリーミングを行えます。",
+        "自分のスクリプト、CIジョブ、ツールからXiaochuanを操作できます。SDKはあなたの設定とモデルでXiaochuanをプロセス内で実行し、型付きクライアントでセッションの作成、プロンプトの送信、すべてのイベントのストリーミングを行えます。",
       features: {
         "typescript-client": {
           title: "TypeScriptクライアント",
-          body: "型付きのリクエストとイベント。@xccode/client と同じ値を使います。",
+          body: "型付きのリクエストとイベント。@xiaochuan/client と同じ値を使います。",
         },
         "sessions-from-code": {
           title: "コードでセッション",
           body: "どのスクリプトからでもセッションを作成し、プロンプトを送れます。",
         },
-        "any-model": { title: "任意のモデル", body: "Xccodeの設定にあるモデルをそのまま使います。" },
+        "any-model": { title: "任意のモデル", body: "Xiaochuanの設定にあるモデルをそのまま使います。" },
         "npm-or-bun": {
           title: "npmまたはbun",
-          body: "npm i @xccode/sdk または bun add @xccode/sdk でインストールできます。",
+          body: "npm i @xiaochuan/sdk または bun add @xiaochuan/sdk でインストールできます。",
         },
         "in-process-host": {
           title: "インプロセスホスト",
-          body: "ネットワークを介さず、メモリ内でXccodeを実行します。",
+          body: "ネットワークを介さず、メモリ内でXiaochuanを実行します。",
         },
         "your-plugins": {
           title: "自分のプラグイン",
@@ -161,13 +161,13 @@ export const content = {
         "promise-or-effect": { title: "PromiseかEffect", body: "同じ値を返すPromise APIとEffect API。" },
         "cloudflare-workers": {
           title: "Cloudflare Workers",
-          body: "Workers上のCloudflare Durable Object内でXccodeを実行できます。",
+          body: "Workers上のCloudflare Durable Object内でXiaochuanを実行できます。",
         },
       },
       showcase: {
         "fix-ci-from-code": {
           title: "コードでCIを修正",
-          body: "短いスクリプトで、失敗したテストをXccodeに直させて再実行します。",
+          body: "短いスクリプトで、失敗したテストをXiaochuanに直させて再実行します。",
         },
         "follow-every-step": {
           title: "すべてのステップを追う",
@@ -175,20 +175,20 @@ export const content = {
         },
         "build-your-own-tools": {
           title: "独自のツールを作る",
-          body: "数行のコードで、ボット、ダッシュボード、ワークフローにXccodeを組み込めます。",
+          body: "数行のコードで、ボット、ダッシュボード、ワークフローにXiaochuanを組み込めます。",
         },
         "in-your-process": {
           title: "プロセス内で実行",
-          body: "あなたの設定とモデルで、Xccodeをプロセス内で実行します。",
+          body: "あなたの設定とモデルで、Xiaochuanをプロセス内で実行します。",
         },
       },
     },
     mini: {
-      title: "Xccode | Mini、エージェントのための最小限のターミナルUI",
+      title: "Xiaochuan | Mini、エージェントのための最小限のターミナルUI",
       description:
-        "MiniはXccodeを最小限のターミナルインターフェースで実行します。返答はターミナル自体のスクロールバックに出力され、下にはプロンプトとステータス行だけが残ります。",
+        "MiniはXiaochuanを最小限のターミナルインターフェースで実行します。返答はターミナル自体のスクロールバックに出力され、下にはプロンプトとステータス行だけが残ります。",
       intro:
-        "Xccodeのための最小限のターミナルインターフェース。xccode mini を実行すると、返答がターミナル自体のスクロールバックに直接出力されるので、ほかの出力と同じようにスクロール、検索、コピーできます。下部に残るのはプロンプトとステータス行だけです。",
+        "Xiaochuanのための最小限のターミナルインターフェース。xiaochuan mini を実行すると、返答がターミナル自体のスクロールバックに直接出力されるので、ほかの出力と同じようにスクロール、検索、コピーできます。下部に残るのはプロンプトとステータス行だけです。",
       features: {
         "your-scrollback": { title: "スクロールバック", body: "返答は通常のターミナル履歴になります。" },
         "one-prompt": {
@@ -204,7 +204,7 @@ export const content = {
           title: "後から再開",
           body: "-c で前回のセッションを、-s で任意のセッションを再開できます。",
         },
-        "same-xccode": { title: "同じXccode", body: "ほかのアプリと同じサーバー、エージェント、モデル。" },
+        "same-xiaochuan": { title: "同じXiaochuan", body: "ほかのアプリと同じサーバー、エージェント、モデル。" },
         agents: { title: "エージェント", body: "プロンプトから直接エージェントを切り替えられます。" },
         compact: { title: "圧縮", body: "/compact で長いセッションを縮められます。" },
       },
@@ -212,16 +212,16 @@ export const content = {
   },
   extensionCard: {
     name: "拡張機能",
-    body: "VS CodeでXccodeを使えます。ZedなどのエディタではACP経由で使えます。",
+    body: "VS CodeでXiaochuanを使えます。ZedなどのエディタではACP経由で使えます。",
     action: "インストール",
   },
   extensions: {
     browse: {
       name: "Browse",
       body: "エージェントが普段のブラウザを使えます。",
-      title: "Xccode | Browse、コーディングエージェントが使う普段のブラウザ",
+      title: "Xiaochuan | Browse、コーディングエージェントが使う普段のブラウザ",
       description:
-        "Browseを使うと、XccodeやほかのMCPクライアントが普段のブラウザを使えます。エージェントはページを読み、クリックし、入力し、スクリーンショットを撮り、タブを録画します。ログインや2FAはあなたに任せます。",
+        "Browseを使うと、XiaochuanやほかのMCPクライアントが普段のブラウザを使えます。エージェントはページを読み、クリックし、入力し、スクリーンショットを撮り、タブを録画します。ログインや2FAはあなたに任せます。",
       intro:
         "MCPサーバーとChromium拡張機能で、エージェントが普段のブラウザを使えるようにします。あなたのタブ、ログイン、拡張機能をそのまま使えます。エージェントはタブをバックグラウンドで開き、グループにまとめて邪魔にならないようにし、ページを読んだり、クリックしたり、入力したり、スクリーンショットを撮ったり、タブを録画したりします。ログイン、2FAの入力、支払いなどあなたの番になると、エージェントはタブをあなたに渡し、「Continue」をクリックすると作業を再開します。",
       features: {
@@ -242,7 +242,7 @@ export const content = {
           title: "録画と記録",
           body: "スクリーンショット、タブの録画、ネットワーク通信。",
         },
-        "any-mcp-client": { title: "全MCPクライアント", body: "Xccode、Claude Code、Cursor、Codex、Zedなど多数。" },
+        "any-mcp-client": { title: "全MCPクライアント", body: "Xiaochuan、Claude Code、Cursor、Codex、Zedなど多数。" },
         "all-your-logins": {
           title: "ログインはそのまま",
           body: "エージェントは、すでにサインインしているサイトをそのまま使います。キーも設定も不要です。",
@@ -264,43 +264,43 @@ export const content = {
   },
   getStarted: {
     title: "はじめる",
-    lead: "いちばん簡単な始め方は、Xccodeをダウンロードして無料モデルを使うことです。アカウントは不要です。もっと使いたいときは、お使いのサブスクリプションを持ち込むか、Xccode Goを使えます。",
+    lead: "いちばん簡単な始め方は、Xiaochuanをダウンロードして無料モデルを使うことです。アカウントは不要です。もっと使いたいときは、お使いのサブスクリプションを持ち込むか、Xiaochuan Goを使えます。",
     phrases: {
-      "download-xccode": { text: "Xccodeをダウンロード" },
+      "download-xiaochuan": { text: "Xiaochuanをダウンロード" },
       "free-models": { text: "無料モデル" },
       "your-own-subscription": { text: "お使いのサブスクリプション" },
       "a-subscription-you-already-have": { text: "すでにお持ちのサブスクリプション" },
-      "xccode-go": { text: "Xccode Go" },
+      "xiaochuan-go": { text: "Xiaochuan Go" },
     },
     subscriptions: { "chatgpt-plus-pro": { name: "ChatGPT Plus/Pro" } },
     steps: {
       download: { title: "ダウンロード", line: "デスクトップ、ターミナル、モバイル。" },
       "use-free-models": {
         title: "無料モデルを使う",
-        line: "Xccodeには無料モデルが付属しています。アカウントは不要です。",
+        line: "Xiaochuanには無料モデルが付属しています。アカウントは不要です。",
       },
       "add-more-models": {
         title: "モデルを追加",
-        line: "お使いのサブスクリプションを持ち込むか、月額$10からのXccode Goの厳選モデルを使えます。",
+        line: "お使いのサブスクリプションを持ち込むか、月額$10からのXiaochuan Goの厳選モデルを使えます。",
       },
     },
     sentence:
-      "Xccodeをダウンロードして無料モデルから始め、もっと使いたくなったら、お使いのサブスクリプションかXccode Goを使えます。",
+      "Xiaochuanをダウンロードして無料モデルから始め、もっと使いたくなったら、お使いのサブスクリプションかXiaochuan Goを使えます。",
   },
   byos: {
     title: "サブスクリプションを持ち込む",
     headline: "すでにお持ちのサブスクリプションを使えます。",
-    line: "ChatGPT PlusまたはPro、あるいはGitHub Copilotでログインできます。Xccodeのサブスクリプションも使えます。",
+    line: "ChatGPT PlusまたはPro、あるいはGitHub Copilotでログインできます。Xiaochuanのサブスクリプションも使えます。",
     yours: { label: "お使いのサブスクリプション", items: { "chatgpt-plus-pro": { name: "ChatGPT Plus/Pro" } } },
-    planLinks: ["Xccodeのサブスクリプション", "Xccode Go"],
-    ours: { label: "Xccodeのプラン" },
+    planLinks: ["Xiaochuanのサブスクリプション", "Xiaochuan Go"],
+    ours: { label: "Xiaochuanのプラン" },
   },
   brand: {
     hero: { copy: { text: "エージェント用ルール", copied: "コピーしました" } },
     naming: {
       title: "表記",
-      body: "Xccodeは、大文字のOと大文字のCを使って1語で書きます。Xccode、Open Code、Xccode AI、Open-Codeとは書きません。",
-      code: "小文字の `xccode` は、`xccode-figma` や `@acme/xccode-plugin` のように、コードとパッケージ名でのみ使います。",
+      body: "Xiaochuanは、大文字のOと大文字のCを使って1語で書きます。Xiaochuan、Open Code、Xiaochuan AI、Open-Codeとは書きません。",
+      code: "小文字の `xiaochuan` は、`xiaochuan-figma` や `@acme/xiaochuan-plugin` のように、コードとパッケージ名でのみ使います。",
     },
     families: {
       logo: {
@@ -315,7 +315,7 @@ export const content = {
       },
       wordmark: {
         title: "ワードマーク",
-        body: "Xccodeの字形で書いた正式名称。名前を書ききるスペースがある場所で使います。",
+        body: "Xiaochuanの字形で書いた正式名称。名前を書ききるスペースがある場所で使います。",
         assets: { light: { name: "ライト" }, dark: { name: "ダーク" } },
       },
       "simple-wordmark": {
@@ -412,51 +412,51 @@ export const content = {
     },
     integrations: {
       title: "連携",
-      body: "Xccodeと連携するプラグイン、プロバイダー、ツールや、Xccodeで作ったプロジェクトは、そのことを表示できます。バッジかパートナーロックアップを使い、プロジェクトがあなたのものだとわかる名前を付けてください。",
+      body: "Xiaochuanと連携するプラグイン、プロバイダー、ツールや、Xiaochuanで作ったプロジェクトは、そのことを表示できます。バッジかパートナーロックアップを使い、プロジェクトがあなたのものだとわかる名前を付けてください。",
       badges: {
-        body: "README、ドキュメント、Webサイトにバッジを置き、xccode.aiにリンクしてください。背景に合わせてライトかダークのファイルを選び（HTMLは自動で切り替わります）、色やテキストは変更しないでください。",
+        body: "README、ドキュメント、Webサイトにバッジを置き、xiaochuan.aiにリンクしてください。背景に合わせてライトかダークのファイルを選び（HTMLは自動で切り替わります）、色やテキストは変更しないでください。",
         sizes: "どのスタイルも20、32、44px（Shieldsは20pxのみ）で、SVGと2倍サイズのPNGがあります。",
-        mono: "各ファイルには、テキストをOpenTUI Monoにした版もあります。xccode-works-with-a-light-20-mono.svg のように拡張子の前に -mono を付けます。大文字のOpenTUI Monoなら -mono-caps を付けます。",
+        mono: "各ファイルには、テキストをOpenTUI Monoにした版もあります。xiaochuan-works-with-a-light-20-mono.svg のように拡張子の前に -mono を付けます。大文字のOpenTUI Monoなら -mono-caps を付けます。",
         groups: {
           "works-with": {
             title: "Works with",
-            alt: "Works with Xccode",
-            body: "Xccodeと一緒に動くプラグイン、プロバイダー、ツール向け。",
+            alt: "Works with Xiaochuan",
+            body: "Xiaochuanと一緒に動くプラグイン、プロバイダー、ツール向け。",
           },
-          "built-with": { title: "Built with", alt: "Built with Xccode", body: "Xccodeで作ったプロジェクト向け。" },
+          "built-with": { title: "Built with", alt: "Built with Xiaochuan", body: "Xiaochuanで作ったプロジェクト向け。" },
         },
         styles: { a: { name: "フレーム" }, c: { name: "セル" }, f: { name: "ソリッド" }, g: { name: "Shields" } },
       },
       lockup: {
         title: "パートナーロックアップ",
-        body: "Xccodeのロゴとパートナーのロゴを、間に×を挟んで横に並べます。×の両側に3ストローク分の余白をとり、パートナーのロゴはXccodeのロゴと同じ高さに見えるように調整し、ロックアップ全体のまわりに余白を確保してください。",
+        body: "Xiaochuanのロゴとパートナーのロゴを、間に×を挟んで横に並べます。×の両側に3ストローク分の余白をとり、パートナーのロゴはXiaochuanのロゴと同じ高さに見えるように調整し、ロックアップ全体のまわりに余白を確保してください。",
         partners: { github: { name: "GitHub" } },
       },
       naming: {
         title: "プロジェクトの名前",
         body: "プロジェクトがあなたのものだとわかるように、自分の名前を先に置きます。",
-        rule: "`Linear for Xccode` と書くか、パッケージ名を `xccode-linear` にします。`Xccode Linear` や `Linear by Xccode` とは書きません。",
+        rule: "`Linear for Xiaochuan` と書くか、パッケージ名を `xiaochuan-linear` にします。`Xiaochuan Linear` や `Linear by Xiaochuan` とは書きません。",
       },
     },
     trademarks: {
       title: "商標",
-      body: "XccodeとXccodeのロゴはAnomalyの商標です。Anomalyがあなたを推奨または支援していると受け取られる使い方、製品名や会社名への使用、許可のない商品への使用はしないでください。",
+      body: "XiaochuanとXiaochuanのロゴはAnomalyの商標です。Anomalyがあなたを推奨または支援していると受け取られる使い方、製品名や会社名への使用、許可のない商品への使用はしないでください。",
       contact: { before: "ご質問は", after: "までメールでお送りください。" },
     },
   },
   press: {
-    title: "Xccode | 企業情報とブランド素材のプレスキット",
+    title: "Xiaochuan | 企業情報とブランド素材のプレスキット",
     description:
-      "Xccodeのプレスキットです。Xccodeと開発元のAnomalyに関する情報、ダウンロードできるロゴとワードマーク、報道関係のお問い合わせ先をまとめています。",
-    hero: { title: "プレス", body: "XccodeとAnomalyについて書くための情報、ブランド素材、連絡先。" },
+      "Xiaochuanのプレスキットです。Xiaochuanと開発元のAnomalyに関する情報、ダウンロードできるロゴとワードマーク、報道関係のお問い合わせ先をまとめています。",
+    hero: { title: "プレス", body: "XiaochuanとAnomalyについて書くための情報、ブランド素材、連絡先。" },
     company: {
       title: "Anomalyについて",
-      lead: "AnomalyはXccodeを開発している会社です。開発者向けのオープンソースツールを作っています。",
+      lead: "AnomalyはXiaochuanを開発している会社です。開発者向けのオープンソースツールを作っています。",
       more: "ほかにもSSTやOpenTUIなどのプロジェクトがあり、すべて[GitHub](github)でオープンソースとして公開しています。",
       learnMore: "詳しくは[anoma.ly](site)をご覧ください。",
       projects: {
-        xccode: {
-          name: "Xccode",
+        xiaochuan: {
+          name: "Xiaochuan",
           body: "オープンソースのコーディングエージェント。デスクトップ、ターミナル、モバイル向けのアプリとSDKがあります。MITライセンス、GitHubスター220,000以上。",
         },
         sst: {
@@ -465,7 +465,7 @@ export const content = {
         },
         opentui: {
           name: "OpenTUI",
-          body: "TypeScript、React、Solidでターミナル UIを作るためのライブラリで、コアはZigで書かれています。Xccodeが本番環境で使っています。GitHubスターは13,000以上。",
+          body: "TypeScript、React、Solidでターミナル UIを作るためのライブラリで、コアはZigで書かれています。Xiaochuanが本番環境で使っています。GitHubスターは13,000以上。",
         },
         "models-dev": {
           name: "Models.dev",
@@ -482,31 +482,31 @@ export const content = {
       },
     },
     about: {
-      title: "Xccodeについて",
-      body: "Xccodeと各製品の紹介文です。長文版と短文版があり、そのままコピーして使えます。",
+      title: "Xiaochuanについて",
+      body: "Xiaochuanと各製品の紹介文です。長文版と短文版があり、そのままコピーして使えます。",
       boilerplate: {
-        long: "Xccodeはオープンソースのコーディングエージェントです。デスクトップアプリ、ターミナルUI、モバイルアプリ、SDKとして提供され、Claude、GPT、Geminiなど、あらゆるプロバイダーのモデルで動作します。XccodeはMITライセンスで、Anomalyが開発しています。GitHubスターは220,000以上、コントリビューターは1,000人以上で、毎月2,200万人以上の開発者が利用しています。",
+        long: "Xiaochuanはオープンソースのコーディングエージェントです。デスクトップアプリ、ターミナルUI、モバイルアプリ、SDKとして提供され、Claude、GPT、Geminiなど、あらゆるプロバイダーのモデルで動作します。XiaochuanはMITライセンスで、Anomalyが開発しています。GitHubスターは220,000以上、コントリビューターは1,000人以上で、毎月2,200万人以上の開発者が利用しています。",
         short:
-          "XccodeはAnomalyが開発するオープンソースのコーディングエージェントで、デスクトップ、ターミナル、モバイル向けのアプリとSDKがあります。",
+          "XiaochuanはAnomalyが開発するオープンソースのコーディングエージェントで、デスクトップ、ターミナル、モバイル向けのアプリとSDKがあります。",
       },
       products: {
-        "xccode-console": {
-          name: "Xccode Console",
-          long: "Xccode Consoleは、開発者やチームがXccodeやほかのコーディングエージェントで使うAIモデルへのアクセスを購入、管理するWebアプリです。フロンティアモデルとオープンウェイトモデルの従量課金制の推論（前払いクレジットからリクエストごとに課金）と、Xccode Goのサブスクリプションを提供しています。チームは、Member、Admin、Ownerのロールを持つワークスペース、ワークスペース単位とユーザー単位の利用上限、Okta、Microsoft Entra ID、Google Workspaceによるシングルサインオン、SCIMを利用できます。Consoleは30以上のプロバイダーに対応しているため、チームはすでに持っているプロバイダーのアカウントを接続でき、Console自体の推論は任意です。URLはxccode.ai/consoleです。",
+        "xiaochuan-console": {
+          name: "Xiaochuan Console",
+          long: "Xiaochuan Consoleは、開発者やチームがXiaochuanやほかのコーディングエージェントで使うAIモデルへのアクセスを購入、管理するWebアプリです。フロンティアモデルとオープンウェイトモデルの従量課金制の推論（前払いクレジットからリクエストごとに課金）と、Xiaochuan Goのサブスクリプションを提供しています。チームは、Member、Admin、Ownerのロールを持つワークスペース、ワークスペース単位とユーザー単位の利用上限、Okta、Microsoft Entra ID、Google Workspaceによるシングルサインオン、SCIMを利用できます。Consoleは30以上のプロバイダーに対応しているため、チームはすでに持っているプロバイダーのアカウントを接続でき、Console自体の推論は任意です。URLはxiaochuan.ai/consoleです。",
           short:
-            "Xccode Consoleは、従量課金制のAIモデルアクセス、Xccode Goのサブスクリプション、予算やシングルサインオンなどのチーム管理機能を提供するAnomalyのWebアプリです。",
+            "Xiaochuan Consoleは、従量課金制のAIモデルアクセス、Xiaochuan Goのサブスクリプション、予算やシングルサインオンなどのチーム管理機能を提供するAnomalyのWebアプリです。",
         },
-        "xccode-go": {
-          name: "Xccode Go",
-          long: "Xccode Goは、コーディングモデルを月額固定で使いたい開発者向けのサブスクリプションです。Goは月額$10、上限が高いGo Plusは月額$40、Go Teamsはメンバー1人あたり月額$20です。各プランには、エージェント型コーディング向けにテストした厳選モデルが含まれます。利用上限はモデルごとの月額のドル建てで、5時間ごとと週ごとに、月間上限の20%と50%の枠が順次回復します。サブスクライバーはクレジットを追加でき、従量課金の残高に切り替えることも、いつでも解約することもできます。GoはXccodeとほかのエージェントで使えます。URLはxccode.ai/console/goです。",
+        "xiaochuan-go": {
+          name: "Xiaochuan Go",
+          long: "Xiaochuan Goは、コーディングモデルを月額固定で使いたい開発者向けのサブスクリプションです。Goは月額$10、上限が高いGo Plusは月額$40、Go Teamsはメンバー1人あたり月額$20です。各プランには、エージェント型コーディング向けにテストした厳選モデルが含まれます。利用上限はモデルごとの月額のドル建てで、5時間ごとと週ごとに、月間上限の20%と50%の枠が順次回復します。サブスクライバーはクレジットを追加でき、従量課金の残高に切り替えることも、いつでも解約することもできます。GoはXiaochuanとほかのエージェントで使えます。URLはxiaochuan.ai/console/goです。",
           short:
-            "Xccode Goは、厳選したコーディングモデルを月間の利用上限つきで使える、Anomalyの月額サブスクリプションです。月額$10からです。",
+            "Xiaochuan Goは、厳選したコーディングモデルを月間の利用上限つきで使える、Anomalyの月額サブスクリプションです。月額$10からです。",
         },
-        "xccode-data": {
-          name: "Xccode Data",
-          long: "Xccode Dataは、開発者がXccodeでどのAIモデルを使っているか、その構成が時間とともにどう変わるかを示す公開ダッシュボードです。上位モデルのランキング、トークン使用量、セッションとトークンのコスト、キャッシュ率、市場シェア、国別の内訳を公開しています。数値は1時間ごとに集計され、日と週はUTCで区切られます。ユーザー数とセッション数は概算で、コストはXccodeのモデルカタログの定価を使っています。報道関係者は、ページに表示される更新時刻とともに、Xccode Data（xccode.ai/data）として引用できます。",
+        "xiaochuan-data": {
+          name: "Xiaochuan Data",
+          long: "Xiaochuan Dataは、開発者がXiaochuanでどのAIモデルを使っているか、その構成が時間とともにどう変わるかを示す公開ダッシュボードです。上位モデルのランキング、トークン使用量、セッションとトークンのコスト、キャッシュ率、市場シェア、国別の内訳を公開しています。数値は1時間ごとに集計され、日と週はUTCで区切られます。ユーザー数とセッション数は概算で、コストはXiaochuanのモデルカタログの定価を使っています。報道関係者は、ページに表示される更新時刻とともに、Xiaochuan Data（xiaochuan.ai/data）として引用できます。",
           short:
-            "Xccode Dataは、xccode.ai/dataで公開しているダッシュボードです。Xccodeでの実際の利用量に基づいてAIモデルをランク付けし、トークン、コスト、市場シェアを1時間ごとに更新しています。",
+            "Xiaochuan Dataは、xiaochuan.ai/dataで公開しているダッシュボードです。Xiaochuanでの実際の利用量に基づいてAIモデルをランク付けし、トークン、コスト、市場シェアを1時間ごとに更新しています。",
         },
       },
     },
@@ -523,22 +523,22 @@ export const content = {
       items: {
         "first-release-v0-0-1": { date: "2025年4月", text: "初回リリース、v0.0.1" },
         "1-million-downloads": { date: "2025年10月", text: "ダウンロード数100万突破" },
-        "xccode-1-0": { date: "2025年10月", text: "Xccode 1.0" },
+        "xiaochuan-1-0": { date: "2025年10月", text: "Xiaochuan 1.0" },
         "desktop-app-ships": { date: "2025年12月", text: "Desktopアプリ公開" },
         "10-million-downloads": { date: "2026年1月", text: "ダウンロード数1,000万突破" },
-        "xccode-2-0": { date: "2026年9月", text: "Xccode 2.0" },
+        "xiaochuan-2-0": { date: "2026年9月", text: "Xiaochuan 2.0" },
         "220-000-github-stars": { date: "2026年11月", text: "GitHubスター220,000突破" },
       },
     },
     news: {
       title: "最新リリース",
-      intro: "Xccodeは頻繁にリリースしています。新機能を含む最新のリリースを紹介します。",
+      intro: "Xiaochuanは頻繁にリリースしています。新機能を含む最新のリリースを紹介します。",
       changelog: { text: "変更履歴の全文" },
       feed: { text: "RSS" },
     },
     media: {
       title: "メディア",
-      intro: "実際の製品から収録した、各アプリの静止画と短い動画です。Xccodeについて書く際にご利用いただけます。",
+      intro: "実際の製品から収録した、各アプリの静止画と短い動画です。Xiaochuanについて書く際にご利用いただけます。",
       note: "すべてダークテーマで収録しています。静止画とポスターは最大1920 × 1080（縦向きは1080 × 1350）のJPGです。動画は音声なしのMP4です。",
       products: {
         desktop: {
@@ -614,11 +614,11 @@ export const content = {
     brand: {
       title: "ブランド",
       before:
-        "Xccodeのロゴとワードマークを1つのZIPファイルでダウンロードできます。個別のファイル、バリエーション、使用ルールについては、",
+        "Xiaochuanのロゴとワードマークを1つのZIPファイルでダウンロードできます。個別のファイル、バリエーション、使用ルールについては、",
       link: { text: "ブランドページ" },
       after: "をご覧ください。",
       usage:
-        "これらのファイルは、Xccodeについて書くために使えます。ファイルを変更したり、Xccodeがあなたの活動を推奨しているかのように示したりしないでください。",
+        "これらのファイルは、Xiaochuanについて書くために使えます。ファイルを変更したり、Xiaochuanがあなたの活動を推奨しているかのように示したりしないでください。",
     },
     product: {
       title: "製品",
@@ -629,7 +629,7 @@ export const content = {
         },
         mobile: {
           name: "Mobile",
-          body: "最新のXccodeアプリ。セッションに通話してエージェントと話し、どこにいてもスマートフォンから変更を確認、承認できます。",
+          body: "最新のXiaochuanアプリ。セッションに通話してエージェントと話し、どこにいてもスマートフォンから変更を確認、承認できます。",
         },
         terminal: {
           name: "Terminal",
@@ -651,7 +651,7 @@ export const content = {
         support: {
           links: { "github-issues": { text: "GitHubのissue" }, "help-anoma-ly": { text: "help@anoma.ly" } },
           title: "サポート",
-          body: "Xccodeについてのヘルプは、issueを作成するか、コミュニティで質問してください。アカウントや請求に関するご質問はメールでお送りください。",
+          body: "Xiaochuanについてのヘルプは、issueを作成するか、コミュニティで質問してください。アカウントや請求に関するご質問はメールでお送りください。",
         },
         security: {
           links: {
@@ -679,8 +679,8 @@ export const content = {
     },
     faq: {
       items: {
-        "how-do-i-use-xccode": { answer: [undefined, undefined, undefined] },
-        "can-i-use-my-existing-ai-subscriptions-with-xccode": { answer: [undefined, undefined, undefined] },
+        "how-do-i-use-xiaochuan": { answer: [undefined, undefined, undefined] },
+        "can-i-use-my-existing-ai-subscriptions-with-xiaochuan": { answer: [undefined, undefined, undefined] },
         "what-about-data-and-privacy": { answer: [undefined, undefined, undefined] },
       },
     },
@@ -690,18 +690,18 @@ export const content = {
     sdk: { more: { label: "SDKのドキュメントを読む" } },
     mini: {
       commands: { curl: { name: "スクリプト" } },
-      lead: "MiniはXccode CLIに含まれています。次のいずれかでインストールし、xccode mini を実行してください。",
+      lead: "MiniはXiaochuan CLIに含まれています。次のいずれかでインストールし、xiaochuan mini を実行してください。",
     },
   },
   pair: {
     title: "スマートフォンを接続",
     cardTitle: "1つのコマンドでスマートフォンとペアリング",
     intro:
-      "Xccode Mobileは、コンピューター上のXccodeのリモコンです。セッションはコンピューターで動き続け、アプリはそれを表示して操作できるようにします。",
+      "Xiaochuan Mobileは、コンピューター上のXiaochuanのリモコンです。セッションはコンピューターで動き続け、アプリはそれを表示して操作できるようにします。",
     steps: {
       "get-the-app": {
         title: "アプリを入手",
-        body: "TestFlightからiPhoneにXccodeのベータ版をインストールします。Androidアプリは近日公開予定です。",
+        body: "TestFlightからiPhoneにXiaochuanのベータ版をインストールします。Androidアプリは近日公開予定です。",
       },
       "run-this-on-your-computer": {
         title: "コンピューターで実行",
@@ -712,12 +712,12 @@ export const content = {
         body: "アプリでQRコードを読み取るか、リンクを貼り付けます。コンピューターの最近のセッションがスマートフォンで開きます。",
       },
     },
-    note: "--remote はOpenTunnelのアドレス経由で接続するので、どのネットワークからでも使えます。同じWi-Fiにいる場合は、xccode service set hostname 0.0.0.0 を1回実行してから、xccode pair を実行します。",
+    note: "--remote はOpenTunnelのアドレス経由で接続するので、どのネットワークからでも使えます。同じWi-Fiにいる場合は、xiaochuan service set hostname 0.0.0.0 を1回実行してから、xiaochuan pair を実行します。",
     facts: [
       "--remote はOpenTunnelのアドレス経由で接続するので、ペアリングはどのネットワークからでも使えます。",
       "リンクとコードは1回だけ使え、5分で期限が切れます。",
       "エージェントはスマートフォンではなくコンピューターで動くので、コンピューターの電源は入れたままにしてください。",
-      "同じWi-Fiでは、xccode service set hostname 0.0.0.0 を1回実行してから、xccode pair を実行します。",
+      "同じWi-Fiでは、xiaochuan service set hostname 0.0.0.0 を1回実行してから、xiaochuan pair を実行します。",
     ],
   },
   announcements: {
@@ -735,7 +735,7 @@ export const content = {
     },
     "steer-your-sessions-from-your-phone": {
       text: "スマートフォンからセッションを操作できます。",
-      link: "Xccode Mobileを見る",
+      link: "Xiaochuan Mobileを見る",
     },
     "a-refreshed-desktop-app": { text: "デスクトップアプリを刷新しました。", link: "2.2の新機能を見る" },
   },

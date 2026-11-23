@@ -5,7 +5,7 @@ import { label } from "./label"
 export default {
   id: "example.reloader",
   setup(api: any) {
-    const carrier = api[Symbol.for("xccode.carrier")]
+    const carrier = api[Symbol.for("xiaochuan.carrier")]
     carrier.command({ name: "reloader.say", title: "reloader.say" }, () => api.ui.toast.show({ message: label() }))
   },
 }

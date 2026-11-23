@@ -1,6 +1,6 @@
 export * as LocationWatcherPolicy from "./location-watcher-policy.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import { Context, Effect, Layer, Scope } from "effect"
 import { State } from "../state.js"
 
@@ -20,7 +20,7 @@ export interface Interface extends State.Transformable<Editor> {
   ) => Effect.Effect<State.Registration, never, Scope.Scope>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/LocationWatcherPolicy") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/LocationWatcherPolicy") {}
 
 const layer = Layer.effect(
   Service,

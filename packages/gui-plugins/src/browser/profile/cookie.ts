@@ -2,9 +2,9 @@ import { Option, Schema } from "effect"
 
 /** The short-lived cookie the profile writes at start to learn whether cookies reach disk. No page or extension sees it. */
 export const PROBE_COOKIE = {
-  host: "cookie-check.xccode.invalid",
-  url: "https://cookie-check.xccode.invalid/",
-  name: "xccode_cookie_check",
+  host: "cookie-check.xiaochuan.invalid",
+  url: "https://cookie-check.xiaochuan.invalid/",
+  name: "xiaochuan_cookie_check",
 } as const
 
 /** A cookie read from another browser or a cookie file, before it is written into the profile. */

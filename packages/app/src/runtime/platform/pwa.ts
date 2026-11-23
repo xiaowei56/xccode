@@ -2,7 +2,7 @@ import { useLocation } from "@solidjs/router"
 import { createEffect } from "solid-js"
 import { stripBasePath, withBasePath } from "./base-path"
 
-const LAST_ROUTE_KEY = "xccode.pwa.last-route"
+const LAST_ROUTE_KEY = "xiaochuan.pwa.last-route"
 
 export function isStandalone() {
   return (

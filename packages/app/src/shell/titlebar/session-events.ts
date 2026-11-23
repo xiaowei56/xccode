@@ -1,6 +1,6 @@
 import { ServerConnection } from "@/runtime/server/registry"
 
-export const SESSION_TABS_REMOVED_EVENT = "xccode:session-tabs-removed"
+export const SESSION_TABS_REMOVED_EVENT = "xiaochuan:session-tabs-removed"
 
 export type SessionTabsRemovedDetail = {
   server: ServerConnection.Key

@@ -1,7 +1,7 @@
 //! Session export options and result dialogs.
 
-use xccode_ui::dialog::{FooterAction, FooterProps, layout};
-use xccode_ui::select::{ActionRun, FooterHint, Group, SelectAction};
+use xiaochuan_ui::dialog::{FooterAction, FooterProps, layout};
+use xiaochuan_ui::select::{ActionRun, FooterHint, Group, SelectAction};
 
 use crate::prelude::*;
 

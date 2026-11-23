@@ -1,7 +1,7 @@
 //! Subagent tree and session selection.
 
-use xccode_api::generated::{SessionInfo, SessionInterruptInput};
-use xccode_store::SessionStatus;
+use xiaochuan_api::generated::{SessionInfo, SessionInterruptInput};
+use xiaochuan_store::SessionStatus;
 use opentui::prelude::Container;
 use regex::Regex;
 use std::sync::LazyLock;
@@ -238,8 +238,8 @@ fn entry(session: &SessionInfo, prefix: String, current: &SessionID, status: Ses
     let title = crate::dialogs::session_list::title(session);
     let found = AGENT.captures(&title);
     let agent = match (&session.agent, &found) {
-        (Some(agent), _) => xccode_ui::tool_info::titlecase(&agent.0),
-        (None, Some(found)) => xccode_ui::tool_info::titlecase(&found[1]),
+        (Some(agent), _) => xiaochuan_ui::tool_info::titlecase(&agent.0),
+        (None, Some(found)) => xiaochuan_ui::tool_info::titlecase(&found[1]),
         (None, None) => "Subagent".to_owned(),
     };
     let title = match &found {

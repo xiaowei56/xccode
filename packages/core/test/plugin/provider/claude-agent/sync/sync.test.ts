@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test"
 import type { LanguageModelV3Prompt } from "@ai-sdk/provider"
-import { Fingerprint } from "@xccode/core/plugin/provider/claude-agent/sync/fingerprint"
-import { SyncDecision } from "@xccode/core/plugin/provider/claude-agent/sync/decide"
-import { CatchUp } from "@xccode/core/plugin/provider/claude-agent/sync/catch-up"
+import { Fingerprint } from "@xiaochuan/core/plugin/provider/claude-agent/sync/fingerprint"
+import { SyncDecision } from "@xiaochuan/core/plugin/provider/claude-agent/sync/decide"
+import { CatchUp } from "@xiaochuan/core/plugin/provider/claude-agent/sync/catch-up"
 
 const user = (text: string): LanguageModelV3Prompt[number] => ({ role: "user", content: [{ type: "text", text }] })
 const assistant = (text: string): LanguageModelV3Prompt[number] => ({

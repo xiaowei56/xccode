@@ -1,9 +1,9 @@
 export * as SessionMove from "./move.js"
 
-import type { Session } from "@xccode/schema/session"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { FSUtil } from "@xccode/util/fs-util"
-import { Global } from "@xccode/util/global"
+import type { Session } from "@xiaochuan/schema/session"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { FSUtil } from "@xiaochuan/util/fs-util"
+import { Global } from "@xiaochuan/util/global"
 import { Cause, Context, Effect, Layer, Schema } from "effect"
 import path from "path"
 import { Bus } from "../bus.js"
@@ -49,7 +49,7 @@ export interface Interface {
   >
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/SessionMove") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/SessionMove") {}
 
 const layer = Layer.effect(
   Service,

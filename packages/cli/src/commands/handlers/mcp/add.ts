@@ -3,7 +3,7 @@ import path from "node:path"
 import { readFile, stat, writeFile } from "node:fs/promises"
 import { Effect, Option } from "effect"
 import { applyEdits, modify } from "jsonc-parser"
-import { Global } from "@xccode/util/global"
+import { Global } from "@xiaochuan/util/global"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
 
@@ -39,10 +39,10 @@ export default Runtime.handler(
 
 export async function resolveConfigPath(directory: string) {
   const candidates = [
-    path.join(directory, "xccode.json"),
-    path.join(directory, "xccode.jsonc"),
-    path.join(directory, ".xccode", "xccode.json"),
-    path.join(directory, ".xccode", "xccode.jsonc"),
+    path.join(directory, "xiaochuan.json"),
+    path.join(directory, "xiaochuan.jsonc"),
+    path.join(directory, ".xiaochuan", "xiaochuan.json"),
+    path.join(directory, ".xiaochuan", "xiaochuan.jsonc"),
   ]
   for (const candidate of candidates) {
     if (

@@ -1,2 +1,2 @@
 export { ClientError } from "./client-error.js"
-export * as Xccode from "./client.js"
+export * as Xiaochuan from "./client.js"

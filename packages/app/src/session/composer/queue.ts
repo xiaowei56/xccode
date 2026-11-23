@@ -1,6 +1,6 @@
 import { createEffect, createMemo, createSignal, onCleanup, untrack, type Accessor } from "solid-js"
-import type { PromptAttachment } from "@xccode/client/promise"
-import { SessionMessage } from "@xccode/schema/session-message"
+import type { PromptAttachment } from "@xiaochuan/client/promise"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
 import type { ComposerDelivery, ComposerSession } from "@/composer/adapter"
 import type { ComposerStateTarget } from "@/composer/submission-state"
 import type { ImageAttachmentPart, Prompt } from "@/composer/state"

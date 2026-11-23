@@ -1,6 +1,6 @@
-import { Button } from "@xccode/ui/button"
+import { Button } from "@xiaochuan/ui/button"
 import { createSignal, For, Show } from "solid-js"
-import { usePlugin } from "@xccode/plugin/gui"
+import { usePlugin } from "@xiaochuan/plugin/gui"
 import { browserPaneFixture, type BrowserScenario } from "./panel.fixture"
 import barStyles from "./bar.css?inline"
 import commentStyles from "./comment.css?inline"

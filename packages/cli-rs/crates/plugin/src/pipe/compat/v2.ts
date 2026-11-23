@@ -16,7 +16,7 @@ import {
 import { createStore, produce, reconcile, unwrap } from "solid-js/store"
 import { EventEmitter } from "node:events"
 import { homedir } from "node:os"
-import { Xccode } from "../../../../../../client/src/promise/generated/index"
+import { Xiaochuan } from "../../../../../../client/src/promise/generated/index"
 import { RGBA, hexToRgb, infoStringToFiletype } from "./core"
 import { eventTypes } from "./events.gen"
 import { rendererMethods, rendererPromises } from "./opentui.gen"
@@ -49,7 +49,7 @@ const EMITTER = new Set<string | symbol>([
   "setMaxListeners",
 ])
 
-// A hue's steps, and an action's states in the order TS's `state` asks them (`@xccode/theme`'s `HueStep`, `ActionState`).
+// A hue's steps, and an action's states in the order TS's `state` asks them (`@xiaochuan/theme`'s `HueStep`, `ActionState`).
 const STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900]
 const STATES = ["disabled", "pressed", "focused", "selected", "hovered"]
 const FIELDS = new Set(["input", "textarea"])
@@ -117,7 +117,7 @@ export const PluginContext = createContext<unknown>()
 
 export function context(base: Base, carrier: Carrier) {
   const id = base.id
-  const unsupported = (feature: string, message = `${id}: ${feature} is not supported by xccode-native yet`) => {
+  const unsupported = (feature: string, message = `${id}: ${feature} is not supported by xiaochuan-native yet`) => {
     const seen = reported.get(id) ?? new Set()
     reported.set(id, seen)
     if (seen.has(feature)) return
@@ -471,7 +471,7 @@ export function context(base: Base, carrier: Carrier) {
     },
     location: {
       // The JS process starts outside the project; report the client's working directory.
-      default: () => toRef(info()?.location) ?? { directory: process.env.XCCODE_DIRECTORY ?? process.cwd() },
+      default: () => toRef(info()?.location) ?? { directory: process.env.XIAOCHUAN_DIRECTORY ?? process.cwd() },
       sync: async () => {},
       invalidate() {},
       vcs: {
@@ -984,7 +984,7 @@ export function context(base: Base, carrier: Carrier) {
         for (const dropped of [...reading.dropped, ...missing]) unsupported(dropped)
         missing.clear()
         // TS renders a route into a column that fills the page, so a `flexGrow` box in it fills the page's height, and
-        // a scrollbox in that its rest (ports trio: xccode-session-manager drew no rows). The root fills it here too.
+        // a scrollbox in that its rest (ports trio: xiaochuan-session-manager drew no rows). The root fills it here too.
         if (place.type === "route") tree.layout = { ...tree.layout, grow: true }
         taking()
         return tree
@@ -1148,8 +1148,8 @@ export function context(base: Base, carrier: Carrier) {
         ? value.map(copied)
         : Object.fromEntries(Object.entries(value).map(([field, item]) => [field, copied(item)]))
 
-  const raw = Xccode.make({
-    baseUrl: "http://xccode.internal/",
+  const raw = Xiaochuan.make({
+    baseUrl: "http://xiaochuan.internal/",
     fetch: (async (url: URL, init?: RequestInit) => {
       const body = typeof init?.body === "string" ? JSON.parse(init.body) : undefined
       const result = await carrier.fetch({

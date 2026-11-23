@@ -10,7 +10,7 @@ const dir = import.meta.dirname
 
 function rawTextPlugin(modelsSnapshot?: string): Plugin {
   return {
-    name: "xccode:raw-text",
+    name: "xiaochuan:raw-text",
     // "pre" is load-bearing for .txt: Vite's built-in asset plugin claims
     // known asset types (.txt among them) ahead of normal-priority plugins,
     // replacing the import with an asset URL string instead of the content.
@@ -30,26 +30,26 @@ export const appArchiveAsset = "app-archive.bin"
 
 function appAssetsPlugin(): Plugin {
   return {
-    name: "xccode:app-assets",
+    name: "xiaochuan:app-assets",
     resolveId(id) {
-      if (id === "virtual:xccode-app-assets") return "\0virtual:xccode-app-assets"
+      if (id === "virtual:xiaochuan-app-assets") return "\0virtual:xiaochuan-app-assets"
     },
     load(id) {
-      if (id !== "\0virtual:xccode-app-assets") return
+      if (id !== "\0virtual:xiaochuan-app-assets") return
       return `import { readFileSync } from "node:fs"
 import path from "node:path"
 import { getRawAsset, isSea } from "node:sea"
 export default () =>
   isSea()
     ? new Uint8Array(getRawAsset(${JSON.stringify(appArchiveAsset)}))
-    : readFileSync(path.join(process.env.XCCODE_NODE_ASSETS_DIR, ${JSON.stringify(appArchiveAsset)}))`
+    : readFileSync(path.join(process.env.XIAOCHUAN_NODE_ASSETS_DIR, ${JSON.stringify(appArchiveAsset)}))`
     },
   }
 }
 
 function runtimeRequirePlugin(): Plugin {
   return {
-    name: "xccode:runtime-require",
+    name: "xiaochuan:runtime-require",
     enforce: "pre",
     transform(code, id) {
       if (!id.endsWith("turndown/lib/turndown.es.js")) return
@@ -62,7 +62,7 @@ function runtimeRequirePlugin(): Plugin {
 
 function simulationGraphPlugin(): Plugin {
   return {
-    name: "xccode:simulation-graph",
+    name: "xiaochuan:simulation-graph",
     generateBundle() {
       verifySimulationGraph(this.getModuleIds())
     },
@@ -71,7 +71,7 @@ function simulationGraphPlugin(): Plugin {
 
 function fffNodePlugin(): Plugin {
   return {
-    name: "xccode:fff-node",
+    name: "xiaochuan:fff-node",
     enforce: "pre",
     transform(code, id) {
       const normalized = id.replaceAll("\\", "/")
@@ -79,7 +79,7 @@ function fffNodePlugin(): Plugin {
         const start = code.indexOf("if (!nativeBinding) {")
         if (start === -1) this.error("Failed to rewrite ffi-rs native binding loader")
         return `const unavailable = () => { throw new Error("ffi-rs native binding unavailable") }
-const nativeBinding = globalThis.__XCCODE_FFF_FFI ?? {
+const nativeBinding = globalThis.__XIAOCHUAN_FFF_FFI ?? {
   DataType: new Proxy({}, { get: (target, key) => target[key] ?? key }),
   PointerType: {},
   FFITypeTag: {},
@@ -131,9 +131,9 @@ function nodePrelude(input: NodeBuildInput) {
     input.target.platform === "darwin"
       ? `${input.target.nodePtyPackage}/prebuilds/darwin-${input.target.arch}/spawn-helper`
       : undefined
-  const xccodePtyAsset = input.target.xccodePtyAsset
-  const promiseModule = `const sdk = globalThis[Symbol.for("xccode.plugin.v2.promise")]
-if (!sdk) throw new Error("Xccode Promise plugin SDK is unavailable")
+  const xiaochuanPtyAsset = input.target.xiaochuanPtyAsset
+  const promiseModule = `const sdk = globalThis[Symbol.for("xiaochuan.plugin.v2.promise")]
+if (!sdk) throw new Error("Xiaochuan Promise plugin SDK is unavailable")
 export const Agent = sdk.Agent
 export const Command = sdk.Command
 export const Connection = sdk.Connection
@@ -145,17 +145,17 @@ export const Provider = sdk.Provider
 export const Reference = sdk.Reference
 export const Skill = sdk.Skill`
   const effectModule = promiseModule
-    .replace("xccode.plugin.v2.promise", "xccode.plugin.v2.effect")
+    .replace("xiaochuan.plugin.v2.promise", "xiaochuan.plugin.v2.effect")
     .replace("Promise plugin", "Effect plugin")
-  const promisePluginModule = `const sdk = globalThis[Symbol.for("xccode.plugin.v2.promise")]
-if (!sdk) throw new Error("Xccode Promise plugin SDK is unavailable")
+  const promisePluginModule = `const sdk = globalThis[Symbol.for("xiaochuan.plugin.v2.promise")]
+if (!sdk) throw new Error("Xiaochuan Promise plugin SDK is unavailable")
 export const define = sdk.Plugin.define`
   const effectPluginModule = promisePluginModule
-    .replace("xccode.plugin.v2.promise", "xccode.plugin.v2.effect")
+    .replace("xiaochuan.plugin.v2.promise", "xiaochuan.plugin.v2.effect")
     .replace("Promise plugin", "Effect plugin")
   const promiseToolModule = `export {}`
-  const effectToolModule = `const sdk = globalThis[Symbol.for("xccode.plugin.v2.effect")]
-if (!sdk) throw new Error("Xccode Effect plugin SDK is unavailable")
+  const effectToolModule = `const sdk = globalThis[Symbol.for("xiaochuan.plugin.v2.effect")]
+if (!sdk) throw new Error("Xiaochuan Effect plugin SDK is unavailable")
 export const Error = sdk.Tool.Error
 `
   return `#!/usr/bin/env -S node ${nodeExecArgv.join(" ")}
@@ -169,20 +169,20 @@ const __filename = import.meta.filename
 const __dirname = import.meta.dirname
 const require = __cjs_mod__.createRequire(import.meta.url)
 const __ocPluginModules = ${JSON.stringify({
-    "@xccode/plugin": "xccode:plugin-v2",
-    "@xccode/plugin/promise/plugin": "xccode:plugin-promise-plugin",
-    "@xccode/plugin/promise/tool": "xccode:plugin-promise-tool",
-    "@xccode/plugin/effect": "xccode:plugin-v2-effect",
-    "@xccode/plugin/effect/plugin": "xccode:plugin-v2-effect-plugin",
-    "@xccode/plugin/effect/tool": "xccode:plugin-v2-effect-tool",
+    "@xiaochuan/plugin": "xiaochuan:plugin-v2",
+    "@xiaochuan/plugin/promise/plugin": "xiaochuan:plugin-promise-plugin",
+    "@xiaochuan/plugin/promise/tool": "xiaochuan:plugin-promise-tool",
+    "@xiaochuan/plugin/effect": "xiaochuan:plugin-v2-effect",
+    "@xiaochuan/plugin/effect/plugin": "xiaochuan:plugin-v2-effect-plugin",
+    "@xiaochuan/plugin/effect/tool": "xiaochuan:plugin-v2-effect-tool",
   })}
 const __ocPluginSources = ${JSON.stringify({
-    "xccode:plugin-v2": promiseModule,
-    "xccode:plugin-promise-plugin": promisePluginModule,
-    "xccode:plugin-promise-tool": promiseToolModule,
-    "xccode:plugin-v2-effect": effectModule,
-    "xccode:plugin-v2-effect-plugin": effectPluginModule,
-    "xccode:plugin-v2-effect-tool": effectToolModule,
+    "xiaochuan:plugin-v2": promiseModule,
+    "xiaochuan:plugin-promise-plugin": promisePluginModule,
+    "xiaochuan:plugin-promise-tool": promiseToolModule,
+    "xiaochuan:plugin-v2-effect": effectModule,
+    "xiaochuan:plugin-v2-effect-plugin": effectPluginModule,
+    "xiaochuan:plugin-v2-effect-tool": effectToolModule,
   })}
 __cjs_mod__.registerHooks({
   resolve(__ocSpecifier, __ocContext, __ocNextResolve) {
@@ -197,7 +197,7 @@ __cjs_mod__.registerHooks({
   },
 })
 const __ocUid = typeof process.getuid === "function" ? process.getuid() : undefined
-const __ocCacheRoot = __ocPath.join(__ocTmpdir(), \`xccode-node-\${__ocUid ?? "user"}\`)
+const __ocCacheRoot = __ocPath.join(__ocTmpdir(), \`xiaochuan-node-\${__ocUid ?? "user"}\`)
 if (__ocIsSea()) {
   try {
     __ocMkdir(__ocCacheRoot, { mode: 0o700 })
@@ -212,7 +212,7 @@ if (__ocIsSea()) {
 const __ocAssetRoot = __ocIsSea()
   ? __ocPath.join(__ocCacheRoot, ${JSON.stringify(`${input.assetHash}-${input.target.platform}-${input.target.arch}`)})
   : __ocFileURLToPath(new URL("./assets/", import.meta.url))
-const __ocPersistentPty = ${JSON.stringify(xccodePtyAsset)}
+const __ocPersistentPty = ${JSON.stringify(xiaochuanPtyAsset)}
 if (__ocIsSea()) {
   const __ocPtySpawnHelper = ${JSON.stringify(nodePtySpawnHelper)}
   for (const __ocKey of __ocAssetKeys()) {
@@ -232,18 +232,18 @@ if (__ocIsSea()) {
     }
   }
 }
-process.env.XCCODE_NODE_ASSETS_DIR = __ocAssetRoot
+process.env.XIAOCHUAN_NODE_ASSETS_DIR = __ocAssetRoot
 process.env.OTUI_ASSET_ROOT = __ocAssetRoot
-process.env.XCCODE_NODE_PTY_PATH = __ocPath.join(__ocAssetRoot, ${JSON.stringify(input.target.nodePtyEntryAsset)})
-process.env.XCCODE_PARCEL_WATCHER_PATH = __ocPath.join(__ocAssetRoot, ${JSON.stringify(input.target.parcelWatcherAsset)})
-process.env.XCCODE_PHOTON_WASM_PATH = __ocPath.join(__ocAssetRoot, ${JSON.stringify(photonWasmAsset)})
+process.env.XIAOCHUAN_NODE_PTY_PATH = __ocPath.join(__ocAssetRoot, ${JSON.stringify(input.target.nodePtyEntryAsset)})
+process.env.XIAOCHUAN_PARCEL_WATCHER_PATH = __ocPath.join(__ocAssetRoot, ${JSON.stringify(input.target.parcelWatcherAsset)})
+process.env.XIAOCHUAN_PHOTON_WASM_PATH = __ocPath.join(__ocAssetRoot, ${JSON.stringify(photonWasmAsset)})
 process.env.FFF_BINARY_PATH = __ocPath.join(__ocAssetRoot, ${JSON.stringify(input.target.fffAsset)})
-process.env.XCCODE_FFF_FFI_PATH = __ocPath.join(__ocAssetRoot, ${JSON.stringify(input.target.fffFfiAsset)})
-if (__ocPersistentPty && !process.env.XCCODE_PTY_BIN) process.env.XCCODE_PTY_BIN = __ocPath.join(__ocAssetRoot, __ocPersistentPty)
+process.env.XIAOCHUAN_FFF_FFI_PATH = __ocPath.join(__ocAssetRoot, ${JSON.stringify(input.target.fffFfiAsset)})
+if (__ocPersistentPty && !process.env.XIAOCHUAN_PTY_BIN) process.env.XIAOCHUAN_PTY_BIN = __ocPath.join(__ocAssetRoot, __ocPersistentPty)
 try {
-  globalThis.__XCCODE_FFF_FFI = require(process.env.XCCODE_FFF_FFI_PATH)
+  globalThis.__XIAOCHUAN_FFF_FFI = require(process.env.XIAOCHUAN_FFF_FFI_PATH)
 } catch {}
-globalThis.__XCCODE_PHOTON_WASM_PATH = process.env.XCCODE_PHOTON_WASM_PATH
+globalThis.__XIAOCHUAN_PHOTON_WASM_PATH = process.env.XIAOCHUAN_PHOTON_WASM_PATH
 if (process.platform === "linux") process.env.OPENTUI_LIBC = "glibc"`
 }
 
@@ -275,12 +275,12 @@ export function mainConfig(input: NodeBuildInput): UserConfig {
     resolve,
     esbuild: { jsx: "automatic" },
     define: {
-      XCCODE_VERSION: JSON.stringify(input.version),
-      XCCODE_CLI_NAME: JSON.stringify("xccode2-node"),
-      XCCODE_CHANNEL: JSON.stringify(input.channel),
-      XCCODE_ARTIFACT: JSON.stringify("cli-node"),
-      ...(input.highlights ? { XCCODE_RELEASE_HIGHLIGHTS: JSON.stringify(input.highlights) } : {}),
-      XCCODE_LIBC: input.target.platform === "linux" ? JSON.stringify("glibc") : "undefined",
+      XIAOCHUAN_VERSION: JSON.stringify(input.version),
+      XIAOCHUAN_CLI_NAME: JSON.stringify("xiaochuan2-node"),
+      XIAOCHUAN_CHANNEL: JSON.stringify(input.channel),
+      XIAOCHUAN_ARTIFACT: JSON.stringify("cli-node"),
+      ...(input.highlights ? { XIAOCHUAN_RELEASE_HIGHLIGHTS: JSON.stringify(input.highlights) } : {}),
+      XIAOCHUAN_LIBC: input.target.platform === "linux" ? JSON.stringify("glibc") : "undefined",
       FFF_LIBC: input.target.platform === "linux" ? JSON.stringify("gnu") : "undefined",
       "process.env.WS_NO_BUFFER_UTIL": JSON.stringify("1"),
     },
@@ -292,15 +292,15 @@ export function mainConfig(input: NodeBuildInput): UserConfig {
       emptyOutDir: false,
       minify: true,
       rollupOptions: {
-        output: output("xccode.mjs", nodePrelude(input)),
+        output: output("xiaochuan.mjs", nodePrelude(input)),
       },
     },
   })
 }
 
 export default mainConfig({
-  version: process.env.XCCODE_VERSION ?? "local",
-  channel: process.env.XCCODE_CHANNEL ?? "local",
+  version: process.env.XIAOCHUAN_VERSION ?? "local",
+  channel: process.env.XIAOCHUAN_CHANNEL ?? "local",
   assetHash: "local",
   target: nodeTarget(process.platform, process.arch),
 })

@@ -1,21 +1,21 @@
-import { Badge } from "@xccode/ui/badge"
-import { Dialog, DialogBody } from "@xccode/ui/dialog"
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Icon } from "@xccode/ui/icon"
-import { Keybind } from "@xccode/ui/keybind"
-import { MenuScroll } from "@xccode/ui/menu-scroll"
+import { Badge } from "@xiaochuan/ui/badge"
+import { Dialog, DialogBody } from "@xiaochuan/ui/dialog"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Icon } from "@xiaochuan/ui/icon"
+import { Keybind } from "@xiaochuan/ui/keybind"
+import { MenuScroll } from "@xiaochuan/ui/menu-scroll"
 import {
   displayName,
   getProjectAvatarGenerated,
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@xccode/ui/project-avatar"
-import { TextInput } from "@xccode/ui/text-input"
-import { Tooltip } from "@xccode/ui/tooltip"
-import { createTypeahead } from "@xccode/ui/typeahead"
+} from "@xiaochuan/ui/project-avatar"
+import { TextInput } from "@xiaochuan/ui/text-input"
+import { Tooltip } from "@xiaochuan/ui/tooltip"
+import { createTypeahead } from "@xiaochuan/ui/typeahead"
 import { createEventListener } from "@solid-primitives/event-listener"
-import { getFilename, sameDirectory } from "@xccode/util/path"
+import { getFilename, sameDirectory } from "@xiaochuan/util/path"
 import { createEffect, createMemo, createResource, createSignal, For, Match, onCleanup, Show, Switch } from "solid-js"
 import type { PromptProject, PromptProjectController, PromptServer } from "@/new-session/project/selector"
 import type { NewSessionWorkspaceController } from "@/new-session/workspace/controller"

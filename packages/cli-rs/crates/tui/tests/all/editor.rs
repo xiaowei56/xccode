@@ -3,9 +3,9 @@ use crate::support::{self, DIRECTORY, Fake, Harness, Log, deref_harness, list};
 use std::path::Path;
 use std::sync::Arc;
 
-use xccode_tui::prompt::editor_context::{self, LabelState, Source, zed};
-use xccode_ui::path::Flavor;
-use xccode_ui::prompt_input::parse::file_url;
+use xiaochuan_tui::prompt::editor_context::{self, LabelState, Source, zed};
+use xiaochuan_ui::path::Flavor;
+use xiaochuan_ui::prompt_input::parse::file_url;
 use serde_json::{Value, json};
 
 use crate::support::ide;
@@ -79,7 +79,7 @@ fn ide_selection_shows_and_goes_once_before_the_prompt() {
     let initialize = ide.received.lock().unwrap()[0].clone();
     assert_eq!(
         initialize["params"],
-        json!({ "protocolVersion": "2025-11-25", "capabilities": {}, "clientInfo": { "name": "xccode", "version": "0.0.0" } })
+        json!({ "protocolVersion": "2025-11-25", "capabilities": {}, "clientInfo": { "name": "xiaochuan", "version": "0.0.0" } })
     );
     assert_eq!(setup.tui.prompt.editor.server().unwrap()["serverInfo"]["name"], "fake-ide");
 
@@ -157,7 +157,7 @@ fn ide_mentions_insert_file_parts_with_their_lines() {
 #[test]
 fn lock_files_name_the_server_and_its_token() {
     let ide = Ide::start();
-    let home = xccode_util::temp::tempdir().unwrap();
+    let home = xiaochuan_util::temp::tempdir().unwrap();
     let locks = home.path().join(".claude/ide");
     std::fs::create_dir_all(&locks).unwrap();
     std::fs::write(
@@ -172,7 +172,7 @@ fn lock_files_name_the_server_and_its_token() {
 
 #[test]
 fn zed_selection_is_read_from_its_database() {
-    let root = xccode_util::temp::tempdir().unwrap();
+    let root = xiaochuan_util::temp::tempdir().unwrap();
     let db = root.path().join("db.sqlite");
     let file = root.path().join("src/index.ts");
     std::fs::create_dir(root.path().join("src")).unwrap();

@@ -1,13 +1,13 @@
-import { useDialog } from "@xccode/ui/context/dialog"
-import { Button } from "@xccode/ui/button"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@xccode/ui/dialog"
-import { Divider } from "@xccode/ui/divider"
-import { Loader } from "@xccode/ui/loader"
-import { RadioGroup, RadioItem } from "@xccode/ui/radio"
-import { TextInput } from "@xccode/ui/text-input"
+import { useDialog } from "@xiaochuan/ui/context/dialog"
+import { Button } from "@xiaochuan/ui/button"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@xiaochuan/ui/dialog"
+import { Divider } from "@xiaochuan/ui/divider"
+import { Loader } from "@xiaochuan/ui/loader"
+import { RadioGroup, RadioItem } from "@xiaochuan/ui/radio"
+import { TextInput } from "@xiaochuan/ui/text-input"
 import { batch, createMemo, createSignal, For, onCleanup, Show, untrack } from "solid-js"
-import { showToast } from "@xccode/ui/toast"
-import { createKeyed, usePlugin, type Context, type IpcClient } from "@xccode/plugin/gui"
+import { showToast } from "@xiaochuan/ui/toast"
+import { createKeyed, usePlugin, type Context, type IpcClient } from "@xiaochuan/plugin/gui"
 import type { Wsl, WslServersState } from "./contract"
 import {
   createWslDialogState,
@@ -348,7 +348,7 @@ function useWslAddServerController(props: DialogWslServerProps) {
 
     if (action.kind === "install-distro") return client.installDistro({ name: action.distro }, { signal })
 
-    if (action.kind === "install-xccode") return client.installXccode({ name: action.distro }, { signal })
+    if (action.kind === "install-xiaochuan") return client.installXiaochuan({ name: action.distro }, { signal })
 
     // The server shows up in main's state; the dialog needs only to know it was saved.
     await client.addServer({ distro: action.distro }, { signal })
@@ -483,7 +483,7 @@ function unavailable(error: string): WslServersState {
     installed: [],
     online: [],
     distroProbes: {},
-    xccodeChecks: {},
+    xiaochuanChecks: {},
     pendingRestart: false,
     servers: [],
     hostJob: "idle",

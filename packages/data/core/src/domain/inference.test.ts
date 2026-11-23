@@ -49,24 +49,24 @@ describe("inference stat normalization", () => {
     expect(modelAuthor("OMEN-ALPHA-free:global")).toBe("unknown")
   })
 
-  test("uses provider.model to resolve xccode route providers", () => {
+  test("uses provider.model to resolve xiaochuan route providers", () => {
     expect(statModel("big-pickle", "claude-sonnet-4-5")).toBe("claude-sonnet-4-5")
     expect(statModel("big-pickle", "gpt-5-free")).toBe("gpt-5")
     expect(statModel("big-pickle", "xiaomi/mimo-v2.5")).toBe("mimo-v2.5")
     expect(statModel("big-pickle", "")).toBe("unknown")
-    expect(statProvider("big-pickle", "claude-sonnet-4-5", "xccode")).toBe("anthropic")
-    expect(statProvider("big-pickle", "gpt-5", "xccode")).toBe("openai")
-    expect(statProvider("big-pickle", "", "xccode")).toBe("unknown")
+    expect(statProvider("big-pickle", "claude-sonnet-4-5", "xiaochuan")).toBe("anthropic")
+    expect(statProvider("big-pickle", "gpt-5", "xiaochuan")).toBe("openai")
+    expect(statProvider("big-pickle", "", "xiaochuan")).toBe("unknown")
     expect(statProvider("unknown", "", "custom-provider")).toBe("custom-provider")
   })
 
   test("attributes hy4 preview traffic to Tencent instead of the unknown provider", () => {
     expect(modelAuthor("hy4-preview")).toBe("tencent")
-    expect(toModelAggregate(aggregate("hy4-preview", "xccode"))).toMatchObject([
+    expect(toModelAggregate(aggregate("hy4-preview", "xiaochuan"))).toMatchObject([
       { model: "hy4-preview", provider: "tencent" },
     ])
-    expect(toProviderAggregate(aggregate("hy4-preview", "xccode"))).toMatchObject([{ provider: "tencent" }])
-    expect(toGeoAggregate({ ...aggregate("hy4-preview", "xccode"), country: "US" })).toMatchObject([
+    expect(toProviderAggregate(aggregate("hy4-preview", "xiaochuan"))).toMatchObject([{ provider: "tencent" }])
+    expect(toGeoAggregate({ ...aggregate("hy4-preview", "xiaochuan"), country: "US" })).toMatchObject([
       { model: "hy4-preview", provider: "tencent" },
     ])
   })
@@ -104,7 +104,7 @@ describe("inference stat normalization", () => {
     expect(toRetentionAggregate({ ...row, cohort_date: "2026-08-10", eligible_users: "12" })).toMatchObject([
       { model: "omen-alpha", provider: "unknown", eligibleUsers: 12 },
     ])
-    ;["xccode-go/union-alpha", "xccode/union-alpha"].forEach((model) => {
+    ;["xiaochuan-go/union-alpha", "xiaochuan/union-alpha"].forEach((model) => {
       expect(statModel(model, "")).toBe("union-alpha")
       expect(statProvider(model, "gpt-test-model", "test-provider")).toBe("unknown")
 
@@ -165,7 +165,7 @@ describe("inference stat normalization", () => {
       "DEEPSEEK-FLASH-free:global",
       "deepseek-v4.1-flash",
       "deepseek-v4.1-flash-free",
-      "deepseek-v4-1-flash-xccode-bo44an",
+      "deepseek-v4-1-flash-xiaochuan-bo44an",
     ].forEach((model) => {
       expect(statModel(model, "")).toBe("deepseek-v4.1-flash")
       expect(toModelAggregate(aggregate(model, "deepseek"))).toMatchObject([
@@ -179,11 +179,11 @@ describe("inference stat normalization", () => {
       ])
     })
     expect(statModel("big-pickle", "deepseek/deepseek-flash")).toBe("deepseek-v4.1-flash")
-    expect(statModel("big-pickle", "radixark/deepseek-v4-1-flash-xccode-bo44an")).toBe("deepseek-v4.1-flash")
+    expect(statModel("big-pickle", "radixark/deepseek-v4-1-flash-xiaochuan-bo44an")).toBe("deepseek-v4.1-flash")
     expect(statModel("deepseek-v4-flash", "")).toBe("deepseek-v4-flash")
     expect(statModel("deepseek-v4-flash-vision-exp", "")).toBe("deepseek-v4-flash-vision-exp")
     expect(RETIRED_STAT_MODELS).toContain("deepseek-flash")
-    expect(RETIRED_STAT_MODELS).toContain("deepseek-v4-1-flash-xccode-bo44an")
+    expect(RETIRED_STAT_MODELS).toContain("deepseek-v4-1-flash-xiaochuan-bo44an")
     expect(RETIRED_STAT_MODELS).not.toContain("deepseek-v4.1-flash")
   })
 
@@ -199,7 +199,7 @@ describe("inference stat normalization", () => {
     ])
 
     expect(
-      toModelAggregate({ ...aggregate("big-pickle", "xccode"), provider_model: "claude-sonnet-4-5" }),
+      toModelAggregate({ ...aggregate("big-pickle", "xiaochuan"), provider_model: "claude-sonnet-4-5" }),
     ).toMatchObject([
       {
         provider: "anthropic",
@@ -213,7 +213,7 @@ describe("inference stat normalization", () => {
     const catalog = catalogIdentity({
       models: { "meituan/longcat-2.5-preview": {}, "cohere/north-mini-code": {}, "zhipuai/glm-5.3": {} },
       providers: {
-        xccode: {
+        xiaochuan: {
           models: {
             "longcat-2.5-preview-free": { canonical_model_id: "meituan/longcat-2.5-preview" },
             "north-mini-code": { canonical_model_id: "cohere/north-mini-code" },
@@ -234,7 +234,7 @@ describe("inference stat normalization", () => {
     )
 
     expect(query).toContain(
-      "WHEN lower(raw_provider) = 'xccode' AND lower(raw_model) = 'longcat-2.5-preview-free' THEN 'meituan'",
+      "WHEN lower(raw_provider) = 'xiaochuan' AND lower(raw_model) = 'longcat-2.5-preview-free' THEN 'meituan'",
     )
     expect(query).toContain("WHEN lower(model) = 'longcat-2.5-preview' THEN 'meituan'")
     expect(query).toContain("WHEN lower(model) = 'north-mini-code' THEN 'cohere'")
@@ -248,18 +248,18 @@ describe("inference stat normalization", () => {
     ])
   })
 
-  test("provider aggregates never keep xccode as the provider", () => {
-    expect(toProviderAggregate({ ...aggregate("big-pickle", "xccode"), provider_model: "gpt-5" })).toMatchObject([
+  test("provider aggregates never keep xiaochuan as the provider", () => {
+    expect(toProviderAggregate({ ...aggregate("big-pickle", "xiaochuan"), provider_model: "gpt-5" })).toMatchObject([
       { provider: "openai" },
     ])
-    expect(toProviderAggregate(aggregate("big-pickle", "xccode"))).toMatchObject([{ provider: "unknown" }])
+    expect(toProviderAggregate(aggregate("big-pickle", "xiaochuan"))).toMatchObject([{ provider: "unknown" }])
     expect(toProviderAggregate(aggregate("muse-spark-1.2-contributor", "unknown"))).toMatchObject([
       { provider: "meta" },
     ])
   })
 
-  test("geo aggregates never keep xccode or big-pickle dimensions", () => {
-    expect(toGeoAggregate({ ...aggregate("big-pickle", "xccode"), country: "US" })).toMatchObject([
+  test("geo aggregates never keep xiaochuan or big-pickle dimensions", () => {
+    expect(toGeoAggregate({ ...aggregate("big-pickle", "xiaochuan"), country: "US" })).toMatchObject([
       { provider: "unknown", model: "unknown", country: "US" },
     ])
   })
@@ -313,8 +313,8 @@ describe("inference stat normalization", () => {
       expect(query).toContain(
         "CASE\n      WHEN lower(model) IN ('exo', 'frantic-ferret', 'iceman', 'iceman-contributor', 'omen-alpha', 'pulse-alpha', 'tidepool-alpha', 'union-alpha') THEN 'unknown'\n",
       )
-      expect(query).toContain("= 'xccode-go/union-alpha' THEN 'union-alpha'")
-      expect(query).toContain("= 'xccode/union-alpha' THEN 'union-alpha'")
+      expect(query).toContain("= 'xiaochuan-go/union-alpha' THEN 'union-alpha'")
+      expect(query).toContain("= 'xiaochuan/union-alpha' THEN 'union-alpha'")
       expect(query).toContain("= 'deepseek-flash' THEN 'deepseek-v4.1-flash'")
     })
     expect(queries[0]).toContain("'week' AS grain")
@@ -403,8 +403,8 @@ describe("inference stat normalization", () => {
     expect(queries[0]?.query).toContain(
       "CASE\n      WHEN lower(model) IN ('exo', 'frantic-ferret', 'iceman', 'iceman-contributor', 'omen-alpha', 'pulse-alpha', 'tidepool-alpha', 'union-alpha') THEN 'unknown'\n",
     )
-    expect(queries[0]?.query).toContain("= 'xccode-go/union-alpha' THEN 'union-alpha'")
-    expect(queries[0]?.query).toContain("= 'xccode/union-alpha' THEN 'union-alpha'")
+    expect(queries[0]?.query).toContain("= 'xiaochuan-go/union-alpha' THEN 'union-alpha'")
+    expect(queries[0]?.query).toContain("= 'xiaochuan/union-alpha' THEN 'union-alpha'")
     expect(queries[0]?.query).toContain("COUNT(*) AS model_requests")
     expect(queries[0]?.query).toContain("SUM(model_requests) AS total_requests")
     expect(queries[0]?.query).toContain("MAX(model_requests) AS max_model_requests")

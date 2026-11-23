@@ -1,14 +1,14 @@
 import { expect, setDefaultTimeout } from "bun:test"
-import { Agent } from "@xccode/core/agent"
-import { Bus } from "@xccode/core/bus"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { Session } from "@xccode/core/session"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { SessionMessage } from "@xccode/core/session/message"
-import { Money } from "@xccode/schema/money"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { Agent } from "@xiaochuan/core/agent"
+import { Bus } from "@xiaochuan/core/bus"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { Session } from "@xiaochuan/core/session"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { SessionMessage } from "@xiaochuan/core/session/message"
+import { Money } from "@xiaochuan/schema/money"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { Effect, Layer } from "effect"
 import { tmpdir } from "../../core/test/fixture/tmpdir"
 import { it } from "../../core/test/lib/effect"
@@ -18,7 +18,7 @@ setDefaultTimeout(30_000)
 
 it.live("serves turn diffs by user message with range validation", () =>
   Effect.gen(function* () {
-    const tmp = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("xccode-session-diff-")))
+    const tmp = yield* Effect.acquireDisposable(Effect.promise(() => tmpdir("xiaochuan-session-diff-")))
     const ids = { user: SessionMessage.ID.create(), assistant: SessionMessage.ID.create() }
     // Deliver the prompt and one step the way the runner would, without a model.
     const execution = Layer.effect(
@@ -71,7 +71,7 @@ it.live("serves turn diffs by user message with range validation", () =>
     const request = (path: string, body?: unknown) =>
       Effect.promise(async () => {
         const response = await handler(
-          new Request(`http://xccode.local${path}`, {
+          new Request(`http://xiaochuan.local${path}`, {
             method: body === undefined ? "GET" : "POST",
             headers: body === undefined ? undefined : { "content-type": "application/json" },
             body: body === undefined ? undefined : JSON.stringify(body),

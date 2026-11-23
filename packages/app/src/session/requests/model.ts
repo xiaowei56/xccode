@@ -4,8 +4,8 @@ import {
   type FormInfo,
   type JobInfo,
   type PermissionRequest,
-} from "@xccode/client/promise"
-import { abort } from "@xccode/util/abort"
+} from "@xiaochuan/client/promise"
+import { abort } from "@xiaochuan/util/abort"
 import { useParams } from "@solidjs/router"
 import { showToast } from "@/shell/notifications/toast"
 import { useServerSDK } from "@/runtime/server/client"

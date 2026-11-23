@@ -163,7 +163,7 @@ export function server(script: Script = {}): Options {
 
 // `cli.json` for both sides: no splash (M.4), so the scrollback holds only the transcript.
 export async function config(root: string, extra: Record<string, unknown> = {}) {
-  const file = `${root}/home/.config/xccode/cli.json`
+  const file = `${root}/home/.config/xiaochuan/cli.json`
   await Bun.write(file, JSON.stringify({ mini: { splash: "hide", ...extra } }))
 }
 

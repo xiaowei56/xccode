@@ -1,5 +1,5 @@
 {
-  "name": "xccode-update",
+  "name": "xiaochuan-update",
   "main": "index.js",
   "no_bundle": true,
   "compatibility_date": "2026-07-21",
@@ -7,13 +7,13 @@
   "preview_urls": false,
   "pipelines": [{ "binding": "EVENTS", "stream": "251a89241c3a461c9007f6b6f345ed8b" }],
   "routes": [
-    { "pattern": "xccode.ai/update", "zone_name": "xccode.ai" },
-    { "pattern": "xccode.ai/update/*", "zone_name": "xccode.ai" }
+    { "pattern": "xiaochuan.ai/update", "zone_name": "xiaochuan.ai" },
+    { "pattern": "xiaochuan.ai/update/*", "zone_name": "xiaochuan.ai" }
   ],
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "xccode-update",
+      "database_name": "xiaochuan-update",
       "database_id": "2c010a96-811f-43d5-804d-7188534e5858"
     }
   ],

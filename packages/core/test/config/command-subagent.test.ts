@@ -1,21 +1,21 @@
 import { describe, expect } from "bun:test"
 import path from "path"
 import { Effect, Layer } from "effect"
-import { LanguageModel } from "@xccode/ai/effect"
-import { OpenAIChat } from "@xccode/ai/protocols/openai-chat"
-import { TestLLM } from "@xccode/ai/testing"
-import { Agent } from "@xccode/core/agent"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { LayerNodePlatform } from "@xccode/core/effect/app-node-platform"
-import { Watcher } from "@xccode/core/filesystem/watcher"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { Model } from "@xccode/core/model"
-import { Provider } from "@xccode/core/provider"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { Global } from "@xccode/util/global"
+import { LanguageModel } from "@xiaochuan/ai/effect"
+import { OpenAIChat } from "@xiaochuan/ai/protocols/openai-chat"
+import { TestLLM } from "@xiaochuan/ai/testing"
+import { Agent } from "@xiaochuan/core/agent"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { LayerNodePlatform } from "@xiaochuan/core/effect/app-node-platform"
+import { Watcher } from "@xiaochuan/core/filesystem/watcher"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { Model } from "@xiaochuan/core/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { Global } from "@xiaochuan/util/global"
 import { tempGlobalLayer } from "../fixture/global"
 import { offlineModels } from "../fixture/models"
 import { tmpdirScoped } from "../fixture/tmpdir"
@@ -134,7 +134,7 @@ function project(
     const definition = { description: "Review code", template: "Review $ARGUMENTS: !`printf ready`", ...command }
     yield* Effect.promise(() =>
       Bun.write(
-        path.join(tmp.path, "xccode.json"),
+        path.join(tmp.path, "xiaochuan.json"),
         JSON.stringify({
           agents: { reviewer: { mode: "subagent", model: "test/child" } },
           ...(format === "markdown" ? {} : { commands: { review: definition } }),
@@ -144,7 +144,7 @@ function project(
     if (format === "markdown")
       yield* Effect.promise(() =>
         Bun.write(
-          path.join(tmp.path, ".xccode/commands/review.md"),
+          path.join(tmp.path, ".xiaochuan/commands/review.md"),
           [
             "---",
             "description: Review code",

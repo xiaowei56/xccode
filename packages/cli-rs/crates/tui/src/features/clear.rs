@@ -1,7 +1,7 @@
 //! Both session commands keep the agent and model. Only `/clear` closes the current tab.
 
-use xccode_local::cli_config::NewLocation;
-use xccode_store::Location;
+use xiaochuan_local::cli_config::NewLocation;
+use xiaochuan_store::Location;
 
 use crate::prelude::*;
 

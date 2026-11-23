@@ -1,9 +1,9 @@
 ---
 title: ACP-Unterstützung
-description: Verwenden Sie Xccode in jedem ACP-kompatiblen Editor.
+description: Verwenden Sie Xiaochuan in jedem ACP-kompatiblen Editor.
 ---
 
-Xccode unterstützt [Agent Client Protocol](https://agentclientprotocol.com) oder (ACP), sodass Sie es direkt in kompatiblen Editoren und IDEs verwenden können.
+Xiaochuan unterstützt [Agent Client Protocol](https://agentclientprotocol.com) oder (ACP), sodass Sie es direkt in kompatiblen Editoren und IDEs verwenden können.
 
 :::tip
 Eine Liste der Editoren und Tools, die ACP unterstützen, finden Sie unter [ACP progress report](https://zed.dev/blog/acp-progress-report#available-now).
@@ -15,9 +15,9 @@ ACP ist ein offenes Protokoll, das die Kommunikation zwischen Code-Editoren und 
 
 ## Konfiguration
 
-Um Xccode über ACP zu verwenden, konfigurieren Sie Ihren Editor für die Ausführung des Befehls `xccode acp`.
+Um Xiaochuan über ACP zu verwenden, konfigurieren Sie Ihren Editor für die Ausführung des Befehls `xiaochuan acp`.
 
-Der Befehl startet Xccode als ACP-kompatiblen Unterprozess, der über stdio über JSON-RPC mit Ihrem Editor kommuniziert.
+Der Befehl startet Xiaochuan als ACP-kompatiblen Unterprozess, der über stdio über JSON-RPC mit Ihrem Editor kommuniziert.
 
 Nachfolgend finden Sie Beispiele für beliebte Editoren, die ACP unterstützen.
 
@@ -25,16 +25,16 @@ Nachfolgend finden Sie Beispiele für beliebte Editoren, die ACP unterstützen.
 
 ### Zed
 
-Installieren Sie Xccode aus der [Zed-ACP-Registry](https://zed.dev/docs/ai/external-agents#registry), indem Sie `zed: acp registry` in der Befehlspalette ausführen.
+Installieren Sie Xiaochuan aus der [Zed-ACP-Registry](https://zed.dev/docs/ai/external-agents#registry), indem Sie `zed: acp registry` in der Befehlspalette ausführen.
 
-Wenn Sie stattdessen eine benutzerdefinierte Xccode-Programmdatei verwenden möchten, fügen Sie sie Ihrer [Zed](https://zed.dev)-Konfiguration (`~/.config/zed/settings.json`) hinzu:
+Wenn Sie stattdessen eine benutzerdefinierte Xiaochuan-Programmdatei verwenden möchten, fügen Sie sie Ihrer [Zed](https://zed.dev)-Konfiguration (`~/.config/zed/settings.json`) hinzu:
 
 ```json title="~/.config/zed/settings.json"
 {
   "agent_servers": {
-    "Xccode": {
+    "Xiaochuan": {
       "type": "custom",
-      "command": "xccode",
+      "command": "xiaochuan",
       "args": ["acp"]
     }
   }
@@ -54,9 +54,9 @@ Sie können auch eine Tastenkombination binden, indem Sie Ihren `keymap.json` be
         {
           "agent": {
             "custom": {
-              "name": "Xccode",
+              "name": "Xiaochuan",
               "command": {
-                "command": "xccode",
+                "command": "xiaochuan",
                 "args": ["acp"]
               }
             }
@@ -77,15 +77,15 @@ Fügen Sie zu Ihrem [JetBrains IDE](https://www.jetbrains.com/) acp.json gemäß
 ```json title="acp.json"
 {
   "agent_servers": {
-    "Xccode": {
-      "command": "/absolute/path/bin/xccode",
+    "Xiaochuan": {
+      "command": "/absolute/path/bin/xiaochuan",
       "args": ["acp"]
     }
   }
 }
 ```
 
-Um es zu öffnen, verwenden Sie den neuen Agenten „Xccode“ in der AI Chat Agent Selector.
+Um es zu öffnen, verwenden Sie den neuen Agenten „Xiaochuan“ in der AI Chat Agent Selector.
 
 ---
 
@@ -96,8 +96,8 @@ Fügen Sie Ihrer [Avante.nvim](https://github.com/yetone/avante.nvim)-Konfigurat
 ```lua
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" }
     }
   }
@@ -109,11 +109,11 @@ Wenn Sie Umgebungsvariablen übergeben müssen:
 ```lua {6-8}
 {
   acp_providers = {
-    ["xccode"] = {
-      command = "xccode",
+    ["xiaochuan"] = {
+      command = "xiaochuan",
       args = { "acp" },
       env = {
-        XCCODE_API_KEY = os.getenv("XCCODE_API_KEY")
+        XIAOCHUAN_API_KEY = os.getenv("XIAOCHUAN_API_KEY")
       }
     }
   }
@@ -124,14 +124,14 @@ Wenn Sie Umgebungsvariablen übergeben müssen:
 
 ### CodeCompanion.nvim
 
-Um Xccode als ACP-Agent in [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim) zu verwenden, fügen Sie Folgendes zu Ihrer Neovim-Konfiguration hinzu:
+Um Xiaochuan als ACP-Agent in [CodeCompanion.nvim](https://github.com/olimorris/codecompanion.nvim) zu verwenden, fügen Sie Folgendes zu Ihrer Neovim-Konfiguration hinzu:
 
 ```lua
 require("codecompanion").setup({
   interactions = {
     chat = {
       adapter = {
-        name = "xccode",
+        name = "xiaochuan",
         model = "claude-sonnet-5-5",
       },
     },
@@ -139,13 +139,13 @@ require("codecompanion").setup({
 })
 ```
 
-Diese Konfiguration richtet CodeCompanion so ein, dass Xccode als ACP-Agent für den Chat verwendet wird.
+Diese Konfiguration richtet CodeCompanion so ein, dass Xiaochuan als ACP-Agent für den Chat verwendet wird.
 
-Wenn Sie Umgebungsvariablen (wie `XCCODE_API_KEY`) übergeben müssen, finden Sie ausführliche Informationen zu [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) in der Dokumentation zu CodeCompanion.nvim.
+Wenn Sie Umgebungsvariablen (wie `XIAOCHUAN_API_KEY`) übergeben müssen, finden Sie ausführliche Informationen zu [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key) in der Dokumentation zu CodeCompanion.nvim.
 
 ## Unterstützung
 
-Xccode funktioniert über ACP genauso wie im Terminal. Alle Funktionen werden unterstützt:
+Xiaochuan funktioniert über ACP genauso wie im Terminal. Alle Funktionen werden unterstützt:
 
 :::note
 Einige integrierte Slash-Befehle wie `/undo` und `/redo` werden derzeit nicht unterstützt.
@@ -153,7 +153,7 @@ Einige integrierte Slash-Befehle wie `/undo` und `/redo` werden derzeit nicht un
 
 - Integrierte Tools (Dateioperationen, Terminalbefehle usw.)
 - Benutzerdefinierte Tools und Slash-Befehle
-- MCP-Server, die in Ihrer Xccode-Konfiguration konfiguriert sind
+- MCP-Server, die in Ihrer Xiaochuan-Konfiguration konfiguriert sind
 - Projektspezifische Regeln von `AGENTS.md`
 - Benutzerdefinierte Formatierer und Linters
 - Agenten- und Berechtigungssystem

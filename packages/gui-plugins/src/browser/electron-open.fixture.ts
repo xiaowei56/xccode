@@ -1,8 +1,8 @@
 import { createServer, type ServerResponse } from "node:http"
 import electron from "electron"
-import type { BuiltinMainStorage } from "@xccode/plugin/gui/builtin"
-import type { Embeds } from "@xccode/plugin/gui/main"
-import type { Browser } from "@xccode/plugin-browser/rpc"
+import type { BuiltinMainStorage } from "@xiaochuan/plugin/gui/builtin"
+import type { Embeds } from "@xiaochuan/plugin/gui/main"
+import type { Browser } from "@xiaochuan/plugin-browser/rpc"
 import type { PaneEvent } from "./ipc"
 import type { Profile } from "./profile"
 

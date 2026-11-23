@@ -1,5 +1,5 @@
-import type { ModelApi } from "@xccode/client/effect/api"
-import type { Model } from "@xccode/schema/model"
+import type { ModelApi } from "@xiaochuan/client/effect/api"
+import type { Model } from "@xiaochuan/schema/model"
 import type { Effect, Types } from "effect"
 import type { ProviderRecord } from "./provider.js"
 import type { Transform } from "./registration.js"

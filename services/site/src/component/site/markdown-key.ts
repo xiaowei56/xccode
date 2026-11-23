@@ -3,7 +3,7 @@
  * it. On its own, so the static pages' Markdown view (src/client/overlays/markdown.tsx) reads it
  * without use-markdown.ts's language context.
  */
-export const markdownKey = "xccode-markdown-view"
+export const markdownKey = "xiaochuan-markdown-view"
 
 /**
  * The keydown listener for the Markdown view's shortcut, "m" then "d" (Site, and src/client/entry.ts

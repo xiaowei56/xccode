@@ -1,4 +1,4 @@
-import { comparablePath } from "@xccode/util/path"
+import { comparablePath } from "@xiaochuan/util/path"
 
 export type PathKey = string & { _brand: "PathKey" }
 

@@ -1,20 +1,20 @@
 import { describe, expect } from "bun:test"
-import { Money } from "@xccode/schema/money"
-import { Document, Info, type Entry } from "@xccode/schema/config"
+import { Money } from "@xiaochuan/schema/money"
+import { Document, Info, type Entry } from "@xiaochuan/schema/config"
 import { Effect, Schema } from "effect"
-import { Config } from "@xccode/core/config"
-import { ConfigProviderPlugin } from "@xccode/core/config/plugin/provider"
-import { ConfigNormalize } from "@xccode/core/config/normalize"
-import { Integration } from "@xccode/core/integration"
-import { Model } from "@xccode/core/model"
-import { ModelResolver } from "@xccode/core/model-resolver"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { AzurePlugin } from "@xccode/core/plugin/provider/azure"
-import { OpenAIPlugin } from "@xccode/core/plugin/provider/openai"
-import { PromptCacheKeyPlugin } from "@xccode/core/plugin/provider/prompt-cache-key"
-import { XAIPlugin } from "@xccode/core/plugin/provider/xai"
-import { Provider } from "@xccode/core/provider"
+import { Config } from "@xiaochuan/core/config"
+import { ConfigProviderPlugin } from "@xiaochuan/core/config/plugin/provider"
+import { ConfigNormalize } from "@xiaochuan/core/config/normalize"
+import { Integration } from "@xiaochuan/core/integration"
+import { Model } from "@xiaochuan/core/model"
+import { ModelResolver } from "@xiaochuan/core/model-resolver"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { AzurePlugin } from "@xiaochuan/core/plugin/provider/azure"
+import { OpenAIPlugin } from "@xiaochuan/core/plugin/provider/openai"
+import { PromptCacheKeyPlugin } from "@xiaochuan/core/plugin/provider/prompt-cache-key"
+import { XAIPlugin } from "@xiaochuan/core/plugin/provider/xai"
+import { Provider } from "@xiaochuan/core/provider"
 import { withEnv } from "../fixture/env"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "../plugin/fixture"
@@ -45,18 +45,18 @@ describe("ConfigProviderPlugin.Plugin", () => {
           info: decode({
             providers: {
               custom: {
-                package: "@xccode/ai/providers/openai/responses",
+                package: "@xiaochuan/ai/providers/openai/responses",
                 settings: { compaction: { type: "native" } },
                 models: {
                   native: {},
                   local: {
                     settings: { compaction: { type: "summary" } },
-                    package: "@xccode/ai/providers/openai/chat",
+                    package: "@xiaochuan/ai/providers/openai/chat",
                   },
-                  unsupported: { package: "@xccode/ai/providers/openai/chat" },
+                  unsupported: { package: "@xiaochuan/ai/providers/openai/chat" },
                 },
               },
-              default: { package: "@xccode/ai/providers/openai/chat", models: { chat: {} } },
+              default: { package: "@xiaochuan/ai/providers/openai/chat", models: { chat: {} } },
             },
           }),
         }),
@@ -86,7 +86,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("proxy")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@xccode/ai/providers/openai/chat"
+          provider.package = "@xiaochuan/ai/providers/openai/chat"
         })
         editor.models.update(providerID, Model.ID.make("catalog"), () => {})
       })
@@ -141,7 +141,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("venice")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
         })
         editor.models.update(providerID, Model.ID.make("chat"), () => {})
         editor.models.update(providerID, Model.ID.make("keyed"), () => {})
@@ -182,7 +182,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           info: decode({
             providers: {
               litellm: {
-                package: "@xccode/ai/providers/openai-compatible",
+                package: "@xiaochuan/ai/providers/openai-compatible",
                 settings: { baseURL: "https://litellm.test/v1" },
                 compatibility: { cacheFormat: "anthropic" },
                 models: { "claude-sonnet-5": {} },
@@ -205,7 +205,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("proxy")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@xccode/ai/providers/openai/chat"
+          provider.package = "@xiaochuan/ai/providers/openai/chat"
         })
         editor.models.update(providerID, Model.ID.make("catalog"), (model) => {
           model.compatibility = { maxTokensField: "max_tokens" }
@@ -248,7 +248,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("strict")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.settings = { baseURL: "https://strict.test/v1" }
         })
         editor.models.update(providerID, Model.ID.make("catalog"), () => {})
@@ -276,7 +276,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           info: decode({
             providers: {
               custom: {
-                package: "@xccode/ai/providers/openai/responses",
+                package: "@xiaochuan/ai/providers/openai/responses",
                 settings: { transport: "http", timeout: 100, chunkTimeout: 200, shared: "provider" },
                 models: {
                   inherited: {
@@ -284,7 +284,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
                   },
                 },
               },
-              default: { package: "@xccode/ai/providers/openai/responses", models: { untouched: {} } },
+              default: { package: "@xiaochuan/ai/providers/openai/responses", models: { untouched: {} } },
             },
           }),
         }),
@@ -298,10 +298,10 @@ describe("ConfigProviderPlugin.Plugin", () => {
   )
 
   for (const builtin of [
-    { id: "openai", model: "gpt-5.6-sol", package: "@xccode/ai/providers/openai/responses", plugin: OpenAIPlugin },
-    { id: "xai", model: "grok-4.6", package: "@xccode/ai/providers/xai", plugin: XAIPlugin },
-    { id: "azure", model: "gpt-5.6-sol", package: "@xccode/ai/providers/azure/responses", plugin: AzurePlugin },
-    { id: "custom-azure", model: "deployment", package: "@xccode/ai/providers/azure/responses", plugin: AzurePlugin },
+    { id: "openai", model: "gpt-5.6-sol", package: "@xiaochuan/ai/providers/openai/responses", plugin: OpenAIPlugin },
+    { id: "xai", model: "grok-4.6", package: "@xiaochuan/ai/providers/xai", plugin: XAIPlugin },
+    { id: "azure", model: "gpt-5.6-sol", package: "@xiaochuan/ai/providers/azure/responses", plugin: AzurePlugin },
+    { id: "custom-azure", model: "deployment", package: "@xiaochuan/ai/providers/azure/responses", plugin: AzurePlugin },
   ]) {
     it.live(`configured provider transport overrides ${builtin.id} defaults`, () =>
       Effect.gen(function* () {
@@ -687,16 +687,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
     {
       name: "built-in provider routes",
       legacy: {
-        npm: "@xccode/ai/providers/google-vertex",
+        npm: "@xiaochuan/ai/providers/google-vertex",
         options: { project: "my-project", location: "europe-west4" },
         models: {
-          chat: { provider: { npm: "@xccode-ai/ai/providers/google-vertex/mistral" } },
+          chat: { provider: { npm: "@xiaochuan-ai/ai/providers/google-vertex/mistral" } },
         },
       },
       native: {
-        package: "@xccode/ai/providers/google-vertex",
+        package: "@xiaochuan/ai/providers/google-vertex",
         settings: { project: "my-project", location: "europe-west4" },
-        models: { chat: { package: "@xccode/ai/providers/google-vertex/mistral" } },
+        models: { chat: { package: "@xiaochuan/ai/providers/google-vertex/mistral" } },
       },
     },
     {
@@ -842,7 +842,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       ])
 
       const model = required(yield* models.get(Provider.ID.make("custom"), Model.ID.make("claude")))
-      expect(model.package).toBe("@xccode/ai/providers/anthropic")
+      expect(model.package).toBe("@xiaochuan/ai/providers/anthropic")
       expect(model.variants.map((variant) => variant.id)).toEqual([
         Model.VariantID.make("low"),
         Model.VariantID.make("medium"),
@@ -912,7 +912,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const modelID = Model.ID.make("anthropic.claude-opus-5-5")
       yield* providers.transform((editor) => {
         editor.models.update(providerID, modelID, (model) => {
-          model.package = "@xccode/ai/providers/amazon-bedrock"
+          model.package = "@xiaochuan/ai/providers/amazon-bedrock"
           model.variants = [
             {
               id: Model.VariantID.make("high"),
@@ -926,14 +926,14 @@ describe("ConfigProviderPlugin.Plugin", () => {
           type: "document",
           info: decode({
             providers: {
-              bedrock: { models: { [modelID]: { package: "@xccode/ai/providers/amazon-bedrock/mantle" } } },
+              bedrock: { models: { [modelID]: { package: "@xiaochuan/ai/providers/amazon-bedrock/mantle" } } },
             },
           }),
         }),
       ])
 
       const model = required(yield* models.get(providerID, modelID))
-      expect(model.package).toBe("@xccode/ai/providers/amazon-bedrock/mantle/messages")
+      expect(model.package).toBe("@xiaochuan/ai/providers/amazon-bedrock/mantle/messages")
       expect(model.variants.find((variant) => variant.id === "high")).toEqual({
         id: Model.VariantID.make("high"),
         settings: { effort: "high", thinking: { type: "adaptive", display: "summarized" } },
@@ -949,7 +949,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const modelID = Model.ID.make("anthropic.claude-plain")
       yield* providers.transform((editor) => {
         editor.models.update(providerID, modelID, (model) => {
-          model.package = "@xccode/ai/providers/amazon-bedrock"
+          model.package = "@xiaochuan/ai/providers/amazon-bedrock"
         })
       })
       yield* addPlugin([
@@ -957,7 +957,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           type: "document",
           info: decode({
             providers: {
-              bedrock: { models: { [modelID]: { package: "@xccode/ai/providers/amazon-bedrock/mantle" } } },
+              bedrock: { models: { [modelID]: { package: "@xiaochuan/ai/providers/amazon-bedrock/mantle" } } },
             },
           }),
         }),
@@ -1023,16 +1023,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
         },
       ])
       const gpt = required(yield* models.get(providerID, Model.ID.make("gpt")))
-      expect(gpt.package).toBe("@xccode/ai/providers/openai")
+      expect(gpt.package).toBe("@xiaochuan/ai/providers/openai")
       expect(gpt.variants).toEqual(effort.variants)
       const claude = required(yield* models.get(providerID, Model.ID.make("claude-sonnet-4-5")))
-      expect(claude.package).toBe("@xccode/ai/providers/anthropic")
+      expect(claude.package).toBe("@xiaochuan/ai/providers/anthropic")
       expect(claude.variants).toEqual([
         { id: Model.VariantID.make("high"), settings: { thinking: { type: "enabled", budgetTokens: 16_000 } } },
         { id: Model.VariantID.make("max"), settings: { thinking: { type: "enabled", budgetTokens: 31_999 } } },
       ])
       const gemini = required(yield* models.get(providerID, Model.ID.make("gemini-3.1-pro")))
-      expect(gemini.package).toBe("@xccode/ai/providers/google")
+      expect(gemini.package).toBe("@xiaochuan/ai/providers/google")
       expect(gemini.variants).toEqual([
         {
           id: Model.VariantID.make("low"),
@@ -1044,7 +1044,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
         },
       ])
       const magistral = required(yield* models.get(providerID, Model.ID.make("magistral-medium")))
-      expect(magistral.package).toBe("@xccode/ai/providers/mistral")
+      expect(magistral.package).toBe("@xiaochuan/ai/providers/mistral")
       expect(magistral.variants).toEqual([
         { id: Model.VariantID.make("low"), settings: { reasoningEffort: "low" } },
         { id: Model.VariantID.make("high"), settings: { reasoningEffort: "high" } },
@@ -1088,16 +1088,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
   it.effect("keeps configured model variant bodies unchanged", () =>
     Effect.gen(function* () {
       const models = yield* Model.Service
-      const providerID = Provider.ID.xccode
+      const providerID = Provider.ID.xiaochuan
       const modelID = Model.ID.make("alpha-gpt-next")
       const entries = [
         new Document({
           type: "document",
           info: decode({
             providers: {
-              xccode: {
+              xiaochuan: {
                 package: "aisdk:@ai-sdk/openai",
-                settings: { baseURL: "https://xccode.test/v1" },
+                settings: { baseURL: "https://xiaochuan.test/v1" },
                 models: {
                   "alpha-gpt-next": {
                     variants: [
@@ -1137,16 +1137,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
   it.effect("keeps layered model variant bodies unchanged", () =>
     Effect.gen(function* () {
       const models = yield* Model.Service
-      const providerID = Provider.ID.xccode
+      const providerID = Provider.ID.xiaochuan
       const modelID = Model.ID.make("alpha-gpt-next")
       const entries = [
         new Document({
           type: "document",
           info: decode({
             providers: {
-              xccode: {
+              xiaochuan: {
                 package: "aisdk:@ai-sdk/openai",
-                settings: { baseURL: "https://xccode.test/v1" },
+                settings: { baseURL: "https://xiaochuan.test/v1" },
               },
             },
           }),
@@ -1155,7 +1155,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           type: "document",
           info: decode({
             providers: {
-              xccode: {
+              xiaochuan: {
                 models: {
                   "alpha-gpt-next": {
                     variants: [{ id: "high", body: { reasoningEffort: "high" } }],

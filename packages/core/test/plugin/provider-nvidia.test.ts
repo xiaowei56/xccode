@@ -1,10 +1,10 @@
 import { describe, expect, test } from "bun:test"
 import { Effect } from "effect"
-import { Plugin } from "@xccode/core/plugin"
-import { PluginHost } from "@xccode/core/plugin/host"
-import { ProviderPlugins } from "@xccode/core/plugin/provider"
-import { NvidiaPlugin } from "@xccode/core/plugin/provider/nvidia"
-import { Provider } from "@xccode/core/provider"
+import { Plugin } from "@xiaochuan/core/plugin"
+import { PluginHost } from "@xiaochuan/core/plugin/host"
+import { ProviderPlugins } from "@xiaochuan/core/plugin/provider"
+import { NvidiaPlugin } from "@xiaochuan/core/plugin/provider/nvidia"
+import { Provider } from "@xiaochuan/core/provider"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
 
@@ -18,7 +18,7 @@ const addPlugin = Effect.fn(function* () {
 
 describe("NvidiaPlugin", () => {
   test("is registered so legacy referer headers can be applied", () => {
-    expect(ProviderPlugins.map((item) => item.id)).toContain("xccode.provider.nvidia")
+    expect(ProviderPlugins.map((item) => item.id)).toContain("xiaochuan.provider.nvidia")
   })
 
   it.effect("applies NVIDIA tracking headers only to nvidia", () =>
@@ -26,7 +26,7 @@ describe("NvidiaPlugin", () => {
       const catalog = yield* Provider.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("nvidia"), (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.settings = { baseURL: "https://integrate.api.nvidia.com/v1" }
           provider.headers = { Existing: "value" }
         })
@@ -35,9 +35,9 @@ describe("NvidiaPlugin", () => {
       yield* addPlugin()
       expect((yield* catalog.get(Provider.ID.make("nvidia")))?.headers).toEqual({
         Existing: "value",
-        "HTTP-Referer": "https://xccode.ai/",
-        "X-Title": "xccode",
-        "X-BILLING-INVOKE-ORIGIN": "Xccode",
+        "HTTP-Referer": "https://xiaochuan.ai/",
+        "X-Title": "xiaochuan",
+        "X-BILLING-INVOKE-ORIGIN": "Xiaochuan",
       })
       expect((yield* catalog.get(Provider.ID.openrouter))?.headers).toBeUndefined()
     }),
@@ -48,16 +48,16 @@ describe("NvidiaPlugin", () => {
       const catalog = yield* Provider.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("nvidia"), (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.settings = { baseURL: "https://integrate.api.nvidia.com/v1" }
         })
       })
       yield* addPlugin()
 
       expect((yield* catalog.get(Provider.ID.make("nvidia")))?.headers).toEqual({
-        "HTTP-Referer": "https://xccode.ai/",
-        "X-Title": "xccode",
-        "X-BILLING-INVOKE-ORIGIN": "Xccode",
+        "HTTP-Referer": "https://xiaochuan.ai/",
+        "X-Title": "xiaochuan",
+        "X-BILLING-INVOKE-ORIGIN": "Xiaochuan",
       })
     }),
   )
@@ -67,7 +67,7 @@ describe("NvidiaPlugin", () => {
       const catalog = yield* Provider.Service
       yield* catalog.transform((catalog) => {
         catalog.update(Provider.ID.make("nvidia"), (provider) => {
-          provider.package = "@xccode/ai/providers/openai-compatible"
+          provider.package = "@xiaochuan/ai/providers/openai-compatible"
           provider.settings = { baseURL: "https://integrate.api.nvidia.com/v1" }
           provider.headers = { "X-BILLING-INVOKE-ORIGIN": "CustomOrigin" }
         })
@@ -75,8 +75,8 @@ describe("NvidiaPlugin", () => {
       yield* addPlugin()
 
       expect((yield* catalog.get(Provider.ID.make("nvidia")))?.headers).toEqual({
-        "HTTP-Referer": "https://xccode.ai/",
-        "X-Title": "xccode",
+        "HTTP-Referer": "https://xiaochuan.ai/",
+        "X-Title": "xiaochuan",
         "X-BILLING-INVOKE-ORIGIN": "CustomOrigin",
       })
     }),

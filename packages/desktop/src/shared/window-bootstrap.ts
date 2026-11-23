@@ -7,7 +7,7 @@ export type WindowBootstrap = {
   packaged?: boolean
 }
 
-const prefix = "--xccode-window="
+const prefix = "--xiaochuan-window="
 
 export function windowBootstrapArgument(bootstrap: WindowBootstrap) {
   return prefix + encodeURIComponent(JSON.stringify(bootstrap))

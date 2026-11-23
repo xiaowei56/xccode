@@ -1,7 +1,7 @@
-import { showToast } from "@xccode/ui/toast"
+import { showToast } from "@xiaochuan/ui/toast"
 import { createSignal, lazy, onCleanup, Suspense, untrack } from "solid-js"
-import { MenuItem, Server, Style, type ServerEntry, type ServerState, type Plugin } from "@xccode/plugin/gui"
-import { onIdle } from "@xccode/plugin/gui/builtin"
+import { MenuItem, Server, Style, type ServerEntry, type ServerState, type Plugin } from "@xiaochuan/plugin/gui"
+import { onIdle } from "@xiaochuan/plugin/gui/builtin"
 import {
   initialWslAdd,
   transitionWslAdd,

@@ -20,7 +20,7 @@ import { OllamaPlugin } from "./provider/ollama.js"
 import { OpenAIPlugin } from "./provider/openai.js"
 import { OpenAIContextCapsPlugin } from "./provider/openai-context-caps.js"
 import { SnowflakeCortexPlugin } from "./provider/snowflake-cortex.js"
-import { XccodePlugin } from "./provider/xccode.js"
+import { XiaochuanPlugin } from "./provider/xiaochuan.js"
 import { OpenRouterPlugin } from "./provider/openrouter.js"
 import { PoePlugin } from "./provider/poe.js"
 import { PromptCacheKeyPlugin } from "./provider/prompt-cache-key.js"
@@ -49,7 +49,7 @@ export const ProviderPlugins: PluginInternal.InternalPlugin[] = [
   NeonPlugin,
   NvidiaPlugin,
   OllamaPlugin,
-  XccodePlugin,
+  XiaochuanPlugin,
   SnowflakeCortexPlugin,
   OpenAIPlugin,
   OpenAIContextCapsPlugin,

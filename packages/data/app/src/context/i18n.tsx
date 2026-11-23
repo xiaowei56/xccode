@@ -1,4 +1,4 @@
-import { createSimpleContext } from "@xccode/ui/context"
+import { createSimpleContext } from "@xiaochuan/ui/context"
 import { translate, type Key } from "../i18n"
 import { useLanguage } from "./language"
 

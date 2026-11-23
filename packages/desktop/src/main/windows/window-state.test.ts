@@ -95,7 +95,7 @@ describe("window state", () => {
   })
 
   test("reads the file electron-window-state wrote and ignores an unreadable or non-object one", () => {
-    const dir = mkdtempSync(path.join(tmpdir(), "xccode-window-state-"))
+    const dir = mkdtempSync(path.join(tmpdir(), "xiaochuan-window-state-"))
     const file = path.join(dir, "window-state-a.json")
     writeFileSync(
       file,
@@ -142,7 +142,7 @@ describe("window state", () => {
     },
   ])("on win32 $name", ({ reading, expected }) => {
     Object.defineProperty(process, "platform", { value: "win32" })
-    const dir = mkdtempSync(path.join(tmpdir(), "xccode-window-state-"))
+    const dir = mkdtempSync(path.join(tmpdir(), "xiaochuan-window-state-"))
     const file = path.join(dir, "window-state-a.json")
     const second = { x: 1920, y: 0, width: 2560, height: 1440 }
     const events = new EventEmitter()

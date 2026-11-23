@@ -183,7 +183,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "xccode-pty"
+name = "xiaochuan-pty"
 version = "0.6.0"
 dependencies = [
  "anyhow",

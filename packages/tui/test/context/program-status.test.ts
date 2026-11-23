@@ -22,15 +22,15 @@ function setup(initial: PendingSession[] = []) {
 
 test("reports a blocked session on the root and its own record", () => {
   const status = setup()
-  expect(status.reports).toEqual([{ state: "idle", app: "xccode" }])
+  expect(status.reports).toEqual([{ state: "idle", app: "xiaochuan" }])
   status.reports.length = 0
 
   status.setSessions([
     { id: "ses_a", title: "Fix\nbuild", state: "blocked", kind: "permission", message: "Allow bash?" },
   ])
   expect(status.reports).toEqual([
-    { state: "blocked", kind: "permission", app: "xccode", title: "Fix build", message: "Allow bash?" },
-    { state: "blocked", kind: "permission", id: "ses_a", app: "xccode", title: "Fix build", message: "Allow bash?" },
+    { state: "blocked", kind: "permission", app: "xiaochuan", title: "Fix build", message: "Allow bash?" },
+    { state: "blocked", kind: "permission", id: "ses_a", app: "xiaochuan", title: "Fix build", message: "Allow bash?" },
   ])
   status.dispose()
 })
@@ -41,14 +41,14 @@ test("summarizes several pending sessions and clears resolved ones", () => {
     { id: "ses_b", state: "blocked", kind: "question", message: "Pick one" },
     { id: "ses_c", state: "working" },
   ])
-  expect(status.reports[0]).toEqual({ state: "blocked", app: "xccode", message: "2 sessions need input" })
+  expect(status.reports[0]).toEqual({ state: "blocked", app: "xiaochuan", message: "2 sessions need input" })
   status.reports.length = 0
 
   status.setSessions([{ id: "ses_c", state: "working" }])
   expect(status.reports).toEqual([
     { state: "clear", id: "ses_a" },
     { state: "clear", id: "ses_b" },
-    { state: "working", app: "xccode" },
+    { state: "working", app: "xiaochuan" },
   ])
   status.reports.length = 0
 

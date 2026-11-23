@@ -3,7 +3,7 @@
 //! Pipe mode on Windows: no console, one output pipe, job-based kills.
 //!
 //! The Unix suite in `tests/pipe.rs` keeps its own cases; these only run on
-//! Windows. Commands are passed the way Xccode passes them (`cmd.exe /c
+//! Windows. Commands are passed the way Xiaochuan passes them (`cmd.exe /c
 //! <command>`), and longer checks use a PowerShell script file. Windows
 //! PowerShell needs `SystemRoot` in its environment to start, so test
 //! children get a PATH, SystemRoot and TEMP, never the daemon's own.
@@ -15,7 +15,7 @@ use std::os::windows::io::{AsRawHandle, FromRawHandle, OwnedHandle};
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
-use xccode_pty::service::{
+use xiaochuan_pty::service::{
     CreatePipe, MAX_METADATA_BYTES, PipeMetadata, ProcessExit, ProcessInfo, ProcessMode,
     ProcessSignal, TerminalId, TerminalLifecycle, TerminalService,
 };
@@ -30,14 +30,14 @@ struct TempPath(PathBuf);
 impl TempPath {
     fn new(name: &str) -> Self {
         Self(env::temp_dir().join(format!(
-            "xccode-pty-pipe-{name}-{:032x}",
+            "xiaochuan-pty-pipe-{name}-{:032x}",
             rand::random::<u128>()
         )))
     }
 
     fn script(name: &str, extension: &str) -> Self {
         Self(env::temp_dir().join(format!(
-            "xccode-pty-pipe-{name}-{:032x}.{extension}",
+            "xiaochuan-pty-pipe-{name}-{:032x}.{extension}",
             rand::random::<u128>()
         )))
     }
@@ -95,7 +95,7 @@ fn pipe(
     }
 }
 
-/// A `cmd.exe /c <command>` request, the way Xccode runs shell commands.
+/// A `cmd.exe /c <command>` request, the way Xiaochuan runs shell commands.
 fn cmd(command: &str, output: &Path) -> CreatePipe {
     pipe(
         "cmd.exe",

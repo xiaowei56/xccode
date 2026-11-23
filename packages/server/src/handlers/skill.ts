@@ -1,4 +1,4 @@
-import { Skill } from "@xccode/core/skill"
+import { Skill } from "@xiaochuan/core/skill"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"
 import { response } from "../location"

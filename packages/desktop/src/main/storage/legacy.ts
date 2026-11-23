@@ -89,9 +89,9 @@ export const importLegacyStores = Effect.fn("DesktopStorage.importLegacyStores")
 })
 
 function isStoreFile(name: string) {
-  return name === "default.dat" || /^xccode\..+\.dat$/.test(name)
+  return name === "default.dat" || /^xiaochuan\..+\.dat$/.test(name)
 }
 
 function isDraft(name: string) {
-  return name.startsWith("xccode.draft.")
+  return name.startsWith("xiaochuan.draft.")
 }

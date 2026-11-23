@@ -7,11 +7,11 @@ import {
   type DeepLinkState,
 } from "./machine"
 
-const oauth = "xccode://console/authorized?window=a"
+const oauth = "xiaochuan://console/authorized?window=a"
 
-const oauthB = "xccode://console/authorized?window=b"
+const oauthB = "xiaochuan://console/authorized?window=b"
 
-const project = "xccode://open?project=/repo"
+const project = "xiaochuan://open?project=/repo"
 
 // Folds events through the machine and keeps the commands of each step.
 function replay(events: readonly DeepLinkEvent[], from = createDeepLinkState()) {

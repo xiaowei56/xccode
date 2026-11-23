@@ -8,7 +8,7 @@ import { config, leave, server, statusMask } from "./fixture"
 
 // Wraps the draft it is given, so the scenario sees both the handoff and the result. One per runner process, so
 // runs from other worktrees do not rewrite it while it runs.
-const editor = path.join(tmpdir(), `xccode-parity-m2-editor-${process.pid}.sh`)
+const editor = path.join(tmpdir(), `xiaochuan-parity-m2-editor-${process.pid}.sh`)
 
 export default definePty({
   args: ["mini", "-s", "ses_mini", "--no-replay"],

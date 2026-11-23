@@ -16,7 +16,7 @@ const text = [
 export default defineApp({
   height: 32,
   config: { plugins: ["./plugins/fence-margin"] },
-  env: { XCCODE_PARITY_PLUGIN: "fence-margin" },
+  env: { XIAOCHUAN_PARITY_PLUGIN: "fence-margin" },
   args: { sessionID: "ses_f" },
   routes: [
     { path: "/api/session/ses_f", json: { data: session("ses_f", "Show the fences", { updated: 2 }) } },

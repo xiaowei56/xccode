@@ -1,19 +1,19 @@
 export * as ConfigReferencePlugin from "./reference.js"
 
-import { define } from "@xccode/plugin/effect/plugin"
-import { Document } from "@xccode/schema/config"
-import { ConfigReference } from "@xccode/schema/config/reference"
+import { define } from "@xiaochuan/plugin/effect/plugin"
+import { Document } from "@xiaochuan/schema/config"
+import { ConfigReference } from "@xiaochuan/schema/config/reference"
 import path from "path"
 import { Effect } from "effect"
 import { Config } from "../../config.js"
 import { Reference } from "../../reference.js"
 import { AbsolutePath } from "../../schema.js"
-import { Global } from "@xccode/util/global"
+import { Global } from "@xiaochuan/util/global"
 import { Location } from "../../location.js"
 import { ConfigEntryObserver } from "./entry-observer.js"
 
 export const Plugin = define({
-  id: "xccode.config.reference",
+  id: "xiaochuan.config.reference",
   effect: Effect.fn(function* (ctx) {
     const config = yield* Config.Service
     const location = yield* Location.Service

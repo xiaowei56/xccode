@@ -1,5 +1,5 @@
-import { Shell } from "@xccode/schema/shell"
-import { Location } from "@xccode/schema/location"
+import { Shell } from "@xiaochuan/schema/shell"
+import { Location } from "@xiaochuan/schema/location"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiSchema, OpenApi } from "effect/http-api"
 import { ShellNotFoundError } from "../errors.js"

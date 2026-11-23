@@ -1,12 +1,12 @@
 import { describe, expect, test } from "bun:test"
-import { AIError, ProviderInternalError, TransportError } from "@xccode/ai/effect"
-import { ModelRetry } from "@xccode/core/model-retry"
-import { Agent } from "@xccode/schema/agent"
-import { Model } from "@xccode/schema/model"
-import { Provider } from "@xccode/core/provider"
-import { SessionSchema } from "@xccode/core/session/schema"
-import { SessionRunnerRetry } from "@xccode/core/session/runner/retry"
-import { toSessionError } from "@xccode/core/session/to-session-error"
+import { AIError, ProviderInternalError, TransportError } from "@xiaochuan/ai/effect"
+import { ModelRetry } from "@xiaochuan/core/model-retry"
+import { Agent } from "@xiaochuan/schema/agent"
+import { Model } from "@xiaochuan/schema/model"
+import { Provider } from "@xiaochuan/core/provider"
+import { SessionSchema } from "@xiaochuan/core/session/schema"
+import { SessionRunnerRetry } from "@xiaochuan/core/session/runner/retry"
+import { toSessionError } from "@xiaochuan/core/session/to-session-error"
 import { Clock, Duration, Effect } from "effect"
 import { TestClock } from "effect/testing"
 import { it } from "./lib/effect"
@@ -17,11 +17,11 @@ const timeout = new AIError({
 const internal = new AIError({ reason: new ProviderInternalError({ message: "internal" }) })
 const dnsFailure = new AIError({
   reason: new TransportError({
-    message: "getaddrinfo ENOTFOUND xccode.ai",
+    message: "getaddrinfo ENOTFOUND xiaochuan.ai",
     transport: "http",
     operation: "request",
     code: "ENOTFOUND",
-    url: "https://xccode.ai/zen/v1/responses",
+    url: "https://xiaochuan.ai/zen/v1/responses",
   }),
 })
 const refused = new AIError({
@@ -123,7 +123,7 @@ describe("toSessionError", () => {
   test("names the network when the provider's host can't be reached", () => {
     expect(toSessionError(dnsFailure)).toEqual({
       type: "provider.transport",
-      message: "Can't reach xccode.ai. Check the network connection. (getaddrinfo ENOTFOUND xccode.ai)",
+      message: "Can't reach xiaochuan.ai. Check the network connection. (getaddrinfo ENOTFOUND xiaochuan.ai)",
     })
     expect(toSessionError(refused)).toEqual({ type: "provider.transport", message: "Unable to connect" })
   })

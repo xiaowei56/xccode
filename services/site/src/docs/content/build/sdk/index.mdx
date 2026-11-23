@@ -1,10 +1,10 @@
 ---
 title: "SDK overview"
-description: "Host Xccode inside your application with @xccode/sdk, which serves the API in memory with no HTTP listener."
+description: "Host Xiaochuan inside your application with @xiaochuan/sdk, which serves the API in memory with no HTTP listener."
 ---
 
-`@xccode/sdk` hosts Xccode directly inside your application. Unlike the
-[network client](/build/client), it assembles the Xccode server and routes API
+`@xiaochuan/sdk` hosts Xiaochuan directly inside your application. Unlike the
+[network client](/build/client), it assembles the Xiaochuan server and routes API
 calls through its HTTP router in memory. It opens no HTTP listener and adds no
 network hop between the client and server.
 
@@ -13,33 +13,33 @@ For Cloudflare Durable Objects, see the [Cloudflare guide](/build/sdk/cloudflare
 Install the SDK:
 
 ```sh
-bun add @xccode/sdk
+bun add @xiaochuan/sdk
 ```
 
 ## Create a host
 
-`Xccode.create()` returns an explicitly owned host. Use `await using` to
+`Xiaochuan.create()` returns an explicitly owned host. Use `await using` to
 release its router, Location services, fibers, and scoped plugin registrations:
 
 ```ts
-import { Xccode } from "@xccode/sdk"
+import { Xiaochuan } from "@xiaochuan/sdk"
 
-await using xccode = await Xccode.create()
-const session = await xccode.sessions.create({
+await using xiaochuan = await Xiaochuan.create()
+const session = await xiaochuan.sessions.create({
   location: { directory: "/workspace" },
 })
 
-await xccode.sessions.prompt({
+await xiaochuan.sessions.prompt({
   sessionID: session.id,
   text: "Review the current changes",
 })
 ```
 
-Call `await xccode.close()` explicitly when explicit resource management is
+Call `await xiaochuan.close()` explicitly when explicit resource management is
 not available.
 
 The embedded host uses the same Promise values, declared errors, request
-options, and `AsyncIterable` streams as `@xccode/client`. It exposes the
+options, and `AsyncIterable` streams as `@xiaochuan/client`. It exposes the
 full generated client and adds the convenience aliases `sessions` and `events`
 for the session and event groups.
 
@@ -51,9 +51,9 @@ failing if that strategy is unavailable.
 
 ```ts
 const projectID = session.projectID
-const worktree = await xccode.worktree.create({ projectID, name: "task" })
-await xccode.worktree.refresh({ projectID })
-await xccode.worktree.remove({ projectID, directory: worktree.directory, force: false })
+const worktree = await xiaochuan.worktree.create({ projectID, name: "task" })
+await xiaochuan.worktree.refresh({ projectID })
+await xiaochuan.worktree.remove({ projectID, directory: worktree.directory, force: false })
 ```
 
 Refresh discovers worktrees across known checkout roots using all available strategies. Register a custom strategy
@@ -62,7 +62,7 @@ through a [plugin's worktree transform](/build/plugins/server#worktrees).
 ## Stream events
 
 ```ts
-for await (const event of xccode.events.subscribe()) {
+for await (const event of xiaochuan.events.subscribe()) {
   console.log(event.type)
 }
 ```
@@ -72,13 +72,13 @@ iteration to cancel its response body.
 
 ## Customize
 
-Customize your Xccode instance by registering plugins. Pass plugins to
-`Xccode.create()` to customize agents, models, tools, and other behavior when
+Customize your Xiaochuan instance by registering plugins. Pass plugins to
+`Xiaochuan.create()` to customize agents, models, tools, and other behavior when
 the embedded host starts:
 
 ```ts
-import { Plugin } from "@xccode/plugin"
-import { Xccode } from "@xccode/sdk"
+import { Plugin } from "@xiaochuan/plugin"
+import { Xiaochuan } from "@xiaochuan/sdk"
 
 const plugin = Plugin.define({
   id: "customize-agent",
@@ -91,10 +91,10 @@ const plugin = Plugin.define({
   },
 })
 
-await using xccode = await Xccode.create({ plugins: [plugin] })
+await using xiaochuan = await Xiaochuan.create({ plugins: [plugin] })
 ```
 
-Call `await xccode.plugin(plugin)` to register another plugin after startup.
+Call `await xiaochuan.plugin(plugin)` to register another plugin after startup.
 
 See the [full plugins documentation](/build/plugins/server) for plugin hooks,
 transforms, tools, and the complete plugin context.

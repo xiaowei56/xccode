@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
 import { Schema } from "effect"
-import { Store } from "@xccode/plugin/gui"
-import type { Entry } from "@xccode/plugin/gui/host"
+import { Store } from "@xiaochuan/plugin/gui"
+import type { Entry } from "@xiaochuan/plugin/gui/host"
 import {
   createPluginHostState,
   selectPluginDefinitions,

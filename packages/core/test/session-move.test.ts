@@ -1,30 +1,30 @@
-import type { FileSystem } from "@xccode/core/filesystem"
+import type { FileSystem } from "@xiaochuan/core/filesystem"
 import { describe, expect } from "bun:test"
 import path from "path"
 import { chmod, mkdir, readdir, rm } from "fs/promises"
 import { Cause, Context, Deferred, Duration, Effect, Exit, Fiber, Layer, LayerMap, Queue } from "effect"
-import { Worktree } from "@xccode/schema/worktree"
-import { Workspace } from "@xccode/schema/workspace"
-import { Bus } from "@xccode/core/bus"
-import { Config } from "@xccode/core/config"
-import { Database } from "@xccode/core/database/database"
-import { AppNodeBuilder } from "@xccode/core/effect/app-node-builder"
-import { Instance } from "@xccode/core/instance"
-import { Location } from "@xccode/core/location"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import type { LocationServices } from "@xccode/core/location-services"
-import { Project } from "@xccode/core/project"
-import { AbsolutePath } from "@xccode/core/schema"
-import { Session } from "@xccode/core/session"
-import { SessionEvent } from "@xccode/core/session/event"
-import { SessionExecution } from "@xccode/core/session/execution"
-import { SessionMove } from "@xccode/core/session/move"
-import { SessionProjector } from "@xccode/core/session/projector"
-import { SessionRunner } from "@xccode/core/session/runner/index"
-import { SessionStore } from "@xccode/core/session/store"
-import { LayerNode } from "@xccode/util/effect/layer-node"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
-import { Global } from "@xccode/util/global"
+import { Worktree } from "@xiaochuan/schema/worktree"
+import { Workspace } from "@xiaochuan/schema/workspace"
+import { Bus } from "@xiaochuan/core/bus"
+import { Config } from "@xiaochuan/core/config"
+import { Database } from "@xiaochuan/core/database/database"
+import { AppNodeBuilder } from "@xiaochuan/core/effect/app-node-builder"
+import { Instance } from "@xiaochuan/core/instance"
+import { Location } from "@xiaochuan/core/location"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import type { LocationServices } from "@xiaochuan/core/location-services"
+import { Project } from "@xiaochuan/core/project"
+import { AbsolutePath } from "@xiaochuan/core/schema"
+import { Session } from "@xiaochuan/core/session"
+import { SessionEvent } from "@xiaochuan/core/session/event"
+import { SessionExecution } from "@xiaochuan/core/session/execution"
+import { SessionMove } from "@xiaochuan/core/session/move"
+import { SessionProjector } from "@xiaochuan/core/session/projector"
+import { SessionRunner } from "@xiaochuan/core/session/runner/index"
+import { SessionStore } from "@xiaochuan/core/session/store"
+import { LayerNode } from "@xiaochuan/util/effect/layer-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
+import { Global } from "@xiaochuan/util/global"
 import { tempGlobalLayer } from "./fixture/global"
 import { offlineModels } from "./fixture/models"
 import { tmpdirScoped } from "./fixture/tmpdir"
@@ -215,7 +215,7 @@ describe("Session.move", () => {
           yield* Effect.promise(() => Promise.all([mkdir(source), mkdir(destination)]))
           if (broken)
             yield* Effect.promise(() =>
-              Bun.write(path.join(source, "xccode.json"), JSON.stringify({ instructions: ["{file:.}"] })),
+              Bun.write(path.join(source, "xiaochuan.json"), JSON.stringify({ instructions: ["{file:.}"] })),
             )
           const session = yield* Session.Service
           const execution = yield* SessionExecution.Service
@@ -272,7 +272,7 @@ describe("Session.move", () => {
           const destination = AbsolutePath.make(path.join(tmp.path, "destination"))
           yield* Effect.promise(() => Promise.all([mkdir(source.directory), mkdir(destination)]))
           const config = JSON.stringify({ instructions: ["{file:.}"] })
-          if (!broken) yield* Effect.promise(() => Bun.write(path.join(source.directory, "xccode.json"), config))
+          if (!broken) yield* Effect.promise(() => Bun.write(path.join(source.directory, "xiaochuan.json"), config))
           const selectedID = Session.ID.create()
           const replacements: LayerNode.Replacements = [
             Global.node.replace(tempGlobalLayer),

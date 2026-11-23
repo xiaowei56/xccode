@@ -1,28 +1,28 @@
 ---
 title: IDE
-description: ส่วนขยาย Xccode สำหรับ VS Code, Cursor และ IDE อื่นๆ
+description: ส่วนขยาย Xiaochuan สำหรับ VS Code, Cursor และ IDE อื่นๆ
 ---
 
-Xccode ทำงานร่วมกับ VS Code, Cursor หรือ IDE ใดๆ ที่รองรับ terminal เพียงเรียกใช้ `xccode` ใน terminal เพื่อเริ่มต้น
+Xiaochuan ทำงานร่วมกับ VS Code, Cursor หรือ IDE ใดๆ ที่รองรับ terminal เพียงเรียกใช้ `xiaochuan` ใน terminal เพื่อเริ่มต้น
 
 ---
 
 ## การใช้งาน
 
-- **เปิดใช้ด่วน**: ใช้ `Cmd+Esc` (Mac) หรือ `Ctrl+Esc` (Windows/Linux) เพื่อเปิด Xccode ในมุมมอง terminal แบบแยก หรือเน้นเซสชัน terminal ที่มีอยู่หากมีการทำงานอยู่แล้ว
-- **เซสชันใหม่**: ใช้ `Cmd+Shift+Esc` (Mac) หรือ `Ctrl+Shift+Esc` (Windows/Linux) เพื่อเริ่มเซสชัน terminal Xccode ใหม่ แม้ว่าเซสชันหนึ่งจะเปิดอยู่แล้วก็ตาม คุณยังสามารถคลิกปุ่ม Xccode ใน UI ได้ด้วย
-- **การรับรู้บริบท**: แชร์การเลือกหรือแท็บปัจจุบันของคุณโดยอัตโนมัติด้วย Xccode
+- **เปิดใช้ด่วน**: ใช้ `Cmd+Esc` (Mac) หรือ `Ctrl+Esc` (Windows/Linux) เพื่อเปิด Xiaochuan ในมุมมอง terminal แบบแยก หรือเน้นเซสชัน terminal ที่มีอยู่หากมีการทำงานอยู่แล้ว
+- **เซสชันใหม่**: ใช้ `Cmd+Shift+Esc` (Mac) หรือ `Ctrl+Shift+Esc` (Windows/Linux) เพื่อเริ่มเซสชัน terminal Xiaochuan ใหม่ แม้ว่าเซสชันหนึ่งจะเปิดอยู่แล้วก็ตาม คุณยังสามารถคลิกปุ่ม Xiaochuan ใน UI ได้ด้วย
+- **การรับรู้บริบท**: แชร์การเลือกหรือแท็บปัจจุบันของคุณโดยอัตโนมัติด้วย Xiaochuan
 - **ทางลัดการอ้างอิงไฟล์**: ใช้ `Cmd+Option+K` (Mac) หรือ `Alt+Ctrl+K` (Linux/Windows) เพื่อแทรกการอ้างอิงไฟล์ ตัวอย่างเช่น `@File#L37-42`
 
 ---
 
 ## การติดตั้ง
 
-วิธีติดตั้ง Xccode บน VS Code และทางแยกยอดนิยม เช่น Cursor, Windsurf, VSCodium:
+วิธีติดตั้ง Xiaochuan บน VS Code และทางแยกยอดนิยม เช่น Cursor, Windsurf, VSCodium:
 
 1. เปิด VS Code
 2. เปิด terminal รวม
-3. เรียกใช้ `xccode` - ​​ส่วนขยายจะติดตั้งโดยอัตโนมัติ
+3. เรียกใช้ `xiaochuan` - ​​ส่วนขยายจะติดตั้งโดยอัตโนมัติ
 
 ในทางกลับกัน หากคุณต้องการใช้ IDE ของคุณเองเมื่อคุณเรียกใช้ `/editor` หรือ `/export` จาก TUI คุณจะต้องตั้งค่า `export EDITOR="code --wait"` [เรียนรู้เพิ่มเติม](/docs/tui/#editor-setup)
 
@@ -30,7 +30,7 @@ Xccode ทำงานร่วมกับ VS Code, Cursor หรือ IDE ใ
 
 ### ติดตั้งด้วยตนเอง
 
-ค้นหา **Xccode** ใน Extension Marketplace แล้วคลิก **ติดตั้ง**
+ค้นหา **Xiaochuan** ใน Extension Marketplace แล้วคลิก **ติดตั้ง**
 
 ---
 
@@ -38,7 +38,7 @@ Xccode ทำงานร่วมกับ VS Code, Cursor หรือ IDE ใ
 
 หากส่วนขยายไม่สามารถติดตั้งได้โดยอัตโนมัติ:
 
-- ตรวจสอบให้แน่ใจว่าคุณใช้งาน `xccode` ใน terminal รวม
+- ตรวจสอบให้แน่ใจว่าคุณใช้งาน `xiaochuan` ใน terminal รวม
 - ยืนยันว่า CLI สำหรับ IDE ของคุณได้รับการติดตั้งแล้ว:
   - สำหรับ VS Code: `code` คำสั่ง
   - สำหรับ Cursor: `cursor` คำสั่ง

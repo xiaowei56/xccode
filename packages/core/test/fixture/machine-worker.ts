@@ -1,5 +1,5 @@
-import { Environment } from "@xccode/core/environment/index"
-import { Machine } from "@xccode/core/machine/index"
+import { Environment } from "@xiaochuan/core/environment/index"
+import { Machine } from "@xiaochuan/core/machine/index"
 import { Cause, Deferred, Effect, Fiber, Queue, Stream } from "effect"
 
 /** A process the fake worker ran. The test decides what it prints and when it exits. */

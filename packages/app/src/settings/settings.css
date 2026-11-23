@@ -1,5 +1,5 @@
-@import "@xccode/ui/text-input.css";
-@import "@xccode/ui/button.css";
+@import "@xiaochuan/ui/text-input.css";
+@import "@xiaochuan/ui/button.css";
 
 [data-component="tabs-v2"][data-variant="settings"] {
   height: 100%;

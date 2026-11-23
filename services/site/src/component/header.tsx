@@ -9,10 +9,10 @@ import copyBrandAssetsDark from "../asset/lander/brand-assets-dark.svg"
 
 // SVG files for copying (separate from button icons)
 // Replace these with your actual SVG files for copying
-import copyLogoSvgLight from "../asset/lander/xccode-logo-light.svg"
-import copyLogoSvgDark from "../asset/lander/xccode-logo-dark.svg"
-import copyWordmarkSvgLight from "../asset/lander/xccode-wordmark-light.svg"
-import copyWordmarkSvgDark from "../asset/lander/xccode-wordmark-dark.svg"
+import copyLogoSvgLight from "../asset/lander/xiaochuan-logo-light.svg"
+import copyLogoSvgDark from "../asset/lander/xiaochuan-logo-dark.svg"
+import copyWordmarkSvgLight from "../asset/lander/xiaochuan-wordmark-light.svg"
+import copyWordmarkSvgDark from "../asset/lander/xiaochuan-wordmark-dark.svg"
 import { A, useNavigate } from "@solidjs/router"
 import { createMemo, Match, Show, Switch } from "solid-js"
 import { createStore } from "solid-js/store"

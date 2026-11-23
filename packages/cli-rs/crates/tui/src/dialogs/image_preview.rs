@@ -1,8 +1,8 @@
 //! Full-size image preview with navigation between attachments.
 
-use xccode_api::generated::{ExperimentalMediaGetInput, MediaHash};
-use xccode_ui::dialog::{DialogCx, FooterAction, FooterProps, layout};
-use xccode_ui::prompt_input::attach::data_uri;
+use xiaochuan_api::generated::{ExperimentalMediaGetInput, MediaHash};
+use xiaochuan_ui::dialog::{DialogCx, FooterAction, FooterProps, layout};
+use xiaochuan_ui::prompt_input::attach::data_uri;
 use opentui::native::ImageFit;
 use opentui::widget::ImageView;
 

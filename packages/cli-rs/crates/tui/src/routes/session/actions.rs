@@ -1,14 +1,14 @@
 //! Session commands are global for palette and slash completion; their keyboard bindings are base-mode only.
 
-use xccode_api::client::Client;
-use xccode_api::generated::{
+use xiaochuan_api::client::Client;
+use xiaochuan_api::generated::{
     ExperimentalSessionExportInput, ExperimentalSessionWaitInput, ModelRef, PromptAgentAttachment,
     PromptFileAttachment, PromptFileSource, PromptMention, PromptSkillAttachment, ProviderID, SessionInboxCancelInput,
     SessionInboxInfo, SessionInfo, SessionInterruptInput, SessionMessageAssistantContentItem, SessionMessageCompaction,
     SessionMessageUser, SessionRevertClearInput, SessionRevertStageInput, SessionUpdateInput,
 };
-use xccode_store::State;
-use xccode_ui::keymap::Slash;
+use xiaochuan_store::State;
+use xiaochuan_ui::keymap::Slash;
 
 use super::scroll;
 use crate::dialogs::{export, fork, rename, timeline};
@@ -271,7 +271,7 @@ impl Inner {
         }
         tui.app.spawn(
             transcript(tui, &self.session, None),
-            bind!(tui, |tui, _, result: Result<Value, xccode_api::error::Error>| {
+            bind!(tui, |tui, _, result: Result<Value, xiaochuan_api::error::Error>| {
                 let copied =
                     result.ok().is_some_and(|transcript| tui.app.copy_to_clipboard(&markdown(&transcript, true, true)));
                 toast(
@@ -312,9 +312,9 @@ impl Inner {
                                 let extension = if json { "json" } else { "md" };
                                 let directory = match choice.location {
                                     export::Location::Project => std::env::current_dir().unwrap_or_default(),
-                                    export::Location::Temp => xccode_local::paths::temp(),
+                                    export::Location::Temp => xiaochuan_local::paths::temp(),
                                 };
-                                let path = directory.join(format!("session-{}.{extension}", xccode_local::id::v4()));
+                                let path = directory.join(format!("session-{}.{extension}", xiaochuan_local::id::v4()));
                                 std::fs::write(&path, content).map(|_| Some(path.display().to_string())).map_err(drop)
                             }
                         });
@@ -396,7 +396,7 @@ pub(crate) fn append_prompt(tui: &Tui, session: &SessionID, prompt: Value) {
     let prompt = match tui.prompt.drafts.take(Some(session)) {
         Some(draft) => {
             let end =
-                xccode_ui::prompt_input::parse::measure(&tui.app, draft.prompt["text"].as_str().unwrap_or_default());
+                xiaochuan_ui::prompt_input::parse::measure(&tui.app, draft.prompt["text"].as_str().unwrap_or_default());
             append(&draft.prompt, prompt, end)
         }
         None => prompt,
@@ -432,7 +432,7 @@ fn append(prompt: &Value, following: Value, end: u32) -> Value {
 pub(crate) fn restored(app: &App, mut prompt: Value) -> Value {
     let units: Vec<u16> = prompt["text"].as_str().unwrap_or_default().encode_utf16().collect();
     let cells =
-        |index: usize| xccode_ui::prompt_input::parse::measure(app, &String::from_utf16_lossy(&units[..index]));
+        |index: usize| xiaochuan_ui::prompt_input::parse::measure(app, &String::from_utf16_lossy(&units[..index]));
     for key in ["files", "agents", "skills"] {
         let Some(list) = prompt.get_mut(key).and_then(Value::as_array_mut) else { continue };
         for part in list {
@@ -516,7 +516,7 @@ fn transcript(
     tui: &Tui,
     session: &SessionID,
     sanitize: Option<bool>,
-) -> impl std::future::Future<Output = Result<Value, xccode_api::error::Error>> + Send + 'static {
+) -> impl std::future::Future<Output = Result<Value, xiaochuan_api::error::Error>> + Send + 'static {
     let client = tui.data.client().clone();
     let session = session.clone();
     async move {
@@ -601,7 +601,7 @@ fn locale_string(ms: f64) -> String {
     if !ms.is_finite() {
         return "Invalid Date".to_owned();
     }
-    xccode_util::time::Zone::Local
+    xiaochuan_util::time::Zone::Local
         .at(ms as i64)
         .map_or_else(|| "Invalid Date".to_owned(), |date| date.locale_string())
 }

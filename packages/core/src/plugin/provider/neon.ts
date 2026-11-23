@@ -1,8 +1,8 @@
 import { Effect } from "effect"
-import { define } from "@xccode/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 
 export const NeonPlugin = define({
-  id: "xccode.provider.neon",
+  id: "xiaochuan.provider.neon",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.integration.transform((editor) => {
       // models.dev also lists NEON_AI_GATEWAY_BASE_URL, which only fills the base URL template.

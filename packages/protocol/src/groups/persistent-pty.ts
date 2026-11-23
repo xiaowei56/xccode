@@ -1,7 +1,7 @@
-import { PersistentPty } from "@xccode/schema/persistent-pty"
-import { Pty } from "@xccode/schema/pty"
-import { PtyTicket } from "@xccode/schema/pty-ticket"
-import { Session } from "@xccode/schema/session"
+import { PersistentPty } from "@xiaochuan/schema/persistent-pty"
+import { Pty } from "@xiaochuan/schema/pty"
+import { PtyTicket } from "@xiaochuan/schema/pty-ticket"
+import { Session } from "@xiaochuan/schema/session"
 import { Schema } from "effect"
 import { HttpApiEndpoint, HttpApiGroup, HttpApiSchema, OpenApi } from "effect/http-api"
 import {
@@ -123,7 +123,7 @@ export const PersistentPtyGroup = HttpApiGroup.make("server.experimental")
       OpenApi.annotations({
         identifier: "experimental.persistentPty.connect",
         summary: "Connect to a persistent PTY",
-        description: "Stream persistent PTY output through the Xccode server.",
+        description: "Stream persistent PTY output through the Xiaochuan server.",
         transform: (operation) => ({
           ...operation,
           "x-websocket": true,

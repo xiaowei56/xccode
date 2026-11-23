@@ -1,30 +1,30 @@
 ---
 title: CLI
-description: Opzioni e comandi della CLI di Xccode.
+description: Opzioni e comandi della CLI di Xiaochuan.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-La CLI di Xccode, per impostazione predefinita, avvia la [TUI](/docs/tui) quando viene eseguita senza argomenti.
+La CLI di Xiaochuan, per impostazione predefinita, avvia la [TUI](/docs/tui) quando viene eseguita senza argomenti.
 
 ```bash
-xccode
+xiaochuan
 ```
 
-Ma accetta anche i comandi documentati in questa pagina. Questo ti permette di interagire con Xccode in modo programmatico.
+Ma accetta anche i comandi documentati in questa pagina. Questo ti permette di interagire con Xiaochuan in modo programmatico.
 
 ```bash
-xccode run "Explain how closures work in JavaScript"
+xiaochuan run "Explain how closures work in JavaScript"
 ```
 
 ---
 
 ### tui
 
-Avvia l'interfaccia testuale di Xccode (interfaccia utente da terminale).
+Avvia l'interfaccia testuale di Xiaochuan (interfaccia utente da terminale).
 
 ```bash
-xccode [project]
+xiaochuan [project]
 ```
 
 #### Flag
@@ -44,26 +44,26 @@ xccode [project]
 
 ## Comandi
 
-La CLI di Xccode include anche i seguenti comandi.
+La CLI di Xiaochuan include anche i seguenti comandi.
 
 ---
 
 ### attach
 
-Collega un terminale a un backend server di Xccode già in esecuzione avviato tramite i comandi `serve` o `web`.
+Collega un terminale a un backend server di Xiaochuan già in esecuzione avviato tramite i comandi `serve` o `web`.
 
 ```bash
-xccode attach [url]
+xiaochuan attach [url]
 ```
 
-Questo consente di usare la TUI con un backend Xccode remoto. Per esempio:
+Questo consente di usare la TUI con un backend Xiaochuan remoto. Per esempio:
 
 ```bash
 # Start the backend server for web/mobile access
-xccode web --port 4096 --hostname 0.0.0.0
+xiaochuan web --port 4096 --hostname 0.0.0.0
 
 # In un altro terminale, collega la TUI al backend in esecuzione
-xccode attach http://10.20.30.40:4096
+xiaochuan attach http://10.20.30.40:4096
 ```
 
 #### Flag
@@ -74,8 +74,8 @@ xccode attach http://10.20.30.40:4096
 | <nobr><code>{"--continue"}</code></nobr> | `-c`  | Continua l'ultima sessione                                                                      |
 | <nobr><code>{"--session"}</code></nobr>  | `-s`  | ID sessione da continuare                                                                       |
 | <nobr><code>{"--fork"}</code></nobr>     |       | Crea un fork della sessione durante la continuazione (usa con `--continue` o `--session`)       |
-| <nobr><code>{"--password"}</code></nobr> | `-p`  | Password per l'autenticazione di base (predefinita: `XCCODE_SERVER_PASSWORD`)                 |
-| <nobr><code>{"--username"}</code></nobr> | `-u`  | Nome utente per l'autenticazione di base (predefinito: `XCCODE_SERVER_USERNAME` o `xccode`) |
+| <nobr><code>{"--password"}</code></nobr> | `-p`  | Password per l'autenticazione di base (predefinita: `XIAOCHUAN_SERVER_PASSWORD`)                 |
+| <nobr><code>{"--username"}</code></nobr> | `-u`  | Nome utente per l'autenticazione di base (predefinito: `XIAOCHUAN_SERVER_USERNAME` o `xiaochuan`) |
 
 ---
 
@@ -84,20 +84,20 @@ xccode attach http://10.20.30.40:4096
 Comando per gestire le credenziali e il login dei provider.
 
 ```bash
-xccode auth [command]
+xiaochuan auth [command]
 ```
 
 ---
 
 #### login
 
-Xccode si basa sull'elenco provider di [Models.dev](https://models.dev), quindi puoi usare `xccode auth login` per configurare le API key per qualunque provider tu voglia usare. Le credenziali vengono salvate in `~/.local/share/xccode/auth.json`.
+Xiaochuan si basa sull'elenco provider di [Models.dev](https://models.dev), quindi puoi usare `xiaochuan auth login` per configurare le API key per qualunque provider tu voglia usare. Le credenziali vengono salvate in `~/.local/share/xiaochuan/auth.json`.
 
 ```bash
-xccode auth login
+xiaochuan auth login
 ```
 
-Quando Xccode si avvia, carica i provider dal file delle credenziali e, se presenti, anche eventuali key definite nell'ambiente o in un file `.env` nel progetto.
+Quando Xiaochuan si avvia, carica i provider dal file delle credenziali e, se presenti, anche eventuali key definite nell'ambiente o in un file `.env` nel progetto.
 
 ---
 
@@ -106,13 +106,13 @@ Quando Xccode si avvia, carica i provider dal file delle credenziali e, se prese
 Elenca tutti i provider autenticati come salvati nel file delle credenziali.
 
 ```bash
-xccode auth list
+xiaochuan auth list
 ```
 
 Oppure la versione corta.
 
 ```bash
-xccode auth ls
+xiaochuan auth ls
 ```
 
 ---
@@ -122,7 +122,7 @@ xccode auth ls
 Esegue il logout da un provider rimuovendolo dal file delle credenziali.
 
 ```bash
-xccode auth logout
+xiaochuan auth logout
 ```
 
 ---
@@ -132,7 +132,7 @@ xccode auth logout
 Gestisci l'agente GitHub per l'automazione dei repository.
 
 ```bash
-xccode github [command]
+xiaochuan github [command]
 ```
 
 ---
@@ -142,7 +142,7 @@ xccode github [command]
 Installa l'agente GitHub nel tuo repository.
 
 ```bash
-xccode github install
+xiaochuan github install
 ```
 
 Questo configura il workflow GitHub Actions necessario e ti guida nel processo di configurazione. [Scopri di più](/docs/github).
@@ -154,7 +154,7 @@ Questo configura il workflow GitHub Actions necessario e ti guida nel processo d
 Esegui l'agente GitHub. Tipicamente usato in GitHub Actions.
 
 ```bash
-xccode github run
+xiaochuan github run
 ```
 
 ##### Flag
@@ -171,7 +171,7 @@ xccode github run
 Gestisci i server Model Context Protocol.
 
 ```bash
-xccode mcp [command]
+xiaochuan mcp [command]
 ```
 
 ---
@@ -181,7 +181,7 @@ xccode mcp [command]
 Aggiungi un server MCP alla tua configurazione.
 
 ```bash
-xccode mcp add
+xiaochuan mcp add
 ```
 
 Questo comando ti guida nell'aggiunta di un server MCP locale o remoto.
@@ -193,13 +193,13 @@ Questo comando ti guida nell'aggiunta di un server MCP locale o remoto.
 Elenca tutti i server MCP configurati e il loro stato di connessione.
 
 ```bash
-xccode mcp list
+xiaochuan mcp list
 ```
 
 Oppure la versione corta.
 
 ```bash
-xccode mcp ls
+xiaochuan mcp ls
 ```
 
 ---
@@ -209,7 +209,7 @@ xccode mcp ls
 Autentica con un server MCP con OAuth abilitato.
 
 ```bash
-xccode mcp auth [name]
+xiaochuan mcp auth [name]
 ```
 
 Se non fornisci un nome server, ti verrà chiesto di selezionare tra i server OAuth-capable disponibili.
@@ -217,13 +217,13 @@ Se non fornisci un nome server, ti verrà chiesto di selezionare tra i server OA
 Puoi anche elencare i server OAuth-capable e il loro stato di autenticazione.
 
 ```bash
-xccode mcp auth list
+xiaochuan mcp auth list
 ```
 
 Oppure la versione corta.
 
 ```bash
-xccode mcp auth ls
+xiaochuan mcp auth ls
 ```
 
 ---
@@ -233,7 +233,7 @@ xccode mcp auth ls
 Rimuovi le credenziali OAuth per un server MCP.
 
 ```bash
-xccode mcp logout [name]
+xiaochuan mcp logout [name]
 ```
 
 ---
@@ -243,7 +243,7 @@ xccode mcp logout [name]
 Esegui debug di problemi di connessione OAuth per un server MCP.
 
 ```bash
-xccode mcp debug <name>
+xiaochuan mcp debug <name>
 ```
 
 ---
@@ -253,7 +253,7 @@ xccode mcp debug <name>
 Elenca tutti i modelli disponibili dai provider configurati.
 
 ```bash
-xccode models [provider]
+xiaochuan models [provider]
 ```
 
 Questo comando mostra tutti i modelli disponibili tra i provider configurati nel formato `provider/model`.
@@ -263,7 +263,7 @@ Questo comando mostra tutti i modelli disponibili tra i provider configurati nel
 Puoi anche passare opzionalmente un ID provider per filtrare i modelli a quel provider.
 
 ```bash
-xccode models anthropic
+xiaochuan models anthropic
 ```
 
 #### Flag
@@ -273,36 +273,36 @@ xccode models anthropic
 | <nobr><code>{"--refresh"}</code></nobr> | Aggiorna la cache modelli da models.dev            |
 | <nobr><code>{"--verbose"}</code></nobr> | Output più verboso (include metadati come i costi) |
 
-Usa `--refresh` per aggiornare l'elenco modelli in cache. È utile quando nuovi modelli vengono aggiunti a un provider e vuoi vederli in Xccode.
+Usa `--refresh` per aggiornare l'elenco modelli in cache. È utile quando nuovi modelli vengono aggiunti a un provider e vuoi vederli in Xiaochuan.
 
 ```bash
-xccode models --refresh
+xiaochuan models --refresh
 ```
 
 ---
 
 ### run
 
-Esegui xccode in modalità non interattiva passando un prompt direttamente.
+Esegui xiaochuan in modalità non interattiva passando un prompt direttamente.
 
 ```bash
-xccode run [message..]
+xiaochuan run [message..]
 ```
 
 È utile per scripting, automazione o quando vuoi una risposta rapida senza avviare la TUI completa. Per esempio:
 
-```bash "xccode run"
-xccode run Explain the use of context in Go
+```bash "xiaochuan run"
+xiaochuan run Explain the use of context in Go
 ```
 
-Puoi anche collegarti a una istanza `xccode serve` già in esecuzione per evitare i cold boot dei server MCP ad ogni esecuzione:
+Puoi anche collegarti a una istanza `xiaochuan serve` già in esecuzione per evitare i cold boot dei server MCP ad ogni esecuzione:
 
 ```bash
 # Avvia un server headless in un terminale
-xccode serve
+xiaochuan serve
 
 # In un altro terminale, esegui comandi che si collegano ad esso
-xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
+xiaochuan run --attach http://localhost:4096 "Explain async/await in JavaScript"
 ```
 
 #### Flag
@@ -318,9 +318,9 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 | <nobr><code>{"--file"}</code></nobr>     | `-f`  | File da allegare al messaggio                                                                   |
 | <nobr><code>{"--format"}</code></nobr>   |       | Formato: default (formattato) o json (eventi JSON grezzi)                                       |
 | <nobr><code>{"--title"}</code></nobr>    |       | Titolo sessione (usa prompt troncato se non viene fornito un valore)                            |
-| <nobr><code>{"--attach"}</code></nobr>   |       | Attach a un server xccode in esecuzione (es. http://localhost:4096)                           |
-| <nobr><code>{"--password"}</code></nobr> | `-p`  | Password per l'autenticazione di base (predefinita: `XCCODE_SERVER_PASSWORD`)                 |
-| <nobr><code>{"--username"}</code></nobr> | `-u`  | Nome utente per l'autenticazione di base (predefinito: `XCCODE_SERVER_USERNAME` o `xccode`) |
+| <nobr><code>{"--attach"}</code></nobr>   |       | Attach a un server xiaochuan in esecuzione (es. http://localhost:4096)                           |
+| <nobr><code>{"--password"}</code></nobr> | `-p`  | Password per l'autenticazione di base (predefinita: `XIAOCHUAN_SERVER_PASSWORD`)                 |
+| <nobr><code>{"--username"}</code></nobr> | `-u`  | Nome utente per l'autenticazione di base (predefinito: `XIAOCHUAN_SERVER_USERNAME` o `xiaochuan`) |
 | <nobr><code>{"--dir"}</code></nobr>      |       | Directory di esecuzione, o percorso sul server remoto durante il collegamento                   |
 | <nobr><code>{"--variant"}</code></nobr>  |       | Variante del modello (sforzo di ragionamento specifico del provider)                            |
 | <nobr><code>{"--thinking"}</code></nobr> |       | Mostra blocchi di pensiero                                                                      |
@@ -330,13 +330,13 @@ xccode run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 ### serve
 
-Avvia un server Xccode headless per accesso via API. Vedi le [server docs](/docs/server) per l'interfaccia HTTP completa.
+Avvia un server Xiaochuan headless per accesso via API. Vedi le [server docs](/docs/server) per l'interfaccia HTTP completa.
 
 ```bash
-xccode serve
+xiaochuan serve
 ```
 
-Avvia un server HTTP che espone accesso API alle funzionalità di xccode senza la TUI. Imposta `XCCODE_SERVER_PASSWORD` per abilitare HTTP basic auth (username di default `xccode`).
+Avvia un server HTTP che espone accesso API alle funzionalità di xiaochuan senza la TUI. Imposta `XIAOCHUAN_SERVER_PASSWORD` per abilitare HTTP basic auth (username di default `xiaochuan`).
 
 #### Flag
 
@@ -351,20 +351,20 @@ Avvia un server HTTP che espone accesso API alle funzionalità di xccode senza l
 
 ### session
 
-Gestisci le sessioni Xccode.
+Gestisci le sessioni Xiaochuan.
 
 ```bash
-xccode session [command]
+xiaochuan session [command]
 ```
 
 ---
 
 #### list
 
-Elenca tutte le sessioni Xccode.
+Elenca tutte le sessioni Xiaochuan.
 
 ```bash
-xccode session list
+xiaochuan session list
 ```
 
 ##### Flag
@@ -378,10 +378,10 @@ xccode session list
 
 ### stats
 
-Mostra statistiche di utilizzo token e costo per le sessioni Xccode.
+Mostra statistiche di utilizzo token e costo per le sessioni Xiaochuan.
 
 ```bash
-xccode stats
+xiaochuan stats
 ```
 
 #### Flag
@@ -400,7 +400,7 @@ xccode stats
 Esporta i dati di sessione come JSON.
 
 ```bash
-xccode export [sessionID]
+xiaochuan export [sessionID]
 ```
 
 Se non fornisci un ID sessione, ti verrà chiesto di selezionare tra le sessioni disponibili.
@@ -412,24 +412,24 @@ Se non fornisci un ID sessione, ti verrà chiesto di selezionare tra le sessioni
 Importa i dati di sessione da un file JSON.
 
 ```bash
-xccode import <file>
+xiaochuan import <file>
 ```
 
 ```bash
-xccode import session.json
+xiaochuan import session.json
 ```
 
 ---
 
 ### web
 
-Avvia un server Xccode headless con interfaccia web.
+Avvia un server Xiaochuan headless con interfaccia web.
 
 ```bash
-xccode web
+xiaochuan web
 ```
 
-Avvia un server HTTP e apre un browser per accedere a Xccode tramite interfaccia web. Imposta `XCCODE_SERVER_PASSWORD` per abilitare HTTP basic auth (username di default `xccode`).
+Avvia un server HTTP e apre un browser per accedere a Xiaochuan tramite interfaccia web. Imposta `XIAOCHUAN_SERVER_PASSWORD` per abilitare HTTP basic auth (username di default `xiaochuan`).
 
 #### Flag
 
@@ -447,7 +447,7 @@ Avvia un server HTTP e apre un browser per accedere a Xccode tramite interfaccia
 Avvia un server ACP (Agent Client Protocol).
 
 ```bash
-xccode acp
+xiaochuan acp
 ```
 
 Questo comando avvia un server ACP che comunica via stdin/stdout usando nd-JSON.
@@ -464,10 +464,10 @@ Questo comando avvia un server ACP che comunica via stdin/stdout usando nd-JSON.
 
 ### uninstall
 
-Disinstalla Xccode e rimuove tutti i file correlati.
+Disinstalla Xiaochuan e rimuove tutti i file correlati.
 
 ```bash
-xccode uninstall
+xiaochuan uninstall
 ```
 
 #### Flag
@@ -483,22 +483,22 @@ xccode uninstall
 
 ### upgrade
 
-Aggiorna xccode all'ultima versione o a una versione specifica.
+Aggiorna xiaochuan all'ultima versione o a una versione specifica.
 
 ```bash
-xccode upgrade [target]
+xiaochuan upgrade [target]
 ```
 
 Per aggiornare all'ultima versione:
 
 ```bash
-xccode upgrade
+xiaochuan upgrade
 ```
 
 Per aggiornare a una versione specifica:
 
 ```bash
-xccode upgrade v0.1.48
+xiaochuan upgrade v0.1.48
 ```
 
 #### Flag
@@ -511,7 +511,7 @@ xccode upgrade v0.1.48
 
 ## Flag globali
 
-La CLI di xccode accetta i seguenti flag globali.
+La CLI di xiaochuan accetta i seguenti flag globali.
 
 | Flag                                       | Breve | Descrizione                            |
 | ------------------------------------------ | ----- | -------------------------------------- |
@@ -524,33 +524,33 @@ La CLI di xccode accetta i seguenti flag globali.
 
 ## Variabili d'ambiente
 
-Xccode può essere configurato tramite variabili d'ambiente.
+Xiaochuan può essere configurato tramite variabili d'ambiente.
 
 | Variabile                             | Tipo    | Descrizione                                                 |
 | ------------------------------------- | ------- | ----------------------------------------------------------- |
-| `XCCODE_GIT_BASH_PATH`              | string  | Percorso all'eseguibile Git Bash su Windows                 |
-| `XCCODE_CONFIG`                     | string  | Percorso al file di configurazione                          |
-| `XCCODE_TUI_CONFIG`                 | string  | Percorso al file di configurazione TUI                      |
-| `XCCODE_CONFIG_DIR`                 | string  | Percorso alla directory di configurazione                   |
-| `XCCODE_CONFIG_CONTENT`             | string  | Contenuto JSON di config inline                             |
-| `XCCODE_DISABLE_AUTOUPDATE`         | boolean | Disabilita i controlli automatici di aggiornamento          |
-| `XCCODE_DISABLE_PRUNE`              | boolean | Disabilita la potatura dei dati vecchi                      |
-| `XCCODE_DISABLE_TERMINAL_TITLE`     | boolean | Disabilita aggiornamenti automatici del titolo terminale    |
-| `XCCODE_PERMISSION`                 | string  | Config permessi JSON inline                                 |
-| `XCCODE_DISABLE_DEFAULT_PLUGINS`    | boolean | Disabilita i plugin di default                              |
-| `XCCODE_DISABLE_LSP_DOWNLOAD`       | boolean | Disabilita download automatico dei server LSP               |
-| `XCCODE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Abilita modelli sperimentali                                |
-| `XCCODE_DISABLE_AUTOCOMPACT`        | boolean | Disabilita compaction automatica del contesto               |
-| `XCCODE_DISABLE_CLAUDE_CODE`        | boolean | Disabilita lettura da `.claude` (prompt + skill)            |
-| `XCCODE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Disabilita lettura di `~/.claude/CLAUDE.md`                 |
-| `XCCODE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Disabilita caricamento di `.claude/skills`                  |
-| `XCCODE_DISABLE_MODELS_FETCH`       | boolean | Disabilita fetch dei modelli da fonti remote                |
-| `XCCODE_FAKE_VCS`                   | string  | Provider VCS finto per scopi di test                        |
-| `XCCODE_CLIENT`                     | string  | Identificatore client (default `cli`)                       |
-| `XCCODE_ENABLE_EXA`                 | boolean | Abilita gli strumenti di web search Exa                     |
-| `XCCODE_SERVER_PASSWORD`            | string  | Abilita basic auth per `serve`/`web`                        |
-| `XCCODE_SERVER_USERNAME`            | string  | Sovrascrive lo username basic auth (default `xccode`)     |
-| `XCCODE_MODELS_URL`                 | string  | URL personalizzato per recuperare la configurazione modelli |
+| `XIAOCHUAN_GIT_BASH_PATH`              | string  | Percorso all'eseguibile Git Bash su Windows                 |
+| `XIAOCHUAN_CONFIG`                     | string  | Percorso al file di configurazione                          |
+| `XIAOCHUAN_TUI_CONFIG`                 | string  | Percorso al file di configurazione TUI                      |
+| `XIAOCHUAN_CONFIG_DIR`                 | string  | Percorso alla directory di configurazione                   |
+| `XIAOCHUAN_CONFIG_CONTENT`             | string  | Contenuto JSON di config inline                             |
+| `XIAOCHUAN_DISABLE_AUTOUPDATE`         | boolean | Disabilita i controlli automatici di aggiornamento          |
+| `XIAOCHUAN_DISABLE_PRUNE`              | boolean | Disabilita la potatura dei dati vecchi                      |
+| `XIAOCHUAN_DISABLE_TERMINAL_TITLE`     | boolean | Disabilita aggiornamenti automatici del titolo terminale    |
+| `XIAOCHUAN_PERMISSION`                 | string  | Config permessi JSON inline                                 |
+| `XIAOCHUAN_DISABLE_DEFAULT_PLUGINS`    | boolean | Disabilita i plugin di default                              |
+| `XIAOCHUAN_DISABLE_LSP_DOWNLOAD`       | boolean | Disabilita download automatico dei server LSP               |
+| `XIAOCHUAN_ENABLE_EXPERIMENTAL_MODELS` | boolean | Abilita modelli sperimentali                                |
+| `XIAOCHUAN_DISABLE_AUTOCOMPACT`        | boolean | Disabilita compaction automatica del contesto               |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE`        | boolean | Disabilita lettura da `.claude` (prompt + skill)            |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Disabilita lettura di `~/.claude/CLAUDE.md`                 |
+| `XIAOCHUAN_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Disabilita caricamento di `.claude/skills`                  |
+| `XIAOCHUAN_DISABLE_MODELS_FETCH`       | boolean | Disabilita fetch dei modelli da fonti remote                |
+| `XIAOCHUAN_FAKE_VCS`                   | string  | Provider VCS finto per scopi di test                        |
+| `XIAOCHUAN_CLIENT`                     | string  | Identificatore client (default `cli`)                       |
+| `XIAOCHUAN_ENABLE_EXA`                 | boolean | Abilita gli strumenti di web search Exa                     |
+| `XIAOCHUAN_SERVER_PASSWORD`            | string  | Abilita basic auth per `serve`/`web`                        |
+| `XIAOCHUAN_SERVER_USERNAME`            | string  | Sovrascrive lo username basic auth (default `xiaochuan`)     |
+| `XIAOCHUAN_MODELS_URL`                 | string  | URL personalizzato per recuperare la configurazione modelli |
 
 ---
 
@@ -560,20 +560,20 @@ Queste variabili d'ambiente abilitano funzionalità sperimentali che potrebbero 
 
 | Variabile                                       | Tipo    | Descrizione                                             |
 | ----------------------------------------------- | ------- | ------------------------------------------------------- |
-| `XCCODE_EXPERIMENTAL`                         | boolean | Abilita funzionalità sperimentali sotto il flag globale |
-| `XCCODE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Abilita icon discovery                                  |
-| `XCCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Disabilita copy on select nella TUI                     |
-| `XCCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | Timeout di default per comandi bash in ms               |
-| `XCCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | Massimo token di output per risposte LLM                |
-| `XCCODE_EXPERIMENTAL_FILEWATCHER`             | boolean | Abilita file watcher per l'intera dir                   |
-| `XCCODE_EXPERIMENTAL_OXFMT`                   | boolean | Abilita formatter oxfmt                                 |
-| `XCCODE_EXPERIMENTAL_LSP_TOOL`                | boolean | Abilita strumento LSP sperimentale                      |
-| `XCCODE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Disabilita file watcher                                 |
-| `XCCODE_EXPERIMENTAL_EXA`                     | boolean | Abilita funzionalità Exa sperimentali                   |
-| `XCCODE_EXPERIMENTAL_LSP_TY`                  | boolean | Abilita TY LSP per i file python                        |
-| `XCCODE_EXPERIMENTAL_PLAN_MODE`               | boolean | Abilita plan mode                                       |
-| `XCCODE_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Abilita sistema eventi sperimentale                     |
-| `XCCODE_EXPERIMENTAL_NATIVE_LLM`              | boolean | Abilita percorso nativo di richiesta LLM                |
-| `XCCODE_EXPERIMENTAL_PARALLEL`                | boolean | Abilita esecuzione parallela della ricerca web          |
-| `XCCODE_EXPERIMENTAL_SCOUT`                   | boolean | Abilita subagent Scout                                  |
-| `XCCODE_EXPERIMENTAL_WORKSPACES`              | boolean | Abilita supporto workspace                              |
+| `XIAOCHUAN_EXPERIMENTAL`                         | boolean | Abilita funzionalità sperimentali sotto il flag globale |
+| `XIAOCHUAN_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Abilita icon discovery                                  |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Disabilita copy on select nella TUI                     |
+| `XIAOCHUAN_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | Timeout di default per comandi bash in ms               |
+| `XIAOCHUAN_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | Massimo token di output per risposte LLM                |
+| `XIAOCHUAN_EXPERIMENTAL_FILEWATCHER`             | boolean | Abilita file watcher per l'intera dir                   |
+| `XIAOCHUAN_EXPERIMENTAL_OXFMT`                   | boolean | Abilita formatter oxfmt                                 |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TOOL`                | boolean | Abilita strumento LSP sperimentale                      |
+| `XIAOCHUAN_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Disabilita file watcher                                 |
+| `XIAOCHUAN_EXPERIMENTAL_EXA`                     | boolean | Abilita funzionalità Exa sperimentali                   |
+| `XIAOCHUAN_EXPERIMENTAL_LSP_TY`                  | boolean | Abilita TY LSP per i file python                        |
+| `XIAOCHUAN_EXPERIMENTAL_PLAN_MODE`               | boolean | Abilita plan mode                                       |
+| `XIAOCHUAN_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Abilita sistema eventi sperimentale                     |
+| `XIAOCHUAN_EXPERIMENTAL_NATIVE_LLM`              | boolean | Abilita percorso nativo di richiesta LLM                |
+| `XIAOCHUAN_EXPERIMENTAL_PARALLEL`                | boolean | Abilita esecuzione parallela della ricerca web          |
+| `XIAOCHUAN_EXPERIMENTAL_SCOUT`                   | boolean | Abilita subagent Scout                                  |
+| `XIAOCHUAN_EXPERIMENTAL_WORKSPACES`              | boolean | Abilita supporto workspace                              |

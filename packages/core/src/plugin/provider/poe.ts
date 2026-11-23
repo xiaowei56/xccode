@@ -1,4 +1,4 @@
-import { define } from "@xccode/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 import { Clock, Deferred, Effect, Option, Schema } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
 import type { ServerResponse } from "node:http"
@@ -23,7 +23,7 @@ const decodeError = Schema.decodeUnknownOption(
 )
 
 export const PoePlugin = define({
-  id: "xccode.provider.poe",
+  id: "xiaochuan.provider.poe",
   effect: Effect.fn(function* (ctx) {
     const http = yield* HttpClient.HttpClient
     yield* ctx.integration.transform((editor) => {

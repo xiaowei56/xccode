@@ -73,7 +73,7 @@ export const dict = {
   "ui.sessionTurn.error.addCredits": "སྐྱིན་འགྲུལ་ཁ་སྐོང་བརྐྱབ།",
   "dialog.usageExceeded.freeTier.title": "རིན་མེད་ཚད་ལུ་ལྷོད་ཡོདཔ།",
   "dialog.usageExceeded.freeTier.description":
-    "Xccode Go ལུ་ཟླཝ་རེར་ $10 གྱིས་མཁོ་མངགས་འབད་དེ་ ཁ་ཕྱེ་ཡོད་པའི་ཐོན་ཁུངས་དཔེ་ཚད་དྲག་ཤོས་ཚུ་ལུ་བློ་གཏད་ཅན་གྱི་འཛུལ་སྤྱོད་ཐོབ།",
+    "Xiaochuan Go ལུ་ཟླཝ་རེར་ $10 གྱིས་མཁོ་མངགས་འབད་དེ་ ཁ་ཕྱེ་ཡོད་པའི་ཐོན་ཁུངས་དཔེ་ཚད་དྲག་ཤོས་ཚུ་ལུ་བློ་གཏད་ཅན་གྱི་འཛུལ་སྤྱོད་ཐོབ།",
   "dialog.usageExceeded.freeTier.actionLabel": "མཁོ་མངགས་འབད།",
   "ui.sessionTurn.status.delegating": "ལཱ་འགན་སྤྲོད་འབད་དོ།",
   "ui.sessionTurn.status.planning": "གོམ་པ་ཤུལ་མམ་གྱི་འཆར་གཞི་བཟོ་ནི།",
@@ -272,9 +272,9 @@ export const dict = {
     "དཔེ་ཚད་ཀྱི་འཆར་དངུལ་ལུ་ལྷོད་ཡོདཔ། · དཔེ་ཚད་འདི་ སླར་སྒྲིག་མ་འབད་ཚུན་ བར་བཞག་ཡོདཔ།",
   "ui.sessionTurn.budgetLimit.useFreeModel": "རིན་མེད་དཔེ་ཚད་ཅིག་ལག་ལེན་འཐབ།",
   "ui.sessionTurn.budgetLimit.switchModel": "དཔེ་ཚད་སོར།",
-  "ui.sessionTurn.goLimit.title": "ཁྱོད་ཀྱི་ Xccode Go ལག་ལེན་ཚད་ལུ་ལྷོད་ཡོདཔ།",
+  "ui.sessionTurn.goLimit.title": "ཁྱོད་ཀྱི་ Xiaochuan Go ལག་ལེན་ཚད་ལུ་ལྷོད་ཡོདཔ།",
   "ui.sessionTurn.goLimit.lineReset":
-    "ཁྱོད་ཀྱི་ Xccode Go ལག་ལེན་ཚད་ལུ་ལྷོད་ཡོདཔ། དེ་ {{time}} ལུ་ སླར་སྒྲིག་འབདཝ་ཨིན།",
+    "ཁྱོད་ཀྱི་ Xiaochuan Go ལག་ལེན་ཚད་ལུ་ལྷོད་ཡོདཔ། དེ་ {{time}} ལུ་ སླར་སྒྲིག་འབདཝ་ཨིན།",
   "dialog.usageExceeded.freeTier.reset": "ཁྱོད་ཀྱི་རིན་མེད་འཕྲིན་དོན་ཚུ་ {{time}} ལུ་ སླར་སྒྲིག་འབདཝ་ཨིན།",
   "ui.messagePart.compaction.queued": "ལཱ་ཡུན་བསྡུ་སྒྲིག་ བསྒུག་ཐོ་ནང་བཙུགས་ཡོདཔ།",
   "ui.messagePart.compaction.done": "བསྡུ་སྒྲིག་འབད་ཡོདཔ།",

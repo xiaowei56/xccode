@@ -1,20 +1,20 @@
 export * as Bus from "./bus.js"
 
 import { Cause, Clock, Context, Effect, Layer, Option, PubSub, Schema, Stream } from "effect"
-import { Event } from "@xccode/schema/event"
-import type { EventLog } from "@xccode/schema/event-log"
+import { Event } from "@xiaochuan/schema/event"
+import type { EventLog } from "@xiaochuan/schema/event-log"
 import { and, asc, eq, gt, lte, sql } from "drizzle-orm"
 import { Database } from "./database/database.js"
 import { EventSequenceTable, EventTable } from "./event/sql.js"
-import type { Location } from "@xccode/schema/location"
+import type { Location } from "@xiaochuan/schema/location"
 import { KeyedMutex } from "./effect/keyed-mutex.js"
-import { makeGlobalNode } from "@xccode/util/effect/app-node"
+import { makeGlobalNode } from "@xiaochuan/util/effect/app-node"
 import { isDeepStrictEqual } from "node:util"
-import { Durable } from "@xccode/schema/durable-event-manifest"
-import { SessionEvent } from "@xccode/schema/session-event"
-import { SessionLegacy } from "@xccode/schema/session-legacy"
-import type { SessionID } from "@xccode/schema/session-id"
-import { AbsolutePath } from "@xccode/schema/schema"
+import { Durable } from "@xiaochuan/schema/durable-event-manifest"
+import { SessionEvent } from "@xiaochuan/schema/session-event"
+import { SessionLegacy } from "@xiaochuan/schema/session-legacy"
+import type { SessionID } from "@xiaochuan/schema/session-id"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
 
 export type Subscriber<D extends Event.Definition = Event.Definition> = (event: Event.Payload<D>) => Effect.Effect<void>
 export type Unsubscribe = Effect.Effect<void>
@@ -180,7 +180,7 @@ export interface Interface {
   readonly claim: (aggregateID: string, ownerID: string) => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Bus") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Bus") {}
 
 interface Options {
   readonly beforeAggregateRead?: (aggregateID: string) => Effect.Effect<void>

@@ -94,7 +94,7 @@ export function staleValue<T>(options: {
 }
 
 function storedRequest(key: string) {
-  return new Request(`https://edge-cache.xccode.internal/${key}`)
+  return new Request(`https://edge-cache.xiaochuan.internal/${key}`)
 }
 
 /** A JSON value this Worker stored at its Cloudflare location (`writeStored`), or undefined. */

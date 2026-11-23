@@ -1,5 +1,5 @@
-import type { CredentialApi, ExperimentalApi, ExperimentalGenerateApi, PluginApi } from "@xccode/client/effect/api"
-import type { Location } from "@xccode/schema/location"
+import type { CredentialApi, ExperimentalApi, ExperimentalGenerateApi, PluginApi } from "@xiaochuan/client/effect/api"
+import type { Location } from "@xiaochuan/schema/location"
 import type { Effect, Scope } from "effect"
 import type { PluginOptions } from "../options.js"
 import type { App } from "../app.js"

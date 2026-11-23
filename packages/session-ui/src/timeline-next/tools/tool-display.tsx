@@ -1,4 +1,4 @@
-import { useI18n } from "@xccode/ui/context/i18n"
+import { useI18n } from "@xiaochuan/ui/context/i18n"
 import { createMemo, Match, Show, Switch, type Component } from "solid-js"
 import { Dynamic } from "solid-js/web"
 import { GenericTool } from "../../components/basic-tool"

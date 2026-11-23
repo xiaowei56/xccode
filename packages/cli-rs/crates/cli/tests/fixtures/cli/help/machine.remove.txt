@@ -2,7 +2,7 @@
   Remove a machine
 
 [1mUSAGE[0m
-  [36mxccode machine remove [flags] <name>[0m
+  [36mxiaochuan machine remove [flags] <name>[0m
 
 [1mARGUMENTS[0m
   [32mname[0m [2mstring[0m    Name of the machine

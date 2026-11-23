@@ -11,10 +11,10 @@ export function GET() {
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<title>Xccode legal updates</title>
+<title>Xiaochuan legal updates</title>
 <link>${config.baseUrl}/legal</link>
 <atom:link href="${config.baseUrl}/legal/feed.xml" rel="self" type="application/rss+xml"/>
-<description>Changes to the Xccode Privacy Policy and Terms of Use.</description>
+<description>Changes to the Xiaochuan Privacy Policy and Terms of Use.</description>
 <language>en</language>
 ${entries[0] ? `<lastBuildDate>${new Date(`${entries[0].date}T00:00:00Z`).toUTCString()}</lastBuildDate>\n` : ""}${entries
     .map(

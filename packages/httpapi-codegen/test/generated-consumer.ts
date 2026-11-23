@@ -1,9 +1,9 @@
 import { Effect, Stream } from "effect"
 import { HttpClient } from "effect/http"
-import { ClientError, Xccode } from "./generated"
+import { ClientError, Xiaochuan } from "./generated"
 import { Missing } from "./fixture"
 
-export const program = Xccode.make().pipe(
+export const program = Xiaochuan.make().pipe(
   Effect.map((client) => {
     const health = client.session.health()
     const list = client.session.list()
@@ -14,7 +14,7 @@ export const program = Xccode.make().pipe(
       sessionID: "session",
       dryRun: true,
       traceID: "trace",
-      payload: { type: "local", command: ["xccode"] },
+      payload: { type: "local", command: ["xiaochuan"] },
     })
     const status = client.status()
     const subscribe = client.event.subscribe()

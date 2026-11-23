@@ -2,8 +2,8 @@ use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 use std::sync::Arc;
 
-use xccode_plugin::abi;
-use xccode_tui::{Deps, Route};
+use xiaochuan_plugin::abi;
+use xiaochuan_tui::{Deps, Route};
 
 use crate::support::{self, Fake, Harness};
 
@@ -104,7 +104,7 @@ fn probe(setup: &mut abi::Setup) -> Result<(), String> {
 fn outlived(open: Open) -> Vec<&'static str> {
     let transport = Fake::new(|seen| support::base(seen, support::DIRECTORY));
     let h = support::mount(140, 30, Deps { route: Route::Home, ..support::deps(Arc::new(transport)) });
-    xccode_tui::plugins::host::add(&h.tui, abi::Plugin { id: "drop", setup: probe }.into());
+    xiaochuan_tui::plugins::host::add(&h.tui, abi::Plugin { id: "drop", setup: probe }.into());
     h.app.render();
     let shown = |command: &str, text: &str| {
         h.tui.keymap.dispatch(command, None);

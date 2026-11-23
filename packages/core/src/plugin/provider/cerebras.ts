@@ -1,14 +1,14 @@
 import { Effect } from "effect"
-import { define } from "@xccode/plugin/effect/plugin"
+import { define } from "@xiaochuan/plugin/effect/plugin"
 
 export const CerebrasPlugin = define({
-  id: "xccode.provider.cerebras",
+  id: "xiaochuan.provider.cerebras",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.provider.transform((evt) => {
       for (const item of evt.list()) {
-        if (item.provider.package !== "@xccode/ai/providers/cerebras") continue
+        if (item.provider.package !== "@xiaochuan/ai/providers/cerebras") continue
         evt.update(item.provider.id, (provider) => {
-          provider.headers = { ...provider.headers, "X-Cerebras-3rd-Party-Integration": "xccode" }
+          provider.headers = { ...provider.headers, "X-Cerebras-3rd-Party-Integration": "xiaochuan" }
         })
       }
     })

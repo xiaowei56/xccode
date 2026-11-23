@@ -1,4 +1,4 @@
-import type { JsonValue, SessionMessageAssistant, SessionMessageInfo } from "@xccode/client/promise"
+import type { JsonValue, SessionMessageAssistant, SessionMessageInfo } from "@xiaochuan/client/promise"
 import { storyTool } from "../storybook/current-session-scenarios"
 import { timelinePresets, type TimelineDetail } from "./detail"
 

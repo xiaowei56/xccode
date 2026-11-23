@@ -2,9 +2,9 @@
 
 use std::collections::VecDeque;
 
-use xccode_local::cli_config::PromptPaste;
-use xccode_ui::prompt_input;
-use xccode_ui::prompt_input::paste::{Content, content};
+use xiaochuan_local::cli_config::PromptPaste;
+use xiaochuan_ui::prompt_input;
+use xiaochuan_ui::prompt_input::paste::{Content, content};
 use opentui::input::strip_ansi_sequences;
 use opentui::native::ClipboardOutcome;
 use serde_json::Map;
@@ -54,7 +54,7 @@ pub fn connect(inner: &Rc<Inner>) {
         cx.prevent_default();
         cx.stop_propagation();
         if let Some(tui) = prompt.tui.upgrade()
-            && tui.router.paste(&*tui, text, xccode_plugin::interact::Pasted::Composer)
+            && tui.router.paste(&*tui, text, xiaochuan_plugin::interact::Pasted::Composer)
         {
             return;
         }

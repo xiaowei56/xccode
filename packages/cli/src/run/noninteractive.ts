@@ -6,19 +6,19 @@ import {
   type JsonValue,
   type LocationRef,
   type ModelRef,
-  type XccodeClient,
+  type XiaochuanClient,
   type PermissionRequest,
   type SessionMessageAssistantTool,
   type SessionMessageIdle,
   type SessionMessageInfo,
-} from "@xccode/client/promise"
-import { SessionMessage } from "@xccode/schema/session-message"
+} from "@xiaochuan/client/promise"
+import { SessionMessage } from "@xiaochuan/schema/session-message"
 import { EOL } from "node:os"
-import { toolOutputText, type MiniToolPart } from "@xccode/tui/mini/tool"
+import { toolOutputText, type MiniToolPart } from "@xiaochuan/tui/mini/tool"
 import { UI } from "./ui"
 
 type Input = {
-  client: XccodeClient
+  client: XiaochuanClient
   sessionID: string
   location: LocationRef
   message: string
@@ -126,7 +126,7 @@ export async function runNonInteractivePrompt(input: Input) {
         { sessionID: form.sessionID, formID: form.id, ...(question ? { message: QUESTION_CANCELLED_FEEDBACK } : {}) },
         // A global form is found through its location.
         ...(form.sessionID === "global"
-          ? [{ headers: { "x-xccode-directory": encodeURIComponent(input.location.directory) } }]
+          ? [{ headers: { "x-xiaochuan-directory": encodeURIComponent(input.location.directory) } }]
           : []),
       )
       .catch((error) => {
@@ -342,7 +342,7 @@ function terminalOutcome(event: Event): Outcome | undefined {
   }
 }
 
-async function projectedMessages(client: XccodeClient, sessionID: string, messageID: string) {
+async function projectedMessages(client: XiaochuanClient, sessionID: string, messageID: string) {
   const messages: SessionMessageInfo[] = []
   let cursor: string | undefined
   while (true) {

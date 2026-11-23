@@ -1,4 +1,4 @@
-import type { SessionMessageInfo } from "@xccode/client/promise"
+import type { SessionMessageInfo } from "@xiaochuan/client/promise"
 
 export type SentPrompt = { sessionID: string; promptID: string; title: string; instruction: string }
 

@@ -9,7 +9,7 @@ const windows = test.skipIf(process.platform !== "win32")
 const payloadHash = "0123456789ABCDEF0123456789ABCDEF"
 
 // The installer clears the uninstall entry of an install it moves; the tests point it at their own key.
-const uninstallKey = "Software\\XccodeInstallerTest"
+const uninstallKey = "Software\\XiaochuanInstallerTest"
 
 async function harness() {
   const { getMakeNsisPath, getNsisPluginsPath } = await import("app-builder-lib/out/toolsets/windows")
@@ -18,7 +18,7 @@ async function harness() {
   const config = (await import("../electron-builder.config")).default
   const compiler = await getMakeNsisPath(config.toolsets?.nsis, config.nsis?.customNsisBinary)
   const plugins = await getNsisPluginsPath(config.toolsets?.nsis, config.nsis?.customNsisResources)
-  const dir = await mkdtemp(path.join(os.tmpdir(), "xccode-installer-"))
+  const dir = await mkdtemp(path.join(os.tmpdir(), "xiaochuan-installer-"))
   // electron-builder generates the command-line flags such as ${isUpdated}.
   const flags = new NsisScriptGenerator()
   flags.flags(["updated"])
@@ -54,12 +54,12 @@ LoadLanguageFile "\${NSISDIR}\\Contrib\\Language files\\English.nlf"
 LangString appRunning \${LANG_ENGLISH} "running"
 LangString appClosing \${LANG_ENGLISH} "closing"
 LangString appCannotBeClosed \${LANG_ENGLISH} "cannot close"
-!define APP_EXECUTABLE_FILENAME "Xccode.exe"
-!define APP_ID "ai.xccode.desktop"
-!define APP_FILENAME "@xccodedesktop"
-!define UNINSTALL_FILENAME "Uninstall Xccode.exe"
+!define APP_EXECUTABLE_FILENAME "Xiaochuan.exe"
+!define APP_ID "ai.xiaochuan.desktop"
+!define APP_FILENAME "@xiaochuandesktop"
+!define UNINSTALL_FILENAME "Uninstall Xiaochuan.exe"
 !define UNINSTALL_REGISTRY_KEY "${uninstallKey}"
-!define SHORTCUT_NAME "Xccode Installer Test"
+!define SHORTCUT_NAME "Xiaochuan Installer Test"
 !define APP_64 "${path.join(dir, "app.7z")}"
 !define APP_64_HASH "${payloadHash}"
 !define APP_64_UNPACKED_SIZE 1
@@ -84,7 +84,7 @@ windows(
     const installer = await harness()
 
     const succeed = async (cmd: string[]) => {
-      const result = await installer.run(cmd, { XCCODE_INSTALLER_TEST_ROOT: installer.dir })
+      const result = await installer.run(cmd, { XIAOCHUAN_INSTALLER_TEST_ROOT: installer.dir })
       expect(result.code, `${result.stdout}\n${result.stderr}`).toBe(0)
 
       return result.stdout
@@ -96,7 +96,7 @@ windows(
         "-NoProfile",
         "-NonInteractive",
         "-Command",
-        `(Get-Acl -LiteralPath (Join-Path $env:XCCODE_INSTALLER_TEST_ROOT '${file}')).Sddl`,
+        `(Get-Acl -LiteralPath (Join-Path $env:XIAOCHUAN_INSTALLER_TEST_ROOT '${file}')).Sddl`,
       ])
 
     try {
@@ -133,28 +133,28 @@ const stagedCases = [
   {
     name: "moves the staged app into the emptied install directory",
     installed: [],
-    staged: { [`update-${payloadHash.slice(0, 16)}`]: ["Xccode.exe", "resources/app.asar"] },
+    staged: { [`update-${payloadHash.slice(0, 16)}`]: ["Xiaochuan.exe", "resources/app.asar"] },
     moved: true,
-    expected: ["Xccode.exe", "resources/app.asar"],
+    expected: ["Xiaochuan.exe", "resources/app.asar"],
   },
   {
     name: "keeps an install directory that still holds files",
     installed: ["locked.dll"],
-    staged: { [`update-${payloadHash.slice(0, 16)}`]: ["Xccode.exe"] },
+    staged: { [`update-${payloadHash.slice(0, 16)}`]: ["Xiaochuan.exe"] },
     moved: false,
     expected: ["locked.dll"],
   },
   {
     name: "discards an update staged from another payload",
     installed: [],
-    staged: { "update-FEDCBA9876543210": ["Xccode.exe"] },
+    staged: { "update-FEDCBA9876543210": ["Xiaochuan.exe"] },
     moved: false,
     expected: [],
   },
   {
     name: "discards staging that never finished",
     installed: [],
-    staged: { staging: ["Xccode.exe"] },
+    staged: { staging: ["Xiaochuan.exe"] },
     moved: false,
     expected: [],
   },
@@ -214,40 +214,40 @@ windows(
 const directoryCases = [
   {
     name: "a first install uses the app ID",
-    from: "@xccodedesktop",
+    from: "@xiaochuandesktop",
     shared: [],
-    expected: "ai.xccode.desktop",
+    expected: "ai.xiaochuan.desktop",
     left: undefined,
     uninstallKept: true,
   },
   {
     name: "leaving the shared directory keeps the other channels",
-    from: "@xccodedesktop",
+    from: "@xiaochuandesktop",
     shared: [
-      "Xccode.exe",
-      "Uninstall Xccode.exe",
-      "Xccode Beta.exe",
-      "Uninstall Xccode Beta.exe",
+      "Xiaochuan.exe",
+      "Uninstall Xiaochuan.exe",
+      "Xiaochuan Beta.exe",
+      "Uninstall Xiaochuan Beta.exe",
       "resources/app.asar",
     ],
-    expected: "ai.xccode.desktop",
-    left: ["Xccode Beta.exe", "Uninstall Xccode Beta.exe", "resources/app.asar"],
+    expected: "ai.xiaochuan.desktop",
+    left: ["Xiaochuan Beta.exe", "Uninstall Xiaochuan Beta.exe", "resources/app.asar"],
     uninstallKept: false,
   },
   {
     name: "the last channel removes the shared directory",
-    from: "@xccodedesktop",
-    shared: ["Xccode.exe", "Uninstall Xccode.exe", "resources/app.asar"],
-    expected: "ai.xccode.desktop",
+    from: "@xiaochuandesktop",
+    shared: ["Xiaochuan.exe", "Uninstall Xiaochuan.exe", "resources/app.asar"],
+    expected: "ai.xiaochuan.desktop",
     left: undefined,
     uninstallKept: false,
   },
   {
     name: "an install elsewhere stays where it is",
     from: "custom",
-    shared: ["Xccode.exe", "Uninstall Xccode.exe"],
+    shared: ["Xiaochuan.exe", "Uninstall Xiaochuan.exe"],
     expected: "custom",
-    left: ["Xccode.exe", "Uninstall Xccode.exe"],
+    left: ["Xiaochuan.exe", "Uninstall Xiaochuan.exe"],
     uninstallKept: true,
   },
 ]

@@ -1,12 +1,12 @@
 {
-  "name": "xccode",
-  "displayName": "xccode",
-  "description": "xccode for VS Code",
+  "name": "xiaochuan",
+  "displayName": "xiaochuan",
+  "description": "xiaochuan for VS Code",
   "version": "2.3.0",
   "publisher": "sst-dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xiaowei56/xccode"
+    "url": "https://github.com/xiaowei56/xiaochuan"
   },
   "license": "MIT",
   "icon": "images/icon.png",
@@ -25,54 +25,54 @@
   "contributes": {
     "commands": [
       {
-        "command": "xccode.openTerminal",
-        "title": "Open xccode",
+        "command": "xiaochuan.openTerminal",
+        "title": "Open xiaochuan",
         "icon": {
           "light": "images/button-dark.svg",
           "dark": "images/button-light.svg"
         }
       },
       {
-        "command": "xccode.openNewTerminal",
-        "title": "Open xccode in new tab",
+        "command": "xiaochuan.openNewTerminal",
+        "title": "Open xiaochuan in new tab",
         "icon": {
           "light": "images/button-dark.svg",
           "dark": "images/button-light.svg"
         }
       },
       {
-        "command": "xccode.addFilepathToTerminal",
+        "command": "xiaochuan.addFilepathToTerminal",
         "title": "Add Filepath to Terminal"
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "command": "xccode.openNewTerminal",
+          "command": "xiaochuan.openNewTerminal",
           "group": "navigation"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "xccode.openTerminal",
-        "title": "Run xccode",
+        "command": "xiaochuan.openTerminal",
+        "title": "Run xiaochuan",
         "key": "cmd+escape",
         "mac": "cmd+escape",
         "win": "ctrl+escape",
         "linux": "ctrl+escape"
       },
       {
-        "command": "xccode.openNewTerminal",
-        "title": "Run xccode",
+        "command": "xiaochuan.openNewTerminal",
+        "title": "Run xiaochuan",
         "key": "cmd+shift+escape",
         "mac": "cmd+shift+escape",
         "win": "ctrl+shift+escape",
         "linux": "ctrl+shift+escape"
       },
       {
-        "command": "xccode.addFilepathToTerminal",
-        "title": "xccode: Insert At-Mentioned",
+        "command": "xiaochuan.addFilepathToTerminal",
+        "title": "xiaochuan: Insert At-Mentioned",
         "key": "cmd+alt+k",
         "mac": "cmd+alt+k",
         "win": "ctrl+alt+K",

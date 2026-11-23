@@ -1,12 +1,12 @@
 import { describe, expect, test } from "bun:test"
-import { dict } from "@xccode/ui/i18n/en"
+import { dict } from "@xiaochuan/ui/i18n/en"
 import en from "@/runtime/i18n/en"
 import { settingsSearchIndex, type SettingsSearchServer } from "./search-index"
 import { rankSettings } from "./search-results"
 
 const strings = new Map(Object.entries({ ...dict, ...en }))
 
-const project = { id: "proj_xccode", name: "Xccode", worktree: "/projects/xccode" }
+const project = { id: "proj_xiaochuan", name: "Xiaochuan", worktree: "/projects/xiaochuan" }
 
 const servers: SettingsSearchServer[] = [
   { key: "local", name: "Local server", connected: true, projects: [project] },
@@ -93,8 +93,8 @@ describe("settings search index", () => {
   test("retains project avatars and excludes color when a custom icon owns its appearance", () => {
     const withIcon = { ...project, icon: { color: "orange", override: "data:image/png;base64,example" } }
     const items = index({ servers: [{ ...servers[0], projects: [withIcon] }] })
-    expect(rankSettings("xccode", items)[0].projectInfo).toEqual(withIcon)
-    expect(rankSettings("xccode color", items)).toEqual([])
+    expect(rankSettings("xiaochuan", items)[0].projectInfo).toEqual(withIcon)
+    expect(rankSettings("xiaochuan color", items)).toEqual([])
   })
 })
 
@@ -112,11 +112,11 @@ describe("settings search ranking", () => {
   })
 
   test("qualifies project settings by project name on the selected server", () => {
-    expect(rankSettings("xccode name", index()).map((item) => item.view.target)).toEqual(["settings-project-name"])
-    expect(rankSettings("xccode name", index({ selected: "remote" })).map((item) => item.server)).toEqual([
+    expect(rankSettings("xiaochuan name", index()).map((item) => item.view.target)).toEqual(["settings-project-name"])
+    expect(rankSettings("xiaochuan name", index({ selected: "remote" })).map((item) => item.server)).toEqual([
       "remote",
     ])
-    expect(rankSettings("xccode skills", index()).map((item) => item.view.subtab)).toEqual(["skills"])
+    expect(rankSettings("xiaochuan skills", index()).map((item) => item.view.subtab)).toEqual(["skills"])
   })
 
   test("project names alone find projects, including names that are setting labels", () => {
@@ -126,7 +126,7 @@ describe("settings search ranking", () => {
         .filter((item) => item.project)
         .map((item) => item.entity),
     ).toEqual([true])
-    expect(rankSettings("xccode", index()).map((item) => item.entity)).toEqual([true])
+    expect(rankSettings("xiaochuan", index()).map((item) => item.entity)).toEqual([true])
   })
 
   test("normalizes whitespace, case, and Unicode in qualified names", () => {
@@ -139,7 +139,7 @@ describe("settings search ranking", () => {
   test("does not search paths or use the Projects category to match unrelated names", () => {
     const items = index({ servers: [{ ...servers[0], projects: [{ ...project, name: "codename" }] }] })
     expect(rankSettings("project name", items).some((item) => item.project)).toBe(false)
-    expect(rankSettings("/projects/xccode", items)).toEqual([])
+    expect(rankSettings("/projects/xiaochuan", items)).toEqual([])
   })
 
   test("supports synonyms and fuzzy title matches while rejecting unrelated queries", () => {

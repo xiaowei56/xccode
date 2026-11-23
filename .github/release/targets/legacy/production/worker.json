@@ -1,8 +1,8 @@
 {
-  "name": "xccode-legacy-production",
+  "name": "xiaochuan-legacy-production",
   "compatibilityDate": "2026-07-25",
   "compatibilityFlags": ["nodejs_compat"],
-  "domains": ["opncd.ai", "api.xccode.ai"],
+  "domains": ["opncd.ai", "api.xiaochuan.ai"],
   "logpush": true,
   "observability": { "enabled": true },
   "workersDev": false,

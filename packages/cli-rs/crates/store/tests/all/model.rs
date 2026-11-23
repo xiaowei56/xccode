@@ -19,9 +19,9 @@ use std::sync::{Arc, Mutex};
 
 use common::*;
 use futures_util::FutureExt;
-use xccode_api::generated::SessionID;
-use xccode_store::{Data, LoadMore, Location, Options, Task};
-use xccode_util::rng::SplitMix64;
+use xiaochuan_api::generated::SessionID;
+use xiaochuan_store::{Data, LoadMore, Location, Options, Task};
+use xiaochuan_util::rng::SplitMix64;
 use serde_json::{Value, json};
 use tokio::sync::oneshot;
 
@@ -438,7 +438,7 @@ enum Mutant {
     Silent,
 }
 
-fn observe(state: &xccode_store::State, s: u8, mutant: Mutant, sticky: &HashMap<u8, Vec<(String, String)>>) -> Seen {
+fn observe(state: &xiaochuan_store::State, s: u8, mutant: Mutant, sticky: &HashMap<u8, Vec<(String, String)>>) -> Seen {
     let session = SessionID(format!("ses_{s}"));
     let mut permissions: Option<Vec<(String, String)>> = state
         .permissions(&session)
@@ -513,7 +513,7 @@ struct Run {
     seen: Vec<Seen>,
     /// Sync tasks and older-page loads started, to check they finish.
     tasks: Vec<(String, Task<()>)>,
-    loads: Vec<(u8, tokio::task::JoinHandle<Result<(), xccode_store::Error>>)>,
+    loads: Vec<(u8, tokio::task::JoinHandle<Result<(), xiaochuan_store::Error>>)>,
     /// Sessions whose `session.deleted` was delivered.
     deleted: HashSet<u8>,
     /// Requests and forms whose settlement event was delivered.
@@ -535,7 +535,7 @@ fn project() -> Location {
     Location::new(PROJECT)
 }
 
-fn observe_shells(state: &xccode_store::State) -> Option<Vec<String>> {
+fn observe_shells(state: &xiaochuan_store::State) -> Option<Vec<String>> {
     let shells = state.location(Some(&project()))?.shell.as_ref()?;
     Some(shells.keys().map(|id| id.0.clone()).collect())
 }
@@ -1184,7 +1184,7 @@ impl fmt::Display for Found {
         writeln!(f, "seed {} case {}: [{}] {}", self.seed, self.case, self.failure.class, self.failure.message)?;
         writeln!(
             f,
-            "reproduce: MODEL_SEED={} MODEL_LEN={} MODEL_CASES={} cargo test -p xccode-store --test all model:: -- --ignored",
+            "reproduce: MODEL_SEED={} MODEL_LEN={} MODEL_CASES={} cargo test -p xiaochuan-store --test all model:: -- --ignored",
             self.seed,
             self.len,
             self.case + 1

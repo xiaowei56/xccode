@@ -1,4 +1,4 @@
-import type { ModelInfo, SessionMessageAssistant } from "@xccode/client"
+import type { ModelInfo, SessionMessageAssistant } from "@xiaochuan/client"
 import { TextAttributes } from "@opentui/core"
 import { createEffect, createMemo, createSignal, For, Match, onCleanup, onMount, Show, Switch } from "solid-js"
 import { useData } from "../context/data"
@@ -26,7 +26,7 @@ import {
 } from "../util/usage-limits"
 
 /**
- * The Xccode Console limits on this location's models. Limits load once; `refresh` reloads them, since spend moves
+ * The Xiaochuan Console limits on this location's models. Limits load once; `refresh` reloads them, since spend moves
  * with every request, and keeps showing the ones already loaded meanwhile.
  */
 export function useUsageLimits() {
@@ -40,7 +40,7 @@ export function useUsageLimits() {
     return value ? modelUsage(value, model, providers().get(model.providerID)) : undefined
   }
   return {
-    /** Undefined until loaded, and null when the location isn't signed in to Xccode Console. */
+    /** Undefined until loaded, and null when the location isn't signed in to Xiaochuan Console. */
     info,
     load: (refresh = false) => {
       if (refresh) data.location.usage.invalidate(ref())
@@ -49,7 +49,7 @@ export function useUsageLimits() {
     models: () => data.location.model.list(ref()) ?? [],
     usage,
     served: (providerID: string) => servedByConsole(providers().get(providerID)),
-    /** A paid model Xccode Console serves without any limit on it. */
+    /** A paid model Xiaochuan Console serves without any limit on it. */
     unlimited: (model: ModelInfo) =>
       Boolean(info()) &&
       servedByConsole(providers().get(model.providerID)) &&
@@ -122,7 +122,7 @@ export function DialogUsage() {
       <Match when={limits.info() === null}>
         <DialogLayout header={<DialogHeader title="Usage" />}>
           <text fg={theme.text.muted} wrapMode="word">
-            Sign in to Xccode Console with /connect to see your workspace's usage limits.
+            Sign in to Xiaochuan Console with /connect to see your workspace's usage limits.
           </text>
         </DialogLayout>
       </Match>
@@ -206,7 +206,7 @@ export function DialogUsageModel(props: { model: ModelInfo }) {
   )
 }
 
-// Each warning shows once per model while Xccode runs, however many sessions use the model.
+// Each warning shows once per model while Xiaochuan runs, however many sessions use the model.
 const warned = new Set<string>()
 
 /** Reloads limits as the session's turns end, and warns once as the selected model runs low and once at its limit. */
@@ -266,7 +266,7 @@ export function useLimitNotice(message: () => SessionMessageAssistant) {
       value.model.id
     if (error.type === "provider.go-limit")
       return {
-        title: `Xccode Go ${[goLimitName(error), "usage limit reached"].filter(Boolean).join(" ")}`,
+        title: `Xiaochuan Go ${[goLimitName(error), "usage limit reached"].filter(Boolean).join(" ")}`,
         body: `${resets}Switch to a free model with`,
         key: shortcut() ?? "/models",
         link: { label: "Or turn on Extra Usage on your Go page to keep going now:", href: goLimitLink(error) },
@@ -282,7 +282,7 @@ export function useLimitNotice(message: () => SessionMessageAssistant) {
     if (error.status === 402 && limits.served(value.model.providerID))
       return {
         title: `${limits.info()?.workspace.name ?? "Your workspace"} is out of credits`,
-        body: "Paid models are paused until an admin adds credits in Xccode Console.",
+        body: "Paid models are paused until an admin adds credits in Xiaochuan Console.",
       }
     return undefined
   })

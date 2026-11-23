@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import { Schema } from "effect"
-import { Goal } from "@xccode/schema/goal"
+import { Goal } from "@xiaochuan/schema/goal"
 import {
   createGoalState,
   selectGoal,

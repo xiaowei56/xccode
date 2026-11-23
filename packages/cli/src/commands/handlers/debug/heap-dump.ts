@@ -1,5 +1,5 @@
-import { ClientError, Xccode } from "@xccode/client"
-import { Service } from "@xccode/client/effect/service"
+import { ClientError, Xiaochuan } from "@xiaochuan/client"
+import { Service } from "@xiaochuan/client/effect/service"
 import { Effect, Option, Predicate } from "effect"
 import { EOL } from "node:os"
 import path from "node:path"
@@ -14,7 +14,7 @@ const handler = Effect.fn("cli.debug.heap-dump")(function* (
 ) {
   const server = yield* Effect.serviceOption(ServerFlag).pipe(Effect.map(Option.flatten))
   const endpoint = yield* running(Option.getOrUndefined(server))
-  const client = Xccode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+  const client = Xiaochuan.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
   // The server writes the file, so a relative directory resolves against this shell. An absolute one passes through
   // untouched, which keeps a POSIX path for a remote server intact on Windows.
   const directory = Option.match(input.directory, {

@@ -1,6 +1,6 @@
 import { createEffect, createMemo, For, Show } from "solid-js"
 import { createStore } from "solid-js/store"
-import type { SessionMessageUser } from "@xccode/client/promise"
+import type { SessionMessageUser } from "@xiaochuan/client/promise"
 import type { SessionUserActions } from "../actions"
 import { CurrentUserMessageDisplay } from "./message-content"
 import { CurrentSessionProviders } from "../storybook/current-session-story"
@@ -11,7 +11,7 @@ const statuses = ["delivered", "starting", "steering", "stranded", "queued", "se
 type Args = { status: (typeof statuses)[number]; voice: boolean; text: boolean; grouped: boolean; fails: boolean }
 
 export default {
-  title: "Xccode/Conversation/Prompt message",
+  title: "Xiaochuan/Conversation/Prompt message",
   id: "current-prompt-message",
   parameters: { layout: "fullscreen" },
   args: { status: "steering", voice: false, text: true, grouped: false, fails: false } satisfies Args,

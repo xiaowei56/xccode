@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Atminties diagnostika: kas 30 sekundžių registruoja programos atmintį darbalaukio žurnaluose. Lieka įjungta ir po paleidimo iš naujo, kol ją išjungsite; kol ji veikia, juosta lieka atverta.",
-  "memory.tipEnv": "Atminties diagnostika įjungta šiam paleidimui: nustatytas XCCODE_DESKTOP_MEMORY_LOG.",
+  "memory.tipEnv": "Atminties diagnostika įjungta šiam paleidimui: nustatytas XIAOCHUAN_DESKTOP_MEMORY_LOG.",
   "memory.env": "ENV",
   "motion.label": "KNOBS",
   "motion.title": "Rankenėlės",

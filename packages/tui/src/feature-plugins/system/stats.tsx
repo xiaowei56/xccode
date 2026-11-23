@@ -1,6 +1,6 @@
-import type { SessionStatsInfo } from "@xccode/client"
-import { Plugin } from "@xccode/plugin/tui"
-import { activityCalendar } from "@xccode/util/activity-calendar"
+import type { SessionStatsInfo } from "@xiaochuan/client"
+import { Plugin } from "@xiaochuan/plugin/tui"
+import { activityCalendar } from "@xiaochuan/util/activity-calendar"
 import { TextAttributes } from "@opentui/core"
 import { useTerminalDimensions } from "@opentui/solid"
 import { createMemo, createResource, createSignal, For, Show } from "solid-js"
@@ -62,7 +62,7 @@ export function StatsPoster(props: { stats: SessionStatsInfo }) {
     <box width={width()} flexDirection="column" alignItems="center" flexShrink={0} gap={compact() ? 1 : 2}>
       <box width="100%" flexDirection={width() < 44 ? "column" : "row"} justifyContent="space-between">
         <text fg={theme.text.base} attributes={TextAttributes.BOLD}>
-          xccode / stats
+          xiaochuan / stats
         </text>
         <text fg={theme.text.muted}>{dates()}</text>
       </box>
@@ -131,7 +131,7 @@ export function StatsPoster(props: { stats: SessionStatsInfo }) {
         </For>
       </box>
       <box width="100%" flexDirection="row" justifyContent="flex-end">
-        <text fg={theme.text.base}>xccode.ai</text>
+        <text fg={theme.text.base}>xiaochuan.ai</text>
       </box>
     </box>
   )
@@ -180,7 +180,7 @@ function StatsPage(props: { context: Plugin.Context; onClose: () => void }) {
 }
 
 export default Plugin.define({
-  id: "xccode.stats",
+  id: "xiaochuan.stats",
   setup(context) {
     const [previous, setPrevious] = createSignal({ ...context.ui.router.current() })
     context.ui.router.register({

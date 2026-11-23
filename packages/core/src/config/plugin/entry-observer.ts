@@ -1,8 +1,8 @@
 export * as ConfigEntryObserver from "./entry-observer.js"
 
-import type { EventDomain } from "@xccode/plugin/effect/event"
-import type { Entry } from "@xccode/schema/config"
-import { FSUtil } from "@xccode/util/fs-util"
+import type { EventDomain } from "@xiaochuan/plugin/effect/event"
+import type { Entry } from "@xiaochuan/schema/config"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { Effect, PubSub, Stream } from "effect"
 import path from "path"
 import { Config } from "../../config.js"

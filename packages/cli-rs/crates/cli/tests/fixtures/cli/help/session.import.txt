@@ -2,7 +2,7 @@
   Import session data from a JSON file or URL
 
 [1mUSAGE[0m
-  [36mxccode session import [flags] <file>[0m
+  [36mxiaochuan session import [flags] <file>[0m
 
 [1mARGUMENTS[0m
   [32mfile[0m [2mstring[0m    JSON file or URL to import

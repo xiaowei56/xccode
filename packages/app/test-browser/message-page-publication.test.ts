@@ -1,13 +1,13 @@
 import { expect, test } from "bun:test"
 import { createComputed, createRoot } from "solid-js"
-import { Xccode } from "@xccode/client/promise"
-import { createData } from "@xccode/client/solid"
+import { Xiaochuan } from "@xiaochuan/client/promise"
+import { createData } from "@xiaochuan/client/solid"
 
 test("publishes an initial message page, its index, and its cursor together", async () => {
   const observed: { ids: string[]; more: boolean; text: string | undefined }[] = []
 
-  const api = Xccode.make({
-    baseUrl: "http://xccode.local",
+  const api = Xiaochuan.make({
+    baseUrl: "http://xiaochuan.local",
     fetch: async () =>
       Response.json({
         data: [{ id: "msg_page", type: "user", text: "History", time: { created: 1 } }],

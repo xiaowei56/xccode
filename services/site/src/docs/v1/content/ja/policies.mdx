@@ -1,15 +1,15 @@
 ---
 title: ポリシー
-description: Xccode が使用できる設定済みリソースを制御します。
+description: Xiaochuan が使用できる設定済みリソースを制御します。
 ---
 
-:::caution[Xccode 2 が必要です]
-Xccode 1 ではポリシーは適用されません。このページの例には Xccode 2 が必要です。Xccode 1 では、[`disabled_providers`](/docs/config#disabled-providers) または [`enabled_providers`](/docs/config#enabled-providers) を使用してプロバイダーの利用可否を制御してください。現在の使い方については、[Xccode 2 のポリシーのドキュメント](https://xccode.ai/docs/policies/)を参照してください。
+:::caution[Xiaochuan 2 が必要です]
+Xiaochuan 1 ではポリシーは適用されません。このページの例には Xiaochuan 2 が必要です。Xiaochuan 1 では、[`disabled_providers`](/docs/config#disabled-providers) または [`enabled_providers`](/docs/config#enabled-providers) を使用してプロバイダーの利用可否を制御してください。現在の使い方については、[Xiaochuan 2 のポリシーのドキュメント](https://xiaochuan.ai/docs/policies/)を参照してください。
 :::
 
-ポリシーは、Xccode が名前付きリソースに対してアクションを実行できるかどうかを制御します。この Xccode 2 の機能は実験的なもので、`xccode.json` の `experimental.policies` 配列で設定します。
+ポリシーは、Xiaochuan が名前付きリソースに対してアクションを実行できるかどうかを制御します。この Xiaochuan 2 の機能は実験的なもので、`xiaochuan.json` の `experimental.policies` 配列で設定します。
 
-ポリシーは[権限](/docs/permissions)とは別のものです。権限はセッション中にツールが実行できることを制御し、ポリシーは Xccode が LLM プロバイダーなどのリソースを使用できるかどうかを制御します。
+ポリシーは[権限](/docs/permissions)とは別のものです。権限はセッション中にツールが実行できることを制御し、ポリシーは Xiaochuan が LLM プロバイダーなどのリソースを使用できるかどうかを制御します。
 
 ---
 
@@ -23,9 +23,9 @@ Xccode 1 ではポリシーは適用されません。このページの例に�
 
 たとえば、`openai` プロバイダーの使用を拒否するには、次のようにします。
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -44,7 +44,7 @@ Xccode 1 ではポリシーは適用されません。このページの例に�
 
 ## 利用可能なポリシー
 
-Xccode は現在、1 つのポリシーアクションをサポートしています。
+Xiaochuan は現在、1 つのポリシーアクションをサポートしています。
 
 | アクション     | リソース                        | 説明                                           |
 | -------------- | ------------------------------- | ---------------------------------------------- |
@@ -58,9 +58,9 @@ Xccode は現在、1 つのポリシーアクションをサポートしてい�
 
 `resource` フィールドはワイルドカードマッチングをサポートしています。`*` は 0 個以上の文字に一致し、`?` は 1 文字に一致します。
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -83,9 +83,9 @@ Xccode は現在、1 つのポリシーアクションをサポートしてい�
 
 たとえば、Anthropic のみを許可するには、次のようにします。
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
-  "$schema": "https://xccode.ai/config.json",
+  "$schema": "https://xiaochuan.ai/config.json",
   "experimental": {
     "policies": [
       {
@@ -111,11 +111,11 @@ Xccode は現在、1 つのポリシーアクションをサポートしてい�
 
 ## プロバイダーリスト
 
-Xccode 2 でプロバイダーへのアクセスを制御する場合は、古い `disabled_providers` および `enabled_providers` 設定の代わりにポリシーを使用してください。Xccode 1 では、引き続きこれらのプロバイダーリストを使用してください。
+Xiaochuan 2 でプロバイダーへのアクセスを制御する場合は、古い `disabled_providers` および `enabled_providers` 設定の代わりにポリシーを使用してください。Xiaochuan 1 では、引き続きこれらのプロバイダーリストを使用してください。
 
 `disabled_providers` を置き換えるには、次のようにします。
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [
@@ -128,7 +128,7 @@ Xccode 2 でプロバイダーへのアクセスを制御する場合は、古�
 
 `enabled_providers` を置き換えるには、最初にすべてのプロバイダーを拒否し、その後で選択したプロバイダーを許可します。
 
-```json title="xccode.json"
+```json title="xiaochuan.json"
 {
   "experimental": {
     "policies": [

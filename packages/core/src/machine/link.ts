@@ -8,7 +8,7 @@ import { Machines } from "./machines.js"
 import { Noise } from "./noise.js"
 import { FromWorker, Hello, ToWorker } from "./wire.js"
 
-// The handshake that opens a link between the home (the Xccode server) and a machine that connects to it: a worker
+// The handshake that opens a link between the home (the Xiaochuan server) and a machine that connects to it: a worker
 // today, any client later. The side that opens the connection calls `dial`; the home calls `accept`. Both end holding
 // the peer's proven identity and two ciphers for everything that follows, over a carrier that may pass through relays
 // neither side trusts.
@@ -31,9 +31,9 @@ import { FromWorker, Hello, ToWorker } from "./wire.js"
 
 const text = (value: string) => new TextEncoder().encode(value)
 const PROTOCOL = Hello.fields.protocol.literal
-const PROLOGUE = text("xccode-link-v1")
-const HOME = text("xccode-link-v1/home:")
-const MACHINE = text("xccode-link-v1/machine:")
+const PROLOGUE = text("xiaochuan-link-v1")
+const HOME = text("xiaochuan-link-v1/home:")
+const MACHINE = text("xiaochuan-link-v1/machine:")
 const KEY = 32
 const SIGNATURE = 64
 const TAG = 16

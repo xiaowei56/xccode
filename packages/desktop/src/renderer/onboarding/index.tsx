@@ -1,5 +1,5 @@
-import { ServerConnection, useCurrentRoute, useGlobal, useLanguage, useServers, useTabs } from "@xccode/app/desktop"
-import { showToast } from "@xccode/ui/toast"
+import { ServerConnection, useCurrentRoute, useGlobal, useLanguage, useServers, useTabs } from "@xiaochuan/app/desktop"
+import { showToast } from "@xiaochuan/ui/toast"
 import { createEffect, createSignal, onCleanup, untrack } from "solid-js"
 import type { ElectronAPI } from "../api-types"
 import type { StartupEvent } from "../startup/machine"

@@ -1,6 +1,6 @@
 import { autocomplete, cancel, intro, isCancel, log, outro } from "@clack/prompts"
-import { Xccode } from "@xccode/client"
-import { Service } from "@xccode/client/effect/service"
+import { Xiaochuan } from "@xiaochuan/client"
+import { Service } from "@xiaochuan/client/effect/service"
 import { Effect, Option } from "effect"
 import { EOL } from "node:os"
 import { Commands } from "../../commands"
@@ -17,7 +17,7 @@ export default Runtime.handler(
         yield* Effect.fail(new Error("Pass a session ID when running without an interactive terminal"))
       }
       const server = yield* ServerConnection.resolve()
-      const client = Xccode.make({
+      const client = Xiaochuan.make({
         baseUrl: server.endpoint.url,
         headers: Service.headers(server.endpoint),
       })

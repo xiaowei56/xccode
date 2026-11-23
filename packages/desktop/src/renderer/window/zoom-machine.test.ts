@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { nextDesktopZoomLevel } from "@xccode/app/desktop-menu"
+import { nextDesktopZoomLevel } from "@xiaochuan/app/desktop-menu"
 import {
   createZoomState,
   selectRequestedZoom,

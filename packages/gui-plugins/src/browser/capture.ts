@@ -147,12 +147,12 @@ export function undrawable(window: {
 }
 
 const causes: Record<Exclude<Undrawable, "stalled">, string> = {
-  minimized: "The Xccode window is minimized, so the system does not draw this tab.",
-  hidden: "Xccode is hidden, so the system does not draw this tab.",
+  minimized: "The Xiaochuan window is minimized, so the system does not draw this tab.",
+  hidden: "Xiaochuan is hidden, so the system does not draw this tab.",
 }
 
 export function undrawableMessage(reason: Undrawable, deadline = CAPTURE_DEADLINE_MS) {
   if (reason === "stalled") return `No fresh frame of this tab arrived within ${deadline / 1000} seconds. No cached screenshot was returned. Check that the page has finished navigating and is responsive before retrying.`
 
-  return `${causes[reason]} A screenshot needs the window restored. Ask the user to restore the Xccode window, then take the screenshot again; do not repeat it before then. Clicks, typing and other browser actions still work.`
+  return `${causes[reason]} A screenshot needs the window restored. Ask the user to restore the Xiaochuan window, then take the screenshot again; do not repeat it before then. Clicks, typing and other browser actions still work.`
 }

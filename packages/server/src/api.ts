@@ -1,4 +1,4 @@
-import { makeDefaultApi } from "@xccode/protocol/api"
+import { makeDefaultApi } from "@xiaochuan/protocol/api"
 import { LocationMiddleware } from "./location"
 import { FormLocationMiddleware } from "./middleware/form-location"
 import { SessionLocationMiddleware } from "./middleware/session-location"

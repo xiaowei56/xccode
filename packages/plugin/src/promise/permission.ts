@@ -1,7 +1,7 @@
-import type { PermissionApi } from "@xccode/client/promise/api"
-import type { Agent } from "@xccode/schema/agent"
-import type { Permission } from "@xccode/schema/permission"
-import type { Session } from "@xccode/schema/session"
+import type { PermissionApi } from "@xiaochuan/client/promise/api"
+import type { Agent } from "@xiaochuan/schema/agent"
+import type { Permission } from "@xiaochuan/schema/permission"
+import type { Session } from "@xiaochuan/schema/session"
 import type { AssertInput } from "../permission.js"
 import type { Hooks } from "./registration.js"
 

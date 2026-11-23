@@ -1,10 +1,10 @@
-import { Plugin } from "@xccode/plugin/effect"
+import { Plugin } from "@xiaochuan/plugin/effect"
 import { Effect } from "effect"
 import { BrowserConnection } from "./connection.js"
 import { BrowserTools } from "./tools.js"
 
 export default Plugin.define({
-  id: "xccode.browser",
+  id: "xiaochuan.browser",
   effect: (ctx) =>
     Effect.gen(function* () {
       const connection = yield* BrowserConnection.make(ctx)

@@ -1,5 +1,5 @@
 {
-  "name": "xccode-data-sync-dev",
+  "name": "xiaochuan-data-sync-dev",
   "compatibilityDate": "2026-07-25",
   "compatibilityFlags": ["nodejs_compat"],
   "triggers": [
@@ -13,8 +13,8 @@
   "env": {
     "DataSyncWorkflow": {
       "type": "workflow",
-      "name": "xccode-data-sync-dev",
-      "worker": "xccode-data-sync-dev",
+      "name": "xiaochuan-data-sync-dev",
+      "worker": "xiaochuan-data-sync-dev",
       "exportName": "DataSyncWorkflow"
     },
     "STAGE": { "type": "text", "value": "dev" },
@@ -26,7 +26,7 @@
     "DATA_HIDDEN_MODELS": { "type": "secret" }
   },
   "exports": {
-    "DataSyncWorkflow": { "type": "workflow", "name": "xccode-data-sync-dev" }
+    "DataSyncWorkflow": { "type": "workflow", "name": "xiaochuan-data-sync-dev" }
   },
   "manifest": { "type": "partial", "mainModule": "index.mjs", "modules": {} }
 }

@@ -14,8 +14,8 @@ export type Mask = ({ x: number; y: number; width: number; height: number } | { 
 
 // The location the TS TUI runs in, as the fake server's location answers name it.
 export const location = {
-  directory: "/tmp/xccode/packages/tui",
-  project: { id: "proj_test", directory: "/tmp/xccode", canonical: "/tmp/xccode" },
+  directory: "/tmp/xiaochuan/packages/tui",
+  project: { id: "proj_test", directory: "/tmp/xiaochuan", canonical: "/tmp/xiaochuan" },
 }
 
 // A connected model with a price and a context limit, for a catalog's `model` answer.
@@ -94,10 +94,10 @@ export type AppScenario = {
     newSessionID?: string
     auto?: boolean
   }
-  // Environment variables the TUI reads at startup, such as `XCCODE_ROUTE`.
+  // Environment variables the TUI reads at startup, such as `XIAOCHUAN_ROUTE`.
   env?: Record<string, string>
   routes?: Route[]
-  // Runs a fake IDE MCP server at XCCODE_EDITOR_SSE_PORT (E.5); the recording keeps what the TUI sent it.
+  // Runs a fake IDE MCP server at XIAOCHUAN_EDITOR_SSE_PORT (E.5); the recording keeps what the TUI sent it.
   ide?: boolean
   // A Zed database built from this SQL in a temporary directory, with ZED_TERM=true and a temporary HOME (E.5).
   zed?: { sql: string }
@@ -112,7 +112,7 @@ export function defineApp(scenario: AppScenario) {
   // A plugin's commands register after the screen settles, and an Enter on a completion that has not listed the typed
   // command yet does nothing, in TS as in Rust (file-browser-flake). With a plugin loaded, a typed `/command` waits
   // for its row in the completion (a checkpoint) before Enter.
-  if (scenario.env?.XCCODE_PARITY_PLUGIN)
+  if (scenario.env?.XIAOCHUAN_PARITY_PLUGIN)
     scenario.steps.forEach((step, index) => {
       const next = scenario.steps[index + 1]
       if ("type" in step && step.type.startsWith("/") && next && "keys" in next && next.keys[0] === "enter")
@@ -123,12 +123,12 @@ export function defineApp(scenario: AppScenario) {
 
 // The Rust client implements the TUI with the `new-designs` experiment on, and only that, so every recording
 // turns it on. TS's test fixtures (`createAppFixture`, `createTuiResolvedConfig`) default to new designs off and the
-// `xccode-classic` theme since #64988, so recordings also name a theme: the product's default, `xccode`, unless
+// `xiaochuan-classic` theme since #64988, so recordings also name a theme: the product's default, `xiaochuan`, unless
 // the caller names another. A config that sets the experiment or a theme itself keeps its value.
 export function withNewDesigns(config: Record<string, unknown>) {
   const experimental = (config.experimental ?? {}) as Record<string, unknown>
   const theme = (config.theme ?? {}) as Record<string, unknown>
-  return { ...config, experimental: { "new-designs": true, ...experimental }, theme: { name: "xccode", ...theme } }
+  return { ...config, experimental: { "new-designs": true, ...experimental }, theme: { name: "xiaochuan", ...theme } }
 }
 
 // Wire objects with fixed times, as the server sends them.
@@ -142,7 +142,7 @@ export function session(id: string, title: string, input: { updated?: number; di
     cost: 0,
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
     time: { created: updated, updated },
-    location: { directory: input.directory ?? "/tmp/xccode/packages/tui" },
+    location: { directory: input.directory ?? "/tmp/xiaochuan/packages/tui" },
   }
 }
 

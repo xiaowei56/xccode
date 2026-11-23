@@ -1,8 +1,8 @@
 //! Select a skill to insert it into the prompt.
 
-use xccode_api::generated::{SkillID, SkillInfo};
-use xccode_store::{Catalog, Location};
-use xccode_ui::dialog::DIALOG_LIST_INSET;
+use xiaochuan_api::generated::{SkillID, SkillInfo};
+use xiaochuan_store::{Catalog, Location};
+use xiaochuan_ui::dialog::DIALOG_LIST_INSET;
 
 use crate::prelude::*;
 

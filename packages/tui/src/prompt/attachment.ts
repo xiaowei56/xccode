@@ -1,4 +1,4 @@
-import type { PromptInput } from "@xccode/schema"
+import type { PromptInput } from "@xiaochuan/schema"
 
 type PromptFile = PromptInput.FileAttachment
 type PromptFileIdentity = Pick<PromptFile, "uri" | "name" | "description">

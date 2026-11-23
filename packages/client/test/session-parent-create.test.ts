@@ -1,9 +1,9 @@
 import { expect, test } from "bun:test"
-import { Xccode } from "../src/promise/index"
+import { Xiaochuan } from "../src/promise/index"
 
 test("session.create forwards parentID from the Promise client", async () => {
   let body: unknown
-  const client = Xccode.make({
+  const client = Xiaochuan.make({
     baseUrl: "http://localhost:3000",
     fetch: async (_input, init) => {
       body = JSON.parse(String(init?.body))

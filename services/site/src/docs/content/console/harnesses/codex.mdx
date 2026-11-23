@@ -8,7 +8,7 @@ open models. Console translates the request for models that don't accept Respons
 
 <Callout>
   The [Console CLI](/console/harnesses#console-cli) sets up Codex with one command, including the workspace's policies,
-  MCP servers, skills and instructions. Run `npx @xccode/console setup codex`. The steps below set it up by hand.
+  MCP servers, skills and instructions. Run `npx @xiaochuan/console setup codex`. The steps below set it up by hand.
 </Callout>
 
 ## Configure
@@ -17,12 +17,12 @@ Add Console as a model provider in `~/.codex/config.toml` and make it the defaul
 
 ```toml title="~/.codex/config.toml"
 model = "gpt-6.1-sol"
-model_provider = "xccode"
+model_provider = "xiaochuan"
 
-[model_providers.xccode]
-name = "Xccode Console"
-base_url = "https://xccode.ai/inference/openai/v1"
-env_key = "XCCODE_API_KEY"
+[model_providers.xiaochuan]
+name = "Xiaochuan Console"
+base_url = "https://xiaochuan.ai/inference/openai/v1"
+env_key = "XIAOCHUAN_API_KEY"
 wire_api = "responses"
 ```
 
@@ -30,7 +30,7 @@ Codex appends `/responses` to the base URL and reads the key from `env_key`. Cre
 [personal API key](/console/harnesses#get-an-api-key), then export it.
 
 ```bash
-export XCCODE_API_KEY="oc_sk_..."
+export XIAOCHUAN_API_KEY="oc_sk_..."
 codex
 ```
 
@@ -44,12 +44,12 @@ Use the Go base URL and a key from a workspace with a [Go](/console/go) subscrip
 
 ```toml title="~/.codex/config.toml"
 model = "kimi-k3"
-model_provider = "xccode-go"
+model_provider = "xiaochuan-go"
 
-[model_providers.xccode-go]
-name = "Xccode Go"
-base_url = "https://xccode.ai/inference/go/openai/v1"
-env_key = "XCCODE_API_KEY"
+[model_providers.xiaochuan-go]
+name = "Xiaochuan Go"
+base_url = "https://xiaochuan.ai/inference/go/openai/v1"
+env_key = "XIAOCHUAN_API_KEY"
 wire_api = "responses"
 ```
 
@@ -72,7 +72,7 @@ profile file that switches to Go.
 
 ```toml title="~/.codex/go.config.toml"
 model = "kimi-k3"
-model_provider = "xccode-go"
+model_provider = "xiaochuan-go"
 ```
 
 ```bash
@@ -84,11 +84,11 @@ codex --profile go
 Add the [Console MCP](/console/harnesses#console-mcp) server and sign in from the browser.
 
 ```bash
-codex mcp add xccode-console --url https://xccode.ai/console/mcp
+codex mcp add xiaochuan-console --url https://xiaochuan.ai/console/mcp
 ```
 
 If the sign-in doesn't start automatically, run it yourself.
 
 ```bash
-codex mcp login xccode-console
+codex mcp login xiaochuan-console
 ```

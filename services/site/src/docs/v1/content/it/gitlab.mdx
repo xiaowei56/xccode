@@ -1,68 +1,68 @@
 ---
 title: GitLab
-description: Usa Xccode in issue e merge request su GitLab.
+description: Usa Xiaochuan in issue e merge request su GitLab.
 ---
 
-Xccode si integra nel tuo workflow GitLab tramite la pipeline GitLab CI/CD o con GitLab Duo.
+Xiaochuan si integra nel tuo workflow GitLab tramite la pipeline GitLab CI/CD o con GitLab Duo.
 
-In entrambi i casi, Xccode girera' sui tuoi runner GitLab.
+In entrambi i casi, Xiaochuan girera' sui tuoi runner GitLab.
 
 ---
 
 ## GitLab CI
 
-Xccode funziona in una pipeline GitLab standard. Puoi integrarlo nella pipeline come [componente CI](https://docs.gitlab.com/ee/ci/components/).
+Xiaochuan funziona in una pipeline GitLab standard. Puoi integrarlo nella pipeline come [componente CI](https://docs.gitlab.com/ee/ci/components/).
 
-Qui usiamo un componente CI/CD creato dalla community per Xccode — [nagyv/gitlab-xccode](https://gitlab.com/nagyv/gitlab-xccode).
+Qui usiamo un componente CI/CD creato dalla community per Xiaochuan — [nagyv/gitlab-xiaochuan](https://gitlab.com/nagyv/gitlab-xiaochuan).
 
 ---
 
 ### Funzionalità
 
-- **Configurazione personalizzata per job**: configura Xccode con una directory di configurazione personalizzata, ad esempio `./config/#custom-directory`, per abilitare o disabilitare funzionalita' per ogni invocazione di Xccode.
-- **Setup minimo**: il componente CI prepara Xccode in background; devi solo creare la configurazione Xccode e il prompt iniziale.
+- **Configurazione personalizzata per job**: configura Xiaochuan con una directory di configurazione personalizzata, ad esempio `./config/#custom-directory`, per abilitare o disabilitare funzionalita' per ogni invocazione di Xiaochuan.
+- **Setup minimo**: il componente CI prepara Xiaochuan in background; devi solo creare la configurazione Xiaochuan e il prompt iniziale.
 - **Flessibile**: il componente CI supporta diversi input per personalizzarne il comportamento.
 
 ---
 
 ### Configurazione
 
-1. Salva il JSON di autenticazione di Xccode come variabile d'ambiente CI di tipo File in **Settings** > **CI/CD** > **Variables**. Assicurati di marcarla come "Masked and hidden".
+1. Salva il JSON di autenticazione di Xiaochuan come variabile d'ambiente CI di tipo File in **Settings** > **CI/CD** > **Variables**. Assicurati di marcarla come "Masked and hidden".
 2. Aggiungi quanto segue al tuo file `.gitlab-ci.yml`.
 
    ```yaml title=".gitlab-ci.yml"
    include:
-     - component: $CI_SERVER_FQDN/nagyv/gitlab-xccode/xccode@2
+     - component: $CI_SERVER_FQDN/nagyv/gitlab-xiaochuan/xiaochuan@2
        inputs:
-         config_dir: ${CI_PROJECT_DIR}/xccode-config
-         auth_json: $XCCODE_AUTH_JSON # The variable name for your Xccode authentication JSON
+         config_dir: ${CI_PROJECT_DIR}/xiaochuan-config
+         auth_json: $XIAOCHUAN_AUTH_JSON # The variable name for your Xiaochuan authentication JSON
          command: optional-custom-command
          message: "Your prompt here"
    ```
 
-Per altri input e casi d'uso, [consulta la documentazione](https://gitlab.com/explore/catalog/nagyv/gitlab-xccode) di questo componente.
+Per altri input e casi d'uso, [consulta la documentazione](https://gitlab.com/explore/catalog/nagyv/gitlab-xiaochuan) di questo componente.
 
 ---
 
 ## GitLab Duo
 
-Xccode si integra nel tuo workflow GitLab.
-Menziona `@xccode` in un commento e Xccode eseguira' i task dentro la tua pipeline GitLab CI.
+Xiaochuan si integra nel tuo workflow GitLab.
+Menziona `@xiaochuan` in un commento e Xiaochuan eseguira' i task dentro la tua pipeline GitLab CI.
 
 ---
 
 ### Funzionalità
 
-- **Triage delle issue**: chiedi a Xccode di indagare su una issue e spiegartela.
-- **Fix e implementazioni**: chiedi a Xccode di risolvere una issue o implementare una feature.
+- **Triage delle issue**: chiedi a Xiaochuan di indagare su una issue e spiegartela.
+- **Fix e implementazioni**: chiedi a Xiaochuan di risolvere una issue o implementare una feature.
   Creera' un nuovo branch e aprira' una merge request con le modifiche.
-- **Sicuro**: Xccode gira sui tuoi runner GitLab.
+- **Sicuro**: Xiaochuan gira sui tuoi runner GitLab.
 
 ---
 
 ### Configurazione
 
-Xccode gira nella pipeline GitLab CI/CD. Ecco cosa ti serve per configurarlo:
+Xiaochuan gira nella pipeline GitLab CI/CD. Ecco cosa ti serve per configurarlo:
 
 :::tip
 Dai un'occhiata alle [**GitLab docs**](https://docs.gitlab.com/user/duo_agent_platform/agent_assistant/) per istruzioni aggiornate.
@@ -82,19 +82,19 @@ Dai un'occhiata alle [**GitLab docs**](https://docs.gitlab.com/user/duo_agent_pl
     ```yaml
     image: node:22-slim
     commands:
-      - echo "Installing xccode"
-      - npm install --global xccode-ai
+      - echo "Installing xiaochuan"
+      - npm install --global xiaochuan-ai
       - echo "Installing glab"
-      - export GITLAB_TOKEN=$GITLAB_TOKEN_XCCODE
+      - export GITLAB_TOKEN=$GITLAB_TOKEN_XIAOCHUAN
       - apt-get update --quiet && apt-get install --yes curl wget gpg git && rm --recursive --force /var/lib/apt/lists/*
       - curl --silent --show-error --location "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository" | bash
       - apt-get install --yes glab
       - echo "Configuring glab"
       - echo $GITLAB_HOST
-      - echo "Creating Xccode auth configuration"
-      - mkdir --parents ~/.local/share/xccode
+      - echo "Creating Xiaochuan auth configuration"
+      - mkdir --parents ~/.local/share/xiaochuan
       - |
-        cat > ~/.local/share/xccode/auth.json << EOF
+        cat > ~/.local/share/xiaochuan/auth.json << EOF
         {
           "anthropic": {
             "type": "api",
@@ -103,13 +103,13 @@ Dai un'occhiata alle [**GitLab docs**](https://docs.gitlab.com/user/duo_agent_pl
         }
         EOF
       - echo "Configuring git"
-      - git config --global user.email "xccode@gitlab.com"
-      - git config --global user.name "Xccode"
+      - git config --global user.email "xiaochuan@gitlab.com"
+      - git config --global user.name "Xiaochuan"
       - echo "Testing glab"
       - glab issue list
-      - echo "Running Xccode"
+      - echo "Running Xiaochuan"
       - |
-        xccode run "
+        xiaochuan run "
         You are an AI assistant helping with GitLab operations.
 
         Context: $AI_FLOW_CONTEXT
@@ -146,7 +146,7 @@ Dai un'occhiata alle [**GitLab docs**](https://docs.gitlab.com/user/duo_agent_pl
         fi
     variables:
       - ANTHROPIC_API_KEY
-      - GITLAB_TOKEN_XCCODE
+      - GITLAB_TOKEN_XIAOCHUAN
       - GITLAB_HOST
     ```
 
@@ -158,10 +158,10 @@ Puoi fare riferimento alla [documentazione GitLab CLI agents](https://docs.gitla
 
 ### Esempi
 
-Ecco alcuni esempi di come puoi usare Xccode in GitLab.
+Ecco alcuni esempi di come puoi usare Xiaochuan in GitLab.
 
 :::tip
-Puoi configurare una frase trigger diversa da `@xccode`.
+Puoi configurare una frase trigger diversa da `@xiaochuan`.
 :::
 
 - **Spiega una issue**
@@ -169,27 +169,27 @@ Puoi configurare una frase trigger diversa da `@xccode`.
   Aggiungi questo commento in una issue GitLab.
 
   ```
-  @xccode explain this issue
+  @xiaochuan explain this issue
   ```
 
-  Xccode leggera' la issue e rispondera' con una spiegazione chiara.
+  Xiaochuan leggera' la issue e rispondera' con una spiegazione chiara.
 
 - **Risolvi una issue**
 
   In una issue GitLab, scrivi:
 
   ```
-  @xccode fix this
+  @xiaochuan fix this
   ```
 
-  Xccode creera' un nuovo branch, implementera' le modifiche e aprira' una merge request con i cambiamenti.
+  Xiaochuan creera' un nuovo branch, implementera' le modifiche e aprira' una merge request con i cambiamenti.
 
 - **Rivedi merge request**
 
   Lascia il seguente commento su una merge request GitLab.
 
   ```
-  @xccode review this merge request
+  @xiaochuan review this merge request
   ```
 
-  Xccode rivedra' la merge request e fornira' feedback.
+  Xiaochuan rivedra' la merge request e fornira' feedback.

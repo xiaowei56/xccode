@@ -4,7 +4,7 @@ use crate::wire::{Server, WireOptions, delivered, events, start_session, text_de
 
 #[test]
 fn wraps_unknown_defects_without_leaking_raw_details() {
-    let error = xccode_acp::error::Failure::Defect {
+    let error = xiaochuan_acp::error::Failure::Defect {
         name: Some("Error".to_owned()),
         detail: "stack has sk-ant-secret and oauth refresh token".to_owned(),
     }
@@ -31,7 +31,7 @@ async fn unavailable(lose: fn(&Server)) {
     .await;
     let unavailable = json!({
         "code": -32603,
-        "message": "Internal error: Xccode server is unavailable",
+        "message": "Internal error: Xiaochuan server is unavailable",
         "data": { "errorName": "ServerUnavailable" },
     });
 

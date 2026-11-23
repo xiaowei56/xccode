@@ -1,17 +1,17 @@
 <p align="center">
-  <a href="https://xccode.ai">
+  <a href="https://xiaochuan.ai">
     <picture>
       <source srcset=".github/assets/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset=".github/assets/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src=".github/assets/logo-ornate-light.svg" alt="شعار Xccode">
+      <img src=".github/assets/logo-ornate-light.svg" alt="شعار Xiaochuan">
     </picture>
   </a>
 </p>
 <p align="center">وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر.</p>
 <p align="center">
-  <a href="https://xccode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/@xccode/cli"><img alt="npm" src="https://img.shields.io/npm/v/@xccode/cli?style=flat-square" /></a>
-  <a href="https://github.com/xiaowei56/xccode/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/xiaowei56/xccode/release.yml?style=flat-square&branch=dev" /></a>
+  <a href="https://xiaochuan.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
+  <a href="https://www.npmjs.com/package/@xiaochuan/cli"><img alt="npm" src="https://img.shields.io/npm/v/@xiaochuan/cli?style=flat-square" /></a>
+  <a href="https://github.com/xiaowei56/xiaochuan/actions/workflows/release.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/xiaowei56/xiaochuan/release.yml?style=flat-square&branch=dev" /></a>
 </p>
 
 <p align="center">
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![Xccode Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://xccode.ai)
+[![Xiaochuan Terminal UI](services/site/public/v1/docs/assets/lander/screenshot.png)](https://xiaochuan.ai)
 
 ---
 
@@ -47,16 +47,16 @@
 
 ```bash
 # YOLO
-curl -fsSL https://xccode.ai/v2/install | bash
+curl -fsSL https://xiaochuan.ai/v2/install | bash
 
 # مديري الحزم
-npm i -g @xccode/cli@latest      # او bun/pnpm/yarn
-brew install anomalyco/tap/xccode-v2 # macOS و Linux (موصى به، دائما محدث)
-brew install xccode              # macOS و Linux (صيغة brew الرسمية، تحديث اقل)
-sudo pacman -S xccode            # Arch Linux (Stable)
-paru -S xccode-beta              # Arch Linux (Latest from AUR)
-mise use -g xccode               # اي نظام
-nix run github:xiaowei56/xccode  # Nix
+npm i -g @xiaochuan/cli@latest      # او bun/pnpm/yarn
+brew install anomalyco/tap/xiaochuan-v2 # macOS و Linux (موصى به، دائما محدث)
+brew install xiaochuan              # macOS و Linux (صيغة brew الرسمية، تحديث اقل)
+sudo pacman -S xiaochuan            # Arch Linux (Stable)
+paru -S xiaochuan-beta              # Arch Linux (Latest from AUR)
+mise use -g xiaochuan               # اي نظام
+nix run github:xiaowei56/xiaochuan  # Nix
 ```
 
 > [!TIP]
@@ -64,27 +64,27 @@ nix run github:xiaowei56/xccode  # Nix
 
 ### تطبيق سطح المكتب (BETA)
 
-يتوفر Xccode ايضا كتطبيق سطح مكتب. قم بالتنزيل من [xccode.ai/download](https://xccode.ai/download).
+يتوفر Xiaochuan ايضا كتطبيق سطح مكتب. قم بالتنزيل من [xiaochuan.ai/download](https://xiaochuan.ai/download).
 
 | المنصة                | التنزيل                            |
 | --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `xccode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `xccode-desktop-mac-x64.dmg`     |
-| Windows               | `xccode-desktop-win-x64.exe`     |
+| macOS (Apple Silicon) | `xiaochuan-desktop-mac-arm64.dmg`   |
+| macOS (Intel)         | `xiaochuan-desktop-mac-x64.dmg`     |
+| Windows               | `xiaochuan-desktop-win-x64.exe`     |
 | Linux                 | `.deb` او `.rpm` او AppImage       |
 
 ```bash
 # macOS (Homebrew)
-brew install --cask xccode-desktop
+brew install --cask xiaochuan-desktop
 ```
 
 #### مجلد التثبيت
 
-يثبت سكربت التثبيت Xccode في `$HOME/.xccode/bin`.
+يثبت سكربت التثبيت Xiaochuan في `$HOME/.xiaochuan/bin`.
 
 ### Agents
 
-يتضمن Xccode وكيليْن (Agents) مدمجين يمكنك التبديل بينهما باستخدام زر `Tab`.
+يتضمن Xiaochuan وكيليْن (Agents) مدمجين يمكنك التبديل بينهما باستخدام زر `Tab`.
 
 - **build** - الافتراضي، وكيل بصلاحيات كاملة لاعمال التطوير
 - **plan** - وكيل للقراءة فقط للتحليل واستكشاف الكود
@@ -95,20 +95,20 @@ brew install --cask xccode-desktop
 بالاضافة الى ذلك يوجد وكيل فرعي **general** للبحث المعقد والمهام متعددة الخطوات.
 يستخدم داخليا ويمكن استدعاؤه بكتابة `@general` في الرسائل.
 
-تعرف على المزيد حول [agents](https://xccode.ai/docs/agents).
+تعرف على المزيد حول [agents](https://xiaochuan.ai/docs/agents).
 
 ### التوثيق
 
-لمزيد من المعلومات حول كيفية ضبط Xccode، [**راجع التوثيق**](https://xccode.ai/docs).
+لمزيد من المعلومات حول كيفية ضبط Xiaochuan، [**راجع التوثيق**](https://xiaochuan.ai/docs).
 
 ### المساهمة
 
-اذا كنت مهتما بالمساهمة في Xccode، يرجى قراءة [contributing docs](./CONTRIBUTING.md) قبل ارسال pull request.
+اذا كنت مهتما بالمساهمة في Xiaochuan، يرجى قراءة [contributing docs](./CONTRIBUTING.md) قبل ارسال pull request.
 
-### البناء فوق Xccode
+### البناء فوق Xiaochuan
 
-اذا كنت تعمل على مشروع مرتبط بـ Xccode ويستخدم "xccode" كجزء من اسمه (مثل "xccode-dashboard" او "xccode-mobile")، يرجى اضافة ملاحظة في README توضح انه ليس مبنيا بواسطة فريق Xccode ولا يرتبط بنا بأي شكل.
+اذا كنت تعمل على مشروع مرتبط بـ Xiaochuan ويستخدم "xiaochuan" كجزء من اسمه (مثل "xiaochuan-dashboard" او "xiaochuan-mobile")، يرجى اضافة ملاحظة في README توضح انه ليس مبنيا بواسطة فريق Xiaochuan ولا يرتبط بنا بأي شكل.
 
 ---
 
-**انضم الى مجتمعنا** [Discord](https://discord.gg/xccode) | [X.com](https://x.com/xccode)
+**انضم الى مجتمعنا** [Discord](https://discord.gg/xiaochuan) | [X.com](https://x.com/xiaochuan)

@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { XccodeEvent, SessionInfo } from "@xccode/client/promise"
+import type { XiaochuanEvent, SessionInfo } from "@xiaochuan/client/promise"
 import { isSidebarSessionActivity, mergeSidebarSessions } from "./sidebar-sessions"
 
 const session: SessionInfo = {
@@ -88,7 +88,7 @@ test.each([
     },
     expected: true,
   },
-] satisfies { event: XccodeEvent; expected: boolean }[])(
+] satisfies { event: XiaochuanEvent; expected: boolean }[])(
   "$event.type keeps a preview: $expected",
   ({ event, expected }) => {
     expect(isSidebarSessionActivity(event)).toBe(expected)

@@ -1,4 +1,4 @@
-import type { SessionMessageAssistant } from "@xccode/client/promise"
+import type { SessionMessageAssistant } from "@xiaochuan/client/promise"
 import type { SessionDocument } from "../document"
 import { CURRENT_SESSION_ID, STORY_MODEL, STORY_TIME } from "../storybook/current-session-fixtures"
 import { storyTool } from "../storybook/current-session-scenarios"
@@ -7,7 +7,7 @@ import { timelinePresets, type TimelinePlacement } from "./detail"
 import { SessionTimeline } from "./session-timeline"
 
 export default {
-  title: "Xccode/Conversation/Commentary",
+  title: "Xiaochuan/Conversation/Commentary",
   id: "current-session-commentary",
   component: SessionTimeline,
   parameters: { layout: "fullscreen" },

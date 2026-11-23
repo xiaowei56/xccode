@@ -1,6 +1,6 @@
 # C01: the error for a root directory that cannot be entered
 
-TypeScript: `xccode missing` calls `process.chdir` (`packages/cli/src/commands/handlers/default.ts:23`), and
+TypeScript: `xiaochuan missing` calls `process.chdir` (`packages/cli/src/commands/handlers/default.ts:23`), and
 the Node error escapes the handler:
 
 ```
@@ -9,7 +9,7 @@ Error: ENOENT: no such file or directory, chdir '<cwd>' -> 'missing'
     at <anonymous> (.../packages/cli/src/commands/handlers/default.ts:23:51)
 ```
 
-Rust: `Error: Failed to change directory to missing` on stderr (`xccode_local::paths::enter`, the message the
+Rust: `Error: Failed to change directory to missing` on stderr (`xiaochuan_local::paths::enter`, the message the
 TS `run` command uses), exit 1. Both fail before they connect, with nothing on stdout.
 
 Reason: the TS text is libuv's wording plus a stack trace that names TS source files (as in

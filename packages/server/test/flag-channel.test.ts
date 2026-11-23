@@ -1,19 +1,19 @@
 import { expect } from "bun:test"
-import { Agent } from "@xccode/core/agent"
-import { App } from "@xccode/core/app"
-import { Database } from "@xccode/core/database/database"
-import { llmClient } from "@xccode/core/effect/app-node-platform"
-import { Flag } from "@xccode/core/flag"
-import { Image } from "@xccode/core/image"
-import { LocationServiceMap } from "@xccode/core/location-service-map"
-import { Session } from "@xccode/core/session"
-import { SessionBlob } from "@xccode/core/session/blob"
-import { SessionRunnerModel } from "@xccode/core/session/runner/model"
-import { BlobTable, SessionMessageTable } from "@xccode/core/session/sql"
-import { SessionStored } from "@xccode/core/session/stored"
-import { Location } from "@xccode/schema/location"
-import { AbsolutePath } from "@xccode/schema/schema"
-import { Global } from "@xccode/util/global"
+import { Agent } from "@xiaochuan/core/agent"
+import { App } from "@xiaochuan/core/app"
+import { Database } from "@xiaochuan/core/database/database"
+import { llmClient } from "@xiaochuan/core/effect/app-node-platform"
+import { Flag } from "@xiaochuan/core/flag"
+import { Image } from "@xiaochuan/core/image"
+import { LocationServiceMap } from "@xiaochuan/core/location-service-map"
+import { Session } from "@xiaochuan/core/session"
+import { SessionBlob } from "@xiaochuan/core/session/blob"
+import { SessionRunnerModel } from "@xiaochuan/core/session/runner/model"
+import { BlobTable, SessionMessageTable } from "@xiaochuan/core/session/sql"
+import { SessionStored } from "@xiaochuan/core/session/stored"
+import { Location } from "@xiaochuan/schema/location"
+import { AbsolutePath } from "@xiaochuan/schema/schema"
+import { Global } from "@xiaochuan/util/global"
 import { Context, Effect, Layer } from "effect"
 import { HttpServer } from "effect/http"
 import { LanguageModel, LLMClient } from "../../ai/src/effect"
@@ -30,7 +30,7 @@ const pngHash = SessionBlob.hashBytes(Buffer.from(pngBase64, "base64"))
 
 const runChannel = (channel: "dev" | "latest") =>
   Effect.gen(function* () {
-    const dir = yield* tmpdirScoped(`xccode-flag-channel-${channel}-`)
+    const dir = yield* tmpdirScoped(`xiaochuan-flag-channel-${channel}-`)
     const location = Location.Ref.make({ directory: AbsolutePath.make(dir.path) })
     const llm = yield* TestLLM.Test.pipe(Effect.provide(TestLLM.testLayer()))
     const model = SessionRunnerModel.resolved(
@@ -65,7 +65,7 @@ const runChannel = (channel: "dev" | "latest") =>
     const sessions = Context.get(context, Session.Service)
     const locations = Context.get(context, LocationServiceMap.Service)
     const { db } = Context.get(context, Database.Service)
-    expect(Context.get(context, App.Service)).toEqual({ name: "xccode", version: "test", channel })
+    expect(Context.get(context, App.Service)).toEqual({ name: "xiaochuan", version: "test", channel })
 
     const session = yield* sessions.create({
       title: `channel-${channel}`,
@@ -75,7 +75,7 @@ const runChannel = (channel: "dev" | "latest") =>
     })
 
     expect(yield* App.Service.pipe(Effect.provide(locations.get(session.location)))).toEqual({
-      name: "xccode",
+      name: "xiaochuan",
       version: "test",
       channel,
     })

@@ -28,7 +28,7 @@ import { noindexDev } from "~/lib/noindex"
 import { docsMiddleware } from "~/docs/middleware"
 import { staticPages } from "~/static/render"
 
-// dev.xccode.ai's noindex header on every response (lib/noindex.ts), then the docs (everything
+// dev.xiaochuan.ai's noindex header on every response (lib/noindex.ts), then the docs (everything
 // under /docs and /v1/docs, and the V1 docs' old host, docs/middleware.ts), then the page middleware, then the HTML cache headers and edge
 // cache (lib/html-cache.ts), which see the request without its locale, then the page's head links
 // (lib/head-links.ts), inside the cache so cached pages carry them too, then the pages rendered
@@ -47,10 +47,10 @@ export default [
       event.request = sanitizeServerActionRequest(event.request)
 
       const url = new URL(event.request.url)
-      // The V2 install script (`curl -fsSL https://xccode.ai/v2/install | bash`), always the latest.
+      // The V2 install script (`curl -fsSL https://xiaochuan.ai/v2/install | bash`), always the latest.
       if (url.pathname === "/v2/install") return installScript()
       // The brand zip lived at the site root; it is in the files bucket now (src/lib/media.ts).
-      if (url.pathname === "/xccode-brand-assets.zip")
+      if (url.pathname === "/xiaochuan-brand-assets.zip")
         return new Response(null, { status: 301, headers: { Location: mediaUrl(url.pathname) } })
       const requested = url.pathname
       const locale = fromPathname(url.pathname)
@@ -115,7 +115,7 @@ export default [
         return new Response(event.request.method === "HEAD" ? null : await robotsTxt(), {
           headers: textHeaders,
         })
-      // The people behind Xccode (https://humanstxt.org). Served here because public/ files get no
+      // The people behind Xiaochuan (https://humanstxt.org). Served here because public/ files get no
       // charset, and without one browsers garble its block characters.
       if (path === "/humans.txt")
         return new Response(event.request.method === "HEAD" ? null : humansTxt, {
@@ -157,7 +157,7 @@ const textHeaders = {
 }
 
 async function installScript() {
-  const response = await fetch("https://raw.githubusercontent.com/xiaowei56/xccode/dev/install")
+  const response = await fetch("https://raw.githubusercontent.com/xiaowei56/xiaochuan/dev/install")
   const headers = new Headers(response.headers)
   headers.set("Cache-Control", "no-store")
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers })

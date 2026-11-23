@@ -1,6 +1,6 @@
-import { iconNames, type IconName } from "@xccode/ui/icons/provider"
+import { iconNames, type IconName } from "@xiaochuan/ui/icons/provider"
 
-// Lab ids and display names map to @xccode/ui provider icon ids. ProviderIcon falls back to the generic
+// Lab ids and display names map to @xiaochuan/ui provider icon ids. ProviderIcon falls back to the generic
 // "synthetic" icon for ids without one.
 export function providerIconId(lab: string) {
   const id = lab.toLowerCase().replace(/[^a-z0-9]+/g, "")

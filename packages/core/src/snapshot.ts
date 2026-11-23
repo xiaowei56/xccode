@@ -1,16 +1,16 @@
 export * as Snapshot from "./snapshot.js"
 
-import { makeLocationNode } from "@xccode/util/effect/app-node"
+import { makeLocationNode } from "@xiaochuan/util/effect/app-node"
 import path from "path"
 import { Clock, Context, Effect, Fiber, Layer, Schema, Scope } from "effect"
-import { FileDiff } from "@xccode/schema/file-diff"
-import { FSUtil } from "@xccode/util/fs-util"
+import { FileDiff } from "@xiaochuan/schema/file-diff"
+import { FSUtil } from "@xiaochuan/util/fs-util"
 import { Git } from "./git.js"
-import { Global } from "@xccode/util/global"
+import { Global } from "@xiaochuan/util/global"
 import { Location } from "./location.js"
 import { AbsolutePath, RelativePath } from "./schema.js"
-import { ID } from "@xccode/schema/snapshot"
-import { Hash } from "@xccode/util/hash"
+import { ID } from "@xiaochuan/schema/snapshot"
+import { Hash } from "@xiaochuan/util/hash"
 import { State } from "./state.js"
 
 export { ID }
@@ -67,7 +67,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly restore: (input: RestoreInput) => Effect.Effect<void, Error>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@xccode/Snapshot") {}
+export class Service extends Context.Service<Service, Interface>()("@xiaochuan/Snapshot") {}
 
 const layer = Layer.effect(
   Service,

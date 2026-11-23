@@ -101,7 +101,7 @@ impl Control {
             #[cfg(all(test, unix))]
             self.stats.missed_wakes.fetch_add(1, Ordering::Relaxed);
             eprintln!(
-                "xccode-pty missed wake (stopping={stopping}, {last:?} -> {observed:?}); acted on via safety net"
+                "xiaochuan-pty missed wake (stopping={stopping}, {last:?} -> {observed:?}); acted on via safety net"
             );
         }
         let stopped = stopping || ownership.tick(now);

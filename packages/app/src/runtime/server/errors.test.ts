@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { FileNotFoundError, SessionNotFoundError } from "@xccode/client/promise"
+import type { FileNotFoundError, SessionNotFoundError } from "@xiaochuan/client/promise"
 import type { ConfigInvalidError, ProviderModelNotFoundError } from "./errors"
 import { formatServerError, isSessionNotFoundError, parseReadableConfigInvalidError } from "./errors"
 
@@ -43,7 +43,7 @@ describe("parseReadableConfigInvalidError", () => {
     const error = {
       name: "ConfigInvalidError",
       data: {
-        path: "xccode.config.ts",
+        path: "xiaochuan.config.ts",
         issues: [
           { path: ["settings", "host"], message: "Required" },
           { path: ["mode"], message: "Invalid" },
@@ -54,7 +54,7 @@ describe("parseReadableConfigInvalidError", () => {
     const result = parseReadableConfigInvalidError(error, language.t)
 
     expect(result).toBe(
-      ["Arquivo de config em xccode.config.ts invalido: settings.host: Required", "mode: Invalid"].join("\n"),
+      ["Arquivo de config em xiaochuan.config.ts invalido: settings.host: Required", "mode: Invalid"].join("\n"),
     )
   })
 })

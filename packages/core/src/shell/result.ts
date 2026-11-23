@@ -1,7 +1,7 @@
 export * as ShellResult from "./result.js"
 
 import os from "os"
-import type { Shell } from "@xccode/schema/shell"
+import type { Shell } from "@xiaochuan/schema/shell"
 import { BackgroundResult } from "../session/background-result.js"
 
 export type Result = {

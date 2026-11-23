@@ -1,7 +1,7 @@
 import { BackgroundMoveHint } from "./message-timeline"
 
 export default {
-  title: "Xccode/Session/Background work",
+  title: "Xiaochuan/Session/Background work",
   id: "session-background-work",
   args: { keybind: "Ctrl+B" },
   parameters: {

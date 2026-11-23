@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@xccode/data-server",
+  "name": "@xiaochuan/data-server",
   "version": "2.3.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
     "typecheck:tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@xccode/data-core": "workspace:*",
+    "@xiaochuan/data-core": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {

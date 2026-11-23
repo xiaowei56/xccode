@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
 import { rm } from "node:fs/promises"
 import path from "node:path"
-import { Browser } from "@xccode/plugin-browser/rpc"
+import { Browser } from "@xiaochuan/plugin-browser/rpc"
 import { createBrowserFiles } from "./files"
 
 test("files distinguish pending, failed, unknown and missing desktop copies", async () => {

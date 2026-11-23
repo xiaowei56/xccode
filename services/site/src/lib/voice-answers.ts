@@ -26,9 +26,9 @@ export const hexUrl = "https://anoma.ly/hex"
 export const voiceAnswers: VoiceAnswer[] = [
   {
     id: "what-is",
-    asks: ["what is xccode", "what does xccode do", "tell me about xccode", "what is this", "explain xccode"],
-    keys: ["what", "xccode", "about", "explain", "overview"],
-    text: "Xccode is an open source coding agent. It runs on your computer, works with any model, and you can use it from the desktop app, the terminal, your phone or your own code with the SDK.",
+    asks: ["what is xiaochuan", "what does xiaochuan do", "tell me about xiaochuan", "what is this", "explain xiaochuan"],
+    keys: ["what", "xiaochuan", "about", "explain", "overview"],
+    text: "Xiaochuan is an open source coding agent. It runs on your computer, works with any model, and you can use it from the desktop app, the terminal, your phone or your own code with the SDK.",
     links: [
       { label: "Home", href: "/" },
       { label: "Docs", href: docsUrl("/") },
@@ -36,12 +36,12 @@ export const voiceAnswers: VoiceAnswer[] = [
   },
   {
     id: "install",
-    asks: ["how do i install xccode", "how do i get started", "how do i download it", "install command", "set it up"],
+    asks: ["how do i install xiaochuan", "how do i get started", "how do i download it", "install command", "set it up"],
     keys: ["install", "download", "setup", "started", "start", "get", "curl", "npm", "brew", "homebrew"],
     text: `In a terminal, run ${installs[0].command}. You can also install with npm, bun or Homebrew, or download the desktop app.`,
     speech:
-      "In a terminal, run the install script from xccode dot A I slash v2 slash install. You can also install with npm, bun or Homebrew, or download the desktop app.",
-    // public/voice/install.mp3 still reads the Xccode 1 address (xccode.ai/install).
+      "In a terminal, run the install script from xiaochuan dot A I slash v2 slash install. You can also install with npm, bun or Homebrew, or download the desktop app.",
+    // public/voice/install.mp3 still reads the Xiaochuan 1 address (xiaochuan.ai/install).
     unrecorded: true,
     links: [
       { label: "Product", href: "/product" },
@@ -71,7 +71,7 @@ export const voiceAnswers: VoiceAnswer[] = [
       "ollama",
       "local",
     ],
-    text: "Any model you like. Xccode connects to more than 200 providers through Models.dev, including Anthropic, OpenAI, Google and xAI, and to local models with Ollama or LM Studio. It also includes free models.",
+    text: "Any model you like. Xiaochuan connects to more than 200 providers through Models.dev, including Anthropic, OpenAI, Google and xAI, and to local models with Ollama or LM Studio. It also includes free models.",
     links: [
       { label: "Models", href: docsUrl("/models/") },
       { label: "Providers", href: docsUrl("/providers/") },
@@ -79,38 +79,38 @@ export const voiceAnswers: VoiceAnswer[] = [
   },
   {
     id: "cost",
-    asks: ["how much does it cost", "is xccode free", "what is the price", "do i have to pay", "pricing"],
+    asks: ["how much does it cost", "is xiaochuan free", "what is the price", "do i have to pay", "pricing"],
     keys: ["cost", "free", "price", "pricing", "pay", "money", "expensive", "cheap"],
-    text: "Xccode is free and MIT licensed, and it comes with free models you can use without an account. If you connect another provider, you pay that provider. Xccode Go is from $10/month, and Xccode Models are pay as you go.",
+    text: "Xiaochuan is free and MIT licensed, and it comes with free models you can use without an account. If you connect another provider, you pay that provider. Xiaochuan Go is from $10/month, and Xiaochuan Models are pay as you go.",
     speech:
-      "Xccode is free and MIT licensed, and it comes with free models you can use without an account. If you connect another provider, you pay that provider. Xccode Go is from ten dollars a month, and Xccode Models are pay as you go.",
-    // public/voice/cost.mp3 still says Zen, the old name of Xccode Models.
+      "Xiaochuan is free and MIT licensed, and it comes with free models you can use without an account. If you connect another provider, you pay that provider. Xiaochuan Go is from ten dollars a month, and Xiaochuan Models are pay as you go.",
+    // public/voice/cost.mp3 still says Zen, the old name of Xiaochuan Models.
     unrecorded: true,
     links: [
       { label: "Free models", href: docsUrl("/console/models/#free-models") },
       { label: "Subscriptions", href: "/console/go" },
-      { label: "Xccode Models", href: "/console/models" },
+      { label: "Xiaochuan Models", href: "/console/models" },
     ],
   },
   {
     id: "go",
-    asks: ["what is xccode go", "tell me about go", "go subscription", "what do i get with go"],
+    asks: ["what is xiaochuan go", "tell me about go", "go subscription", "what do i get with go"],
     keys: ["go", "subscription", "subscribe", "plan", "monthly"],
-    text: "Xccode Go is a low cost subscription from $10/month, with generous limits and reliable access to capable open source coding models. You can use it with Xccode or any agent, and cancel any time.",
+    text: "Xiaochuan Go is a low cost subscription from $10/month, with generous limits and reliable access to capable open source coding models. You can use it with Xiaochuan or any agent, and cancel any time.",
     speech:
-      "Xccode Go is a low cost subscription from ten dollars a month, with generous limits and reliable access to capable open source coding models. You can use it with Xccode or any agent, and cancel any time.",
-    links: [{ label: "Xccode Go", href: "/console/go" }],
+      "Xiaochuan Go is a low cost subscription from ten dollars a month, with generous limits and reliable access to capable open source coding models. You can use it with Xiaochuan or any agent, and cancel any time.",
+    links: [{ label: "Xiaochuan Go", href: "/console/go" }],
   },
   {
     id: "zen",
     // Still matches "zen", the old name, so people who ask for it get this answer.
-    asks: ["what are xccode models", "what is zen", "tell me about zen", "xccode zen", "what is the console"],
+    asks: ["what are xiaochuan models", "what is zen", "tell me about zen", "xiaochuan zen", "what is the console"],
     keys: ["zen", "gateway", "credit", "credits", "console", "balance"],
-    text: "Xccode Models gives you coding models that the Xccode team has tested and benchmarked for coding agents. It's pay as you go, so you add credit and pay only for what you use.",
-    // public/voice/zen.mp3 still says Zen, the old name of Xccode Models.
+    text: "Xiaochuan Models gives you coding models that the Xiaochuan team has tested and benchmarked for coding agents. It's pay as you go, so you add credit and pay only for what you use.",
+    // public/voice/zen.mp3 still says Zen, the old name of Xiaochuan Models.
     unrecorded: true,
     links: [
-      { label: "Xccode Models", href: "/console/models" },
+      { label: "Xiaochuan Models", href: "/console/models" },
       { label: "Console docs", href: docsUrl("/console/") },
     ],
   },
@@ -150,21 +150,21 @@ export const voiceAnswers: VoiceAnswer[] = [
       "can i use it on my phone",
       "iphone app",
       "android app",
-      "can i talk to xccode from my phone",
+      "can i talk to xiaochuan from my phone",
     ],
     keys: ["mobile", "phone", "iphone", "android", "ios", "pocket", "call"],
     // public/voice/mobile.mp3 reads the "available" text, so it is left out while Android is coming soon.
     text: androidSoon
-      ? "Yes. With the mobile app for iPhone, now a public beta on TestFlight, you can start, steer and approve sessions from your phone. You can even call a session and talk to the agent. It connects to Xccode on your own computer. The Android app is coming soon."
-      : "Yes. With the mobile app for iPhone and Android, you can start, steer and approve sessions from your phone. You can even call a session and talk to the agent. It connects to Xccode on your own computer.",
+      ? "Yes. With the mobile app for iPhone, now a public beta on TestFlight, you can start, steer and approve sessions from your phone. You can even call a session and talk to the agent. It connects to Xiaochuan on your own computer. The Android app is coming soon."
+      : "Yes. With the mobile app for iPhone and Android, you can start, steer and approve sessions from your phone. You can even call a session and talk to the agent. It connects to Xiaochuan on your own computer.",
     links: [{ label: "Mobile", href: "/mobile" }],
     unrecorded: androidSoon,
   },
   {
     id: "sdk",
-    asks: ["is there an sdk", "can i use it from code", "api", "automate xccode", "ci"],
+    asks: ["is there an sdk", "can i use it from code", "api", "automate xiaochuan", "ci"],
     keys: ["sdk", "api", "code", "script", "scripts", "automate", "ci", "javascript", "typescript", "programmatic"],
-    text: "Yes. The SDK lets you drive Xccode from your own scripts, CI jobs and tools. Create a session, send a prompt, and read the result from JavaScript or TypeScript.",
+    text: "Yes. The SDK lets you drive Xiaochuan from your own scripts, CI jobs and tools. Create a session, send a prompt, and read the result from JavaScript or TypeScript.",
     links: [
       { label: "SDK", href: "/sdk" },
       { label: "SDK docs", href: docsUrl("/build/sdk/") },
@@ -174,7 +174,7 @@ export const voiceAnswers: VoiceAnswer[] = [
     id: "privacy",
     asks: ["is my code private", "what about privacy", "do you store my code", "data privacy", "is it secure"],
     keys: ["privacy", "private", "data", "store", "secure", "security", "safe", "train", "training"],
-    text: "Xccode runs on your computer and doesn't store your code or context data, so it works in privacy sensitive environments. Your code goes to the model provider you choose. If you use Xccode's own models, their data terms are in the docs.",
+    text: "Xiaochuan runs on your computer and doesn't store your code or context data, so it works in privacy sensitive environments. Your code goes to the model provider you choose. If you use Xiaochuan's own models, their data terms are in the docs.",
     links: [
       { label: "Privacy", href: docsUrl("/policies/") },
       { label: "Model data terms", href: docsUrl("/console/models/#privacy") },
@@ -182,16 +182,16 @@ export const voiceAnswers: VoiceAnswer[] = [
   },
   {
     id: "open-source",
-    asks: ["is xccode open source", "where is the source code", "github", "license", "can i contribute"],
+    asks: ["is xiaochuan open source", "where is the source code", "github", "license", "can i contribute"],
     keys: ["open", "source", "github", "license", "mit", "contribute", "stars", "repo"],
-    text: "Yes. Xccode is fully open source under the MIT license. It has over 220,000 GitHub stars and more than 1,000 contributors, and anyone can file issues or send pull requests.",
-    links: [{ label: "GitHub", href: "https://github.com/xiaowei56/xccode" }],
+    text: "Yes. Xiaochuan is fully open source under the MIT license. It has over 220,000 GitHub stars and more than 1,000 contributors, and anyone can file issues or send pull requests.",
+    links: [{ label: "GitHub", href: "https://github.com/xiaowei56/xiaochuan" }],
   },
   {
     id: "extensions",
     asks: ["does it support mcp", "plugins", "can i add tools", "skills", "extensions"],
     keys: ["mcp", "plugin", "plugins", "skill", "skills", "extension", "extensions", "tools", "lsp", "integrations"],
-    text: "Yes. Connect MCP servers for services like GitHub, Linear and Figma, hook into Xccode with plugins, and teach agents your workflows with skills. In the desktop app you manage them all from the Extensions menu.",
+    text: "Yes. Connect MCP servers for services like GitHub, Linear and Figma, hook into Xiaochuan with plugins, and teach agents your workflows with skills. In the desktop app you manage them all from the Extensions menu.",
     links: [
       { label: "Extensions", href: "/extensions" },
       { label: "MCP servers", href: docsUrl("/mcp-servers/") },
@@ -216,9 +216,9 @@ export const voiceAnswers: VoiceAnswer[] = [
   },
   {
     id: "who",
-    asks: ["who makes xccode", "who is behind xccode", "what is anomaly", "which company"],
+    asks: ["who makes xiaochuan", "who is behind xiaochuan", "what is anomaly", "which company"],
     keys: ["who", "company", "anomaly", "team", "behind", "makes", "made", "built"],
-    text: "Xccode is made by Anomaly, a company that builds open source tools for developers. Anomaly also makes Hex, a voice dictation app.",
+    text: "Xiaochuan is made by Anomaly, a company that builds open source tools for developers. Anomaly also makes Hex, a voice dictation app.",
     links: [{ label: "Press", href: "/press" }],
   },
   {
@@ -232,28 +232,28 @@ export const voiceAnswers: VoiceAnswer[] = [
     id: "enterprise",
     asks: ["enterprise", "can my company use it", "teams", "business"],
     keys: ["enterprise", "company", "teams", "team", "business", "organization", "sso"],
-    text: "Yes. Xccode works for teams and companies, with organizational controls in the Console when you need them. For an enterprise plan, contact the team from the enterprise page.",
+    text: "Yes. Xiaochuan works for teams and companies, with organizational controls in the Console when you need them. For an enterprise plan, contact the team from the enterprise page.",
     links: [{ label: "Enterprise", href: "/console/enterprise" }],
   },
   {
     id: "changelog",
     asks: ["what's new", "latest release", "changelog", "release notes", "updates"],
     keys: ["new", "latest", "release", "changelog", "updates", "version", "changes"],
-    text: "Xccode ships often. The changelog has the notes for every release, for the desktop app, the terminal and the SDK.",
+    text: "Xiaochuan ships often. The changelog has the notes for every release, for the desktop app, the terminal and the SDK.",
     links: [{ label: "Changelog", href: "/changelog" }],
   },
   {
     id: "demo",
     asks: ["how does this work", "how does this voice assistant work", "who am i talking to", "are you an ai"],
     keys: ["this", "work", "works", "assistant", "demo", "you", "orb"],
-    text: "I'm a small voice demo on the Xccode website. Your browser turns your speech into text, I answer from the site's own pages, and an ElevenLabs voice reads the answer out loud.",
+    text: "I'm a small voice demo on the Xiaochuan website. Your browser turns your speech into text, I answer from the site's own pages, and an ElevenLabs voice reads the answer out loud.",
     links: [{ label: "llms.txt", href: "/llms.txt" }],
   },
   {
     id: "hello",
     asks: ["hello", "hi there", "hey", "good morning", "thanks", "thank you"],
     keys: ["hello", "hi", "hey", "thanks", "thank", "morning"],
-    text: "Hi! Ask me anything about Xccode: what it is, which models it works with, how to install it, or what it costs.",
+    text: "Hi! Ask me anything about Xiaochuan: what it is, which models it works with, how to install it, or what it costs.",
     links: [],
   },
 ]
@@ -262,7 +262,7 @@ export const fallbackAnswer: VoiceAnswer = {
   id: "fallback",
   asks: [],
   keys: [],
-  text: "I'm not sure about that one. I can tell you what Xccode is, which models it works with, how to install it, what it costs, and about the desktop, terminal and mobile apps.",
+  text: "I'm not sure about that one. I can tell you what Xiaochuan is, which models it works with, how to install it, what it costs, and about the desktop, terminal and mobile apps.",
   links: [{ label: "Docs", href: docsUrl("/") }],
 }
 
@@ -275,7 +275,7 @@ const stop = new Set(
 const words = (text: string) =>
   text
     .toLowerCase()
-    .replace(/open ?code/g, "xccode")
+    .replace(/open ?code/g, "xiaochuan")
     .replace(/[^a-z0-9\s]/g, " ")
     .split(/\s+/)
     .filter(Boolean)

@@ -31,7 +31,7 @@ export default {
   "memory.label": "MEMLOG",
   "memory.tip":
     "Diagnostik memori: catat memori aplikasi ke log desktop setiap 30 detik. Tetap aktif setelah dimulai ulang hingga dinonaktifkan; bilah tetap terbuka selama berjalan.",
-  "memory.tipEnv": "Diagnostik memori aktif untuk peluncuran ini: XCCODE_DESKTOP_MEMORY_LOG disetel.",
+  "memory.tipEnv": "Diagnostik memori aktif untuk peluncuran ini: XIAOCHUAN_DESKTOP_MEMORY_LOG disetel.",
   "memory.env": "ENV",
   "motion.label": "KENOP",
   "motion.title": "Kenop",

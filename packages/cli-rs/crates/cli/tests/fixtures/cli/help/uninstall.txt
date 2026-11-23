@@ -1,8 +1,8 @@
 [1mDESCRIPTION[0m
-  Uninstall Xccode, keeping session data, configuration, and state
+  Uninstall Xiaochuan, keeping session data, configuration, and state
 
 [1mUSAGE[0m
-  [36mxccode uninstall [flags][0m
+  [36mxiaochuan uninstall [flags][0m
 
 [1mFLAGS[0m
   [32m--dry-run[0m      Show what would be removed without removing
